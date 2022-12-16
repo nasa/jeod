@@ -1,0 +1,318 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "Effector Forces"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.effector_forc[0]"
+            UNITS: "N"
+            LABEL: "effector_forc[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.effector_forc[1]"
+            UNITS: "N"
+            LABEL: "effector_forc[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.effector_forc[2]"
+            UNITS: "N"
+            LABEL: "effector_forc[2]"
+
+PAGE 2: "Effector Torques"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.effector_torq[0]"
+            UNITS: "N*M"
+            LABEL: "effector_torq[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.effector_torq[1]"
+            UNITS: "N*M"
+            LABEL: "effector_torq[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.effector_torq[2]"
+            UNITS: "N*M"
+            LABEL: "effector_torq[2]"
+
+PAGE 3: "Envronmental Forces"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.environ_forc[0]"
+            UNITS: "N"
+            LABEL: "environ_forc[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.environ_forc[1]"
+            UNITS: "N"
+            LABEL: "environ_forc[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.environ_forc[2]"
+            UNITS: "N"
+            LABEL: "environ_forc[2]"
+
+PAGE 4: "Environmental Torques"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.environ_torq[0]"
+            UNITS: "N*M"
+            LABEL: "environ_torq[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.environ_torq[1]"
+            UNITS: "N*M"
+            LABEL: "environ_torq[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.environ_torq[2]"
+            UNITS: "N*M"
+            LABEL: "environ_torq[2]"
+
+PAGE 5: "Forces Not Transmitted"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_forc[0]"
+            UNITS: "N"
+            LABEL: "no_xmit_forc[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_forc[1]"
+            UNITS: "N"
+            LABEL: "no_xmit_forc[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_forc[2]"
+            UNITS: "N"
+            LABEL: "no_xmit_forc[2]"
+
+PAGE 6: "Torques Not Transmitted"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[0]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[1]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[2]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[2]"
+
+PAGE 7: "Inertial Accelerations"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[0]"
+            UNITS: "M/s2"
+            LABEL: "inertial_accel[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[1]"
+            UNITS: "M/s2"
+            LABEL: "inertial_accel[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[2]"
+            UNITS: "M/s2"
+            LABEL: "inertial_accel[2]"
+
+PAGE 8: "Inertial Torques"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.inertial_torq[0]"
+            UNITS: "N*M"
+            LABEL: "inertial_torq[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.inertial_torq[1]"
+            UNITS: "N*M"
+            LABEL: "inertial_torq[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.inertial_torq[2]"
+            UNITS: "N*M"
+            LABEL: "inertial_torq[2]"
+
+PAGE 9: "Dynamic Accelerations"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[0]"
+            UNITS: "M/s2"
+            LABEL: "dynamic_accel[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[1]"
+            UNITS: "M/s2"
+            LABEL: "dynamic_accel[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[2]"
+            UNITS: "M/s2"
+            LABEL: "dynamic_accel[2]"

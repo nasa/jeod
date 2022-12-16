@@ -1,0 +1,179 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "Inertial Torque"
+
+    PLOT 1: "Inertial Torque - X"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.inertial_torq[0]"
+            UNITS: "N*M"
+            LABEL: "inertial_torq[0]"
+
+    PLOT 2: "Inertial Torque - Y"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.inertial_torq[1]"
+            UNITS: "N*M"
+            LABEL: "inertial_torq[1]"
+
+    PLOT 3: "Inertial Torque - Z"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.inertial_torq[2]"
+            UNITS: "N*M"
+            LABEL: "inertial_torq[2]"
+
+PAGE 2: "No Transmit Torques"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[0]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[1]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[2]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[2]"
+
+PAGE 3: "Gravity Gradient Torque"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.grav_torque.torque[0]"
+            UNITS: "N*M"
+            LABEL: "grav_torque[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.grav_torque.torque[1]"
+            UNITS: "N*M"
+            LABEL: "grav_torque[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.grav_torque.torque[2]"
+            UNITS: "N*M"
+            LABEL: "grav_torque[2]"
+
+PAGE 4: "Body to LVLH PYR"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.lvlh_euler.body_ref_angles[0]"
+            UNITS: "d"
+            LABEL: "lvlh_euler.body_ref_angles[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.lvlh_euler.body_ref_angles[1]"
+            UNITS: "d"
+            LABEL: "lvlh_euler.body_ref_angles[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.lvlh_euler.body_ref_angles[2]"
+            UNITS: "d"
+            LABEL: "lvlh_euler.body_ref_angles[2]"
+
+PAGE 5: "LVLH to Body PYR"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.lvlh_euler.ref_body_angles[0]"
+            UNITS: "d"
+            LABEL: "lvlh_euler.ref_body_angles[0]"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.lvlh_euler.ref_body_angles[1]"
+            UNITS: "d"
+            LABEL: "lvlh_euler.ref_body_angles[1]"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.lvlh_euler.ref_body_angles[2]"
+            UNITS: "d"
+            LABEL: "lvlh_euler.ref_body_angles[2]"
+

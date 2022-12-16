@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+<product background_color="#eeeeee" foreground_color="#000000" version="1.0">
+    <tstart>-1.0E20</tstart>
+    <tstop>1.0E20</tstop>
+    <frequency>0.0</frequency>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.gravity_source.mu" units="m3/s2">earth.gravity_source.mu</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.gravity_source.radius" units="m">earth.gravity_source.radius</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.planet.e_ellip_sq" units="--">earth.planet.e_ellip_sq</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.planet.e_ellipsoid" units="--">earth.planet.e_ellipsoid</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.planet.flat_coeff" units="--">earth.planet.flat_coeff</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.planet.flat_inv" units="--">earth.planet.flat_inv</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.planet.mu" units="m3/s2">earth.planet.mu</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.planet.r_eq" units="m">earth.planet.r_eq</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#000000">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#000000" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.planet.r_pol" units="m">earth.planet.r_pol</var>
+            </curve>
+        </plot>
+    </page>
+</product>

@@ -1,0 +1,49 @@
+***************************************************
+Tests 1-5: Tests with default suppression settings
+
+Test 1: send_message()  (Message not suppressed)
+Test 2: debug() (Message suppressed)
+Test 3: inform() (Message suppressed)
+Test 4: warn()  (Message not suppressed)
+Test 5: error()  (Message not suppressed)
+
+***************************************
+Tests 6-10: Suppression level set to 6
+
+Test 6: send_message() (Not suppressed)
+Test 7: debug() (Message suppressed)
+Test 8: inform() (Message suppressed)
+Test 9: warn() (Message suppressed)
+Test 10: error() (Not suppressed)
+
+**************************************
+Tests 11-12: Supression level set to 0
+
+Test 11: send_message() (Message suppressed)
+Test 12: error() (Not suppressed)
+
+**********************************************
+Tests 13-15: Tests of suppressing ID, location
+
+Test 13: error() (ID suppressed)
+Test 14: error() (location suppressed)
+Test 15: error() (ID and location suppressed)
+
+******************************************
+Tests 16-20: Suppression level set to 9999
+
+Test 16: send_message() (Not suppressed)
+Test 17: debug() (Not suppressed)
+Test 18: inform() (Not suppressed)
+Test 19: warn() (Not suppressed)
+Test 20: error() (Not suppressed)
+
+*************************************************
+Tests 21-25: Suppress utils/message/verif/Message
+
+Test 21: send_message() (Message suppressed)
+Test 22: custom error() (Not suppressed)
+Test 23: inform() (Message suppressed)
+Test 24: warn() (Not suppressed)
+Test 25: error() (Not suppressed)
+Last test: fail() (Never suppressed)

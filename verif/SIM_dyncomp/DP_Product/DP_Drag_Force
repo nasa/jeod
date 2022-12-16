@@ -1,0 +1,38 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "Drag Force"
+
+    PLOT 1: "X Force"
+        Y_AXIS_LABEL: "sv_dyn.aero_drag.aero_force[0]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_force[0]"
+            UNITS: "N"
+            LABEL: "force[0]"
+
+    PLOT 2: "Y Force"
+        Y_AXIS_LABEL: "sv_dyn.aero_drag.aero_force[1]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_force[1]"
+            UNITS: "N"
+            LABEL: "force[1]"
+
+    PLOT 3: "Z Force"
+        Y_AXIS_LABEL: "sv_dyn.aero_drag.aero_force[2]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_force[2]"
+            UNITS: "N"
+            LABEL: "force[2]"

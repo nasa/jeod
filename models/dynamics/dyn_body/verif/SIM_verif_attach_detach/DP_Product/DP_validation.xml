@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+<product background_color="#eeeeee" foreground_color="#333333" version="1.0">
+    <tstart>-1.0E20</tstart>
+    <tstop>1.0E20</tstop>
+    <frequency>0.0</frequency>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.rot.ang_vel_this[0]" units="r/s">veh1.dyn_body.composite_body.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.rot.ang_vel_this[1]" units="r/s">veh1.dyn_body.composite_body.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.rot.ang_vel_this[2]" units="r/s">veh1.dyn_body.composite_body.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.trans.position[0]" units="m">veh1.dyn_body.composite_body.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.trans.position[1]" units="m">veh1.dyn_body.composite_body.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.trans.position[2]" units="m">veh1.dyn_body.composite_body.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.trans.velocity[0]" units="m/s">veh1.dyn_body.composite_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.trans.velocity[1]" units="m/s">veh1.dyn_body.composite_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.composite_body.state.trans.velocity[2]" units="m/s">veh1.dyn_body.composite_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.core_body.state.trans.position[0]" units="m">veh1.dyn_body.core_body.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.core_body.state.trans.position[1]" units="m">veh1.dyn_body.core_body.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.core_body.state.trans.position[2]" units="m">veh1.dyn_body.core_body.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.core_body.state.trans.velocity[0]" units="m/s">veh1.dyn_body.core_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.core_body.state.trans.velocity[1]" units="m/s">veh1.dyn_body.core_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh1.dyn_body.core_body.state.trans.velocity[2]" units="m/s">veh1.dyn_body.core_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.rot.ang_vel_this[0]" units="r/s">veh2.dyn_body.composite_body.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.rot.ang_vel_this[1]" units="r/s">veh2.dyn_body.composite_body.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.rot.ang_vel_this[2]" units="r/s">veh2.dyn_body.composite_body.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.trans.position[0]" units="m">veh2.dyn_body.composite_body.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.trans.position[1]" units="m">veh2.dyn_body.composite_body.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.trans.position[2]" units="m">veh2.dyn_body.composite_body.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.trans.velocity[0]" units="m/s">veh2.dyn_body.composite_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.trans.velocity[1]" units="m/s">veh2.dyn_body.composite_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.composite_body.state.trans.velocity[2]" units="m/s">veh2.dyn_body.composite_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.core_body.state.trans.position[0]" units="m">veh2.dyn_body.core_body.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.core_body.state.trans.position[1]" units="m">veh2.dyn_body.core_body.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.core_body.state.trans.position[2]" units="m">veh2.dyn_body.core_body.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.core_body.state.trans.velocity[0]" units="m/s">veh2.dyn_body.core_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.core_body.state.trans.velocity[1]" units="m/s">veh2.dyn_body.core_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh2.dyn_body.core_body.state.trans.velocity[2]" units="m/s">veh2.dyn_body.core_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.composite_body.state.rot.ang_vel_this[0]" units="r/s">veh3.dyn_body.composite_body.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.composite_body.state.rot.ang_vel_this[1]" units="r/s">veh3.dyn_body.composite_body.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.composite_body.state.rot.ang_vel_this[2]" units="r/s">veh3.dyn_body.composite_body.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.composite_body.state.trans.velocity[0]" units="m/s">veh3.dyn_body.composite_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.composite_body.state.trans.velocity[1]" units="m/s">veh3.dyn_body.composite_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.composite_body.state.trans.velocity[2]" units="m/s">veh3.dyn_body.composite_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.core_body.state.trans.position[0]" units="m">veh3.dyn_body.core_body.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.core_body.state.trans.position[1]" units="m">veh3.dyn_body.core_body.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.core_body.state.trans.position[2]" units="m">veh3.dyn_body.core_body.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.core_body.state.trans.velocity[0]" units="m/s">veh3.dyn_body.core_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.core_body.state.trans.velocity[1]" units="m/s">veh3.dyn_body.core_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.core_body.state.trans.velocity[2]" units="m/s">veh3.dyn_body.core_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="veh3.dyn_body.composite_properties.mass" units="kg">veh3.dyn_body.composite_properties.mass</var>
+            </curve>
+        </plot>
+    </page>
+</product>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+<product background_color="#eeeeee" foreground_color="#333333" version="1.0">
+    <tstart>-1.0E20</tstart>
+    <tstop>1.0E20</tstop>
+    <frequency>0.0</frequency>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.rot.ang_vel_this[0]" units="r/s">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.rot.ang_vel_this[1]" units="r/s">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.rot.ang_vel_this[2]" units="r/s">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.position[0]" units="m">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.position[1]" units="m">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.position[2]" units="m">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.velocity[0]" units="m/s">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.velocity[1]" units="m/s">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.velocity[2]" units="m/s">rel_state.vehicleA_wrt_vehicleB_in_B.rel_state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.rot.ang_vel_this[0]" units="r/s">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.rot.ang_vel_this[1]" units="r/s">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.rot.ang_vel_this[2]" units="r/s">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.position[0]" units="m">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.position[1]" units="m">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.position[2]" units="m">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.velocity[0]" units="m/s">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.velocity[1]" units="m/s">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.velocity[2]" units="m/s">rel_state.vehicleB_wrt_vehicleA_in_A.rel_state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.rot.ang_vel_this[0]" units="r/s">vehicleA.body.composite_body.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.rot.ang_vel_this[1]" units="r/s">vehicleA.body.composite_body.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.rot.ang_vel_this[2]" units="r/s">vehicleA.body.composite_body.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.trans.position[0]" units="m">vehicleA.body.composite_body.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.trans.position[1]" units="m">vehicleA.body.composite_body.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.trans.position[2]" units="m">vehicleA.body.composite_body.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.trans.velocity[0]" units="m/s">vehicleA.body.composite_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.trans.velocity[1]" units="m/s">vehicleA.body.composite_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.composite_body.state.trans.velocity[2]" units="m/s">vehicleA.body.composite_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.rot.ang_vel_this[0]" units="r/s">vehicleA.body.structure.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.rot.ang_vel_this[1]" units="r/s">vehicleA.body.structure.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.rot.ang_vel_this[2]" units="r/s">vehicleA.body.structure.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.trans.position[0]" units="m">vehicleA.body.structure.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.trans.position[1]" units="m">vehicleA.body.structure.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.trans.position[2]" units="m">vehicleA.body.structure.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.trans.velocity[0]" units="m/s">vehicleA.body.structure.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.trans.velocity[1]" units="m/s">vehicleA.body.structure.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleA.body.structure.state.trans.velocity[2]" units="m/s">vehicleA.body.structure.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.rot.ang_vel_this[0]" units="r/s">vehicleB.body.composite_body.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.rot.ang_vel_this[1]" units="r/s">vehicleB.body.composite_body.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.rot.ang_vel_this[2]" units="r/s">vehicleB.body.composite_body.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.trans.position[0]" units="m">vehicleB.body.composite_body.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.trans.position[1]" units="m">vehicleB.body.composite_body.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.trans.position[2]" units="m">vehicleB.body.composite_body.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.trans.velocity[0]" units="m/s">vehicleB.body.composite_body.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.trans.velocity[1]" units="m/s">vehicleB.body.composite_body.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.composite_body.state.trans.velocity[2]" units="m/s">vehicleB.body.composite_body.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.rot.ang_vel_this[0]" units="r/s">vehicleB.body.structure.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.rot.ang_vel_this[1]" units="r/s">vehicleB.body.structure.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.rot.ang_vel_this[2]" units="r/s">vehicleB.body.structure.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.trans.position[0]" units="m">vehicleB.body.structure.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.trans.position[1]" units="m">vehicleB.body.structure.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.trans.position[2]" units="m">vehicleB.body.structure.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.trans.velocity[0]" units="m/s">vehicleB.body.structure.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.trans.velocity[1]" units="m/s">vehicleB.body.structure.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="vehicleB.body.structure.state.trans.velocity[2]" units="m/s">vehicleB.body.structure.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+</product>

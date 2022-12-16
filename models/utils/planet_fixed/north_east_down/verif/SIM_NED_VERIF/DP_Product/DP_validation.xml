@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+<product background_color="#eeeeee" foreground_color="#333333" version="1.0">
+    <tstart>-1.0E20</tstart>
+    <tstop>1.0E20</tstop>
+    <frequency>0.0</frequency>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.cartesian_pos[0]" units="--">earth.cartesian_pos[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.cartesian_pos[1]" units="--">earth.cartesian_pos[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.cartesian_pos[2]" units="--">earth.cartesian_pos[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.cartesian_vel[0]" units="--">earth.cartesian_vel[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.cartesian_vel[1]" units="--">earth.cartesian_vel[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.cartesian_vel[2]" units="--">earth.cartesian_vel[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.cart_coords[0]" units="m">earth.ned_frame.cart_coords[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.cart_coords[1]" units="m">earth.ned_frame.cart_coords[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.cart_coords[2]" units="m">earth.ned_frame.cart_coords[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[0][0]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[0][0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[0][1]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[0][1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[0][2]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[0][2]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[1][0]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[1][0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[1][1]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[1][1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[1][2]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[1][2]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[2][0]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[2][0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[2][1]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[2][1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.T_parent_this[2][2]" units="--">earth.ned_frame.ned_frame.state.rot.T_parent_this[2][2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.ang_vel_this[0]" units="r/s">earth.ned_frame.ned_frame.state.rot.ang_vel_this[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.ang_vel_this[1]" units="r/s">earth.ned_frame.ned_frame.state.rot.ang_vel_this[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.rot.ang_vel_this[2]" units="r/s">earth.ned_frame.ned_frame.state.rot.ang_vel_this[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.trans.position[0]" units="m">earth.ned_frame.ned_frame.state.trans.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.trans.position[1]" units="m">earth.ned_frame.ned_frame.state.trans.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.trans.position[2]" units="m">earth.ned_frame.ned_frame.state.trans.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.trans.velocity[0]" units="m/s">earth.ned_frame.ned_frame.state.trans.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.trans.velocity[1]" units="m/s">earth.ned_frame.ned_frame.state.trans.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.ned_frame.state.trans.velocity[2]" units="m/s">earth.ned_frame.ned_frame.state.trans.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.sphere_coords.altitude" units="m">earth.ned_frame.sphere_coords.altitude</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.sphere_coords.latitude" units="r">earth.ned_frame.sphere_coords.latitude</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.ned_frame.sphere_coords.longitude" units="r">earth.ned_frame.sphere_coords.longitude</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.spherical_pos.altitude" units="m">earth.spherical_pos.altitude</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.spherical_pos.latitude" units="r">earth.spherical_pos.latitude</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="earth.spherical_pos.longitude" units="r">earth.spherical_pos.longitude</var>
+            </curve>
+        </plot>
+    </page>
+</product>

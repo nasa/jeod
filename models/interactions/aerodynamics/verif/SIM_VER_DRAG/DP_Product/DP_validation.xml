@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+<product background_color="#eeeeee" foreground_color="#333333" version="1.0">
+    <tstart>-1.0E20</tstart>
+    <tstop>1.0E20</tstop>
+    <frequency>0.0</frequency>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.aero_drag.aero_force[0]" units="N">aero_test.aero_drag.aero_force[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.aero_drag.aero_force[1]" units="N">aero_test.aero_drag.aero_force[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.aero_drag.aero_force[2]" units="N">aero_test.aero_drag.aero_force[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.aero_drag.aero_torque[0]" units="N*m">aero_test.aero_drag.aero_torque[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.aero_drag.aero_torque[1]" units="N*m">aero_test.aero_drag.aero_torque[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.aero_drag.aero_torque[2]" units="N*m">aero_test.aero_drag.aero_torque[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.inertial_vel[0]" units="--">aero_test.inertial_vel[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.inertial_vel[1]" units="--">aero_test.inertial_vel[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.inertial_vel[2]" units="--">aero_test.inertial_vel[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.accel[0]" units="m/s2">aero_test.logging.accel[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.accel[1]" units="m/s2">aero_test.logging.accel[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.accel[2]" units="m/s2">aero_test.logging.accel[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[0].force[0]" units="N">aero_test.logging.plates[0].force[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[0].force[1]" units="N">aero_test.logging.plates[0].force[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[0].force[2]" units="N">aero_test.logging.plates[0].force[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[0].torque[0]" units="N">aero_test.logging.plates[0].torque[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[0].torque[1]" units="N">aero_test.logging.plates[0].torque[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[0].torque[2]" units="N">aero_test.logging.plates[0].torque[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[1].force[0]" units="N">aero_test.logging.plates[1].force[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[1].force[1]" units="N">aero_test.logging.plates[1].force[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[1].force[2]" units="N">aero_test.logging.plates[1].force[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[1].torque[0]" units="N">aero_test.logging.plates[1].torque[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[1].torque[1]" units="N">aero_test.logging.plates[1].torque[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="aero_test.logging.plates[1].torque[2]" units="N">aero_test.logging.plates[1].torque[2]</var>
+            </curve>
+        </plot>
+    </page>
+</product>

@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+<product background_color="#eeeeee" foreground_color="#333333" version="1.0">
+    <tstart>-1.0E20</tstart>
+    <tstop>1.0E20</tstop>
+    <frequency>0.0</frequency>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.prop_integ_state.position[0]" units="m">test.orbit.prop_integ_state.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.prop_integ_state.position[1]" units="m">test.orbit.prop_integ_state.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.prop_integ_state.position[2]" units="m">test.orbit.prop_integ_state.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.prop_integ_state.velocity[0]" units="m/s">test.orbit.prop_integ_state.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.prop_integ_state.velocity[1]" units="m/s">test.orbit.prop_integ_state.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.prop_integ_state.velocity[2]" units="m/s">test.orbit.prop_integ_state.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.true_canon_state.position[0]" units="m">test.orbit.true_canon_state.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.true_canon_state.position[1]" units="m">test.orbit.true_canon_state.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.true_canon_state.position[2]" units="m">test.orbit.true_canon_state.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.true_canon_state.velocity[0]" units="m/s">test.orbit.true_canon_state.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.true_canon_state.velocity[1]" units="m/s">test.orbit.true_canon_state.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.orbit.true_canon_state.velocity[2]" units="m/s">test.orbit.true_canon_state.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.prop_integ_state.Q_inertial_body.vector[0]" units="--">test.sho_sphere.prop_integ_state.Q_inertial_body.vector[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.prop_integ_state.Q_inertial_body.vector[1]" units="--">test.sho_sphere.prop_integ_state.Q_inertial_body.vector[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.prop_integ_state.Q_inertial_body.vector[2]" units="--">test.sho_sphere.prop_integ_state.Q_inertial_body.vector[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.prop_integ_state.body_rate[0]" units="r/s">test.sho_sphere.prop_integ_state.body_rate[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.prop_integ_state.body_rate[1]" units="r/s">test.sho_sphere.prop_integ_state.body_rate[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.prop_integ_state.body_rate[2]" units="r/s">test.sho_sphere.prop_integ_state.body_rate[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.true_canon_state.Q_inertial_body.vector[0]" units="--">test.sho_sphere.true_canon_state.Q_inertial_body.vector[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.true_canon_state.Q_inertial_body.vector[1]" units="--">test.sho_sphere.true_canon_state.Q_inertial_body.vector[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.true_canon_state.Q_inertial_body.vector[2]" units="--">test.sho_sphere.true_canon_state.Q_inertial_body.vector[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.true_canon_state.body_rate[0]" units="r/s">test.sho_sphere.true_canon_state.body_rate[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.true_canon_state.body_rate[1]" units="r/s">test.sho_sphere.true_canon_state.body_rate[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.sho_sphere.true_canon_state.body_rate[2]" units="r/s">test.sho_sphere.true_canon_state.body_rate[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.prop_integ_state.position[0]" units="m">test.spring_damper.prop_integ_state.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.prop_integ_state.position[1]" units="m">test.spring_damper.prop_integ_state.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.prop_integ_state.position[2]" units="m">test.spring_damper.prop_integ_state.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.prop_integ_state.velocity[0]" units="m/s">test.spring_damper.prop_integ_state.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.prop_integ_state.velocity[1]" units="m/s">test.spring_damper.prop_integ_state.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.prop_integ_state.velocity[2]" units="m/s">test.spring_damper.prop_integ_state.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.true_canon_state.position[0]" units="m">test.spring_damper.true_canon_state.position[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.true_canon_state.position[1]" units="m">test.spring_damper.true_canon_state.position[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.true_canon_state.position[2]" units="m">test.spring_damper.true_canon_state.position[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.true_canon_state.velocity[0]" units="m/s">test.spring_damper.true_canon_state.velocity[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.true_canon_state.velocity[1]" units="m/s">test.spring_damper.true_canon_state.velocity[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.spring_damper.true_canon_state.velocity[2]" units="m/s">test.spring_damper.true_canon_state.velocity[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.prop_integ_state.Q_inertial_body.vector[0]" units="--">test.torque_free_sphere.prop_integ_state.Q_inertial_body.vector[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.prop_integ_state.Q_inertial_body.vector[1]" units="--">test.torque_free_sphere.prop_integ_state.Q_inertial_body.vector[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.prop_integ_state.Q_inertial_body.vector[2]" units="--">test.torque_free_sphere.prop_integ_state.Q_inertial_body.vector[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.prop_integ_state.body_rate[0]" units="r/s">test.torque_free_sphere.prop_integ_state.body_rate[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.prop_integ_state.body_rate[1]" units="r/s">test.torque_free_sphere.prop_integ_state.body_rate[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.prop_integ_state.body_rate[2]" units="r/s">test.torque_free_sphere.prop_integ_state.body_rate[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.true_canon_state.Q_inertial_body.vector[0]" units="--">test.torque_free_sphere.true_canon_state.Q_inertial_body.vector[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.true_canon_state.Q_inertial_body.vector[1]" units="--">test.torque_free_sphere.true_canon_state.Q_inertial_body.vector[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.true_canon_state.Q_inertial_body.vector[2]" units="--">test.torque_free_sphere.true_canon_state.Q_inertial_body.vector[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.true_canon_state.body_rate[0]" units="r/s">test.torque_free_sphere.true_canon_state.body_rate[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.true_canon_state.body_rate[1]" units="r/s">test.torque_free_sphere.true_canon_state.body_rate[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_sphere.true_canon_state.body_rate[2]" units="r/s">test.torque_free_sphere.true_canon_state.body_rate[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.prop_integ_state.Q_inertial_body.vector[0]" units="--">test.torque_free_symtop.prop_integ_state.Q_inertial_body.vector[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.prop_integ_state.Q_inertial_body.vector[1]" units="--">test.torque_free_symtop.prop_integ_state.Q_inertial_body.vector[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.prop_integ_state.Q_inertial_body.vector[2]" units="--">test.torque_free_symtop.prop_integ_state.Q_inertial_body.vector[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.prop_integ_state.body_rate[0]" units="r/s">test.torque_free_symtop.prop_integ_state.body_rate[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.prop_integ_state.body_rate[1]" units="r/s">test.torque_free_symtop.prop_integ_state.body_rate[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.prop_integ_state.body_rate[2]" units="r/s">test.torque_free_symtop.prop_integ_state.body_rate[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.true_canon_state.Q_inertial_body.vector[0]" units="--">test.torque_free_symtop.true_canon_state.Q_inertial_body.vector[0]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.true_canon_state.Q_inertial_body.vector[1]" units="--">test.torque_free_symtop.true_canon_state.Q_inertial_body.vector[1]</var>
+            </curve>
+        </plot>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.true_canon_state.Q_inertial_body.vector[2]" units="--">test.torque_free_symtop.true_canon_state.Q_inertial_body.vector[2]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.true_canon_state.body_rate[0]" units="r/s">test.torque_free_symtop.true_canon_state.body_rate[0]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.true_canon_state.body_rate[1]" units="r/s">test.torque_free_symtop.true_canon_state.body_rate[1]</var>
+            </curve>
+        </plot>
+    </page>
+    <page background_color="#eeeeee" foreground_color="#333333">
+        <title>Page</title>
+        <plot background_color="#eeeeee" foreground_color="#333333" grid="Yes" grid_color="#ffffff">
+            <title>Plot</title>
+            <curve>
+                <var label="sys.exec.out.time" units="s">sys.exec.out.time</var>
+                <var label="test.torque_free_symtop.true_canon_state.body_rate[2]" units="r/s">test.torque_free_symtop.true_canon_state.body_rate[2]</var>
+            </curve>
+        </plot>
+    </page>
+</product>

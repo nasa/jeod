@@ -1,0 +1,342 @@
+
+********************************************************
+MATRIX OPERATIONS
+
+INPUT VARIABLES
+
+A      7.0000     8.0000     2.0000 
+      -1.0000     5.0000    -3.0000 
+       6.0000     4.0000    -7.0000 
+
+B      5.0000    -3.0000     6.0000 
+      -3.0000     7.0000     4.0000 
+       6.0000     4.0000    -8.0000 
+
+C      1.0000     2.0000     3.0000 
+       4.0000     5.0000     6.0000 
+       7.0000     8.0000     9.0000 
+
+f      2.0000    -3.0000     8.0000 
+
+g      7.0000     2.0000    -1.0000 
+
+s      3.0000 
+
+MATRIX INITIALIZE 
+       0.0000     0.0000     0.0000 
+       0.0000     0.0000     0.0000 
+       0.0000     0.0000     0.0000 
+
+MATRIX IDENTITY 
+       1.0000     0.0000     0.0000 
+       0.0000     1.0000     0.0000 
+       0.0000     0.0000     1.0000 
+
+MATRIX CROSS, f 
+       0.0000    -8.0000    -3.0000 
+       8.0000     0.0000    -2.0000 
+       3.0000     2.0000     0.0000 
+
+MATRIX OUTER PRODUCT, f x g 
+      14.0000     4.0000    -2.0000 
+     -21.0000    -6.0000     3.0000 
+      56.0000    16.0000    -8.0000 
+
+MATRIX NEGATE (in place), -A 
+      -7.0000    -8.0000    -2.0000 
+       1.0000    -5.0000     3.0000 
+      -6.0000    -4.0000     7.0000 
+
+MATRIX NEGATE, -B 
+      -5.0000     3.0000    -6.0000 
+       3.0000    -7.0000    -4.0000 
+      -6.0000    -4.0000     8.0000 
+
+MATRIX TRANSPOSE (in place), A' 
+       7.0000    -1.0000     6.0000 
+       8.0000     5.0000     4.0000 
+       2.0000    -3.0000    -7.0000 
+
+MATRIX TRANSPOSE, B' 
+       5.0000    -3.0000     6.0000 
+      -3.0000     7.0000     4.0000 
+       6.0000     4.0000    -8.0000 
+
+MATRIX SCALE (in place), sA 
+      21.0000    24.0000     6.0000 
+      -3.0000    15.0000    -9.0000 
+      18.0000    12.0000   -21.0000 
+
+MATRIX SCALE, sB 
+      15.0000    -9.0000    18.0000 
+      -9.0000    21.0000    12.0000 
+      18.0000    12.0000   -24.0000 
+
+MATRIX INCREMENT (in place), A+C 
+       8.0000    10.0000     5.0000 
+       3.0000    10.0000     3.0000 
+      13.0000    12.0000     2.0000 
+
+MATRIX DECREMENT (in place), A-C 
+       6.0000     6.0000    -1.0000 
+      -5.0000     0.0000    -9.0000 
+      -1.0000    -4.0000   -16.0000 
+
+MATRIX COPY, B 
+       5.0000    -3.0000     6.0000 
+      -3.0000     7.0000     4.0000 
+       6.0000     4.0000    -8.0000 
+
+MATRIX ADD, B+C 
+       6.0000    -1.0000     9.0000 
+       1.0000    12.0000    10.0000 
+      13.0000    12.0000     1.0000 
+
+MATRIX SUBTRACT, B-C 
+       4.0000    -5.0000     3.0000 
+      -7.0000     2.0000    -2.0000 
+      -1.0000    -4.0000   -17.0000 
+
+MATRIX PRODUCT, BC 
+      35.0000    43.0000    51.0000 
+      53.0000    61.0000    69.0000 
+     -34.0000   -32.0000   -30.0000 
+
+MATRIX PRODUCT (left transpose), B'C 
+      35.0000    43.0000    51.0000 
+      53.0000    61.0000    69.0000 
+     -34.0000   -32.0000   -30.0000 
+
+MATRIX PRODUCT (right transpose), BC' 
+      17.0000    41.0000    65.0000 
+      23.0000    47.0000    71.0000 
+     -10.0000    -4.0000     2.0000 
+
+MATRIX PRODUCT (transpose-transpose), B'C' 
+      17.0000    41.0000    65.0000 
+      23.0000    47.0000    71.0000 
+     -10.0000    -4.0000     2.0000 
+
+MATRIX TRANSFORM, BCB' 
+     352.0000   400.0000   -26.0000 
+     496.0000   544.0000    10.0000 
+    -254.0000  -242.0000   -92.0000 
+
+MATRIX TRANSPOSE TRANSFORM, B'CB 
+     352.0000   400.0000   -26.0000 
+     496.0000   544.0000    10.0000 
+    -254.0000  -242.0000   -92.0000 
+
+MATRIX INVERT, inv(B) 
+       0.1053    -0.0000     0.0789 
+      -0.0000     0.1111     0.0556 
+       0.0789     0.0556    -0.0380 
+
+MATRIX INVERT SYMMETRIC, inv(B) 
+       0.1053    -0.0000     0.0789 
+      -0.0000     0.1111     0.0556 
+       0.0789     0.0556    -0.0380 
+
+********************************************************
+VECTOR OPERATIONS
+
+INPUT VARIABLES
+
+A      2.0000
+      -3.0000
+       8.0000 
+
+B      7.0000
+       2.0000
+      -1.0000 
+
+C      5.0000
+      -5.0000
+       7.0000 
+
+D      4.0000
+       3.0000
+      -1.0000 
+
+T      0.8192     0.5736     0.0000 
+      -0.5736     0.8192     0.0000 
+       0.0000     0.0000     1.0000 
+
+VECTOR INITIALIZE 
+       0.0000
+       0.0000
+       0.0000 
+
+VECTOR UNIT (i=1) 
+       1.0000
+       0.0000
+       0.0000 
+
+VECTOR FILL, 3.0 
+       3.0000
+       3.0000
+       3.0000 
+
+VECTOR ZERO SMALL 
+       0.0000
+       0.0000
+       0.0000 
+
+VECTOR COPY, B 
+       7.0000
+       2.0000
+      -1.0000 
+
+VECTOR DOT, B dot C 
+      18.0000
+
+VECTOR MAG SQUARED, |B|^2 
+      54.0000
+
+VECTOR MAG, |B| 
+       7.3485
+
+VECTOR NORMALIZE (in place), A/|A| 
+       0.2279
+      -0.3419
+       0.9117 
+
+VECTOR NORMALIZE, B/|B| 
+       0.9526
+       0.2722
+      -0.1361 
+
+VECTOR SCALE (in place), sA 
+       6.0000
+      -9.0000
+      24.0000 
+
+VECTOR SCALE, sB 
+      21.0000
+       6.0000
+      -3.0000 
+
+VECTOR NEGATE (in place), -A 
+      -2.0000
+       3.0000
+      -8.0000 
+
+VECTOR NEGATE, -B 
+      -7.0000
+      -2.0000
+       1.0000 
+
+VECTOR TRANSFORM (in place), TA 
+      -0.0824
+      -3.6046
+       8.0000 
+
+VECTOR TRANSFORM, TB 
+       6.8812
+      -2.3767
+      -1.0000 
+
+VECTOR TRANSFORM TRANSPOSE (in place), T'A 
+       3.3590
+      -1.3103
+       8.0000 
+
+VECTOR TRANSFORM TRANSPOSE, T'B 
+       4.5869
+       5.6533
+      -1.0000 
+
+VECTOR INCREMENT (in place), A+C 
+       7.0000
+      -8.0000
+      15.0000 
+
+VECTOR INCREMENT (in place), A+C+D 
+      11.0000
+      -5.0000
+      14.0000 
+
+VECTOR DECREMENT (in place), A-C 
+      -3.0000
+       2.0000
+       1.0000 
+
+VECTOR DECREMENT (in place), A-(C+D) 
+      -7.0000
+      -1.0000
+       2.0000 
+
+VECTOR SUM, B+C 
+      12.0000
+      -3.0000
+       6.0000 
+
+VECTOR SUM, B+C+D 
+      16.0000
+       0.0000
+       5.0000 
+
+VECTOR DIFF, B-C 
+       2.0000
+       7.0000
+      -8.0000 
+
+VECTOR CROSS, B cross C 
+       9.0000
+     -54.0000
+     -45.0000 
+
+VECTOR SCALE INCREMENT (in place), A+sB 
+      23.0000
+       3.0000
+       5.0000 
+
+VECTOR SCALE DECREMENT (in place), A-sB 
+     -19.0000
+      -9.0000
+      11.0000 
+
+VECTOR CROSS INCREMENT (in place), A+(B cross C) 
+      11.0000
+     -57.0000
+     -37.0000 
+
+VECTOR CROSS DECREMENT (in place), A-(B cross C) 
+      -7.0000
+      51.0000
+      53.0000 
+
+VECTOR TRANSFORM INCREMENT (in place), A+TB 
+       8.8812
+      -5.3767
+       7.0000 
+
+VECTOR TRANSFORM DECREMENT (in place), A-TB 
+      -4.8812
+      -0.6233
+       9.0000 
+
+VECTOR TRANSFORM TRANSPOSE INCREMENT (in place), A+T'B 
+       6.5869
+       2.6533
+       7.0000 
+
+VECTOR TRANSFORM TRANSPOSE DECREMENT (in place), A-T'B 
+      -2.5869
+      -8.6533
+       9.0000 
+
+********************************************************
+NUMERICAL OPERATIONS
+
+a       =   -2.000000000001871E-312 
+
+NUMERICAL FABS 
+fabs(a) =    2.000000000001871E-312
+
+NUMERICAL SQUARE (with underflow protetction), a^2 
+a^2     =     0.000000000000000E+00
+
+NUMERICAL SQUARE INCREMENT (with underflow protection), a^2 + 3.5 
+        =     3.500000000000000E+00
+

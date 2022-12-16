@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+
+<!-- Description: Plot of Y(t) vs. t, with attributes, titles, labels, units -->
+
+<product version="1.0">
+    <title>Job Timeline</title>
+    <page vcells="3">
+        <title>Job Timeline</title>
+        <plot grid="yes">
+            <title>User Job Timeline</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Job Id</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" label="User Job Id">frame_log.frame_log.job_user_id</var>
+            </curve>
+        </plot>
+        <plot grid="yes">
+            <title>Trick Job Timeline</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Job Id</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" label="Trick Job Id">frame_log.frame_log.job_trick_id</var>
+            </curve>
+        </plot>
+    </page>
+    <page>
+        <title>Job Timeline (combined)</title>
+        <plot grid="yes">
+            <title>User and Trick Job Timeline</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Job Id</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" label="Trick Job Id">frame_log.frame_log.job_trick_id</var>
+            </curve>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" label="User Job Id">frame_log.frame_log.job_user_id</var>
+            </curve>
+        </plot>
+    </page>
+</product>

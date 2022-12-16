@@ -1,0 +1,73 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "J2000 Position (m)"
+
+    PLOT 1: "X Position"
+        Y_AXIS_LABEL: "sv_dyn.body.composite_body.state.trans.position[0]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.position[0]"
+            UNITS: "M"
+            LABEL: "inertial_pos[0]"
+
+    PLOT 2: "Y Position"
+        Y_AXIS_LABEL: "sv_dyn.body.composite_body.state.trans.position[1]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.position[1]"
+            UNITS: "M"
+            LABEL: "inertial_pos[1]"
+
+    PLOT 3: "Z Position"
+        Y_AXIS_LABEL: "sv_dyn.body.composite_body.state.trans.position[2]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.position[2]"
+            UNITS: "M"
+            LABEL: "inertial_pos[2]"
+
+PAGE 2: "J2000 Velocity (m/s)"
+
+    PLOT 1: "X Velocity"
+        Y_AXIS_LABEL: "sv_dyn.body.composite_body.state.trans.velocity[0]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.velocity[0]"
+            UNITS: "M/s"
+            LABEL: "inertial_vel[0]"
+
+    PLOT 2: "Y Velocity"
+        Y_AXIS_LABEL: "sv_dyn.body.composite_body.state.trans.velocity[1]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.velocity[1]"
+            UNITS: "M/s"
+            LABEL: "inertial_vel[1]"
+
+    PLOT 3: "Z Velocity"
+        Y_AXIS_LABEL: "sv_dyn.body.composite_body.state.trans.velocity[2]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.velocity[2]"
+            UNITS: "M/s"
+            LABEL: "inertial_vel[2]"

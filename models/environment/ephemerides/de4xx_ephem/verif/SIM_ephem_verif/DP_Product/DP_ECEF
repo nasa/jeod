@@ -1,0 +1,38 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "Planet Fixed Position (ECEF)"
+
+    PLOT 1: "X Position"
+        Y_AXIS_LABEL: "sv_dyn.pfix.state.cart_coords[0]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.cart_coords[0]"
+            UNITS: "M"
+            LABEL: "xyz[0]"
+
+    PLOT 2: "Y Position"
+        Y_AXIS_LABEL: "sv_dyn.pfix.state.cart_coords[1]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.cart_coords[1]"
+            UNITS: "M"
+            LABEL: "xyz[1]"
+
+    PLOT 3: "Z Position"
+        Y_AXIS_LABEL: "sv_dyn.pfix.state.cart_coords[2]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.cart_coords[2]"
+            UNITS: "M"
+            LABEL: "xyz[2]"

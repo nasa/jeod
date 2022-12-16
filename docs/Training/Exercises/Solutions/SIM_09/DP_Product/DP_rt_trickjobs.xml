@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+
+<!-- Description: Plot of Y(t) vs. t, with attributes, titles, labels, units -->
+
+<product version="1.0">
+    <title>Trick Job Execution History</title>
+    <page vcells="4">
+        <title>Trick Job Execution Times</title>
+        <plot grid="yes" background_color="slategray2">
+            <title>JOB_data_record.drd.signal_thread.12.03(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_data_record.drd.signal_thread.12.03(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="slategray2">
+            <title>JOB_data_record_group.trickjobs.0.00(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_data_record_group.trickjobs.0.00(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="slategray2">
+            <title>JOB_data_record_group_frame_userjobs.data_record.0.00(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_data_record_group_frame_userjobs.data_record.0.00(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_injector_executor_0.rtie.Exec.32.00(top_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_injector_executor_0.rtie.Exec.32.00(top_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="bisque2">
+            <title>JOB_master_slave.master.end_of_frame_status_from_slave.15.08(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_master_slave.master.end_of_frame_status_from_slave.15.08(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="bisque2">
+            <title>JOB_master_slave.master.end_of_frame_status_to_slave.15.09(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_master_slave.master.end_of_frame_status_to_slave.15.09(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="bisque2">
+            <title>JOB_master_slave.slave.end_of_frame.15.10(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_master_slave.slave.end_of_frame.15.10(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="honeydew3">
+            <title>JOB_real_time.rt_sync.rt_monitor.13.08(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_real_time.rt_sync.rt_monitor.13.08(end_of_frame)</var>
+            </curve>
+        </plot>
+    </page>
+    <page vcells="4">
+        <title>Trick Job Execution Times</title>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_sim_integ_loop.integ_sched.integrate.31.03(integ_loop_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_sim_integ_loop.integ_sched.integrate.31.03(integ_loop_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_cpr.cpr.load_checkpoint_job.4.09(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_cpr.cpr.load_checkpoint_job.4.09(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_cpr.cpr.safestore_checkpoint.4.06(system_checkpoint_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_cpr.cpr.safestore_checkpoint.4.06(system_checkpoint_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_cpr.cpr.write_checkpoint.4.04(system_checkpoint_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_cpr.cpr.write_checkpoint.4.04(system_checkpoint_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_cpr.cpr.write_dmtcp_checkpoint.4.05(top_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_cpr.cpr.write_dmtcp_checkpoint.4.05(top_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_em.ep.add_pending_events.10.02(top_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_em.ep.add_pending_events.10.02(top_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_sys.sched.advance_sim_time.1.18(system_advance_sim_time_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_sys.sched.advance_sim_time.1.18(system_advance_sim_time_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_sys.sched.async_freeze_to_exec_command.1.16(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_sys.sched.async_freeze_to_exec_command.1.16(end_of_frame)</var>
+            </curve>
+        </plot>
+    </page>
+    <page vcells="0">
+        <title>Trick Job Execution Times</title>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_sys.sched.sched_freeze_to_exec_command.1.14(system_moding_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_sys.sched.sched_freeze_to_exec_command.1.14(system_moding_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_sys.sched.sched_freeze_to_exec_command.1.15(end_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_sys.sched.sched_freeze_to_exec_command.1.15(end_of_frame)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_vs.vs.copy_data_scheduled.11.11(automatic_last_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_vs.vs.copy_data_scheduled.11.11(automatic_last_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk3">
+            <title>JOB_trick_vs.vs.copy_data_top.11.10(top_of_frame)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="darkgreen" scale="0.000001">JOB_trick_vs.vs.copy_data_top.11.10(top_of_frame)</var>
+            </curve>
+        </plot>
+    </page>
+</product>

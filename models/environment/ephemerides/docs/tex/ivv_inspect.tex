@@ -1,0 +1,65 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ivv_inspect.tex
+% Inspections of the Ephemerides Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected,
+and together satisfy requirement~\traceref{reqt:toplevel}.
+
+\inspection{Design Inspection}
+\label{inspect:design}
+Table~\ref{tab:design_inspection} summarizes the key elements of the
+implementation of the \ModelDesc that satisfy requirements levied on the model.
+By inspection, the \ModelDesc satisfies
+requirements~\tracerefrange{reqt:ephem_items}{reqt:prop_planet}.
+
+\begin{longtable}{||l @{\hspace{4pt}} p{1.35in} |p{3.75in}|}
+\caption{Design Inspection}
+\label{tab:design_inspection} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endfirsthead
+
+\caption[]{Design Inspection (continued from previous page)} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\ref{reqt:ephem_items} & \raggedright Ephemeris Items &
+  The {\tt \ModelDesc/ephem\_item} directory defines the classes and methods
+  that implement this requirement.
+\tabularnewline[4pt]
+\ref{reqt:ephem_interface} & \raggedright Ephemeris Interface &
+  The {\tt \ModelDesc/ephem\_interface} directory defines the classes and methods
+  that implement this requirement.
+\tabularnewline[4pt]
+\ref{reqt:ephem_manager} & \raggedright Ephemeris Manager &
+  The {\tt \ModelDesc/ephem\_manager} directory defines the classes and methods
+  that implement this requirement.
+\tabularnewline[4pt]
+\ref{reqt:solar_system} & \raggedright Solar System &
+  The {\tt \ModelDesc/de4xx} directory defines the classes and methods
+  that implement this requirement.
+\tabularnewline[4pt]
+\ref{reqt:de4xx_ephem_interface} & \raggedright Ephemeris Interface Extension &
+  The class De4xxEphemeris defined in the {\tt \ModelDesc/de4xx} directory
+  inherits from the EphemerisInterface class and constructs the planetary
+  aspects of the reference frame tree in the prescribed manner.
+\tabularnewline[4pt]
+\ref{reqt:prop_planet} & \raggedright Propagated Planet &
+  The {\tt \ModelDesc/propagated\_planet} directory defines the classes and
+  methods that implement this requirement.
+\tabularnewline[4pt]
+\end{longtable}

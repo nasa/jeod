@@ -1,0 +1,61 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Mathematical Formulation part of Product Spec for the LVLH model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Mathematical Formulations}
+\label{sec:Lvlhmath}
+
+The \LVLHDesc\ includes the method \textit{compute\_lvlh\_frame}, which calculates the transformation matrix from the planet-centered inertial reference frame to the LVLH reference frame.  This method is executed as a routine part of the LVLH update process.
+
+The three vectors that define LVLH are as follows
+\begin{itemize}
+ \item Opposite to the radial vector from planet center ($\hat k = -\hat r$)
+  \item Opposite to the orbital angular momentum vector ( $\hat j = -\hat r
+  \times \hat v$).
+  \item Completing the right handed coordinate system ($\hat i = \hat j \times \hat k$)
+\end{itemize}
+
+The $\hat i$ axis also represents the projection of the velocity vector, or trajectory, onto the horizontal plane.  For circular orbits, the $\hat i$ axis lies along the trajectory of the vehicle, but that is not a definition.
+
+Suppose the position and velocity are known in the planet-centered inertial reference frame.
+
+$\vec r_{inrtl} = [r_{x,inrtl} , r_{y,inrtl} , r_{z,inrtl}]$
+
+$\vec v_{inrtl} = [v_{x,inrtl} , v_{y,inrtl} , v_{z,inrtl}]$
+
+and we want to define the transformation matrix from inertial to LVLH, such that
+
+\begin{equation*}
+ \vec x_{LVLH} = T_{inrtl->LVLH} ~ \vec x_{inrtl}
+\end{equation*}
+
+\begin{equation*} 
+ T_{inrtl->lvlh} = \begin{bmatrix} p_1 & p_2 & p_3 \\ -h_1 & -h_2 & -h_3 \\ -r_1 & -r_2 & -r_3 \end{bmatrix}
+\end{equation*}
+
+where $r_i$ are the components of the unit radial vector, $h_i$ are the components of the unit angular momentum vector, and $p_i$ are the normalized values resulting from the cross product of $\hat r$ with $\hat h$  (the normalization should be unnecessary, since the two vectors in the cross product are perpendicular unit vectors, but is included to ensure that numerical innaccuracies do not propagate).
+
+Because the LVLH frame is rotating with respect to its parent frame (one revolution per orbit), the relative velocity with respect to the LVLH frame requires the relative angular velocity of the LVLH frame with respect to the inertial frame.  Expressed in the LVLH frame, that relative angular velocity is oriented along the $-\hat j$ axis only, by definition.
+
+Then,
+
+\begin{equation}
+\begin{split}
+ \vec v_{veh1\_wrt\_veh2:LVLH} = ~ & T_{inrtl->LVLH} \left( \vec v_{veh1\_wrt\_inrtl:inrtl}
+                                                        - \vec v_{veh2\_wrt\_inrtl:inrtl} \right) \\
+         & - \vec \omega_{LVLH\_wrt\_inrtl:LVLH} \times \vec x_{veh1\_wrt\_veh2:LVLH} 
+\end{split}
+\end{equation} 
+\label{equ:LVLHvel}
+
+Using 
+\begin{equation*}
+ \vec \omega_{LVLH\_wrt\_inrtl:LVLH}  = - \lvert \omega \rvert \hat j 
+\end{equation*}
+as the angular momentum vector yields the correct interpretation from the Reference Frames calculations.
+
+

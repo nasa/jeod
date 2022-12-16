@@ -1,0 +1,59 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Introduction for JSC Engineering Orbital Dynamics (JEOD)
+%
+%
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}%
+
+\section{Purpose and Objectives of the \MODELTITLE}
+
+The \TLD\ is designed to introduce the entire JSC Engineering Orbital Dynamics (JEOD) Software Package to users. The JEOD Software Package is a simulation tool that provides vehicle trajectory generation by the solution of a set of numerical dynamical models. These models are subdivided into four categories. There are Environment models representing the conditions surrounding the vehicle, Dynamics models for integrating the equations of motion, Interaction models representing vehicle interactions with the environment, and a set of mathematical and orbital dynamics Utility models.
+
+JEOD is designed to simulate spacecraft trajectories in flight regimes ranging from low Earth orbit to lunar operations, interplanetary trajectories, and other deep space missions. JEOD can be used to simulate a stand-alone spacecraft trajectory and attitude state, or it can be interfaced with a larger simulation space, such as coupling with spacecraft effectors and guidance, navigation and control systems. More than one spacecraft can be simulated about one central body or separate spacecraft about separate central bodies. Many of these capabilites are demostrated in example simulations provided in a JEOD release.  This includes both in the model verification simulations, top level tutorial simulations, and JEOD package verification simulations which are compared against data from real spacecraft trajectories.
+
+JEOD had its beginnings in the early 1990s along with the advent of the Trick Simulation system.  Early JEOD development efforts were performed by McDonnell Douglas, and JEOD has been managed by various Engineering groups at JSC since then.  JEOD gained its own identity as an ``orbital dynamics software package" as of the ``dyn\_v1.3" version of Trick.  From that point forward, the two software systems began their own separate development and release cycles. Although the JEOD Software Package has been developed for use in the Trick Simulation Environment, it can be used independently from Trick.
+
+JEOD has been used for years by the Space Shuttle Program and the International Space Station and now is planned for use by other programs including TS21, COTS, Orion, and SEV.
+\section{Context within JEOD}
+
+The \TLD\ document is parent document of \JEOD. It is located at in the docs directory of the JEOD release.
+
+\section{Document History}
+
+\begin{tabular}{||l|l|l|l|} \hline
+{\bf Author } & {\bf Date} & {\bf Revision} & {\bf Description} \\%
+\hline \hline
+\ModelHistory
+\hline
+\end{tabular}%
+
+\section{Document Organization}
+
+This document is formatted in accordance with the
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}.
+
+The document comprises chapters organized as follows:
+
+\begin{description}%
+\item[Chapter 1: Introduction] -%
+This introduction describes the objective and purpose of the \MODELTITLE.
+
+\item[Product Requirements] -%
+The requirements chapter describes the requirements on the \MODELTITLE.
+
+\item[Chapter 3: Product Specification] -%
+The specification chapter describes
+the architecture and design of the \MODELTITLE.
+
+\item[Chapter 4: User Guide] -%
+The user guide chapter describes how to use the \MODELTITLE.
+
+\item[Chapter 5: Inspections, Tests, and Metrics] -%
+The inspections, tests, and metrics describes the procedures and results
+that demonstrate the satisfaction of the requirements for the \MODELTITLE.
+
+\end{description}%

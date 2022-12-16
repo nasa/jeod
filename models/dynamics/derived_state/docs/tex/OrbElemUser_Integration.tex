@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Integration part of User's Guide for the OrbElem model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ \section{Integration}
+
+Including the \OrbElemDesc\ is relatively straightforward.
+
+ \subsection{Generating the S\_define}
+
+Conventional practice would add the \OrbElemDesc\ to the vehicle object, or (if one exists) to a separate relative-state object at the end of the S\_define file.  When adding the state to a specific vehicle, care must be taken to ensure that the calls to update the state occur after the planet position has been generated from the ephemerides, and the vehicle position integrated.  There is no internal check that this ordering is achieved, the responsibility for ensuring this lies entirely on the Integrator.
+
+The instance of \textit{OrbElemDerivedState} needs to be defined, the model initialized, and a routine update scheduled.  A simple example of how this may look is found in the \textref{Analysis}{sec:orbelemuseranalysis} section.  A simple example simulation is found in the 
+\textit{derived\_state/verif/OrbElem} verification simulations released with \JEODid.
+
+\subsection{Generating the Input File}
+The input file (or Modified Data file) must contain the name of the planet, identified as \textit{reference\_name}.
+
+See the \textref{Analysis}{sec:orbelemuseranalysis} section for an example of how the input data may appear.
+
+\subsection{Logging the Data}
+See the \textref{Analysis}{sec:orbelemuseranalysis} section for a list of available output data.

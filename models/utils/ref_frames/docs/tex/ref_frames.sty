@@ -1,0 +1,67 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+% Change ref_frames to package name. Change date and version to reflect updates.
+%  (this may be done in compy_templates)
+\ProvidesPackage{ref_frames}[2006/07/26 v1.1 ref_frames module macros]
+
+
+% Package options. Change ref_frames to the value of \modelprefix (see below).
+%  (this may be done in copy_templates)
+\newif\ifrefframesReqt@
+\newif\ifrefframesIVV@
+\DeclareOption{Reqt}{\refframesReqt@true}
+\DeclareOption{IVV}{\refframesIVV@true}
+\ProcessOptions\par
+
+% Include requirement labels if requested
+\ifrefframesReqt@
+\input{ref_framesReqt.def}
+\fi
+
+% Include IV&V labels if requested
+\ifrefframesIVV@
+\input{ref_framesIVV.def}
+\fi
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+% Define any other model-specific LaTeX commands here.
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+% THE ref_frames PREFIX MUST CONTAIN ONLY LETTERS.
+% Examples: TIME for the universal time package, MASS for the mass tree.
+\newcommand\modelprefix{refframes}
+% \ref_framesDesc should be changed to a short acronym for the model, this may be
+% done in copy_templates
+% {MODEL DESCRIPTION} should be changed to the full name of the model.  
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").  
+%   The name should be a singular, not plural value, e.g. "Reference Frame Model", 
+%   not "Reference Frames" (same example).
+\newcommand{\refframesDesc}{Reference Frame Model}
+\newcommand{\ModelAuthor}{Andrew Spencer}
+\newcommand{\ModelAuthDate}{November, 2009}
+
+% for all editors; add keywords as necessary.
+\newcommand{\ModelKeywords}{\refframesDesc}
+
+% for document revisions only: 
+\newcommand\DocumentChangeHistory{
+{\bf Author } & {\bf Date} & {\bf Revision} & {\bf Description} \\ \hline \hline
+
+% This documentation file's change history includes:
+% "Author name(s)" & "revision DATE" & "revision NUMBER" & "revision DESCRIPTION"
+%  ---------------    -------------    ----------------     ---------------------
+Andrew Spencer  & November, 2009  & 1.0   & Initial Version  \\ \hline
+Andrew Spencer  & October, 2010   & 1.1   & Add Reference Frame Manager, metrics  \\ \hline
+}
+

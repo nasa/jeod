@@ -1,0 +1,66 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the Relative model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Analysis}
+
+\label{sec:relativeuseranalysis}
+
+\subsection{Identifying the \RelativeDescT}
+If Relative States have been included in the simulation, there will be an instance of \textit{RelativeDerivedState} located in the S\_define file.  This would typically be found in either the vehicle object, or a separate relative-state object.  There should be an accompanying call to both an initialization routine and an update function.  The \textit{target\_frame} and \textit{subject\_frame} are defined elsewhere, possibly in the input file.
+
+Example:
+\begin{verbatim}
+sim_object{
+dynamics/derived_state:    RelativeDerivedState example_of_rel_der_state;
+
+(initialization) dynamics/derived_state:
+example_of_rel_state_object.example_of_rel_der_state.initialize (
+    Inout DynBody &      subject_body = vehicle_1.dyn_body,
+    Inout DynManager &   dyn_manager  = manager_object.dyn_manager);
+    
+{environment} dynamics/derived_state:
+example_of_rel_state_object.example_of_rel_der_state.update ( )
+
+} example_of_rel_state_object;
+\end{verbatim}
+
+Then the input file may have entries comparable to:
+\begin{verbatim}
+example_of_rel_state_object.example_of_rel_der_state.subject_frame_name = 
+                                                 "vehicle_1.composite_body";
+example_of_rel_state_object.example_of_rel_der_state.target_frame_name = 
+                                                 "vehicle_2.Earth.lvlh";
+example_of_rel_state_object.example_of_rel_der_state.direction_sense = 
+                              RelativeDerivedState::ComputeSubjectStateinTarget;
+\end{verbatim}
+
+(In this case, the relative state provides the state of \textit{vehicle\_1} in the Earth-based LVLH frame associated with \textit{vehicle\_2}.  Note that there are many variations on this concept, so the analyst should not be surprised if entries are significantly different from this example).
+
+As of JEOD version 3.4, it is no longer required that a relative state be associated with a vehicle object. Thus, it can be used to calculate the state between any two arbitrary frames in the simulation. To use it in this manor, one needs only to invoke the initialization routine that does not take a \textit{subject\_body} as input:
+
+\begin{verbatim}
+(initialization) dynamics/derived_state:
+example_of_rel_state_object.example_of_rel_der_state.initialize (
+    Inout DynManager &   dyn_manager  = manager_object.dyn_manager);
+\end{verbatim}
+
+All other usage remains the same.
+
+\subsection{Editing the \RelativeDescT}
+There is very little to edit in the \RelativeDesc.  Changing the \textit{direction\_sense} is trivial (see section \textref{Detailed Design}{sec:relativedetail} for options).  Changing the \textit{subject\_frame} and \textit{target\_frame} may produce unintended consequences, and should not be attempted at this level; see the \textref{Integration}{sec:relativeintegration} for details on setting up a relative state calculation.
+
+
+\subsection{Output Data}
+The output available from this model is a complete 12-vector state description.
+
+The translational component of the state is accessible as
+\begin{verbatim}
+example_of_rel_state_object.example_of_rel_der_state.rel_state.trans.position
+example_of_rel_state_object.example_of_rel_der_state.rel_state.trans.velocity
+\end{verbatim}
+The rotational state can be output as either quaternion or transformation matrix, with velocity as either an angular velocity vector, or an angular velocity magnitude and unit vector.  See the documentation on \textit{RefFrameState} in the \href{file:\JEODHOME/models/utils/ref_frames/docs/ref_frames.pdf}{RefFrame document}~\cite{dynenv:REFFRAMES} for details.

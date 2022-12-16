@@ -1,0 +1,28 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:
+%
+%  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+The \ModelDesc\ maintains the mass properties of all non-planetary massive
+objects in the simulation.  Mass-Body objects that also have a dynamic state are
+represented as Dyn-Body objects, Dyn-Body being an inheritance from Mass-Body.
+Consequently, the most frequently encountered Mass Body objects
+are the Dyn-Body-based simulation vehicle(s); this model accurately maintains the mass
+properties of such entities throughout processes such as mass depletion due to
+fuel usage, the attaching and detaching of one Mass Body to/from another, and
+the relative motion of individual massive components of a composite body
+comprising multiple Mass Body elements (e.g. rotation of a solar panel on a vehicle).
+
+When the dynamic state of a composite vehicle (one comprising multiple
+components) is integrated, only one integration is performed for the entire
+composite unit; the component parts are not integrated directly.
+It is the \ModelDesc that is responsible for computing the overall mass and inertia
+of the composite body that will be used in determining the dynamic response to
+applied forces and torques.
+
+\end{abstract}

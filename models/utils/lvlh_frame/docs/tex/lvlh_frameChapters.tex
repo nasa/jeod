@@ -1,0 +1,410 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Model Description}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this 
+%%% model exists.
+%%% Identify the Model context within JEOD.
+
+The JEOD \LvlhFrameDesc\ enables the definition of a reference frame with
+respect to the position and velocity vectors of an on-orbit object and
+automatically handles the updates to that frame. This model is envisioned
+primarily to be used in tracking the relative motion of one or more
+orbital vehicles with respect to another. However, making the \LvlhFrameDesc\
+distinct from the standard JEOD reference frames model allows the
+\LvlhFrameDesc\ to be anchored to (and therefore defined by the motion of)
+objects that are not DynBodies if so desired.
+
+When used in concert with the LvlhRelativeDerivedState derived
+class introducted with JEOD 3.2, the \LvlhFrameDesc\ can be used to track
+relative motion in either rectilinear or curvilinear coordinates. However,
+the \LvlhFrameDesc\ simply defines the LVLH reference frame itself.
+
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when 
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this section.
+%%% Mention that JEOD.pdf is the parent document.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+
+\section{Document Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE} 
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] - 
+This introduction contains three sections: description of model, document history, and organization.  
+The first section provides the introduction to the \LvlhFrameDesc\ and its reason 
+for existence.  It also contains a brief description of the interconnections with other models, and 
+references to any supporting documents.  The second section displays the history of this document which includes
+author, date, and reason for each revision; it also lists the document that is parent to this one.  The final
+section contains a description of the how the document is organized.
+
+\item[Chapter 2: Product Requirements] - 
+Describes requirements for the \LvlhFrameDesc.
+
+\item[Chapter 3: Product Specification] - 
+Describes the underlying theory, architecture, and design of the \LvlhFrameDesc\ in detail.  It is organized into
+three sections: Conceptual Design, Mathematical Formulations, and Detailed Design.
+
+\item[Chapter 4: User Guide] - 
+Describes how to use the \LvlhFrameDesc\ in a Trick simulation.  It contains information that will be useful to
+both users and developers of simulations. The \LvlhFrameDesc\ is not intended to be extended, so there is no
+discussion of how to do so.
+
+\item[Chapter 5: Inspections, Tests, and Metrics] -  
+The inspections, tests, and metrics describes the procedures and results that demonstrate the satisfaction of the
+requirements for the \LvlhFrameDesc.
+
+\end{description}
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+This model shall meet the JEOD project requirements specified in the 
+\hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{JEOD} top-level document.
+
+%%% Format for the model Requirements is open.  It should include requirements for this model 
+%%% only and use requirement tags like the one below.
+%\requirement{...}
+%\label{reqt:...}
+%\begin{description}
+%  \item[...]\ \newline
+%    The documentation for the model shall include
+%
+%    \subrequirement{}
+%    \label{reqt:...}
+%      Software requirements specification.
+%      
+%    ...
+%   
+%  \item[title]\ \newline
+%    text
+%
+%  ...
+%
+%\end{description}
+
+\requirement{Project Requirements}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project-wide requirements specified in
+  the \JEODid\ Top-Level Document.
+
+\item[Rationale:]\ \newline
+  This is a project-wide requirement.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement{Create and Manage Required Connections}
+\label{reqt:lvlhmanage}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \LvlhFrameDesc\ shall create and manage all the connections and
+  data structures necessary to enable successful model operation.
+
+\item[Rationale:]\ \newline
+  The model must be able to manage itself in order to function.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{Define LVLH Frame}
+\label{reqt:lvlhdefine}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \LvlhFrameDesc\ shall correctly calculate the rotational states of
+  its LVLH reference frame with respect to the user-specified planetary
+  inertial frame when requested.
+
+\item[Rationale:]\ \newline
+  This is the purpose of the \LvlhFrameDesc.
+
+\item[Verification:]\ \newline
+Test
+\end{description}
+
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+The \LvlhFrameDesc\ is a relatively simple model, whose main function is to
+calculate the translational and rotation states of a standard JEOD reference
+frame with respect to a designated planet-centered inertial reference frame.
+However, it exists as a standalone model because the calculations that
+govern the orientation of a local-vertical, local-horizontal frame with
+respect to a planet are unique from other frames, yet common enough in
+spaceflight applications to merit them being encapsulated as their own model.
+
+As implemented in JEOD, an LVLH reference frame is defined using the position
+and velocity vectors of the body or object with which it is associated. The
+vectors used are measured with respect to, and expressed in, a specified
+planet-centered inertial reference frame (does not have to be the frame in
+which the object is being integrated). The position vector defines the
+\textit{negative} Z-axis, and the angular momentum vector (position cross
+velocity) defines the \textit{negative} Y-axis. Consistent with the
+right-hand rule, the positive X-axis results from the vector cross of +Y and
++Z to complete the orthogonal set.
+
+
+\section{Mathematical Formulations}
+
+The only calculations performed by the \LvlhFrameDesc\ are the ones used to
+determine the orientation and angular velocity of the LVLH frame with respect
+to the specified planet-centered inertial reference frame. It is not necessary
+to calculate its position or translational velocity, since those are by definition
+identical to those of the object to which it is anchored.
+
+The three vectors that define LVLH are as follows:
+\begin{itemize}
+ \item Opposite to the radial vector from planet center ($\hat k = -\hat r$)
+ \item Opposite to the angular momentum vector ($\hat j = -\hat r \times \hat v$)
+ \item Completing the right handed coordinate system ($\hat i = \hat j \times \hat k$)
+\end{itemize}
+
+The $\hat i$ axis also represents the projection of the velocity vector onto
+the instantaneous horizontal plane. For circular orbits, the $\hat i$ axis is
+tangent to the vehicle orbit, but that is a characteristic rather than a definition.
+
+Suppose the position and velocity of an object are known in a given planet-
+centered inertial reference frame as:
+\begin{equation*}
+ \vec r_{inrtl} = [r_{x,inrtl} ~ r_{y,inrtl} ~ r_{z,inrtl}]
+\end{equation*}
+\begin{equation*}
+ \vec v_{inrtl} = [v_{x,inrtl} ~ v_{y,inrtl} ~ v_{z,inrtl}]
+\end{equation*}
+
+It is desired to define an LVLH reference frame fixed at the object's center
+of mass, with orientation measured with respect to the given inertial frame. The
+resulting transformation matrix from inertial to LVLH would be:
+
+\begin{equation*}
+ \vec x_{lvlh} = T_{inrtl \rightarrow lvlh} ~ \vec x_{inrtl}
+\end{equation*}
+
+\begin{equation*}
+ T_{inrtl \rightarrow lvlh} = \begin{bmatrix} p_1 & p_2 & p_3 \\
+                                             -h_1 & -h_2 & -h_3 \\
+                                             -r_1 & -r_2 & -r_3 \end{bmatrix}
+\end{equation*}
+
+where $r_i$ are the components of the unit radial vector,
+$h_i$ are the components of the unit angular momentum vector,
+and $p_i$ are the components resulting from the cross product of
+$\hat r$ with $\hat h$.
+
+The LVLH frame is rotating with respect to the inertial frame at a rate of one
+revolution per orbit. Expressed in the LVLH frame, that relative angular velocity
+is oriented along the $-\hat j$ axis only, by definition. Thus, the angular
+velocity is:
+
+\begin{equation*}
+ \vec \omega_{lvlh/inrtl:lvlh}  = - \lvert \omega \rvert \hat j
+\end{equation*}
+
+
+\section{Detailed Design}
+See the \href{file:refman.pdf}{Reference Manual}\cite{api:lvlh_frame}
+for a summary of member data and member methods for all classes.
+
+\subsection{Process Architecture}
+The process architecture for the \LvlhFrameDesc\ is trivial; the \LvlhFrameDesc\
+comprises the usual \textit{initialize} and \textit{update} methods, as
+well as four methods for setting subject and planet names and pointers.
+Finally, there is the protected method \textit{compute\_lvlh\_frame},
+which calculates both the transformation matrix and angular velocity defined
+in the previous section.
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods in each class.
+
+The \LvlhFrameDesc\ contains only one class, LvlhFrame. It contains the
+following methods:
+\begin{enumerate}
+
+\funcitem{initialize}
+This method sets up the model properly, does error checking on provided
+object and planet names, and makes connections to the reference frame tree.
+
+\funcitem{update}
+The \textit{update} method calls \textit{compute\_lvlh\_frame}, which
+determines the current orientation and angular velocity of the LVLH frame
+with respect to the specified planet. If the specified planet is the
+integration frame of the subject object with which the LVLH frame is
+associated, then \textit{update} is effectively a pass-through. But
+if the subject is integrated in a different frame, then \textit{update}
+calculates the object's state with respect to the planet before calling
+\textit{compute\_lvlh\_frame}.
+
+\funcitem{set\_subject\_name}
+This method allows the user to set the subject object's name via
+function call.
+
+\funcitem{set\_planet\_name}
+This method allows the user to set the reference planet's name via
+function call.
+
+\funcitem{set\_subject\_frame}
+Allows the user to set the subject object's body reference frame
+pointer directly, via function call.
+
+\funcitem{set\_planet}
+Allows the user to set the reference planet pointeri directly, via
+function call.
+
+\funcitem{compute\_lvlh\_frame}
+This method calculates the current orientation and angular velocity
+of the LVLH reference frame with respect to the reference planet's
+inertial frame.
+
+\end{enumerate}
+
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+The \LvlhFrameDesc\ is relatively straightforward to use. Simply include
+the object in one's Trick S\_define, along with the \textit{initialize}
+and \textit{update} function calls, then provide the names of the subject
+object and planet either by using the provided setter methods or by
+doing so directly. The model should then perform correctly. The
+\LvlhFrameDesc\ is not intended to be extended via derived classes, as
+it is a simple, single-purpose model.
+
+An example inclusion of the \LvlhFrameDesc\ in one's Trick simulation is
+as follows. In the S\_define, include something similar to the following
+header, object declaration, and function calls:
+
+\begin{verbatim}
+##include "utils/lvlh_frame/include/lvlh_frame.hh"
+
+public:
+  LvlhFrame               lvlh_frame;
+
+// Initialization jobs
+P_DYN ("initialization") lvlh_frame.initialize (dyn_manager);
+      ("initialization") lvlh_frame.update ();
+
+// Environment class jobs
+(1.0, "environment") lvlh_frame.update ();
+\end{verbatim}
+
+Note that this example assumes a dynamics manager exists elsewhere in
+the simulation with the name ``dyn\_manager''. Also notice that the
+\textit{update} method should be run once at initialization, following
+the call to \textit{initialize}, and then on a recurring basis as an
+``environment'' job. Here, the frequency is once a second.
+
+Once the object has been included in the simulation as above, something
+like the following should be added to the input file of the Trick
+simulation to enable proper model operation:
+
+\begin{verbatim}
+# Configure the LVLH reference frame.
+vehicle.lvlh_frame.set_subject_name ("vehicle.composite_body")
+vehicle.lvlh_frame.set_planet_name ("Earth")
+\end{verbatim}
+
+This snippet assumes there is a planet that exists in the sim named
+``Earth'', as well as a DynBody with the name ``vehicle''.
+
+
+%----------------------------------
+\chapter{Inspections, Tests, and Metrics}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Inspection}\label{sec:inspect}
+
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected,
+and together satisfy requirement~\traceref{reqt:toplevel}.
+
+\inspection{Connections Inspection}
+\label{inspect:design}
+The model performs setup of itself during initialization, which includes
+establishing appropriate connections between its internal pointers and the
+corresponding specified structures outside of it, after error-checking the
+user inputs.
+
+Therefore by inspection, the \LvlhFrameDesc\ partially satisfies
+requirement~\traceref{reqt:lvlhmanage}.
+
+
+\section{Tests}\label{sec:tests}
+This section describes the tests conducted to verify and validate
+that the \LvlhFrameDesc\ satisfies the requirements levied against it.
+All verification and validation test source code, simulations and procedures
+are archived in the JEOD directory
+{\tt models/utils/lvlh\_frame/verif}.\relax
+
+
+\test{State Calculations}\label{test:calcs}
+\begin{description}
+\item[Background]\ \newline
+The primary purpose of this test
+is to determine whether the \LvlhFrameDesc correctly calculates the
+rotational states of its LVLH reference frame with respect to the user-
+specified planet's inertial frame. Implicitly, the test will also
+demonstrate that the model can properly manage its connections and
+internal data structures that are necessary for those calculations.
+
+\item[Test description]\ \newline
+This test involves checking the calculations performed by the \LvlhFrameDesc\
+to ensure that the transformation matrix and angular velocity of its LVLH
+frame is calculated correctly with respect to a given reference planet.
+
+For this test, a simple Trick simulation of a single vehicle in orbit about
+a single planet was employed. The vehicle is provided to the \LvlhFrameDesc\
+for use as the subject body for the LVLH reference frame, since an LVLH frame
+must be associated with a moving object in order to be mathematically valid.
+The planet in the simulation is of course provided to the \LvlhFrameDesc\ as
+the reference planet for the LVLH frame.
+
+Once the state of the LVLH frame has been determined by the model, the output
+is then checked by an independent, non-Trick set of routines. The results are
+then compared against the Trick logfile for accuracy evaluation.
+
+\item[Test directory] {\tt SIM\_LVLH\_Frame}
+
+\item[Success criteria]\ \newline
+A comparison of the output of the \LvlhFrameDesc\ and
+\textit{compute\_relative\_state} should agree to within approximately
+numerical error.
+
+\item[Test results]\ \newline
+All output data confirmed expectations, within numerical precision.
+
+\item[Applicable Requirements]\ \newline
+This test completes the satisfaction of requirement~\traceref{reqt:lvlhmanage},
+and satisfies the requirement~\traceref{reqt:lvlhdefine}.
+
+\end{description}
+
+
+\newpage
+\boilerplatetraceability
+
+\newpage
+\boilerplatemetrics

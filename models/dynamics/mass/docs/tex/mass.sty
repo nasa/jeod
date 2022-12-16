@@ -1,0 +1,38 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[2009/01/01]% LaTeX date must be January 2009 or later
+
+% Package definition.
+% Change mass to package name. Change date and version to reflect updates.
+%  (this may be done in compy_templates)
+\ProvidesPackage{mass}[2012/01/31 v2.0 mass module macros]
+
+
+\newcommand\ModelAuthor{Gary Turner}
+\newcommand\ModelRevision{2.0}
+\newcommand\ModelPrefix{Mass}
+\newcommand\ModelDesc{Mass Body Model\xspace}
+\newcommand\ModelKeywords{Mass}
+\newcommand\ModelHistory{
+% This documentation file's change history includes:
+% "Author name(s)" & "revision DATE" & "revision NUMBER" & "revision 
+Gary Turner         & January 2012 & 2.0 & Extensive revisions \\ \hline
+Christopher Thebeau & Mar 2010 & 1.1 & Updated Description and Verification \\ 
+\hline
+Christopher Thebeau & Nov 2009 & 1.0 & Initial Version. \\ \hline
+}
+
+\setcounter{secnumdepth}{3}
+%\renewcommand\thesection{\thechapter.\arabic{section}}
+%\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\alph{subsubsection}}
+%\renewcommand\theparagraph{\thesubsubsection.\roman{paragraph}}
+
+\usepackage{varioref}
+%\renewcommand\reftextcurrent{on this page}
+\newcommand \reftext[2]{\textit {#1} (\vpageref*{#2})}
+\newcommand \textref[2]{\textit {#1} (\vpageref*{#2})}

@@ -1,0 +1,24 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+The \ModelDesc provides a generic bridge between the models which
+comprise JEOD and a simulation environment where they operate.  The
+\ModelDesc uses abstract classes to specify contracts between JEOD
+models and message handling, memory allocation and
+integration services provided by the simulation environment.
+There is also a suite of preprocessor macros which provide the simulation
+environment access to protected fields within JEOD classes for the purposes
+of initialization and logging.
+
+The \ModelDesc includes Trick-specific implementations of all required
+interfaces as well as conditional definitions for the macros appropriate for
+use with Trick.  All JEOD simulations require instantiation of exactly one
+JeodSimulationInterface class in order to function.
+\end{abstract}

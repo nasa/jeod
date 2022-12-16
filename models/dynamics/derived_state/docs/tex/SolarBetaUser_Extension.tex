@@ -1,0 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Extension part of User's Guide for the SolarBeta model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Extension}
+
+It is not anticipated that the \SolarBetaDesc\ be extended; the angle is independent of the vehicle or the position of the vehicle on its orbit.  Extension beyond Earth orbit is already included; it is as easy to compute Solar Beta angles with respect to any other planetary body (for example, for Lunar orbiting vehicles) as it is for Earth.  
+
+The other feasible extension would be to replace Sun with some other planetary body.  This could be desirable for obtaining orientation data when pointing toward other planetary objects is important, but it would no longer be a ``Solar'' Beta angle.  To implement this extension, copy the \SolarBetaDesc\ to generate a new model, rename the variable \textit{sun} to something more suitable, and change the value \textit{``Sun''} in the \textit{initialize} method to the name of the target object.

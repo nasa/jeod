@@ -1,0 +1,21 @@
+\boilerplatechapterone{
+The \ModelDesc comprises several classes that provide various mechanisms
+for numerically integrating a changing state over time and provide mechanisms
+for coordinating this integration across multiple bodies.
+The model is used in \JEODid to integrate the translational
+and rotational states of dynamic bodies.
+
+The provided capabilities include:
+\begin{itemize}
+\item Numerically integrating the state described by a 2nd order ODE (e.g. a 
+body state) over time using one of a variety of numerical
+integration techniques.
+\item Updating time in a manner consistent with the numerical integration
+technique used to propagate states,
+\item Providing an interface to the techniques in \erseven to leverage 
+services including numerical integration and resource management
+, and
+\item Constructing an integrator constructor using the Trick integration
+structure as a guideline.
+\end{itemize}
+}{\ModelHistory}

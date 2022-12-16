@@ -1,0 +1,119 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File: dynenvlinks.sty
+% This file defines macros that generate links and citations.
+% Note well: This file does not stand by itself. It is a part of dynenv.sty.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{dynenvlinks}[2011/08/02 v2.2 Dynamics package macros]
+
+
+%% Define commands that generate references (hyperlinks and citations)
+%% to various JEOD documents.
+
+% docsref expands the argument and generates a citation.
+% Example: \docsref{MESSAGE} expands to
+%   Message Handling Class\cite:{dynenv:MESSAGE}
+\newcommand{\docsref}[1] {%
+  {\expandafter\em \csname #1\endcsname}\cite{dynenv:#1}%
+}
+
+% Same, but the text is user-defined (second argument).
+% Example: \docstextref{MESSAGE}{The message handler} expands to
+%   The message handler\cite:{dynenv:MESSAGE}
+\newcommand{\docstextref}[2] {%
+  #2\cite{dynenv:#1}%
+}
+
+
+% Hyperlinks. First, a couple of low-level macros.
+\newcommand{\jeodfile}[1]{file:\JEODHOME/#1}
+\newcommand{\modelfile}[1]{file:\JEODHOME/models/#1}
+\newcommand{\localfile}[1]{file:#1}
+
+
+% Hyperlink to a non-model JEOD document such as the top-level document.
+% The first argument is the path to the document relative to ${JEOD_HOME}.
+% The second argument is one of the names defined above.
+% Example: \hyperdocsref{docs/JEOD.pdf}{JEOD} expands into
+%   \href{file:\JEODHOME/docs/JEOD.pdf}
+%        {JSC Engineering Orbital Dynamics}\cite{dynenv:JEOD}
+% Note that this does not work for everything (yet). The names defined above
+% and the references in dynenv.bib are not consistently named.
+\newcommand{\hyperdocsref}[2] {%
+  \href{\jeodfile{#2}}%
+       {\expandafter\em\csname#1\endcsname}\ \cite{dynenv:#1}%
+}
+
+% Same as the above, but now the hyperlink text is user-defined
+% Example: \hyperdocsref{docs/JEOD.pdf}Ä{JEOD}{top-level document} expands into
+%   \href{file:\JEODHOME/docs/JEOD.pdf}
+%        {top-level document}\cite{dynenv:JEOD}
+\newcommand{\hyperdocstextref}[3] {%
+  \href{\jeodfile{#2}}{#3}\cite{dynenv:#1}%
+}
+
+% Hyperlink at some point inside a non-model JEOD document.
+\newcommand{\hyperdocsrefinside}[4] {%
+  \hyperref{\jeodfile{#2}}{#3}{#4}%
+           {\expandafter\em\csname#1\endcsname}\ \cite{dynenv:#1}%
+}
+
+% Same as the above, but the hyperlink text is user defined.
+\newcommand{\hyperdocstextrefinside}[5] {%
+  \hyperref{\jeodfile{#2}}{#3}{#4}{#5}\cite{dynenv:#1}%
+}
+
+% Short-cut hyperlinks to the top-level document.
+% hyperJEOD uses the JEOD command to form the hyperlink text.
+% hyperTLD is a bit less formal, using "top-level document" instead.
+\newcommand{\hyperJEOD} {%
+  \hyperdocsref{JEOD}{docs/JEOD.pdf}}
+\newcommand{\hyperTLD} {%
+  \hyperdocstextref{JEOD}{docs/JEOD.pdf}{top-level document}}
+  
+\newcommand{\hyperTutorial} {%
+  \hyperdocsref{TUTORIAL}{sims/Tutorial/docs/Tutorial.pdf}}
+\newcommand{\hyperTutorialDoc} {%
+  \hyperdocstextref{TUTORIAL}{sims/Tutorial/docs/Tutorial.pdf}{JEOD Tutorial}}
+ 
+  \newcommand{\hyperCoordFrame} {%
+  \hyperdocstextref{COORDFRAME}{docs/coordinates/COORDFRAME.pdf}{JEOD Coordinate Frames}}
+
+% Hyperlink *inside* the top-level document.
+\newcommand{\hyperJEODinside}[2] {%
+  \hyperdocsrefinside{JEOD}{docs/JEOD.pdf}{#1}{#2}%
+}
+\newcommand{\hyperTLDinside}[3] {%
+  \hyperdocstextrefinside{JEOD}{docs/JEOD.pdf}{#1}{#2}%
+  {top-level document #3}%
+}
+
+% Now define hyperlinks to model documents.
+
+% Generate a model document hyperlink and citation.
+% For example, \hypermodelref{MATH} will generate a hyperlink to the
+% MATH model documentation with a citation in the bibliography.
+\newcommand{\hypermodelref}[1] {%
+  \href{\expandafter\modelfile\csname#1DOC\endcsname}
+       {\expandafter\em\csname#1\endcsname}\ \cite{dynenv:#1}%
+}
+\newcommand{\hypermodelrefinside}[3] {%
+  \hyperref{{\expandafter\modelfile\csname#1DOC\endcsname}}{#2}{#3}
+           {\expandafter\em\csname#1\endcsname}\ \cite{dynenv:#1}%
+}
+
+% Generate a model API document hyperlink and citation.
+% NOTE WELL: This assumes the bibliography reference named api:MODEL.
+\newcommand{\hyperapiref}[1] {%
+  \href{\expandafter\modelfile\csname#1API\endcsname}
+       {\expandafter\em\csname#1\endcsname\ API}\ \cite{api:#1}%
+}
+\newcommand{\apiref}[1] {%
+  {\expandafter\em \csname #1\endcsname\ API}\ \cite{api:#1}%
+}
+\newcommand{\hyperapihtmlref}[1] {%
+  \href{\expandafter\localfile\csname#1HTML\endcsname}
+       {\expandafter\em\csname#1\endcsname\ API}\ \cite{html:#1}%
+}
+
+\endinput

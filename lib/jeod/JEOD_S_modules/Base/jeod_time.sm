@@ -1,0 +1,231 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+/*******************************************************************************
+ * This file defines a default version of the JEOD time sim object.
+ *
+ * The following preprocessor symbols must be #defined:
+ * - DYNAMICS
+ *   The time interval between calls to time_manager.update().
+ *
+ * The following preprocessor symbols add optional functionality:
+ * - TIME_CALENDAR_UPDATE_INTERVAL
+ *   Rate at which UT1 and UTC calander representations are updated.
+ *   Calendar updates do not occur if this symbol is not defined.
+ * - TIME_MODEL_xxx, where xxx is one or more of TDB, TT, GMST, GPS.
+ *   Adds the specified time to the object.
+ *   The time standards modeled by default are dynamic time, TAI, UTC, and UT1.
+ *
+ *  As with all of the JEOD-provided S_modules, the default_priority_settings
+ *  file must be included before this module.
+ ******************************************************************************/
+#ifndef SIM_OBJECT_JEOD_TIME
+#define SIM_OBJECT_JEOD_TIME
+
+
+// Check for dependencies:
+#ifdef TIME_MODEL_GMST
+#ifndef TIME_MODEL_UT1
+#define TIME_MODEL_UT1
+#endif
+#endif
+
+##include "environment/time/include/time_manager.hh"
+##include "environment/time/include/time_manager_init.hh"
+##include "environment/time/include/time_tai.hh"
+##include "environment/time/include/time_converter_dyn_tai.hh"
+
+#ifdef TIME_MODEL_UTC
+##include "environment/time/include/time_utc.hh"
+##include "environment/time/include/time_converter_tai_utc.hh"
+##include "environment/time/data/include/tai_to_utc.hh"
+#endif
+
+#ifdef TIME_MODEL_UT1
+##include "environment/time/include/time_ut1.hh"
+##include "environment/time/include/time_converter_tai_ut1.hh"
+##include "environment/time/data/include/tai_to_ut1.hh"
+#endif
+
+#ifdef TIME_MODEL_TDB
+##include "environment/time/include/time_tdb.hh"
+##include "environment/time/include/time_converter_dyn_tdb.hh"
+##include "environment/time/include/time_converter_tai_tdb.hh"
+#endif
+
+#ifdef TIME_MODEL_TT
+##include "environment/time/include/time_tt.hh"
+##include "environment/time/include/time_converter_tai_tt.hh"
+#endif
+#ifdef TIME_MODEL_GMST
+##include "environment/time/include/time_gmst.hh"
+##include "environment/time/include/time_converter_ut1_gmst.hh"
+#endif
+
+#ifdef TIME_MODEL_GPS
+##include "environment/time/include/time_gps.hh"
+##include "environment/time/include/time_converter_tai_gps.hh"
+#endif
+
+class JeodTimeSimObject: public Trick::SimObject
+{
+ public:
+  // The time manager and its initializer
+  jeod::TimeManager time_manager;
+  jeod::TimeManagerInit time_manager_init;
+  // TAI by default; everything dpeends on it
+  // TAI and dynamic time to TAI converter
+  jeod::TimeTAI time_tai;
+  jeod::TimeConverter_Dyn_TAI time_converter_dyn_tai;
+
+ #ifdef TIME_MODEL_UTC
+  // UTC, TAI to UTC converter, and UTC default data
+  jeod::TimeUTC time_utc;
+  jeod::TimeConverter_TAI_UTC time_converter_tai_utc;
+  jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data
+     time_converter_tai_utc_default_data;
+ #endif
+
+ #ifdef TIME_MODEL_UT1
+  // UT1, TAI to UT1 converter, and UT1 default data
+  jeod::TimeUT1 time_ut1;
+  jeod::TimeConverter_TAI_UT1 time_converter_tai_ut1;
+  jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data
+     time_converter_tai_ut1_default_data;
+ #endif
+
+ #ifdef TIME_MODEL_TDB
+  // TDB and Dyn to TDB converter, and TAI to TDB converter
+  jeod::TimeTDB time_tdb;
+  jeod::TimeConverter_Dyn_TDB time_converter_dyn_tdb;
+  jeod::TimeConverter_TAI_TDB time_converter_tai_tdb;
+ #endif
+
+ #ifdef TIME_MODEL_TT
+  // TT and TAI to TT converter
+  jeod::TimeTT time_tt;
+  jeod::TimeConverter_TAI_TT time_converter_tai_tt;
+ #endif
+
+ #ifdef TIME_MODEL_GMST
+  // GMST and UT1 to GMST converter
+  jeod::TimeGMST time_gmst;
+  jeod::TimeConverter_UT1_GMST time_converter_ut1_gmst;
+ #endif
+
+ #ifdef TIME_MODEL_GPS
+  // TT and TAI to GPS converter
+  jeod::TimeGPS time_gps;
+  jeod::TimeConverter_TAI_GPS time_converter_tai_gps;
+ #endif
+
+  // Constructor
+  JeodTimeSimObject ()
+  {
+     P_TIME  ("initialization") time_manager.register_time ( time_tai);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_dyn_tai);
+
+    #ifdef TIME_MODEL_UTC
+     ("default_data") time_converter_tai_utc_default_data.initialize (
+                                                     &time_converter_tai_utc);
+     P_TIME  ("initialization") time_manager.register_time ( time_utc);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_tai_utc);
+    #endif
+
+    #ifdef TIME_MODEL_UT1
+     ("default_data") time_converter_tai_ut1_default_data.initialize (
+                                                     &time_converter_tai_ut1);
+     P_TIME  ("initialization") time_manager.register_time ( time_ut1);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_tai_ut1);
+    #endif
+
+    #ifdef TIME_MODEL_TDB
+     P_TIME  ("initialization") time_manager.register_time ( time_tdb);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_dyn_tdb);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_tai_tdb);
+    #endif
+
+    #ifdef TIME_MODEL_TT
+     P_TIME  ("initialization") time_manager.register_time ( time_tt);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_tai_tt);
+    #endif
+
+    #ifdef TIME_MODEL_GMST
+     P_TIME  ("initialization") time_manager.register_time ( time_gmst);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_ut1_gmst);
+    #endif
+
+    #ifdef TIME_MODEL_GPS
+     P_TIME  ("initialization") time_manager.register_time ( time_gps);
+     P_TIME  ("initialization") time_manager.register_converter (
+                                                      time_converter_tai_gps);
+    #endif
+
+
+    P_TIME  ("initialization") time_manager.initialize ( &time_manager_init);
+
+    #ifdef TIME_CALENDAR_UPDATE_INTERVAL
+     // Initialization and scheduled jobs re calendar updates
+     // The UT1 and UTC calendar representations are initialized and updated
+     // at the TIME_CALENDAR_UPDATE_INTERVAL.
+     #ifdef TIME_MODEL_UTC
+      P_TIME ("initialization") time_utc.calendar_update (exec_get_sim_time());
+      (TIME_CALENDAR_UPDATE_INTERVAL, "environment") time_utc.calendar_update (
+                                                          exec_get_sim_time());
+     #endif
+     #ifdef TIME_MODEL_UT1
+      P_TIME ("initialization") time_ut1.calendar_update (exec_get_sim_time());
+      (TIME_CALENDAR_UPDATE_INTERVAL, "environment") time_ut1.calendar_update (
+                                                           exec_get_sim_time());
+     #endif
+    #endif
+
+
+    (DYNAMICS, "environment") time_manager.update ( exec_get_sim_time());
+  }
+
+ private:
+   JeodTimeSimObject (const JeodTimeSimObject&);
+   JeodTimeSimObject & operator = (const JeodTimeSimObject&);
+};
+#endif

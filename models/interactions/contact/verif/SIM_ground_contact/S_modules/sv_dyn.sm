@@ -1,0 +1,150 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//=============================================================================
+// SIM_OBJECT: SvDynSimObject
+//
+// This an S_define module (sm) that defines the generalized dynamics for a
+// space vehicle.  This module is intended to be included from the S_define
+// file with the following names defined:
+//      SvDynSimObject: Vehicle dynamics S_define name (i.e. altair_dyn)
+//    DYN_MNGR_NAME: Dynamics manager name (i.e. dynamics.manager)
+//
+// In addition to the data instance names, you will also have to have defined
+// following cycle times and phasing tags:
+//
+// Cycle Times:
+//    DYNAMICS: Vehicle and plantary dynamics interval
+//
+// Phases (should have phases that give the order below):
+//    P_MNGR: Dynamics manager phase
+//    P_ENV : Environment phase
+//    P_BODY: Orbital body phase
+//    P_DYN : Dynamics phase
+//
+//=============================================================================
+
+//Dependencies on the following sim objects:
+//  SvDynSimObject    :    sv_dyn
+//***************************************************************
+// CLASS: (SvDynSimObject)
+// PURPOSE:
+//  (sim_object)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "dynamics/dyn_body/include/dyn_body.hh"
+##include "dynamics/body_action/include/dyn_body_init_trans_state.hh"
+##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
+##include "dynamics/body_action/include/mass_body_init.hh"
+##include "dynamics/dyn_body/include/force.hh"
+##include "dynamics/dyn_body/include/torque.hh"
+##include "utils/surface_model/include/surface_model.hh"
+##include "utils/surface_model/include/facet_params.hh"
+##include "interactions/contact/include/contact_surface.hh"
+##include "interactions/contact/include/contact_surface_factory.hh"
+##include "utils/surface_model/include/facet.hh"
+##include "utils/surface_model/include/flat_plate_circular.hh"
+##include "utils/surface_model/include/cylinder.hh"
+##include "interactions/contact/include/contact_params.hh"
+##include "interactions/contact/include/spring_pair_interaction.hh"
+##include "environment/gravity/include/spherical_harmonics_gravity_controls.hh"
+
+class SvDynSimObject: public Trick::SimObject {
+
+   public:
+    jeod::DynBody       body;
+    jeod::DynBodyInitTransState   trans_init;
+    jeod::DynBodyInitRotState     rot_init;
+    jeod::MassBodyInit            mass_init;
+    jeod::Force                   force_extern;
+    jeod::Torque                  torque_extern;
+    jeod::SphericalHarmonicsGravityControls * grav_ctrl_ptr;
+    jeod::SphericalHarmonicsGravityControls  earth_grav_control;
+    jeod::SurfaceModel            surface_model;
+    jeod::FacetParams           * facet_params;
+    jeod::ContactSurface          contact_surface;
+    jeod::ContactSurfaceFactory   contact_surface_factory;
+    jeod::FlatPlateCircular     * flat_plate_circular;
+    jeod::Cylinder              * cylinder;
+    jeod::ContactParams         * contact_params;
+    jeod::SpringPairInteraction * spring_pair_interaction;
+    jeod::Facet                 * facet_ptr;
+    unsigned int            integer;
+
+// Instances for matching to other sim objects:
+    ContactSimObject      * internal_contact;
+    DynamicsSimObject     * internal_dynamics;
+
+//Constructor
+    SvDynSimObject(
+      ContactSimObject  & ext_contact,
+      DynamicsSimObject & ext_dynamics) {
+
+      internal_contact =     & ext_contact;
+      internal_dynamics =    & ext_dynamics;
+
+      //
+      //
+      // Dynamical propagation and initial state.
+      // Vehicle mass initialization parameters.
+      // Vehicle perturbation forces and torques.
+      //
+      // Initialization jobs
+      //
+      P_ENV ("initialization") body.initialize_model( internal_dynamics->dyn_manager );
+      P_BODY ("initialization") surface_model.initialize_mass_connections(
+                                                   internal_dynamics->dyn_manager );
+      P_BODY ("initialization") contact_surface_factory.create_surface(
+                                                   & surface_model,
+                                                   & contact_surface);
+      P_BODY  ("initialization") internal_contact->contact.register_contact(
+          contact_surface.contact_facets,
+          contact_surface.facets_size);
+      //
+      // Derivative class jobs
+      //
+      P_DYN ("derivative") contact_surface.collect_forces_torques();
+    }
+
+  private:
+    SvDynSimObject (const SvDynSimObject&);
+    SvDynSimObject & operator = (const SvDynSimObject&);
+
+};

@@ -1,0 +1,75 @@
+\test{Frame Switch}\label{test:frame_switch}
+\begin{description}
+\item[Background]
+A driving requirement for JEOD was to provide the ability to switch the
+reference frame in which a vehicle's state is integrated during the course of a
+simulation run. An Apollo-style mission was chosen as the reference mission for
+this capability. The vehicle's integration frame must be switched from
+Earth-centered to Moon-centered inertial to avoid an otherwise inevitable loss of
+accuracy in the integrated state somewhere along the translunar trajectory.
+
+\item[Test description]
+This test represents a 100 second interval of the translunar trajectory of the
+Apollo 8 mission near the point of the transition to the Moon's sphere of
+influence. The test verifies that the frame switching mechanisms maintain state
+to within numerical precision.
+
+\item[Test directory]
+{\tt models/dynamics/body\_action/verif/SIM\_frame\_switch} \\
+The simulation \Sdefine file defines a vehicle and three gravitational bodies,
+the Sun, Earth and Moon. Two input files are provided that
+have identical initial conditions. One 
+causes the vehicle to switch to Moon-centered inertial
+when the vehicle enters the Moon's gravitational sphere of influence;
+the other leaves the vehicle in Earth-centered inertial throughout.
+
+\item[Success criteria]
+The frame switch is to maintain a continuous state with respect to the common
+parent of the former and new integration frames. In the case of a switch from
+the Earth-centered inertial to Moon centered-inertial frames, this common
+parent is the Earth-Moon barycenter frame. The difference between the Earth-Moon
+barycenter relative states in the two runs must be attributable to numerical
+differences for the test to pass.
+
+\item[Test results]
+The transition from Earth-centered inertial to Moon-centered inertial occurs 45.5
+seconds into the simulation. At this time, the position and velocity vectors of
+the vehicle relative to the Earth-Moon barycenter are
+$[298463.448, -116959.258, -55769.040]$ km and
+$[0.934601239, -0.199088249, -0.297865412]$ km/s.
+The switched and unswitched runs show an exact match in position;
+the velocities differ in {\emph y} and {\emph z} by $5.7\eneg{17}$ km/s.
+These small differences are clearly numerical.
+
+The simulation ends 54.5 seconds later. At this time,
+the position and velocity vectors of
+the vehicle relative to the Earth-Moon barycenter are
+$[298514.379, -116970.107, -55785.274]$ km and
+$[0.934431436, -0.199064620, -0.297866911]$ km/s.
+The differences between the switched and unswitched runs at this point
+in time are
+$[1.1\eneg{8}, 4.3\eneg{9}, 1.1\eneg{9}]$ km and
+$[1.8\eneg{10}, -1.2\eneg{10}, -1.\eneg{10}]$ km/s.
+These differences are no longer purely numerical but are still quite small.
+Some of these small differences result from
+the way the simulation is constructed and used,
+but some result from the fact that at this stage a Moon-centered inertial
+frame is a better choice than an Earth-centered inertial frame.
+
+The test passes.
+
+\item[Applicable requirements]
+This test demonstrates the partial or complete satisfaction of the
+following requirements:
+\begin{itemize}
+\item \ref{reqt:integ_frame}. Demonstrating this capability
+is the primary purpose of this test.
+\item \ref{reqt:state_representation}. States are properly converted to
+the new integration frame.
+\item \ref{reqt:eom}. Accelerations are properly calculated
+in the new integration frame.
+\item \ref{reqt:state_integ_prop}. The equations of motion are properly
+integrated.
+\end{itemize}
+
+\end{description}

@@ -1,0 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Integration model executive summary
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Executive Summary}
+
+The \ModelDesc forms a component of the utilities suite of
+models within \JEODid. It is located at
+models/utils/integration.
+
+Propagating the evolution of a vehicle's translational and/or rotational
+state over the course of a simulation is an essential part of every
+space-based Trick simulation. The underlying equations of motion for this
+state propagation yield second order initial value problems.
+While analytic solutions do exist for a limited set of such problems,
+the complex and unpredictable nature of the forces and torques acting on a
+space vehicle precludes the use of analytic methods for a generic solution
+to these state propagation problems. Numerical integration techniques
+must be used to solve the problem.
+
+Performing this numerical integration is the primary goal of this model.
+Several such numerical integration techniques exist. Deciding which technique
+is best-suited for the problem at hand is a problem-dependent tradeoff
+between accuracy and computational cost. The \ModelDesc thus provides a
+variety of numerical integration techniques.
+
+\section*{Purpose}
+The \ModelDesc serves primarily as an interface to the standard integration
+techniques provided by the \erseven. The \ModelDesc also provides two special
+purpose integration techniques -- Gauss-Jackson and the Livermore Solver for
+Ordinary differential equations (LSODE). These techniques are intended to
+propagate translational state over long time steps as might be
+desired for interplanetary vehicles or other situations for which the
+environmental forces are well known.
+
+LSODE is an adaptive technique which determines its optimal step size.
+Gauss-Jackson is a conventional fixed step size technique which
+bootstraps itself from a step consistent with familiar methods such as RK4 to
+a far larger step by means of a doubling strategy. Both LSODE and
+Gauss-jackson require some level of configuration, however,
+default settings are provided which will suffice in most cases.

@@ -1,0 +1,31 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Abstract for the Reference Frame Model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+For a vehicle in orbit, there are many interrelated reference frames
+that can be defined, often with respect to one another. Inertial frames,
+planet fixed frames, vehicle body frames, and vehicle structural frames
+are all important concepts when modeling a vehicle in planetary orbit.
+Additionally, knowledge of the state of the vehicle, often with respect
+to many interrelated reference frames, is critical to successful modeling
+of the vehicle dynamics.
+
+The JEOD \refframesDesc\ provides a structure for specifying
+trees of reference frames, as well as the relative states between them.
+Additionally, this model contains the tools for iterating over
+a generic tree
+structure, which allows for implementation of common tree algorithms
+over other models.
+
+Additionally, the \refframesDesc\ also provides a Reference Frame Manager class, used
+to perform common Reference Frame related tasks, such as registering and searching
+for reference frames, building a reference frame tree, and interacting with the reference
+frame subscription functionality.
+
+\end{abstract}

@@ -1,0 +1,118 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% overview_intro.tex
+% Intro chapter of the overview part of the Body Action Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}\hyperdef{part}{intro}{}
+\label{ch:overview:intro}
+
+\section{Purpose and Objectives of the \ModelDesc}
+\label{sec:overview:purp}
+The \ModelDesc comprises several classes that provide various mechanisms
+for setting aspects of instances of the MassBody and DynBody class and
+ their derived classes.
+The provided capabilities include:
+\begin{itemize}
+\item Setting the mass properties of a MassBody object,
+\item Attaching and detaching MassBody or DynBody objects to/from one another,
+\item Setting the state of a DynBody object, and
+\item Changing the frame in which a DynBody object's state is propagated.
+\end{itemize}
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item \hyperJEOD
+\end{itemize}
+
+The \ModelDesc forms a component of the dynamics suite of
+models within \JEODid. It is located at
+models/dynamics/body\_action.
+
+
+\input{change_history}
+
+
+\section{Documentation Organization}
+\label{sec:overview:docorg}
+This document is formatted in accordance with the
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}.
+
+The document comprises several parts:
+\begin{description}
+\item[Overview]
+This first part of the document provides an
+overview of the \ModelDesc.
+\item[BodyAction]
+Part \ref{part:BodyAction} describes the class BodyAction, the
+base class for the \ModelDesc.
+Each subsequent part describes a collection of related classes
+that derive from this base class.
+\item[MassBodyInit]
+Part \ref{part:MassBodyInit} describes the class MassBodyInit, which
+initializes the mass properties and mass points of a MassBody object.
+\item[Attach/Detach]
+Part \ref{part:BodyAttach_Detach} describes the classes that cause
+MassBody and DynBody objects to attach to and detach from one another.
+\item[DynBodyInit]
+Part \ref{part:DynBodyInit} describes the class DynBodyInit and its
+derived classes, which initializes the state of a DynBody object.
+\item[FrameSwitch]
+Part \ref{part:DynBodyFrameSwitch} describes the class DynBodyFrameSwitch,
+which switches the frame in which a DynBody object's state is propagated.
+\end{description}
+
+Each part is organized into a similar structure, comprising the following
+chapters in order:
+
+\begin{description}
+\item[Introduction] -
+This introduction describes the objective and purpose of the \ModelDesc. The
+introductions for subsequent parts describe the objective and purpose of
+the classes that are the subject of that part. To avoid undo repetition, the
+introductory chapters of the subsequent parts are of an abbreviated nature.
+
+\item[Product Requirements] -
+The requirements chapter in this overview part of the document describes
+the requirements on the \ModelDesc as a whole.
+The requirements chapters of subsequent parts describe the requirements
+that pertain to the classes that are the subject of that specific part.
+
+\item[Product Specification] -
+The specification chapter in this overview part of the document describes
+the architecture and design of the \ModelDesc as whole.
+Where applicable,
+The specification chapter in the subsequent parts describes the underlying
+theory, architecture, and design of the subject classes of the part in detail.
+Where applicable,
+the product specification chapters are organized into sections
+as follows:
+\begin{itemize}
+ \item Conceptual Design.
+ \item Mathematical Formulations (where applicable).
+ \item Detailed Design.
+ \item Version Inventory (Part I - Overview only).
+\end{itemize}
+
+
+\item[User Guide] -
+Describes how to use the \ModelDesc as a whole (this part) /
+sub-models (subsequent parts).
+Where applicable,
+the User Guide chapters are organized into sections
+that represent the following JEOD-defined user types:
+\begin{itemize}
+ \item Analysts or users of simulations (Analysis).
+ \item Integrators or developers of simulations (Integration).
+ \item Model Extenders (Extension).
+\end{itemize}
+
+\item[Inspection, Verification, and Validation] -
+The inspection, verification, and validation (IV\&V) chapter
+in this overview part of the document
+shows the traceability of the high-level requirements to the sub-model
+detailed requirements.
+The IV\&V chapters in the subsequent parts describes
+the verification and validation procedures and results for the subject
+classes of the part.
+\end{description}

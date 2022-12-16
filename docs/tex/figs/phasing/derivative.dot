@@ -1,0 +1,54 @@
+digraph G {
+   label = "Trick Derivative Job Dependencies";
+   compound = true;
+   center=true;
+   style=rounded;
+   color=white;
+   pencolor=black;
+
+   node [fontname="Helvetica",fontsize=11];
+   edge [fontname="Helvetica",fontsize=11,arrowhead=vee];
+
+   subgraph cluster_P_BODY {
+      label = "P_BODY";
+      labeljust = l;
+      // Nodes
+      AerodynamicDrag__aero_drag [label="AerodynamicDrag::aero_drag"];
+   }
+
+   DynManager__compute_derivatives [label="DynManager::compute_derivatives"];
+   
+   subgraph cluster_P_ENV {
+      label = "P_ENV";
+      labeljust = l;
+      // Nodes
+      RNPJ2000__update_axial_rotation [label="RNPJ2000::update_axial_rotation"];
+   }
+
+   subgraph cluster_grav {
+      label = "";
+      subgraph cluster_P_GRAV {
+	 label = "P_GRAV";
+         labeljust = l;
+	 // Nodes
+	 DynManager__gravitation [label="DynManager::gravitation"];
+      }
+      subgraph cluster_P_PGRAV {
+	 label = "P_PGRAV";
+         labeljust = l;
+	 // Nodes
+	 GravityTorque__update [label="GravityTorque::update"];
+      }
+      pencolor=white;
+   }
+   {rank="same"; DynManager__gravitation;};
+
+   // Edges
+   GravityTorque__update -> DynManager__compute_derivatives;
+   RNPJ2000__update_axial_rotation -> DynManager__compute_derivatives;
+   AerodynamicDrag__aero_drag -> DynManager__compute_derivatives;
+   DynManager__gravitation -> GravityTorque__update;
+
+
+
+}

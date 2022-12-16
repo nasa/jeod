@@ -1,0 +1,259 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Top level document for \RadiationPressureDesc.  DO NOT EDIT!!!
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the AMS math package
+%
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the common math nomenclature
+%
+\usepackage{dynmath}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{radiation_pressure}
+
+%
+% Bring in the graphics environment
+%
+%\usepackage{graphicx}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+%
+% Bring in listing environment
+%
+%\usepackage{paralist}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\RadiationPressureDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\RadiationPressureDesc}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{models/interactions/radiation\_pressure}
+\docrev{1.1.1}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\RadiationPressureDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{RadiationPressureAbstract}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \RadiationPressureDesc}
+\input{RadiationPressureIntroduction}
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item{\href{file:\JEODHOME/docs/JEOD.pdf}
+           {\em JSC Engineering Orbital Dynamics}}
+			  \cite{dynenv:JEOD}
+\end{itemize}
+
+The \RadiationPressureDesc\ forms a component of the \ModelClass\ suite of
+models within \JEODid. It is located at
+models/\ModelClass/RadiationPressure. It relies on functionality provided as
+part of the
+\href{file:\JEODHOME/models/interactions/thermal_rider/docs/thermal_rider.pdf}{\em
+Thermal-Rider} model~\cite{dynenv:THERMALRIDER} and the
+\href{file:\JEODHOME/models/utils/surface_model/docs/surface_model.pdf}{Surface
+Model}~\cite{dynenv:SURFACEMODEL}.
+
+\section{Documentation History}
+\input{RadiationPressureIntro_change_history}
+
+
+\section{Documentation Organization}
+This document is formatted in accordance with the
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] -
+This introduction contains four sections: objective and purpose,
+context within JEOD, document history, and document organization.
+
+\item[Chapter 2: Product Requirements] -
+Describes requirements for the \RadiationPressureDesc.
+
+\item[Chapter 3: Product Specification] -
+Describes the underlying theory, architecture, and design of the
+\RadiationPressureDesc\ in detail.  It will be organized in
+four sections: Conceptual Design, Mathematical Formulations, Detailed
+Design, and Version Inventory.
+
+\item[Chapter 4:  User Guide] -
+Describes how to use the \RadiationPressureDesc\ in a Trick simulation.  It
+is broken into three sections to represent the JEOD
+defined user types: Analysts or users of simulations (Analysis),
+Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -
+Contains \RadiationPressureDesc\ verification and validation procedures and
+results.
+
+\end{description}
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+
+\section{Modeling Requirements}
+
+\requirement{Top-level requirement}
+\label{reqt:top_level}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}~\cite{dynenv:JEOD}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum,  meet all external and
+  internal requirements
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+  Inspection \vref{inspect:top_level}
+\end{description}
+
+\input{RadiationPressureReqt}
+\input {RadiationPressureReqt_trace}
+
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{RadiationPressureSpec_Concept}
+%\section{Mathematical Formulations}
+\include{RadiationPressureSpec_Math}
+%\section{Detailed Design}
+\include{RadiationPressureSpec_Detail}
+%\section{Version Inventory}
+\include{RadiationPressureSpec_Inventory}
+
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+The Analysis section of the User Guide is intended primarily for
+users of preexisting simulations.
+It contains:
+\begin{itemize}
+\item a description of how to modify \RadiationPressureDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file,
+\item an overview of how to interpret (but not edit) the S\_define
+file,
+\item a sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section is intended for simulation
+developers.
+It describes the necessary configuration of the \RadiationPressureDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:spec}).
+
+The Extension section is intended primarily for
+developers
+needing to extend the capability of the \RadiationPressureDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:spec}).
+
+
+\section{Analysis}
+\input{RadiationPressureUser_Analysis}
+
+%\section{Integration}
+\include{RadiationPressureUser_Integration}
+
+%\section{Extension}
+\include{RadiationPressureUser_Extension}
+
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+\input{RadiationPressureVV_Verif}
+
+%\section{Validation}
+\include{RadiationPressureVV_Valid}
+
+\include{RadiationPressureVV_Metrics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,RadiationPressure}
+\bibliographystyle{plain}
+
+%\pagebreak
+%\appendix
+
+\end{document}

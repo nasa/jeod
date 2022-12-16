@@ -1,0 +1,75 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+% Change time to package name. Change date and version to reflect updates.
+%  (this may be done in compy_templates)
+\ProvidesPackage{time}[2006/07/26 v1.1 time module macros]
+
+
+% Package options. Change time to the value of \modelprefix (see below).
+%  (this may be done in copy_templates)
+\newif\iftimeReqt@
+\newif\iftimeIVV@
+\DeclareOption{Reqt}{\timeReqt@true}
+\DeclareOption{IVV}{\timeIVV@true}
+\ProcessOptions\par
+
+% Include requirement labels if requested
+\iftimeReqt@
+\input{timeReqt.def}
+\fi
+
+% Include IV&V labels if requested
+\iftimeIVV@
+\input{timeIVV.def}
+\fi
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+% Define any other model-specific LaTeX commands here.
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+% THE time PREFIX MUST CONTAIN ONLY LETTERS.
+% Examples: TIME for the universal time package, MASS for the mass tree.
+\newcommand\modelprefix{time}
+% \timeDesc should be changed to a short acronym for the model, this may be
+% done in copy_templates
+% {MODEL DESCRIPTION} should be changed to the full name of the model.  
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").  
+%   The name should be a singular, not plural value, e.g. "Reference Frame Model", 
+%   not "Reference Frames" (same example).
+\newcommand{\timeDesc}{Time Representations Model}
+\newcommand{\ModelAuthor}{Gary Turner}
+\newcommand{\ModelAuthDate}{July, 2009}
+\newcommand{\ModelClass}{environment} 
+%dynamics, environment, interactions, utils
+
+\newcommand{\ModelEdits}{Initial Version}
+
+% for all editors; add keywords as necessary.
+\newcommand{\ModelKeywords}{\timeDesc}
+
+
+\setcounter{secnumdepth}{4}
+\renewcommand\thesection{\thechapter.\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\alph{subsubsection}}
+\renewcommand\theparagraph{\thesubsubsection.\roman{paragraph}}
+
+\newcommand \funcitem[1]{\item{\textbf{#1}} \par}
+\newcommand \classitem[1]{\item{\textbf{Class: #1}} \ \ \ \ \ \ \ \ \ \ \ {\bf
+ Inheritance:}}
+
+\usepackage{varioref}
+%\renewcommand\reftextcurrent{on this page}
+\newcommand \reftext[2]{\textit {#1} (\vpageref*{#2})}
+\newcommand \textref[2]{\textit {#1} (\vpageref*{#2})}

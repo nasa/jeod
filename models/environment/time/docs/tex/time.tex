@@ -1,0 +1,243 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Top level document for \timeDesc.  DO NOT EDIT!!!
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the AMS math package
+%
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{time}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\timeDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\timeDesc}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{models/environment/time}
+\docrev{1.2.2}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\timeDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{timeAbstract}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \timeDesc}
+\input{timeIntroduction}
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item{\href{file:\JEODHOME/docs/JEOD.pdf}
+           {\em JSC Engineering Orbital Dynamics}}
+			  \cite{dynenv:JEOD}
+\end{itemize}
+
+The \timeDesc\ forms a component of the \ModelClass\ suite of
+models within \JEODid. It is located at
+models/\ModelClass/time.
+
+\section{Documentation History}
+\input{timeIntro_change_history}
+
+
+\section{Documentation Organization}
+This document is formatted in accordance with the
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] --
+This introduction contains four sections: purpose and objective,
+context within JEOD, document history, and document organization.
+
+\item[Chapter 2: Product Requirements] --
+Describes requirements for the \timeDesc.
+
+\item[Chapter 3: Product Specification] --
+Describes the underlying theory, architecture, and design of the
+\timeDesc\ in detail.  It will be organized in
+four sections: Conceptual Design, Mathematical Formulations, Detailed
+Design, and Version Inventory.
+
+\item[Chapter 4:  User Guide] --
+Describes how to use the \timeDesc\ in a Trick simulation.  It
+is broken into three sections to represent the JEOD
+defined user types; Analysts or users of simulations (Analysis),
+Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] --
+Contains \timeDesc\ verification and validation procedures and
+results.
+
+\end{description}
+
+
+
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+\requirement{Top-level requirement}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum,  meet all external and internal requirements
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+     Inspection \vref{inspect:TLI}.
+\end{description}
+
+
+\input{timeReqt}
+\input{timeReqt_trace}
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{timeSpec_Concept}
+%\section{Mathematical Formulations}
+\include{timeSpec_Math}
+%\section{Detailed Design}
+\include{timeSpec_Detailed}
+%\section{Version Inventory}
+\include{timeSpec_Inventory}
+
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+The User Guide is divided into 3 components, one for each of three
+different types of user.
+
+The Analysis section of the user guide is intended primarily for
+users of preexisting simulations.
+It comprises the following elements:
+\begin{itemize}
+\item A description of how to modify \timeDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file;
+\item An overview of how to interpret (but not edit) the S\_define
+file;
+\item A sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section is intended for simulation
+developers.
+It describes the necessary configuration of the \timeDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section of the user guide.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:spec}), or to examples in the tutorial or
+Verification and Validation chapter (Chapter \ref{ch:ivv}).
+
+The Extension section is intended primarily for
+developers
+needing to extend the capability of the \timeDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:spec}).
+
+
+\section{Analysis}
+\input{timeUser_Analysis}
+
+%\section{Integration}
+\include{timeUser_Integration}
+
+%\section{Extension}
+\include{timeUser_Extension}
+
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+\input{timeVV_Verif}
+
+%\section{Validation}
+\include{timeVV_Valid}
+
+\include{timeVV_Metrics}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,time}
+\bibliographystyle{plain}
+
+%\pagebreak
+%\appendix
+
+\end{document}

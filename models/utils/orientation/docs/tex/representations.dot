@@ -1,0 +1,25 @@
+digraph G {
+   compound=true;
+   node [fontname="Helvetica",fontsize=11];
+   edge [fontname="Helvetica",fontsize=11,arrowhead=vee];
+
+   matrix; quaternion; eigen; euler;
+   {rank=same; quaternion; matrix};
+   {rank=same; eigen; euler};
+   // {rank=same; quaternion; eigen};
+   // {rank=same; matrix; euler};
+
+   quaternion -> {matrix; eigen} [style=dotted];
+   quaternion -> eigen [style=invis,weight=10];
+   eigen -> matrix [minlen=1.5];
+   euler -> matrix [minlen=1];
+   euler -> quaternion;
+   matrix -> quaternion [style=dotted,minlen=2];
+   eigen -> quaternion [style=dotted,minlen=1.5];
+   matrix -> {eigen; euler} [minlen=1.5];
+
+   matrix [label="Transformation\nMatrix"];
+   quaternion [label="Left Transformation\nQuaternion"];
+   eigen [label="Eigen\nRotation"];
+   euler [label="Euler\nRotation"];
+}

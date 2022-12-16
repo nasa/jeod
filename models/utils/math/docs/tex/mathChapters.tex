@@ -1,0 +1,1182 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+
+\section{Model Description}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this 
+%%% model exists.
+%%% Identify the Model context within JEOD.
+
+This documentation describes the design and testing of matrix and vector
+math routines in the JSC Engineering Orbital 
+Dynamics (JEOD) \mathDesc.  These routines 
+are derived from well-known rules and operators of linear algebra.
+
+Included in this documentation are validation 
+cases that describe tests done on the algorithms to verify that 
+they are working correctly and computing the correct values for given 
+input data.
+
+There is also a User Guide which describes how to incorporate the above 
+mentioned routines as part of a Trick simulation.
+
+The parent document to this model document is the
+JEOD Top Level Document~\cite{dynenv:JEOD}.
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when 
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this section.
+%%% Mention that JEOD.pdf is the parent document.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+
+\section{Document Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE} 
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] - 
+This introduction contains three sections: description of model, document history, and organization.  
+The first section provides the introduction to the \mathDesc\ and its reason 
+for existence.  It contains a brief description of the interconnections with other models, and 
+references to any supporting documents. It also lists the document that is parent to this one.
+The second section displays the history of this document which includes
+author, date, and reason for each revision.  The final
+section contains a description of the how the document is organized.
+
+\item[Chapter 2: Product Requirements] - 
+Describes requirements for the \mathDesc.
+
+\item[Chapter 3: Product Specification] - 
+Describes the underlying theory, architecture, and design of the \mathDesc\ in detail.  It is organized in 
+three sections: Conceptual Design, Mathematical Formulations, and Detailed Design.
+
+\item[Chapter 4: User Guide] - 
+Describes how to use the \mathDesc\ in a Trick simulation.  It is broken into three sections to represent the JEOD 
+defined user types: Analysts or users of simulations (Analysis), Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -  
+Contains \mathDesc\ verification and validation procedures and results.
+
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+The \mathDesc\ shall meet the JEOD project requirements specified in the 
+JEOD Top Level Document~\cite{dynenv:JEOD}.
+
+\requirement{Matrix Math Operations}
+\label{reqt:matrix_math_operations}
+\begin{description}
+\item[Requirement:]\ \newline
+The \mathDesc\ shall be capable of performing common matrix operations on 
+3x3 matrices. The operations shall include:
+
+   \subrequirement{}
+   Matrix Nullification
+
+   \subrequirement{}
+   Skew Symmetric Cross Product
+
+   \subrequirement{}
+   Matrix Outer Product
+
+   \subrequirement{}
+   Matrix Multiplication
+
+   \subrequirement{}
+   Matrix Addition
+
+   \subrequirement{}
+   Matrix Subtraction
+
+   \subrequirement{}
+   Matrix Transposition
+
+   \subrequirement{}
+   Matrix Inversion
+
+   \subrequirement{}
+   Various combinations of the operations listed above that are commonly
+   used in aerospace simulations.
+
+\item[Rationale:]\ \newline
+3x3 matrices are very common in aerospace simulations.  There are also many
+common required matrix math operations. For ease of programming
+and speed of computation, a pre-established ``library" of matrix math functions
+is necessary.
+
+\item[Verification:]\ \newline
+Test
+
+\end{description}
+
+
+
+\requirement{Vector Math Operations}
+\label{reqt:vector_math_operations}
+\begin{description}
+\item[Requirement:]\ \newline
+The \mathDesc\ shall be capable of performing common vector operations on 
+3x1 (or 1x3) vectors. The operations shall include:
+
+   \subrequirement{}
+   Vector Normalization
+
+   \subrequirement{}
+   Vector Cross Product
+
+   \subrequirement{}
+   Vector Inner Product (Dot Product)
+
+   \subrequirement{}
+   Vector Magnitude
+
+   \subrequirement{}
+   Vector Addition
+
+   \subrequirement{}
+   Vector Subtraction
+
+   \subrequirement{}
+   Various combinations of the operations listed above that are commonly
+   used in aerospace simulations.
+
+\item[Rationale:]\ \newline
+3x1 vectors are very common in aerospace simulations.  There are also many
+common required vector math operations. For ease of programming
+and speed of computation, a pre-established ``library" of vector math functions
+is necessary.
+
+\item[Verification:]\ \newline
+Test
+
+\end{description}
+
+%%% Format for the model Requirements is open.  It should include requirements for this model 
+%%% only and use requirment tags like the one below.
+%\requirement{...}
+%\label{reqt:...}
+%\begin{description}
+%  \item[...]\ \newline
+%    The documentation for the model shall include
+%
+%    \subrequirement{}
+%    \label{reqt:...}
+%      Software requirements specification.
+%      
+%    ...
+%   
+%  \item[title]\ \newline
+%    text
+%
+%  ...
+%
+%\end{description}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+The \mathDesc\ is a collection of functions that peform common matrix and vector
+operations for aerospace simulations.  The functions are based on well-known
+rules and operations of linear algebra.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mathematical Formulations}
+The mathematical operations (or functions) used in the \mathDesc\ are based 
+on common matrix and vector operations.  The rules for these operations can 
+be found in a variety of math texts (e.g., Kreyszig ~\cite{kreyszig1997}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Detailed Design}
+The \mathDesc\ functions are designed to be called by other JEOD functions.  They
+are not intended to be called from the S\_define level.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+Three types of JEOD users are described in the model documents.  However, the only
+type of user who can manipulate the \mathDesc\ are model Extenders.  Therefore,
+Analysts and Integrators are not addressed in this particular user guide.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analysis}
+(The \mathDesc\ functions are not intended for use at the simulation analyst/user level.
+Therefore, this section is not applicable.)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Integration}
+(The \mathDesc\ functions are not intended for use at the simulation integrator level.
+Therefore, this section is not applicable.)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extension}
+
+\subsection{Matrix Functions}
+In order to use the \mathDesc\ matrix functions, the following line must be included in the
+file of the calling function:
+\begin{verbatim}
+#include "utils/math/include/matrix3x3.hh"
+\end{verbatim}
+
+An example call to the matrix function {\it copy} is:
+\begin{verbatim}
+Matrix3x3::copy(subject_body->composite_properties.inertia, inertia);
+\end{verbatim}
+
+The matrix functions available in the \mathDesc\ are listed below.  The equivalent math
+expression is shown along with a brief explanation, if necessary. Overloading has been used
+to repeat some function names. Note that all matrices are assumed to be 3x3. \newline\newline
+
+
+
+\begin{description}
+  \item[initialize, $A \leftarrow null$ (all elements of 3x3 $null$ matrix are zero)]\ \newline
+
+  \item[identity, $A\leftarrow I$ ($I$ is the 3x3 identity matrix)]\ \newline
+
+  \item[cross\_matrix, $A\leftarrow \tilde{v} $]\ (returns skew symmetric cross product matrix from input vector $\bar{f}$)\newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     0   & -f_3 &  f_2 \\
+     f_3 &  0   & -f_1 \\
+    -f_2 &  f_1 &  0   \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[outer\_product, $A\leftarrow \bar{f}\otimes\bar{g}$]\ (returns outer product of two input vectors $\bar{f}$ and$\bar{g}$)\newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     f_1g_1 & f_1g_2 & f_1g_3 \\
+     f_2g_1 & f_2g_2 & f_2g_3 \\
+     f_3g_1 & f_3g_2 & f_3g_3 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[negate (in place), $A\leftarrow(-A)$]\ \newline
+
+  \item[negate, $A\leftarrow (-B)$]\ \newline
+
+  \item[transpose (in place), $A\leftarrow A^T$]\ \newline
+
+  \item[transpose, $A\leftarrow B^T$]\ \newline
+
+  \item[scale (in place), $A\leftarrow sA$ ($s$ is a scalar)]\ \newline
+
+  \item[scale, $A\leftarrow sB$ ($s$ is a scalar)]\ \newline
+
+  \item[incr (in place), $A\leftarrow A + C$ ($C$ is a 3x3 matrix of constants)]\ \newline
+
+  \item[decr (in place), $A\leftarrow A - C$ ($C$ is a 3x3 matrix of constants)]\ \newline
+
+  \item[copy, $A \leftarrow B$]\ \newline
+
+  \item[add, $A \leftarrow B+C$]\ \newline
+
+  \item[subtract, $A \leftarrow B-C$]\ \newline
+
+  \item[product, $A \leftarrow BC$]\ \newline
+
+  \item[product\_left\_transpose, $A \leftarrow B^TC$]\ \newline
+
+  \item[product\_right\_transpose, $A \leftarrow BC^T$]\ \newline
+
+  \item[product\_transpose\_transpose, $A \leftarrow B^T C^T$]\ \newline
+
+  \item[transform\_matrix, $A \leftarrow BCB^T$]\ (i.e., {\it similarity transformation})\newline
+
+  \item[transpose\_transform\_matrix, $A \leftarrow B^T CB$]\ \newline
+
+  \item[invert, $A \leftarrow B^{-1}$]\ \newline
+
+  \item[invert\_symmetric, $A \leftarrow B^{-1}$ ($B$ is symmetric)]\ \newline
+
+  \item[print]\ (Prints matrix to standard output.)\newline
+
+\end{description}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vector Functions}
+In order to use the \mathDesc\ vector functions, the following line must be included in the
+file of the calling function:
+\begin{verbatim}
+#include "utils/math/include/vector3.hh"
+\end{verbatim}
+
+An example call to the vector function {\it transform\_transpose} is:
+\begin{verbatim}
+Vector3::transform_transpose (subject_body->composite_body.state.rot.T_parent_this,torque);
+\end{verbatim}
+
+The vector functions available in the \mathDesc\ are listed below.  The equivalent math
+expression is shown along with a brief explanation, if necessary. Overloading has been used
+to repeat some function names. Note that all vectors are assumed to be of dimension three. \newline\newline
+
+
+\begin{description}
+  \item[initialize, $\bar{A}\leftarrow null$ (all elements of $null$ vector are zero)]\ \newline
+
+  \item[unit, $\bar{A}\leftarrow \hat{B}$]\ (returns 1.0 for only one user selected vector element, the
+   other two elements are returned equal to 0.0) \newline
+
+  \item[fill]\ (returns matrix with each element equal to user defined input scalar) \newline
+
+  \item[zero\_small]\ (return 0.0 for each element that has an absolute value less than a user specified limit)\newline
+
+  \item[copy, $\bar{A} \leftarrow \bar{B}$]\ \newline
+
+  \item[dot, $A \leftarrow B \cdot C$]\ (vector dot product) \newline
+
+  \item[vmagsq, $A \leftarrow |B|^2$]\ (returns a scalar)\newline
+
+  \item[vmag, $A \leftarrow |B|$]\ (returns a scalar)\newline
+
+  \item[normalize (in place), $\hat{A} \leftarrow \bar{A}/|\bar{A}|$]\ \newline
+
+  \item[normalize, $\hat{A} \leftarrow \bar{B}/|\bar{B}|$]\ \newline
+
+  \item[scale (in place), $\bar{A} \leftarrow b\bar{A}$]\ \newline
+
+  \item[scale, $\bar{A} \leftarrow s\bar{B}$]\ \newline
+
+  \item[negate (in place), $\bar{A} \leftarrow -\bar{A}$]\ \newline
+
+  \item[negate, $\bar{A} \leftarrow  -\bar{B}$]\ \newline
+
+  \item[transform (in place), $\bar{A} \leftarrow T\bar{A}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+  \item[transform, $\bar{A} \leftarrow T\bar{B}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+  \item[transform\_transpose (in place),  $\bar{A} \leftarrow T^T\bar{A}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+  \item[transform\_transpose,  $\bar{A} \leftarrow T^T\bar{B}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+  \item[incr, $\bar{A} \leftarrow \bar{A}+\bar{C}$]\ \newline
+
+  \item[incr, $\bar{A} \leftarrow \bar{A}+\bar{C_1}+\bar{C_2}$]\ \newline
+
+  \item[decr, $\bar{A} \leftarrow \bar{A}-\bar{C}$]\ \newline
+
+  \item[decr, $\bar{A} \leftarrow \bar{A}-\bar{C}+\bar{D}$]\ \newline
+
+  \item[sum, $\bar{A} \leftarrow \bar{B}+\bar{C}$]\ \newline
+
+  \item[sum, $\bar{A} \leftarrow \bar{B}+\bar{C}+\bar{D}$]\ \newline
+
+  \item[diff, $\bar{A} \leftarrow \bar{B}-\bar{C}$]\ \newline
+
+  \item[cross, $\bar{A} \leftarrow \bar{B}\times\bar{C}$]\ \newline
+
+  \item[scale\_incr, $\bar{A} \leftarrow \bar{A}+s\bar{B}$]\ \newline
+
+  \item[scale\_decr, $\bar{A} \leftarrow \bar{A}-s\bar{B}$]\ \newline
+
+  \item[cross\_incr, $\bar{A} \leftarrow \bar{A} + \bar{B}\times\bar{C}$]\ \newline
+
+  \item[cross\_decr, $\bar{A} \leftarrow \bar{A} - \bar{B}\times\bar{C}$]\ \newline
+
+  \item[transform\_incr, $A\leftarrow\bar{A}+T\bar{B}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+  \item[transform\_decr, $A\leftarrow\bar{A}-T\bar{B}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+  \item[transform\_transpose\_incr, $\bar{A}\leftarrow\bar{A}+T^T\bar{B}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+  \item[transform\_transpose\_decr, $\bar{A}\leftarrow\bar{A}-T^T\bar{B}$ ($T$ is 3x3 transformation matrix)]\ \newline
+
+\end{description}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}\label{sec:verif}
+(No verification tests were performed on the \mathDesc\ functions.)
+
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy  
+% requirement \ref{reqt:<label>}.
+
+
+
+
+%made up point mass model for planet and spacecraft. Show the I matrix.  Show the list of 
+%test point locations, the torques and the test results.
+
+%show the equation for point mass toque.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Validation}\label{sec:valid}
+%%% code imported from old template structure
+%\test{<Title>}\label{test:<label>}
+%\begin{description}
+%\item[Purpose:] \ \newline
+%<description>
+%\item[Requirements:] \ \newline
+%By passing this test, the universal time module 
+%partially satisfies requirement~\ref{reqt:<label1>} and 
+%completely satisfies requirement~\ref{reqt:<label2>}.
+%\item[Procedure:]\ \newline
+%<procedure>
+%\item[Results:]\ \newline
+%<results>
+%\end{description}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\test{Matrix Math}\label{test:matrix_math}
+
+To validate the \mathDesc\ matrix functions, 3x3 test matrices were
+built and sent to the various functions. The results were compared to
+the same operation(s) performed in Matlab.  
+
+The test matrices used were:
+\begin{equation}\nonumber
+A = \left[
+\begin{array}{rrr}
+ 7 &  8 &  2 \\
+-1 &  5 & -3 \\
+ 6 &  4 & -7 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+B = \left[
+\begin{array}{rrr}
+ 5 & -3 &  6 \\
+-3 &  7 &  4 \\
+ 6 &  4 & -8 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+C = \left[
+\begin{array}{rrr}
+ 1 & 2 & 3 \\
+ 4 & 5 & 6 \\
+ 7 & 8 & 9 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+f = \left[
+\begin{array}{r}
+ 2 \\
+-3 \\
+ 8 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+g = \left[
+\begin{array}{r}
+  7 \\
+  2 \\
+ -1 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+s = 3
+\end{equation}
+
+
+
+{\bf Results}
+\begin{description}
+  \item[initialize, $A \leftarrow null$]\ \newline
+   \begin{equation}\nonumber
+   A = \left[
+   \begin{array}{rrr}
+    0 & 0 & 0 \\
+    0 & 0 & 0 \\
+    0 & 0 & 0 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[identity, $A\leftarrow I$]\ \newline
+   \begin{equation}\nonumber
+   A = \left[
+   \begin{array}{rrr}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[cross\_matrix, $A\leftarrow \tilde{f} $]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     0   & -8 & -3 \\
+     8   &  0 & -2 \\
+     3   &  2 &  0 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[outer\_product, $A\leftarrow \bar{f}\otimes\bar{g}$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     14 &  4  & -2 \\
+    -21 & -6  &  3 \\
+     56 &  16 & -8 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[negate (in place), $A\leftarrow(-A)$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+    -7 & -8  & -2 \\
+     1 & -5  &  3 \\
+    -6 & -4  &  7 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[negate, $A\leftarrow (-B)$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+    -5 &  3  & -6 \\
+     3 & -7  & -4 \\
+    -6 & -4  &  8 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[transpose (in place), $A\leftarrow A^T$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     7 & -1  &  6 \\
+     8 &  5  &  4 \\
+     2 & -3  & -7 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[transpose, $A\leftarrow B^T$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     5 & -3  &  6 \\
+    -3 &  7  &  4 \\
+     6 &  4  & -8 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[scale (in place), $A\leftarrow sA$ ($s$ is a scalar)]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     21 &  24 &  6  \\
+    -3  &  15 & -9  \\
+     18 &  12 & -21 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[scale, $A\leftarrow sB$ ($s$ is a scalar)]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     15 &  -9 &  18 \\
+    -9  &  21 &  12 \\
+     18 &  12 & -24 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[incr (in place), $A\leftarrow A + C$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     8  &  10 &  5 \\
+     3  &  10 &  3 \\
+     13 &  12 &  2 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[decr (in place), $A\leftarrow A - C$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     6  &   6  &   -1 \\
+    -5  &   0  &   -9 \\
+    -1  &  -4  &  -16 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[copy, $A \leftarrow B$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     5  &  -3  &  6 \\
+    -3  &   7  &  4 \\
+     6  &   4  & -8 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[add, $A \leftarrow B+C$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     6  &  -1  &  9 \\
+     1  &  12  & 10 \\
+    13  &  12  &  1 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[subtract, $A \leftarrow B-C$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     4  &  -5  &   3 \\
+    -7  &   2  &  -2 \\
+    -1  &  -4  & -17 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[product, $A \leftarrow BC$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     35  &  43  &  51 \\
+     53  &  61  &  69 \\
+    -34  & -32  & -30 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[product\_left\_transpose, $A \leftarrow B^TC$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     35  &  43  &  51 \\
+     53  &  61  &  69 \\
+    -34  & -32  & -30 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[product\_right\_transpose, $A \leftarrow BC^T$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     17  &  41  &  65 \\
+     23  &  47  &  71 \\
+    -10  &  -4  &   2 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[product\_transpose\_transpose, $A \leftarrow B^T C^T$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     17  &  41  &  65 \\
+     23  &  47  &  71 \\
+    -10  &  -4  &   2 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[transform\_matrix, $A \leftarrow BCB^T$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     352  &  400  &  -26 \\
+     496  &  544  &   10 \\
+    -254  & -242  &  -92 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[transpose\_transform\_matrix, $A \leftarrow B^T CB$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     352  &  400  &  -26 \\
+     496  &  544  &   10 \\
+    -254  & -242  &  -92 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[invert, $A \leftarrow B^{-1}$]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     0.1053  &  0.0000  &  0.0789 \\
+     0.0000  &  0.1111  &  0.0556 \\
+     0.0789  &  0.0556  & -0.0380 \\
+    \end{array}\right]
+    \end{equation}
+
+  \item[invert\_symmetric, $A \leftarrow B^{-1}$ ($B$ is symmetric)]\ \newline
+    \begin{equation}\nonumber
+    A = \left[
+    \begin{array}{rrr}
+     0.1053  &  0.0000  &  0.0789 \\
+     0.0000  &  0.1111  &  0.0556 \\
+     0.0789  &  0.0556  & -0.0380 \\
+    \end{array}\right]
+    \end{equation}
+
+\end{description}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\test{Vector Math}\label{test:vector_math}
+To validate the \mathDesc\ vector functions, 3x1 test vectors were
+built and sent to the various functions. The results were compared to
+the same operation(s) performed in Matlab.  
+
+The test vectors used were:
+\begin{equation}\nonumber
+\bar{A} = \left[
+\begin{array}{r}
+  2 \\
+ -3 \\
+  8 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+\bar{B} = \left[
+\begin{array}{r}
+  7 \\
+  2 \\
+ -1 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+\bar{C} = \left[
+\begin{array}{r}
+  5 \\
+ -5 \\
+  7 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+\bar{D} = \left[
+\begin{array}{r}
+  4 \\
+  3 \\
+ -1 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+T = \left[
+\begin{array}{rrr}
+  0.819152 & 0.573576 & 0.000000 \\
+ -0.573576 & 0.819152 & 0.000000 \\
+  0.000000 & 0.000000 & 1.000000 \\
+\end{array}\right]
+\end{equation}
+
+\begin{equation}\nonumber
+s =3
+\end{equation}
+
+
+{\bf Results}
+
+\begin{description}
+  \item[initialize, $\bar{A}\leftarrow null$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     0 \\
+     0 \\
+     0 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[unit, $\bar{A}\leftarrow i$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     1 \\
+     0 \\
+     0 \\
+   \end{array}\right]_{i=1}
+   \end{equation}
+
+  \item[fill]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     3 \\
+     3 \\
+     3 \\
+   \end{array}\right]_{3}
+   \end{equation}
+
+  \item[zero\_small]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     0 \\
+     0 \\
+     0 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[copy, $\bar{A} \leftarrow \bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     7 \\
+     2 \\
+    -1 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[dot, $A \leftarrow B \cdot C$]\ (vector dot product) \newline
+   \begin{equation}\nonumber
+   A = 18
+   \end{equation}
+
+  \item[vmagsq, $A \leftarrow |B|^2$]\ (returns a scalar)\newline
+   \begin{equation}\nonumber
+   A = 54
+   \end{equation}
+
+  \item[vmag, $A \leftarrow |B|$]\ (returns a scalar)\newline
+   \begin{equation}\nonumber
+   A = 7.3485
+   \end{equation}
+
+  \item[normalize (in place), $\hat{A} \leftarrow \bar{A}/|\bar{A}|$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     0.2279 \\
+    -0.3419 \\
+     0.9117 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[normalize, $\hat{A} \leftarrow \bar{B}/|\bar{B}|$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     0.9526 \\
+     0.2722 \\
+    -0.1361 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[scale (in place), $\bar{A} \leftarrow s\bar{A}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      6  \\
+     -9  \\
+      24 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[scale, $\bar{A} \leftarrow s\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      21  \\
+       6  \\
+      -3  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[negate (in place), $\bar{A} \leftarrow -\bar{A}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      -2  \\
+       3  \\
+      -8  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[negate, $\bar{A} \leftarrow  -\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      -7  \\
+      -2  \\
+       1  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform (in place), $\bar{A} \leftarrow T\bar{A}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      -0.0824  \\
+      -3.6046  \\
+       8.0000  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform, $\bar{A} \leftarrow T\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+       6.8812  \\
+      -2.3767  \\
+      -1.0000  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform\_transpose (in place),  $\bar{A} \leftarrow T^T\bar{A}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+       3.3590  \\
+      -1.3102  \\
+       8.0000  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform\_transpose,  $\bar{A} \leftarrow T^T\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+       4.5869  \\
+       5.6533  \\
+      -1.0000  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[incr, $\bar{A} \leftarrow \bar{A}+\bar{C}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+       7  \\
+      -8  \\
+       15 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[incr, $\bar{A} \leftarrow \bar{A}+\bar{C}+\bar{D}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      11  \\
+      -5  \\
+      14 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[decr, $\bar{A} \leftarrow \bar{A}-\bar{C}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      -3  \\
+       2  \\
+       1 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[decr, $\bar{A} \leftarrow \bar{A}-\bar{C}-\bar{D}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      -7  \\
+      -1  \\
+       2  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[sum, $\bar{A} \leftarrow \bar{B}+\bar{C}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      12  \\
+      -3  \\
+       6 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[sum, $\bar{A} \leftarrow \bar{B}+\bar{C}+\bar{D}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      16  \\
+       0  \\
+       5 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[diff, $\bar{A} \leftarrow \bar{B}-\bar{C}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+       2  \\
+       7  \\
+      -8 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[cross, $\bar{A} \leftarrow \bar{B}\times\bar{C}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+       9  \\
+     -54  \\
+     -45 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[scale\_incr, $\bar{A} \leftarrow \bar{A}+s\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      23  \\
+       3  \\
+       5  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[scale\_decr, $\bar{A} \leftarrow \bar{A}-s\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     -19  \\
+      -9  \\
+      11  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[cross\_incr, $\bar{A} \leftarrow \bar{A} + \bar{B}\times\bar{C}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      11  \\
+     -57  \\
+     -37  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[cross\_decr, $\bar{A} \leftarrow \bar{A} - \bar{B}\times\bar{C}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      -7  \\
+      51  \\
+      53  \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform\_incr, $A\leftarrow\bar{A}+T\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      8.8812 \\
+     -5.3767 \\
+      7.0000 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform\_decr, $A\leftarrow\bar{A}-T\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     -4.8812 \\
+     -0.6233 \\
+      9.0000 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform\_transpose\_incr, $\bar{A}\leftarrow\bar{A}+T^T\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+      6.5869 \\
+      2.6533 \\
+      7.0000 \\
+   \end{array}\right]
+   \end{equation}
+
+  \item[transform\_transpose\_decr, $\bar{A}\leftarrow\bar{A}-T^T\bar{B}$]\ \newline
+   \begin{equation}\nonumber
+   \bar{A} = \left[
+   \begin{array}{r}
+     -2.5869 \\
+     -8.6533 \\
+      9.0000 \\
+   \end{array}\right]
+   \end{equation}
+
+\end{description}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Requirements Traceability}\label{sec:traceability}
+The table below cross-references each requirement of the 
+\mathDesc\ 
+%(as defined in \href{file:GRAVITYReqt.pdf}
+%{\em \GRAVITY\ Product Requirements}\cite{dynenv:GRAVITYReqt})
+to a corresponding verification and/or validation test
+described in sections \ref{sec:verif} and \ref{sec:valid} of this document. 
+
+\label{tab:reqt_ivv_xref}
+\begin{longtable}[c]{||p{3.5in}|p{3.5in}|}
+\caption{Requirements Traceability} \\[6pt]
+\hline
+{\bf Requirement} & {\bf Inspection or Test} \\ \hline \hline
+\endfirsthead
+\hline
+\endfoot
+\caption[]{Requirements Traceability (continued)} \\[6pt]
+\hline
+{\bf Requirement} & {\bf Test} \\ \hline \hline
+\endhead
+
+\ref{reqt:matrix_math_operations} - Matrix Math Operations &
+  Test \ref{test:matrix_math} - Matrix Math \\ \hline
+
+\ref{reqt:vector_math_operations} - Vector Math Operations &
+  Test \ref{test:vector_math} - Vector Math \\ \hline
+
+\end{longtable}
+
+
+
+
+
+
+
+

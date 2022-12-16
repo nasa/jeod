@@ -1,0 +1,123 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//***************************************************************
+// CLASS: (MarsSimObject)
+// PURPOSE:
+//  ( This sim object models Mars.)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "environment/planet/include/planet.hh"
+##include "environment/gravity/include/spherical_harmonics_gravity_source.hh"
+##include "environment/RNP/RNPMars/include/rnp_mars.hh"
+
+// Include default data classes:
+##include "environment/planet/data/include/mars.hh"
+##include "environment/gravity/data/include/mars_MRO110B2.hh"
+##include "environment/RNP/RNPMars/data/include/rnp_mars.hh"
+
+class MarsSimObject: public Trick::SimObject {
+
+   public:
+    jeod::Planet        planet;
+    jeod::SphericalHarmonicsGravitySource gravity_source;
+    jeod::RNPMars       rnp;
+
+// Instances for matching to other sim objects:
+    jeod::DynamicsSimObject * internal_dynamics;
+    jeod::EnvSimObject * internal_env;
+    JeodTimeSimObject * internal_jeod_time;
+
+// Instances for default data:
+    jeod::Planet_mars_default_data    planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_mars_MRO110B2_default_data    gravity_default_data;
+    jeod::RNPMars_rnp_mars_default_data    rnp_mars_default_data;
+
+//Constructor
+    MarsSimObject(
+           jeod::EnvSimObject & ext_env,
+           jeod::DynamicsSimObject & ext_dynamics,
+           jeod::JeodTimeSimObject & ext_jeod_time) {
+
+    internal_env = & ext_env;
+    internal_dynamics = & ext_dynamics;
+    internal_jeod_time = & ext_jeod_time;
+
+   //
+   //Default data jobs
+   //
+      ("default_data") planet_default_data.initialize ( &planet );
+      ("default_data") gravity_default_data.initialize ( &gravity_source );
+      ("default_data") rnp_mars_default_data.initialize ( &rnp );
+
+   //
+   //
+   //
+   // Initialization jobs
+   //
+      P_ENV  ("initialization") gravity_source.initialize_body( );
+      P_ENV  ("initialization") internal_env->gravity_manager.add_grav_source(
+          gravity_source );
+      P_ENV  ("initialization") planet.register_model(
+          gravity_source,
+          internal_dynamics->dyn_manager );
+      P_ENV  ("initialization") rnp.initialize(
+          internal_dynamics->dyn_manager );
+      P_ENV  ("initialization") rnp.update_rnp(
+          internal_jeod_time->time_tt );
+      P_EPH  ("initialization") planet.initialize( );
+
+   //
+   // Environment class jobs
+   //
+      (LOW_RATE_ENV, "environment") rnp.update_rnp(
+          internal_jeod_time->time_tt );
+
+   //
+   // Derivative class jobs
+   //
+      P_ENV  ("derivative") rnp.update_axial_rotation(
+          internal_jeod_time->time_tt );
+    }
+
+  private:
+    MarsSimObject (const MarsSimObject&);
+    MarsSimObject & operator = (const MarsSimObject&);
+
+};
+MarsSimObject mars ( env, dynamics, jeod_time);

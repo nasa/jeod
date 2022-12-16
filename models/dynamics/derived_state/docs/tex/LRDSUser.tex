@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the LVLH relative derived state model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The layout of this chapter will be slightly different from
+what is seen in the User Guide chapters
+of most JEOD models. The Analyst and Integrator sections will be combined, and
+since we do not expect this model to be extended, the Extender section is not
+included.
+
+The \LRDSDesc\ provides the capability to maintain a relative derived state
+of a subject vehicle with respect to an LVLH target frame. The target frame
+is generated independently by the LVLH frame model found in the utilities
+section. This LVLH frame need not be associated with a
+vehicle. Its definition requires only a reference planet and a translational
+state in planetary inertial coordinates. For more information, see the
+documentation for the LVLH frame model.
+
+The \LRDSDesc\ is a specialization of the \textit{RelativeDerivedState} whose
+target frame is a rectilinear LVLH frame, possibly, but not necessarily, of a
+target vehicle. The \textit{rel\_state} field of the \LRDSDesc\ indicates the
+state of the subject vehicle in rectilinear LVLH or optionally in
+a circular curvilinear system based on the target frame.
+\section{Using the \LRDSDesc\ in a Simulation}
+If your goal is to define and maintain an LVLH relative derived state, then
+you will need an instance of \textit{LvlhRelativeDerivedState} in
+your S\_define file. You normally want the initializations and updates of
+the \LRDSDesc\ to occur subsequent to those of the \textit{LvlhFrame}, so
+the \textit{LvlhRelativeDerivedState} instance is often
+in a \textit{SimObject} near the end of the S\_define file.
+
+You will also need to have an instance of \textit{LvlhFrame} in your simulation.
+See the User Guide chapter of the documentation for the LVLH frame for details.
+The initialization process for LVLH frame registers the frame with the
+\textit{DynManager} so that the \LRDSDesc\ can access it by name.
+Just as for \textit{RelativeDerivedState}, you supply the names of the
+subject and target frames in the inputfile.
+
+Example:
+\begin{verbatim}
+sim_object.lvlh_RelDerState.subject_frame_name =
+"vehicleB.composite_body"
+...
+...
+sim_object.lvlh_RelDerState.target_frame_name =
+"vehicleA.composite_body.ref_planet.lvlh"
+\end{verbatim}
+
+\section{Other Options}
+There are two other optional values which you can set. The field
+\textit{lvlh\_type} should be one of two enumerated values, either
+\textit{LvlhType.Rectilinear} for standard rectangular LVLH or
+\textit{LvlhType.CircularCurvilinear} for output in circular curvilinear
+coordinates. The default is \textit{LvlhType.Rectilinear}.
+
+There is also a boolian \textit{use\_theta\_dot\_correction}. If set to true,
+the circular curvilinear angular velocity will account for rate of change of
+the phase angle $\theta$. The default value is false.
+\section{Output Data}
+The \textit{rel\_state} field of \textit{LvlhRelativeDerivedState} contains
+the state of the subject with respect to the target frame. The following code
+example shows how to log the entire state.
+\begin{verbatim}
+  for ii in range(0,3) :
+    dr_group.add_variable("rel_state.vehicleA_wrt_vehicleB_in_B.
+                           rel_state.trans.position[" + str(ii) + "]" )
+  for ii in range(0,3) :
+    dr_group.add_variable("rel_state.vehicleA_wrt_vehicleB_in_B.
+                           rel_state.trans.velocity[" + str(ii) + "]" )
+  for ii in range(0,3) :
+    dr_group.add_variable("rel_state.vehicleA_wrt_vehicleB_in_B.
+                           rel_state.rot.ang_vel_this[" + str(ii) + "]" )
+  for ii in range(0,3) :
+    for jj in range (0,3) :
+      dr_group.add_variable("rel_state.vehicleA_wrt_vehicleB_in_B.
+                             rel_state.rot.T_parent_this[" +
+                             str(ii) + "][" + str(jj) + "]")
+\end{verbatim}

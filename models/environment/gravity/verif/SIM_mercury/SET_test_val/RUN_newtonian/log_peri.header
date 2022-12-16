@@ -1,0 +1,5 @@
+log_peri byte_order is little_endian
+log_peri	double	     s	sys.exec.out.time
+log_peri	double	     s	jeod_time.time_tt.seconds
+log_peri	double	    --	mercury.orb_elem.e_mag
+log_peri	double	   rad	mercury.orb_elem.arg_periapsis

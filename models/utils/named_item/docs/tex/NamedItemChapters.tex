@@ -1,0 +1,138 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+
+\section{Model Description}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this 
+%%% model exists.
+%%% Identify the Model context within JEOD.
+The \NamedItemDesc\ is basically a wrapper class for a set of static methods which construct a name as a dot-conjoined string.
+These functions return a newly-allocated string, and the caller is
+responsible for freeing the allocated memory via JEOD\_DELETE.
+
+There is also a static method which, given a prefix and a dot-conjoined name, will find the part of the name
+that follows the prefix. If the name is of the form "prefix.suffix", the 
+suffix function returns a pointer to "suffix". If the name does not start with
+"prefix." the function returns the input name. 
+
+Most of these methods are used throughout the JEOD code.  Creating dot-conjoined strings in their own allocated memory is an extremely common task best handled by a central utility such as the NamedItem class.
+There are two additional public static methods -- vconstruct\_name and 
+va\_construct\_name which are only used presently by the construct\_name methods of the NamedItem class.  
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when 
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this section.
+%%% Mention that JEOD.pdf is the parent document.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+
+\section{Document Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE} 
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] - 
+This introduction contains three sections: description of model, document history, and organization.  
+The first section provides the introduction to the \NamedItemDesc\ and its reason 
+for existence. 
+The second section displays the history of this document which includes
+author, date, and reason for each revision.
+The final
+section contains a description of how the document is organized.
+
+\item[Chapter 2: Product Requirements] - 
+Describes requirements for the \NamedItemDesc.
+
+\item[Chapter 3: Product Specification] - 
+Describes the underlying theory, architecture, and design of the \NamedItemDesc\ in detail.  It is organized in 
+three sections: Conceptual Design, Mathematical Formulations, and Detailed Design.
+
+\item[Chapter 4: User Guide] - 
+Describes how to use the \NamedItemDesc\ in a Trick simulation.  It is broken into three sections to represent the JEOD 
+defined user types: Analysts or users of simulations (Analysis), Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -  
+Contains \NamedItemDesc\ verification and validation procedures and results.
+
+\end{description}
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+This model shall meet the JEOD project requirements specified in the 
+\hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{JEOD} top-level document.
+
+%%% Format for the model Requirements is open.  It should include requirements for this model 
+%%% only and use requirment tags like the one below.
+%\requirement{...}
+%\label{reqt:...}
+%\begin{description}
+%  \item[...]\ \newline
+%    The documentation for the model shall include
+%
+%    \subrequirement{}
+%    \label{reqt:...}
+%      Software requirements specification.
+%      
+%    ...
+%   
+%  \item[title]\ \newline
+%    text
+%
+%  ...
+%
+%\end{description}
+\input{NamedItemReq.tex}
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+\input{NamedItemSpec.tex}
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+The \NamedItemDesc\ is never referenced in any JEOD simulations, thus
+the Analyst and Integrator sections of this chapter are omitted.
+Readers wishing to use the \NamedItemDesc\ in their extensions of JEOD classes
+are directed to the API reference.
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy  
+% requirement \ref{reqt:<label>}.
+Verification of requirements \ref{reqt:SC} and \ref{reqt:SD} is performed
+by code inspection.
+\section{Validation}
+%%% code imported from old template structure
+%\test{<Title>}\label{test:<label>}
+%\begin{description}
+%\item[Purpose:] \ \newline
+%<description>
+%\item[Requirements:] \ \newline
+%By passing this test, the universal time module 
+%partially satisfies requirement~\ref{reqt:<label1>} and 
+%completely satisfies requirement~\ref{reqt:<label2>}.
+%\item[Procedure:]\ \newline
+%<procedure>
+%\item[Results:]\ \newline
+%<results>
+%\end{description}
+There are no validation cases specifically designed for
+the \NamedItemDesc; however, the functionality is thoroughly exercised 
+throughout the JEOD software package.  This usage constitutes
+an implicit validation of nominal performance.

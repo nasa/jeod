@@ -1,0 +1,30 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Integration part of User's Guide for the SolarBeta model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Integration}
+Including the \SolarBetaDesc\  into the simulation is very straightforward.
+
+ \subsection{Generating the S\_define}
+
+Conventional practice would add the \SolarBetaDesc\ to a specific vehicle, or, if there are multiple relative states between different vehicles such that a relative-state object becomes desirable, it could be added into that relative-state object.
+
+The instance of \textit{SolarBetaDerivedState} needs to be defined, the model initialized, and a routine update scheduled.  An example of how this may look is found in the \textit{Analysis} section (\ref{sec:solarbetauseranalysis}).  Examples of how to include the Solar Beta within the vehicle object are found in the Solar Beta Verification simulations, released with \JEODid.
+
+\subsection{Generating the Input File}
+The only value necessary to define in the input file (or in Modified Data) is the name of the reference object.  The reference object MUST BE the planet about which the vehicle is orbiting. The calculations determine the orbit based on the angular momentum of the vehicle about the reference object.  If the vehicle is orbiting a different object, the angular momentum will still be calculated based on the reference object, which will produce results not at all relevant to the problem.
+
+The example given in the \textref{Analysis}{sec:solarbetauseranalysis} section is
+\begin{verbatim}
+example_of_rel_state_object.example_of_solar_beta.reference_name = "Earth";
+\end{verbatim}
+
+\subsection{Logging the Data}
+There is only one variable for output, that is the Solar Beta angle itself.  Continuing with the example in the \textref{Analysis}{sec:solarbetauseranalysis} section, log
+\begin{verbatim}
+example_of_rel_state_object.example_of_solar_beta.solar_beta.
+\end{verbatim}

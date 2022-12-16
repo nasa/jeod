@@ -1,0 +1,85 @@
+
+
+
+%----------------------------------
+\chapter{Introduction}\label{ch:Relativeintro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \RelativeDescT}
+\input{RelativeIntroduction}
+
+
+
+%----------------------------------
+\chapter{Product Requirements}\label{ch:Relativereqt}
+%----------------------------------
+
+\input{RelativeReqt}
+
+
+%----------------------------------
+\chapter{Product Specification}\label{ch:Relativespec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{RelativeSpec_Concept}
+%\section{Mathematical Formulations}
+\input{RelativeSpec_Math}
+%\section{Detailed Design}
+\input{RelativeSpec_Detail}
+
+\chapter{User's Guide}\label{ch:Relativeuser}
+%----------------------------------
+The Analysis section of the User's Guide is intended primarily for
+users of pre-existing simulations.  
+It contains: 
+\begin{itemize}
+\item A description of how to modify \RelativeDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file,
+\item An overview of how to interpret (but not edit) the S\_define
+file,
+\item A sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section of the User's Guide is intended for simulation
+developers.
+It describes the necessary configuration of the \RelativeDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section of the user guide.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:Relativespec}).
+
+The Extension section of the User's Guide is intended primarily for
+developers
+needing to extend the capability of the \RelativeDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:Relativespec}).
+
+
+\section{Analysis}
+\input{RelativeUser_Analysis}
+
+%\section{Integration}
+\input{RelativeUser_Integration}
+
+%\section{Extension}
+\input{RelativeUser_Extension}
+
+%----------------------------------
+\chapter{Verification and
+Validation}\label{ch:Relativeivv}
+%----------------------------------
+
+\section{Verification}
+\input{RelativeVV_Verif}
+
+%\section{Validation}
+\input{RelativeVV_Valid}
+
+

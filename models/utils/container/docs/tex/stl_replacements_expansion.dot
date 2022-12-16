@@ -1,0 +1,23 @@
+digraph G { 
+   rankdir=BT;
+   node [fontname="Helvetica",fontsize=10,shape=box];
+   edge [fontname="Helvetica",fontsize=10,arrowhead=empty];
+
+
+   JeodContainer -> {JeodCheckpointable; NoncheckpointableSTLReplacement};
+
+   JeodObjectContainer -> JeodContainer;
+   JeodPointerContainer -> JeodContainer;
+   JeodPrimitiveContainer -> JeodContainer;
+
+   JeodObjectType -> JeodObjectContainer;
+   JeodPointerType -> JeodPointerContainer;
+   JeodPrimitiveType -> JeodPrimitiveContainer;
+
+   JeodObjectType [label="JeodObject<<Type>>"]
+   JeodPointerType [label="JeodPointer<<Type>>"]
+   JeodPrimitiveType [label="JeodPrimitive<<Type>>"]
+
+   NoncheckpointableSTLReplacement [label="Non-checkpointable STL Replacement"]
+
+}

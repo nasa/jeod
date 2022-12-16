@@ -1,0 +1,87 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the ThermalRider model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+This section describes the key concepts found in the \ThermalRiderDesc.
+For an
+architectural overview, see the 
+\href{file:refman.pdf} {\em Reference Manual}
+\cite{thermalbib:ReferenceManual}
+
+
+\subsection{The Rider Hierarchy}
+The \ThermalRiderDesc\ requires the definition, in some other model, of an Interaction
+Surface, which is an element of the
+\href{file:\JEODHOME/models/utils/surface\_model/docs/surface\_model.pdf}{Surface
+Model}~\cite{dynenv:SURFACEMODEL}.  For
+details on the Surface Model, see the Surface Model Product
+Specification.  Presented here is a very cursory overview of the
+Surface Model, intended to put the Thermal Rider into context.
+
+Starting with the most general form, the Surface Model comprises a number of Facets; the facets typically have some topology and/or geometry (e.g., flat-plate with some specific area and orientation).  Together, these can be used to describe the geometry of the surface, or can be left as somewhat abstract, disconnected entities.  Each Facet can be further defined to become an Interaction Facet; Interaction Facets contain additional data necessary to know how to interact with some particular environmental factor.
+
+While a generic Surface comprises a number of Facets, the associated Interaction Surface comprises the Interaction Facets associated with each of the Facets in the generic Surface.  The Interaction Surface is an abstract concept that is not really implemented directly; instead specific examples of Interaction Surfaces are created, such as a radiation-pressure surface, or an aerodynamic surface, that are specific to a particular environmental interaction.  Conversely, the generic Surface is simply geometric in nature and applicable to multiple situations. 
+
+Thus, each interaction model (Radiation Pressure, Aerodynamic Drag, other
+user-specified models) utilizes an implementation of an interaction surface that comprises a collection of model-specific Interaction Facets (e.g., Radiation Facets).  These model-specific
+interaction facets inherit their basic data from the Interaction Facets (i.e.,
+those defined in the Interaction Surface Model), and add model-specific values
+and methods to simulate the actual interaction between the surface and the
+environment.
+
+One of those model-specific members that can be added to each Interaction Facet is a collection
+of thermally-related values.
+This is called the Thermal-\textit{Facet}-Rider; it is added to each model-specific interaction facet (e.g. Radiation Facet).  To accompany the rider on each facet, there is also a \textit{model} rider that basically instructs the non-thermal instance of the Interaction Model to include thermal effects.  This is called the Thermal-\textit{Model}-Rider (italics used to distinguish between the facet rider and the model rider).
+
+An example of using the Rider concept can be found in the default Radiation Pressure model.  
+\begin{quotation}
+The class \textit{radiation\_presssure} contains an instance of the \textit{ThermalModelRider}, called \textit{thermal}.
+The Radiation Pressure \textit{update} method is called from the
+\textit{S\_define}, which calls the
+ThermalModelRider \textit{update} method.
+That, in turn, calls the Radiation Surface
+\textit{thermal\_integrator} method, which cycles through all facets calling each facet's ThermalFacetRider's \textit{integrate} function to integrate the rate of change of temperature.
+\end{quotation}
+
+\subsection{Independent Integration}
+The standard dynamic integration that takes place behind-the-scenes requires the
+input of forces, which are translated into accelerations, and integrated to
+provide updated values of velocity and position.  Similarly, torques are
+provided for the angular components.  However, those forces and torques depend
+on the temperature profile.  Integrating the temperature profile with the
+dynamics will lead to unnecessary errors; these can easily be circumvented by independently integrating the temperature prior to calculating the forces that are fed to the dynamics integrator.
+
+Therefore, the \ThermalRiderDesc\ provides the capability to independently integrate the temperature.
+
+\subsection{Handling Multiple Interaction Models}
+Both problems and opportunities present themselves when a simulation requires
+the consideration of multiple interaction models.
+
+The Thermal Rider Model is always associated with one specific instance of an Interaction Model,
+which contains one specific instance of an Interaction Surface -- comprising interaction-specific Interaction Facets --
+which are based on the geometric Facets.  Since each Interaction
+Model carries its own Interaction Facets, it must carry its own
+Thermal-Rider Model for that set of Interaction Facets.  
+If each collection of Interaction Facets is based on a common
+geometric surface, then it is a straightforward task to direct all thermal
+processes to one Interaction Model, and include a
+\textit{ThermalModelRider}
+for only that model, and \textit{ThermalFacetRider}s for only that set of
+Interaction Facets.
+In this case, it is recommended that the Radiation Pressure Model (if being used) be the model that is used to contain the Thermal Rider Model, since it is the most closely tied to the temperature.
+
+A more complicated scenario occurs when the different Interaction Models use
+different base Facets, such as when different fidelity is required between the
+different models.  Here again, it is recommended that only one model carry the
+Thermal Rider.  Complications arise when the desired fidelity of the
+Thermal-Rider Model is not directly matched with any of the Interaction Surfaces,
+or is only matched to one of the non-preferred models.  The solution to this
+usually involves changing the desired fidelity on either the Thermal-Rider or one of the
+preferred Interaction Models.
+

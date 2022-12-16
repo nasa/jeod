@@ -1,0 +1,38 @@
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+
+\input{spec_conceptual}
+\input{spec_architecture}
+
+\clearpage
+\input{spec_interactions}
+
+\clearpage
+\input{spec_math}
+
+\clearpage
+\input{spec_detailed}
+
+\clearpage
+\section{Inventory}
+All \ModelDesc files are located in
+{\tt \$\{JEOD\_HOME\}/models/dynamics/dyn\_body}.
+Relative to this directory,
+\begin{itemize}
+\vspace{-0.2\baselineskip}
+\item Header and source files are located
+in the model {\tt include} and {\tt src} subdirectories.
+Table~\ref{tab:source_files} lists the
+configuration-managed files in these directories.
+\vspace{-0.1\baselineskip}
+\item Documentation files are located in the model {\tt docs} subdirectory.
+See table~\ref{tab:documentation_files}
+for a listing of the
+configuration-managed files in this directory.
+\vspace{-0.1\baselineskip}
+\item Verification files are located in the model {\tt verif} subdirectory.
+See table~\ref{tab:verification_files}
+for a listing of the
+configuration-managed files in this directory.
+\end{itemize}
+
+\input{inventory}

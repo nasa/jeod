@@ -1,0 +1,38 @@
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+
+\section{Inspection}\label{sec:inspect}
+\input{ivv_inspect}
+
+\section{Verification}\label{sec:verif}
+This section describes various tests conducted to verify and validate
+that the \ModelDesc satisfies the requirements levied against it.
+The tests described in this section are located in the JEOD directory
+\verb+models/utils/orientation/verif/unit_tests+. As the location suggests,
+all of the tests used to verify this model are unit tests and follow the
+JEOD unit test framework. Each subdirectory of the \verb+unit\_tests\verb+
+directory is a unit test, comprising source files that define the test and
+a makefile with targets ``build'' and ``run'' that run the test.
+
+\newpage
+\input{ivv_test_eigen}
+\newpage
+\input{ivv_test_euler}
+\newpage
+\input{ivv_test_instance}
+\newpage
+\section{Metrics}\label{sec:metrics}
+\subsection{Code Metrics}
+Table~\ref{tab:coarse_metrics} presents coarse metrics on the source
+files that comprise the model.
+
+\input{coarse_metrics}
+
+Table~\ref{tab:metrix_metrics} presents the extended cyclomatic complexity
+(ECC) of the methods defined in the model.
+
+\input{metrix_metrics}
+
+
+\newpage
+\section{Requirements Traceability}
+\input{ivv_trace}

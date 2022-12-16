@@ -1,0 +1,45 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the OrbElem model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+See the \href{file:refman.pdf}{Reference Manual}\cite{derivedstatebib:ReferenceManual} for a summary of member data and member methods for all classes.  
+
+\subsection{Process Architecture}
+The architecture for the \OrbElemDesc\ is trivial, comprising few methods that are largely independent.
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods in each class.
+
+The \OrbElemDesc\ contains only one class:
+
+\begin{itemize}
+\classitem{OrbElemDerivedState}
+\textref{DerivedState}{ref:DerivedState}
+
+This contains only the methods \textit{compute\_orbital\_elements}, \textit{initialize} and \textit{update}:
+\begin{enumerate}
+\funcitem{compute\_orbital\_elements}
+Simply calls the Orbital Elements method \textit{from\_cartesian} to convert the data from a Cartesian frame to a set of orbital elements.  See the 
+\href{file:\JEODHOME/models/utils/orbital_elements/docs/orbital_elements.pdf}{Orbital Elements document}~\cite{dynenv:ORBITALELEMENTS} for details on this method. 
+
+\funcitem{initialize}
+The initialization process comprises the following steps:
+\begin{enumerate}
+\item{} The generic DerivedState initialization routine is called to assign the \textit{subject} value, establish the naming convention for the state identifier.  
+\item{} Calls the Orbital Elements routine \textit{set\_object\_name} to set the name of the vehicle.
+\item{} Calls the Derived State method, \textit{find\_planet} to identify the planet with name specified by \textit{reference\_name}.
+\item{} Calls the Orbital Elements routine \textit{set\_planet\_name} to set the name of the planet.
+\end{enumerate}
+
+\funcitem{update}
+Calls the \textit{compute\_orbital\_elements} routine on the planet-relative state.  If the integration frame is planet centered inertial, it uses the basic state of the vehicle.  Otherwise, it calculates the relative state of the vehicle with respect to planet-centered inertial, and uses that as the input to \textit{compute\_orbital\_elements}.
+
+
+\end{enumerate}
+\end{itemize}

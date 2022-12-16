@@ -1,0 +1,115 @@
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+\requirement{JEOD Requirements}
+\label{reqt:jeod}
+  \begin{description}
+  \item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{top-level document}~\cite{dynenv:JEOD} .
+  \item[Rationale:]\ \newline
+  This model shall, at a minimum, meet all external and internal requirements applied to the
+  \JEODid\ release.
+  \item[Verification:]\ \newline
+  Inspection
+  \end{description}
+
+\requirement{Center of Mass Location}
+\label{reqt:CoM_location}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \ModelDesc\ shall correctly compute the center of mass location for
+     the composite body and the individual components.
+  \item[Rationale:]\ \newline
+     The center of mass is used elsewhere in the \ModelDesc\ and is used by
+     many other spacecraft functions.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Total Body Mass}
+\label{reqt:composite_mass}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \ModelDesc\ shall correctly compute the total mass of the composite
+     body.
+  \item[Rationale:]\ \newline
+     The spacecraft mass is an important variable used everywhere in
+     spacecraft operations.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Composite Inertia Properties}
+\label{reqt:composite_inertia}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \ModelDesc\ shall correctly compute the correct composite inertia
+     properties for the body based on the individual components.
+  \item[Rationale:]\ \newline
+     The spacecraft inertia is needed as part of the state integration process.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Non-Centroidal Inertia Properties}
+\label{reqt:non_centroid_calc}
+\begin{description}
+   \item[Requirement:]\ \newline
+     The \ModelDesc\ shall be capable of interpreting the inertia properties
+     of a body when specified in reference frames that have an origin displaced from the center of mass and/or axes that are rotated with respect to the body axes.
+  \item[Rationale:]\ \newline
+     Inertia properties nay be specified in a variety of frames.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Mass Body Attachment}
+\label{reqt:attach}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \ModelDesc\ shall be capable of attaching mass bodies
+     to one another.
+  \item[Rationale:]\ \newline
+     Many spacecraft have to dock or undock, combine or separate pieces of the
+     total spacecraft on the fly.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+
+\requirement{Mass Body Detachment}
+\label{reqt:detach}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \ModelDesc\ shall be capable of detaching mass bodies
+     from one another.
+  \item[Rationale:]\ \newline
+     Many spacecraft have to dock or undock, combine or separate pieces of the
+     total spacecraft on the fly.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Reattach Child to Different Point}
+\label{reqt:mass_reattach}
+\begin{description}
+   \item[Requirement:]\ \newline
+     The \ModelDesc\ shall be capable of taking a body already attached to
+     the parent and moving it to a different attachment point.
+  \item[Rationale:]\ \newline
+     For objects like robot arms that change their attachment points, this
+     can be an important function.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Model Extensibility}
+\label{reqt:mass_extend}
+  \begin{description}
+    \item[Requirement:]\ \newline
+    The \ModelDesc\ shall be extensible.
+    \item[Rationale:]\ \newline
+    Other objects and classes should be able to derive from the \ModelDesc.
+    \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}

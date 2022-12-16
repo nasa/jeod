@@ -1,0 +1,235 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  requirements for the RadiationPressure model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% add text here to describe general model requirements
+% text is of the form:
+%\requirement{REQUIREMENT DESCRIPTION}
+%\label{reqt:REQT_DESC_ABBREVIATED}
+%\begin{description}
+%  \item[Requirement:]\ \newline
+%     <Insert description of requirement>
+%  \item[Rationale:]\ \newline
+%     <Insert description of rationale>
+%  \item[Verification:]\ \newline
+%     <Insert description of verification (e.g. "Inspection")>
+%\end{description}
+
+
+\requirement{State Encapsulation}
+\label{reqt:stateencapsulation}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \RadiationPressureDesc\ shall encapsulate the positional state of the vehicle and the
+     data necessary to calculate the orientation and position of the vehicle
+     with respect to the sun, and planetary bodies.
+
+  \item[Rationale:]\ \newline
+     The extent to which radiation pressure acts on the vehicle depends on the
+     radiation flux and the orientation of the vehicle with respect to the
+     radiation flux.  The magnitude of the radiation flux is a function of
+     distance from Sun, and potential shadowing effects of intervening bodies.
+     The direction of the force resulting form the interaction depends on the
+     relative orientation of the surfaces of the vehicle to the flux vector.
+
+  \item[Verification:]\ \newline
+     Inspection \vref{inspect:stateencapsulation}
+\end{description}
+
+
+\requirement{Surface Representation}
+\label{reqt:surfacerepresentation}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \RadiationPressureDesc\ shall offer the capability to model the vehicle surface
+as a simple approximation, and as a high-fidelity geometric structure comprising multiple materials.
+
+  \item[Rationale:]\ \newline
+     A driving design consideration across the development of
+	  \JEODid\ is the ability to do
+simple tasks simply.  The inclusion of a radiation pressure model to test the significance of
+its inclusion must be a simple task.  Conversely, a simple model may not offer the desired
+fidelity, particularly in the situation in which a vehicle is made of multiple materials, or where
+there is significant diversion from an isothermal surface.  These capabilities must be provided
+for maximal utility of the model.
+
+  \item[Verification:]\ \newline
+     Test \vref{test:surfacerepresentation}
+\end{description}
+
+
+\requirement{Temperature Structure}
+\label{reqt:temperaturestructure}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \RadiationPressureDesc\ shall incorporate realistic time-dependent
+temperature modeling of its surface.
+
+  \item[Rationale:]\ \newline
+     Although thermal emission is typically a relatively small effect of radiation
+     pressure modeling, the interaction between the vehicle and radiation is a
+     primary contributor to the temperature structure of the vehicle, which may be
+     desired by other models.  Furthermore, there are situations in which spatial
+     temperature variations do play a significant role in the radiation pressure calculation.
+
+  \item[Verification:]\ \newline
+     Tests \vref{test:temperature_integration1} and \vref{test:temperature_integration2}.
+\end{description}
+
+
+\requirement{Albedo Pressure Option}
+\label{reqt:albedopressure}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \RadiationPressureDesc\ shall provide the ability to add  -- at a future time --
+     a model to simulate the radiation pressure from sources other than the sun.
+
+  \item[Rationale:]\ \newline
+     The solar radiation pressure will typically dominate, but secondary pressure (also known as albedo pressure) from planetary objects is necessary for a complete
+     description and more accurate modeling.  These other sources will provide
+     a flux that will interact with the vehicle in exactly the same way as the
+     solar flux, and should be handled by the same routines.
+
+  \item[Verification:]\ \newline
+     Inspection \vref{inspect:albedopressure}.
+\end{description}
+
+\requirement{Force and Torque}
+\label{reqt:forceandtorque}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The data structures shall include storage of the force and torque on the
+     vehicle.
+
+  \item[Rationale:]\ \newline
+     The force and torque can be collected within Trick -- or within any other
+     simulation engine -- from multiple
+     interaction models to provide the overall force and torque on the vehicle
+     for integration within the dynamics package for purposes of state
+     propagation.
+
+  \item[Verification:]\ \newline
+     Inspection \vref{inspect:forceandtorque}.
+\end{description}
+
+\section{Functional Requirements}\label{sec:func_reqts}
+
+
+
+
+\requirement{Interaction Modeling}
+\label{reqt:functional_interaction}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The model shall be capable of modeling the radiation interaction by appropriate
+    combination of the effects of photon
+    absorption, diffuse photon reflection (rough surface), specular photon
+    reflection (smooth surface), and photon emission (thermal emission).
+    \subrequirement{Temperature}\ \newline
+      The model shall be capable of independently modeling the temperature of each
+      thermally independent
+      component (facet) of the overall surface representation.
+    \subrequirement{Plate Properties}\ \newline
+      Each component of the overall surface representation shall be described
+      in terms of its material properties to allow
+      the combination of these terms to produce the most physically realistic
+      description of the surface-photon interaction.
+  \item[Rationale:]\ \newline
+    Each type of interaction behaves in such a way to produce a different force
+    resulting from the same incident flux.  The relative "weighting" of each
+    interaction-type is a function of the material properties, which may not be
+    constant over an entire vehicle (e.g. the characteristics of solar array panels may be very
+    different from those of a thermal shield).  By assigning the material values to each
+    facet, these local variations can be modeled and accounted for.
+    The temperature of each plate will be particularly influential on the
+    photon
+    emission, which varies with temperature to the 4th power.  The sides of the
+    vehicle in shadow will tend to be significantly cooler than those that are
+    in direct solar illumination, and this spatial temperature variation can be
+    modeled on a facet-by-facet basis.
+  \item[Verification:]\ \newline
+    Tests~\vref{test:Fasd}, \vref{test:temperature_integration1}, and \vref{test:temperature_integration2}
+\end{description}
+
+
+
+\requirement{Temperature Integration}
+\label{reqt:functional_temperature}
+\begin{description}
+  \item[Requirement:]\ \newline
+      The model shall be capable of integrating the time-dependent temperature
+      structure in order to maintain an energy balance between thermal energy, and
+      net radiative power, derived from consideration of absorption and emission
+      processes.
+	\item[Rationale:]\ \newline
+	  The temperature structure should have physical validity.  Its integration must be independent of the overall state integration because of the influence that temperature variability can have on the state integration.
+	\item[Verification:]\ \newline
+	  Tests \vref{test:temperature_integration1} and \vref{test:temperature_integration2}.
+\end{description}
+
+\requirement{Flux Calculation}
+\label{reqt:functional_flux}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The model shall be capable of determining the magnitude and direction of
+    the solar flux as a function of the current position with respect to the
+    sun.
+
+    \subrequirement{Orientation}\ \newline
+      The model shall be capable of calculating the orientation of the vehicle
+      with respect to the flux vector.
+
+  \item[Rationale:]\ \newline
+    For any given vehicle and vehicle-orientation, the force exerted on the
+    vehicle is proportional to the magnitude of the incident flux.
+    The interaction between the flux and the vehicle depends on
+    the respective angles between the vehicle plates and the flux vector.
+
+  \item[Verification:]\ \newline
+    Tests \vref{test:eclipse_annular}, \vref{test:eclipse_transverse}, and \vref{test:orbital_long}.
+\end{description}
+
+
+\requirement{Eclipse Calculation}
+\label{reqt:functional_eclipse}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \RadiationPressureDesc\ shall be capable of determining whether the vehicle is in full
+    illumination, in the shadow of a third body, or in a position that is
+    partially eclipsed (receiving partial illumination).  In the case of a
+    partial eclipse, the model shall be capable of calculating an adjustment to
+    the background solar flux to account for that part of the solar disk that is
+    not visible.
+  \item[Rationale:]\ \newline
+    The radiation force depends on the flux, which can be affected by
+    intervening objects.  To accurately model the flux, the model must have the
+    capability to account for those objects.
+  \item[Verification:]\ \newline
+    Tests \vref{test:eclipse_annular} and \vref{test:eclipse_transverse}.
+\end{description}
+
+\requirement{Eclipsing Bodies}
+\label{reqt:eclipsingbody}
+\begin{description}
+   \item[Requirement:]\ \newline
+    The \RadiationPressureDesc\ shall have the capability to calculate the shadowing
+    effect of any one intervening body, and the option to extend that capability to
+    multiple intervening bodies.
+  \item[Rationale:]\ \newline
+    There are limited situations where more than one body could
+    simultaneously provide significant shadowing, so typically only one object need
+    be identified at any particular time.  However, for simulations such
+    as an Earth-Moon transit scenario, that object may change (from Earth
+    to Moon, for example).
+
+      For future development, it is conceivable that it may be desirable to add the capability
+      to monitor the eclipsing of non-planetary third bodies (such as an intervening
+      vehicle).  An example of this application would be the temperature modeling of components
+      of a larger, composite vehicle, such as International Space Station (ISS).
+  \item[Verification:]\ \newline
+    Inspection \vref{inspect:eclipsingbody}
+\end{description}

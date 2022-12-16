@@ -1,0 +1,271 @@
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+This chapter describes how to use the \ModelDesc from the
+perspective of a simulation user, a simulation developer,
+and a model developer.
+
+\section{Analysis}
+
+\subsection{Initialization}
+Some (a rather small portion) of a DynBody object's data members need to
+be initialized directly in the simulation input file. At a minimum,
+the object itself must be given a name,
+the object's integration frame must be specified by name, and
+flags need to be set to enable vehicle dynamics.
+Assuming a sim object
+named \verb+veh_object+ contains a DynBody element named \verb+body+,
+The following will prepare the body for a 6 DOF Earth orbit simulation.
+One caveat: Please do not copy the following verbatim into your input file.
+A better name for the vehicle than "vehicle" most likely exists,
+and using Earth-centered inertial for a vehicle that is not orbiting the
+Earth is not a good choice for integration frames.
+
+\begin{verbatim}
+  veh_object.body.set_name( "vehicle" );
+  veh_object.integ_frame_name = "Earth.inertial";
+  veh_object.translational_dynamics = true;
+  veh_object.rotational_dynamics = true;
+\end{verbatim}
+
+Gravity is active in most simulations. The gravity controls for the
+vehicle need to be specified in the input file. For example, the following
+will make the body subject to gravitational influences from the Earth, Sun,
+and Moon. Earth gravity uses an $8\times8$ gravity field while the Sun
+and Moon are point sources.
+
+\begin{verbatim}
+  veh_object.body.grav_interaction.n_grav_controls = 3;
+  veh_object.body.grav_interaction.grav_controls = alloc(3);
+  \end{verbatim}
+\clearpage
+\begin{verbatim}
+  // Earth gravity
+  veh_object.body.grav_interaction.grav_controls[0].source_name = "Earth";
+  veh_object.body.grav_interaction.grav_controls[0].active = true;
+  veh_object.body.grav_interaction.grav_controls[0].spherical = false;
+  veh_object.body.grav_interaction.grav_controls[0].degree = 8;
+  veh_object.body.grav_interaction.grav_controls[0].order = 8;
+  veh_object.body.grav_interaction.grav_controls[0].gradient = true;
+
+  // Sun gravity
+  veh_object.body.grav_interaction.grav_controls[1].source_name = "Sun";
+  veh_object.body.grav_interaction.grav_controls[1].active = true;
+  veh_object.body.grav_interaction.grav_controls[1].spherical = true;
+  veh_object.body.grav_interaction.grav_controls[1].gradient = false;
+
+  // Moon gravity
+  veh_object.body.grav_interaction.grav_controls[2].source_name = "Moon";
+  veh_object.body.grav_interaction.grav_controls[2].active = true;
+  veh_object.body.grav_interaction.grav_controls[2].spherical = true;
+  veh_object.body.grav_interaction.grav_controls[2].gradient = false;
+\end{verbatim}
+
+See the \hypermodelref{GRAVITY} for a detailed description of the
+GravityInteraction class.
+
+\subsection{Logging}
+Several of the data members in a DynBody object, either directly or
+indirectly through the attribute MassBody, are amenable to logging. For example,
+adding the following to a recording group's reference specification
+will log a vehicle's mass, the position of its composite center of mass
+with respect to structure, and the composite state:
+
+\begin{verbatim}
+  veh_object.body.composite_properties.mass
+  veh_object.body.composite_properties.position[0-2]
+  veh_object.body.composite_body.state.trans.position[0-2]
+  veh_object.body.composite_body.state.trans.velocity[0-2]
+  veh_object.body.composite_body.state.rot.Q_parent_this.scalar
+  veh_object.body.composite_body.state.rot.Q_parent_this.vector[0-2]
+  veh_object.body.composite_body.state.rot.ang_vel_this[0-2]
+\end{verbatim}
+
+That said, logging the quaternion often is not particularly insightful.
+Tools outside of the \ModelDesc such as the EulerDerivedState class provide
+insight into a DynBody object's state. That class is a part of the
+\hypermodelref{DERIVEDSTATE}. Users are strongly encouraged to make use of that
+model as an analysis tool.
+
+\section{Integration}
+\subsection{\Sdefine-Level Integration}
+Given the complexity of the \ModelDesc, integrating it into an \Sdefine file
+is a relatively simple task.
+
+The first step is to declare a DynBody derivative as an element of some
+simulation object. At the very minimum, the object needs to be prepared for 
+initialization in order to be used during simulation:
+\begin{verbatim}
+##include "dynamics/dyn_body/include/dyn_body.hh"
+##include "dynamics/dyn_manager/include/dyn_manager.hh"
+...
+class VehicleSimObject : public Trick::SimObject
+{
+  public:
+    jeod::DynBody dyn_body;
+    ...
+    VehicleSimObject( jeod::DynManager& dm )
+      : dyn_manager(dm)
+    {
+      P_ENV ("initialization") dyn_body.initialize_model( dyn_manager );
+    };
+    ...
+};
+\end{verbatim}
+Note well: The above \verb+DynBody::initialize_model()+ call must take place 
+(in time) between the call to the dyn\_manager's \verb+DynManager::initialize_model()+ 
+method and \verb+DynManager::initialize_simulation()+ method.
+This constraint is best satisfied using Trick's job prioritization scheme, as 
+shown, using the "P\_ENV" phase defined in 
+"lib/jeod/JEOD\_S\_modules/default\_priority\_settings.sm."
+
+Real vehicles change in mass as they burn fuel. To make the state integration
+reflect reality the vehicle's mass mass properties need to be updated,
+typically at the simulation's dynamic rate:
+\begin{verbatim}
+...
+#define DYNAMICS 0.005
+...
+class VehicleSimObject : public Trick::SimObject
+{
+  public:
+    jeod::DynBody dyn_body;
+    ...
+    VehicleSimObject( jeod::DynManager& dm )
+      : dyn_manager(dm)
+    {
+      P_ENV ("initialization") dyn_body.initialize_model( dyn_manager );
+      (DYNAMICS, scheduled) dyn_body.mass.update_mass_properties();
+    };
+    ...
+};
+\end{verbatim}
+
+Surprisingly, the above two calls will be the only \Sdefine-level calls that
+directly invoke model functionality even in a complex simulation.
+Not so surprisingly, a lot of the functionality is invoked by other models.
+The above do not initialize state, compute state derivatives, integrate state,
+or analyze state. Initialization is performed by the \hypermodelref{DYNMANAGER}
+and the \hypermodelref{BODYACTION}.
+The \DYNMANAGER guides derivative calculation, including calls to the
+\hypermodelref{GRAVITY} to compute gravitational acceleration and to
+this model's force/torque collection method.
+The \DYNMANAGER similarly drives the state integration process.
+Finally, the \hypermodelref{DERIVEDSTATE} provides a number of analysis tools.
+
+The vehicle as of yet does not have any forces or torques acting on it.
+The modeling of forces and torques is beyond the scope of the \ModelDesc.
+Using those modeled forces and torques is the bread and butter of this model.
+The object merely needs to be told that those forces and torques exist.
+This is accomplished by using the Trick \emph{vcollect} mechanism.
+\begin{verbatim}
+  vcollect veh_object.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
+    veh_object.force_model.force,
+    veh_object.another_force_model.force
+  };
+\end{verbatim}
+
+Note that the above collects the listed forces into the
+\verb+collect_environ_forc+ data member. Two other options exist for forces:
+The \verb+collect_effector_forc+ and \verb+collect_no_xmit_forc+.
+Torques are collected similarly into one of three groups; just use `\_torq'
+instead of `\_forc' for the data member name and CollectTorque::create instead
+of CollectForce::create.
+
+There is little difference between the environmental and effector forces, but
+there is a huge distinction between these first two and the non-transmitted forces.
+When a DynBody object is attached as a child to a parent DynBody
+object, the environmental and effector forces acting on a child body are
+transmitted to the parent body. The non-transmitted forces are not transmitted
+to the parent (hence the name).
+
+So what are these non-transmitted forces and torques? The concept does not
+make a lick of sense from the perspective of physics. The reason for classifying
+a force or torque as `non-transmitted' is that the force or torque does not
+make a lick of sense when a body is attached to another body.
+A couple of examples are aerodynamic drag and gravity gradient torque.
+
+A similar collect mechanism exists for wrenches:
+\begin{verbatim}
+  vcollect veh_object.dyn_body.effector_wrench_collection.collect_wrench {
+    &veh_object.wrench_model.wrench,
+    &veh_object.another_wrench_model.wrench
+  };
+\end{verbatim}
+As of this release, there are no environmental or non-transmitted wrenches,
+and wrenches can only be used with structure-integrated dynamic bodies.
+
+When two bodies combine to form a composite, the nearby presence of one vehicle
+can significantly alter the aerodynamic drag on the other vehicle. The best
+thing to do is to use a different drag model that truly represents the combined
+vehicle. Lacking this best solution, a fairly good approximation can sometimes
+be attained by using the drag on the larger vehicle only. A simple way to
+accomplish this is to make the smaller vehicle attach to the larger as a child
+and denote the aerodynamic drag on the smaller vehicle as a non-transmitted
+force. Denoting aerodynamic drag and torque as non-transmitted forces and
+torques is a widespread practice. Be aware that this is a partial solution.
+The best thing to do is to mark these as non-transmitted \emph{and} to switch the
+parent body to a different drag model (\eg a composite plate model).
+
+Gravity gradient torque is calculated using the composite mass properties of
+a DynBody object. This means that the gravity gradient torque calculated for the
+root body of a composite body automatically includes the contributions of all
+attached bodies; the result is correct \emph{as-is}. Adding the gravity gradient
+torque exerted on child bodies would invalidate this already correct result.
+Gravity gradient torque must be categorized as a non-transmitted torque.
+
+\subsection{Using the Model in a User Defined Model}
+All of the public member data and member functions of the DynBody
+ and MassBody classes are accessible to user models that operate
+on a DynBody object. Fully explaining that functionality is beyond
+the scope of this section of the document. Users who wish to do so should
+consult section~\ref{ch:spec} of this document, the doxygen documentation
+supplied with JEOD (the HTML pages are vastly superior to the PDF documents),
+the header files that define the classes, and if worse comes to worse,
+the code itself.
+
+A few methods are worthy of note and are described in
+table~\ref{tab:important_user_methods}.
+
+\begin{table}[htp]
+\centering
+\caption{Methods of Note}
+\label{tab:important_user_methods}
+\vspace{1ex}
+\begin{tabular}{||l|p{0.5\linewidth}|}\hline
+{\bf Method} & {\bf Description} \\ \hline \hline
+    \begin{tabular}[t]{@{}l@{}}
+        \verb+MassBody::attach_to()+ \\
+        \verb+MassBody::attach_child()+ \\
+        \verb+DynBody::attach()+ \\
+        \verb+DynBody::add_mass_body()+ 
+    \end{tabular} &
+  If you as a model developer know that two bodies are to be attached,
+  and know they are to be attached immediately, invoke the attach
+  method directly in your model code. There is no reason to create and enqueue
+  a body action to perform the attachment. \\[6 pt]
+    \begin{tabular}[t]{@{}l@{}}
+        \verb+MassBody::detach()+ \\
+        \verb+DynBody::detach()+ \\
+        \verb+DynBody::remove_mass_body()+ 
+    \end{tabular} &
+  Detach is similar to attach in the sense that if you as a model developer
+  know that one body is to detach from another, immediately, simply invoke
+  the detach method in your model code. \\[6 pt]
+\verb+DynBody::set_state()+ &
+  You need to override state in a distributed multi-vehicle simulation?
+  This method, or one of its kin (e.g., \verb+set_attitude_rate()+), is the 
+  method to call. \\[6 pt]
+\verb+DynBody::propagate_state()+ &
+  Always make sure to end a sequence of state overrides with a call to
+  \verb+propagate_state()+ to pass the updated state along to child bodies. 
+  Failure to do so will result in states inconsistent
+  with geometry. \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Extension}
+The model was designed with extensibility in mind. The DynBody
+class makes simplifying assumptions that are not appropriate in all
+circumstances, particularly launch. One solution is to write a user-defined
+extension to the DynBody class that bypasses these assumptions by augmenting
+functionality.

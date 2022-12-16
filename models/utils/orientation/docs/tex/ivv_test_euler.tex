@@ -1,0 +1,62 @@
+\test{Euler Angles Test}\label{test:euler}
+\begin{description}
+\item[Background]
+The purpose of this test is to determine whether the three static
+methods that convert to and from Euler angles are implemented correctly.
+The transformations from an Euler angle sequence to a matrix or a quaternion
+are fairly simple code. These methods involve little branching and have little if any numerical sensitivity.
+
+As with the eigen rotation test, the true challenge is to verify the correctness
+of the conversion from transformation matrices to Euler angles. The algorithm is
+rather complex, with an extended cyclomatic complexity of 14. Making matters
+worse, each of the twelve Euler rotation sequences potentially has a problem with
+gimbal lock. Matrices that correspond to gimbal lock / near-gimbal lock
+conditions need to be tested carefully.
+
+\item[Test description]
+This test centers on the middle angle $\theta$ of the Euler rotation sequence.
+This is the element that determines whether gimbal lock is present.
+The test covers three intervals for this angle: Angles well-removed
+from gimbal lock positions, pure gimbal lock, and near-gimbal lock.
+
+For each $\theta$ value, the test sweeps both the first angle $\phi$
+and last angle $\psi$ over a range of 360 degrees.
+Each of the twelve Euler sequences is tested for each $(\phi, \theta, \psi)$
+triple. Each test involves
+\begin{enumerate}
+\item Using the model conversions from Euler angles to transformation quaternions
+and to transformation matrices to compute the quaternion and transformation
+matrix that corresponds to the given Euler sequence and angles.
+\item Using the model conversion from transformation matrix to Euler angles
+to recompute the Euler angles from the transformation matrix step one above.
+\item For aerodynamics sequences only,
+computing the transformation matrix using the Trick math library and
+comparing the result to the matrix computed in step one.
+\item Computing the error between the quaternion and matrix computed in step one.
+\item Computing a quaternion from the Euler angles computed in step two and
+comparing that to the quaternion computed in step one.
+\end{enumerate}
+
+
+\item[Test directory] {\tt verif/unit\_tests/euler\_angles} \\
+This is a standard unit test directory with two configuration managed items,
+main.cc and makefile. Simply type {\tt make} to build the test article and run
+the test in default mode. This default mode summarizes the results of the test.
+To see individual output, issue the command {\tt ./test\_program -verbose} after
+having made the test article.
+
+\item[Success criteria]
+A common threshold of $10^{-15}$ radians angular error (numerical error) is
+used for all tests. Over 1.5 million cases are evaluated during the course of
+the test, and each one of these must pass for the test to pass as a whole.
+
+\item[Test results]
+The test passes.
+
+\item[Relevant requirements]
+This test demonstrates the satisfaction of requirement~\ref{reqt:conversions}
+sub-requirements~\ref{reqt:euler_to_mat} to~\ref{reqt:euler_to_quat}
+and partially demonstrates the satisfaction of
+requirements~\ref{reqt:representations} and~\ref{reqt:euler_angles}.
+
+\end{description}

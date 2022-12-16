@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Extension part of User's Guide for the RadiationPressure model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Extension}
+The Radiation Pressure Model represents a complete method for calculating the effect of incident radiation on a surface.  There are several limitations and potential areas for extending the capability of this model:
+
+\begin{enumerate}
+\item{Albedo Pressure modeling} \newline
+In \JEODid\, only direct radiation pressure from the primary source is calculated.  However, the opportunity exists to add a model to represent the effect of scattered light reflected from a third body, for example, Earth.  The code architecture was structured such that it would be possible to add additional sources at a later time.  This project is mostly completed, but has not been adequately validated for inclusion into \JEODid.  Contact the model author for more information on the upcoming release of this extension.
+\item{Occultation} \newline
+As the model is currently implemented, third-body objects are planets.  However, that is not necessary.  The model could easily be extended to make include DynBody objects third-bodies, thereby providing the capability of vehicle-vehicle occultations.  The project, too, is mostly completed, but has not been adequately validated for inclusion into \JEODid.  Again, contact the model author for more information on the upcoming release of this extension.
+\item{Self-shadowing} \newline
+In \JEODid\, it is loosely assumed that surfaces are universally convex, so that a surface cannot create self-shadowing.  However, by extending the surface through attached MassBody objects, and considering those MassBody objects in the third-bodies effects, the effect of self-shadowing can be implemented in much the same way as vehicle-vehicle occulations.
+\item{Improved thermal modeling} \newline
+The thermal modeling is restricted to direct illumination sources, and some internal source, but no capability exists to allow for facet-facet conduction.  This could be particularly important for large, thin structures, which would have two large surfaces with significant thermal connectivity.  An important example would include solar panels, with one side exposed to full illumination, and one exposed to deep space; without some thermal conductivity between those surfaces there would eventually be a very large temperature differential between the two sides.  This can be crudely modeled by applying a positive thermal source to one face, and a negative source (sink) to the other, but under the current system, this would be independent of temperature differential.
+\end{enumerate}

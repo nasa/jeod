@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+\usepackage {amssymb, amsmath, epsfig}
+
+% Package definition.
+% Change OrbitalElement to package name. Change date and version to reflect updates.
+%  (this may be done in compy_templates)
+\ProvidesPackage{OrbitalElement}[2006/07/26 v1.1 OrbitalElement module macros]
+
+
+% Package options. Change OrbitalElement to the value of \modelprefix (see below).
+%  (this may be done in copy_templates)
+\newif\ifOrbitalElementReqt@
+\newif\ifOrbitalElementIVV@
+\DeclareOption{Reqt}{\OrbitalElementReqt@true}
+\DeclareOption{IVV}{\OrbitalElementIVV@true}
+\ProcessOptions\par
+
+% Include requirement labels if requested
+\ifOrbitalElementReqt@
+\input{OrbitalElementReqt.def}
+\fi
+
+% Include IV&V labels if requested
+\ifOrbitalElementIVV@
+\input{OrbitalElementIVV.def}
+\fi
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+% Define any other model-specific LaTeX commands here.
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+% THE OrbitalElement PREFIX MUST CONTAIN ONLY LETTERS.
+% Examples: TIME for the universal time package, MASS for the mass tree.
+\newcommand\modelprefix{OE}
+% \OrbitalElementDesc should be changed to a short acronym for the model, this may be
+% done in copy_templates
+% {MODEL DESCRIPTION} should be changed to the full name of the model.  
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").  
+%   The name should be a singular, not plural value, e.g. "Reference Frame Model", 
+%   not "Reference Frames" (same example).
+\newcommand{\OrbitalElementDesc}{Orbital Elements Model}
+\newcommand{\OrbitalElement}{OrbitalElement class}
+\newcommand{\ModelAuthor}{Dr. Edwin Z. Crues}
+\newcommand{\ModelAuthDate}{\RELEASEMONTH\ \RELEASEYEAR}
+
+% for all editors; add keywords as necessary.
+\newcommand{\ModelKeywords}{\OrbitalElementDesc}
+
+% for document revisions only: 
+\newcommand\DocumentChangeHistory{
+{\bf Author } & {\bf Date} & {\bf Revision} & {\bf Description} \\ \hline \hline
+
+% This documentation file's change history includes:
+% "Author name(s)" & "revision DATE" & "revision NUMBER" & "revision DESCRIPTION"
+%  ---------------    -------------    ----------------     ---------------------
+Scott Piggott & 1/6/2006 & 1.0 & Initial Version \\ \hline
+Edwin Z. Crues & 2/3/2009 & 2.0 Alpha &JEOD 2.0 Conversion \\ \hline
+ Robert O. Shelton&  12/8/2009      & 2.1 &JEOD 2.0 Release \\ \hline
+ Robert O. Shelton& \ModelAuthDate       & 2.2 &Added metrics \\ \hline
+}

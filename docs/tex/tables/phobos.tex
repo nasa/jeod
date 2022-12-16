@@ -1,0 +1,38 @@
+\begin{table}[htb]
+\begin{center}
+\caption{Phobos State and Environment} \vspace{5mm}
+\scalebox{0.8}{
+\begin{tabular}{|l|c|l|l|}
+\hline
+Epoch Data         & Units     & Value   & Description:     \\ \hline \hline
+Year          & $y$       & 2010             &    Year             \\ \hline
+Month         & $m$       & 09             &     Month              \\ \hline
+Day           & $d$       & 10             &     Day              \\ \hline
+Hour          & $h$       & 0            &     Hour               \\ \hline
+Min           & $n$       & 0            &     Minute               \\ \hline
+Second        & $s$       & 0.0          &     Second               \\ \hline
+DUT1             & $s$ auto select      &           & UT1 - UTC        \\ \hline
+Delta AT         & $s$ auto select      &           & IERS Leap Second \\ \hline \hline
+$x_p$            & $as$ auto select      &           &  X Polar Offset   \\ \hline
+$y_p$            & $as$ auto select     &           &  Y Polar Offset    \\ \hline \hline
+State Vector         &             &          &      \\ \hline \hline
+$x_{J2000}$       & $km$       &      8240.7901108     $ \pm $ 2 m*  & X Position J2000       \\ \hline
+$y_{J2000}$       & $km$       &      605.0716371           $ \pm $ 2 m*   &  Y Position J2000        \\ \hline
+$z_{J2000}$       & $km$       &       -4152.5375845 $ \pm $   2 m*       & Z Position J2000   \\ \hline
+$\dot x_{J2000}$  &$km/s$      &      0.3077392         $ \pm $ .1 mm/s*    & X Component Velocity J2000    \\ \hline
+$\dot y_{J2000}$  &$km/s$       &       1.9627295 $ \pm $ .1 mm/s*    & Y Component Velocity J2000    \\ \hline
+$\dot z_{J2000}$  &$km/s$       &      0.8655744 $ \pm $ .1 mm/s*     & Z Component Velocity J2000      \\ \hline \hline
+Atmosphere data   &            &          &      \\ \hline \hline
+$F_{10.7}$        & $W/{H_z}{m^2}$    &   N/A    & UV Correlated Solar radio noise flux             \\ \hline
+$F_{10.7B}$       & $W/{H_z}{m^2}$    &   N/A    &  90 day average UV Correlated Solar radio noise flux  \\ \hline
+$a_p$            &  NA                &   N/A    &  Geomagnetic Activity Index                \\ \hline \hline
+Aerodynamic data         &      &      &      \\ \hline \hline
+$C_d$                    &None       &  N/A         & Coefficient of drag \\ \hline
+BC                       &$kg/m^2$   &  N/A          & Ballistic Coefficient \\ \hline
+Mass                     &kg         &  1.08e+16            & Vehicle Mass           \\ \hline
+Area                     &$m^2$      &  N/A             & Vehicle Reference Area  \\ \hline
+\end{tabular}}
+\end{center}
+\end{table}
+*Error analysis \cite{JPL}
+\clearpage

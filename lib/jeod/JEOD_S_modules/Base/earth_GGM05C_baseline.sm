@@ -1,0 +1,130 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+/*************     TRICK HEADER     ******************************************
+Earth_GGM05C_SimObject
+Purpose:( This sim object models Earth with a GGM05C gravity model.
+          It includes RNP as a necessary requisite for application of GGM05C)
+*****************************************************************************/
+#ifndef SIM_OBJECT_EARTH_GGM05C
+#define SIM_OBJECT_EARTH_GGM05C
+
+// Models
+##include "environment/RNP/RNPJ2000/include/rnp_j2000.hh"
+##include "environment/RNP/RNPJ2000/include/nutation_j2000_init.hh"
+##include "environment/RNP/RNPJ2000/include/polar_motion_j2000_init.hh"
+
+// Default data
+##include "environment/planet/data/include/earth.hh"
+##include "environment/RNP/RNPJ2000/data/include/rnp_j2000.hh"
+##include "environment/RNP/RNPJ2000/data/include/nutation_j2000.hh"
+##include "environment/RNP/RNPJ2000/data/polar_motion/include/xpyp_daily.hh"
+#ifdef JEOD_OVERRIDE_GGM05C_WITH_GEMT1
+##include "environment/gravity/data/include/earth_GEMT1.hh"
+#else
+##include "environment/gravity/data/include/earth_GGM05C.hh"
+#endif
+
+#include "planet_generic.sm"
+class Earth_GGM05C_SimObject: public PlanetGenericSimObject
+{
+ protected:
+  // External references
+  jeod::TimeTT       & tt;
+  jeod::TimeUT1      & ut1;
+  jeod::TimeGMST     & gmst;
+
+ public:
+  jeod::RNPJ2000             rnp;
+  jeod::NutationJ2000Init    nut_init;
+  jeod::PolarMotionJ2000Init pm_init;
+
+  // Default data
+  jeod::Planet_earth_default_data  earth_default_data;
+  jeod::RNPJ2000_rnp_j2000_default_data                    rnp_default_data;
+  jeod::NutationJ2000Init_nutation_j2000_default_data      nut_init_default_data;
+  jeod::PolarMotionJ2000Init_xpyp_daily_default_data       pm_init_default_data;
+#ifdef JEOD_OVERRIDE_GGM05C_WITH_GEMT1
+  jeod::SphericalHarmonicsGravitySource_earth_GEMT1_default_data earth_grav_default_data;
+#else
+  jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data earth_grav_default_data;
+#endif
+
+  Earth_GGM05C_SimObject( jeod::DynManager   & dyn_manager_in,
+                          jeod::GravityManager & grav_in,
+                          jeod::TimeTT       & tt_in,
+                          jeod::TimeUT1      & ut1_in,
+                          jeod::TimeGMST     & gmst_in)
+    :
+    PlanetGenericSimObject( dyn_manager_in,
+                            grav_in,
+                            earth_default_data,
+                            earth_grav_default_data),
+    tt (tt_in),
+    ut1 (ut1_in),
+    gmst (gmst_in)
+  {
+    //
+    //Default data jobs
+    //
+    ("default_data") rnp_default_data.initialize ( &rnp );
+    ("default_data") nut_init_default_data.initialize ( &nut_init );
+    ("default_data") pm_init_default_data.initialize ( &pm_init );
+
+    //
+    // Initialization jobs
+    //
+    P_ENV ("initialization") rnp.initialize( dyn_manager );
+    P_ENV ("initialization") rnp.nutation->initialize( &nut_init );
+    P_ENV ("initialization") rnp.polar_motion->initialize( &pm_init );
+    P_ENV ("initialization") rnp.update_rnp ( tt, gmst, ut1 );
+
+    //
+    // Environment class jobs
+    //
+    (LOW_RATE_ENV, "environment") rnp.update_rnp ( tt, gmst, ut1 );
+
+    //
+    // Derivative class jobs
+    //
+    P_ENV ("derivative") rnp.update_axial_rotation( gmst );
+  }
+ private:
+  // Unimplemented copy constructor and assignment operator
+  Earth_GGM05C_SimObject (const Earth_GGM05C_SimObject&);
+  Earth_GGM05C_SimObject & operator = (const Earth_GGM05C_SimObject&);
+};
+#endif

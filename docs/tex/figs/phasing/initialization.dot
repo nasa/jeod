@@ -1,0 +1,146 @@
+digraph G {
+   label = "Trick Initialization Job Dependencies";
+   compound = true;
+   center=true;
+   style=rounded;
+   color=white;
+   pencolor=black;
+
+   node [fontname="Helvetica",fontsize=11];
+   edge [fontname="Helvetica",fontsize=11,arrowhead=vee];
+
+   subgraph cluster_P_TIME {
+      label = "P_TIME";
+
+      // Nodes
+      TimeManager__register_converter [label="TimeManager::register_converter"];
+      TimeManager__initialize [label="TimeManager::initialize"];
+      TimeManager__register_time [label="TimeManager::register_time"];
+      TimeStandard__calendar_update [label="TimeStandard::calendar_update"];
+      // Edges for ordering  
+      {rank=same;TimeManager__initialize;TimeStandard__calendar_update;};
+   }
+
+   subgraph cluster_P_MNGR {
+      label = "P_MNGR";
+
+      // Nodes
+      DynManager__initialize_model [label="DynManager::initialize_model"];
+   }
+//   {rank=same;TimeManager__initialize;DynManager__initialize_model;};
+   subgraph cluster_P_ENV {
+      label = "P_ENV";
+
+      // Nodes
+        
+      subgraph cluster_gravity {
+	 label="";
+	 De4xxEphemeris__initialize_model [label="De4xxEphemeris::initialize_model"];
+	 GravityManager__initialize_model [label="GravityManager::initialize_model"];      
+	 GravityBody__initialize_body [label="GravityBody::initialize_body"];
+	 GravityManager__add_grav_source [label="GravityManager::add_grav_source"];
+	 Planet__register_model [label="Planet::register_model"];
+	 RNPJ2000__initialize [label="RNPJ2000::initialize"];
+	 RNPJ2000__update_rnp [label="RNPJ2000::update_rnp"];
+         pencolor=white;
+	 // Edges for ordering  
+         GravityManager__initialize_model -> GravityBody__initialize_body [style="invis"];	 
+      }
+      
+      subgraph cluster_dynbody{
+      	 label="";
+	 METAtmosphere__update_time [label="METAtmosphere::update_time"];
+	 DynBody__initialize_model [label="DynBody::initialize_model"];
+	 PolarMotionJ2000__initialize [label="PolarMotionJ2000::initialize"];
+	 NutationJ2000__initialize [label="NutationJ2000::initialize"];
+	 pencolor=white;
+	 // Edges for ordering  
+	 METAtmosphere__update_time -> PolarMotionJ2000__initialize [style="invis"];	
+	 PolarMotionJ2000__initialize -> NutationJ2000__initialize [style="invis"];
+	 NutationJ2000__initialize -> DynBody__initialize_model [style="invis"];
+      }
+
+   }
+
+   subgraph cluster_P_BODY {
+      label = "P_BODY";
+
+      // Nodes
+      DynManager__initialize_simulation [label="DynManager::initialize_simulation"];
+      Planet__initialize [label="Planet::initialize"];
+   }
+
+   subgraph cluster_P_DYN {
+      label = "P_DYN";
+
+      // Nodes
+      EulerDerivedState__initialize [label="EulerDerivedState::initialize"];
+      LvlhDerivedState__initialize [label="LvlhDerivedState::initialize"];
+      PlanetaryDerivedState__initialize [label="PlanetaryDerivedState::initialize"];
+      OrbElemDerivedState__initialize [label="OrbElemDerivedState::initialize"];
+      // Edges for ordering
+      EulerDerivedState__initialize -> LvlhDerivedState__initialize [style="invis"];
+      LvlhDerivedState__initialize -> OrbElemDerivedState__initialize [style="invis"];
+      OrbElemDerivedState__initialize -> PlanetaryDerivedState__initialize [style="invis"];
+   }
+   
+   subgraph state_update {   
+      label="";
+      EulerDerivedState__update [label="EulerDerivedState::update"];      
+      LvlhDerivedState__update [label="LvlhDerivedState::update"];      
+      
+      OrbElemDerivedState__update [label="OrbElemDerivedState::update"];
+      // Edges for ordering
+      EulerDerivedState__update -> LvlhDerivedState__update [style="invis"];
+      LvlhDerivedState__update -> OrbElemDerivedState__update [style="invis"];
+      pencolor=white;
+   }
+
+   {rank=same;EulerDerivedState__update;EulerDerivedState__initialize;};
+
+   // Nodes
+   GravityTorque__initialize [label="GravityTorque::initialize"];
+   
+   PlanetaryDerivedState__update [label="PlanetaryDerivedState::update"];
+   METAtmosphere__update_state [label="METAtmosphere::update_state"];
+   METAtmosphere__update_wind [label="METAtmosphere::update_wind"];
+   METAtmosphere__update_state -> METAtmosphere__update_wind [style="invis"];
+
+   // Edges
+   TimeManager__register_converter -> TimeManager__initialize;
+   TimeManager__register_time -> TimeManager__initialize;
+   TimeManager__initialize -> DynManager__initialize_model;
+   TimeManager__initialize -> DynManager__initialize_simulation;
+   TimeManager__initialize -> De4xxEphemeris__initialize_model;
+   TimeManager__initialize -> RNPJ2000__update_rnp -> DynManager__initialize_simulation;
+   TimeManager__initialize -> TimeStandard__calendar_update -> METAtmosphere__update_time -> METAtmosphere__update_state;
+
+   EulerDerivedState__initialize -> EulerDerivedState__update;
+   LvlhDerivedState__initialize -> LvlhDerivedState__update;
+   OrbElemDerivedState__initialize -> OrbElemDerivedState__update;
+   PlanetaryDerivedState__initialize -> PlanetaryDerivedState__update;
+   PlanetaryDerivedState__update -> METAtmosphere__update_state;
+   PlanetaryDerivedState__update -> METAtmosphere__update_wind;
+
+   NutationJ2000__initialize -> RNPJ2000__update_rnp;
+   PolarMotionJ2000__initialize -> RNPJ2000__update_rnp;
+
+   DynBody__initialize_model -> EulerDerivedState__initialize;
+   DynBody__initialize_model -> LvlhDerivedState__initialize;
+   DynBody__initialize_model -> PlanetaryDerivedState__initialize;
+   DynBody__initialize_model -> OrbElemDerivedState__initialize;
+
+   DynManager__initialize_model -> DynBody__initialize_model -> DynManager__initialize_simulation;
+   DynManager__initialize_model -> De4xxEphemeris__initialize_model -> DynManager__initialize_simulation;
+   DynManager__initialize_model -> GravityManager__initialize_model -> GravityTorque__initialize;
+
+   De4xxEphemeris__initialize_model -> GravityManager__initialize_model;
+
+   GravityBody__initialize_body -> GravityManager__add_grav_source;
+   GravityManager__add_grav_source -> Planet__register_model;
+   GravityManager__add_grav_source -> Planet__initialize;
+
+   Planet__register_model -> Planet__initialize -> DynManager__initialize_simulation;
+   Planet__register_model -> RNPJ2000__initialize -> RNPJ2000__update_rnp;
+
+}

@@ -1,0 +1,54 @@
+\test{Threads}\label{test:threads}
+\begin{description}
+\item[Test Directory]
+{\tt models/utils/memory/verif/unit\_tests/threads}
+
+\item[Test Description] This unit test exercises the
+\ModelDesc in a multithreaded environment. The program spawns twelve threads.
+Each thread operates at a specific rate and
+allocates and deletes multiple chunks memory of a specific type.
+The collisions that would result from the memory operations performed by
+these threads would result in the model becoming corrupted were it not
+for the thread-safe features of the model.
+
+To run the test, enter the test directory and type the command {\tt make}.
+The test driver exercises the test program four times:
+\begin{itemize}
+\item Test \#1 tests nominal behavior. Each thread allocates and deallocates
+memory. Eventually all memory allocated by a thread is deallocated. When all
+threads have finished there should be no extant allocated memory.
+
+\item Test \#2 tests the ability to detect simple fence post errors, the
+most common type of memory error. Each thread writes just outside of one
+piece of allocated memory. The \ModelDesc should detect and report these
+as corrupted memory.
+
+\item Test \#3 tests the ability to detect leaks. Each thread fails to release
+one piece of allocated memory. The \ModelDesc should detect these as leaks.
+
+\item Test \#4 combines tests \#2 and \#3. The \ModelDesc should detect and
+report both the corrupted memory errors and the leaks.
+\end{itemize}
+
+\item[Success Criteria]
+Test criteria are embedded in the test program. The output for each test
+must indicate that the test passes.
+
+\item[Test Results] Each of the four test passes its test criteria.
+
+\item[Applicable Requirements]
+This test demonstrates the partial or complete satisfaction of the 
+following requirements:
+\begin{itemize}
+\item \ref{reqt:alloc}. Memory is allocated and initialized as expected.
+\item \ref{reqt:free}. Memory is destructed and freed as expected.
+\item \ref{reqt:base_class_pointer_free}. Freeing from a base class pointer
+  works as expected.
+\item \ref{reqt:threads}. The model performs in a thread-safe manner.
+\item \ref{reqt:tracking}. Memory allocations are tracked as evidenced
+  by properly reporting leaks.
+\item \ref{reqt:reporting}. Leaks and corrupted memory are reported
+  upon request.
+\end{itemize}
+
+\end{description}

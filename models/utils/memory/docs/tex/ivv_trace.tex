@@ -1,0 +1,54 @@
+Table~\ref{tab:reqt_ivv_xref} summarizes the inspections and tests
+that demonstrate the satisfaction of the requirements levied on the model.
+
+\begin{table}[htp]
+\centering
+\caption{Requirements Traceability}
+\label{tab:reqt_ivv_xref}
+\vspace{1ex}
+\centering
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|} \hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Inspection or test} \\ \hline\hline
+\ref{reqt:toplevel} & Project Requirements &
+     Insp. & \ref{inspect:TLI}     & Top-level Inspection
+\tabularnewline[4pt]
+\ref{reqt:alloc} & Memory Allocation &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Test  & \ref{test:basic}     & Basic Test \\
+  && Test  & \ref{test:threads}   & Threading Test
+\tabularnewline[4pt]
+\ref{reqt:registration} & \raggedright Memory Registration &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Test  & \ref{test:basic}     & Basic Test
+\tabularnewline[4pt]
+\ref{reqt:free} & \raggedright Memory Deallocation &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Test  & \ref{test:basic}     & Basic Test \\
+  && Test  & \ref{test:threads}   & Threading Test
+\tabularnewline[4pt]
+\ref{reqt:base_class_pointer_free} & \raggedright Free from Base Pointer &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Test  & \ref{test:basic}     & Basic Test \\
+  && Test  & \ref{test:threads}   & Threading Test
+\tabularnewline[4pt]
+\ref{reqt:deregistration} & \raggedright Memory Deregistration &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Test  & \ref{test:basic}     & Basic Test
+\tabularnewline[4pt]
+\ref{reqt:threads} & \raggedright Thread Safety &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Insp. & \ref{inspect:review} & Peer Review \\
+  && Test  & \ref{test:threads}   & Threading Test
+\tabularnewline[4pt]
+\ref{reqt:tracking} & \raggedright Memory Tracking &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Test  & \ref{test:threads}   & Threading Test
+\tabularnewline[4pt]
+\ref{reqt:reporting} & \raggedright Memory Reporting &
+     Insp. & \ref{inspect:design} & Design Inspection \\
+  && Test  & \ref{test:threads}   & Threading Test
+\tabularnewline[4pt]
+\hline
+\end{tabular}
+\end{table}

@@ -1,0 +1,191 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% overview_reqt.tex
+% Toplevel requirements on the Body Action Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}
+\label{ch:overview:reqt}
+%----------------------------------
+
+\requirement{Top-level requirement}
+\label{reqt:overview:top_level}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project-wide requirements specified in
+  the \JEODid\ \hyperTLDinside{part}{reqt}{requirements}.
+
+\item[Rationale:]\ \newline
+  This is a project-wide requirement.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement[Base class]{Body Action Base Class}
+\label{reqt:overview:base_class}
+\begin{description}
+\item[Requirement:]\ \newline
+  All action classes that modify aspects of a MassBody, DynBody or derived class instance
+  shall derive from a common base class.
+
+\item[Rationale:]\ \newline
+  A common base class enables external functional users of the
+  model to refer to any of the model object in terms of a base
+  class pointer.
+
+\item[Remarks:]\ \newline
+  This requirement does not pertain to the \ModelDesc message class,
+  BodyActionMessages. That class does not modify aspects of a subject body.
+  It instead defines error and message IDs used
+  for interaction with the JEOD Message Handler.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement{Subject Specification}
+\label{reqt:overview:subject_body}
+\begin{description}
+\item[Requirement:]\ \newline
+  Each instance of the classes defined by this model
+  shall designate a MassBody or DynBody object as the primary subject
+  of the model instance.
+
+\item[Rationale:]\ \newline
+  The goal of this model is to alter various aspects of an object, therefore
+  the object must be known to the action instance.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement{Initialize Mass Properties}
+\label{reqt:overview:mass_ppty_init}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall provide the ability to
+  initialize the mass properties of a MassBody object.
+
+\item[Rationale:]\ \newline
+  A driving goal of this model is to provide a common interface
+  for initializing key aspects of MassBody and DynBody objects.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement{Initialize Mass Points}
+\label{reqt:overview:mass_point_init}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall provide the ability to specify the
+  points of interest on MassBody and DynBody objects.
+
+\item[Rationale:]\ \newline
+  A driving goal of this model is to provide a common interface
+  for initializing key aspects of MassBody and DynBody objects.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement{Attach MassBody and DynBody Objects}
+\label{reqt:overview:mass_attach}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall provide the ability to attach one MassBody object
+  to another, one DynBody to another, or a MassBody as a child attachment to a
+  DynBody. The model shall not provide the ability to attach a DynBody as a
+  child attachment to a MassBody.
+
+\item[Rationale:]\ \newline
+  A driving goal of this model is to provide a common interface
+  for initializing key aspects of
+  and for performing asynchronous operations on
+  MassBody and DynBody objects. The DynBody model specifies that it may not
+  attach as a child to a MassBody, which is stateless.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement{Detach MassBody and DynBody Objects}
+\label{reqt:overview:mass_detach}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall provide the ability to detach one MassBody object
+  to another, detach one DynBody from another, and detach a MassBody from a
+  DynBody.
+
+\item[Rationale:]\ \newline
+  A driving goal of this model is to provide a common interface
+  for performing asynchronous operations on
+  MassBody and DynBody objects.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement[State initialization]{Initialize DynBody State}
+\label{reqt:overview:dyn_body_init}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall provide the ability to
+  initialize the dynamic state (position, velocity,
+  attitude, and rate) of a DynBody object.
+
+\item[Rationale:]\ \newline
+  A driving goal of this model is to provide a common interface
+  for initializing key aspects of MassBody and DynBody objects.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement[Frame switch]{Switch DynBody Integration Frame}
+\label{reqt:overview:frame_switch}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall provide the ability to switch the
+  frame in which a DynBody object's state is represented
+  and propagated.
+
+\item[Rationale:]\ \newline
+  A driving goal of this model is to provide a common interface
+  for performing asynchronous operations on
+  MassBody and DynBody objects.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement[Errors]{Error Detection and Handling}
+\label{reqt:overview:errors}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall detect and handle erroneous conditions.
+
+\item[Rationale:]\ \newline
+  All models, and particularly those that deal with user inputs,
+  must address erroneous conditions.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement[Trace]{Trace Capability}
+\label{reqt:overview:debug}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide a (disable-able) ability to
+  summarize actions performed on the subject objects.
+
+\item[Rationale:]\ \newline
+  This capability is needed for error handling and message generation.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}

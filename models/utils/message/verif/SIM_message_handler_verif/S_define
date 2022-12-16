@@ -1,0 +1,95 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+/*******************************************************************************
+
+Purpose:
+  (This simple simulation tests the JEOD message handling system.)
+
+ 
+
+*******************************************************************************/
+
+
+#define DYNAMICS 1.0
+
+ // Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+
+
+// Include headers for classes that this class contains:
+
+##include "utils/message/verif/include/message_handler_verif_driver.hh"
+##include "utils/message/verif/include/message_subscriber_verif.hh"
+
+//***************************************************************
+// CLASS: (VerifSimObject)
+// PURPOSE:
+//  ( This is the verification driver.)
+//***************************************************************
+
+class VerifSimObject: public Trick::SimObject {
+
+   public:
+    jeod::MessageHandlerVerifDriver driver;
+    jeod::MessageFileVerif output_file;
+
+//Constructor
+    VerifSimObject() {
+        // Object construction
+        output_file.name = "verification_subscriber";
+        output_file.file_name = "jeod_hs";
+
+        // Initialization
+        ("default_data") trick_message.mpublisher.subscribe( &output_file );
+        ("initialization") output_file.init();
+
+        // Scheduled jobs
+        (DYNAMICS, "scheduled") driver.generate_messages();
+
+        // Shutdown (do not want to capture SIM / CPU TIME output)
+        ("shutdown") trick_message.mpublisher.unsubscribe( &output_file );
+    }
+
+  private:
+    VerifSimObject (const VerifSimObject&);
+    VerifSimObject & operator = (const VerifSimObject&);
+
+};
+VerifSimObject verif;

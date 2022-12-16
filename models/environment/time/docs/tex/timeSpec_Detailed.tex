@@ -1,0 +1,104 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the time model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+
+This section is divided into 4 parts:
+
+
+\begin{itemize}
+\item A process flow-through description (Process Architecture)
+of the sequence in which the
+various functions are called, and the interaction between the objects.
+\item A complete list and description of all methods that comprise the
+\timeDesc.
+\item A description of the external data files used by the objects.
+\item A description of the extension capability of the model.
+\end{itemize}
+
+Further, the
+\href{file:refman.pdf} {\em Reference Manual} \cite{timebib:ReferenceManual}
+contains a
+structural overview of the \timeDesc.
+
+
+
+\input{timeSpec_Detailed_Proc}
+\clearpage
+\input{timeSpec_Detailed_Func}
+
+
+\clearpage
+
+\subsection{Default data files}
+This section describes the data files included with the release
+of \JEODid.
+
+{\begin{enumerate}
+\funcitem{tai\_to\_ut1.cc}
+This file gives a tabulation of the differences between \textit{TAI} and
+\textit{UT1} as a function of \textit{TAI}.
+
+Instructions for updating this file are contained in the Extension
+section of the User Guide (chapter \ref{ch:user}).
+
+\funcitem{tai\_to\_utc.cc}
+This file gives a tabulation of the differences between \textit{TAI} and
+\textit{UTC} as a function of \textit{UTC}.
+
+Instructions for updating this file are contained in the Extension
+section of the User Guide (chapter \ref{ch:user}).
+
+\end{enumerate}}
+
+
+
+\clearpage
+\subsection{Extensibility}
+The Time Representations Model is designed in such a way that it can
+easily be extended with the addition of more time representations.
+
+Each new time representation must meet the following requirements:
+
+
+\begin{enumerate}
+\item It shall be included as a class of its own, inheriting from JeodBaseTime
+or TimeStandard.
+\item It shall have a name
+\item It shall have a constructor and destructor
+\item There shall be some method for deriving its value from one of the
+time classes that already exist.
+\end{enumerate}
+
+
+
+A new time representation must have a new Time Converter.  A user may
+also wish to define a new Time Converter to convert directly between two
+preexisting time representations (e.g., UT1 to MET).
+
+Each new Time Converter must meet the following requirements:
+
+\begin{enumerate}
+	\item A converter shall be defined to allow the derivation of the new
+	time representations.
+	\item The converter shall be included in a class of its own, inheriting
+	from \textit{TimeConverter}.
+	\item The converter class shall define one or both of the methods
+\begin{enumerate}
+	\item \textit{convert\_a\_to\_b}.
+  \item \textit{convert\_b\_to\_a}.
+\end{enumerate}
+  \item The converter class shall define the \textit{valid\_directions} attribute to specify when \textit{convert\_a\_to\_b} and/or \textit{convert\_b\_to\_a} is valid.
+  \item The converter class shall have an \textit{initialize} method.
+  \item The converter class shall have a constructor and a destructor.
+\end{enumerate}
+
+Instructions for adding these methods are found in the Extension section
+\vref{sec:User_Extension} of the User Guide.

@@ -1,0 +1,20 @@
+digraph G { 
+
+   // Make this look like a UML diagram
+   rankdir=BT;
+   node [fontname="Helvetica",fontsize=10,shape=box];
+   edge [fontname="Helvetica",fontsize=10,arrowhead=empty,arrowtail=empty];
+
+   // Node connectivity
+
+   subgraph main {
+      rankdir = BT;
+      DynManager [shape=parallelogram]
+      EphemeridesManager
+      RefFrameManager [shape=parallelogram]
+
+      EphemeridesManager -> RefFrameManager;
+      DynManager -> EphemeridesManager;
+
+   }
+}

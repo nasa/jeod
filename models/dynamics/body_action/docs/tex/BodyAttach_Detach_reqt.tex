@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAttach_Detach_reqt.tex
+% Requirements on/levied by the BodyAttach_Detach class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Requirements}\label{ch:\modelpartid:reqt}
+
+
+\requirement[Attach framework]{Extensible Attachment Framework}
+\label{reqt:BodyAttach_Detach:attach_support}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This sub-model shall provide an extensible framework for attaching
+    the subject MassBody to some other MassBody object.
+  \item[Rationale:]\ \newline
+    The MassBody class defines multiple {\tt attach()} interfaces.
+  \item[Verification:]\ \newline
+    Inspection
+\end{description}
+
+\requirement{Attach MassBody/DynBody Objects}
+\label{reqt:BodyAttach_Detach:attach}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This sub-model shall provide the ability to cause the subject MassBody
+    object to be attached to another MassBody object
+    \subrequirement{Point-to-point attach}
+    \label{reqt:BodyAttach_Detach:attach_point}
+      Given a pair of mass points on the two objects to be attached with zero
+      offset between the mass point origins and a $180^{\circ}$ yaw
+      between the mass point axes.
+    \subrequirement{Matrix/offset attach}
+    \label{reqt:BodyAttach_Detach:attach_matrix}
+      Given an offset from the target body's structural origin to the
+      subject body's structural origin and a transformation matrix from
+      the target body's structural axes to the subject body's structural axes.
+  \item[Rationale:]\ \newline
+    This requirement derives directly from
+    requirement~\ref{reqt:overview:mass_attach}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement[Detach from parent]{Detach MassBody/DynBody Object From Immediate Parent}
+\label{reqt:BodyAttach_Detach:detach_immediate}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This sub-model shall provide the ability to cause the subject MassBody
+    object to be detached from its mass tree parent object via the subject
+    MassBody object's immediate {\tt detach()} method.
+  \item[Rationale:]\ \newline
+    This requirement derives directly from
+    requirement~\ref{reqt:overview:mass_detach}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement[Specific detach]{Detach MassBody/DynBody Objects Below Specified Parent}
+\label{reqt:BodyAttach_Detach:detach_specific}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This sub-model shall provide the ability to cause the mass subtree
+    that contains the subject MassBody object to be detached
+    from a specified parent.
+  \item[Rationale:]\ \newline
+    This requirement derives directly from
+    requirement~\ref{reqt:overview:mass_detach}.
+    The MassBody model provides two {\tt detach()} methods.
+    This method uses the indirect detach version of that method.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}

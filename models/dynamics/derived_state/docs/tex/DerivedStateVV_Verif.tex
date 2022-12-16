@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Verification part of V&V for the DerivedState model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Verification}
+
+%%% code imported from old template structure
+\inspection{Top-level Requirement}\label{inspect:top_level}
+ This document structure, the code, and associated files have been inspected, and together satisfy requirement~\ref{reqt:top_level}.
+
+\inspection{Minimum Functionality}\label{inspect:DerivedState_min_func}
+ This model provides:
+\begin{enumerate}
+
+ \item The following reference frames:
+\begin{enumerate}
+ \item Local-Vertical-Local-Horizontal (LVLH)
+\item North-East-Down(NED)
+\end{enumerate}
+
+\item The translational states in the following formats, using reference frames defined elsewhere in \JEODid:
+\begin{enumerate}
+ \item Classical Orbital Elements
+ \item Planetary altitude-latitude-longitude
+\end{enumerate}
+
+\item The rotational states utilizing a sequence of 3 rotation angles about coordinate axes, 
+
+\item The Solar Beta angle associated with any given state, 
+
+\item The ability to express the state of one reference frame in terms of another.
+
+\end{enumerate}  
+
+Together, these capabilities satisfy requirement~\ref{reqt:DerivedState_min_func}.

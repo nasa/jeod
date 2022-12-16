@@ -1,0 +1,66 @@
+\section{Requirements Traceability}\label{sec:traceability}
+
+\begin{longtable}[c]{||p{3in}|p{3in}|}
+\caption{Requirements Traceability} \\[6pt]
+\hline
+{\bf Requirement} & {\bf Inspection and Testing} \\ 
+\hline \hline
+\endfirsthead
+\hline
+\endfoot
+\caption[]{Requirements Traceability (continued)} \\[6pt]
+\hline
+{\bf Requirement} & {\bf Inspection and Testing} \\ 
+\hline \hline
+\endhead
+
+\ref{reqt:toplevel} - Top-level Requirements &
+  Insp.~\ref{inspect:TLI} \\ 
+  \hline
+
+\ref{reqt:physicaltime} - Physical Time  &
+ Test~\ref{test:1dynonly} \\
+ &Test~\ref{test:sim2scalefactor} \\  
+ &Test~\ref{test:timereversal} \\  
+  \hline
+
+\ref{reqt:datatimerepresentation} - Necessary Clocks 
+ &Test~\ref{test:clockpresence} \\  
+  \hline
+
+\ref{reqt:formattimerepresentation} - Necessary Representation Formats 
+ &Test~\ref{test:STDinitbyval} \\  
+ &Test~\ref{test:STDinitbycal} \\  
+ &Test~\ref{test:UDEinitbyval} \\  
+  \hline
+
+\ref{reqt:timeinitializationrep} - Time Initialization by Representation 
+ &Test~\ref{test:UDEinitbytdb} \\  
+ &Test~\ref{test:STDinitbytype} \\  
+ &Test~\ref{test:UDEinitbyval} \\  
+  \hline
+
+\ref{reqt:timeinitializationbyformat} - Time Initialization by Format  
+ &Test~\ref{test:STDinitbyval} \\  
+ &Test~\ref{test:STDinitbycal} \\  
+ &Test~\ref{test:UDEinitbyval} \\  
+  \hline
+
+\ref{reqt:timeinitializationbypass} - Time Initialization Bypass  
+ &Test~\ref{test:1dynonly} \\  
+  \hline
+
+\ref{reqt:timeinitializationUDE} - Initialization of User-Defined-Epoch Times 
+ &Test~\ref{test:clockpresence} \\  
+ &Test~\ref{test:UDEinitbyval} \\  
+  \hline
+
+\ref{reqt:backwardcompatibility} - Ability to Overwrite Data Tables  
+ &Test~\ref{test:overrides} \\  
+  \hline
+
+\ref{reqt:extensibility} -  Extensibility
+ &Test~\ref{test:sim6} \\  
+\hline
+
+\end{longtable}

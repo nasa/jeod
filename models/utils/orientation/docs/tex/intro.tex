@@ -1,0 +1,64 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+
+\section{Model Description}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this 
+%%% model exists.
+%%% Identify the Model context within JEOD.
+
+This documentation describes the design and testing of the routines in the JSC Engineering Orbital 
+Dynamics (JEOD) \ModelDesc.  These routines 
+are derived from well-known conversions between the various
+attitude representations (i.e., quaterion to matrix, etc.).
+
+Included in this documentation are verification and validation 
+cases that describe tests done on the algorithms to verify that 
+they are working correctly and computing the correct values for given 
+input data. There is also a User Guide which describes how to incorporate the above 
+mentioned routines as part of a Trick simulation.
+
+The parent document to this model document is the
+JEOD Top Level Document~\cite{dynenv:JEOD}.
+
+\input{change_history}
+
+
+\section{Document Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE} 
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] - 
+This introduction contains three sections: description of model, document history, and organization.  
+The first section provides the introduction to the \ModelDesc and its reason 
+for existence.  It contains a brief description of the interconnections with other models, and 
+references to any supporting documents. It also lists the document that is parent to this one.
+The second section displays the history of this document which includes
+author, date, and reason for each revision.  The final
+section contains a description of the how the document is organized.
+
+\item[Chapter 2: Product Requirements] - 
+Describes requirements for the \ModelDesc.
+
+\item[Chapter 3: Product Specification] - 
+Describes the underlying theory, architecture, and design of the \ModelDesc in
+detail.  It is organized in 
+three sections: Conceptual Design, Mathematical Formulations, and Detailed Design.
+
+\item[Chapter 4: User Guide] - 
+Describes how to use the \ModelDesc in a Trick simulation.  It is broken into three sections to represent the JEOD 
+defined user types: Analysts or users of simulations (Analysis), Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -  
+Contains \ModelDesc verification and validation procedures and results.
+
+\end{description}

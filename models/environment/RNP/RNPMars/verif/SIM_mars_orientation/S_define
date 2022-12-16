@@ -1,0 +1,356 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+/*****************************************************************************
+ *           JSC Engineering Orbital Dynamics verification sim for MarsRNP   *
+ *---------------------------------------------------------------------------*
+ * This is the simulation definition file for the  JSC Engineering Orbital   *
+ * Dynamics for verification of the orientation model for Mars.              *
+ ****************************************************************************/
+//
+//          sys - Trick runtime executive and data recording routines
+//         time - Universal time
+//          env - Environment: ephemerides
+//	    mars - Planet environment model
+//     dynamics - Orbital dynamics
+//
+//=============================================================================
+
+
+// Define job calling intervals
+#define LOGRATE 86400 // Period for all scheduled jobs including logging
+
+
+// Define the phase initialization priorities.
+// NOTE: Initialization jobs lacking an assigned phase initialization priority
+// run after all initialization jobs that have assigned phase init priorities.
+#define P_TIME  P10   // Highest priority; these jobs only depend on time
+#define P_MNGR  P20   // Dynamics manager initializations
+#define P_ENV   P30   // Environment initializations
+#define P_BODY  P40   // Orbital body initializations
+#define P_DYN   P50   // State-dependent initializations
+
+ // Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+
+//***************************************************************
+// CLASS: (Jeod_timeSimObject)
+// PURPOSE:
+//  ( This sim object relates simulation time to time on the Earth.)
+//***************************************************************
+// Include headers for classes that this class contains:
+
+##include "environment/time/include/time_manager.hh"
+##include "environment/time/include/time_manager_init.hh"
+##include "environment/time/include/time_tai.hh"
+##include "environment/time/include/time_tt.hh"
+##include "environment/time/include/time_utc.hh"
+##include "environment/time/include/time_ut1.hh"
+##include "environment/time/include/time_gmst.hh"
+##include "environment/time/include/time_converter_dyn_tai.hh"
+##include "environment/time/include/time_converter_tai_tt.hh"
+##include "environment/time/include/time_converter_ut1_gmst.hh"
+##include "environment/time/include/time_converter_tai_ut1.hh"
+##include "environment/time/include/time_converter_tai_utc.hh"
+
+// Include default data classes:
+##include "environment/time/data/include/tai_to_ut1.hh"
+##include "environment/time/data/include/tai_to_utc.hh"
+
+class Jeod_timeSimObject: public Trick::SimObject {
+
+   public:
+    jeod::TimeManager manager;
+    jeod::TimeManagerInit manager_init;
+    jeod::TimeTAI tai;
+    jeod::TimeTT  tt;
+    jeod::TimeUTC utc;
+    jeod::TimeUT1 ut1;
+    jeod::TimeGMST gmst;
+    jeod::TimeConverter_Dyn_TAI  conv_dyn_tai;
+    jeod::TimeConverter_TAI_TT   conv_tai_tt;
+    jeod::TimeConverter_UT1_GMST   conv_ut1_gmst;
+    jeod::TimeConverter_TAI_UT1  conv_tai_ut1;
+    jeod::TimeConverter_TAI_UTC  conv_tai_utc;
+
+// Instances for matching to other sim objects:
+
+// Instances for default data:
+    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data    conv_tai_ut1_default_data;
+    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data    conv_tai_utc_default_data;
+
+//Constructor
+    Jeod_timeSimObject() {
+
+   //
+   //Default data jobs
+   //
+      ("default_data") conv_tai_ut1_default_data.initialize ( &conv_tai_ut1 );
+      ("default_data") conv_tai_utc_default_data.initialize ( &conv_tai_utc );
+
+   //
+   //
+   // Time Scales
+   // Time Converters
+   //
+   // Initialization jobs
+   //
+   // Register the basic time scales with the time manager.
+   // TAI
+      P_TIME  ("initialization") manager.register_time(
+          tai);
+      P_TIME  ("initialization") manager.register_converter(
+          conv_dyn_tai);
+   // TT
+      P_TIME  ("initialization") manager.register_time(
+          tt );
+      P_TIME  ("initialization") manager.register_converter(
+          conv_tai_tt );
+   // UT1
+      P_TIME  ("initialization") manager.register_time(
+          ut1 );
+      P_TIME  ("initialization") manager.register_converter(
+          conv_tai_ut1 );
+   // GMST
+      P_TIME  ("initialization") manager.register_time(
+          gmst );
+      P_TIME  ("initialization") manager.register_converter(
+          conv_ut1_gmst );
+   // UTC
+      P_TIME  ("initialization") manager.register_time(
+          utc );
+      P_TIME  ("initialization") manager.register_converter(
+          conv_tai_utc );
+   // Initialize the time manager.
+      P_TIME  ("initialization") manager.initialize(
+          &manager_init);
+   // Compute appropriate calendar dates at initialization.
+      P_TIME  ("initialization") ut1.calendar_update(
+          exec_get_sim_time() );
+      P_TIME  ("initialization") utc.calendar_update(
+          exec_get_sim_time() );
+   //
+   // Scheduled jobs
+   //
+   // Update Time Scales
+      (LOGRATE, "environment") manager.update(
+          exec_get_sim_time());
+   // Update the calendar times of interest.
+      (LOGRATE, "environment") ut1.calendar_update(
+          exec_get_sim_time() );
+      (LOGRATE, "environment") utc.calendar_update(
+          exec_get_sim_time() );
+    }
+
+  private:
+    Jeod_timeSimObject (const Jeod_timeSimObject&);
+    Jeod_timeSimObject & operator = (const Jeod_timeSimObject&);
+
+};
+Jeod_timeSimObject jeod_time ;
+
+
+//***************************************************************
+// CLASS: (DynamicsSimObject)
+// PURPOSE:
+//  ( Collect dynamic environmental forces for vehicle
+//    vcollect dawn.body.collect.collect_environ_forc CollectForce::create {)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "dynamics/dyn_manager/include/dyn_manager.hh"
+##include "dynamics/dyn_manager/include/dyn_manager_init.hh"
+##include "dynamics/body_action/include/body_action.hh"
+
+
+class DynamicsSimObject: public Trick::SimObject {
+
+   public:
+    jeod::DynManager       manager;
+    jeod::DynManagerInit   manager_init;
+
+// Instances for matching to other sim objects:
+    Jeod_timeSimObject * internal_jeod_time;
+
+//Constructor
+    DynamicsSimObject(
+           Jeod_timeSimObject & ext_jeod_time) {
+
+    internal_jeod_time = & ext_jeod_time;
+
+   // Initialization jobs
+   //
+      P_MNGR  ("initialization") manager.initialize_model(
+          manager_init, internal_jeod_time->manager);
+      P_BODY  ("initialization") manager.initialize_simulation( );
+   //
+   // Derivative class jobs
+   //
+   //
+   // Integration jobs
+   //
+    }
+
+  private:
+    DynamicsSimObject (const DynamicsSimObject&);
+    DynamicsSimObject & operator = (const DynamicsSimObject&);
+
+};
+DynamicsSimObject dynamics ( jeod_time);
+
+
+//***************************************************************
+// CLASS: (EnvSimObject)
+// PURPOSE:
+//  ( This sim object models the space environment.)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "environment/ephemerides/de4xx_ephem/include/de4xx_ephem.hh"
+
+
+class EnvSimObject: public Trick::SimObject {
+
+   public:
+    jeod::De4xxEphemeris de4xx;
+
+// Instances for matching to other sim objects:
+    Jeod_timeSimObject * internal_jeod_time;
+    DynamicsSimObject * internal_dynamics;
+
+//Constructor
+    EnvSimObject(
+           Jeod_timeSimObject & ext_jeod_time,
+           DynamicsSimObject & ext_dynamics) {
+
+    internal_jeod_time = & ext_jeod_time;
+    internal_dynamics = & ext_dynamics;
+
+   //
+   // Initialization
+   //
+      P_ENV  ("initialization") de4xx.initialize_model (
+           internal_jeod_time->manager,
+           internal_dynamics->manager);
+   //
+   // Scheduled jobs
+   //
+   // Supports the update of multiple ephmeris models.
+      (LOGRATE, "environment") internal_dynamics->manager.update_ephemerides( );
+    }
+
+  private:
+    EnvSimObject (const EnvSimObject&);
+    EnvSimObject & operator = (const EnvSimObject&);
+
+};
+EnvSimObject env ( jeod_time, dynamics);
+
+
+//***************************************************************
+// CLASS: (MarsSimObject)
+// PURPOSE:
+//  ( This sim object models Mars.)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "environment/planet/include/planet.hh"
+##include "environment/RNP/RNPMars/include/rnp_mars.hh"
+
+// Include default data classes:
+##include "environment/RNP/RNPMars/data/include/rnp_mars.hh"
+##include "environment/planet/data/include/mars.hh"
+
+class MarsSimObject: public Trick::SimObject {
+
+   public:
+    jeod::Planet        planet;
+    jeod::RNPMars       rnp;
+
+// Instances for matching to other sim objects:
+    DynamicsSimObject * internal_dynamics;
+    // EnvSimObject * internal_env;
+    Jeod_timeSimObject * internal_jeod_time;
+
+// Instances for default data:
+    jeod::RNPMars_rnp_mars_default_data    rnp_mars_default_data;
+    jeod::Planet_mars_default_data mars_data;
+
+//Constructor
+    MarsSimObject(
+           // EnvSimObject & ext_env,
+           DynamicsSimObject & ext_dynamics,
+           Jeod_timeSimObject & ext_jeod_time) {
+
+    // internal_env = & ext_env;
+    internal_dynamics = & ext_dynamics;
+    internal_jeod_time = & ext_jeod_time;
+
+   //
+   //Default data jobs
+   //
+      ("default_data") rnp_mars_default_data.initialize ( &rnp );
+      ("default_data") mars_data.initialize ( &planet );
+
+   //
+   // Initialization jobs
+   //
+      P_ENV  ("initialization") planet.register_planet (
+internal_dynamics->manager);
+      P_ENV  ("initialization") rnp.initialize(
+          internal_dynamics->manager );
+      P_ENV  ("initialization") rnp.update_rnp(
+          internal_jeod_time->tt );
+
+   //
+   // Environment class jobs
+   //
+      (LOGRATE, "environment") rnp.update_rnp(
+          internal_jeod_time->tt );
+    }
+
+  private:
+    MarsSimObject (const MarsSimObject&);
+    MarsSimObject & operator = (const MarsSimObject&);
+
+};
+MarsSimObject mars ( dynamics, jeod_time);

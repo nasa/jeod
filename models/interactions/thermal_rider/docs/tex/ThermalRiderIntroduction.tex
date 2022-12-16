@@ -1,0 +1,37 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Introduction for the ThermalRider model.
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Purpose and Objectives of \ThermalRiderDesc}
+% Incorporate the intro paragraph that used to begin this Chapter here. 
+% This is location of the true introduction where you explain what this model 
+% does.
+
+In some circumstances, it is desirable to have a temperature profile (both temporal and spatial) of the vehicle, while in others, it is more important to avoid the computational effort required to maintain that profile.  For this reason, the thermal monitoring capabilities have been included as a separate entity, although without a surface on which to act, thermal monitoring is not possible.
+
+Therefore, the thermal model is provided as an add-on, or a rider, to any other
+interaction model.  So, for example, aerodynamic drag can be calculated without
+any reference to skin temperature (or where a reference is required, it can be
+assigned to a constant value without great loss of precision).  Or, if the user
+wishes to observe the effect of drag on the skin temperature, and perhaps then
+on the drag profile itself, the Thermal Rider can be added to the Aerodynamic
+Drag model.  It must be cautioned, however, that the Thermal Rider Model is not
+a stand-alone model; it requires some connectivity to another Interaction Model
+that defines an Interaction Surface (e.g. Radiation Pressure, or Aerodynamic
+Drag).  Its connection to the Surface Model is indirect, coming only via the
+Interaction Surface; it cannot work on a Surface that is not already an
+Interaction Surface.  For details on the concept of surfaces and interaction
+surfaces, see the
+\href{file:\JEODHOME/models/utils/surface_model/docs/surface_model.pdf}{Surface
+Model}~\cite{dynenv:SURFACEMODEL} documentation.
+
+In the \JEODid\ release, the Thermal Rider model provides only the capabilities found in previous releases of JEOD, but now with the capability to easily add functionality as needed.  \JEODid\ implementation includes capacity to evaluate the effect of radiation absorption (from the Radiation Pressure model), and the effect of internal vehicular energy sources and sinks.  The extension section of the User's Guide contains suggestions for including effects of facet-to-facet conduction, and of heating resulting from aerodynamic drag.
+
+The thermal evolution is provided by an internal R-K 4th-order integrator, and is independent of the dynamics integration.
+
+

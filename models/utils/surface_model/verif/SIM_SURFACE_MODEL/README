@@ -1,0 +1,12 @@
+The Surface  Model validation run will output various surface info
+based on input file configuration. This output should match that seen 
+in SET_test_val/RUN_surface_model_ver/run.out, if the model is working 
+correctly. 
+
+After compiling the sim, you can run it with the scripts in the bin
+directory. Simply enter the following command to send the output
+of the sim to file run.out
+
+$> bin/run_test > run.out
+
+The run.out file should match data in SET_test_val/RUN_surface_model_ver/run.out

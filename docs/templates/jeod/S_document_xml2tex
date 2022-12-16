@@ -1,0 +1,297 @@
+#!/usr/bin/perl
+# -------------------------------------------------------------------------
+# Description: Converts Trick's S_document.xml to a S_document.tex.
+#    This program was based heavily off of the trick_xml2tex program.
+#
+# -------------------------------------------------------------------------
+
+use strict ;
+use lib $ENV{"TRICK_HOME"} . "/bin/pm" ;
+
+use XML::Parser ;
+use XML::Simple ;
+use Data::Dumper ;
+use File::Basename ;
+use Getopt::Long ;
+use Pod::Usage;
+use Pod::Text;
+
+
+#--------------------------------------------------------------
+# converts all of the special characters for LaTex
+#--------------------------------------------------------------
+sub transform($) {
+
+   my ($in) = @_ ;
+   $in =~ s/^\s+// ;
+   $in =~ s/\s+$// ;
+   $in =~ s/([\\\#\$\%\&\{\}_])/\\$1/g ;
+   $in =~ s/([\^\~])/\\$1\{\}/g ;
+   $in =~ s/([<>])/\$$1\$/g ;
+
+   return($in) ;
+}
+
+#--------------------------------------------------------------
+# Make single items in the parsed xml into lists
+#--------------------------------------------------------------
+sub fix_xml($$@) {
+    my ($ref, $allow, @keys) = @_ ;
+    my ($key, $rref) ;
+
+     # All keys must be defined (programmer error if not).
+    die if scalar (grep {! defined} @keys) ;
+
+     # Find the penultimate key entry.
+    while ($key = shift @keys, scalar @keys > 0) {
+       $ref->{$key} = {} unless exists $ref->{$key} ;
+       $ref = $ref->{$key} ;
+    }
+
+     # Make an empty list if the ultimate key doesn't exist.
+    if ( ! exists $ref->{$key} ) {
+       $ref->{$key} = [] ;
+    }
+
+     # The ultimate key entry should either be an array of $allow types or
+     # a single $allow type. Make the latter into a one element list.
+    elsif ( ( $rref = ref $ref->{$key} ) ne "ARRAY" ) {
+       if ($rref eq $allow) {
+          $ref->{$key} = [ $ref->{$key} ] ;
+       }
+       else {
+          warn "Unexpected ref $rref for $key" ;
+          $ref->{$key} = [] ;
+       }
+    }
+}
+
+#--------------------------------------------------------------
+# prints out the references from the trick header
+#--------------------------------------------------------------
+sub print_ref($$) {
+    my ($fh , $ref) = @_ ;
+    print $fh "\\item " ;
+    print $fh transform($$ref{author}) if  ( exists $$ref{author} and (ref $$ref{author} ne "HASH") and $$ref{author} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{source}) if  ( exists $$ref{source} and (ref $$ref{source} ne "HASH") and $$ref{source} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{ident}) if  ( exists $$ref{ident} and (ref $$ref{ident} ne "HASH") and $$ref{ident} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{location}) if  ( exists $$ref{location} and (ref $$ref{location} ne "HASH") and $$ref{location} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{date}) if  ( exists $$ref{date} and (ref $$ref{date} ne "HASH") and $$ref{date} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{notes}) if  ( exists $$ref{notes} and (ref $$ref{notes} ne "HASH") and $$ref{notes} !~ /^\s*--\s*$/ ) ;
+    print $fh "\n" ;
+}
+
+#--------------------------------------------------------------
+# prints out the authors from the trick header
+#--------------------------------------------------------------
+sub print_author($$) {
+    my ($fh , $ref) = @_ ;
+    print $fh "\\item " ;
+    print $fh transform($$ref{programmer}) if  ( exists $$ref{programmer} and (ref $$ref{programmer} ne "HASH") and $$ref{programmer} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{employer}) if  ( exists $$ref{employer} and (ref $$ref{employer} ne "HASH") and $$ref{employer} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{date}) if  ( exists $$ref{date} and (ref $$ref{date} ne "HASH") and $$ref{date} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{ident}) if  ( exists $$ref{ident} and (ref $$ref{ident} ne "HASH") and $$ref{ident} !~ /^\s*--\s*$/ ) ;
+    print $fh "," , transform($$ref{notes}) if  ( exists $$ref{notes} and (ref $$ref{notes} ne "HASH") and $$ref{notes} !~ /^\s*--\s*$/ ) ;
+    print $fh "\n" ;
+}
+
+#--------------------------------------------------------------
+# prints out a general list from the trick header
+#--------------------------------------------------------------
+sub print_list($$) {
+    my ($fh , $ref) = @_ ;
+
+    print $fh "\\begin{itemize}\n" ;
+    die unless ( ref $$ref eq "ARRAY" ) ;
+    foreach my $a (@{$$ref}) {
+        print $fh "\\item " , transform($a) , "\n" if ( ref $a ne "HASH" ) ;
+    }
+    print $fh "\\end{itemize}\n" ;
+
+}
+
+
+#--------------------------------------------------------------
+# main
+#--------------------------------------------------------------
+
+my $sim_name ;
+my %args ;
+my $xml ;
+
+$args{h} = "" ;
+$args{o} = "" ;
+$args{v} = 0 ;
+
+# override the print format for help message
+*Pod::Text::seq_i = sub { return "[04m" . $_[1] . "[00m" } ;
+# Process command line arguments
+Getopt::Long::Configure ("bundling") ;
+GetOptions ( "help|h|?" => \$args{h} ,
+             "outfile|o=s" => \$args{o} ,
+             "verbose|v" => \$args{v}
+           ) or pod2usage(1) ;
+
+pod2usage(1) if ($args{h} or scalar @ARGV == 0 ) ;
+
+if ( $args{o} ne "" and scalar @ARGV > 1 ) {
+    die "Cannot use -o <output_file> with more than 1 input file" ;
+}
+
+foreach my $file ( @ARGV ) {
+
+    undef $xml ;
+
+    print "Processing $file\n" ;
+
+    my $tex = $args{o} ;
+    if ( $tex eq "" ) {
+        ( $tex = $file ) =~ s/\.xml$/.tex/ ;
+    }
+    open FILE, ">$tex" or die "Could not open output file $tex for writing" ;
+
+    $xml = XMLin($file) ;
+    if ( $args{v} > 0 ) {
+        print Dumper($xml) ;
+    }
+
+    $sim_name = transform($$xml{title}) ;
+    print FILE "{\\bf Title:} $sim_name\n\\vspace{0.125in}\n\n" ;
+
+    #--------------------------------------------------------------
+    # Common trick header processing
+    #--------------------------------------------------------------
+    my $trick_header = $$xml{trick_header};
+    if ( defined $$trick_header{purpose} ) {
+        print FILE "{\\bf Purpose:}\n" ,
+                   transform($$trick_header{purpose}) ,
+                   "\n\\vspace{0.125in}\n" ;
+    }
+
+    if ( defined ( my $modifications = $$trick_header{modifications} ) ) {
+        fix_xml $modifications, 'HASH', 'modification';
+        if ( exists $$modifications{modification} &&
+             scalar @{$$modifications{modification}} > 0) {
+            print FILE "\n{\\bf Authors:}\n" ;
+            print FILE "\\begin{itemize}\n" ;
+            foreach my $ref (@{$$modifications{modification}}) {
+                print_author( *FILE , $ref) ;
+            }
+            print FILE "\\end{itemize}\n" ;
+        }
+    }
+
+    if ( defined ( my $references = $$trick_header{references} ) ) {
+        fix_xml $references, 'HASH', 'reference';
+        if ( exists $$references{reference} &&
+             scalar @{$$references{reference}} > 0) {
+            print FILE "\n{\\bf References:}\n" ;
+            print FILE "\\begin{itemize}\n" ;
+            foreach my $ref (@{$$references{reference}}) {
+                print_ref( *FILE , $ref) ;
+            }
+            print FILE "\\end{itemize}\n" ;
+        }
+    }
+
+    if ( defined ( my $assumptions = $$trick_header{assumptions} ) ) {
+        fix_xml $assumptions, '', 'assumption';
+        if ( exists $$assumptions{assumption} &&
+             scalar @{$$assumptions{assumption}} > 0) {
+            print FILE "\n{\\bf Assumptions and Limitations:}\n" ;
+            print_list( *FILE , \$$assumptions{assumption}) ;
+        }
+    }
+
+
+    #--------------------------------------------------------------
+    # S_define sim_objects.
+    #--------------------------------------------------------------
+    # list out sim_objects
+    my $sim_objs = $$xml{sim_object} ;
+    foreach my $sim_obj (@{$$xml{sim_object}}) {
+
+        print FILE "\n{\\bf SIM\\\_OBJECT:} " ;
+        print FILE transform($$sim_obj{sim_object_name}) , "\n" ;
+
+        # list out structures
+        if ( exists $$sim_obj{structs} ) {
+            my $structs = $$sim_obj{structs} ;
+            fix_xml $structs, 'HASH', 'struct';
+            if ( scalar @{$$structs{struct}} > 0 ) {
+                print FILE "\n{\\bf Structures:}\n" ;
+                print FILE "\\begin{itemize}\n" ;
+                foreach my $struct_ref (@{$$structs{struct}}) {
+                    print FILE "\\item " ,
+                               transform($$struct_ref{struct_name}) , "\n";
+                    my $data_files = $$struct_ref{default_data} ;
+                    fix_xml $data_files, '', 'file';
+                    if ( scalar @{$$data_files{file}} > 0 ) {
+                        #print FILE "\n{\\bf Default data:}\n" ;
+                        print FILE "\\begin{itemize}\n" ;
+                        foreach my $file_ref (@{$$data_files{file}}) {
+                            (my $name,my $path,) = fileparse($file_ref);
+                            print FILE "\\item " , transform($name) , "\n" ;
+                        }
+                        print FILE "\\end{itemize}\n\n" ;
+                    }
+                }
+                print FILE "\\end{itemize}\n\n" ;
+            }
+        }
+
+        # list out jobs
+        if ( exists $$sim_obj{jobs} ) {
+            my $jobs = $$sim_obj{jobs} ;
+            fix_xml $jobs, 'HASH', 'job';
+            if ( scalar @{$$jobs{job}} > 0 ) {
+                print FILE "\n{\\bf Jobs:}\n" ;
+                print FILE "\\begin{itemize}\n" ;
+                foreach my $ref (@{$$jobs{job}}) {
+                    print FILE "\\item " , transform($$ref{job_name}) , "\n" ;
+                }
+                print FILE "\\end{itemize}\n\n" ;
+            }
+        }
+
+    }
+
+    close FILE ;
+}
+
+__END__
+
+=head1 NAME
+
+S_document_xml2tex - Trick's S_document.xml to S_document.tex translator
+
+=head1 SYNOPSIS
+
+S_document_xml2tex [-h] [--help]
+[-o I<outfile>] [--outfile=I<outfile>]
+[-v I<level>] [--verbose=I<level>]
+xml_file
+
+=head1 DESCRIPTION
+
+See the Trick User's guide for B<S_document_xml2tex>.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<-h> | B<-?> | B<--help>
+
+This help screen
+
+=item B<-o> I<outfile> | B<--outfile>=I<outfile>
+
+Direct output of S_document_xml2tex to outfile.
+
+=item B<-v> | B<--verbose>
+
+Set verbose output.
+
+=back
+
+=cut

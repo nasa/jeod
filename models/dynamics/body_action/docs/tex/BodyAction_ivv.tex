@@ -1,0 +1,112 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAction_ivv.tex
+% Verification and validation of the BodyAction class.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Inspection, Verification, and Validation}\label{ch:\modelpartid:ivv}
+
+\section{Inspection}\label{sec:BodyAction:inspect}
+
+\inspection[Base class]{Body Action Base Class}
+\label{inspect:BodyAction:base_class}
+The \ModelDesc defines the BodyAction as a base class
+for operating on MassBody-derived and DynBody-derived objects.
+
+The BodyAction class defines
+\begin{itemize}
+\item Member data that identifies the subject object,
+\item Member data that specifies whether the action is active,
+\item Member data and functions that identify the BodyAction instance, and
+\item A trio of virtual methods that generically define the operations on the
+classes that derive from the BodyAction class.
+\end{itemize}
+
+By inspection, the \ModelDesc satisfies the following requirements:
+\begin{itemize}
+\item Requirement \ref{reqt:BodyAction:base_class}
+\item Requirement \ref{reqt:BodyAction:self_identification}
+\item Requirement \ref{reqt:BodyAction:subject_body}
+\item Requirement \ref{reqt:BodyAction:active}
+\item Requirement \ref{reqt:BodyAction:virtual_methods}
+\end{itemize}
+
+\inspection{Derived Classes}
+\label{inspect:BodyAction:derived_classes}
+The \ModelDesc defines two base classes,
+BodyActionMessages and BodyAction, and several derived classes.
+The class BodyActionMessages is used for generating messages,
+is not instantiated, and has no derived classes.
+All derived model classes ultimately inherit from
+the BodyAction base class as required.
+
+All model derived classes that override
+the {\tt initialize()}, {\tt is\_ready()}, and {\tt apply()}
+methods pass these invocations to the relevant parent class
+and appropriately use the return value (if any) from that parent invocation
+before returning from the overriding method.
+
+By inspection, the \ModelDesc satisfies the following requirements:
+\begin{itemize}
+\item Requirement \ref{reqt:BodyAction:base_class_mandate}
+\item Requirement \ref{reqt:BodyAction:overrides}
+\end{itemize}
+
+\section{Validation}
+The BodyAction class is an abstract class and thus cannot be tested
+directly.
+
+\section{Requirements Traceability}
+Table~\ref{tab:BodyAction:reqt_traceability}
+summarizes the inspections and tests that demonstrate the satisfaction of the
+requirements levied on the \partxname.
+
+\begin{table}[htp]
+\centering
+\caption{BodyAction Requirements Traceability}
+\label{tab:BodyAction:reqt_traceability}
+\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Artifact} \\ \hline\hline
+\ref{reqt:BodyAction:base_class} & Base class &
+   Insp. & \ref{inspect:BodyAction:base_class} &
+   Base class\\[4pt]
+\ref{reqt:BodyAction:self_identification} & Object identification &
+   Insp. & \ref{inspect:BodyAction:base_class} &
+   Base class\\[4pt]
+\ref{reqt:BodyAction:subject_body} & Subject body &
+   Insp. & \ref{inspect:BodyAction:base_class} &
+   Base class\\[4pt]
+\ref{reqt:BodyAction:active} & Activation &
+   Insp. & \ref{inspect:BodyAction:base_class} &
+   Base class\\[4pt]
+\ref{reqt:BodyAction:virtual_methods} & Virtual methods &
+   Insp. & \ref{inspect:BodyAction:base_class} &
+   Base class\\
+&& Insp. & \ref{inspect:MassBodyInit:design} &
+   MassBodyInit design\\
+&& Insp. & \ref{inspect:BodyAttach_Detach:base_class} &
+   Attach/detach design\\
+&& Insp. & \ref{inspect:DynBodyInit:design} &
+   DynBodyInit design\\
+&& Insp. & \ref{inspect:DynBodyFrameSwitch:design} &
+   Frame switch design\\[4pt]
+\ref{reqt:BodyAction:base_class_mandate} & Base class mandate &
+   Insp. & \ref{inspect:BodyAction:derived_classes} &
+   Derived classes\\
+&& Insp. & \ref{inspect:MassBodyInit:design} &
+   MassBodyInit design\\
+&& Insp. & \ref{inspect:BodyAttach_Detach:base_class} &
+   Attach/detach design\\
+&& Insp. & \ref{inspect:DynBodyInit:design} &
+   DynBodyInit design\\
+&& Insp. & \ref{inspect:DynBodyFrameSwitch:design} &
+   Frame switch design\\[4pt]
+\ref{reqt:BodyAction:overrides} & Virtual method overrides &
+   Insp. & \ref{inspect:BodyAction:derived_classes} &
+   Derived classes\\
+\hline
+\end{tabular}
+\end{table}

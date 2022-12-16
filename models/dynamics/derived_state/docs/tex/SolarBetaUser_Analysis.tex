@@ -1,0 +1,43 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the SolarBeta model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Analysis}
+\label{sec:solarbetauseranalysis}
+
+\subsection{Identifying the \SolarBetaDescT}
+If Solar Beta has been included in the simulation, there will be an instance of \textit{SolarBetaDerivedState} located in the S\_define file.  This would typically be found in either the vehicle object, or a separate relative-state object.  There should be an accompanying call to an initialization routine, which takes a reference to the vehicle as one if its inputs.  The reference body is defined elsewhere, possibly in the input file.
+
+Example:
+\begin{verbatim}
+sim_object{
+dynamics/derived_state:    SolarBetaDerivedState example_of_solar_beta;
+
+(initialization) dynamics/derived_state:
+example_of_rel_state_object.example_of_solar_beta.initialize (
+    Inout DynBody &      subject_body = vehicle_object.dyn_body,
+    Inout DynManager &   dyn_manager  = manager_object.dyn_manager);
+    
+{environment}
+example_of_rel_state_object.example_of_solar_beta.update ( )
+
+} example_of_rel_state_object;
+\end{verbatim}
+
+Then the input file may have a line comparable to:
+\begin{verbatim}
+example_of_rel_state_object.example_of_solar_beta.reference_name = "Earth";
+\end{verbatim}
+
+
+\subsection{Editing the \SolarBetaDescT}
+There is very little to edit in the \SolarBetaDesc.  The \textit{reference\_name} should match the planet around which the vehicle is orbiting; if it does not, that may be changed.
+
+There is also an \textit{active} flag that can be set to turn on or off the calculation of the Solar Beta angle.  If the \SolarBetaDesc\ appears in the simulation, but is not outputting time-varying data (and remember, this data will vary very slowly because it depends on the precession of the orbit, and on the position of the reference planet with respect to Sun), then it may be that the model is inactive. 
+
+\subsection{Output Data}
+The only data intended for usable output is the variable \textit{solar\_beta}, the Solar Beta angle.

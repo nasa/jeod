@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAction_intro.tex
+% Intro chapter of the BodyAction part of the Body Action Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}\label{ch:BodyAction:intro}
+
+\section{Purpose and Objectives of the \ModelDesc Base Classes}
+The \ModelDesc defines two base classes: BodyAction and BodyActionMessages.
+The latter class encapsulates identifiers for use with the MessageHandler.
+All of the instantiable \ModelDesc classes ultimately derive from the BodyAction
+base class. This part of the document describes these base classes.
+
+The BodyAction base class by itself does not change a single aspect of
+a MassBody or DynBody object. Making changes to a MassBody, DynBody, or derived class object is the
+responsibility of the various classes that derive from the base BodyAction
+class. What the base class does provide is a common framework for describing
+actions to be  performed on bodies.
+
+\section{Part Organization}
+This part of the \ModelDesc document is organized along the
+lines described in section \ref{sec:overview:docorg}. It
+comprises the following chapters in order:
+
+\begin{description}
+\item[Introduction] -
+This introduction describes the objective and purpose of the base classes.
+
+\item[Product Requirements] -
+The \ModelDesc Base Classes Product Requirements chapter describes
+the requirements on the model base classes
+and the requirements levied on classes that derive from the BodyAction class.
+
+\item[Product Specification] -
+The \ModelDesc Base Classes Product Specification chapter describes
+the underlying theory, architecture, and design of the
+BodyAction class.
+
+\item[User Guide] -
+Describes the use of the BodyAction class.
+The BodyAction User Guide chapter is organized in
+the following sections:
+\begin{itemize}
+ \item Analysts or users of simulations (Analysis).
+ \item Integrators or developers of simulations (Integration).
+ \item Model Extenders (Extension).
+\end{itemize}
+
+\item[Inspection, Verification, and Validation] -
+The BodyAction class is not an instantiable class.
+As a result, all of the BodyAction class requirements involve inspection only.
+\end{description}

@@ -1,0 +1,12 @@
+digraph G { 
+   rankdir=BT;
+   node [fontname="Helvetica",fontsize=10,shape=box];
+   edge [fontname="Helvetica",fontsize=10,arrowhead=empty];
+
+   JeodAssociativeContainer -> JeodSTLContainer;
+   JeodSequenceContainer -> JeodSTLContainer;
+
+   JeodList -> JeodSequenceContainer;
+   JeodVector -> JeodSequenceContainer;
+   JeodSet -> JeodAssociativeContainer;
+}

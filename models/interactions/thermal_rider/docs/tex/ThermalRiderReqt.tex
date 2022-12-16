@@ -1,0 +1,61 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  requirements for the ThermalRider model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% add text here to describe general model requirements
+% text is of the form:
+%\requirement{REQUIREMENT DESCRIPTION}
+%\label{reqt:REQT_DESC_ABBREVIATED}
+%\begin{description}
+%  \item[Requirement:]\ \newline
+%     <Insert description of requirement> 
+%  \item[Rationale:]\ \newline
+%     <Insert description of rationale> 
+%  \item[Verification:]\ \newline
+%     <Insert description of verification (e.g. "Inspection")> 
+%\end{description}
+
+\requirement{Temperature Monitoring}
+\label{reqt:temp_monitoring}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \ThermalRiderDesc\ shall provide the capability to monitor the temporal and spatial profiles of the vehicle surface temperatures. 
+  \item[Rationale:]\ \newline
+    The temperature of a particular area of a vehicle may be of critical importance in the design of the vehicle; variation of temperature across the surface of the vehicle could affect the dynamics of the vehicle in a high fidelity simulation.  Therefore, it is important to be able to identify the temporal temperature profile of certain critical areas of the vehicular surface, and hence the capability to model the spatial variation across the vehicle.
+  \item[Verification:]\ \newline
+	  Tests \vref{test:temperature_integration1} and \vref{test:temperature_integration2}
+\end{description}
+
+\requirement{Minimum Functionality}
+\label{reqt:thermal_min_func}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \ThermalRiderDesc\ shall provide, at a minimum, the ability to accurately represent the effect of radiation absorption and emission.
+\item[Rationale:]\ \newline
+  Prior to the release of
+  \JEODid, the thermal modeling had been an intrinsic part of the radiation-pressure model, which requires knowledge of the temperature-time profile in order to accurately represent the effects of radiation-pressure.  This requirement simply reflects the transfer of responsibility for these calculations from the old radiation model (which incorporated both radiation and thermal modeling) to the new \ThermalRiderDesc.
+  \item[Verification:]\ \newline
+	  Tests \vref{test:temperature_integration1} and \vref{test:temperature_integration2}
+\end{description}
+
+\requirement{Extended Functionality}
+\label{reqt:thermal_ext_func}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \ThermalRiderDesc\ shall, at a minimum, provide the basic architecture to allow future extension to include representation of the effects of:
+  \begin{enumerate}
+    \item Power sources and sinks from within the vehicle itself.
+    \item Facet-to-facet thermal conduction.
+    \item Heating resulting from aerodynamic drag.
+  \end{enumerate}
+\item[Rationale:]\ \newline
+  There are many methods by which the temperature of a surface can be altered.  These three, in addition to the effect of radiative absorption and emission, were considered to be the most influential.
+  \item[Verification:]\ \newline
+	  Inspection \vref{inspect:thermal_ext_func}
+\end{description}
+

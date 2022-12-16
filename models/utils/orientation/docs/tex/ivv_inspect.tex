@@ -1,0 +1,43 @@
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected, and together satisfy requirement~\ref{reqt:toplevel}.
+
+\inspection{Representations}
+\label{inspect:representations}
+The model design hinges on a single class, the Orientation class.
+This class defines two enumerations, one of which identifies each of the required
+representation schemes. Public member data exist to represent each required
+representation scheme.
+Non-static member functions exist to
+\begin{itemize}
+\item Ensure that some desired representation is consistent with input data,
+\item Set the orientation object to a specified value in any of the supported
+representation schemes (setters),
+\item Retrieve the equivalent value of an orientation in any of the supported
+representation schemes (getters).
+\end{itemize}
+
+By inspection, the \ModelDesc satisfies
+requirements~\ref{reqt:representations} and~\ref{reqt:data_access}.
+
+
+\inspection{Euler Angles}
+\label{inspect:euler}
+The Orientation class also defines an enumeration that identifies all twelve
+Euler angle sequences. The six aerodynamics sequences defined in the latter are
+numerically identical to the corresponding values in the Trick implementation.
+Each of the three static conversion methods that pertain to Euler angles handle
+all twelve sequences.
+
+By inspection, the \ModelDesc satisfies
+requirement~\ref{reqt:euler_angles}.
+
+
+\inspection{Mathematical Formulation}
+\label{inspect:math}
+The implementations of the static conversion methods
+implement the corresponding algorithms as described in
+section~\ref{sec:mathematics}.
+
+By inspection, the \ModelDesc satisfies
+requirement~\ref{reqt:conversions}.

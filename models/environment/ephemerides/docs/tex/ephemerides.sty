@@ -1,0 +1,45 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+% Change ephemerides to package name. Change date and version to reflect updates.
+%  (this may be done in compy_templates)
+\ProvidesPackage{ephemerides}[2012/02/16 v2.1 ephemerides module macros]
+
+
+% Author and revision number of current revision of the document.
+% Update these when changes are made to the document.
+\newcommand\ModelAuthor{David Hammen\\Blair Thompson}
+\newcommand\ModelRevision{2.1}
+
+
+% \ModelHistory is expanded in the document history section of the introduction.
+% This command comprise a set of lines, each of which must be of the form
+%   Author & Date & Revision & Description \\
+% The final entry must describe the current version.
+% The fields are:
+%   Author       The names of the authors responsible for the document revision.
+%   Date         The month and year of the document revision.
+%   Revision     The document revision number in major.minor format.
+%   Description  A brief description of the revision.
+\newcommand\ModelHistory {
+  Thomas Brain & September, 2021 & 4.0 & Updated \\ \hline
+  David Hammen & February, 2012 & 2.1 & Updated \\ \hline
+  David Hammen & September, 2010 & 2.0 & Updated \\ \hline
+  Blair Thompson & November, 2009 & 1.0 & Initial document  \\ \hline
+}
+
+
+% Model description macros, used for the cover page and to tag requirements.
+\newcommand\ModelPrefix{Ephemerides}
+\newcommand\ModelDesc{Ephemerides Model\xspace}
+\newcommand\ModelKeywords{Ephemerides}
+
+
+% Model-specific macros
+\newcommand{\pminus}{\ensuremath{\phantom{\text{-}}}}

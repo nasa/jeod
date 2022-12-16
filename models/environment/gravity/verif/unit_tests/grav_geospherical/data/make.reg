@@ -1,0 +1,578 @@
+ 
+[32m=== Cleaning in /Users/bob/jeod/trunk/models/environment/gravity/verif/unit_tests/grav_geospherical ===[00m
+ 
+Deleting test_program*
+ 
+[32m=== Building test_program ===[00m
+ 
+g++ -o test_program main.cc -I/Users/bob/jeod/trunk/tools -DJEOD_UNIT_TEST  -Wall -g -I/Users/bob/jeod/trunk/models  -L/Users/bob/jeod/trunk/lib_jeod_Darwin_10_gcc_4.2 -ljeod -lpthread
+
+Running test_program
+./test_program -PotentialTolerance 100000 -AccelerationTolerance 1.0e-14 -GradientTolerance 1.0e-20 -Verbose
+Running 40 cases
+Potential tolerance = 100000
+Acceleration tolerance = 1e-14
+Gradient tolerance = 1e-20
+Calculating finite difference approximations to gravity gradient
+as a consistency check on tabular and computed values.
+Case number 1:
+Perturbing only = 1
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 1.93547e-18
+Difference with computed = 1.93547e-18
+R in earth radii = 1.17187
+Maximum acceleration = 0.00583583
+Maximum gradient = 3.59106e-09
+Maximum accelleration difference = 1.73472e-18
+Maximum gradient difference = 1.03398e-24
+Potential difference = 3.63798e-12
+Case number 2:
+Perturbing only = 1
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 2.29325e-18
+Difference with computed = 2.29325e-18
+R in earth radii = 1.17187
+Maximum acceleration = 0.00589003
+Maximum gradient = 3.61052e-09
+Maximum accelleration difference = 1.73472e-18
+Maximum gradient difference = 8.27181e-25
+Potential difference = 3.63798e-12
+Case number 3:
+Perturbing only = 1
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 2.84823e-18
+Difference with computed = 2.84823e-18
+R in earth radii = 1.17187
+Maximum acceleration = 0.00588955
+Maximum gradient = 3.60993e-09
+Maximum accelleration difference = 8.67362e-19
+Maximum gradient difference = 6.20385e-25
+Potential difference = 3.63798e-12
+Case number 4:
+Perturbing only = 1
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 3.11082e-18
+Difference with computed = 3.11082e-18
+R in earth radii = 1.17187
+Maximum acceleration = 0.00585715
+Maximum gradient = 3.59198e-09
+Maximum accelleration difference = 8.67362e-19
+Maximum gradient difference = 4.1359e-25
+Potential difference = 0
+Case number 5:
+Perturbing only = 1
+Gradient = 1
+Degree = 20
+Order = 20
+Table is closer to finite difference.
+Difference with table = 3.74432e-18
+Difference with computed = 3.74432e-18
+R in earth radii = 1.17187
+Maximum acceleration = 0.00585757
+Maximum gradient = 3.59245e-09
+Maximum accelleration difference = 1.73472e-18
+Maximum gradient difference = 8.27181e-25
+Potential difference = 0
+Case number 6:
+Perturbing only = 0
+Gradient = 1
+Degree = 20
+Order = 20
+Table is closer to finite difference.
+Difference with table = 4.79254e-17
+Difference with computed = 4.79254e-17
+R in earth radii = 6.61073
+Maximum acceleration = 0.191218
+Maximum gradient = 6.80323e-09
+Maximum accelleration difference = 1.11022e-16
+Maximum gradient difference = 7.44463e-24
+Potential difference = 3.72529e-09
+Case number 7:
+Perturbing only = 0
+Gradient = 1
+Degree = 13
+Order = 7
+Computed is closer to finite difference.
+Difference with table = 5.02958e-17
+Difference with computed = 5.02958e-17
+R in earth radii = 6.61073
+Maximum acceleration = 0.168154
+Maximum gradient = 5.98266e-09
+Maximum accelleration difference = 2.77556e-17
+Maximum gradient difference = 1.65436e-24
+Potential difference = 0
+Case number 8:
+Perturbing only = 0
+Gradient = 0
+Degree = 10
+Order = 0
+Computed is closer to finite difference.
+Difference with table = 5.98266e-09
+Difference with computed = 5.98266e-09
+R in earth radii = 6.61073
+Maximum acceleration = 0.168155
+Maximum gradient = 0
+Maximum accelleration difference = 2.77556e-17
+Maximum gradient difference = 0
+Potential difference = 29.3083
+Case number 9:
+Perturbing only = 0
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 9.62709e-16
+Difference with computed = 9.62709e-16
+R in earth radii = 1.06614
+Maximum acceleration = 8.59579
+Maximum gradient = 2.52107e-06
+Maximum accelleration difference = 0
+Maximum gradient difference = 2.11758e-22
+Potential difference = 0
+Case number 10:
+Perturbing only = 0
+Gradient = 1
+Degree = 15
+Order = 3
+Computed is closer to finite difference.
+Difference with table = 3.10627e-15
+Difference with computed = 3.10627e-15
+R in earth radii = 1.06614
+Maximum acceleration = 8.59558
+Maximum gradient = 2.52085e-06
+Maximum accelleration difference = 2.71051e-20
+Maximum gradient difference = 2.11758e-22
+Potential difference = 0
+Case number 11:
+Perturbing only = 0
+Gradient = 1
+Degree = 2
+Order = 0
+Table is closer to finite difference.
+Difference with table = 7.42872e-16
+Difference with computed = 7.42872e-16
+R in earth radii = 1.06614
+Maximum acceleration = 8.50142
+Maximum gradient = 2.42766e-06
+Maximum accelleration difference = 4.44089e-16
+Maximum gradient difference = 2.11758e-22
+Potential difference = 27915.9
+Case number 12:
+Perturbing only = 0
+Gradient = 1
+Degree = 2
+Order = 0
+Computed is closer to finite difference.
+Difference with table = 2.60098e-17
+Difference with computed = 2.60098e-17
+R in earth radii = 14.1107
+Maximum acceleration = 0.047949
+Maximum gradient = 1.01056e-09
+Maximum accelleration difference = 3.46945e-18
+Maximum gradient difference = 2.06795e-25
+Potential difference = 10.2128
+Case number 13:
+Perturbing only = 1
+Gradient = 0
+Degree = 10
+Order = 10
+Computed is closer to finite difference.
+Difference with table = 1.94855e-09
+Difference with computed = 1.94855e-09
+R in earth radii = 1.41264
+Maximum acceleration = 0.0038068
+Maximum gradient = 0
+Maximum accelleration difference = 8.67362e-19
+Maximum gradient difference = 0
+Potential difference = 0
+Case number 14:
+Perturbing only = 0
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 2.76465e-15
+Difference with computed = 2.76465e-15
+R in earth radii = 1.41268
+Maximum acceleration = 3.92678
+Maximum gradient = 7.20234e-07
+Maximum accelleration difference = 4.44089e-16
+Maximum gradient difference = 1.85288e-22
+Potential difference = 7.45058e-09
+Case number 15:
+Perturbing only = 0
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 9.43185e-16
+Difference with computed = 9.43185e-16
+R in earth radii = 1.00008
+Maximum acceleration = 7.34458
+Maximum gradient = 1.73352e-06
+Maximum accelleration difference = 2.66454e-15
+Maximum gradient difference = 1.69407e-21
+Potential difference = 7.45058e-09
+Case number 16:
+Perturbing only = 0
+Gradient = 1
+Degree = 19
+Order = 9
+Table is closer to finite difference.
+Difference with table = 6.05898e-15
+Difference with computed = 6.05898e-15
+R in earth radii = 1.00008
+Maximum acceleration = 7.34457
+Maximum gradient = 1.73349e-06
+Maximum accelleration difference = 3.55271e-15
+Maximum gradient difference = 1.48231e-21
+Potential difference = 1.49012e-08
+Case number 17:
+Perturbing only = 0
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 1.08919e-18
+Difference with computed = 1.08919e-18
+R in earth radii = 40.1964
+Maximum acceleration = 0.00606422
+Maximum gradient = 4.73067e-11
+Maximum accelleration difference = 4.23516e-22
+Maximum gradient difference = 1.9387e-26
+Potential difference = 4.65661e-10
+Case number 18:
+Perturbing only = 0
+Gradient = 1
+Degree = 12
+Order = 12
+Table is closer to finite difference.
+Difference with table = 7.29599e-19
+Difference with computed = 7.29599e-19
+R in earth radii = 40.1964
+Maximum acceleration = 0.00428806
+Maximum gradient = 3.07267e-11
+Maximum accelleration difference = 0
+Maximum gradient difference = 6.46235e-27
+Potential difference = 2.32831e-10
+Case number 19:
+Perturbing only = 0
+Gradient = 1
+Degree = 12
+Order = 1
+Computed is closer to finite difference.
+Difference with table = 5.21117e-19
+Difference with computed = 5.21117e-19
+R in earth radii = 40.1964
+Maximum acceleration = 0.00428806
+Maximum gradient = 3.07267e-11
+Maximum accelleration difference = 4.33681e-19
+Maximum gradient difference = 3.23117e-27
+Potential difference = 2.32831e-10
+Case number 20:
+Perturbing only = 1
+Gradient = 1
+Degree = 15
+Order = 3
+Computed is closer to finite difference.
+Difference with table = 1.51158e-17
+Difference with computed = 1.51158e-17
+R in earth radii = 1
+Maximum acceleration = 0.0145873
+Maximum gradient = 8.08041e-09
+Maximum accelleration difference = 3.46945e-18
+Maximum gradient difference = 8.27181e-25
+Potential difference = 3.63798e-12
+Case number 21:
+Perturbing only = 0
+Gradient = 1
+Degree = 2
+Order = 2
+Table is closer to finite difference.
+Difference with table = 2.43616e-15
+Difference with computed = 2.43616e-15
+R in earth radii = 1.06614
+Maximum acceleration = 7.27144
+Maximum gradient = 1.60936e-06
+Maximum accelleration difference = 0
+Maximum gradient difference = 4.23516e-22
+Potential difference = 0
+Case number 22:
+Perturbing only = 0
+Gradient = 1
+Degree = 2
+Order = 2
+Table is closer to finite difference.
+Difference with table = 9.05894e-16
+Difference with computed = 9.05895e-16
+R in earth radii = 1.03478
+Maximum acceleration = 7.30592
+Maximum gradient = 1.63154e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 6.88214e-22
+Potential difference = 0
+Case number 23:
+Perturbing only = 0
+Gradient = 1
+Degree = 2
+Order = 2
+Computed is closer to finite difference.
+Difference with table = 1.10794e-15
+Difference with computed = 1.10794e-15
+R in earth radii = 1.08182
+Maximum acceleration = 6.12301
+Maximum gradient = 1.81471e-06
+Maximum accelleration difference = 0
+Maximum gradient difference = 2.11758e-22
+Potential difference = 0
+Case number 24:
+Perturbing only = 0
+Gradient = 1
+Degree = 2
+Order = 2
+Computed is closer to finite difference.
+Difference with table = 1.44523e-15
+Difference with computed = 1.44523e-15
+R in earth radii = 1.0975
+Maximum acceleration = 7.90755
+Maximum gradient = 2.13829e-06
+Maximum accelleration difference = 2.22045e-16
+Maximum gradient difference = 2.11758e-22
+Potential difference = 0
+Case number 25:
+Perturbing only = 0
+Gradient = 1
+Degree = 4
+Order = 4
+Table is closer to finite difference.
+Difference with table = 4.1902e-15
+Difference with computed = 4.1902e-15
+R in earth radii = 1.06614
+Maximum acceleration = 7.2716
+Maximum gradient = 1.60941e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 4.23516e-22
+Potential difference = 7.45058e-09
+Case number 26:
+Perturbing only = 0
+Gradient = 1
+Degree = 4
+Order = 4
+Computed is closer to finite difference.
+Difference with table = 1.21854e-15
+Difference with computed = 1.21854e-15
+R in earth radii = 1.03478
+Maximum acceleration = 7.30578
+Maximum gradient = 1.63144e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 4.76456e-22
+Potential difference = 7.45058e-09
+Case number 27:
+Perturbing only = 0
+Gradient = 1
+Degree = 4
+Order = 4
+Computed is closer to finite difference.
+Difference with table = 1.72654e-15
+Difference with computed = 1.72654e-15
+R in earth radii = 1.08182
+Maximum acceleration = 6.12301
+Maximum gradient = 1.81473e-06
+Maximum accelleration difference = 0
+Maximum gradient difference = 2.11758e-22
+Potential difference = 0
+Case number 28:
+Perturbing only = 0
+Gradient = 1
+Degree = 4
+Order = 4
+Computed is closer to finite difference.
+Difference with table = 1.32432e-15
+Difference with computed = 1.32432e-15
+R in earth radii = 1.0975
+Maximum acceleration = 7.90759
+Maximum gradient = 2.13832e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 6.35275e-22
+Potential difference = 0
+Case number 29:
+Perturbing only = 0
+Gradient = 1
+Degree = 6
+Order = 6
+Table is closer to finite difference.
+Difference with table = 2.74062e-15
+Difference with computed = 2.74062e-15
+R in earth radii = 1.06614
+Maximum acceleration = 7.27148
+Maximum gradient = 1.6093e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 4.23516e-22
+Potential difference = 0
+Case number 30:
+Perturbing only = 0
+Gradient = 1
+Degree = 6
+Order = 6
+Computed is closer to finite difference.
+Difference with table = 2.04671e-15
+Difference with computed = 2.04671e-15
+R in earth radii = 1.03478
+Maximum acceleration = 7.30571
+Maximum gradient = 1.63145e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 6.35275e-22
+Potential difference = 7.45058e-09
+Case number 31:
+Perturbing only = 0
+Gradient = 1
+Degree = 6
+Order = 6
+Computed is closer to finite difference.
+Difference with table = 3.33541e-15
+Difference with computed = 3.33541e-15
+R in earth radii = 1.08182
+Maximum acceleration = 6.12302
+Maximum gradient = 1.8147e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 4.23516e-22
+Potential difference = 0
+Case number 32:
+Perturbing only = 0
+Gradient = 1
+Degree = 6
+Order = 6
+Computed is closer to finite difference.
+Difference with table = 2.86395e-16
+Difference with computed = 2.86395e-16
+R in earth radii = 1.0975
+Maximum acceleration = 7.90759
+Maximum gradient = 2.13833e-06
+Maximum accelleration difference = 0
+Maximum gradient difference = 4.23516e-22
+Potential difference = 0
+Case number 33:
+Perturbing only = 0
+Gradient = 1
+Degree = 20
+Order = 20
+Table is closer to finite difference.
+Difference with table = 8.55096e-16
+Difference with computed = 8.55097e-16
+R in earth radii = 0.996569
+Maximum acceleration = 9.83391
+Maximum gradient = 3.08446e-06
+Maximum accelleration difference = 5.42101e-20
+Maximum gradient difference = 4.23516e-22
+Potential difference = 0
+Case number 34:
+Perturbing only = 0
+Gradient = 1
+Degree = 20
+Order = 20
+Computed is closer to finite difference.
+Difference with table = 2.21488e-15
+Difference with computed = 2.21488e-15
+R in earth radii = 0.999921
+Maximum acceleration = 9.81432
+Maximum gradient = 3.0817e-06
+Maximum accelleration difference = 5.55112e-17
+Maximum gradient difference = 4.23516e-22
+Potential difference = 0
+Case number 35:
+Perturbing only = 0
+Gradient = 1
+Degree = 0
+Order = 0
+Table is closer to finite difference.
+Difference with table = 3.77396e-15
+Difference with computed = 3.77396e-15
+R in earth radii = 1.06614
+Maximum acceleration = 7.27402
+Maximum gradient = 1.60456e-06
+Maximum accelleration difference = 2.22045e-16
+Maximum gradient difference = 6.35275e-22
+Potential difference = 0
+Case number 36:
+Perturbing only = 0
+Gradient = 1
+Degree = 0
+Order = 0
+Table is closer to finite difference.
+Difference with table = 4.47948e-15
+Difference with computed = 4.47948e-15
+R in earth radii = 1.06622
+Maximum acceleration = 7.40686
+Maximum gradient = 1.54056e-06
+Maximum accelleration difference = 4.44089e-16
+Maximum gradient difference = 8.47033e-22
+Potential difference = 0
+Case number 37:
+Perturbing only = 0
+Gradient = 1
+Degree = 8
+Order = 8
+Table is closer to finite difference.
+Difference with table = 4.22537e-15
+Difference with computed = 4.22537e-15
+R in earth radii = 1.06614
+Maximum acceleration = 7.27152
+Maximum gradient = 1.60939e-06
+Maximum accelleration difference = 4.44089e-16
+Maximum gradient difference = 2.11758e-22
+Potential difference = 0
+Case number 38:
+Perturbing only = 0
+Gradient = 1
+Degree = 8
+Order = 8
+Table is closer to finite difference.
+Difference with table = 1.77796e-15
+Difference with computed = 1.77796e-15
+R in earth radii = 1.03478
+Maximum acceleration = 7.30578
+Maximum gradient = 1.63153e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 3.70577e-22
+Potential difference = 0
+Case number 39:
+Perturbing only = 0
+Gradient = 1
+Degree = 8
+Order = 8
+Computed is closer to finite difference.
+Difference with table = 1.94315e-15
+Difference with computed = 1.94315e-15
+R in earth radii = 1.08182
+Maximum acceleration = 6.12306
+Maximum gradient = 1.81474e-06
+Maximum accelleration difference = 0
+Maximum gradient difference = 4.23516e-22
+Potential difference = 7.45058e-09
+Case number 40:
+Perturbing only = 0
+Gradient = 1
+Degree = 8
+Order = 8
+Table is closer to finite difference.
+Difference with table = 8.49345e-16
+Difference with computed = 8.49346e-16
+R in earth radii = 1.0975
+Maximum acceleration = 7.9076
+Maximum gradient = 2.13834e-06
+Maximum accelleration difference = 8.88178e-16
+Maximum gradient difference = 4.23516e-22
+Potential difference = 7.45058e-09
+

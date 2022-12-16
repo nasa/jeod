@@ -1,0 +1,361 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DynBodyInit_user.tex
+% User Guide for the DynBodyInit and derived classes.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\label{ch:\modelpartid:user}
+The following assumes the scheme outlined in
+section~\ref{subsec:recommended_practice}.
+
+\section{Analysis}
+
+The following examples illustrate various uses of the sub-model to
+initialize one of the vehicles. The examples assume
+a simulation S\_define file that declares simulation objects
+named `launchpad', `target', `chaser', and `dynamics'.
+The launchpad, target, and chaser objects
+each contain a DynBody object name `dyn\_body'
+and a number of objects of a type derived from DynBodyInit.
+The dynamics object contains a DynManager object named `manager'
+and a BodyAction pointer named `body\_action\_ptr'.
+See the Integration section below for a detailed description of the
+S\_define file.
+
+\subsection{DynBodyInitOrbit}
+The DynBodyInitOrbit class initializes translational state
+using a variety of orbital elements sets.
+The following specifies the orbit in terms of
+semi-major axis, eccentricity, inclination,
+right ascension of ascending node, argument of periapsis, and the time
+since periapsis passage.
+
+\begin{verbatim}
+target.orb_init.dyn_subject     = &target.dyn_body;
+target.orb_init.action_name = "target.orb_init";
+
+target.orb_init.reference_ref_frame_name = "Earth.inertial";
+target.orb_init.body_frame_id = "composite_body";
+
+target.orb_init.set = DynBodyInitOrbit::SmaEccIncAscnodeArgperTimeperi;
+target.orb_init.orbit_frame_name = "Earth.inertial";
+target.orb_init.planet_name      = "Earth";
+
+target.orb_init.arg_periapsis {d}       =  100.582445989;
+target.orb_init.eccentricity            =    0.00129073350;
+target.orb_init.inclination {d}         =   51.670450765;
+target.orb_init.ascending_node {d}      =   49.708417385;
+target.orb_init.semi_major_axis {km}    = 6732.90120152;
+target.orb_init.time_periapsis {s}      = 4581.96167293;
+
+dynamics.body_action_ptr = &target.orb_init;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+\end{verbatim}
+
+\subsection{DynBodyInitTranState}
+The DynBodyInitTranState class initializes translational state
+given the state relative to some known reference frame.
+The following initializes the chaser relative to the target
+using a point-to-point state specification
+and initializes the target given an Earth-centered, Earth-fixed
+state specification.
+
+Note the order in which these two initializations are specified.
+The chaser cannot be initialized until the target is initialized.
+There is nothing wrong with adding initializers in an out-of-order
+sequence as is done in this example. The Dynamics Manager will
+sort things out.
+
+\begin{verbatim}
+chaser.trans_init.subject = &chaser.dyn_body.mass;
+chaser.trans_init.action_name = "chaser.trans_state_tpoint_cpoint";
+
+chaser.trans_init.reference_ref_frame_name = "target.attach_point";
+chaser.trans_init.body_frame_id = "attach_point";
+
+chaser.trans_init.position[0] {M}   = 100.0, 0.0, 5.0;
+chaser.trans_init.velocity[0] {M/s} = -1.0, 0.0, 0.0;
+
+dynamics.body_action_ptr = &chaser.trans_init;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+
+target.trans_init.dyn_subject = &target.dyn_body;
+target.trans_init.action_name = "target.trans_state_pfix_body";
+
+target.trans_init.reference_ref_frame_name = "Earth.pfix";
+target.trans_init.body_frame_id = "composite_body";
+
+target.trans_init.position[0] {M}   =
+    5406298.5700, -2074684.5600,  3426540.0300;
+target.trans_init.velocity[0] {M/s} =
+    -706.0655810,  5764.3071620,  4587.2461630;
+
+dynamics.body_action_ptr = &target.trans_init;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+\end{verbatim}
+
+\subsection{DynBodyInitRotState}
+The DynBodyInitRotState class initializes rotational state
+given the state relative to some known reference frame.
+The following initializes the target attitude rate
+given an Earth-centered inertial state specification.
+
+\begin{verbatim}
+target.rot_init.subject = &target.dyn_body.mass;
+target.rot_init.action_name = "target.rate_state_inertial_body";
+
+target.rot_init.reference_ref_frame_name = "Earth.inertial";
+target.rot_init.body_frame_id = "composite_body";
+
+target.rot_init.state_items = DynBodyInitRotState::Rate;
+target.rot_init.ang_velocity[0] {d/s}  =
+    0.002,
+    0.006 - 0.06556131568278,
+   -0.003;
+
+dynamics.body_action_ptr = &target.rot_init;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+\end{verbatim}
+
+
+\subsection{DynBodyInitLvlhState}
+The DynBodyInitLvlhState class initializes state
+given the state relative to some rectilinear or curvilinear LVLH
+reference frame. The classes DynBodyInitLvlhTransState and
+DynBodyInitLvlhRotState derive from DynBodyInitLvlhState and only set
+translational and rotational aspects of the state; DynBodyInitLvlhState
+can set the full state.
+
+The DynBodyInitTranState and DynBodyInitRotState classes cannot
+be used with these LVLH frames because derived frames
+are not known at initialization time. If supplied, the DynBodyInitLvlhState class
+uses an existing user-specified LVLH reference frame. Otherwise, it constructs
+a temporary one to be used only for initialization.
+
+The following initializes the chaser's full state with respect to the
+target LVLH frame.
+
+\begin{verbatim}
+target.lvlh.subject_name    = "target.composite_body"
+target.lvlh.planet_name     = "Earth"
+
+# Choose Rectilinear or CircularCurvilinear
+chaser.lvlh_init.lvlh_type = trick.LvlhType.Rectilinear;
+# chaser.lvlh_init.lvlh_type = trick.LvlhType.CircularCurvilinear;
+chaser.lvlh.subject_name    = "chaser.composite_body"
+chaser.lvlh.planet_name     = "Earth"
+
+chaser.lvlh_init.subject = chaser.dyn_body.mass
+chaser.lvlh_init.action_name = "chaser_lvlh_init"
+chaser.lvlh_init.planet_name = "Earth"
+chaser.lvlh_init.set_lvlh_frame_object (target.lvlh)
+chaser.lvlh_init.position  = trick.attach_units( "m",[ -100.0, 25.0, 7.5])
+chaser.lvlh_init.velocity  = trick.attach_units( "m/s",[ 0.0, 0.0, 1.0])
+
+chaser.lvlh_init.orientation.data_source    = trick.Orientation.InputEulerRotation
+chaser.lvlh_init.orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
+chaser.lvlh_init.orientation.euler_angles   = trick.attach_units( "degree",[ 0.0, 0.0, 0.0])
+chaser.lvlh_init.ang_velocity               = trick.attach_units( "degree/s",[ 0.0, 0.0, 4.5])
+
+dynamics.dyn_manager.add_body_action (chaser.lvlh_init);
+\end{verbatim}
+
+
+\subsection{DynBodyInitNedState}
+
+The DynBodyInitNedState class initializes state
+given the state relative to North-East-Down reference frame.
+The classes DynBodyInitNedTransState and DynBodyInitNedRotState
+derive from DynBodyInitNedState and only set translational and
+rotational aspects of the state; DynBodyInitNedState can set the
+full state.
+
+Like the LVLH frames described above,
+North-East-Down frames are derived frames.
+The DynBodyInitNedState class
+constructs the North-East-Down reference frame
+so that it can be used for initialization.
+
+The following initializes the full state of the launchpad
+with respect to a specified point on the Earth
+and initializes the chaser's translational state relative to the launchpad.
+
+\begin{verbatim}
+launchpad.ned_init.dyn_subject = &launchpad.dyn_body;
+launchpad.ned_init.action_name = "launchpad.ned_state_ref_struct";
+
+launchpad.ned_init.reference_ref_frame_name = "Earth.inertial";
+launchpad.ned_init.body_frame_id = "structure";
+launchpad.ned_init.planet_name = "Earth";
+
+launchpad.ned_init.ref_point.altitude {M}  =   3.0;
+launchpad.ned_init.ref_point.latitude {d}  =  28.6082;
+launchpad.ned_init.ref_point.longitude {d} = -80.6040;
+launchpad.ned_init.altlatlong_type = NorthEastDown::elliptical;
+
+launchpad.ned_init.set_items = RefFrameItems::Pos_Vel_Att_Rate;
+launchpad.ned_init.position[0] {M}   =  0.0,  0.0, 10.0;
+launchpad.ned_init.velocity[0] {M/s} =  0.0,  0.0,  0.0;
+launchpad.ned_init.orientation.data_source = Orientation::InputEulerRotation;
+launchpad.ned_init.orientation.euler_sequence = Pitch_Yaw_Roll;
+launchpad.ned_init.orientation.euler_angles[0] {d} = 0.0, 0.0, 0.0;
+launchpad.ned_init.ang_velocity[0] {d/s} = 0.0, 0.0, 0.0;
+
+dynamics.body_action_ptr = &launchpad.ned_init;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+
+chaser.ned_trans_init.dyn_subject = &chaser.dyn_body;
+chaser.ned_trans_init.action_name = "chaser.trans_ned_launch_pad_struct";
+
+chaser.ned_trans_init.reference_ref_frame_name = "Earth.inertial";
+chaser.ned_trans_init.body_frame_id = "structure";
+chaser.ned_trans_init.planet_name = "Earth";
+chaser.ned_trans_init.ref_body_name = "launchpad";
+chaser.ned_trans_init.altlatlong_type = NorthEastDown::elliptical;
+
+chaser.ned_trans_init.position[0] {M}   = 0.0, 0.0,  -40.0;
+chaser.ned_trans_init.velocity[0] {M/s} = 0.0, 0.0, -100.0;
+
+dynamics.body_action_ptr = &chaser.ned_trans_init;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+\end{verbatim}
+
+\section{Integration}
+
+The main concern of the simulation integrator with respect to this
+model is making enough initializers available to the simulation users
+so that the users can easily initialize the vehicles in the simulation.
+Segments of the S\_define file used in the above examples are shown below.
+The launchpad and chaser simulation objects are not shown. The launchpad is a
+very pared-down version of the target (it only needs a DynBodyInitNedState
+object) while the chaser has the same set of initializers as does the target.
+This is most likely overkill. Most simulations will not need the plethora
+of initializers used here.
+\begin{verbatim}
+/**
+ * sim object target
+ */
+sim_object {
+
+   //
+   // Data structures
+   //
+   dynamics/dyn_body:         DynBody dyn_body;
+   dynamics/body_action:      MassBodyInit mass_init;
+
+   dynamics/body_action:      DynBodyInitOrbit orb_init;
+   dynamics/body_action:      DynBodyInitTransState trans_init;
+   dynamics/body_action:      DynBodyInitRotState rot_init;
+   dynamics/body_action:      DynBodyInitLvlhState lvlh_init;
+   dynamics/body_action:      DynBodyInitLvlhTransState lvlh_trans_init;
+   dynamics/body_action:      DynBodyInitLvlhRotState lvlh_rot_init;
+   dynamics/body_action:      DynBodyInitNedState ned_init;
+   dynamics/body_action:      DynBodyInitNedTransState ned_trans_init;
+   dynamics/body_action:      DynBodyInitNedRotState ned_rot_init;
+
+   ...
+
+} target;
+
+
+/**
+ * sim object chaser -- not shown; it is a replicate of the target
+ */
+
+/**
+ * sim object dynamics
+ */
+sim_object {
+
+   //
+   // Data structures
+   //
+   dynamics/dyn_manager: DynManager          manager;
+   dynamics/dyn_manager: DynManagerInit      manager_init;
+   dynamics/body_action: BodyAction        * body_action_ptr;
+   sim_services/include: INTEGRATOR          integ;
+   utils/message:        TrickMessageHandler msg_handler;
+
+   //
+   // Jobs registered for input file activation.
+   //
+   (0.0, environment) dynamics/dyn_manager:
+   dynamics.manager.add_body_action (
+      Inout BodyAction * body_action = dynamics.body_action_ptr);
+
+   //
+   // Initialization jobs
+   //
+   P_MNGR (initialization) dynamics/dyn_manager:
+   dynamics.manager.initialize_model (
+      Inout INTEGRATOR *     integ = &dynamics.integ,
+      In    DynManagerInit & init  =  dynamics.manager_init);
+
+   P_BODY (initialization) dynamics/dyn_manager:
+   dynamics.manager.initialize_simulation ();
+
+   ...
+
+} dynamics;
+\end{verbatim}
+
+
+\section{Extension}
+Extensibility was one of the key drivers in the development of this sub-model.
+
+Suppose you as a simulation integrator find that your users insist on
+having the ability to initialize state with respect to the inertial frame that
+is instantaneously colinear and co-moving with some reference vehicle
+reference frame. JEOD does not supply this capability, so how to supply it?
+
+The answer is to create a class that derives from DynBodyInit.
+This new class will need data member(s) that
+specify the reference vehicle, the target reference frame on that vehicle,
+and possibly the states the user wants to initialize.
+The new class will also need to override four virtual member functions.
+
+The {\tt initialize()} method should check for errors in the specification
+of the reference vehicle and the reference reference frame and then should
+call the {\tt DynBodyInit::initialize()} method.
+
+The default {\tt initializes\_what()} method says that the initializer
+initializes nothing. You will certainly want to override that. Exactly
+what state elements are to be initialized by this new class is between you
+and your users. The overridden {\tt initializes\_what()} method needs to
+reflect this decision.
+
+This new class needs to wait until the reference position and velocity are
+known. The default {\tt is\_ready()} method does not know this.
+You will need to override the {\tt is\_ready()} method to make it wait.
+To conform with the model requirements, the overridden method needs to
+query {\tt DynBodyInit::is\_ready()} before it returns {\tt true}.
+
+Finally, you will need to override the {\tt apply()} method. One approach is to
+\begin{enumerate}
+\item Create a new reference frame that represents this collinear and co-moving
+inertial frame. A simply way to do this is to declare a RefFrame object as
+a local variable. Note that a reference frame initializes to having a null
+translation and rotational with respect to its parent.
+\item Give this frame a name such as ``vehicle.inertial'', with the
+vehicle name substituted for vehicle.
+Various JEOD methods do not like reference frames that don't have a name.
+\item (Temporarily) attach this new reference frame to the reference frame tree.
+In this case, attaching the frame to the reference body's integration frame
+will make that collinear and co-moving requirement easy to satisfy.
+\item Copy the position and velocity from the reference reference frame to
+this new frame. Voila! This is now an inertial frame that is collinear and
+co-moving with the reference vehicle.
+\item Point the inherited {\tt reference\_ref\_frame} data member to this
+newly created frame.
+\item Call the inherited {\tt apply\_user\_inputs()} method to interpret the
+user inputs in terms of this frame.
+\item Call the overridden {\tt DynBodyInit::apply()} method to initialize
+the subject vehicle state.
+\item Reset the inherited {\tt reference\_ref\_frame} data member to NULL.
+The item to which it points is about to go out of scope.
+\item Return. The reference frame created by declaring a RefFrame variable
+will go out of scope and be destroyed. The RefFrame destructor automatically
+removes the frame from the reference frame tree.
+\end{enumerate}

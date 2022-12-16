@@ -1,0 +1,8 @@
+# Disable optimization for the RNP J2000 polar motion data files.
+
+# Set JEOD_HOME based on the location of this file
+JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))../../../../../..)
+
+include $(JEOD_HOME)/bin/jeod/compile_unoptimized.mk
+
+$(call jeod_compile_directory_unoptimized,environment/RNP/RNPJ2000/data/polar_motion)

@@ -1,0 +1,108 @@
+\section{Verification}
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy  
+% requirement \ref{reqt:<label>}.
+
+A verification sim was built to test the various combinations of message
+suppression. The sim is located at:  {\bf message/verif/SIM\_message\_handler\_verif }
+This simulation is constructed in such a way that almost all the 
+meaningful output is routed to standard error.  There is a 
+bin directory which contains a script (run\_test) to run the sim 
+through its tests.
+The output of the verification sim is shown below.  :
+\begin{verbatim}
+Tests 1-5: Tests with default suppression settings
+
+Test 1: send_message()
+Message utils/message/verif/Message at message_handler_verif_driver.cc line 105:
+Test of MessageHandler::send_message()
+
+
+Test 2: debug()
+
+Test 3: inform()
+
+Test 4: warn()
+Warning utils/message/verif/Warning at message_handler_verif_driver.cc line 83:
+Test of MessageHandler::warn()
+
+
+Test 5: error()
+Error utils/message/verif/Error at message_handler_verif_driver.cc line 76:
+Test of MessageHandler::error()
+
+
+
+Tests 6-10: Suppression level set to 9
+
+Test 6: send_message() (Not suppressed)
+Message utils/message/verif/Message at message_handler_verif_driver.cc line 105:
+Test of MessageHandler::send_message()
+
+
+Test 7: debug() (Suppressed)
+Test 8: inform() (Suppressed)
+
+Test 9: warn() (Suppressed)
+
+Test 10: error() (Not suppressed)
+Error utils/message/verif/Error at message_handler_verif_driver.cc line 76:
+Test of MessageHandler::error()
+
+
+
+Tests 11-12: Supression level set to 0
+
+Test 11: send_message() (Suppressed)
+Test 10: error() (Suppressed)
+
+
+Tests 13-15: Tests of suppressing ID, location
+
+Test 13: error() (ID suppressed)
+message_handler_verif_driver.cc line 76
+Test of MessageHandler::error()
+
+
+Test 14: error() (location suppressed)
+Error utils/message/verif/Error:
+Test of MessageHandler::error()
+
+
+Test 15: error() (ID and location suppressed)
+Test of MessageHandler::error()
+
+
+Test 16: fail() (Never suppressed)
+\end{verbatim}
+
+
+\section{Validation}
+(No validation tests were conducted for the \MessageHandlerDesc .)
+
+\section{Metrics}
+\subsection{Code Metrics}
+Table~\ref{tab:coarse_metrics} presents coarse metrics on the source
+files that comprise the model.
+
+\input{coarse_metrics}
+
+Table~\ref{tab:metrix_metrics} presents the extended cyclomatic complexity
+(ECC) of the methods defined in the model.
+\input{metrix_metrics}
+
+%%% code imported from old template structure
+%\test{<Title>}\label{test:<label>}
+%\begin{description}
+%\item[Purpose:] \ \newline
+%<description>
+%\item[Requirements:] \ \newline
+%By passing this test, the universal time module 
+%partially satisfies requirement~\ref{reqt:<label1>} and 
+%completely satisfies requirement~\ref{reqt:<label2>}.
+%\item[Procedure:]\ \newline
+%<procedure>
+%\item[Results:]\ \newline
+%<results>
+%\end{description}

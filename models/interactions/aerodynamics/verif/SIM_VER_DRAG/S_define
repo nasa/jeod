@@ -1,0 +1,116 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+/*************************** Copyright Statement ******************************
+* Rendezvous, Proximity Operations and Capture (RPOC) Model Suite             *
+*                                                                             *
+* This S_define file has been developed under NASA Government Contracts and   *
+* access to it may be granted for Government work by the following contact:   *
+*                                                                             *
+* Contact: Allan L. DuPont, EG4                                               *
+*          Aeroscience and Flight Mechanics Division                          *
+*          NASA - Johnson Space Center, Houston, TX                           *
+*******************************************************************************/
+
+/* Define Job Calling Periods. */
+#define DYN          0.1
+
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+
+
+##include "utils/surface_model/include/surface_model.hh"
+##include "interactions/aerodynamics/include/aero_drag.hh"
+##include "interactions/aerodynamics/include/aero_surface.hh"
+##include "interactions/aerodynamics/include/aero_surface_factory.hh"
+##include "interactions/aerodynamics/include/flat_plate_aero_params.hh"
+##include "interactions/aerodynamics/verif/include/aero_logging.hh"
+##include "environment/atmosphere/base_atmos/include/atmosphere_state.hh"
+
+##include "utils/surface_model/include/flat_plate.hh"
+
+class AeroTestSimObject : public Trick::SimObject {
+
+   public:
+
+   /* Vehicle orbital dynamics parameters. */
+   double inertial_vel[3];
+   double T_inertial_struct[3][3];
+   double center_grav[3]; /* (m) center of grav */
+   double mass;
+
+   jeod::AerodynamicDrag aero_drag;
+
+   jeod::AtmosphereState atmos_state;
+
+   jeod::SurfaceModel surface;
+   jeod::AeroSurface aero_surface;
+   jeod::AeroSurfaceFactory surface_factory;
+
+   jeod::AeroLogging logging;
+
+   AeroTestSimObject(){
+
+      ("initialization") surface_factory.create_surface(&surface, &aero_surface);
+
+      ("initialization") logging.aero_logging_initialize(aero_surface);
+
+      (DYN, "scheduled") rotate_vel();
+      (DYN, "scheduled") aero_drag.aero_drag(inertial_vel,
+                                             &atmos_state,
+                                             T_inertial_struct,
+                                             mass,
+                                             center_grav);
+
+      (DYN, "scheduled") logging.aero_logging(inertial_vel,
+                                              mass,
+                                              aero_drag.aero_force);
+   }
+
+   private:
+   void rotate_vel()
+   {
+     inertial_vel[0] = 7500 * std::cos( exec_get_sim_time() * M_PI / 180.0);
+     inertial_vel[2] = 7500 * std::sin( exec_get_sim_time() * M_PI / 180.0);
+   }
+   // This object not copyable
+   AeroTestSimObject operator =(const AeroTestSimObject &);
+   AeroTestSimObject(const AeroTestSimObject &);
+
+};
+
+AeroTestSimObject aero_test;

@@ -1,0 +1,64 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Introduction for the time model.
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Purpose and Objectives of \timeDesc}
+% Incorporate the intro paragraph that used to begin this Chapter here. 
+% This is location of the true introduction where you explain what this model 
+% does.
+% This file was converted to LaTeX by Writer2LaTeX ver. 1.0 beta3
+% see http://writer2latex.sourceforge.net for more info
+The \timeDesc\ in \JEODid\ represents a
+complete reformulation from the UTIME structure seen in JEOD1.x.  Like
+its predecessor, it is responsible for tracking time as a simulation
+advances; unlike its predecessor, it can do so in any number of time 
+representations, using any number of clocks, that may be ticking at
+different rates from one another.
+
+
+While the SI second is a well-defined quantity, counted to high 
+precision by atomic clocks, and incorporated into many physical
+constants, it is not always the best clock to use for modeling
+purposes.  For example, when modeling the rotation of Earth, it is
+preferable to use a sidereal clock (1 day = 1 rotation), rather than
+the synodic clock (1 day = 1 solar passage) associated with the SI
+second.  The length of the SI second was chosen such that there would
+be approximately 86,400 seconds in one synodic day, and the passage of
+the SI second is represented by International Atomic Time (TAI).
+ However, the length of the synodic day, now associated with Universal
+Time (UT1), rarely lasts 86,400 SI seconds, and fluctuates with little
+predictability.  Earth-based civil-time, or Universal Coordinated
+Time (UTC), attempts to closely match the passage of UT1, while ticking 
+at the same rate as TAI.  
+
+
+Further complicating the management of time are other clocks with
+various epochs (points in time where their value was 0). 
+ Mission-Elapsed-Time (MET) is often used to track time since a 
+mission began, and the Global Positioning System (GPS) has its own clock.
+Users may wish to run only in local time, rather than UTC, or 
+have clocks that can output their data in two or more local times for
+international missions.
+
+In JEOD 1.x, there was a tacit assumption that time always advanced
+forward.  In this implementation, we can run time in reverse to find,
+for example, a set of initial conditions that produce a desired
+end-state.  As we look toward making JEOD applicable to
+interplanetary missions, it may be desirable to incorporate a
+solar-based timescale, with capability for relativistic corrections;
+that capability has also been implemented.
+
+
+
+
+
+
+
+
+
+
+
+

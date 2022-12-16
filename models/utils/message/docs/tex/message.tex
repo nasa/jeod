@@ -1,0 +1,102 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: Model.tex
+%
+% Purpose: Top level document for Model.  Should not need to be edited.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\documentHistory{
+{\bf Author} & {\bf Date} & {\bf Description} \\ \hline \hline
+\ModelAuthor & \ModelAuthDate & Initial Version \\ \hline
+}
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{message}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+
+\usepackage{longtable}
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\MessageHandlerDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\MessageHandlerDesc}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{models/utils/message}
+\docrev{1.0}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\MessageHandlerDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{MessageHandlerAbstract}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+%%% For a simple document make a copy of Chapters.tex and use this format
+%%% use of MessageHandlerChapters vs ModelChapters is solely for the purpose of
+%%% combatability with the copy_templates.csh script.
+\include{MessageHandlerChapters}
+
+%%% or for a document with multiple parts make as many copies of Chapters.tex
+%%% as you have parts and use this format
+%\hyperdef{part}{part1}{\part{Part 1 Title}}\label{pt1:title}
+%\include{MessageHandlerChapters1}
+%\hyperdef{part}{part2}{\part{Part 2 Title}}\label{pt2:title}
+%\include{MessageHandlerChapters2}
+%%% etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,MessageHandler}
+\bibliographystyle{plain}
+
+%\pagebreak
+%\appendix
+
+\end{document}

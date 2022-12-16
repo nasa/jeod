@@ -1,0 +1,390 @@
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+
+\section{Instructions for Simulation Users}
+\label{sec:guide_sim_users}
+
+This section describes how to set up and use the \ModelDesc in an 
+existing Trick 10 simulation.
+
+\subsection{Controls}
+
+The simulation developer typically establishes which ephemeris models are
+employed in a given simulation.
+In most simulations, the simulation user should leave this as-is.
+
+The user may want to specify the JPL Development Ephemeris version which can be 
+done via input file. The default configuration is set to DE405. To change this, 
+simply add the following line in the input file.
+ 
+\begin{codeblock}
+env.de4xx.set_model_number(<integer value of model>)
+## Ex.
+env.de4xx.set_model_number(440)
+\end{codeblock}
+
+JEOD currently provides versions 405, 421, and 440.
+
+The JEOD dynamics manager and dynamics integration provides the ability
+to control whether ephemerides are updated as derivative class jobs.
+This can be set from the input file.
+\begin{codeblock}
+dynamics.dyn_manager.deriv_ephem_update = <True or False>
+\end{codeblock}
+Note however that overriding this from the default for your simulation
+may invalidate the simulation results.
+
+
+\subsection{Accessing Ephemerides}
+\label{sec:guide_sim_users_accessing_ephemerides}
+In general, you do not access the ephemerides directly from the
+ephemeris models. You instead those data from those planet reference frames.
+The ephemeris models store the translational state of a planet
+in the planet's inertial reference frame, the rotational state of
+a planet in the planet's planet-fixed reference frame state.
+
+The one exception to this are the translational states of various
+barycentric frames. These frames are contained in the ephemeris models.
+Assuming the environment simulation object is established as described
+in section~\ref{sec:guide_sim_developers}, the Earth-Moon barycenter
+frame is the simulation variable
+\verb|env.de4xx.earth_moon_barycenter_frame|.
+The solar system barycenter is also present in the JPL ephemeris model,
+but its translational state is identically zero and its rotational
+state is the identity rotation.
+
+The recommended practice for logging these ephemerides data
+in a Trick 10 simulation is to use the JEOD logger Python module.
+The following assumes each planet is represented as a Trick10 simulation object
+that contains a data member named \verb|planet| of type \verb|Planet|
+and whose name is the name of the planet. (This is the recommended
+practice for defining JEOD planetary objects in Trick10).
+\begin{codeblock}
+# Load the JEOD logger module.
+import sys 
+import os
+sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
+import jeod_log
+
+def log_trans_states (data_record, interval, file_suffix, \
+                      planets, other_frames=()) :
+  """
+  Log the states of the specified reference frames.
+
+  Arguments:
+  data_record -- Trick data recorder sim object.
+  interval    -- Simulation time between successive data blocks.
+  file_suffix -- Suffix for the log file.
+  planets     -- Comma separated list of names of sim objects that
+  contain planets; the planet's translational states are logged.
+  other_frames -- Comma separated list of names of additional reference
+  frames whose translational states are to be logged.
+  """
+
+  # Create and initialize the logger.
+  logger = jeod_log.Logger (data_record.drd)
+  logger.open_group (interval, file_suffix)
+
+  # Log the translational states for the specified planets
+  for planet in planets :
+     logger.log_ref_frame_trans_state (planet + ".planet.inertial")
+
+  # Log the additional translational states
+  for frame in other_frames :
+    logger.log_ref_frame_trans_state (frame)
+
+  # Close the logger.
+  logger.close_group ()
+
+  return
+\end{codeblock}
+Using the above Python function, the translational states of the
+Sun, Earth, Moon, and Earth-Moon barycenter can be logged via
+\begin{codeblock}
+log_trans_states (data_record, interval, "state", \
+                  ["sun", "earth", "moon"], \
+                  ["env.de4xx.earth_moon_barycenter_frame"])
+\end{codeblock}
+
+Refer to the User Guide chapters of
+\hypermodelrefinside{PLANET}{part}{user}
+and \hypermodelrefinside{REFFRAMES}{part}{user} for details
+on using the Planet and RefFrame classes.
+
+\subsection{Accessing Additional Ephemerides}
+\label{sec:guide_sim_users_accessing_additional_ephemerides}
+Simulation users have on occasion express a desire to access ephemerides
+for planets that are not represented in the simulation. One approach is
+to add Trick10 simulation objects to the simulation that represents those
+additional planetary bodies. Subscriptions can be created for these
+extraneous bodies in the input file.
+
+An alternative approach is to create those extra planets in the input file,
+thereby avoiding altering the \Sdefine file just to access these auxiliary
+data. The following illustrates this with the planets Uranus and Neptune.
+\begin{codeblock}
+# Create a planet and name it Uranus (note use of lower and upper case).
+uranus = trick.Planet()
+uranus.set_name("Uranus")
+
+# Register the planet with JEOD and issue a subscription.
+uranus.register_planet(dynamics.dyn_manager)
+uranus.inertial.subscribe()
+
+# Register the object with Trick.
+trick.TMM_declare_ext_var_s(uranus, "Planet uranus")
+
+# Now do the same for Neptune.
+neptune = trick.Planet()
+neptune.set_name("Neptune")
+neptune.register_planet(dynamics.dyn_manager)
+neptune.inertial.subscribe()
+trick.TMM_declare_ext_var_s(neptune, "Planet neptune")
+\end{codeblock}
+
+The states of these additional parameters can be logged by changing
+the call to the Python function \verb|log_trans_states| described
+in section~\ref{sec:guide_sim_users_accessing_ephemerides} above.
+\begin{codeblock}
+log_trans_states (data_record, interval, "state", \
+                  ["sun", "earth", "moon"], \
+                  ["env.de4xx.earth_moon_barycenter_frame", \
+                   "uranus.inertial", "neptune.inertial"])
+\end{codeblock}
+
+
+\section{Instructions for Simulation Developers}
+\label{sec:guide_sim_developers}
+This section describes how to create a Trick 10 simulation
+that uses the \ModelDesc.
+
+
+\subsection{The \texttt{env} Simulation Object}
+JEOD provides a Trick10 \texttt{S\_module} file that defines the standard
+JEOD \verb|env| simulation object. This Trick10 simulation object contains
+an instance of the De4xxEphemeris class. Place the following in your
+\texttt{\Sdefine} file, just after the dynamics manager simulation object:
+\begin{codeblock}
+#include "JEOD_S_modules/environment.sm"
+\end{codeblock}
+where \verb|JEOD_S_modules| is a symbolic link to
+\verb|$JEOD_HOME/sims/shared/Trick10/S_modules|.
+
+
+\subsection{The \texttt{S\_overrides.mk} File}
+\label{sec:guide_s_overrides}
+
+The Development Ephemeris data provided with JEOD is in the form
+of C++ source files that are compiled into shared libraries. The DE4XX 
+ephemeris model loads the symbols from the shared library as needed per DE4XX
+version and by segments of time. These shared libraries are compiled outside of 
+the standard model source code Trick build process. However, Trick provides a 
+mechanism in the \texttt{S\_overrides.mk} file by which simulation developers
+can augment the build process. JEOD provides the make rules and cmake commands 
+necessary to build the shared libraries and link them to a convenient location 
+within the standard Trick build directory. Developers need only include
+\verb|$JEOD_HOME/bin/jeod/generic_S_overrides.mk| in their simulations' 
+\texttt{S\_overrides.mk} file.
+\begin{codeblock}
+include $(JEOD_HOME)/bin/jeod/generic_S_overrides.mk
+\end{codeblock}
+In this version of JEOD, JPL Development Ephermis models DE405, DE421 and DE440
+are all built for each versions' full range of dates. Only symbols associated 
+with the requested date are loaded at runtime which keeps the memory usage low 
+despite having the entire date range available.
+
+
+\subsection{Using other DE4XX Models}
+\label{sec:guide_de4xx}
+
+The standard JEOD \verb|env| De4xxEphemeris model will default to DE405 version
+inside its constructor. To use any other version (currently DE421 and DE440), 
+simply set the model number in the input file for the simulation run.
+
+\begin{codeblock}
+env.de4xx.set_model_number(421)
+env.de4xx.set_model_number(440)
+\end{codeblock}
+
+
+
+\subsection{Lunar Orientation}
+\label{sec:guide_lunar_rnp}
+The JPL Development Ephemeris module automatically updates lunar orientation
+as a part of the ephemerides update process if the orientation of the Moon is
+needed somewhere in the simulation. Nothing special needs to be done
+with regard to lunar orientation if ephemerides are updated at the derivative
+rate or if lunar orientation only needs to be updated along with all
+other ephemerides.
+
+If ephemerides are updated as scheduled jobs but you need lunar orientation at
+the derivative rate (or at a faster scheduled rate) you will need to
+add a derivative class or scheduled job to your \Sdefine file that calls
+the DE4xx ephemeris model's \verb|propagate_lunar_rnp| function.
+For example, adding the following job to the \verb|env| simulation object
+will force lunar orientation to be propagated between updates.
+\begin{codeblock}
+   P0 ("derivative") env.de4xx.propagate_lunar_rnp ();
+\end{codeblock}
+
+\section{Instructions for Model Developers}
+This section describes how to use the \ModelDesc
+in \Cplusplus code.
+
+\label{sec:guide_model_developers}
+\subsection{Using the \ModelDesc}
+The programmatic use of the \ModelDesc is for the most part limited
+to those developers who are also extending some aspect of the model
+or of some model that already uses the \ModelDesc.
+The former usage is covered in the following section.
+For the latter, refer the the instructions for model developers
+in the model that is being extended.
+
+\subsection{Extending the \ModelDesc}
+The \verb|EphemerisInterface| class is the primary class that
+external users may need to extend. Key methods that need to be
+defined are described below.
+
+
+
+\subsubsection{\texttt{initialize\_model}}
+The \texttt{initialize\_model} function should be called early in the
+initialization process.
+The name \texttt{initialize\_model} is a suggested name
+rather than a mandatory one;
+this method is typically called directly from the
+\Sdefine file. This method should\begin{itemize}
+\item Perform model-specific initializations such as opening input files,
+\item Register the model itself with the ephemeris manager,
+\item Register with the ephemeris manager any reference frames that are
+  contained directly in the model, and
+\item Register with the ephemeris manager all ephemeris items that
+  describe the data the model is capable of computing.
+\end{itemize}
+The order in which the various ephemeris models'
+\texttt{initialize\_model} method can be significant.
+Multiple models can register ephemeris items with the same name.
+The first model to register such an item is the winner.
+For example, suppose you are developing an ephemeris model of the Jovian
+moons, with Jupiter's center of mass as the central frame for this model.
+Your Jovian moon model should be registered after the JPL DE4xx model
+is registered. If the DE4xx model is active, that model will be responsible for
+updating Jupiter's planet-centered inertial frame. Your model will add
+the Jovian moons to the overall ephemerides, and they will be correctly
+connected to the rest of the solar system.
+
+\subsubsection{\texttt{ephem\_initialize}}
+The \texttt{ephem\_initialize} function is called by the
+ephemeris manager's \texttt{initialize\_ephemerides} function,
+presumably after all of the ephemeris models in the simulation have completed
+their basic initialization and after all of the planets have registered
+themselves and their reference frames with the ephemeris manager.
+The subscription status of the ephemeris items is not yet known, but
+the existence (or lack thereof) of the underlying reference frames is known.
+For example, if your new ephemeris model can provide ephemerides for
+Planet X, but there is not Planet X in the simulation, your
+\texttt{initialize\_ephemerides} function should disable the
+those capabilities related to modeling Planet X.
+
+\subsubsection{\texttt{ephem\_activate}}
+The \texttt{ephem\_activate} function is called by the
+ephemeris manager's \texttt{activate\_ephemerides} function,
+in reverse ephemeris model registration order.
+This function in turn is called at initialization time and
+when changes in subscribed frames indicate that the reference
+frame tree needs to be rebuilt. The subscription status of the
+ephemeris reference frames is known at this time. The primary
+purpose of this function is to coordinate that known subscription status
+with the activities that will occur later on in your model.
+
+\subsubsection{\texttt{ephem\_build\_tree}}
+The \texttt{ephem\_build\_tree} function is called by the
+ephemeris manager's \texttt{activate\_ephemerides} function,
+in normal ephemeris model registration order.
+The function is called after all ephemeris models have been
+activated.
+This function should set the root frame of the reference frame tree
+if the ephemeris model is responsible for that root node. All
+non-root nodes should be then connected to the correct parent node.
+
+\subsubsection{\texttt{ephem\_update}}
+The \texttt{ephem\_update} function is called by the
+ephemeris manager's \texttt{update\_ephemerides} function.
+The ephemeris model should respond to this call by updating
+each reference frame state for which it is responsible.
+Each updated reference frame should be timestamped with the current
+dynamic time.
+
+\subsection{Adding a DE4XX model}
+To add a new DE4XX version to JEOD, use the following steps:
+\begin{enumerate}
+  \item Set the JEOD\_HOME environment variable
+  \item Download the DE4XX version from the JPL FTP server replacing XX with 
+the desired version number. \newline
+\href{ftp://ssd.jpl.nasa.gov/pub/eph/planets/ascii/de4XX}{ftp://ssd.jpl.nasa.gov/pub/eph/planets/ascii/de4XX} 
+\begin{codeblock}
+## When complete, the downloaded files will be 
+## located at pub/eph/planets/ascii/de4XX
+wget -m -nH ftp://ssd.jpl.nasa.gov//pub/eph/planets/ascii/de4XX
+\end{codeblock}
+  \item Move the ascii files to the jeod de4xx ascii data directory \newline
+\verb|$JEOD_HOME/models/environment/ephemerides/de4xx_ephem/ascii_full_set|
+\begin{codeblock}
+mv pub/eph/planets/ascii/de4XX/* \
+    $JEOD_HOME/models/environment/ephemerides/de4xx_ephem/ascii_full_set
+\end{codeblock}
+  \item Convert the ascii to C++ source files
+\begin{codeblock}
+cd $JEOD_HOME
+make -f bin/jeod/makefile REGEN_DE4XX_DATA=1
+\end{codeblock}
+\end{enumerate}
+
+This will parse the ascii files and generate the resulting \newline
+\verb|$JEOD_HOME/models/environment/ephemerides/de4xx_ephem/data/data_src/de4XX.cc| file.
+
+Once the \verb|de4XX.cc| file is generated, the shared library (\verb|libde4XX.so|) will be built as part 
+of the simulation build process.
+
+\section{Frequently Asked Questions}
+\label{sec:guide_FAQ}
+\begin{enumerate}
+\item \emph{How do I access ephemeris model data?}\newline
+In general, you don't. The primary job of any ephemeris model is to store
+the requested ephemeris data as  states of the appropriate reference frame
+objects.
+As a user, you should access states from the reference frames in which
+those data are stored rather than accessing them from some ephemeris model.
+
+\item \emph{How do I control which ephemerides are computed?}\newline
+You do this by subscribing to the reference frame that contains the desired
+data. An ephemeris model updates the states of the active reference frames
+that the model ``owns''. Reference frame activity is controlled by
+subscription.
+
+\item \emph{How do I access ephemeris model data for objects
+that aren't in the simulation?}\newline
+The easiest way to accomplish this is to via a Trick 10 simulation input file.
+No modifications to the simulation are needed.
+See section~\ref{sec:guide_sim_users_accessing_additional_ephemerides}
+for details.
+
+\item \emph{How do I use the DE421 or DE440 model?}\newline
+\JEODid\ defaults to the DE405 model. Simply follow the instructions in
+section~\ref{sec:guide_de4xx} for details.
+
+\item \emph{How do I make the JPL ephemeris model cover a longer time span?}
+\newline
+If you are using the DE421 model, you can't. It covers July 29, 1899 to
+October 9, 2053. If you are using the DE405 model,
+override the default value of the \verb|EPHEM_YEARS| make variable
+in your \verb|S_overrides.mk| file.
+See section~\ref{sec:guide_s_overrides} for details.
+
+\item \emph{How do I update the lunar orientation?}\newline
+Lunar orientation is automatically updated by the JPL Development Ephemeris
+module as a part of the ephemerides update process.
+See section~\ref{sec:guide_lunar_rnp} for those cases where this
+automated update is insufficient.
+\end{enumerate}

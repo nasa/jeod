@@ -1,0 +1,128 @@
+\test{Simulation Interface Simulation}
+\label{test:local_verif}
+\begin{description}
+\item[Background]
+This test is an extremely simple simulation which
+creates a Trick sim\_object containing 
+an instance of a JeodTrickSimInterface to be tested.
+One other Trick sim\_object creates a test object
+with a single scheduled job.  The 
+test object calls JeodTrickSimInterface::get\_job\_cycle() as
+a scheduled job, thus the output can be compared
+to the cycle time of the scheduled job.
+
+The test object also includes private fields which are initialized by the 
+Trick input processor and are logged by Trick.
+
+\item[Test directory] {\tt verif} \\
+This is a standard verification directory containing
+the simulation directory  {\tt SIM\_sim\_interface}
+along with src and include directories for the test class code.
+
+\item[Success criteria]
+The simulation includes initialization and logging of private fields 
+which also reflect the output of 
+JeodTrickSimInterface::get\_job\_cycle(). The logged data should be
+identical to the 
+reference data in the SET\_test\_val directory.
+
+\item[Test results]
+Passed.
+
+\item[Applicable requirements]
+This test demonstrates the satisfaction of
+requirements \traceref{reqt:hidden_data_visibility},
+\traceref{reqt:sim_engine_interface},
+and \traceref{reqt:job_cycle}.
+\end{description}
+
+
+\test{Container Simulation}
+\label{test:container_model_sim}
+\begin{description}
+\item[Background]
+This simulation, located in the \CONTAINER\ verification directory,
+exercises the checkpoint/restart capabilities of the model.
+For a complete description of this test, see the
+\hypermodelrefinside{CONTAINER}{part}{ivv} for details.
+\item[Test Directory]
+\verb|models/utils/container/verif/SIM_container_T10|
+\item[Test Results]
+Passed.
+\item[Applicable Requirements]
+This test demonstrates the satisfaction of
+requirements \traceref{reqt:allocated_data_visibility},
+\traceref{reqt:sim_engine_interface},
+\traceref{reqt:checkpoint_restart},
+and \traceref{reqt:addr_name_xlate}.
+\end{description}
+
+
+\test{Memory Simulation}
+\label{test:memory_model_sim}
+\begin{description}
+\item[Background]
+This simulation, located in the \MEMORY\ verification directory,
+tests the ability of the \MEMORY\ to allocate and deallocate
+memory. This in turn tests the ability of this model to
+make those allocations visible to the simulation engine.
+ For a complete description of this test, see the
+\hypermodelrefinside{MEMORY}{part}{ivv} for details.
+\item[Test Directory]
+\verb|models/utils/memory/verif/SIM_memory_T10|
+\item[Test Results]
+Passed.
+\item[Applicable Requirements]
+This test demonstrates the satisfaction of
+requirements
+\traceref{reqt:allocated_data_visibility},
+\traceref{reqt:sim_engine_interface},
+and \traceref{reqt:checkpoint_restart}.
+\end{description}
+
+
+\test{Message Handler Simulation}
+\label{test:message_model_sim}
+\begin{description}
+\item[Background]
+This simulation, located in the \MESSAGE\ verification directory,
+exercises the Trick-based implementation of the abstract
+class MessageHandler.
+For a complete description of this test, see the
+\hypermodelrefinside{MESSAGE}{part}{ivv} for details.
+\item[Test Directory]
+\verb|models/utils/message/verif/SIM_message_handler_verif_T10|
+\item[Test Results]
+Passed.
+\item[Applicable Requirements]
+This test demonstrates the satisfaction of
+requirements \traceref{reqt:sim_engine_interface}
+and \traceref{reqt:trick_message_handler}.
+\end{description}
+
+
+\test{Propagated Planet Simulation}
+\label{test:sim_prop_planet}
+\begin{description}
+\item[Background]
+This simulation, located in the \EPHEMERIDES\ verification directory,
+tests the ability of the \EPHEMERIDES\ to propagate a planet as an
+alternative to using an ephemeris model.
+The Trick 10 version was constructed to serve as a test case
+of the multiple integration group capability provided by this model. 
+ For a complete description of this test, see the
+\hypermodelrefinside{EPHEMERIDES}{part}{ivv} for details.
+\item[Test Directory]
+\verb|models/environment/ephemerides/verif/SIM_prop_planet_T10|
+\item[Test Results]
+Passed.
+\item[Applicable Requirements]
+This test demonstrates the satisfaction of
+requirements \traceref{reqt:allocated_data_visibility},
+\traceref{reqt:sim_engine_interface},
+\traceref{reqt:integ_interface},
+\traceref{reqt:checkpoint_restart},
+\traceref{reqt:addr_name_xlate},
+and \traceref{reqt:multiple_integ_groups}.
+\end{description}
+

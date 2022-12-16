@@ -1,0 +1,177 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//=============================================================================
+// SIM_OBJECT: jeod_sys
+// This sim object initialized JEOD dependent simulation management functions.
+//=============================================================================
+##include "utils/sim_interface/include/trick_sim_interface.hh"
+
+#ifndef MESSAGE_HANDLER_CLASS
+#define MESSAGE_HANDLER_CLASS jeod::TrickMessageHandler
+#endif
+
+
+class JEODSysSimObject : public Trick::SimObject {
+
+  public:
+   //
+   // Data structures
+   //
+   MESSAGE_HANDLER_CLASS message_handler;
+   jeod::BasicJeodTrickSimInterface jeod_sim_interface;
+   jeod::JeodSimulationInterfaceInit interface_init;
+
+   JEODSysSimObject()
+   :
+      jeod_sim_interface (message_handler)
+   {
+
+      // Control the sim interface state machine
+      // Notes:
+      // - The use of job phase P0 versus P65535 is used to differentiate
+      //   between state transitions that need to be made at the start versus
+      //   the end of the targeted job class.
+      // - FIXME: These job phases need to be peer-reviewed.
+      // - Do not change these job phases.
+
+      P0     ("default_data")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Initialization);
+
+      P65535 ("initialization")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Operational);
+
+      P0     ("checkpoint")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::PreCheckpoint);
+
+      P65535 ("checkpoint")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Checkpoint);
+
+      P0     ("post_checkpoint")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::PostCheckpoint);
+
+      P65535 ("post_checkpoint")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Restore);
+
+      P0     ("preload_checkpoint")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Restart);
+
+      P65535 ("restart")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Restore);
+
+      P0     ("shutdown")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Shutdown);
+
+      P65535 ("shutdown")
+      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Dead);
+
+
+      // Checkpoint / restore JEOD data
+      // Notes on the impact on checkpoint etc. jobs in sim objects created
+      // after the JEODSysSimObject sim object:
+      // - Use of checkpoint and restart files:
+      //   -- The output JEOD checkpoint file is available to all (almost all)
+      //      checkpoint and post_checkpoint jobs in sim objects registered
+      //      after the JEODSysSimObject. Similarly, the input JEOD checkpoint
+      //      file is available to all (almost all) preload_checkpoint and
+      //      restart jobs in sim objects registered after the JEODSysSimObject.
+      //   -- P65535 post_checkpoint and restart jobs cannot access the
+      //      JEOD checkpoint files. C'est la vie.
+      // - Use of JEOD_ALLOC:
+      //   -- Data JEOD_ALLOCed by checkpoint jobs with default phase and
+      //      lower will be fully checkpointed (allocations and contents).
+      //   -- Data JEOD_ALLOCed by checkpoint jobs with phase higher than the
+      //      default will have the contents but not the allocations
+      //      checkpointed, resulting in a checkpoint file unusable for restart.
+      //   -- Data JEOD_ALLOCed by post_checkpoint jobs will not be
+      //      checkpointed, period. This is safe but of dubious utility.
+      //   -- Data JEOD_ALLOCed by preload_checkpoint with phase lower than
+      //      the default phase will disappear with the execution of the
+      //      jeod_sim_interface.restore_allocations job. Safe but dubious.
+      //   -- Data JEOD_ALLOCed by preload_checkpoint with the default phase
+      //      or higher and by all restart jobs will be available after the
+      //      restart is complete.
+      // - Use of JeodCheckpointable objects:
+      //   -- Modifications to checkpointable objects by all checkpoint jobs
+      //      and by post_checkpoint jobs with the default phase or lower will
+      //      be checkpointed.
+      //   -- Modifications made by post_checkpoint jobs with phase higher than
+      //      the default phase will not be checkpointed.
+      //   -- Modifications made by all preload_checkpoint jobs and by restart
+      //      jobs with phase lower than the default phase will disappear with
+      //      the execution of the jeod_sim_interface.restore_containers job.
+      //   -- Accesses of the contents of checkpointable objects made by
+      //      all preload_checkpoint jobs and by restart jobs with phase
+      //      lower than the default will be to the pre-restart rather than
+      //      post-restart contents.
+
+      P0     ("checkpoint")
+      jeod_sim_interface.open_checkpoint_file ( );
+
+      P60001 ("checkpoint")
+      jeod_sim_interface.checkpoint_allocations ( );
+
+      P60001 ("post_checkpoint")
+      jeod_sim_interface.checkpoint_containers ( );
+
+      P65535 ("post_checkpoint")
+      jeod_sim_interface.close_checkpoint_file ( );
+
+
+      // Restart from a checkpoint
+
+      P0     ("preload_checkpoint")
+      jeod_sim_interface.open_restart_file ( );
+
+      P59999 ("preload_checkpoint")
+      jeod_sim_interface.restore_allocations ( );
+
+      P59999 ("restart")
+      jeod_sim_interface.restore_containers ( );
+
+      P65535 ("restart")
+      jeod_sim_interface.close_restart_file ( );
+
+   }
+
+  private:
+   // This object is not copyable
+   JEODSysSimObject operator =(const JEODSysSimObject &);
+
+};
+
+//Instantiate
+JEODSysSimObject jeod_sys;

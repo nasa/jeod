@@ -1,0 +1,30 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  abstract for gravity model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+The \ModelDesc\ provides a framework for representation of the gravity effects
+of planetary bodies. The basic model is generic and extensible to allow
+implementation of any common type of gravity field representation method. The
+basic model also provides the simple point-mass gravitational attraction
+calculations common to all Newtonian gravity representations to reduce
+redundant effort when extending the model.
+
+An extension of the basic model that uses a recursive, stable, and singularity--
+free spherical harmonics algorithm to model gravity fields is also provided
+as part of JEOD. This algorithm computes the gravitational acceleration acting
+on an object due to the gravity of planetary bodies; it can also include the
+effects of solid body tides in those calculations if desired. The model also
+outputs the gradient of the gravitational acceleration, which can be used for
+calculating gravitational torque or other microgravity effects.
+
+This document describes the implementation of the \ModelDesc\ including
+the model requirements, specifications, mathematical theory,
+and architecture.  A user guide is provided to assist
+with implementing the model in simulations.  Finally, the methods and
+results of verification and validation of the model are included.
+\end{abstract}

@@ -1,0 +1,473 @@
+################################################################################
+#
+# This is the standard makefile for building the LaTeX-based documentation
+# for a JEOD model.
+#
+# To get a desription of the arguments accepted by this makefile, type
+# 'make help'
+#
+# To bootstrap the document build process type
+# '$JEOD_HOME/bin/jeod/build_document'
+#
+#
+# Tailoring:
+# This makefile is not intended to be modified. It instead includes two make
+# include files, 'model_name.mk' and 'overrides.mk'.
+#
+# The first of the two, model_name.mk, must exist. This file is included just
+# just after defining the default make target and must define the make
+# variables MODEL_TYPE, MODEL_NAME, and MODEL_TITLE.
+# The entire model_name.mk file for the memory model is
+#   MODEL_TYPE  = utils
+#   MODEL_NAME  = memory
+#   MODEL_TITLE = 'Memory Model'
+#
+# The makefile also includes the file 'overrides.mk', if it exists. This file
+# is included just before the final dependencies are specified. You can override
+# definitions in this file or create new targets. You can hook your newly-
+# defined targets to the build process by specifying those targets as the
+# value of the make variable EXTRA_DEPENDS.
+#
+#
+# Path assumptions:
+# This makefile assumes reasonably recent versions of the following executables
+# are in your path:
+#   pdflatex
+#   bibtex
+#   perl
+#   gnu make
+#
+################################################################################
+
+
+####################
+## Non Parallel.   #
+####################
+
+.NOTPARALLEL:
+
+####################
+## Default target. #
+####################
+
+default: all
+
+
+####################################
+## Load the optional model_name.mk #
+####################################
+
+-include model_name.mk
+
+
+##########################
+## Document definitions. #
+##########################
+
+#
+# Build the standard documentation files from the model name.
+#
+ifndef DOCUMENTS
+STANDARD_BUILD = 1
+DOCUMENTS  = $(MODEL_NAME)
+endif
+
+
+######################################################
+# Specify template, source and document directories. #
+######################################################
+TEMPLATE_DIR = ${JEOD_HOME}/docs/templates/jeod
+
+# INST_DIR: directory in which the generated pdf files will be installed
+INST_DIR = ..
+
+# PDF_DIR: directory in which the generated pdf files will be tested.
+# The install target changes this to INST_DIR
+PDF_DIR  = .
+
+
+#############################################
+# Get names based on the working directory. #
+#############################################
+MODEL_HOME  = $(shell cd ../..; pwd)
+ifeq "$(MODEL_HOME)" "$(JEOD_HOME)"
+MODEL_CLASS = 0
+MODEL_REL   = docs
+REL_BASE    = $(JEOD_HOME)
+MODEL_NAME_DEFAULT  = JEOD
+MODEL_TYPE_DEFAULT  = tld
+MODEL_TITLE_DEFAULT = "(JEOD) Top Level Document"
+else
+PARENT_PATH = $(shell cd ../../..; pwd)
+GRAND_PATH  = $(shell cd ../../../..; pwd)
+MODEL_REL   = $(shell perl $(TEMPLATE_DIR)/relpath.pl \
+                -down ${JEOD_HOME} $(MODEL_HOME))
+MODEL_TAIL  = $(notdir $(MODEL_HOME))
+PARENT_TAIL = $(notdir $(PARENT_PATH))
+REL_BASE    = $(GRAND_BASE)
+MODEL_NAME_DEFAULT  = $(MODEL_TAIL)
+MODEL_TYPE_DEFAULT  = $(PARENT_TAIL)
+ifeq "$(GRAND_PATH)" "$(JEOD_HOME)"
+MODEL_CLASS = 1
+MODEL_TITLE_DEFAULT = $(MODEL_TAIL)
+else
+ifeq "$(GRAND_PATH)" "$(JEOD_HOME)/models"
+MODEL_CLASS = 2
+MODEL_TITLE_DEFAULT = \
+   $(shell perl -le \
+     'print join " ",(map ucfirst, (split /_/, shift, "model"))' \
+     $(MODEL_NAME))
+else
+MODEL_CLASS = 3
+MODEL_TITLE_DEFAULT = ""
+endif
+endif
+endif
+
+ifndef TRICK_VER
+ifneq "$(wildcard $(TRICK_HOME)/bin/trick-version)" ""
+export TRICK_VER=$(shell trick-version -v)
+else
+$(error TRICK_VER is not set)
+endif
+endif
+
+TRICK_INCLUDES = -I $(TRICK_HOME)/trick_source
+ifneq "$(wildcard $(TRICK_HOME)/bin/trick-CP)" ""
+TRICK_INCLUDES += -I $(TRICK_HOME)/include -I $(TRICK_HOME)/include/trick/compat
+endif
+
+METRIX = python3 $(TEMPLATE_DIR)/make_metrix_metrics.py \
+   -t $(JEOD_HOME)/tools/analysis/metrixplusplus/metrix++.py
+
+##############################################
+# Check for consistency / set from defaults. #
+##############################################
+
+# MODEL_NAME
+ifndef MODEL_NAME
+MODEL_NAME = $(MODEL_NAME_DEFAULT)
+else
+ifneq "$(MODEL_NAME)" "$(MODEL_NAME_DEFAULT)"
+$(warning Suspect value for \
+   MODEL_NAME actual='$(MODEL_NAME)' \
+   expected='$(MODEL_NAME_DEFAULT)')
+endif
+endif
+
+# MODEL_TYPE
+ifndef MODEL_TYPE
+MODEL_TYPE = $(MODEL_TYPE_DEFAULT)
+else
+ifneq "$(MODEL_TYPE)" "$(MODEL_TYPE_DEFAULT)"
+$(warning Suspect value for \
+   MODEL_TYPE actual='$(MODEL_TYPE)' \
+   expected='$(MODEL_TYPE_DEFAULT)')
+endif
+endif
+
+# MODEL_TITLE
+ifndef MODEL_TITLE
+MODEL_TITLE = $(MODEL_TITLE_DEFAULT)
+endif
+
+ifndef MODEL_PDF_TITLE
+ifeq ($(MODEL_CLASS),0)
+MODEL_PDF_TITLE = $(MODEL_TITLE)
+else
+ifeq ($(MODEL_CLASS),3)
+MODEL_PDF_TITLE = $(MODEL_TITLE)
+else
+MODEL_PDF_TITLE = \
+   $(shell perl -le '$$v=shift; $$v=~s/_//g; print "\\\\\U$$v"' $(MODEL_NAME))
+endif
+endif
+endif
+
+# MODEL_GROUP is nominally MODEL_TYPE, but utils -> utilities.
+ifndef MODEL_GROUP
+ifeq "$(MODEL_TYPE)" 'utils'
+MODEL_GROUP = 'utilities'
+else
+MODEL_GROUP = $(MODEL_TYPE)
+endif
+endif
+
+# INSTALL_NAME is nominally the default model name (NOT model name).
+ifndef INSTALL_NAME
+INSTALL_NAME = $(MODEL_NAME_DEFAULT)
+endif
+
+
+######################################
+# Define commands and command paths. #
+######################################
+PDFLATEX = $(BIN_DIR)pdflatex
+BIBTEX   = $(BIN_DIR)bibtex
+
+
+###########################################
+# Derive the document product file names. #
+###########################################
+# Dynamics environment LaTeX style, bibliography, perl scripts, etc.
+# (listed alphabetically)
+JEOD_LATEX_FILES = \
+	dyncover.sty \
+	dynenv.bib \
+	dynenv.cls \
+	dynenv.sty \
+	dynenvboilerplate.sty \
+	dynenvcode.sty \
+	dynenvlinks.sty \
+	dynenvmatter.sty \
+	dynenvreqt.sty \
+	dynenvupfront.sty \
+	dynmath.sty \
+	jeodspec.sty \
+	ifvtex.sty \
+	longtable.dvi \
+	longtable.sty \
+	Meatball.pdf \
+	ps4pdf.sty
+
+AUTO_TEX_FILES = \
+	coarse_metrics.tex \
+	inventory.tex \
+	metrix_metrics.tex
+
+# Model documenation style sheet
+STYLE_SHEET = ${MODEL_NAME}.sty
+
+# LaTeX file names are derived from the document names
+TEX_FILES = $(addsuffix .tex,$(DOCUMENTS))
+
+# Auxiliary information file names are derived from the document names
+AUX_FILES = $(addsuffix .aux,$(DOCUMENTS))
+
+# PDF file names are derived from the LaTeX file names
+PDF_FILES = $(subst .tex,.pdf,$(TEX_FILES))
+
+# Bibliography file names are also derived from the LaTeX file names
+BBL_FILES = $(subst .tex,.bbl,$(TEX_FILES))
+
+
+###################################
+# Define the compilation targets. #
+###################################
+
+
+all: pdfs
+	@echo " "
+	@echo Generated documents: $(DOCUMENTS)
+
+install: install_setup all
+	@echo "Installing documents in $(INST_DIR)"
+ifdef STANDARD_BUILD
+	@cp $(MODEL_NAME).pdf $(INST_DIR)/$(INSTALL_NAME).pdf
+else
+	@cp $(PDF_FILES) $(INST_DIR)
+endif
+
+# install_setup is an internal target of install.
+# it wipes out and then regenerates the pdf files such that
+# hyperlinks are relative to the installation directory.
+install_setup: clean_def clean_pdf
+	make PDF_DIR=$(INST_DIR) paths.def
+
+pdfs: $(PDF_FILES)
+
+../refman.pdf:
+	@perl $(TEMPLATE_DIR)/make_refman.pl $(MODEL_TITLE)
+
+$(DOCUMENTS): % : %.pdf
+	@echo " "
+	@echo Generated document: $@
+
+#
+# Generate the PDF files from the LaTeX files.
+#
+$(PDF_FILES): %.pdf : %.tex %.bbl %.aux
+	cat /dev/null | $(PDFLATEX) $(basename $(@F)).tex
+	cat /dev/null | $(PDFLATEX) $(basename $(@F)).tex
+
+force:
+	cat /dev/null | $(PDFLATEX) $(MODEL_NAME).tex
+
+# Force a recompile if the style sheet or any top-level files have changed.
+$(PDF_FILES): $(STYLE_SHEET) $(JEOD_LATEX_FILES)
+
+#
+# Have BibTeX build the bibliography file.
+#
+$(BBL_FILES): %.bbl : $(JEOD_LATEX_FILES) %.tex %.aux
+	@echo processing $(basename $(@F))
+	$(BIBTEX) $(basename $(@F))
+
+#
+# The auxiliary files are needed by BibTeX to build .bbl files.
+#
+aux: $(AUX_FILES)
+$(AUX_FILES): %.aux : %.tex
+	cat /dev/null | $(PDFLATEX) $(<F)
+
+
+#
+# Link in the standard suite of scripts, style sheets, ...
+#
+links: $(JEOD_LATEX_FILES)
+$(JEOD_LATEX_FILES):
+	ln -s $(TEMPLATE_DIR)/$@ $@
+
+
+#
+# Build the paths.defs file used by the style sheet ${MODEL_NAME}.sty
+# Note that the path to the top is relative to the $(PDF_DIR).
+#
+paths.def: $(JEOD_LATEX_FILES)
+	@ perl -le '($$d,$$e)=@ARGV; print "\\ifx$$d$$e$$e\\else\\let$$d$$e\\fi"' \
+	  '\model@pathsdef' '\endinput' > $@
+	@ totop=`perl $(TEMPLATE_DIR)/relpath.pl ${JEOD_HOME} $(PDF_DIR)`; \
+	  perl -le 'print "\\newcommand\\JEODHOME{@ARGV[0]}"' $$totop >> $@
+	@ tomodel=`perl $(TEMPLATE_DIR)/relpath.pl $(MODEL_HOME) $(PDF_DIR)`; \
+	  perl -le 'print "\\newcommand\\MODELHOME{@ARGV[0]}"' $$tomodel >> $@
+	@ todocs=`perl $(TEMPLATE_DIR)/relpath.pl $(MODEL_HOME)/docs $(PDF_DIR)`; \
+	  perl -le 'print "\\newcommand\\MODELDOCS{@ARGV[0]}"' $$todocs >> $@
+	@ perl -le '($$d,$$c,$$v)=@ARGV; $$v=~s/_/\\_/g; print "$$d$$c\{$$v\}"' \
+	   '\newcommand' '\MODELPATH' $(MODEL_REL) >> $@
+	@ perl -le '($$d,$$c,$$v)=@ARGV; $$v=~s/_/\\_/g; print "$$d$$c\{$$v\}"' \
+	   '\newcommand' '\MODELTYPE' $(MODEL_TYPE) >> $@
+	@ perl -le '($$d,$$c,$$v)=@ARGV; $$v=~s/_/\\_/g; print "$$d$$c\{$$v\}"' \
+	   '\newcommand' '\MODELGROUP' $(MODEL_GROUP) >> $@
+	@ perl -le '($$d,$$c,$$v)=@ARGV; $$v=~s/_/\\_/g; print "$$d$$c\{$$v\}"' \
+	   '\newcommand' '\MODELDIR' $(MODEL_NAME) >> $@
+	@ perl -le '($$d,$$c,$$v)=@ARGV; print "$$d$$c\{$$v\}"' \
+	   '\newcommand' '\MODELNAME' $(MODEL_NAME) >> $@
+	@ perl -le '($$d,$$c,$$v)=@ARGV; print "$$d$$c\{$$v\}"' \
+	   '\newcommand' '\MODELTITLE' $(MODEL_PDF_TITLE) >> $@
+	@ perl -le "print '\\endinput'" >> $@
+	@ echo Created $@
+
+inventory.tex:
+	@ if perl $(TEMPLATE_DIR)/make_inventory_tables.pl > tempfile.tex; then \
+	   mv tempfile.tex $@; \
+	   echo Created $@; \
+	else \
+	   rm -f tempfile.tex; \
+	   echo Unable to create $@; \
+	   false; \
+	fi
+
+coarse_metrics.tex:
+	@ if perl $(TEMPLATE_DIR)/make_coarse_metrics.pl > tempfile.tex; then \
+	   mv tempfile.tex $@; \
+	   echo Created $@; \
+	else \
+	   rm -f tempfile.tex; \
+	   echo Unable to create $@; \
+	   false; \
+	fi
+
+coverage: code_coverage.tex
+code_coverage.tex:
+	if perl $(TEMPLATE_DIR)/make_code_coverage.pl \
+	         -build -out tempfile.tex; then \
+	   mv tempfile.tex $@; \
+	   echo Created $@; \
+	else \
+	   rm -f tempfile.tex; \
+	   echo Unable to create $@; \
+	   false; \
+	fi
+
+metrix_metrics.tex : $(TEMPLATE_DIR)/make_metrix_metrics.py
+	@  if $(METRIX) > tempfile.tex; then \
+	   mv tempfile.tex $@; \
+	   echo Created $@; \
+	else \
+	   rm -f tempfile.tex; \
+	   echo Unable to create $@; \
+	   false; \
+	fi
+
+
+################################
+# Define the cleaning targets. #
+################################
+clean_aux:
+	@echo Removing the LaTeX auxiliary files.
+	rm -f *.aux *.bbl *.blg *.lof *.log *.lot *.out *.toc
+	rm -f autogen*.*
+
+clean_def:
+	@echo Removing the generated definition files.
+	rm -f paths.def
+
+clean_gen:
+	@echo Auto-generated LaTeX files.
+	rm -f coarse_metrics.tex metrix_metrics.tex inventory.tex
+
+clean_links:
+	@echo Removed linked dynamics environment LaTeX files.
+	@rm -f $(JEOD_LATEX_FILES)
+
+clean: clean_aux clean_def
+	@echo Removed generated DVI files
+	@rm -f *.dvi
+
+clean_pdf:
+	@echo Removing output PDF files
+	@rm -f $(PDF_FILES)
+
+real_clean: clean_links clean_gen clean clean_pdf
+	@echo Removed all LaTeX and BibTeX produced files.
+
+spotless: real_clean
+
+
+###################################
+# Define the information targets. #
+###################################
+help:
+	@echo -e "\n\
+Documentation Make Options:\n\
+    make            - Processes all LaTeX document files:\n\
+                      $(TEX_FILES)\n\
+\n\
+    make clean_aux  - Deletes all auxiliary files\n\
+\n\
+    make clean_def  - Deletes the generated requirements definition file\n\
+\n\
+    make clean_gen  - Deletes the generated inventory and metrics files\n\
+\n\
+    make clean      - Deletes all auxiliary files and dvi files\n\
+\n\
+    make clean_pdf  - Deletes all PDF files\n\
+\n\
+    make coverage   - Generate the file code_coverage.tex\n\
+\n\
+    make install    - Install the document (default INST_DIR=../)\n\
+\n\
+    make real_clean - Deletes almost everything, leaving only the makefile\n\
+\n\
+    make spotless   - Deletes all linked and generated files.\n"
+
+
+
+####################################################
+# Include model-specific overrides, if they exist. #
+####################################################
+
+-include overrides.mk
+
+
+##################################
+# Specify document dependencies. #
+##################################
+
+ifeq ($(MODEL_CLASS),2)
+$(AUX_FILES) : paths.def $(AUTO_TEX_FILES) $(EXTRA_DEPENDS)
+$(PDF_FILES) : $(AUX_FILES) $(AUTO_TEX_FILES)
+else
+$(AUX_FILES) : paths.def $(EXTRA_DEPENDS)
+$(PDF_FILES) : $(AUX_FILES)
+endif

@@ -1,0 +1,484 @@
+\section{Quaternion Arithmetic}\label{sec:app_arith}
+
+\subsection{Basic Quaternion Operations}
+
+This section develops the basic arithmetic operations on quaternions.
+In this section,
+$\quat Q$, $\quat{Q}_1$, and $\quat{Q}_2$
+are quaternions defined with components
+\begin{align*}
+\quat Q    &= q_s + q_i i + q_j j + q_k k
+            = \quatsv {q_s} {\vect{q_v}} \\
+\quat{Q}_1 &= q_{1_s} + q_{1_i} i + q_{1_j} j + q_{1_k} k 
+            = \quatsv{q_{1_s}}{\vect{q_{1_v}}} \\
+\quat{Q}_2 &= q_{2_s} + q_{2_i} i + q_{2_j} j + q_{2_k} k
+            = \quatsv{q_{2_s}}{\vect{q_{2_v}}}
+\end{align*}
+
+Quaternion addition, scaling a quaternion by a real, and the quaternion norm
+are defined as isomorphisms to the corresponding operations on a $4-$vector:
+\begin{definition}[Quaternion addition]\label{def:quat_sum}
+Given quaternions $\quat{Q}_1$ and $\quat{Q}_2$,
+the quaternion sum $\quat{Q}_1 + \quat{Q}_2$ is defined as
+\begin{equation}
+{\quat{Q}_1} + {\quat{Q}_2} \equiv
+         q_{1_s} + q_{2_s} 
+    + (q_{2_i}  + q_{2_i}))\,i
+    + (q_{2_j}  + q_{2_j}))\,j
+    + (q_{2_k}  + q_{2_k}))\,k
+    = \quatsv{q1_s+q2_s} {\vect{q_{1_v}}+\vect{q_{2_v}}}
+  \label{eqn:quat_sum_def}
+\end{equation}
+\end{definition}
+
+\begin{definition}[Quaternion scaling]\label{def:quat_scale}
+Given a quaternion $\quat Q$ and a real number $s$,
+the product of $\quat Q$ with $s$ is defined as
+\begin{equation}
+s \quat Q \equiv s q_s + s q_i i + s q_j j + s q_k k
+  = \quatsv {s q_s} {s \vect{q_v}}
+\label{eqn:quat_prod_scalar}
+\end{equation}
+\end{definition}
+
+\begin{definition}[Quaternion norm]\label{def:quat_norm}
+Given a quaternion $\quat Q$,
+the quaternion norm of $\quat Q$ is defined as
+\begin{equation}
+\norm{\quat Q} \equiv \sqrt{q_s^2 + q_i^2 + q_j^2 + q_k^2}
+  = \sqrt{q_s^2 + \vect{q_{v}} \!\cdot \vect{q_{v}}}
+\label{eqn:quat_norm_def}
+\end{equation}
+\end{definition}
+
+The quaternion conjugate is defined analogously to the complex conjugate:
+\begin{definition}[Quaternion conjugate]\label{def:quat_conj}
+Given a quaternion $\quat Q$,
+the quaternion conjugate of $\quat Q$,
+denoted herein as either $\conjop \quat Q$ or $\quatconj Q$,
+is defined as
+\begin{equation}
+\conjop{\quat Q} \equiv
+\quatconj Q \equiv q_s - q_i i - q_j j - q_k k
+  = \quatsv {q_s} {- \vect{q_v}}
+\label{eqn:quat_conj_def}
+\end{equation}
+\end{definition}
+
+The definition of the quaternion product follows from
+Hamilton's Fundamental Formula of Quaternion Algebra,
+equation~\eqref{eqn:quat_fundamental_formula}:
+\begin{definition}[Quaternion multiplication]\label{def:quat_prod}
+Given quaternions $\quat{Q}_1$ and $\quat{Q}_2$,
+the quaternion product $\QxQ{\quat{Q}_1}{\quat{Q}_2}$ is defined as
+\begin{equation}
+\begin{split}
+\QxQ{\quat{Q}_1}{\quat{Q}_2} \equiv&\;
+        q_{1_s} q_{2_s} -
+        (q_{1_i} q_{2_i} + q_{1_j} q_{2_j} + q_{1_k} q_{2_k}) \\
+    &+ (q_{1_s} q_{2_i}  + q_{2_s} q_{1_i} +
+        (q_{1_j} q_{2_k} - q_{1_k} q_{2_j}))\,i \\
+    &+ (q_{1_s} q_{2_j}  + q_{2_s} q_{1_j} +
+        (q_{1_k} q_{2_i} - q_{1_i} q_{2_k}))\,j \\
+    &+ (q_{1_s} q_{2_k}  + q_{2_s} q_{1_k} +
+        (q_{1_i} q_{2_j} - q_{1_j} q_{2_i}))\,k
+  \end{split}  \label{eqn:quat_prod_explicit}
+\end{equation}
+or in scalar $+$ vector form,
+\begin{equation}
+\QxQ{\quat{Q}_1}{\quat{Q}_2} = 
+  \quatsv
+    {q_{1_s} q_{2_s} - \vect{q_{1_v}} \!\cdot \vect{q_{2_v}}}
+    {q_{1_s} \vect{q_{2_v}} +
+     q_{2_s} \vect{q_{1_v}} +
+     \vect{q_{1_v}} \!\times \vect{q_{2_v}}}
+  \label{eqn:quat_prod_short}
+\end{equation}
+\end{definition}
+
+Note that definitions~\ref{def:quat_scale} and~\ref{def:quat_prod} are
+consistent: The product of a quaternion of the form
+$\quatsv {q_s}{\vect{q_v}}$ and a real quaternion
+$\quatsv {s}{\vect 0}$ is
+\begin{equation*}
+  \QxQ{\quatsv {q_s}{\vect{q_v}}}{\quatsv {s}{\vect 0}}
+  = \QxQ{\quatsv {s}{\vect 0}}{\quatsv {q_s}{\vect{q_v}}}
+  = \quatsv {s q_s}{s \vect {q_v}} = s \quat Q
+\end{equation*}
+
+\begin{corollary}\label{thm:quat_quat_conj_prod}
+The product of a quaternion and its conjugate is the square of
+the norm of the quaternion.
+\end{corollary}
+
+\begin{proof}
+The product of a quaternion $\quat Q = \quatsv {q_s}{\vect{q_v}}$
+and its conjugate is
+\begin{align*}
+  \QxQ{\quat Q}{\quatconj Q} &=
+  \QxQ{\quatsv {q_s}{\vect{q_v}}}{\quatsv {q_s}{- \vect{q_v}}}  \\
+  &= \quatsv {q_s^2 + \vect{q_v} \cdot \vect{q_v}}{\vect 0}
+\end{align*}
+\end{proof}
+
+
+\subsection{Commutativity, Associativity, and Distributivity}
+
+\begin{theorem}\label{thm:quat_sum_and_scale_commute}
+Quaternion addition and scaling a quaternion by a real scalar
+are commutative operations.
+\end{theorem}
+\begin{proof}
+The quaternion sum and the product of a quaternion and a real are defined as
+isomorphisms to the corresponding commutative $4-$vector operations.
+\end{proof}
+
+Note that the product of two quaternions does not in general commute.
+This follows directly from the Fundamental Formula of Quaternion Algebra:
+$ij = k, ji = -k$.
+
+\begin{theorem}\label{thm:quat_prod_assoc}
+Quaternion multiplication is associative:
+\begin{equation*}
+  \QxQ{(\QxQ{\quat{Q}_1}{\quat{Q}_2})}{\quat{Q}_3} =
+    \QxQ{\quat{Q}_1}{(\QxQ{\quat{Q}_2}{\quat{Q}_3})}
+\end{equation*}
+\end{theorem}
+\begin{proof}
+This can be easily proven to be the case for three quaternions.
+Extending the theorem to a product of any number of quaternions and to any
+grouping of parentheses in the product is accomplished by induction.
+\end{proof}
+
+\begin{theorem}\label{thm:quat_prod_distrib}
+Quaternion multiplication distributes over quaternion addition:
+\begin{equation}
+  \QxQ{\quat Q _1}{\left({\quat Q _2 + \quat Q _3}\right)} =
+    \QxQ{\quat Q _1}{\quat Q _2} + {\quat Q _1}{\quat Q _3}
+\end{equation}
+\end{theorem}
+This can be easily proven true for any three arbitrary quaternions
+$\quat Q _1$, $\quat Q _2$, and $\quat Q _3$ by applying the
+definitions of quaternion addition and multiplication.
+
+\subsection{Quaternion Identity, Inverse, and Division}
+
+\begin{theorem}\label{thm:quat_identity}
+The real unit quaternion is the identity element for quaternion multiplication.
+\end{theorem}
+\begin{proof}
+The left and right products of any quaternion
+$\quatsv {q_s}{\vect{q_v}}$ and the real unit quaternion $\quatsv 1 {\vect 0}$
+reproduce the quaternion $\quat Q$:
+\begin{equation*}
+  \QxQ{\quatsv {q_s}{\vect{q_v}}}{\quatsv 1 {\vect 0}} =
+  \QxQ{\quatsv 1 {\vect 0}}{\quatsv {q_s}{\vect{q_v}}} =
+  \quatsv {q_s}{\vect{q_v}}
+\end{equation*}
+The real unit quaternion is thus both a left- and right- identity element.
+Since quaternion multiplication is associative,
+the multiplicative identity is unique.
+The real unit quaternion is thus the unique identity element
+for quaternion multiplication.
+\end{proof}
+
+\begin{theorem}\label{thm:quat_inverse}
+The inverse $\quat Q ^ {-1} $ of a non-zero quaternion $\quat Q$ is
+\begin{equation}
+\quat Q ^ {-1} = \frac{1}{\quat Q}
+  \equiv \frac{1}{\norm{\quat Q}^2} \quatconj Q
+  = \frac{1}{\QxQ {\quat Q} {\quatconj Q}} \quatconj Q
+\label{eqn:quat_inverse_def}
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\intertext{Let}
+  \quat Q &= \quatsv {q_s}{\vect{q_v}} \\
+  \quat Q_2 &= \frac{1}{\QxQ {\quat Q} {\quatconj Q}} \quatconj Q \\
+\intertext{then}
+  \QxQ {\quat Q}{\quat Q_2}
+    &= \frac{1}{\QxQ {\quat Q} {\quatconj Q}}
+      \quatsv {q_s^2 + \vect{q_v} \cdot \vect{q_v}} {\vect 0} \\
+    &= \quatsv 1 {\vect 0}
+\end{align*}
+Thus the stated quaternion is a right multiplicative inverse.
+Since quaternion multiplication is associative,
+the stated quaternion is also a left multiplicative inverse and is unique.
+\end{proof}
+
+\begin{corollary}\label{thm:quat_unit_inverse_is_conjugate}
+The multiplicative inverse of a unit quaternion is the quaternion conjugate.
+\end{corollary}
+\begin{proof}
+This follows directly from the definitions of the quaternion multiplicative
+inverse and the quaternion conjugate.
+\end{proof}
+
+Quaternion division is defined in terms of multiplication with the quaternion
+inverse.
+Since quaternion multiplication is not commutative,
+pre-multiplying and post-multiplying a quaternion
+with the inverse of another quaternion yield different results.
+This observation leads to the definition of a left and right division operator:
+\begin{definition}[Quaternion division]\label{def:quat_div}
+\begin{align}
+  \quat Q_1 \setminus \quat Q_2 &\equiv \QxQ{{\quat Q_2}^{-1}} {\quat Q_1} \\
+  \quat Q_1 / \quat Q_2 &\equiv \QxQ{\quat Q_1} {{\quat Q_2}^{-1}}
+\end{align}
+\end{definition}
+
+\subsection{Quaternion Decomposition}\label{sec:app_decomp}
+
+This section develops an alternative representation scheme for quaternions.
+\begin{definition}\label{def:quat_decomp}
+A non-zero quaternion represented in terms of
+its magnitude $s\in\mathbb R$,
+a unit vector $\vhat u\in\mathbb R^3$,
+and a rotation angle $\theta\in\mathbb R$,
+\begin{equation}
+  \quat Q = s\quatsv{\cos\theta}{\sin\theta\vhat u}\label{eqn:quat_decomp_def}
+\end{equation}
+is a \emph{decomposition} of the quaternion.
+\end{definition}
+
+\begin{corollary}\label{thm:quat_decomp_multivalued}
+The decomposition of a quaternion not unique.
+\end{corollary}
+\begin{proof}
+if $s\quatsv{\cos\theta\phantom{\vhat u}}{\sin\theta \vhat u} = \quat Q$
+then so does
+$s\quatsv{\cos(\theta+2n\pi)\phantom{\vhat u}}{\sin(\theta+2n\pi) \vhat u}$
+for all integer values of $n$.
+\end{proof}
+
+\begin{corollary}\label{thm:quat_real_unit_decomp_indeterminate}
+The decomposition of the real unit quaternion $\quatsv 1{\vect 0}$ is
+a trivial rotation ($\theta=0$) about an indeterminate axis.
+\end{corollary}
+\begin{proof}
+Applying equation~\eqref{eqn:quat_decomp_def} with $s=1$ and $\theta=0$
+generates the real unit quaternion regardless of the value of $\vhat u$.
+\end{proof}
+
+\begin{corollary}\label{thm:quat_negation_rotates_by_pi}
+Given a quaternion $\quat Q$ with decomposition
+$\quat Q = s\quatsv{\cos\theta}{\sin\theta \vhat u}$,
+a decomposition of the additive inverse of $\quat Q$ is
+$-\quat Q = s\quatsv{\cos(\theta+\pi)}{\sin(\theta+\pi) \vhat u}$,
+\end{corollary}
+\begin{proof}
+Expanding $\quatsv{\cos(\theta+\pi)}{\sin(\theta+\pi) \vhat u}$
+results in $-\quat Q$.
+\end{proof}
+
+\begin{algorithm}[Unit quaternion decomposition]\label{alg:quat_unit_decomp}
+Let $\quat Q = \quatsv{q_s}{\vect{q_v}}$ be a unit quaternion
+(${q_s}^2 + \vect{q_v} \cdot \vect{q_v} = 1$) with non-zero vector part. Then
+\begin{align}
+  \theta &=
+    \arctan(\norm {\vect{q_v}}, q_s) \label{eqn:quat_unit_decomp_theta} \\
+  \vhat u &=
+    \frac {\vect{q_v}}{\norm {\vect{q_v}}} \label{eqn:quat_unit_decomp_uhat}
+\end{align}
+is a \emph{decomposition} of the unit quaternion.
+\paragraph{Note}
+The two-argument inverse tangent function in
+equation~\eqref{eqn:quat_unit_decomp_theta}
+computes the inverse tangent of $y/x$, with the signs of $y$ and $x$
+dictating the quadrant of the result in which the result is placed.
+The C-library function \texttt{atan2} approximates $\arctan(y,x)$.
+The single-argument inverse cosine and inverse sine functions
+can be used as an alternative to \texttt{atan2}.
+However, care must be taken to use the function that produces
+better accuracy and to place the angle in the correct quadrant:
+\begin{equation}
+  \theta =
+    \begin{cases}
+      \pi - \arcsin(\norm {\vect{q_v}}) &
+        \text{if %
+              $\phantom{-\frac{\surd 2}2 \leq\;}
+               q_s < -\frac{\surd 2}2$} \\
+      \arccos(q_s) &
+         \text{if %
+               $-\frac{\surd 2}2 \leq
+                q_s \leq \phantom{-}\frac{\surd 2}2$} \\
+      \arcsin(\norm {\vect{q_v}}) &
+        \text{if %
+              $\phantom{-\frac{\surd 2}2 \leq\;}
+               q_s > \phantom{-}\frac{\surd 2}2$}
+    \end{cases}\label{eqn:quat_unit_decomp_theta_alt}
+\end{equation}
+Which alternative (equation~\eqref{eqn:quat_unit_decomp_theta} or
+~\eqref{eqn:quat_unit_decomp_theta_alt}) is faster and/or more accurate
+is machine-dependent.
+\end{algorithm}
+\begin{proof}
+\begin{align*}
+  \vect{q_v} &= \norm{\vect{q_v}} \frac{\vect{q_v}}{\norm{\vect{q_v}}} \\[5pt]
+  &= \sqrt{1-{q_s}^2}\frac{\vect{q_v}}{\norm{\vect{q_v}}}
+  \quad \text{since $\norm{\vect{q_v}}^2 = 1-{q_s}^2$} \\
+\intertext{thus}
+  \cos\theta &= q_s \\
+  \sin\theta &= \sqrt{1-{q_s}^2} = \norm{\vect q_v} \\
+\intertext{Applying equation~\eqref{eqn:quat_decomp_def} with $s=1$,}
+  \quatsv{\cos\theta}{\sin\theta\vhat u}
+    &= \quatsv{q_s}{\norm{\vect q_v} \frac{\vect{q_v}}{\norm {\vect{q_v}}}} \\
+    &= \quat Q
+\end{align*}
+\end{proof}
+
+\begin{corollary}\label{thm:quat_unit_decomp}
+A decomposition exists for all unit quaternions.
+\end{corollary}
+\begin{proof}
+Corollaries~\ref{thm:quat_real_unit_decomp_indeterminate}
+and~\ref{thm:quat_negation_rotates_by_pi}
+provide decompositions for the two unit quaternions with zero vector parts.
+Since $\arctan(y,x)$ is defined for all finite values of $x$ and $y$,
+algorithm ~\ref{alg:quat_unit_decomp}
+provides a decomposition for all unit quaternions with non-zero vector parts.
+\end{proof}
+
+\begin{corollary}\label{thm:quat_decomp}
+A decomposition exists for all quaternions.
+\end{corollary}
+\begin{proof}
+The zero quaternion has an indeterminate decomposition: $s=0$ and
+$\theta$ and $\vhat u$ are indeterminate.
+Represent a non-zero quaternion $\quat Q$ as
+$\norm{\quat Q} \frac{\quat Q}{\norm{\quat Q}}$.
+The unit quaternion $\frac{\quat Q}{\norm{\quat Q}}$ has some decomposition
+$(s=1, \theta, \vhat u)$ by corollary~\ref{thm:quat_unit_decomp}.
+The decomposition $(s=\norm{\quat Q}, \theta, \vhat u)$ generates the
+original quaternion $\quat Q$.
+\end{proof}
+
+\begin{corollary}\label{thm:quat_decomp_inverse}
+The multiplicative inverse of a quaternion $\quat Q$ is
+\begin{equation}
+  \quat Q^{-1} =
+    \frac{1}{s} \quatsv {\cos \theta}{- \sin \theta \vhat u}
+  \label{eqn:quat_decomp_inverse}
+\end{equation}
+where $s$, $\theta$, and $\vhat u$ are a decomposition of the
+quaternion $\quat Q$.
+\end{corollary}
+\begin{proof}
+Multiplying the decomposition of $\quat Q$ and the inverse as expressed in
+equation~\eqref{eqn:quat_decomp_inverse} yields the real unit quaternion.
+\end{proof}
+
+\subsection{Quaternion Exponentiation}\label{sec:app_exponentiation}
+
+Raising a non-zero quaternion $\quat Q$ to a real integer power
+is defined in terms of iterated multiplication,
+analogous to the definition for real and complex numbers:
+\begin{definition}[Integer Power of a Quaternion]\label{def:quat_int_power}
+\begin{equation}
+\quat Q^n \equiv
+\begin{cases}
+  \prod_{r=1}^n \quat Q
+    & \text{if $n>0$} \\[5pt]
+  \quatsv 1 {\vect 0}
+    & \text{if $n =0$} \\[12pt]
+  \left(\quat Q^{-1}\right)^n = \prod_{r=1}^n \quat Q^{-1}
+    & \text{if $n<0$}
+\end{cases}\label{eqn:quat_int_power_def}
+\end{equation}
+\end{definition}
+Since quaternion multiplication is associative
+(theorem~\ref{thm:quat_prod_assoc}),
+the products in equation~\eqref{eqn:quat_int_power_def} are well-defined.
+
+\begin{theorem}\label{thm:quat_rat_power}
+The result of raising a quaternion $\quat Q$ to a rational power $r$ is
+\begin{equation}
+  \quat Q^r =
+    s^r \quatsv {\cos r\theta}{\sin r\theta \vhat u}
+  \label{eqn:quat_rat_power}
+\end{equation}
+where $s$, $\theta$, and $\vhat u$ are a decomposition of the
+quaternion $\quat Q$.
+\end{theorem}
+\begin{proof}
+The theorem is clearly true for $r=0$,
+since equations~\eqref{eqn:quat_int_power_def} and~\eqref{eqn:quat_rat_power}
+yields the real unit quaternion for $r=0$.
+Assuming the theorem is true for some integer $r \neq 0$, then
+\begin{align*}
+  \quat Q^{r+1} &= \QxQ{\quat Q^r}{\quat Q} \\
+  &=
+    \QxQ
+      {s^r \quatsv {\cos r\theta}{\sin r\theta \vhat u}}
+      {s \quatsv {\cos \theta}{\sin \theta \vhat u}} \\
+    &= s^{r+1}
+    \quatsv
+      {\cos\left(\left(r+1\right)\theta\right)}
+      {\sin\left(\left(r+1\right)\theta\right) \vhat u}
+\intertext{and}
+  \quat Q^{r-1} &= \QxQ{\quat Q^r}{\quat Q^{-1}} \\
+  &=
+    \QxQ
+      {s^r \quatsv {\cos r\theta}{\sin r\theta \vhat u}}
+      {s^{-1} \quatsv {\cos \theta}{-\sin \theta \vhat u}} \\
+    &= s^{r-1}
+    \quatsv
+      {\cos\left(\left(r-1\right)\theta\right)}
+      {\sin\left(\left(r-1\right)\theta\right) \vhat u}
+\end{align*}
+By induction, the theorem is true for all integers.
+
+Now consider the $n^{th}$ root of $\quat Q$
+as defined by equation~\eqref{eqn:quat_rat_power}. Raising this to
+the integral $n^{th}$ power yields
+\begin{align*}
+  \left(s^{1/n}
+    \quatsv {\cos \frac \theta n}{\sin \frac \theta n \vhat u}\right)^n
+  &=
+  \left(s^{1/n}\right)^n
+    \quatsv {\cos n \frac \theta n}{\sin n \frac \theta n \vhat u} \\
+  &= \quat Q
+\end{align*}
+The theorem has now been proven for all integers and
+all rationals of the form $1/n$.
+It is therefore valid for any number of the form $p/q$,
+where $p$ and $q$ are integers.
+\end{proof}
+
+By continuity, equation~\eqref{eqn:quat_rat_power} is extended to cover
+all the real numbers. 
+\begin{definition}[Real power of a quaternion]\label{def:quat_exponentiation}
+The result of raising a quaternion $\quat Q$ to a real power $a$ is
+\begin{equation}
+  \quat Q^a =
+    s^a \quatsv {\cos a\theta}{\sin a\theta \vhat u}
+  \label{eqn:quat_power}
+\end{equation}
+where $s$, $\theta$, and $\vhat u$ are a decomposition of the
+quaternion $\quat Q$.
+\end{definition}
+
+
+%\subsection{Matrix Form of Quaternion Multiplication}\label{sec:app_matrix_mulop}
+%
+%Just as the vector cross product $\vect a \times \vect b$ can be written in matrix form as
+%\begin{align}
+%  \vect a \times \vect b &= \MxV{\boldsymbol{\mathop{Sk}}(\vect a)} {\vect b} \\
+%\intertext{where $\boldsymbol{\mathop{Sk}} (\vect a)$ is the skew-symmetric matrix generated from %$\vect a$:}
+%  \boldsymbol{\mathop{Sk}} (\vect a) & =
+%    \begin{bmatrix} 0 & -a_z & a_y \\ a_z & 0 & -a_x \\ -a_y & a_x & 0\end{bmatrix}
+%\end{align}
+%
+%The quaternion product can similarly be expressed in matrix form:
+%\begin{align}
+%  \QxQ{\quat Q_a} {\quat Q_b} &= \MxV{\mat{M}_{\quat{Q}}(\quat Q_a)} {\quat Q_b}
+%\intertext{where $\mat{M}_{\quat{Q}}(\quat Q_a)$ is the $4x4$ skew-symmetric matrix generated from %$\quat Q_a$:}
+%  \mat{M}_{\quat{Q}}(\quat Q) & =
+%    \begin{bmatrix}
+%      q_s &                     -q_x &                    -q_y &                     -q_z \\
+%      q_x & \phantom{-}q_s &                    -q_z & \phantom{-}q_y \\
+%      q_y & \phantom{-}q_z & \phantom{-}q_s &                    -q_x \\
+%      q_z &                     -q_y & \phantom{-}q_x & \phantom{-}q_s\end{bmatrix} \label{eqn:quat_MQdef}
+%\end{align}
+ 

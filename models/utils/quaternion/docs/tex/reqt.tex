@@ -1,0 +1,94 @@
+
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+
+\requirement{Project Requirements}
+\label{reqt:project}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project-wide requirements specified in
+  the \JEODid\ \hyperTLDinside{part}{reqt}{requirements}.
+
+\item[Rationale:]\ \newline
+  This is a project-wide requirement.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement{Quaternion Encapsulation}
+\label{reqt:encapsulation}
+\begin{description}
+\item[Requirement:]\ \newline
+  The Quaternion model shall encapsulate the data items needed to represent
+  a quaternion and the mathematical operations on a quaternion in the form
+  of an instantiable class.
+
+\item[Rationale:]\ \newline
+  JEOD 2.0 is written in C++. A class is the standard encapsulation
+  mechanism used throughout JEOD.
+  The overarching purpose of the Quaternion model is to represent
+  quaternions as a class.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement{Data Representation}
+\label{reqt:data}
+\begin{description}
+\item[Requirement:]\ \newline
+  The Quaternion class shall contain the data items needed to
+  represent a quaternion as an object.
+
+\item[Rationale:]\ \newline
+  Self-evident.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement{Represent Orientation}
+\label{reqt:orient}
+\begin{description}
+\item[Requirement:]\ \newline
+  The Quaternion class shall provide the mathematical operations needed to
+  enable the use of quaternions to represent the orientation of objects  
+  and reference frames in three-space.
+
+\item[Rationale:]\ \newline
+  The ability to represent orientation of objects and reference frames
+  is the key reason for the existence of the Quaternion model.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{Conversion}
+\label{reqt:conversion}
+\begin{description}
+\item[Requirement:]\ \newline
+  The Quaternion model shall provide means to convert left transformation
+  unit quaternions to and from
+  \subrequirement{Column vector transformation matrices}
+  \label{reqt:xform_convert},
+  \subrequirement{eigen rotations}
+  \label{reqt:eigen_convert}, and
+  \subrequirement{four vectors}
+  \label{reqt:fourvec_convert}.
+
+\item[Rationale:]\ \newline
+  \begin{itemize}
+  \item Conversion to and from transformation matrices is an essential
+    capability used by many other JEOD models.
+  \item There are many other charts on SO(3). Eigen rotations is one of
+    them.
+  \item A quaternion needs to be converted to a primitive type to enable
+    communication with outside agents and simulations.
+  \end{itemize}
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}

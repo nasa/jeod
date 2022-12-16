@@ -1,0 +1,331 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Integration part of User's Guide for the time model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Integration}\label{sec:Integration}
+
+This section is intended for users who are incorporating the \timeDesc\ into a simulation.  It contains the basic requirements and step-by-step example of the construction of the \textit{Trick S\_define} file.  For more thorough examples, the verif directory in the standard release of \JEODid\ has a ``tutorial'' feel to it, stepping through from simple cases to more complex examples as it progresses from \textit{SIM\_1\_dyn\_only} through \textit{SIM\_5\_all\_inclusive}.
+
+
+\subsection{S\_define requirements}
+The time object in the S\_define is structured with the following
+elements:
+
+
+\begin{itemize}
+\item Declare the following instances:
+
+\begin{itemize}
+\item TimeManager
+\item TimeManagerInit
+\item Desired time types (NOTE:  DynTime is automatically declared
+within the TimeManager; declaring an instance of DynTime could cause a
+failure when the code is confused about which version of DynTime to
+use).
+\item Desired time converters.  Note that converters may be
+bidirectional, and that the code is sufficiently capable of
+determining the appropriate direction.  This is important for the user
+because the labels may be confusing; for example, the UTC to TAI
+converter is labeled TAI\_UTC.  In the case that the converter is
+desired in one direction at initialization, and the other during
+simulation, IT IS NOT necessary to declare it twice.
+\end{itemize}
+\item Call the following initialization-class functions:
+
+\begin{itemize}
+\item The registration function for each of the declared time types to
+register them with the Time Manager.  This function adds the time type
+to the Manager's list, stores its location in that
+list as a value in the time type itself, and stores the address of the
+manager in each time type.
+\item The registration functions for the declared time converters to
+register them with the Time Manager.  This function adds the converter
+to the Manager's list of available converters.
+\item The Time Manager initialize function (NOTE -- this is a small
+function that calls the main initialization functions in
+TimeManagerInit).
+\end{itemize}
+\item Call the following run-time functions:
+
+\begin{itemize}
+\item The update function is called at any desired rate.  This will update
+the decimal counter-type representation, \textbf{\textit{but not the
+calendar representation}}, of all declared time-types.
+\item \textit{(Optional) }the calendar-update function on any desired
+time-types at any desired rate.  This function will convert the decimal
+counter-type representation to a date::hr:min:sec representation.  Each
+call to calendar\_update is type-specific and will update one,
+\textbf{\textit{and only one,}} time-type.  Any call to the calendar-update will run the full decimal update method for all time-types if it has not already been done at that particular Simulator Time.  Consequently, the call to the regular update method is redundant if a calendar update is sequenced at the same rate.
+\end{itemize}
+\end{itemize}
+
+
+
+\subsection{S\_define example}
+\begin{enumerate}
+\item First, declare the \textit{TimeManager} and \textit{TimeManagerInit} classes.  These
+must be declared for all simulations.
+
+\begin{verbatim}
+ class TimeSimObject : public Trick::SimObject
+ {
+    jeod::TimeManager     manager;
+    jeod::TimeManagerInit manager_init;
+
+    ...
+
+ };
+\end{verbatim}
+
+
+
+\item Next, in this example, I declare two additional time types, and two time converters
+(there must be a converter from \textit{dyn}, and at least one per
+declared time class.  In this case, the conversion path may be\textit{
+dyn }to \textit{tai} to \textit{utc, }it will not be possible to go
+from \textit{dyn }to \textit{utc }directly with these converters).
+
+\begin{verbatim}
+ class TimeSimObject : public Trick::SimObject
+ {
+    jeod::TimeManager     manager;
+    jeod::TimeManagerInit manager_init;
+
+    TimeTAI tai;
+    TimeUTC utc;
+    TimeConverter_Dyn_TAI  converter_dyn_tai;
+    TimeConverter_TAI_UTC  converter_tai_utc;
+
+    ...
+
+ };
+\end{verbatim}
+
+
+
+\item Now I must register each of those types and their respective converters.
+ The order in which this is done is not relevant; I chose to register
+the time type, then immediately register the converter I plan to use for that time type; that order is just to keep track and ensure that I did not overlook
+something.
+
+\begin{verbatim}
+ class TimeSimObject : public Trick::SimObject
+ {
+    jeod::TimeManager     manager;
+    jeod::TimeManagerInit manager_init;
+
+    TimeTAI tai;
+    TimeUTC utc;
+    TimeConverter_Dyn_TAI  converter_dyn_tai;
+    TimeConverter_TAI_UTC  converter_tai_utc;
+
+    TimeSimObject()
+    {
+        // Initialization jobs
+        P_TIME ("initialization") manager.register_time( tai );
+        P_TIME ("initialization") manager.register_converter( converter_dyn_tai );
+        P_TIME ("initialization") manager.register_time( utc );
+        P_TIME ("initialization") manager.register_converter( converter_tai_utc );
+
+        ...
+
+    }
+ };
+\end{verbatim}
+
+\item Now initialize the manager.  This must be done for all configurations.
+
+\begin{verbatim}
+ class TimeSimObject : public Trick::SimObject
+ {
+    jeod::TimeManager     manager;
+    jeod::TimeManagerInit manager_init;
+
+    TimeTAI tai;
+    TimeUTC utc;
+    TimeConverter_Dyn_TAI  converter_dyn_tai;
+    TimeConverter_TAI_UTC  converter_tai_utc;
+
+    TimeSimObject()
+    {
+        // Initialization jobs
+        P_TIME ("initialization") manager.register_time( tai );
+        P_TIME ("initialization") manager.register_converter( converter_dyn_tai );
+        P_TIME ("initialization") manager.register_time( utc );
+        P_TIME ("initialization") manager.register_converter( converter_tai_utc );
+
+        P_TIME ("initialization") manager.initialize( &manager_init );
+
+        ...
+
+    }
+ };
+\end{verbatim}
+
+\item Next, schedule the regular updates.  This, also,  is required.  It will
+update \textit{dyn}, \textit{tai} and \textit{utc}.
+
+\begin{verbatim}
+ class TimeSimObject : public Trick::SimObject
+ {
+    jeod::TimeManager     manager;
+    jeod::TimeManagerInit manager_init;
+
+    TimeTAI tai;
+    TimeUTC utc;
+    TimeConverter_Dyn_TAI  converter_dyn_tai;
+    TimeConverter_TAI_UTC  converter_tai_utc;
+
+    TimeSimObject()
+    {
+        // Initialization jobs
+        P_TIME ("initialization") manager.register_time( tai );
+        P_TIME ("initialization") manager.register_converter( converter_dyn_tai );
+        P_TIME ("initialization") manager.register_time( utc );
+        P_TIME ("initialization") manager.register_converter( converter_tai_utc );
+
+        P_TIME ("initialization") manager.initialize( &manager_init );
+
+        // Scheduled Jobs
+        (DYNAMICS, "environment") manager.update( exec_get_sim_time() );
+        ...
+    }
+ };
+\end{verbatim}
+
+\item Finally, I decided that the output from \textit{UTC} would be more
+useful for my particular purpose if it were expressed as a calendar
+format rather than a decimal format.  Here, I run the calendar update
+at the same rate as the regular update, so that the calendar format is
+always up-to-date with the decimal format.  Otherwise, the two values
+may represent different times.
+
+\begin{verbatim}
+ class TimeSimObject : public Trick::SimObject
+ {
+    jeod::TimeManager     manager;
+    jeod::TimeManagerInit manager_init;
+
+    TimeTAI tai;
+    TimeUTC utc;
+    TimeConverter_Dyn_TAI  converter_dyn_tai;
+    TimeConverter_TAI_UTC  converter_tai_utc;
+
+    TimeSimObject()
+    {
+        // Initialization jobs
+        P_TIME ("initialization") manager.register_time( tai );
+        P_TIME ("initialization") manager.register_converter( converter_dyn_tai );
+        P_TIME ("initialization") manager.register_time( utc );
+        P_TIME ("initialization") manager.register_converter( converter_tai_utc );
+
+        P_TIME ("initialization") manager.initialize( &manager_init );
+
+        // Scheduled Jobs
+        (DYNAMICS, "environment") manager.update( exec_get_sim_time() );
+        (DYNAMICS, "environment") utc.calendar_update( exec_get_sim_time() );
+    }
+ };
+\end{verbatim}
+
+\end{enumerate}
+
+
+
+\subsection{Updating the Data Tables}\label{ref:data_update}
+
+Default data is provided for the offset between UTC and UT1, on a day-by-day basis,
+from 1962 to the time just prior to to current JEOD version release date.  Data for the offset between TAI and UTC (the number of leap seconds) is also provided.  Because the UTC-UT1 offset changes continuously, this can quickly become outdated; the TAI-UTC data can also become outdated, but this is only updated once every 6 months so is not such a problem.
+If the data available needs to be brought up-to-date, new data can be obtained from the International Earth Rotation and Reference Systems Service (IERS) webiste \href{http://www.iers.org}{http://www.iers.org}, which has links to Data/Products and Earth Orientation Data.
+
+ If the user chooses to obtain their own data, we suggest the following steps:
+ \begin{enumerate}
+
+ \item Download the latest EOP 14 C04 (IAU2000) data file from the IERS at:
+
+ \href{https://datacenter.iers.org/data/latestVersion/EOP_14_C04_IAU2000A_yearly_files.txt}
+ {https://datacenter.iers.org/data/latestVersion/EOP\_14\_C04\_IAU2000A\_yearly\_files.txt}
+
+ remove the file extension (\textit{.txt}) from the file name and save it to the data
+ directory (\textit{models/environment/time/data}).
+
+ \item OPTIONAL: Edit the data file by removing lines until data from only the desired
+ time span remain in the file.  The initial 14 header lines must NOT be removed.
+
+ \item Check the most recent leap second information, available in Bulletin C,
+ (which is also linked from the IERS website), or from numerous other readily
+ available sources.  Bulletin C is published every 6 months, and announces the
+ current difference between UTC and TAI (i.e., the number of leap seconds).
+
+ In the data directory (\textit{models/environment/time/data}) is a Perl script,
+ \textit{parser.pl}.  This script contains a list of when all of the leap seconds
+ were implemented.  Check the current leap second number against the final entry
+ in that script, currently ending with the line
+ \begin{verbatim}
+    [ 2457754.5 , 37.0 ]  	 # 2017 JAN  1
+ \end{verbatim}
+ (In this case, the final value is 37 seconds, implemented at 0:00:00 hours on
+ Jan 1, 2017, which has a Julian Date of 2457754.5)
+
+ If Bulletin C has a UTC to TAI difference that does \textit{not} match the final entry
+ in this table, the table should be updated by adding the Julian Date at last
+ change and the new corresponding value, to the end of the table in the script.
+ \item In the data directory (\textit{environment/time/data}), run the parser
+ script with the command
+
+ \begin {verbatim}
+ perl parser.pl filename
+ \end{verbatim}
+
+ where filename is the previously saved DUT1 data file (i.e., eopc04\_14\_IAU2000.62-now).
+ \item Verify that whichever of the two files \textit{tai\_to\_utc.cc}
+ and \textit{tai\_to\_ut1.cc} are needed have been written appropriately.
+ \end{enumerate}
+
+\subsection{Overriding the Data Tables}\label{ref:data_override}
+In some situations, the user may wish to specify a particular value in place of
+using the data look-up.  This may be particularly relevant when developing
+historical or futuristic missions for which data is not available, or for
+carrying out a simulation using very recent data without going to the trouble
+of updating the data tables.  However, this is generally not recommended because
+it locks UT1 and/or UTC to TAI, and prevents the automatic updates that enhance
+the clock precision.
+
+First, both the TAI-UTC and TAI-UT1 converter classes have a flag
+titled \textit{override\_data\_table} that defaults to \textit{false}.  This
+flag must be reset to \textit{true} to enforce the override data.
+
+Next, both classes have a variable to accommodate the desired value.  These are
+titled \textit{leap\_sec\_override\_val} and \textit{tai\_to\_ut1\_override\_val}
+for classes TimeConverter\_TAI\_UTC and TimeConverter\_TAI\_UT1 respectively.
+
+All of these values can be set in an input file, with entries such as:
+\begin{verbatim}
+ time.tai_ut1.override_data_table = true
+ time.tai_ut1.tai_to_ut1_override_val = -32.469
+\end{verbatim}
+
+Note that when overriding the data for generating UT1, the variable
+is \textit{tai\_to\_ut1\_override\_val}, i.e the value for converting from TAI
+to UT1.  This is NOT the same as DUT1, which is used for converting from UTC to
+UT1.  To generate the necessary value, it is also necessary to subtract off from
+DUT1 the number of leap seconds (the number of leap seconds provides the
+conversion from UTC to TAI).
+
+When overriding the data for generating UTC, the number of leap seconds is used,
+and is (at least as of the publication of this document) a positive number.
+
+The astute reader may have noticed, and be contemplating why, there is symmetry
+in the setting of the flag (tai\_utc and tai\_ut1 have their respective flags
+named identically), but not in the setting of the value.  The explanation, just
+for the sake of curiosity, is as follows:  for UT1, the data value is simply
+named for the converter class in which it resides, \textit{TimeConverter\_TAI\_UT1},
+so the data represents the conversion from TAI to UT1; for UTC, the same
+notation could have been confusing, because the value of the TAI to UTC
+converter is the negative number of leap seconds.  We felt that having the 
+negative sign would cause more issues than it solved, and so renamed it to
+simply represent the number of leap seconds, or the UTC to TAI conversion.

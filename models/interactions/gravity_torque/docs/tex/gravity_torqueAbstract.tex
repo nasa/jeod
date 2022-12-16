@@ -1,0 +1,24 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: abstract for gravity torque model
+%
+%  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+The JEOD \gravitytorqueDesc\ computes the gravitational torque acting
+on a spacecraft due to any number of gravitational bodies, both spherical
+and non-spherical. The torque is computed from the gravity gradient, which
+is computed by the JEOD Gravity Model.  The spacecraft mass properties,
+in the form of an inertia tensor (matrix), are assumed to be known.
+The total gravitational torque acting on the spacecraft is computed
+in the spacecraft body-fixed frame and then transformed into the body structural frame
+for output.
+
+This document describes the implementation of the \gravitytorqueDesc.  It is part
+of a series of inter-related documents that describe the model requirements,
+specifications, mathematical theory, and architecture of the model.  A user
+guide is also provided to assist with implementing the model in Trick
+simulations.
+\end{abstract}

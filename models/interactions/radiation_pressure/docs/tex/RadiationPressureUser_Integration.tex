@@ -1,0 +1,307 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Integration part of User's Guide for the RadiationPressure model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Integration}
+
+Including the \RadiationPressureDesc\ is a straightforward process, the most
+complicated part of which is in generating the Radiation Surface.  For working
+examples, the integrator is strongly encouraged to view the simulations in the
+\RadiationPressureDesc\ verification.
+
+Note that a \RadiationPressureDesc\ is vehicle-specific.  In multi-vehicle
+simulations, it is necessary to have one \RadiationPressureDesc\ per vehicle
+(or, at least, per vehicle for which radiation pressure is important).
+
+\subsection{Generating the S\_define}
+
+The following steps provide a consistent method for integrating Radiation
+Pressure into the simulation:
+\begin{enumerate}
+  \item{} Declare a simulation object, called \textit{radiation} or similar, in
+  the
+         S\_define or equivalent file.
+  \item{} Within the simulation object, declare instances of the following
+  classes:
+  \begin{enumerate}
+    \item{RadiationPressure}. \newline
+      For Trick07 simulations, the preferred implementation
+      of RadiationThirdBody
+      objects (a third-body is one that is
+      neither the vehicle nor the source of illumination, e.g., the sun,
+      but can still contribute to the effect of radiation pressure)
+      is as an array located in the RadiationSource object.  In this case,
+      this array must be populated with information
+      on the primary source of illumination, and on any third-bodies.
+      In the \JEODid\ release, there are two data files (at
+      \textit{models/interactions/radiation\_pressure/data} that can be used as
+      templates; one (\textit{sun.d}) recognizes Sun only,
+      the other (\textit{sun\_earth\_moon.d}) recognizes Sun as the primary
+      source of illumination, and Earth and Moon as third-bodies.
+
+      For Trick10 simulations, the preferred method of implementing
+      RadiationThirdBody objects is to instantiate them as stand-alone objects,
+      and register them with the RadiationPressure model.  This method is
+      generally preferred, and the registration is implemented
+      behind-the-scenes even in Trick07 simulations.  In this case, there is no
+      default data to add to the radiation pressure model, but instead the data
+      is entered at the input level.  See, for example,
+      \textit{verif/SIM\_1\_BASIC\_T10/Modified\_data/third\_bodies.py} which
+      sets up Earth and Moon as third-bodies much the same as
+      \textit{sun\_earth\_moon.d} did in the older paradigm.
+
+    \item{} Either one of:
+      \begin{itemize}
+        \item{RadiationSurface} or
+        \item{RadiationDefaultSurface}
+      \end{itemize}
+      A simulation object should not contain both of these,
+      nor should it contain multiple examples of either one,
+      unless the intent is to use those sequentially.
+      One instance of RadiationPressure can use only one surface at a time.
+      Users wishing to compare the effect of different surfaces should use
+      multiple simulation objects, each with its own instance of
+      RadiationPressure.
+    \item{} If the RadiationSurface option is used,
+      also instantiate the following classes / class pointers:
+      \begin{enumerate}
+        \item{RadiationSurfaceFactory}
+        \item{SurfaceModel} (located at \textit{utils/surface\_model})
+        \item{Facet **} \newline
+          An array of pointers to the facets
+          (\textit{Facets} are at \textit{utils/surface\_model}).
+        \item{\textit{$<$facet-type$>$} *} \newline
+          An array of facets of
+          type \textit{$<$facet-type$>$}, for example, \textit{FlatPlateThermal~*}
+          These are probably also at \textit{utils/surface\_model}, unless the
+          Surface Model has been extended to provide other facet-types
+          that have been stored elsewhere.
+        \item{} An unsigned integer (unassigned value, not necessary for Trick10)
+        \item{RadiationParams *}
+        \item{FacetParams *} .
+      \end{enumerate}
+        Note that none of these are initialized with data;
+        the data are included from the input file as necessary.
+    \item{RadiationDataRecorder \textit{(optional)}}. \newline
+      Use this if it is also
+      desirable to monitor the interaction at the facet level,
+      rather than the model level.
+      Note that this is only available if using a RadiationSurface and not used
+      at all if implementing a RadiationDefaultSurface.
+  \end{enumerate}
+  \item{} Also within the simulation object, schedule the following jobs:
+    \begin{itemize}
+      \item{Pre-initialization}.  \newline
+        If the Surface Model is being used,
+        the surface must be created before initialization.  In Trick10, this can be done from the python input file.  In Trick07, this requires the advance declaration of the jobs that will be called from the input files.  This is a
+        potentially confusing area for integration, because
+        these jobs appear as environment class jobs, but are assigned a zero
+        call rate to ensure that they never get called from the S\_define.
+        Instead, they are called from the input file where the data are entered,
+        but the methods must still be declared in the S\_define in order to be
+        called from the input file.
+        If the Default Surface is being used, or if the simulation engine can handle direct calls from the input-level files (e.g. Trick10, but not Trick07), then these calls should not be included.
+        In the following example the variables being referred to map to the
+        following list of previously defined items:
+        \begin{itemize}
+          \item \textit{radiation} is the simulation object
+          \item \textit{facet\_ptr} is the instance of \textit{Facet **}
+          \item \textit{integer} is the unsigned integer
+          \item \textit{facet\_params} is the instance of \textit{FacetParams *}
+          \item \textit{surface} is the instance of SurfaceModel
+          \item \textit{rad\_surface} is the instance of the radiation surface, be that a
+             RadiationSurface or a RadiationDefaultSurface
+        \end{itemize}
+\begin{verbatim}
+(0.0, environment) utils/surface_model:
+radiation.surface.add_facets(
+        In Facet**      new_facets     = radiation.facet_ptr,
+        In unsigned int num_new_facets = radiation.integer);
+
+(0.0, environment) interactions/radiation_pressure:
+radiation.surface_factory.add_facet_params(
+       In FacetParams*  to_add         = radiation.facet_params);
+\end{verbatim}
+
+      \item {Initialization}
+        \begin{enumerate}
+          \item{} If the Surface Model is being used,
+            the Radiation Surface must be created from the Surface.
+\begin{verbatim}
+(initialization) interactions/radiation_pressure:
+radiation.surface_factory.create_surface(
+    In SurfaceModel        * surface       =  &radiation.surface,
+    Out InteractionSurface * inter_surface =  &radiation.rad_surface);
+\end{verbatim}
+          \item{} Whether the Surface Model or the Default Surface is being
+            used, the \RadiationPressureDesc\ must then be initialized.
+            The initialization call differs slightly for the two cases:
+            \begin{itemize}
+              \item{Surface Model}
+\begin{verbatim}
+(initialization) interactions/radiation_pressure:
+radiation.rad_pressure.initialize(
+       In  DynManager       & dyn_mgr        = mngr.dyn_manager,
+       In  RadiationSurface * surf_ptr       = &radiation.rad_surface,
+       In  double  center_grav[3] =
+                      vehicle.dyn_body.composite_properties.position);
+\end{verbatim}
+              \item{Default Surface}
+\begin{verbatim}
+(initialization) interactions/radiation_pressure:
+radiation.rad_pressure.initialize(
+       In  DynManager              & dyn_mgr  = mngr.dyn_manager,
+       In  RadiationDefaultSurface * surf_ptr = &radiation.rad_surface);
+\end{verbatim}
+            \end{itemize}
+        \end{enumerate}
+
+
+      \item {Scheduled jobs}
+        \begin{enumerate}
+          \item {Update values}
+\begin{verbatim}
+(DYNAMICS, scheduled)  interactions/radiation_pressure:
+radiation_simple.rad_pressure.update(
+       In  RefFrame & veh_struc_frame = vehicle.dyn_body.structure,
+       In  double     center_grav[3]  =
+                             vehicle.dyn_body.composite_properties.position,
+       In  double     scale_factor    = time.manager.dyn_time.scale_factor);
+\end{verbatim}
+
+          \item{Record data (\textit{optional})}. \newline
+            Used only with a Surface Model,
+            and only if facet-specific data must be recorded.
+\begin{verbatim}
+(DYNAMICS, scheduled)  interactions/radiation_pressure/verif:
+radiation.data_rec.record_data (
+     In  RadiationSurface * surface_ptr = &radiation.rad_surface);
+\end{verbatim}
+        \end{enumerate}
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{Generating the Input File}
+The input definition for the \RadiationPressureDesc\ can be divided into two areas: the model-specific parameters, and the surface-specific parameters.
+
+These parameters are all discussed in the Analysis section of the User's Guide.  If any parameters are to be set to non-default values, that should be done here.
+
+If the default surface is being used, that could be defined directly in the input file (see the verification simulations released with \JEODid\ for examples) or in a separate Modified data file.  If the general Surface Model is being used to define the surface, that is typically done in a Modified data file.  Again, see the the verification simulations for examples of this Modified data file.  There are significant differences for the recommended structure for defining the surface between Trick07 and Trick10.  The two methods compare nicely, but are not immediately compatible.
+
+There are two steps necssary to defining RadiationFacet objects.  The first is to define the ``physical'' characteristics of the facets, then to define the surface, or ``chemical'' properties.
+
+The essential components are as follows (Trick07):
+\begin{itemize}
+\item{} A memory allocation for each of the facets.
+\begin{verbatim}
+#define NUM_FACETS 6
+FlatPlateThermal ** fpt_facets;
+fpt_facets = alloc (NUM_FACETS);
+\end{verbatim}
+
+\item{} Creation of the correct number of facets.
+\begin{verbatim}
+for (int ii_facet=0; ii_facet<NUM_FACETS; ii_facet++) {
+  fpt_facets[ii_facet] = new FlatPlateThermal[1];
+}
+\end{verbatim}
+
+\item{} Allocation of data to each facet, including the name of a parameter set.
+\begin{verbatim}
+fpt_facets[0]->position[0] {M} = 1.0 , 0.0, 0.0 ;
+fpt_facets[0]->normal[0] = 1.0 , 0.0 , 0.0 ;
+fpt_facets[0]->area {M2} = 4.0;
+fpt_facets[0]->temperature = 270.0;
+fpt_facets[0]->param_name = "radiation_test_material";
+fpt_facets[0]->thermal.active = true;
+fpt_facets[0]->thermal.thermal_power_dump = 0.0;
+fpt_facets[0]->name = "+x";
+
+etc.
+\end{verbatim}
+
+\item{} Assignment of the facet pointer defined in the S\_define to the address of the facets just created in the Modified Data file.
+\begin{verbatim}
+radiation.facet_ptr = fpt_facets;
+\end{verbatim}
+
+\item{}  Assignment of the integer defined in the S\_define to be equal to the number of facets just created.
+\begin{verbatim}
+radiation.integer = NUM_FACETS;
+\end{verbatim}
+
+\item{} A call to the method \textit{radiation.surface.add\_facets} to populate the simulation surface with the data just defined.
+\begin{verbatim}
+call radiation.radiation.surface.add_facets(radiation.facet_ptr);
+\end{verbatim}
+\end{itemize}
+
+The corresponding Trick10 input might look like:
+\begin{itemize}
+\item{} Memory allocation and data assignment for each of the facets.
+\begin{verbatim}
+ fpt = trick.FlatPlateThermal()
+ fpt.thisown = 0
+ fpt.position  = trick.attach_units( "m",[ 2.0 , 0.0, 0.0 ])
+ fpt.normal  = [ 1.0 , 0.0 , 0.0 ]
+ fpt.area  = trick.attach_units( "M2",2.0)
+ fpt.temperature = 270.0
+ fpt.param_name = "radiation_test_material"
+ fpt.thermal.active = True
+ fpt.thermal.thermal_power_dump = 0.0
+\end{verbatim}
+ \item{} A call to the method \textit{radiation.surface.add\_facet} to populate the simulation surface with the data just defined.
+\begin{verbatim}
+radiation.surface.add_facet(fpt);
+\end{verbatim}
+Notice the omission of the ``call'' and of the redundant ``radiation'' at the front of the command.  Notice also that fpt is local, and that each facet is added one at a time rather than as a pointer to the array of facets.  Consequently the command is the singular \textit{add\_facet} rather than the plural \textit{add\_facets}.
+\end{itemize}
+
+The surface parameters must also be defined, for Trick07 simulations:
+
+\begin{itemize}
+\item{} For each parameter set named in the facet definition, the creation of an instance of a material parameter set.
+\begin{verbatim}
+RadiationParams * params;
+params = new RadiationParams;
+\end{verbatim}
+
+\item{} For each parameter set, the assignment of the name and material properties of that set.
+\begin{verbatim}
+params->name =  "radiation_test_material";
+params->albedo = 0.5;
+params->diffuse = 0.5;
+params->thermal.emissivity = 0.5;
+params->thermal.heat_capacity_per_area = 50.0;
+\end{verbatim}
+
+\item{} Assignment of the radiation parameter array from the S\_define to the address of the new parameters just defined.
+\begin{verbatim}
+radiation.facet_params = params;
+\end{verbatim}
+
+\item{} A call to the method \textit{radiation.surface\_factory.add\_facet\_params} to populate the array of parameter sets in the simulation with the data just defined.
+\begin{verbatim}
+call radiation.radiation.surface_factory.add_facet_params(
+                                                     radiation.facet_params);
+\end{verbatim}
+
+
+For Trick10 simulations the structure is once again similar, but incompatible:
+\begin{verbatim}
+params = trick.RadiationParams()
+params.thisown = 0
+
+params.name =  "radiation_test_material"
+params.albedo = 0.0
+params.diffuse = 0.5
+params.thermal.emissivity = 1.0
+params.thermal.heat_capacity_per_area = 600.0
+
+radiation.surface_factory.add_facet_params(params)
+\end{verbatim}
+\end{itemize}

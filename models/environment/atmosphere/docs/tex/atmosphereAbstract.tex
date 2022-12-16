@@ -1,0 +1,29 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Abstract for atmosphere
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+Aerodynamic effects can greatly influence the dynamics of an orbiting
+spacecraft. These aerodynamic effects depend greatly on modeling of both
+the Earth's atmosphere, as well as winds present in the
+atmosphere. Needed elements from the atmosphere include density, pressure, and
+temperature, as well as wind velocity.
+
+This document presents the \JEODid\ \atmosphereDesc\ framework, designed as
+a generic interface for the modeling of planet atmospheres. This framework
+is extensible. This allows for reuse of code by different atmosphere models,
+including models for bodies other than the Earth, while taking advantage of a common
+framework.
+
+This document also presents a specific implementation of the generic JEOD
+atmosphere framework. This specific implementaion is of the Marshall Engineering
+Thermosphere (MET) Model, an Earth-based atmosphere model. This implementation
+provides atmospheric pressure, temperature, and density, as well as other
+parameters specific to the MET Model, based on the current geodetic position
+and altitude.
+
+\end{abstract}

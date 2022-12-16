@@ -1,0 +1,342 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% guide.tex
+% User Guide for the Container Model.
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+The typical JEOD model User Guide looks at the model at hand from the
+perspectives of a simulation user,
+a simulation developer, and a model developer.
+The \ModelDesc is not the typical JEOD model User Guide.
+The model is designed to be transparent to the typical
+simulation user and simulation developer.
+
+\section{Instructions for Simulation Users}
+The container model is not intended for use by simulation users.
+
+\section{Instructions for Simulation Developers}
+The container model is not intended for use by simulation developers.
+
+\section{Instructions for Model Developers}
+This section describes the use of the model from the perspectives of
+a user of the STL sequence container replacements,
+a model developer who wishes to write a class that derives from
+one of the provided checkpointable/restartable classes,
+and a simulation interface developer who is porting the model outside of Trick.
+
+\subsection{Model Header Files}
+The \ModelDesc contains 23 header files,
+categorized into four major groups:
+\begin{itemize}
+\item Headers that define incomplete classes that form the
+  basis for the checkpoint and restart. External users are
+  free to create their own extensions of these incomplete classes.
+\item Headers that define non-checkpointable replacements for
+  the STL sequence containers. These are incorporated into
+  checkpointable replacements in other headers.
+\item Headers that define usable, but rather hard to name,
+  checkpointable and restartable replacements for the STL containers.
+  For example, a list that contains pointers to objects of type Foo
+  is a \template{JeodPointerContainer}
+  {\template{JeodList}{Foo$\ast$}, Foo}.
+\item Headers that simplify the process of defining
+  checkpointable and restartable replacements for the STL containers.
+  For example, to change a data member declared as
+  \template{std::list}{Foo$\ast$} foo\funder{}ptr\funder{}list
+  to its JEOD equivalent,
+  change the type to  \template{JeodPointerList}{Foo}::type and
+  \#include ``utils/container/include/pointer\_list.h'' instead of
+  \inanglebrackets{list}.
+\end{itemize}
+Only the first and last group are discussed in this User Guide.
+Table~\ref{tab:guide_headers} describes these header files.
+
+
+\begin{table}[htp]
+\centering
+\caption{Model Header Files}
+\label{tab:guide_headers}
+\vspace{1.5ex}
+\centering
+\begin{tabular}{|| p{1.4in} p{1.7in} p{2.9in}|} \hline
+{\bf Header} & {\bf Defines} & {\bf Description} \\ \hline\hline
+
+\longentry checkpointable.hh &
+  \longentry
+  JeodCheckpointable &
+  \raggedright
+  Base class for something that can be
+  checkpointed and restored from a checkpoint.
+\tabularnewline[4pt]
+
+\longentry simple\funder{}checkpointable.hh &
+  \longentry
+  SimpleCheckpointable &
+  \raggedright
+  A simplified version of JeodCheckpointable.
+  Extenders just need to define simple\funder{}restore().
+\tabularnewline[30pt]
+
+\longentry object\funder{}list.hh &
+  \longentry
+  \template{JeodObjectList}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::list}{ElemType}
+  for structured ElemType data.
+\tabularnewline[4pt]
+
+\longentry object\funder{}set.hh &
+  \longentry
+  \template{JeodObjectSet}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::set}{ElemType}
+  for structured ElemType data.
+\tabularnewline[4pt]
+
+\longentry object\funder{}vector.hh &
+  \longentry
+  \template{JeodObjectVector}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::vector}{ElemType}
+  for structured ElemType data.
+\tabularnewline[4pt]
+
+\longentry pointer\funder{}list.hh &
+  \longentry
+  \template{JeodPointerList}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::list}{ElemType$\ast$}
+  (list of pointers).
+\tabularnewline[4pt]
+
+\longentry pointer\funder{}set.hh &
+  \longentry
+  \template{JeodPointerSet}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::set}{ElemType$\ast$}
+  (set of pointers).
+\tabularnewline[4pt]
+
+
+\longentry pointer\funder{}vector.hh &
+  \longentry
+  \template{JeodPointerVector}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::vector}{ElemType$\ast$}
+  (vector of pointer).
+\tabularnewline[4pt]
+
+\longentry primitive\funder{}list.hh &
+  \longentry
+  \template{JeodPrimitiveList}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::list}{ElemType}
+  for primitive ElemType data.
+\tabularnewline[4pt]
+
+\longentry primitive\funder{}set.hh &
+  \longentry
+  \template{JeodPrimitiveSet}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::set}{ElemType}
+  for primitive ElemType data.
+\tabularnewline[4pt]
+
+\longentry primitive\funder{}vector.hh &
+  \longentry
+  \template{JeodPrimitiveVector}{ElemType}::type &
+  \raggedright
+  Use in lieu of \template{std::vector}{ElemType}
+  for primitive ElemType data.
+\tabularnewline[4pt]
+
+\hline
+\end{tabular}
+\end{table}
+\clearpage
+
+\subsection{Using the Container Model}
+This section describes how to use the data types defined by the
+\ModelDesc in some other model.
+
+\subsubsection{STL Sequence Containers}
+Classes that contain one or more data members that are STL sequence containers
+are not checkpointable or restartable as-is. The approach taken by JEOD is
+to replace the STL types with their JEOD equivalents and to register the
+objects with JEOD. The code changes that need to be made to accomplish this are:
+\begin{itemize}
+  \item In the header file for the class, replace the STL \#includes
+    and the STL sequence types with the JEOD equivalents.
+    See the last set of entries in table~\ref{tab:guide_headers}
+    for the appropriate header files and data types.
+    The following example illustrates a class that contains a list
+    of pointers and a vector of doubles.
+    \begin{verbatim}
+    #include "utils/container/include/pointer_list.hh"
+    #include "utils/container/include/primitive_vector.hh"
+    class Foo;
+
+    class Bar {
+    public:
+       Bar();
+    protected:
+       JeodPointerList<Foo>::type foo_list;
+       JeodPrimitiveVector<double>::type double_vector;
+    };
+    \end{verbatim}
+  \item In the constructor(s) for the class, register with the
+    JEOD memory manager the class itself, the class in the list or
+    vector (you don't need to register primitives), and the containers.
+    The constructor for the class defined above is illustrated below.
+    \begin{verbatim}
+    #include "utils/memory/include/jeod_alloc.hh"
+    #include "../include/foo.hh"
+    #include "../include/bar.hh"
+
+    Bar::Bar ()
+    {
+       JEOD_REGISTER_CLASS (Bar);
+       JEOD_REGISTER_CLASS (Foo);
+       JEOD_REGISTER_CHECKPOINTABLE (this, foo_list);
+       JEOD_REGISTER_CHECKPOINTABLE (this, double_vector);
+    }
+    \end{verbatim}
+  \item In the destructor for the class, deregister the containers
+    with the JEOD memory manager.
+    \begin{verbatim}
+    Bar::~Bar ()
+    {
+       JEOD_DEREGISTER_CHECKPOINTABLE (this, foo_list);
+       JEOD_DEREGISTER_CHECKPOINTABLE (this, double_vector);
+    }
+    \end{verbatim}
+\end{itemize}
+
+\subsection{Extending the Container Model}
+This section describes how to extend the data types defined by the
+\ModelDesc.
+
+
+\subsubsection{Extending the JeodCheckpointable Class}
+\label{sec:guide_JeodCheckpointable}
+There are many things beyond STL containers that a simulation engine may not
+be able to checkpoint or restart without some additional help. One way
+to provide that additional help is to build a class that derives from
+JeodCheckpointable.
+
+The class JeodCheckpointable declares several virtual methods with empty
+implementations and several pure virtual methods with no implementation
+at all. A usable extension to JeodCheckpointable must at a minimum
+provide implementations for these pure virtual methods.
+Section~\ref{sec:spec_JeodCheckpointable} discusses the class in detail,
+including descriptions of how to extend the class.
+
+An instance of a class that derives from JeodCheckpointable will not checkpoint
+or restore itself. Checkpointing and restoring checkpointable objects is
+performed by the \SIMINTERFACE. A checkpointable object must be registered
+with JEOD via the macro JEOD\_REGISTER\_CHECKPOINTABLE to make the
+checkpointable object subject to checkpoint and restart.
+
+
+\subsubsection{Extending the SimpleCheckpointable Class}
+Directly extending JeodCheckpointable requires one to implement each of
+the JeodCheckpointable pure virtual methods. This is a bit much in the
+case of a simple, atomic checkpoint and restart process. The class
+SimpleCheckpointable provides a much simpler checkpoint/restart interface that
+may be used in the case of these easily restored objects.
+
+For example, consider a model that uses random access to read binary data from some file. The underlying file stream is an opaque data type and is not directly
+checkpointable or restorable. What can be done is to maintain the name of the
+file and the location of the read pointer as data members. These are simple
+data types that the simulation engine can checkpoint and restore.
+A tiny bit of glue is needed to reopen the file stream. The example below uses a data member whose type derives from SimpleCheckpointable to make
+the model restartable.
+    \begin{verbatim}
+    #include <cstdio>
+    #include <string>
+    #include "utils/container/include/simple_checkpointable.hh"
+    #include "utils/memory/include/jeod_alloc.hh"
+
+    class Foo {
+    public:
+
+       // This class calls Foo's reopen method on restart.
+       class Restart : public SimpleCheckpointable {
+       public:
+          // All checkpointable classes need a default constructor.
+          Restart () {}
+       
+          // This constructor creates a viable Foo::Restart object.
+          explicit Restart (Foo & foo) : foo_ptr(&foo) {}
+
+          // simple_restore() is called by the restart machinery.
+          virtual void simple_restore ()
+          {
+             foo_ptr->reopen();
+          }
+          
+       private:
+          Foo * foo_ptr; // -- Pointer to owner
+       };
+
+       // Constructor.
+       Foo()
+       {
+          // All checkpointable objects must be registered with JEOD.
+          // First register the containing class, then the object.
+          JEOD_REGISTER_CLASS (Foo);
+          JEOD_REGISTER_CHECKPOINTABLE (this, restart);
+       }
+       
+       // Destructor.
+       ~Foo()
+       {
+          // All registered checkpointable objects must be deregistered
+          // when they go out of scope.
+          JEOD_DEREGISTER_CHECKPOINTABLE (this, restart);
+       }
+       
+       // Reopen the file on restart. Code elided.
+       void reopen ();
+
+    protected:
+       std::string fname; // -- The name of the file.
+       long foffset; // -- The current offset within the file.
+
+       std::FILE * fstream; // ** The input file stream.
+       Restart restart; // ** The checkpoint/restart agent for this class.
+    };
+    \end{verbatim}
+In the above example, the embedded class Foo::Restart derives from
+SimpleCheckpointable. The class Foo contains an instance of Foo::Restart
+as a data member. This member acts as a restart agent that restores the
+containing Foo object's file pointer by calling that object's reopen method.
+
+\subsubsection{Which Class to Extend}
+A model developer that wishes to make some object checkpointable and
+restartable using the mechanisms provided by this model has several choices
+regarding which class to extend.\begin{itemize}
+\item If the object is one of the STL containers such as std::deque for which a
+JEOD implementation does not exist, the appropriate place to start is by
+extending the JeodSequenceContainer or JeodAssociativeContainer class
+as appropriate.
+\item If the object can be restored by extending SimpleCheckpointable,
+do so. One could also extend directly from JeodCheckpointable, but that entails
+a lot more effort.
+\item Finally, one can write an extension of JeodCheckpointable if
+all other options are off the table.
+\end{itemize}
+
+\subsection{Implementing Checkpoint and Restart}
+The JEOD/Trick simulation interface model implements checkpointing and
+restarting of checkpointable objects in the Trick simulation environment.
+When JEOD is used outside of the Trick simulation environment, the
+implementation must provide an interface between JEOD and the simulation
+engine. If this new interface is to provide checkpoint/restart capabilities,
+it must do so in a manner consistent with the capabilities provided by
+this model. See the \hypermodelref{SIMINTERFACE} for details on the
+implementation of the checkpoint/restart capability in the
+ JEOD/Trick simulation interface.
+

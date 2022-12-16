@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{dyn_manager}[2006/07/26 v1.1 Dynamics Manager module macros]
+
+\RequirePackage{xspace}
+
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+\newcommand\modelprefix{DynManager}
+% {MODEL DESCRIPTION} should be changed to the full name of the model.  
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").  
+%   The name should be a singular, not plural value,
+%   e.g. "Reference Frame Model", 
+%   not "Reference Frames" (same example).
+\newcommand{\ModelDesc}{Dynamics Manager Model\xspace}
+\newcommand{\ModelAuthor}{David Hammen}
+\newcommand{\ModelAuthDate}{November, 2009}
+\newcommand{\ModelClass}{dynamics} 
+\newcommand{\ModelPath}{models/dynamics/dyn\_manager} 
+%dynamics, environment, interactions, utils
+
+% for all editors; add keywords as necessary.
+\newcommand{\ModelKeywords}{\ModelDesc}
+
+% Redefine the labels defined in dynenv.sty
+\renewcommand{\JEOD}{JSC Engineering Orbital Dynamics\xspace}
+\renewcommand{\BODYACTION}{Body Action Model\xspace}
+\renewcommand{\DERIVEDSTATE}{Derived State Model\xspace}
+\renewcommand{\DYNBODY}{Dynamic Body Model\xspace}
+\renewcommand{\DYNMANAGER}{Dynamics Manager Model\xspace}
+\renewcommand{\EPHEMERIDES}{DE4xx Solar System Ephemerides\xspace}
+\renewcommand{\GRAVITY}{Gravity Model\xspace}
+\renewcommand{\GRAVITYTORQUE}{Gravity Gradient Torque Model\xspace}
+\renewcommand{\INTEGRATION}{Integration Model\xspace}
+\renewcommand{\MASS}{Mass Body Model\xspace}
+\renewcommand{\MATH}{Mathematical Functions\xspace}
+\renewcommand{\MEMORY}{Memory Allocation Routines\xspace}
+\renewcommand{\MESSAGE}{Message Handling Class\xspace}
+%\renewcommand{\MISC}{Miscellaneous Utilities\xspace}
+\renewcommand{\NAMEDITEM}{Named Item Routines\xspace}
+\renewcommand{\ORBITALELEMENTS}{Orbital Elements Model\xspace}
+\renewcommand{\ORIENTATION}{Orientation Model\xspace}
+\renewcommand{\PLANET}{Planet Model\xspace}
+\renewcommand{\QUATERNION}{Quaternion\xspace}
+\renewcommand{\REFFRAMES}{Reference Frame Model\xspace}
+\renewcommand{\SIMINTERFACE}{Simulation Interface Model\xspace}
+\renewcommand{\TIME}{Time Model\xspace}
+
+% \tabsubrequirement: Subrequirements as table entries
+\def\tabsubrequirement{%
+   \refstepcounter{subrequirement}%
+   \subrequirementlabel{}}
+
+% Reference frames
+
+\newcommand\mkfrm[2]{
+  \expandafter\newcommand\csname #1\endcsname{{#2}}
+  \expandafter\newcommand\csname tt#1\endcsname{{\ttfamily #2}}
+  \expandafter\newcommand\csname em#1\endcsname{{\em #2}}
+}
+
+\newcommand\mkrelfrm[2]{
+  \expandafter\newcommand\csname #1Rel\endcsname{{#2\_Rel}}
+  \expandafter\newcommand\csname tt#1Rel\endcsname{{\ttfamily #2\_Rel}}
+  \expandafter\newcommand\csname em#1Rel\endcsname{{\em #2\_Rel}}
+}
+
+\mkfrm{Body}{Body}
+\mkfrm{Inertial}{Inertial}
+\mkfrm{Pfix}{Planet\_Fixed}
+\mkfrm{RectLVLH}{Rect\_LVLH}
+\mkrelfrm{Body}{Body}
+\mkrelfrm{RectLVLH}{Rect\_LVLH}
+\mkrelfrm{NED}{NED}
+\mkrelfrm{Structure}{Structure}
+\mkrelfrm{AP}{AP}
+
+%
+% Define commands for labeling tests
+%
+\newcommand\green[1]{\color{Green}{#1}}
+\newcommand\red[1]{\color{Red}{#1}}
+\newcommand\passed{\green{Passed}}
+\newcommand\failed{\red{Failed}}
+
+% \tilt: Rotate text (typically for a table header)
+\newcommand{\tilt}[1]{%
+  \makebox[0cm][c]{%
+  \rule{0.75em}{0pt}
+  \rotatebox{90}{\raisebox{\depth}{#1~}}}%
+  \rule{0.75em}{0pt}}
+
+% \axis, \coord, ...: names for axes, coordinates.
+\newcommand\axis[1]{\mbox{$#1$-axis}}
+\newcommand\xaxis{\axis{x}}
+\newcommand\yaxis{\axis{y}}
+\newcommand\zaxis{\axis{z}}
+\newcommand\coord[1]{\mbox{$#1$-coordinate}}
+\newcommand\xcoord{\coord{x}} 
+\newcommand\ycoord{\coord{y}}
+\newcommand\zcoord{\coord{z}}

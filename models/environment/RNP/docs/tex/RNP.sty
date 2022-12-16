@@ -1,0 +1,49 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{container}[2011/05/03 v1.0 RNP module macros]
+
+% Update this when changes are made to the document.
+\newcommand\ModelRevision{1.4}
+
+% \ModelHistory is expanded in the document history section of the introduction.
+% This command comprise a set of lines, each of which must be of the form
+%   Author & Date & Revision & Description \\
+% The final entry must describe the current version.
+% The fields are:
+%   Author       The names of the authors responsible for the document revision.
+%   Date         The month and year of the document revision.
+%   Revision     The document revision number in major.minor format.
+%   Description  A brief description of the revision.
+\newcommand\ModelHistory {
+  Jeff Morris & February 2012 & 1.4 & Added Mars RNP content \\
+  Andrew Spencer & January 2012 & 1.3 & Added details for PlanetOrientation class \\
+  Andrew Spencer & October 2010 & 1.2 & Reflected changes in enumerations, added metrics \\
+  Blair Thompson & February 2010 & 1.1 & Updated default polar motion table info \\
+  Andrew Spencer & November 2009 & 1.0 & Initial Version \\
+}
+
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+\newcommand\modelprefix{RNP}
+
+% Model description macros, used for cover page
+\newcommand{\ModelDesc}{Rotation, Nutation and Precession Model\xspace}
+\newcommand{\ModelAuthor}{Andrew Spencer, Jeff Morris}
+\newcommand{\ModelKeywords}{RNP, planet orientation, rotation, nutation, precession, polar motion}
+\newcommand{\ModelClass}{environment}
+\newcommand{\ModelPath}{models/environment/RNP}
+
+
+% Short little commands.
+\newcommand{\funder}{\_\hspace{0pt}}
+\newcommand{\inanglebrackets}[1] {\textless{}#1\textgreater{}}
+\newcommand{\template}[2] {#1\hspace{0pt}\inanglebrackets{#2}}
+
+

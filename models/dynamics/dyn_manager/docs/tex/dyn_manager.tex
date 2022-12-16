@@ -1,0 +1,122 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% dyn_manager.tex
+% Top level document for the Dynamics Manager Model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the AMS math package
+%
+\usepackage{amsmath,amssymb,amsfonts}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the common math nomenclature
+%
+\usepackage{dynmath}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{dyn_manager}
+
+%
+% Add the requirements to the table of contents
+%
+\dynenvaddtotoc{reqt}{1}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{color}
+
+%
+% Bring in the PDF landscape environment
+%
+\usepackage{pdflscape}     
+
+%
+% Bring in listing environment
+%
+\usepackage{paralist}
+\usepackage{longtable}
+
+%
+% Fixes for footnotes
+%
+\usepackage{footmisc}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\ModelDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={initialization events},
+   pdfsubject={\ModelDesc}}
+
+%\renewcommand{\abstractname}{Executive Summary}
+
+%\setcounter{secnumdepth}{2}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{\ModelPath}
+\docrev{1.2}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\ModelDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Executive Summary}
+\include{exec_summary}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+\include{intro}
+\include{reqt}
+\include{spec}
+\include{user}
+\include{ivv}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\phantomsection
+\addcontentsline{toc}{part}{Bibliography} 
+\bibliography{dynenv,dyn_manager}
+\bibliographystyle{plain}
+
+\end{document}

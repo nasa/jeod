@@ -1,0 +1,120 @@
+\subsection{S\_define File}
+Below is an example of how to include the \ModelDesc\ in an S\_define file
+\subsubsection{Instantiation}
+
+Instantiation of a MassBody is straightforward:
+
+\paragraph{Trick07}
+\begin{verbatim}
+   dynamics/mass:    MassBody       body;
+\end{verbatim}
+
+\paragraph{Trick10}
+\begin{verbatim}
+   MassBody       body;
+\end{verbatim}
+
+Typically, the body requires some state information, in which case the 
+DynBody is used:
+
+\paragraph{Trick07}
+\begin{verbatim}
+   dynamics/dyn_body:    DynBody       body;
+\end{verbatim}
+\paragraph{Trick10}
+\begin{verbatim}
+   DynBody       body;
+\end{verbatim}
+
+
+\subsubsection{Initialization}
+To initialize the mass properties of a mass-body it is STRONGLY recommended 
+that the Body Action MassBodyInit be used.  Examples of usage are given in the 
+previous section (\textref{Instruction for Simulation 
+Users}{sec:guide_sim_user}) and in the Body Action documentation~(\cite{dynenv:BODYACTION}).
+
+This body action will also initialize points associated with the MassBody if 
+they are allocated.  Allocation can be performed, for example, in the input 
+file right along with the declaration of the values.  In the S\_define, the 
+body-action itself needs to be instantiated.
+\paragraph{Trick07}
+\begin{verbatim}
+   dynamics/body_action: MassBodyInit mass_init;
+\end{verbatim}
+\paragraph{Trick10}
+\begin{verbatim}
+   MassBodyInit mass_init;
+\end{verbatim}
+
+\subsubsection{Manipulation}
+Performing actions on the body (such as attaching to another body, moving, 
+detaching, etc.) is also best handled by the MassBody Attach / Detach 
+sub-model of the Body Action model (see 
+documentation~\cite{dynenv:BODYACTION}).
+
+Important points regarding attach and detach mechanisms:
+\begin{itemize}
+ \item When attaching using mass points, the axes of the mass points will be 
+ aligned on the z-axis, and anti-aligned on the x- and y- axes.  An assistive 
+ visual guide is to imagine two vehicles approaching with the x-axes of the 
+ two mass-points pointing at one another and z-axes aligned.
+ \item When attaching using the offset and orientation method, the values 
+ specified are:
+ \begin{itemize}
+  \item The location of the child structure point with respect to the parent 
+  structure point, expressed in the parent structural-axes.
+  \item The transformation matrix from the parent structural-axes to the child 
+  structural-axes.
+ \end{itemize}
+ \item When commanding an attach of object A to object B, the mass-tree will 
+ actually attach the root of the mass-tree containing object A to object B.
+ Object A will only be attached to B in the mass-tree if A was originally the 
+ root of its own tree.
+ \item When using the simple detach, remember that:
+ \begin{itemize}
+  \item The mass-tree will be severed immediately above the detached object.
+  \item The mass-tree does not always represent reality.
+  \item Consequence is that there are situations where if object A was 
+  commanded attached to object B, then object A commanded detached, the 
+  mass-tree would not return to its original form.  The user must be aware of 
+  the effect on the mass-tree of all attach and detach commands.
+ \end{itemize}
+\end{itemize}
+
+
+\subsection{Utilizing the MassBody}
+The two strengths of the \ModelDesc are in 
+\begin{itemize}
+ \item Maintaining the properties of compound bodies through attach and detach 
+ processes.
+ \item Providing anchor-points between which the relative state (position and 
+ orientation only) can be measured.
+\end{itemize}
+
+The maintenance of compound properties is performed automatically, as long as 
+the \textit{update\_flag} is set.  To set this flag, call 
+\textit{set\_update\_flag()} on the affected body farthest from the root of 
+the 
+tree.  This method will propagate up the tree, setting the flags for all 
+bodies between the body of interest and the root body (inclusive).
+Note that this method is automatically called in the following situations:
+\begin{itemize}
+ \item At initialization of this MassBody object.
+ \item At destruction of this MassBody object.
+ \item A mass is attached to this body.
+ \item This mass is detached from its parent (call made before links to parent 
+ have been canceled)
+ \item A mass is moved (i.e. reattached to this mass).
+\end{itemize}
+
+The relative state (position and orientation only) of ``this'' mass point can 
+be found with respect to, and expressed in the axes-set associated with, any 
+other mass point in the same tree with a call to 
+\textit{compute\_relative\_state}.  This method takes two arguments:
+\begin{enumerate}
+ \item The other mass point (MassBasicPoint),
+ \item The MassPointState to be populated with the relative state data. 
+\end{enumerate}
+
+This method is distinct from the one provided in the Reference Frames model, 
+which produces a full relative state (including velocity and angular rate).

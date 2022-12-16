@@ -1,0 +1,147 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+/*****************************************************************************
+SIM_integ_loop
+Purpose:(Testing the switching capability of multiple groups and
+         scheduling of derivative jobs therein.)
+*****************************************************************************/
+#define DYNAMICS 0.1
+
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+#include "time_dyntime_only.sm"
+
+//*******************************************************************
+#include "Base/dynamics_no_integration.sm"
+##include "dynamics/dyn_manager/include/dynamics_integration_group.hh"
+##include "er7_utils/integration/rk4/include/rk4_integrator_constructor.hh"
+class DynamicsSimObject : public DynamicsNoIntegSimObject
+{
+ public:
+  jeod::DynamicsIntegrationGroup group;
+  er7_utils::RK4IntegratorConstructor rk4_integrator_constructor;
+  er7_utils::IntegratorConstructor* rk4_integ_constructor_ptr;
+
+  DynamicsSimObject(jeod::TimeManager & time_manager)
+    :
+    DynamicsNoIntegSimObject( time_manager),
+    rk4_integ_constructor_ptr(&rk4_integrator_constructor)
+  {};
+ private:
+  // Unimplemented copy constructor and assignment operator
+  DynamicsSimObject (const DynamicsSimObject&);
+  DynamicsSimObject & operator = (const DynamicsSimObject&);
+}
+DynamicsSimObject dynamics (jeod_time.time_manager);
+
+//*******************************************************************
+#include "environment_sans_de405.sm"
+
+//*******************************************************************
+#include "Base/vehicle_baseline.sm"
+class VehicleSimObject : public VehicleBasicSimObject
+{
+ public:
+  double shm_force[3];
+  double spring_k;
+  VehicleSimObject( jeod::DynManager & dyn_mngr)
+    :
+    VehicleBasicSimObject(dyn_mngr),
+    spring_k(1.0)
+  {
+    ("derivative") compute_force();
+  }
+ protected:
+  void compute_force() {
+    shm_force[0] = -spring_k * dyn_body.composite_body.state.trans.position[0];
+  }
+ private:
+   // Unimplemented copy constructor and assignment operator
+  VehicleSimObject (const VehicleSimObject&);
+  VehicleSimObject & operator = (const VehicleSimObject&);
+};
+
+VehicleSimObject veh_hi_rate(     dynamics.dyn_manager);
+VehicleSimObject veh_hi_med_rate( dynamics.dyn_manager);
+VehicleSimObject veh_med_rate(    dynamics.dyn_manager);
+VehicleSimObject veh_med_lo_rate( dynamics.dyn_manager);
+VehicleSimObject veh_lo_rate(     dynamics.dyn_manager);
+
+vcollect veh_hi_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+    veh_hi_rate.shm_force};
+vcollect veh_hi_med_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+    veh_hi_med_rate.shm_force};
+vcollect veh_med_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+    veh_med_rate.shm_force};
+vcollect veh_med_lo_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+    veh_med_lo_rate.shm_force};
+vcollect veh_lo_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+    veh_lo_rate.shm_force};
+//*******************************************************************
+
+#include "integ_loop.sm"
+JeodIntegLoopSimObject high_rate_loop (0.1,
+                                      dynamics.rk4_integ_constructor_ptr,
+                                      dynamics.group,
+                                      jeod_time.time_manager,
+                                      dynamics.dyn_manager,
+                                      env.gravity_manager,
+                                      &dynamics,
+                                      &veh_hi_rate,
+                                      &veh_hi_med_rate,
+                                      NULL);
+JeodIntegLoopSimObject med_rate_loop (0.3,
+                                      dynamics.rk4_integ_constructor_ptr,
+                                      dynamics.group,
+                                      jeod_time.time_manager,
+                                      dynamics.dyn_manager,
+                                      env.gravity_manager,
+                                      &dynamics,
+                                      &veh_med_rate,
+                                      &veh_med_lo_rate,
+                                      NULL);
+JeodIntegLoopSimObject low_rate_loop (1,
+                                      dynamics.rk4_integ_constructor_ptr,
+                                      dynamics.group,
+                                      jeod_time.time_manager,
+                                      dynamics.dyn_manager,
+                                      env.gravity_manager,
+                                      &dynamics,
+                                      &veh_lo_rate,
+                                      NULL);

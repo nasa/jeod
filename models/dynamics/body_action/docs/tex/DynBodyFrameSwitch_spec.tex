@@ -1,0 +1,74 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DynBodyFrameSwitch_spec.tex
+% Specification of the DynBodyFrameSwitch class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Specification}\label{ch:\modelpartid:spec}
+
+\section{Conceptual Design}
+The DynBodyFrameSwitch class switches the frame in which the subject DynBody
+object's state is represented and propagated. This class extends the
+base BodyAction class. Frame switching occurs when the subject DynBody
+transitions between spheres of influence.
+
+The class provides two modes of operation:
+\begin{description}
+\item[SwitchOnApproach] The subject body's integration frame is switched when
+  the body enters the sphere of influence of the new integration frame.
+\item[SwitchOnDeparture] The subject body's integration frame is switched when
+  the body leaves the sphere of influence of the current integration frame.
+\end{description}
+
+The class uses a user-provided switch distance to determine whether the
+body has entered the sphere of influence of the new integration frame
+or left the sphere of influence of the current integration frame.
+
+\section{Mathematical Formulations}
+Two commonly used concepts to describe the gravitational sphere of influence
+of a smaller gravitational body orbiting a larger gravitational body are
+the Hill sphere\cite{BodyAction:Valtonen} and
+the Laplace sphere of influence\cite{BodyAction:Brown}.
+
+The Hill sphere is
+
+\begin{equation}
+r_{\text{Hill}} \approx a  \left(\frac{m}{3M}\right)^{1/3}
+\end{equation}
+
+The Laplace sphere of influence is
+
+\begin{equation}
+r_{\text{SOI}} \approx a  \left(\frac{m}{M}\right)^{2/5}
+\end{equation}
+
+Table~\ref{tab:DynBodyFrameSwitch:SOI} lists the radii of the
+Hill and Lagrange spheres of influence for a few of the pairs of
+solar system bodies. These values are supplied for the use by the user.
+The DynBodyFrameSwitch class uses a user-defined value to test transitioning
+between spheres of influence.
+
+\begin{table}[htp]
+\centering
+\caption{Spheres of Influence}
+\label{tab:DynBodyFrameSwitch:SOI}
+\vspace{1ex}
+\begin{tabular}{||c||rl|rl|} \hline
+{\bf Bodies} &
+\multicolumn{2}{|c|}{\bf Hill} &
+\multicolumn{2}{|c|}{\bf Laplace} \\ \hline \hline
+Earth/Moon   &    $61,500$ & km &  $66,200$ & km  \\
+Sun/Earth    & $1,496,700$ & km & $924,700$ & km  \\
+Sun/Mars     & $1,084,110$ & km & $577,300$ & km  \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Detailed Design}
+This is a very simple sub-model.
+The {\tt initialize()} method simply checks for errors and subscribes to the
+target integration frame. The {\tt is\_ready()} method checks for the
+body entered the sphere of influence of the new integration frame or leaving
+the sphere of influence of the current integration frame based on the
+user-provided mode and switch distance. The {\tt apply()} method invokes
+the DynBody {\tt switch\_integration\_frames()} method to perform
+the frame switch.

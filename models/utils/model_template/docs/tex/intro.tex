@@ -1,0 +1,74 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% intro.tex
+%
+% JEOD standard model document introductory chapter .tex file.
+%
+% Usage instructions:
+% IMPORTANT: Do not modify this file.
+% Instead fill in the files model_purpose.tex and change_history.tex.
+%
+% This file needs no modification. The introductory chapter is primarily
+% boilerplate material common to all model documents. There are two places in
+% in the introductory chapter where model-specific content is needed, the
+% description of the model and the model document change history. This file
+% \inputs two model-specific files to put that model-specific info into
+% the model document. These files are:
+% - model_purpose.tex
+%   Contains a brief description of the model.
+% - change_history.tex
+%   Contains a table that summarizes changes to the model document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introduction}\hyperdef{part}{intro}{}
+\label{ch:intro}
+
+
+\section{Purpose and Objectives of the \MODELTITLE}
+\input{model_purpose}
+
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item \hyperJEOD
+\end{itemize}
+
+The \MODELTITLEx forms a component of the \MODELGROUPx suite of
+models within \JEODid. It is located at \MODELPATH.
+
+
+\section{Document History}
+\begin{tabular}{||l|l|l|l|} \hline
+{\bf Author } & {\bf Date} & {\bf Revision} & {\bf Description} \\ \hline \hline
+\input{change_history}
+\end{tabular}
+
+
+\section{Document Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}.
+
+The document comprises chapters organized as follows:
+
+\begin{description}
+
+\item[Chapter 1: Introduction] -
+This introduction describes the objective and purpose of the \MODELTITLE.
+
+\item[Product Requirements] -
+The requirements chapter describes the requirements on the \MODELTITLE.
+
+\item[Chapter 3: Product Specification] - 
+The specification chapter describes
+the architecture and design of the \MODELTITLE.
+
+\item[Chapter 4: User Guide] - 
+The user guide chapter describes how to use the \MODELTITLE.
+
+\item[Chapter 5: Verification and Validation] -  
+The inspection, verification, and validation (IV\&V) chapter describes
+the verification and validation procedures and results for the \MODELTITLE.
+
+\end{description}

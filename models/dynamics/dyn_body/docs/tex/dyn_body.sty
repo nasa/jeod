@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{dyn_body}[2010/02/10 v1.1 Dynamic Body model macros]
+
+\RequirePackage{xspace}
+
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+\newcommand\modelprefix{DynBody}
+% {MODEL DESCRIPTION} should be changed to the full name of the model.
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").
+%   The name should be a singular, not plural value,
+%   e.g. "Reference Frame Model",
+%   not "Reference Frames" (same example).
+\newcommand{\ModelDesc}{Dynamic Body Model\xspace}
+\newcommand{\ModelAuthor}{David Hammen}
+\newcommand{\ModelAuthDate}{March, 2010}
+\newcommand{\ModelClass}{utilities}
+\newcommand{\ModelPath}{models/dynamics/dyn\_body}
+%dynamics, environment, interactions, utils
+
+% for all editors; add keywords as necessary.
+\newcommand{\ModelKeywords}{\ModelDesc}
+
+\newcommand{\integrationDesc}{Dynamic Body\xspace}
+
+
+% Shortcuts
+\newcommand{\ie}{{\emph{i.e.}},\xspace}
+\newcommand{\eg}{{\emph{e.g.}},\xspace}
+\newcommand{\isa}{\mbox{\emph{is-a}}\xspace}
+\newcommand{\hasa}{\mbox{\emph{has-a}}\xspace}
+
+% Redefine the labels defined in dynenv.sty
+\renewcommand{\JEOD}{JSC Engineering Orbital Dynamics\xspace}
+\renewcommand{\BODYACTION}{Body Action Model\xspace}
+\renewcommand{\DERIVEDSTATE}{Derived State Model\xspace}
+\renewcommand{\DYNBODY}{Dynamic Body Model\xspace}
+\renewcommand{\DYNMANAGER}{Dynamics Manager Model\xspace}
+\renewcommand{\EPHEMERIDES}{DE4xx Solar System Ephemerides\xspace}
+\renewcommand{\GRAVITY}{Gravity Model\xspace}
+\renewcommand{\GRAVITYTORQUE}{Gravity Gradient Torque Model\xspace}
+\renewcommand{\INTEGRATION}{Integration Model\xspace}
+\renewcommand{\MASS}{Mass Body Model\xspace}
+\renewcommand{\MATH}{Mathematical Functions\xspace}
+\renewcommand{\MEMORY}{Memory Allocation Routines\xspace}
+\renewcommand{\MESSAGE}{Message Handling Class\xspace}
+\renewcommand{\NAMEDITEM}{Named Item Routines\xspace}
+\renewcommand{\ORBITALELEMENTS}{Orbital Elements Model\xspace}
+\renewcommand{\ORIENTATION}{Orientation Model\xspace}
+\renewcommand{\PLANET}{Planet Model\xspace}
+\renewcommand{\QUATERNION}{Quaternion\xspace}
+\renewcommand{\REFFRAMES}{Reference Frame Model\xspace}
+\renewcommand{\SIMINTERFACE}{Simulation Engine Interface Model\xspace}
+\renewcommand{\TIME}{Time Model\xspace}
+
+% \tabsubrequirement: Subrequirements as table entries
+\def\tabsubrequirement{%
+   \refstepcounter{subrequirement}%
+   \subrequirementlabel{}}
+
+
+% Extensions to amsthm
+\@ifpackageloaded{amsthm}{
+\newtheoremstyle{algorithm}{}{}%
+     {}%         Body font
+     {}%         Indent amount (empty = no indent, \parindent = para indent)
+     {\bfseries}% Thm head font
+     {}%        Punctuation after thm head
+     {\newline}%     Space after thm head (\newline = linebreak)
+     {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}}%         Thm head spec
+
+\newtheoremstyle{mydef}{}{}{\normalfont}{}{\bfseries}{:}{\newline}{}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\theoremstyle{mydef}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{algorithm}
+\newtheorem{algorithm}{Algorithm}[chapter]
+}{
+}
+
+
+% Reference frames
+
+\newcommand\mkfrm[2]{
+  \expandafter\newcommand\csname #1\endcsname{{#2}}
+  \expandafter\newcommand\csname em#1\endcsname{{\em #2}}
+}
+
+\newcommand\mkrelfrm[2]{
+  \expandafter\newcommand\csname T#1\endcsname{{Tgt. #2}}
+  \expandafter\newcommand\csname emT#1\endcsname{{\em Tgt. #2}}
+}
+
+\mkfrm{Body}{Body}
+\mkfrm{Struct}{Struct}
+\mkfrm{Point}{Point}
+\mkfrm{Inertial}{Inertial}
+\mkfrm{Pfix}{Pfix}
+\mkfrm{Lvlh}{LVLH}
+\mkfrm{Ned}{Ref. NED}
+\mkrelfrm{Body}{Body}
+\mkrelfrm{Lvlh}{LVLH}
+\mkrelfrm{Ned}{NED}
+\mkrelfrm{Struct}{Struct}
+\mkrelfrm{Point}{Point}
+
+
+%
+% Scientific notation
+%
+\newcommand{\epos}[1]{\ensuremath{\!\times\! 10^{#1}}}
+\newcommand{\eneg}[1]{\ensuremath{\!\times\! 10^{-\!#1}}}
+
+
+%
+% Define commands for labeling tests
+%
+\newcommand\green[1]{\color{Green}{#1}}
+\newcommand\red[1]{\color{Red}{#1}}
+\newcommand\passed{\green{Passed}}
+\newcommand\failed{\red{Failed}}
+
+% \tilt: Rotate text (typically for a table header)
+\newcommand{\tilt}[1]{%
+  \makebox[0cm][c]{%
+  \rule{0.75em}{0pt}
+  \rotatebox{90}{\raisebox{\depth}{#1~}}}%
+  \rule{0.75em}{0pt}}
+
+% \axis, \coord, ...: names for axes, coordinates.
+\newcommand\axis[1]{\mbox{$#1$-axis}}
+\newcommand\xaxis{\axis{x}}
+\newcommand\yaxis{\axis{y}}
+\newcommand\zaxis{\axis{z}}
+\newcommand\coord[1]{\mbox{$#1$-coordinate}}
+\newcommand\xcoord{\coord{x}} 
+\newcommand\ycoord{\coord{y}}
+\newcommand\zcoord{\coord{z}}

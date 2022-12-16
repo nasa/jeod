@@ -1,0 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{sim_interface}[2012/02/05 v2.0 Sim interface module macros]
+
+% Author and revision number of current revision of the document.
+% Update these when changes are made to the document.
+\newcommand\ModelAuthor{David Hammen}
+\newcommand\ModelRevision{2.0}
+
+% \ModelHistory is expanded in the document history section of the introduction.
+% This command comprise a set of lines, each of which must be of the form
+%   Author & Date & Revision & Description \\
+% The final entry must describe the current version.
+% The fields are:
+%   Author       The names of the authors responsible for the document revision.
+%   Date         The month and year of the document revision.
+%   Revision     The document revision number in major.minor format.
+%   Description  A brief description of the revision.
+\newcommand\ModelHistory {
+  David Hammen & February 2012 & 2.0 & Jeod 2.2 release \\
+  Robert Shelton & September 2010 & 1.0 & JEOD 2.1 release \\
+}
+
+
+% Model description macros, used for the cover page and to tag requirements.
+\newcommand\ModelPrefix{SIMINT}
+\newcommand\ModelDesc{Simulation Interface Model\xspace}
+\newcommand\ModelKeywords{Simulation engine, checkpoint/restart}
+
+
+% Short little commands.
+\newcommand{\inanglebrackets}[1] {\textless{}#1\textgreater{}}
+\newcommand{\funder}{\_\hspace{0pt}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+% Don't hyphenate class names.

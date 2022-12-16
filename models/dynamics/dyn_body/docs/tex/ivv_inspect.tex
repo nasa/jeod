@@ -1,0 +1,104 @@
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected, and together satisfy requirement~\ref{reqt:toplevel}.
+
+\inspection{Design Inspection}
+\label{inspect:design}
+Table~\ref{tab:design_inspection} summarizes the key elements of the
+implementation of the \ModelDesc that satisfy requirements levied on the model.
+By inspection, the \ModelDesc satisfies
+requirements~\ref{reqt:mass_requirements} to~\ref{reqt:attach_detach}.
+
+\begin{longtable}{||l @{\hspace{4pt}} p{1.38in} |p{3.95in}|}
+\caption{Design Inspection}
+\label{tab:design_inspection} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endfirsthead
+
+\caption[]{Design Inspection (continued from previous page)} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\ref{reqt:mass_requirements} & Mass &
+  The class DynBody utilizes functionality from the MassBody class through 
+  friendship. The friendship is not inheritable, thereby granting DynBody
+  objects full access MassBody functionality while conserving core 
+  behavior for user-derived classes.
+\tabularnewline[4pt]
+\ref{reqt:integ_frame} & Integration Frame &
+  The DynBody class data member \verb+integ_frame+ points to the integration
+  frame for a particular DynBody object. This member is set at initialization
+  time by name. Upon attachment as a child to another DynBody object, the
+  integration frame for the child bodies are set to that of the root body.
+  The integration frame can be changed dynamically via the
+  \verb+switch_integration_frames()+ member function.
+\tabularnewline[4pt]
+\ref{reqt:state_representation} & State Representation &
+  The class BodyRefFrame derives from the RefFrame class.
+  The inheritance is public, thereby granting external users of a DynBody
+  object full access to the public RefFrame functionality of the BodyRefFrame
+  objects contained in a DynBody object.
+  A DynBody object contains three BodyRefFrame objects that represent the
+  structure frame, core body frame, and the composite body frame.
+  In addition to these three basic frames, a DynBody object contains an
+  STL list of BodyRefFrame pointers that represent additional points
+  of interest associated with the DynBody object.
+\tabularnewline[4pt]
+\ref{reqt:staged_initialization} & Staged Initialization &
+  The BodyRefFrame \verb+initialized_items+ data member indicates which
+  elements of a BodyRefFrame object's state have been set.
+  The \ModelDesc methods described in section~\ref{sec:detailed_state_prop}
+  ensure that a BodyRefFrame object's \verb+initialized_items+ properly
+  reflect which of the BodyRefFrame  object's state elements have been set.
+\tabularnewline[4pt]
+\ref{reqt:eom} & Equations of Motion &
+  This requirement has four sub-requirements that specify the treatment of
+  forces, torques, translational acceleration, and rotational acceleration.
+  Sections~\ref{sec:detailed_force_torque} to~\ref{sec:detailed_eom}
+  describe the treatment of forces and torques in the \ModelDesc and
+  how these lead to the development of the equations of motion.
+\tabularnewline[4pt]
+\ref{reqt:state_integ_prop} &
+  \raggedright State Integration \\ and Propagation &
+  As described in section~\ref{sec:detailed_state_integ}, the DynBody
+  class provides the ability to integrate the composite body frame associated
+  with the root body of a composite body or of an isolated (unconnected) body.
+  The integrated state is propagated throughout a DynBody tree as described
+  in section~\ref{sec:detailed_state_prop}.
+\tabularnewline[4pt]
+\ref{reqt:vehicle_points} & Vehicle Points &
+  The DynBody class overrides the MassBody \verb+add_mass_point()+ method.
+  This override creates a BodyRefFrame that corresponds to the MassPoint,
+  thereby making these registered points of interest have a corresponding
+  state. State is propagated to all reference frames associated with a DynBody
+  object, including these vehicle points. The DynBody method
+  \verb+compute_vehicle_point_derivatives()+ computes accelerations
+   for a specific vehicle point as required.
+\tabularnewline[4pt]
+\ref{reqt:attach_detach} & Attach/Detach &
+  As described in section ~\ref{sec:detailed_attach_detach}, the DynBody
+  class overrides MassBody attach/detach member functions to provide the
+  the required capability to attach and detach DynBody objects and to do
+  so in a manner consistent with the laws of physics.
+\tabularnewline[4pt]
+\end{longtable}
+
+\inspection{Mathematical Formulation}
+\label{inspect:math}
+The algorithmic implementations of the methods that provide the functionality of
+the \ModelDesc follow the mathematics described in
+section~\ref{sec:mathematics}.
+
+By inspection, the \ModelDesc satisfies
+requirements~\ref{reqt:eom}, \ref{reqt:vehicle_points}
+and~\ref{reqt:state_integ_prop}.

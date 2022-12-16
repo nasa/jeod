@@ -1,0 +1,223 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//=============================================================================
+// This simulation provides a reference implementation that can be used for
+// comparison to other orbital dynamics implementations.  It is intended to
+// provide a reference set for dynamics comparison.
+//
+// This simulation models a single vehicle in orbit around the Earth.  There
+// are many adjustable configuration parameters that can be used to test out
+// a suite of test cases with specific behavior.  These test cases form the
+// basis for simulation to simulation comparison.
+//
+//          sys - Trick runtime executive and data recording routines
+//     dynamics - Orbital dynamics
+//         time - Universal time
+//          env - Environment: ephemeris, gravity
+//          sun - Sun planetary model
+//        earth - Earth planetary model
+//         moon - Moon planetary model
+//       vehicle - Space vehicle dynamics model
+//
+//=============================================================================
+
+
+// Define job calling intervals
+#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
+#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
+
+ // Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+#define TIME_CALENDAR_UPDATE_INTERVAL DYNAMICS
+#include "time_TAI_UTC_UT1_TT_GMST.sm"
+
+#include "dynamics.sm"
+#include "environment.sm"
+#include "earth_GGM05C_MET_RNP.sm"
+#include "sun_basic.sm"
+
+
+/*****************************************************************************
+Moon is a copy of the default Moon-with-LP150Q gravity field sim object, but
+this also has a derivative class job to update the lunar orientation.
+*****************************************************************************/
+#include "Base/moon_LP150Q.sm"
+class MoonSimObject : public Moon_LP150Q_SimObject
+{
+ protected:
+  jeod::De4xxEphemeris & de4xx;
+ public:
+  MoonSimObject( jeod::DynManager     & dyn_manager_,
+                 jeod::GravityManager   & grav_manager_,
+                 jeod::De4xxEphemeris & de4xx_)
+    :
+    Moon_LP150Q_SimObject( dyn_manager_, grav_manager_),
+    de4xx( de4xx_)
+  {
+    P_ENV ("derivative") de4xx.propagate_lunar_rnp ( );
+  }
+ private:
+  // Unimplemented copy constructor and assignment operator
+  MoonSimObject (const MoonSimObject&);
+  MoonSimObject & operator = (const MoonSimObject&);
+};
+MoonSimObject moon (dynamics.dyn_manager, env.gravity_manager, env.de4xx);
+
+//***************************************************************
+// CLASS: (VehicleSimObject)
+// PURPOSE:
+//  ( This sim object models a vehicle in space.)
+//***************************************************************
+
+// Include headers for classes that this class contains:
+##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
+##include "dynamics/derived_state/include/euler_derived_state.hh"
+##include "dynamics/derived_state/include/lvlh_derived_state.hh"
+##include "dynamics/derived_state/include/euler_derived_state.hh"
+##include "dynamics/derived_state/include/orb_elem_derived_state.hh"
+##include "interactions/aerodynamics/include/aero_drag.hh"
+##include "interactions/radiation_pressure/include/radiation_pressure.hh"
+##include "interactions/radiation_pressure/include/radiation_default_surface.hh"
+##include "interactions/radiation_pressure/include/radiation_third_body.hh"
+
+// Include default data classes:
+##include "interactions/aerodynamics/data/include/aero_model.hh"
+
+#include "Base/vehicle_atmosphere.sm"
+class VehicleSimObject: public VehicleAtmSimObject
+{
+ protected:
+  const jeod::TimeDyn & dyn_time;
+ public:
+  jeod::DynBodyInitLvlhRotState lvlh_init;
+  jeod::EulerDerivedState     euler;
+  jeod::LvlhDerivedState      lvlh;
+  jeod::EulerDerivedState     lvlh_euler;
+  jeod::OrbElemDerivedState   orb_elem;
+  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
+  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
+  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
+  jeod::AerodynamicDrag  aero_drag;
+  jeod::RadiationPressure        rad_pressure;
+  jeod::RadiationDefaultSurface  rad_surface;
+
+// Instances for default data:
+    jeod::AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+
+//Constructor
+    VehicleSimObject( jeod::DynManager     & dyn_mngr_,
+                     jeod::METAtmosphere  & atmos_,
+                     jeod::WindVelocity   & wind_,
+                     const jeod::TimeDyn  & dyn_time_)
+        :
+        VehicleAtmSimObject( dyn_mngr_, atmos_, wind_),
+        dyn_time( dyn_time_)
+   {
+   //
+   //Default data jobs
+   //
+      ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+
+   //
+   // Initialization jobs
+   //
+      P_DYN  ("initialization") euler.initialize( dyn_body,
+                                                  dyn_manager );
+      P_DYN  ("initialization") lvlh.initialize( dyn_body,
+                                                 dyn_manager );
+      P_DYN  ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
+                                                       dyn_body,
+                                                       dyn_manager );
+      P_DYN  ("initialization") orb_elem.initialize( dyn_body,
+                                                     dyn_manager );
+      ("initialization") euler.update( );
+      ("initialization") pfix.update( );
+      ("initialization") lvlh.update( );
+      ("initialization") lvlh_euler.update( );
+      ("initialization") orb_elem.update( );
+      ("initialization") rad_pressure.initialize( dyn_manager,
+                                                  &rad_surface);
+   //
+   // Environment class jobs
+   //
+      (DYNAMICS, "environment") euler.update( );
+      (DYNAMICS, "environment") pfix.update( );
+      (DYNAMICS, "environment") lvlh.update( );
+      (DYNAMICS, "environment") lvlh_euler.update( );
+      (DYNAMICS, "environment") orb_elem.update( );
+      (DYNAMICS, "environment") rad_pressure.update(
+          dyn_body.structure,
+          dyn_body.mass.composite_properties.position,
+          dyn_time.scale_factor,
+          dyn_time.seconds);
+   //
+   // Derivative class jobs
+   //
+      P_BODY   ("derivative") aero_drag.aero_drag(
+          dyn_body.composite_body.state.trans.velocity,
+          &atmos_state,
+          dyn_body.structure.state.rot.T_parent_this,
+          dyn_body.mass.composite_properties.mass,
+          dyn_body.mass.composite_properties.position);
+    }
+
+  private:
+    VehicleSimObject (const VehicleSimObject&);
+    VehicleSimObject & operator = (const VehicleSimObject&);
+
+};
+VehicleSimObject vehicle ( dynamics.dyn_manager,
+                         earth.atmos,
+                         earth.wind_velocity,
+                         jeod_time.time_manager.dyn_time);
+
+
+vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   vehicle.aero_drag.aero_force,
+   vehicle.rad_pressure.force
+
+};
+
+
+
+
+IntegLoop sim_integ_loop  (DYNAMICS) earth, moon, vehicle, dynamics;

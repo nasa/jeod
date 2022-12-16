@@ -1,0 +1,49 @@
+/******************************************************************************
+
+Purpose:
+ (JPL Development Ephemeris converted to C++ source)
+
+******************************************************************************/
+
+// System includes
+
+// JEOD includes
+#include "environment/ephemerides/de4xx_ephem/include/de4xx_file.hh"
+
+jeod::EphemerisDataSetMeta metaData = {
+    .number_file_items = %d,
+    .start_epoch = %s,
+    .stop_epoch  = %s,
+    .delta_epoch = %s,
+    .number_segments = %d,
+    .ncoeff = %d,
+    .de_constants = {
+        %s
+    }
+};
+
+
+jeod::EphemerisDataItemMeta itemData[%d] = {
+    {
+       .offset = %d,
+       .nterms = %d,
+       .npoly  = %d
+    }
+};
+
+jeod::EphemerisDataSegmentMeta segmentData[%d] = {
+    {
+        .num_recs = %d,
+        .start_epoch = %s,
+        .stop_epoch = %s
+    }
+};
+
+// Coefficients table
+
+
+// From %s
+// segment_coeffs_<segment_index>[num_recs][recsize]
+double segment_coeffs_%d[%d][%d] = {
+    { %s }
+};

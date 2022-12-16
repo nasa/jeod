@@ -1,0 +1,188 @@
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+
+\section{Conceptual Design}
+
+\subsection{Basic Concepts}
+The JEOD Quaternion class represents quaternions as
+comprising a real scalar and an imaginary vectorial part,
+thereby  satisfying requirements~\ref{reqt:encapsulation}
+and~\ref{reqt:data}.
+The Quaternion class defines methods needed to satisfy
+requirements~\ref{reqt:orient} and~\ref{reqt:conversion}.
+% Note that the Quaternion class does  
+% not provide the full set of quaternionic mathematical operations on  
+% quaternions described in Appendix~\ref{sec:app_math}.
+
+\subsection{Trades}
+\subsubsection{Data Representation}
+Quaternions can be represented by a variety of data representation  
+schemes. These include:
+\begin{itemize}
+\item A scalar real part and imaginary vectorial part. This approach  
+explicitly acknowledges that quaternions are an extension of the  
+complex numbers.
+\item Four separate scalars, typically labeled w, x, y, and z. This  
+approach has the advantage of simplicity. The key problem with this  
+approach is that the real and imaginary parts are not well-
+distinguished.
+\item A four vector. This approach has the advantage of encapsulating the  
+data in a single item that can easily be shared with other  
+simulations, including those that do not use the JEOD Quaternion  
+class. The  key problem with this approach is that it is not clear
+which element denotes the real part of a quaternion. Some place the  
+real part as the first (zeroth) element of the four vector while  
+others place it as the last element.
+\item A unit vector and an angle. This approach has the advantage of ease  
+of visualization. The key problem with this approach is one must  
+invoke trigonometric functions to compute the product of two  
+quaternions.
+\end{itemize}
+
+The JEOD Quaternion class represents quaternions as comprising a  
+scalar real part and imaginary vectorial part. As noted above, this approach
+explicitly acknowledges that quaternions are an extension of the  
+complex numbers.
+
+\subsubsection{Use of Quaternions to Represent Orientation}
+There are two coin-toss types of decisions to be made in using  
+quaternions to represent orientation in three-space:
+\begin{itemize}
+\item Rotation versus transformation. Rotation is the conjugate of  
+transformation. JEOD uses quaternions to represent transformations  
+rather than rotations.
+\item Left versus right quaternions.  Any quaternion can be used to  
+represent a rotation or transformation of a three vector via either  
+$\bmatrix 0 \\ x'\endbmatrix = Q \bmatrix 0 \\ x\endbmatrix Q^{\ast}$ or
+$\bmatrix 0 \\ x'\endbmatrix = Q^{\ast} \bmatrix 0 \\ x\endbmatrix Q$ .
+The only difference between these two forms is whether the quaternion appears
+in an unconjugated form to the left or right of the vector to be rotated /  
+transformed. Both forms are mathematically correct.
+\end{itemize}
+
+In addition to the above concerns is the issue of using quaternions in  
+general versus unit quaternions to represent transformations. Taking  
+the conjugate of a quaternion in general requires negating the  
+quaternion's imaginary part and scaling by the inverse of the  
+quaternion's magnitude. Because the magnitude of a unit quaternion is  
+one by definition, the conjugate of a unit quaternion is  
+easily constructed by negating the imaginary part of the quaternion.  
+Converting a unit quaternion to the equivalent transformation matrix  
+is also much simpler if the quaternion is a unit quaternion.
+
+The JEOD Quaternion class uses left unit transformation quaternions.
+
+\subsection{Functionality}
+The minimal functionality needed to encapsulate quaternions as an  
+object is the ability to construct a quaternion. The JEOD Quaternion  
+class provides a default constructor that initializes a quaternion to  
+all zeros. The class also provides convenience constructors whose functionality
+could be achieved by using the default constructor in combination with  
+one of the conversion methods.
+
+The functionality needed to enable use of quaternions to represent the  
+orientation of objects and reference frames in three-space includes:
+\begin{itemize}
+\item Normalization,
+\item Multiplying by a real scalar,
+\item Multiplying by a vector (interpreted as a pure imaginary quaternion), and
+\item Multiplying by another quaternion, in various forms.
+\end{itemize}
+
+The JEOD Quaternion class provides methods to convert to/from:
+\begin{itemize}
+\item Transformation matrices;
+\item Eigen rotations; and
+\item Four vector representation of quaternions, with the scalar part  
+being the zeroth element of the four vector.
+\end{itemize}
+Future versions of the Quaternion package may provide additional  
+conversion capabilities.
+
+
+\section{Mathematical Formulation}
+This section summarizes key equations used in the implementation
+of the \ModelDesc. See appendix~\ref{sec:app_math}
+for a detailed description of the quaternions of the mathematical
+formulation of the quaternions.
+
+\subsection{Quaternion Representation}
+The \ModelDesc represents quaternions as comprising a real scalar
+and an imaginary vectorial part:
+\begin{equation}
+\quat Q = \quatsv {q_s} {\vect {q_v}}
+\end{equation}
+See section~\ref{sec:app_rep} for details.
+
+\subsection{Quaternion Multiplication}
+The product of two quaternions $\quat{Q}_1$ and $\quat{Q}_2$,
+\begin{align*}
+\quat{Q}_1 &= \quatsv {q_{1_s}} {\vect {q_{1_v}}} \\
+\quat{Q}_2 &= \quatsv {q_{1_2}} {\vect {q_{1_2}}}
+\end{align*}
+is
+\begin{equation}
+\QxQ{\quat{Q}_1}{\quat{Q}_2} = 
+  \quatsv
+    {q_{1_s} q_{2_s} - \vect{q_{1_v}} \!\cdot \vect{q_{2_v}}}
+    {q_{1_s} \vect{q_{2_v}} +
+     q_{2_s} \vect{q_{1_v}} +
+     \vect{q_{1_v}} \!\times \vect{q_{2_v}}}
+  \label{eqn:mform:quat_prod_short}
+\end{equation}
+See section~\ref{sec:app_arith} for details.
+
+\subsection{Quaternion Norm}
+The norm, or magnitude of a quaternion $\quat Q$,
+\begin{equation*}
+\quat Q = \quatsv {q_s} {\vect {q_v}}
+\end{equation*}
+is given by
+\begin{equation}
+\label{eqn:mform:qnormsq}
+||\quat Q||^2 = {q_s}^2 + {q_v}^2
+\end{equation}
+See section~\ref{sec:app_arith} for details.
+
+\subsection{Quaternion Normalization}
+The normalized quaternion based on a quaternion $\quat Q$,
+\begin{equation*}
+\quat Q = \quatsv {q_s} {\vect {q_v}}
+\end{equation*}
+is formed by scaling the quaternion by the inverse of the quaternion's norm:
+\begin{equation}
+\label{eqn:mform:qnorminv_exact}
+\quat Q_{\text{normalized}} = \frac{1}{||\quat Q||} \quat Q
+\end{equation}
+
+Suppose the norm of the quaternion in question is close to one:
+$||\quat Q||^2 = 1+\epsilon$, where $|\epsilon| \lll 1$.
+The approximation
+\begin{equation}
+\label{eqn:mform:qnorminv_approx}
+\frac{1}{||\quat Q||} \approx \frac 2 {1+||\quat Q||^2}
+\end{equation}
+is computationally much less expensive than the square root function
+but is just as accurate as is the square root formulation for small $\epsilon$.
+
+JEOD uses equation~\ref{eqn:mform:qnorminv_approx} in lieu of
+equation~\ref{eqn:mform:qnorminv_exact}
+when $|\epsilon|<2.107342*\times 10^{-8}$.
+
+\subsection{Quaternion Derivative}
+The time derivative of left transformation quaternion from frame A to frame B,
+$\tquat {\:A} B$,
+is
+\begin{equation}
+\tquatdot {\:A} B =
+  \QxQ{\quatsv 0{-\frac{1}{2} {\framerelvect B \omega A B}}}{\tquat {\:A} B}
+  \label{eqn:mform:quat_qdot}
+\end{equation}
+See section~\ref{sec:app_time_deriv} for details.
+
+
+\section{Detailed Design}
+
+The Quaternion model is located in the JEOD models directory
+utils/quaternions.
+One class, the Quaternion class, implements the Quaternion model.
+The Quaternion model API is described in \cite{quat:api}.

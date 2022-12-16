@@ -1,0 +1,206 @@
+
+\clearpage
+\subsubsection{Flow charts of the \RadiationPressureDesc\ architecture}
+\begin{figure}[!ht]
+  \ \newline \ \newline
+  \includegraphics[width = 6 in]{figs/flowchart/flow_top_level.png}
+  \includegraphics[width = 6 in]{figs/flowchart/flow_update.png}
+  \caption{Flowcharts for Radiation Pressure Model }
+  \label{fig:flow_update}
+\end{figure}
+
+Links: \newline
+\textref{RadiationSource::calculate\_flux}{fig:flow_calculate_flux} \newline
+\textref{RadiationPressure::third\_body\_adjustments}{fig:flow_third_body_adjustments} \newline\textref{RadiationPressure::update\_default\_surface}{fig:flow_update_default_surface} \newline
+\textref{RadiationPressure::update\_facet\_surface}{fig:flow_update_facet_surface}
+\clearpage
+
+\begin{figure}[!ht]
+  \ \newline \ \newline
+  \includegraphics[width = 6 in]{figs/flowchart/flow_third_body_adjustments.png}
+  \caption{Flowcharts for Radiation Pressure Model (continued) }
+  \label{fig:flow_third_body_adjustments}
+\end{figure}
+
+Links: \newline
+\textref{RadiationPressure::update}{fig:flow_update}\newline
+\textref{RadiationThirdBody::process\_third\_body}{fig:flow_process_third_body} \newline
+\clearpage
+
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_update_default_surface.png}
+  \caption{Flowcharts for class RadiationPressure (continued)}
+  \label{fig:flow_update_default_surface}
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update}{fig:flow_update}\newline
+\textref{RadiationDefaultSurface::incident\_radiation}{fig:flow_default_incident_radiation} \newline
+\textref{RadiationDefaultSurface::interact\_with\_third\_body}{fig:flow_default_interact_with_third_body} \newline
+\textref{ThermalFacetRider::integrate}{fig:flow_facet_thermal_integrate}\newline
+\clearpage
+
+
+
+\begin{figure}[!ht]
+  \includegraphics[width = 5 in]{figs/flowchart/flow_update_facet_surface.png}
+  \caption{Flowcharts for class RadiationPressure (continued)}
+  \label{fig:flow_update_facet_surface}
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update}{fig:flow_update}\newline
+\textref{RadiationSurface::incident\_radiation}{fig:flow_incident_radiation}\newline
+\textref{RadiationSurface::interact\_with\_third\_body}{fig:flow_interact_with_third_body} \newline
+\textref{ThermalModelRider::update}{fig:flow_thermal_update}\newline
+\textref{RadiationSurface::radiation\_pressure}{fig:flow_radiation_pressure}
+\clearpage
+
+
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_calculate_flux.png}
+  \caption{Flowchart for class RadiationSource }
+  \label{fig:flow_calculate_flux}
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update}{fig:flow_update}\newline
+\clearpage
+
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_incident_radiation.png}
+  \label{fig:flow_incident_radiation}
+  \includegraphics[width = 6 in]{figs/flowchart/flow_interact_with_third_body.png}
+  \label{fig:flow_interact_with_third_body}
+  \caption{Flowcharts for class RadiationSurface }
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update\_facet\_surface}{fig:flow_update_facet_surface}\newline
+\textref{FlatPlateRadiationFacet::incident\_radiation}{fig:flow_FP_incident_radiation}\newline
+\textref{FlatPlateRadiationFacet::interact\_with\_third\_body}{fig:flow_FP_interact_with_third_body}\newline
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_radiation_pressure.png}
+  \label{fig:flow_radiation_pressure}
+  \caption{Flowcharts for class RadiationSurface (continued) }
+  
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update\_facet\_surface}{fig:flow_update_facet_surface}\newline
+\textref{FlatPlateRadiationFacet::radiation\_pressure}{fig:flow_FP_radiation_pressure}\newline
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_accumulate_thermal_sources.png}
+  \label{fig:flow_accumulate_thermal_sources}
+  
+  \includegraphics[width = 6 in]{figs/flowchart/flow_thermal_integrator.png}
+  \label{fig:flow_thermal_integrator}
+  \caption{Flowcharts for class RadiationSurface (continued) }
+  
+\end{figure}
+Links: \newline
+\textref{ThermalModelRider::update}{fig:flow_update}\newline
+\textref{ThermalFacetRider::accumulate\_thermal\_sources}{fig:flow_facet_accumulate_thermal_sources}\newline
+\textref{ThermalFacetRider::integrate}{fig:flow_facet_thermal_integrate}\newline
+\clearpage
+
+
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_default_incident_radiation.png}
+  \caption{Flowchart for class RadiationDefaultSurface }
+  \label{fig:flow_default_incident_radiation}
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update\_default\_surface}{fig:flow_update_default_surface}
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_default_interact_with_third_body.png}
+  \caption{Flowchart for class RadiationDefaultSurface (continued) }
+  \label{fig:flow_default_interact_with_third_body}
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update\_default\_surface}{fig:flow_update_default_surface}\newline
+\textit{RadiationReflectingThirdBody::accumulate\_refl\_flux}(not implemented) \newline
+\textref{RadiationDefaultSurface::incident\_radiation}{fig:flow_default_incident_radiation}\newline
+\textit{RadiationReflectingThirdBody::accumulate\_rad\_flux}(not implemented) \newline
+\clearpage
+
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_FP_incident_radiation.png}
+  \label{fig:flow_FP_incident_radiation}
+  \includegraphics[width = 6 in]{figs/flowchart/flow_FP_radiation_pressure.png}
+  \label{fig:flow_FP_radiation_pressure}
+  \caption{Flowcharts for class FlatPlateRadiationFacet }
+  
+\end{figure}
+Links: \newline
+\textref{RadiationSurface::incident\_radiation}{fig:flow_incident_radiation}\newline
+\textref{RadiationSurface::radiation\_pressure}{fig:flow_radiation_pressure}\newline
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_FP_interact_with_third_body.png}
+  \label{fig:flow_FP_interact_with_third_body}
+  \caption{Flowcharts for class FlatPlateRadiationFacet (continued)}
+  
+\end{figure}
+Links: \newline
+\textref{RadiationSurface::interact\_with\_third\_body}{fig:flow_interact_with_third_body}\newline
+\textit{RadiationReflectingThirdBody::accumulate\_refl\_flux}(not implemented) \newline
+\textref{FlatPlateRadiationFacet::incident\_radiation}{fig:flow_FP_incident_radiation}\newline
+\textit{RadiationReflectingThirdBody::accumulate\_rad\_flux}(not implemented)
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 5.8 in]{figs/flowchart/flow_calculate_shadow.png}
+  \caption{Flowchart for class RadiationThirdBody }
+  \label{fig:flow_calculate_shadow}
+\end{figure}
+Links: \newline
+\textref{RadiationSource::calculate\_flux}{fig:flow_calculate_flux}\newline
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_process_third_body.png}
+  \label{fig:flow_process_third_body}
+  
+  \includegraphics[width = 6 in]{figs/flowchart/flow_test_for_state_update.png}
+  \label{fig:flow_test_for_state_update}
+  \caption{Flowchart for class RadiationThirdBody (continued)}
+  
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::third\_body\_adjustments}{fig:flow_third_body_adjustments}\newline
+\textref{RadiationThirdBody::test\_for\_state\_update}{fig:flow_test_for_state_update}\newline
+\textref{RadiationThirdBody::calculate\_shadow}{fig:flow_calculate_shadow}\newline
+\textref{RadiationThirdBody::process\_third\_body}{fig:flow_process_third_body}
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 6 in]{figs/flowchart/flow_thermal_update.png}
+  \caption{Flowchart for class ThermalModelRider }
+  \label{fig:flow_thermal_update}
+\end{figure}
+Links: \newline
+\textref{RadiationPressure::update\_facet\_surface}{fig:flow_update_facet_surface}\newline
+\textref{RadiationSurface::accumulate\_thermal\_sources}{fig:flow_accumulate_thermal_sources}\newline
+\textref{RadiationSurface::thermal\_integrator}{fig:flow_thermal_integrator}
+\clearpage
+
+\begin{figure}[!ht]
+  \includegraphics[width = 5.5 in]{figs/flowchart/flow_facet_thermal_integrate.png}
+  \label{fig:flow_facet_thermal_integrate}
+  \includegraphics[width = 5.5 in]{figs/flowchart/flow_facet_accumulate_thermal_sources.png}
+  \label{fig:flow_facet_accumulate_thermal_sources}
+  \caption{Flowcharts for class ThermalFacetRider }
+\end{figure}
+Links: \newline
+\textref{RadiationSurface::thermal\_integrator}{fig:flow_thermal_integrator}\newline
+\textref{RadiationSurface::accumulate\_thermal\_sources}{fig:flow_accumulate_thermal_sources}\newline
+\clearpage
+

@@ -1,0 +1,383 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//=============================================================================
+// This simulation is a demonstration simulation for attaching and detaching
+// MassBody and DynBody objects.  This is performed in the guise of a
+// simulation of the entire Apollo stack.  The following simulation objects
+// are defined in this sim:
+//
+//              sys - Trick runtime executive and data recording routines
+//           attach - Runtime attachment routines.
+//             time - Universal time
+//              env - Environment: ephemeris, gravity
+//              sun - Sun planetary model
+//            earth - Earth planetary model
+//             moon - Moon planetary model
+//           s1_dyn - Saturn V first stage dynamics model
+//           s1_aux - Saturn V first stage auxilary state model
+//           s2_dyn - Saturn V second stage dynamics model
+//           s2_aux - Saturn V second stage auxilary state model
+//           s3_dyn - Saturn V third stage dynamics model
+//           s3_aux - Saturn V third stage auxilary state model
+//          les_dyn - Launch Escape System dynamics model
+//          les_aux - Launch Escape System auxilary state model
+//           cm_dyn - Apollo Command Module dynamics model
+//           cm_aux - Apollo Command Module auxilary state model
+//           sm_dyn - Apollo Service Module dynamics model
+//           sm_aux - Apollo Service Module auxilary state model
+//           lm_dyn - Apollo Lunar Module dynamics model
+//           lm_aux - Apollo Lunar Module auxilary state model
+//         dynamics - Orbital dynamics
+//
+//=============================================================================
+
+
+// Define job calling intervals
+#define LOW_RATE_ENV  60.00 // Low-rate environment update interval
+#define DYNAMICS       0.02 // Vehicle and plantary dynamics interval (50Hz)
+
+ // Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+#include "Base/time_TAI_UTC_UT1_TT_GMST.sm"
+//***************************************************************
+// CLASS: (Jeod_timeSimObject)
+// PURPOSE:
+//  ( This sim object relates simulation time to time on the Earth.)
+//***************************************************************
+##include "environment/time/include/time_met.hh"
+##include "environment/time/include/time_converter_std_ude.hh"
+
+class ApolloTimeSimObject: public JeodTimeSimObject {
+
+ public:
+  jeod::TimeMET time_met;
+  jeod::TimeConverter_STD_UDE  conv_tai_met;
+
+  //Constructor
+  ApolloTimeSimObject() {
+
+    // MET
+    P_TIME  ("initialization") time_manager.register_time_named( time_met, "MET" );
+    P_TIME  ("initialization") time_manager.register_converter(
+                                                               conv_tai_met,
+                                                               "TAI",
+                                                               "MET");
+
+    P_TIME ("initialization") time_utc.calendar_update (exec_get_sim_time());
+    P_TIME ("initialization") time_ut1.calendar_update (exec_get_sim_time());
+
+    (DYNAMICS, "environment") time_utc.calendar_update ( exec_get_sim_time());
+    (DYNAMICS, "environment") time_ut1.calendar_update ( exec_get_sim_time());
+  }
+
+ private:
+  ApolloTimeSimObject (const ApolloTimeSimObject&);
+  ApolloTimeSimObject & operator = (const ApolloTimeSimObject&);
+
+};
+ApolloTimeSimObject jeod_time ;
+
+#include "dynamics.sm"
+#include "environment.sm"
+#include "sun_basic.sm"
+#include "earth_GGM05C_MET_RNP.sm"
+#include "moon_lp150Q.sm"
+
+//***************************************************************
+// CLASS: (SV_DYN_Object)
+// PURPOSE:
+//  ( This section defines the sim_objects for the Saturn V stages.)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
+##include "dynamics/dyn_body/include/force.hh"
+##include "dynamics/dyn_body/include/torque.hh"
+##include "interactions/aerodynamics/include/aero_drag.hh"
+
+##include "dynamics/derived_state/include/euler_derived_state.hh"
+##include "dynamics/derived_state/include/lvlh_derived_state.hh"
+##include "dynamics/derived_state/include/euler_derived_state.hh"
+##include "dynamics/derived_state/include/orb_elem_derived_state.hh"
+
+##include "dynamics/body_action/include/body_attach_aligned.hh"
+
+// Include default data classes:
+##include "interactions/aerodynamics/data/include/aero_model.hh"
+
+#include "Base/vehicle_atmosphere.sm"
+class SVDynObject: public VehicleAtmSimObject
+{
+ public:
+  jeod::DynBodyInitLvlhRotState lvlh_init;
+  jeod::Force  force_extern;
+  jeod::Torque torque_extern;
+  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
+  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
+  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
+  jeod::AerodynamicDrag   aero_drag;
+
+  jeod::EulerDerivedState   euler;
+  jeod::LvlhDerivedState    lvlh;
+  jeod::EulerDerivedState   lvlh_euler;
+  jeod::OrbElemDerivedState orb_elem;
+
+  jeod::BodyAttachAligned  mass_attach;
+  // Instances for default data:
+  jeod::AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+
+  //Constructor
+  SVDynObject(jeod::DynManager    &dyn_mngr,
+              jeod::METAtmosphere &atmos,
+              jeod::WindVelocity  &wind)
+    :
+    VehicleAtmSimObject( dyn_mngr, atmos, wind)
+  {
+    //
+    //Default data jobs
+    //
+    ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+
+
+    //
+    // initialization jobs
+    //
+    P_DYN ("initialization") euler.initialize( dyn_body, dyn_manager );
+
+    P_DYN ("initialization") lvlh.initialize( dyn_body, dyn_manager );
+
+    P_DYN ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
+                                                    dyn_body,
+                                                    dyn_manager );
+
+    P_DYN ("initialization") orb_elem.initialize( dyn_body, dyn_manager);
+
+    ("initialization") euler.update( );
+
+    ("initialization") lvlh.update( );
+
+    ("initialization") lvlh_euler.update( );
+
+    ("initialization") orb_elem.update( );
+
+     //
+     // Environment class jobs
+     //
+     (DYNAMICS, "environment") euler.update( );
+
+     (DYNAMICS, "environment") lvlh.update( );
+
+     (DYNAMICS, "environment") lvlh_euler.update( );
+
+     (DYNAMICS, "environment") orb_elem.update( );
+
+    //
+    // Derivative class jobs
+    //
+    P_BODY ("derivative") aero_drag.aero_drag(
+                            dyn_body.composite_body.state.trans.velocity,
+                            &atmos_state,
+                            dyn_body.structure.state.rot.T_parent_this,
+                            dyn_body.mass.composite_properties.mass,
+                            dyn_body.mass.composite_properties.position );
+  }
+
+ private:
+  SVDynObject (const SVDynObject&);
+  SVDynObject & operator = (const SVDynObject&);
+};
+SVDynObject s1_dyn(dynamics.dyn_manager,
+                   earth.atmos,
+                   earth.wind_velocity);
+SVDynObject s2_dyn(dynamics.dyn_manager,
+                   earth.atmos,
+                   earth.wind_velocity);
+SVDynObject s3_dyn(dynamics.dyn_manager,
+                   earth.atmos,
+                   earth.wind_velocity);
+SVDynObject les_dyn(dynamics.dyn_manager,
+                   earth.atmos,
+                   earth.wind_velocity);
+SVDynObject cm_dyn(dynamics.dyn_manager,
+                   earth.atmos,
+                   earth.wind_velocity);
+SVDynObject sm_dyn(dynamics.dyn_manager,
+                   earth.atmos,
+                   earth.wind_velocity);
+SVDynObject lm_dyn(dynamics.dyn_manager,
+                   earth.atmos,
+                   earth.wind_velocity);
+
+
+
+
+//=============================================================================
+// CLASS: SVMassBody
+// PURPOSE: (This defines a simple mass body.)
+//
+//=============================================================================
+##include "dynamics/mass/include/mass.hh"
+##include "dynamics/body_action/include/mass_body_init.hh"
+
+class SVMassBody: public Trick::SimObject {
+  public:
+   // Declare the Descent Module mass body.
+   jeod::MassBody body;
+
+   // Vehicle mass initialization parameters.
+   jeod::MassBodyInit mass_init;
+   jeod::BodyAttachAligned  mass_attach;
+
+   SVMassBody(){
+      // empty constructor
+   }
+
+  private:
+   SVMassBody (const SVMassBody&);
+   SVMassBody & operator = (const SVMassBody&);
+};
+SVMassBody dm_mass;
+
+
+
+
+vcollect s1_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   s1_dyn.force_extern
+};
+vcollect s1_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   s1_dyn.aero_drag.aero_force
+};
+vcollect s1_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   s1_dyn.torque_extern
+};
+vcollect s1_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   s1_dyn.aero_drag.aero_torque
+};
+
+vcollect s2_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   s2_dyn.force_extern
+};
+vcollect s2_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   s2_dyn.aero_drag.aero_force
+};
+vcollect s2_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   s2_dyn.torque_extern
+};
+vcollect s2_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   s2_dyn.aero_drag.aero_torque
+};
+
+vcollect s3_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   s3_dyn.force_extern
+};
+vcollect s3_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   s3_dyn.aero_drag.aero_force
+};
+vcollect s3_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   s3_dyn.torque_extern
+};
+vcollect s3_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   s3_dyn.aero_drag.aero_torque
+};
+
+vcollect les_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   les_dyn.force_extern
+};
+vcollect les_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   les_dyn.aero_drag.aero_force
+};
+vcollect les_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   les_dyn.torque_extern
+};
+vcollect les_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   les_dyn.aero_drag.aero_torque
+};
+
+vcollect cm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   cm_dyn.force_extern
+};
+vcollect cm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   cm_dyn.aero_drag.aero_force
+};
+vcollect cm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   cm_dyn.torque_extern
+};
+vcollect cm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   cm_dyn.aero_drag.aero_torque
+};
+
+vcollect sm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   sm_dyn.force_extern
+};
+vcollect sm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   sm_dyn.aero_drag.aero_force
+};
+vcollect sm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   sm_dyn.torque_extern
+};
+vcollect sm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   sm_dyn.aero_drag.aero_torque
+};
+
+vcollect lm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   lm_dyn.force_extern
+};
+vcollect lm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   lm_dyn.aero_drag.aero_force
+};
+vcollect lm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   lm_dyn.torque_extern
+};
+vcollect lm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   lm_dyn.aero_drag.aero_torque
+};
+
+IntegLoop sim_integ_loop  (DYNAMICS) earth,
+                                     s1_dyn,
+                                     s2_dyn,
+                                     s3_dyn,
+                                     les_dyn,
+                                     cm_dyn,
+                                     sm_dyn,
+                                     lm_dyn,
+                                     dynamics;

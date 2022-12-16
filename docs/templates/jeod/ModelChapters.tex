@@ -1,0 +1,156 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+
+\section{Purpose and Objectives of \ModelNameDesc}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this 
+%%% document exists and what it hopes to accomplish.
+
+\section{Context within JEOD}
+%%% Identify the Document/Model context within JEOD.
+%%% Include a diagram of where the document is located in the 
+%%% directory structure.
+%%% Mention any model specific related documents and
+%%% that JEOD.pdf is the parent document.
+
+\section{Documentation History}
+%%% Status of this and only this document.  Any date should be relevant to when 
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heretage in this section.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+
+\section{Documentation Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE} 
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] - 
+This introduction contains four sections; objective and purpose, contex within JEOD, status, and organization.  
+The section titled objective and purpose provides the true introduction to the \ModelNameDesc\ and its reason 
+for existance.  The next section identifies the context within JEOD of this document and the \ModelNameDesc.  
+This is achieved with a directory diagram, a brief description of the interconnections with other models, and 
+references to any supporting documents.  This is followed by the status of the document which includes
+author, date, and reason for each revision.  Finally, there is a description of the how the document is organized.
+
+\item[Chapter 2: Product Requirements] - 
+Describes requirements for the \ModelNameDesc.
+
+\item[Chapter 3: Product Specification] - 
+Describes the underlying theory, architecture, and design of the \ModelNameDesc\ in detail.  It will be organized in 
+three sections; Conceptual Design, Mathematical Formulations, and Detailed Design.
+
+\item[Chapter 4: User Guide] - 
+Describes how to use the \ModelNameDesc\ in a Trick simulation.  It is broken into three sections to represent the JEOD 
+defined user types; Analysts or users of simulations (Analysis), Integrators or developers of simulations (Integration), 
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -  
+Contains \ModelNameDesc\ verification and validation procedures and results.
+
+\end{description}
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+This model shall meet the JEOD project requirements specified in the 
+\hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{JEOD} top-level document.
+
+%%% Format for the model Requirements is open.  It should include requirements for this model 
+%%% only and use requirment tags like the one below.
+%\requirement{...}
+%\label{reqt:...}
+%\begin{description}
+%  \item[...]\ \newline
+%    The documentation for the model shall include
+%
+%    \subrequirement{}
+%    \label{reqt:...}
+%      Software requirements specification.
+%      
+%    ...
+%   
+%  \item[title]\ \newline
+%    text
+%
+%  ...
+%
+%\end{description}
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+
+\section{Mathematical Formulations}
+
+\section{Detailed Design}
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+The Analysis section of the user guide is intended primarily for users of pre-existing simulations.  
+It contains: 
+\begin{itemize}
+\item a description of how to modify \ModelNameDesc\ variables after the simulation 
+has compiled, including an in-depth discussion of the input file,
+\item an overview of how to interpret (but not edit) the S\_define file,
+\item a sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section of the user guide is intended for simulation developers.  
+It describes the necessary configuration of the \ModelNameDesc\ within an 
+S\_define file, and the creation of standard run directories.  The latter 
+component assumes a thorough understanding of the preceding Analysis section of the user guide.
+Where applicable, the user may be directed to selected portions of Product Specification (Chapter \ref{ch:spec}).
+
+The Extension section of the user guide is intended primarily for developers 
+needing to extend the capability of the \ModelNameDesc\.  Such users should have a 
+thorough understanding of how the model is used in the preceding 
+Integration section, and of the model 
+specification (described in Chapter \ref{ch:spec}).
+
+\section{Analysis}
+
+
+\section{Integration}
+
+
+\section{Extension}
+
+
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy  
+% requirement \ref{reqt:<label>}.
+
+\section{Validation}
+%%% code imported from old template structure
+%\test{<Title>}\label{test:<label>}
+%\begin{description}
+%\item[Purpose:] \ \newline
+%<description>
+%\item[Requirements:] \ \newline
+%By passing this test, the universal time module 
+%partially satisfies requirement~\ref{reqt:<label1>} and 
+%completely satisfies requirement~\ref{reqt:<label2>}.
+%\item[Procedure:]\ \newline
+%<procedure>
+%\item[Results:]\ \newline
+%<results>
+%\end{description}

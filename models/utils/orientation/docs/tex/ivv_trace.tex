@@ -1,0 +1,38 @@
+Table~\ref{tab:reqt_ivv_xref} summarizes the inspections and tests
+that demonstrate the satisfaction of the requirements levied on the model.
+
+\begin{table}[htp]
+\centering
+\caption{Requirements Traceability}
+\label{tab:reqt_ivv_xref}
+\vspace{1ex}
+\centering
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|} \hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Inspection or test} \\ \hline\hline
+\ref{reqt:toplevel} & Project Requirements &
+     Insp. & \ref{inspect:TLI}     & Top-level Inspection
+\tabularnewline[4pt]
+\ref{reqt:representations} & Supported Representations &
+     Insp. & \ref{inspect:representations} & Representations \\
+  && Test  & \ref{test:eigen}     & Eigen Rotation Test \\
+  && Test  & \ref{test:euler}     & Euler Angles Test \\
+  && Test  & \ref{test:instance}  & Instance Test
+\tabularnewline[4pt]
+\ref{reqt:data_access} & Data Access &
+     Insp. & \ref{inspect:representations} & Representations \\
+  && Test  & \ref{test:instance}  & Instance Test
+\tabularnewline[4pt]
+\ref{reqt:euler_angles} & Euler Angles &
+     Insp. & \ref{inspect:euler}  & Design Inspection \\ 
+  && Test  & \ref{test:euler}     & Euler Angles Test \\
+  && Test  & \ref{test:instance}  & Instance Test
+\tabularnewline[4pt]
+\ref{reqt:conversions} & Conversions &
+     Insp. & \ref{inspect:math}   & Mathematical Formulation \\
+  && Test  & \ref{test:eigen}     & Eigen Rotation Test \\
+  && Test  & \ref{test:euler}     & Euler Angles Test
+\tabularnewline[4pt]
+\hline
+\end{tabular}
+\end{table}

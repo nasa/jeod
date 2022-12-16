@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[2009/01/01]% LaTeX date must be January 2009 or later
+
+% Package definition.
+% Change mass to package name. Change date and version to reflect updates.
+%  (this may be done in compy_templates)
+\ProvidesPackage{integration}[2012/01/31 v2.0 integration module macros]
+
+
+\newcommand\ModelAuthor{David Hammen, Gary Turner}
+\newcommand\ModelRevision{3.0}
+\newcommand\ModelPrefix{Integration}
+\newcommand\ModelDesc{Integration Model\xspace}
+\newcommand\ModelKeywords{\ModelDesc}
+\newcommand\ModelHistory{
+David Hammen & September, 2014 & 3.0 & Updated for ER7 Utilities and JEOD 3.x \\ \hline
+Gary Turner  & February, 2012 & 2.0 & Re-factor of Integration model for JEOD 
+2.2;\\
+ & & & Added Gauss-Jackson method. \\ \hline
+David Hammen & September, 2010 & 1.1 & Added cyclomatic complexity \\ \hline
+David Hammen & February, 2010 & 1.0 & Initial Version \\ \hline
+}
+
+\newcommand\tilt[1]{\rotatebox{90}{\mbox{#1}}}
+\usepackage{footmisc}
+
+\newcommand\erseven{ER7 Utilities\xspace}
+
+\setcounter{secnumdepth}{4}
+%\renewcommand\thesection{\thechapter.\arabic{section}}
+%\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+%\renewcommand\thesubsubsection{\thesubsection.\alph{subsubsection}}
+%\renewcommand\theparagraph{\thesubsubsection.\arabic\c@paragraph}
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+   {-3.25ex\@plus -1ex \@minus -.2ex}%
+   {1.5ex \@plus .2ex}%
+   {\normalfont\normalsize\bfseries}}
+
+\usepackage{varioref}
+%\renewcommand\reftextcurrent{on this page}
+\newcommand \reftext[2]{\textit {#1} (\vpageref*{#2})}
+\newcommand \textref[2]{\textit {#1} (\vpageref*{#2})}
+
+\DeclareMathOperator{\expmap}{expmap}
+\DeclareMathOperator{\posdot}{{\mathtt{posdot}}}
+\DeclareMathOperator{\expmapStep}{{\mathtt{expmap\_step}}}
+\newcommand{\specialcell}[1]{%
+   \ifmeasuring@#1\else\omit$\displaystyle#1$\ignorespaces\fi}
+\newcommand{\splitcenter}[1]{%
+   \specialcell{\hfill #1 \hfill}}

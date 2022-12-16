@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+% Change JEOD to package name. Change date and version to reflect updates.
+\ProvidesPackage{JEOD}[2006/07/26 v1.1 jeod module macros]
+
+
+% Package options. Change JEOD to the value of \modelprefix (see below).
+\newif\ifJEODReqt@
+\newif\ifJEODIVV@
+\DeclareOption{Reqt}{\JEODReqt@true}
+\DeclareOption{IVV}{\JEODIVV@true}
+\ProcessOptions\par
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+% THE JEOD PREFIX MUST CONTAIN ONLY LETTERS.
+% Examples: TIME for the universal time package, MASS for the mass tree.
+\newcommand\modelprefix{JEOD}
+
+
+% Include requirement labels if requested
+\ifJEODReqt@
+\input{JEODReqt.def}
+\fi
+
+% Include IV&V labels if requested
+\ifJEODIVV@
+\input{JEODIVV.def}
+\fi
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+% Define any other model-specific LaTeX commands here.
+
+
+% \newcommand{\JEOD}{JSC Engineering Orbital Dynamics}
+% NOTE:JEOD command moved to dynenv.sty
+
+% \DOCAuthor:  Consistent Author details
+\newcommand{\DOCAuthor}{A.A. Jackson and Christopher Thebeau} 
+\newcommand{\JEODDate}{Febuary, 2012}
+%\newcommand{\JEOD}{JEOD}
+\newcommand\ModelDesc{JEOD\xspace}
+\newcommand\ModelRevision{1.3}
+\newcommand\ModelPrefix{JEOD}
+\newcommand\ModelAuthor{A. A. Jackson, Christopher D. Thebeau}
+\newcommand\ModelAuthDate{DEC, 2009}
+
+\newcommand\ModelKeywords{\ModelDesc}
+
+\newcommand\ModelHistory{
+Christopher Thebeau & January 2012 & 1.3 & Revised Version \\
+A. A. Jackson and Christopher Thebeau & July 2010 & 1.2 &  Revised Version \\
+A. A. Jackson and Christopher Thebeau & March 2010 & 1.1 &  Revised Version \\
+A. A. Jackson and Christopher Thebeau & December 2009 & 1.0 &  Initial Version \\
+}
+
+\newcommand{\AERODYNAMICSLINK}{\href{file:\JEODHOME/models/interactions/aerodynamics/docs/aerodynamics.pdf}{Aerodynamics}}
+\newcommand{\ATMOSPHERELINK}{\href{file:\JEODHOME/models/environment/atmosphere/docs/atmosphere.pdf}{Atmosphere}}
+\newcommand{\BODYACTIONLINK}{\href{file:\JEODHOME/models/dynamics/body_action/docs/body_action.pdf}{Body Action}}
+\newcommand{\CONTAINERLINK}{\href{file:\JEODHOME/models/utils/container/docs/container.pdf}{Container}}
+\newcommand{\DERIVEDSTATELINK}{\href{file:\JEODHOME/models/dynamics/derived_state/docs/derived_state.pdf}{Derived State}}
+\newcommand{\DYNBODYLINK}{\href{file:\JEODHOME/models/dynamics/dyn_body/docs/dyn_body.pdf}{Dynamic Body}}
+\newcommand{\DYNMANAGERLINK}{\href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{Dynamics Manager}}
+\newcommand{\EARTHLIGHTLINK}{\href{file:\JEODHOME/models/environment/earth_lighting/docs/earth_lighting.pdf}{Earth Lighting}}
+\newcommand{\EPHEMERIDESLINK}{\href{file:\JEODHOME/models/environment/ephemerides/docs/ephemerides.pdf}{Ephemerides}}
+\newcommand{\GRAVITYLINK}{\href{file:\JEODHOME/models/environment/gravity/docs/gravity.pdf}{Gravity}}
+\newcommand{\GRAVITYTORQUELINK}{\href{file:\JEODHOME/models/interactions/gravity_torque/docs/gravity_torque.pdf}{Gravity Torque}}
+\newcommand{\INTEGRATIONLINK}{\href{file:\JEODHOME/models/utils/integration/docs/integration.pdf}{Integration}}
+\newcommand{\MASSLINK}{\href{file:\JEODHOME/models/dynamics/mass/docs/mass.pdf}{Mass}}
+\newcommand{\MATHLINK}{\href{file:\JEODHOME/models/utils/math/docs/math.pdf}{Math}}
+\newcommand{\MEMORYLINK}{\href{file:\JEODHOME/models/utils/memory/docs/memory.pdf}{Memory}}
+\newcommand{\MESSAGELINK}{\href{file:\JEODHOME/models/utils/message/docs/message.pdf}{Message}}
+\newcommand{\NAMEDITEMLINK}{\href{file:\JEODHOME/models/utils/named_item/docs/named_item.pdf}{Named Item}}
+\newcommand{\ORBITALELEMENTSLINK}{\href{file:\JEODHOME/models/utils/orbital_elements/docs/orbital_elements.pdf}{Orbital Elements}}
+\newcommand{\ORIENTATIONLINK}{\href{file:\JEODHOME/models/utils/orientation/docs/orientation.pdf}{Orientation}}
+\newcommand{\PLANETLINK}{\href{file:\JEODHOME/models/environment/planet/docs/planet.pdf}{Planet}}
+\newcommand{\PLANETFIXEDLINK}{\href{file:\JEODHOME/models/utils/planet_fixed/docs/planet_fixed.pdf}{Planet Fixed}}
+\newcommand{\QUATERNIONLINK}{\href{file:\JEODHOME/models/utils/quaternion/docs/quaternion.pdf}{Quaternion}}
+\newcommand{\RADIATIONLINK}{\href{file:\JEODHOME/models/interactions/radiation_pressure/docs/radiation_pressure.pdf}{Radiation Pressure}}
+\newcommand{\CONTACTLINK}{\href{file:\JEODHOME/models/interactions/contact/docs/contact.pdf}{Contact}}
+\newcommand{\REFFRAMESLINK}{\href{file:\JEODHOME/models/utils/ref_frames/docs/ref_frames.pdf}{Reference Frame}}
+\newcommand{\RELKINLINK}{\href{file:\JEODHOME/models/dynamics/rel_kin/docs/rel_kin.pdf}{Rel Kin}}
+\newcommand{\RNPLINK}{\href{file:\JEODHOME/models/environment/RNP/docs/RNP.pdf}{RNP}}
+\newcommand{\SIMINTERFACELINK}{\href{file:\JEODHOME/models/utils/sim_interface/docs/sim_interface.pdf}{Sim Interface}}
+\newcommand{\SURFACEMODELLINK}{\href{file:\JEODHOME/models/utils/surface_model/docs/surface_model.pdf}{Surface}}
+\newcommand{\THERMALRIDERLINK}{\href{file:\JEODHOME/models/interactions/thermal_rider/docs/thermal_rider.pdf}{Thermal Rider}}
+\newcommand{\TIMELINK}{\href{file:\JEODHOME/models/environment/time/docs/time.pdf}{Time}}
+\newcommand{\COORDLINK}{\href{file:\JEODHOME/docs/tex/refs/constellation_coord_sys.pdf}{Constellation Program Level 2 Coordinate Systems}}
+\newcommand{\LUNARLINK}{\href{file:\JEODHOME/docs/tex/refs/lunar_cmd_2005_jpl_d32296.pdf}{Lunar Constants and Models Document}}
+\newcommand{\GOTTLIEBLINK}{\href{file:\JEODHOME/docs/tex/refs/GOTTLIEB_NASA_CR188243.pdf}{Gottlieb}}
+\newcommand{\GRAMLINK}{\href{file:\JEODHOME/docs/tex/refs/gram99.pdf}{Gram}}
+\newcommand{\METLINK}{\href{file:\JEODHOME/docs/tex/refs/met98.pdf}{MET}}
+\newcommand{\GRAVVALLINK}{\href{file:\JEODHOME/docs/tex/refs/gravityval.pdf}{Gravity Validation}}
+\newcommand{\NAVSTANLINK}{\href{file:\JEODHOME/docs/tex/refs/NavigationStandards.pdf}{Navigation}}
+\newcommand{\DELINK}{\href{file:\JEODHOME/docs/tex/refs/de.pdf}{DE405}}
+\newcommand{\GGMLINK}{\href{file:\JEODHOME/docs/tex/refs/GGM.pdf}{GGM02C}}
+\newcommand{\CODELINK}{\href{file:\JEODHOME/docs/coding_standards/coding_standards.pdf}{JEOD Coding Standards}}
+\newcommand{\DYNCOMPLINK}{\href{file:\JEODHOME/verif/SIM_dyncomp/docs/DYNCOMP.pdf}{Dyncomp}}
+
+

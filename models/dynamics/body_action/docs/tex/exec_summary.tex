@@ -1,0 +1,458 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% exec_summary.tex
+% Body Action model executive summary
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Executive Summary}
+
+The \ModelDesc forms a component of the dynamics suite of
+models within \JEODid. It is located at
+models/dynamics/body\_action.
+
+The model comprises several classes that provide various mechanisms
+for setting aspects of instances of MassBody and DynBody classes as well as
+their derived classes.
+The capabilities provided by the model include:
+\begin{itemize}
+\item Setting the mass properties of a MassBody object,
+\item Attaching and detaching DynBody and MassBody objects to/from one another,
+\item Setting the state of a DynBody object, and
+\item Changing the frame in which a DynBody object's state is propagated.
+\end{itemize}
+
+Note that while the first function refers to a MassBody, the latter two
+capabilities pertain to DynBody. Meanwhile, attachment can involve
+interations between a DynBody and MassBody object.
+ The subject can be specified by MassBody or DynBody, and the correct behavior
+ implied (if possible).
+
+\section*{Interations With Other Models}
+The \ModelDesc interacts with several JEOD models. Chief among these
+are interactions with
+the \hypermodelref{MASS},
+which defines the MassBody class;
+the \hypermodelref{DYNBODY},
+which defines the DynBody class; and
+the \hypermodelref{DYNMANAGER},
+which defines the DynManager class.
+
+A JEOD simulation typically contains one or more instances of a
+class that derives from the DynBody class.
+Each DynBody object represents some vehicle or module in space.
+The DynBody-type vehicle may also have other DynBody or MassBody submodules
+attached. The purpose of this model is to alter some aspect of the subject body.
+Some of the model classes operate directly on MassBody objects
+via the use of public interfaces. Some operate directly on DynBody's using
+public interfaces. Others, such as attach actions, operate using either
+MassBody or DynBody methods depending on the type of subject.
+
+In addition to the DynBody objects that represent vehicles,
+a JEOD simulation also contains a DynManager object that manages the
+dynamic objects in a simulation.
+The DynManager object uses the \ModelDesc via a Standard Template Library
+list of pointers to queue \ModelDesc objects. Simulation users can add
+elements to this list. As the list comprises pointers to objects, the
+pointed-to objects can be instances of different classes so long as
+they derive from the same base class. (All \ModelDesc objects derive
+from a common base class.)
+The simulation DynManager object uses this list during simulation
+initialization time to initialize the simulation's MassBody/DynBody objects
+and uses this list during simulation run time to perform
+asynchronous actions.
+
+In addition to the above three models, the \ModelDesc interacts with
+several other JEOD models. A driving concern for the \ModelDesc is to
+do as little as possible in the model.
+The model source files instead leverage capabilities that exist in other
+models.
+In addition to the models listed above, this model uses:
+\begin{itemize}
+\item The \hypermodelref{DERIVEDSTATE}
+to construct Local Vertical, Local Horizontal frames,
+\item The \hypermodelref{MATH}
+to determine planetary coefficients,
+\item The \hypermodelref{PLANETFIXED}
+to construct North-East-Down frames,
+\item The \hypermodelref{REFFRAMES}
+to compute relative state.
+\end{itemize}
+
+
+\section*{\ModelDesc Base Class}
+All of the instantiable \ModelDesc classes ultimately derive from the abstract BodyAction
+base class. This abstract base class by itself does not change a single aspect of
+a MassBody or DynBody object. That is the
+responsibility of the various specialized classes that derive from the base BodyAction
+class. The base class provides a common virtual framework for describing actions to be
+performed on a body-type object.
+This framework includes:
+\begin{itemize}
+\item Descent from a common base class. This common basis enables forming a
+collection of body actions in the form of base class pointers. The DynManager
+class does exactly this. The \ModelDesc was explicitly architected to enable
+this treatment.
+\item Base class member data. This member data includes a pointer to the
+subject of the BodyAction object in the form of either of DynBody subject or a
+MassBody subject. Populating both subject pointers is unnecessary, as the
+DynBody corresponding to a MassBody is implied (and vice versa).
+\item Base class member functions. The member functions specify how to operate
+on the BodyAction object. In particular, a trio of virtual methods described
+below form the standard basis by which derived classes can extend
+this base class.
+\end{itemize}
+
+The base class defines three virtual methods that together form the
+mechanism by which an external user of the \ModelDesc functionally
+interacts with BodyAction objects:
+\begin{description}
+\item[initialize]
+Each \ModelDesc object must be initialized.
+This initialization is the task of the overridable {\tt initialize()}
+method. This method initializes a BodyAction object, and should verify that the BodyAction is
+properly configured.
+It does not alter the subject object.
+\item[is\_ready]
+The {\tt is\_ready()} method indicates whether the BodyAction object is
+ready to perform its action on the subject.
+For example, a DynBodyInitLvlhState object sets parts of the subject
+DynBody object's state based on the Local Vertical, Local Horizontal (LVLH)
+frame defined by some reference DynBody object.
+The DynBodyInitLvlhState object remains in a not-ready state
+until the reference body's position and velocity vector have been set.
+\item[apply]
+The {\tt apply()} method performs the action on the subject.
+After the action is performed, it is removed from the DynManager's queue.
+\end{description}
+
+\section*{\ModelDesc Derived Classes}
+
+The \ModelDesc provides several classes that derive from the base BodyAction
+class. These are
+\begin{description}
+\item[MassBodyInit] Derives from BodyAction. \\
+Instances of this class set the subject MassBody object's
+mass properties and specify the object's mass points.
+In the case where the subject MassBody belongs to a DynBody,
+specifying the mass points also specifies the DynBody object's
+vehicle points.
+\item[BodyAttach] Derives from BodyAction. \\
+Classes derived from this class attach one body object to another.
+This abstract class does not accomplish this objective;
+it is a non-instantiable class. Attaching bodies is a task to be
+performed by derived classes specifying the attach method.
+\item[BodyAttachAligned] Derives from BodyAttach. \\
+Instances of this class attach the subject object to a parent body.
+The attachment is specified in terms of a pair of points, one on the subject
+object body and the other on the parent body. The attachment makes the two
+points coincident and makes the transformation between the two
+points' reference frames be a 180 degree yaw.
+\item[BodyDetach and BodyDetachSpecific] Derive from BodyAction. \\
+Instances of these classes detach a body object
+from its immediate parent.
+The class BodyDetach detaches the subject from its
+immediate parent. The class BodyDetachSpecific searches the attachment tree
+for the specified other body (starting from the subject body), then detaches the
+linkage at the parent body. That is, if the subject is the progeny, the detach
+takes place at the other body; if the subject is the progenitor, the detach
+takes place at the subject.
+The found object is detached from the specified parent.
+\item[DynBodyInit] Derives from BodyAction. \\
+The purpose of this class is to initialize the state (or parts
+of the state) of a DynBody object.
+This specific class does not accomplish this goal;
+this is a non-instantiable class.
+The classes that derive from DynBodyInit provide multiple
+means of initializing aspects of a DynBody object's state.
+\item[DynBodyInitRotState] Derives from DynBodyInit. \\
+Instances of this class initialize a vehicle's attitude
+and/or attitude rate.
+\item[DynBodyInitTransState] Derives from DynBodyInit. \\
+Instances of this class initialize a vehicle's position
+and/or velocity.
+\item[DynBodyInitOrbit] Derives from DynBodyInitTransState. \\
+Instances of this class initialize a vehicle's position
+and velocity by means of some orbit specification.
+\item[DynBodyInitPlanetDerived] Derives from DynBodyInitWrtPlanet,
+which in turn derives from DynBodyInit. \\
+These classes form the basis for subsequent derived classes that
+initialize state with respect to a planetary frame.
+\item[DynBodyInitLvlhState] Derives from DynBodyInitPlanetDerived. \\
+Instances of this class initialize state with respect to the
+rectilinear LVLH frame defined by some reference vehicle's orbit
+about a specified planet.
+Two derived classes from this class,
+DynBodyInitLvlhRotState and DynBodyInitLvlhTransState,
+limit the initialization to the rotational and translational
+states of the subject DynBody.
+\item[DynBodyInitNedState] Derives from DynBodyInitPlanetDerived. \\
+Instances of this class initialize state with respect to the
+North-East-Down frame defined by some reference vehicle or
+reference point.
+Two derived classes from this class,
+DynBodyInitNedRotState and DynBodyInitNedTransState,
+limit the initialization to the rotational and translational
+states of the subject DynBody.
+\end{description}
+
+\section*{Integrating the \ModelDesc in a Simulation}
+
+The following approaches present an obvious, but wrong, approach to using the \ModelDesc
+in a Trick simulation:
+\begin{itemize}
+\item Defining data elements of the appropriate model classes
+for each vehicle simulation object in the simulation S\_define file and
+\item Explicitly calling the {\tt initialize()} and {\tt apply()} methods
+for those model objects in the simulation S\_define file.
+\end{itemize}
+
+{\em Do not follow the above practice.} This practice circumvents the
+flexibility built into the model and will almost certainly lead to
+difficulties in the future. It is best add the body action to the DynManager's
+queue, and allow DynManager to apply.
+
+\subsection*{The BodyAction List}
+
+The recommended practice regarding the use of the \ModelDesc in a
+Trick simulation is to use the model in conjunction with the
+simulation's DynManager object. The DynManager maintains a list
+of \ModelDesc objects. Calling the DynManager's {\tt add\_body\_action}
+adds an item to the list. The DynManager draws objects from this list
+at the appropriate time and only does so when the objects indicate
+that they are ready to be executed. This mechanism disconnects the
+execution order of the enqueued model objects from the order in
+which the simulation objects are declared and from the order
+in which the objects are added to the list.
+
+This separation between initialization and declaration order
+was first addressed in JEOD 1.4/1.5, but the C-based solution
+involved some rather convoluted and very inflexible code.
+The C++ based solution introduced in JEOD 2.0 makes for
+a very extensible and simpler set of code. Users are strongly
+recommended to take advantage of this flexibility.
+
+\subsection*{A Simple Simulation}
+A simple way to make use of the DynManager's BodyAction list
+limit the use of the \ModelDesc to a pre-defined,
+but presumably well-vetted, set.
+A simulation S\_define file that implements this option will:
+\begin{itemize}
+\item Declare a very specific set of model objects as simulation
+object elements for each vehicle in the simulation,
+\item Specifically invoke the DynManager {\tt add\_body\_action()}
+method on each of these model objects as initialization class jobs,
+\item Invoke the DynManager {\tt initialize\_simulation()} method
+as an initialize class job that runs after the {\tt add\_body\_action()}
+jobs, and
+\item Optionally invoke the DynManager {\tt perform\_actions()}
+as a scheduled job to enable asynchronous use of the model during
+the course of the simulation run.
+\end{itemize}
+
+This approach makes user input fairly simple. All
+the simulation user needs to do is populate the pre-defined set of
+model objects with the appropriate values.
+
+The lack of flexibility is the key disadvantage of this option.
+To illustrate this, consider a mission involving a chaser and a target vehicle.
+Different aspects of the mission that need to be investigated
+include the following scenarios:
+\begin{itemize}
+\item The launch of the chaser vehicle. The chaser starts at rest with respect
+to the launch pad. The target vehicle does not even need to
+be involved in this scenario.
+Specifying the chaser's initial state in some inertial
+frame would be awkward at best.
+The latitude, longitude, and altitude of the launch pad are known
+quantities, as is the geometry of the chaser with respect to the pad.
+The most transparent option would be to specify the chaser initial state
+in terms of these known quantities.
+\item The transfer of the chaser from orbit insertion to far-field rendezvous.
+In this situation, the chaser needs to start in an orbit that is related
+to the target vehicle's orbit. The large initial separation between the
+two vehicles rules out a relative cartesian specification for the chaser.
+\item Various proximity operations between the chaser and target.
+Initializing the chaser's state relative to that
+of the target is exactly what is called for in this scenario.
+\item Chaser de-orbit and entry.
+As with the launch scenario, the target vehicle can be omitted
+from this scenario. The chaser vehicle needs to be specified in an orbit
+relative to the rotating Earth so that it will enter the atmosphere at the
+correct location with respect to the rotating Earth.
+\end{itemize}
+
+\subsection*{Multiple Initialization Capabilities}
+To handle phase transitions in multi-phase simulations (e.g., orbit to re-entry), patched approaches are recommended.
+In this methodology, synchronous BodyAction's re-initialize states to "tweak" as appropriate
+This imperfect approach allows the developer to implement multiple vehicle configurations as needed.
+The best way to initialize the chaser vehicle's state in these different
+scenarios is to use the \ModelDesc state initialization classes best suited
+for the scenario. For example:
+\begin{itemize}
+\item The DynBodyInitNed class to initialization the chaser on the launch pad,
+\item The DynBodyInitTransState or DynBodyInitOrbit classes to initialize
+the chaser at orbit insertion and prior to entry, and
+\item The DynBodyInitLvlh class to initialize the chaser in close proximity
+to the target.
+\end{itemize}
+Each of these different initialization capabilities needs to be allocated
+in the S\_define file, trick/C++ source, or python input layer to enable their use in the simulation
+(NOTE: as of Trick 19.2.3 the DynManager queue for BodyActions is checkpointable/restartable with some exceptions).
+One common way to accomplish this end is to declare as simulation object
+elements all of the state initializers needed by the various scenarios.
+
+This option continues that used in the previous example.
+The simulation S\_define file specifically
+invokes the DynManager {\tt add\_body\_action()} method for
+each initializer. This solves the issue of different scenarios
+requiring different initializers, but introduces a new issue.
+The set of state initializers now over-specifies the state.
+The input file for a particular scenario will need to deactivate
+those state initializers that are not to be used in that scenario
+and/or use contextual triggers to activate them at the correct time.
+
+\subsection*{Deferring {\tt add\_body\_action()} Calls}
+An alternative approach to solving this over-specification problem is to
+never let it happen. The previous option required registering
+in the S\_define file a call to {\tt add\_body\_action()}
+for each state initializers declared in the S\_define file.
+This option only registers one such call in the S\_define file.
+A simulation S\_define file that implements this option will:
+\begin{itemize}
+\item Declare a potentially broad set of \ModelDesc objects as
+simulation object elements for each vehicle in the simulation.
+\item Declare a pointer to a BodyAction object in the same sim object
+that contains the DynManager object.
+\item Define {\em as a zero-rate scheduled job} a call to the DynManager's
+{\tt add\_body\_action()} method that adds the contents of this pointer
+to the DynManager's BodyAction list.
+\end{itemize}
+
+The task of calling {\tt add\_body\_action()} to place an initializer
+in the DynManager's body action list is deferred to the input file.
+An input file that follows this paradigm will
+perform the following:
+\begin{itemize}
+\item Set the contents of a particular initializer,
+\item Point the BodyAction pointer declared in
+the S\_define file point to this initializer,
+\item Issue a {\tt call} to the zero-rate
+{\tt add\_body\_action()} job to add this initializer, and
+\item Repeat the above for each initializer to be used in
+the simulation run.
+\end{itemize}
+
+\subsection*{Dynamic allocation of initializers}
+The S\_define file may become bloated with multiple initializers of the
+same type in a simulation that involves several vehicles.
+Along with deferring the calls to {\tt add\_body\_action()},
+this final option defers the allocation of the initializers
+to the input file via the Trick input processor's {\tt new} capability.
+
+The key advantage of this final approach is that it maximizes flexibility.
+This is also a potential disadvantage; enhanced flexibility invites errors
+on the part of the user. Another disadvantage is that the allocated
+objects cannot (currently) be logged.
+
+\section*{Using the \ModelDesc in a Simulation}
+How the \ModelDesc is to be used depends on which of the above options
+was employed by the simulation integrator. This discussion assumes a
+setup along the lines of the penultimate option described above
+("Deferring {\tt add\_body\_action()} calls").
+The simulation user selects those capabilities from
+the S\_define file that best represent the needs of the scenario
+to be simulated.
+
+For example, consider the case of investigating the behavior of a chaser
+vehicle in close proximity to a target vehicle. The S\_define file
+provides multiple mechanisms for initializing the chaser and target.
+The simulation user selects a set of initializers that enables specifying:
+\begin{itemize}
+\item The target vehicle's mass properties and points of interest,
+\item The target vehicle's translational state with some given inertial values,
+\item The target vehicle's rotational state relative to the target
+vehicle's LVLH frame,
+\item The chaser vehicle's mass properties and points of interest, and
+\item The chaser vehicle's state in terms of the relative state between
+a pair of points of interest on the chaser and target.
+\end{itemize}
+
+For each selected item, the user must place statements in the
+simulation input that:
+\begin{itemize}
+\item Populate the data items for the object. \\
+\item Point the simulation body action pointer to this model object. \\
+\item Call the {\tt add\_body\_action()} simulation job to add the
+object to the Dynamic Manager's list of model objects.
+\end{itemize}
+
+Four mistakes that the user can make in this process are:
+\begin{itemize}
+\item Failing to specify the subject body for each model object OR doubly
+specifying both the DynBody and MassBody inconsistently.
+The JEOD methods do not know that the simulation integrator has made the
+subject body and the model object parts of the same simulation object.
+\item Attempting to reuse model objects. The {\tt add\_body\_action()}
+method must not (and cannot) create a copy of the object passed to it.
+\item Creating a circular set of dependencies. For example,
+specifying the state of vehicle A with respect to vehicle B and
+specifying the state of vehicle B with respect to vehicle A.
+\item Failing to specify all needed states.
+\end{itemize}
+JEOD detects and reports these errors with messages.
+
+\section*{Requirements on Derived Classes}
+The \ModelDesc places several functional constraints on the classes
+that derive from the BodyAction base class.
+These constraints apply to the classes that are a part of the model
+and to any extensions of the class written by model extenders.
+These constraints are on the trio of virtual methods as overridden
+by the derived class:
+\begin{enumerate}
+\item The {\tt initialize()} method, if overridden,
+must forward the {\tt initialize()} call to the immediate parent object.
+The typical approach is to check for error conditions,
+forward the {\tt initialize()} call  upward, and finally perform
+class-specific initializations. This removes the need to write redundant
+routines in derived classes.
+\item The {\tt is\_ready()} method, if overridden,
+must query the readiness of the parent class in addition to
+performing class-specific readiness checks. Claiming to be ready
+against the advice of the parent is forbidden.
+\item The {\tt apply()} method, if overridden,
+must forward the {\tt apply()} call to the immediate parent object.
+The typical approach is to reformulate the user inputs in terms
+that will be understood by the parent class,
+forward the {\tt apply()} call  upward, and finally perform
+any cleanup actions.
+\end{enumerate}
+
+\section*{Requirements on Functional Users of the \ModelDesc}
+The \ModelDesc places several functional constraints on the use of the model.
+These constraints apply to the Dynamics Manager Model and to any
+use of the model written by a user of JEOD.
+These constraints are
+\begin{enumerate}
+\item A BodyAction object must be initialized.
+The object's {\tt initialize()} method must be invoked prior to invoking
+either the {\tt is\_ready()} or {\tt apply()} methods for that object.
+\item A BodyAction object must be initialized once only.
+Invoking a single object's {\tt initialize()} method multiple times may
+result in undetected errors such as memory leaks.
+\item A BodyAction object must be initialized at the appropriate time.
+\begin{enumerate}
+\item BodyAttach actions must be initialized
+after the subject MassBody objects have had their initial mass properties
+set and have had their mass points defined.
+\item  DynBodyInit actions furthermore must be initialized after
+the initialization-time attachments have been performed.
+\item All other actions must be initialized after the states of the
+simulation's DynBody objects have been set.
+\end{enumerate}
+\item A BodyAction object's {\tt apply()} method must not be invoked
+before the object indicates that it is ready to be applied. In other words,
+the object's {\tt is\_ready()} method must return {\tt true} before
+calling the object's {\tt apply()} method.
+\item A BodyAction object's {\tt apply()} method must not be invoked
+multiple times. The \ModelDesc follows the fire-and-forget paradigm.
+\end{enumerate}

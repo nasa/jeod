@@ -1,0 +1,25 @@
+\section{Requirements Traceability}\label{sec:traceability}
+\begin{table}[ht]\label{tab:reqt_ivv_xref}
+\begin{tabular}{||p{3.2in}|p{3.2in}|} \hline
+{\bf Requirement} & {\bf Inspection or test} \\ \hline \hline
+\ref{reqt:jeod} - Top-level requirements &
+  Insp. \ref{inspect:jeod} - meets Top-level \\ \hline
+\ref{reqt:CoM_location} - Center of Mass Location &
+  All tests  \\ \hline
+\ref{reqt:composite_mass} - Composite Mass Calculation &
+  All tests  \\ \hline
+\ref{reqt:composite_inertia} - Composite Inertia Calculation &
+  All tests  \\ \hline
+\ref{reqt:attach_detach} - Attach and Detach Masses &
+  Attachment: All tests \\
+& Detachment: Test \ref{test:mass_12} - SIM\_Apollo \\ \hline
+\ref{reqt:non_centroid_calc} - Non-centroidal Inertia Calculations &
+  Test. \ref{test:mass_10} - 4 Thin Plates with Detachment \\ \hline
+\ref{reqt:mass_reattach} - Reattach Child to Parent &
+  Test. \ref{test:mass_12} - SIM\_Apollo \\ 
+& Test. \ref{test:mass_10} - 4 Thin Plates with Detachment \\ \hline
+\ref{reqt:mass_extend} - Model extension &
+  Insp. \ref{inspect:mass_extend} - Dynamics Body model \\ \hline
+\end{tabular}
+\caption{Requirements Traceability}
+\end{table}

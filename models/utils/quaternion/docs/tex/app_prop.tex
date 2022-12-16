@@ -1,0 +1,80 @@
+\section{Attitude Propagation}\label{sec:app_att_prop}
+
+
+Suppose the body rate vector $\framerelvect B \omega I B$ is constant.
+The quaternion time derivative equation~\eqref{eqn:quat_qdot} then takes on the form
+\begin{equation}
+  \dot{x} = -A x
+\end{equation}
+When x is a scalar or a vector and A is a scalar or matrix,
+equations of this form have a solution
+\begin{equation}
+  x(t0+dt) = \exp(-A dt) x(t0)
+\end{equation}
+Due to the developments in preceding sections, the
+same form of solution applies when A is a pure imaginary quaternion
+and x is a quaternion, and thus the constant body rate solution
+to equation~\eqref{eqn:quat_qdot} is
+\begin{align}
+  \QBI(t+dt) &= \exp\left(\quatsv 0 {-\frac{1}{2} {\framerelvect B \omega I B} dt}\right) \QBI(t0) \nonumber \\
+  &= \quattrot {\omega dt}{\vhat \omega}\QBI(t0) \label{eqn:quat_prop_transcendental} \\
+\intertext{where}
+  \omega &\equiv \norm {\framerelvect B \omega I B} \nonumber \\
+  \vect \omega &\equiv \frac {\framerelvect B \omega I B} \omega \nonumber
+\end{align}
+
+For a sufficiently small time step $dt$, the body rate will be approximately constant.
+Equation~\eqref{eqn:quat_prop_transcendental} can thus be used as the basis for
+quaternion propagation. However, since this equation involves the use of
+transcendental functions, applying this equation directly over small time steps would be
+computationally prohibitive.
+
+A simple approach to avoiding transcendental functions is to make the
+first order small angle assumptions
+\begin{align}
+  \cos(\frac{\omega dt} 2) &\approx 1 \\
+  \sin(\frac{\omega dt} 2) &\approx \frac{\omega dt} 2 \\
+\intertext{in which case equation~\eqref{eqn:quat_prop_transcendental} becomes}
+  \QBI(t+dt) &= \quatsv 1 {- \frac 1 2  {\framerelvect B \omega I B} dt} \QBI(t0) \nonumber \\
+  &= \QBI(t0) + \QBIdot dt \label{eqn:quat_prop_first_order}
+\end{align}
+A standard numerical integrator can be used to propagate a quaternion via
+equation~\eqref{eqn:quat_prop_first_order}.
+The first order small angle assumptions thus lead to a simple and very appealing propagator.
+
+\section{Body Rate Propagation}\label{sec:app_rate_prop}
+
+For a sufficiently small time step $dt$, the body rate will be approximately constant.
+However, the body rate for most spacecraft will rarely be constant for any extended period of time.
+The body rate must be propagated along with the attitude.
+
+The rotational analog of Newton's Second Law is \cite{Goldstein}
+\begin{align}
+  \framerelvdot I L I B &= \frameabsvect I {\tau} {ext}
+    \label{eqn:quat_L_dot_inertial} \\
+\intertext{where}
+\framerelvdot I L I B\;&\text{is the body's angular momentum vector and} \nonumber \\
+\frameabsvect I {\tau} {ext}\;&\text{is the external torque acting on the body.} \nonumber \\
+\intertext{The angular momentum is related to the angular velocity via}
+  \relvect L I B &= \MxV{\mat I}{\relvect \omega I B}
+    \label{eqn:quat_angular_momentum_general}\\
+\intertext{where}
+\mat I\;&\text{is the body's inertia tensor.} \nonumber
+\end{align}
+Note that equation~\eqref{eqn:quat_L_dot_inertial} is valid in an inertial frame only
+while equation~\eqref{eqn:quat_angular_momentum_general} is valid in any reference frame
+(but $\vect L$, $\mat I$, and $\vect \omega$ must all represented in the same reference frame).
+
+Applying equation~\eqref{eqn:quat_xdot_in_frame} to equations~\eqref{eqn:quat_L_dot_inertial}
+and transforming to the body frame
+yields the body-frame rotational equations of motion
+\begin{equation}
+  \MxV{\framerelvdot B \omega I B} =
+  \MxV
+    {{\framemat B I}^{-1}}
+    {\left(
+      \frameabsvect B {\tau} {ext}  +
+      \left(\MxV{\framemat B I}{\framerelvect B \omega I B}\right) \times \framerelvect B \omega I B
+    \right)}
+    \label{eqn:quat_omega_dot_EOM}
+\end{equation}

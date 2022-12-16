@@ -1,0 +1,111 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File: dynenvcode.sty
+% This file defines macros pertaining to displaying code.
+% Note well: This file does not stand by itself. It is a part of dynenv.sty.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{dynenvcode}[2011/12/08 v2.2 Dynamics package macros]
+
+\RequirePackage{varwidth}
+\RequirePackage{fancyvrb}
+
+% Define stuff for the exhibit environment.
+\newcommand\exhibitname{Exhibit}
+\newcounter{exhibit}[\dynenv@toplevel]
+\renewcommand\theexhibit{%
+  \ifnum \csname c@\dynenv@toplevel\endcsname>\z@%
+    \csname the\dynenv@toplevel\endcsname.%
+  \fi
+  \@arabic\c@exhibit}
+\def\fps@exhibit{tbp}
+\def\ftype@exhibit{1}
+\def\ext@exhibit{lot}
+\def\fnum@exhibit{\exhibitname\nobreakspace\theexhibit}
+\let\l@exhibit\l@figure
+
+% An "exhibit" is like a table, but typically contains code.
+\newenvironment{exhibit}{%
+  \@float{exhibit}
+}{%
+  \end@float
+}
+
+
+\DefineVerbatimEnvironment{codeblock}
+  {Verbatim}
+  {xleftmargin=25pt}
+
+
+\DefineVerbatimEnvironment{codebox}
+  {Verbatim}
+  {xleftmargin=10pt,
+   xrightmargin=10pt,
+   framesep=10pt,
+   resetmargins=true,
+   frame=single,
+   samepage=true}
+
+%% Define stuff for the codebox environment.
+%\newsavebox{\code@box}
+%\newdimen{\codebox@ht}
+
+%% Low-level scanners for the codebox and codebox* environments.
+%% These are just as ugly as their verbatim counterparts.
+%{\catcode`\=\active
+% \gdef\cbox@space{\catcode`\ \active\let \@cbox@space}}
+%\begingroup
+%  \catcode `|=0%
+%  \catcode `[=1%
+%  \catcode`]=2%
+%  \catcode `\{=12%
+%  \catcode `\}=12%
+%  \catcode`\\=12%
+%  |gdef|@xcodebox#1\end{codebox}[#1|end[codebox]]
+%  |gdef|@sxcodebox#1\end{codebox*}[#1|end[codebox*]]
+%|endgroup
+
+%% The codebox environment behaves just like verbatim except that the
+%% result is centered and framed.
+%\newenvironment{codebox}{%
+%  \let\@scan@code@box=\@xcodebox
+%  \let\@box@code@box=\fbox
+%  \@begin@codebox
+%}{%
+%  \@end@codebox
+%}
+
+%% The codebox environment behaves just like verbatim except that the
+%% result is centered (it is not framed).
+%\newenvironment{codebox*}{%
+%  \let\@scan@code@box=\@sxcodebox
+%  \let\@box@code@box=\mbox
+%  \@begin@codebox
+%}{%
+%  \@end@codebox
+%}
+
+%
+%\def\@begin@codebox{%
+%  \begin{lrbox}{\code@box}%
+%    \begin{varwidth}{0.95\linewidth}%
+%      \@verbatim \frenchspacing\@vobeyspaces
+%      \@scan@code@box
+%}
+
+%\def\@end@codebox{%
+%    \end{varwidth}%
+%  \end{lrbox}%
+%  \codebox@ht\ht\code@box
+%  \advance\codebox@ht 1.5ex%
+%  \begin{center}%
+%    \@box@code@box{%
+%        \rule{1.5ex}{0pt}%
+%        \usebox{\code@box}%
+%        \rule{1.5ex}{0pt}%
+%        \rule{0pt}{\codebox@ht}%
+%    }%
+%  \end{center}%
+%}
+
+
+\endinput

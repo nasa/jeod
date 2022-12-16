@@ -1,0 +1,68 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DynBodyFrameSwitch_reqt.tex
+% Requirements on/levied by the DynBodyFrameSwitch class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Requirements}\label{ch:\modelpartid:reqt}
+
+
+\requirement{Frame Switch}
+\label{reqt:DynBodyFrameSwitch:frame_switch}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This class shall provide the ability
+    to change the frame in which a DynBody object's
+    state is represented and propagated.
+  \item[Rationale:]\ \newline
+    This is the primary purpose of this class.
+    This requirement derives directly from
+    requirement~\ref{reqt:overview:frame_switch}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement[Continuity]{Frame Switch Continuity}
+\label{reqt:DynBodyFrameSwitch:frame_switch_continuity}
+\begin{description}
+  \item[Requirement:]\ \newline
+    To within numerical precision,
+    this class shall maintain a continuous state
+    for the vehicle with respect to the closest common
+    ancestor of to the two integration frames
+    when the frame switch is performed.
+  \item[Rationale:]\ \newline
+    This class defers the mathematical details of switching integration
+    frames to the DynBody class. This requirement is also levied
+    on the Dynamics Body model.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement[Switch on entry]{Frame Switch on Entering the Sphere of Influence}
+\label{reqt:DynBodyFrameSwitch:frame_switch_on_entry}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This class shall provide the ability
+    to trigger the change from one integration frame to another
+    when the vehicle
+    enters the sphere of influence of the new integration frame.
+  \item[Rationale:]\ \newline
+    Refinement of requirement~\ref{reqt:DynBodyFrameSwitch:frame_switch}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement[Switch on exit]{Frame Switch on Exiting the Sphere of Influence}
+\label{reqt:DynBodyFrameSwitch:frame_switch_on_exit}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This class shall provide the ability
+    to trigger the change from one integration frame to another
+    when the vehicle
+    exits the sphere of influence of the current integration frame.
+  \item[Rationale:]\ \newline
+    Refinement of requirement~\ref{reqt:DynBodyFrameSwitch:frame_switch}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}

@@ -1,0 +1,59 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+The gravitational forces due to the Earth are modeled on
+the basis of a set of constant coefficients and a force
+model that computes the accelerations, referred to as a geopotential model.
+The current geopotential model available to \JEODid\
+Geopotential models are commonly a function of a form of
+Earth Centered
+Earth Fixed, or ECEF, coordinates.  In order to transform from
+an Earth Centered Inertial frame
+to the ECEF system a matrix rotation must be made.
+
+These rotations can take many forms. The most common for Earth
+is one composed of four individual matrix operations.
+These operations account for precession, nutation, polar offset and rotation.
+This document will refer to this process as the
+\ModelDesc,
+or the RNP Model.
+
+The \JEODid\ RNP model has been built as an extensible
+software framework. The basis for this framework
+is an interface to the JEOD Ephemerides model.
+This gives a standard interface for controlling
+the orientation between a planet's inertial
+frame and its planet fixed frame, regardless of the
+formulation for the orientation. Additionally, there
+is an implementation of this interface that builds
+a framework for implementation planet rotation models
+that follow
+the previously mentioned RNP paradigm.
+This allows for reuse of code, where different
+representations of planet RNP can be created while
+taking advantage of a common framework. This document describes how this
+common framework can be extended for use with any rotation model that
+follows the RNP paradigm.
+
+This document also describes two specific implementations of the \JEODid\
+\ModelDesc. The basic reference system of \JEODid\ is the inertial coordinate
+system known as J2000. The particular representation of RNP that transforms
+from the J2000 inertial coordinate system to the ECEF frame, has been
+implemented using the \JEODid\ RNP Model, and this document describes the \JEODid\
+implementation of the J2000 (FK5) representation of Earth RNP. The document
+also describes an implementation of an RNP representation for the planet Mars,
+which is new to JEOD as of the version 2.2 release.
+
+Note that while the RNP Model started as a planet orientation model specific to
+RNP, it has now expanded to support interfaces for any formulation of planet
+orientation. However, the name has stayed the same for legacy and consistency
+purposes.
+
+\end{abstract}

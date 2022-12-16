@@ -1,0 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the NED model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+The \NEDDesc\ is used to express the state of a vehicle with respect to a planet-fixed, rotating reference frame in a reference frame oriented with local North, East, and Down directions.  The reference frame is defined by East, parallel to the equator (y-axis); Down, perpendicular to the surface (z-axis); and North (x-axis) completes the right-handed coordinate system.  North is not, in general, aligned with the magnetic field, nor the planetary spin axis.
+
+The calculations associated with representing the state in this way are handled by the North-East-Down subset of the planet-fixed model;  see the \href{file:\JEODHOME/models/utils/planet_fixed/docs/planet_fixed.pdf}{\em Planet-Fixed document}~\cite{dynenv:PLANETFIXED} for details.

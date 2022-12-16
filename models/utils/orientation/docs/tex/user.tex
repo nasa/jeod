@@ -1,0 +1,96 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% User Guide
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+
+This chapter describes how to use the \ModelDesc from the 
+perspective of a simulation user, a simulation developer,
+and a model developer.
+
+\section{Analysis}
+One use of the \ModelDesc is to embed an Orientation object as a
+data member in a class used to initialize some object.
+For example, the \hypermodelref{MASS}, which uses the \ModelDesc to enable a user
+to specify the orientation of a MassBody object's body reference frame
+with respect to the MassBody object's structural frame.
+Another example is in the \hypermodelref{BODYACTION}. This model uses
+the \ModelDesc to enable a user to specify the initial orientation of a DynBody
+object with respect to some other reference frame. The sample code below focus on
+this latter usage.
+
+To specify an orientation via the \ModelDesc, the user must set the Orientation
+object's \verb|data_source| data member to identify which of the four supported
+representations is being used and must populate the data member(s) appropriate
+to that selected representation. To specify an orientation via a
+\begin{itemize}
+\item Transformation matrix:
+  \begin{itemize}
+  \item Set the \verb|data_source| data member to
+    \verb|Orientation::InputMatrix| and
+  \item Populate the \verb|trans| data member with the desired matrix.
+  \end{itemize}
+\item Left transformation quaternion:
+  \begin{itemize}
+  \item Set the \verb|data_source| data member to
+    \verb|Orientation::InputQuaternion| and
+  \item Populate the \verb|quat| data member with the desired quaternion.
+  \end{itemize}
+\item Eigen rotation:
+  \begin{itemize}
+  \item Set the \verb|data_source| data member to
+    \verb|Orientation::InputEigenRotation| and
+  \item Populate the \verb|eigen_angle| and \verb|eigen_axis| data members
+    with the desired rotation angle about the desired rotation axis.
+  \end{itemize}
+\item Euler rotation sequence:
+  \begin{itemize}
+  \item Set the \verb|data_source| data member to
+    \verb|Orientation::InputEulerRotation| and
+  \item Populate the \verb|euler_sequence| and \verb|euler_angles| data members
+    with the desired Euler rotation sequence about the desired rotation axis.
+  \end{itemize}
+\end{itemize}
+
+Examples of using a transformation matrix and an Euler sequence are shown below.
+
+Transformation matrix:
+\begin{verbatim}
+VEH_OBJ.rot_init.orientation.data_source = Orientation::InputMatrix;
+VEH_OBJ.rot_init.orientation.trans[0][0] =
+    0.1412307175854331, -0.9892782736897275,  0.03718039289432346;
+VEH_OBJ.rot_init.orientation.trans[1][0] =
+   -0.7726919750981249, -0.1336331223242702, -0.6205556383087864;
+VEH_OBJ.rot_init.orientation.trans[2][0] =
+    0.6188707425862546,  0.0589125268795973, -0.7832804849780176;
+\end{verbatim}
+
+Euler sequence:
+\begin{verbatim}
+VEH_OBJ.lvlh_init.orientation.data_source    = Orientation::InputEulerRotation;
+VEH_OBJ.lvlh_init.orientation.euler_sequence = Orientation::Roll_Pitch_Yaw;
+VEH_OBJ.lvlh_init.orientation.euler_angles[0] {d} = 0.0, 85.0, 1.0;
+\end{verbatim}
+
+
+\section{Integration}
+The \ModelDesc is not intended to be used directly at the \Sdefine level.
+Orientation objects are almost inevitably embedded as data members of some other
+class. That said, this does not mean that a simulation integrator has no
+responsibility with respect to the \ModelDesc. For example, the standard set of
+input files for a multi-body simulation typical specify how the bodies in the
+simulation attach to one another. These attachments must be physically correct,
+and ensuring this often is an integration-level task.
+
+
+\section{Embedding}
+As mentioned above, various JEOD models embed an Orientation object as a data
+member of some class. External model developers are free to do so as well.
+The user populates the Orientation object; methods of the containing class query
+the Orientation object to extract the desired orientation data from the object. 
+Model developers who wish to use the model in this way should read the
+Orientation API.
+
+\section{Extension}
+The Orientation class is extensible. The VectorOrientation class defined in the
+\INTEGRATION\ verification code is an example of such an extension.

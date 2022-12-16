@@ -1,0 +1,40 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{orientation}[2010/09/01 v1.2 orientation module macros]
+
+\RequirePackage{xspace}
+
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+% Define any other model-specific LaTeX commands here.
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+\newcommand\modelprefix{Orientation}
+% \orientationDesc should be changed to a short acronym for the model, this may be
+% done in copy_templates
+% {MODEL DESCRIPTION} should be changed to the full name of the model.  
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").  
+%   The name should be a singular, not plural value, e.g. "Reference Frame Model", 
+%   not "Reference Frames" (same example).
+\newcommand{\ModelDesc}{Orientation Model\xspace}
+\newcommand{\ModelAuthor}{David Hammen}
+\newcommand{\ModelAuthDate}{October, 2010}
+\newcommand{\ModelPath}{models/utils/orientation}
+
+% for all editors; add keywords as necessary.
+\newcommand{\ModelKeywords}{Orientation}
+
+
+% Trace of a matrix
+\newcommand{\tr}{\mathop{\rm trace}\nolimits}

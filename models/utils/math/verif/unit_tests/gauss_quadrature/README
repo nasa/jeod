@@ -1,0 +1,14 @@
+Compile with
+g++ -combine main.cc ../../../src/gauss_quadrature.cc
+
+Note - for a Trick sim, having a #include"utils/math/gauss_quadrature.hh" in the target model
+will suffice to bring in gauss_quadrature.cc.
+
+
+This test runs a series of polynomials up to order 15 through the gauss
+quadrature function.  The test computes the analytic solution and compares it
+to the gauss quadrature solution for 4 different sets of integration ranges for
+each polynominal.
+
+The test then continues to compute the integral of some analytic functions and
+compare those results to the results from gauss quadrature.

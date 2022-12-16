@@ -1,0 +1,31 @@
+digraph G { 
+
+   // Make this look like a UML diagram
+   rankdir=BT;
+   node [fontname="Helvetica",fontsize=10,shape=box];
+   edge [fontname="Helvetica",fontsize=10,arrowhead=empty,arrowtail=empty];
+
+   // Node connectivity
+
+   PropagatedEphemerisPlanet -> EphemerisPoint;
+   PropagatedEphemerisOrientation -> EphemerisOrientation;
+
+   EphemerisZXZOrientation -> EphemerisOrientation;
+
+   EphemerisItem -> RefFrameOwner [label=" is-a"];
+
+   EphemerisRefFrame -> RefFrame;
+
+   EphemerisItem -> EphemerisRefFrame
+     [label="has-a\n (pointer) ", style=dashed];
+
+   EphemerisPoint -> EphemerisItem;
+
+   EphemerisOrientation -> EphemerisItem;
+
+   {rank=same; EphemerisItem EphemerisRefFrame}
+
+   RefFrameOwner [\
+      shape=parallelogram,label="RefFrameOwner\n(external class)"]
+   RefFrame [shape=parallelogram]
+}

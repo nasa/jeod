@@ -1,0 +1,92 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//=============================================================================
+// COLLECT: Vehicle force and torque collection statements for dynamics
+//=============================================================================
+
+//====================
+// Force collections
+//====================
+// Collect effector forces for vehicle
+vcollect veh1_dyn.body.collect.collect_effector_forc jeod::CollectForce::create {
+   veh1_dyn.force_extern
+};
+vcollect veh2_dyn.body.collect.collect_effector_forc jeod::CollectForce::create {
+   veh2_dyn.force_extern
+};
+
+// Collect dynamic environmental forces for vehicle
+vcollect veh1_dyn.body.collect.collect_environ_forc jeod::CollectForce::create {
+         veh1_dyn.contact_surface.contact_force
+};
+vcollect veh2_dyn.body.collect.collect_environ_forc jeod::CollectForce::create {
+         veh2_dyn.contact_surface.contact_force
+};
+
+// Collect dynamic non-transmitted forces for vehicle
+vcollect veh1_dyn.body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+};
+vcollect veh2_dyn.body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+};
+
+
+//=====================
+// Torque collections
+//=====================
+// Collect effector torques for vehicle
+vcollect veh1_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create {
+         veh1_dyn.torque_extern
+};
+vcollect veh2_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create {
+         veh2_dyn.torque_extern
+};
+
+// Collect dynamic environmental torques for vehicle
+vcollect veh1_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create {
+         veh1_dyn.contact_surface.contact_torque
+};
+vcollect veh2_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create {
+         veh2_dyn.contact_surface.contact_torque
+};
+
+// Collect dynamic non-transmitted torques for vehicle
+vcollect veh1_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+};
+vcollect veh2_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+};

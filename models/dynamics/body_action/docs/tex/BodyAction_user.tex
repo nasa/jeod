@@ -1,0 +1,17 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAction_user.tex
+% User Guide for the BodyAction class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\label{ch:\modelpartid:user}
+The BodyAction class is not instantiable.
+The use of the model as a whole is described in section~\ref{ch:overview:user}.
+The uses of specific parts of the model are described in the User Guide
+chapters for those specific parts. In general, it is advised (but not necessarily required) that:
+
+\begin{itemize}
+\item for MassBodyInit (and derived) instances, the user specify the MassBody {\tt subject}.
+\item for DynBodyInit (and derived) instances, the user specify the DynBody {\tt dyn\_subject}
+\item for BodyAttach, BodyDetach, and derived instances; the user specify {\tt dyn\_subject} and {\tt dyn\_parent} in favor of {\tt subject} and {\tt parent} when the target body refers to a DynBody (i.e., be specific as is sensible for the sake of legibility).
+\end{itemize}

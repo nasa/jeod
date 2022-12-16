@@ -1,0 +1,87 @@
+
+
+
+%----------------------------------
+\chapter{Introduction}\label{ch:NEDintro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \NEDDesc}
+\input{NEDIntroduction}
+
+
+
+%----------------------------------
+\chapter{Product Requirements}\label{ch:NEDreqt}
+%----------------------------------
+
+\input{NEDReqt}
+
+
+%----------------------------------
+\chapter{Product Specification}\label{ch:NEDspec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{NEDSpec_Concept}
+%\section{Mathematical Formulations}
+\input{NEDSpec_Math}
+%\section{Detailed Design}
+\input{NEDSpec_Detail}
+
+
+\chapter{User's Guide}\label{ch:NEDuser}
+%----------------------------------
+The Analysis section of the User's Guide is intended primarily for
+users of pre-existing simulations.  
+It contains: 
+\begin{itemize}
+\item A description of how to modify \NEDDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file,
+\item An overview of how to interpret (but not edit) the S\_define
+file,
+\item A sample of some of the typical variables that may be logged.
+\end{itemize}
+
+
+The Integration section of the User's Guide is intended for simulation
+developers.
+It describes the necessary configuration of the \NEDDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section of the user guide.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:NEDspec}).
+
+The Extension section of the User's Guide is intended primarily for
+developers
+needing to extend the capability of the \NEDDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:NEDspec}).
+
+
+\section{Analysis}
+\input{NEDUser_Analysis}
+
+%\section{Integration}
+\input{NEDUser_Integration}
+
+%\section{Extension}
+\input{NEDUser_Extension}
+
+%----------------------------------
+\chapter{Verification and
+Validation}\label{ch:NEDivv}
+%----------------------------------
+
+\section{Verification}
+\input{NEDVV_Verif}
+
+%\section{Validation}
+\input{NEDVV_Valid}
+
+

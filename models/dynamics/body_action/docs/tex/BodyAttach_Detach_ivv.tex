@@ -1,0 +1,131 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAttach_Detach_ivv.tex
+% Verification and validation for the MassBody Attach/Detach Sub-Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Inspection, Verification, and Validation}\label{ch:\modelpartid:ivv}
+\section{Inspection}
+\inspection[Attach/detach design]{Design Inspection}
+\label{inspect:BodyAttach_Detach:base_class}
+Table~\ref{tab:BodyAttach_Detach:virtual_overrides}
+portrays the class hierarchy for this sub-model
+and identifies which classes provide implementations of the
+{\tt initialize()}, {\tt is\_ready()}, and {\tt apply()} methods.
+From that table, all \partxname classes derive from BodyAction, some directly,
+others indirectly.
+Each implementation of the specified methods invokes the overridden parent class
+implementation. The two {\tt is\_ready()} methods properly incorporate the result
+from the invocation of the overridden {\tt is\_ready()} into the readiness
+assessment.
+
+By inspection, the \partxname satisfies
+requirements~\ref{reqt:BodyAction:virtual_methods}
+and~\ref{reqt:BodyAction:base_class_mandate}.
+
+\begin{table}[htp]
+\centering
+\caption{Mass Body Attach/Detach Sub-Model Virtual Methods}
+\label{tab:BodyAttach_Detach:virtual_overrides}
+\vspace{1ex}
+\begin{minipage}{0.8\textwidth}
+\centering
+\begin{tabular}{||l|l|c|c|c|} \hline
+{\bf Class} & {\bf Parent Class} &
+\multicolumn{3}{|c|} {\bf Class Defines $\cdots$} \\
+{\bf Name
+  \footnote{To reduce the table width, the leading MassBody on the
+  class names is replaced with center dots.
+  For example, the class BodyAttachAligned is abbreviated as
+  $\cdots$AttachAligned.
+  \label{fn:BodyAttach_Detach:virt_meth_table_abbrev}}} &
+{\bf Name \footref{fn:BodyAttach_Detach:virt_meth_table_abbrev}} &
+{\bf initialize()} & {\bf is\_ready()} & {\bf apply()} \\
+\hline \hline
+$\cdots$Attach & BodyAction &
+  \checkmark &            & \checkmark \\
+$\cdots$AttachAligned & $\cdots$Attach &
+  \checkmark &            & \checkmark \\
+$\cdots$AttachMatrix & $\cdots$Attach &
+             &            & \checkmark \\
+$\cdots$Detach & BodyAction &
+  \checkmark & \checkmark & \checkmark \\
+$\cdots$DetachSpecific & BodyAction &
+  \checkmark & \checkmark & \checkmark \\
+$\cdots$Reattach & BodyAction &
+             &            & \checkmark \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+\clearpage
+
+
+\section{Validation}\label{sec:\modelpartid:validation}
+This section describes various tests conducted to verify and validate
+that the \partxname satisfies the requirements levied against it.
+All verification and validation test source code, simulations and procedures
+for this sub-model are in the {\tt SIM\_verif\_attach\_mass} subdirectory of
+the JEOD directory {\tt models/dynamics/body\_action/verif}.
+
+\test[Attach/detach]{MassBody Attach/Detach}
+\label{test:BodyAttach_Detach:attach_detach}
+\begin{description}
+\item[Background]
+This test exercises the capabilities for this sub-model and
+for the  MassBodyInit Class Sub-Model.
+The MassBodyInit class initializes the mass properties and mass points
+of a MassBody object. The classes defined in this sub-model
+provide the ability to attach and detach MassBody objects to/from one another.
+\item[Test description]
+This test defines 21 run directories.
+Test RUN\_05 tests mass properties initialization only;
+it does not exercise the requirements of this particular sub-model.
+Tests RUN\_01 to RUN\_04 and RUN\_06 to RUN\_11 use the matrix/offset
+attachment mechanism while RUN\_101 to RUN\_104 and RUN\_106 to RUN\_111 invoke
+identical behavior using the point-to-point attachment mechanism.
+
+\item[Test results]
+These tests are described in detail in the
+\hypermodelrefinside{MASS}{part}{ivv}.
+Per the criteria in that document,
+all test cases pass.
+
+\item[Applicable requirements]
+This series of tests collectively exercises the capabilities of this sub-model
+and the MassBodyInit Class Sub-Model. These tests demonstrate
+requirements~\ref{reqt:MassBodyInit:mass_ppty_init}
+to~\ref{reqt:MassBodyInit:mass_pnts_init}
+and~\ref{reqt:BodyAttach_Detach:attach_support}
+to~\ref{reqt:BodyAttach_Detach:detach_specific}.
+\end{description}
+
+\section{Requirements Traceability}
+Table~\ref{tab:BodyAttach_Detach:reqt_traceability}
+summarizes the inspections and tests that demonstrate the satisfaction of the
+requirements levied on the \partxname.
+
+\begin{table}[htp]
+\centering
+\caption{BodyAttach\_Detach Requirements Traceability}
+\label{tab:BodyAttach_Detach:reqt_traceability}
+\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Artifact} \\ \hline\hline
+\ref{reqt:BodyAttach_Detach:attach_support} & Attach framework &
+   Test & \ref{test:BodyAttach_Detach:attach_detach} &
+   Attach/detach\\[4pt]
+\ref{reqt:BodyAttach_Detach:attach} & Attach MassBody/DynBody objects &
+   Test & \ref{test:BodyAttach_Detach:attach_detach} &
+   Attach/detach\\[4pt]
+\ref{reqt:BodyAttach_Detach:detach_immediate} & Detach from parent &
+   Test & \ref{test:BodyAttach_Detach:attach_detach} &
+   Attach/detach\\[4pt]
+\ref{reqt:BodyAttach_Detach:detach_specific} & Specific detach &
+   Test & \ref{test:BodyAttach_Detach:attach_detach} &
+   Attach/detach\\
+\hline
+\end{tabular}
+\end{table}

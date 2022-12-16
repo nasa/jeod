@@ -1,0 +1,96 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ivv_inspect.tex
+% Inspections of the Memory Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected.
+With the exception of the use of the \emph{mutable} keyword (forbidden per the
+coding standards), the \ModelDesc satisfies requirement~\ref{reqt:toplevel}.
+The use of the \emph{mutable} keyword in the model has been granted a waiver.
+
+\inspection{Design Inspection}
+\label{inspect:design} 
+Table~\ref{tab:design_inspection} summarizes the key elements of the
+implementation of the \ModelDesc that satisfy requirements levied on the model.
+By inspection, the \ModelDesc satisfies
+requirements~\ref{reqt:alloc} to~\ref{reqt:reporting}.
+
+\begin{longtable}{||l @{\hspace{4pt}} p{1.38in} |p{3.95in}|}
+\caption{Design Inspection}
+\label{tab:design_inspection} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endfirsthead
+
+\caption[]{Design Inspection (continued from previous page)} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\ref{reqt:alloc} & Memory Allocation  &
+  The \ModelDesc externally-usable memory allocation macros ultimately expand
+  into calls to memory manager methods that allocate and initialize memory.
+\tabularnewline[4pt]
+\ref{reqt:registration} & \raggedright Memory Registration &
+  The memory manager uses its memory interface object (established via
+  the non-default constructor) to register all allocated memory with the
+  simulation engine.
+\tabularnewline[4pt]
+\ref{reqt:free} & \raggedright Memory Deallocation &
+  The externally-usable memory deallocation macros ultimately expand into calls
+  to memory manager methods that destroy and deallocate memory.
+\tabularnewline[4pt]
+\ref{reqt:base_class_pointer_free} & \raggedright Free from Base Pointer &
+  The memory manager accommodates for the fact that a derived class pointer
+  upcast to a base class pointer does not always point to the same location in
+  memory as the original derived class pointer. Memory allocated as a derived
+  class can be deleted from a base class pointer to the allocated memory.
+\tabularnewline[4pt]
+\ref{reqt:deregistration} & \raggedright Memory Deregistration &
+  The memory manager uses its memory interface object to inform the simulation
+  engine that previously allocated memory is being released.
+\tabularnewline[4pt]
+\ref{reqt:threads} & \raggedright Thread Safety &
+  The memory manager was designed, implemented, inspected, and tested with
+  thread safety being one of the key goals.
+\tabularnewline[4pt]
+\ref{reqt:tracking} & \raggedright Memory Tracking &
+  The memory manager maintains a table of all extant memory allocations.
+\tabularnewline[4pt]
+\ref{reqt:reporting} & \raggedright Memory Reporting &
+  The memory manager provides the ability to report memory transactions
+  and to report memory that has not been freed at the time the memory manager
+  goes out of scope.
+\tabularnewline[4pt]
+\end{longtable}
+
+
+\inspection{Peer Review}
+\label{inspect:review}
+The \ModelDesc underwent an extensive peer review on July 29, 2010.
+While the primary focus of the peer review was thread safety, the review
+covered the entirety of the model. Findings were captured in the
+JEOD issue management system. Key findings included
+\begin{itemize}
+\item Eliminate use of the volatile keyword;
+  many compilers do not handle this keyword properly.
+\item Make the errors detected in the sensitive sections of
+  begin\_atomic\_block and end\_atomic\_block fatal errors.
+  Making these errors non-fatal might lead to deadlock.
+\item Handle exceptions that might be thrown in a function called from
+  within a sensitive block of code.
+\end{itemize}
+With the implementation of these findings, the \ModelDesc satisfies
+requirement~\ref{reqt:threads}.

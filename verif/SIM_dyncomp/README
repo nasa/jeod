@@ -1,0 +1,237 @@
+SIM_dyncomp: JEOD 2.0 Dynamics Comparison Simulation
+
+Top level directories:
+        Log_data/ : Directory containing Trick data recording input files.
+   Modified_data/ : Directory containing Trick run input files.
+        SET_test/ : Directory containing comparison run directories.
+    SET_test_val/ : Directory containing comparison run validation data.
+         S_define : Simulation simulation definition file.
+   S_overrides.mk : Simulation override file for the make process.
+
+
+Top level directory contents:
+
+-----------------------------------------------------------------------------
+Log_data/ : Directory containing Trick data recording input files.
+
+ log_Earth_RNP_ascii_rec.py : Earth RNP ASCII logging file.
+       log_constants_rec.py : Earth constanst logging file.
+       log_earth_RNP_rec.py : Earth RNP binary logging file.
+      log_earth_time_rec.py : Earth time logging (incomplete).
+ log_planetary_ephem_rec.py : Planetary ephemeris logging file (incomplete).
+         log_sv_aero_rec.py : Vehicle aerodynamics logging file.
+        log_sv_atmos_rec.py : Vehicle atmospheric logging file.
+ log_sv_force_torque_rec.py : Vehicle force and torque logging file.
+         log_sv_grav_rec.py : Vehicle gravitational affects logging (incomplete).
+      log_sv_orbelem_rec.py : Vehicle orbital elements logging (unsupported).
+    log_sv_rot_state_rec.py : Vehicle rotational state logging (incomplete).
+  log_sv_state_ascii_rec.py : Vehicle state ASCII logging file (incomplete).
+        log_sv_state_rec.py : Vehicle state logging file (incomplete?).
+
+-----------------------------------------------------------------------------
+Modified_data/ : Directory containing Trick run input files.
+
+This directory contains input files used in the various comparison runs.
+Since these configurations are used across multiple runs, they are made
+available in a common Modified_data collection.
+
+         Earth/ : Earth model configuration parameters.
+          aero/ : Vehicle aerodynamics configuration parameters.
+   date_n_time/ : Simulation data and time configurations.
+          mass/ : Vehicle mass configurations.
+     post_proc/ : Simulation post processing configuration.
+         state/ : Vehicle state propagation and initialization.
+         trick/ : Trick simulation control configurations.
+       vehicle/ : Vehicle model configuration parameters.
+
+.............................
+./Modified_data/Earth:
+params.d
+soflx_max.d
+soflx_mean.d
+soflx_min.d
+uniform_wind.d
+
+.............................
+./Modified_data/aero:
+const_density_drag.d
+drag.d
+no_drag.d
+
+.............................
+./Modified_data/date_n_time:
+11Nov2007.d
+
+./Modified_data/mass:
+cylinder.d
+iss.d
+sphere.d
+
+.............................
+./Modified_data/post_proc:
+
+.............................
+./Modified_data/state:
+integrator.d
+iss_highly_elliptic.d
+iss_typical.d
+
+.............................
+./Modified_data/trick:
+exec_setup.d
+no_debug.d
+
+.............................
+./Modified_data/vehicle:
+grav_controls.d
+plate_model.d
+
+
+-----------------------------------------------------------------------------
+SET_test/ : Directory containing comparison run directories.
+
+This directory contains 27 run directories that consitute the JEOD dynamics
+comparison test suite.  Each run directory has an input and Title file.
+
+      RUN_1/ : Compare Planetary Constants
+    RUN_10A/ : Rot State Comparison: Gravity Gradient, Circular, 0 Rate
+    RUN_10B/ : Rot State Comparison: Gravity Gradient, Circular, Initial Rate
+    RUN_10C/ : Rot State Comparison: Gravity Gradient, Elliptic, 0 Rate
+    RUN_10D/ : Rot State Comparison: Gravity Gradient, Elliptic, Initial Rate
+      RUN_2/ : Integration and RNP Comparison
+     RUN_3A/ : 4x4 Gravity Model Comparison
+     RUN_3B/ : 8x8 Gravity Model Comparison
+      RUN_4/ : Planetary Ephemeris Comparison with 3rd Body Affects
+     RUN_5A/ : Atmosphere Comparison: Solar Minimum
+     RUN_5B/ : Atmosphere Comparison: Solar Mean
+     RUN_5C/ : Atmosphere Comparison: Solar Maximum
+     RUN_6A/ : Aerodynamics Drag Comparison: Constant Density
+     RUN_6B/ : Aerodynamics Drag Comparison: Varying Density
+     RUN_6C/ : Maneuver Burn Comparison: Plane Change Maneuver
+     RUN_6D/ : Maneuver Burn Comparison: Departure Maneuver
+     RUN_7A/ : Full Translational Comparison: No Aero: 4x4
+     RUN_7B/ : Full Translational Comparison: No Aero: 8x8
+     RUN_7C/ : Full Translational Comparison: 4x4
+     RUN_7D/ : Full Translational Comparison: 8x8
+     RUN_8A/ : Rotational Propagation and State Comparison: Zero Rate
+     RUN_8B/ : Rotational Propagation and State Comparison: Initial Rate
+     RUN_9A/ : Rotational State Comparison: Torque, Zero Rate
+     RUN_9B/ : Rotational State Comparison: Torque, Initial Rate
+     RUN_9C/ : Rotational State Comparison: Torque and Force, Zero Rate
+     RUN_9D/ : Rotational State Comparison: Torque and Force, Initial Rate
+   RUN_full/ : Full Model Comparison
+
+Note that RUN_1 only logs the Earth planetary modeling parameters at times
+0.0 and 28,800 seconds.  The rest of the validation runs have a much richer
+data set shown below:
+
+Time Scales:
+............
+sys.exec.out.time
+time.manager.dyn_time.seconds
+time.conv_tai_ut1.a_to_b_offset
+time.conv_tai_utc.a_to_b_offset
+time.tai.calendar_second
+time.tt.calendar_second
+time.ut1.calendar_second
+time.utc.trunc_julian_time
+time.utc.calendar_year
+time.utc.calendar_month
+time.utc.calendar_day
+time.utc.calendar_hour
+time.utc.calendar_minute
+time.utc.calendar_second
+
+Planetary (Earth) Attitude:
+...........................
+earth.rnp.NJ2000.nutation_in_longitude
+earth.rnp.NJ2000.nutation_in_obliquity
+earth.rnp.NJ2000.equa_of_equi
+earth.rnp.RJ2000.theta_gast
+earth.planet.pfix.state.rot.T_parent_this[3][3]
+earth.rnp.RJ2000.rotation[3][3]
+earth.rnp.NJ2000.rotation[3][3]
+earth.rnp.PJ2000.rotation[3][3]
+
+Planetary Ephemeris:
+....................
+time.tt.trunc_julian_time
+sun.planet.inertial.state.trans.position[3]
+sun.planet.inertial.state.trans.velocity[3]
+earth.planet.inertial.state.trans.position[3]
+earth.planet.inertial.state.trans.velocity[3]
+moon.planet.inertial.state.trans.position[3]
+moon.planet.inertial.state.trans.velocity[3]
+
+Vehicle Atmos/Aero:
+...................
+sv_dyn.atmos.density
+sv_dyn.atmos.temperature
+sv_dyn.atmos.wind[3]
+earth.atmos.local_state.exo_temp
+earth.atmos.local_state.log10_dens
+earth.atmos.local_state.mol_weight
+sv_dyn.aero_drag.aero_force[3]
+sv_dyn.aero_drag.aero_torque[3]
+
+Vehicle Forces, Torques and Accelerations:
+..........................................
+sv_dyn.body.collect.effector_forc[3]
+sv_dyn.body.collect.environ_forc[3]
+sv_dyn.body.collect.no_xmit_forc[3]
+sv_dyn.body.derivs.trans_accel[3]
+sv_dyn.body.derivs.non_grav_accel[3]
+sv_dyn.body.collect.effector_torq[3]
+sv_dyn.body.collect.environ_torq[3]
+sv_dyn.body.collect.no_xmit_torq[3]
+sv_dyn.body.collect.inertial_torq[3]
+sv_dyn.body.grav_accel[3]
+sv_dyn.gg_torq.torque[3]
+
+Vehicle Translational State:
+............................
+sv_dyn.pfix.state.ellip_coords.altitude
+sv_dyn.pfix.state.ellip_coords.latitude
+sv_dyn.pfix.state.ellip_coords.longitude
+sv_dyn.pfix.state.sphere_coords.altitude
+sv_dyn.pfix.state.sphere_coords.latitude
+sv_dyn.pfix.state.sphere_coords.longitude
+sv_dyn.pfix.state.cart_coords[3]
+sv_dyn.body.composite_body.state.trans.position[3]
+sv_dyn.body.composite_body.state.trans.velocity[3]
+sv_dyn.body.derivs.non_grav_accel[3]
+sv_dyn.body.derivs.trans_accel[3]
+sv_dyn.body.core_body.state.trans.position[3]
+sv_dyn.body.core_body.state.trans.velocity[3]
+sv_dyn.body.structure.state.trans.position[3]
+sv_dyn.body.structure.state.trans.velocity[3]
+
+Vehicle Rotational State:
+.........................
+sv_dyn.body.composite_body.state.rot.Q_parent_this.scalar
+sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[3]
+sv_dyn.body.composite_body.state.rot.T_parent_this[3][3]
+sv_dyn.body.composite_body.state.rot.ang_vel_this[3]
+sv_dyn.body.derivs.Qdot_parent_this.scalar
+sv_dyn.body.derivs.Qdot_parent_this.vector[3]
+sv_dyn.body.derivs.rot_accel[3]
+sv_dyn.body.core_body.state.rot.Q_parent_this.scalar
+sv_dyn.body.core_body.state.rot.Q_parent_this.vector[3]
+sv_dyn.body.core_body.state.rot.T_parent_this[3][3]
+sv_dyn.body.core_body.state.rot.ang_vel_this[3]
+sv_dyn.body.structure.state.rot.T_parent_this[3][3]
+sv_dyn.body.structure.state.rot.ang_vel_this[3]
+
+
+-----------------------------------------------------------------------------
+SET_test_val/ : Directory containing comparison run validation data.
+
+There are a validation data sets for each RUN directory associated with the
+test sets.  Currently, these validation data sets are translated data sets
+from the JEOD 1.5.3 suite.  As a result, there are some additional data
+values in the validation that are not currently available in JEOD 2.0.  It
+is expected that these data values will be available in the near future.
+Fortunately, there are sufficient data comparables available to assess the
+validity of the runs.  However, the additional data will be required to
+meet the comparison requirements.
+

@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Abstract for planet model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+The JEOD \planetDesc\ is primarily a container model in which information for
+a particular planetary body is stored. The parent BasePlanet object contains
+both an inertial and a planet-fixed reference frame, though the \planetDesc\
+plays no role in updating or maintaining either of them.
+
+The derived-class Planet object is ellipsoidal-body specific, as it contains
+planetary shape constants that are only valid for an ellipsoid. The Planet class
+also contains a connection to the GravitySource structure associated with the
+same planetary body.
+
+This document describes the implementation of the \planetDesc\ including
+the model requirements, specifications, mathematical theory,
+and architecture.  A user guide is provided to assist
+with implementing the model in Trick simulations.  Finally, the methods and
+results of verification and validation of the model are included.
+
+\end{abstract}

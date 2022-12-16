@@ -1,0 +1,149 @@
+# This is a Trick log file translation file for SIM_dyncomp
+#
+# Handle the translational states.
+#
+sv_dyn.body.orbit.trans.inertial_pos       sv_dyn.body.composite_body.state.trans.position
+sv_dyn.body.orbit.trans.inertial_vel       sv_dyn.body.composite_body.state.trans.velocity
+sv_dyn.body.orbit.trans.inertial_accel     sv_dyn.body.derivs.trans_accel
+sv_dyn.body.orbit.trans.dynamic_accel      sv_dyn.body.derivs.trans_accel
+sv_dyn.body.orbit.trans.nonconserv_accel   sv_dyn.body.derivs.non_grav_accel
+# Core vehicle translational state.
+sv_dyn.body.core.orbit.trans.inertial_pos  sv_dyn.body.core_body.state.trans.position
+sv_dyn.body.core.orbit.trans.inertial_vel  sv_dyn.body.core_body.state.trans.velocity
+#
+# Handle the rotational states.
+#
+# The translator cannot handle the Quaternion scalar/vector split.
+sv_dyn.body.orbit.rot.Q_inertial_body.0.    sv_dyn.body.composite_body.state.rot.Q_parent_this.scalar
+sv_dyn.body.orbit.rot.Q_inertial_body.1.    sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[0]
+sv_dyn.body.orbit.rot.Q_inertial_body.2.    sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[1]
+sv_dyn.body.orbit.rot.Q_inertial_body.3.    sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[2]
+# Note the transpose.
+#sv_dyn.body.orbit.rot.T_body_inertial sv_dyn.body.composite_body.state.rot.T_parent_this
+sv_dyn.body.orbit.rot.T_body_inertial.0..0. sv_dyn.body.composite_body.state.rot.T_parent_this[0][0]
+sv_dyn.body.orbit.rot.T_body_inertial.0..1. sv_dyn.body.composite_body.state.rot.T_parent_this[1][0]
+sv_dyn.body.orbit.rot.T_body_inertial.0..2. sv_dyn.body.composite_body.state.rot.T_parent_this[2][0]
+sv_dyn.body.orbit.rot.T_body_inertial.1..0. sv_dyn.body.composite_body.state.rot.T_parent_this[0][1]
+sv_dyn.body.orbit.rot.T_body_inertial.1..1. sv_dyn.body.composite_body.state.rot.T_parent_this[1][1]
+sv_dyn.body.orbit.rot.T_body_inertial.1..2. sv_dyn.body.composite_body.state.rot.T_parent_this[2][1]
+sv_dyn.body.orbit.rot.T_body_inertial.2..0. sv_dyn.body.composite_body.state.rot.T_parent_this[0][2]
+sv_dyn.body.orbit.rot.T_body_inertial.2..1. sv_dyn.body.composite_body.state.rot.T_parent_this[1][2]
+sv_dyn.body.orbit.rot.T_body_inertial.2..2. sv_dyn.body.composite_body.state.rot.T_parent_this[2][2]
+sv_dyn.body.orbit.rot.body_rate             sv_dyn.body.composite_body.state.rot.ang_vel_this
+sv_dyn.body.orbit.rot.body_accel            sv_dyn.body.derivs.rot_accel
+# Core vehicle rotational state.
+sv_dyn.body.core.orbit.rot.Q_inertial_body.0.    sv_dyn.body.core_body.state.rot.Q_parent_this.scalar
+sv_dyn.body.core.orbit.rot.Q_inertial_body.1.    sv_dyn.body.core_body.state.rot.Q_parent_this.vector[0]
+sv_dyn.body.core.orbit.rot.Q_inertial_body.2.    sv_dyn.body.core_body.state.rot.Q_parent_this.vector[1]
+sv_dyn.body.core.orbit.rot.Q_inertial_body.3.    sv_dyn.body.core_body.state.rot.Q_parent_this.vector[2]
+# Note the transpose.
+sv_dyn.body.core.orbit.rot.T_body_inertial.0..0. sv_dyn.body.core_body.state.rot.T_parent_this[0][0]
+sv_dyn.body.core.orbit.rot.T_body_inertial.0..1. sv_dyn.body.core_body.state.rot.T_parent_this[1][0]
+sv_dyn.body.core.orbit.rot.T_body_inertial.0..2. sv_dyn.body.core_body.state.rot.T_parent_this[2][0]
+sv_dyn.body.core.orbit.rot.T_body_inertial.1..0. sv_dyn.body.core_body.state.rot.T_parent_this[0][1]
+sv_dyn.body.core.orbit.rot.T_body_inertial.1..1. sv_dyn.body.core_body.state.rot.T_parent_this[1][1]
+sv_dyn.body.core.orbit.rot.T_body_inertial.1..2. sv_dyn.body.core_body.state.rot.T_parent_this[2][1]
+sv_dyn.body.core.orbit.rot.T_body_inertial.2..0. sv_dyn.body.core_body.state.rot.T_parent_this[0][2]
+sv_dyn.body.core.orbit.rot.T_body_inertial.2..1. sv_dyn.body.core_body.state.rot.T_parent_this[1][2]
+sv_dyn.body.core.orbit.rot.T_body_inertial.2..2. sv_dyn.body.core_body.state.rot.T_parent_this[2][2]
+sv_dyn.body.core.orbit.rot.body_rate             sv_dyn.body.core_body.state.rot.ang_vel_this
+# Convert the Euler angle representations.
+sv_dyn.pdyn.post_rot.E_inrtl_body_RPY   sv_dyn.euler.ref_body_angles
+sv_dyn.pdyn.post_rot.E_body_inrtl_RPY   sv_dyn.euler.body_ref_angles
+sv_dyn.pdyn.post_rot.E_lvlh_body_RPY    sv_dyn.lvlh_euler.ref_body_angles
+sv_dyn.pdyn.post_rot.E_body_lvlh_RPY    sv_dyn.lvlh_euler.body_ref_angles
+#
+# Handle the planet fixed states.
+#
+sv_dyn.pfix.xyz                         sv_dyn.pfix.state.cart_coords
+sv_dyn.pfix.geodetic.altitude           sv_dyn.pfix.state.ellip_coords.altitude
+sv_dyn.pfix.geodetic.latitude           sv_dyn.pfix.state.ellip_coords.latitude
+sv_dyn.pfix.geodetic.longitude          sv_dyn.pfix.state.ellip_coords.longitude
+sv_dyn.pfix.geocentric.r                sv_dyn.pfix.state.sphere_coords.altitude
+sv_dyn.pfix.geocentric.latitude         sv_dyn.pfix.state.sphere_coords.latitude
+sv_dyn.pfix.geocentric.longitude        sv_dyn.pfix.state.sphere_coords.longitude
+#
+# Handle the orbital element states.
+#
+sv_dyn.orb_elem.semi_major_axis   sv_dyn.orb_elem.elements.semi_major_axis
+sv_dyn.orb_elem.semiparam         sv_dyn.orb_elem.elements.semiparam
+sv_dyn.orb_elem.e_mag             sv_dyn.orb_elem.elements.e_mag
+sv_dyn.orb_elem.inclination       sv_dyn.orb_elem.elements.inclination
+sv_dyn.orb_elem.arg_periapsis     sv_dyn.orb_elem.elements.arg_periapsis
+sv_dyn.orb_elem.long_asc_node     sv_dyn.orb_elem.elements.long_asc_node
+sv_dyn.orb_elem.r_mag             sv_dyn.orb_elem.elements.r_mag
+sv_dyn.orb_elem.vel_mag           sv_dyn.orb_elem.elements.vel_mag
+sv_dyn.orb_elem.true_anom         sv_dyn.orb_elem.elements.true_anom
+sv_dyn.orb_elem.mean_motion       sv_dyn.orb_elem.elements.mean_motion
+sv_dyn.orb_elem.orbital_anom      sv_dyn.orb_elem.elements.orbital_anom
+sv_dyn.orb_elem.orb_energy        sv_dyn.orb_elem.elements.orb_energy
+sv_dyn.orb_elem.orb_ang_momentum  sv_dyn.orb_elem.elements.orb_ang_momentum
+#
+# Handle the dynamic forces and torques.
+#
+sv_dyn.forc_extern                     sv_dyn.force_extern.force
+sv_dyn.torq_extern                     sv_dyn.torque_extern.torque
+sv_dyn.body.orbit.trans.effector_forc  sv_dyn.body.collect.effector_forc
+sv_dyn.body.orbit.trans.environ_forc   sv_dyn.body.collect.environ_forc
+sv_dyn.body.orbit.trans.no_xmit_forc   sv_dyn.body.collect.no_xmit_forc
+sv_dyn.body.orbit.rot.effector_torq    sv_dyn.body.collect.effector_torq
+sv_dyn.body.orbit.rot.environ_torq     sv_dyn.body.collect.environ_torq
+sv_dyn.body.orbit.rot.no_xmit_torq     sv_dyn.body.collect.no_xmit_torq
+sv_dyn.body.orbit.rot.inertial_torq    sv_dyn.body.collect.inertial_torq
+#
+# Handle the gravitational parameters.
+#
+sv_dyn.grav.out.grav_accel              sv_dyn.body.grav_accel
+sv_dyn.grav.out.gg_torq                 sv_dyn.grav_torque.torque
+#
+# Handle the atmospheric parameters.
+#
+sv_dyn.atmos.density                    sv_dyn.atmos.density
+sv_dyn.atmos.temperature                sv_dyn.atmos.temperature
+sv_dyn.atmos.pressure                   sv_dyn.atmos.pressure
+sv_dyn.aero.out.wind_inrtl              sv_dyn.atmos.wind
+sv_dyn.atmos.exo_temp                   earth.atmos.local_state.exo_temp
+sv_dyn.atmos.log10_dens                 earth.atmos.local_state.log10_dens
+sv_dyn.atmos.mol_weight                 earth.atmos.local_state.mol_weight
+#
+# Handle the aerodynamics parameters.
+#
+sv_dyn.aero.out.force                   sv_dyn.aero_drag.aero_force
+sv_dyn.aero.out.torque                  sv_dyn.aero_drag.aero_torque
+#
+# Handle the planetary parameters (Earth, Sun and Moon).
+#
+earth.bodies.body[3].state.rnp.out.gast       earth.rnp.RJ2000.theta_gast
+earth.bodies.body[3].state.rnp.out.RNP        earth.planet.pfix.state.rot.T_parent_this
+earth.bodies.body[3].state.rnp.out.rotation   earth.rnp.RJ2000.rotation
+earth.bodies.body[3].state.rnp.out.nutation   earth.rnp.NJ2000.rotation
+earth.bodies.body[3].state.rnp.out.precession earth.rnp.PJ2000.rotation
+earth.bodies.body[2].state.rnp.in.earth_omega earth.rnp.planet_omega
+earth.bodies.body[3].state.rnp.in.earth_omega earth.rnp.planet_omega
+earth.params.omega                            earth.rnp.planet_omega
+earth.params.mu                               earth.planet.mu
+earth.params.r_eq                             earth.planet.r_eq
+earth.params.r_pol                            earth.planet.r_pol
+earth.params.e                                earth.planet.e_ellipsoid
+earth.params.e2                               earth.planet.e_ellip_sq
+earth.params.f                                earth.planet.flat_coeff
+earth.params.f_inv                            earth.planet.flat_inv
+earth.bodies.body[2].grav.in.mu               earth.gravity_body.mu
+earth.bodies.body[2].grav.in.radius           earth.gravity_body.radius
+earth.bodies.body[0].grav.in.mu               sun.planet.mu
+earth.bodies.body[10].grav.in.mu              moon.planet.mu
+#
+# Handle the time scales.
+#
+earth.utime.out.deltaT       time.conv_tai_ut1.a_to_b_offset
+earth.utime.out.julian_date  time.utc.trunc_julian_time
+#earth.utime.out.UT1          time.manager.dyn_time.seconds
+earth.utime.out.UTC          time.manager.dyn_time.seconds
+#earth.utime.out.TAI          time.manager.dyn_time.seconds
+#earth.utime.out.TDT          time.manager.dyn_time.seconds
+earth.utime.date_out.year    time.utc.calendar_year
+earth.utime.date_out.month   time.utc.calendar_month
+earth.utime.date_out.day     time.utc.calendar_day
+earth.utime.date_out.hour    time.utc.calendar_hour
+earth.utime.date_out.minute  time.utc.calendar_minute
+earth.utime.date_out.second  time.utc.calendar_second

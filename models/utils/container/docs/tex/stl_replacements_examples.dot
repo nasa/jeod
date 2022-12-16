@@ -1,0 +1,49 @@
+digraph G { 
+   rankdir=BT;
+   node [fontname="Helvetica",fontsize=10,shape=box];
+   edge [fontname="Helvetica",fontsize=10,arrowhead=empty];
+
+
+
+   JeodPointerList -> JeodPointerContainerList;
+   JeodPointerContainerList -> JeodContainerPointerList;
+   JeodContainerPointerList -> JeodListPointer [weight=200];
+   JeodContainerPointerList -> JeodCheckpointable [weight=1];
+   JeodListPointer -> JeodSequenceContainerPointerList;
+   JeodSequenceContainerPointerList -> JeodSTLContainerPointerList;
+
+
+   JeodPointerList \
+      [label="JeodPointerList<Type>"];
+   JeodPointerContainerList \
+      [label="JeodPointerContainer<\nJeodList<Type*>,Type>"];
+   JeodContainerPointerList \
+      [label="JeodContainer<\nJeodList<Type*>,Type*>"];
+   JeodListPointer \
+      [label="JeodList<Type*>"];
+   JeodSequenceContainerPointerList \
+      [label="JeodSequenceContainer<\nType*,std::list<Type*>>"];
+    JeodSTLContainerPointerList \
+      [label="JeodSTLContainer<\nType*,std::list<Type*>>"];
+
+
+   JeodPrimitiveSet -> JeodPrimitiveContainerSet;
+   JeodPrimitiveContainerSet -> JeodContainerPrimitiveSet;
+   JeodContainerPrimitiveSet -> JeodCheckpointable [weight=1];
+   JeodContainerPrimitiveSet -> JeodSetPrimitive [weight=200];
+   JeodSetPrimitive -> JeodAssociativeContainerPrimitiveSet;
+   JeodAssociativeContainerPrimitiveSet -> JeodSTLContainerPrimitiveSet;
+
+   JeodPrimitiveSet \
+      [label="JeodPrimitiveSet<Type>"];
+   JeodPrimitiveContainerSet \
+      [label="JeodPrimitiveContainer<\nJeodSet<Type>,Type>"];
+   JeodContainerPrimitiveSet \
+      [label="JeodContainer<\nJeodSet<Type>,Type>"];
+   JeodSetPrimitive \
+      [label="JeodSet<Type>"];
+   JeodAssociativeContainerPrimitiveSet \
+      [label="JeodAssociativeContainer<\nType,std::set<Type>>"];
+    JeodSTLContainerPrimitiveSet \
+      [label="JeodSTLContainer<\nType,std::set<Type>>"];
+}

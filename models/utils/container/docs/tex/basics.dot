@@ -1,0 +1,17 @@
+digraph G { 
+
+   // Make this look like a UML diagram
+   rankdir=BT;
+   node [fontname="Helvetica",fontsize=10,shape=box];
+   edge [fontname="Helvetica",fontsize=10,arrowhead=empty];
+
+   // Node connectivity
+   SimpleCheckpointable -> JeodCheckpointable;
+   JeodContainer -> {JeodCheckpointable; "Non-checkpointable STL Replacement"};
+   "Jeod Derived Container" -> JeodContainer;
+   "JEOD STL Replacement" -> "Jeod Derived Container";
+
+   // Put the two end classes at the bottom of the diagram.
+   {rank=same; SimpleCheckpointable; "JEOD STL Replacement"};
+
+}

@@ -1,0 +1,118 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+#define DYNAMICS 10.0
+#define LOW_RATE_ENV 100
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+#include "time_TAI_UTC_UT1_TT_GMST.sm"
+#include "dynamics.sm"
+#include "environment.sm"
+#include "earth_GGM05C.sm"
+#include "sun_basic.sm"
+
+/*****************************************************************************
+MoonSimObject
+Purpose:(This models Moon, including the LP150Q gravity model)
+*****************************************************************************/
+
+// Include headers for classes that this class contains:
+##include "environment/planet/include/planet.hh"
+##include "environment/gravity/include/spherical_harmonics_gravity_source.hh"
+
+// Include default data classes:
+##include "environment/planet/data/include/moon.hh"
+##include "environment/gravity/data/include/moon_LP150Q.hh"
+
+#include "Base/moon_LP150Q.sm"
+class MoonSimObject: public Moon_LP150Q_SimObject
+{
+ protected:
+  // External references
+  jeod::De4xxEphemeris  & de4xx;
+ public:
+  MoonSimObject(
+         EnvSimObject & environment_in,
+         jeod::DynManager & dyn_mgr_in)
+    :
+    Moon_LP150Q_SimObject( dyn_mgr_in, environment_in.gravity_manager),
+    de4xx( environment_in.de4xx)
+  {
+    P_ENV ("derivative") de4xx.propagate_lunar_rnp ( );
+  }
+
+ private:
+  MoonSimObject (const MoonSimObject&);
+  MoonSimObject & operator = (const MoonSimObject&);
+};
+MoonSimObject moon ( env, dynamics.dyn_manager);
+
+
+/*****************************************************************************
+VehicleSimObject
+Purpose:(Common model for vehicle and lunar_vehicle)
+*****************************************************************************/
+##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
+
+#include "Base/vehicle_baseline.sm"
+class VehicleSimObject : public VehicleBasicSimObject
+{
+ public:
+  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
+  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
+  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
+
+  jeod::DynBodyInitLvlhRotState lvlh_init;
+
+  VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
+    :
+    VehicleBasicSimObject( dyn_mngr_in)
+  { }
+
+ private:
+  VehicleSimObject (const VehicleSimObject&);
+  VehicleSimObject & operator = (const VehicleSimObject&);
+};
+VehicleSimObject earth_vehicle(dynamics.dyn_manager);
+VehicleSimObject moon_vehicle (dynamics.dyn_manager);
+
+
+/*****************************************************************************
+Integration
+*****************************************************************************/
+IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth, moon;

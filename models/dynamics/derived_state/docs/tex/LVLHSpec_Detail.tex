@@ -1,0 +1,46 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the LVLH model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+See the \href{file:refman.pdf}{Reference Manual}\cite{derivedstatebib:ReferenceManual} for a summary of member data and member methods for all classes.  
+
+\subsection{Process Architecture}
+The process architecture for the \LVLHDesc\ is trivial; the \LVLHDesc\ comprises only methods that are independent of one another.
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods in each class.
+
+The \LVLHDesc\ contains only one class:
+\begin{itemize}
+\classitem{LvlhDerivedState}
+\textref{DerivedState}{ref:DerivedState}
+
+This contains the methods \textit{compute\_lvlh\_frame}, \textit{initialize}, and \textit{update}:
+\begin{enumerate}
+
+\funcitem{compute\_lvlh\_frame}
+This method follows the process outlined in the \textref{Mathematical Formulations section}{sec:Lvlhmath} for deriving the transformation matrix, and uses the \textit{compute\_quaternion} method from the Reference Frames model to compute the equivalent quaternion representation (see \href{file:\JEODHOME/models/utils/ref\_frames/docs/ref\_frames.pdf}{\em Reference Frames} documentation~\cite{dynenv:REFFRAMES} for details).
+
+\funcitem{initialize}
+The initialization process comprises the following steps:
+\begin{enumerate}
+\item{} The generic DerivedState initialization routine is called to establish the naming convention of the reference object (i.e., the planet about which the vehicle is orbiting) and state identifier.
+\item{} The DerivedState method \textit{find\_planet} is called (which subsequently calls the  \href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{\em Dynamics Manager}~\cite{dynenv:DYNMANAGER}) method of the same name to find a planet by name; that name is stored as \textit{reference\_name}, and is usually assigned in an input file.
+\item{} The name of the LVLH state is set as \textit{vehicle\_name.planet\_name.lvlh}.
+\item{} The element \textit{planet\_centered\_inertial} is set to be the inertially-oriented reference frame attached to the planet, identified by \textit{reference\_name}.
+\item{} The LVLH reference frame is added as a child to the \textit{planet\_centered\_inertial} frame.
+\item{} The LVLH frame is registered with the Dynamics manager (optional, user can specify with the \textit{register\_frame} flag, default is true).
+\item {} The angular momentum vector of the LVLH frame with respect to the inertial reference frame is then initialized to zero.  This vector is to be expressed in the LVLH frame, so it will have only a y-component (the frame rotates about the orbital angular momentum vector, the y-axis of the LVLH frame).  The unit vector is set accordingly.
+\end{enumerate}
+
+\funcitem{update}
+The LVLH frame is a child of the inertially-oriented frame attached to some planet.  If that inertial frame is the same as the integration frame, then the update comprises simply a call to \textit{compute\_lvlh\_frame}.  Otherwise, it is first necessary to compute the relative state of the vehicle with respect to that inertial frame; this is achieved through the DynBody method \textit{compute\_relative\_state} (see \href{file:\JEODHOME/models/dynamics/dyn\_body/docs/dyn\_body.pdf}{\em Dynamic Body} documentation~\cite{dynenv:REFFRAMES} for details)
+
+\end{enumerate}
+\end{itemize}

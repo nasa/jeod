@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Extension part of User's Guide for the Relative model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Extension}
+
+The \RelativeDesc\ is not intended to be extensible at this time.  An obvious conceptual extension would be the ability to state the frame used to express the state of frame \textit{A} with respect to frame \textit{B}, as opposed to the current capability which dictates the expression frame (e.g. one could wish to express the relative position of frame \textit{A} with respect to frame \textit{B} in frame \textit{A}, or in a third frame, frame \textit{C}, but neither capability is currently available).  However, great care should be taken if this is attempted, due to the nature of the inherent paradigm of the RefFrameState.
+
+ The \RelativeDesc\ takes advantage of the RefFrameState object to describe the state.  It is assumed that the RefFrameState (of frame \textit{A} relative to frame \textit{B}) has the following interpretations:
+ \begin{itemize}
+  \item Position: expresssed in frame \textit{B}.
+  \item Translational velocity: expresssed in frame \textit{B}.
+  \item Rotational velocity: expresssed in frame \textit{A}.
+ \end{itemize}
+ The RefFrameState contains not only those state elements (if it did, the extension would be a trivial transformation), but also provides the methods to manipulate them.  Changing the paradigm by transforming the output data values will make the output inconsistent with the class that represents it, and will invalidate those methods.  However, the output will still be a RefFrameState, so those invalid methods will still be applicable, however inappropriately;  peculiar and unexpected behavior will likely result.  So, while the \RelativeDesc\ can be easily extended conceptually, the implementation of that extension is far beyond the scope of this document.  The capability to provide these extensions is currently under review for future releases.
+ 

@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MassBodyInit_reqt.tex
+% Requirements on/levied by the MassBodyInit class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Requirements}\label{ch:\modelpartid:reqt}
+
+
+\requirement{Initialize Mass Properties}
+\label{reqt:MassBodyInit:mass_ppty_init}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This class shall provide the ability
+    to initialize the mass properties of a subject MassBody object
+    and specify the orientation of the subject object's
+    body reference frame with respect to its structural reference frame.
+  \item[Rationale:]\ \newline
+    This is the primary purpose of this class.
+    This requirement derives directly from
+    requirement~\ref{reqt:overview:mass_ppty_init}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Initialize Mass Points}
+\label{reqt:MassBodyInit:mass_pnts_init}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This class shall provide the ability to specify the
+    points of interest (`mass points' and `vehicle points')
+    on MassBody and DynBody objects.
+  \item[Rationale:]\ \newline
+    This requirement derives directly from
+    requirement~\ref{reqt:overview:mass_point_init}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+%\requirement[Trace]{Trace Capability}
+%\label{reqt:MassBodyInit:debug}
+%\begin{description}
+%  \item[Requirement:]\ \newline
+%    The \partxname shall provide a (disable-able) ability to
+%    summarize mass initialization actions.
+%  \item[Rationale:]\ \newline
+%    This requirement derives directly from
+%    requirement~\ref{reqt:overview:debug}.
+%  \item[Verification:]\ \newline
+%    Inspection, Test
+%\end{description}

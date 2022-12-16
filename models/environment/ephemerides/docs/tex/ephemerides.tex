@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ephemerids.tex
+% Top level document for the Ephemerides Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Use the standard JEOD dynenv document class
+\documentclass[pdflscape,paralist,footmisc]{dynenv}
+
+% Number to the paragraph level
+\setcounter{secnumdepth}{4}
+
+
+\begin{document}
+
+% Front matter: Executive summary, table of contents, lists of figures & tables
+\frontmatter[style=summary,tables]{summary}
+
+% Main document body, each is chapter in its own file
+\mainmatter{intro,reqt,spec,guide,ivv}
+
+% Back matter: Bibliography
+\backmatter{}
+
+\end{document}

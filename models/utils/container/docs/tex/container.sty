@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{container}[2012/02/06 v1.1 Container module macros]
+
+% Author and revision number of current revision of the document.
+% Update these when changes are made to the document.
+\newcommand\ModelAuthor{David Hammen}
+\newcommand\ModelRevision{1.1}
+
+% \ModelHistory is expanded in the document history section of the introduction.
+% This command comprise a set of lines, each of which must be of the form
+%   Author & Date & Revision & Description \\
+% The final entry must describe the current version.
+% The fields are:
+%   Author       The names of the authors responsible for the document revision.
+%   Date         The month and year of the document revision.
+%   Revision     The document revision number in major.minor format.
+%   Description  A brief description of the revision.
+\newcommand\ModelHistory {
+  David Hammen & February 2012 & 1.1 & Current version \\
+  David Hammen & June 2011 & 1.0 & JEOD 2.2 beta release \\
+}
+
+
+% Model description macros, used for the cover page and to tag requirements.
+\newcommand\ModelPrefix{Container}
+\newcommand\ModelDesc{Container Model\xspace}
+\newcommand\ModelKeywords{STL container, checkpoint/restart}
+
+
+% Short little commands.
+\newcommand{\funder}{\_\hspace{0pt}}
+\newcommand{\inanglebrackets}[1] {\textless{}#1\textgreater{}}
+\newcommand{\template}[2] {#1\hspace{0pt}\inanglebrackets{#2}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+% Don't hyphenate class names.
+\hyphenation{MassBody}
+\hyphenation{MassBasicPoint}
+\hyphenation{RefFrame}
+\hyphenation{JeodCheckpointable}
+\hyphenation{SimpleCheckpointable}
+\hyphenation{JeodSTLContainer}
+\hyphenation{JeodAssociativeContainer}
+\hyphenation{JeodSequenceContainer}
+\hyphenation{JeodList}
+\hyphenation{JeodSet}
+\hyphenation{JeodVector}
+\hyphenation{JeodContainer}
+\hyphenation{JeodObjectContainer}
+\hyphenation{JeodPointerContainer}
+\hyphenation{JeodPrimitiveContainer}
+\hyphenation{JeodPrimitiveSerializer}
+\hyphenation{JeodObjectList}
+\hyphenation{JeodObjectSet}
+\hyphenation{JeodObjectVector}
+\hyphenation{JeodPointerList}
+\hyphenation{JeodPointerSet}
+\hyphenation{JeodPointerVector}
+\hyphenation{JeodPrimitiveList}
+\hyphenation{JeodPrimitiveSet}

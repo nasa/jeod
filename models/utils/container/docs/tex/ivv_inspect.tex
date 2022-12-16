@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ivv_inspect.tex
+% Inspections of the Container Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+
+This document structure, the code, and associated files have been inspected.
+The \ModelDesc satisfies requirement~\traceref{reqt:toplevel}.
+
+\inspection{Container Inspection}
+\label{inspect:STL}
+
+One  purpose of the JEOD container replacements is to transparently
+encapsulate the \Cplusplus standard library list, vector, and set containers
+in a manner that enables checkpoint/restart.
+A design goal was to allow future extensions to
+sequence containers such as std::map and
+associative containers such as std::map
+that are not supported in this release.
+
+Tables 65 and 66 in ISO/IEC 14882:2003\cite{cpp2003} describe functionality
+common to all of the container classes. By inspection, the template class
+JeodContainer provides all types and methods described in these tables except
+for the Allocated-based \verb|reference| and \verb|const_reference| typedefs.
+(Support for Allocators is not required in JEOD 2.2.)
+
+Tables 67 and 68 describe the base functionality of the sequence containers.
+Table 79 describes the base functionality of the associative containers.
+Items in tables 67 and 69 that share a common signature are implemented in
+template class JeodContainer. Items in tables 67 and 68 that are common to all
+sequence containers are implemented in class template JeodSequenceContainer.
+Items in table 69 are implemented in template class JeodAssociativeContainer.
+
+Sections 23.2.2, 23.2.4, and 23.3.3 of the \Cplusplus standard describe the
+functionality of list, vector, and set.
+The functionality described in those sections is either implemented in one of the
+aforementioned base template classes; in the
+template classes JeodList (list), JeodVector (vector), and JeodSet (set);
+or are omitted because they relate explicitly to Allocator or Compare classes.
+
+The constructors in the classes JeodList, JeodVector, and JeodSet are protected.
+The standard requires that the constructors be public.
+This is addressed in the template classes
+JeodObjectContainer, JeodPrimitiveContainer, and JeodPointerContainer,
+which provide the publicly visible constructors as required by the standard
+(sans the support for non-default Allocators).
+
+By inspection, the \ModelDesc satisfies
+requirement~\traceref{reqt:stl_containers}.
+
+\inspection{Checkpoint/Restart Inspection}
+\label{inspect:chkpt}
+
+The primary purpose of the model is to provide a basis for checkpointing and
+restarting objects whose content is opaque to simulation engines such as Trick.
+The abstract class JeodCheckpointable defines the basis for these operations.
+The model provides a simple extension of this class, SimpleCheckpointable,
+which can be used to checkpoint and restart files.
+
+The template class
+JeodContainer and its derived classes JeodObjectContainer, JeodPointerContainer,
+and JeodPrimitiveContainer provide the requisite functionality needed to
+make the STL container replacements checkpointable and restartable.
+
+By inspection, the \ModelDesc satisfies
+requirement~\traceref{reqt:chkpt}.
+

@@ -1,0 +1,15 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the Euler model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+A reference frame attitude can be described as a set of three rotations about independent axes.  In the \EulerDesc\, the Roll, Pitch, and Yaw axes are used, and can be input in any order \textbf{without repeats} (i.e. all three axes must be used).  Numerically, three values are specified in a single vector, corresponding to the angle of rotation about each specified axis in turn.
+
+The angles represent a process for conducting a transformation from one reference frame to another, thereby providing data on the relative attitude of the two frames.  Because the relative attitude can be expressed in either direction, two sets of angles, \textit{ref\_body\_angles} and \textit{body\_ref\_angles} are included in the available output.  \textit{ref\_body\_angles} provides the transformation from the external reference frame to the subject-body reference frame, and \textit{body\_ref\_angles} provides the reverse transformation.
+
+When calculating the Euler angles from two reference frames, both sets of angles are calculated.

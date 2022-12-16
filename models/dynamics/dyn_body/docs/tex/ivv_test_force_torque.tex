@@ -1,0 +1,130 @@
+\test{Force/Torque}\label{test:force_torque}
+\begin{description}
+\item[Background] The primary purpose of this test is to test that
+external forces and torques are properly accumulated and propagated
+to parent bodies.
+
+\item[Test description]
+This test applies forces and torques to a pair of joined dynamic bodies
+flying through otherwise empty space.
+The situation is contrived to test that forces and torques, including
+the non-transmitted forces and torques, are properly accumulated
+and propagated. The bodies take a jaunt along the inertial z axis,
+return to the origin, then another jaunt along the inertial x axis
+and return once again to the origin. The bodies perform a 90 degree yaw and then
+a 90 degree roll during the latter excursion.
+
+\item[Test directory]
+{\tt models/dynamics/dyn\_body/verif/SIM\_force\_torque} \\
+The simulation \Sdefine file defines two dynamic bodies,
+body actions that operate on these bodies,
+and forces and torques that can be applied to these bodies.
+The forces and torques are collected via the {\emph vcollect} mechanism.
+There is one run for this test.
+Table~\ref{tab:force_torque_summary} summarizes the actions, forces and
+torques that are applied during the course of the run and
+identifies the expected results from those operations.
+
+\item[Success criteria] The analytic and simulated results
+for the accumulated/propagated forces and torques,
+and for the resulting accelerations,
+must agree to within numerical precision. Deviations between
+the analytic and simulated integrated states must be small and
+attributable solely to the small numeric errors in the accelerations.
+
+\item[Test results] The final position of the composite center of mass
+is within $1.7\eneg{12}$ meters of the origin. This small error
+is fully attributable to the integration of small errors. Along the way,
+small errors are made in the accumulation and propagation of forces and
+torques and calculations of accelerations. These small errors are purely
+numerical.
+
+The test passes.
+
+\item[Applicable requirements]
+This test demonstrates the partial or complete satisfaction of the
+following requirements:
+\begin{itemize}
+\item \ref{reqt:mass_requirements}. Mass properties are properly initialized and
+are properly updated due to attachments and detachments.
+\item \ref{reqt:eom}. Forces and torques are properly accumulated and
+propagated. Accelerations are properly calculated from forces and torques.
+\item \ref{reqt:state_integ_prop}. The equations of motion are properly
+integrated.
+\item \ref{reqt:vehicle_points}. Vehicle points are properly constructed
+and used during attachments.
+\item \ref{reqt:attach_detach}. JEOD's magical teleportation capability works as
+advertised.
+\end{itemize}
+
+\end{description}
+
+\begin{table}[htp]
+\centering
+\caption{Force/Torque Test Summary}
+\label{tab:force_torque_summary}
+\vspace{1ex}
+\begin{tabular}{||r@{}l|p{2.6in}|p{3in}|} \hline
+\multicolumn{2}{||l|}{\bf Time} & {\bf Action} & {\bf Expected Result}
+\\ \hline \hline
+&0 &
+  Bodies initialized and attached &
+  \raggedright
+  Composite body has spherical mass distribution and
+  is at rest at the inertial origin.\tabularnewline[6pt]  
+0&-3 &
+  \raggedright
+  Effector \& environmental z-axis forces increasingly applied to body2 &
+  \raggedright
+  Composite acceleration builds from 0 to 3~m/s$^2\,\hat z$
+  in steps of 1 m/s$^2$.\tabularnewline[6pt]
+4&-6 &
+  Non-xmitted forces on body2 &
+  Composite acceleration remains at 3 m/s$^2\hat z$.\tabularnewline[6pt]
+&7 &
+  Body2 detaches from body1 &
+  Bodies are detached.\tabularnewline[6pt]
+7&-9 &
+  Non-xmitted z-axis force on body2 &
+  \raggedright
+  Body2 zooms back toward the origin,
+  coming to rest with respect to body1 at t=9.\tabularnewline[6pt]
+&9& Body2 reattaches to body1 &
+  Attachment does not change body1 core state.\tabularnewline[6pt]
+9&-19 &
+  Non-transmitted z-axis forces on body1 &
+  Composite acceleration is -3 m/s$^2\,\hat z$.\tabularnewline[6pt]
+21&-27 &
+  Non-transmitted z-axis forces on body1 &
+  \raggedright
+  Composite body moves along z toward origin,
+  coming to rest at the origin at t=27.\tabularnewline[6pt]
+30&-32 &
+  Environmental x-axis force on body2,
+  non-xmitted y-axis torque on body1 &
+  \raggedright \ \\
+  Composite acceleration is 1 m/s$^2\,\hat x$.\tabularnewline[6pt]
+32&-52 &
+  Environmental z-axis torque on body2, reversing sign at t=42 &
+  \raggedright
+  Composite body rotates about its z-axis,
+   completing a 90 degree yaw at t=52.\tabularnewline[6pt]
+52&-56 &
+  Environmental y-axis force on body2,
+  non-transmitted x-axis torque on body1 &
+  \raggedright
+  Composite acceleration is -1~m/s$^2\,\hat x$,
+  making composite move back toward origin.\tabularnewline[6pt]
+56&-76 &
+  Environmental x-axis torque on body2, reversing sign at t=66 &
+  \raggedright
+  Composite body rotates about its x-axis,
+   completing a 90 degree roll at t=76.\tabularnewline[6pt]
+76&-78 &
+  Non-transmitted z-axis force on body1 &
+  Composite acceleration is 1 m/s$^2\,\hat x$.\tabularnewline[6pt]
+&78 &&
+  Composite body frame is at rest at the origin.\tabularnewline[6pt]
+\hline
+\end{tabular}
+\end{table}

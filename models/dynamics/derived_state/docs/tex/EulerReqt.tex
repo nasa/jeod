@@ -1,0 +1,23 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  requirements for the Euler model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% add text here to describe general model requirements
+% text is of the form:
+\requirement{Calculate relative attitude between two reference frames}
+\label{reqt:Euler}
+\begin{description}
+  \item[Requirement:]\ \newline
+     Given a reference frame associated with a body, the \EulerDesc\ will calculate an Euler-type angle sequence from body frame to the reference frame parent to it, and from the parent frame to the body frame using the 3 basic axes, represented as roll(x-axis rotation), pitch (y-axis rotation), and yaw (z-axis rotation).
+  \item[Rationale:]\ \newline
+     To provide a means of expressing relative attitude between reference frames.
+  \item[Verification:]\ \newline
+     Test
+\end{description}
+
+\input{EulerReqt_trace}

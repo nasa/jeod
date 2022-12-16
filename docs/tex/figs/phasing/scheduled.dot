@@ -1,0 +1,78 @@
+digraph G {
+   label = "Trick Scheduled Job Dependencies";
+   compound = true;
+   center=true;
+   style=rounded;
+   color=white;
+   pencolor=black;
+
+   node [fontname="Helvetica",fontsize=11];
+   edge [fontname="Helvetica",fontsize=11,arrowhead=vee];
+
+   // Nodes 
+   
+   
+   subgraph cluster0 {   
+      node [group="time"];
+      label="";
+      RNPJ2000__update_rnp [label="RNPJ2000::update_rnp"];      
+      TimeStandard__calendar_update [label="TimeStandard::calendar_update"];
+      METAtmosphere__update_time [label="METAtmosphere::update_time"];
+      AtmosphereState__update_state [label="AtmosphereState::update_state"];
+      // Edges for ordering
+      RNPJ2000__update_rnp -> TimeStandard__calendar_update [style="invis"];
+      pencolor=white;
+   } 
+   
+   subgraph cluster1 {   
+      node [group="manager"];
+      label="";
+      TimeManager__update [label="TimeManager::update"];
+      DynManager__update_ephemerides [label="DynManager::update_ephemerides"];
+      AtmosphereState__update_wind [label="AtmosphereState::update_wind"];
+      // Edges for ordering
+      DynManager__update_ephemerides -> AtmosphereState__update_wind [style="invis"];
+      pencolor=white;
+   }    
+
+   subgraph cluster2 {   
+      node [group="state"];
+      label="";
+      EulerDerivedState__update [label="EulerDerivedState::update"];      
+      LvlhDerivedState__update [label="LvlhDerivedState::update"];      
+      PlanetaryDerivedState__update [label="PlanetaryDerivedState::update"];
+      OrbElemDerivedState__update [label="OrbElemDerivedState::update"];
+      // Edges for ordering
+      EulerDerivedState__update -> LvlhDerivedState__update [style="invis"];
+      LvlhDerivedState__update -> OrbElemDerivedState__update [style="invis"];
+      OrbElemDerivedState__update -> PlanetaryDerivedState__update [style="invis"];
+      pencolor=white;
+   }
+
+   {rank="same"; RNPJ2000__update_rnp;TimeManager__update;EulerDerivedState__update;};
+   
+   
+
+   
+   // Edges
+   TimeManager__update -> TimeStandard__calendar_update;
+   TimeManager__update -> DynManager__update_ephemerides;
+   TimeManager__update -> RNPJ2000__update_rnp;
+   TimeManager__update -> EulerDerivedState__update;
+   TimeManager__update -> PlanetaryDerivedState__update;
+   TimeManager__update -> LvlhDerivedState__update;
+   TimeManager__update -> OrbElemDerivedState__update;
+
+   DynManager__update_ephemerides -> OrbElemDerivedState__update;
+   DynManager__update_ephemerides -> LvlhDerivedState__update;
+   DynManager__update_ephemerides -> PlanetaryDerivedState__update;
+   DynManager__update_ephemerides -> EulerDerivedState__update;
+
+   TimeStandard__calendar_update -> METAtmosphere__update_time;
+
+   PlanetaryDerivedState__update -> AtmosphereState__update_state;
+   PlanetaryDerivedState__update -> AtmosphereState__update_wind;
+
+   METAtmosphere__update_time -> AtmosphereState__update_state;
+
+}

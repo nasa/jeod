@@ -1,0 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the LVLH relative derived state model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+The \LRDSDesc\ is used to express the state of a subject frame
+relative to a system that is aligned with the local vertical and horizontal
+of a given point with respect to a planetary object. The relative state
+includes the full 6-DoF state of a given reference frame as viewed from
+the LVLH frame. Unlike a true reference frame, this relative state is not
+part of the reference frame tree structure. Although it has no parent, the
+relative state can be considered to be a child of the LVLH frame, especially
+in the rectilinear case. Introduction of curvilinear coordinates changes the 
+way distances, velocities and directions are computed, but the relative state
+still represents the way the subject looks from the point of view of the
+LVLH frame.
+
+

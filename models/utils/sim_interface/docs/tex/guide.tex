@@ -1,0 +1,424 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% guide.tex
+% User Guide for the Simulation Interface Model.
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+
+\section{Instructions for Simulation Users}
+Simulation users interact with the model by means of the
+\verb|jeod_sys| simulation object, which contains
+the singular simulation interface object,
+the singular message handler object, and
+the singular memory manager object.
+See section~\ref{sec:sim_developer_instructions} for details on this object.
+
+The members of this simulation object mostly function without user intervention.
+This section describes those cases where user intervention can be used.
+
+\subsection{Memory Manager}
+User control over the memory manager is limited to specifying the
+memory manager debug level. The minimal setting results in the memory
+manager reporting serious errors only. The maximal setting causes
+every transaction to be reported.
+
+Refer to the User Guide chapter of
+\hypermodelrefinside{MEMORY}{part}{user} for details.
+
+\subsection{Message Handler}
+Users can direct the message handler to suppress messages that are
+below some severity threshold and can to some extent control how
+messages are formatted.
+Refer to the User Guide chapter of
+\hypermodelrefinside{MESSAGE}{part}{user} for details.
+
+The Trick-specific message handler provided with this model adds the
+ability to suppress messages by their code. For example, the
+message handler reports JEOD-allocated memory that has not
+been freed by the time the memory manager is destroyed with
+the code \verb|utils/memory/corrupted_memory|. Messages tagged
+with this code can be suppressed from the Python input file via
+\begin{codeblock}
+jeod_sys.message_handler.add_suppressed_code("utils/memory/corrupted_memory")
+\end{codeblock}
+
+
+\subsection{Checkpoint/Restart}
+JEOD is checkpointable and restartable in the Trick 13 environment.
+The standard \verb|jeod_sys| simulation object provided with JEOD
+registers jobs that cause the \ModelDesc to create a JEOD checkpoint file
+whenever a Trick checkpoint file is created.
+The \ModelDesc saves JEOD content to this JEOD checkpoint file as a part of
+the Trick checkpoint process.
+
+The  \verb|jeod_sys| simulation object
+similarly registers jobs that cause the \ModelDesc to restore JEOD content
+from a JEOD checkpoint file as a part of the restart procress.
+The \ModelDesc restores JEOD content from a JEOD checkpoint file as a part of
+the Trick restart process.
+
+Trick provides several mechanisms for creating checkpoint files and
+for restoring from a checkpoint.
+A set of post-initialization checkpoint files can be created via
+\begin{codeblock}
+trick_mm.mmw.set_post_init_checkpoint(1)
+\end{codeblock}
+Post-initialization and end checkpoint files can be created via similar
+mechanisms.
+
+This class of checkpoint files typically are not useful for restart.
+Checkpoint files suitable for restart are created by Trick events
+at scheduled to run at either the beginning or end of a Trick frame.
+The following is the code used to create a checkpoint file in the
+\verb|SET_test/RUN_prop_checkpoint| run
+of the
+\hypermodelref{EPHEMERIDES} simulation \verb|SIM_prop_planet_10|.
+\begin{codeblock}
+# Import the JEOD checkpoint/restart module.
+import sys
+import os
+sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
+import jeod_checkpoint_restart
+
+... (omitted code)
+
+# Drop a checkpoint 60 days into the simulation.
+jeod_checkpoint_restart.create_checkpoint (60*86400, 86400*(365*150+30))
+\end{codeblock}
+
+This uses the JEOD Python library file \verb|jeod_checkpoint_restart.py|
+to do most of the work. The function \verb|create_checkpoint| in that
+module takes two arguments. The first is the simulation time at which the
+checkpoint is to be created. The second is the simulation time at which
+a simulation restarted from this checkpoint file is to end.
+
+The Trick and JEOD checkpoint files are named according to the time at which the
+checkpoint is created. In the above example, the checkpoint files will be named
+\verb|chkpnt_5184000.000000| and \verb|jeod_chkpnt_5184000.000000|. The
+\verb|SET_test/RUN_prop_restart| run of the same simulation loads the checkpoint
+files via the following:
+\begin{codeblock}
+# Import the JEOD checkpoint/restart module.
+import sys
+import os
+sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
+import jeod_checkpoint_restart
+
+... (omitted code)
+
+# Restart the sim from the checkpoint data in SET_test/RUN_prop_checkpoint.
+jeod_checkpoint_restart.restore_from_checkpoint (
+  "SET_test/RUN_prop_checkpoint", "chkpnt_5184000.000000")
+\end{codeblock}
+
+\section{Instructions for Simulation Developers}
+\label{sec:sim_developer_instructions}
+\subsection{The \code{jeod\_sys} Simulation Object}
+\label{sec:guide_jeod_sys}
+All JEOD-based simulations must contain an instance of a
+\verb|JeodSimulationInterface| object.
+This object must be the first JEOD object that is constructed and
+the last JEOD object that is destroyed during the course of execution of the
+simulation.
+
+Use
+\begin{codeblock}
+#include "JEOD_S_modules/jeod_sys.sm"
+\end{codeblock}
+where \verb|JEOD_S_modules| is a symbolic link to
+\verb|$JEOD_HOME/sims/shared/Trick10/S_modules|.
+To use a MessageHandler class  other than the TrickMessageHandler,
+\verb|#define MESSAGE_HANDLER_CLASS| to the desired class name.
+
+\subsection{Integration Jobs}
+\label{sec:guide_integ}
+The \DYNMANAGER\ provides the ability to monolithically integrate all of the
+\verb|DynBody| objects that comprise a simulation.
+Refer to the User Guide chapter of
+\hypermodelrefinside{DYNMANAGER}{part}{user} for details.
+
+The \ModelDesc provides a Trick-specific multiple integration group capability.
+One way to use this capability is to use the JEOD S\_module
+\verb|integ_loop.sm|. This defines the
+\verb|JeodIntegLoopSimObject| simulation object class.
+You will need to \verb|#include| this S\_module in your \Sdefine file:
+\begin{codeblock}
+#include "JEOD_S_modules/jeod_sys.sm"
+\end{codeblock}
+Unlike the other Trick 13 JEOD S\_modules,
+this S\_module does not create an instance of simulation object class.
+Your \Sdefine must declare these instances via
+the  \verb|JeodIntegLoopSimObject| non-default constructor.
+The following example is from the
+\hypermodelref{EPHEMERIDES} simulation \verb|SIM_prop_planet_10|.
+\begin{codeblock}
+JeodIntegLoopSimObject fast_integ_loop (
+   FAST_DYNAMICS,
+   integ_constructor.selected_constr, integ_constructor.group,
+   jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager,
+   &sun, &jupiter, &saturn, NULL);
+
+JeodIntegLoopSimObject slow_integ_loop (
+   SLOW_DYNAMICS,
+   integ_constructor.selected_constr, integ_constructor.group,
+   jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager,
+   NULL);
+\end{codeblock}
+
+The only public constructor for the \verb|JeodIntegLoopSimObject| is the
+non-default constructor used in the above example. This constructor takes
+six required arguments plus an indeterminate number of optional arguments.
+The six required arguments are\begin{description}
+\item[{\tt integ\_cycle}]
+The time interval between calls to the integration loop's integrate function.
+
+\item[{\tt integ\_cotr\_in}]
+A pointer to the integration constructor that is to be used to create
+integration artifacts for the integration group and the objects integrated
+by the integration group.
+
+\item[{\tt integ\_group\_in}]
+An integration group that is to be used as a prototype for creating the
+integration loop's integration group object.
+
+\item[{\tt time\_manager\_in}]
+The simulation-wide JEOD time manager.
+
+\item[{\tt dyn\_manager\_in}]
+The simulation-wide JEOD dynamics manager.
+
+\item[{\tt grav\_model\_in}]
+The simulation-wide JEOD gravity model.
+\end{description}
+
+Another option is to build a custom simulation object class.
+This class must contain an object of type \verb|JeodDynbodyIntegrationLoop|.
+That object needs to be constructed using the non-default constructor
+for that class. The simulation object class must register
+\verb|initialization|, \verb|derivative|, and \verb|integ_loop| jobs
+as  the \verb|JeodIntegLoopSimObject| class does.
+Use the \verb|JeodIntegLoopSimObject| as a guide for these efforts.
+
+\section{Instructions for Model Developers}
+
+This section describes the use of the model from the perspectives of
+a user of the STL sequence container replacements,
+a model developer who wishes to write a class that derives from
+one of the provided checkpointable/restartable classes,
+and a simulation interface developer who is porting the model outside of Trick.
+
+
+\subsection{Using the Simulation Interface Model}
+External users can selected public interfaces of the
+global simulation interface object.
+Most of these are well-described in the \ModelDesc API.
+
+External users who wish to use the JEOD checkpoint/restart capability
+can either
+create/read from their own sections within the JEOD checkpoint file or
+create/read from their own partitioned checkpoint file..
+This sections that follow describes both of these options.
+
+\subsection{Creating and Restoring From a Section in the JEOD Checkpoint File}
+External users can write to the JEOD checkpoint file in a function
+registered with Trick as a checkpoint or post\_checkpoint job.
+The steps involved in creating a section in
+the JEOD checkpoint file are:
+\begin{itemize}
+\item Create a \verb|SectionedOutputStream| object
+by calling the static function \verb|get_checkpoint_writer|
+in the class \verb|JeodSimulationInterface|.
+\item Activate the \verb|SectionedOutputStream| object.
+This activation will fail if another such output stream
+is currently active.
+\item Write to the \verb|SectionedOutputStream| object using
+the standard \Cplusplus stream insertion operator.
+\item Deactivate the \verb|SectionedOutputStream| object.
+\end{itemize}
+An abbreviated version of the above follows.
+\begin{codeblock}
+SectionedOutputStream writer (
+   JeodSimulationInterface::get_checkpoint_writer (section_id));
+if (! writer.activate()) {
+   // Handle error
+}
+while (! done_writing) {
+   writer << more_stuff_to_write();
+}
+writer.deactivate();
+\end{codeblock}
+
+Restoring from that section is accomplished in a function registered
+with Trick as preload\_checkpoint or restart job.
+The steps involved in restoring from a section in
+the JEOD checkpoint file are:
+\begin{itemize}
+\item Create a \verb|SectionedInputStream| object
+by calling the static function \verb|get_checkpoint_reader|
+in the class \verb|JeodSimulationInterface|.
+\item Activate the \verb|SectionedInputStream| object.
+This activation will fail if another such input stream
+is currently active.
+\item Read from the \verb|SectionedInputStream| object using
+\verb|std::getline| or
+the \Cplusplus stream insertion operator.
+\item Deactivate the \verb|SectionedInputStream| object.
+\end{itemize}
+An abbreviated version of the above follows.
+\begin{codeblock}
+SectionedInputStream reader (
+   JeodSimulationInterface::create_checkpoint_reader (section_id));
+if (! reader.activate()) {
+   // Handle error
+}
+while (std::getline (reader, line)) {
+   process_line(line);
+}
+reader.deactivate();
+\end{codeblock}
+
+Three restrictions apply to those who wish to write to or read from
+the JEOD checkpoint file:
+\begin{itemize}
+\item The substring "JEOD" must not appear anywhere in the name of the section.
+These names are reserved for use by JEOD.
+\item You must ``play nice''. You need to close your output and input section
+streams when you are done using them. Streams that are left open will prevent
+JEOD from writing or reading its checkpoint file sections.
+\item The checkpoint file is only available during the checkpoint and restart
+processes.
+To write to the JEOD checkpoint file you must do this in the context
+of a checkpoint job with a phase greater than 0 or a
+post\_checkpoint job with a phase less 65535.
+To read from the JEOD checkpoint file you must do this in the context
+of a preload\_checkpoint job with a phase greater than 0 or a
+restart job with a phase less 65535.
+\end{itemize}
+
+\subsection{Creating and Restoring From a Custom Partitioned Checkpoint File}
+An alternative to the above is to create your own partitioned checkpoint file.
+This alternative removes the constraints on using the JEOD checkpoint file
+but adds the burden yet another checkpoint file that needs to
+be managed.
+
+The class \verb|CheckPointOutputManager| provides the ability to create a
+partitioned checkpoint file.
+Programmatic users of this class should:
+\begin{itemize}
+\item Create a \verb|CheckPointOutputManager| object via the non-default
+constructor. The non-default constructor takes three arguments:
+the name of the file,
+the string that denotes the start of a section, and
+the string that denotes the end of a section.
+This opens a \Cplusplus output stream to  the specified checkpoint file.
+That stream is private; it is accessed indirectly by
+\verb|SectionedOutputStream| objects created by the
+\verb|CheckPointOutputManager| object.
+\begin{codeblock}
+checkpoint_writer = new CheckPointOutputManager (
+   output_file_name, section_start, section_end);
+\end{codeblock}
+
+\item For each section to be created,
+\begin{itemize}
+\item Create a \verb|SectionedOutputStream| object
+by calling the \verb|CheckPointOutputManager| object's
+\verb|create_section_writer| member function.
+\item Activate the \verb|SectionedOutputStream| object.
+This activation will fail if some other \verb|SectionedOutputStream|
+is currently active.
+\item Write to the \verb|SectionedOutputStream| object using
+the standard \Cplusplus stream insertion operator.
+\item Deactivate the \verb|SectionedOutputStream| object.
+\end{itemize}
+\item An abbreviated version of the above follows.
+\begin{codeblock}
+SectionedOutputStream writer (
+   checkpoint_writer->create_section_writer (section_id));
+if (! writer.activate()) {
+   // Handle error
+}
+while (! done_writing) {
+   writer << more_stuff_to_write();
+}
+writer.deactivate();
+\end{codeblock}
+
+\item The output file is closed with the destruction of the
+\verb|CheckPointOutputManager| object.
+\end{itemize}
+
+
+The class \verb|CheckPointInputManager| provides the ability to read
+from a previously created partitioned checkpoint file.
+Programmatic users of this class should:
+\begin{itemize}
+\item Create a \verb|CheckPointInputManager| object via the non-default
+constructor. The non-default constructor takes three arguments:
+the name of the file,
+the string that denotes the start of a section, and
+the string that denotes the end of a section.
+This opens a \Cplusplus input stream to  the specified checkpoint file.
+That stream is private; it is accessed indirectly by
+\verb|SectionedInputStream| objects created by the
+\verb|CheckPointInputManager| object.
+\begin{codeblock}
+checkpoint_reader = new CheckPointInputManager (
+   output_file_name, section_start, section_end);
+\end{codeblock}
+
+\item For each section to be read,
+\begin{itemize}
+\item Create a \verb|SectionedInputStream| object
+by calling the \verb|CheckPointInputManager| object's
+\verb|create_section_reader| member function.
+\item Activate the \verb|SectionedInputStream| object.
+This activation will fail if some other \verb|SectionedInputStream|
+is currently active.
+\item Read from the \verb|SectionedInputStream| object using
+\verb|std::getline| or
+the \Cplusplus stream insertion operator.
+\item Deactivate the \verb|SectionedInputStream| object.
+\end{itemize}
+\item An abbreviated version of the above follows.
+\begin{codeblock}
+SectionedInputStream reader (
+   checkpoint_writer->create_section_reader (section_id));
+if (! reader.activate()) {
+   // Handle error
+}
+while (std::getline (reader, line)) {
+   process_line(line);
+}
+reader.deactivate();
+\end{codeblock}
+
+\item The input file is closed with the destruction of the
+\verb|CheckPointInputManager| object.
+\end{itemize}
+
+
+\subsection{Extending the Simulation Interface Model}
+This section describes how to extend the data types defined by the
+\ModelDesc.
+
+The classes \verb|JeodSimulationInterface|,
+\verb|JeodMemoryInterface|, and \verb|IntegratorInterface|
+declares several pure virtual functions.
+Usable derived class must provide implementations
+of these pure virtual functions.
+Dummy implementations can be provided for several of
+these functions. For example, address to name and name to address
+translation is only used during checkpoint and restart. There is no
+need to provide a full-blown implementation of this functionality
+if the target usage does not require checkpoint/restart.
+
+A compliant instantiable class that derives from
+\verb|JeodSimulationInterface| must contain
+one instance of a class that derives from \verb|MessageHandler|,
+one instance of a class that derives from \verb|JeodMemoryInterface|, and
+one instance of a class that derives from \verb|JeodMemoryManager|.
+These objects must be constructed in the above order
+and destructed in the reverse order.

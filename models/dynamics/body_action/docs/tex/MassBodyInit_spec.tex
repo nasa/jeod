@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MassBodyInit_spec.tex
+% Specification of the MassBodyInit class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Specification}\label{ch:\modelpartid:spec}
+
+\section{Conceptual Design}
+The MassBodyInit class initializes the subject body's mass
+properties and establishes the subject body's mass points.
+The class derives directly from the model BodyAction base class.
+
+\section{Mathematical Formulations}
+All of the underlying mathematics is performed by the Mass Model.
+Refer to the Mathematical Formulations section of
+the \hypermodelref{MASS}.
+
+\section{Detailed Design}
+This is a very simple sub-model. It adds three data elements to
+the base class and overrides the base class {\tt apply()} method.
+The data elements are
+\begin{description}
+\item[properties] type = {\tt MassPropertiesInit} \\
+      Specifications for the subject mass body's core mass properties.
+\item[points] type = {\tt MassPointInit *} \\
+      Specifications for the subject mass body's mass points.
+\item[num\_points] type = {\tt unsigned int} \\
+      Size of the points array.
+\end{description}
+
+The classes MassPropertiesInit and MassPointInit
+are part of the Mass Model.
+See the \hypermodelref{MASS} for details.
+
+The {\tt apply()} method calls the subject body's {\tt initialize\_mass()}
+method, which initializes the body's mass properties given the supplied mass
+properties initialization data and establishes the body's auxiliary mass points
+given the supplied mass point initialization data.
+
+The MassBody class initializes its mass points by calling the
+{\tt add\_mass\_point()} for each supplied mass point.
+The DynBody class overrides the {\tt add\_mass\_point()} method.
+The effect of the override is to add the point of interest
+to the underlying MassBody object's list of MassPoint objects and
+to the DynBody object's list of VehiclePoint objects. These vehicle
+points can later be used for attaching bodies and initializing body states.

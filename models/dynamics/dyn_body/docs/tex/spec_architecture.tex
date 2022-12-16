@@ -1,0 +1,54 @@
+\subsection{Model Architecture}
+The \ModelDesc is implemented in the form of C++ classes. The model classes
+are described below.
+\begin{description}
+\item[\bf DynBody] The DynBody class is (or should be) an abstract class.
+  This class provides all of the basic capabilities needed to represent a
+  dynamic body except for the ability to integrate state over time. This
+  exception is by design. The equations of motion vary with selection of which
+  frame is to be integrated (composite body versus structural frame) and with
+  assumptions regarding vehicle behavior dynamics.
+\item[\bf BodyRefFrame] The BodyRefFrame class extends the RefFrame class.
+  Member data include a pointer to a MassBasicPoint object and an indicator
+  of which state elements have been set.
+\item[\bf BodyForceCollect] The BodyForceCollect class contains
+  \begin{inparaenum}[(1)]
+  \item the six STL vectors that collect the effector, environmental, and
+    non-transmitted forces and torques that act on a DynBody object,
+  \item the vector sums of the collected forces and torques, categorized
+    by type, and
+  \item the total external force and torque acting on a DynBody object.
+  \end{inparaenum} The collected forces and torques are assumed to be
+  represented in the structural frame.
+\item[\bf CollectForce] A CollectForce instance contains a pointer to a flag
+  indicating whether the force is active and a pointer to a 3-vector that in
+  turn contains the components of the force in the DynBody's structural frame.
+  The CollectForce class forms part of the interface
+  between JEOD and the Trick \emph{vcollect} mechanism.
+  The overloaded {\tt CollectForce::create()} method allocates and constructs a
+  CollectForce object; exactly how depends on the argument to {\tt create()}.
+  The Trick \emph{vcollect} depends on this Factory Method architecture.
+  The STL force vectors in a BodyForceCollect instance that contain the
+  collected effector, environmental, and non-transmitted forces contain
+  pointers to CollectForce instances, each of which is constructed via
+  {\tt create()}.
+\item[\bf Force] A Force contains a flag indicating whether the force is active
+  and contains a 3-vector that in turn contains the components of the force as
+  represented in a DynBody's structural frame. A CollectForce instance can be
+  easily and safely constructed from a Force instance. The Force class is the
+  recommended approach for representing forces in JEOD.
+\item[\bf CInterfaceForce] The class CInterfaceForce extends the CollectForce
+  class. The intent is to provide the ability to create CollectForce instances
+  from forces that are not represented using the Force class. This capability is
+  essential for using JEOD with C-based force models. This capability is not
+  particularly safe. A CInterfaceForce can be created from any double pointer.
+  The burden falls solely upon the user to use this capability properly.
+\item[{\bf CollectTorque}, {\bf Torque},and {\bf CInterfaceTorque}] These
+  classes are the torque analogs of the CollectForce, Force, and CInterfaceForce
+  classes.
+\item[\bf FrameDerivs] The FrameDerivs class contains the second derivatives
+  needed for state integration.
+\item[\bf DynBodyMessages] The DynBodyMessages class defines the message
+  types used in conjunction with the \hypermodelref{MESSAGE}. The
+  DynBodyMessages is not an instantiable class.
+\end{description}

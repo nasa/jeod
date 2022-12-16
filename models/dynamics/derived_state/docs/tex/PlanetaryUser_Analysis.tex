@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the Planetary model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Analysis}
+
+\label{sec:planetaryuseranalysis}
+
+\subsection{Identifying the \PlanetaryDescT}
+If Planet-based states have been included in the simulation, there will be an instance of \textit{PlanetaryDerivedState} located in the S\_define file.  This would typically be found in either the vehicle object, or a separate relative-state object.  There should be an accompanying call to an initialization routine, which takes a reference to the \textit{subject\_body} as one if its inputs, and an accompanying call to an update function.  The \textit{reference\_name} is defined elsewhere, possibly in the input file; this is the name of the planet,with respect to which the state will be evaluated.
+
+Example:
+\begin{verbatim}
+sim_object{
+dynamics/derived_state:    PlanetaryDerivedState example_of_planetary_state;
+
+(initialization) dynamics/derived_state:
+example_of_rel_state_object.example_of_planetary_state.initialize (
+    Inout DynBody &      subject_body = vehicle_1.dyn_body,
+    Inout DynManager &   dyn_manager  = manager_object.dyn_manager);
+    
+{environment} dynamics/derived_state:
+example_of_rel_state_object.example_of_planetary_state.update ( )
+
+} example_of_rel_state_object;
+\end{verbatim}
+
+Then the input file may have an entry comparable to:
+\begin{verbatim}
+example_of_rel_state_object.example_of_planetary_state.reference_name = "Earth";
+\end{verbatim}
+
+\subsection{Editing the \PlanetaryDescT}
+There is very little to edit in the \PlanetaryDesc, apart from the \textit{reference\_name}, which will result in the planetary state being calculated with respect to a different planet.  It should be noted that \textit{reference\_frame} is only used at initialization, and therefore changing this name \textit{after} the initialization will have no effect.  The \textit{reference\_name} is used to identify the appropriate planet memory location during initialization and thereafter the variable \textit{planet} is used, not \textit{reference\_frame}.
+
+\subsection{Output Data}
+The output available from this model is the position of the vehicle with respect to the planet, in planet-fixed coordinates.  This position is available as a Cartesian, spherical, or elliptical coordinate representation.
+\begin{verbatim}
+example_of_rel_state_object.example_of_planetary_state.state.cart_coords[0-2]
+example_of_rel_state_object.example_of_planetary_state.state.sphere_coords.altitude
+example_of_rel_state_object.example_of_planetary_state.state.sphere_coords.latitude
+example_of_rel_state_object.example_of_planetary_state.state.sphere_coords.longitude
+example_of_rel_state_object.example_of_planetary_state.state.ellip_coords.altitude
+example_of_rel_state_object.example_of_planetary_state.state.ellip_coords.latitude
+example_of_rel_state_object.example_of_planetary_state.state.ellip_coords.longitude
+\end{verbatim}
+
+The rotational state is not available.

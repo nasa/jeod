@@ -1,0 +1,159 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Model Description}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this 
+%%% model exists.
+%%% Identify the Model context within JEOD.
+
+% The JEOD \SpiceDesc\ ...
+\input {spiceIntro}
+
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when 
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this section.
+%%% Mention that JEOD.pdf is the parent document.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+
+\section{Document Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE} 
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] - 
+This introduction contains three sections: description of model, document history, and organization.  
+The first section provides the introduction to the \SpiceDesc\ and its reason 
+for existence.  It also contains a brief description of the interconnections with other models, and 
+references to any supporting documents.  The second section displays the history of this document which includes
+author, date, and reason for each revision; it also lists the document that is parent to this one.  The final
+section contains a description of the how the document is organized.
+
+\item[Chapter 2: Product Requirements] - 
+Describes requirements for the \SpiceDesc.
+
+\item[Chapter 3: Product Specification] - 
+Describes the underlying theory, architecture, and design of the \SpiceDesc\ in detail.  It is organized into
+three sections: Conceptual Design, Mathematical Formulations, and Detailed Design.
+
+\item[Chapter 4: User Guide] - 
+Describes how to use the \SpiceDesc\ in a Trick simulation.  It contains information that will be useful to
+both users and developers of simulations. The \SpiceDesc\ is not intended to be extended, so there is no
+discussion of how to do so.
+
+\item[Chapter 5: Inspections, Tests, and Metrics] -  
+The final chapter describes the procedures and results that demonstrate the satisfaction of the
+requirements for the \SpiceDesc.
+
+\end{description}
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+
+\section{Project Requirements}
+\requirement{Top-level Requirement}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \SpiceDesc\ shall meet the JEOD project-wide requirements specified in
+  the \JEODid\ Top-Level Document.
+
+\item[Rationale:]\ \newline
+  This is a project-wide requirement.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement{Solar System Body Ephemeris Representation}
+\label{reqt:rep_ephem}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \SpiceDesc\ shall provide the capability to use the JPL SPICE library
+  to represent the ephemerides of any solar system body for which a
+  corresponding data set is provided.
+
+\item[Rationale:]\ \newline
+  The existing JEOD DE4xx model is limited in the number of solar system bodies
+  it can represent. SPICE provides a standard way of providing the same bodies,
+  as well as virtually any other solar system body desired, so long as the data
+  is available for it.
+
+\item[Verification:]\ \newline
+  Test
+\end{description}
+
+
+\requirement{Solar System Body Orientation Representation}
+\label{reqt:rep_rnp}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \SpiceDesc\ shall provide the capability to use the JPL SPICE library
+  to represent the orientation of any solar system body for which a
+  corresponding data set is provided.
+
+\item[Rationale:]\ \newline
+  Existing JEOD models provide only Earth, Moon, and Mars orientation. SPICE
+  provides a standard way of providing these plus many others, so long as the
+  data is available for it.
+
+\item[Verification:]\ \newline
+  Test
+\end{description}
+
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+%The \SpiceDesc\ is ...
+\input {spiceConceptual}
+
+\section{Mathematical Formulations}
+
+% The \SpiceDesc\ ...
+\input {spiceMathForm}
+
+
+\section{Detailed Design}
+
+\input {spiceDetail}
+
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+
+% The \SpiceDesc\ is ...
+\input {spiceUserGuide}
+
+
+%----------------------------------
+\chapter{Inspections, Tests, and Metrics}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+% This chapter describes...
+
+\input {spiceVerif}
+
+
+\newpage
+\boilerplatetraceability
+
+\newpage
+\boilerplatemetrics

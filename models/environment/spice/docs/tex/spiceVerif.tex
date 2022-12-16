@@ -1,0 +1,69 @@
+\section{Inspection}\label{sec:inspect}
+This section describes the inspections conducted on the \SpiceDesc\ to examine
+its compliance with the inspection requirements levied against it.
+
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected,
+and together satisfy requirement~\traceref{reqt:toplevel}.
+
+
+\section{Tests}\label{sec:tests}
+This section describes the tests conducted to verify and validate
+that the \SpiceDesc\ satisfies the requirements levied against it.
+All verification and validation test source code, simulations and procedures
+are archived in the JEOD directory
+{\tt models/environment/spice/verif}.\relax
+
+
+\test{Ephemeris and Rotation}\label{test:spice_ephem_rot}
+\begin{description}
+
+\item[Background]\ \newline
+The purpose of this test is to demonstrate the ability of the \SpiceDesc\
+to represent both the ephemerides and orientation of any solar system
+body.
+
+
+\item[Test description]\ \newline
+This test utilizes two simulations -- one that utilizes the \SpiceDesc\
+for ephemeris and rotational state representation of several
+solar system bodies, and one that uses the legacy JEOD De4xx ephemeris and
+RNP models for analogous calculations for a subset of the same bodies. The
+results of the first will be compared against the second for the bodies that
+are common to both, in order to build confidence in the correct operation of
+the \SpiceDesc\ even for the bodies that are not. 
+
+The SPICE-only simulation contains the solar system bodies Sun, Earth, Moon,
+Mars, Itokawa (an asteroid), and Phobos (a moon of Mars). It can provide
+ephemeris data for all of them, as well as rotation data for Earth, Moon,
+and Mars.
+
+The simulation using legacy JEOD models contains the bodies Sun, Earth,
+Moon, and Mars. It provides ephemeris for all of them, along with rotation
+for Earth, Moon, and Mars. The legacy JEOD models are unable to provide
+ephemeris or rotation information for Itokawa or Phobos, which illustrates
+the primary benefit of the new \SpiceDesc: the ability to include many
+more solar system bodies in a simulation.
+
+
+\item[Test directories] {\tt SIM\_spice and SIM\_de4xx}
+
+
+\item[Success criteria]\ \newline
+A comparison of the output of the SPICE-only simulation with the legacy
+simulation should show good agreement between the two for both
+translational and rotational states of the bodies being compared. Due
+to the nature of the data and models being employed, translation
+should agree to within approximately machine precision, while rotation
+will be less accurate but still agree to near machine precision.
+
+
+\item[Test results]\ \newline
+All output data confirmed expectations.
+
+\item[Applicable Requirements]\ \newline
+This test satisfies the requirements~\traceref{reqt:rep_ephem}
+and~\traceref{reqt:rep_rnp}.
+
+\end{description}

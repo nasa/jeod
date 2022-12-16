@@ -1,0 +1,3 @@
+rel_state.vehicleB_wrt_vehicleA_bodyA.subject_frame_name = "vehicleB.composite_body"
+rel_state.vehicleB_wrt_vehicleA_bodyA.target_frame_name = "vehicleA.composite_body"
+rel_state.vehicleB_wrt_vehicleA_bodyA.direction_sense = trick.RelativeDerivedState.ComputeSubjectStateinTarget

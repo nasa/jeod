@@ -1,0 +1,146 @@
+\section{Interactions}
+
+\subsection{JEOD Models Used by the \ModelDesc}
+The \ModelDesc uses the following JEOD models:
+\begin{itemize}
+\item\hypermodelref{DYNMANAGER}. The \ModelDesc uses the \DYNMANAGER as
+  \begin{inparaenum}[(1)]
+  \item a name register of DynBody objects,
+  \item a name register and subscription manager of RefFrame objects, and
+  \item a name register and validator of integration frames.
+  \end{inparaenum}
+\item\hypermodelref{MASS}. The \ModelDesc uses the \MASS through friendship to 
+    access protected functionality. The DynBody class \hasa MassBody.
+\item\hypermodelref{GRAVITY}. The \ModelDesc relies on the \GRAVITY to
+  compute gravitational acceleration. To accomplish this end, each DynBody
+  object contains a GravityInteraction object. That class is a part of the
+  \GRAVITY. A GravityInteraction indicates which gravitational bodies in the
+  simulation have an influence on a DynBody object and contains the
+  gravitational accelerations and gravity gradients as computed by the
+  \GRAVITY.
+\item\hypermodelref{INTEGRATION}. The \ModelDesc uses the \INTEGRATION to
+  perform the state integration. This model merely sets things up for the
+  \INTEGRATION so that it can properly perform the integration.
+With the migration of most integration functionality to the er7\_utils
+package, the DynBody class now extends the er7\_utils::IntegrableObject class.
+For a more detailed explanation, see the \INTEGRATION documentation.
+\item\hypermodelref{MATH}. The \ModelDesc uses the \MATH to operate on
+  vectors and matrices.
+\item\hypermodelref{MEMORY}. The \ModelDesc uses the \MEMORY to allocate
+  and deallocate memory.
+\item\hypermodelref{MESSAGE}. The \ModelDesc uses the \MESSAGE to generate
+  error and debug messages.
+\item\hypermodelref{NAMEDITEM}. The \ModelDesc uses the \NAMEDITEM to
+  construct names.
+\item\hypermodelref{QUATERNION}. The \ModelDesc uses the \QUATERNION
+  to operate on the quaternions embedded in the RefFrame objects and to
+  compute the quaternion time derivative.
+\item\hypermodelref{REFFRAMES}. The \ModelDesc makes quite extensive use of the
+  \REFFRAMES. A DynBody's integration frame is a RefFrame object, and each of
+  the body-based reference frames contained in a DynBody object is a
+  BodyRefFrame object. The BodyRefFrame \isa RefFrame. The \ModelDesc uses
+  the \REFFRAMES functionality to compute relative states.
+\item\hypermodelref{SIMINTERFACE}. All classes defined by the \ModelDesc
+  use the\\
+  \verb+JEOD_MAKE_SIM_INTERFACES+ macro defined by the \SIMINTERFACE to provide
+  the behind-the-scenes interfaces needed by a simulation engine such as Trick.
+\end{itemize}
+
+
+\subsection{Use of the \ModelDesc in JEOD}
+The following JEOD models use the \ModelDesc:
+\begin{itemize}
+\item\hypermodelref{BODYACTION}. The \BODYACTION provides several classes that
+  operate on a DynBody object. The DynBodyInit class and its derivatives
+  initialize a DynBody object's state. The DynBodyFrameSwitch class provides
+  a convenient mechanism for switching a DynBody object's integration frame.
+  The BodyAttach and BodyDetach classes indirectly operate on a DynBody object
+  through the \ModelDesc attach/detach mechanisms.
+\item\hypermodelref{DERIVEDSTATE}. The primary purpose of the \DERIVEDSTATE
+  is to express a DynBody state in some other form.
+\item\hypermodelref{DYNMANAGER}. The \DYNMANAGER drives the integration of
+  all DynBody objects registered with the dynamics manager.
+\item\hypermodelref{GRAVITY}. The \GRAVITY computes the gravitational
+  acceleration experienced by a DynBody object.
+\item\hypermodelref{GRAVITYTORQUE}. The \GRAVITYTORQUE computes the gravity
+  gradient torque exerted on a DynBody object, with the resultant torque
+  expressed in the DynBody object's structural frame.
+\end{itemize}
+
+
+\subsection{Interactions with Trick}\label{sec:spec_interactions_trick}
+The \ModelDesc interacts with Trick in both an ordinary and extraordinary
+manner. Many models are designed to be used in the Trick environment in the
+form of data declarations and function calls placed in an \Sdefine file. The
+\ModelDesc is no different from other models in this regard.
+
+The model also interacts with Trick in an extraordinary manner.
+The \emph{vcollect} mechanism was designed as an object-oriented
+replacement for the old-style \emph{collect} mechanism. The syntax for the
+Trick \emph{vcollect} statement is
+\verb+vcollect container converter { [item [,item]...]};+
+
+The \verb+container+ is an STL sequence container object (an STL deque, list,
+or vector) that implements the \verb+push_back+ method.
+The \verb+converter+ is a function, possibly overloaded, that converts each
+\verb+item+ in the item list into a form suitable for pushing onto the end of
+the \verb+container+.
+A \verb+vcollect+ statement results in a series of calls to
+\verb+container.push_back()+. For example, the following code is from the
+SIM\_force\_torque verification simulation \Sdefine:
+
+\begin{verbatim}
+vcollect body2.body.collect.collect_environ_forc CollectForce::create {
+   body2.environ_forc1,
+   body2.environ_forc2
+};
+\end{verbatim}
+
+The generated code that corresponds to this \verb+vcollect+ statement is
+
+\begin{verbatim}
+trick->body2.body.collect.collect_environ_forc.push_back(
+   CollectForce::create( trick->body2.environ_forc1 ) );
+trick->body2.body.collect.collect_environ_forc.push_back(
+   CollectForce::create( trick->body2.environ_forc2 ) );
+\end{verbatim}
+
+\subsection{Interaction Requirements on the \MASS}
+The concepts discussed in section~\ref{sec:key_mass} conform with the
+requirements levied on the \MASS.
+The DynBody class includes a public attribute MassBody class such that 
+the MassBody class must declare friendship with the DynBody class to properly 
+propagate states. The MassBody must also include a constant DynBody pointer 
+populated at construction to ensure that restricted operations are not applied 
+to a DynBody's attribute MassBody.
+These designs are particularly necessary for the attach and detach mechanisms 
+as discussed in section~\ref{sec:key_attach_detach}. The attach and detach 
+mechanisms must be, and were, designed with such that extension of the DynBody 
+class will not interupt functionality. 
+
+\subsection{Interaction Requirements on the \DYNMANAGER}
+The \ModelDesc uses the \DYNMANAGER as a \begin{inparaenum}[(1)]
+\item a name register of DynBody objects,
+\item a name register and subscription manager of RefFrame objects, and
+\item a name register and validator of integration frames.
+\end{inparaenum}
+All of these dependencies place functional requirements on the \DYNMANAGER.
+The initialization concepts described in sections~\ref{sec:key_initialization}
+and~\ref{sec:key_state_initialization} also place functional requirements on
+the \DYNMANAGER.
+
+The integration scheme implemented in the \ModelDesc implicitly assumes that a
+higher-level function controls the integration. The model's \verb+integrate()+
+methods cannot be called as integration-class jobs from a Trick \Sdefine file.
+The higher-level function that controls the integration is a part of the
+\DYNMANAGER, and this functionality is addressed as requirements on that model.
+
+\subsection{Interaction Requirements on the \BODYACTION}
+The initialization concepts described in sections~\ref{sec:key_initialization}
+and~\ref{sec:key_state_initialization} place functional requirements on
+the \BODYACTION.
+
+\subsection{Interaction Requirements on the \INTEGRATION}
+The \INTEGRATION is required to, and was designed to, integrate state and time
+separately. This requirement was levied on the \INTEGRATION precisely
+because of the way in which integration is performed within JEOD.

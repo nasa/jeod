@@ -1,0 +1,15 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the DerivedState model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+The \DerivedStateDesc\ shall provide the interface by which the state of any given object can be expressed in any given reference frame, or a new reference frame created with respect to any other reference frame if the desired representation is not already available.  Two of the sub-classes (\LVLHDesc\ and \NEDDesc) are specialized to the point of providing only a reference frame; two (\PlanetaryDesc\ and \SolarBetaDesc) are closely tied to planetary bodies and rely on the pre-definition of those reference frames; \OrbElemDesc\ provides the state of a vehicle in classical orbital elements, and tacitly assumes that there is a planetary body involved for the vehicle to be orbiting; the other two (\EulerDesc\ and \RelativeDesc) express the state of one reference frame relative to any other.
+
+The generic Derived State provides a name for the state, based on entries it receives from the sub-classes for the names of the \textit{subject frame} (the reference frame associated with the vehicle whose state is to be enumerated) and the \textit{reference frame} (the frame in which that state is to be evaluated).  Each of the specific examples of derived states will inherit from the generic derived state, specifying those frames (although the reference frame need not be specified for all instances), thereby providing the data to the generic DerivedState for generating the state name.  Excepting the \LVLHDesc\ and the \NEDDesc\, each example of a DerivedState will then output a set of values that identify those parts of the subject's state for which it is responsible.  The \LVLHDesc\ and \NEDDesc\ define their respective reference frames, for access by a state-generating Derived State, such as the \RelativeDesc.
+
+While the sub-classes of Derived State (i.e., the reference frames and state representations) are largely independent of one another, there are places where there is some interdependency, and the methods and definitions from one sub-class are similar to, or dependent upon, methods and definitions from another class.  In those situations, links to the documentation appropriate to the situation are included as necessary.

@@ -1,0 +1,816 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File: dynenvreqt.sty
+% This file defines macros that define requirements, inspections, and tests.
+% Note well: This file does not stand by itself. It is a part of dynenv.sty.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{dynenvreqt}[2012/02/28 v2.2 Dynamics package macros]
+
+% This part is evil.
+% Then again, so is hyperref.
+% Override \@startsection (which hyperref does not override) for two reasons:
+% - To override \label (which hyperref does override).
+%   The cross-reference capability requires that knowledge of the current
+%   requirement, inspection or test be gathered. The override of \label is
+%   what gathers that info. It would be better to do this override in a
+%   \AtBeginDocument block, but that approach doesn't work when the dynenv
+%   suite is used as a package rather than a class.
+% - To clear information about the current requirement, inspection, or test.
+%   A sectioning command is a sure sign that the stuff that follows is not a
+%   part of the preceding requirement, inspection, or test.
+\let\@dynenv@@startsection@base@cmd\@startsection
+\def\@startsection{%
+  % First the evil part: Override \label.
+  % The new \label macro invokes the dynenv-specific augmentation to \label
+  % and then invokes the original \label macro.
+  \ifx\@dynenv@label@base@cmd\@undefined
+    \global\let\@dynenv@label@base@cmd\label
+    \gdef\label##1{%
+      \label@reqt@insp@test{##1}%
+      \@dynenv@label@base@cmd{##1}%
+    }%
+  \fi
+  % Now for the override of \@startsection itself.
+  % First forget key info pertaining to a requirement, inspection, or test.
+  \global\let\dynenv@current@counter\@undefined
+  \global\let\dynenv@current@label\@undefined
+  \global\let\dynenv@current@title\@undefined
+  \global\let\dynenv@current@type\@undefined
+  % Finally, invoke the original \@startsection macro.
+  \@dynenv@@startsection@base@cmd
+}
+
+% More evilness:
+% Do the same for floats.
+% Note: RevTeX redefines @float.
+% But the dynenv package doesn't support RevTeX, no harm, no foul.
+\let\@dynenv@@float@base@cmd\@float
+\def\@float{%
+  \global\let\dynenv@current@counter\@undefined
+  \@dynenv@@float@base@cmd%
+}
+
+
+% Establish the width of the model prefix (plus two digits)
+% This cannot be done immediately because \ModelPrefix may not be defined yet.
+\AtBeginDocument{
+  \begingroup
+    % Find the width of the labels.
+    \edef\@tempa{\ModelPrefix\noexpand\_99}%
+    \sbox\@tempboxa{\mbox{\@tempa}}%
+    \@tempdima\wd\@tempboxa\relax
+    % Save it.
+   \xdef\dynenv@prefixwidth{\the\@tempdima}
+  \endgroup
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define some primitive helper macros.
+\def\dynenv@abbrev@reqt{Reqt.}
+\def\dynenv@abbrev@insp{Insp.}
+\def\dynenv@abbrev@test{Test}
+\def\dynenv@abbrev#1{\csname dynenv@abbrev@#1\endcsname}
+
+\def\dynenv@type@reqt{reqt}
+\def\dynenv@type@insp{insp}
+\def\dynenv@type@test{test}
+\def\dynenv@type#1{\csname dynenv@type@#1\endcsname}
+
+\def\dynenv@name@reqt{requirement}
+\def\dynenv@name@insp{inspection}
+\def\dynenv@name@test{test}
+\def\dynenv@name#1{\csname dynenv@name@#1\endcsname}
+
+\def\dynenv@reqt@reqt{reqt}
+\def\dynenv@insp@insp{insp}
+\def\dynenv@test@test{test}
+
+\def\dynenv@typeof#1{\csname dynenv@typeof@#1\endcsname}
+\def\dynenv@titleof#1{\csname dynenv@titleof@#1\endcsname}
+\def\dynenv@indexof#1{\csname dynenv@indexof@#1\endcsname}
+\def\dynenv@traceof#1{\csname dynenv@traceof@#1\endcsname}
+
+\def\dynenvtoc@name#1#2{\csname toc#1@#2\endcsname}
+\def\dynenvtoc@gdef#1#2#3{%
+  \expandafter\expandafter\expandafter\gdef\dynenvtoc@name{#1}{#2}{#3}}
+\def\dynenvtoc@xdef#1#2#3{%
+  \expandafter\expandafter\expandafter\xdef\dynenvtoc@name{#1}{#2}{#3}}
+
+\def\dynenv@csname#1#2{\csname dynenv@#1@#2\endcsname}
+\def\dynenv@ifx#1#2{%
+  \expandafter\expandafter\expandafter\ifx\dynenv@csname{#1}{#2}\@empty}
+\def\dynenv@gdef#1#2#3{%
+  \expandafter\expandafter\expandafter\gdef\dynenv@csname{#1}{#2}{#3}}
+\def\dynenv@xdef#1#2#3{%
+  \expandafter\expandafter\expandafter\xdef\dynenv@csname{#1}{#2}{#3}}
+\def\dynenv@elet#1#2#3{%
+  \expandafter\expandafter\expandafter\let
+  \expandafter\expandafter\expandafter#1%
+  \dynenv@csname{#2}{#3}}
+
+\def\expandsecondarg#1#2#3{%
+  \edef\reserved@a{\noexpand#1\noexpand{#2}{#3}}\reserved@a}
+
+\def\dynenv@meaning{\expandafter\strip@prefix\meaning}
+
+% Not used, but here for debugging.
+\def\dynenv@show#1{\typeout{\string#1=\meaning#1^^J}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Requirement, inspection, and test macros
+
+\newcounter{requirement}
+\newcounter{inspection}
+\newcounter{test}
+
+% \requirement, \inspection, and \test are similar to sectioning commands.
+% \@start@reqt@insp@test is the entry point for defining the above.
+% It invokes @@start@reqt@insp@test via \@dblarg, passing a standard set of
+% vertical spaces plus the input arguments to \@@start@reqt@insp@test.
+% \@dblarg looks for an optional parameter. If one isn't present it duplicates
+% the next token as the optional parameter.
+% #1 - requirement, inspection, or test
+% #2 - reqt, insp, or test
+% #3 - Requirement, Inspection, or Test
+\def\@start@reqt@insp@test#1#2#3{%
+  \@dblarg{%
+    \@@start@reqt@insp@test
+    {3.25ex \@plus1ex \@minus.2ex}%
+    {1.5ex \@plus .2ex}%
+    {#1}{#2}{#3}}}
+
+% \@@start@reqt@insp@test implements \@start@reqt@insp@test.
+% #1 - Vertical skip before the requirement/inspection/test
+% #2 - Vertical skip after the label
+% #3 - requirement, inspection, or test
+% #4 - reqt, insp, or test
+% #5 - Requirement, Inspection, or Test
+% #6 - Optional argument to \requirement, \inspection, or \test, or dup of #7
+% #7 - Argument to \requirement, \inspection, or \test
+% Note the use of \refstepcounter. This is the mechanism that enables
+% the \label following a \requirement to be tied to the \requirement.
+\def\@@start@reqt@insp@test#1#2#3#4#5[#6]#7{%
+  \gdef\dynenv@current@counter{#3}%
+  \gdef\dynenv@current@type{#4}%
+  \def\@tempa{#6}%
+  \xdef\dynenv@current@title{\dynenv@meaning\@tempa}%
+  \par
+  \@tempskipa #1\relax
+  \@afterindentfalse
+  \addpenalty\@secpenalty\addvspace\@tempskipa
+  \refstepcounter{#3}%
+  \def\@tempa{\csname the#3\endcsname}%
+  {{\normalfont\itshape {#5 \@tempa:\ \ #7}}}%
+  \@tempskipa #2\relax
+  \par\nobreak
+  \vskip\@tempskipa
+  \@afterheading
+  \expandafter
+  \ifx\csname ifaddtotoc@#4\expandafter\endcsname\csname iftrue\endcsname
+    \addcontentsline{toc}{#4}%
+    {\protect\numberline{#5 \@tempa}#6}%
+  \fi
+}
+
+% \def@reqt@insp@test defines requirement, inspection, or test,
+% and a bunch of related stuff.
+% #1 - requirement, inspection, or test
+% #2 - reqt, insp, or test
+% #3 - Requirement, Inspection, or Test
+% #4 - Default table of contents (toc) level
+% #5 - TOC indentation. A placeholder value is needed.
+% #6 - TOC width. A placeholder value is needed.
+% Macros defined by this macro:
+% \newcounter{#1}       - This in turn generates multiple macros.
+% \def\the#1            - \newcounter defines this; it needs an override.
+% \def\theH#1           - \hyperref will use this in lieu of \the#1.
+% \def\tocprefix@#2     - Prefix placed in the table of contents.
+% \def\toclevel#2       - Table of contents level.
+% \def\tocindent#2      - Table of contents indentation.
+% \def\tocsize#2        - Table of contents number width.
+% \def\l@#2             - Generates table of contents entry.
+% \newif{ifaddtotoc@#2} - Mechanism that makes TOC stuff optional.
+% \def\#1               - Finally, \requirement, \inspection, or \test.
+\def\def@reqt@insp@test#1#2#3#4#5#6{%
+  \expandafter\renewcommand\csname the#1\endcsname{%
+    \ModelPrefix\_\@arabic\csname c@#1\endcsname}
+  \expandafter\gdef\csname theH#1\endcsname{%
+    \@arabic\csname c@#1\endcsname}
+  \dynenvtoc@gdef{prefix}{#2}{#3\ }
+  \dynenvtoc@gdef{level}{#2}{#4}
+  \dynenvtoc@gdef{indent}{#2}{#5}
+  \dynenvtoc@gdef{size}{#2}{#6}
+  \expandafter\newcommand\csname l@#2\endcsname{%
+    \expandafter\expandafter\expandafter
+    \@dottedtocline
+    {\dynenvtoc@name{level}{#2}}
+    {\dynenvtoc@name{indent}{#2}}
+    {\dynenvtoc@name{size}{#2}}}
+  \expandafter\newif\csname ifaddtotoc@#2\endcsname
+  \csname addtotoc@#2false\endcsname
+  \expandafter\gdef\csname #1\endcsname{%
+    \@start@reqt@insp@test{#1}{#2}{#3}}}
+
+
+% Use the above to define the requirement, inspection, and test macros.
+\def@reqt@insp@test{requirement}{reqt}{Requirement}{1}{0pt}{6.6em}
+\def@reqt@insp@test{inspection}{insp}{Inspection}{2}{1.5em}{8.4em}
+\def@reqt@insp@test{test}{test}{Test}{2}{1.5em}{6.6em}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define the colon variant of the description environment.
+% This is useful, but not essential, for requirements.
+% It acts like the description environment except that it automatically
+% appends a colon to the item label and ensures that the item label (plus
+% the colon) stands on a line by itself.
+\newdimen\@descriptioncolonwidth
+\newenvironment{description:}{%
+   \list{}{%
+      \labelwidth\z@ \itemindent-\leftmargin
+      \setlength\@descriptioncolonwidth\textwidth
+      \advance\@descriptioncolonwidth-\rightmargin
+      \let\makelabel\descriptioncolonlabel}}{%
+   \endlist}
+\newcommand*\descriptioncolonlabel[1]{%
+   \parbox{\@descriptioncolonwidth}{%
+      \hspace\labelsep \mbox{\normalfont\bfseries #1:}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Requirements can have subrequirements.
+
+\newcounter{subrequirement}[requirement]
+\renewcommand\thesubrequirement {%
+  \@arabic\c@requirement.\@arabic\c@subrequirement}
+\def\theHsubrequirement {%
+  \@arabic\c@requirement.\@arabic\c@subrequirement}
+
+\def\subrequirementlabel#1{%
+  {\normalfont\itshape {\thesubrequirement\ #1}}}
+
+\def\@startsubrequirement#1#2#3{%
+  \par
+  \@tempskipa #1\relax
+  \@afterindentfalse
+  \addpenalty\@secpenalty\addvspace\@tempskipa
+  \refstepcounter{subrequirement}%
+  \subrequirementlabel{#3}%
+  \@afterheading}
+
+\def\subrequirement#1{%
+  \@startsubrequirement %
+    {1.25ex \@plus1ex \@minus.2ex}%
+    {.5ex \@plus .2ex}%
+    {#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \dynenvaddtotoc is one of two mechanisms by which the user can specify
+% that requirements, inspections, or tests should be added to the table of
+% of contents.
+% #1 - The entity type: reqt, insp, or test.
+% #2 - Table of contents level for this entity.
+% Note: The indentation assumes a report-class document.
+\newcommand\dynenvaddtotoc[2]{%
+  \expandafter\global\expandafter\let\csname ifaddtotoc@#1\endcsname\iftrue
+  \dynenvtoc@gdef{level}{#1}{#2}
+  \ifcase #2
+    \dynenvtoc@gdef{indent}{#1}{0pt}
+  \or
+    \dynenvtoc@gdef{indent}{#1}{1.5em}
+  \or
+    \dynenvtoc@gdef{indent}{#1}{3.8em}
+  \or
+    \dynenvtoc@gdef{indent}{#1}{7.0em}
+  \fi
+  \begingroup
+    \edef\@tempa{%
+      \dynenvtoc@name{prefix}{#1}\noexpand\ModelPrefix\noexpand\_99\enskip}
+    \sbox\@tempboxa{\mbox{\@tempa}}
+    \@tempdima\wd\@tempboxa\relax
+    \dynenvtoc@xdef{size}{#1}{\the\@tempdima}%
+  \endgroup
+}
+
+% \dynenvaddtocitems is the alternative mechanism. This takes one argument,
+% a comma-separated list of the form type=level,...
+\define@choicekey[dynenv]{tocitems}{reqt}{1,2,3,4}{\dynenvaddtotoc{reqt}#1}
+\define@choicekey[dynenv]{tocitems}{insp}{1,2,3,4}{\dynenvaddtotoc{insp}#1}
+\define@choicekey[dynenv]{tocitems}{test}{1,2,3,4}{\dynenvaddtotoc{test}#1}
+\newcommand\dynenvaddtocitems[1]{\setkeys[dynenv]{tocitems}{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \label@reqt@insp@test is the dynenv-specific augmentation to \label (see top).
+% The purpose is to capture information needed by \traceref macros that follow.
+\def\label@reqt@insp@test#1{%
+%\typeout{Defining label #1}%
+  % This macro is invoked for *every* \label command, including labels for
+  % sections, tables, and figures. We only want to capture info about labels
+  % for requirements, inspections, and tests. The macro \dynenv@current@counter
+  % is defined only in the context of a requirement, inspection, or test, so
+  % testing whether it is defined provides a key for determining context.
+  \ifx\dynenv@current@counter\@undefined\else
+    % Suppose the \label pertains to the third \requirement macro,
+    % that the argument to that \requirement was {Foo}, and
+    % that the argument of the label command is reqt:foo.
+    % Define the following:
+    % - \dynenv@current@label -> {reqt:foo}
+    % - \dynenv@typeof@reqt:foo -> {reqt}
+    % - \dynenv@titleof@reqt:foo -> {Foo}
+    % - \dynenv@traceof@reqt:foo -> {}
+    % - \dynenv@indexof@reqt:foo -> {3}
+    % - \dynenv@reqt@3 -> {reqt:foo}
+  \begingroup
+    \gdef\dynenv@current@label{#1}%
+    \edef\@tempa{\the\value{\dynenv@current@counter}}%
+    \dynenv@xdef{typeof}{#1}{\dynenv@current@type}%
+    \dynenv@xdef{titleof}{#1}{\dynenv@current@title}%
+    \dynenv@xdef{traceof}{#1}{\@empty}%
+    \dynenv@xdef{indexof}{#1}{\@tempa}%
+    \dynenv@xdef{\dynenv@current@type}{\@tempa}{#1}%
+     % Finally, undef \dynenv@current@counter.
+     % The next \label will presumably pertain to something else.
+     \global\let\dynenv@current@counter\@undefined
+   \endgroup
+  \fi
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Augment \ref{#1} by noting that the current requirement/inspection/test traces
+% to the specified requirement/inspection/test.
+\def\traceref#1{%
+  \dynenv@validate@context{traceref}%
+  \dynenv@validate@ref{#1}%
+  \dynenv@addtrace{#1}%
+  \ref{#1}%
+}
+
+\newcounter{@dynenv@trace@count}
+\newcounter{@dynenv@trace@end}
+
+% Given a pair of references #1 and #2, prints as \ref{#1} to \ref{#2} but also
+% notes that the current requirement/inspection/test traces to each of the
+% requirements/inspections/tests between (inclusive) those two references.
+\def\tracerefrange#1#2{%
+  \dynenv@validate@context{tracerefrange}%
+  \dynenv@validate@refpair{#1}{#2}%
+  \begingroup
+    \edef\@rit@indexa{\dynenv@indexof{#1}}%
+    \edef\@rit@indexb{\dynenv@indexof{#2}}%
+    \edef\@rit@type{\dynenv@typeof{#1}}%
+    \setcounter{@dynenv@trace@count}{\@rit@indexa}%
+    \setcounter{@dynenv@trace@end}{\@rit@indexb}%
+    \loop
+      \edef\@rit@num{\the\value{@dynenv@trace@count}}%
+      \edef\@rit@ref{\dynenv@csname{\@rit@type}{\@rit@num}}%
+      \dynenv@addtrace{\@rit@ref}%
+      \ifnum\value{@dynenv@trace@count} < \value{@dynenv@trace@end}%
+        \addtocounter{@dynenv@trace@count}\@ne
+    \repeat
+  \endgroup
+  \ref{#1} to \ref{#2}%
+}
+
+% Add the current requirement, inspection, or test to the list of items
+% tracing to the provided reference.
+% #1 - Thing to which the current entity traces.
+\def\dynenv@addtrace#1{%
+  \dynenv@ifx{traceof}{#1}
+    \dynenv@xdef{traceof}{#1}{\dynenv@current@label}%
+  \else
+    \dynenv@xdef{traceof}{#1}{%
+      \dynenv@csname{traceof}{#1},\dynenv@current@label}%
+  \fi
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Traceability table stuff.
+% A traceability table works a bit like the table of contents.
+% The table is written as macros to a .tex file at the \enddocument command.
+% The table file generated during the previous LaTeX run is read in and
+% processed during the current run. This approach allows the traceability table
+% to be presented before the things that trace to it are defined. This is
+% important in multi-part documents, where the high level requirements in the
+% overview part are implemented as low level requirements in subsequent parts.
+%
+% That this approach accommodates forward references is a BS excuse. The real
+% reason is that this is the only way I could get this to work.
+
+
+% Trace table globals
+\newwrite\dynenv@traceout
+\newcount\dynenv@tracecnt
+\dynenv@tracecnt=0
+\newdimen\@dynenv@lhswidth
+\newdimen\@dynenv@rhswidth
+
+% Generate a name for the trace table output file
+% #1 - Trace table index number
+\def\@tracetablefilename#1{autogenTracetable#1.tex}
+
+
+% Create and print a trace table.
+% #1 - Table title.
+% #2 - Table label.
+% #3 - Comma-separated list of requirements (labels) to be listed.
+% Note: All requirements are traced if the list is empty.
+% \tracetable and \professionaltracetable differ only in the
+% type of traceability table environment that is used.
+\def\tracetable{\tr@cetable{traceabilitytable}}
+\def\professionaltracetable{\tr@cetable{professionaltraceabilitytable}}
+
+% Create and print a simple trace table, one that captures all the requirements.
+% #1 - Table title.
+% #2 - Table label.
+% \simpletracetable and \simpleprofessionaltracetable differ only in the
+% type of traceability table environment that is used.
+\def\simpletracetable{\simpletr@cetable{traceabilitytable}}
+\def\simpleprofessionaltracetable{%
+  \simpletr@cetable{professionaltraceabilitytable}}
+
+
+% Create and print a trace table.
+% #1 - Table environment.
+% #2 - Table title.
+% #3 - Table label.
+% #4 - Comma-separated list of requirements (labels) to be listed.
+\long\def\tr@cetable#1#2#3#4{%
+  \@ifmtarg{#4}{%
+    \simpletr@cetable{#1}{#2}{#3}%
+  }{%
+    \@tracetable{#4}{#1}{#2}{#3}%
+  }%
+}
+
+% Create and print a simple trace table, one that captures all the requirements.
+% #1 - Table environment.
+% #2 - Table title.
+% #3 - Table label.
+\long\def\simpletr@cetable#1#2#3{%
+  \ifnum\value{requirement}=0\relax
+    \PackageError{dynenv}{There are no requirements to trace}{}%
+  \fi
+  \begingroup
+    \edef\@rit@reqt@list{\dynenv@csname{reqt}{1}}%
+    \setcounter{@dynenv@trace@count}{2}%
+    \setcounter{@dynenv@trace@end}{\value{requirement}}%
+    \loop
+      \edef\@tempa{\the\value{@dynenv@trace@count}}%
+      \edef\@tempb{\dynenv@csname{reqt}{\@tempa}}%
+      \expandafter\ifx\@tempb\relax
+        \PackageError{dynenv}{Internal error: Missing reqt \@tempa}{}%
+      \fi
+      \edef\@rit@reqt@list{\@rit@reqt@list,\@tempb}%
+      \ifnum\value{@dynenv@trace@count} < \value{@dynenv@trace@end}%
+        \addtocounter{@dynenv@trace@count}\@ne
+    \repeat
+    \expandafter\@tracetable\expandafter{\@rit@reqt@list}{#1}{#2}{#3}%
+  \endgroup
+}
+
+% Create and print a trace table.
+% #1 - Comma-separated list of requirements (labels) to be listed.
+% #2 - Table type.
+% #3 - Table title.
+% #4 - Table label.
+% Documents with parts can have multiple trace tables.
+\long\def\@tracetable#1#2#3#4{%
+  \global\advance\dynenv@tracecnt\@ne
+  % Write the trace table as an auxiliary LaTeX file.
+  \make@tracetable{\the\dynenv@tracecnt}{#1}{#2}{#3}{#4}%
+  % Read the trace table created during the previous LaTeX run, if any.
+  % This will result in generated text in the current LaTeX run.
+  \begingroup
+    \edef\@table@file{\@tracetablefilename{\the\dynenv@tracecnt}}%
+    \IfFileExists{\@table@file}{\input\@table@file}{}%
+  \endgroup
+}
+
+% Create a trace table.
+% #1 - Table index number.
+% #2 - Comma-separated list of requirements (labels) to be listed.
+% #3 - Table type.
+% #4 - Table title.
+% #5 - Table label.
+\long\def\make@tracetable#1#2#3#4#5{%
+  \dynenv@gdef{trace@table@items}{#1}{#2}%
+  \dynenv@gdef{trace@table@head}{#1}{\begin{#3}{#4}{#5}}%
+  \dynenv@gdef{trace@table@tail}{#1}{\end{#3}}%
+  \AtEndDocument{\write@tracetable{#1}}%
+}
+
+
+% Create and write a trace table.
+% Note that this macro is executed at \end{document}.
+% #1 - Table index number.
+\long\def\write@tracetable#1{%
+  \begingroup
+    % Create dynamically scoped macros so as to keep the
+    % \csname blah blah blah \endcsname silliness in one small place.
+    \dynenv@elet\@table@items{trace@table@items}{#1}%
+    \dynenv@elet\@table@head{trace@table@head}{#1}%
+    \dynenv@elet\@table@tail{trace@table@tail}{#1}%
+    % Create the trace table contents and compute column widths.
+    \@dynenv@lhswidth 0pt
+    \@dynenv@rhswidth 0pt
+    \let\dynenv@trace@table=\@empty
+    \dynenv@foreach{\trace@table@outer}{\@table@items}%
+    % Write the trace table file.
+    \immediate\openout\dynenv@traceout=\@tracetablefilename{#1}%
+    \write@trace@head
+    \write@trace@item\dynenv@trace@table
+    \write@trace@item\@table@tail
+    \immediate\closeout\dynenv@traceout
+  \endgroup
+}
+
+% Helper macros for \write@tracetable
+\def\write@trace@head{%
+  \write@trace@file{%
+    \dynenv@meaning\@table@head{\the\@dynenv@lhswidth}{\the\@dynenv@rhswidth}}}
+\def\write@trace@item#1{\write@trace@file{\dynenv@meaning#1}}
+\def\write@trace@file#1{\immediate\write\dynenv@traceout{#1}}
+
+
+% Trace table outer loop body.
+% #1 - Label of requirement to be added to table.
+\long\def\trace@table@outer#1{%
+  \dynenv@validate@ref@as{#1}{reqt}%
+  \typeout{Adding #1 to trace table}%
+  % Update widths.
+  \trace@table@update@outerwidths{#1}%
+  % Build the table contents, but do this in a group so as to keep the
+  % redefinitions of \tracetablelhs et al local.
+  \begingroup
+    % Make the macros inserted in the trace table file evaluate to themselves.
+    % Yep. This is a kludge.
+    \def\tracetablelhs{\string\tracetablelhs}
+    \def\tracetablerhs{\string\tracetablerhs}
+    \def\tracetablenot{\string\tracetablenot}
+    \def\nopagebreak{\string\nopagebreak}
+    \def\tabularnewline{\string\tabularnewline}
+    % The first table entry for a requirement identifies the requirement.
+    % This macro is later redefined for subsequent entries as {&}.
+    \def\@rit@trace@lead{\make@tracetablelhs{#1}^^J}%
+    \edef\@rit@trace@list{\dynenv@traceof{#1}}%
+    % Nothing traces to it: Handle as special case (no trace and warning).
+    \expandafter\expandafter\@ifmtarg{\@rit@trace@list}{%
+      \PackageWarningNoLine{dynenv}{Nothing traces to requirement #1}%
+      \edef\@tempa{^^J\@rit@trace@lead & \tracetablenot ^^J\tabularnewline}
+      \expandafter\trace@table@append\expandafter{\@tempa}%
+    }%
+    % Normal case: Generate entry for each item that traces to the requirement.
+    {%
+      \dynenv@foreach{\trace@table@inner}{\@rit@trace@list}%
+    }%
+    % Add a bit of vertical whitespace to visually separate requirements.
+    \trace@table@append{[4pt]^^J}%
+  \endgroup
+}
+
+% Update left and right hand side widths for this requirement.
+% #1 - Label of requirement to be added to table.
+\def\trace@table@update@outerwidths#1{%
+  \trace@table@updatewidth{\@dynenv@lhswidth}{#1}%
+  \expandsecondarg\dynenv@foreach
+    {\noexpand\trace@table@updatewidth\noexpand\@dynenv@rhswidth}%
+    {\dynenv@traceof{#1}}
+}
+
+% Update a width with the width of the title.
+% #1 - Width to be updated.
+% #2 - Item that traces to the requirement.
+\def\trace@table@updatewidth#1#2{%
+  \edef\@tempa{\dynenv@titleof{#2}}%
+  \sbox\@tempboxa{\mbox{\expandafter\scantokens\expandafter{\@tempa}}}\relax
+  \ifdim\wd\@tempboxa>#1 #1\wd\@tempboxa \fi
+}
+
+% Add something that traces to the current requirement to the trace table.
+% \trace@table@outer invokes this macro via a \dynenv@foreach loop.
+% #1 - Item that traces to the requirement.
+\long\def\trace@table@inner#1{%
+  \begingroup
+    \edef\@tempa{%
+      ^^J\@rit@trace@lead & \make@tracetablerhs{#1}%
+      ^^J\tabularnewline}
+    \expandafter\trace@table@append\expandafter{\@tempa}%
+  \endgroup
+  \def\@rit@trace@lead{\nopagebreak &}%
+}
+
+% Add content to the trace table.
+% #1 - Stuff to be added.
+\long\def\trace@table@append#1{%
+  \g@addto@macro\dynenv@trace@table{#1}%
+}
+
+
+% The traceabilitytable environment creates a traceability table.
+% #1 - Table title (caption).
+% #2 - Table label.
+% #3 - LHS label max width.
+% #4 - RHS label max width.
+\newenvironment{traceabilitytable}[4]{%
+  \dynenv@setcolwidths{206pt}{#3}{#4}
+  \stretchlongtable<1.1>[c]
+     {||l @{\hspace{4pt}} p{\the\@dynenv@lhswidth}|%
+        l @{\hspace{2pt}} l @{\hspace{4pt}} p{\the\@dynenv@rhswidth}|}
+    \caption{#1}
+    \label{#2}
+    \\[2ex]
+    \hline
+    \multicolumn{2}{||l|}{\bf Requirement} &%
+    \multicolumn{3}{l|}{\bf Traces to} \\%
+    \hline\hline
+    \endfirsthead
+
+    \caption[]{Source Files (continued from previous page)}
+    \\[4pt]
+    \hline
+    \multicolumn{2}{||l|}{\bf Requirement} &%
+    \multicolumn{3}{l|}{\bf Traces to} \\%
+    \hline\hline
+    \endhead
+
+    \hline \multicolumn{5}{r}{{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+}%
+{%
+  \endstretchlongtable
+}
+
+
+% The \professionaltraceabilitytable environment creates a traceability table,
+% but without vertical lines.
+% #1 - Table title (caption).
+% #2 - Table label.
+% #3 - LHS label max width.
+% #4 - RHS label max width.
+\newenvironment{professionaltraceabilitytable}[4]{%
+  \dynenv@setcolwidths{210pt}{#3}{#4}
+  \stretchlongtable<1.1>[c]
+     {l @{\hspace{4pt}} p{\the\@dynenv@lhswidth}%
+      @{\hspace{4pt}}%
+      l @{\hspace{2pt}} l @{\hspace{4pt}} p{\the\@dynenv@rhswidth}}
+    \caption{#1}
+    \label{#2}
+    \\[2ex]
+    \hline
+    \multicolumn{2}{l@{}}{\bf Requirement} &%
+    \multicolumn{3}{@{}l}{\bf Traces to} \\%
+    \hline\hline
+    \noalign{\vspace{3.1pt}}
+    \endfirsthead
+
+    \caption[]{Source Files (continued from previous page)}
+    \\[4pt]
+    \hline
+    \multicolumn{2}{l@{}}{\bf Requirement} &%
+    \multicolumn{3}{@{}l}{\bf Traces to} \\%
+    \hline\hline
+    \noalign{\vspace{3.1pt}}
+    \endhead
+
+    \hline \multicolumn{5}{r}{{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+}%
+{%
+  \endstretchlongtable
+}
+
+% Set label column widths for the traceabilitytable environments.
+% #1 - Allowable width of identifier + label.
+% #2 - Max LHS label width.
+% #3 - Max RHS label width.
+\def\dynenv@setcolwidths#1#2#3{
+  \setlength\@dynenv@lhswidth{#2}%
+  \setlength\@dynenv@rhswidth{#3}%
+  \setlength\@tempdima{#1}%
+  \addtolength\@tempdima{-\dynenv@prefixwidth}%
+  \@tempdimb\@tempdima
+  \addtolength\@tempdimb{\the\@tempdima}%
+  \@tempdimc\@dynenv@lhswidth
+  \addtolength\@tempdimc{\the\@dynenv@rhswidth}%
+  \ifdim\@tempdimc>\@tempdimb
+    \ifdim\@dynenv@lhswidth>\@tempdima \@dynenv@lhswidth\@tempdima \fi
+    \ifdim\@dynenv@rhswidth>\@tempdima \@dynenv@rhswidth\@tempdima \fi
+    \PackageWarningNoLine{dynenv}{%
+      Requirements, inspections, or tests have long titles.\MessageBreak
+      Check traceability table for readability, and consider\MessageBreak
+      providing alternatives for those items with long names}%
+  \fi
+}
+
+
+% The following are intended for use in the autogenerated trace table.
+% The table visually comprises a left hand side which contains requirements
+% and a right hand side which contain things that trace to the requirement
+% on the right hand side.
+% The left hand side of the table comprises two columns, the requirement
+% ID as a hyperlink to the requirement plus the name of the requirement.
+% the requirement and the name of the requirement.
+% The right hand side comprises three columns, the type of the item
+% (requirement, inspection, or test), plus the ID (hyperink) and name.
+% The macros \make@tracetablelhs and \make@tracetablerhs take a label
+% as an argument and make left and right hand sides. They do this by
+% transforming the argument to \tracetablelhs and \tracetablerhs calls.
+\def\make@tracetablelhs#1{%
+  \tracetablelhs{#1}{\dynenv@titleof{#1}}}
+\def\tracetablelhs#1#2{\ref{#1} & \raggedright{}#2}
+
+\def\make@tracetablerhs#1{%
+  \tracetablerhs{\dynenv@abbrev{\dynenv@typeof{#1}}}{#1}{\dynenv@titleof{#1}}}
+\def\tracetablerhs#1#2#3{#1 & \ref{#2} & \raggedright{}#3}
+
+\def\tracetablenot{\multicolumn{3}{l|}{\bf Nothing traces to this requirement}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Ensure that \dynenv@current@label is defined.
+% This generates a (hopefully) meaningful error message if it isn't.
+% Without this, the error message is an inscrutably LaTeXish error message.
+% #1 - Name of macro (sans leading backslash)
+\def\dynenv@validate@context#1{%
+  \ifx\dynenv@current@label\@undefined
+    \ifx\dynenv@current@counter\@undefined
+      \PackageError{dynenv}%
+        {#1 macro used in an invalid setting.\MessageBreak
+         There is no active requirement, inspection or test}{}
+    \else
+      \PackageError{dynenv}%
+        {Can't use #1 because\MessageBreak
+         \dynenv@current@counter{\dynenv@current@title}
+         has no label}{}%
+    \fi
+  \fi
+}
+
+% Make sure that a reference (e.g., reqt:foo) is a valid
+% requirement/inspection/test reference.
+\def\dynenv@validate@ref#1{%
+  \begingroup
+    \edef\@tempa{\dynenv@typeof{#1}}%
+    \ifx\@tempa\relax
+       \PackageError{dynenv}{#1 is an invalid reference.}{}%
+    \fi
+  \endgroup
+}
+
+% Make sure that a pair of references (e.g., reqt:foo and reqt:bar) are valid
+% requirement/inspection/test references of the same type.
+\def\dynenv@validate@refpair#1#2{%
+  \begingroup
+    \dynenv@validate@ref{#1}%
+    \dynenv@validate@ref{#2}%
+    \edef\@typea{\dynenv@typeof{#1}}%
+    \edef\@typeb{\dynenv@typeof{#2}}%
+    \edef\@tempa{\dynenv@csname{\@typea}{\@typeb}}%
+    \expandafter\ifx\@tempa\relax
+       \PackageError{dynenv}{%
+         Reference types don't match.\MessageBreak
+         #1 is a \@typea, #2 a \@typeb}{}%
+    \fi
+  \endgroup
+}
+
+% Make sure that a reference (e.g., reqt:foo) is a valid
+% requirement/inspection/test reference of a specific type.
+\def\dynenv@validate@ref@as#1#2{%
+  \begingroup
+    \edef\@tempa{\dynenv@typeof{#1}}%
+    \ifx\@tempa\relax
+       \PackageError{dynenv}{#1 is an invalid reference.}{}%
+    \fi
+    \edef\@tempb{\dynenv@csname{\@tempa}{#2}}%
+    \expandafter\ifx\@tempb\relax
+       \PackageError{dynenv}{#1 is not a reference to a \dynenv@name{#2}.}{}%
+    \fi
+  \endgroup
+}
+
+
+\endinput

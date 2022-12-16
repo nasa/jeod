@@ -1,0 +1,57 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{container}[2011/05/03 v1.0 Surface Model module macros]
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+
+% use the better float package
+\usepackage{float}
+
+% use the equation package stuff
+\usepackage{amsmath, amsthm, amssymb}
+
+% Update this when changes are made to the document.
+\newcommand\ModelRevision{1.2}
+
+% \ModelHistory is expanded in the document history section of the introduction.
+% This command comprise a set of lines, each of which must be of the form
+%   Author & Date & Revision & Description \\
+% The final entry must describe the current version.
+% The fields are:
+%   Author       The names of the authors responsible for the document revision.
+%   Date         The month and year of the document revision.
+%   Revision     The document revision number in major.minor format.
+%   Description  A brief description of the revision.
+\newcommand\ModelHistory {
+Andrew Spencer     & November, 2009       & 1.0    & Initial Version   \\ \hline
+Andrew Spencer     & October, 2010       & 1.1    & Added Articulation, metrics   \\ \hline
+Andrew Spencer     & February, 2012       & 1.2    & Added Trick 10 Allocation Information   \\ \hline
+}
+
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+\newcommand\modelprefix{SM}
+
+% Model description macros, used for cover page
+\newcommand{\ModelDesc}{Surface Model\xspace}
+\newcommand{\ModelAuthor}{Andrew Spencer}
+\newcommand{\ModelKeywords}{surface model}
+\newcommand{\ModelClass}{utils}
+\newcommand{\ModelPath}{models/utils/surface_model}
+
+
+% Short little commands.
+\newcommand{\funder}{\_\hspace{0pt}}
+\newcommand{\inanglebrackets}[1] {\textless{}#1\textgreater{}}
+\newcommand{\template}[2] {#1\hspace{0pt}\inanglebrackets{#2}}
+
+

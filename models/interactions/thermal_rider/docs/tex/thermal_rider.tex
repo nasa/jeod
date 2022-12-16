@@ -1,0 +1,249 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Top level document for \ThermalRiderDesc.  DO NOT EDIT!!!
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the AMS math package
+%
+\usepackage{amsmath}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{thermal_rider}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\ThermalRiderDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\ThermalRiderDesc}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{models/interactions/thermal\_rider}
+\docrev{1.0}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\ThermalRiderDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{ThermalRiderAbstract}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \ThermalRiderDesc}
+\input{ThermalRiderIntroduction}
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item{\href{file:\JEODHOME/docs/JEOD.pdf}
+           {\em JSC Engineering Orbital Dynamics}}
+			  \cite{dynenv:JEOD}
+\end{itemize}
+
+The \ThermalRiderDesc\ forms a component of the \ModelClass\ suite of
+models within \JEODid. It is located at
+models/\ModelClass/ThermalRider.  It is used primarily by the
+\href{file:\JEODHOME/models/interactions/radiation_pressure/docs/radiation_pressure.pdf}{Radiation
+Pressure}~\cite{dynenv:RADIATIONPRESSURE} model, where it can be used in
+conjunction with radiation pressure, or as a stand-alone model for simply
+monitoring temperature.  It may also be used in the
+\href{file:\JEODHOME/models/interactions/aerodynamics/docs/aerodynamics.pdf}{Aerodynamic
+Drag}~\cite{dynenv:AERODYNAMICS} model.
+
+\section{Documentation History}
+\input{ThermalRiderIntro_change_history}
+
+
+\section{Documentation Organization}
+This document is formatted in accordance with the
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}
+and is organized into the following chapters:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] -
+This introduction contains four sections; purpose and objective,
+context within JEOD, document history, and document organization.
+
+\item[Chapter 2: Product Requirements] -
+Describes requirements for the \ThermalRiderDesc.
+
+\item[Chapter 3: Product Specification] -
+Describes the underlying theory, architecture, and design of the
+\ThermalRiderDesc\ in detail.  It will be organized in
+four sections; Conceptual Design, Mathematical Formulations, Detailed
+Design, and Version Inventory.
+
+\item[Chapter 4:  User's Guide] -
+Describes how to use the \ThermalRiderDesc\ in a Trick simulation.  It
+is broken into three sections to represent the JEOD
+defined user types; Analysts or users of simulations (Analysis),
+Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -
+Contains \ThermalRiderDesc\ verification and validation procedures and
+results.
+
+\end{description}
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+
+\requirement{Top-level Requirement}
+\label{reqt:top_level}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}~\cite{dynenv:JEOD}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum,  meet all external and
+  internal requirements
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+  Inspection \vref{inspect:top_level}
+\end{description}
+
+\input{ThermalRiderReqt}
+\input{ThermalRiderReqt_trace}
+
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{ThermalRiderSpec_Concept}
+%\section{Mathematical Formulations}
+\include{ThermalRiderSpec_Math}
+%\section{Detailed Design}
+\include{ThermalRiderSpec_Detail}
+%\section{Version Inventory}
+\include{ThermalRiderSpec_Inventory}
+
+\chapter{User's Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+The User's Guide is divided into 3 components, one for each of three
+different types of user.
+
+The Analysis section of the User's Guide is intended primarily for
+users of pre-existing simulations.
+It comprises the following elements:
+\begin{itemize}
+\item A description of how to modify \ThermalRiderDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file;
+\item An overview of how to interpret (but not edit) the S\_define
+file;
+\item A sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section of the User's Guide is intended for simulation
+developers.
+It describes the necessary configuration of the \ThermalRiderDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section of the user guide.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:spec}).
+
+The Extension section of the User's Guide is intended primarily for
+developers
+needing to extend the capability of the \ThermalRiderDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:spec}).
+
+
+\section{Analysis}
+\input{ThermalRiderUser_Analysis}
+
+%\section{Integration}
+\include{ThermalRiderUser_Integration}
+
+%\section{Extension}
+\include{ThermalRiderUser_Extension}
+
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+\input{ThermalRiderVV_Verif}
+
+%\section{Validation}
+\include{ThermalRiderVV_Valid}
+\include{ThermalRiderVV_Metrics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,ThermalRider}
+\bibliographystyle{plain}
+
+%\pagebreak
+%\appendix
+
+\end{document}

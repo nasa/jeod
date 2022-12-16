@@ -1,0 +1,219 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Provide Chapter 4 User Guide for the Contact Model
+%
+%  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+
+\section{Instructions for Simulation Users}
+\subsection{General Description}
+The verification simulation SIM\_contact\_T10 and its associated input files are used in the examples below.  They demonstrate the use of the \ModelDesc with a Trick 10 series simulation executive.  The simulation SIM\_contact contains an example of using the \ModelDesc with a Trick 7 series simulation executive.
+
+\subsection{Pair Interactions}
+Central to having surfaces actually contact each other is the creation of instances of the Pair\_Interaction class.  Each such object links two instances of Contact\_Params by name.
+\begin{verbatim}
+  execfile( "Contact_Modified_data/contact/pair_interaction.py")
+  set_contact_interaction(contact)
+\end{verbatim}
+
+As seen below a pair interaction contains the names of the parameters that will produce interaction as well as the values need to calculated forces from the contact should it occur.  In this example we are using the \ModelDesc provided spring model, so we define the spring constant (spring\_k), damping coefficient (damping\_b), and the coefficient of friction (mu).
+\begin{verbatim}
+  def set_contact_interaction(contact_reference) :
+
+    pair_interaction_local = trick.SpringPairInteraction()
+    pair_interaction_local.thisown = 0
+
+    pair_interaction_local.params_1 = "steel"
+    pair_interaction_local.params_2 = "steel"
+
+    pair_interaction_local.spring_k = trick.attach_units( "lbf/in",20.0)
+    pair_interaction_local.damping_b = trick.attach_units( "lbf*s/in",0.4)
+    pair_interaction_local.mu = 0.05
+
+    contact_reference.contact.register_interaction(pair_interaction_local)
+
+    return
+\end{verbatim}
+
+\subsection{Contact Parameters}
+All vehicles in the SET\_test runs contained in SIM\_contact\_T10 use the same contact parameters. The inclusion of contact parameters takes the following form.
+\begin{verbatim}
+  execfile( "Contact_Modified_data/contact/contact_params.py")
+  set_contact_params(veh1_dyn)
+\end{verbatim}
+Contact parameters are purposely very simple and are used to control the types of possible interactions.  In this case all contact facets will have parameters of the name ``steel'' and they have the potential for contact if there exists an instance of the Pair\_Interaction class that defines a ``steel'' on ``steel'' interaction like the example above. Creating and naming an instance of the ContactParams class is show below.
+\begin{verbatim}
+  def set_contact_params(sv_dyn_reference) :
+
+    contact_params_local = trick.ContactParams()
+    contact_params_local.thisown = 0
+
+    contact_params_local.name = "steel"
+
+    sv_dyn_reference.facet_params = contact_params_local
+    sv_dyn_reference.contact_surface_factory.add_facet_params(contact_params_local)
+
+
+    return
+\end{verbatim}
+
+\subsection{Contact Surface and Facets}
+Now that there are contact parameters available to be associated with the contact facets and defined pair interactions to generate valid pairings between them, the contact facets are constructed.
+\begin{verbatim}
+  execfile( "Contact_Modified_data/contact/point_facet.py")
+  set_contact_point_facet(veh1_dyn, "veh1")
+\end{verbatim}
+
+This is an example of adding one facet. However, implementing multiple facets would only involve modifying the python function to accept more parameters for the position, normal, parameter name, etc. The type of facet being created below is of the FlatPlateCircular class, so in addition to the required fields of ``name," ``position" and ``param\_name" you must also specify the ``normal" and ``radius." Since this facet is intended for use in the \ModelDesc a ``mass\_body\_name" must also be specified, and in this case the associated mass\_body shares the same name as the surface\_model.struct\_body\_name.
+
+\begin{verbatim}
+  def set_contact_point_facet(sv_dyn_reference, SV_NAME) :
+
+    exec('sv_dyn_reference.surface_model.struct_body_name = "' + SV_NAME + '"')
+
+    fp = trick.FlatPlateCircular()
+    fp.thisown = 0
+
+    exec( 'fp.name = "' + SV_NAME + '_facet"')
+    fp.position  = trick.attach_units( "m",[ 0.0 , 0.0, 0.0 ])
+    fp.normal  = [ 1.0 , 0.0 , 0.0 ]
+    fp.radius  = trick.attach_units( "m",1.0)
+    fp.param_name = "steel"
+    exec('fp.mass_body_name = "' + SV_NAME + '"')
+
+    sv_dyn_reference.facet_ptr = fp
+    sv_dyn_reference.surface_model.add_facet(fp)
+
+    return
+\end{verbatim}
+
+\subsection{Logging}
+Logging the internal details of the \ModelDesc, such as the forces a specific facets, is difficult due to the number of base class pointer references to derived classes.  However, it is straightforward to log the forces and torques collected by contact on the entire contact surface.
+\begin{verbatim}
+  def log_contact_data ( log_cycle ) :
+     # Import the JEOD logger
+     import sys
+     import os
+     sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
+     import jeod_log
+
+     # Create the logger.
+     logger = jeod_log.Logger (data_record.drd)
+
+     logger.open_group (1, "contact_data")
+
+     logger.log_scalar(
+        ("veh1_dyn.body.composite_properties.mass",
+         "veh2_dyn.body.composite_properties.mass"))
+
+     logger.log_vector(
+        ("veh1_dyn.body.composite_body.state.trans.position",
+         "veh1_dyn.body.composite_body.state.trans.velocity",
+         "veh1_dyn.contact_surface.contact_force",
+         "veh1_dyn.contact_surface.contact_torque",
+         "veh2_dyn.body.composite_body.state.trans.position",
+         "veh2_dyn.body.composite_body.state.trans.velocity",
+         "veh2_dyn.contact_surface.contact_force",
+         "veh2_dyn.contact_surface.contact_torque"))
+
+     logger.close_group()
+\end{verbatim}
+
+\section{Instruction for Simulation Developers}
+The examples given in this sections come from the S\_define for SIM\_contact\_T10 and describe the use of the \ModelDesc with Trick 10 simulation executive.
+\subsection{Vehicle Simulation Object Additions}
+The majority of the definitions and jobs needed for the \ModelDesc are best placed in the simulation objects for the vehicles.  In general each vehicle will contain its own unique instance of the SurfaceModel class which will contain all the facets and parameters associated with the vehicle. The following lines set up an instance of the SurfaceModel class and a pointer to add facet parameters to it.
+\begin{verbatim}
+    SurfaceModel            surface_model;
+    FacetParams           * facet_params;
+\end{verbatim}
+Then it is time to instantiate a ContactSurface object and a factory to create it.
+\begin{verbatim}
+    ContactSurface          contact_surface;
+    ContactSurfaceFactory   contact_surface_factory;
+\end{verbatim}
+This is followed by the definition of several variables needed by the initialization routines and the input file.  There is a facet pointer which is used to add facets to SurfaceModel.  There are also pre-declarations of the types of contact facets that will be created in the simulation input files, contact parameters and a specific type of pair interaction.
+\begin{verbatim}
+  FlatPlateCircular     * flat_plate_circular;
+  Cylinder              * cylinder;
+  ContactParams * contact_params;
+  SpringPairInteraction * spring_pair_interaction;
+  Facet * facet_ptr;
+  unsigned int integer;
+
+\end{verbatim}
+Next we get to the initialization jobs that should occur in the following order in the S\_define:
+\begin{itemize}
+\item SurfaceModel.initialize\_mass\_connections - creates the linkage between a Facet and a Mass or in the case of the \ModelDesc, a facet and a dynamics body,
+\item ContactSurfaceFactory.create\_surface - creates a ContactSurface from the Surface base class, which means that it creates a ContactFacet from the information contained in each Facet base class,
+\item ContactManager.register\_contact - registers a set of contact facets with the contact manager, with the easiest way being to use the array of contact facets in the contact surface,
+\end{itemize}
+\begin{verbatim}
+  P_BODY ("initialization") surface_model.initialize_mass_connections(
+     internal_dynamics->dyn_manager );
+  P_BODY ("initialization") contact_surface_factory.create_surface(
+     & surface_model,
+     & contact_surface);
+   P_BODY  ("initialization") internal_contact->contact.register_contact(
+      contact_surface.contact_facets,
+      contact_surface.facets_size);
+\end{verbatim}
+The only recurring job in the vehicle simulation object from the contact model is a call to collect\_forces\_torques in each contact surface.  This collects forces and torques from every contact facet associated with the contact surface and sums them to produce the total forces from contact.
+\begin{verbatim}
+  P_DYN ("derivative") contact_surface.collect_forces_torques();
+\end{verbatim}
+
+\subsection{Contact Simulation Object}
+Unlike some of the other Surface Model derived interaction models, the \ModelDesc requires a separate manager to track the contact facets so a determination of contact forces can be accomplished.  The basic form of this simulation object will contain an instance of the Contact class.  This manager object should be initialized after all the vehicles have completed the registration of their contact surfaces.  It is the function Contact.initialize\_contact that creates pairs based on the contact facets, parameters, and pair interactions that have been registered with the manager.
+The call to the method check\_contact is the main driver for the entire \ModelDesc.  It is this function that begins the process of determining if contact has occurred during runtime.
+
+\begin{verbatim}
+##include "interactions/contact/include/contact.hh"
+
+class ContactSimObject: public Trick::SimObject {
+
+   public:
+    Contact contact;
+
+// Instances for matching to other sim objects:
+    DynamicsSimObject * internal_dynamics;
+
+//Constructor
+    ContactSimObject(
+      DynamicsSimObject  & ext_dynamics) {
+
+      internal_dynamics = & ext_dynamics;
+
+      P_DYN  ("initialization") contact.initialize_contact(
+          & internal_dynamics->dyn_manager);
+      //
+      // Derivative class jobs
+      //
+      P_DYN   ("derivative") contact.check_contact();
+    }
+
+  private:
+    ContactSimObject (const ContactSimObject&);
+    ContactSimObject & operator = (const ContactSimObject&);
+
+};
+ContactSimObject contact(dynamics);
+\end{verbatim}
+
+\section{Instruction for Model Developers}
+The \ModelDesc was designed with the expectation of user extension.  Some extensions such as adding new types of contact facets or new pair interactions are relatively easy. Some such as extending the contact base class to include a completely new concept such as latching or ground contact may be challenging depending on the complexity desired.
+\subsection{Pair Interactions}
+The virtual base class for interaction and force generation in the \ModelDesc is called PairInteraction.  This class contains a pure virtual function, called force\_torque, used to calculate the forces and torques a specific facet produces when in contact.  This method takes in information determined from the geometry of the interacting facets, but not knowledge of the specific facet geometries.  In the released version of the \ModelDesc, one derived class of PairInteraction is included which is the SpringPairInteraction class.  This basic functionality applies forces and torques assuming that the facets resist inter-penetration using the dynamics of simple springs.  The PairInteraction class can be extended to simulate whatever force generation dynamics the user desires.
+
+\subsection{Contact Facets}
+It is possible to add new types of contact facets to the \ModelDesc.  All types of contact facets are derived from the base class ContactFacet.  To add a new type it is necessary to create a new class derived from ContactFacet.  Then one must create a matching ContactFacetFactory for the new type of ContactFacet.  If the new type of ContactFacet can be defined by the geometry of an existing facet in the Surface Model, then there is no need to create a matching facet there.  If not, a new derived class of the Surface Model Facet class will need to be created in the Surface Model~\cite{dynenv:SURFACEMODEL}. For example the PointContactFacet makes use of the Surface Model class CircularFlatPlate as its base.  A CircularFlatPlate contains a point and normal, but unlike a FlatPlate it also contains a radius which can be used as the interaction distance needed to properly define a PointContactFacet.
+
+Now that a new type of ContactFacet has been created it is necessary to define how it will interact with types that already exist if you want contact to occur between those contact facets.  Unless this is done a ContactPair between the new type and old will not be created by the Contact class, which can be a good way to limit list size and control the resource use of the \ModelDesc.
+
+\subsection{Contact}
+The manger class, called Contact, is also designed with extension in mind. This JEOD release contains an example of such an extension in SIM\_ground\_contact located in the verif directory of \ModelDesc. This simulation includes two new models. One is a simple radius of the planet base terrain model called ``terrain''. The other called ``contact\_ground'' is an extension of the \ModelDesc to include contact between vehicle facets and the surface of a planet.  The treatment of the ground contact problem in this example simulation and contact ground model is merely demostrative, for it assumes a non rotating earth, contact at the radius of the planet, and other simplifications.  However, it does give a powerful demonstration of the extensibility of the \ModelDesc.

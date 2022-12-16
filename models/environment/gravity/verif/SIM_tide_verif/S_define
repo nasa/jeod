@@ -1,0 +1,246 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//=============================================================================
+// This simulation provides a reference implementation that can be used for
+// comparison to other orbital dynamics implementations.  It is intended to
+// provide a reference set for dynamics comparison.
+//
+// This simulation models a single vehicle in orbit around the Earth.  There
+// are many adjustable configuration parameters that can be used to test out
+// a suite of test cases with specific behavior.  These test cases form the
+// basis for simulation to simulation comparison.
+//
+//          sys - Trick runtime executive and data recording routines
+//         time - Universal time
+//          env - Environment: ephemeris, gravity
+//          sun - Sun planetary model
+//        earth - Earth planetary model
+//         moon - Moon planetary model
+//       sv_dyn - Space vehicle dynamics model
+//     dynamics - Orbital dynamics
+//
+//=============================================================================
+
+
+// Define job calling intervals
+#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
+#define MID_RATE_ENV  10.00
+#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
+
+
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+
+#include "time_TAI_UTC_UT1_TT_GMST.sm"
+#include "dynamics.sm"
+#include "environment.sm"
+#include "sun_basic.sm"
+#include "moon_basic.sm"
+
+
+//***************************************************************
+// CLASS: (EarthSimObject)
+// PURPOSE:
+//  ( This sim object models the space environment.)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "environment/gravity/include/spherical_harmonics_solid_body_tides.hh"
+##include "environment/gravity/include/spherical_harmonics_solid_body_tides_init.hh"
+
+// Include default data classes:
+##include "environment/gravity/data/include/earth_solid_tides.hh"
+
+#include "Base/earth_GGM05C_MET.sm"
+class EarthSimObject: public  Earth_GGM05C_MET_SimObject
+{
+ public:
+  jeod::SphericalHarmonicsSolidBodyTides sb_tide;
+  jeod::SphericalHarmonicsSolidBodyTidesInit sbtide_init;
+
+  // Instances for default data:
+  jeod::SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data    sbtide_init_default_data;
+
+  // Constructor
+  EarthSimObject(   jeod::DynManager   & dyn_manager_in,
+                    jeod::GravityManager & grav_in,
+                    jeod::TimeUTC      & utc_in,
+                    jeod::TimeTT       & tt_in,
+                    jeod::TimeUT1      & ut1_in,
+                    jeod::TimeGMST     & gmst_in)
+     :
+     Earth_GGM05C_MET_SimObject( dyn_manager_in,
+                                 grav_in,
+                                 utc_in,
+                                 tt_in,
+                                 ut1_in,
+                                 gmst_in)
+  {
+
+    //Default data jobs
+    ("default_data") sbtide_init_default_data.initialize ( &sbtide_init );
+
+    // Initialization jobs
+    P31  ("initialization") gravity_source.add_deltacoeff ( sbtide_init,
+                                                           dyn_manager,
+                                                           sb_tide );
+  }
+
+ private:
+  EarthSimObject (const EarthSimObject&);
+  EarthSimObject & operator = (const EarthSimObject&);
+
+};
+EarthSimObject earth ( dynamics.dyn_manager,
+                       env.gravity_manager,
+                       jeod_time.time_utc,
+                       jeod_time.time_tt,
+                       jeod_time.time_ut1,
+                       jeod_time.time_gmst);
+
+
+
+//***************************************************************
+// CLASS: (VehicleSimObject)
+// PURPOSE:
+//  ( This sim object models a vehicle in space.)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
+##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
+##include "dynamics/derived_state/include/euler_derived_state.hh"
+##include "dynamics/derived_state/include/lvlh_derived_state.hh"
+##include "dynamics/derived_state/include/euler_derived_state.hh"
+##include "dynamics/derived_state/include/orb_elem_derived_state.hh"
+##include "interactions/gravity_torque/include/gravity_torque.hh"
+##include "interactions/aerodynamics/include/aero_drag.hh"
+##include "environment/gravity/include/spherical_harmonics_delta_controls.hh"
+
+// Include default data classes:
+##include "interactions/aerodynamics/data/include/aero_model.hh"
+
+#include "Base/vehicle_atmosphere.sm"
+class VehicleSimObject: public VehicleAtmSimObject
+{
+ public:
+  jeod::DynBodyInitOrbit        orb_init;
+  jeod::DynBodyInitLvlhRotState lvlh_init;
+  jeod::EulerDerivedState       euler;
+  jeod::LvlhDerivedState        lvlh;
+  jeod::EulerDerivedState       lvlh_euler;
+  jeod::OrbElemDerivedState     orb_elem;
+  jeod::GravityTorque           grav_torque;
+  jeod::AerodynamicDrag         aero_drag;
+  jeod::SphericalHarmonicsGravityControls earth_grav_ctrl;
+  jeod::SphericalHarmonicsGravityControls earth_spherical_grav_ctrl;
+  jeod::SphericalHarmonicsGravityControls sun_grav_ctrl;
+  jeod::SphericalHarmonicsGravityControls moon_grav_ctrl;
+  jeod::SphericalHarmonicsDeltaControls   sbtide_ctrl;
+
+  // Instances for default data:
+  jeod::AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+
+  // Constructor
+  VehicleSimObject( jeod::DynManager       & dyn_mngr_in,
+                    jeod::METAtmosphere    & atmos_in,
+                    jeod::WindVelocity     & wind_in)
+    :
+    VehicleAtmSimObject( dyn_mngr_in,
+                         atmos_in,
+                         wind_in)
+  {
+    //Default data jobs
+    ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+
+    P_DYN  ("initialization") euler.initialize( dyn_body,
+                                                dyn_manager );
+    P_DYN  ("initialization") lvlh.initialize( dyn_body,
+                                               dyn_manager );
+    P_DYN  ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
+                                                     dyn_body,
+                                                     dyn_manager );
+    P_DYN  ("initialization") orb_elem.initialize( dyn_body,
+                                                   dyn_manager );
+    ("initialization") euler.update( );
+    ("initialization") lvlh.update( );
+    ("initialization") lvlh_euler.update( );
+    ("initialization") orb_elem.update( );
+    ("initialization") grav_torque.initialize( dyn_body );
+
+    // Environment class jobs
+    (DYNAMICS, "environment") euler.update( );
+    (DYNAMICS, "environment") pfix.update( );
+    (DYNAMICS, "environment") lvlh.update( );
+    (DYNAMICS, "environment") lvlh_euler.update( );
+    (DYNAMICS, "environment") orb_elem.update( );
+    (MID_RATE_ENV, "environment") dyn_body.sort_controls();
+
+    // Derivative class jobs
+    P_BODY   ("derivative") aero_drag.aero_drag( dyn_body.composite_body.state.trans.velocity,
+                                                 &atmos_state,
+                                                 dyn_body.structure.state.rot.T_parent_this,
+                                                 dyn_body.mass.composite_properties.mass,
+                                                 dyn_body.mass.composite_properties.position);
+    P_PGRAV   ("derivative") grav_torque.update();
+  }
+
+ private:
+  VehicleSimObject (const VehicleSimObject&);
+  VehicleSimObject & operator = (const VehicleSimObject&);
+};
+VehicleSimObject sv_dyn ( dynamics.dyn_manager,
+                          earth.atmos,
+                          earth.wind_velocity);
+
+
+vcollect sv_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
+   sv_dyn.aero_drag.aero_force
+};
+vcollect sv_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
+   sv_dyn.aero_drag.aero_torque,
+   sv_dyn.grav_torque.torque
+};
+
+IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth, sv_dyn;

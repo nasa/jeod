@@ -1,0 +1,41 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the SolarBeta model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+See the \href{file:refman.pdf}{Reference Manual}\cite{derivedstatebib:ReferenceManual} for a summary of member data and member methods for all classes.  
+
+\subsection{Process Architecture}
+The process architecture for the \SolarBetaDesc\ is trivial, comprising operationally independent methods.
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods in each class.
+
+The \SolarBetaDesc\ contains only one class:
+\begin{itemize}
+\classitem{SolarBetaDerivedState}
+\textref{DerivedState}{ref:DerivedState}
+
+This contains only the methods \textit{initialize} and \textit{update}:
+\begin{enumerate}
+\funcitem{initialize}
+The initialization process comprises the following steps:
+\begin{enumerate}
+\item{} The generic DerivedState initialization routine is called to establish the naming convention of the reference object (i.e., the planet about which the vehicle is orbiting) and state identifier.
+\item{} The registry of active bodies, maintained by the Dynamics Manager (see \href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{\em Dynamics Manager Documentation}~\cite{dynenv:DYNMANAGER}) is updated to ensure that the ephemeris of the sun and the reference body are both being updated.
+\end{enumerate}
+
+\funcitem{update}
+The process at update is described entirely in the \reftext{Mathematical Formulations}{sec:solarbetamath} section.
+
+
+\end{enumerate}
+\end{itemize}
+
+
+

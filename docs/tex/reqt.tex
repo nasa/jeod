@@ -1,0 +1,93 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Requirements for JSC Engineering Orbital Dynamics (JEOD)
+%
+%
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Requirements}\hyperdef{chapter}{reqts}{}\label{sec:reqts}
+
+\requirement{Documentation}
+\label{reqt:documentation}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The documentation for JEOD and each model shall include:
+
+    \subrequirement{}
+    \label{reqt:reqts_doc}
+      Software requirements specification.
+
+    \subrequirement{}
+    \label{reqt:design_doc}
+      Software, interface, and software version descriptions.
+
+    \subrequirement{}
+    \label{reqt:user_doc}
+      User Guide.
+
+    \subrequirement{}
+    \label{reqt:test_doc}
+      Software test procedures and results.
+
+  \item[Rationale:]\ \newline
+    The listed items are needed to comply with NASA NPR 7150.2A as a Class C product.
+
+  \item[Verification:]\ \newline
+    Inspection
+\end{description}
+
+\requirement{JEOD Coding Standards}
+\label{reqt:jeod_code}
+\begin{description}
+  \item[Requirement:]\ \newline
+    All source code written for JEOD shall shall follow the Coding Standards \cite{dynenv:CODE_STANDARD}. All exceptions must be waved and documented.
+
+  \item[Rationale:]\ \newline
+    All model source code will be written, commented, and documented using the same standard so the code is easy to maintain and understand, which complies with NASA NPR 7150.2A.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Main Function}
+\label{reqt:main_function}
+\begin{description}
+  \item[Requirement:]\ \newline
+  The JEOD Software Package shall provide the ability to model spacecraft trajectories, capable of supporting the orbital six degree of freedom propagation of multiple vehicles around multiple planets.
+  \item[Rationale:]\ \newline
+  This is the main functional requirement of JEOD.
+  \item[Verification:]\ \newline
+  Inspection, Test, Analysis.
+\end{description}
+
+\requirement{Relative States}
+\label{reqt:rel_states}
+\begin{description}
+  \item[Requirement:]\ \newline
+  JEOD shall provide the capability to represent and extract relative states for any simulated vehicle in relation to other vehicles and/or planets.
+  \item[Rationale:]\ \newline
+  The capability to represent and extract relative states is necessary to support multi-vehicle, multi-planet simulation.  It is also required by simulation users for many end applications such as rendezvous and proximity operations.
+  \item[Verification:]\ \newline
+ Inspection, Test.
+\end{description}
+
+\requirement {Simulation Interface}
+\label{reqt:sim_interface}
+\begin{description}
+ \item[Requirement:]\ \newline
+JEOD shall provide  a generic interface for a simulation engine which will support:
+\subrequirement {}
+\label {reqt:trick}
+Simulations made with the Trick simulation package
+\subrequirement {}
+\label {reqt:nontrick}
+Simulations independent of the Trick simulation package
+  \item[Rationale:]\ \newline
+Compatibility with Trick is required to support a large body of existing simulation code.  Trick independence promotes reuse in other environments.
+
+  \item[Verification:]\ \newline
+    Inspection, Test.
+\end{description}

@@ -1,0 +1,309 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  requirements for the time model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% add text here to describe general model requirements
+% text is of the form:
+%\requirement{REQUIREMENT DESCRIPTION}
+%\label{reqt:REQT_DESC_ABBREVIATED}
+%\begin{description}
+%  \item[Requirement:]\ \newline
+%     <Insert description of requirement> 
+%  \item[Rationale:]\ \newline
+%     <Insert description of rationale> 
+%  \item[Verification:]\ \newline
+%     <Insert description of verification (e.g. "Inspection")> 
+%\end{description}
+
+\requirement{Physical Time}
+\label{reqt:physicaltime}
+\begin{description}
+\item[Requirement:]\ \newline
+The \timeDesc\ shall include a representation of time that can be used for 
+integration of the dynamic vehicle state.  It shall be capable of propagating 
+forward, and in reverse.
+\item[Rationale:]\ \newline
+Not all time representations accurately represent the standard definition of 
+``second'', which is required for the integration of the physical state.  There 
+should be one clearly identified representation that is always used for 
+integration purposes.  
+To identify a suitable state that is capable of creating a particular outcome, 
+it is necessary to be able to integrate from the outcome back in time to the 
+original state.
+
+\item[Verification:]\ \newline
+Test \vref{test:1dynonly}, test \vref{test:sim2scalefactor}, and test 
+\vref{test:timereversal}.
+\end{description}
+
+\requirement{Necessary Clocks}
+\label{reqt:datatimerepresentation}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ shall be able to represent time in
+    each of the following time systems:
+
+    \subrequirement{TAI}\label{reqt:data_time_rep_TAI}
+      \ \newline
+      International Atomic Time,
+      a very accurate and stable time scale calculated as a weighted 
+      average of the time kept by about 200 cesium atomic clocks in 
+      over 50 national laboratories worldwide.
+
+    \subrequirement{UT1}\label{reqt:data_time_rep_UT1}
+      \ \newline
+      Universal Time, a measure of the rotation angle of the Earth 
+      as observed astronomically.
+
+    \subrequirement{UTC}\label{reqt:data_time_rep_UTC}
+      \ \newline
+      Coordinated Universal Time, the basis for the worldwide system 
+      of civil time.
+
+    \subrequirement{MET}\label{reqt:data_time_rep_MET}
+      \ \newline
+      Any number of Mission Elapsed Times, each with distinct user-defined 
+      epochs.
+
+    \subrequirement{GPS}\label{reqt:data_time_rep_GPS}
+      \ \newline
+      The time system used by the Global Positioning System.
+		
+    \subrequirement{TT}\label{reqt:data_time_rep_TT}
+      \ \newline
+      Terrestrial Time, the time system used by the Ephemeris models.
+		
+    \subrequirement{GMST}\label{reqt:data_time_rep_GMST}
+      \ \newline
+      Greenwich Mean Sidereal Time, the time system used to simulate the
+			rotation of Earth.
+		
+    \subrequirement{TDB}\label{reqt:data_time_rep_TDB}
+      \ \newline
+      Barycentric Dynamic Time, potentially useful for higher fidelity ephemeris
+			models, or for inner-solar-system mission.
+		
+    \subrequirement{UDE}\label{reqt:data_time_rep_UDE}
+      \ \newline
+      Any number of clocks each set to tick with any of the other clocks, but 
+      each with a distinct user-defined epoch.
+
+			
+		
+
+  \item[Rationale:]\ \newline
+    The purpose of the time module is to represent 
+    time in the multiplicity of time scales that are expected to be 
+    needed by various simulation developers.
+
+  \item[Verification:]\ \newline
+    Test \vref{test:clockpresence}.
+\end{description}
+
+\requirement{Necessary Representation Formats}
+\label{reqt:formattimerepresentation}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ shall be able to represent time in the 
+    each of the following formats:
+
+    \subrequirement{Julian Date}
+    \subrequirement{Modified Julian}  
+    \subrequirement{Truncated Julian Time}
+    \subrequirement{Seconds since epoch}
+    \subrequirement{Calendar / Clock}\ \newline
+      Provide a calendar where a calendar is defined, including year, month, 
+      day, hour, minute, second.
+      
+      Provide just a clock (comprising day, hour, minute, second) where a 
+      calendar is not defined.
+  \item[Rationale:]\ \newline
+    Different models require different formats by which time is input to their 
+    respective methods.  This is the compilation of the formats determined to 
+    be the most useful for external models.  A request to add centuries since 
+    epoch was deferred due to the ambiguous definition of `century' (being 100 
+    years, or 36,525 days).  Instead, days since epoch was added, this can be 
+    utilized to obtain centuries since epoch using whatever definition of 
+    `century' the model requires.
+  \item[Verification:]\ \newline
+    Test \vref{test:STDinitbyval}, test \vref{test:STDinitbycal}, and test 
+    \vref{test:UDEinitbyval}.
+\end{description}
+
+
+\requirement{Time Initialization by Representation}
+\label{reqt:timeinitializationrep}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ shall be capable of initializing 
+    time using any of the following time representations: 
+		\begin{itemize}
+		\item GPS
+		\item MET
+		\item TAI
+		\item TDB
+		\item TT
+		\item UDE
+		\item UT1
+		\item UTC
+		\end{itemize}
+
+  \item[Rationale:]\ \newline
+    The purpose of the time module is to represent 
+    time in the multiplicity of time scales that are expected to be 
+    needed by various simulation developers; this implies the internal ability
+    to convert easily from one to another.
+
+  \item[Verification:]\ \newline
+    Test \vref{test:UDEinitbytdb}, test \vref{test:STDinitbytype} and \vref{test:UDEinitbyval}.
+\end{description}
+
+
+\requirement{Time Initialization by Format}
+\label{reqt:timeinitializationbyformat}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ shall be capable of initializing 
+    time using any one of the following formats:
+
+		\subrequirement{Calendar} 
+		\label{reqt:func_time_initialization_format_cal} \newline
+		Using a calendar-based format yyyy/mm/dd::hh:mm:ss when such a 
+		format is well defined in the appropriate time representation
+
+    \subrequirement{Clock} 
+		\label{reqt:func_time_initialization_format_clock} \newline
+		Using a clock-based format dd::hh:mm:ss when a larger calendar 
+		format is not well defined.
+
+		\subrequirement{Truncated Julian Time} 
+		\label{reqt:func_time_initialization_format_tjt} \newline
+		Days since the NASA Truncated Julian Time epoch.
+
+		\subrequirement{Modified Julian Time} 
+		\label{reqt:func_time_initialization_format_mjt} \newline
+		Days since the Modified Julian Time epoch.
+
+		\subrequirement{Julian Time} 
+		\label{reqt:func_time_initialization_format_jt} \newline
+		Days since the Julian Time epoch.
+
+		\subrequirement{Seconds since epoch} 
+		\label{reqt:func_time_initialization_format_s2k} \newline
+		Seconds since the appropriate epoch (e.g. J2000, or a 
+		User-defined epoch).
+		
+		\subrequirement{Days since epoch} 
+		\label{reqt:func_time_initialization_format_dUDE} \newline
+		Days since the appropriate epoch (e.g. J2000, or a User-defined 
+		epoch).
+		
+  \item[Rationale:]\ \newline
+    While conversion between these types is algorithmic, it can be time 
+    consuming and
+		potentially prone to error.  The provision of these 
+		capabilities allows the
+		user to focus on getting the simulation dynamics correctly 
+		configured without worrying about
+		whether some known time has been correctly converted into a 
+		usable input.
+
+  \item[Verification:]\ \newline
+    Test \vref{test:STDinitbyval}, test \vref{test:STDinitbycal}, and test 
+    \vref{test:UDEinitbyval}.
+\end{description}
+
+
+\requirement{Time Initialization Bypass}
+\label{reqt:timeinitializationbypass}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ must be capable of bypassing the initialization of
+		time-types.
+  \item[Rationale:]\ \newline
+    There are applications where no fixed reference time is necessary, and
+		arbitrarily inputting some time is, at best, redundant.
+  \item[Verification:]\ \newline
+	  Test \vref{test:1dynonly}
+\end{description}
+
+
+\requirement{Initialization of User-Defined-Epoch times}
+\label{reqt:timeinitializationUDE}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ must be capable of initializing User-Defined-Epoch times
+		(such as Mission Elapsed Time) in the following ways:
+		\subrequirement{UDE value and fixed-epoch value known}
+		\label{reqt:func_time_initialization_UDE_FE} \newline
+		  The simulation is initialized relative to some fixed epoch, 
+		  and the value
+			of the UDE time is known at the start of the 
+			simulation.  The UDE epoch
+			can be determined.
+		\subrequirement{UDE epoch and fixed-epoch value known}
+		\label{reqt:func_time_initialization_UDEe_FE} \newline
+		  The simulation is initialized relative to some fixed epoch, 
+		  and the value
+			of the UDE epoch is known relative to some (other) 
+			fixed epoch time.  The
+			UDE initial value	can be determined.
+		\subrequirement{UDE value and UDE epoch known}
+		\label{reqt:func_time_initialization_UDE_UDEe} \newline
+		  The value of the UDE time is known at the start of the 
+		  simulation, and the
+			UDE epoch is known relative to some fixed-epoch time 
+			representation (i.e. a Standard Time).  
+			The values for some or all of the Standard Time 
+			representations can then be determined.
+			
+  \item[Rationale:]\ \newline
+    While conversion between these types is algorithmic, it can be time 
+    consuming and potentially prone to error.  The provision of these 
+    capabilities allows the user to focus on getting the simulation dynamics 
+    correctly configured without worrying about whether some known time has 
+    been converted into a usable input correctly.
+  \item[Verification:]\ \newline
+	  Test \vref{test:clockpresence} and test \vref{test:UDEinitbyval}.
+\end{description}
+
+
+
+\requirement{Ability to Overwrite Data Tables}
+\label{reqt:backwardcompatibility}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ requires data tables to tabulate the occurrence of 
+    leap seconds (UTC), and the time-dependent offsets (UT1).  These data must 
+    be provided, along with the capability to overwrite the official data.
+  \item[Rationale:]\ \newline
+    Data can only be provided for periods in which it is available.  Neither 
+    data table has future predictive capabilities; users wishing to run 
+    simulations set in some future time may need the capability to assign a 
+    best-estimate to these values.  Furthermore, any users wishing to test 
+    compatibility with releases of JEOD pre-dating the JEOD 2.0.0 release will 
+    need to turn off the update functionality of these tables, and overwrite 
+    with some particular value.
+  \item[Verification:]\ \newline
+	  Test \vref{test:overrides}.
+\end{description}
+
+
+\requirement{Extensibility}
+\label{reqt:extensibility}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \timeDesc\ shall provide the capability of extension to permit the user
+    to develop clocks of specific interest that will operate within the time
+    structure.
+  \item[Rationale:]\ \newline
+   While every effort has been made to ensure that the time coverage is as
+   complete as possible, we cannot imagine every potential application or
+   situation in which the \timeDesc\ will be utilized. 
+  \item[Verification:]\ \newline
+	  Test \vref{test:sim6}.
+\end{description}

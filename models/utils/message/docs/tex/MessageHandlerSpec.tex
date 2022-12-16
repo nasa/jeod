@@ -1,0 +1,86 @@
+\section{Conceptual Design}
+The main purpose of the \MessageHandlerDesc\ is to provide a common interface
+for display or logging of debugging, informational, warning, error or failure messages.  
+The \MessageHandlerDesc\ allows format and verbosity of messages to be
+tailored to the needs of the user by means of input variables.  
+MessageHandler is a base class with one pure virtual method 
+(MessageHandler::process\_message) which must be implemented in a derived
+class in order to create a functional \MessageHandlerDesc.  The 
+TrickMessageHandler is such a derived class and
+provides an implementation of process\_message using the Trick methods
+exec\_terminate for fatal errors and send\_hs for all other messages.
+If other avenues of output were needed, then a different subclass of
+MessageHandler could be substituted for TrickMessageHandler in order
+to provide the desired functionality.
+
+
+
+\section{Mathematical Formulations}
+The \MessageHandlerDesc\ includes no mathematical algorithms.
+\section{Detailed Design}
+The \MessageHandlerDesc\ includes a protected field,
+MessageHandler::suppression\_level, which 
+the user can set in the input file in order to control which messages will be suppressed.  There are also public static integer constants 
+which indicate levels of severity.
+\begin{table}
+\begin{tabular}{lll}
+Constant & Value & Meaning \\
+MessageHandler::Fail & -1 & Prints a message and terminates simulation \\
+MessageHandler::Error & 0 & Most severe error which does not terminate the simulation \\
+MessageHandler::Warning & 9 & Indicates results are suspect \\
+MessageHandler::Notice & 99 & Indicates an informational message \\
+MessageHandler::Debug & 999 & Intended for messages to inform users of expected events
+\end{tabular}
+\caption{Symbolic Constants for Severity Levels}
+\end{table}
+\newpage
+The public methods of the \MessageHandlerDesc\ are:
+\begin{itemize}
+\item Fail -- deliver a failure message and terminate the simulation
+\item Error -- deliver an error message of severity MessageHandler::Error
+\item Warn -- Deliver a warning message with severity MessageHandler::Warning
+\item Inform -- Deliver an informational message with severity MessageHandler::Notice
+\item Debug -- Deliver a debugging message with severity MessageHandler::Debug
+\item Send\_message -- Deliver a generic message with severity
+and labeling specified by the user
+\item Va\_send\_message -- Just like send\_message except that an argument
+list defined by starg.h replaces the variadic arguments of send\_message
+\end{itemize}
+All of these methods are declared static, thus, there is effectively
+only one MessageHandler in any given simulation.  These static methods
+are all wrappers for the virtual method process\_message, which, due
+to limitations of C++ cannot be a static method.  
+The programming technique used to circumvent this issue is to include
+a static field (handler, of type MessageHandler) in the MessageHandler
+class.  The default initialization of handler is NULL, and upon first
+instantiation of MessageHandler, handler is set to this instance.
+Subsequent instantiations of the MessageHandler class have no effect on the value of the 
+static field handler.
+With the introduction of the 
+sim\_interface model, the MessageHandeler is constructed automatically.  
+See Chapter ~\ref{ch:user} for details.
+
+For the user, the implications are as follows:
+\begin{itemize}
+\item There will only be one instance of
+the MessageHandler, and that one is created
+automatically with the construction
+of the JeodSimulationInterface.
+\item Changes made to instance fields such as suppression\_level, 
+suppress\_id and suppress\_location are only effective if performed on
+the initial instance of MessageHandler
+\end{itemize}
+
+Additional details of the \MessageHandlerDesc\ design can be found in
+\hyperref{file:refman.pdf}{}{}
+{JEOD Message Model Reference Manual}~\cite{message_refman}.
+
+.	\section{Inventory}
+
+All \MessageHandlerDesc\ files are located in the directory
+\$JEOD\_HOME/models/utils/message.
+Tables~\ref{tab:source_files} to~\ref{tab:verification_files}
+list the configuration-managed files in this directory.
+
+\input{inventory}
+

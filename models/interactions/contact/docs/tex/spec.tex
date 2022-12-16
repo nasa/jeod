@@ -1,0 +1,80 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Provide Chapter 3 Specifications for the Contact Model
+%
+%  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+The \ModelDesc was designed to provide a way for dynamic bodies to interact.  This interaction is called ``contact" since forces are applied when surfaces defined on those dynamic bodies inter-penetrate.  The uses for the \ModelDesc are many-fold, encompassing simple vehicle collisions to complex docking dynamics.  In order to accommodate that range of use the \ModelDesc was designed with extension as an expectation.
+
+Two basic considerations drove the design of the \ModelDesc.  The first is that the \ModelDesc should be an extension of the \SURFACEMODEL~\cite{dynenv:SURFACEMODEL}.  The second is that a user should only have to define the surfaces and interaction types ( allowable pairs of surfaces ) that will generate forces. The user is not required to define specific pairs of interacting surfaces but that can done if desired.
+
+\section{Mathematical Formulations}
+\subsection{Springs}
+The default force generation function included in the \ModelDesc is based on simple springs.  This takes the form of
+\begin{equation}
+F = -kx - cv
+\label{simple_spring}
+\end{equation}
+Where k is the spring constant, x is displacement or penetration distance, c is the damping coefficient, and v is relative velocity.
+
+\subsection{Vector Calculations}
+The geometry calculations in the \ModelDesc rely on the \MATH~\cite{dynenv:MATH} and the equations will not be repeated here. Most of the the vector equations are utilized in the \ModelDesc; including vector transforms, scaling, addition, and subtraction.
+
+\section{Interactions}
+
+\subsection{Surface Model}
+As mentioned previously the \ModelDesc is an extension of the \SURFACEMODEL~\cite{dynenv:SURFACEMODEL}.  Below is a listing of the \ModelDesc classes that are derived directly from \SURFACEMODEL\ classes.\\
+
+\begin{tabular}{||l|l|} \hline
+{\bf Base Surface Model Class} & {\bf Derived Contact Model Class} \\ \hline \hline
+InteractionFacet & ContactFacet \\ \hline
+FacetParams & ContactParams \\ \hline
+InteractionSurface & ContactSurface \\ \hline
+InteractionFacetFactory & PointContactFacetFactory \\ \hline
+InteractionFacetFactory & LineContactFacetFactory \\ \hline
+\end{tabular}
+
+In addition new classes were created in the \SURFACEMODEL\ to support the special geometries required by the \ModelDesc. The FlatPlateCircular class is used to generate spherical contact surface about a point. The Cylinder class is used to generate a rod like structure with half spheres encasing the ends about a line.
+
+\section{Detailed Design}
+\subsection{API}
+Follow this link for the
+\href{file:refman.pdf}{\em \ModelDesc API}~\cite{api:contact}.
+
+
+\subsection{Contact Class}
+The Contact class acts as a manager for the contact interaction and is a concept not seen in other extensions of the surface model such as aerodynamics and radiation pressure. The purpose of the Contact class is to construct a list, called contact\_pairs, of ContactPair objects which link two ContactFacet objects together and calculates / stores the relative state between them. During run time the Contact class loops though this list so each pair of facets can be checked to see if contact has occurred.
+
+The Contact.contact\_pairs list is populated in two stages during initialization. Each ContactFacet object that registers with an instance of the Contact class creates a ContactPair object with itself as the subject but absent a target. After all contact facets are registered the Contact class method Contact.initialize\_contact does a double loop through the incomplete contact pairs to construct new instances of the ContactPair class with both a subject and a target. Several checks are performed to determine if a pair of the two contact facets can be constructed.  Since the ContactPair class is a pure virtual base class, as is the ContactFacet class, the first check is to determine if a derived class exists that can contain the specific types of contact facets. An additional check is performed by comparing each facets ContactParam type to the list of pair interactions that is also contained in the Contact class. If a PairInteraction object defining the interaction between the contact facets' parameter types doesn't exist then no pair is created.
+
+At runtime the Contact class loops through the pairs contained in the contact\_pairs list. After inquiring to ensure that the pair is complete (has a subject and target), active, and optionally that the facets are in range to interact the Contact class asks the contact pair to determine if contact has occurred.
+
+\subsection{ContactPair Class}
+The ContactPair class is a virtual base class, and its derived classes perform most of the work in the \ModelDesc. It is a ContactPair class that determines if and when two ContactFacets interact. The base class contains references to two contact facets, a subject and a target. It also contains a RelativeDerivedState object which is used to calculate and store the relative state between the subject and target ContactFacets. In addition each ContactPair contains a reference to a PairInteraction object that defines force calculation method in the event of contact. During initialization the ContactPair class constructs the relative state between its subject and target facets. During runtime the virtual method in\_contact is used by all derived classes of the ContactPair class to determine if their subject and target are in contact with each other.  If the in\_contact method determines that contact has occurred then appropriate forces are generated using the PairInteraction associated with the ContactPair.  All unique pairs of ContactFacet subclass types require a specific implementation of ContactPair.  For example the \ModelDesc contains two derived classes extending the base ContactFacet class, but contains three ContactPair derived classes to deal with the possible pairings between these contact facets.  Each derived ContactFacet class can interact with others of the same type which requires two distinct ContactPair implementations.  For them to interact with each other we need a third ContactPair implementation.
+
+\subsection{ContactSurface Class}
+A contact surface is a collection of contact facets that are contained on the same dynanmic body (DynBody~\cite{dynenv:DYNBODY}). It is where the forces generated on individual facets will be summed so they can all be applied to the dynamic body.  As previously mentioned the ContactSurface class is a subclass of an InteractionSurface from the \SURFACEMODEL~\cite{dynenv:SURFACEMODEL}, however the stipulation that it apply only to one DynBody instance is a limitation on the standard behavior associated with a surface as defined in the Surface Model.
+
+\subsection{ContactFacet Class}
+A contact facet must contain a reference to a dynamic body (DynBody~\cite{dynenv:DYNBODY}).  At its most basic a contact facet is a vehicle point (BodyRefFrame~\cite{dynenv:DYNBODY}) on a specific dynamic body.  From the position and normal of the vehicle point, the geometry of the specific type of facet is constructed and used by the ContactPair class to determine when a contact facet intersects another contact facet.  During initialization specific derived classes of ContactFacet determine whether specific ContactPairs can be created. Extensibility of the types of surfaces available to the \ModelDesc is achieved by creating new types of contact facets. It is also necessary to create new ContactPair classes to define the interaction between the new contact facet and others of its type or any of the preexisting types of contact facets.
+
+\subsection{ContactParams Class}
+The ContactParams class add no new functionality to the base FacetParams class from the \SURFACEMODEL~\cite{dynenv:SURFACEMODEL}. The name associated with the parameters is used to match pairs of contact facets with the correct PairInteraction object.
+
+\subsection{PairInteraction Class}
+The PairInteraction class is a pure virtual base class and is intended to be extended to define multiple force calculation methods.  Extensions of this class are expected to contain all the parameters they need to calculate contact forces.  In addition, an inheriting class must define the pure virtual method calculate\_forces which takes all relevant geometry information that it might need to calculate contact forces.  The calculate\_forces function is called from a contact pair once its geometry calculations have determined that contact between facets has occurred. Each simulation defined PairInteraction subclass must be registered with an instance of the Contact class. When ContactPair instances are created the ContactFacet ContactParams types must match with a registered PairInteraction or no pair is created. A reference to the a specific PairInteraction is stored in each successfully created ContactPair.
+
+\subsection{Springs}
+The default force generation parameters included in the \ModelDesc are based on simple springs, equation \ref{simple_spring}.
+
+By default this spring force is designed to oppose the penetration of contact, but a sign reversal could invert this behavior making the spring forces applicable to simulations requiring latching.
+
+\section{Inventory}
+\input{inventory}

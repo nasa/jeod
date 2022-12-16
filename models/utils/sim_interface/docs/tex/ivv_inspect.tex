@@ -1,0 +1,126 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ivv_inspect.tex
+% Inspections of the Simulation Interface Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected.
+With the exception of the cyclomatic complexity of the
+\verb|JeodTrickMemoryInterface::primitive attributes| method,
+the \ModelDesc satisfies requirement~\traceref{reqt:toplevel}.
+A waiver has been granted for this one exception.
+
+\inspection{Design Inspection}
+\label{inspect:design}
+%\tracingall
+Table~\ref{tab:design_inspection} summarizes the key elements of the
+implementation of the \ModelDesc that satisfy requirements levied on the model.
+By inspection, the \ModelDesc satisfies
+requirements~\tracerefrange{reqt:hidden_data_visibility}{reqt:extensibility}.
+
+\begin{longtable}%
+  {||l @{\hspace{4pt}} %
+   >{\raggedright\arraybackslash}p{1.38in} |%
+   >{\raggedright\arraybackslash}p{3.95in}|}
+\caption{Design Inspection}
+\label{tab:design_inspection} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endfirsthead
+
+\caption[]{Design Inspection (continued from previous page)} \\[6pt]
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} & \bf{Satisfaction}
+\\ \hline\hline
+\endhead
+
+\hline \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\ref{reqt:hidden_data_visibility} & Hidden Data Visibility &
+  The macro \verb|JEOD_MAKE_SIM_INTERFACES| provides the required
+  simulation engine agnostic capability. The implementation of this macro
+  is simulation engine specific. Trick-specific implementations make
+  protected and private data visible to Trick.
+\tabularnewline[4pt]
+
+\ref{reqt:allocated_data_visibility} & Allocated Data Visibility &
+  The member functions
+  \verb|register_allocation| and \verb|deregister_allocation|
+  in the abstract class \verb|JeodTrickMemoryInterface|
+  specify the simulation engine agnostic capability. The implementations
+  of these methods in the class \verb|JeodTrickMemoryInterface|
+  make allocated data visible to Trick.
+\tabularnewline[4pt]
+
+\ref{reqt:sim_engine_interface} & Simulation Engine Interface &
+  The only Trick dependencies outside of the \ModelDesc are the
+  noted exception in the \DYNMANAGER. All other simulation engine
+  interfaces are encapsulated within the \ModelDesc.
+\tabularnewline[4pt]
+
+\ref{reqt:integ_interface} & Integration Interface &
+  The abstract class \verb|IntegratorInterface| provides the required
+  simulation engine agnostic capabilities. Trick-specific
+  classes that derive from this abstract class provide implementations
+  of the required functionality in both the Trick 7 and Trick 10
+  environments.
+\tabularnewline[4pt]
+
+\ref{reqt:job_cycle} & Job Cycle &
+  The function \verb|JeodSimulationInterface::get_job_cycle|
+  is the public interface to this required functionality.
+  This invokes the pure virtual protected member function
+  \verb|get_job_cycle_internal|.
+  The class \verb|BasicJeodTrickSimInterface| implements this
+  function in the context of a Trick-based simulation.
+\tabularnewline[4pt]
+
+\ref{reqt:trick_message_handler} & Trick Message Handler &
+  The \ModelDesc provides the class \verb|TrickMessageHandler|, which
+  derives from the class \verb|SuppressedCodeMessageHandler|
+  and which implements the functionality required of a \verb|MessageHandler|
+  using Trick's messaging system.
+\tabularnewline[4pt]
+
+\ref{reqt:checkpoint_restart} & Checkpoint/Restart &
+  The \ModelDesc provides a generic checkpoint/restart capability in the
+  form of classes that create and read from a sectioned checkpoint file.
+  The class \verb|JeodTrick10MemoryInterface| uses these
+  generic capabilities to provide the required ability to make
+  JEOD-based simulations checkpointable and restartable in a
+  Trick 10 environment.
+\tabularnewline[4pt]
+
+\ref{reqt:addr_name_xlate} & Address/Name Translation &
+  The functions \verb|get_name_at_address| and \verb|get_address_at_name|
+  in the classes \verb|JeodSimulationInterface| (static) and
+  \verb|JeodMemoryInterface| (pure virtual)
+  are the public interfaces to this required functionality.
+  The class \verb|JeodTrickMemoryInterface| provides dummy
+  implementations while \verb|JeodTrick10MemoryInterface| provides
+  functional implementations of these functions.
+\tabularnewline[4pt]
+
+\ref{reqt:multiple_integ_groups} & Multiple Integration Groups &
+  The \ModelDesc implements this requirement as a set of JEOD-agnostic
+  classes (which may eventually be migrated out of JEOD) and the JEOD-aware
+  class \verb|JeodDynbodyIntegrationLoop|.
+\tabularnewline[4pt]
+
+\ref{reqt:extensibility} & Extensibility &
+  The \ModelDesc was carefully designed to have the public interfaces be in
+  the form generic macros and abstract, simulation engine agnostic classes.
+  The Trick independent demonstration and the test harness
+  used in the JEOD unit tests illustrate to some extent
+  that the model can be extended for use outside of the Trick environment.
+\tabularnewline[4pt]
+
+\end{longtable}

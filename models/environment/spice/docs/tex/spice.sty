@@ -1,0 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+% Change lvlh_frame to package name. Change date and version to reflect updates.
+%  (this may be done in compy_templates)
+\ProvidesPackage{spice}[2016/01/26 v1.0 spice module macros]
+
+
+% Package options. Change lvlh_frame to the value of \modelprefix (see below).
+%  (this may be done in copy_templates)
+\newif\ifSpiceReqt@
+\newif\ifSpiceIVV@
+\DeclareOption{Reqt}{\SpiceReqt@true}
+\DeclareOption{IVV}{\SpiceIVV@true}
+\ProcessOptions\par
+
+% Include requirement labels if requested
+\ifSpiceReqt@
+\input{SpiceReqt.def}
+\fi
+
+% Include IV&V labels if requested
+\ifSpiceIVV@
+\input{SpiceIVV.def}
+\fi
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+% Define any other model-specific LaTeX commands here.
+\newcommand \funcitem[1]{\item{\textbf{#1}} \par}
+\newcommand \classitem[1]{\item{\textbf{Class: #1}} \ \ \ \ \ \ \ \ \ \ \ {\bf
+ Inheritance:}}
+
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+% THE MODEL PREFIX MUST CONTAIN ONLY LETTERS.
+% Examples: TIME for the universal time package, MASS for the mass tree.
+\newcommand\modelprefix{Spice}
+% \SpiceDesc should be changed to a short acronym for the model, this may be
+% done in copy_templates
+% {MODEL DESCRIPTION} should be changed to the full name of the model.  
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").  
+%   The name should be a singular, not plural value, e.g. "Reference Frame Model", 
+%   not "Reference Frames" (same example).
+\newcommand{\SpiceDesc}{SPICE Model}
+\newcommand{\SpiceAuthor}{Jeff Morris, Robert O. Shelton}
+\newcommand{\SpiceAuthDate}{August, 2017}
+
+% for all editors; add keywords as necessary.
+\newcommand{\SpiceKeywords}{\SpiceDesc}
+
+% for document revisions only: 
+\newcommand\DocumentChangeHistory{
+{\bf Author } & {\bf Date} & {\bf Revision} & {\bf Description} \\ \hline \hline
+
+% This documentation file's change history includes:
+% "Author name(s)" & "revision DATE" & "revision NUMBER" & "revision DESCRIPTION"
+%  ---------------    -------------    ----------------     ---------------------
+\SpiceAuthor & \SpiceAuthDate & 1.0 & Initial Release \\ \hline
+}
+

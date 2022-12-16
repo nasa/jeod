@@ -1,0 +1,400 @@
+\section{Mathematical Formulation}
+\label{sec:mathematics}
+This section summarizes key equations used in the implementation of the \ModelDesc. The outline of this section is organized along the lines of the
+key concepts described in section~\ref{sec:key_concepts}.
+Only those concepts that involve mathematical details are described in
+this section.
+
+\subsection{Attach/Detach}\label{sec:math_attach_detach}
+The underlying MassBody class addresses the geometry of attachment and
+detachment, with BodyRefFrames constructed for MassPoints as necessary. The DynBody class needs to address state as well, and must do this
+in a manner consistent with the laws of physics (if possible).
+This is not always possible with attachment as the attach model allows
+physically impossible attachments to take place:
+The attaching bodies instantaneously snap into place upon attachment.
+For example, the instantaneous attachment of a MassBody or MassBody derived 
+state (which does not have a dynamic state) cannot conserve momentum.
+The rationale for instantaneous snap attachment in general is that modeling 
+the detailed contact forces and
+torques that take place during the docking of two vehicles is beyond the scope
+of many orbital simulations. The simulation instead brings the vehicles into
+very close proximity and alignment and then magic happens: The vehicles attach.
+Linear momentum can always be conserved, even in non-physical attachments.
+Angular momentum is more problematic. The model conserves angular momentum
+in the frame that is centered at and moving with the post-docking combined
+center of mass. This choice is consistent with the laws of physics when the
+attachment does not involve a step change in position and orientation.
+
+Conservation of linear momentum determines the velocity of the combined
+vehicle. Equating the linear momentum before and after the attachment yields
+
+\begin{equation}
+(m_p + m_c) \framevect I v_+ =
+  m_p \framevect I v_{p_-} + m_c \framevect I v_{c-}
+\end{equation}
+
+where $m_p$ and $m_c$ are the pre-attachment masses of the parent and child
+bodies, $\framevect I v_{p_-}$ and $\framevect I v_{c_-}$ are the
+pre-attachment velocities of the parent and child bodies in the parent body's
+integration frame, and $\framevect I v_+$ is the post-attachment velocity of
+the combined center of mass.
+Solving for the post-attachment velocity yields
+
+\begin{equation}
+\framevect I v_+ =
+  \frac{m_p \framevect I v_{p_-} + m_c \framevect I v_{c-}}{m_p + m_c}
+\end{equation}
+
+The pre-attachment angular momentum in the non-rotating frame with origin at
+the combined center of of mass $\framevect I r_+$ and moving at velocity $\framevect I v+$ results from translation with respect to this origin and
+body rotations:
+
+\begin{equation}
+\begin{aligned}
+\framevect I L_- =\,
+  &
+  m_p (\framevect I r_{p_-}- \framevect I r_+) \times
+      (\framevect I v_{p_-}- \framevect I v_+) +
+  {\tmatT I B_p} (\MxV {\inertia_p} {\framevect B \omega_{p_-}})\;+ \\
+  &
+  m_c (\framevect I r_{c_-}- \framevect I r_+) \times
+      (\framevect I v_{c_-}- \framevect I v_+) +
+  {\tmatT I B_c} (\MxV {\inertia_c} {\framevect B \omega_{c_-}})
+\end{aligned}
+\end{equation}
+
+Transforming to the parent body frame,
+
+\begin{equation}
+\begin{aligned}
+\framevect {B_p} L_- =\,
+  & \MxV {\tmat I B_p}
+         {\left(
+            m_p (\framevect I r_{p_-}- \framevect I r_+) \times
+                (\framevect I v_{p_-}- \framevect I v_+)
+         \right)}\;+ \\
+  & \MxV {\inertia_p} {\framevect B \omega_{p_-}}\;+ \\
+  & \MxV {\tmat I B_p}
+         {\left(
+            m_c (\framevect I r_{c_-}- \framevect I r_+) \times
+                (\framevect I v_{c_-}- \framevect I v_+)
+         \right)}\;+ \\
+  & \MxV {\tmat I B_p}
+         {{\tmatT I B_c} (\MxV {\inertia_c} {\framevect B \omega_{c_-}})}
+\end{aligned}
+\end{equation}
+
+The post-attachment orientation post-attachment angular momentum in this frame results from rotation only:
+
+\begin{equation}
+\framevect {B_p} L_+ =
+  \MxV {\inertia_+} {\framevect B \omega_{p_+}}
+\end{equation}
+
+Equating the pre- and post-angular momenta to conserve angular momentum
+and solving for the post-attachment angular velocity yields
+
+\begin{equation}
+\framevect B \omega_{p_+} = \MxV{{\inertia_+}^{-1}}{\framevect {B_p} L_-}
+\end{equation}
+
+Detachment is much simpler. The only state that needs to change is that
+of the parent composite body. The child body's state does not change with
+detachment; it simply flies away from the parent with no instantaneous
+change in any state element.
+The parent body's state is almost correct. The parent similarly flies away
+from the child with no instantaneous changes in any of the primitive
+states. The composite state is incorrect and needs to be updated.
+Any primitive state can be used as the basis for this update.
+The mathematics that underlies state update is described in
+section~\ref{sec:math_state_prop}.
+
+\subsection{State Initialization}\label{sec:math_state_initialization}
+The model participates in the state initialization process by setting state
+elements and propagating the set states throughout the DynBody tree.
+The mathematics regarding this state propagation is described in
+section~\ref{sec:math_state_prop}.
+
+\subsection{Force and Torque Collection}\label{sec:math_collect}
+
+The total effector force acting on a parent body is calculated per the
+superposition principle:
+\begin{equation}
+ \framevect {P_S} F_{\text{eff,tot}} =
+ \sum_{\text{vector\ }i} \framevect {P_S} F_{\text{eff,i}} +
+ \sum_{\text{child\ }i} \MxV {\tmatT {P_S}{C_S}}
+                             {\framevect {C_S} F_{\text{eff,tot}}}
+\end{equation}
+where $P_S$ is the parent body's structural frame,
+the first sum is over the collected effector forces for the parent body,
+and the second sum is over the child bodies attached to the parent body.
+
+The total environmental force is calculated similarly while the total
+non-transmitted force omits the sum over the child bodies. The total force on a
+root body is the sum of the effector, environmental, and non-transmitted forces
+on that body.
+\begin{equation}
+ \framevect {S} F_{\text{tot}} =
+ \framevect {S} F_{\text{eff,tot}} +
+ \framevect {S} F_{\text{env,tot}} +
+ \framevect {S} F_{\text{non-xmit,tot}}
+\end{equation}
+
+The equations of motion need the force in the inertial frame:
+\begin{equation}
+  \framevect I F_{\text{tot}} =
+  \MxV{\tmatT I S}
+      {\framevect S F_{\text{tot}}} \label{eqn:inertial_force}
+\end{equation}
+
+Torque calculations proceed similarly, but with the additional twist that
+non-centerline forces produce a torque. The total effector torque acting on
+a parent body is
+\begin{equation}
+ \framevect {P_S} \tau_{\text{eff,tot}} =
+ \sum_{\text{vector\ }i} \framevect {P_S} \tau_{\text{eff,i}} +
+ \sum_{\text{child\ }i}
+   \MxV {\tmatT {P_S}{C_S}}
+        {\framevect {C_S} \tau_{\text{eff,tot}}} +
+   \framerelvect {P_S} r {P_{cm}} {C_{cm}} \times
+     \left(
+       \MxV {\tmatT {P_S}{C_S}}
+            {\framevect {C_S} F_{\text{eff,tot}}}
+     \right)
+\end{equation}
+
+The total environmental torque is calculated similarly while the total
+non-transmitted torque omits the sum over the child bodies.
+The total torque on a root body is the sum of the effector, environmental, and
+non-transmitted torques on that body.
+\begin{equation}
+ \framevect {S} \tau_{\text{tot}} =
+ \framevect {S} \tau_{\text{eff,tot}} +
+ \framevect {S} \tau_{\text{env,tot}} +
+ \framevect {S} \tau_{\text{non-xmit,tot}}
+\end{equation}
+
+The equations of motion need the torque in the body frame:
+\begin{equation}
+  \framevect B \tau_{\text{tot}} =
+  \MxV{\tmat S B}
+      {\framevect S \tau_{\text{tot}}} \label{eqn:body_torque}
+\end{equation}
+
+\subsection{Equations of Motion}\label{sec:math_eom}
+
+Equation~\eqref{eqn:inertial_force} combined with Newton's second law yields
+the acceleration due to non-gravitational forces:
+\begin{equation}
+  \framevect I a_\text{{non-grav,tot}} = \frac 1 m \framevect I F_{\text{tot}}
+\end{equation}
+
+The \GRAVITY computes the apparent gravitational acceleration,
+the total gravitational acceleration acting on the body
+less the gravitational acceleration of the integration frame.
+Combining this with the non-gravitational acceleration yields the total
+acceleration of the body with respect to the integration frame.
+
+\begin{equation}
+  \framerelvect I a I B =
+    \framevect I a_\text{{non-grav,tot}} + \framevect I a_\text{{grav,tot}}
+  \label{eqn:atot}
+\end{equation}
+
+The rotational equations of motion differ conceptually from the above
+translational equations of motion in two regards.
+That angular momentum is expressed in the body frame adds the complicating
+factor of computing derivatives in a rotating frame.
+That is offset by lack of gravitation as a specific concern,
+which simplifies the the rotational equations of motion a bit.
+
+The rotational analog of Newton's second law
+states that the time derivative of the angular momentum vector as expressed in
+a non-rotating frame is simply the external torque:
+
+\begin{equation}
+  \framevdot I L = \framevect I \tau_{\text{tot}}
+\end{equation}
+
+The angular momentum is readily computed in the body frame as the product
+of the inertia tensor and the body-referenced angular velocity:
+
+\begin{equation}
+  \framevect B L = \MxV {\inertia_B} {\framevect B \omega}
+\end{equation}
+
+The time derivative of the body-referenced angular momentum and the
+inertial-referenced angular momentum are related by the inertial torque:
+
+\begin{align}
+  \framevdot B L &=
+    \MxV {\tmat I B}{\framevdot I L}
+    - \framerelvect B \omega I B \times\framevect B L \nonumber \\
+  &= \framevect B \tau_{\text{tot}}
+    - \framerelvect B \omega I B \times\framevect B L
+\end{align}
+
+Assuming the inertia tensor is constant (or nearly so) in the body frame,
+\begin{align}
+  \framevdot B L &=
+  \frac{d}{dt}\left(\MxV {\inertia_B} {\framevect B \omega}\right)
+  \nonumber \\
+  &\approx \MxV {\inertia_B} {\framevdot B \omega}
+\end{align}
+
+Combining the above yields the time derivative of the
+body-referenced angular momentum:
+
+\begin{equation}
+  \framevdot B \omega =
+    {\inertia_B}^{-1}
+    \left(
+      \framevect B \tau_{\text{tot}} -
+      \framerelvect B \omega I B \times\framevect B L
+    \right)
+  \label{eqn:wdotbody}
+\end{equation}
+
+\subsection{State Integration}\label{sec:math_state_integ}
+This model uses the \hypermodelref{INTEGRATION} to perform the state integration.
+See the documentation for that model regarding the mathematics that
+underlies numerical integration.
+
+\subsection{State Propagation}\label{sec:math_state_prop}
+The initialized state and the integrated state need to be propagated
+throughout a DynBody object, including to other DynBody objects attached
+to the object in question. The propagation from one frame to another must
+be consistent with the local reference frames embodied in the MassBasicPoints
+that are associated with the DynBodyFrames.
+
+The model performs state propagation in terms of pairs of reference frames.
+The mathematics of the propagation of the state from frame B to frame C
+depends on whether the underlying MassBasicPoint is expressed as B to C
+or C to B. Different methods address these as forward and reverse propagations.
+
+Forward propagation involves computing the state of frame C with respect to
+frame A (the integration frame) given the state of frame B with respect to
+frame A and the local transformation from frame B to frame C. Note that this
+local transformation is a part of the MassBasicPoint object and hence does
+not contain derivative data. This local transformation is assumed to be
+constant with respect to time.
+
+\begin{align}
+\tmat A C &=
+  \MxV {\tmat B C} {\tmat A B}
+  && \text{Orientation} \\
+\framerelvect C {\omega} A C &=
+  \MxV {\tmat B C} {\framerelvect B {\omega} A B}
+  && \text{Angular velocity} \\
+\framerelvect A r A C &=
+  \framerelvect A r A B + \MxV {\tmatT A B} {\framerelvect B r B C}
+  && \text{Position} \\
+\framerelvect A v A C &=
+  \framerelvect A v A B + \MxV {\tmatT A B}
+                               {(\framerelvect B {\omega} A B \times
+                                 \framerelvect B r B C)}
+  && \text{Velocity}
+\end{align}
+
+Reverse propagation involves computing the state of frame C with respect to
+frame A (the integration frame) given the state of frame B with respect to
+frame A and the local transformation from frame C to frame B. In other words,
+the local transformation is in the reverse direction of the desired
+propagation.
+
+\begin{align}
+\tmat A C &=
+  \MxV {\tmatT C B} {\tmat A B}
+  && \text{Orientation} \\
+\framerelvect C {\omega} A C &=
+  \MxV {\tmatT C B} {\framerelvect B {\omega} A B}
+  && \text{Angular velocity} \\
+\framerelvect A r A C &=
+  \framerelvect A r A B - \MxV {\tmatT A C} {\framerelvect C r C B}
+  && \text{Position} \\
+\framerelvect A v A C &=
+  \framerelvect A v A B - \MxV {\tmatT A C}
+                               {(\framerelvect C {\omega} A C \times
+                                 \framerelvect C r C B)}
+  && \text{Velocity}
+\end{align}
+
+\subsection{Point Acceleration}\label{sec:math_pt_accel}
+The following assumes a rigid body connection between the composite center of
+mass and a vehicle point. Different mathematics are needed if this assumption is
+not valid.
+
+With this assumption, the rotational acceleration at the vehicle point is equal
+to the rotational acceleration at the center of mass. The point however has its
+own reference frame, and the rotational acceleration needs to be expressed
+in this point frame.
+
+\begin{equation}
+\framerelvdot {\text{pt}} {\omega} I {\text{pt}} =
+\MxV {\tmat B {\text{pt}}}
+     {\framerelvdot B {\omega} I B}
+\end{equation}
+
+With the rigid body assumption, the total translation acceleration at the point
+is the total translation at the center of mass plus the translational
+acceleration due to rotational motion. In the rotating composite body frame,
+this acceleration is
+
+\begin{equation}
+\Delta \framevect B {a_{\text{rot}}} =
+  \framerelvect B {\omega} I B \times
+  (\framerelvect B {\omega} I B \times \framerelvect B r B {\text{pt}}) +
+  \framerelvect B {\omega} I B \times \framerelvect B r B {\text{pt}}
+\end{equation}
+
+Transforming to inertial,
+\begin{equation}
+\Delta \framevect I {a_{\text{rot}}} =
+  \MxV {\tmatT I B} {\Delta \framevect B {a_{\text{rot}}}}
+\end{equation}
+
+The total acceleration at the point is
+\begin{equation}
+\framevect I {a_{\text{pt}}} =
+  \framevect I a + \Delta \framevect I {a_{\text{rot}}}
+  \label{eqn:tot_accel_pt}
+\end{equation}
+
+Calculating the non-gravitational acceleration is a bit more complex. The total
+acceleration at the point comprises gravitational and non-gravitational
+components, as does the total acceleration at the composite center of mass.
+\begin{align}
+\framevect I {a_{\text{pt}}} &=
+  \framevect I {a_{\text{pt,non-grav}}} +
+  \framevect I {a_{\text{pt,grav}}}
+  \label{eqn:tot_accel_pt_split} \\
+\framevect I {a_B} &=
+  \framevect I {a_{B,\text{non-grav}}} +
+  \framevect I {a_{B,\text{grav}}}
+  \label{eqn:tot_accel_B_split}
+\end{align}
+
+The gravitational acceleration at the point is that at the center of mass plus a
+delta due to the separation between the center of mass and the point. Assuming a
+small separation between the center of mass and the point, the gravity gradient
+yields an excellent estimate of this delta gravitational acceleration.
+
+\begin{align}
+\framevect I {a_{\text{pt,grav}}} &=
+  \framevect I {a_{B,\text{grav}}} +
+  \Delta \framevect I {a_{pt,\text{grav}}} \\
+\Delta \framevect I {a_{\text{pt,grav}}} &\approx
+  \MxV {\nabla \framevect I {a_{B,\text{grav}}}}
+       {(\MxV {\tmatT I B} {\framerelvect B r B {\text{pt}}})}
+  \label{eqn:delta_grav_accel_pt}
+\end{align}
+
+Combining equations~\ref{eqn:tot_accel_pt} to~\ref{eqn:delta_grav_accel_pt}
+and solving for the non-gravitational acceleration at the point,
+
+\begin{equation}
+\framevect I {a_{\text{pt,non-grav}}} =
+  \framevect I {a_{B,\text{non-grav}}} +
+  \Delta \framevect I {a_{\text{rot}}} -
+  \Delta \framevect I {a_{\text{pt,grav}}}
+\end{equation}

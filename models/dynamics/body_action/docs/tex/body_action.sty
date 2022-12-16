@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet.
+% NOTE: This file contains both human- and machine-generated LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must be December 1994 or later
+
+% Package definition.
+\ProvidesPackage{body_action}[2006/07/26 v1.1 BodyAction module macros]
+
+\RequirePackage{xspace}
+
+
+% Include the makefile-generated paths definitions file
+\input{paths.def}
+
+% Revision history
+% 
+\newcommand\DocumentChangeHistory{ %
+ David Hammen & November, 2009 & JEOD 2.0 & Initial Version \\
+ Mitch Hollander & September, 2021 & JEOD 4.0 & DynBody separates from MassBody \\
+\end{tabular}}
+
+% \modelprefix - a short, unique, upper-case prefix used to tag requirements.
+\newcommand\modelprefix{BodyAction}
+% {MODEL DESCRIPTION} should be changed to the full name of the model.  
+%   For consistency with the text, the name should be a noun, possibly
+%   finishing with the word "Model", e.g. "Time Model", not "Time"  ("The Time
+%   Model works by ..."  vs "The Time works by").  
+%   The name should be a singular, not plural value,
+%   e.g. "Reference Frame Model", 
+%   not "Reference Frames" (same example).
+\newcommand{\ModelDesc}{Body Action Model\xspace}
+\newcommand{\ModelAuthor}{David Hammen}
+\newcommand{\ModelAuthDate}{November, 2009}
+\newcommand{\ModelClass}{dynamics} 
+\newcommand{\ModelPath}{models/dynamics/body\_action} 
+%dynamics, environment, interactions, utils
+
+% for all editors; add keywords as necessary.
+\newcommand{\ModelKeywords}{\BodyActionDesc}
+
+
+% \tabsubrequirement: Subrequirements as table entries
+\def\tabsubrequirement{%
+   \refstepcounter{subrequirement}%
+   \subrequirementlabel{}}
+
+% Reference frames
+
+\newcommand\mkfrm[2]{
+  \expandafter\newcommand\csname #1\endcsname{{#2}}
+  \expandafter\newcommand\csname em#1\endcsname{{\em #2}}
+}
+
+\newcommand\mkrelfrm[2]{
+  \expandafter\newcommand\csname T#1\endcsname{{Tgt. #2}}
+  \expandafter\newcommand\csname emT#1\endcsname{{\em Tgt. #2}}
+}
+
+\mkfrm{Body}{Body}
+\mkfrm{Struct}{Struct}
+\mkfrm{Point}{Point}
+\mkfrm{Inertial}{Inertial}
+\mkfrm{Pfix}{Pfix}
+\mkfrm{Lvlh}{LVLH}
+\mkfrm{Ned}{Ref. NED}
+\mkrelfrm{Body}{Body}
+\mkrelfrm{Lvlh}{LVLH}
+\mkrelfrm{Ned}{NED}
+\mkrelfrm{Struct}{Struct}
+\mkrelfrm{Point}{Point}
+
+
+%
+% Scientific notation
+%
+\newcommand{\epos}[1]{\ensuremath{\!\times\! 10^{#1}}}
+\newcommand{\eneg}[1]{\ensuremath{\!\times\! 10^{-\!#1}}}
+
+
+%
+% Define commands for labeling tests
+%
+\newcommand\green[1]{\color{Green}{#1}}
+\newcommand\red[1]{\color{Red}{#1}}
+\newcommand\passed{\green{Passed}}
+\newcommand\failed{\red{Failed}}
+
+% \tilt: Rotate text (typically for a table header)
+\newcommand{\tilt}[1]{%
+  \makebox[0cm][c]{%
+  \rule{0.75em}{0pt}
+  \rotatebox{90}{\raisebox{\depth}{#1~}}}%
+  \rule{0.75em}{0pt}}
+
+% \axis, \coord, ...: names for axes, coordinates.
+\newcommand\axis[1]{\mbox{$#1$-axis}}
+\newcommand\xaxis{\axis{x}}
+\newcommand\yaxis{\axis{y}}
+\newcommand\zaxis{\axis{z}}
+\newcommand\coord[1]{\mbox{$#1$-coordinate}}
+\newcommand\xcoord{\coord{x}} 
+\newcommand\ycoord{\coord{y}}
+\newcommand\zcoord{\coord{z}}
+
+%\setcounter{secnumdepth}{4}
+%\renewcommand\thesection{\thechapter.\arabic{section}}
+%\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+%\renewcommand\thesubsubsection{\thesubsection.\alph{subsubsection}}
+%\renewcommand\theparagraph{\thesubsubsection.\roman{paragraph}}
+
+%\newcommand \funcitem[1]{\item{\textbf{#1}} \par}
+%\newcommand \classitem[1]{\item{\textbf{Class: #1}} \ \ \ \ \ \ \ \ \ \ \ {\bf
+ %Inheritance:}}
+
+%\usepackage{varioref}
+%\renewcommand\reftextcurrent{on this page}
+%\newcommand \reftext[2]{\textit {#1} (\vpageref*{#2})}
+%\newcommand \textref[2]{\textit {#1} (\vpageref*{#2})}
+
+%\newcommand{\EulerDesc}{Euler Angles state-representation}
+%\newcommand{\LVLHDesc}{Local-Vertical-Local-Horizontal (LVLH) Reference Frame}
+%\newcommand{\NEDDesc}{North-East-Down Reference Frame}
+%\newcommand{\OrbElemDesc}{Orbital Elements state-representation}
+%\newcommand{\PlanetaryDesc}{Planetary Reference Frame state-representation}
+%\newcommand{\RelativeDesc}{Relative Reference Frame state-representation}
+%\newcommand{\SolarBetaDesc}{Solar Beta Angles state-representation}

@@ -1,0 +1,19 @@
+digraph G { 
+
+   // Make this look like a UML diagram
+   rankdir=BT;
+   node [fontname="Helvetica",fontsize=10,shape=box];
+   edge [fontname="Helvetica",fontsize=10,arrowhead=empty,arrowtail=empty];
+
+   // Node connectivity
+   EphemerisInterface -> ActivateInterface;
+
+   SinglePointEphemeris -> EphemerisInterface;
+   EmptySpaceEphemeris -> SinglePointEphemeris;
+   SinglePlanetEphemeris -> SinglePointEphemeris;
+
+   De4xxEphemeris -> EphemerisInterface;
+   PropagatedPlanet -> EphemerisInterface;
+
+   ActivateInterface [shape=parallelogram];
+}

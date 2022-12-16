@@ -1,0 +1,314 @@
+==============================================================================
+ Notices:
+
+ Copyright © 2022 United States Government as represented by the Administrator
+ of the National Aeronautics and Space Administration.  All Rights Reserved.
+
+
+ Disclaimers:
+
+ No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+ ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+ TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+ IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+ FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+ FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+ SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+ ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+ RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+ RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+ DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+ IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+
+ Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+ UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+ PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+ LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+ INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+ USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+ UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+ PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+ ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+ AGREEMENT.
+
+==============================================================================
+
+August 2022
+
+Contents
+
+1. Overview
+2. Usage
+3. Key changes since the last release
+4. Known issues
+5. Regression testing
+6. Change history
+
+================================================================================
+1. Overview
+================================================================================
+
+This section provides overview information about the Johnson Space Center
+Engineering Orbital Dynamics (JEOD) software package.
+
+This note describes the most recent release of JEOD, JEOD 5.0. The primary
+objectives for 5.0 release of JEOD were to:
+
+* Official Trick 19 (19.3.0 or later) compatibility. The default version
+  of Trick for this release is Trick 19. While most model in this release are
+  still compatible with older Trick version. One may run into issue with
+  checkpoint/restart with older version of Trick.
+* Remove some spacecraft best estimated data for open source.
+* Remove TCAM model and Atmosphere Interface model for open source.
+* Update checkpoint tag for standard STL containers in JEOD.
+* Include new set of gravitational coefficients for the Moon based on GRAIL
+* Update JEOD tutorial and training sims to version 5.0.
+* Improve internal tools, especially relating to continuous integration.
+  - Code coverage is now a manual job in CI.
+* Comply with NPR 7150.2C, NASA Software Engineering Requirement.
+* Fix bugs.
+
+The key features of this release are highlighted in section 3 below.
+
+
+The JEOD 5.0 Release
+****************************
+
+The release comprises
+* Models. The JEOD models provide the functionality needed to represent
+  vehicles that translate and rotate in a space environment. The models are
+  organized into four main groups: dynamics, environment, interactions, and
+  utilities. Each of these four groups corresponds to a subdirectory of the
+  JEOD models directory. The immediate subdirectory of each model group
+  directory contains exactly one JEOD model. Models are accompanied with
+  test artifacts to verify that a model satisfies its requirements. For JEOD
+  5.0, there is also an experimental directory containing experimental
+  models that are not yet rigorously verified and documented up to typical JEOD
+  standards.
+
+* Test and Analysis Tools. Trick simulations have long been used to test the
+  JEOD models. JEOD 5.0 contains Trick-compatible versions of all
+  previously existing simulations, as well as some new simulations for
+  testing new capabilities.
+
+* Training Materials. Getting a picture of how JEOD works by reading the
+  overview and model documentation can be tough. The JEOD training materials
+  are located in the $JEOD_HOME/docs/Training directory. These materials
+  systematically show users how to use JEOD via the course lecture notes,
+  lessons covering every extant JEOD model except the SPICE interface model,
+  and tutorial exercises of increasing complexity.
+
+* Verification and Validation Simulations. In addition to the model-level
+  verification testing, JEOD 5.0 has been tested against best estimate of
+  trajectory (BET) data from various orbiting vehicles. These documented
+  integrated tests not only demonstrate that JEOD properly models the space
+  environment, they also serve as additional examples of how to use JEOD in a
+  realistic simulation. For JEOD 5.0, some BET data were removed from the
+  release so that JEOD can be host on NASA Github. However, validation result
+  are still presented in the top-level JEOD documentation.
+
+* Top-level Documentation. JEOD is well documented from the top-level down.
+  The top-level JEOD documentation is the file $JEOD_HOME/docs/JEOD.pdf.
+  The dynamic comparison simulation is described in the file
+  $JEOD_HOME/verif/SIM_dyncomp/docs/DYNCOMP.pdf.
+
+* Model Documentation. Each model has a model document located in the file
+  $JEOD_HOME/models/<model_group>/<model_name>/docs/<model_name>.pdf.
+
+* HTML Pages. The Application Programmer Interface (API) to the JEOD models can
+  be viewed by directing a browser to file://$JEOD_HOME/html/jeod/index.html.
+  These HTML pages are automatically generated from the JEOD source code by
+  doxygen. In addition to displaying the API, the JEOD PDF documentation files
+  are accessible through these HTML pages.
+
+
+================================================================================
+2. Usage
+================================================================================
+
+Instructions for use in a Trick environment
+*******************************************
+
+The JEOD package is first and foremost a package designed for use in simulations
+developed with the Trick simulation environment. This release of JEOD 5.0
+was tested with Trick 19.3.1, using compiler gcc 4.8.5 on CentOS 7.6, 7.5.0 on
+Ubuntu 18.04, and LLVM version 13.1.6 on Mac.
+
+Required environment variables
+------------------------------
+The following environment variables must be set to use JEOD in conjunction
+with the Trick simulation environment.
+
+  JEOD_HOME             The JEOD_HOME environment variable must point to the
+                        top-level JEOD directory (i.e., the directory that
+                        contains this README_jeod file).
+
+  TRICK_CFLAGS          The TRICK_CFLAGS & TRICK_CXXFLAGS environment variables
+  TRICK_CXXFLAGS        must add the JEOD models directory to the include path
+                        list. The variable must contain "-I${JEOD_HOME}/models".
+
+  TRICK_HOME            The adjacent list of three additional Trick environment
+  TRICK_VER             variables is just a partial list of those required by
+  TRICK_HOST_CPU        Trick. Please refer to Trick documentation for details.
+
+
+It is recommended that the system administrator provide standard shell
+scripts that properly set the above environment variables.
+
+Simulation specification and compilation
+----------------------------------------
+Trick simulations are specified in an S_define file and built using the Trick-
+provided trick-CP utility. Please refer to the Trick user manual for a
+description of an S_define file and the use of trick-CP.
+
+ER7_Utils
+---------
+There is no need to separately obtain the ER7_Utils package when JEOD is used
+within a Trick environment. ER7_Utils is distributed with Trick as a
+third-party package. The trick-CP utility makes the package visible to the
+compiler via an include path that begins with "er7_utils/integration".
+
+Required Package
+---------
+JEOD 5.0 requires installation of swig3 and cmake3
+
+
+================================================================================
+3. Key changes since the last production release (JEOD 5.0)
+================================================================================
+
+Best Estimated Data and TCAM Removal
+-------------------------
+The primary goal for JEOD v5.0 was to remove TCAM model and all the BED data
+that do not yet have classification from JEOD so that JEOD v5.0 can be host on
+NASA Github for open source release. Some measured data from actual mission
+that was used for validation were removed from this release. TS21 C++ Atmospheric
+Model (TCAM) and Atmosphere Interface model were also removed. The rest models
+remain the same as JEOD v4.0.
+
+Checkpoint Tag Update
+-------------------------
+Checkpoint tag for standard STL containers in JEOD was updated since newer
+version of Trick now recognize some standard STL. This allow users to create
+checkpoint of the variables that are type of standard STL, and then load the
+checkpoints during a restart.
+
+Unit Specification Update
+-------------------------
+Unit specification for angle was updated to 'rad' instead of 'radian'. Trick
+recognize both 'rad' and 'radian'. However, EDGE 2.4 does not recognize 'radian'.
+Future EDGE release will fix this issue. This update enable compatibilty with
+EDGE v2.4
+
+GRAIL Gravitational Coefficients for Moon
+-------------------------
+A new set of gravitational coefficients for the Moon was added to JEOD v5.0. It
+is based on the Gravity Recovery and Interior Laboratory (GRAIL) science mission
+that contains a set of two spacecrafts in the same orbit around the Moon.
+Instrument aboard each spacecraft measures the changes in their relative velocity,
+which translated into a high-resolution map of the Moon's gravitational field.
+
+Training Material for JEOD v5.0
+-------------------------
+Training materials from 2019 for JEOD v3.4 were updated to JEOC v5.0 to provide
+tutorial on the latest release.
+
+
+================================================================================
+4. Known issues
+================================================================================
+
+The issues known to exist with the JEOD 5.0 release are:
+
+* Non-Trick demonstration.
+  The demonstration of the usability of JEOD outside the Trick environment is
+  not currently maintained and may not work with this release.
+
+* Trick support.
+  JEOD 5.0 is officially compatible with Trick 19.3.0 or newer. Backward
+  compatibility with older versions of Trick are not guarantee, but most models
+  should still work with Trick 17 or newer. Users are strongly encouraged to
+  upgrade to a newer version of Trick if their project allows.
+
+* Trickified build works for all the regression test sims on CentOS 7 and
+  Ubuntu 18. However, some sims did not built with Trickified on MacOS during
+  the regression test. All the sims built regularly on MacOS. This issue will be
+  investigated in later release
+
+* Experimental models.
+  For this release, there continues to be a directory named
+  $JEOD_HOME/models/experimental. It contains new models that have not yet
+  been rigorously verified and documented up to typical JEOD standards.
+
+
+================================================================================
+5. Regression testing
+================================================================================
+
+Several regression tests are provided with this release. These regression tests
+are used internally to verify that the release behaves as expected. These tests
+are not necessarily the same tests used for validation. External users can use
+these tests to verify that their installation of JEOD yields results comparable
+to those supplied with the release. The regression tests are located in
+
+* $JEOD_HOME/verif
+  This directory contains the simulations used to verify that JEOD operates
+  correctly as a whole.
+
+* $JEOD_HOME/sims
+   This directory contains an abbreviated Apollo simulation.
+
+* The verif subdirectories found in the JEOD model directories. Some of these
+  contain simulations supplied with regression test data. Most models contain
+  verification simulations or unit tests.
+
+  Note: A small number of these model verification tests fail by design.
+  All simulation runs that intentionally fail have fail or FAIL embedded
+  in the simulation RUN directory name.
+
+Caveats:
+* All regression test data supplied with the release were generated using a
+  64-bit machine running CentOS 7.5 and compiled with gcc 4.8.5. Users should
+  not expect exact numeric matches when using a different machine architecture,
+  a different operating system, or a different compiler.
+
+  An extreme example of this is the RUN_euler case of the
+  utils/integration/verif/SIM_integ sim. The stability of the Euler method
+  is such that the results of this case are "confusion-limited"; that is, the
+  results for this case exhibit chaotic system-dependent behavior. Note that
+  use of the Euler integration method is generally not recommended.
+
+
+
+================================================================================
+6. Change history
+================================================================================
+****************************
+JEOD 5.0, August 2022
+****************************
+* Changes to models.
+  - removed some best estimated data (BED) from actual space mission from the
+    software.
+  - removed TCAM model and Atmosphere Interface models.
+  - Updated checkpoint tag for standard STL containers.
+  - Updated unit specification for angle.
+  - Included new set of gravitational coefficients for Moon from GRAIL.
+
+* Changes to sims and unit tests.
+  - Removed SIM_Grace
+  - Removed RUN_champ, RUN_envisat, RUN_iss, RUN_lageos, and RUN_tdrs from
+    SIM_Earth_Moon
+  - Training solution sims were updated to JEOD v5.0
+
+* Changes to Documentation
+  - Training documentations were to JEOD v5.0
+  - Top-level JEOD documentation and some model documentations were updated
+    such that they only contains information that are publicly releasable.
+  - JEOD documentations were updated for the 5.0 release
+  - Removed programmer information from the source code to prepare for open
+    source
+
+* Changes to tools.
+  - Using CppCheck and Flawfinder for static analysis
+  - Using Lcov for code coverage.
+  - Implemented a manual code coverage job in CI

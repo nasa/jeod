@@ -1,0 +1,142 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: jeodspec.sty
+%
+% This package
+%  - Defines items that specify the current JEOD release,
+%  - Defines common content of the cover pages of a JEOD document,
+%  - Defines a small set of simple shortcut macros, and
+%  - Specifies all of the JEOD models.
+%  - Should be simple and should not require extensive knowledge of TeX.
+%    Hairy stuff should go in dynenv.sty or dyn1st.sty.
+%
+% The file can be assumed to be loaded by dynenv.sty after having defined
+% add_model.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{jeodspec}[2022/07/14 v5.0 Dynamics package macros]
+
+
+% The release ID, month, and year need to be changed with each release.
+\newcommand\JEODid{JEOD v5.0}
+\newcommand\RELEASEMONTH{July}
+\newcommand\RELEASEYEAR{2022}
+
+
+% The JEODMANAGERS needs infrequent updates to reflect organizational changes.
+% Format: Name1 \\ Title1 \\ Name2 \\ Title2 etc.
+\newcommand\JEODMANAGERS{
+   Zu Qun Li \\ Project Manager \\
+   Michael R. McFarlane \\ Simulation and Graphics Branch Chief \\
+   Steven E. Fredrickson \\ Software, Robotics, and Simulation Division Chief}
+
+
+% Sans a reorg, JEODORG shouldn't need to be changed.
+% Format: Branch \\[2pt] Division \\[2pt] \\ Directorate
+% Those two extra points between lines are needed because of the small font
+% in which the organization is printed.
+\newcommand\JEODORG{
+   Simulation and Graphics Branch (ER7)\\[2pt]
+   Software, Robotics, and Simulation Division\\[2pt]
+   Engineering Directorate}
+
+
+% The JSC document number for the JEOD documentation suite is JSC-61777.
+\newcommand\JEODJSCNUM{JSC-61777}
+
+
+% Define some commonly-used shortcuts for JEOD itself, model chapters, and
+% some miscellaneous things (e.g., S_define).
+
+\newcommand\JEOD{JSC Engineering Orbital Dynamics}
+\newcommand\TUT{JEOD Tutorial}
+
+\newcommand\reqt{Product Requirements}
+\newcommand\spec{Product Specification}
+\newcommand\ivvd{Inspection, Verification, and Validation}
+\newcommand\user{User Guide}
+
+\newcommand\Sdefine{S\_define\xspace}
+\newcommand\JEODidx{\JEODid\xspace}
+\newcommand\Cplusplus{\mbox{C\texttt{++}}\xspace}
+
+
+\addnonmodel{TUTORIAL}{sims}{Tutorial}{JEOD Tutorial}
+\addnonmodel{TLD}{docs}{}{JEOD Top Level Document}
+
+% Build the list of JEOD models.
+% \addmodel is defined in dyn1st.sty.
+% It takes four arguments: {name}{parent_dir}{model_dir}{title}
+%
+% Note well: Any additions/subtractions to this list must be paired with
+% a corresponding set of changes to dynenv.bib.
+
+\addmodel{AERODYNAMICS}{interactions}{aerodynamics}{Aerodynamics Model}
+
+\addmodel{ATMOSPHERE}{environment}{atmosphere}{Atmosphere Model}
+
+\addmodel{BODYACTION}{dynamics}{body_action}{Body Action Model}
+
+\addmodel{CONTACT}{interaction}{contact}{Contact Model}
+
+\addmodel{CONTAINER}{utils}{container}{Container Model}
+
+\addmodel{DERIVEDSTATE}{dynamics}{derived_state}{Derived State Model}
+
+\addmodel{DYNBODY}{dynamics}{dyn_body}{Dynamic Body Model}
+
+\addmodel{DYNMANAGER}{dynamics}{dyn_manager}{Dynamics Manager Model}
+
+\addmodel{EARTHLIGHTING}{environment}{earth_lighting}{Earth Lighting Model}
+
+\addmodel{EPHEMERIDES}{environment}{ephemerides}{Ephemerides Model}
+
+\addmodel{GRAVITY}{environment}{gravity}{Gravity Model}
+
+\addmodel{GRAVITYTORQUE}{interactions}{gravity_torque}%
+   {Gravity Gradient Torque Model}
+
+\addmodel{INTEGRATION}{utils}{integration}{Integration Model}
+
+\addmodel{MASS}{dynamics}{mass}{Mass Body Model}
+
+\addmodel{MATH}{utils}{math}{Mathematical Functions Model}
+
+\addmodel{MEMORY}{utils}{memory}{Memory Management Model}
+
+\addmodel{MESSAGE}{utils}{message}{Message Handler Model}
+
+\addmodel{MODELTEMPLATE}{utils}{model_template}{Model Template}
+
+\addmodel{NAMEDITEM}{utils}{named_item}{Named Item Model}
+
+\addmodel{ORBITALELEMENTS}{utils}{orbital_elements}{Orbital Elements Model}
+
+\addmodel{ORIENTATION}{utils}{orientation}{Orientation Model}
+
+\addmodel{PLANET}{environment}{planet}{Planet Model}
+
+\addmodel{PLANETFIXED}{utils}{planet_fixed}{Planet Fixed Model}
+
+\addmodel{QUATERNION}{utils}{quaternion}{Quaternion Model}
+
+\addmodel{RADIATIONPRESSURE}{interactions}{radiation_pressure}%
+   {Radiation Pressure Model}
+
+\addmodel{REFFRAMES}{utils}{ref_frames}{Reference Frame Model}
+
+\addmodel{RELKIN}{dynamics}{rel_kin}{Relative Kinematics Computations Model}
+
+\addmodel{RNP}{environment}{RNP}{Rotation, Nutation, and Precession Model}
+
+\addmodel{SIMINTERFACE}{utils}{sim_interface}{Simulation Engine Interface Model}
+
+\addmodel{SURFACEMODEL}{utils}{surface_model}{Surface Model}
+
+\addmodel{THERMALRIDER}{interactions}{thermal_rider}{Thermal Model}
+
+\addmodel{TIME}{environment}{time}{Time Model}
+
+
+\endinput

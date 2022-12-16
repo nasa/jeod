@@ -1,0 +1,151 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//=============================================================================
+// Single vehicle in Earth orbit with radiation pressure.
+// 
+//=============================================================================
+
+// Define job calling intervals
+#define DYNAMICS      1.0
+#define LOW_RATE_ENV  100.0
+
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+#include "time_TAI_UTC_UT1_TT_GMST.sm"
+#include "dynamics.sm"
+#include "environment.sm"
+#include "earth_GGM05C_MET_RNP.sm"
+#include "sun_basic.sm"
+#include "moon_basic.sm"
+#include "vehicle_atmosphere.sm"
+
+
+/*****************************************************************************
+Purpose:(Modeling environment interactions)
+*****************************************************************************/
+##include "utils/surface_model/include/flat_plate_thermal.hh"
+##include "utils/surface_model/include/surface_model.hh"
+##include "interactions/aerodynamics/include/aero_drag.hh"
+##include "interactions/aerodynamics/include/aero_surface.hh"
+##include "interactions/aerodynamics/include/aero_surface_factory.hh"
+##include "interactions/aerodynamics/include/flat_plate_aero_params.hh"
+
+##include "interactions/radiation_pressure/include/radiation_pressure.hh"
+##include "interactions/radiation_pressure/include/radiation_surface.hh"
+##include "interactions/radiation_pressure/include/radiation_surface_factory.hh"
+##include "interactions/radiation_pressure/include/radiation_third_body.hh"
+##include "interactions/radiation_pressure/include/radiation_params.hh"
+
+##include "interactions/radiation_pressure/verif/include/radiation_data_recorder.hh"
+class InteractionSimObject : public Trick::SimObject
+{
+  public:
+  jeod::SurfaceModel       surface;
+  jeod::AerodynamicDrag    aero_drag;
+  jeod::AeroSurface        aero_surface;
+  jeod::AeroSurfaceFactory aero_surface_factory;
+
+  jeod::RadiationPressure       rad_pressure;
+  jeod::RadiationSurface        rad_surface;
+  jeod::RadiationSurfaceFactory rad_surface_factory;
+
+  jeod::RadiationDataRecorder  rad_data_rec;
+
+  InteractionSimObject( VehicleAtmSimObject  & veh_in,
+                        jeod::TimeDyn              & dyn_time_in,
+                        jeod::DynManager           & dyn_mngr_in)
+     :
+       vehicle(veh_in),
+       dyn_time(dyn_time_in),
+       dyn_mngr(dyn_mngr_in)
+  {
+      P_BODY ("initialization") aero_surface_factory.create_surface(
+                                                          &surface,
+                                                          &aero_surface);
+
+      P_ENV  ("initialization") rad_surface_factory.create_surface(
+                                                          &surface,
+                                                          &rad_surface);
+
+      P_ENV  ("initialization") rad_pressure.initialize(
+                            dyn_mngr,
+                           &rad_surface,
+                            vehicle.dyn_body.mass.composite_properties.position);
+
+
+      (DYNAMICS, "scheduled")  aero_drag.aero_drag(
+                          vehicle.dyn_body.composite_body.state.trans.velocity,
+                         &vehicle.atmos_state,
+                          vehicle.dyn_body.structure.state.rot.T_parent_this,
+                          vehicle.dyn_body.mass.composite_properties.mass,
+                          vehicle.dyn_body.mass.composite_properties.position);
+
+      (DYNAMICS, "scheduled")  rad_pressure.update(
+                          vehicle.dyn_body.structure,
+                          vehicle.dyn_body.mass.composite_properties.position,
+                          dyn_time.scale_factor,
+                          dyn_time.seconds);
+
+      (DYNAMICS, "scheduled") rad_data_rec.record_data ( &rad_surface);
+  };
+  private:
+  InteractionSimObject (const InteractionSimObject&);
+  InteractionSimObject & operator = (const InteractionSimObject&);
+
+  VehicleAtmSimObject & vehicle;
+  jeod::TimeDyn             & dyn_time;
+  jeod::DynManager          & dyn_mngr;
+};
+InteractionSimObject interactions(vehicle,
+                                  jeod_time.time_manager.dyn_time,
+                                  dynamics.dyn_manager);
+
+vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
+           interactions.aero_drag.aero_force,
+           interactions.rad_pressure.force
+};
+
+vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create {
+           interactions.aero_drag.aero_torque,
+           interactions.rad_pressure.torque
+};
+
+
+// Set the integration
+IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth;

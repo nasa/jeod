@@ -1,0 +1,62 @@
+\chapter{Beeman's Algorithm}\label{app:beeman}
+
+Beeman's algorithm is a two-stage predictor-corrector method.  It requires
+knowledge of the velocity-derivative from one integration cycle period before
+the start of this integration cycle.  It is, therefore, also a multi-step
+method, and requires a primer to launch it.  In JEOD, we use the RK2
+integrator as the primer.
+
+Beeman's algorithm explicitly distinguishes generalized position and
+generalized velocity. The equations that govern propagation via Beeman's
+Algorithm are given by equations~(\ref{eqn:beeman_prime})
+to~(\ref{eqn:beeman_1})\cite{beeman:1976}.
+
+Priming (one simulation step):
+\begin{equation}
+\label{eqn:beeman_prime}
+\begin{split}
+\dot{\vect v}_{-1} &=
+  \dot{\vect v}(t_i-\Delta t, x(t_i-\Delta t),\vect v(t_i-\Delta t)) \\
+\end{split}
+\end{equation}
+Stage 0 (predictor):
+\begin{equation}
+\label{eqn:beeman_0}
+\begin{split}
+t_1 &= t_f = t_i + \Delta t \\
+\dot{\vect v}_{0} &=
+  \dot{\vect v}(t_i, x(t_i),\vect v(t_i)) \\
+\bar{\vect v}_1 &= \vect v(t_i) +
+   \Delta t
+   \left(\frac 2 3 \dot{\vect v}_{0} - \frac 1 6 \dot{\vect v}_{-1}\right) \\
+\bar{\dot{\vect x}}_1 &= \dot {\vect x}(\vect x(t_i),\bar{\vect v}_1) \\
+\bar{\dot{\vect v}}_1 &=
+  \frac 3 2 \dot{\vect v}_{0} - \frac 1 2 \dot{\vect v}_{-1} \\
+\vect x(t_1) &= \vect x(t_i) + \Delta t \, \bar{\dot{\vect x}}_1 \\
+\vect v(t_1) &= \vect v(t_i) + \Delta t \, \bar{\dot{\vect v}}_1
+\end{split}
+\end{equation}
+Stage 1 (corrector):
+\begin{equation}
+\label{eqn:beeman_1}
+\begin{split}
+t_2 &= t_1 = t_f = t_i + \Delta t \\
+\dot{\vect v}_{1} &=
+  \dot{\vect v}(t_1, x(t_1),\vect v(t_1)) \\
+\bar{\dot{\vect v}}_2 &=
+  \frac 1 3 \dot{\vect v}_{1} +
+  \frac 5 6 \dot{\vect v}_{0} - \frac 1 6 \dot{\vect v}_{-1} \\
+\vect x(t_f) &= \vect x(t_1) \\
+\vect v(t_f) &= \vect v(t_i) + \Delta t \, \bar{\dot{\vect v}}_2 \\
+\dot{\vect v}_{-1} &= \dot{\vect v}_{0}
+\end{split}
+\end{equation}
+
+
+Beeman's Algorithm offers significant improvements in accuracy over
+the symplectic Euler method. Beeman's algorithm is a second order method
+while the Euler methods are first order. Like the fourth-order
+Adams-Bashforth-Moulton method, Beeman's Algorithm
+is not self-starting. It relies on the derivatives from the previous
+time step. JEOD uses the RK2 method as a primer for Beeman's Algorithm.
+

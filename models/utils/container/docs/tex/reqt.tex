@@ -1,0 +1,128 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% reqt.tex
+% Toplevel requirements on the Container Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}
+\label{ch:reqt}
+%----------------------------------
+
+\requirement{Top-level requirement}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum, meet all external and
+  internal requirements 
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+  Inspection 
+\end{description}
+
+
+\requirement{Checkpoint/Restart}
+\label{reqt:chkpt}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide a generic framework for checkpointing resources
+  that would otherwise be opaque to simulation engines and for restoring those
+  resources from a checkpoint file.
+  \subrequirement{Extensibility.}
+  \label{reqt::checkpt_extensibility}
+  The basic checkpoint/restart capability shall provide a means for extension
+  such that developers of models that contain opaque resources can have these
+  resources checkpointed and restarted from a checkpoint.
+
+  \subrequirement{Transparency.}
+  \label{reqt::checkpt_transparency}
+  The implementation details of this extensibility framework shall be
+  transparent to the models that perform the checkpointing of the
+  checkpointable contents to a checkpoint file, and the restoration of
+  resources from a previously recorded checkpoint file.
+
+  In other words, the implementation shall define a set of virtual functions
+  that specify the checkpoint/restart interface. The checkpoint/restart
+  framework calls the generic interfaces without concern of how the
+  extensions implement the required behavior.
+
+  \subrequirement{Undefined behavior.}
+  \label{reqt::checkpt_bad_scoobies}
+  The effects of copying, swapping, or overwriting checkpoint information
+  is undefined.
+
+  This means that extenders should not write a true swap() method and should
+  be careful not to copy or overwrite checkpoint information in their
+  copy constructors and assignment operators. Note that this is not a
+  requirement on the model. It is a requirement on model extenders:
+  Do not invoke undefined behavior.
+
+\item[Rationale:]\ \newline
+  The primary objective of the \ModelDesc is to make all of JEOD checkpointable
+  and restartable from a checkpoint. A standard framework enables the agents
+  that perform the checkpointing and restoring to do so without knowledge of
+  the contents to be checkpointed and restored. An extensible framework enables
+  the developers of models with opaque content to specify the mechanisms for
+  checkpointing and restoring such content.
+  
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{STL Containers}
+\label{reqt:stl_containers}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide checkpointable and restorable replacements for
+  the STL list, set, and vector class templates.
+
+  \subrequirement{Full functionality.}
+  \label{reqt::stl_container_equiv}
+  With the noted exceptions, each STL container replacement shall
+  provide the full functionality of its STL counterpart as specified in
+  the 2003 \Cplusplus Standard, ISO/IEC 14882:2003 \cite{cpp2003}.
+
+  Exceptions:\begin{itemize}
+  \item Support for non-default Compare or Allocator classes is not required.
+  \item The implementation shall provide a default constructor and
+        a copy constructor for each STL container replacement.
+        The implementation does not need to provide the full suite of
+        constructors defined by the Standard for the STL containers.
+  \item Where the standard itself is known to be buggy, the implementation
+        should follow the recommended correction to the standard.
+        This exception is defined as reported issues that have
+        reached at least CD1 status with the \Cplusplus Standards Committee
+        (ISO/IEC JTC1/SC22/WG21).
+  \item The implementation shall provide the ability to swap the STL contents
+        of a JEOD container with another JEOD or STL container of the same base
+        type.
+        The JEOD equivalent of the STL swap method shall not touch the
+        internal checkpoint information and thus shall not be named swap.
+        See requirement~\ref{reqt::checkpt_bad_scoobies}.
+  \end{itemize}
+
+  \subrequirement{Transparency.}
+  \label{reqt::stl_container_trans}
+  Excluding the exceptions specified above, the JEOD equivalents of the
+  STL containers shall use the function names and signatures as
+  specified in the 2003 \Cplusplus Standard for the STL class templates.
+
+\item[Rationale:]\ \newline
+  This requirement exists because the STL containers were the number one
+  culprit that formerly made JEOD unable to be fully checkpointed or restarted.
+
+  The functionality and transparency requirements mean that only the
+  data types of those STL container data members need to be changed.
+  There should be very little, if any, ripple effect resulting from the
+  change in type.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}

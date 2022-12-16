@@ -1,0 +1,100 @@
+\chapter{Inspections, Tests, and Metrics}\hyperdef{part}{ivv}{}\label{ch:ivv}
+
+\section{Inspection}\label{sec:inspect}
+\input{ivv_inspect}
+
+
+\section{Tests}
+This section describes various tests conducted to verify and validate 
+that the \ModelDesc satisfies the requirements levied against it.  
+All verification and validation test source code, simulations and procedures 
+are archived in the JEOD directory 
+{\tt models/utils/integration/verif}.\relax
+
+\input{ivv_tests}
+
+\newpage
+\boilerplatetraceability
+
+\newpage
+\boilerplatemetrics
+
+
+%\section{Metrics}
+%
+%
+%
+%Table~\ref{tab:coarse_metrics} presents coarse metrics on the source
+%files that comprise the model.
+%
+%\input{coarse_metrics}
+%
+%Table~\ref{tab:metrix_metrics} presents the cyclomatic complexity of the 
+%methods defined in the model.
+%
+%\input{metrix_metrics}
+%
+%\newpage
+%\section{Requirements Traceability}
+%
+%Table~\ref{tab:reqt_ivv_xref} summarizes the inspections and tests
+%that demonstrate the satisfaction of the requirements levied on the model.
+%
+%\begin{table}[htp]
+%\centering
+%\caption{Requirements Traceability}
+%\label{tab:reqt_ivv_xref}
+%\vspace{1ex}
+%\begin{minipage}{\textwidth}
+%\centering
+%\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|} 
+%\hline
+%\multicolumn{2}{||l|}{\bf Requirement} &
+%\multicolumn{3}{l|}{\bf Inspection or test} \\ \hline\hline
+%\ref{reqt:toplevel} & Project Requirements &
+%     Insp. & \ref{inspect:TLI}     & Top-level Inspection
+%\tabularnewline[4pt]
+%\ref{reqt:supported_techniques} & Supported Techniques &
+%     Insp. & \ref{inspect:math} & Mathematical Formulation \\
+%  && Test  & \ref{test:integ}   & Numerical Integration
+%\tabularnewline[4pt]
+%\ref{reqt:extensibility} & Extensibility &
+%     Insp. & \ref{inspect:design} & Design Inspection \\ 
+%  && Test  & \ref{test:integ}     & Numerical Integration
+%\tabularnewline[4pt]
+%\ref{reqt:state_integration} & State Integration &
+%     Insp. & \ref{inspect:design} & Design Inspection \\ 
+%  && Test  & \ref{test:integ}     & Numerical Integration \\
+%  && Test  & \ref{test:behavior}  & Behavior Test
+%\tabularnewline[4pt]
+%\ref{reqt:multiple_states} & Multiple States &
+%     Insp. & \ref{inspect:design} & Design Inspection \\ 
+%  && Test  & \ref{test:multiple}  & Multiple Integrators
+%\tabularnewline[4pt]
+%\ref{reqt:time_propagation} & Time Propagation &
+%     Insp. & \ref{inspect:design} & Design Inspection \\
+%  && Test  & \ref{test:behavior}  & Behavior Test
+%\tabularnewline[4pt]
+%\ref{reqt:integrator_constructor} & Integrator Construction &
+%     Insp. & \ref{inspect:design} & Design Inspection \\ 
+%  && Test  & \ref{test:integ}     & Numerical Integration
+%    \footnote{Tests~\ref{test:integ} and~\ref{test:multiple} would not
+%    work correctly if the integrator constructor factory did not properly
+%    create integrator constructors or if the integrator constructors did
+%    not create time and state integrators of the same type.
+%    \label{fn:integrator_constructor_repeat}} \\
+%  && Test  & \ref{test:multiple}  & Multiple Integrators
+%     \footref{fn:integrator_constructor_repeat} \\
+%  && Test  & \ref{test:behavior}  & Behavior Test
+%    \footnote{The behavior test explicitly shows which integrator constructor
+%    is in use and which time and state integrators are created by the
+%    integrator constructor.}
+%\tabularnewline[4pt]
+%\ref{reqt:no_leaks} & Memory Management &
+%     Insp. & \ref{inspect:memory} & Memory \\
+%  && Test  & \ref{test:behavior}  & Memory Test
+%\tabularnewline[4pt]
+%\hline
+%\end{tabular}
+%\end{minipage}
+%\end{table}

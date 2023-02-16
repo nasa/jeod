@@ -90,7 +90,7 @@ DynBodyInitNedState::initialize (
    DynManager & dyn_manager)
 {
 
-   if (ref_body_name != NULL) {
+   if (!ref_body_name.empty()) {
       body_is_required = true;
    }
 
@@ -140,14 +140,14 @@ DynBodyInitNedState::apply (
             __FILE__, __LINE__, BodyActionMessages::illegal_value,
             "%s failed:\n"
             "AltLatLong type option not recognized",
-            action_identifier);
+            action_identifier.c_str());
 
          // Not reached
          return;
       }
 
       // Set the frame name based on the reference body.
-      ned_state.ned_frame.set_name ("ref_point", planet_name, "ned");
+      ned_state.ned_frame.set_name ("ref_point", planet_name.c_str(), "ned");
    }
 
    // Reference body supplied: Use its translational state as the basis for
@@ -163,7 +163,7 @@ DynBodyInitNedState::apply (
          rel_state.trans.position, rel_state.trans.velocity);
 
       // Set the frame name based on the reference body.
-      ned_state.ned_frame.set_name (ref_body->name.c_str(), planet_name, "ned");
+      ned_state.ned_frame.set_name (ref_body->name.c_str(), planet_name.c_str(), "ned");
    }
 
 

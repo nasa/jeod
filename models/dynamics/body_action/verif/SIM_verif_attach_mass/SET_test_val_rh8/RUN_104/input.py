@@ -19,7 +19,7 @@ components.pt_attach1.parent_point_name  = "left_to_right"
 
 
 pt_attach2_default()
-components.pt_attach2.parent      = components.child1_body
+components.pt_attach2.set_parent_body( components.child1_body )
 components.pt_attach2.subject_point_name = "right_to_left"
 components.pt_attach2.parent_point_name  = "left_to_right"
 

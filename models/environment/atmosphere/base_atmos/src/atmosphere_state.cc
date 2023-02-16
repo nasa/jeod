@@ -117,8 +117,8 @@ AtmosphereState::operator = (
  * model pointed to by atmos_model, and calculated at the planet
  * fixed position pointed to by pfix_pos. Note that any type
  * inheriting from Atmosphere can be sent in for atmos_model.
- * \param[in] atmos_model Atmosphere model.
- * \param[in] pfix_pos Planetary fixed position.
+ * \param[in] atmos_model_ Atmosphere model.
+ * \param[in] pfix_pos_ Planetary fixed position.
  */
 
 void

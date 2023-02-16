@@ -20,7 +20,7 @@ sun.relative.target_frame_name = "SSBary.inertial"
 sun.relative.direction_sense = \
   trick.RelativeDerivedState.ComputeSubjectStateinTarget
 
-sun.mass_init.subject = sun.prop_planet.body.mass
+sun.mass_init.set_subject_body( sun.prop_planet.body.mass )
 sun.mass_init.action_name = "sun.mass_init"
 sun.mass_init.properties.pt_orientation.data_source = \
   trick.Orientation.InputQuaternion
@@ -33,7 +33,7 @@ sun.mass_init.properties.inertia = [ [IZZ, 0.0, 0.0],
 
 dynamics.dyn_manager.add_body_action (sun.mass_init)
 
-sun.rot_init.dyn_subject = sun.prop_planet.body
+sun.rot_init.set_subject_body( sun.prop_planet.body )
 sun.rot_init.action_name = "sun.rot_init"
 sun.rot_init.reference_ref_frame_name = "SSBary.inertial"
 sun.rot_init.body_frame_id = "composite_body"

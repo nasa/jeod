@@ -28,7 +28,7 @@ def set_ISS_rate_RotState_inertial_body(vehicle_reference, dynamics) :
 
 
 
-  vehicle_reference.rate_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.rate_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.rate_init.action_name = "ISS.rate_RotState_inertial_body"
 
   vehicle_reference.rate_init.reference_ref_frame_name = "Earth.inertial"

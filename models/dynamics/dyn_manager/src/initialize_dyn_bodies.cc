@@ -143,7 +143,7 @@ DynManager::perform_mass_body_initializations (
       // If MassBody is NULL (default), then process all ready actions.
       // If MassBody is specified, process only the ready associated actions.
       if (    ( dynamic_cast<MassBodyInit *> (action) != NULL      )
-           && ( (body == NULL) || (action->subject==body) )   )
+           && ( (body == NULL) || (action->is_same_subject_body(*body)) )   )
       {
 
          // Initialize the action.
@@ -243,8 +243,6 @@ void
 DynManager::perform_dyn_body_initializations (
    DynBody * body)
 {
-   DynBodyInit* init_action;
-
    // Initialize the queued actions that derive from DynBodyInit.
 
    for (std::list<BodyAction *>::iterator it = body_actions.begin();
@@ -252,23 +250,12 @@ DynManager::perform_dyn_body_initializations (
            ++it) {
        // Initialize the action if it derives from DynBodyInit.
        BodyAction * action = *it;
-       if( (init_action=dynamic_cast<DynBodyInit*>(action)) != NULL )
+       if( dynamic_cast<DynBodyInit*>(action) != NULL )
        {
-           // First, attempt to fully link
-           if( init_action->dyn_subject == NULL )
-           {
-               init_action->dyn_subject
-               = find_dyn_body( init_action->subject->name.c_str() );
-           }
-           else if( init_action->subject == NULL )
-           {
-               init_action->subject = &(init_action->dyn_subject->mass);
-           }
-
            // If body is NULL (default), then initialize any action.
            // If body is specified, initialize only the associated action
            if(    ( body == NULL )
-               || ( action->subject == &(body->mass) )  )
+               || ( action->is_same_subject_body(body->mass) )  )
            {
                // Initialize the action.
                action->initialize (*this);
@@ -293,8 +280,8 @@ DynManager::perform_dyn_body_initializations (
            BodyAction * action = *it;
 
            // Only process instances of DynBodyInit and its derived classes.
-           if(   ( (init_action=dynamic_cast<DynBodyInit *>(action)) != NULL )
-              && ( (body==NULL) || (action->subject==&(body->mass))          ))
+           if(   ( dynamic_cast<DynBodyInit *>(action) != NULL )
+              && ( (body==NULL) || ( action->is_same_subject_body(body->mass) ) ))
            {
 
             // Perform the action if the initializer is ready.

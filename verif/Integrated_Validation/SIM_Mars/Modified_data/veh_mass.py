@@ -1,5 +1,5 @@
 # Set the common mass properties for this vehicle.
-dawn.mass_init.subject = dawn.dyn_body.mass
+dawn.mass_init.set_subject_body( dawn.dyn_body.mass )
 dawn.mass_init.properties.pt_orientation.data_source = trick.Orientation.InputEigenRotation
 dawn.mass_init.properties.pt_orientation.eigen_angle = 0.0
 dawn.mass_init.properties.pt_orientation.eigen_axis  = [1.0, 0.0, 0.0]

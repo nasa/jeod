@@ -48,7 +48,7 @@ components.file_name = "SET_test/RUN_110/mass.out"
 
 #/* Detach child2 from parent */
 components.detach.action_name = "detach"
-components.detach.subject     = components.child2_body
+components.detach.set_subject_body( components.child2_body )
 components.detach.active    = False
 dynamics.dyn_manager.add_body_action (components.detach)
 

@@ -8,7 +8,7 @@ veh.dyn_body.rotational_dynamics = True
 
 # Mass-init
 veh.mass_init.action_name = "veh_mass_init"
-veh.mass_init.subject     = veh.dyn_body.mass
+veh.mass_init.set_subject_body( veh.dyn_body.mass )
 veh.mass_init.properties.pt_orientation.data_source = \
                                   trick.Orientation.InputEulerRotation
 veh.mass_init.properties.pt_orientation.euler_sequence = \
@@ -44,7 +44,7 @@ dynamics.dyn_manager.add_body_action( veh.mass_init )
 
 # translational state
 veh.trans_init.action_name              = "veh_trans_init"
-veh.trans_init.subject                  = veh.dyn_body.mass
+veh.trans_init.set_subject_body( veh.dyn_body.mass )
 veh.trans_init.reference_ref_frame_name = "central_point.inertial"
 veh.trans_init.body_frame_id            = "composite_body"
 veh.trans_init.position                 = [ -5.0, 0.0, 0.0]
@@ -53,7 +53,7 @@ dynamics.dyn_manager.add_body_action (veh.trans_init)
 
 # rotational state
 veh.rot_init.action_name              = "veh_rot_init"
-veh.rot_init.dyn_subject                  = veh.dyn_body
+veh.rot_init.set_subject_body( veh.dyn_body )
 veh.rot_init.reference_ref_frame_name = "central_point.inertial"
 veh.rot_init.body_frame_id            = "composite_body"
 veh.rot_init.orientation.data_source  = trick.Orientation.InputEulerRotation

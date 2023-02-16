@@ -174,7 +174,7 @@ RadiationDefaultSurface::initialize (
    // Area definitions
 
 
-   if ((cx_area != 0.0) && (surface_area != 0.0)) {
+   if ((std::fpclassify(cx_area) != FP_ZERO) && (std::fpclassify(surface_area) != FP_ZERO)) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "Both the cross-sectional area (cx_area) and surface-area (surface_area)"
@@ -273,7 +273,7 @@ RadiationDefaultSurface::thermal_update(
 {
    if (thermal.active) {
       thermal.power_absorb += thermal.thermal_power_dump;
-      if (ThermalFacetRider::cycle_time != 0) {
+      if (std::fpclassify(ThermalFacetRider::cycle_time) != FP_ZERO) {
          temperature = thermal.integrate();
       }
    }

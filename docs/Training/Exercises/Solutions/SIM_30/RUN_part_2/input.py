@@ -22,7 +22,7 @@ exec(compile(open("Modified_data/attach.py", "rb").read(), "Modified_data/attach
 
 vehicle.reattachments = trick.alloc_type(4,"jeod::BodyReattach")
 
-vehicle.reattachments[0].subject = vehicle.array
+vehicle.reattachments[0].set_subject_body( vehicle.array )
 vehicle.reattachments[0].offset_pstr_cstr_pstr = [0,0,0]
 vehicle.reattachments[0].pstr_cstr.data_source = trick.Orientation.InputEigenRotation
 vehicle.reattachments[0].pstr_cstr.eigen_angle = trick.attach_units( "degree", 90.0 )
@@ -30,7 +30,7 @@ vehicle.reattachments[0].pstr_cstr.eigen_axis  = [1.0, 0.0, 0.0]
 vehicle.reattachments[0].active = False
 dynamics.dyn_manager.add_body_action( vehicle.reattachments[0] )
 
-vehicle.reattachments[1].subject = vehicle.array
+vehicle.reattachments[1].set_subject_body( vehicle.array )
 vehicle.reattachments[1].offset_pstr_cstr_pstr = [0,0,0]
 vehicle.reattachments[1].pstr_cstr.data_source = trick.Orientation.InputEigenRotation
 vehicle.reattachments[1].pstr_cstr.eigen_angle = trick.attach_units( "degree", 90.0 )
@@ -38,7 +38,7 @@ vehicle.reattachments[1].pstr_cstr.eigen_axis  = [0.0, 1.0, 0.0]
 vehicle.reattachments[1].active = False
 dynamics.dyn_manager.add_body_action( vehicle.reattachments[1] )
 
-vehicle.reattachments[2].subject = vehicle.array
+vehicle.reattachments[2].set_subject_body( vehicle.array )
 vehicle.reattachments[2].offset_pstr_cstr_pstr = [0,0,0]
 vehicle.reattachments[2].pstr_cstr.data_source = trick.Orientation.InputEigenRotation
 vehicle.reattachments[2].pstr_cstr.eigen_angle = trick.attach_units( "degree", 90.0 )
@@ -46,7 +46,7 @@ vehicle.reattachments[2].pstr_cstr.eigen_axis  = [0.0, 0.0, 1.0]
 vehicle.reattachments[2].active = False
 dynamics.dyn_manager.add_body_action( vehicle.reattachments[2] )
 
-vehicle.reattachments[3].subject = vehicle.array
+vehicle.reattachments[3].set_subject_body( vehicle.array )
 vehicle.reattachments[3].offset_pstr_cstr_pstr = [0,0,0]
 vehicle.reattachments[3].pstr_cstr.data_source = trick.Orientation.InputEigenRotation
 vehicle.reattachments[3].pstr_cstr.eigen_angle = trick.attach_units( "degree", 180.0 )

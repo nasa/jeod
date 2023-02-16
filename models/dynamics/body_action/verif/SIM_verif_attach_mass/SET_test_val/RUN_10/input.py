@@ -28,7 +28,7 @@ components.attach3.offset_pstr_cstr_pstr = [ 1.0, 0.0, 0.0]
 
 #/* Detach child2 from parent */
 components.detach.action_name = "detach"
-components.detach.subject     = components.child2_body
+components.detach.set_subject_body( components.child2_body )
 components.detach.active    = False
 dynamics.dyn_manager.add_body_action (components.detach)
 

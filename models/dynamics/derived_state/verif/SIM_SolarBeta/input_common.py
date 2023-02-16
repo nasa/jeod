@@ -28,7 +28,7 @@ trick.stop(864000)
 
 
 def use_trans_init():
-  veh.trans_init.dyn_subject = veh.dyn_body
+  veh.trans_init.set_subject_body( veh.dyn_body )
   veh.trans_init.reference_ref_frame_name = "Earth.inertial"
   veh.trans_init.body_frame_id     = "composite_body"
   veh.trans_init.position  = [ 0.0, 0.0, 0.0]
@@ -36,7 +36,7 @@ def use_trans_init():
   dynamics.dyn_manager.add_body_action(veh.trans_init)
 
 def use_orb_init():
-  veh.init_orbit.dyn_subject = veh.dyn_body
+  veh.init_orbit.set_subject_body( veh.dyn_body )
   veh.init_orbit.reference_ref_frame_name = "Earth.inertial"
   veh.init_orbit.orbit_frame_name = "Earth.inertial"
   veh.init_orbit.planet_name = "Earth"
@@ -50,7 +50,7 @@ def use_orb_init():
   dynamics.dyn_manager.add_body_action (veh.init_orbit)
 
 def use_rot_init():
-  veh.rot_init.dyn_subject = veh.dyn_body
+  veh.rot_init.set_subject_body( veh.dyn_body )
   veh.rot_init.reference_ref_frame_name = veh.body.integ_frame_name
   veh.rot_init.body_frame_id            = "composite_body"
   veh.rot_init.orientation.data_source  = trick.Orientation.InputQuaternion
@@ -59,7 +59,7 @@ def use_rot_init():
 
 def use_lvlh_rot_init():
   veh.init_lvlh.planet_name = "Earth"
-  veh.init_lvlh.dyn_subject = veh.dyn_body
+  veh.init_lvlh.set_subject_body( veh.dyn_body )
   veh.init_lvlh.reference_ref_frame_name = "Earth.inertial"
   veh.init_lvlh.body_frame_id = "composite_body"
 

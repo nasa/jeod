@@ -58,12 +58,12 @@ namespace jeod {
 BodyAction::BodyAction (
    void)
 :
-   subject(nullptr),
-   dyn_subject(nullptr),
    active(true),
    terminate_on_error(true),
-   action_name(nullptr),
-   action_identifier(nullptr)
+   action_name(),
+   mass_subject(nullptr),
+   dyn_subject(nullptr),
+   action_identifier()
 {
    return;
 }
@@ -86,12 +86,7 @@ void
 BodyAction::shutdown (
    void)
 {
-
-   // Free the constructed action identifier.
-   if (action_identifier != nullptr) {
-      JEOD_DELETE_ARRAY (action_identifier);
-      action_identifier = nullptr;
-   }
+    // No default shutdown actions.
 }
 
 
@@ -109,36 +104,14 @@ BodyAction::initialize (
    std::string type_name(NamedItem::demangle(typeid(*this)));  // Demangled name
 
    // Construct the action identifier.
-   if (action_name != nullptr) {
-      action_identifier =
-         NamedItem::construct_name (
-            type_name.c_str(), action_name);
+   if (!action_name.empty()) {
+      action_identifier = type_name + "." + action_name;
    }
    else {
-      action_identifier =
-         NamedItem::construct_name (
-            type_name.c_str(), "unnamed instance");
+      action_identifier = type_name + ".unnamed instance";
    }
 
-   // Sanity check: Subject must not be null.
-   if( subject==nullptr && dyn_subject==nullptr )
-   {
-      MessageHandler::fail (
-         __FILE__, __LINE__, BodyActionMessages::null_pointer,
-         "%s failed:\n"
-         "The subject body was not assigned",
-         action_identifier);
-   }
-   else if(   subject!=nullptr && dyn_subject!=nullptr
-           && ( subject != &(dyn_subject->mass) )      )
-   {
-      MessageHandler::fail (
-         __FILE__, __LINE__, BodyActionMessages::fatal_error,
-         "%s failed:\n"
-         "Both subject and dyn_subject are redundantly defined,\n"
-         "but correspond to different bodies.",
-         action_identifier);
-   }
+   validate_body_inputs(dyn_subject, mass_subject, "subject");
 }
 
 
@@ -170,7 +143,93 @@ BodyAction::is_ready (
    return active;
 }
 
+void BodyAction::set_subject_body(MassBody &mass_body_in)
+{
+    mass_subject = &mass_body_in;
+    dyn_subject = nullptr;
+}
 
+void BodyAction::set_subject_body(DynBody &dyn_body_in)
+{
+    dyn_subject = &dyn_body_in;
+    mass_subject = nullptr;
+}
+
+void BodyAction::validate_body_inputs(DynBody *& dyn_body_in, MassBody *& mass_body_in,
+        const std::string & body_base_name)
+{
+    // Sanity check: Subject must not be null. Check for bad scoobies
+    if( mass_body_in==nullptr && dyn_body_in==nullptr )
+    {
+       MessageHandler::fail (
+          __FILE__, __LINE__, BodyActionMessages::null_pointer,
+          "%s failed:\n"
+          "The %s body was not assigned",
+          action_identifier.c_str(), body_base_name.c_str());
+    }
+    else if( mass_body_in!=nullptr && dyn_body_in!=nullptr )
+    {
+        if(mass_body_in != &dyn_body_in->mass)
+        {
+            MessageHandler::fail (
+               __FILE__, __LINE__, BodyActionMessages::fatal_error,
+               "%s failed:\n"
+               "Both mass_%s and dyn_%s are defined,\n"
+               "only one may be set. This should not be able to happen.",
+               action_identifier.c_str(), body_base_name.c_str(), body_base_name.c_str());
+        }
+    }
+
+    if(dyn_body_in != nullptr) {
+        mass_body_in = &dyn_body_in->mass;
+    } else {
+        dyn_body_in = mass_body_in->dyn_owner;
+    }
+}
+
+bool BodyAction::is_same_subject_body(MassBody &mass_body_in)
+{
+    if (dyn_subject != nullptr)
+    {
+        return &dyn_subject->mass == &mass_body_in;
+    }
+    else
+    {
+        return mass_subject == &mass_body_in;
+    }
+}
+
+bool BodyAction::is_subject_dyn_body()
+{
+    if (dyn_subject != nullptr)
+    {
+        return true;
+    }
+    else if (mass_subject != nullptr)
+    {
+        return (mass_subject->dyn_owner != nullptr);
+    }
+    else
+    {
+        return false;
+    }
+}
+
+DynBody* BodyAction::get_subject_dyn_body()
+{
+    if (dyn_subject != nullptr)
+    {
+        return dyn_subject;
+    }
+    else if (mass_subject != nullptr)
+    {
+        return mass_subject->dyn_owner;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
 
 /**
  * Ensure that a string is not trivially invalid.
@@ -180,30 +239,18 @@ BodyAction::is_ready (
  */
 void
 BodyAction::validate_name (
-   const char * variable_value,
-   const char * variable_name,
-   const char * variable_type)
+   const std::string & variable_value,
+   const std::string & variable_name,
+   const std::string & variable_type)
 {
 
-   // Check for a null value, which means the user didn't assign anything.
-   if (variable_value == NULL) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, BodyActionMessages::null_pointer,
-         "%s failed:\n"
-         "Member variable %s value not initialized (this must name a %s)",
-         action_identifier, variable_name, variable_type);
-
-      // Not reached
-      return;
-   }
-
    // Check for the empty string, which isn't much better than leaving it null.
-   if (*variable_value == '\0') {
+   if (variable_value.empty()) {
       MessageHandler::fail (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
          "Member variable %s is the empty string (this must name a %s)",
-         action_identifier, variable_name, variable_type);
+         action_identifier.c_str(), variable_name.c_str(), variable_type.c_str());
 
       // Not reached
       return;

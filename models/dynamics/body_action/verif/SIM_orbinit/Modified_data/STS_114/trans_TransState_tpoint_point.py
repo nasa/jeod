@@ -21,7 +21,7 @@ def set_STS_114_trans_TransState_tpoint_point(vehicle_reference, dynamics) :
 
 
 
-  vehicle_reference.trans_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.trans_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.trans_init.action_name = "STS_114.trans_TransState_tpoint_point"
 
   vehicle_reference.trans_init.reference_ref_frame_name = "ISS.attach_point"

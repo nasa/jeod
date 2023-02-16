@@ -243,9 +243,9 @@ result in undetected errors (e.g., memory leaks).
 \item A BodyAction object must be initialized at the appropriate time.
 \begin{enumerate}
 \item BodyAttach actions must be initialized
-after the {\tt subject} MassBody or {\tt dyn\_subject} DynBody object has had their initial mass properties set
+after the {\tt mass\_subject} MassBody or {\tt dyn\_subject} DynBody object has had their initial mass properties set
 and have had their mass points defined.
-Same goes for the {\tt parent} MassBody or {\tt dyn\_parent} DynBody objects.
+Same goes for the {\tt mass\_parent} MassBody or {\tt dyn\_parent} DynBody objects.
 \item  DynBodyInit actions furthermore must be initialized after
 the initialization-time attachments have been performed.
 \item All other actions must be initialized after the states of the

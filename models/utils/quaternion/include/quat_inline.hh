@@ -536,6 +536,7 @@ inline void
 Quaternion::left_quat_transform (
    const double vec_in[3],
    double vec_out[3])
+const
 {
    double qv_cross_v[3];
    double qv_cross_qv_cross_v[3];

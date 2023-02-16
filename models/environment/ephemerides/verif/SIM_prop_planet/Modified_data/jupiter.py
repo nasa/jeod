@@ -25,7 +25,7 @@ def set_jupiter(init_trans_state) :
   jupiter.relative.direction_sense = \
     trick.RelativeDerivedState.ComputeSubjectStateinTarget
 
-  jupiter.mass_init.subject =  jupiter.prop_planet.body.mass
+  jupiter.mass_init.set_subject_body( jupiter.prop_planet.body.mass )
   jupiter.mass_init.action_name = "jupiter.mass_init"
 
   jupiter.mass_init.properties.pt_orientation.data_source = \
@@ -40,7 +40,7 @@ def set_jupiter(init_trans_state) :
   dynamics.dyn_manager.add_body_action (jupiter.mass_init)
 
 
-  jupiter.rot_init.dyn_subject = jupiter.prop_planet.body
+  jupiter.rot_init.set_subject_body( jupiter.prop_planet.body )
   jupiter.rot_init.action_name = "jupiter.rot_init"
   jupiter.rot_init.reference_ref_frame_name = "SSBary.inertial"
   jupiter.rot_init.body_frame_id = "composite_body"
@@ -61,7 +61,7 @@ def set_jupiter(init_trans_state) :
     jupiter.prop_planet.commanded_mode = \
       trick.PropagatedPlanet.TransFromBody_RotFromBody
 
-    jupiter.trans_init.dyn_subject = jupiter.prop_planet.body
+    jupiter.trans_init.set_subject_body( jupiter.prop_planet.body )
     jupiter.trans_init.action_name = "jupiter.trans_init"
     jupiter.trans_init.reference_ref_frame_name = "SSBary.inertial"
     jupiter.trans_init.body_frame_id = "composite_body"

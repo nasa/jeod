@@ -106,7 +106,7 @@ body1.dyn_body.set_name("body1")
 # The structural origin is at the intersection of the polar (z) axis of the
 # ellipsoid and the surface and is opposite the attach point.
 # The positive z structural axis points toward the CoM.
-body1.mass_init.subject = body1.dyn_body.mass
+body1.mass_init.set_subject_body( body1.dyn_body.mass )
 body1.mass_init.action_name = "Body1_mass_init"
 body1.mass_init.properties.mass  = mass_1
 body1.mass_init.properties.position  = [ 0.0, 0.0, radius_1]
@@ -143,7 +143,7 @@ dynamics.dyn_manager.add_body_action (body1.mass_init)
 
 # Initialize body1's translational state:
 # Put the composite CoM at rest at the origin.
-body1.trans_init.dyn_subject = body1.dyn_body
+body1.trans_init.set_subject_body( body1.dyn_body )
 body1.trans_init.reference_ref_frame_name = "central_point.inertial"
 body1.trans_init.body_frame_id = "composite_body"
 body1.trans_init.position  = [ 0.0, 0.0, 0.0]
@@ -158,7 +158,7 @@ dynamics.dyn_manager.add_body_action (body1.trans_init)
 # The inertial to body transformation matrix should be a 180 degree roll.
 body1.rot_init.reference_ref_frame_name = "central_point.inertial"
 body1.rot_init.body_frame_id = "structure"
-body1.rot_init.dyn_subject = body1.dyn_body
+body1.rot_init.set_subject_body( body1.dyn_body )
 body1.rot_init.ang_velocity  = trick.attach_units( "rad/s",[ 0.0, 0.0, 0.0])
 body1.rot_init.orientation.data_source = trick.Orientation.InputEulerRotation
 body1.rot_init.orientation.euler_sequence  = trick.Orientation.Pitch_Yaw_Roll
@@ -179,7 +179,7 @@ body2.dyn_body.set_name("body2")
 # Define body2 mass properties, including the attach point.
 # The structural origin is on the surface of the sphere.
 # The positive z structural axis points toward the CoM.
-body2.mass_init.subject = body2.dyn_body.mass
+body2.mass_init.set_subject_body( body2.dyn_body.mass )
 body2.mass_init.action_name = "Body2_mass_init"
 body2.mass_init.properties.mass  = mass_2
 body2.mass_init.properties.position  = [ 0.0, 0.0, radius_2]
@@ -217,8 +217,8 @@ dynamics.dyn_manager.add_body_action (body2.mass_init)
 # This attachment is to take place before initializing state.
 # The composite body should have a spherical mass distribution.
 body2.attach.action_name = "attach"
-body2.attach.dyn_subject     = body2.dyn_body
-body2.attach.dyn_parent      = body1.dyn_body
+body2.attach.set_subject_body( body2.dyn_body )
+body2.attach.set_parent_body( body1.dyn_body )
 body2.attach.subject_point_name = "port"
 body2.attach.parent_point_name =  "port"
 body2.attach.active = True
@@ -228,7 +228,7 @@ dynamics.dyn_manager.add_body_action (body2.attach)
 
 
 # Queue the detachment of body2 from body1.
-body2.detach.dyn_subject = body2.dyn_body
+body2.detach.set_subject_body( body2.dyn_body )
 body2.detach.active = False
 
 dynamics.dyn_manager.add_body_action (body2.detach)

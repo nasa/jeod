@@ -154,7 +154,7 @@ MassBody::attach_to (
  * Attach this mass body's root body as a child of the specified mass
  * body such that this body's structural origin is offset from the
  * parent body's structural origin and this body's structural axes
- * are oriented with repect to the parent body's structural axes as
+ * are oriented with respect to the parent body's structural axes as
  * specified.
  * @return Success indicator: true=success, false=attachment not performed.
  * \param[in] offset_pstr_cstr_pstr Location of this body's structural origin with respect to the new parent body's structural origin, specified in structural coordinates of the new parent body.\n Units: M

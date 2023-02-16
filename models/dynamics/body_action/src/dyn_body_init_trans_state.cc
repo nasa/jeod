@@ -118,7 +118,7 @@ DynBodyInitTransState::is_ready (
          __FILE__, __LINE__, BodyActionMessages::invalid_object,
          "%s is suspect:\n"
          "Reference frame '%s' is of a unknown derived type.",
-         action_identifier, reference_ref_frame->get_name());
+         action_identifier.c_str(), reference_ref_frame->get_name());
    }
 
 
@@ -161,7 +161,7 @@ DynBodyInitTransState::initialize (
          __FILE__, __LINE__, BodyActionMessages::illegal_value,
          "%s failed:\n"
          "State specification 'state_items' enum value is not valid.",
-         action_identifier);
+         action_identifier.c_str());
    }
 
    // Forward the initialize request up the class heirarchy.

@@ -5,7 +5,7 @@ veh2.dyn_body.rotational_dynamics = True
 
 # Mass-init
 veh2.mass_init.action_name = "veh2_mass_init"
-veh2.mass_init.subject     = veh2.dyn_body.mass
+veh2.mass_init.set_subject_body( veh2.dyn_body.mass )
 veh2.mass_init.properties.pt_orientation.data_source = \
                                    trick.Orientation.InputQuaternion
 veh2.mass_init.properties.position  = [5.0, 0.0, 0.0]
@@ -29,7 +29,7 @@ dynamics.dyn_manager.add_body_action (veh2.mass_init)
 
 # translational state
 veh2.trans_init.action_name              = "veh2_trans_init"
-veh2.trans_init.dyn_subject                  = veh2.dyn_body
+veh2.trans_init.set_subject_body( veh2.dyn_body )
 veh2.trans_init.reference_ref_frame_name = "central_point.inertial"
 veh2.trans_init.body_frame_id            = "composite_body"
 veh2.trans_init.position                 = [  5.0, 10.0, 0.0]
@@ -40,7 +40,7 @@ dynamics.dyn_manager.add_body_action (veh2.trans_init)
 
 # rotational state
 veh2.rot_init.action_name              = "veh2_rot_init"
-veh2.rot_init.subject                  = veh2.dyn_body.mass
+veh2.rot_init.set_subject_body( veh2.dyn_body.mass )
 veh2.rot_init.reference_ref_frame_name = "central_point.inertial"
 veh2.rot_init.body_frame_id            = "composite_body"
 veh2.rot_init.orientation.data_source  = trick.Orientation.InputEulerRotation

@@ -34,6 +34,7 @@ Library Dependencies:
 
 // JEOD includes
 #include "dynamics/dyn_manager/include/dyn_manager.hh"
+#include "dynamics/dyn_body/include/dyn_body.hh"
 #include "utils/message/include/message_handler.hh"
 #include "utils/ref_frames/include/tree_links_iterator.hh"
 
@@ -136,23 +137,30 @@ MassBody::detach (
    MassBody * parent = links.parent();
    bool success;
 
+   // If parent is a DynBody, call appropriate detach call
+   DynBody * parent_dyn_body = parent->dyn_owner;
+   if(parent_dyn_body != nullptr)
+   {
+       success = parent_dyn_body->remove_mass_body(*this);
+   } else {
 
-   // Perform the detachment, but only if it is valid to do so.
-   if (detach_validate (parent, true)) {
+       // Perform the detachment, but only if it is valid to do so.
+       if (detach_validate (parent, true)) {
 
-      // Tell the child (this) to break the logical links between the two.
-      detach_sever_links (*parent);
+          // Tell the child (this) to break the logical links between the two.
+          detach_sever_links (*parent);
 
-      // Tell the parent to update properties/state/...
-      parent->detach_update_properties (*this);
+          // Tell the parent to update properties/state/...
+          parent->detach_update_properties (*this);
 
-      // Note that the detachment was performed.
-      success = true;
-   }
+          // Note that the detachment was performed.
+          success = true;
+       }
 
-   // Validation failed. Note that the detachment was not performed.
-   else {
-      success = false;
+       // Validation failed. Note that the detachment was not performed.
+       else {
+          success = false;
+       }
    }
 
    return success;
@@ -231,7 +239,7 @@ const
    {
        is_valid = false;
        if ( generate_message ) {
-           MessageHandler::inform (
+           MessageHandler::warn (
          __FILE__, __LINE__, MassBodyMessages::invalid_detach,
          "\nWarning: Body '%s' refers to a DynBody and cannot be detached "
          "through MassBody detach methods.",

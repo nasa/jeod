@@ -112,13 +112,13 @@ set_contact_point_facet(veh2_dyn, "veh2")
 #/*---------------------------------------------
 # * Set the veh1_dyn initial state.
 # *---------------------------------------------*/
-veh1_dyn.trans_init.dyn_subject                  = veh1_dyn.body
+veh1_dyn.trans_init.set_subject_body( veh1_dyn.body )
 veh1_dyn.trans_init.reference_ref_frame_name = "Space.inertial"
 veh1_dyn.trans_init.body_frame_id            = "composite_body"
 veh1_dyn.trans_init.position  = [ 0.0,   0.0,   0.0]
 veh1_dyn.trans_init.velocity  = [ 0.0,   0.0,   0.0]
 
-veh1_dyn.rot_init.dyn_subject                         = veh1_dyn.body
+veh1_dyn.rot_init.set_subject_body( veh1_dyn.body )
 veh1_dyn.rot_init.reference_ref_frame_name        = "Space.inertial"
 veh1_dyn.rot_init.body_frame_id                   = "composite_body"
 veh1_dyn.rot_init.orientation.data_source         = trick.Orientation.InputEulerRotation
@@ -134,13 +134,13 @@ dynamics.dyn_manager.add_body_action(veh1_dyn.rot_init)
 #/*---------------------------------------------
 # * Set the veh2_dyn initial state.
 # *---------------------------------------------*/
-veh2_dyn.trans_init.dyn_subject                  = veh2_dyn.body
+veh2_dyn.trans_init.set_subject_body( veh2_dyn.body )
 veh2_dyn.trans_init.reference_ref_frame_name = "Space.inertial"
 veh2_dyn.trans_init.body_frame_id            = "composite_body"
 veh2_dyn.trans_init.position  = [ 12.0,   0.5,   0.0]
 veh2_dyn.trans_init.velocity  = [ -2.0,   0.0,   0.0]
 
-veh2_dyn.rot_init.dyn_subject                         = veh2_dyn.body
+veh2_dyn.rot_init.set_subject_body( veh2_dyn.body )
 veh2_dyn.rot_init.reference_ref_frame_name        = "Space.inertial"
 veh2_dyn.rot_init.body_frame_id                   = "composite_body"
 veh2_dyn.rot_init.orientation.data_source         = trick.Orientation.InputEulerRotation

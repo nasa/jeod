@@ -90,8 +90,7 @@ De4xxFileSpec::De4xxFileSpec (
    denum(405)
 {
 
-    std::snprintf (ephem_file_dir, sizeof (ephem_file_dir),
-                   "build/de4xx_lib");
+    ephem_file_dir = "build/de4xx_lib";
     set_model_number(405);
 }
 
@@ -99,10 +98,8 @@ De4xxFileSpec::De4xxFileSpec (
 void De4xxFileSpec::set_model_number(int denum_in)
 {
     denum = denum_in;
-    std::snprintf (ephem_file_name, sizeof (ephem_file_name),
-                   "libde%d.so", denum);
-    std::snprintf (pathname, sizeof (pathname),
-                   "%s/%s", ephem_file_dir, ephem_file_name);
+    ephem_file_name = "libde" + std::to_string(denum) +".so";
+    pathname = ephem_file_dir + "/" + ephem_file_name;
 }
 
 
@@ -331,13 +328,13 @@ De4xxFile::open ( // flawfinder: ignore
 //   capture_mem_stats();
 
    // Use dynamic loader to load the file but only symbols as needed
-   io.file = dlopen(file_spec.pathname, RTLD_LAZY | RTLD_LOCAL);
+   io.file = dlopen(file_spec.pathname.c_str(), RTLD_LAZY | RTLD_LOCAL);
    if (io.file == NULL) {
       dlError = dlerror();
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
          "Error opening ephemeris file '%s' for input: %s",
-         file_spec.pathname, dlError);
+         file_spec.pathname.c_str(), dlError);
 
       // Not reached
       return;
@@ -345,8 +342,8 @@ De4xxFile::open ( // flawfinder: ignore
        MessageHandler::debug(
           __FILE__, __LINE__, EphemeridesMessages::debug,
           "Loading ephemeris data '%s' in '%s'",
-          file_spec.ephem_file_name,
-          file_spec.ephem_file_dir);
+          file_spec.ephem_file_name.c_str(),
+          file_spec.ephem_file_dir.c_str());
    }
 
    io.metaData = (jeod::EphemerisDataSetMeta *)dlsym(io.file, "metaData");
@@ -355,7 +352,7 @@ De4xxFile::open ( // flawfinder: ignore
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
          "Error obtaining ephemeris file symbol 'metaData' from '%s' for input: %s",
-         file_spec.pathname, dlError);
+         file_spec.pathname.c_str(), dlError);
 
       // Not reached
       return;
@@ -366,7 +363,7 @@ De4xxFile::open ( // flawfinder: ignore
        MessageHandler::fail (
           __FILE__, __LINE__, EphemeridesMessages::file_error,
           "Error loading ephemeris data from '%s' for input: %s Max: %d Actual: %d",
-          file_spec.pathname, "Exceeds maximum ephemeris entries",
+          file_spec.pathname.c_str(), "Exceeds maximum ephemeris entries",
           De4xxBase::De4xx_File_MaxEntries, io.metaData->number_file_items);
 
        // Not reached
@@ -380,7 +377,7 @@ De4xxFile::open ( // flawfinder: ignore
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
          "Error obtaining ephemeris file symbol 'itemData' from '%s' for input: %s",
-         file_spec.pathname, dlError);
+         file_spec.pathname.c_str(), dlError);
 
       // Not reached
       return;
@@ -392,7 +389,7 @@ De4xxFile::open ( // flawfinder: ignore
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
          "Error obtaining ephemeris file symbol 'segmentData' from '%s' for input: %s",
-         file_spec.pathname, dlError);
+         file_spec.pathname.c_str(), dlError);
 
       // Not reached
       return;

@@ -166,8 +166,8 @@ FlatPlateAeroFacet::aerodrag_force (
 
    if (calculate_drag_coef == true) {
 
-      if (aero_drag_param_ptr->gas_const == 0.0 ||
-          aero_drag_param_ptr->temp_free_stream == 0.0) {
+      if (std::fpclassify(aero_drag_param_ptr->gas_const) == FP_ZERO ||
+          std::fpclassify(aero_drag_param_ptr->temp_free_stream) == FP_ZERO) {
          MessageHandler::fail (
             __FILE__, __LINE__, AerodynamicsMessages::runtime_error,
             "Either the gas_const or temp_free_stream field(s) of "
@@ -206,7 +206,7 @@ FlatPlateAeroFacet::aerodrag_force (
                           (s_2);
 
          // if plate is full-on (alpha = 90 degrees), there is no tangential drag
-         if (sin_alpha != 1) {
+         if (!Numerical::compare_exact(sin_alpha,1)) {
             cos_alpha = sqrt (1 - (sin_alpha * sin_alpha));
             Vector3::scale (normal, sin_alpha, tangent);
             Vector3::diff (rel_vel_struct_hat, tangent, tangent);
@@ -284,7 +284,7 @@ FlatPlateAeroFacet::aerodrag_force (
 
 
       // if plate is full-on (alpha = 90 degrees)
-      if (sin_alpha == 1) {
+      if (Numerical::compare_exact(sin_alpha,1)) {
          Vector3::scale (normal, force_n, force);
          force_t = 0.0;
       }

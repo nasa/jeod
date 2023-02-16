@@ -175,37 +175,19 @@ MassBody::~MassBody (
        // Assume failure because this or attachment belongs to DynBody
        if(!success)
        {
-           BaseDynManager* dm;
-           DynBody* parent;
-           if( dyn_manager!= nullptr )
-           {
-               dm = dyn_manager;
-               parent = dm->find_dyn_body( links.parent()->name.c_str() );
-               success = parent->remove_mass_body(*this);
-           }
-           else if( links.parent()->dyn_manager != nullptr )
-           {
-               dm = links.parent()->dyn_manager;
-               parent = dm->find_dyn_body( links.parent()->name.c_str() );
-               success = parent->remove_mass_body(*this);
-           }
-
-           if( !success )
-           {
-               /*
-                * FATAL!
-                * Can't find a DynManager, can't attempt DynBody disconnect.
-                * Try to print a message.
-                * NOTE:
-                * During shutdown destruction, the MessageHandler may not be
-                * available!
-                */
-               MessageHandler::fail (
-                        __FILE__, __LINE__, MassBodyMessages::invalid_detach,
-                        "MassBody '%s' is attached to something "
-                        "at shutdown, but failed to detach!",
-                        name.c_str());
-           }
+           /*
+            * FATAL!
+            * Can't find a DynManager, can't attempt DynBody disconnect.
+            * Try to print a message.
+            * NOTE:
+            * During shutdown destruction, the MessageHandler may not be
+            * available!
+            */
+           MessageHandler::fail (
+                    __FILE__, __LINE__, MassBodyMessages::invalid_detach,
+                    "MassBody '%s' is attached to something "
+                    "at shutdown, but failed to detach!",
+                    name.c_str());
        }
    }
 
@@ -246,29 +228,16 @@ MassBody::initialize_mass (
    Matrix3x3::copy (core_properties.T_parent_this,
                     composite_properties.T_parent_this);
 
-
-   // If initializing mass of a DynBody, add to vehicle_points
-   DynBody* dyn_this;
-   if(  dyn_manager != nullptr )
-   {
-       dyn_this = dyn_manager->find_dyn_body(name.c_str());
-   }
-   else
-   {
-       dyn_this = nullptr;
-   }
-
-
    // Add the mass points.
    for (unsigned int ii = 0; ii < num_points; ii++)
    {
-       if( dyn_this == nullptr )
+       if( dyn_owner == nullptr )
        {
            add_mass_point (points[ii]);
        }
        else
        {
-           dyn_this->add_mass_point(points[ii]);
+           dyn_owner->add_mass_point(points[ii]);
        }
    }
 

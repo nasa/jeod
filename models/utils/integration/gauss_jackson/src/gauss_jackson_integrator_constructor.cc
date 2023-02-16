@@ -163,8 +163,7 @@ const
 {
    // Configure this object with the standard config if not already configured.
    if (priming_constructor == NULL) {
-      (const_cast<GaussJacksonIntegratorConstructor* const> (this))->
-         configure (GaussJacksonConfig::standard_configuration ());
+      (const_cast<GaussJacksonIntegratorConstructor*>(this))->configure (GaussJacksonConfig::standard_configuration ());
    }
 
    return er7_utils::alloc::allocate_object<

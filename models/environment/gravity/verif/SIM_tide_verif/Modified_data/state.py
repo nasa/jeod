@@ -8,14 +8,14 @@ def state_iss_typical():
   sv_dyn.trans_init.velocity  = [ 109.649663, -7527.726490, 1484.521489]
 
 
-sv_dyn.trans_init.subject = sv_dyn.dyn_body.mass
+sv_dyn.trans_init.set_subject_body( sv_dyn.dyn_body.mass )
 sv_dyn.trans_init.reference_ref_frame_name = "Earth.inertial"
 sv_dyn.trans_init.body_frame_id     = "composite_body"
 dynamics.dyn_manager.add_body_action(sv_dyn.trans_init)
 
 
 # Set the rotational position.
-sv_dyn.lvlh_init.dyn_subject               = sv_dyn.dyn_body
+sv_dyn.lvlh_init.set_subject_body( sv_dyn.dyn_body )
 sv_dyn.lvlh_init.planet_name               = "Earth"
 sv_dyn.lvlh_init.body_frame_id             = "composite_body"
 sv_dyn.lvlh_init.orientation.data_source   = trick.Orientation.InputEulerRotation

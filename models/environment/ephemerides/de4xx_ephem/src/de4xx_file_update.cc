@@ -232,7 +232,7 @@ De4xxFile::update (
               MessageHandler::fail (
                  __FILE__, __LINE__, EphemeridesMessages::file_error,
                  "Error obtaining ephemeris file symbol '%s' from '%s' for input: %s",
-                 segment_var_name.str().c_str(), file_spec.pathname, dlError);
+                 segment_var_name.str().c_str(), file_spec.pathname.c_str(), dlError);
 
               // Not reached
               return;

@@ -1,7 +1,7 @@
 lvlh_trans = trick.DynBodyInitLvlhTransState()
 lvlh_trans.thisown = 0
 
-lvlh_trans.dyn_subject   = vehicle2.dyn_body
+lvlh_trans.set_subject_body( vehicle2.dyn_body )
 lvlh_trans.body_frame_id = "composite_body"
 lvlh_trans.ref_body_name = "veh"
 lvlh_trans.planet_name   = "Earth"
@@ -12,7 +12,7 @@ lvlh_trans.velocity      = [10.0, 0.0, 0.0]
 lvlh_rot = trick.DynBodyInitLvlhRotState()
 lvlh_rot.thisown = 0
 
-lvlh_rot.dyn_subject    =  vehicle2.dyn_body
+lvlh_rot.set_subject_body( vehicle2.dyn_body )
 lvlh_rot.body_frame_id  = "composite_body"
 lvlh_rot.planet_name    = "Earth"
 lvlh_rot.orientation.data_source    = trick.Orientation.InputEulerRotation

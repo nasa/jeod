@@ -159,6 +159,7 @@ public:
      * Prepare this object for solving a constraint problem.
      * In this case, that means computing constraint_position_com.
      * @param vehicle_properties  Various vehicle properties.
+     * @param non_grav_state  Non-gravitational State.
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */

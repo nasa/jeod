@@ -942,7 +942,7 @@ SpiceEphemeris::ephem_update (
    // - the model isn't active or
    // - neither time nor the tree has changed.
    if ((inactive) ||
-         ((! force_update) && (update_time == *dyn_seconds))) {
+         ((! force_update) && (Numerical::compare_exact(update_time, *dyn_seconds)))) {
       return;
    }
 

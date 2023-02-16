@@ -1,5 +1,5 @@
 #/* Set the mass properties for this vehicle. */
-earth_vehicle.mass_init.subject = earth_vehicle.dyn_body.mass
+earth_vehicle.mass_init.set_subject_body( earth_vehicle.dyn_body.mass )
 
 #/* Set the struct to body reference frame orientation. */
 earth_vehicle.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation

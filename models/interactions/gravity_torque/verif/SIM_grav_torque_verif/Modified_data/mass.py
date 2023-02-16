@@ -1,4 +1,4 @@
-vehicle.mass_init.subject = vehicle.dyn_body.mass
+vehicle.mass_init.set_subject_body( vehicle.dyn_body.mass )
 vehicle.mass_init.properties.pt_orientation.data_source = \
                                        trick.Orientation.InputEigenRotation
 vehicle.mass_init.properties.pt_orientation.eigen_angle  = 0.0

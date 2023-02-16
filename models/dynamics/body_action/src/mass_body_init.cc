@@ -73,13 +73,13 @@ MassBodyInit::apply (
 {
 
    // Initialize the mass properties and set the mass points.
-   subject->initialize_mass (properties, points, num_points);
+   mass_subject->initialize_mass (properties, points, num_points);
 
    // Debug.
    MessageHandler::debug (
       __FILE__, __LINE__, BodyActionMessages::trace,
       "%s: %s mass properties initialized.",
-      action_identifier, subject->name.c_str());
+      action_identifier.c_str(), mass_subject->name.c_str());
 
 
    // Forward the action up the chain.

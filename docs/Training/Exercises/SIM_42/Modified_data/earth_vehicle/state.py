@@ -1,4 +1,4 @@
-earth_vehicle.trans_init.dyn_subject = earth_vehicle.dyn_body
+earth_vehicle.trans_init.set_subject_body( earth_vehicle.dyn_body )
 earth_vehicle.trans_init.reference_ref_frame_name = "Earth.inertial"
 earth_vehicle.trans_init.body_frame_id     = "composite_body"
 earth_vehicle.trans_init.position  = [ -4292653.41, 955168.47, 5139356.57]
@@ -7,7 +7,7 @@ earth_vehicle.trans_init.velocity  = [ 109.649663, -7527.726490, 1484.521489]
 #//
 #// Set the rotational position.
 #//
-earth_vehicle.lvlh_init.dyn_subject              = earth_vehicle.dyn_body
+earth_vehicle.lvlh_init.set_subject_body( earth_vehicle.dyn_body )
 earth_vehicle.lvlh_init.planet_name              = "Earth"
 earth_vehicle.lvlh_init.body_frame_id            = "composite_body"
 earth_vehicle.lvlh_init.orientation.data_source  = trick.Orientation.InputEulerRotation

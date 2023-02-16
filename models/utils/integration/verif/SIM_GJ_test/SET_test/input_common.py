@@ -36,7 +36,7 @@ vehicle.dyn_body.translational_dynamics = True
 vehicle.dyn_body.rotational_dynamics = False
 
 
-vehicle.mass_init.subject = vehicle.dyn_body.mass
+vehicle.mass_init.set_subject_body( vehicle.dyn_body.mass )
 vehicle.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation
 vehicle.mass_init.properties.pt_orientation.eigen_angle  = 0.0
 vehicle.mass_init.properties.pt_orientation.eigen_axis  = [ 0, 1, 0]
@@ -50,7 +50,7 @@ vehicle.mass_init.properties.inertia[2]  = [ 0.0,    0.0,   400.0]
 dynamics.dyn_manager.add_body_action (vehicle.mass_init)
 
 
-vehicle.trans_init.dyn_subject = vehicle.dyn_body
+vehicle.trans_init.set_subject_body( vehicle.dyn_body )
 vehicle.trans_init.reference_ref_frame_name = "Earth.inertial"
 vehicle.trans_init.body_frame_id = "composite_body"
 
@@ -60,7 +60,7 @@ vehicle.trans_init.velocity  = [ 0,8000.0,0]
 dynamics.dyn_manager.add_body_action (vehicle.trans_init)
 
 
-vehicle.rot_init.dyn_subject = vehicle.dyn_body
+vehicle.rot_init.set_subject_body( vehicle.dyn_body )
 vehicle.rot_init.reference_ref_frame_name = "Earth.inertial"
 vehicle.rot_init.body_frame_id = "composite_body"
 vehicle.rot_init.ang_velocity  = [ 0,0, 0.07]

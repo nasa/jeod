@@ -142,9 +142,9 @@ This abstract class does not accomplish this objective;
 it is a non-instantiable class. Attaching bodies is a task to be
 performed by derived classes specifying the attach method.
 \item[BodyAttachAligned] Derives from BodyAttach. \\
-Instances of this class attach the subject object to a parent body.
-The attachment is specified in terms of a pair of points, one on the subject
-object body and the other on the parent body. The attachment makes the two
+Instances of this class attach the subject body to a parent body.
+The attachment is specified in terms of a pair of points, one on the subject body and the other on the parent body. 
+The attachment makes the two
 points coincident and makes the transformation between the two
 points' reference frames be a 180 degree yaw.
 \item[BodyDetach and BodyDetachSpecific] Derive from BodyAction. \\
@@ -388,8 +388,7 @@ object to the Dynamic Manager's list of model objects.
 
 Four mistakes that the user can make in this process are:
 \begin{itemize}
-\item Failing to specify the subject body for each model object OR doubly
-specifying both the DynBody and MassBody inconsistently.
+\item Failing to specify the subject body for each model object.
 The JEOD methods do not know that the simulation integrator has made the
 subject body and the model object parts of the same simulation object.
 \item Attempting to reuse model objects. The {\tt add\_body\_action()}

@@ -31,7 +31,7 @@ def set_mass_command_module(sv_dyn_reference) :
 
 
   #/* Set the mass properties for this vehicle. */
-  sv_dyn_reference.mass_init.subject = sv_dyn_reference.dyn_body.mass
+  sv_dyn_reference.mass_init.set_subject_body( sv_dyn_reference.dyn_body.mass )
 
   #/* Set the struct to body reference frame orientation. */
   sv_dyn_reference.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation

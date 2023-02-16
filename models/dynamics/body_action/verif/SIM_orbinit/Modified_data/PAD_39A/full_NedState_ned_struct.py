@@ -17,7 +17,7 @@
 def set_PAD_39A_full_NedState_ned_struct(vehicle_reference, dynamics) :
 
 
-  vehicle_reference.ned_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.ned_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.ned_init.action_name = "PAD_39A.full_NedState_ned_struct"
 
   vehicle_reference.ned_init.reference_ref_frame_name = "Earth.inertial"

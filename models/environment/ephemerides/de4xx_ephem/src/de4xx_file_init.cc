@@ -97,7 +97,7 @@ De4xxFile::pre_initialize (
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
          "Error obtaining ephemeris file symbol 'segment_coeffs_0' from '%s' for input: %s",
-         file_spec.pathname, dlError);
+         file_spec.pathname.c_str(), dlError);
 
       // Not reached
       return;

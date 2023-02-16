@@ -159,7 +159,7 @@ RelativeKinematics::find_relstate (
 /**
  * Set flag for a relative state to be activated or
  * deactivated by the RelKin manager.
- * \param[in] relstate_name  Relstate to activate/deactivate
+ * \param[in] relstate  Relstate to activate/deactivate
  * \param[in] raf  bool Relstate activation flag
  */
 void

@@ -368,8 +368,8 @@ RadiationThirdBody::calculate_shadow (
 /**
  * generate_alpha( rho_adj, delta: generates an approximate alpha-value given
  * a relative disk size and fraction of maximum possible eclipse
- * \param[in] relative disk size
- * \param[in] fraction of eclipse achieved.
+ * \param[in] rho_adj relative disk size
+ * \param[in] delta fraction of eclipse achieved.
  */
 double
 RadiationThirdBody::generate_alpha (
@@ -429,7 +429,7 @@ RadiationThirdBody::convert_shadow_from_int(
 double
 RadiationThirdBody::process_third_body (
     double real_time,
-    RefFrame & veh_struc_frame __attribute__ ((unused)) )
+    RefFrame & veh_struc_frame JEOD_UNUSED )
 {
    // NOTE - for error cases, return 1.0 which is the value associated with no
    //        shadowing.

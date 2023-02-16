@@ -98,13 +98,13 @@ class DynBodyInit : public BodyAction {
     * The suffix of the frame name (i.e., the part of the name after the
     * vehicle identifier) to which this initializer pertains
     */
-   char * body_frame_id; //!< trick_units(--)
+   std::string body_frame_id; //!< trick_units(--)
 
    /**
     * The name of the reference frame against which state data specified
     * in a DynBodyInit subclass are referenced.
     */
-   char * reference_ref_frame_name; //!< trick_units(--)
+   std::string reference_ref_frame_name; //!< trick_units(--)
 
    /**
     * Contains state information set by the initializer, which is always
@@ -259,26 +259,26 @@ class DynBodyInit : public BodyAction {
    // find_planet: Find specified Planet, failing if not found.
    Planet * find_planet (
       DynManager & dyn_manager,
-      const char * planet_name,
-      const char * variable_name);
+      const std::string & planet_name,
+      const std::string & variable_name);
 
    // find_dyn_body: Find specified DynBody, failing if not found.
    DynBody * find_dyn_body (
       DynManager & dyn_manager,
-      const char * dyn_body_name,
-      const char * variable_name);
+      const std::string & dyn_body_name,
+      const std::string & variable_name);
 
    // find_ref_frame: Find specified BodyRefFrame, failing if not found.
    RefFrame * find_ref_frame (
       DynManager & dyn_manager,
-      const char * ref_frame_name,
-      const char * variable_name);
+      const std::string & ref_frame_name,
+      const std::string & variable_name);
 
    // find_body_frame: Find specified BodyRefFrame, failing if not found.
    BodyRefFrame * find_body_frame (
       DynBody & frame_container,
-      const char * body_frame_identifier,
-      const char * variable_name);
+      const std::string & body_frame_identifier,
+      const std::string & variable_name);
 
 };
 

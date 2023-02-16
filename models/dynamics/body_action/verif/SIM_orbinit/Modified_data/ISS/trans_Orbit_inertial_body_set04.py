@@ -21,7 +21,7 @@ def set_ISS_trans_Orbit_inertial_body_set04(vehicle_reference, dynamics) :
 
 
 
-  vehicle_reference.orb_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.orb_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.orb_init.action_name = "ISS.trans_Orbit_inertial_body_set04"
 
   vehicle_reference.orb_init.reference_ref_frame_name = "Earth.inertial"

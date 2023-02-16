@@ -1,11 +1,11 @@
-vehicleB.trans_init.dyn_subject              = vehicleB.dyn_body
+vehicleB.trans_init.set_subject_body( vehicleB.dyn_body )
 vehicleB.trans_init.reference_ref_frame_name = "Space.inertial"
 vehicleB.trans_init.body_frame_id            = "composite_body"
 vehicleB.trans_init.position                 = [-10.0, -2.0, 0.0]
 vehicleB.trans_init.velocity                 = [  2.0,  0.0, 0.0]
 
 
-vehicleB.rot_init.dyn_subject              =  vehicleB.dyn_body
+vehicleB.rot_init.set_subject_body( vehicleB.dyn_body )
 vehicleB.rot_init.reference_ref_frame_name = "Space.inertial"
 vehicleB.rot_init.body_frame_id            = "composite_body"
 vehicleB.rot_init.orientation.data_source  = trick.Orientation.InputEigenRotation

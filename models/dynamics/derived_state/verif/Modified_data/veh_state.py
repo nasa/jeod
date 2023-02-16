@@ -1,6 +1,6 @@
 def veh_state( veh):
   # Initialize Translational state
-  veh.init_orbit.subject = veh.dyn_body.mass
+  veh.init_orbit.set_subject_body( veh.dyn_body.mass )
   veh.init_orbit.reference_ref_frame_name = "Earth.pfix"
   veh.init_orbit.orbit_frame_name = "Earth.pfix"
   veh.init_orbit.planet_name = "Earth"
@@ -18,7 +18,7 @@ def veh_state( veh):
 
   # Initialize Rotational state
   veh.init_lvlh.planet_name = "Earth"
-  veh.init_lvlh.dyn_subject = veh.dyn_body
+  veh.init_lvlh.set_subject_body( veh.dyn_body )
   veh.init_lvlh.reference_ref_frame_name = "Earth.inertial"
   veh.init_lvlh.body_frame_id = "composite_body"
 
@@ -32,8 +32,8 @@ def veh_state( veh):
 
 def veh_state_alt(veh) :
   # Initialize Translational state
-  veh.trans_init.dyn_subject = veh.dyn_body
-  veh.trans_init.reference_ref_frame_name = veh.dyn_body.integ_frame_name
+  veh.trans_init.set_subject_body( veh.dyn_body )
+  veh.trans_init.reference_ref_frame_name = str(veh.dyn_body.integ_frame_name)
   veh.trans_init.body_frame_id     = "composite_body"
   veh.trans_init.position  = [ 0.0, 0.0, 0.0]
   veh.trans_init.velocity  = [ 0.0, 0.0, 0.0]
@@ -42,8 +42,8 @@ def veh_state_alt(veh) :
 
 
   # Initialize Rotational state
-  veh.rot_init.dyn_subject = veh.dyn_body
-  veh.rot_init.reference_ref_frame_name = veh.dyn_body.integ_frame_name
+  veh.rot_init.set_subject_body( veh.dyn_body )
+  veh.rot_init.reference_ref_frame_name = str(veh.dyn_body.integ_frame_name)
   veh.rot_init.body_frame_id            = "composite_body"
   veh.rot_init.orientation.data_source  = trick.Orientation.InputQuaternion
   veh.rot_init.ang_velocity             = [ 0.0, 0.0, 0.0]

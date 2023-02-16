@@ -1,5 +1,5 @@
 def mass_props(VEH):
-  VEH.mass_init.subject = VEH.body
+  VEH.mass_init.set_subject_body( VEH.body )
   VEH.mass_init.properties.mass       = 10.0
   VEH.mass_init.properties.position   = [0,0,0]
   VEH.mass_init.properties.inertia[0] = [1,0,0]
@@ -24,7 +24,7 @@ def mass_props(VEH):
 
   mass_init = trick.MassBodyInit()
   mass_init.thisown = 0
-  mass_init.subject = VEH.tank
+  mass_init.set_subject_body( VEH.tank )
   mass_init.properties.mass       = 10.0
   mass_init.properties.position   = [0,0,0]
   mass_init.properties.inertia[0] = [1,0,0]
@@ -44,8 +44,8 @@ def mass_props(VEH):
   # attach tank to vehicle
   mass_attach         = trick.BodyAttachAligned()
   mass_attach.thisown = 0
-  mass_attach.subject = VEH.tank
-  mass_attach.parent  = VEH.body
+  mass_attach.set_subject_body( VEH.tank )
+  mass_attach.set_parent_body( VEH.body )
   mass_attach.subject_point_name = "Tank-Vehicle Attach Point"
   mass_attach.parent_point_name  = "Vehicle-Tank Attach Point"
 

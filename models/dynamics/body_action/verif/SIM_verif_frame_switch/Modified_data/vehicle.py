@@ -5,7 +5,7 @@ veh.dyn_body.rotational_dynamics = True
 
 # Configure the mass
 veh.mass_init.action_name = "veh_mass_init"
-veh.mass_init.subject = veh.dyn_body.mass
+veh.mass_init.set_subject_body( veh.dyn_body.mass )
 veh.mass_init.properties.pt_orientation.data_source = \
   trick.Orientation.InputEigenRotation
 veh.mass_init.properties.pt_orientation.eigen_angle  = 0.0 
@@ -23,7 +23,7 @@ dynamics.dyn_manager.add_body_action (veh.mass_init)
 
 # Configure the vehicle translational state via a body action.
 veh.trans_init.action_name = "veh_init_trans"
-veh.trans_init.dyn_subject = veh.dyn_body
+veh.trans_init.set_subject_body( veh.dyn_body )
 veh.trans_init.reference_ref_frame_name = "Earth.inertial"
 veh.trans_init.body_frame_id = "composite_body"
 veh.trans_init.position = \
@@ -37,7 +37,7 @@ dynamics.dyn_manager.add_body_action (veh.trans_init)
 veh.rot_init.action_name = "veh_init_rot"
 veh.rot_init.reference_ref_frame_name = "Moon.inertial"
 veh.rot_init.body_frame_id = "composite_body"
-veh.rot_init.dyn_subject = veh.dyn_body
+veh.rot_init.set_subject_body( veh.dyn_body )
 veh.rot_init.orientation.data_source = trick.Orientation.InputEulerRotation
 veh.rot_init.orientation.eigen_angle  = 0.0
 veh.rot_init.orientation.eigen_axis  = [ 0, 1, 0]

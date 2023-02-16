@@ -1,4 +1,4 @@
-vehicle2.mass_init.subject = vehicle2.dyn_body.mass
+vehicle2.mass_init.set_subject_body( vehicle2.dyn_body.mass )
 vehicle2.mass_init.properties.mass =  500.0
 vehicle2.mass_init.properties.position =  [0,0,0]
 vehicle2.mass_init.properties.inertia_spec = trick.MassPropertiesInit.Struct

@@ -13,7 +13,7 @@
 def set_ISS_mass(vehicle_reference, dynamics) :
 
 
-  vehicle_reference.mass_init.subject = vehicle_reference.dyn_body.mass
+  vehicle_reference.mass_init.set_subject_body( vehicle_reference.dyn_body.mass )
   vehicle_reference.mass_init.action_name = "ISS.mass"
 
   vehicle_reference.mass_init.properties.mass  = 100000.0

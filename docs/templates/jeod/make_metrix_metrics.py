@@ -4,12 +4,16 @@ import os
 import sys
 import subprocess
 import string
+import metrixpp
 
+#metrixModuleDir = os.path.dirname(metrixpp.__file__)
+#metrixModuleDefLocation = os.path.join(metrixModuleDir, 'metrixpp.py')
+metrixModuleDefLocation = os.path.join(os.path.dirname(__file__), 'metrix++.py')
 
 from optparse import OptionParser
 
 parser = OptionParser()
-parser.add_option("-t", "--tool", dest="toolLocation", help="Specify location of metrixplusplus package.")
+parser.add_option("-t", "--tool", dest="toolLocation", help="Specify location of metrixplusplus package.", default=metrixModuleDefLocation)
 (options, args) = parser.parse_args()
 
 model_dir = os.path.realpath(os.path.join(os.getcwd(), '..', '..'))

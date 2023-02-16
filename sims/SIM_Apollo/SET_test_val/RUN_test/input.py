@@ -288,7 +288,7 @@ cm_dyn.dyn_body.mass.print_tree ( "SET_test/RUN_test/Apollo.out", 100 )
 #/* Attach LEM to CM. */
 #/*********************/
 trick.add_read(6.0 , """
-lm_dyn.dyn_body.attach("LM docking port", "CM docking port", cm_dyn.dyn_body)
+cm_dyn.dyn_body.attach_child("CM docking port", "LM docking port", lm_dyn.dyn_body)
 
 cm_dyn.dyn_body.mass.print_tree ( "SET_test/RUN_test/Trans_Lunar.out", 100 )
 """)
@@ -321,7 +321,7 @@ read = 9.0
 #/* Attach LEM to CM. */
 #/*********************/
 trick.add_read(9.0 , """
-lm_dyn.dyn_body.attach("LM docking port", "CM docking port", cm_dyn.dyn_body)
+lm_dyn.dyn_body.attach_to("LM docking port", "CM docking port", cm_dyn.dyn_body)
 
 cm_dyn.dyn_body.mass.print_tree ( "SET_test/RUN_test/Lunar_Rendezvous.out", 100 )
 """)

@@ -15,7 +15,7 @@
 #*******************************************************************************/
 
 def set_ISS_att_RotState_inertial_body(vehicle_reference, dynamics) :
-  vehicle_reference.att_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.att_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.att_init.action_name = "ISS.att_RotState_inertial_body"
 
   vehicle_reference.att_init.reference_ref_frame_name = "Earth.inertial"

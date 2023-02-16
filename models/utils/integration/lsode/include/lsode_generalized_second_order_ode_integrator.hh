@@ -129,8 +129,9 @@ public:
     * @param[in] dyn_dt        Integration interval step, dynamic time seconds.
     * @param[in] target_stage  The stage of the integration process
     *                          that the integrator should try to attain.
-    * @param[in,out] y_dot     Generalized velocity vector.
-    * @param[in,out] y         Generalized position vector.
+    * @param[in] accel         Generalized acceleration vector.
+    * @param[in,out] velocity  Generalized velocity vector.
+    * @param[in,out] position  Generalized position vector.
     *
     * @return The status (time advance, pass/fail status) of the integration.
     */

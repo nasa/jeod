@@ -26,11 +26,11 @@ def set_utc( yr, mn, dy, hr, mt, sec) :
 
 def set_state(name) :
   #defaults
-  vehicle.trans_init.dyn_subject = vehicle.dyn_body
+  vehicle.trans_init.set_subject_body( vehicle.dyn_body )
   vehicle.trans_init.reference_ref_frame_name = "Earth.inertial"
   vehicle.trans_init.body_frame_id     = "composite_body"
 
-  vehicle.lvlh_init.dyn_subject                    = vehicle.dyn_body
+  vehicle.lvlh_init.set_subject_body( vehicle.dyn_body )
   vehicle.lvlh_init.planet_name                = "Earth"
   vehicle.lvlh_init.body_frame_id              = "composite_body"
   vehicle.lvlh_init.orientation.data_source    = trick.Orientation.InputEulerRotation

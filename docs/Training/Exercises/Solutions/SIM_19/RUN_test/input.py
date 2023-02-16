@@ -27,35 +27,35 @@ exec(compile(open("Modified_data/attach.py", "rb").read(), "Modified_data/attach
 
 
 trick.add_read(0.0 , """
-vehicleA.body.print_tree ( "RUN_test/initialization.out", 100 )
+vehicleA.body.mass.print_tree ( "RUN_test/initialization.out", 100 )
 """)
 
 trick.add_read(2.0 , """
 vehicleB.tank.core_properties.mass = vehicleB.tank.core_properties.mass * 0.5
 vehicleB.tank.set_update_flag()
-vehicleA.body.update_mass_properties()
-vehicleA.body.print_tree ( "RUN_test/fifty_percent.out", 100 )
+vehicleA.body.mass.update_mass_properties()
+vehicleA.body.mass.print_tree ( "RUN_test/fifty_percent.out", 100 )
 """)
 
 trick.add_read(4.0 , """
 vehicleB.tank.core_properties.mass = vehicleB.tank.core_properties.mass * 0.4
 vehicleB.tank.set_update_flag()
-vehicleA.body.update_mass_properties()
-vehicleA.body.print_tree ( "RUN_test/eighty-percent.out", 100 )
+vehicleA.body.mass.update_mass_properties()
+vehicleA.body.mass.print_tree ( "RUN_test/eighty-percent.out", 100 )
 """)
 
 trick.add_read(6.0 , """
 vehicleB.tank.core_properties.mass = vehicleB.tank.core_properties.mass * 0.5
 vehicleB.tank.set_update_flag()
-vehicleA.body.update_mass_properties()
-vehicleA.body.print_tree ( "RUN_test/ninety-percent.out", 100 )
+vehicleA.body.mass.update_mass_properties()
+vehicleA.body.mass.print_tree ( "RUN_test/ninety-percent.out", 100 )
 """)
 
 trick.add_read(8.0 , """
 vehicleB.tank.core_properties.mass = 0.0
 vehicleB.tank.set_update_flag()
-vehicleA.body.update_mass_properties()
-vehicleA.body.print_tree ( "RUN_test/hundred-percent.out", 100 )
+vehicleA.body.mass.update_mass_properties()
+vehicleA.body.mass.print_tree ( "RUN_test/hundred-percent.out", 100 )
 """)
 
 trick.sim_services.exec_set_terminate_time(10.0)

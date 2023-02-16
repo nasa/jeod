@@ -11,7 +11,7 @@ def set_state_sv_leo_lvlh(sv_dyn_reference) :
   #//
   #// Set the translational position.
   #//
-  sv_dyn_reference.trans_init.dyn_subject = sv_dyn_reference.dyn_body
+  sv_dyn_reference.trans_init.set_subject_body( sv_dyn_reference.dyn_body )
   sv_dyn_reference.trans_init.reference_ref_frame_name = "Earth.inertial"
   sv_dyn_reference.trans_init.body_frame_id     = "composite_body"
   sv_dyn_reference.trans_init.position  = [ -4292653.41, 955168.47, 5139356.57]
@@ -20,7 +20,7 @@ def set_state_sv_leo_lvlh(sv_dyn_reference) :
   #//
   #// Set the rotational position.
   #//
-  sv_dyn_reference.lvlh_init.dyn_subject                         = sv_dyn_reference.dyn_body
+  sv_dyn_reference.lvlh_init.set_subject_body( sv_dyn_reference.dyn_body )
   sv_dyn_reference.lvlh_init.planet_name                     = "Earth"
   sv_dyn_reference.lvlh_init.body_frame_id                   = "composite_body"
   sv_dyn_reference.lvlh_init.orientation.data_source    = trick.Orientation.InputEulerRotation

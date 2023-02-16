@@ -31,7 +31,7 @@ right ascension of ascending node, argument of periapsis, and the time
 since periapsis passage.
 
 \begin{verbatim}
-target.orb_init.dyn_subject     = &target.dyn_body;
+target.orb_init.set_subject_body(target.dyn_body);
 target.orb_init.action_name = "target.orb_init";
 
 target.orb_init.reference_ref_frame_name = "Earth.inertial";
@@ -67,7 +67,7 @@ sequence as is done in this example. The Dynamics Manager will
 sort things out.
 
 \begin{verbatim}
-chaser.trans_init.subject = &chaser.dyn_body.mass;
+chaser.trans_init.set_subject_body(chaser.dyn_body.mass);
 chaser.trans_init.action_name = "chaser.trans_state_tpoint_cpoint";
 
 chaser.trans_init.reference_ref_frame_name = "target.attach_point";
@@ -80,7 +80,7 @@ dynamics.body_action_ptr = &chaser.trans_init;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 
 
-target.trans_init.dyn_subject = &target.dyn_body;
+target.trans_init.set_subject_body(target.dyn_body);
 target.trans_init.action_name = "target.trans_state_pfix_body";
 
 target.trans_init.reference_ref_frame_name = "Earth.pfix";
@@ -102,7 +102,7 @@ The following initializes the target attitude rate
 given an Earth-centered inertial state specification.
 
 \begin{verbatim}
-target.rot_init.subject = &target.dyn_body.mass;
+target.rot_init.set_subject_body(target.dyn_body.mass);
 target.rot_init.action_name = "target.rate_state_inertial_body";
 
 target.rot_init.reference_ref_frame_name = "Earth.inertial";
@@ -146,7 +146,7 @@ chaser.lvlh_init.lvlh_type = trick.LvlhType.Rectilinear;
 chaser.lvlh.subject_name    = "chaser.composite_body"
 chaser.lvlh.planet_name     = "Earth"
 
-chaser.lvlh_init.subject = chaser.dyn_body.mass
+chaser.lvlh_init.set_subject_body(chaser.dyn_body.mass);
 chaser.lvlh_init.action_name = "chaser_lvlh_init"
 chaser.lvlh_init.planet_name = "Earth"
 chaser.lvlh_init.set_lvlh_frame_object (target.lvlh)
@@ -182,7 +182,7 @@ with respect to a specified point on the Earth
 and initializes the chaser's translational state relative to the launchpad.
 
 \begin{verbatim}
-launchpad.ned_init.dyn_subject = &launchpad.dyn_body;
+launchpad.ned_init.set_subject_body(launchpad.dyn_body);
 launchpad.ned_init.action_name = "launchpad.ned_state_ref_struct";
 
 launchpad.ned_init.reference_ref_frame_name = "Earth.inertial";
@@ -206,7 +206,7 @@ dynamics.body_action_ptr = &launchpad.ned_init;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 
 
-chaser.ned_trans_init.dyn_subject = &chaser.dyn_body;
+chaser.ned_trans_init.set_subject_body(chaser.dyn_body);
 chaser.ned_trans_init.action_name = "chaser.trans_ned_launch_pad_struct";
 
 chaser.ned_trans_init.reference_ref_frame_name = "Earth.inertial";

@@ -79,7 +79,7 @@ GravityManager::~GravityManager (
 /**
  * Find the gravitational body with the given name.
  * @return Pointer to found body
- * \param[in] body_name Name of body to be found
+ * \param[in] source_name Name of gravity source to be found
  */
 GravitySource *
 GravityManager::find_grav_source (
@@ -112,7 +112,7 @@ const
 /**
  * Create a gravitational body, initialize it with the supplied
  * gravity coefficients, and add it to the vector of bodies.
- * \param[in] body Gravity body to be added
+ * \param[in] source Gravity source to be added
  */
 void
 GravityManager::add_grav_source (

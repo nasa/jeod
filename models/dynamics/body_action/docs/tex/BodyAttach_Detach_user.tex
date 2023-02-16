@@ -53,27 +53,27 @@ The events in this example are
 \begin{verbatim}
 BodyAttachAligned * C_to_B = new BodyAttachAligned[1];
 C_to_B->action_name        = "C_to_B";
-C_to_B->subject            = &vehicle_C.dyn_body.mass;
+C_to_B->set_subject_body(vehicle_C.dyn_body.mass);
 C_to_B->subject_point_name = "point_B";
-C_to_B->parent             = &vehicle_B.dyn_body.mass;
+C_to_B->set_parent_body(vehicle_B.dyn_body.mass);
 C_to_B->parent_point_name  = "point_C";
 dynamics.body_action_ptr   = C_to_B;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 
 BodyAttachAligned * E_to_D = new BodyAttachAligned[1];
 E_to_D->action_name        = "E_to_D";
-E_to_D->subject            = &vehicle_D.mass_E;
+E_to_D->set_subject_body(vehicle_D.mass_E);
 E_to_D->subject_point_name = "point_D";
-E_to_D->dyn_parent         = &vehicle_D.dyn_body;
+E_to_D->set_parent_body(vehicle_D.dyn_body);
 E_to_D->parent_point_name  = "point_E";
 dynamics.body_action_ptr   = E_to_D;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 
 BodyAttachAligned * D_to_A = new BodyAttachAligned[1];
 D_to_A->action_name        = "D_to_A";
-D_to_A->dyn_subject        = &vehicle_D.dyn_body;
+D_to_A->set_subject_body(vehicle_D.dyn_body);
 D_to_A->subject_point_name = "point_A";
-D_to_A->dyn_parent         = &vehicle_A.dyn_body;
+D_to_A->set_parent_body(vehicle_A.dyn_body);
 D_to_A->parent_point_name  = "point_D";
 D_to_A->active             = false;
 dynamics.body_action_ptr   = D_to_A;
@@ -81,8 +81,8 @@ call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 
 BodyDetachSpecific * C_from_A = new BodyDetachSpecific[1];
 C_from_A->action_name      = "D_from_A";
-C_from_A->subject          = &vehicle_C.dyn_body.mass;
-C_from_A->detach_from      = &vehicle_A.dyn_body.mass;
+C_from_A->set_subject_body(vehicle_C.dyn_body.mass);
+C_from_A->set_detach_from_body(vehicle_A.dyn_body.mass);
 dynamics.body_action_ptr   = C_from_A;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 
@@ -93,11 +93,10 @@ call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 stop = 10;
 BodyAttachAligned * C_to_A = new BodyAttachAligned[1];
 C_to_A->action_name        = "C_to_A";
-C_to_A->dyn_subject        = &vehicle_C.dyn_body;
+C_to_A->set_subject_body(vehicle_C.dyn_body);
 C_to_A->subject_point_name = "point_A";
-// OK to spec dyn_subject to MassBody parent as long as parent actually
-// belongs to a DynBody (checked via MassBody::dyn_owner)
-C_to_A->parent             = &vehicle_A.dyn_body.mass;
+// OK to use MassBody instance within DynBody (checked via MassBody::dyn_owner)
+C_to_A->set_parent_body(vehicle_A.dyn_body.mass);
 C_to_A->parent_point_name  = "point_C";
 C_to_A->active             = true;
 dynamics.body_action_ptr   = C_to_A;
@@ -112,7 +111,7 @@ C_from_A->active         = true;
 stop = 40;
 BodyDetach * D_from_A = new BodyDetach[1];
 D_from_A->action_name      = "D_from_A";
-D_from_A->dyn_subject          = &vehicle_D.dyn_body;
+D_from_A->set_subject_body(vehicle_D.dyn_body);
 D_from_A->active           = true;
 dynamics.body_action_ptr   = D_from_A;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);

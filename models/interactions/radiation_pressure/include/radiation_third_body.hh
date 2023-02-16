@@ -245,8 +245,8 @@ public:
 
    void convert_shadow_from_int (int geometry);
 
-   virtual double process_third_body( double time,
-                                      RefFrame & vehicle_structural_frame );
+   virtual double process_third_body( double real_time,
+                                      RefFrame & veh_struc_frame );
 
    /**
     * Setter for the name.
@@ -261,16 +261,16 @@ public:
     * @param veh_surf_elem The facet of the vehicle.
     * @param calculate_forces pass-through flag.
     */
-   virtual void accumulate_refl_flux( RadiationBaseFacet * veh_surf_elem __attribute__ ((unused)) ,
-                                      bool calculate_forces __attribute__ ((unused)) ) {};
+   virtual void accumulate_refl_flux( RadiationBaseFacet * veh_surf_elem JEOD_UNUSED ,
+                                      bool calculate_forces JEOD_UNUSED ) {};
 
    /**
     * To provide base class null implementation
     * @param veh_surf_elem The facet of the vehicle.
     * @param calculate_forces pass-through flag.
     */
-   virtual void accumulate_rad_flux( RadiationBaseFacet * veh_surf_elem __attribute__ ((unused)) ,
-                                     bool calculate_forces __attribute__ ((unused)) ) {};
+   virtual void accumulate_rad_flux( RadiationBaseFacet * veh_surf_elem JEOD_UNUSED ,
+                                     bool calculate_forces JEOD_UNUSED ) {};
 
    /**
     * Identifies this class as one that does not produce a radiaiton field
@@ -294,7 +294,7 @@ public:
 
 
 protected:
-   double generate_alpha( double rho, double delta);
+   double generate_alpha( double rho_adj, double delta);
    bool test_for_state_update( double time );
    virtual bool update_third_body_state( void );
 

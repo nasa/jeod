@@ -64,6 +64,7 @@ Library dependencies:
 #define JEOD_BODY_ACTION_HH
 
 // System includes
+#include <string>
 
 // JEOD includes
 #include "dynamics/mass/include/class_declarations.hh"
@@ -113,22 +114,26 @@ class BodyAction {
  public:
 
    /**
-    * The MassBody of the body that is the subject of this action.
-    * This or the dyn_subject pointer must be supplied. If both applied, they
-    * must be consistent between the two bodies.
-    * Actions on the body are performed by the apply methods of specific
-    * class derived from the BodyAction class.
+    * Set the subject mass body of this action. Resets dyn_subject to null
     */
-   MassBody * subject; //!< trick_units(--)
+   void set_subject_body(MassBody & mass_body_in);
 
    /**
-    * The DynBody of the body that is the subject of this action.
-    * This or the subject pointer must be supplied. If both applied, they
-    * must be consistent between the two bodies.
-    * Actions on the body are performed by the apply methods of specific
-    * class derived from the BodyAction class.
+    * Set the subject dyn body of this action. Resets mass_subject to null
     */
-   DynBody * dyn_subject; //!< trick_io(**)
+   void set_subject_body(DynBody & dyn_body_in);
+
+   /**
+    * Test the input mass body against the subject body and return true if they are the same body.
+    */
+   bool is_same_subject_body(MassBody & mass_body_in);
+
+   /**
+    * Check if the subject is a DynBody.
+    */
+   bool is_subject_dyn_body();
+
+   DynBody * get_subject_dyn_body();
 
    /**
     * Controls when the action is performed.
@@ -154,23 +159,43 @@ class BodyAction {
    bool terminate_on_error; //!< trick_units(--)
 
    /**
-    * An identifier for this action. This can be left as NULL (default value).
+    * An identifier for this action. This can be left as empty (default value).
     * The action_name is used only when an error is detected. The generated
     * error message identifies the action name if supplied. The intent is to
     * generate an error message that helps the user pinpoint the source of the
     * error.
     */
-   char * action_name; //!< trick_units(--)
+   std::string action_name; //!< trick_units(--)
 
 
  protected:
+
+   /**
+    * The MassBody of the body that is the subject of this action.
+    * This or the dyn_subject pointer must be supplied.
+    * Actions on the body are performed by the apply methods of specific
+    * class derived from the BodyAction class.
+    */
+   MassBody * mass_subject; //!< trick_units(--)
+
+   /**
+    * The DynBody of the body that is the subject of this action.
+    * This or the subject pointer must be supplied.
+    * Actions on the body are performed by the apply methods of specific
+    * class derived from the BodyAction class.
+    */
+   DynBody * dyn_subject; //!< trick_units(--)
 
    /**
     * An identifier for this action, constructed from the class name and the
     * action name at initialization time. This is used for generating error
     * and debug messages.
     */
-   char * action_identifier; //!< trick_units(--)
+   std::string action_identifier; //!< trick_units(--)
+
+   // Check the dyn and mass body pointers to make sure one is set.
+   virtual void validate_body_inputs(DynBody *& dyn_body_in, MassBody *& mass_body_in,
+           const std::string & body_base_name);
 
 
  // Member functions
@@ -196,7 +221,7 @@ class BodyAction {
 
 
    // get_identifier(): Accessor for the action_identifier.
-   const char * get_identifier (void) const;
+   const std::string & get_identifier (void) const;
 
 
    // initialize(): Initialize the initializer (*not* the subject)
@@ -225,9 +250,9 @@ class BodyAction {
 
    // validate_name: Ensure that a string is not trivially invalid.
    void validate_name (
-      const char * variable_value,
-      const char * variable_type,
-      const char * variable_name);
+      const std::string & variable_value,
+      const std::string & variable_type,
+      const std::string & variable_name);
 
 };
 
@@ -236,7 +261,7 @@ class BodyAction {
  * Accessor for action_identifier.
  * @return Action identifier
  */
-inline const char *
+inline const std::string &
 BodyAction::get_identifier (
    void)
 const

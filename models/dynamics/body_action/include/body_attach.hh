@@ -42,7 +42,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/include/mass_body_attach.hh
+ * @file models/dynamics/body_action/include/body_attach.hh
  * Define the class MassBodyAttach, the base class used for attaching a pair
  * of MassBody objects to one another.
  */
@@ -101,28 +101,37 @@ class BodyAttach : public BodyAction {
  public:
 
    /**
-    * The MassBody corresponding to which the subject body is to be attached,
-    * directly if the subject body is a root body, and indirectly by attaching
-    * the subject body's root body to the parent body otherwise.
-    * This or the dyn_parent pointer must be supplied. If both applied, they
-    * must be consistent between the two bodies.
+    * Set the parent mass body of this action. Resets dyn_parent to null
     */
-   MassBody * parent; //!< trick_units(--)
+   void set_parent_body(MassBody & mass_body_in);
 
    /**
-    * The DynBody corresponding to which the subject body is to be attached,
-    * directly if the subject body is a root body, and indirectly by attaching
-    * the subject body's root body to the parent body otherwise.
-    * This or the parent pointer must be supplied. If both applied, they
-    * must be consistent between the two bodies.
+    * Set the parent dyn body of this action. Resets mass_parent to null
     */
-   DynBody * dyn_parent; //!< trick_units(--)
+   void set_parent_body(DynBody & dyn_body_in);
 
    /**
     * Did the attachment succeed?
     */
    bool succeeded; //!< trick_units(--)
 
+
+ protected:
+   /**
+    * The MassBody corresponding to which the subject body is to be attached,
+    * directly if the subject body is a root body, and indirectly by attaching
+    * the subject body's root body to the parent body otherwise.
+    * This or the dyn_parent pointer must be supplied.
+    */
+   MassBody * mass_parent; //!< trick_units(--)
+
+   /**
+    * The DynBody corresponding to which the subject body is to be attached,
+    * directly if the subject body is a root body, and indirectly by attaching
+    * the subject body's root body to the parent body otherwise.
+    * This or the parent pointer must be supplied.
+    */
+   DynBody * dyn_parent; //!< trick_units(--)
 
  // Member functions
  // The copy constructor and assignment operator for this class are

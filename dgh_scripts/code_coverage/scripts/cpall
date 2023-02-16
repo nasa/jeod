@@ -1,0 +1,41 @@
+#!/bin/sh
+#==============================================================================
+
+JEOD_RUN=$1
+JEOD_GCOV=$2
+SIM_PATH="$3"
+RUN_PATH="$4"
+
+cd ${JEOD_HOME}
+${JEOD_HOME}/dgh_scripts/code_coverage/scripts/list_sims
+end_SIMs="`sed -n '$=' ${JEOD_HOME}/dgh_scripts/code_coverage/data/sims.d`"
+if [ -n "$end_SIMs" ]; then
+  rm -rf ${JEOD_HOME}/dgh_scripts/code_coverage/sims/*
+  for (( i = 1; i <= $end_SIMs; i++))
+  do
+    sim_dir="`head -n ${i} ${JEOD_HOME}/dgh_scripts/code_coverage/data/sims.d | tail -n 1`"
+    echo "${SIM_PATH}" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    echo "${sim_dir}" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    if [[ -z "${SIM_PATH}" || ${sim_dir} = *${SIM_PATH} ]]; then
+      cd ${JEOD_HOME}/${sim_dir}
+
+      RUN_SIM=0
+      make spotless
+      CP
+      text=`grep "Simulation make complete" CP_out`
+      if [ -z "$text" ]; then
+	echo "ERROR with ${JEOD_HOME}/${sim_dir}" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+      else
+	RUN_SIM=1
+	sim_name="SIM`echo $sim_dir | awk -F\SIM  '{print $2 }'`"
+	mkdir ${JEOD_HOME}/dgh_scripts/code_coverage/sims/${sim_name}
+	echo "Done" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+      fi
+
+      if [[ $JEOD_RUN -eq 1 && $RUN_SIM -eq 1 ]]; then
+	${JEOD_HOME}/dgh_scripts/code_coverage/scripts/runall ${JEOD_GCOV} ${sim_name} ${RUN_PATH}
+      fi
+    fi
+  done
+fi
+    

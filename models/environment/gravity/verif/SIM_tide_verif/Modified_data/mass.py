@@ -1,5 +1,5 @@
 # Set the mass properties for this vehicle.
-sv_dyn.mass_init.subject = sv_dyn.dyn_body.mass
+sv_dyn.mass_init.set_subject_body( sv_dyn.dyn_body.mass )
 
 # Set the struct to body reference frame orientation.
 sv_dyn.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation

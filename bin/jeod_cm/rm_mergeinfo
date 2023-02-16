@@ -1,0 +1,71 @@
+#!/bin/bash 
+#
+# rm_mergeinfo : a script to check or remove svn:mergeinfo property to 
+#                be able to merge branch and trunk properly 
+#                This script must be executed from the top level directory
+
+
+# Parse the optional arguments
+case $1 in
+    -check)
+     Option="check"
+     shift
+     ;;
+    -clean)
+     Option="clean"
+     shift
+     ;;
+    *)
+     Option="invalid"
+     shift
+     ;;
+esac
+
+if [ $# -gt 0 -o $Option = "invalid" ]; then
+   echo
+   echo "Usage: rm_mergeinfo [option]"
+   echo "       This script must be executed from the top level directory"
+   echo
+   echo "   Options:"
+   echo "       -check : Checks to see if there are any svn:mergeinfo"
+   echo "       -clean : Clean svn:mergeinfo" 
+   echo 
+   exit 1
+fi
+# Checks to see if the current directory is at the top level
+[ -e README_jeod ] || {
+   echo -e "\nThis script needs to be executed from the top level directory\n" 
+   exit 2
+   }
+# Gives the info on which working copy this script will run on 
+location=`svn info | grep URL | cut -d"/" -f6`
+branch=`svn info | grep URL | cut -d"/" -f7`
+# Checks to see if there is any svn:mergeinfo property
+[ $Option == "check"  ] && { 
+   echo -e "\nChecking for svn:mergeinfo property on ${location%es} $branch ...\n"
+   svn propdel svn:mergeinfo . -R >& /dev/null
+   svn diff . > mergeinfo
+# Counter to see how many directory are affected by svn_mergeinfo property
+   a=0
+   dname=`cat mergeinfo | grep Property | cut -d":" -f2`
+   for ii in $dname; do
+# Revert changes to each directory affected by 'svn propdel svn:mergeinfo . -R'
+# This will not revert any other changes since developer will have their own changes
+      a=$(($a+1))
+      svn revert $ii >& /dev/null
+# Ignores the top level changes to mergeinfo since it will always have one
+      [ $ii == . ] || echo "Mergeinfo property on $ii"
+   done
+   [ $a -gt 1 ] && echo -e "\n\e[00;31mYou must use 'rm_mergeinfo -clean' before using svn merge command\e[00m\n" 
+   [ $a -eq 1 ] && echo -e "\n\e[00;32mYou are safe to use 'svn merge' command\e[00m\n"
+# Removes the generated file after its use
+   [ -e mergeinfo ] && rm -f mergeinfo
+   }
+# Clean all svn:mergeinfo property from the working copy that causes merge issue when using 'svn merge'
+[ $Option == "clean"  ] && { 
+   echo -e "\nCleaning svn:mergeinfo property from $location ...\n"
+   svn propdel svn:mergeinfo . -R >& /dev/null
+   svn revert . >& /dev/null
+   echo -e "\e[00;32m!! Clean Successfull !!\e[00m" 
+   echo -e "\e[00;31m!! Be sure to refer to ticket #41 in your commit log message !!\e[00m\n" 
+   }

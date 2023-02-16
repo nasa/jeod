@@ -101,14 +101,14 @@ public:
     /**
      * Collection of effector wrenches.
      * The effector wrenches are assembled into the collection at the
-     * S_define level via
+     * S_define level via @code
      *
      *     vcollect containing_body.effector_wrench_collection.collect_wrench {
      *         pointer_to_wrench1,
      *         ...
      *         pointer_to_wrench_n
      *     };
-     *
+     * @endcode
      * The collected effector wrenches are processed by the
      * collect_forces_and_torques member function.
      *
@@ -304,7 +304,7 @@ protected:
     void PropagateForcesAndTorques ();
 
     /**
-     * Compute the inertial torque @f $\omega \cross I \omega @f$.
+     * Compute the inertial torque 
      */
     void compute_inertial_torque ();
 

@@ -27,14 +27,14 @@ child3_mass_default()
 child3_mass_points_2()
 
 pt_attach1_default()
-components.pt_attach1.subject     = components.child2_body
-components.pt_attach1.parent      = components.child1_body
+components.pt_attach1.set_subject_body( components.child2_body )
+components.pt_attach1.set_parent_body( components.child1_body )
 components.pt_attach1.subject_point_name = "ghost_front_to_back"
 components.pt_attach1.parent_point_name  = "back_center_right"
 
 pt_attach2_default()
-components.pt_attach2.subject     = components.child3_body
-components.pt_attach2.parent      = components.child2_body
+components.pt_attach2.set_subject_body( components.child3_body )
+components.pt_attach2.set_parent_body( components.child2_body )
 components.pt_attach2.subject_point_name = "back_to_front"
 components.pt_attach2.parent_point_name  = "front_to_back"
 

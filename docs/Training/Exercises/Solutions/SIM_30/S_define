@@ -115,5 +115,6 @@ class VehicleSimObject : public Trick::SimObject {
 };
 VehicleSimObject vehicle(dynamics.dyn_manager);
 
+##include "environment/gravity/include/gravity_manager.hh"
 // Set the integration
 IntegLoop sim_integ_loop (DYNAMICS) dynamics;

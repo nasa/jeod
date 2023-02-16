@@ -193,7 +193,7 @@ public:
      * and the root DynBody.
      * @param vehicle_properties  Various vehicle properties (not used).
      */
-    virtual void update_attachment (const VehicleProperties&)
+    virtual void update_attachment (const VehicleProperties& vehicle_properties JEOD_UNUSED)
     {
         update_root_to_constraint_frame();
     }

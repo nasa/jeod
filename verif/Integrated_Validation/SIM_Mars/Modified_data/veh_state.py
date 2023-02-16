@@ -1,5 +1,5 @@
 # All instances have the same lvlh orientation state.
-dawn.lvlh_init.dyn_subject                    = dawn.dyn_body
+dawn.lvlh_init.set_subject_body( dawn.dyn_body )
 dawn.lvlh_init.planet_name                = "Mars"
 dawn.lvlh_init.body_frame_id              = "composite_body"
 dawn.lvlh_init.orientation.data_source    = trick.Orientation.InputEulerRotation
@@ -11,7 +11,7 @@ dynamics.dyn_manager.add_body_action (dawn.lvlh_init)
 def set_dawn_trans_state() :
   # State initialization data for a Dawn orbital state
   # Set the translational position.
-  dawn.trans_init.dyn_subject = dawn.dyn_body
+  dawn.trans_init.set_subject_body( dawn.dyn_body )
   dawn.trans_init.reference_ref_frame_name = "Mars.inertial"
   dawn.trans_init.body_frame_id     = "composite_body"
   dawn.trans_init.position  = trick.attach_units( "km",[ 11563.3556802 , -14356.6688977   , 6293.7046169    ])
@@ -21,7 +21,7 @@ def set_dawn_trans_state() :
 def set_phobos_trans_state() :
   # State initialization data for a Phobos orbital state
   # Set the translational position.
-  dawn.trans_init.dyn_subject = dawn.dyn_body
+  dawn.trans_init.set_subject_body( dawn.dyn_body )
   dawn.trans_init.reference_ref_frame_name = "Mars.inertial"
   dawn.trans_init.body_frame_id     = "composite_body"
   dawn.trans_init.position  = trick.attach_units( "km",[ 8240.7901108 , 605.0716371   , -4152.5375845 ])
@@ -30,7 +30,7 @@ def set_phobos_trans_state() :
 
 def set_phobos_orb_state() :
   # State initialization data for a Phobos orbital state
-  dawn.orb_init.dyn_subject = dawn.dyn_body
+  dawn.orb_init.set_subject_body( dawn.dyn_body )
   dawn.orb_init.reference_ref_frame_name = "Mars.inertial"
   dawn.orb_init.body_frame_id    = "composite_body"
   dawn.orb_init.planet_name      = "Mars"

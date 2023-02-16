@@ -22,7 +22,7 @@ inertial integration frame to a Moon-centered inertial integration frame upon
 entering the Moon's sphere of influence.
 
 \begin{verbatim}
-chaser.frame_switch.dyn_subject         = &chaser.dyn_body;
+chaser.frame_switch.set_subject_body(chaser.dyn_body);
 chaser.frame_switch.action_name         = "frame_switch_enter";
 chaser.frame_switch.integ_frame_name    = "Moon.inertial";
 chaser.frame_switch.switch_sense        = DynBodyFrameSwitch::SwitchOnApproach;

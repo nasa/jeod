@@ -206,14 +206,14 @@ JEOD_MAKE_SIM_INTERFACES(De4xxFileSpec)
    /**
     * Set ephemeris model number.
     * This number is used to specify the de file to use
-    * the pathname is of the form PWD/build/de4xx_lib/libde<denumIn>.so
+    * the pathname is of the form PWD/build/de4xx_lib/libde\<denumIn\>.so
     */
    void set_model_number(int denum_in);
 
    /**
     * Get Ephemeris model number.
     * This number is used to specify the de file to use
-    * the pathname is of the form PWD/build/de4xx_lib/libde<denumIn>.so
+    * the pathname is of the form PWD/build/de4xx_lib/libde\<denumIn\>.so
     */
    uint32_t get_model_number() {
        return denum;
@@ -233,18 +233,18 @@ protected:
    /**
     * Ephemeris file directory
     */
-   char ephem_file_dir[256];  //!< trick_units(--)
+   std::string ephem_file_dir;  //!< trick_units(--)
 
    /**
     * Ephemeris file name
     */
-   char ephem_file_name[256]; //!< trick_units(--)
+   std::string ephem_file_name; //!< trick_units(--)
 
    // Internally-computed items (visible for logging and checkpoint)
    /**
     * Ephemeris file path name
     */
-   char pathname[256]; //!< trick_io(*o) trick_units(--)
+   std::string pathname; //!< trick_io(*o) trick_units(--)
 
  private:
 

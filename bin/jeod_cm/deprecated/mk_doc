@@ -1,0 +1,56 @@
+#!/bin/bash 
+#
+# mk_doc : script to generate PDF document for all JEOD models
+#          or models in a relative <PATH> or to clean 
+#          them if providing 'clean' as a 2nd argument
+#
+#   Usage: mk_doc [PATH] [clean]
+
+#temp variable to store current working directory
+tmpdir=`pwd`
+
+if [ $# -eq 0 ]; then
+   pathname=$JEOD_HOME
+elif [ $# -eq 1 -a ! -d $1 ]; then
+# check to see if relative path exists
+      echo -e "Relative path: $1 does not exist to generate PDF files\n"
+      exit 10
+else
+   pathname=$1
+   action=$2
+fi
+
+# defaults to JEOD top level for generating all models documents
+texdirs=`find $pathname -name tex`
+
+# this variable is only use to get rid of an extra "/" in echo statemets in the for loop below
+cddir="$tmpdir/"
+
+#generate PDF files 
+for ii in $texdirs; do
+
+   cd $ii
+   if [ -f makefile ]; then
+      if [ -z $action ]; then
+         echo -e "\n=========================================================================="
+         echo -e "Generating PDFs in ${cddir#$JEOD_HOME/}${ii#$JEOD_HOME/} ..."
+         echo -e "==========================================================================\n"
+         make > /dev/null 
+         sleep 1
+         make install > /dev/null 
+         sleep 1
+      elif [ $action == "clean" ]; then
+         echo -e "\n=========================================================================="
+         echo -e "Cleaning PDFs in ${cddir#$JEOD_HOME/}${ii#$JEOD_HOME/} ..."
+         echo -e "==========================================================================\n"
+         make real_clean > /dev/null
+         sleep 1
+      fi
+   else
+      echo -e "No documents in ${cddir#$JEOD_HOME/}${ii#$JEOD_HOME/}"
+   fi
+   cd - > /dev/null
+
+done
+
+cd $tmpdir

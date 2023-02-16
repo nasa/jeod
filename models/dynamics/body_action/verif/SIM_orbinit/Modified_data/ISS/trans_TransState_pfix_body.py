@@ -21,7 +21,7 @@ def set_ISS_trans_TransState_pfix_body(vehicle_reference, dynamics) :
 
 
 
-  vehicle_reference.trans_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.trans_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.trans_init.action_name = "ISS.trans_TransState_pfix_body"
 
   vehicle_reference.trans_init.reference_ref_frame_name = "Earth.pfix"

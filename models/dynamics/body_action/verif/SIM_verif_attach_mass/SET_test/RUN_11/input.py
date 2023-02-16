@@ -20,7 +20,7 @@ components.attach2.offset_pstr_cstr_pstr = [ 1.5, 0.0, -1.0]
 
 #/* Re-attach child2 to parent */
 components.reattach.action_name = "reattach"
-components.reattach.subject     = components.child2_body
+components.reattach.set_subject_body( components.child2_body )
 components.reattach.active    = False
 components.reattach.offset_pstr_cstr_pstr = [ 1.5, 0.0, -2.0]
 components.reattach.pstr_cstr.data_source = \

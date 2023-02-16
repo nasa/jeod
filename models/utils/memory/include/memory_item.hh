@@ -362,13 +362,11 @@ const
 }
 
 
+} // End JEOD namespace
 
 /**
  * @}
  */
-
-
-} // End JEOD namespace
 
 #endif
 

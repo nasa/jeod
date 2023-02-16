@@ -1,6 +1,6 @@
 def child1_mass_default():
   components.child1_body.set_name("Child1")
-  components.child1_init.subject     = components.child1_body
+  components.child1_init.set_subject_body( components.child1_body )
   components.child1_init.action_name = "Child1_mass_init"
   components.child1_init.properties.mass  = 1.0
   components.child1_init.properties.position  = [ 0.0, 0.0, 0.0]

@@ -42,7 +42,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/include/mass_body_attach_matrix.hh
+ * @file models/dynamics/body_action/include/body_attach_matrix.hh
  * Define the class MassBodyAttachMatrix, which causes one MassBody to be
  * attached given a transformation.
  */

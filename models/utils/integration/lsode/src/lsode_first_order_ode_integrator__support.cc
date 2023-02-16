@@ -630,7 +630,7 @@ LsodeFirstOrderODEIntegrator::jacobian_prep_wrap_up()
             arrays.lin_alg[ii][jj] *= (-data_prepj.hl0);
          }
       }
-      // fall-through (go to 240)
+      /* fall through */
    case LsodeControlDataInterface::NewtonIterInternalJac:
       //## Add identity matrix. ----------------------------------------------
       // 240

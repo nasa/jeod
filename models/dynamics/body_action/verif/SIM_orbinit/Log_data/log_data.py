@@ -115,7 +115,7 @@ def log_data ( options ) :
       if LOG_TARGET_STRUCT :
          logger.log_matrix (
             ("target.mass_init.properties.pt_orientation.trans",
-             "target.dyn_body.composite_properties.T_parent_this"))
+             "target.dyn_body.mass.composite_properties.T_parent_this"))
 
       if LOG_TARGET_ATT :
          logger.log_set (
@@ -183,7 +183,7 @@ def log_data ( options ) :
       if LOG_CHASER_STRUCT :
          logger.log_matrix (
             ("chaser.mass_init.properties.pt_orientation.trans",
-             "chaser.dyn_body.composite_properties.T_parent_this"))
+             "chaser.dyn_body.mass.composite_properties.T_parent_this"))
 
       if LOG_CHASER_ATT :
          logger.log_set (

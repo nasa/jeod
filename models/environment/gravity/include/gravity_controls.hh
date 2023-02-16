@@ -287,13 +287,13 @@ class GravityControls {
     * @param point_of_interest  The point of interest, as a reference frame.
     * @param rel_pos  Displacement vector from the grav body to the POI.
     * @param rel_vel  Time derivative of rel_pos.
-    * \param delta_accel Output relativistic accel, sans the Newtonian term.
+    * \param perturbing_accel Output relativistic accel, sans the Newtonian term.
     */
    void calc_relativistic (
        const RefFrame& point_of_interest,
        const double rel_pos[3],
        const double rel_vel[3],
-       double delta_accel[3]);
+       double perturbing_accel[3]);
 
    /**
     * Calculate the spherical gravitational acceleration, either directly

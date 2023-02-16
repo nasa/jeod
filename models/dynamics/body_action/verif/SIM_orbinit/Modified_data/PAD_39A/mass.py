@@ -13,7 +13,7 @@
 def set_PAD_39A_mass(vehicle_reference, dynamics) :
 
 
-  vehicle_reference.mass_init.subject = vehicle_reference.dyn_body.mass
+  vehicle_reference.mass_init.set_subject_body( vehicle_reference.dyn_body.mass )
   vehicle_reference.mass_init.action_name = "PAD_39A.mass"
 
   vehicle_reference.mass_init.properties.mass  = trick.attach_units( "kg",1.0)

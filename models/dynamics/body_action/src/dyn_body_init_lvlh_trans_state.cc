@@ -90,7 +90,7 @@ DynBodyInitLvlhTransState::initialize (
          __FILE__, __LINE__, BodyActionMessages::illegal_value,
          "%s warning:\n"
          "set_items contains rotational aspects. Removing them.",
-         action_identifier);
+         action_identifier.c_str());
 
       test_items.remove (RefFrameItems::Att_Rate);
       set_items = test_items.get();

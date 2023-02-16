@@ -1,0 +1,45 @@
+#!/bin/sh
+#==============================================================================
+
+# flags to deturmine script actions
+# taken from the first input variable into the script.
+case $1 in
+  --all)
+    JEOD_CP=1
+    JEOD_RUN=1
+    JEOD_GCOV=1
+    echo "Runing with the 'all' option" > ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    ;;
+  --cp)
+    JEOD_CP=1
+    JEOD_RUN=0
+    JEOD_GCOV=0
+    echo "Runing with the 'cp' option" > ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    ;;
+  --run)
+    JEOD_CP=1
+    JEOD_RUN=1
+    JEOD_GCOV=0
+    echo "Runing with the 'run' option" > ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    ;;
+  --gcov)
+    JEOD_CP=1
+    JEOD_RUN=1
+    JEOD_GCOV=1
+    echo "Runing with the 'gcpv' option" > ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    ;;
+  *)
+    JEOD_CP=0
+    JEOD_RUN=0
+    JEOD_GCOV=0
+    echo "Please include --all, --cp, --run, or --gcov on the command line." > ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    ;;
+esac
+cur_dir="`pwd`"
+if [ $JEOD_CP -eq 1 ]; then
+  ${JEOD_HOME}/dgh_scripts/code_coverage/scripts/cpall $JEOD_RUN $JEOD_GCOV $2 $3
+fi
+#rm -f ${JEOD_HOME}/dgh_scripts/code_coverage/data/*
+cd $cur_dir
+
+

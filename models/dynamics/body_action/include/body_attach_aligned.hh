@@ -42,7 +42,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/include/mass_body_attach_aligned.hh
+ * @file models/dynamics/body_action/include/body_attach_aligned.hh
  * Define the class MassBodyAttachAligned, which causes one MassBody to be
  * attached to another at a pair of MassPoints.
  */
@@ -98,14 +98,14 @@ class BodyAttachAligned : public BodyAttach {
     * to the parent_point_name mass point on the parent mass body. The supplied
     * name can omit the subject mass body name dot prefix if desired.
     */
-   char * subject_point_name; //!< trick_units(--)
+   std::string subject_point_name; //!< trick_units(--)
 
    /**
     * The name of the mass point on the parent mass body to be attached to
     * to the mass pointed named subject_point_name on the subject mass body. The
     * supplied name can omit the parent mass body name dot prefix if desired.
     */
-   char * parent_point_name; //!< trick_units(--)
+   std::string parent_point_name; //!< trick_units(--)
 
 
  // Methods

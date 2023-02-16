@@ -175,14 +175,14 @@ class DynBodyInitOrbit : public DynBodyInitTransState {
     * This must be supplied, must name a planet, and the planet must have
     * a gravity model.
     */
-   char * planet_name; //!< trick_units(--)
+   std::string planet_name; //!< trick_units(--)
 
    /**
     * Planet reference frame name, optionally dot-prefixed with the planet name.
     * If this specifies a rotating frame, a non-rotating frame instantaneously
     * co-aligned with the rotating frame is assumed.
     */
-   char * orbit_frame_name; //!< trick_units(--)
+   std::string orbit_frame_name; //!< trick_units(--)
 
    /**
     * Specifies which set of orbital elements specify the orbit.

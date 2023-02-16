@@ -153,6 +153,7 @@ RadiationPressure::update (
 /**
  * Used to modify the flux for shadowing.
  * \param[in] real_time The current time, e.g. TAI or UT1.\n Units: s
+ * \param[in] veh_struc_frame Structure frame of vehicle
  */
 void
 RadiationPressure::third_body_adjustments (

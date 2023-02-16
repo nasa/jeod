@@ -9,7 +9,7 @@
 def set_les(sv_dyn_reference) :
 
   #/* Set the mass point interfaces for this vehicle. */
-  sv_dyn_reference.mass_init.subject = sv_dyn_reference.dyn_body.mass
+  sv_dyn_reference.mass_init.set_subject_body( sv_dyn_reference.dyn_body.mass )
 
   #/* Allocate the mass point initilization objects. */
   sv_dyn_reference.mass_init.num_points = 1

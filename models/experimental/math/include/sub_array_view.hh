@@ -80,10 +80,8 @@ public:
     /**
      * Non-default constructor.
      * @param array_in   The array for which a view is to be constructed.
-     * @param beg_row_in  The topmost row of the view.
-     * @param end_row_in  The bottommost row of the view, plus one.
-     * @param beg_col_in  The leftmost column of the view.
-     * @param end_col_in  The rightmost column of the view, plus one.
+     * @param row_range  The topmost and bottommost row of the view, plus one.
+     * @param col_range  The leftmost and rightmost column of the view, plus one.
      * @throw std::out_of_range if sub-array bounds are invalid.
      */
     SubArrayView (

@@ -2,7 +2,7 @@ exec(compile(open("Modified_data/system.py", "rb").read(), "Modified_data/system
 
 #############  ASSIGNMENTS, CALLS, and CONTROL  #################
 components.parent_body.set_name("Parent")
-components.parent_init.subject     = components.parent_body
+components.parent_init.set_subject_body( components.parent_body )
 components.parent_init.action_name = "Parent_mass_init"
 components.parent_init.properties.mass  = trick.attach_units( "kg",1.0)
 components.parent_init.properties.position  = trick.attach_units( "m",[ 0.0, 0.0, 0.0])
@@ -39,7 +39,7 @@ dynamics.dyn_manager.add_body_action (components.parent_init)
 
 #/* Child1 body mass parameters */
 components.child1_body.set_name("Child1")
-components.child1_init.subject     = components.child1_body
+components.child1_init.set_subject_body( components.child1_body )
 components.child1_init.action_name = "Child1_mass_init"
 components.child1_init.properties.mass  = trick.attach_units( "kg",1.0)
 components.child1_init.properties.position  = trick.attach_units( "m",[ 0.0, 0.0, 0.0])
@@ -85,7 +85,7 @@ dynamics.dyn_manager.add_body_action (components.child1_init)
 
 #/* Child2 body mass parameters */
 components.child2_body.set_name("Child2")
-components.child2_init.subject     = components.child2_body
+components.child2_init.set_subject_body( components.child2_body )
 components.child2_init.action_name = "Child2_mass_init"
 components.child2_init.properties.mass  = trick.attach_units( "kg",1.0)
 components.child2_init.properties.position  = trick.attach_units( "m",[ 0.0, 0.0, 0.0])
@@ -122,8 +122,8 @@ dynamics.dyn_manager.add_body_action (components.child2_init)
 
 #/* Attach child1 to parent */
 components.pt_attach1.action_name = "pt_attach1"
-components.pt_attach1.subject     = components.child1_body
-components.pt_attach1.parent      = components.parent_body
+components.pt_attach1.set_subject_body( components.child1_body )
+components.pt_attach1.set_parent_body( components.parent_body )
 components.pt_attach1.subject_point_name = "front_to_back"
 components.pt_attach1.parent_point_name  = "back_to_front"
 components.pt_attach1.active = True
@@ -136,8 +136,8 @@ dynamics.dyn_manager.add_body_action (components.pt_attach1)
 
 #/* Attach child2 to child1 */
 components.pt_attach2.action_name = "pt_attach2"
-components.pt_attach2.subject     = components.child2_body
-components.pt_attach2.parent      = components.child1_body
+components.pt_attach2.set_subject_body( components.child2_body )
+components.pt_attach2.set_parent_body( components.child1_body )
 components.pt_attach2.subject_point_name = "front_to_back"
 components.pt_attach2.parent_point_name  = "back_to_front"
 components.pt_attach2.active = True

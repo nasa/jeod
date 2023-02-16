@@ -43,7 +43,7 @@
  * @{
  * @addtogroup BaseAtmosphere
  * @{
- * @file models/environment/atmosphere/base_atomos/include/wind_velocity.hh
+ * @file models/environment/atmosphere/base_atmos/include/wind_velocity.hh
  * A wind velocity model based on winds caused by rotation of the planet
  */
 
@@ -162,6 +162,7 @@ private:
 #endif
 
 /**
+ * @}
  * @}
  * @}
  * @}

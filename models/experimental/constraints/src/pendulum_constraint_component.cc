@@ -238,7 +238,7 @@ void
 PendulumConstraintComponent::set_pendulum_length (
     double new_length)
 {
-    if (pendulum_length != new_length)
+    if (!Numerical::compare_exact(pendulum_length, new_length))
     {
         pendulum_length = new_length;
         if (mode == PendulumConstraintMode::Horizontal)

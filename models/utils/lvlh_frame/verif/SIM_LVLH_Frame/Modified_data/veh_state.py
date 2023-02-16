@@ -8,7 +8,7 @@ def set_vehicle_state(vehicle, dynamics) :
 
   # State initialization data for a state.
 
-  vehicle.trans_init.dyn_subject = vehicle.body
+  vehicle.trans_init.set_subject_body( vehicle.body )
   vehicle.trans_init.reference_ref_frame_name = "ref_planet.inertial"
   vehicle.trans_init.body_frame_id     = "composite_body"
   vehicle.trans_init.position  = [ 10.0, 0.0, 0.0]
@@ -18,7 +18,7 @@ def set_vehicle_state(vehicle, dynamics) :
   dynamics.manager.add_body_action(vehicle.trans_init)
 
 
-  vehicle.rot_init.dyn_subject = vehicle.body
+  vehicle.rot_init.set_subject_body( vehicle.body )
   vehicle.rot_init.reference_ref_frame_name = "ref_planet.inertial"
   vehicle.rot_init.body_frame_id     = "composite_body"
   vehicle.rot_init.orientation.data_source    = trick.Orientation.InputEulerRotation

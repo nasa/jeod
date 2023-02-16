@@ -98,7 +98,7 @@ class DynBodyInitPlanetDerived : public DynBodyInitWrtPlanet {
     * derived state with respect to which the vehicle initialization data
     * are referenced.
     */
-   char * ref_body_name; //!< trick_units(--)
+   std::string ref_body_name; //!< trick_units(--)
 
 
  protected:

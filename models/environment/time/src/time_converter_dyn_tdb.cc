@@ -36,6 +36,7 @@
 
 // System includes
 #include <cstddef>
+#include <cmath>
 
 // JEOD includes
 #include "utils/message/include/message_handler.hh"
@@ -117,7 +118,7 @@ TimeConverter_Dyn_TDB::initialize (
     }
 
     // Compute the initial offset.
-    if (dyn_ptr->seconds != 0) {
+    if (std::fpclassify(dyn_ptr->seconds) != FP_ZERO) {
         MessageHandler::fail (
                               __FILE__, __LINE__, TimeMessages::initialization_error, "\n"
                               "DynTime must be 0 for the Dyn-TDB converter to be "

@@ -250,7 +250,7 @@ public:
    /**
     * Set ephemeris model number.
     * This number is used to specify the de file to use
-    * the pathname is of the form PWD/build/de4xx_lib/libde<denumIn>.so
+    * the pathname is of the form PWD/build/de4xx_lib/libde\<denumIn\>.so
     */
    void set_model_number(int denum_in){
        file.file_spec.set_model_number(denum_in);
@@ -259,7 +259,7 @@ public:
    /**
     * Get Ephemeris model number.
     * This number is used to specify the de file to use
-    * the pathname is of the form PWD/build/de4xx_lib/libde<denumIn>.so
+    * the pathname is of the form PWD/build/de4xx_lib/libde\<denumIn\>.so
     */
    uint32_t get_model_number() {
        return file.file_spec.get_model_number();

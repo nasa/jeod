@@ -12,7 +12,7 @@ def set_mass_veh_mass(sv_dyn_reference) :
   #// The X-axis is the long axis.
 
   #/* Set the mass porperties for this vehicle. */
-  sv_dyn_reference.mass_init.subject = sv_dyn_reference.body.mass
+  sv_dyn_reference.mass_init.set_subject_body( sv_dyn_reference.body.mass )
 
   #/* Set the struct to body reference frame orientation. */
   sv_dyn_reference.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation

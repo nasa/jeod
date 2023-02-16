@@ -32,7 +32,7 @@ def set_STS_114_full_LvlhState_tlvlh_body(vehicle_reference, dynamics) :
   w_sts_lvlh, w_sts_issb = set_STS_114_chaser_rate_def(w_iss_lvlh)
 
 
-  vehicle_reference.lvlh_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.lvlh_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.lvlh_init.action_name = "STS_114.full_LvlhState_tlvlh_body"
 
   vehicle_reference.lvlh_init.reference_ref_frame_name = "Earth.inertial"

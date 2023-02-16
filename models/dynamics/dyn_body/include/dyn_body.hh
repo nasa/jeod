@@ -161,7 +161,7 @@ public:
    /**
     * Set the name of the vehicle.
     *
-    * @param[in] vehicle name
+    * @param[in] name_in Name of this body
     */
    void set_name ( std::string name_in );
 
@@ -508,8 +508,8 @@ public:
    /**
     * Compute the state derivatives at a vehicle point.
     *
-    * @param[in] frame Vehicle point reference frame
-    * @param[out] derivs Computed derivatives
+    * @param[in] vehicle_pt Vehicle point reference frame
+    * @param[out] pt_derivs Computed derivatives
     */
    virtual void compute_vehicle_point_derivatives (
       const BodyRefFrame & frame, FrameDerivs &derivs);
@@ -538,27 +538,39 @@ public:
 
    // Attachment methods
 
-   // Attach mass body aligned at specified mass point
+   // Attach child mass body aligned at specified mass point
    virtual bool add_mass_body (
       const char * this_point_name,
       const char * child_point_name,
       MassBody & child);
 
-   // Attach bodies via geometry specification (sent to child)
+   // Attach child mass body at geometric location relative to parent structure frame
    virtual bool add_mass_body (
       double offset[3],
       double T_pstr_cstr[3][3],
       MassBody & child );
 
-   // Attach DynBody aligned at specified mass point
-   virtual bool attach (
+   // Attach this body to parent body at specified mass points
+   virtual bool attach_to (
+      const char * this_point_name,
+      const char * parent_point_name,
+      DynBody & parent );
+
+   // Attach this body to parent body at geometric location relative to parent structure frame
+   virtual bool attach_to (
+      double offset_pstr_cstr_pstr[3],
+      double T_pstr_cstr[3][3],
+      DynBody & parent );
+
+   // Attach child body to this body at specified mass points
+   virtual bool attach_child (
       const char * this_point_name,
       const char * child_point_name,
-      DynBody & child);
+      DynBody & child );
 
-   // Attach DynBody via geometry specification (sent to child)
-   virtual bool attach (
-      double offset[3],
+   // Attach child body to this body at geometric location relative to this body's structure frame
+   virtual bool attach_child (
+      double offset_pstr_cstr_pstr[3],
       double T_pstr_cstr[3][3],
       DynBody & child );
 
@@ -574,7 +586,7 @@ public:
     *   attachment is interpreted as a call desiring A // B->C->D. A call to
     *   D.detach(B) is interpreted as a call to A->B // C->D.
     *   @return Success flag
-    *   \param[in] dyn_body The other body at which the detach will occur
+    *   \param[in] other_body The other body at which the detach will occur
     */
    virtual bool detach (DynBody & other_body);
 
@@ -605,8 +617,7 @@ public:
     *  - The detachment must be valid or it is not performed. The MassBody
     *    must not belong to a DynBody-derived dynamic body.
     *
-    * @param[in,out] parent The parent body; the body from which this body is to
-    *                be detached.
+    * @param[in,out] child The child mass subbody; the body to be detached
     */
    virtual bool remove_mass_body (MassBody & child);
 

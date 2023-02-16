@@ -1,0 +1,52 @@
+#!/bin/sh
+#==============================================================================
+sim_name=$1
+run_dir=$2
+
+ls -1 ${JEOD_HOME}/models > ${JEOD_HOME}/dgh_scripts/code_coverage/data/models.d
+end_models="`sed -n '$=' ${JEOD_HOME}/dgh_scripts/code_coverage/data/models.d`"
+if [ -n "$end_models" ]; then
+for (( k=1; k<=$end_models; k++))
+do
+  model_root="`head -n ${k} ${JEOD_HOME}/dgh_scripts/code_coverage/data/models.d | tail -n 1`"
+  ls -1 ${JEOD_HOME}/models/${model_root} > ${JEOD_HOME}/dgh_scripts/code_coverage/data/${model_root}.d
+  end="`sed -n '$=' ${JEOD_HOME}/dgh_scripts/code_coverage/data/${model_root}.d`"
+  if [ -n "$end" ]; then
+  for (( l = 1; l <= $end; l++))
+  do
+    model_sub="`head -n ${l} ${JEOD_HOME}/dgh_scripts/code_coverage/data/${model_root}.d | tail -n 1`"
+    # excute gcov on the source files in model sub directory
+    echo "${JEOD_HOME}/models/$model_root/$model_sub" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+    cd ${JEOD_HOME}/models/$model_root/$model_sub
+    cd src
+    rm -rf gcovFiles
+
+    ls -1 > ${JEOD_HOME}/dgh_scripts/code_coverage/data/src_files.d
+    end_src="`sed -n '$=' ${JEOD_HOME}/dgh_scripts/code_coverage/data/src_files.d`"
+    if [ -n "$end_src" ]; then
+    for (( m = 1; m <= $end_src; m++))
+    do
+      src_file="`head -n ${m} ${JEOD_HOME}/dgh_scripts/code_coverage/data/src_files.d | tail -n 1`"
+      linux="`find ../ -name "object_*"`"
+      if [ -n "$linux" ]; then
+      echo "$linux $src_file" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+      gcov -o $linux $src_file
+      fi
+    done
+    fi
+    mkdir gcovFiles
+    mv *.gcov gcovFiles/
+    grep -c "####" gcovFiles/* > ${JEOD_HOME}/dgh_scripts/code_coverage/sims/${sim_name}/${run_dir}/${model_root}-${model_sub}-files.d
+    end_gcov="`sed -n '$=' ${JEOD_HOME}/dgh_scripts/code_coverage/sims/${sim_name}/${run_dir}/${model_root}_${model_sub}_files.d`"
+    if [ -n "$end_gcov" ]; then
+    for (( m = 1; m <= $end_gcov; m++))
+    do
+      gcov_file="`head -n ${m} ${JEOD_HOME}/dgh_scripts/code_coverage/sims/${sim_name}/${run_dir}/${model_root}_${model_sub}_files.d | tail -n 1`"
+      gcov_file="`echo $gcov_file | awk -F\/  '{print $2 }' | awk -F\:  '{print $1 }'`"
+      grep -n "####" gcovFiles/${gcov_file} > ${JEOD_HOME}/dgh_scripts/code_coverage/sims/${sim_name}/${run_dir}/${model_root}-${model_sub}-${gcov_file}.d
+    done
+    fi
+  done
+  fi
+done
+fi

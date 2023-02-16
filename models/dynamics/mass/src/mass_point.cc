@@ -240,7 +240,7 @@ const
  *
  * \par Assumptions and Limitations
  *  - The predecessor frame is a predecessor.
- * \param[in] pred_frame The frame with respect to which the state is to be expressed
+ * \param[in] ref_point The point with respect to which the state is to be expressed
  * \param[out] rel_state The relative state
  */
 void
@@ -271,7 +271,7 @@ const
  * Compute the state of some reference point with respect to this
  * point. The reference point must be at or above this point via the
  * parent links.
- * \param[in] ref_point Reference point
+ * \param[in] ref_point_index Reference point index
  * \param[out] rel_state Relative state
  */
 void

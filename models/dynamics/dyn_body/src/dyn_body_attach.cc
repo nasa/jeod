@@ -224,11 +224,51 @@ const
     return is_valid;
 }
 
-// Attach mass body aligned at specified mass point
-bool DynBody::attach (
+/**
+ * Attach this dyn body's root body as a child of the specified dyn
+ * body such that the specified mass points on the two bodies are
+ * coincident and the frames associated with those mass points are
+ * related by a 180 degree yaw.
+ * @return Success indicator: true=success, false=attachment not performed.
+ * \param[in] this_point_name The name of a mass point contained in this dyn body's list of mass points.
+ * \param[in] parent_point_name The name of a mass point contained in the parent body's list of mass points.
+ * \param[in,out] parent The parent body; the body to which this body's root body is to be attached.
+ */
+bool DynBody::attach_to (
+   const char * this_point_name,
+   const char * parent_point_name,
+   DynBody & parent )
+{
+    return parent.attach_child(parent_point_name, this_point_name, *this);
+}
+
+/**
+ * Attach this dyn body's root body as a child of the specified dyn
+ * body such that this body's structural origin is offset from the
+ * parent body's structural origin and this body's structural axes
+ * are oriented with respect to the parent body's structural axes as
+ * specified.
+ * @return Success indicator: true=success, false=attachment not performed.
+ * \param[in] offset_pstr_cstr_pstr Location of this body's structural origin with respect to the new parent body's structural origin, specified in structural coordinates of the parent body.\n Units: M
+ * \param[in] T_pstr_cstr Transformation matrix from the parent body's structural frame to this body's structural frame.
+ * \param[in,out] parent The parent body; the body to which this body's root body is to be attached.
+ */
+bool DynBody::attach_to (
+   double offset_pstr_cstr_pstr[3],
+   double T_pstr_cstr[3][3],
+   DynBody & parent )
+{
+    return parent.attach_child(offset_pstr_cstr_pstr, T_pstr_cstr, *this);
+}
+
+/**
+ * Attach a child DynBody by point specification. See corresponding
+ * DynBody::attach_to() method for more information.
+ */
+bool DynBody::attach_child (
    const char * this_point_name,
    const char * child_point_name,
-   DynBody & child)
+   DynBody & child )
 {
     // References looked up from input args
     const BodyRefFrame* parent_vehicle_pt;
@@ -350,18 +390,23 @@ bool DynBody::attach (
             child_struct_wrt_parent_struct.T_parent_this);
 
     // Attach using geometry-based attachment
-    success = attach( child_struct_wrt_parent_struct.position,
+    success = attach_child( child_struct_wrt_parent_struct.position,
                       child_struct_wrt_parent_struct.T_parent_this,
                       child );
 
    return success;
 }
 
-// Attach dynamic body aligned at specified mass point
-bool DynBody::attach (
+/**
+ * Attach a child DynBody by location specification. See corresponding
+ * DynBody::attach_to() method for more information. Note that the offset and
+ * transformation are specified w.r.t. the parent in both attach_to() and
+ * attach_child()
+ */
+bool DynBody::attach_child (
    double xyz_cstr_wrt_pstr[3],
    double T_pstr_to_cstr[3][3],
-   DynBody & child)
+   DynBody & child )
 {
     // References looked up
     DynBody* child_root;

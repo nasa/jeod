@@ -203,7 +203,8 @@ public:
    const;
 
    // Transform a vector.
-   void left_quat_transform (const double vec_in[3], double vec_out[3]);
+   void left_quat_transform (const double vec_in[3], double vec_out[3])
+   const;
 
    // Compute the quaternion derivative given an angular velocity.
    void compute_left_quat_deriv (const double ang_vel[3], Quaternion & qdot)

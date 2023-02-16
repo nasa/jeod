@@ -61,8 +61,8 @@ DynBodyInit::DynBodyInit (
    void)
 :
    BodyAction(),
-   body_frame_id(nullptr),
-   reference_ref_frame_name(nullptr),
+   body_frame_id(),
+   reference_ref_frame_name(),
    state(),
    orientation(),
    reverse_sense(false),
@@ -85,9 +85,6 @@ DynBodyInit::DynBodyInit (
 DynBodyInit::~DynBodyInit (
    void)
 {
-   if ( JEOD_IS_ALLOCATED(body_frame_id)) {
-      JEOD_DELETE_ARRAY(body_frame_id);
-   }
    return;
 }
 
@@ -107,27 +104,15 @@ DynBodyInit::initialize (
    // Forward the request up the chain.
    BodyAction::initialize (dyn_manager);
 
-   // Interpret user spec
-   if( subject==nullptr )
-   {
-       subject = &(dyn_subject->mass);
-   }
-   else if( dyn_subject==nullptr)
-   {
-       dyn_subject = find_dyn_body(dyn_manager,
-                                   subject->name.c_str(),
-                                   "dyn_subject");
-   }
-
    // Sanity check:
-   // The subject MassBody must belong  a DynBody.
+   // The subject MassBody must belong a DynBody.
    if (dyn_subject == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, BodyActionMessages::invalid_object,
          "%s failed:\n"
          "Subject body '%s' is a %s.\n"
          "A subject body of a class derived from DynBody is required.",
-         action_identifier, subject->name.c_str(), typeid(*subject).name());
+         action_identifier.c_str(), mass_subject->name.c_str(), typeid(*mass_subject).name());
       return;
    }
 
@@ -137,7 +122,7 @@ DynBodyInit::initialize (
          __FILE__, __LINE__, BodyActionMessages::invalid_object,
          "The subject '%s' of action '%s' has not been initialized.\n",
          dyn_subject->name.c_str(),
-         action_identifier);
+         action_identifier.c_str());
    }
 
 
@@ -145,17 +130,17 @@ DynBodyInit::initialize (
    // Note: A child class may have already set this, in which case the
    // search is not needed.
    if (body_ref_frame == nullptr) {
-      if (body_frame_id == nullptr) {
+      if (body_frame_id.empty()) {
         MessageHandler::warn(
           __FILE__,__LINE__,"Incomplete assignment to dyn-body-init\n",
           "The body_ref_frame and body_frame_id have not been set.\n"
           "Typically, the body_frame_id would be used to identify \n"
           "the body_ref_frame.\n"
           "Setting body_frame_id to the default `composite_body`.\n");
-         body_frame_id = NamedItem::construct_name("composite_body");
+         body_frame_id = "composite_body";
       }
       body_ref_frame =
-         find_body_frame (*dyn_subject, body_frame_id, "body_frame_id");
+         find_body_frame (*dyn_subject, body_frame_id.c_str(), "body_frame_id");
    }
 
 
@@ -164,7 +149,7 @@ DynBodyInit::initialize (
    // search is not needed.
    if (reference_ref_frame == nullptr) {
       reference_ref_frame =
-         find_ref_frame (dyn_manager, reference_ref_frame_name,
+         find_ref_frame (dyn_manager, reference_ref_frame_name.c_str(),
                          "reference_ref_frame_name");
    }
 
@@ -275,7 +260,7 @@ DynBodyInit::apply (
          __FILE__, __LINE__, BodyActionMessages::trace,
          "%s:\n"
          "Initialized %s %s with respect to %s.",
-         action_identifier,
+         action_identifier.c_str(),
          body_ref_frame->get_name(),
          RefFrameItems::to_string (set_items),
          reference_ref_frame->get_name());
@@ -314,7 +299,7 @@ DynBodyInit::report_failure (
          __FILE__, __LINE__, BodyActionMessages::not_performed,
          "%s:\n"
          "Unable to initialize %s %s with respect to %s.",
-         action_identifier,
+         action_identifier.c_str(),
          ((body_ref_frame != nullptr) ?
              body_ref_frame->get_name() : "unspecified frame"),
          RefFrameItems::to_string (set_items),
@@ -443,8 +428,8 @@ DynBodyInit::compute_translational_state (
 Planet *
 DynBodyInit::find_planet (
    DynManager & dyn_manager,
-   const char * planet_name,
-   const char * variable_name)
+   const std::string & planet_name,
+   const std::string & variable_name)
 {
    Planet * found_planet = nullptr;
 
@@ -452,7 +437,7 @@ DynBodyInit::find_planet (
    validate_name (planet_name, variable_name, "Planet");
 
    // Find the Planet with the given name.
-   found_planet = dyn_manager.find_planet (planet_name);
+   found_planet = dyn_manager.find_planet (planet_name.c_str());
 
    // Sanity check: The planet_name must name a Planet.
    if (found_planet == nullptr) {
@@ -460,7 +445,7 @@ DynBodyInit::find_planet (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
          "Could not find planet named '%s' (variable %s)",
-         action_identifier, planet_name, variable_name);
+         action_identifier.c_str(), planet_name.c_str(), variable_name.c_str());
 
       // Not reached
       return nullptr;
@@ -480,8 +465,8 @@ DynBodyInit::find_planet (
 DynBody *
 DynBodyInit::find_dyn_body (
    DynManager & dyn_manager,
-   const char * dyn_body_name,
-   const char * variable_name)
+   const std::string & dyn_body_name,
+   const std::string & variable_name)
 {
    DynBody * found_dyn_body = nullptr;
 
@@ -489,7 +474,7 @@ DynBodyInit::find_dyn_body (
    validate_name (dyn_body_name, variable_name, "DynBody");
 
    // Find the DynBody with the given name.
-   found_dyn_body = dyn_manager.find_dyn_body (dyn_body_name);
+   found_dyn_body = dyn_manager.find_dyn_body (dyn_body_name.c_str());
 
    // Sanity check: The dyn_body_name must name a DynBody.
    if (found_dyn_body == nullptr) {
@@ -497,7 +482,7 @@ DynBodyInit::find_dyn_body (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
          "Could not find vehicle named '%s' (variable %s)",
-         action_identifier, dyn_body_name, variable_name);
+         action_identifier.c_str(), dyn_body_name.c_str(), variable_name.c_str());
 
       // Not reached
       return nullptr;
@@ -517,8 +502,8 @@ DynBodyInit::find_dyn_body (
 RefFrame *
 DynBodyInit::find_ref_frame (
    DynManager & dyn_manager,
-   const char * ref_frame_name,
-   const char * variable_name)
+   const std::string & ref_frame_name,
+   const std::string & variable_name)
 {
    RefFrame * found_ref_frame = nullptr;
 
@@ -526,7 +511,7 @@ DynBodyInit::find_ref_frame (
    validate_name (ref_frame_name, variable_name, "RefFrame");
 
    // Find the RefFrame with the given name.
-   found_ref_frame = dyn_manager.find_ref_frame (ref_frame_name);
+   found_ref_frame = dyn_manager.find_ref_frame (ref_frame_name.c_str());
 
    // Sanity check: The ref_frame_name must name a RefFrame.
    if (found_ref_frame == nullptr) {
@@ -534,7 +519,7 @@ DynBodyInit::find_ref_frame (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
          "Could not find reference frame named '%s' (variable %s)",
-         action_identifier, ref_frame_name, variable_name);
+         action_identifier.c_str(), ref_frame_name.c_str(), variable_name.c_str());
 
       // Not reached
       return nullptr;
@@ -554,8 +539,8 @@ DynBodyInit::find_ref_frame (
 BodyRefFrame *
 DynBodyInit::find_body_frame (
    DynBody & frame_container,
-   const char * body_frame_identifier,
-   const char * variable_name)
+   const std::string & body_frame_identifier,
+   const std::string & variable_name)
 {
    BodyRefFrame * found_body_frame = nullptr;
 
@@ -563,7 +548,7 @@ DynBodyInit::find_body_frame (
    validate_name (body_frame_identifier, variable_name, "BodyRefFrame");
 
    // Find the BodyRefFrame with the given ID.
-   found_body_frame = frame_container.find_body_frame (body_frame_identifier);
+   found_body_frame = frame_container.find_body_frame (body_frame_identifier.c_str());
 
    // Sanity check: The body_frame_identifier name must name a BodyRefFrame.
    if (found_body_frame == nullptr) {
@@ -571,8 +556,8 @@ DynBodyInit::find_body_frame (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
          "Could not to find body frame '%s' in vehicle '%s' (variable %s)",
-         action_identifier,
-         body_frame_identifier, frame_container.name.c_str(), variable_name);
+         action_identifier.c_str(),
+         body_frame_identifier.c_str(), frame_container.name.c_str(), variable_name.c_str());
 
       // Not reached
    }

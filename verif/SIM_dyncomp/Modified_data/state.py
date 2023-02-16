@@ -14,7 +14,7 @@ def set_rot_rate_inrtl():
   vehicle.lvlh_init.set_items = trick.RefFrameItems.Att
 
   vehicle.rot_init.state_items = trick.DynBodyInitRotState.Rate
-  vehicle.rot_init.dyn_subject = vehicle.dyn_body
+  vehicle.rot_init.set_subject_body( vehicle.dyn_body )
   vehicle.rot_init.reference_ref_frame_name = "Earth.inertial"
   vehicle.rot_init.body_frame_id = "composite_body"
   vehicle.rot_init.ang_velocity  = [ 0.0, 0.0, 0.0]
@@ -25,7 +25,7 @@ def set_rot_rate_inrtl():
 
 # Set the orientation by LVLH
 def set_orientation_lvlh():
-  vehicle.lvlh_init.dyn_subject                    = vehicle.dyn_body
+  vehicle.lvlh_init.set_subject_body( vehicle.dyn_body )
   vehicle.lvlh_init.planet_name                = "Earth"
   vehicle.lvlh_init.body_frame_id              = "composite_body"
   vehicle.lvlh_init.orientation.data_source    = trick.Orientation.InputEulerRotation
@@ -47,7 +47,7 @@ vehicle.lvlh_euler.sequence     = trick.Orientation.Pitch_Yaw_Roll
 
 
 # Set the trans state
-vehicle.trans_init.dyn_subject                  = vehicle.dyn_body
+vehicle.trans_init.set_subject_body( vehicle.dyn_body )
 vehicle.trans_init.reference_ref_frame_name = "Earth.inertial"
 vehicle.trans_init.body_frame_id            = "composite_body"
 #default to "typical" trans-state and lvlh-based orientation

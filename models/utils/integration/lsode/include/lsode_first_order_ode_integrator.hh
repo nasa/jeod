@@ -155,6 +155,7 @@ public:
 
    /**
     * LsodeFirstOrderODEIntegrator non-default constructor.
+    * @param[in]     data_in   state variable data
     * @param[in]     size      State size
     * @param[in,out] controls  Integration controls
     */

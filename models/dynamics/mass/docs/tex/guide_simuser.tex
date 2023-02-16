@@ -19,22 +19,15 @@ In the following example we have a simulation object called
 \textit{sim\_object\_A}, which contains a MassBody called \textit{body}, and
 an instance of the Body Action MassBodyInit called \textit{mass\_init}.
 
-Example code is given for Trick07 and Trick10 users; non-Trick users should
+Example code is given for Trick10 users; non-Trick users should
 follow a similar pattern using their appropriate syntax.  We start with the
 trivial declarations that tell \textit{mass\_init} that it is initializing
 body, that the body has a mass of 1.0 $kg$, and specifies the position of the
 center of mass of the body with respect to its structure-point.
 
-\paragraph{Trick 07}
-\begin{verbatim}
-sim_object_A.mass_init.subject                     = &sim_object_A.body;
-sim_object_A.mass_init.properties.position[0] {M}  = 1.0, 0.0, 0.0;
-sim_object_A.mass_init.properties.mass        {kg} = 1.0;
-\end{verbatim}
-
 \paragraph{Trick 10}
 \begin{verbatim}
-sim_object_A.mass_init.subject                     = sim_object_A.body;
+sim_object_A.mass_init.set_subject_body(sim_object_A.body);
 sim_object_A.mass_init.properties.position = trick.attach_units("M",[1.0, 0.0,
 0.0])
 sim_object_A.mass_init.properties.mass     = trick.attach_units("kg",1.0)

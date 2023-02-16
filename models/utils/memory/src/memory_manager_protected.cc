@@ -81,22 +81,22 @@ namespace jeod {
  */
 
 
-/*
-Purpose:
-  (Prepare for a set of operations that must be done atomically.)
-Assumptions and limitations:
-  ((This method must be used in conjunction with end_atomic_block.@code
-       try {
-          begin_atomic_block ();
-          operate_on_protected_members();
-          end_atomic_block (false);
-       }
-       catch (...) {
-          end_atomic_block (true);
-          throw;
-       }
-    @endcode)
-   (See the class header for a detailed description.))
+/**
+ * Purpose:
+ *   (Prepare for a set of operations that must be done atomically.)
+ * Assumptions and limitations:
+ *   This method must be used in conjunction with end_atomic_block.@code
+ *        try {
+ *           begin_atomic_block ();
+ *           operate_on_protected_members();
+ *           end_atomic_block (false);
+ *        }
+ *        catch (...) {
+ *           end_atomic_block (true);
+ *           throw;
+ *        }
+ *     @endcode
+ *    (See the class header for a detailed description.))
 */
 void
 JeodMemoryManager::begin_atomic_block (

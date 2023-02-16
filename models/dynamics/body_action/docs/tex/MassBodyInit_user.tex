@@ -22,7 +22,7 @@ In this example, the body and structural frames are a related by a 180
 degree pitch. The vehicle is initialized with one point of interest.
 
 \begin{verbatim}
-vehicle.mass_init.subject = &vehicle.dyn_body.mass;
+vehicle.mass_init.set_subject_body(vehicle.dyn_body.mass);
 vehicle.mass_init.action_name = "vehicle.mass";
 
 vehicle.mass_init.properties.mass {kg} = 10000.0;

@@ -3,7 +3,7 @@ def set_mass_cylinder(veh_obj_reference) :
   # The X-axis is the long axis.
 
   # Set the mass porperties for this vehicle.
-  veh_obj_reference.mass_init.subject = veh_obj_reference.body.mass
+  veh_obj_reference.mass_init.set_subject_body( veh_obj_reference.body.mass )
 
   # Set the struct to body reference frame orientation.
   veh_obj_reference.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation

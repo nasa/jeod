@@ -1,5 +1,5 @@
 # State translational initialization data for the chaser.
-chaser.lvlh_init.dyn_subject = chaser.dyn_body
+chaser.lvlh_init.set_subject_body( chaser.dyn_body )
 chaser.lvlh_init.action_name = "chaser_lvlh_init"
 chaser.lvlh_init.planet_name = "Earth"
 chaser.lvlh_init.body_frame_id = "composite_body"

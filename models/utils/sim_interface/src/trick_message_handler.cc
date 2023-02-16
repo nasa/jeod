@@ -93,7 +93,8 @@ TrickMessageHandler::process_message (
    va_list args)
 const
 {
-   char buffer[MAX_MSG_SIZE];
+   int buffer_length = MAX_MSG_SIZE-strlen(prefix)-strlen(msg_code);
+   char buffer[buffer_length];
 
    // *Safely* generate the message proper.
    std::vsnprintf (buffer, sizeof(buffer), format, args); // flawfinder: ignore

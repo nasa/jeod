@@ -123,8 +123,8 @@ const
 /**
  * Compute the state derivatives at a vehicle point.
  *
- * @param[in] frame Vehicle point reference frame
- * @param[out] derivs Computed derivatives
+ * @param[in] vehicle_pt Vehicle point reference frame
+ * @param[out] pt_derivs Computed derivatives
  */
 void
 DynBody::compute_vehicle_point_derivatives (

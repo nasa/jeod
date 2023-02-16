@@ -1,0 +1,28 @@
+#!/bin/sh
+#==============================================================================
+JEOD_GCOV=$1
+sim_name=$2
+RUN_PATH=$3
+
+ls -1 SET_test > ${JEOD_HOME}/dgh_scripts/code_coverage/data/SET_test.d
+end_RUNs="`sed -n '$=' ${JEOD_HOME}/dgh_scripts/code_coverage/data/SET_test.d`"
+if [ -n "$end_RUNs" ]; then
+for (( j = 1; j <= $end_RUNs; j++))
+do
+  run_dir="`head -n ${j} ${JEOD_HOME}/dgh_scripts/code_coverage/data/SET_test.d | tail -n 1`"
+  if [[ -z "${RUN_PATH}" || ${run_dir} = *${RUN_PATH} ]]; then
+    mkdir ${JEOD_HOME}/dgh_scripts/code_coverage/sims/${sim_name}/${run_dir}
+    S_main="`find . -name "S_main*"`"
+    if [ -n "$S_main" ]; then
+      ${S_main} SET_test/${run_dir}/input
+      text=`grep "error" SET_test/${run_dir}/send_hs`
+      if [ -n "$text" ]; then
+	echo "ERROR with SET_test/${run_dir}" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+	echo "$text" >> ${JEOD_HOME}/dgh_scripts/code_coverage/data/log.d
+      elif [[ $JEOD_GCOV -eq 1 ]]; then
+	${JEOD_HOME}/dgh_scripts/code_coverage/scripts/gcovall ${sim_name} ${run_dir}
+      fi
+    fi
+  fi
+done
+fi

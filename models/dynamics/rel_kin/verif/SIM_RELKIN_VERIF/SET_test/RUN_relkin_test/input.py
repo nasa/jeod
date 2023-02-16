@@ -43,7 +43,7 @@ veh2.dyn_body.rotational_dynamics = True
 
 
 #// Specify desired mass properties & vehicle points for target
-veh1.mass_init.subject = veh1.dyn_body.mass
+veh1.mass_init.set_subject_body( veh1.dyn_body.mass )
 veh1.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation
 veh1.mass_init.properties.pt_orientation.eigen_angle  = 0.0
 veh1.mass_init.properties.pt_orientation.eigen_axis  = [ 0, 1, 0]
@@ -74,7 +74,7 @@ dynamics.dyn_manager.add_body_action (veh1.mass_init)
 
 
 #// Specify desired mass properties & vehicle points for chaser
-veh2.mass_init.subject = veh2.dyn_body.mass
+veh2.mass_init.set_subject_body( veh2.dyn_body.mass )
 veh2.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation
 
 
@@ -107,7 +107,7 @@ dynamics.dyn_manager.add_body_action (veh2.mass_init)
 
 
 #// Set the translational states of target
-veh1.trans_init.dyn_subject = veh1.dyn_body
+veh1.trans_init.set_subject_body( veh1.dyn_body )
 veh1.trans_init.reference_ref_frame_name = "Earth.inertial"
 veh1.trans_init.body_frame_id = "composite_body"
 veh1.trans_init.position  = [ 521527.69, -5485464.19, 3834569.45 ]
@@ -119,7 +119,7 @@ dynamics.dyn_manager.add_body_action (veh1.trans_init)
 
 
 #// Set the translational states of chaser
-veh2.trans_init.dyn_subject = veh2.dyn_body
+veh2.trans_init.set_subject_body( veh2.dyn_body )
 veh2.trans_init.reference_ref_frame_name = "Earth.inertial"
 veh2.trans_init.body_frame_id = "composite_body"
 veh2.trans_init.position  = [ 501527.69, -5485364.19, 3838569.45 ]
@@ -135,7 +135,7 @@ dynamics.dyn_manager.add_body_action (veh2.trans_init)
 veh1.rot_init = trick.DynBodyInitRotState()
 veh1.rot_init.thisown = 0
 
-veh1.rot_init.dyn_subject = veh1.dyn_body
+veh1.rot_init.set_subject_body( veh1.dyn_body )
 veh1.rot_init.reference_ref_frame_name = "Earth.inertial"
 veh1.rot_init.body_frame_id = "composite_body"
 veh1.rot_init.orientation.data_source = trick.Orientation.InputMatrix
@@ -153,7 +153,7 @@ dynamics.dyn_manager.add_body_action (veh1.rot_init)
 veh2.rot_init = trick.DynBodyInitRotState()
 veh2.rot_init.thisown = 0
 
-veh2.rot_init.dyn_subject = veh2.dyn_body
+veh2.rot_init.set_subject_body( veh2.dyn_body )
 veh2.rot_init.reference_ref_frame_name = "Earth.inertial"
 veh2.rot_init.body_frame_id = "composite_body"
 veh2.rot_init.orientation.data_source = trick.Orientation.InputMatrix

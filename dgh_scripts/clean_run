@@ -1,0 +1,174 @@
+#!/bin/sh
+#==============================================================================
+#
+#         Name: clean_run - shell script to clean all Trick-generated files
+#                           from a simulation run directory
+#
+#     Synopsis: clean_run directory1 [directory2] ... [directoryN]
+#
+#  Description: The clean_run script will remove all Trick-generated files
+#               from the specified simulation input directory.  If more
+#               than one directory is given on the command line, then
+#               each one will be cleaned in series.
+#
+#  Assumptions: 1)  The portion of the run directory that is specified by the
+#                   RUN_DIR_PREFIX environment variable does not need to be
+#                   included in the directory name
+#               2)  The following files will be removed:
+#                     S_job_execution, chkpnt*, jet_history.out, loads.*, 
+#                     log_*.0*, log_*.header, plothist.tmp, rfdd_*, shmf_*, 
+#                     *.pli, *.ps, *.title, *.lbl, *.out, .genplot .loads*
+#
+#      Options: -s  Execute script without printing status (silent mode).
+#
+#     Examples: See the 'clean_run' man page.
+#
+#   Created By: Patrick McCartney, NASA/JSC, 3/12/99
+#
+#==============================================================================
+
+
+#==============================================================================
+# SET THE USAGE ENVIRONMENT VARIABLE
+#==============================================================================
+
+USAGE="Usage: clean_run [-s] directory1 [directory2] ... [directoryN]"
+
+
+#==============================================================================
+# GET THE COMMAND LINE OPTIONS
+#==============================================================================
+
+silent_mode=0
+while getopts sS opt
+do
+
+  case $opt in
+
+    s|S) silent_mode=1
+         ;;
+
+  esac
+done
+
+
+#==============================================================================
+# SHIFT THE COMMAND LINE ARGUMENTS BY THE NUMBER OF OPTIONS
+#==============================================================================
+
+shift `expr $OPTIND - 1`
+
+
+#==============================================================================
+# CHECK COMMAND SYNTAX              
+#==============================================================================
+
+if [ $# -eq 0 ] ; then
+
+  echo $USAGE
+  exit 1
+
+fi
+
+
+#==============================================================================
+# GET TRICK RUN AND SET DIRECTORY PREFIX VARIABLES
+#==============================================================================
+
+TRICK_RUN_DIR_PREFIX="RUN_"
+TRICK_SET_DIR_PREFIX="SET_"
+
+
+#==============================================================================
+# CLEAN SIMULATION RUNS              
+#==============================================================================
+
+for i in $*
+do
+
+
+  #
+  # MAKE SURE DIRECTORY EXISTS
+  #
+
+  if [ -d $i ] ; then
+    input_dir=$i
+  elif [ -d ${TRICK_RUN_DIR_PREFIX}$i ] ; then
+    input_dir=${TRICK_RUN_DIR_PREFIX}$i
+  elif [ -d ${TRICK_SET_DIR_PREFIX}$i ] ; then
+    input_dir=${TRICK_SET_DIR_PREFIX}$i
+  else 
+    continue
+  fi
+
+
+  #
+  # GET PREFIX TO DETERMINE IF DIRECTORY IS A RUN OR A SET
+  #
+
+  prefix=`basename $input_dir | cut -c 1-4`
+
+
+  #
+  # PROCESS SET DIRECTORY
+  #
+
+  if [ $prefix = ${TRICK_SET_DIR_PREFIX} ] ; then
+
+    run_dirs=
+    for j in $input_dir/${TRICK_RUN_DIR_PREFIX}*
+    do
+      run_dirs="${run_dirs} ${j}"
+    done
+
+
+  else
+
+    run_dirs=${input_dir}
+
+  fi
+
+
+  #
+  # REMOVE TRICK GENERATED FILES FROM RUN DIRECTORY
+  #
+
+
+  for j in $run_dirs
+  do
+
+    if [ $silent_mode -eq 0 ] ; then
+      echo "====================================================="
+      echo "== Cleaning $j"
+      echo "====================================================="
+      echo
+    fi
+      
+    /bin/rm -f $j/S_job_execution
+    /bin/rm -f $j/S_run_summary
+    /bin/rm -f $j/chkpnt*
+    /bin/rm -f $j/jet_history.out
+    /bin/rm -f $j/loads.*
+    /bin/rm -f $j/log_*.0*
+    /bin/rm -f $j/log_*.csv
+    /bin/rm -f $j/log_*.trk
+    /bin/rm -f $j/log_*.header
+    /bin/rm -f $j/plothist.tmp
+    /bin/rm -f $j/rfdd_*
+    /bin/rm -f $j/shmf_*
+    /bin/rm -f $j/send_hs
+    /bin/rm -f $j/*.pli
+    /bin/rm -f $j/*.ps
+    /bin/rm -f $j/*.title
+    /bin/rm -f $j/*.lbl
+    /bin/rm -f $j/*.out
+    /bin/rm -f $j/.genplot
+    /bin/rm -f $j/.loads*
+    if [ $silent_mode -eq 0 ] ; then
+      echo ""
+      echo "Run directory $j is clean."
+      echo ""
+    fi
+
+  done
+done

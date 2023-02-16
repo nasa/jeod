@@ -27,7 +27,7 @@ def set_STS_114_rot_RotState_tstruct_struct(vehicle_reference, dynamics) :
   # set_STS_114_chaser_rate_def(w_sts_lvlh, w_sts_issb, w_iss_lvlh)
   w_sts_lvlh, w_sts_issb = set_STS_114_chaser_rate_def(w_iss_lvlh)
 
-  vehicle_reference.att_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.att_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.att_init.action_name = "STS_114.rot_RotState_tstruct_struct"
 
   vehicle_reference.att_init.reference_ref_frame_name = "ISS.structure"

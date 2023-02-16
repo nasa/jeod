@@ -8,7 +8,7 @@ def set_veh_properties( vehicle, name) :
   vehicle.lvlh.planet_name     = "Earth"
 
   # Set the mass properties for given vehicle.
-  vehicle.mass_init.subject = vehicle.dyn_body.mass
+  vehicle.mass_init.set_subject_body( vehicle.dyn_body.mass )
   vehicle.mass_init.action_name = "vehicle_mass_init"
 
   # Total mass of this body.

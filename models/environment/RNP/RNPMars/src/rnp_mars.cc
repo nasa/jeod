@@ -161,7 +161,7 @@ RNPMars::update_rnp (
    // Check if RNP needs update; if it has been previously updated and the
    // timestamp still matches, then it doesn't
    if(!never_updated_full &&
-         (last_updated_time_full - time_dyn_ptr->seconds) == 0.0) {
+         Numerical::compare_exact(last_updated_time_full, time_dyn_ptr->seconds)) {
       return;
    }
 
@@ -219,7 +219,7 @@ RNPMars::update_axial_rotation (
    // Check if RNP needs update; if it has been previously updated and the
    // timestamp still matches, then it doesn't
    if(!never_updated_rotational &&
-         (last_updated_time_rotational - time_dyn_ptr->seconds) == 0.0) {
+         Numerical::compare_exact(last_updated_time_rotational, time_dyn_ptr->seconds)) {
       return;
    }
 

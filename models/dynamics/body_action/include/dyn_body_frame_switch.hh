@@ -123,7 +123,7 @@ class DynBodyFrameSwitch : public BodyAction {
     * The name of the new integration frame. This name must specify a valid
     * valid integration frame. Failure to do so constitutes a fatal error.
     */
-   char * integ_frame_name; //!< trick_units(--)
+   std::string integ_frame_name; //!< trick_units(--)
 
    /**
     * Indicates whether the switch occurs when the subject DynBody enters

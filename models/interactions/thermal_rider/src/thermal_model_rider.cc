@@ -32,6 +32,7 @@ Library dependencies:
 *******************************************************************************/
 
 /* System includes */
+#include <cmath>
 
 /*  JEOD includes */
 
@@ -69,7 +70,7 @@ ThermalModelRider::update (
       surface_ptr->accumulate_thermal_sources();
    }
 
-   if (active && (ThermalFacetRider::cycle_time != 0.0)) {
+   if (active && (std::fpclassify(ThermalFacetRider::cycle_time) != FP_ZERO)) {
       surface_ptr->thermal_integrator();
    }
    return;

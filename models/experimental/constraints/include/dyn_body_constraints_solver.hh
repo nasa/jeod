@@ -394,6 +394,7 @@ private:
 
     /**
      * Solve for the constraints.
+     * @param vehicle_properties  Properites of the vehicle
      * @param non_grav_state  Non-gravitational state in structural coordinates.
      *     On input, the translational and rotational acceleration reflect
      *     the response to external forces and torques. These are updated
@@ -473,6 +474,7 @@ private:
     /**
      * Updates the vehicle's response to sn accumulated wrench.
      * @param sum  The accumulated value of the calls to get_wrench.
+     * @param vehicle_properties  Properites of the vehicle
      * @param non_grav_state  Non-gravitational state in structural coordinates,
      *   which is updated to reflect the accumulated wrench on return.
      */
@@ -484,6 +486,7 @@ private:
     /**
      * Build the system of linear equations A*x = b, where each row
      * corresponds to a specific constraint.
+     * @param vehicle_properties  Properites of the vehicle
      * @param non_grav_state  Non-gravitational state in structural coordinates.
      * @param n_constraints  The number of active constraints.
      * @param constraint_indices  Active constraints start and end indices.
@@ -505,6 +508,7 @@ private:
 
     /**
      * Compute the constrained objects' responses to the constraints.
+     * @param vehicle_properties  Properites of the vehicle
      * @param non_grav_state  Non-gravitational state in structural coordinates,
      *   updated to include the constraints.
      */

@@ -10,7 +10,7 @@ payload.primary_body.rotational_dynamics = True
 
 # Primary mass init
 payload.primary_mass_init.action_name = "payload_primary_mass_init"
-payload.primary_mass_init.subject     = payload.primary_body.mass
+payload.primary_mass_init.set_subject_body( payload.primary_body.mass )
 payload.primary_mass_init.properties.pt_orientation.data_source = \
                                    trick.Orientation.InputEulerRotation
 payload.primary_mass_init.properties.pt_orientation.euler_sequence = \
@@ -41,7 +41,7 @@ dynamics.dyn_manager.add_body_action( payload.primary_mass_init )
 
 # Secondary mass init
 payload.secondary_mass_init.action_name = "payload_secondary_mass_init"
-payload.secondary_mass_init.subject     = payload.secondary_mass
+payload.secondary_mass_init.set_subject_body( payload.secondary_mass )
 payload.secondary_mass_init.properties.pt_orientation.data_source = \
                                    trick.Orientation.InputEulerRotation
 payload.secondary_mass_init.properties.pt_orientation.euler_sequence = \

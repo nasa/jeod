@@ -42,7 +42,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/include/mass_body_detach_specific.hh
+ * @file models/dynamics/body_action/include/body_detach_specific.hh
  * Define the class MassBodyDetachSpecific, the class used for detaching one
  * MassBody object from another specified MassBody.
  */
@@ -101,22 +101,35 @@ class BodyDetachSpecific : public BodyAction {
  public:
 
    /**
+     * Set the subject mass body of this action. Resets dyn_subject to null
+     */
+   void set_detach_from_body(MassBody & mass_body_in);
+
+   /**
+     * Set the subject mass body of this action. Resets dyn_subject to null
+     */
+   void set_detach_from_body(DynBody & dyn_body_in);
+
+ protected:
+
+
+   /**
     * The mass body from the subject of this action is to detach.
     * This pointer must be supplied for pure MassBody detachments.
     * The initialize method will attempt to determine if this MassBody refers
-    * to a DynBody. The detachment is performed between the detach_from object
+    * to a DynBody. The detachment is performed between the mass_detach_from object
     * and the direct descendant of the detach_from object that is in the
     * parental lineage from the subject body to the detach_from body.
     */
-   MassBody * detach_from; //!< trick_units(--)
+   MassBody * mass_detach_from; //!< trick_units(--)
 
    /**
     * The dynamic body from the subject of this action is to detach.
     * This pointer or the detach_from member must be supplied for dynamic body
     * detachment.
-    * The detachment is performed between the detach_from object and the
-    * direct descendant of the detach_from object that is in the parental
-    * lineage from the subject body to the detach_from body.
+    * The detachment is performed between the mass_detach_from object and the
+    * direct descendant of the mass_detach_from object that is in the parental
+    * lineage from the subject body to the mass_detach_from body.
     */
    DynBody * dyn_detach_from; //!< trick_units(--)
 

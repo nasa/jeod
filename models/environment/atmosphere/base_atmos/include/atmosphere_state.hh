@@ -121,7 +121,7 @@ class AtmosphereState {
    AtmosphereState (const AtmosphereState& rhs);
 
    /* Updates this particular atmosphere state from a particular atmosphere.*/
-   void update_state (Atmosphere * atmos_model, PlanetFixedPosition * pfix_pos);
+   void update_state (Atmosphere * atmos_model_, PlanetFixedPosition * pfix_pos_);
    virtual void update_state ();
 
    /* Updates this particular atmosphere state from a particular wind model. */

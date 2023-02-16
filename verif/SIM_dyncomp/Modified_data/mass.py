@@ -25,7 +25,7 @@ def set_mass_sphere() :
 
 
 # Set the vehicle.mass porperties for this vehicle.
-vehicle.mass_init.subject = vehicle.dyn_body.mass
+vehicle.mass_init.set_subject_body( vehicle.dyn_body.mass )
 
 # Set the struct to body reference frame orientation.
 vehicle.mass_init.properties.pt_orientation.data_source = trick.Orientation.InputEigenRotation

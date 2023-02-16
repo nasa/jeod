@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# clean_set : script to clean all RUN_* under a directory 
+#             or a specified RUN under a directory
+# Usage: clean_set <RUN_NAME>
+# 
+
+rname=${1:-RUN\*}
+runs=`find SET_test -name $rname`
+
+cdir=`pwd`
+
+# Clean runs only if they are not empty 
+for ii in $runs; do
+   if [[ `find $ii -name log_\*` ]]; then
+      echo -e "\n=========================================================================="
+      echo -e "Cleaning ${cdir#$JEOD_HOME/}/$ii ..."
+      echo -e "==========================================================================\n"
+      /bin/rm -f $ii/log*
+      /bin/rm -rf $ii/output
+      /bin/rm -f $ii/S_*
+      /bin/rm -f $ii/chkpnt*
+      /bin/rm -f $ii/*.out
+      /bin/rm -f $ii/plots
+      /bin/rm -f $ii/send_hs
+   fi
+   if [[ `find $ii -name run.err` ]]; then
+      echo -e "\n=========================================================================="
+      echo -e "Cleaning ${cdir#$JEOD_HOME/}/$ii ..."
+      echo -e "==========================================================================\n"
+      /bin/rm -f $ii/run.err
+   fi
+done

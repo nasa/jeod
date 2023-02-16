@@ -57,7 +57,7 @@ namespace jeod {
 DynBodyFrameSwitch::DynBodyFrameSwitch (
    void)
 :
-   integ_frame_name(nullptr),
+   integ_frame_name(),
    switch_sense(SwitchOnApproach),
    sort_grav_controls(false),
    switch_distance(9e99),
@@ -89,16 +89,6 @@ DynBodyFrameSwitch::initialize (
    // Forward the request up the chain.
    BodyAction::initialize (dyn_manager);
 
-   // Interpret user spec
-   if( subject==nullptr )
-   {
-       subject = &(dyn_subject->mass);
-   }
-   else if( dyn_subject==nullptr)
-   {
-       dyn_subject = dyn_manager.find_dyn_body( subject->name.c_str() );
-   }
-
    // Sanity check: The subject MassBody must be a DynBody.
    if (dyn_subject == nullptr) {
       MessageHandler::fail (
@@ -106,26 +96,26 @@ DynBodyFrameSwitch::initialize (
          "%s failed:\n"
          "Subject body '%s' is not of a class based on DynBody.\n"
          "A subject body of a class derived from DynBody is required.",
-         action_identifier, subject->name.c_str());
+         action_identifier.c_str(), mass_subject->name.c_str());
 
       // Not reached
       return;
    }
 
    // Sanity check: Protect against an empty integration frame name.
-   if ((integ_frame_name == nullptr) || (integ_frame_name[0] == '\0')) {
+   if (integ_frame_name.empty()) {
       MessageHandler::fail (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
          "The integration frame name was not specified.",
-         action_identifier);
+         action_identifier.c_str());
 
       // Not reached
       return;
    }
 
    // Find the integration frame corresponding to the specified name.
-   integ_frame = dyn_manager.find_integ_frame (integ_frame_name);
+   integ_frame = dyn_manager.find_integ_frame (integ_frame_name.c_str());
 
    // Sanity check: The provide name must specify a valid integration frame.
    if (integ_frame == nullptr) {
@@ -134,7 +124,7 @@ DynBodyFrameSwitch::initialize (
          "%s failed:\n"
          "The integration frame name '%s' does not specify a "
          "valid integration frame.",
-         action_identifier, integ_frame_name);
+         action_identifier.c_str(), integ_frame_name.c_str());
    }
 
    // (Temporarily) subscribe to the new integration frame to force it to be
@@ -159,8 +149,8 @@ DynBodyFrameSwitch::apply (
    MessageHandler::debug (
          __FILE__, __LINE__, BodyActionMessages::trace,
          "%s: %s integration frame switched to %s.",
-         action_identifier,
-         dyn_subject->name.c_str(), integ_frame_name);
+         action_identifier.c_str(),
+         dyn_subject->name.c_str(), integ_frame_name.c_str());
 
    // Switch frames.
    dyn_subject->switch_integration_frames (*integ_frame);

@@ -73,4 +73,6 @@ class VehicleBasicSimObject : public Trick::SimObject
   VehicleBasicSimObject (const VehicleBasicSimObject&);
   VehicleBasicSimObject & operator = (const VehicleBasicSimObject&);
 };
+
+##include "environment/gravity/include/gravity_manager.hh"
 #endif

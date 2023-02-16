@@ -98,7 +98,7 @@ GravityControls::~GravityControls ()
 
 /**
  * Initialize this GravityControl.
- * \param[in] grav_manager Ref to Gravity Manager
+ * \param[in] grav_man Ref to Gravity Manager
  */
 void
 GravityControls::initialize_control (

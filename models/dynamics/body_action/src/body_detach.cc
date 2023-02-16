@@ -6,7 +6,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/src/mass_body_detach.cc
+ * @file models/dynamics/body_action/src/body_detach.cc
  * Define methods for the MassBodyDetach class.
  */
 
@@ -57,32 +57,6 @@ BodyDetach::BodyDetach (
    return;
 }
 
-
-/**
- * Initialize a MassBodyDetach.
- * \param[in,out] dyn_manager Dynamics manager
- */
-void
-BodyDetach::initialize (
-   DynManager & dyn_manager)
-{
-   // Forward the request up the chain.
-   BodyAction::initialize (dyn_manager);
-
-   // Sanity check: set subject
-   if (subject == nullptr)
-   {
-       subject = &(dyn_subject->mass);
-   }
-   else if( dyn_subject == nullptr )
-   {
-       dyn_subject = subject->dyn_owner;
-   }
-
-   return;
-}
-
-
 /**
  * Detach the body from its parent.
  * \param[in,out] dyn_manager Jeod manager
@@ -100,7 +74,7 @@ BodyDetach::apply (
    }
    else
    {
-       succeeded = subject->detach ();
+       succeeded = mass_subject->detach ();
    }
 
    // Detachment succeeded: Debug.
@@ -109,7 +83,7 @@ BodyDetach::apply (
       MessageHandler::debug (
          __FILE__, __LINE__, BodyActionMessages::trace,
          "%s: %s detached.",
-         action_identifier, subject->name.c_str());
+         action_identifier.c_str(), mass_subject->name.c_str());
    }
 
    // Detachment failed: Terminate the sim if terminate_on_error is set.
@@ -119,7 +93,7 @@ BodyDetach::apply (
          "%s failed to detach %s."
          "The terminate_on_failure flag set and a detachment error occurred.\n"
          "The detachment error described above is fatal per this setting.",
-         action_identifier, subject->name.c_str());
+         action_identifier.c_str(), mass_subject->name.c_str());
    }
 
    // Detachment failed, terminate_ not set: Tell the user about the problem.
@@ -127,7 +101,7 @@ BodyDetach::apply (
       MessageHandler::error (
          __FILE__, __LINE__, BodyActionMessages::not_performed,
          "%s failed to detach %s.",
-         action_identifier, subject->name.c_str());
+         action_identifier.c_str(), mass_subject->name.c_str());
    }
 
    // Forward the action up the chain.

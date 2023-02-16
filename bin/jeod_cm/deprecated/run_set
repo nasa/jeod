@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# run_set : script to run all RUN_* under a directory 
+#           or a specified RUN under a directory
+#    Usage: run_set <RUN_NAME>
+
+# temp variable to store cwd patd
+cdir=`pwd`
+
+rname=${1:-RUN\*}
+[ ! -d SET_test ] && { echo -e "No SET_test in ${cdir#$JEOD_HOME/} ..." >> $JEOD_HOME/run_error; exit 5; }
+runs=`find SET_test -name $rname`
+[ ${#runs} == 0 ] && { echo -e "\nERROR: !! RUN ${cdir#$JEOD_HOME/}/$1 does not exist !! ... " >> $JEOD_HOME/run_error; exit 15; }
+
+# assign simulation executable name to $sim
+sim=`find . -name S_main_\* | cut -c3-`
+
+# if there is no S_main\*, no need to go further
+[ -z "$sim" ] && { echo -e "\nNo Executable found at ${cdir#$JEOD_HOME/} ..." >> $JEOD_HOME/run_error; exit 25; }
+
+
+# Runninng sims
+for ii in $runs; do
+   [ -f $ii/send_hs ] && [[ `grep "Simulation reached input termination time" $ii/send_hs` ]] && continue 
+
+   if [ -n $sim ]; then
+# check if there is an input file in a run
+      [ ! -e ${ii}/input ] && { echo -e "\nNo input file in ${ii#$JEOD_HOME/} ... " >> $JEOD_HOME/run_error; continue; } 
+
+      echo -e "\n=========================================================================="
+      echo -e "Running ${cdir#$JEOD_HOME/}/$ii ..."
+      echo -e "==========================================================================\n"
+      ./"$sim" $ii/input >& /dev/null
+   fi
+
+   if [[ ! `grep "Simulation reached input termination time" $ii/send_hs` ]]; then
+      echo -e "RUN ${cdir#$JEOD_HOME/}/$ii Failed ..." >> $JEOD_HOME/run_error
+   fi
+     
+done

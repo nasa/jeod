@@ -42,7 +42,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/include/mass_body_reattach.hh
+ * @file models/dynamics/body_action/include/body_reattach.hh
  * Define the class MassBodyReattach, which causes one MassBody to be
  * reattached given a transformation.
  */

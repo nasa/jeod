@@ -50,7 +50,7 @@ DynBodyInitWrtPlanet::DynBodyInitWrtPlanet (
    void)
 :
    DynBodyInit(),
-   planet_name(nullptr),
+   planet_name(),
    set_items(RefFrameItems::Pos_Vel_Att_Rate),
    planet(nullptr)
 {

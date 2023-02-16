@@ -52,7 +52,7 @@ DynBodyInitPlanetDerived::DynBodyInitPlanetDerived (
    void)
 :
    DynBodyInitWrtPlanet(),
-   ref_body_name(NULL),
+   ref_body_name(),
    ref_body(NULL),
    required_items(RefFrameItems::Pos_Vel_Att_Rate),
    body_is_required(true)

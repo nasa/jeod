@@ -19,7 +19,7 @@ def set_STS_114_trans_NedTransState_tned_struct_pad_39a(vehicle_reference, dynam
 
 
 
-  vehicle_reference.ned_trans_init.dyn_subject = vehicle_reference.dyn_body
+  vehicle_reference.ned_trans_init.set_subject_body( vehicle_reference.dyn_body )
   vehicle_reference.ned_trans_init.action_name = "STS_114.trans_NedTransState_tned_struct_pad_39a"
 
   vehicle_reference.ned_trans_init.reference_ref_frame_name = "Earth.inertial"

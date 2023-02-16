@@ -59,9 +59,6 @@ namespace jeod {
 DynBodyInitOrbit::DynBodyInitOrbit (
    void)
 {
-   planet_name      = nullptr;
-   orbit_frame_name = nullptr;
-
    set = InvalidSet;
 
    semi_major_axis    = 0.0;
@@ -90,12 +87,6 @@ DynBodyInitOrbit::DynBodyInitOrbit (
 DynBodyInitOrbit::~DynBodyInitOrbit (
    void)
 {
-   if ((planet_name != nullptr) && (JEOD_IS_ALLOCATED (planet_name))) {
-      JEOD_DELETE_ARRAY (planet_name);
-   }
-   if ((orbit_frame_name != nullptr) && (JEOD_IS_ALLOCATED (orbit_frame_name))) {
-      JEOD_DELETE_ARRAY (orbit_frame_name);
-   }
 }
 
 
@@ -132,7 +123,7 @@ DynBodyInitOrbit::initialize (
          __FILE__, __LINE__, BodyActionMessages::illegal_value,
          "%s error:\n"
          "Invalid orbital set",
-         action_identifier);
+         action_identifier.c_str());
 
       // Not reached
       return;
@@ -147,7 +138,7 @@ DynBodyInitOrbit::initialize (
          __FILE__, __LINE__, BodyActionMessages::invalid_object,
          "%s error:\n"
          "Planet '%s' refers to no gravity source",
-         action_identifier, planet_name);
+         action_identifier.c_str(), planet_name.c_str());
 
       // Not reached
       return;
@@ -158,8 +149,8 @@ DynBodyInitOrbit::initialize (
 
    // Find the orbital reference frame.
    frame_name = NamedItem::construct_name (
-                   planet_name,
-                   NamedItem::suffix (planet_name, orbit_frame_name));
+                   planet_name.c_str(),
+                   NamedItem::suffix (planet_name.c_str(), orbit_frame_name.c_str()));
    found_frame = dyn_manager.find_ref_frame (frame_name);
    orbit_frame = dynamic_cast<EphemerisRefFrame *>(found_frame);
 
@@ -169,7 +160,7 @@ DynBodyInitOrbit::initialize (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s error:\n"
          "Planet '%s' does not have a '%s' frame",
-         action_identifier, planet_name, orbit_frame_name);
+         action_identifier.c_str(), planet_name.c_str(), orbit_frame_name.c_str());
    }
 
    if (orbit_frame == nullptr) {
@@ -177,7 +168,7 @@ DynBodyInitOrbit::initialize (
          __FILE__, __LINE__, BodyActionMessages::invalid_object,
          "%s error:\n"
          "Planet '%s' frame '%s' is not an ephemeris reference frame",
-         action_identifier, planet_name, orbit_frame_name);
+         action_identifier.c_str(), planet_name.c_str(), orbit_frame_name.c_str());
    }
 
    JEOD_DELETE_ARRAY (frame_name);
@@ -307,7 +298,7 @@ DynBodyInitOrbit::apply (
          __FILE__, __LINE__, BodyActionMessages::illegal_value,
          "%s error:\n"
          "Invalid orbital set",
-         action_identifier);
+         action_identifier.c_str());
 
       // Not reached
       return;

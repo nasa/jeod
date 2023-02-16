@@ -84,6 +84,7 @@ VehicleSimObject vehicleA;
 VehicleSimObject vehicleB;
 
 ##include "dynamics/body_action/include/body_attach_aligned.hh"
+##include "environment/gravity/include/gravity_manager.hh"
 
 // Set the integration
 //IntegLoop sim_integ_loop (DYNAMICS) dynamics;

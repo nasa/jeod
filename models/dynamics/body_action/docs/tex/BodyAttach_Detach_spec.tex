@@ -50,9 +50,9 @@ attachment. That is the task of classes that derive from BodyAttach.
 Two concepts drove this design.
 \begin{itemize}
 \item The MassBody class provides multiple ways to accomplish the basic task of
-  attaching MassBody objects in the form of multiple {\tt attach()} methods.
+  attaching MassBody objects in the form of multiple {\tt attach\_to/attach\_child()} methods.
   Distinct classes that derive from BodyAttach use distinct
-  {\tt attach()} mechanisms.
+  {\tt attach\_to/attach\_child()} mechanisms.
 \item The Dynamics Manager takes advantage of this inheritance to attach
   MassBody objects at initialization time. Any enqueued BodyAction objects
   that derive from BodyAttach and are ready to run at initialization
@@ -63,7 +63,7 @@ Two concepts drove this design.
 \end{itemize}
 
 JEOD supplies two classes that derive from BodyAttach.
-BodyAttachAligned uses the point-to-point form of {\tt attach()}
+BodyAttachAligned uses the point-to-point form of {\tt attach\_to/attach\_child()}
 while BodyAttachMatrix uses the offset+matrix form.
 The BodyAttachAligned class contains data members that name the
 attach points on the two vehicles.
@@ -95,6 +95,6 @@ involved process that the corresponding tasks for MassBody objects.
 DynBody objects have momentum that must be conserved; energy must also
 be conserved on detachment. This is not a concern for simple MassBody objects.
 Fortunately for this model. all that detail is hidden in the guts of the
-{\tt attach()} and {\tt detach()} methods. This model does not need to concern
+{\tt attach\_to/attach\_child()} and {\tt detach()} methods. This model does not need to concern
 itself with the different behaviors; it merely needs to call the appropriate
-{\tt attach()} or {\tt detach()} method.
+{\tt attach\_to/attach\_child()} or {\tt detach()} method.

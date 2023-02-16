@@ -13,7 +13,7 @@
 def set_STS_114_mass(vehicle_reference, dynamics) :
 
 
-  vehicle_reference.mass_init.subject = vehicle_reference.dyn_body.mass
+  vehicle_reference.mass_init.set_subject_body( vehicle_reference.dyn_body.mass )
   vehicle_reference.mass_init.action_name = "STS_114.mass"
 
   vehicle_reference.mass_init.properties.mass  = trick.attach_units( "kg",10000.0)

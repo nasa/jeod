@@ -6,7 +6,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/src/mass_body_attach.cc
+ * @file models/dynamics/body_action/src/body_attach.cc
  * Define methods for the mass body initialization class.
  */
 
@@ -53,9 +53,9 @@ BodyAttach::BodyAttach (
    void)
 :
    BodyAction(),
-   parent(nullptr),
-   dyn_parent(nullptr),
-   succeeded(false)
+   succeeded(false),
+   mass_parent(nullptr),
+   dyn_parent(nullptr)
 {
    active = true;
 
@@ -76,36 +76,22 @@ BodyAttach::initialize (
    // Forward the request up the chain.
    BodyAction::initialize (dyn_manager);
 
-   // Sanity check: set subject
-   if (subject == nullptr) {
-      subject = &(dyn_subject->mass);
-   }
-   else if( dyn_subject == nullptr )
-   {
-       dyn_subject = dyn_manager.find_dyn_body( subject->name.c_str() );
-   }
-
-   // Sanity check: set parent
-   if( (parent == nullptr) && (dyn_parent != nullptr) )
-   {
-      parent = &(dyn_parent->mass);
-   }
-   else if( (parent != nullptr) && (dyn_parent == nullptr) )
-   {
-       dyn_parent = dyn_manager.find_dyn_body( parent->name.c_str() );
-   }
-   else if( (parent == nullptr) && (dyn_parent == nullptr) )
-   {
-      MessageHandler::fail (
-         __FILE__, __LINE__, BodyActionMessages::null_pointer,
-         "%s failed:\n"
-         "The parent object was not assigned.",
-         action_identifier);
-   }
+   validate_body_inputs(dyn_parent, mass_parent, "parent");
 
    return;
 }
 
+void BodyAttach::set_parent_body(MassBody &mass_body_in)
+{
+    mass_parent = &mass_body_in;
+    dyn_parent = nullptr;
+}
+
+void BodyAttach::set_parent_body(DynBody &dyn_body_in)
+{
+    dyn_parent = &dyn_body_in;
+    mass_parent = nullptr;
+}
 
 /**
  * A derived class presumably has performed the attachment, which may
@@ -123,7 +109,7 @@ BodyAttach::apply (
       MessageHandler::debug (
          __FILE__, __LINE__, BodyActionMessages::trace,
          "%s: %s attached to %s.",
-         action_identifier, subject->name.c_str(), parent->name.c_str());
+         action_identifier.c_str(), mass_subject->name.c_str(), mass_parent->name.c_str());
    }
 
    // Attachment failed: Terminate the sim if terminate_on_error is set.
@@ -133,7 +119,7 @@ BodyAttach::apply (
          "'%s' failed to attach '%s' to '%s'. "
          "The terminate_on_failure flag set and an attachment error occurred.\n"
          "The attachment error described above is fatal per this setting.",
-         action_identifier, subject->name.c_str(), parent->name.c_str());
+         action_identifier.c_str(), mass_subject->name.c_str(), mass_parent->name.c_str());
    }
 
    // Attachment failed, terminate_ not set: Tell the user about the problem.
@@ -141,7 +127,7 @@ BodyAttach::apply (
       MessageHandler::error (
          __FILE__, __LINE__, BodyActionMessages::not_performed,
          "%s failed to attach %s to %s.",
-         action_identifier, subject->name.c_str(), parent->name.c_str());
+         action_identifier.c_str(), mass_subject->name.c_str(), mass_parent->name.c_str());
    }
 
 

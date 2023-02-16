@@ -151,6 +151,7 @@ GravityInteraction::remove_control (
 
 /**
  * Initialize all GravityControls in the grav_controls list.
+ * \param[in] dyn_manager Ref to Dyn Manager
  * \param[in] grav_manager Ref to Gravity Manager
  */
 void

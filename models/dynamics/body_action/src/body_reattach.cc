@@ -6,7 +6,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/src/mass_body_reattach.cc
+ * @file models/dynamics/body_action/src/body_reattach.cc
  * Define methods for the mass body initialization class.
  */
 
@@ -72,7 +72,7 @@ BodyReattach::apply (
 
    // Rettach the body.
    // FIXME, JEOD 2.1: reattach needs to return a status.
-   subject->reattach (offset_pstr_cstr_pstr, pstr_cstr.trans);
+   mass_subject->reattach (offset_pstr_cstr_pstr, pstr_cstr.trans);
 
    // Terminate the sim if requested to do so on failed attachments.
    if ((! succeeded) && terminate_on_error) {
@@ -81,7 +81,7 @@ BodyReattach::apply (
          "%s failed:\n"
          "terminate_on_failure flag set and attachment error occurred.\n"
          "The attachment error described above is fatal per this setting.",
-         action_identifier);
+         action_identifier.c_str());
    }
 
    // Debug.
@@ -89,7 +89,7 @@ BodyReattach::apply (
       MessageHandler::debug (
             __FILE__, __LINE__, BodyActionMessages::trace,
             "%s: %s reattached.",
-            action_identifier, subject->name.c_str());
+            action_identifier.c_str(), mass_subject->name.c_str());
    }
 
 

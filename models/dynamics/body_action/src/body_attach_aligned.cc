@@ -6,7 +6,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/src/mass_body_attach_aligned.cc
+ * @file models/dynamics/body_action/src/body_attach_aligned.cc
  * Define methods for the mass body initialization class.
  */
 
@@ -54,8 +54,8 @@ namespace jeod {
 BodyAttachAligned::BodyAttachAligned (
    void)
 :
-   subject_point_name(NULL),
-   parent_point_name(NULL)
+   subject_point_name(),
+   parent_point_name()
 {
   ; // Empty
 }
@@ -74,21 +74,21 @@ BodyAttachAligned::initialize (
    BodyAttach::initialize (dyn_manager);
 
    // Sanity check: Names must be supplied.
-   if ((subject_point_name == NULL) || (subject_point_name[0] == '\0')) {
+   if (subject_point_name.empty()) {
       MessageHandler::fail (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
-         "Missing / empty subject_point_name string",
-         action_identifier);
+         "Empty subject_point_name string",
+         action_identifier.c_str());
       return;
    }
 
-   if ((parent_point_name == NULL) || (parent_point_name[0] == '\0')) {
+   if (parent_point_name.empty()) {
       MessageHandler::fail (
          __FILE__, __LINE__, BodyActionMessages::invalid_name,
          "%s failed:\n"
-         "Missing / empty parent_point_name string",
-         action_identifier);
+         "Empty parent_point_name string",
+         action_identifier.c_str());
       return;
    }
 
@@ -107,23 +107,23 @@ BodyAttachAligned::apply (
     // DynBody to DynBody
     if( dyn_subject != nullptr && dyn_parent != nullptr )
     {
-        succeeded = dyn_parent->attach( parent_point_name,
-                                        subject_point_name,
+        succeeded = dyn_parent->attach_child( parent_point_name.c_str(),
+                                        subject_point_name.c_str(),
                                         *dyn_subject);
     }
     // MassBody subbody/subassembly to DynBody
     else if( dyn_subject == nullptr && dyn_parent != nullptr )
     {
-        succeeded = dyn_parent->add_mass_body( parent_point_name,
-                                               subject_point_name,
-                                               *subject);
+        succeeded = dyn_parent->add_mass_body( parent_point_name.c_str(),
+                                               subject_point_name.c_str(),
+                                               *mass_subject);
     }
     // MassBody/MassBody assembly to MassBody
     else if( dyn_subject == nullptr && dyn_parent == nullptr )
     {
-        succeeded = subject->attach_to ( subject_point_name,
-                                         parent_point_name,
-                                         *parent);
+        succeeded = mass_subject->attach_to ( subject_point_name.c_str(),
+                                         parent_point_name.c_str(),
+                                         *mass_parent);
     }
     // DynBody to MassBody -- ILLEGAL
     else // if( dyn_subject != nullptr && dyn_parent == nullptr )

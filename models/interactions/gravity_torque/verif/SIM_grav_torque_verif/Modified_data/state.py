@@ -1,5 +1,5 @@
 # Set the translational position.
-vehicle.trans_init.dyn_subject                  = vehicle.dyn_body
+vehicle.trans_init.set_subject_body( vehicle.dyn_body )
 vehicle.trans_init.reference_ref_frame_name = "Earth.inertial"
 vehicle.trans_init.body_frame_id            = "composite_body"
 vehicle.trans_init.position = [-4292653.41, 955168.47, 5139356.57]
@@ -9,7 +9,7 @@ dynamics.dyn_manager.add_body_action(vehicle.trans_init)
 
 
 # Set the rotational position.
-vehicle.lvlh_init.dyn_subject                 = vehicle.dyn_body
+vehicle.lvlh_init.set_subject_body( vehicle.dyn_body )
 vehicle.lvlh_init.planet_name             = "Earth"
 vehicle.lvlh_init.body_frame_id           = "composite_body"
 vehicle.lvlh_init.orientation.data_source = trick.Orientation.InputEulerRotation

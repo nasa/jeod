@@ -1,6 +1,6 @@
 def configure_mass_init( mass, mass_init, name):
   mass.set_name( name )
-  mass_init.subject = mass
+  mass_init.set_subject_body( mass )
   mass_init.action_name = name + "_init"
   mass_init.properties.mass = 1.0
 

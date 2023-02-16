@@ -97,7 +97,7 @@ DynBodyInitLvlhRotState::initialize (
          __FILE__, __LINE__, BodyActionMessages::illegal_value,
          "%s warning:\n"
          "set_items contains translational aspects. Removing them.",
-         action_identifier);
+         action_identifier.c_str());
 
       test_items.remove (RefFrameItems::Pos_Vel);
       set_items = test_items.get();
@@ -105,24 +105,17 @@ DynBodyInitLvlhRotState::initialize (
 
    // A null reference vehicle name means the reference vehicle is the
    // subject vehicle.
-   if ( ( ref_body == nullptr ) && ( ref_body_name == nullptr ) )
+   if ( ( ref_body == nullptr ) && ( ref_body_name.empty() ) )
    {
-       if( dyn_subject != nullptr )
-       {
-           ref_body = dyn_subject;
-       }
-       else if( subject != nullptr )
-       {
-           dyn_subject = dyn_manager.find_dyn_body( subject->name.c_str() );
-           ref_body = dyn_subject;
-       }
-       else
+       ref_body = get_subject_dyn_body();
+
+       if( ref_body == nullptr )
        {
            MessageHandler::fail (
                     __FILE__, __LINE__, BodyActionMessages::null_pointer,
                     "%s failed:\n"
                     "The subject body was not assigned",
-                    action_identifier);
+                    action_identifier.c_str());
        }
    }
 

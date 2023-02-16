@@ -42,7 +42,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/include/mass_body_detach.hh
+ * @file models/dynamics/body_action/include/body_detach.hh
  * Define the class MassBodyDetach, the base class used for detaching one
  * MassBody object from one another.
  */
@@ -106,9 +106,6 @@ class BodyDetach : public BodyAction {
 
    // Destructor.
    virtual ~BodyDetach ();
-
-   // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
 
    // apply: Detach the body from its parent body.
    virtual void apply (DynManager & dyn_manager);

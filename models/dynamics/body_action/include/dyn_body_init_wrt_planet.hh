@@ -97,7 +97,7 @@ class DynBodyInitWrtPlanet : public DynBodyInit {
     * The name of the planet about which the reference body's LVLH frame
     * is to be computed.
     */
-   char * planet_name; //!< trick_units(--)
+   std::string planet_name; //!< trick_units(--)
 
    /**
     * The state elements to be set by this initializer.

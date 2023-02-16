@@ -117,6 +117,7 @@ is_in_container (
  * @tparam T  The class that defines the get_wrench call.
  & @param  get_wrench  Pointer to member function that returns a Wrench.
  * @param  active_constraints  Vector of active constraints.
+ * @param  point The vector offset for computing the wrenching torque.
  * @param  sum  The sum to be accumulated.
  */
 template <typename T>

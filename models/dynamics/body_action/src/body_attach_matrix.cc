@@ -6,7 +6,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/src/mass_body_attach_matrix.cc
+ * @file models/dynamics/body_action/src/body_attach_matrix.cc
  * Define methods for the mass body initialization class.
  */
 
@@ -71,7 +71,7 @@ BodyAttachMatrix::apply (
     // DynBody to DynBody
     if( dyn_subject != nullptr && dyn_parent != nullptr )
     {
-        succeeded = dyn_parent->attach( offset_pstr_cstr_pstr,
+        succeeded = dyn_parent->attach_child( offset_pstr_cstr_pstr,
                                         pstr_cstr.trans,
                                         *dyn_subject);
     }
@@ -80,12 +80,12 @@ BodyAttachMatrix::apply (
     {
         succeeded = dyn_parent->add_mass_body( offset_pstr_cstr_pstr,
                                                pstr_cstr.trans,
-                                               *subject);
+                                               *mass_subject);
     }
     // MassBody/MassBody assembly to MassBody
     else if( dyn_subject == nullptr && dyn_parent == nullptr )
     {
-        succeeded = subject->attach_to (offset_pstr_cstr_pstr, pstr_cstr.trans, *parent);
+        succeeded = mass_subject->attach_to (offset_pstr_cstr_pstr, pstr_cstr.trans, *mass_parent);
 
     }
     // DynBody to MassBody -- ILLEGAL

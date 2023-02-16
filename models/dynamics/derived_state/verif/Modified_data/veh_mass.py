@@ -1,6 +1,6 @@
 # Mass settings
 def veh_mass( veh):
-  veh.mass_init.subject = veh.dyn_body.mass
+  veh.mass_init.set_subject_body( veh.dyn_body.mass )
   veh.mass_init.properties.pt_orientation.data_source = \
                                                    trick.Orientation.InputMatrix
   veh.mass_init.properties.pt_frame_spec = trick.MassPointInit.StructToBody
@@ -19,7 +19,7 @@ def veh_mass( veh):
 
 def veh_mass_alt( veh):
   # Set the mass porperties for this veh.
-  veh.mass_init.subject = veh.dyn_body.mass
+  veh.mass_init.set_subject_body( veh.dyn_body.mass )
 
   # Set the struct to body reference frame orientation.
   veh.mass_init.properties.pt_orientation.data_source = \

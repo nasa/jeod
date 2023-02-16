@@ -9,7 +9,7 @@
 def set_descent_module(sv_mass_reference) :
 
   #/* Set the mass point interfaces for this vehicle. */
-  sv_mass_reference.mass_init.subject = sv_mass_reference.body
+  sv_mass_reference.mass_init.set_subject_body( sv_mass_reference.body )
 
   #/* Allocate the mass point initilization objects. */
   sv_mass_reference.mass_init.num_points = 2

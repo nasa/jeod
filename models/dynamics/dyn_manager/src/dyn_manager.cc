@@ -247,7 +247,7 @@ DynManager::add_body_action (
 
 /**
  * Remove a body action to the list of such.
- * \param[in,out] body_action Body action
+ * \param[in] action_name_in Name of the action to remove
  */
 void
 DynManager::remove_body_action (
@@ -261,10 +261,10 @@ DynManager::remove_body_action (
        ++it) {
     BodyAction * action = *it;
     // if the body-action has no name, it can't be the one we are looking for.
-    if (action->action_name == NULL) {
+    if (action->action_name.empty()) {
       continue;
     }
-    if (strcmp(action_name_in, action->action_name) == 0) {
+    if (strcmp(action_name_in, action->action_name.c_str()) == 0) {
       action->shutdown(); // frees the memory allocated to action_identifier
       body_actions.erase(it); // remove from list.
       return;

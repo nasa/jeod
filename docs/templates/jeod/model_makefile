@@ -137,8 +137,7 @@ ifneq "$(wildcard $(TRICK_HOME)/bin/trick-CP)" ""
 TRICK_INCLUDES += -I $(TRICK_HOME)/include -I $(TRICK_HOME)/include/trick/compat
 endif
 
-METRIX = python3 $(TEMPLATE_DIR)/make_metrix_metrics.py \
-   -t $(JEOD_HOME)/tools/analysis/metrixplusplus/metrix++.py
+METRIX = python3 $(TEMPLATE_DIR)/make_metrix_metrics.py
 
 ##############################################
 # Check for consistency / set from defaults. #

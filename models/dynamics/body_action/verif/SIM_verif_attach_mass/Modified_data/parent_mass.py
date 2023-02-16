@@ -1,6 +1,6 @@
 def parent_mass_default():
   components.parent_body.set_name("Parent")
-  components.parent_init.subject     = components.parent_body
+  components.parent_init.set_subject_body( components.parent_body )
   components.parent_init.action_name = "Parent_mass_init"
   components.parent_init.properties.mass  = 1.0
   components.parent_init.properties.position  = [ 0.0, 0.0, 0.0]

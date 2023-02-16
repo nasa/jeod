@@ -138,7 +138,7 @@ def configure_mercury (trick, dynamics, mercury, relativistic_set) :
     radius = float(mercury.planet.r_eq)
     Ixx = 0.4 * mass * radius**2
 
-    mercury.mass_init.subject = mercury.prop_planet.body.mass
+    mercury.mass_init.set_subject_body( mercury.prop_planet.body.mass )
     mercury.mass_init.action_name = "mercury.mass_unit"
 
     mercury.mass_init.properties.pt_orientation.data_source = \
@@ -159,7 +159,7 @@ def configure_mercury (trick, dynamics, mercury, relativistic_set) :
 
     dynamics.dyn_manager.add_body_action (mercury.mass_init)
 
-    mercury.rot_init.dyn_subject = mercury.prop_planet.body
+    mercury.rot_init.set_subject_body( mercury.prop_planet.body )
     mercury.rot_init.action_name = "mercury.rot_init"
     mercury.rot_init.reference_ref_frame_name = "SSBary.inertial"
     mercury.rot_init.body_frame_id = "composite_body"

@@ -153,25 +153,25 @@ public:
 
    // Attachment methods
 
-   // Attach bodies at specified mass points (sent to child)
+   // Attach this body to parent body at specified mass points
    virtual bool attach_to (
       const char * this_point_name,
       const char * parent_point_name,
       MassBody & parent );
 
-   // Attach bodies via geometry specification (sent to child)
+   // Attach this body to parent body at geometric location relative to parent structure frame
    virtual bool attach_to (
       double offset_pstr_cstr_pstr[3],
       double T_pstr_cstr[3][3],
       MassBody & parent );
 
-   // Attach bodies at specified mass points (sent to child)
+   // Attach child body to this body at specified mass points
    virtual bool attach_child (
       const char * this_point_name,
       const char * child_point_name,
       MassBody & child );
 
-   // Attach bodies via geometry specification (sent to child)
+   // Attach child body to this body at geometric location relative to this body's structure frame
    virtual bool attach_child (
       double offset_pstr_cstr_pstr[3],
       double T_pstr_cstr[3][3],

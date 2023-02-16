@@ -25,7 +25,7 @@ def set_saturn(init_trans_state) :
   saturn.relative.direction_sense = \
     trick.RelativeDerivedState.ComputeSubjectStateinTarget
 
-  saturn.mass_init.subject =  saturn.prop_planet.body.mass
+  saturn.mass_init.set_subject_body( saturn.prop_planet.body.mass )
   saturn.mass_init.action_name = "saturn.mass_init"
 
   saturn.mass_init.properties.pt_orientation.data_source = \
@@ -40,7 +40,7 @@ def set_saturn(init_trans_state) :
   dynamics.dyn_manager.add_body_action (saturn.mass_init)
 
 
-  saturn.rot_init.dyn_subject = saturn.prop_planet.body
+  saturn.rot_init.set_subject_body( saturn.prop_planet.body )
   saturn.rot_init.action_name = "saturn.rot_init"
   saturn.rot_init.reference_ref_frame_name = "SSBary.inertial"
   saturn.rot_init.body_frame_id = "composite_body"
@@ -61,7 +61,7 @@ def set_saturn(init_trans_state) :
     saturn.prop_planet.commanded_mode = \
       trick.PropagatedPlanet.TransFromBody_RotFromBody
 
-    saturn.trans_init.dyn_subject = saturn.prop_planet.body
+    saturn.trans_init.set_subject_body( saturn.prop_planet.body )
     saturn.trans_init.action_name = "saturn.trans_init"
     saturn.trans_init.reference_ref_frame_name = "SSBary.inertial"
     saturn.trans_init.body_frame_id = "composite_body"

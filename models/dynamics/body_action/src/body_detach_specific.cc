@@ -6,7 +6,7 @@
  * @addtogroup BodyAction
  * @{
  *
- * @file models/dynamics/body_action/src/mass_body_detach_specific.cc
+ * @file models/dynamics/body_action/src/body_detach_specific.cc
  * Define methods for the BodyDetachSpecific class.
  */
 
@@ -53,7 +53,7 @@ BodyDetachSpecific::BodyDetachSpecific (
    void)
 :
    BodyAction(),
-   detach_from(nullptr),
+   mass_detach_from(nullptr),
    dyn_detach_from(nullptr)
 {
     active = false;
@@ -72,59 +72,8 @@ BodyDetachSpecific::initialize (
 
    // Forward the request up the chain.
    BodyAction::initialize (dyn_manager);
-   std::string fail_reason("");
 
-   // Sanity check: Detach-from must not be null.
-   if (detach_from == nullptr && dyn_detach_from == nullptr )
-   {
-       fail_reason += "The detaching body was not assigned\n";
-   }
-   else if( detach_from != nullptr )
-   {
-       if( dyn_detach_from == nullptr )
-       {
-           dyn_detach_from = detach_from->dyn_owner;
-       }
-       else if( dyn_detach_from != detach_from->dyn_owner )
-       {
-           fail_reason += "The detach_from and dyn_detach_from bodies are "
-                          "assigned, but refer to different bodies\n";
-       }
-   }
-
-   // Sanity check: subject must not be null
-   if( subject == nullptr && dyn_subject == nullptr )
-   {
-       fail_reason += "The subject body was not assigned\n";
-   }
-   else if( subject != nullptr )
-   {
-       if( dyn_subject == nullptr )
-       {
-           dyn_subject = subject->dyn_owner;
-       }
-       else if( dyn_subject != subject->dyn_owner )
-       {
-           fail_reason += "The subject and dyn_subject bodies are "
-                          "assigned, but refer to different bodies\n";
-       }
-   }
-
-   // Sanity check cannot detach a DynBody from a MassBody
-   if( dyn_subject != nullptr && dyn_detach_from == nullptr )
-   {
-       fail_reason += "The subject refers to a dynamic body, but "
-                      "detach_from is not a dynamic body";
-   }
-
-   if( !fail_reason.empty() )
-   {
-       MessageHandler::fail (
-           __FILE__, __LINE__, BodyActionMessages::null_pointer,
-           "%s failed:\n"
-           "%s",
-           action_identifier, fail_reason.c_str() );
-   }
+   validate_body_inputs(dyn_detach_from, mass_detach_from, "detach_from");
 
    return;
 }
@@ -152,16 +101,16 @@ BodyDetachSpecific::apply (
    // Jettison MassBody from DynBody
    else if( dyn_subject == nullptr && dyn_detach_from != nullptr )
    {
-       succeeded = dyn_detach_from->remove_mass_body(*subject);
-       name_subject = subject->name.get_name();
+       succeeded = dyn_detach_from->remove_mass_body(*mass_subject);
+       name_subject = mass_subject->name.get_name();
        name_detach  = dyn_detach_from->name.get_name();
    }
    // Detach MassBody Subject from its parent
-   else if( subject != nullptr && detach_from != nullptr )
+   else if( dyn_subject == nullptr && dyn_detach_from == nullptr )
    {
-       succeeded = subject->detach (*detach_from);
-       name_subject = subject->name.get_name();
-       name_detach  = detach_from->name.get_name();
+       succeeded = mass_subject->detach (*mass_detach_from);
+       name_subject = mass_subject->name.get_name();
+       name_detach  = mass_detach_from->name.get_name();
    }
    // Inconsistent setup not detected by BodyDetachSpecific::initialize()
    else
@@ -174,7 +123,7 @@ BodyDetachSpecific::apply (
       MessageHandler::debug (
          __FILE__, __LINE__, BodyActionMessages::trace,
          "%s: %s detached from %s.",
-         action_identifier, name_subject.c_str(), name_detach.c_str());
+         action_identifier.c_str(), name_subject.c_str(), name_detach.c_str());
    }
 
    // Detachment failed: Terminate the sim if terminate_on_error is set.
@@ -184,7 +133,7 @@ BodyDetachSpecific::apply (
          "%s failed to detach %s from %s."
          "The terminate_on_failure flag set and a detachment error occurred.\n"
          "The detachment error described above is fatal per this setting.",
-         action_identifier, name_subject.c_str(), name_detach.c_str());
+         action_identifier.c_str(), name_subject.c_str(), name_detach.c_str());
    }
 
    // Detachment failed, terminate_ not set: Tell the user about the problem.
@@ -192,7 +141,7 @@ BodyDetachSpecific::apply (
       MessageHandler::error (
          __FILE__, __LINE__, BodyActionMessages::not_performed,
          "%s failed to detach %s from %s.",
-         action_identifier, name_subject.c_str(), name_detach.c_str());
+         action_identifier.c_str(), name_subject.c_str(), name_detach.c_str());
    }
 
 
@@ -202,6 +151,17 @@ BodyDetachSpecific::apply (
    return;
 }
 
+void BodyDetachSpecific::set_detach_from_body(MassBody &mass_body_in)
+{
+    mass_detach_from = &mass_body_in;
+    dyn_detach_from = nullptr;
+}
+
+void BodyDetachSpecific::set_detach_from_body(DynBody &dyn_body_in)
+{
+    dyn_detach_from = &dyn_body_in;
+    mass_detach_from = nullptr;
+}
 
 /**
  * Queries whether the "active" flag has been set.

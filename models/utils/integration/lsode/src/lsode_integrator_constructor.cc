@@ -24,8 +24,8 @@ Assumptions and limitations:
   (())
 
 Library dependencies:
-  ((lsode_integrator_constructor.o)
-   (lsode_integration_controls.o))
+  ((lsode_integrator_constructor.cc)
+   (lsode_integration_controls.cc))
 
  
 

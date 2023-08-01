@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_action_messages.o))
+  ((body_action_messages.cc))
 
 
 

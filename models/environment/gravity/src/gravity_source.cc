@@ -19,9 +19,9 @@ Assumptions and limitations:
   ((None.))
 
 Library dependencies:
-  ((gravity_source.o)
-   (gravity_integ_frame.o)
-   (environment/ephemerides/ephem_interface/ephem_ref_frame.o))
+  ((gravity_source.cc)
+   (gravity_integ_frame.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc))
 
 
 *******************************************************************************/
@@ -54,11 +54,11 @@ JEOD_DECLARE_ATTRIBUTES (GravityIntegFrame)
 GravitySource::GravitySource (void)
 :
    name(),
-   inertial(NULL),
-   pfix(NULL)
+   inertial(nullptr),
+   pfix(nullptr)
 {
    mu = 0.0;
-   frames = NULL;
+   frames = nullptr;
 
    JEOD_REGISTER_CLASS (GravityIntegFrame);
 }
@@ -70,7 +70,7 @@ GravitySource::GravitySource (void)
 GravitySource::~GravitySource (
    void)
 {
-   if (frames != NULL) {
+   if (frames != nullptr) {
       JEOD_DELETE_ARRAY (frames);
    }
 }

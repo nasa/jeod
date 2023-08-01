@@ -24,7 +24,7 @@ Assumptions and limitations:
   (TBS)
 
 Library dependencies:
-  ((lsode_second_order_ode_integrator.o))
+  ((lsode_second_order_ode_integrator.cc))
 
  
 
@@ -53,7 +53,12 @@ LsodeSecondOrderODEIntegrator::LsodeSecondOrderODEIntegrator (
    void)
 :
    Er7UtilsDeletable (),
-   SecondOrderODEIntegrator ()
+   SecondOrderODEIntegrator (),
+   y(NULL),
+   y_dot(NULL),
+   zeroth_derivative_size(0),
+   first_derivative_size(0),
+   arrays_allocated(false)
 { }
 
 
@@ -67,8 +72,8 @@ LsodeSecondOrderODEIntegrator::LsodeSecondOrderODEIntegrator (
 :
    er7_utils::Er7UtilsDeletable (),
    er7_utils::SecondOrderODEIntegrator (size, controls),
-   y(NULL),
-   y_dot(NULL),
+   y(nullptr),
+   y_dot(nullptr),
    zeroth_derivative_size(size),
    first_derivative_size(size),
    first_order_integrator(data_in, controls, 2*size),
@@ -92,8 +97,8 @@ LsodeSecondOrderODEIntegrator::LsodeSecondOrderODEIntegrator (
    Er7UtilsDeletable (),
    SecondOrderODEIntegrator (position_size, velocity_size,
                              deriv_funs, controls),
-   y(NULL),
-   y_dot(NULL),
+   y(nullptr),
+   y_dot(nullptr),
    zeroth_derivative_size(position_size),
    first_derivative_size(velocity_size),
    first_order_integrator(data_in, controls, position_size+velocity_size),

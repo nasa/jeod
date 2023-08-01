@@ -24,12 +24,12 @@
     (N/A)
 
   LIBRARY DEPENDENCY:
-    ((mass_point.o)
-     (mass_messages.o)
-     (mass_point_state.o)
-     (utils/message/message_handler.o)
-     (utils/quaternion/quat_norm.o)
-     (utils/quaternion/quat_to_mat.o))
+    ((mass_point.cc)
+     (mass_messages.cc)
+     (mass_point_state.cc)
+     (utils/message/src/message_handler.cc)
+     (utils/quaternion/src/quat_norm.cc)
+     (utils/quaternion/src/quat_to_mat.cc))
 
 
 

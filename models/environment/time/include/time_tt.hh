@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
  
 
 Library dependencies:
-  ((time_tt.o))
+  ((../src/time_tt.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_TT_HH
@@ -91,7 +91,7 @@ public:
    TimeTT ();
 
   // Destructor
-   ~TimeTT ();
+   ~TimeTT () override;
 
 
  // The copy constructor and assignment operator for this class are
@@ -99,7 +99,7 @@ public:
  private:
    TimeTT (const TimeTT&);
    TimeTT & operator = (const TimeTT&);
-   void set_epoch(void);
+   void set_epoch(void) override;  //cppcheck-suppress virtualCallInConstructor
 };
 
 } // End JEOD namespace

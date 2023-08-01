@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_tai.o))
+  ((../src/time_tai.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_TAI_HH
@@ -91,14 +91,14 @@ public:
    TimeTAI ();
 
   // Destructor
-   ~TimeTAI ();
+   ~TimeTAI () override;
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.
  private:
    TimeTAI (const TimeTAI&);
    TimeTAI & operator = (const TimeTAI&);
-   void set_epoch(void);
+   void set_epoch(void) override; //cppcheck-suppress virtualCallInConstructor
 
 };
 

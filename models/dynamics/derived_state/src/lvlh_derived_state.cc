@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((lvlh_derived_state.o)
-   (derived_state.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/quaternion/quat_from_mat.o)
-   (utils/lvlh_frame/lvlh_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o)
-   (utils/ref_frames/ref_frame_set_name.o))
+  ((lvlh_derived_state.cc)
+   (derived_state.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/quaternion/src/quat_from_mat.cc)
+   (utils/lvlh_frame/src/lvlh_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc)
+   (utils/ref_frames/src/ref_frame_set_name.cc))
 
 
 
@@ -55,8 +55,8 @@ LvlhDerivedState::LvlhDerivedState (
    register_frame(true),
    lvlh_frame(),
    lvlh_state(),
-   planet_centered_inertial(NULL),
-   local_dm(NULL)
+   planet_centered_inertial(nullptr),
+   local_dm(nullptr)
 {
    ;
 }
@@ -73,7 +73,7 @@ LvlhDerivedState::~LvlhDerivedState (
    lvlh_frame.remove_from_parent();
 
    // Recant the registration done by the initialize() method.
-   if (local_dm != NULL) {
+   if (local_dm != nullptr) {
       local_dm->remove_ref_frame (lvlh_frame);
    }
 }

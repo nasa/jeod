@@ -16,8 +16,8 @@ Purpose:
   ()
 
 Library Dependency:
-  ((trick_memory_interface_attrib.o)
-   (trick_memory_interface.o))
+  ((trick_memory_interface_attrib.cc)
+   (trick_memory_interface.cc))
 
  
 *******************************************************************************/
@@ -65,7 +65,7 @@ const
 
    void * symbol = dlsym (dlhandle, attr_name.c_str());
 
-   if (symbol == NULL) {
+   if (symbol == nullptr) {
       MessageHandler::inform (
          __FILE__, __LINE__, SimInterfaceMessages::interface_error,
          "Unable to find Trick attributes for type '%s'.\n"
@@ -101,8 +101,8 @@ JeodTrickMemoryInterface::primitive_attributes (
    const std::type_info & data_type)
 const
 {
-   ATTRIBUTES attr;
-   std::memset (&attr, 0, sizeof(attr));
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+   ATTRIBUTES attr = {};
    attr.io = 3;
    attr.language = Language_CPP;
 
@@ -207,7 +207,8 @@ JeodTrickMemoryInterface::pointer_attributes (
    const JEOD_ATTRIBUTES_TYPE & target_attr)
 const
 {
-   ATTRIBUTES attr;
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+   ATTRIBUTES attr = {};
    int pointer_index = target_attr.num_index;
 
    // Check if the parent is an array.
@@ -220,7 +221,6 @@ const
    }
 
    // Construct the output attributes.
-   std::memset (&attr, 0, sizeof(attr));
    attr.language = Language_CPP;
    attr.io = 3;
    attr.size = sizeof(void *);
@@ -234,7 +234,7 @@ const
 
    // For non-structured types, attr.attr is the null pointer.
    else {
-      attr.attr = NULL;
+      attr.attr = nullptr;
    }
 
    // Copy the parent array dimensions, if any.
@@ -255,14 +255,14 @@ JeodTrickMemoryInterface::void_pointer_attributes (
    void)
 const
 {
-   ATTRIBUTES attr;
-   std::memset (&attr, 0, sizeof(attr));
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+   ATTRIBUTES attr = {};
    attr.language = Language_CPP;
    attr.io = 3;
    attr.size = sizeof(void *);
 
    attr.type = TRICK_STRUCTURED;
-   attr.attr = NULL;
+   attr.attr = nullptr;
    attr.num_index = 1;
 
    return attr;
@@ -281,8 +281,8 @@ JeodTrickMemoryInterface::structure_attributes (
    std::size_t target_size)
 const
 {
-   ATTRIBUTES attr;
-   std::memset (&attr, 0, sizeof(attr));
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+   ATTRIBUTES attr = {};
    attr.language = Language_CPP;
    attr.io = 3;
    attr.size = target_size;

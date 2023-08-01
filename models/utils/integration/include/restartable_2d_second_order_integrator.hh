@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -93,7 +93,7 @@ public:
    Restartable2DSecondOrderIntegrator()
    :
       SimpleCheckpointable(),
-      integrator(NULL),
+      integrator(nullptr),
       integrator_manager(integrator)
    {
       JEOD_REGISTER_CLASS (Restartable2DSecondOrderIntegrator);
@@ -102,7 +102,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~Restartable2DSecondOrderIntegrator()
+   ~Restartable2DSecondOrderIntegrator() override
    {
       destroy_integrator();
    }
@@ -171,7 +171,7 @@ public:
    /**
     * Restore the integrator on restart.
     */
-   virtual void simple_restore()
+   void simple_restore() override
    {
       integrator_manager.set_integrator_reference(integrator);
       integrator_manager.simple_restore();

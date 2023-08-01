@@ -22,14 +22,14 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_standard.o)
-   (time.o)
-   (time_manager.o)
-   (time_manager_init.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_standard.cc)
+   (time.cc)
+   (time_manager.cc)
+   (time_manager_init.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -179,7 +179,6 @@ TimeStandard::add_type_initialize (
 {
    int conv_index;       // -- converter index in TimeManagerInit
    int parent_index;     // -- index-value of the parent time-type
-   int conv_dir;         // -- direction in which to apply the converter
 
    time_manager_init->set_status (index, -1);
    // used to check for loops; resets before exit
@@ -193,7 +192,7 @@ TimeStandard::add_type_initialize (
          if (time_manager_init->get_status (jj) == seeking_status) {
             conv_index = jj * time_manager->num_types + index; /* --
                     converter index in TimeManagerInit registry. */
-            conv_dir   = time_manager_init->get_conv_dir_init (conv_index);
+            int conv_dir   = time_manager_init->get_conv_dir_init (conv_index);
             if (conv_dir != 0) {
                initialize_from_name = time_manager->get_time_ptr (jj)->name.get_name();
                MessageHandler::inform (
@@ -295,17 +294,7 @@ void
 TimeStandard::calculate_calendar_values (
    void)
 {
-   int     julian_day, /* -- integral part of julian time */
-           m,          /* -- preliminary month calculation */
-           n_1,        /*  -- number of whole years */
-           n_4,        /* -- number of whole 4-year periods */
-           n_100,      /* -- number of whole 100-year periods */
-           n_400,      /* -- number of whole 400-year periods */
-           r_4,        /* -- number of years remaing after 4-year period */
-           r_4a,       /* -- modified value of r_4 */
-           r_100,      /* -- number of years remaing after 100-year period */
-           r_400;      /* -- number of years remaing after 400-year period */
-
+   int julian_day; /* -- integral part of julian time */
    double  temp;       /* -- temporary value */
 
    /*separate julian time into the integral and fractional parts */
@@ -344,30 +333,30 @@ TimeStandard::calculate_calendar_values (
       // the number of days  since the "most recent" 400-year boundary
       julian_day += 134493; /* 134493 is the offset from March 1, 1600 to the
                               start of Truncated Julian Time */
-      n_400       = julian_day / 146097; // There are 146097 days in 400 years.
+      int n_400 = julian_day / 146097; // There are 146097 days in 400 years. (number of whole 400-year periods)
       if (julian_day < 0) {
          n_400 -= 1;
       }
-      r_400 = julian_day - 146097 * n_400 + 1;
+      int r_400 = julian_day - 146097 * n_400 + 1; /* -- number of years remaing after 400-year period */
 
       /* determine number of whole 100-year periods since the "most recent" 400-year
          boundary, and number of days since the "most recent" 100-year boundary */
-      n_100 = static_cast<int> (r_400 / 36524.3);
-      r_100 = r_400 - 36524 * n_100 - 1;
+      int n_100 = static_cast<int> (r_400 / 36524.3); /* -- number of whole 100-year periods */
+      int r_100 = r_400 - 36524 * n_100 - 1; /* -- number of years remaing after 100-year period */
 
       /* ditto for 4-year periods */
-      n_4 = r_100 / 1461;
-      r_4 = r_100 - 1461 * n_4 + 1;
+      int n_4 = r_100 / 1461; /* -- number of whole 4-year periods */
+      int r_4 = r_100 - 1461 * n_4 + 1; /* -- number of years remaing after 4-year period */
 
       /* and for 1-year periods, omitting remaining-days calculation */
-      n_1 = static_cast<int> (r_4 / 365.3);
+      int n_1 = static_cast<int> (r_4 / 365.3); /*  -- number of whole years */
 
       /*  Modified r_4 for months calculation */
-      r_4a = r_4 + 30 + 2 * n_1;
+      int r_4a = r_4 + 30 + 2 * n_1; /* -- modified value of r_4 */
 
       /* m = (Number of whole months +1) since the most recent 4-year period
              (March=1, April=2, ... , February=12) */
-      m = static_cast<int> (r_4a / 30.585);
+      int m = static_cast<int> (r_4a / 30.585);
 
 /* Determine day of month, month number (Jan=1, etc.), and year number (AD) */
       calendar_day   = r_4a - static_cast<int> (30.585 * m);

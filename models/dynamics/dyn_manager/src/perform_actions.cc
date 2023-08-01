@@ -15,8 +15,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((perform_actions.o)
-   (dynamics/mass/mass_point_state.o))
+  ((perform_actions.cc)
+   (dynamics/mass/src/mass_point_state.cc))
 
 
 ******************************************************************************/

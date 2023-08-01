@@ -1,4 +1,4 @@
-vehicle.mass_init.subject = vehicle.dyn_body.mass
+vehicle.mass_init.set_subject_body(vehicle.dyn_body.mass)
 vehicle.mass_init.properties.mass = 3.0
 vehicle.mass_init.properties.position = [3.0,0,0]
 

@@ -30,7 +30,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((template_messages.o))
+  ((template_messages.cc))
 
  
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -95,7 +95,7 @@ public:
     Destructor.
     For now, this does nothing.
     */
-   ~SectionedInputBuffer() {}
+   ~SectionedInputBuffer() override {}
 
 #ifndef SWIG
    /**
@@ -103,7 +103,7 @@ public:
     @return False if object is OK.
     */
    bool operator ! () const
-   { return ((file_buf == NULL) || !file_buf); }
+   { return file_buf == nullptr; }
 #endif
 
 private:
@@ -121,12 +121,12 @@ private:
     Used to force a badly behaving stream to disconnect.
     */
    void deactivate (void) {
-      file_buf = NULL;
+      file_buf = nullptr;
       at_eof = true;
    }
 
    // Get a character (future: set of characters) from the file buffer.
-   virtual std::streambuf::int_type underflow ();
+   std::streambuf::int_type underflow () override;
 
 
    // Member data
@@ -317,7 +317,7 @@ public:
    SectionedInputStream (const SectionedInputStream &);
 
    // Destructor.
-   ~SectionedInputStream ();
+   ~SectionedInputStream () override;
 
    // Is the object able to be activated?
    bool is_activatable () const;
@@ -335,7 +335,7 @@ public:
     @return False if object is OK, true if something is wrong.
     */
    bool operator ! () const
-   { return (!is_active || !sectbuf || (stream == NULL) || !stream); }
+   { return (!is_active || !sectbuf || stream == nullptr); }
 
    /**
     Conversion to void*.
@@ -344,7 +344,7 @@ public:
     @return this pointer (cast to void*) if object is OK, NULL otherwise.
     */
    operator void* () const
-   { return (!*this) ? NULL : const_cast<SectionedInputStream*>(this); }
+   { return (!*this) ? nullptr : const_cast<SectionedInputStream*>(this); }
 #endif
 
 private:
@@ -452,13 +452,13 @@ public:
     @return True if there is an active reader, false otherwise.
     */
    bool have_active_reader () const
-   { return (current_reader != NULL); }
+   { return (current_reader != nullptr); }
 
    // Denote a reader as *the* currently active reader.
    bool register_reader (SectionedInputStream * reader);
 
    // Denote a reader as no longer being *the* currently active reader.
-   bool deregister_reader (SectionedInputStream * reader);
+   bool deregister_reader (const SectionedInputStream * reader);
 
 
 private:
@@ -503,7 +503,7 @@ private:
       const std::string & tag);
 
    // Create a C++ input stream that reads the Trick checkpoint file section.
-   SectionedInputStream create_trick_section_reader ();
+   SectionedInputStream create_trick_section_reader (); //cppcheck-suppress unusedPrivateFunction
 
 
    // Member data

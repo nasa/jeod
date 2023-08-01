@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -55,7 +55,7 @@ ASSUMPTIONS AND LIMITATIONS:
      object for the update_state call. Otherwise there can be unexpected
      behavior))
 LIBRARY DEPENDENCIES:
-   (MET_atmosphere.o)
+   (../src/MET_atmosphere.cc)
 
 *******************************************************************************/
 
@@ -294,11 +294,11 @@ public: // public member functions
    METAtmosphere ();
 
    // destructor
-   virtual ~METAtmosphere (){};
+   ~METAtmosphere () override{};
 
 
-   virtual void update_atmosphere ( const PlanetFixedPosition * pfix_pos,
-                                    AtmosphereState * state);
+   void update_atmosphere ( const PlanetFixedPosition * pfix_pos,
+                                    AtmosphereState * state) override;
    void update_atmosphere         ( const PlanetFixedPosition * pfix_pos,
                                     METAtmosphereStateVars    * state);
 

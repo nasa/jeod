@@ -16,7 +16,7 @@ RUN dnf -y groupinstall "Development Tools" && \
     texlive-helvetic texlive-courier texlive-epstopdf texlive-tex4ht texlive-gsftopk \
     texlive-collection-latex texlive-collection-latexrecommended \
     which python3 cmake3 python2-enum34 lcov python2-numpy python3-numpy python2-devel \
-    python2-pip python3-pip \
+    python2-pip python3-pip python3-regex python3-mako \
     cppcheck vim emacs doxygen && \
     pip2 install matplotlib flawfinder && pip3 install flawfinder matplotlib metrixpp
 
@@ -24,7 +24,7 @@ RUN dnf -y groupinstall "Development Tools" && \
 RUN mkdir /data/ && \
     export TRICK_CFLAGS=-g && export TRICK_CXXFLAGS=-g && export MAKEFLAGS=-j6 && \
     cd /data/ && git clone https://github.com/nasa/trick && \
-    cd /data/trick && git checkout 19.5.1 -b r19.5.1 && ./configure && make && \
+    cd /data/trick && git checkout 19.6.0 -b r19.6.0 && ./configure && make && \
     chmod -R ugo+rx /data/trick*
 
 ENV CSPICE_URL http://naif.jpl.nasa.gov/pub/naif/toolkit/C/PC_Linux_GCC_64bit/packages

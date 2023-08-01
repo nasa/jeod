@@ -21,15 +21,15 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_converter_tai_tt.o)
-   (time_converter.o)
-   (time.o)
-   (time_tai.o)
-   (time_tt.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_converter_tai_tt.cc)
+   (time_converter.cc)
+   (time.cc)
+   (time_tai.cc)
+   (time_tt.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -58,8 +58,8 @@ namespace jeod {
 TimeConverter_TAI_TT::TimeConverter_TAI_TT (
    void)
 {
-   tai_ptr               = NULL;
-   tt_ptr                = NULL;
+   tai_ptr               = nullptr;
+   tt_ptr                = nullptr;
    a_name                = "TAI";
    b_name                = "TT";
    valid_directions = ANY_DIRECTION;

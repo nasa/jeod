@@ -27,7 +27,7 @@ Class:
    (None)
 
 Library dependencies:
-  ((RNP_messages.o))
+  ((RNP_messages.cc))
 
  
 

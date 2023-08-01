@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((aero_model.o))
+  ((../src/aero_model.cc))
 ******************************************************************************/
 
 #ifndef JEOD_AERODYNAMICDRAG_AERO_MODEL_DEFAULT_DATA_H

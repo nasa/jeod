@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((integration_messages.o))
+  ((integration_messages.cc))
 
  
 

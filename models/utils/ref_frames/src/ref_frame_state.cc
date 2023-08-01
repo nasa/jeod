@@ -15,10 +15,10 @@
     ()
 
   Library dependencies:
-    ((ref_frame_state.o)
-     (utils/quaternion/quat.o)
-     (utils/quaternion/quat_norm.o)
-     (utils/quaternion/quat_to_mat.o))
+    ((ref_frame_state.cc)
+     (utils/quaternion/src/quat.cc)
+     (utils/quaternion/src/quat_norm.cc)
+     (utils/quaternion/src/quat_to_mat.cc))
 
    
 *******************************************************************************/

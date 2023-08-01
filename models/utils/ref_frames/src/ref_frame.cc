@@ -15,14 +15,14 @@
     ()
 
   Library dependency:
-    ((ref_frame.o)
-     (ref_frame_compute_relative_state.o)
-     (ref_frame_items.o)
-     (ref_frame_manager.o)
-     (ref_frame_messages.o)
-     (ref_frame_set_name.o)
-     (ref_frame_state.o)
-     (subscription.o))
+    ((ref_frame.cc)
+     (ref_frame_compute_relative_state.cc)
+     (ref_frame_items.cc)
+     (ref_frame_manager.cc)
+     (ref_frame_messages.cc)
+     (ref_frame_set_name.cc)
+     (ref_frame_state.cc)
+     (subscription.cc))
 
    
 *******************************************************************************/
@@ -50,7 +50,7 @@ RefFrame::RefFrame (
    void)
 :
    name(),
-   owner(NULL),
+   owner(nullptr),
    links(*this),
    update_time(0.0)
 {
@@ -87,7 +87,7 @@ RefFrame::set_active_status (
    Subscription::set_active_status (value);
 
    // Report the change to the owner.
-   if (owner != NULL) {
+   if (owner != nullptr) {
       owner->note_frame_status_change (this);
    }
 }

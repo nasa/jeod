@@ -14,7 +14,7 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((structure_integrated_dyn_body.o))
+  ((structure_integrated_dyn_body.cc))
 */
 
 
@@ -237,10 +237,6 @@ StructureIntegratedDynBody::PropagateForcesAndTorques ()
 {
     double effector_force_parent_structure[3];
     double environ_force_parent_structure[3];
-    double effector_torque_parent_structure[3];
-    double environ_torque_parent_structure[3];
-    double parent_co_m_to_child_co_m[3];
-
 
     // Translational and rotational dynamics on:
     // Transmit accumulated wrenches to the parent,
@@ -288,6 +284,9 @@ StructureIntegratedDynBody::PropagateForcesAndTorques ()
     // Transmit accumulated torques to the parent,
     // but in the parent's structural frame.
     if (rotational_dynamics) {
+        double effector_torque_parent_structure[3];
+        double environ_torque_parent_structure[3];
+        double parent_co_m_to_child_co_m[3];
         // Reconstruct composite relative state
         RefFrameState composite_wrt_pstr;
         composite_body.compute_relative_state(dyn_parent->structure, composite_wrt_pstr );

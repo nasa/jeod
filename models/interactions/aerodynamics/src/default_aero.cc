@@ -23,9 +23,9 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((default_aero.o)
-     (aerodynamics_messages.o)
-     (utils/message/message_handler.o))
+    ((default_aero.cc)
+     (aerodynamics_messages.cc)
+     (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/

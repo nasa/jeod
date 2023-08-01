@@ -5,7 +5,7 @@ project(DE4XX_EPHEM CXX C)
 include($ENV{JEOD_HOME}/bin/jeod/common_config.cmake)
 
 set(SRCGEN_DEPS ${JEOD_HOME}/models/environment/ephemerides/de4xx_ephem/data/generate_ephemeris.py
-                ${JEOD_HOME}/models/environment/ephemerides/de4xx_ephem/data/ascp_stencil.cc.template)
+                ${JEOD_HOME}/models/environment/ephemerides/de4xx_ephem/data/eph_meta.cc.mako)
 
 set(LIBRARY_OUTPUT_DIRECTORY de4xx_lib)
 

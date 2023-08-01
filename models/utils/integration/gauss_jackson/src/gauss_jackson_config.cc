@@ -80,7 +80,7 @@ static GaussJacksonConfig set_default_config_values (
    GaussJacksonConfig result = config;
 
    // Set the initial order if it is at the default.
-   if (result.initial_order == -1u) {
+   if (result.initial_order == -1u) { 
 
       // The initial order must not exceed the final order, so a final order
       // of 2 dictates that the initial order be 2.
@@ -132,7 +132,7 @@ static GaussJacksonConfig set_default_config_values (
 
    // Set the number of doubling steps if it is at the default,
    // but only if it makes sense to do so.
-   if ((result.ndoubling_steps == -1u) &&
+   if ((result.ndoubling_steps == -1u) && 
        (result.final_order >= result.initial_order) &&
        (result.final_order <= 14)) {
       result.ndoubling_steps =
@@ -140,7 +140,7 @@ static GaussJacksonConfig set_default_config_values (
    }
 
    // Set the maximum corrections allowed if it is at the default.
-   if (result.max_correction_iterations == -1u) {
+   if (result.max_correction_iterations == -1u) { 
       result.max_correction_iterations = 10;
    }
 

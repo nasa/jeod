@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -79,7 +79,7 @@ Assumptions and Limitations:
 // The alternate implementation must define the macros JEOD_MAKE_SIM_INTERFACES
 // and JEOD_DECLARE_SIM_INTERFACES.
 #ifdef JEOD_CLASS_IMPLEMENTATION_HEADER
-#include JEOD_CLASS_IMPLEMENTATION_HEADER
+#include JEOD_CLASS_IMPLEMENTATION_HEADER // cppcheck-suppress preprocessorErrorDirective
 
 // The main body of this header is within the body of this #else.
 #else

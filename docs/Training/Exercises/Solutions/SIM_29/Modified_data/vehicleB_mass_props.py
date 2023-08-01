@@ -1,4 +1,4 @@
-vehicleB.mass_init.subject = vehicleB.dyn_body.mass
+vehicleB.mass_init.set_subject_body(vehicleB.dyn_body.mass)
 vehicleB.mass_init.properties.mass = trick.sim_services.attach_units( "kg", 9.0 )
 vehicleB.mass_init.properties.position = trick.sim_services.attach_units( "m", [1.0,0,0] )
 

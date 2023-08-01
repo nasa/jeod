@@ -16,15 +16,15 @@ Purpose:
   ()
 
 Library dependencies:
-  ((derived_state.o)
-   (derived_state_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o)
-   (utils/named_item/named_item_demangle.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((derived_state.cc)
+   (derived_state_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc)
+   (utils/named_item/src/named_item_demangle.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -56,9 +56,9 @@ namespace jeod {
 DerivedState::DerivedState (
    void)
 :
-   subject(NULL),
-   reference_name(NULL),
-   state_identifier(NULL)
+   subject(nullptr),
+   reference_name(nullptr),
+   state_identifier(nullptr)
 {
    return;
 }
@@ -92,14 +92,14 @@ DerivedState::set_reference_name (
 {
    if (JEOD_IS_ALLOCATED (reference_name)) {
       JEOD_DELETE_ARRAY (reference_name);
-      reference_name = NULL;
+      reference_name = nullptr;
    }
 
-   if (new_name != NULL) {
+   if (new_name != nullptr) {
       reference_name = JEOD_STRDUP (new_name);
    }
    else {
-      reference_name = NULL;
+      reference_name = nullptr;
    }
 
    return;
@@ -127,7 +127,7 @@ DerivedState::initialize (
    subject = &subject_body;
 
    // Replicate the reference name so it can safely be freed.
-   if ((reference_name != NULL) && (! JEOD_IS_ALLOCATED (reference_name))) {
+   if ((reference_name != nullptr) && (! JEOD_IS_ALLOCATED (reference_name))) {
       reference_name = JEOD_STRDUP (reference_name);
    }
 
@@ -169,11 +169,11 @@ DerivedState::update (
  */
 Planet *
 DerivedState::find_planet (
-   DynManager & dyn_manager,
+   const DynManager & dyn_manager,
    const char * planet_name,
    const char * variable_name)
 {
-   Planet * found_planet = NULL;
+   Planet * found_planet = nullptr;
 
    // Sanity check: The planet name must be provided.
    NamedItem::validate_name (__FILE__, __LINE__,
@@ -183,7 +183,7 @@ DerivedState::find_planet (
    found_planet = dyn_manager.find_planet (planet_name);
 
    // Sanity check: The planet_name must name a Planet.
-   if (found_planet == NULL) {
+   if (found_planet == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, DerivedStateMessages::invalid_name,
          "%s failed:\n"
@@ -191,7 +191,7 @@ DerivedState::find_planet (
          state_identifier, planet_name, variable_name);
 
       // Not reached
-      return NULL;
+      return nullptr;
    }
 
    return found_planet;

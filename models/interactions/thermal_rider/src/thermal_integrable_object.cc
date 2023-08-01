@@ -21,8 +21,8 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((thermal_integrable_object.o)
- (thermal_facet_rider.o))
+((thermal_integrable_object.cc)
+ (thermal_facet_rider.cc))
 
 
 *******************************************************************************/

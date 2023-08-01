@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -51,7 +51,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((torque.o))
+  ((../src/torque.cc))
 
 
 
@@ -177,6 +177,10 @@ class CollectTorque {
    // Subscript operator: Access torque elements as an lvalue.
    double & operator[] (const unsigned int index);
    double operator[] (const unsigned int index) const;
+   inline bool operator==(const CollectTorque &other)
+   {
+       return (torque == other.torque);
+   }
 
 
    // Member data
@@ -223,10 +227,10 @@ class CInterfaceTorque : public CollectTorque {
 
    // Constructors.
    CInterfaceTorque ();
-   CInterfaceTorque (double * vec);
+   explicit CInterfaceTorque (double * vec);
 
    // Destructor
-   virtual ~CInterfaceTorque ();
+   ~CInterfaceTorque () override;
 
    // Member data: This class adds no data to CollectTorque.
 

@@ -30,8 +30,16 @@ namespace jeod {
 ConstrainedPointMass::ConstrainedPointMass (
     const ConstraintFrame* constraint_frame_in)
 :
-    constraint_frame(constraint_frame_in)
-{}
+    constraint_frame(constraint_frame_in),
+    mass(0.0)    
+{
+    Vector3::initialize (constraint_position_constraint_frame);
+    Vector3::initialize (constraint_position_root);
+    Vector3::initialize (constraint_position_com);
+    Vector3::initialize (non_grav_accel_root);
+    Vector3::initialize (non_grav_accel_constraint_frame);
+    Vector3::initialize (force_constraint_frame);
+}
 
 
 void

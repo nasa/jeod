@@ -16,9 +16,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_wrt_planet.o)
-   (dyn_body_init.o)
-   (dynamics/mass/mass_point_state.o))
+  ((dyn_body_init_wrt_planet.cc)
+   (dyn_body_init.cc)
+   (dynamics/mass/src/mass_point_state.cc))
 
 
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -49,7 +49,7 @@ Assumptions and limitations:
   ((This model is intended for IV&V purposes only.))
 
 Library dependencies:
-  ((translation_test.o))
+  ((../src/translation_test.cc))
 
  
 *******************************************************************************/
@@ -211,28 +211,28 @@ public:
    /**
      Destructor.
    */
-   virtual ~TranslationTest (void) {}
+   ~TranslationTest (void) override {}
 
    /**
      Create a copy of the object.
      \return Constructed IntegrationTest object
    */
-   virtual IntegrationTest * replicate (unsigned int test_incr) = 0;
+   IntegrationTest * replicate (unsigned int test_incr) override = 0;
 
 
    // Overloaded methods
-   virtual void pre_initialize (void);
+   void pre_initialize (void) override;
 
-   virtual void post_initialize (void);
+   void post_initialize (void) override;
 
-   virtual void validate_integrability (
-      const er7_utils::IntegratorConstructor & generator __attribute__ ((unused)) )
+   void validate_integrability (
+      const er7_utils::IntegratorConstructor & generator __attribute__ ((unused)) ) override
    { }
 
-   virtual void create_integrators (
+   void create_integrators (
       const er7_utils::IntegratorConstructor & generator,
       er7_utils::IntegrationControls & controls,
-      const er7_utils::TimeInterface & time_if __attribute__ ((unused)) )
+      const er7_utils::TimeInterface & time_if __attribute__ ((unused)) ) override
    {
       integ_generator.create_integrator (generator, controls);
    }
@@ -241,25 +241,25 @@ public:
    /**
     * Destroy the translation test state integrator.
     */
-   virtual void destroy_integrators (
-      void)
+   void destroy_integrators (
+      void) override
    {
       integ_generator.destroy_integrator ();
    }
 
    // Propagating over time.
-   virtual void propagate (double dyn_time, bool update_errors);
+   void propagate (double dyn_time, bool update_errors) override;
 
    // Integrate over delta-time.
-   virtual er7_utils::IntegratorResult integrate (
+   er7_utils::IntegratorResult integrate (
       double dyn_dt,
-      unsigned int target_stage);
+      unsigned int target_stage) override;
 
    // Compute derivatives; assumed to be time-independent.
-   virtual void compute_derivatives (void);
+   void compute_derivatives (void) override;
 
    // Generate shutdown report.
-   virtual void shutdown (double sim_time, double dyn_time, FILE * report);
+   void shutdown (double sim_time, double dyn_time, FILE * report) override;
 
 
    /**
@@ -390,17 +390,17 @@ public:
    {}
 
    // Overloaded methods
-   virtual IntegrationTest * replicate (unsigned int test_incr);
+   IntegrationTest * replicate (unsigned int test_incr) override;
 
-   virtual void pre_initialize (void);
+   void pre_initialize (void) override;
 
-   virtual void post_initialize (void);
+   void post_initialize (void) override;
 
-   virtual void propagate (double dyn_dt, bool update_errors);
+   void propagate (double dyn_dt, bool update_errors) override;
 
-   virtual void compute_force (void);
+   void compute_force (void) override;
 
-   virtual void compute_potential (void);
+   void compute_potential (void) override;
 
    void compute_true_state (double dyn_time);
 
@@ -477,17 +477,17 @@ public:
    {}
 
    // Overloaded methods
-   virtual IntegrationTest * replicate (unsigned int test_incr);
+   IntegrationTest * replicate (unsigned int test_incr) override;
 
-   virtual void pre_initialize (void);
+   void pre_initialize (void) override;
 
-   virtual void post_initialize (void);
+   void post_initialize (void) override;
 
-   virtual void propagate (double dyn_dt, bool update_errors);
+   void propagate (double dyn_dt, bool update_errors) override;
 
-   virtual void compute_force (void);
+   void compute_force (void) override;
 
-   virtual void compute_potential (void);
+   void compute_potential (void) override;
 
    void compute_true_state (double dyn_time);
 

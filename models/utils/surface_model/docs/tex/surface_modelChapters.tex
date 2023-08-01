@@ -1357,7 +1357,7 @@ NewInteractionSurface::allocate_array ( // Return: -- void
    unsigned int size) // In: cnt: The size of the needed array
 {
 
-   if (inter_facets != NULL) {
+   if (inter_facets != nullptr) {
       // USE THE JEOD MESSAGE HANDLER TO SEND A FAILURE MESSAGE.
       return;
    }
@@ -1368,7 +1368,7 @@ NewInteractionSurface::allocate_array ( // Return: -- void
 
    // Make sure all pointers are NULL so destructor never crashes
    for (unsigned int ii = 0; ii < facets_size; ++ii) {
-      aero_facets[ii] = NULL;
+      aero_facets[ii] = nullptr;
    }
 
    return;
@@ -1398,13 +1398,13 @@ AeroSurface::allocate_interaction_facet ( // Return: -- void
       dynamic casting it. If the dynamic cast fails, we want to destroy
       the InteractionFacet so we don't get a memory leak */
 
-   InteractionFacet* temp_facet = NULL;
+   InteractionFacet* temp_facet = nullptr;
 
    // attempt to create the facet
    temp_facet = factory->create_facet (facet, params);
 
-   // if the facet is NULL, then we have a problem
-   if (temp_facet == NULL) {
+   // if the facet is nullptr, then we have a problem
+   if (temp_facet == nullptr) {
 
       // SEND A MESSAGE USING THE JEOD MESSAGE HANDLER
 
@@ -1418,7 +1418,7 @@ AeroSurface::allocate_interaction_facet ( // Return: -- void
 
 
    // If that fails, it doesn't belong in this surface so there is a problem
-   if (temp_inter_facet == NULL) {
+   if (temp_inter_facet == nullptr) {
 
       // temp_facet can NOT be NULL, since it was already checked for above
       JEOD_DELETE_OBJECT (temp_facet);
@@ -1453,10 +1453,10 @@ NewInteractionSurface::~NewInteractionSurface (
    void)
 {
 
-   if (inter_facets != NULL) {
+   if (inter_facets != nullptr) {
 
       for (unsigned int ii = 0; ii < facets_size; ++ii) {
-         if (inter_facets[ii] != NULL) {
+         if (inter_facets[ii] != nullptr) {
             JEOD_DELETE_OBJECT (aero_facets[ii]);
          }
       }
@@ -1513,11 +1513,11 @@ NewInteractionSurfaceFactory::add_facet_params (
    }
 
    // The param MUST be an
-   NewInteractionParams* temp_ptr = NULL;
+   NewInteractionParams* temp_ptr = nullptr;
 
    temp_ptr = dynamic_cast<NewInteractionParams*> (to_add);
 
-   if (temp_ptr == NULL) {
+   if (temp_ptr == nullptr) {
 
       // SEND A MESSAGE THROUGH THE MESSAGE HANDLER
       return;
@@ -1646,8 +1646,8 @@ FlatPlateAeroFactory::create_facet (
    FacetParams* params)
 {
 
-   NewInteractionFlatPlateParams* inter_params = NULL;
-   FlatPlate* flat_plate            = NULL;
+   NewInteractionFlatPlateParams* inter_params = nullptr;
+   FlatPlate* flat_plate            = nullptr;
 
    inter_params = dynamic_castNewInteractionFlatPlateParams*> (params);
    flat_plate  = dynamic_cast<FlatPlate*> (facet);
@@ -1655,11 +1655,11 @@ FlatPlateAeroFactory::create_facet (
    // We have tried casting the facet and params to the correct types.
    // if they were not the correct type, send out an error message
 
-   if (inter_params == NULL) {
+   if (inter_params == nullptr) {
 
       // SEND A MESSAGE THROUGH THE MESSAGE HANDLER
    }
-   if (flat_plate == NULL) {
+   if (flat_plate == nullptr) {
 
       // SEND A MESSAGE THROUGH THE MESSAGE HANDLER
    }

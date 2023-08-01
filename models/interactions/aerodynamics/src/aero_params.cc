@@ -22,8 +22,8 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((aero_params.o)
-     (utils/surface_model/facet_params.o))
+    ((aero_params.cc)
+     (utils/surface_model/src/facet_params.cc))
 
 
 *******************************************************************************/

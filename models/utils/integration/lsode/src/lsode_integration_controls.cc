@@ -24,7 +24,7 @@ Assumptions and limitations:
   (())
 
 Library dependencies:
-  ((lsode_integration_controls.o))
+  ((lsode_integration_controls.cc))
 
  
 
@@ -67,7 +67,7 @@ const
       er7_utils::IntegrationMessages::internal_error,
       "Copy constructor for LsodeIntegrationControls "
       "not implemented.\n");
-   return NULL;
+   return nullptr;
 }
 
 /**

@@ -24,13 +24,13 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((ephem_item.o)
-   (environment/ephemerides/ephem_manager/ephem_manager.o)
-   (utils/memory/memory_manager_static.o)
-   (utils/memory/memory_type.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o)
-   (utils/ref_frames/subscription.o))
+  ((ephem_item.cc)
+   (environment/ephemerides/ephem_manager/src/ephem_manager.cc)
+   (utils/memory/src/memory_manager_static.cc)
+   (utils/memory/src/memory_type.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc)
+   (utils/ref_frames/src/subscription.cc))
 
 
 *******************************************************************************/
@@ -63,12 +63,12 @@ EphemerisItem::EphemerisItem (
    void)
 :
    // subscribers(0),
-   name(NULL),
-   owner(NULL),
-   manager(NULL),
-   target_frame(NULL),
-   head(NULL),
-   next(NULL),
+   name(nullptr),
+   owner(nullptr),
+   manager(nullptr),
+   target_frame(nullptr),
+   head(nullptr),
+   next(nullptr),
    update_time(0.0),
    enabled(false),
    active(false)
@@ -83,9 +83,9 @@ EphemerisItem::EphemerisItem (
 EphemerisItem::~EphemerisItem (
    void)
 {
-   if ((name != NULL) && (JEOD_IS_ALLOCATED (name))) {
+   if ((name != nullptr) && (JEOD_IS_ALLOCATED (name))) {
       JEOD_DELETE_ARRAY (name);
-      name = NULL;
+      name = nullptr;
    }
 }
 
@@ -112,8 +112,8 @@ EphemerisItem::validate_name (
       file, line, new_value, "Argument", variable_name);
 
    // The value cannot be changed once registered with the ephemerides manager.
-   if ((manager != NULL) &&
-       (old_value != NULL)  &&
+   if ((manager != nullptr) &&
+       (old_value != nullptr)  &&
        (std::strcmp (old_value, new_value) != 0)) {
       MessageHandler::fail (
          file, line, EphemeridesMessages::invalid_name,
@@ -158,7 +158,7 @@ EphemerisItem::set_name (
    // Ephemeris reference frames have a name of the form "xxx.yyy".
    // Lacking such a form, assume the caller meant the ".yyy" to be the
    // default suffix for this item class.
-   if (std::strchr (new_name, '.') == NULL) {
+   if (std::strchr (new_name, '.') == nullptr) {
       MessageHandler::inform (
          __FILE__, __LINE__, EphemeridesMessages::invalid_name,
          "Ephemeris item names must be of the form \"object.frame_name\".\n"
@@ -185,7 +185,7 @@ EphemerisItem::set_name_internal (
 {
 
    // Free an existing value if it was allocate by JEOD.
-   if ((name != NULL) && (JEOD_IS_ALLOCATED (name))) {
+   if ((name != nullptr) && (JEOD_IS_ALLOCATED (name))) {
       JEOD_DELETE_ARRAY (name);
    }
 
@@ -215,9 +215,9 @@ EphemerisItem::set_target_frame (
    // follow-on items that have not already been set.
    if (target_frame == &frame) {
       for (EphemerisItem * ephem_item = head;
-           ephem_item != NULL;
+           ephem_item != nullptr;
            ephem_item = ephem_item->next) {
-         if (ephem_item->target_frame == NULL) {
+         if (ephem_item->target_frame == nullptr) {
             ephem_item->target_frame = &frame;
          }
       }
@@ -237,7 +237,7 @@ EphemerisItem::set_target_frame (
    }
 
    // Changing the target frame is verboten.
-   if (target_frame != NULL) {
+   if (target_frame != nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::invalid_item,
          "Illegal attempt to change the target frame for ephemeris item '%s'.",
@@ -247,14 +247,23 @@ EphemerisItem::set_target_frame (
 
    // Set the target frame for all ephemeris items in the list.
    for (EphemerisItem * ephem_item = head;
-        ephem_item != NULL;
+        ephem_item != nullptr;
         ephem_item = ephem_item->next) {
       ephem_item->target_frame = &frame;
    }
 
+   //Sanity check target frame should not be NULL at this point.
+   if (target_frame == NULL) {
+      MessageHandler::fail (
+         __FILE__, __LINE__, EphemeridesMessages::invalid_item,
+         "Target frame not set for ephemeris item '%s'.",
+         name);
+      return;
+   }
+
    // Make the enabled item, if there is one, be the 'owner' of this frame.
    EphemerisItem * enabled_item = get_enabled_item ();
-   if (enabled_item != NULL) {
+   if (enabled_item != nullptr) {
       target_frame->set_owner (enabled_item);
       if (target_frame->is_active()) {
          enabled_item->activate();
@@ -280,18 +289,18 @@ EphemerisItem::enable (
    // If there is a currently enabled item,
    // Set the activity of this object to that of currently-enabled item and
    // disable the enabled object.
-   if (enabled_item != NULL) {
+   if (enabled_item != nullptr) {
       active = enabled_item->active;
       enabled_item->disable ();
    }
 
    // Transfer ownership of the target frame to this object.
-   if (target_frame != NULL) {
+   if (target_frame != nullptr) {
       target_frame->set_owner (this);
    }
 
    // Let the manager know that things have changed.
-   if (manager != NULL) {
+   if (manager != nullptr) {
       manager->ephem_note_tree_status_change ();
    }
 
@@ -313,12 +322,12 @@ EphemerisItem::disable (
    }
 
    // Transfer ownership of the target frame away from this object.
-   if (target_frame != NULL) {
-      target_frame->set_owner (NULL);
+   if (target_frame != nullptr) {
+      target_frame->set_owner (nullptr);
    }
 
    // Let the manager know that things have changed.
-   if (manager != NULL) {
+   if (manager != nullptr) {
       manager->ephem_note_tree_status_change ();
    }
 
@@ -369,7 +378,7 @@ const
 
    // Only one item with the same name can be active.
    for (EphemerisItem * ephem_item = head;
-        ephem_item != NULL;
+        ephem_item != nullptr;
         ephem_item = ephem_item->next) {
       if (ephem_item->active) {
          return false;

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((moon.o))
+  ((../src/moon.cc))
 ******************************************************************************/
 
 #ifndef JEOD_PLANET_MOON_DEFAULT_DATA_H
@@ -53,7 +53,7 @@ namespace jeod {
 
 class Planet_moon_default_data : public Planet_default_data {
  public:
-   virtual void initialize (Planet*);
+   void initialize (Planet*) override;
 };
 
 } // End JEOD namespace

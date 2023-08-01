@@ -16,12 +16,12 @@ Purpose:
   ()
 
 Library dependencies:
-  ((planetary_derived_state.o)
-   (derived_state.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/planet_fixed/planet_fixed_posn/planet_fixed_posn.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((planetary_derived_state.cc)
+   (derived_state.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/planet_fixed/planet_fixed_posn/src/planet_fixed_posn.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -48,8 +48,33 @@ namespace jeod {
 PlanetaryDerivedState::PlanetaryDerivedState (
    void)
 :
-   planet (NULL)
+   planet (nullptr),
+   use_alt_pfix(false),
+   pfix_ptr(nullptr)
 {
+}
+
+
+/**
+ * Destruct a PlanetaryDerivedState object.
+ */
+PlanetaryDerivedState::~PlanetaryDerivedState (
+   void)
+{
+   if (pfix_ptr != nullptr) {
+      pfix_ptr->unsubscribe();
+   }
+}
+
+
+/**
+ * Setter for use_alt_pfix
+ */
+void
+PlanetaryDerivedState::set_use_alt_pfix (
+   const bool use_alt_pfix_in)
+{
+   use_alt_pfix = use_alt_pfix_in;
 }
 
 
@@ -70,11 +95,17 @@ PlanetaryDerivedState::initialize (
    // Initialize as a DerivedState.
    DerivedState::initialize (subject_body, dyn_manager);
 
-   // Find the planet. Note that this fails if the planet is not found.
+   // Find the planet.
+   // Note that find_planet doesn't return if the named planet is not found.
    planet = find_planet (dyn_manager, reference_name, "reference_name");
 
-   // Issue a subscription to the planet-fixed frame.
-   planet->pfix.subscribe();
+   // Choose the planet fixed frame to be used
+   if (use_alt_pfix) {
+      pfix_ptr = &(planet->alt_pfix);
+   } else {
+      pfix_ptr = &(planet->pfix);
+   }
+   pfix_ptr->subscribe();
 
    // Initialize the planet-fixed position.
    state.initialize (planet);
@@ -94,21 +125,8 @@ PlanetaryDerivedState::update (
 
    // Compute the cartesian coordinates relative to the planet fixed frame and
    // update the planet fixed position from these cartesian coordinates.
-   subject->composite_body.compute_position_from (planet->pfix, pfix_pos);
+   subject->composite_body.compute_position_from (*pfix_ptr, pfix_pos);
    state.update_from_cart (pfix_pos);
-}
-
-
-/**
- * Destruct a PlanetaryDerivedState object.
- */
-PlanetaryDerivedState::~PlanetaryDerivedState (
-   void)
-{
-   // Remove the initialization-time subscription to the planet-centered frame.
-   if (planet != NULL) {
-      planet->pfix.unsubscribe();
-   }
 }
 
 } // End JEOD namespace

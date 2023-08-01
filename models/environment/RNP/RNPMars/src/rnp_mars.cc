@@ -31,14 +31,14 @@ Assumptions and limitations:
 ((Mars specific))
 
 Library dependencies:
-((rnp_mars.o)
-(nutation_mars.o)
-(precession_mars.o)
-(rotation_mars.o)
-(environment/RNP/GenericRNP/planet_rnp.o)
-(environment/RNP/GenericRNP/RNP_messages.o)
-(environment/time/time_tt.o)
-(utils/message/message_handler.o))
+((rnp_mars.cc)
+(nutation_mars.cc)
+(precession_mars.cc)
+(rotation_mars.cc)
+(environment/RNP/GenericRNP/src/planet_rnp.cc)
+(environment/RNP/GenericRNP/src/RNP_messages.cc)
+(environment/time/src/time_tt.cc)
+(utils/message/src/message_handler.cc))
 
  
 *******************************************************************************/
@@ -69,8 +69,8 @@ RNPMars::RNPMars (
    void)
 :
    internal_name("RNPMars"),
-   tt_ptr(NULL),
-   time_dyn_ptr(NULL),
+   tt_ptr(nullptr),
+   time_dyn_ptr(nullptr),
    last_updated_time_full(0.0),
    never_updated_full(true),
    last_updated_time_rotational(0.0),
@@ -87,7 +87,7 @@ RNPMars::RNPMars (
    nutation     = &this->NMars;
    precession   = &this->PMars;
    rotation     = &this->RMars;
-   polar_motion = NULL;
+   polar_motion = nullptr;
 
 }
 
@@ -149,12 +149,12 @@ RNPMars::update_rnp (
    }
 
    // If the DynTime pointer is empty, connect it
-   if(time_dyn_ptr == NULL) {
+   if(time_dyn_ptr == nullptr) {
       get_dyn_time_ptr (time_tt);
    }
 
    // If the TimeTT pointer hasn't been cached off yet, do so
-   if(tt_ptr == NULL) {
+   if(tt_ptr == nullptr) {
       tt_ptr = &time_tt;
    }
 
@@ -175,7 +175,7 @@ RNPMars::update_rnp (
 
    // Pass in TT to update all if user requested full RNP, or call rotational
    // update only and pass in simulation time to it if only rotation requested
-   if (rotation != NULL) {
+   if (rotation != nullptr) {
       if (rnp_type == FullRNP) {
          rotation->update_time (time);
          nutation->update_time (time);
@@ -212,7 +212,7 @@ RNPMars::update_axial_rotation (
    }
 
    // If the DynTime pointer is empty, connect it
-   if(time_dyn_ptr == NULL) {
+   if(time_dyn_ptr == nullptr) {
       get_dyn_time_ptr (time_tt);
    }
 
@@ -232,7 +232,7 @@ RNPMars::update_axial_rotation (
 
    // Pass in TT if user requested full RNP (meaning this is an intermediate
    // update), or pass in simulation time if only rotation being used
-   if (rotation != NULL) {
+   if (rotation != nullptr) {
       if (rnp_type == FullRNP) {
          rotation->update_time (time);
       }
@@ -277,7 +277,7 @@ void
 RNPMars::ephem_update() {
 
    if(active && orient_interface.is_active()) {
-      if(tt_ptr == NULL) {
+      if(tt_ptr == nullptr) {
          MessageHandler::inform (
                __FILE__, __LINE__, RNPMessages::setup_error,
                "RNPMars::ephem_update was called without a valid "
@@ -304,7 +304,7 @@ RNPMars::get_dyn_time_ptr(
 {
 
    // Check if pointer needs to be set; exit if not
-   if(time_dyn_ptr != NULL) {
+   if(time_dyn_ptr != nullptr) {
       return;
    }
 
@@ -312,7 +312,7 @@ RNPMars::get_dyn_time_ptr(
    time_dyn_ptr =
       dynamic_cast<TimeDyn*>(time_tt.time_manager->get_time_ptr("Dyn"));
 
-   if(time_dyn_ptr == NULL) {
+   if(time_dyn_ptr == nullptr) {
       MessageHandler::fail (
             __FILE__, __LINE__, RNPMessages::setup_error,
             "The TimeManager associated with the given TimeTT "

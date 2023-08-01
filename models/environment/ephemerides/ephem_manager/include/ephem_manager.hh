@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -55,7 +55,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_manager.o))
+  ((../src/ephem_manager.cc))
 
 
 *******************************************************************************/
@@ -102,7 +102,7 @@ public:
 
    // Constructor and destructor
    EphemeridesManager ();
-   ~EphemeridesManager ();
+   ~EphemeridesManager () override;
 
 
    // Ref frame tree methods
@@ -119,74 +119,74 @@ public:
 
 
    // Denote that the tree needs to be rebuilt.
-   virtual void ephem_note_tree_status_change ();
+   void ephem_note_tree_status_change () override;
 
 
    // Planet methods
 
    // Add a planet to the list of such.
-   virtual void add_planet (BasePlanet & planet);
-   virtual void add_planet (Planet & planet);
+   void add_planet (BasePlanet & planet) override;
+   void add_planet (Planet & planet) override;
 
    // Find a planet.
-   virtual BasePlanet * find_base_planet (const char * name) const;
-   virtual Planet * find_planet (const char * name) const;
+   BasePlanet * find_base_planet (const char * name) const override;
+   Planet * find_planet (const char * name) const override;
 
    // Return number of registered planets.
-   virtual unsigned int get_num_planets (void) const;
+   unsigned int get_num_planets (void) const override;
 
 
    // Ephemeris model methods
 
    // Add an ephemeris model to the list of such.
-   virtual void add_ephemeris (EphemerisInterface & ephem_if);
+   void add_ephemeris (EphemerisInterface & ephem_if) override;
 
    // Deactivate all registered ephemeris models
-   virtual void clear_added_ephemerides (void);
+   void clear_added_ephemerides (void) override;
 
    // Disable registration of new ephemeris models.
-   virtual void disable_add_ephemeris (void);
+   void disable_add_ephemeris (void) override;
 
 
    // EphemerisItem methods
 
    // Add an ephemeris item to the list of such.
-   virtual void add_ephem_item (EphemerisItem & ephem_item);
+   void add_ephem_item (EphemerisItem & ephem_item) override;
 
    // Find an ephemeris item.
-   virtual EphemerisItem * find_ephem_item (const char * name) const;
+   EphemerisItem * find_ephem_item (const char * name) const override;
 
    // Find an ephemeris orientation.
-   virtual EphemerisOrientation * find_ephem_angle (const char * name) const;
+   EphemerisOrientation * find_ephem_angle (const char * name) const override;
 
    // Find an ephemeris point.
-   virtual EphemerisPoint * find_ephem_point (const char * name) const;
+   EphemerisPoint * find_ephem_point (const char * name) const override;
 
 
    // Integration frame methods
 
    // Add an integration frame to the list of such.
-   virtual void add_integ_frame (EphemerisRefFrame & ref_frame);
+   void add_integ_frame (EphemerisRefFrame & ref_frame) override;
 
    // Find an integration frame.
-   virtual EphemerisRefFrame * find_integ_frame (const char * name) const;
+   EphemerisRefFrame * find_integ_frame (const char * name) const override;
 
    // Check whether a reference frame is an integration frame.
-   virtual bool is_integ_frame (const RefFrame & ref_frame) const;
+   bool is_integ_frame (const RefFrame & ref_frame) const override;
 
    // Find a reference frame's index in the list of integration frames.
-   virtual unsigned int find_integ_frame_index (
-      const EphemerisRefFrame & ref_frame) const;
+   unsigned int find_integ_frame_index (
+      const EphemerisRefFrame & ref_frame) const override;
 
    // Get the vector of integration frames.
-   virtual const std::vector<EphemerisRefFrame *> & get_integ_frames (void)
-   const;
+   const std::vector<EphemerisRefFrame *> & get_integ_frames (void)
+   const override;
 
 
    // Overridden reference frame methods
 
    // Add a reference frame to the list of such.
-   virtual void add_ref_frame (RefFrame & ref_frame);
+   void add_ref_frame (RefFrame & ref_frame) override;
 
    void set_target_frame( RefFrame & ref_frame);
 

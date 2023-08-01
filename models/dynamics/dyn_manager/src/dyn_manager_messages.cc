@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_manager_messages.o))
+  ((dyn_manager_messages.cc))
 
 
 

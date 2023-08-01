@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,11 +40,11 @@ Purpose:
   ()
 
 Library dependencies:
-  ((earth_solid_tides.o))
+  ((../src/earth_solid_tides.cc))
 ******************************************************************************/
 
-#ifndef JEOD__SPHERICALHARMONICSSOLIDBODYTIDESINIT_EARTH_SOLID_TIDES_DEFAULT_DATA_H
-#define JEOD__SPHERICALHARMONICSSOLIDBODYTIDESINIT_EARTH_SOLID_TIDES_DEFAULT_DATA_H
+#ifndef JEOD_SPHERICALHARMONICSSOLIDBODYTIDESINIT_EARTH_SOLID_TIDES_DEFAULT_DATA_H
+#define JEOD_SPHERICALHARMONICSSOLIDBODYTIDESINIT_EARTH_SOLID_TIDES_DEFAULT_DATA_H
 
 //! Namespace jeod 
 namespace jeod {

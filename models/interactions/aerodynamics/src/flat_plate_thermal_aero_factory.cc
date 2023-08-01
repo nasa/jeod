@@ -16,9 +16,9 @@ PURPOSE:
     ()
 
 Library dependencies:
-   ((flat_plate_thermal_aero_factory.o)
-    (flat_plate_aero_factory.o)
-    (utils/surface_model/flat_plate_thermal.o))
+   ((flat_plate_thermal_aero_factory.cc)
+    (flat_plate_aero_factory.cc)
+    (utils/surface_model/src/flat_plate_thermal.cc))
 
 
 *******************************************************************************/

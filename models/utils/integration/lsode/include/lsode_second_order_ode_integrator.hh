@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((lsode_second_order_ode_integrator.o))
+  ((../src/lsode_second_order_ode_integrator.cc))
 
  
 
@@ -101,7 +101,7 @@ public:
    /**
     * LsodeSecondOrderODEIntegrator destructor.
     */
-   virtual ~LsodeSecondOrderODEIntegrator();
+   ~LsodeSecondOrderODEIntegrator() override;
 
 
    // Member functions.
@@ -139,7 +139,7 @@ protected:
    /**
     * Reset the integrator.
     */
-   void reset_integrator () {first_order_integrator.reset_integrator();}
+   void reset_integrator () override {first_order_integrator.reset_integrator();}
 
 private:
 

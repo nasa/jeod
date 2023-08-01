@@ -15,10 +15,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((jeod_integration_group.o)
-   (jeod_integration_time.o)
-   (integration_messages.o)
-   (utils/message/message_handler.o)
+  ((jeod_integration_group.cc)
+   (jeod_integration_time.cc)
+   (integration_messages.cc)
+   (utils/message/src/message_handler.cc)
   )
 
  
@@ -63,10 +63,10 @@ JeodIntegrationGroup::register_classes ()
 JeodIntegrationGroup::JeodIntegrationGroup ()
 :
    BaseIntegrationGroup(),
-   group_owner(NULL),
+   group_owner(nullptr),
    integ_merger(),
-   jeod_integ_interface(NULL),
-   jeod_time_manager(NULL),
+   jeod_integ_interface(nullptr),
+   jeod_time_manager(nullptr),
    integrable_objects()
 {
    register_classes ();
@@ -103,7 +103,7 @@ JeodIntegrationGroup::~JeodIntegrationGroup ()
 {
    JEOD_DEREGISTER_CHECKPOINTABLE (this, integrable_objects);
 
-   if (jeod_time_manager != NULL) {
+   if (jeod_time_manager != nullptr) {
       jeod_time_manager->remove_time_change_subscriber (*this);
    }
 }
@@ -120,7 +120,7 @@ JeodIntegrationGroup::add_integrable_object (
                  &integrable_object);
    if (iter != integrable_objects.end()) {
       // Make the object destroy its integrator(s).
-      if (integ_controls != NULL) {
+      if (integ_controls != nullptr) {
          integrable_object.destroy_integrators ();
       }
 
@@ -129,7 +129,7 @@ JeodIntegrationGroup::add_integrable_object (
    }
 
    // Make the object create its integrator(s).
-   if (integ_controls != NULL) {
+   if (integ_controls != nullptr) {
       integrable_object.set_integration_group (*this);
       integrable_object.create_integrators (
          *integ_constructor, *integ_controls, *time_interface);
@@ -160,7 +160,7 @@ JeodIntegrationGroup::remove_integrable_object (
    }
 
    // Make the object destroy its integrator(s).
-   if (integ_controls != NULL) {
+   if (integ_controls != nullptr) {
       integrable_object.destroy_integrators ();
    }
 

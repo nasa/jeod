@@ -15,10 +15,10 @@
     ()
 
   Library Dependencies:
-    ((ref_frame_compute_relative_state.o)
-     (ref_frame_messages.o)
-     (ref_frame_state.o)
-     (utils/message/message_handler.o))
+    ((ref_frame_compute_relative_state.cc)
+     (ref_frame_messages.cc)
+     (ref_frame_state.cc)
+     (utils/message/src/message_handler.cc))
 
    
 *******************************************************************************/

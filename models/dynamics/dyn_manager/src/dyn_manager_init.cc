@@ -21,7 +21,7 @@ Assumptions and limitations:
   ((N/A))
 
 Library dependencies:
-  ((dyn_manager_init.o))
+  ((dyn_manager_init.cc))
 
 
 ******************************************************************************/
@@ -47,9 +47,9 @@ DynManagerInit::DynManagerInit (
    void)
 :
    mode(EphemerisMode_Ephemerides),
-   central_point_name(NULL),
-   integ_group_constructor(NULL),
-   integ_constructor(NULL),
+   central_point_name(nullptr),
+   integ_group_constructor(nullptr),
+   integ_constructor(nullptr),
    jeod_integ_opt(er7_utils::Integration::Unspecified),
    sim_integ_opt(-1)
 {

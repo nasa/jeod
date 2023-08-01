@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,12 +58,12 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((quat.o)
-   (quat_norm.o)
-   (quat_to_mat.o)
-   (quat_from_mat.o)
-   (quat_to_eigenrot.o)
-   (quat_messages.o))
+  ((../src/quat.cc)
+   (../src/quat_norm.cc)
+   (../src/quat_to_mat.cc)
+   (../src/quat_from_mat.cc)
+   (../src/quat_to_eigenrot.cc)
+   (../src/quat_messages.cc))
 
  
 *******************************************************************************/
@@ -110,17 +110,17 @@ public:
    Quaternion (void);
 
    // Non-default constructor: Construct pure real quaternion
-   Quaternion (const double s);
+   explicit Quaternion (const double s);
 
    // Non-default constructor: Construct from a scalar and a vector.
    Quaternion (const double s, const double v[3]);
 
    // Non-default constructor: Construct from a double[4] array.
-   Quaternion (const double arr[4]);
+   explicit Quaternion (const double arr[4]);
 
    // Non-default constructor: Construct quaternion as a left transformation
    // quaternion given a transformation matrix
-   Quaternion (const double T[3][3]);
+   explicit Quaternion (const double T[3][3]);
 
 
    // Simple methods to make a pure zero, identity quaternion

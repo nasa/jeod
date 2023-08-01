@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((gravity_messages.o))
+  ((gravity_messages.cc))
 
 
 

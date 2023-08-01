@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -97,13 +97,13 @@ public:
    /**
     * Destruct a SimpleCheckpointable object.
     */
-   virtual ~SimpleCheckpointable (void) {}
+   ~SimpleCheckpointable (void) override {}
 
    /**
     * Return the name of the initial restart action, in this case "restore".
     * A derived class can of course override this.
     */
-   virtual const std::string get_init_name (void) {
+   const std::string get_init_name (void) override {
       return "restore";
    }
 
@@ -112,33 +112,33 @@ public:
     * This method is not called because the class immediately designates the
     * checkpoint to be finished.
     */
-   virtual const std::string get_item_name (void) { return ""; }
+   const std::string get_item_name (void) override { return ""; }
 
    /**
     * Return the value of the current restart action, in this case "".
     * This method is not called because the class immediately designates the
     * checkpoint to be finished.
     */
-   virtual const std::string get_item_value (void) { return ""; }
+   const std::string get_item_value (void) override { return ""; }
 
    /**
     * In general, start the checkpoint process.
     * For this class, do nothing.
     */
-   virtual void start_checkpoint (void) { }
+   void start_checkpoint (void) override { }
 
    /**
     * In general, advance to the next checkpoint item; in this case, do nothing.
     * This method is not called because the class immediately designates the
     * checkpoint to be finished.
     */
-   virtual void advance_checkpoint (void) { }
+   void advance_checkpoint (void) override { }
 
    /**
     * In general, indicate when checkpointing is complete.
     * For this class, always return true.
     */
-   virtual bool is_checkpoint_finished (void) {
+   bool is_checkpoint_finished (void) override {
       return true;
    }
 
@@ -150,9 +150,9 @@ public:
     * @param action_value The value of the action; here ignored.
     * @return             Success (zero) / failure (non-zero).
     */
-   virtual int perform_restore_action (
+   int perform_restore_action (
       const std::string & action_name,
-      const std::string & action_value JEOD_UNUSED)
+      const std::string & action_value JEOD_UNUSED) override
    {
       int return_code;
 

@@ -1,5 +1,5 @@
 def mass_props(VEH):
-  VEH.mass_init.subject = VEH.dyn_body.mass
+  VEH.mass_init.set_subject_body(VEH.dyn_body.mass)
   VEH.mass_init.properties.mass = 500.0 
   VEH.mass_init.properties.position = [0,0,0] 
   VEH.mass_init.properties.inertia[0] = [1,0,0] 

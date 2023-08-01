@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   (Define the class PlanetSite, which defines a point on the Earth.)
 
 Library dependencies:
-  ((planet_site.o))
+  ((../src/planet_site.cc))
 
 *******************************************************************************/
 

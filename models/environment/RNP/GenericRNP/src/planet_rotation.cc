@@ -26,8 +26,8 @@ Assumptions and limitations:
     in an inheriting class, this class can't be instantiated)))
 
 Library dependencies:
-  ((planet_rotation.o)
-   (planet_rotation_init.o))
+  ((planet_rotation.cc)
+   (planet_rotation_init.cc))
 
  
 

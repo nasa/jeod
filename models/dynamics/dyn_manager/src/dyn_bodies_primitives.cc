@@ -22,11 +22,11 @@ Assumptions and limitations:
   ((N/A))
 
 Library dependencies:
-  ((dyn_bodies_primitives.o)
-   (dyn_manager.o)
-   (dyn_manager_messages.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (utils/message/message_handler.o))
+  ((dyn_bodies_primitives.cc)
+   (dyn_manager.cc)
+   (dyn_manager_messages.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -58,11 +58,11 @@ DynManager::find_dyn_body (
    const char * body_name)
 const
 {
-   DynBody * found_body = NULL;
+   DynBody * found_body = nullptr;
 
    // Ensure the passed name has a minimally valid value.
    if (! validate_name (__FILE__, __LINE__, body_name, "Argument", "name")) {
-      return NULL;
+      return nullptr;
    }
 
    // Find the body by name.
@@ -123,7 +123,7 @@ DynManager::add_dyn_body (
    }
 
    // 3. The body must have a unique name.
-   if (find_dyn_body (dyn_body.name.c_str()) != NULL) {
+   if (find_dyn_body (dyn_body.name.c_str()) != nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, DynManagerMessages::duplicate_entry,
          "Mass body with name '%s' was previously registered.",
@@ -133,7 +133,7 @@ DynManager::add_dyn_body (
 
    // 4. The name uniqueness also applies to mass bodies.
    mass_body = find_mass_body (dyn_body.name.c_str());
-   if ((mass_body != NULL) &&
+   if ((mass_body != nullptr) &&
        (mass_body != &dyn_body.mass )) {
       MessageHandler::error (
          __FILE__, __LINE__, DynManagerMessages::invalid_name,

@@ -23,6 +23,14 @@ def set_mass_sphere() :
   vehicle.mass_init.properties.inertia[1]  = [ 0.0, 0.4, 0.0]
   vehicle.mass_init.properties.inertia[2]  = [ 0.0, 0.0, 0.4]
 
+def add_mass_pt() :
+  vehicle.mass_init.points = trick.TMM_declare_var_s("jeod::MassPointInit vehicle_mass_init_points[1]")
+  vehicle.mass_init.num_points = 1
+  vehicle.mass_init.points[0].set_name('test_point')
+  vehicle.mass_init.points[0].pt_orientation.data_source = trick.Orientation.InputEulerRotation
+  vehicle.mass_init.points[0].pt_orientation.euler_sequence = trick.Orientation.Roll_Pitch_Yaw
+
+
 
 # Set the vehicle.mass porperties for this vehicle.
 vehicle.mass_init.set_subject_body( vehicle.dyn_body.mass )

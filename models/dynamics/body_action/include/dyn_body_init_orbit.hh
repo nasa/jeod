@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_orbit.o))
+  ((../src/dyn_body_init_orbit.cc))
 
 
 
@@ -279,11 +279,11 @@ class DynBodyInitOrbit : public DynBodyInitTransState {
 
    DynBodyInitOrbit ();
 
-   virtual ~DynBodyInitOrbit ();
+   ~DynBodyInitOrbit () override;
 
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 };
 
 } // End JEOD namespace

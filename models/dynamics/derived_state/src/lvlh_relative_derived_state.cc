@@ -16,14 +16,14 @@ Purpose:
   ()
 
 Library dependencies:
-  ((lvlh_relative_derived_state.o)
-   (relative_derived_state.o)
-   (derived_state.o)
-   (derived_state_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((lvlh_relative_derived_state.cc)
+   (relative_derived_state.cc)
+   (derived_state.cc)
+   (derived_state_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -133,7 +133,7 @@ LvlhRelativeDerivedState::update (
  */
 void
 LvlhRelativeDerivedState::convert_rect_to_circ (
-   const RefFrameState rect_rel_state)
+   const RefFrameState & rect_rel_state)
 {
 
    // Locally store values to reduce lookups
@@ -218,7 +218,7 @@ LvlhRelativeDerivedState::convert_rect_to_circ (
  */
 void
 LvlhRelativeDerivedState::convert_circ_to_rect (
-   const RefFrameState curvi_rel_state)
+   const RefFrameState & curvi_rel_state)
 {
 
    // Locally store values to reduce lookups

@@ -14,7 +14,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((test_harness_messages.o))
+  ((test_harness_messages.cc))
 
  
 

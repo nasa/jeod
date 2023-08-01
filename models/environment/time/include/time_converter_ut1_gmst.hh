@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_converter_ut1_gmst.o))
+  ((../src/time_converter_ut1_gmst.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_CONVERTER_UT1_GMST_HH
@@ -105,15 +105,15 @@ public:
   // Constructor
    TimeConverter_UT1_GMST ();
   // Destructor
-   ~TimeConverter_UT1_GMST ();
+   ~TimeConverter_UT1_GMST () override;
 
   // Initialize the converter
    void initialize (JeodBaseTime * parent,
                     JeodBaseTime * child,
-                    const int direction);
+                    const int direction) override;
 
   // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void);
+   void convert_a_to_b (void) override;
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.

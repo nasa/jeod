@@ -15,15 +15,15 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dynamics_integration_group.o)
-   (dyn_manager.o)
-   (dyn_manager_messages.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (environment/gravity/gravity_manager.o)
-   (environment/time/time_manager.o)
-   (utils/integration/jeod_integration_group.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((dynamics_integration_group.cc)
+   (dyn_manager.cc)
+   (dyn_manager_messages.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (environment/gravity/src/gravity_manager.cc)
+   (environment/time/src/time_manager.cc)
+   (utils/integration/src/jeod_integration_group.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
 
 ******************************************************************************/
@@ -158,7 +158,7 @@ void
 DynamicsIntegrationGroup::initialize_group (
    DynManager &)
 {
-   if (jeod_time_manager == NULL) {
+   if (jeod_time_manager == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, DynManagerMessages::null_pointer,
          "Improper use of DynamicsIntegrationGroup.\n"
@@ -221,7 +221,7 @@ DynamicsIntegrationGroup::add_dyn_body (
 
    // Create the integrators for this body,
    // but only if the bodies are to be integrated via DynBody::integrate().
-   if ((integ_controls != NULL) && bodies_integrated_separately) {
+   if ((integ_controls != nullptr) && bodies_integrated_separately) {
 
       // Create the integrators for this body.
       dyn_body.create_body_integrators (

@@ -17,15 +17,15 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_manager.o)
-   (find_planet.o)
-   (environment/ephemerides/ephem_interface/ephem_ref_frame.o)
-   (environment/ephemerides/ephem_interface/ephem_messages.o)
-   (environment/ephemerides/ephem_item/ephem_item.o)
-   (environment/ephemerides/ephem_item/ephem_orient.o)
-   (environment/ephemerides/ephem_item/ephem_point.o)
-   (environment/planet/base_planet.o)
-   (utils/message/message_handler.o))
+  ((ephem_manager.cc)
+   (find_planet.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+   (environment/ephemerides/ephem_item/src/ephem_item.cc)
+   (environment/ephemerides/ephem_item/src/ephem_orient.cc)
+   (environment/ephemerides/ephem_item/src/ephem_point.cc)
+   (environment/planet/src/base_planet.cc)
+   (utils/message/src/message_handler.cc))
 
 
 ******************************************************************************/
@@ -137,7 +137,7 @@ EphemeridesManager::add_planet (
    }
 
    // 3. The planet must have a unique name.
-   if (find_base_planet (planet.name.c_str()) != NULL) {
+   if (find_base_planet (planet.name.c_str()) != nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, EphemeridesMessages::duplicate_entry,
          "Planet with name '%s' was previously registered.",
@@ -160,7 +160,7 @@ EphemeridesManager::find_base_planet (
    const char * name)
 const
 {
-   BasePlanet * found_planet = NULL;
+   BasePlanet * found_planet = nullptr;
 
    // Search the planet list until a match is found.
    for (std::vector<BasePlanet *>::const_iterator it = planets.begin();
@@ -323,19 +323,19 @@ EphemeridesManager::add_ephem_item (
 
    // No item yet:
    // Add the provided item to the ephem_items list.
-   if (head_item == NULL) {
+   if (head_item == nullptr) {
       ephem_item.set_head (&ephem_item);
-      ephem_item.set_next (NULL);
+      ephem_item.set_next (nullptr);
       ephem_items.push_back (&ephem_item);
    }
 
    // Existing item: validate and add to head item's list.
    else {
-      EphemerisItem * last_item;
+      EphemerisItem * last_item = head_item;
 
       // Find the last item and verify that the item has not been registered.
       for (EphemerisItem * item = head_item;
-           item != NULL;
+           item != nullptr;
            item = item->get_next()) {
          last_item = item;
          if (item == &ephem_item) {
@@ -348,7 +348,7 @@ EphemeridesManager::add_ephem_item (
       }
 
       // At most one item can be enabled.
-      if ((head_item->get_enabled_item() != NULL) && ephem_item.is_enabled()) {
+      if ((head_item->get_enabled_item() != nullptr) && ephem_item.is_enabled()) {
          MessageHandler::warn (
             __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
             "Multiple ephemeris items named '%s' are enabled.\n"
@@ -360,17 +360,17 @@ EphemeridesManager::add_ephem_item (
       // Link the item into the list of items with the same name.
       ephem_item.set_head (head_item);
       last_item->set_next (&ephem_item);
-      ephem_item.set_next (NULL);
+      ephem_item.set_next (nullptr);
    }
 
    RefFrame * frame = find_ref_frame (ephem_item.get_name());
    EphemerisRefFrame * ephem_frame = dynamic_cast <EphemerisRefFrame *> (frame);
 
-   if (ephem_frame != NULL) {
+   if (ephem_frame != nullptr) {
       ephem_item.set_target_frame (*ephem_frame);
    }
 
-   else if (frame != NULL) {
+   else if (frame != nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::internal_error,
          "Frame '%s' is not an ephemeris reference frame.",
@@ -389,7 +389,7 @@ EphemeridesManager::find_ephem_item (
    const char * name)
 const
 {
-   EphemerisItem * found_item = NULL;
+   EphemerisItem * found_item = nullptr;
 
    for (std::vector<EphemerisItem *>::const_iterator it = ephem_items.begin();
         it != ephem_items.end();
@@ -415,11 +415,11 @@ EphemeridesManager::find_ephem_angle (
 const
 {
    EphemerisItem * ephem_item = find_ephem_item (name);
-   EphemerisOrientation * ephem_angle = NULL;
+   EphemerisOrientation * ephem_angle = nullptr;
 
-   if (ephem_item != NULL) {
+   if (ephem_item != nullptr) {
       ephem_angle = dynamic_cast<EphemerisOrientation *> (ephem_item);
-      if (ephem_angle == NULL) {
+      if (ephem_angle == nullptr) {
          MessageHandler::error (
             __FILE__, __LINE__, EphemeridesMessages::invalid_item,
             "Ephemeris item '%s' is not an angle", name);
@@ -440,11 +440,11 @@ EphemeridesManager::find_ephem_point (
 const
 {
    EphemerisItem * ephem_item = find_ephem_item (name);
-   EphemerisPoint * ephem_point = NULL;
+   EphemerisPoint * ephem_point = nullptr;
 
-   if (ephem_item != NULL) {
+   if (ephem_item != nullptr) {
       ephem_point = dynamic_cast<EphemerisPoint *> (ephem_item);
-      if (ephem_point == NULL) {
+      if (ephem_point == nullptr) {
          MessageHandler::error (
             __FILE__, __LINE__, EphemeridesMessages::invalid_item,
             "Ephemeris item '%s' is not a point", name);
@@ -487,7 +487,7 @@ EphemeridesManager::find_integ_frame (
    const char * name)
 const
 {
-   EphemerisRefFrame * found_frame = NULL;
+   EphemerisRefFrame * found_frame = nullptr;
 
    for (std::vector<EphemerisRefFrame *>::const_iterator it =
            integ_frames.begin();
@@ -617,7 +617,7 @@ EphemeridesManager::set_target_frame (
    EphemerisRefFrame * ephem_frame =
       dynamic_cast<EphemerisRefFrame *> (&ref_frame);
    EphemerisItem * head_item = find_ephem_item (ref_frame.get_name());
-   if (ephem_frame != NULL) {
+   if (ephem_frame != nullptr) {
 
       // A change in the active status of an ephemeris reference frames means
       // that the reference frame tree needs to be rebuilt.
@@ -629,7 +629,7 @@ EphemeridesManager::set_target_frame (
       // with the same name as the ephemeris item.
       // Note that this sets the target frame for the head item and all linked
       // items that follow it through the "next" link.
-      if (head_item != NULL) {
+      if (head_item != nullptr) {
          head_item->set_target_frame (*ephem_frame);
       }
 
@@ -639,7 +639,7 @@ EphemeridesManager::set_target_frame (
 
    // Non-ephemeris reference frames that map to an ephemeris item are
    // highly problematic. The simulation was build incorrectly.
-   else if (head_item != NULL) {
+   else if (head_item != nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Frame '%s' is not an ephemeris reference frame.",

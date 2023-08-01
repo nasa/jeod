@@ -2,6 +2,7 @@
 #include <cmath>
 #include "../include/orientation.hh"
 #include "../include/io_utils.hh"
+using namespace std;
 
 int main (int arg_c, char ** arg_v) {
 double eigen_angle_in_deg;
@@ -22,7 +23,7 @@ cerr << arg_v[i+2] << " is not a number" << endl;
 return -3;
 } // end if
 
-double eigen_angle = _DEG2RAD(eigen_angle_in_deg);
+double eigen_angle = DEG2RAD(eigen_angle_in_deg);
 double vmag = sqrt(eigen_axis[0]*eigen_axis[0]+eigen_axis[1]*eigen_axis[1]+
 eigen_axis[2]*eigen_axis[2]);
 
@@ -51,7 +52,7 @@ double new_eigen_axis[3];
 Orientation::compute_eigen_rotation_from_matrix(
 mat, &new_eigen_angle, new_eigen_axis);
 
-double new_eigen_angle_in_deg = _RAD2DEG(new_eigen_angle);
+double new_eigen_angle_in_deg = RAD2DEG(new_eigen_angle);
 
 cout << "New eigen angle = "<< new_eigen_angle << endl;
 cout << "New eigen axis = ";

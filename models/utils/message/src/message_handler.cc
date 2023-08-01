@@ -22,8 +22,8 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((message_handler.o)
-   (message_messages.o))
+  ((message_handler.cc)
+   (message_messages.cc))
 
  
 
@@ -60,7 +60,7 @@ const int MessageHandler::Debug   = 999;
 Purpose:
   (Define and initialize the global message handler.)
 */
-MessageHandler * MessageHandler::handler = NULL;
+MessageHandler * MessageHandler::handler = nullptr;
 
 
 
@@ -89,15 +89,14 @@ MessageHandler::fail (
    const char * format,
    ...)
 {
-   va_list args;                // -- Varargs stack
-
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
    // Handler exists: Pass message to the handler.
    else {
+      va_list args; // -- Varargs stack
       va_start (args, format);
       handler->process_message (
          MessageHandler::Failure, "Fatal Error", file, line, msg_code,
@@ -132,15 +131,14 @@ MessageHandler::error (
    const char * format,
    ...)
 {
-   va_list args;                // -- Varargs stack
-
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
    // Handler exists: Pass message to the handler.
    else {
+      va_list args; // -- Varargs stack
       va_start (args, format);
       handler->process_message (
          MessageHandler::Error  , "Error", file, line, msg_code, format, args);
@@ -170,15 +168,14 @@ MessageHandler::warn (
    const char * format,
    ...)
 {
-   va_list args;                // -- Varargs stack
-
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
    // Handler exists: Pass message to the handler.
    else {
+      va_list args; // -- Varargs stack
       va_start (args, format);
       handler->process_message (
         MessageHandler::Warning, "Warning", file, line, msg_code, format, args);
@@ -205,15 +202,14 @@ MessageHandler::inform (
    const char * format,
    ...)
 {
-   va_list args;                // -- Varargs stack
-
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
    // Handler exists: Pass message to the handler.
    else {
+      va_list args; // -- Varargs stack
       va_start (args, format);
       handler->process_message (
          MessageHandler::Notice , "Notice", file, line, msg_code, format, args);
@@ -241,15 +237,14 @@ MessageHandler::debug (
    const char * format,
    ...)
 {
-   va_list args;                // -- Varargs stack
-
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
    // Handler exists: Pass message to the handler.
    else {
+      va_list args; // -- Varargs stack
       va_start (args, format);
       handler->process_message (
          MessageHandler::Debug, "Debug", file, line, msg_code, format, args);
@@ -281,15 +276,14 @@ MessageHandler::send_message (
    const char * format,
    ...)
 {
-   va_list args;                // -- Varargs stack
-
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
    // Handler exists: Pass message to the handler.
    else {
+      va_list args; // -- Varargs stack
       va_start (args, format);
       handler->process_message (
          severity, prefix, file, line, msg_code, format, args);
@@ -324,7 +318,7 @@ MessageHandler::va_send_message (
 {
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -347,7 +341,7 @@ MessageHandler::set_suppression_level (
 {
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -369,7 +363,7 @@ MessageHandler::get_suppression_level (
    unsigned int result = -1;
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -395,7 +389,7 @@ MessageHandler::add_suppressed_code (
 {
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -417,7 +411,7 @@ MessageHandler::delete_suppressed_code (
 {
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -438,7 +432,7 @@ MessageHandler::clear_suppressed_codes (
 {
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -459,7 +453,7 @@ MessageHandler::set_suppress_id (
 {
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -481,7 +475,7 @@ MessageHandler::get_suppress_id (
    bool result = false;
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -504,7 +498,7 @@ MessageHandler::set_suppress_location (
 {
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -526,7 +520,7 @@ MessageHandler::get_suppress_location (
    bool result = false;
 
    // No handler: Exit.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       no_handler_error ();
    }
 
@@ -581,7 +575,7 @@ MessageHandler::MessageHandler (
 {
 
    // No message handler yet: This is the handler.
-   if (handler == NULL) {
+   if (handler == nullptr) {
       handler = this;
    }
 
@@ -603,7 +597,7 @@ MessageHandler::~MessageHandler (
 {
    // This can no longer serve as the global message handler.
    if (handler == this) {
-      handler = NULL;
+      handler = nullptr;
    }
 }
 

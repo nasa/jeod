@@ -24,10 +24,10 @@ ASSUMPTIONS AND LIMITATIONS:
       (This is not a stand-alone interaction model))
 
 Library dependencies:
-   ((thermal_facet_rider.o)
-    (thermal_integrable_object.o)
-    (thermal_messages.o)
-    (utils/message/message_handler.o))
+   ((thermal_facet_rider.cc)
+    (thermal_integrable_object.cc)
+    (thermal_messages.cc)
+    (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -65,7 +65,7 @@ ThermalFacetRider::ThermalFacetRider (
    power_emit          = 0.0;
    heat_capacity       = 0.0;
    rad_constant        = 0.0;
-   facet               = NULL;
+   facet               = nullptr;
    active              = true;
    thermal_power_dump  = 0.0;
    emissivity          = 0.0;

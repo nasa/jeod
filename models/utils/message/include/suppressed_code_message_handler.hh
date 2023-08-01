@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -55,7 +55,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((suppressed_code_message_handler.o))
+  ((../src/suppressed_code_message_handler.cc))
 
  
 
@@ -104,7 +104,7 @@ public:
       /**
     * Destructor.
     */
-   virtual ~SuppressedCodeMessageHandler(void) {}
+   ~SuppressedCodeMessageHandler(void) override {}
 
 
 protected:
@@ -112,18 +112,18 @@ protected:
    // Member functions
 
    // register_contents() registers the checkpointable contents.
-   virtual void register_contents (void);
+   void register_contents (void) override;
 
    // deregister_contents() deregisters the checkpointable contents.
-   virtual void deregister_contents (void);
+   void deregister_contents (void) override;
 
 
       /**
     * Add a message code to the set of messages that are to be suppressed.
     * \param[in] msg_code Message code to be suppressed
     */
-   virtual void process_add_suppressed_code (
-      const char * msg_code)
+   void process_add_suppressed_code (
+      const char * msg_code) override
    {
       suppressed_codes.insert (msg_code);
    }
@@ -133,8 +133,8 @@ protected:
     * Delete a message code from the set of suppressed message codes.
     * \param[in] msg_code Message code to be unsuppressed
     */
-   virtual void process_delete_suppressed_code (
-      const char * msg_code)
+   void process_delete_suppressed_code (
+      const char * msg_code) override
    {
       suppressed_codes.erase (msg_code);
    }

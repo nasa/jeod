@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,7 +61,7 @@ Assumptions and limitations:
     in the inheriting class))
 
 Library dependencies:
-  ((planet_rotation_init.o))
+  ((../src/planet_rotation_init.cc))
 
  
 

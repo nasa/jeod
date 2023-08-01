@@ -9,8 +9,8 @@ ASSUMPTIONS AND LIMITATIONS:
   (None)
 
 LIBRARY DEPENDENCY:
-  ((time_converter_tai_new.o)
-   (time_new.o))
+  ((time_converter_tai_new.cc)
+   (time_new.cc))
 
  
 ******************************************************************************/
@@ -40,8 +40,8 @@ namespace jeod {
 ******************************************************************************/
 TimeConverter_TAI_New::TimeConverter_TAI_New()
 {
-   tai_ptr = NULL;
-   new_ptr = NULL;
+   tai_ptr = nullptr;
+   new_ptr = nullptr;
    a_name = "TAI";
    b_name = "New";
    valid_directions = A_TO_B;

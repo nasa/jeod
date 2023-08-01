@@ -30,8 +30,8 @@ Class:
   (NutationJ2000Init)
 
 Library dependencies:
-  ((nutation_j2000_init.o)
-   (environment/RNP/GenericRNP/planet_rotation_init.o))
+  ((nutation_j2000_init.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation_init.cc))
 
  
 
@@ -57,15 +57,15 @@ NutationJ2000Init::NutationJ2000Init (
    void)
 :
    num_coeffs(0),
-   L_coeffs(NULL),
-   M_coeffs(NULL),
-   F_coeffs(NULL),
-   D_coeffs(NULL),
-   omega_coeffs(NULL),
-   long_coeffs(NULL),
-   long_t_coeffs(NULL),
-   obliq_coeffs(NULL),
-   obliq_t_coeffs(NULL)
+   L_coeffs(nullptr),
+   M_coeffs(nullptr),
+   F_coeffs(nullptr),
+   D_coeffs(nullptr),
+   omega_coeffs(nullptr),
+   long_coeffs(nullptr),
+   long_t_coeffs(nullptr),
+   obliq_coeffs(nullptr),
+   obliq_t_coeffs(nullptr)
 {
 // empty for now
 }

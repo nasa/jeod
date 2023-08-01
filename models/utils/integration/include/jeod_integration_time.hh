@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,7 +52,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((jeod_integration_time.o))
+  ((../src/jeod_integration_time.cc))
 
  
 
@@ -95,7 +95,7 @@ public:
    JeodIntegrationTime ();
 
    // Destructor
-   virtual ~JeodIntegrationTime ();
+   ~JeodIntegrationTime () override;
 
 
    /**

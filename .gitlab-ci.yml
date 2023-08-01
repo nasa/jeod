@@ -4,7 +4,9 @@ variables:
     CONTAINER_BUILD_TAG: dev
     #the master tag to override
     CONTAINER_MASTER_TAG: latest
+    VERIF_SCRIPT: "regression/verification.py"
     VERIF_LIST: "regression/verif_sim_list.py"
+    VERIF_CHECKPOINT_LIST: "regression/verif_sim_checkpoint_list.py"
     WARNING_LIST: "-Werror -Wall -Wextra -Wwrite-strings -Wswitch-default -Wswitch-enum -Wdisabled-optimization -Wfloat-equal -Winit-self -Wredundant-decls -Wno-cast-function-type"
     WARNING_LIST_C: "$WARNING_LIST  -Wbad-function-cast -Wjump-misses-init -Wmissing-prototypes"
     WARNING_LIST_CXX: "$WARNING_LIST"
@@ -142,8 +144,8 @@ stages:
         - export TRICK_CFLAGS="$TRICK_CFLAGS $WARNING_LIST_C"
         - export TRICK_CXXFLAGS="$TRICK_CXXFLAGS $WARNING_LIST_CXX"
     script:
-        - 'regression/verification.py -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/regression/verif_sim_list.py -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c10 --build-all --cidiff-file "$JEOD_HOME/regression/git_diff.txt" -L "$JEOD_HOME/regression/logs" -a '
-        - 'regression/verification.py -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/regression/verif_sim_checkpoint_list.py -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c1 --build-none --cidiff-file "$JEOD_HOME/regression/git_diff.txt" -L "$JEOD_HOME/regression/logs" -a'
+        - '$VERIF_SCRIPT -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/$VERIF_LIST -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c10 --build-all --cidiff-file "$JEOD_HOME/regression/git_diff.txt" -L "$JEOD_HOME/regression/logs" -a '
+        - '$VERIF_SCRIPT -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/$VERIF_CHECKPOINT_LIST -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c1 --build-none --cidiff-file "$JEOD_HOME/regression/git_diff.txt" -L "$JEOD_HOME/regression/logs" -a'
     artifacts:
         paths:
            - "**/git_diff.txt"
@@ -170,8 +172,8 @@ stages:
         - export TRICK_CFLAGS="$TRICK_CFLAGS $WARNING_LIST_C"
         - export TRICK_CXXFLAGS="$TRICK_CXXFLAGS $WARNING_LIST_CXX"
     script:
-        - 'regression/verification.py -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/regression/verif_sim_list.py -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c10 --build-all -L "$JEOD_HOME/regression/logs" -a '
-        - 'regression/verification.py -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/regression/verif_sim_checkpoint_list.py -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c1 --build-none -L "$JEOD_HOME/regression/logs" -a'
+        - '$VERIF_SCRIPT -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/$VERIF_LIST -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c10 --build-all -L "$JEOD_HOME/regression/logs" -a '
+        - '$VERIF_SCRIPT -r "SET_test" -v "$VERIF_DATA" -p $JEOD_HOME -f $JEOD_HOME/$VERIF_CHECKPOINT_LIST -b "$TRICK_HOME/bin/trick-CP TRICKIFIED=1" -c1 --build-none -L "$JEOD_HOME/regression/logs" -a'
     artifacts:
         paths:
            - "regression/logs/*.txt"
@@ -218,30 +220,10 @@ stages:
         expire_in: 1 week
     allow_failure: true
 
-.CppCheck: &CppCheck-Template
-    tags:
-        - docker
-    when: always
-    dependencies: []
-    stage: Unit Tests And Analysis
-    before_script:
-        - "export USER=$(whoami)"
-        - "export JEOD_HOME=$(pwd)"
-        - "export TRICK_HOME=/data/trick/"
-        - "export JEOD_SPICE_DIR=/data/cspice/"
-        - "export PATH=${TRICK_HOME}/bin:${PATH}"
-    script:
-        - bin/jeod_cm/static_analysis.py
-    artifacts:
-        paths:
-           - artifacts
-        when: always
-        expire_in: 1 week
-
 .CppCheck-Full: &CppCheck-Full-Template
     tags:
         - docker
-    when: manual
+    when: always
     dependencies: []
     stage: Unit Tests And Analysis
     before_script:
@@ -258,6 +240,21 @@ stages:
         when: always
         expire_in: 1 week
 
+.Generate-Ephemeris: &Generate-Ephemeris-Template
+    tags:
+        - docker
+    when: always
+    dependencies: []
+    stage: Unit Tests And Analysis
+    before_script:
+        - "export USER=$(whoami)"
+        - "export JEOD_HOME=$(pwd)"
+        - "export TRICK_HOME=/data/trick/"
+        - "export JEOD_SPICE_DIR=/data/cspice/"
+        - "export PATH=${TRICK_HOME}/bin:${PATH}"
+        - "export MAKEFLAGS=-j5"
+    script:
+        - make -f bin/jeod/makefile REGEN_DE4XX_DATA=1 DE4XX_ONLY=1
 
 .Docs: &Docs-Template
     tags:
@@ -286,11 +283,11 @@ stages:
         expire_in: 1 week
 
 # BUILD LIBS ------------------------------------------------------------------
-Build-Lib-CentOS7.6-T19.5.1:
+Build-Lib-CentOS7.6-T19.6.0:
     <<: *Build-Lib-Trick-Template
     <<: *OS-CentOS7
 
-Build-Trickified-Lib-CentOS7.6-T19.5.1:
+Build-Trickified-Lib-CentOS7.6-T19.6.0:
     <<: *Build-Trickified-Lib-Template
     <<: *OS-CentOS7
 
@@ -298,11 +295,11 @@ Build-Lib-CentOS7.6:
     <<: *Build-Lib-Template
     <<: *OS-CentOS7
 
-Build-Lib-Oracle8-T19.5.1:
+Build-Lib-Oracle8-T19.6.0:
     <<: *Build-Lib-Trick-Template
     <<: *OS-Oracle8
 
-Build-Trickified-Lib-Oracle8-T19.5.1:
+Build-Trickified-Lib-Oracle8-T19.6.0:
     <<: *Build-Trickified-Lib-Template
     <<: *OS-Oracle8
 
@@ -310,11 +307,11 @@ Build-Lib-Oracle8:
     <<: *Build-Lib-Template
     <<: *OS-Oracle8
 
-Build-Lib-Ubuntu18.04-T19.5.1:
+Build-Lib-Ubuntu18.04-T19.6.0:
     <<: *Build-Lib-Trick-Template
     <<: *OS-Ubuntu18
 
-Build-Trickified-Lib-Ubuntu18.04-T19.5.1:
+Build-Trickified-Lib-Ubuntu18.04-T19.6.0:
     <<: *Build-Trickified-Lib-Template
     <<: *OS-Ubuntu18
 
@@ -323,47 +320,47 @@ Build-Lib-Ubuntu18.04:
     <<: *OS-Ubuntu18
 
 # RUN SIM JOBS ----------------------------------------------------------------
-Verify-Updated-Sims-CentOS7.6-T19.5.1:
+Verify-Updated-Sims-CentOS7.6-T19.6.0:
     <<: *Verify-Updated-Sims-Template
     <<: *OS-CentOS7
     dependencies:
-        - Build-Lib-CentOS7.6-T19.5.1
-        - Build-Trickified-Lib-CentOS7.6-T19.5.1
+        - Build-Lib-CentOS7.6-T19.6.0
+        - Build-Trickified-Lib-CentOS7.6-T19.6.0
 
-Verify-All-Sims-CentOS7.6-T19.5.1:
+Verify-All-Sims-CentOS7.6-T19.6.0:
     <<: *Verify-All-Sims-Template
     <<: *OS-CentOS7
     dependencies:
-        - Build-Lib-CentOS7.6-T19.5.1
-        - Build-Trickified-Lib-CentOS7.6-T19.5.1
+        - Build-Lib-CentOS7.6-T19.6.0
+        - Build-Trickified-Lib-CentOS7.6-T19.6.0
 
-Verify-Updated-Sims-Oracle8-T19.5.1:
+Verify-Updated-Sims-Oracle8-T19.6.0:
     <<: *Verify-Updated-Sims-Template
     <<: *OS-Oracle8
     dependencies:
-        - Build-Lib-Oracle8-T19.5.1
-        - Build-Trickified-Lib-Oracle8-T19.5.1
+        - Build-Lib-Oracle8-T19.6.0
+        - Build-Trickified-Lib-Oracle8-T19.6.0
 
-Verify-All-Sims-Oracle8-T19.5.1:
+Verify-All-Sims-Oracle8-T19.6.0:
     <<: *Verify-All-Sims-Template
     <<: *OS-Oracle8
     dependencies:
-        - Build-Lib-Oracle8-T19.5.1
-        - Build-Trickified-Lib-Oracle8-T19.5.1
+        - Build-Lib-Oracle8-T19.6.0
+        - Build-Trickified-Lib-Oracle8-T19.6.0
 
-Verify-Updated-Sims-Ubuntu18.04-T19.5.1:
+Verify-Updated-Sims-Ubuntu18.04-T19.6.0:
     <<: *Verify-Updated-Sims-Template
     <<: *OS-Ubuntu18
     dependencies:
-        - Build-Lib-Ubuntu18.04-T19.5.1
-        - Build-Trickified-Lib-Ubuntu18.04-T19.5.1
+        - Build-Lib-Ubuntu18.04-T19.6.0
+        - Build-Trickified-Lib-Ubuntu18.04-T19.6.0
 
-Verify-All-Sims-Ubuntu18.04-T19.5.1:
+Verify-All-Sims-Ubuntu18.04-T19.6.0:
     <<: *Verify-All-Sims-Template
     <<: *OS-Ubuntu18
     dependencies:
-        - Build-Lib-Ubuntu18.04-T19.5.1
-        - Build-Trickified-Lib-Ubuntu18.04-T19.5.1
+        - Build-Lib-Ubuntu18.04-T19.6.0
+        - Build-Trickified-Lib-Ubuntu18.04-T19.6.0
 
 # UNIT TESTS ------------------------------------------------------------------
 Run-Unit-Tests-CentOS7.6:
@@ -388,12 +385,13 @@ FlawFinder-Oracle8:
     <<: *FlawFinder-Template
     <<: *OS-Oracle8
 
-CppCheck-Oracle8:
-    <<: *CppCheck-Template
-    <<: *OS-Oracle8
-
 CppCheck-Full-Oracle8:
     <<: *CppCheck-Full-Template
+    <<: *OS-Oracle8
+
+
+Generate-Ephemeris-Oracle8:
+    <<: *Generate-Ephemeris-Template
     <<: *OS-Oracle8
 
 # COVERAGE --------------------------------------------------------------------
@@ -421,7 +419,7 @@ Manual-Coverage-CentOS7:
         expire_in: 1 week
 
 # DOCUMENTATION JOBS ----------------------------------------------------------
-Docs-Oracle8-T19.5.1:
+Docs-Oracle8-T19.6.0:
     <<: *Docs-Template
     <<: *OS-Oracle8
 

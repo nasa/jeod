@@ -19,8 +19,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((find_planet.o)
-   (ephem_manager.o))
+  ((find_planet.cc)
+   (ephem_manager.cc))
 
 
 ******************************************************************************/
@@ -57,11 +57,11 @@ const
 
    // Found a BasePlanet with the given name:
    // Try converting it to a Planet.
-   if (base_planet != NULL) {
+   if (base_planet != nullptr) {
       planet = dynamic_cast <Planet *>(base_planet);
 
       // Conversion failed: Warn user about this.
-      if (planet == NULL) {
+      if (planet == nullptr) {
          MessageHandler::warn (
             __FILE__, __LINE__, EphemeridesMessages::invalid_item,
             "BasePlanet '%s' is not a Planet. "
@@ -72,7 +72,7 @@ const
 
    // BasePlanet not found: planet is NULL.
    else {
-      planet = NULL;
+      planet = nullptr;
    }
 
    return planet;

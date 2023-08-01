@@ -22,9 +22,9 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((spherical_harmonics_delta_controls.o)
-   (spherical_harmonics_delta_coeffs.o)
-   (spherical_harmonics_gravity_source.o))
+  ((spherical_harmonics_delta_controls.cc)
+   (spherical_harmonics_delta_coeffs.cc)
+   (spherical_harmonics_gravity_source.cc))
 
 
 
@@ -49,8 +49,8 @@ namespace jeod {
 SphericalHarmonicsDeltaControls::SphericalHarmonicsDeltaControls (
    void)
 :
-   grav_effect(NULL),
-   grav_source(NULL),
+   grav_effect(nullptr),
+   grav_source(nullptr),
    active(false),
    first_order_only(true),
    degree(0),

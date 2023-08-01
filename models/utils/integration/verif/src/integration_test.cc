@@ -7,13 +7,13 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((integration_test.o)
-   (integration_test_messages.o)
-   (new_orientation.o)
-   (random.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item_demangle.o)
-   (utils/quaternion/quat_to_mat.o))
+  ((integration_test.cc)
+   (integration_test_messages.cc)
+   (new_orientation.cc)
+   (random.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item_demangle.cc)
+   (utils/quaternion/src/quat_to_mat.cc))
 
  
 
@@ -66,7 +66,7 @@ IntegrationTest::IntegrationTest (
    delta_t(0.0),
    omega(0.0),
    time_scale(1),
-   state_integrator(NULL),
+   state_integrator(nullptr),
    seed_gen(),
    iinteg_icanon(seed_gen, true),
    Q_iinteg_icanon(),
@@ -95,7 +95,7 @@ IntegrationTest::IntegrationTest (
    delta_t(source.delta_t),
    omega(source.omega),
    time_scale(source.time_scale),
-   state_integrator(NULL),
+   state_integrator(nullptr),
    seed_gen(),
    iinteg_icanon(seed_gen, true),
    Q_iinteg_icanon(),
@@ -293,7 +293,7 @@ IntegrationTest::shutdown (        // Return: -- Void
 {
 
    // Report defaults to stdout if not set.
-   if (report == NULL) {
+   if (report == nullptr) {
       report = stdout;
    }
 

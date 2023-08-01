@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,8 +52,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((named_item.o)
-   (named_item_demangle.o))
+  ((../src/named_item.cc)
+   (../src/named_item_demangle.cc))
 
  
 *******************************************************************************/
@@ -107,7 +107,7 @@ public:
    static char * construct_name (const char * name_item1)
    {
       return vconstruct_name (name_item1,
-                              NULL);
+                              (const char *)NULL);
    }
 
    /**
@@ -122,7 +122,7 @@ public:
    {
       return vconstruct_name (name_item1,
                               name_item2,
-                              NULL);
+                              (const char *)NULL);
    }
 
    /**
@@ -140,7 +140,7 @@ public:
       return vconstruct_name (name_item1,
                               name_item2,
                               name_item3,
-                              NULL);
+                              (const char *)NULL);
    }
 
    /**
@@ -161,7 +161,7 @@ public:
                               name_item2,
                               name_item3,
                               name_item4,
-                              NULL);
+                              (const char *)NULL);
    }
 
    /**
@@ -185,7 +185,7 @@ public:
                               name_item3,
                               name_item4,
                               name_item5,
-                              NULL);
+                              (const char *)NULL);
    }
 
    /**
@@ -212,7 +212,7 @@ public:
                               name_item4,
                               name_item5,
                               name_item6,
-                              NULL);
+                              (const char *)NULL);
    }
 
    /**
@@ -242,14 +242,14 @@ public:
                               name_item5,
                               name_item6,
                               name_item7,
-                              NULL);
+                              (const char *)NULL);
    }
 
 
    /**
     * Construct a name as a dot-conjoined string.
     * Note that this is a varargs function. The last argument must be
-    * NULL to signal the end of the argument list.
+    * (const char *)NULL to signal the end of the argument list.
     * @return The constructed name
     * \param[in] name_item First part of the name
     * \param[in] ... Rest of the name

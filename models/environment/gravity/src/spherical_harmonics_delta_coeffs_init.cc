@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((spherical_harmonics_delta_coeffs_init.o))
+  ((spherical_harmonics_delta_coeffs_init.cc))
 
 
 
@@ -45,8 +45,8 @@ namespace jeod {
 SphericalHarmonicsDeltaCoeffsInit::SphericalHarmonicsDeltaCoeffsInit (
    void)
 {
-   delta_Cnm = NULL;
-   delta_Snm = NULL;
+   delta_Cnm = nullptr;
+   delta_Snm = nullptr;
    degree    = order = 0;
 
 }

@@ -25,7 +25,7 @@ RUN apt-get install -y bison clang flex git llvm make maven swig cmake \
 RUN mkdir -p /data/ && \
     export TRICK_CFLAGS=-g && export TRICK_CXXFLAGS=-g && export MAKEFLAGS=-j6 && export PYTHON_VERSION=3 && \
     cd /data/ && git clone https://github.com/nasa/trick && \
-    cd /data/trick && git checkout 19.5.1 -b r19.5.1 && ./configure && make && \
+    cd /data/trick && git checkout 19.6.0 -b r19.6.0 && ./configure && make && \
     chmod -R ugo+rx /data/trick*
 
 ENV CSPICE_URL http://naif.jpl.nasa.gov/pub/naif/toolkit/C/PC_Linux_GCC_64bit/packages

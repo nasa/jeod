@@ -26,6 +26,14 @@ Earth is not a good choice for integration frames.
   veh_object.rotational_dynamics = true;
 \end{verbatim}
 
+In a situation where multiple bodies are connected, the default is such that translational 
+and rotational accelerations are not computed for any child bodies.  However instances 
+where a body is, for example, a sensor and requires these values in order to provide 
+properly modeled data, the option exists to force the computation of these derivatives for any child bodies of interest.
+\begin{verbatim}
+  veh_object.compute_point_derivative = true;
+\end{verbatim}
+
 Gravity is active in most simulations. The gravity controls for the
 vehicle need to be specified in the input file. For example, the following
 will make the body subject to gravitational influences from the Earth, Sun,
@@ -212,6 +220,20 @@ attached bodies; the result is correct \emph{as-is}. Adding the gravity gradient
 torque exerted on child bodies would invalidate this already correct result.
 Gravity gradient torque must be categorized as a non-transmitted torque.
 
+\subsection{Integration Frame Changes with Attach/Detach}
+When two bodies attach, the child body takes on the integration frame of the parent body. When the bodies detach, the child body retains the integration frame of the parent body, rather than reverting to its original integration frame. This is because JEOD cannot safely assume that the original integration frame of the child body is still the most appropriate frame. On the contrary, two vehicles that were just attached are in close enough proximity that they would probably be best served by continuing to share the same integration frame.
+
+An example scenario demonstrating best practices is shown below:
+\begin{itemize}
+\item There are two vehicles (vehA and vehB).
+\item vehA's integration frame is Moon.inertial and vehB's integration frame is Earth.inertial.
+\item As vehB approaches vehA, its integration frame should switch to Moon.inertial via a call to \verb+DynBody::switch_integration_frames()+. This is to avoid any potential inconsistencies between two interacting vehicles using different integration frames. The results should be close either way, but this provides less opportunity for numerical errors to be introduced.
+\item vehB attaches to vehA and its integration frame is still Moon.inertial because it is set to be the same as its parent body, vehA.
+\item vehB detaches from vehA and its integration frame remains Moon.inertial as the vehicles are in close proximity immediately after they detach.
+\item Assuming no more interaction is required between the two vehicles, vehB's integration frame may be set to Earth.inertial through a call to \verb+DynBody::switch_integration_frames()+.
+\item Due to the multiple integration frames in use, a RelativeStates instance may be set up to continue to track vehB relative to Earth.inertial for other models, displays, or graphics for consistency even as vehB's integration frame changes over the course of the simulation.
+\end{itemize}
+
 \subsection{Using the Model in a User Defined Model}
 All of the public member data and member functions of the DynBody
  and MassBody classes are accessible to user models that operate
@@ -233,12 +255,13 @@ table~\ref{tab:important_user_methods}.
 \begin{tabular}{||l|p{0.5\linewidth}|}\hline
 {\bf Method} & {\bf Description} \\ \hline \hline
     \begin{tabular}[t]{@{}l@{}}
-        \verb+MassBody::attach_to()+ \\
-        \verb+MassBody::attach_child()+ \\
+        \verb+DynBody::attach_to()+ \\
+        \verb+DynBody::attach_child()+ \\
+        \verb+DynBody::attach_to_frame()+ \\
         \verb+DynBody::attach()+ \\
         \verb+DynBody::add_mass_body()+ 
     \end{tabular} &
-  If you as a model developer know that two bodies are to be attached,
+  If you as a model developer know that two bodies or a body and a RefFrame are to be attached,
   and know they are to be attached immediately, invoke the attach
   method directly in your model code. There is no reason to create and enqueue
   a body action to perform the attachment. \\[6 pt]

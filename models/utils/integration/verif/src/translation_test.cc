@@ -7,10 +7,10 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((translation_test.o)
-   (integration_test.o)
-   (new_orientation.o)
-   (random.o))
+  ((translation_test.cc)
+   (integration_test.cc)
+   (new_orientation.cc)
+   (random.cc))
 
  
 
@@ -116,7 +116,7 @@ TranslationTest::integrate (       // Return: -- Integration status
    double dyn_dt,                  // In:     s  Step size
    unsigned int target_stage)      // In:     -- Target stage number
 {
-   if (state_integrator == NULL) {
+   if (state_integrator == nullptr) {
       return er7_utils::IntegratorResult(false);
    }
 
@@ -204,7 +204,7 @@ TranslationTest::shutdown (        // Return: -- Void
 {
 
    // Report defaults to stdout if not set.
-   if (report == NULL) {
+   if (report == nullptr) {
       report = stdout;
    }
 

@@ -21,8 +21,8 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate_circular.o)
-     (cylinder.o))
+    ((flat_plate_circular.cc)
+     (cylinder.cc))
 
  
 *******************************************************************************/

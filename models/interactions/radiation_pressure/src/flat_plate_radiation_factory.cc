@@ -21,16 +21,16 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-   ((flat_plate_radiation_factory.o)
-    (flat_plate_radiation_facet.o)
-    (radiation_facet.o)
-    (radiation_messages.o)
-    (radiation_params.o)
-    (utils/message/message_handler.o)
-    (utils/surface_model/facet.o)
-    (utils/surface_model/facet_params.o)
-    (utils/surface_model/flat_plate_thermal.o)
-    (utils/surface_model/interaction_facet_factory.o))
+   ((flat_plate_radiation_factory.cc)
+    (flat_plate_radiation_facet.cc)
+    (radiation_facet.cc)
+    (radiation_messages.cc)
+    (radiation_params.cc)
+    (utils/message/src/message_handler.cc)
+    (utils/surface_model/src/facet.cc)
+    (utils/surface_model/src/facet_params.cc)
+    (utils/surface_model/src/flat_plate_thermal.cc)
+    (utils/surface_model/src/interaction_facet_factory.cc))
 
 
 *******************************************************************************/
@@ -78,13 +78,13 @@ FlatPlateRadiationFactory::create_facet (
    Facet* facet,
    FacetParams* params)
 {
-   RadiationParams* radiation_params = NULL;
-   FlatPlateThermal* flat_plate      = NULL;
+   RadiationParams* radiation_params = nullptr;
+   FlatPlateThermal* flat_plate      = nullptr;
 
    radiation_params = dynamic_cast<RadiationParams*> (params);
    flat_plate       = dynamic_cast<FlatPlateThermal*> (facet);
 
-   if (radiation_params == NULL) {
+   if (radiation_params == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "The parameter list sent to the Flat Plate Radiation Factory is\n"
@@ -94,7 +94,7 @@ FlatPlateRadiationFactory::create_facet (
          "thermal.heat_capacity_per_area, \n"
          "and (optional, default to 0.0) thermal.thermal_power_dump .\n");
    }
-   if (flat_plate == NULL) {
+   if (flat_plate == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "The Facet sent to the Flat Plate Radiation Factory is\n"

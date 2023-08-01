@@ -16,8 +16,8 @@ PURPOSE:
 
 
 LIBRARY DEPENDENCY:
-  ((mass_point_mass_inertia.o)
-   (mass.o))
+  ((mass_point_mass_inertia.cc)
+   (mass.cc))
 
 
 

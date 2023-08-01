@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -65,7 +65,7 @@ Assumptions and limitations:
   ((Earth specific))
 
 Library dependencies:
-  ((nutation_j2000_init.o))
+  ((../src/nutation_j2000_init.cc))
 
  
 
@@ -149,7 +149,7 @@ public: // public member functions
 
    NutationJ2000Init ();
 
-   virtual ~NutationJ2000Init ();
+   ~NutationJ2000Init () override;
 
 private: // private member functions
 

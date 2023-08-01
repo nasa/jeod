@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ PURPOSE:
     METAtmosphere, while giving the actual METAtmosphereState access to the
     METAtmosphere.)
 LIBRARY DEPENDENCY:
-   (MET_atmosphere_state_vars.o)
+   (../src/MET_atmosphere_state_vars.cc)
 
 *******************************************************************************/
 
@@ -98,7 +98,7 @@ public:
    METAtmosphereStateVars();
    METAtmosphereStateVars( Atmosphere                & atmos_model,
                            const PlanetFixedPosition & pfix_pos);
-   virtual ~METAtmosphereStateVars();
+   ~METAtmosphereStateVars() override;
    METAtmosphereStateVars ( const METAtmosphereStateVars& rhs);
    METAtmosphereStateVars& operator = ( const METAtmosphereStateVars& rhs);
 };

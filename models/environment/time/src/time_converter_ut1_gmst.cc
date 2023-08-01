@@ -21,15 +21,15 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_converter_ut1_gmst.o)
-   (time.o)
-   (time_converter.o)
-   (time_gmst.o)
-   (time_ut1.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_converter_ut1_gmst.cc)
+   (time.cc)
+   (time_converter.cc)
+   (time_gmst.cc)
+   (time_ut1.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -58,8 +58,8 @@ namespace jeod {
 TimeConverter_UT1_GMST::TimeConverter_UT1_GMST (
    void)
 {
-   ut1_ptr  = NULL;
-   gmst_ptr = NULL;
+   ut1_ptr  = nullptr;
+   gmst_ptr = nullptr;
    a_name   = "UT1";
    b_name   = "GMST";
    valid_directions = A_TO_B;

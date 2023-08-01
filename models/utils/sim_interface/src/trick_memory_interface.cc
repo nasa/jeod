@@ -16,11 +16,11 @@ Purpose:
   ()
 
 Library Dependency:
-  ((trick_memory_interface.o)
-   (trick_memory_interface_alloc.o)
-   (trick_memory_interface_attrib.o)
-   (memory_interface.o)
-   (utils/container/primitive_serializer.o))
+  ((trick_memory_interface.cc)
+   (trick_memory_interface_alloc.cc)
+   (trick_memory_interface_attrib.cc)
+   (memory_interface.cc)
+   (utils/container/src/primitive_serializer.cc))
 
  
 
@@ -60,9 +60,9 @@ JeodTrickMemoryInterface::JeodTrickMemoryInterface ()
    id_length(6),
    mode(JeodSimulationInterface::Construction)
 {
-   dlhandle = dlopen (NULL, RTLD_LAZY);
+   dlhandle = dlopen (nullptr, RTLD_LAZY);
 
-   if (dlhandle == NULL) {
+   if (dlhandle == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::implementation_error,
          "dlopen() failed: %s", dlerror());
@@ -75,9 +75,9 @@ JeodTrickMemoryInterface::JeodTrickMemoryInterface ()
  */
 JeodTrickMemoryInterface::~JeodTrickMemoryInterface ()
 {
-   if (dlhandle != NULL) {
+   if (dlhandle != nullptr) {
       dlclose (dlhandle);
-      dlhandle = NULL;
+      dlhandle = nullptr;
    }
 }
 
@@ -183,7 +183,7 @@ JeodTrickMemoryInterface::get_address_at_name (
    const std::string & name JEOD_UNUSED)
 const
 {
-   return NULL;
+   return nullptr;
 }
 
 

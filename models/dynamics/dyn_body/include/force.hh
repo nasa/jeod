@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -51,7 +51,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((force.o))
+  ((../src/force.cc))
 
 
 
@@ -182,6 +182,11 @@ class CollectForce {
    double & operator[] (const unsigned int index);
    double operator[] (const unsigned int index) const;
 
+   inline bool operator==(const CollectForce &other)
+   {
+       return (force == other.force);
+   }
+
 
    // Member data
    // That these are public is deprecated.
@@ -227,10 +232,10 @@ class CInterfaceForce : public CollectForce {
 
    // Constructors.
    CInterfaceForce ();
-   CInterfaceForce (double * vec);
+   explicit CInterfaceForce (double * vec);
 
    // Destructor
-   virtual ~CInterfaceForce ();
+   ~CInterfaceForce () override;
 
    // Member data: This class adds no data to CollectForce.
 

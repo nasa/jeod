@@ -16,15 +16,15 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_ned_trans_state.o)
-   (body_action_messages.o)
-   (dyn_body_init.o)
-   (dyn_body_init_ned_state.o)
-   (dyn_body_init_planet_derived.o)
-   (dyn_body_init_wrt_planet.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame_items.o))
+  ((dyn_body_init_ned_trans_state.cc)
+   (body_action_messages.cc)
+   (dyn_body_init.cc)
+   (dyn_body_init_ned_state.cc)
+   (dyn_body_init_planet_derived.cc)
+   (dyn_body_init_wrt_planet.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame_items.cc))
 
 
 

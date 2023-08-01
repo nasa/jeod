@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate.o))
+    ((../src/flat_plate.cc))
 
  
 *******************************************************************************/
@@ -91,7 +91,7 @@ public:
    FlatPlate ();
 
    // destructor
-   virtual ~FlatPlate ();
+   ~FlatPlate () override;
 
    /**
     * normal of the plate, pointing outward of the craft, with respect
@@ -113,7 +113,7 @@ public:
 
 protected:
 
-   virtual void update_articulation_internal ();
+   void update_articulation_internal () override;
 
 private:
 

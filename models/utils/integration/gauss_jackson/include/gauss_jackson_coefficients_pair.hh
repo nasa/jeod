@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((gauss_jackson_coefficients_pair.o))
+  ((../src/gauss_jackson_coefficients_pair.cc))
 */
 
 
@@ -108,8 +108,8 @@ public:
     */
    GaussJacksonCoefficientsPair ()
    :
-      sa_coefs (NULL),
-      gj_coefs (NULL)
+      sa_coefs (nullptr),
+      gj_coefs (nullptr)
    {}
 
    /**
@@ -168,7 +168,7 @@ public:
       int nelem,
       int ncoeff,
       double const * ER7_UTILS_RESTRICT const * ER7_UTILS_RESTRICT acc_hist,
-      GaussJacksonTwoState & state_sum) const ER7_UTILS_RESTRICT;
+      const GaussJacksonTwoState & state_sum) const ER7_UTILS_RESTRICT;
 
    /**
     * Apply just the Adams coefficients to the supplied history data.
@@ -181,7 +181,7 @@ public:
       int nelem,
       int ncoeff,
       double const * ER7_UTILS_RESTRICT const * ER7_UTILS_RESTRICT acc_hist,
-      GaussJacksonOneState & state_sum) const ER7_UTILS_RESTRICT;
+      const GaussJacksonOneState & state_sum) const ER7_UTILS_RESTRICT;
 
 
    /**

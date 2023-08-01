@@ -87,9 +87,10 @@ requirements~\ref{reqt:mass_requirements} to~\ref{reqt:attach_detach}.
 \tabularnewline[4pt]
 \ref{reqt:attach_detach} & Attach/Detach &
   As described in section ~\ref{sec:detailed_attach_detach}, the DynBody
-  class overrides MassBody attach/detach member functions to provide the
-  the required capability to attach and detach DynBody objects and to do
-  so in a manner consistent with the laws of physics.
+  class implements attach/detach member functions in addition to the Massbody attach/detach methods
+  to provide the the required capability to attach and detach DynBody objects and to do
+  so in a manner consistent with the laws of physics. The DynBody class also provides attachment methods for attaching
+  to a RefFrame object
 \tabularnewline[4pt]
 \end{longtable}
 

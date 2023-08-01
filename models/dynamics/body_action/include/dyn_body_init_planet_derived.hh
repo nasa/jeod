@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_planet_derived.o))
+  ((../src/dyn_body_init_planet_derived.cc))
 
 
 
@@ -138,18 +138,18 @@ class DynBodyInitPlanetDerived : public DynBodyInitWrtPlanet {
 
    DynBodyInitPlanetDerived ();
 
-   virtual ~DynBodyInitPlanetDerived ();
+   ~DynBodyInitPlanetDerived () override;
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
    // is_ready: Indicate whether the initializer is ready to be applied.
    // A DynBodyInitPlanetDerived state initializer is ready when the reference
    // body's required items have been set.
-   virtual bool is_ready (void);
+   bool is_ready (void) override;
 
    // apply: Apply the state to the subject body.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
 };
 

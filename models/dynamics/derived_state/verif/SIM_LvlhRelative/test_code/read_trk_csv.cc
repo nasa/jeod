@@ -8,7 +8,7 @@ using namespace std;
 
 ReadTrkCsv::ReadTrkCsv (string fileName)
    :
-   values(NULL), numRows(0), numCols(0)
+   values(nullptr), numRows(0), numCols(0)
 {
    ifstream ifs(fileName.c_str());
    string line;
@@ -52,5 +52,5 @@ ReadTrkCsv::ReadTrkCsv (string fileName)
 ReadTrkCsv::~ReadTrkCsv() {
   for (unsigned int ii = 0; ii < numRows; ++ii) delete [] values[ii];
 
-  if (values != NULL) delete [] values;
+  delete [] values;
 }

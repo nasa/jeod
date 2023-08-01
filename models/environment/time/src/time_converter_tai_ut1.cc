@@ -21,16 +21,16 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_converter_tai_ut1.o)
-   (time.o)
-   (time_standard.o)
-   (time_tai.o)
-   (time_ut1.o)
-   (time_converter.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_converter_tai_ut1.cc)
+   (time.cc)
+   (time_standard.cc)
+   (time_tai.cc)
+   (time_ut1.cc)
+   (time_converter.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -66,13 +66,13 @@ TimeConverter_TAI_UT1::TimeConverter_TAI_UT1 (
 
    override_data_table = false;
 
-   tai_ptr                 = NULL;
-   ut1_ptr                 = NULL;
+   tai_ptr                 = nullptr;
+   ut1_ptr                 = nullptr;
    tai_to_ut1_override_val = 0.0;
    last_index              = 0;
    index                   = -1;
-   val_vec                 = NULL;
-   when_vec                = NULL;
+   val_vec                 = nullptr;
+   when_vec                = nullptr;
    prev_when               = 0.0;
    prev_value              = 0.0;
    next_when               = 0.0;
@@ -153,11 +153,12 @@ TimeConverter_TAI_UT1::initialize_tai_to_ut1 (
       return;
    }
 
-   if ((when_vec == NULL) || (val_vec == NULL)) {
+   if ((when_vec == nullptr) || (val_vec == nullptr)) {
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_data_error, "\n"
          "The TAI to UT1 conversion function requires a"
          " data lookup table, but none has been provided.\n");
+      return;
    }
 
    double tai_time = tai_ptr->trunc_julian_time; /* day local value of TAI time */
@@ -491,10 +492,10 @@ TimeConverter_TAI_UT1::verify_table_lookup_ends (
 TimeConverter_TAI_UT1::~TimeConverter_TAI_UT1 (
    void)
 {
-   if ((when_vec != NULL)  && (JEOD_IS_ALLOCATED (when_vec))) {
+   if ((when_vec != nullptr)  && (JEOD_IS_ALLOCATED (when_vec))) {
       JEOD_DELETE_ARRAY (when_vec);
    }
-   if ((val_vec != NULL)  && (JEOD_IS_ALLOCATED (val_vec))) {
+   if ((val_vec != nullptr)  && (JEOD_IS_ALLOCATED (val_vec))) {
       JEOD_DELETE_ARRAY (val_vec);
    }
 }

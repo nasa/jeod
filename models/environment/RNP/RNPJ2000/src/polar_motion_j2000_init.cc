@@ -27,8 +27,8 @@ Assumptions and limitations:
     put into the initialization file))
 
 Library dependencies:
-  ((polar_motion_j2000_init.o)
-   (environment/RNP/GenericRNP/planet_rotation_init.o))
+  ((polar_motion_j2000_init.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation_init.cc))
 
  
 
@@ -56,9 +56,9 @@ PolarMotionJ2000Init::PolarMotionJ2000Init (
 :
    xp(0.0),
    yp(0.0),
-   xp_tbl(NULL),
-   yp_tbl(NULL),
-   polar_mjd(NULL),
+   xp_tbl(nullptr),
+   yp_tbl(nullptr),
+   polar_mjd(nullptr),
    override_table(false),
    last_table_index(0)
 {

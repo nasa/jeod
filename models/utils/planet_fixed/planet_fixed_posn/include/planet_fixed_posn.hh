@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -63,7 +63,7 @@ Assumptions and Limitations:
      fixed coordinates.))
 
 Library Dependency:
-   ((planet_fixed_posn.o))
+   ((../src/planet_fixed_posn.cc))
 
  
 

@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((derived_state_messages.o))
+  ((derived_state_messages.cc))
 
 
 

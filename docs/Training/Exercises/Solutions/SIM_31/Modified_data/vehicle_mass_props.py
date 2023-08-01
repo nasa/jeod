@@ -1,4 +1,4 @@
-vehicle.mass_init.subject = vehicle.dyn_body.mass
+vehicle.mass_init.set_subject_body(vehicle.dyn_body.mass)
 vehicle.mass_init.properties.mass =  10.0 
 vehicle.mass_init.properties.position =  [0,0,0] 
 vehicle.mass_init.properties.inertia[0] =  [1,0,0] 
@@ -9,7 +9,7 @@ vehicle.mass_init.properties.pt_orientation.data_source = trick.Orientation.Inpu
 
 mass_init = trick.MassBodyInit()
 mass_init.thisown = 0
-mass_init.subject = vehicle.array
+mass_init.set_subject_body(vehicle.array)
 mass_init.properties.mass =  10.0 
 mass_init.properties.position =  [0,0,0] 
 mass_init.properties.inertia[0] =  [1,0,0] 

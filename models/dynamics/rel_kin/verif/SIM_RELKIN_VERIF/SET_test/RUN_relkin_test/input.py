@@ -132,9 +132,6 @@ dynamics.dyn_manager.add_body_action (veh2.trans_init)
 
 
 #// Set the rotational states of target
-veh1.rot_init = trick.DynBodyInitRotState()
-veh1.rot_init.thisown = 0
-
 veh1.rot_init.set_subject_body( veh1.dyn_body )
 veh1.rot_init.reference_ref_frame_name = "Earth.inertial"
 veh1.rot_init.body_frame_id = "composite_body"
@@ -150,9 +147,6 @@ dynamics.dyn_manager.add_body_action (veh1.rot_init)
 
 
 #// Set the rotational states of chaser
-veh2.rot_init = trick.DynBodyInitRotState()
-veh2.rot_init.thisown = 0
-
 veh2.rot_init.set_subject_body( veh2.dyn_body )
 veh2.rot_init.reference_ref_frame_name = "Earth.inertial"
 veh2.rot_init.body_frame_id = "composite_body"

@@ -7,14 +7,14 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((integration_test.o)
-   (integration_test_messages.o)
-   (new_orientation.o)
-   (random.o)
-   (environment/time/time_manager.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item_demangle.o)
-   (utils/quaternion/quat_to_mat.o))
+  ((integration_test.cc)
+   (integration_test_messages.cc)
+   (new_orientation.cc)
+   (random.cc)
+   (environment/time/src/time_manager.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item_demangle.cc)
+   (utils/quaternion/src/quat_to_mat.cc))
 
  
 *******************************************************************************/
@@ -74,15 +74,15 @@ IntegrationTestManager::IntegrationTestManager (void) :
    nskip(0),
    report_fid(1),
    end_time(-1),
-   sim_integrator(NULL),
+   sim_integrator(nullptr),
    integ_option(er7_utils::Integration::Unspecified),
    integ_option_int(0),
-   test_items(NULL),
+   test_items(nullptr),
    time_scale(1),
    deprecated_rotation_integration(false),
    initialized(false),
-   integ_constructor(NULL),
-   integ_interface(NULL)
+   integ_constructor(nullptr),
+   integ_interface(nullptr)
    // time_integrator(NULL)
 {
    JEOD_REGISTER_CLASS (IntegrationTest);
@@ -90,7 +90,7 @@ IntegrationTestManager::IntegrationTestManager (void) :
    template_items = JEOD_ALLOC_CLASS_POINTER_ARRAY (
                        template_items_size, IntegrationTest);
    for (unsigned int ii = 0; ii < template_items_size; ++ii) {
-      template_items[ii] = NULL;
+      template_items[ii] = nullptr;
    }
 }
 
@@ -103,36 +103,36 @@ IntegrationTestManager::~IntegrationTestManager ( // Return: N/A (destructor)
 {
    if (JEOD_IS_ALLOCATED (integ_interface)) {
       JEOD_DELETE_OBJECT (integ_interface);
-      integ_interface = NULL;
+      integ_interface = nullptr;
    }
 
-   if (integ_group != NULL) {
+   if (integ_group != nullptr) {
       JEOD_DELETE_OBJECT (integ_group);
-      integ_group = NULL;
+      integ_group = nullptr;
    }
 
-   if (test_items != NULL) {
+   if (test_items != nullptr) {
       if (num_tests > 1) {
          for (unsigned int ii = 0; ii < total_tests; ++ii) {
             IntegrationTest * test = test_items[ii];
-            if (test != NULL) {
-               test_items[ii] = NULL;
+            if (test != nullptr) {
+               test_items[ii] = nullptr;
                JEOD_DELETE_OBJECT (test);
             }
          }
       }
       JEOD_DELETE_ARRAY (test_items);
-      test_items = NULL;
+      test_items = nullptr;
    }
 
-   if (template_items != NULL) {
+   if (template_items != nullptr) {
       JEOD_DELETE_ARRAY (template_items);
-      template_items = NULL;
+      template_items = nullptr;
    }
 
-   if (state_integrator_id != NULL) {
+   if (state_integrator_id != nullptr) {
       JEOD_DELETE_OBJECT (state_integrator_id);
-      state_integrator_id = NULL;
+      state_integrator_id = nullptr;
    }
 
    er7_utils::Er7UtilsDeletable::delete_instance (integ_constructor);
@@ -160,7 +160,7 @@ IntegrationTestManager::initialize (   // Return: -- Void
    // Count the number of supplied template items.
    num_template_items = template_items_size;
    for (unsigned int ii = 0; ii < template_items_size; ++ii) {
-      if (template_items[ii] == NULL) {
+      if (template_items[ii] == nullptr) {
          num_template_items = ii;
          break;
       }
@@ -209,7 +209,7 @@ IntegrationTestManager::initialize (   // Return: -- Void
 
 
    // Create the integrator constructor if not set in the input file.
-   if (integ_constructor == NULL) {
+   if (integ_constructor == nullptr) {
       if ((integ_option_int >= 122) && (integ_option_int <= 134)) {
          GaussJacksonIntegratorConstructor gj_integ_constructor;
          GaussJacksonConfig gj_config =
@@ -270,7 +270,7 @@ IntegrationTestManager::initialize (   // Return: -- Void
    total_tests = num_template_items * num_tests;
    test_items  = JEOD_ALLOC_CLASS_POINTER_ARRAY (total_tests, IntegrationTest);
    for (unsigned int ii = 0; ii < total_tests; ++ii) {
-      test_items[ii] = NULL;
+      test_items[ii] = nullptr;
    }
 
 
@@ -427,14 +427,14 @@ IntegrationTestManager::shutdown ( // Return: -- Void
    double dyn_time)                // In:     s  Dynamic time
 {
    double test_time;               // s  Test item time
-   FILE * report = NULL;
+   FILE * report = nullptr;
 
    if (report_fid == 1) {
       report = stdout;
    }
    else {
       report = fdopen (report_fid, "w");
-      if (report == NULL) {
+      if (report == nullptr) {
          MessageHandler::warn (__FILE__, __LINE__,
                                IntegrationTestMessages::internal_error,
                                "Unable to open report file to file desc %d.",
@@ -460,7 +460,7 @@ IntegrationTestManager::shutdown ( // Return: -- Void
    }
 
    // Shutdown each test item, but only if a report is to be generated.
-   else if (generate_report && (report != NULL)) {
+   else if (generate_report && (report != nullptr)) {
       for (unsigned int ii = 0; ii < total_tests; ++ii) {
          if (test_items[ii]->get_active()) {
             test_time = test_items[ii]->get_time_scale() * dyn_time;
@@ -471,7 +471,7 @@ IntegrationTestManager::shutdown ( // Return: -- Void
    }
 
    // Close the report.
-   if ((report_fid != 1) && (report != NULL)) {
+   if ((report_fid != 1) && (report != nullptr)) {
       fclose (report);
    }
 }

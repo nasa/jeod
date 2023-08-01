@@ -30,16 +30,16 @@ Class:
   (RNPJ2000)
 
 Library dependencies:
-  ((rnp_j2000.o)
-   (nutation_j2000.o)
-   (polar_motion_j2000.o)
-   (precession_j2000.o)
-   (rotation_j2000.o)
-   (environment/RNP/GenericRNP/RNP_messages.o)
-   (environment/RNP/GenericRNP/planet_rnp.o)
-   (environment/time/time_tt.o)
-   (environment/time/time_ut1.o)
-   (environment/time/time_gmst.o))
+  ((rnp_j2000.cc)
+   (nutation_j2000.cc)
+   (polar_motion_j2000.cc)
+   (precession_j2000.cc)
+   (rotation_j2000.cc)
+   (environment/RNP/GenericRNP/src/RNP_messages.cc)
+   (environment/RNP/GenericRNP/src/planet_rnp.cc)
+   (environment/time/src/time_tt.cc)
+   (environment/time/src/time_ut1.cc)
+   (environment/time/src/time_gmst.cc))
 
  
 
@@ -73,8 +73,8 @@ namespace jeod {
 RNPJ2000::RNPJ2000 (
    void) :
    internal_name("RNPJ2000"),
-   gmst_ptr(NULL),
-   time_dyn_ptr(NULL),
+   gmst_ptr(nullptr),
+   time_dyn_ptr(nullptr),
    last_updated_time_full(0.0),
    never_updated_full(true),
    last_updated_time_rotational(0.0),
@@ -155,9 +155,9 @@ RNPJ2000::initialize (
  */
 void
 RNPJ2000::update_rnp (
-   TimeTT& time_tt,
+   const TimeTT& time_tt,
    TimeGMST& time_gmst,
-   TimeUT1& time_ut1)
+   const TimeUT1& time_ut1)
 {
 
    // check if active and get out if not
@@ -168,12 +168,12 @@ RNPJ2000::update_rnp (
    // If the DynTime pointer has not been filled out yet, then we need
    // to go and get that.
 
-   if(time_dyn_ptr == NULL) {
+   if(time_dyn_ptr == nullptr) {
       get_dyn_time_ptr(time_gmst);
    }
 
    // If the TimeGMST pointer hasn't been cached off yet, do that.
-   if(gmst_ptr == NULL) {
+   if(gmst_ptr == nullptr) {
       gmst_ptr = &time_gmst;
    }
 
@@ -205,7 +205,7 @@ RNPJ2000::update_rnp (
          time_ut1.trunc_julian_time + (2440000.5 - 2400000.5));
    }
 
-   if (rotation != NULL) {
+   if (rotation != nullptr) {
       if (rnp_type == FullRNP) {
          rotation->update_time (time);
       }
@@ -266,7 +266,7 @@ RNPJ2000::update_axial_rotation (
    // If the DynTime pointer has not been filled out yet, then we need
    // to go and get that.
 
-   if(time_dyn_ptr == NULL) {
+   if(time_dyn_ptr == nullptr) {
       get_dyn_time_ptr(time_gmst);
    }
 
@@ -287,7 +287,7 @@ RNPJ2000::update_axial_rotation (
    double time = 0.0;
 
    time = time_gmst.seconds;
-   if (rotation != NULL) {
+   if (rotation != nullptr) {
      if (rnp_type == FullRNP) {
          rotation->update_time (time);
       }
@@ -325,7 +325,7 @@ const char* RNPJ2000::get_name() const {
 void RNPJ2000::ephem_update() {
 
    if(active && orient_interface.is_active()) {
-      if(gmst_ptr == NULL) {
+      if(gmst_ptr == nullptr) {
          MessageHandler::inform (
             __FILE__, __LINE__, RNPMessages::setup_error,
             "RNPJ2000::ephem_update was called without a valid "
@@ -349,13 +349,13 @@ void RNPJ2000::get_dyn_time_ptr( // RETURN: -- none.
 
    // If we already have a time_dyn_ptr, then this must be a miscall, and we
    // can just return.
-   if(time_dyn_ptr != NULL) {
+   if(time_dyn_ptr != nullptr) {
       return;
    }
 
    time_dyn_ptr = dynamic_cast<TimeDyn*> (gmst.time_manager->get_time_ptr("Dyn"));
 
-   if(time_dyn_ptr == NULL) {
+   if(time_dyn_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::setup_error,
          "The TimeManager associated with the given TimeGMST "

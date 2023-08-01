@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -47,12 +47,12 @@
  ()
 
  Library dependencies:
- ((terrain_radius.o))
+ ((../src/terrain_radius.cc))
 
  
  *******************************************************************************/
-#ifndef _TERRAIN_RADIUS_HH_
-#define _TERRAIN_RADIUS_HH_
+#ifndef JEOD_TERRAIN_RADIUS_HH_
+#define JEOD_TERRAIN_RADIUS_HH_
 
 // jeod includes
 #include "environment/planet/include/planet.hh"
@@ -67,13 +67,13 @@ public:
 
    TerrainRadius();
 
-   virtual ~TerrainRadius();
+   ~TerrainRadius() override;
 
    /*  initialize the terrain model */
-   virtual int initialize(Planet * planet_in);
+   int initialize(Planet * planet_in) override;
 
    /* find the altitude given a specific lat-long  */
-   virtual int find_altitude (PlanetFixedPosition *point, double normal[3]);
+   int find_altitude (PlanetFixedPosition *point, double normal[3]) override;
 
 private:
    TerrainRadius (const TerrainRadius&);
@@ -83,4 +83,4 @@ private:
 
 } // End JEOD namespace
 
-#endif // end _TERRAIN_RADIUS_HH_ -- nothing after this line!
+#endif // end JEOD_TERRAIN_RADIUS_HH_ -- nothing after this line!

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_dyn.o))
+  ((../src/time_dyn.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_DYN_HH
@@ -113,12 +113,12 @@ public:
   //Constructor
    TimeDyn ();
   // Destructor
-   ~TimeDyn ();
+   ~TimeDyn () override;
    bool update_offset (void);
 
 private:
-   void initialize_initializer_time (TimeManagerInit * tm_init);
-   void update (void);
+   void initialize_initializer_time (TimeManagerInit * tm_init) override;
+   void update (void) override;
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.

@@ -30,18 +30,18 @@ for root, dirs, files in os.walk('{0}/models'.format(topDir), topdown=True):
       data_dirs.append(os.path.relpath(root, topDir))
 
 additionalOptions = [
-#'warning', 
-#'style', 
-#'performance', 
-#'portability', 
-#'information', 
-#'unusedFunction', 
-#'missingInclude'
+'warning',  
+'style',
+'performance', 
+'portability', 
+'information', 
+#'unusedFunction', #This prevents the use of -j making the analysis slower. Most are setters/getters - don't need to be addressed. 
+'missingInclude' 
 ]
 
-includeStrings = ' -I{0}/include -I{0}/trick_source -I{0}/include/trick/compat -DTRICK_VER=19 -I{1}/include -Imodels/'.format(
+includeStrings = ' -I{0}/include -I{0}/trick_source -I{0}/include/trick/compat -DTRICK_VER=19 -UJEOD_MEMORY_DEBUG -I{1}/include -Imodels/'.format(
         os.environ['TRICK_HOME'], os.environ['JEOD_SPICE_DIR'])
-cmncppcheckFlags = ' --quiet --error-exitcode=-1 --inline-suppr -j{0}'.format(args.cpus)
+cmncppcheckFlags = ' --quiet --error-exitcode=-1 --inline-suppr -j{0} --suppress=*:{1}* --suppress=missingIncludeSystem --suppress=unmatchedSuppression'.format(args.cpus,os.environ['TRICK_HOME'])
 if args.fullAnalysis:
    cmncppcheckFlags += ' --force'
 if additionalOptions:

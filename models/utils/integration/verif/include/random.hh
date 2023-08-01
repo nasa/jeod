@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -47,7 +47,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((random.o))
+  ((../src/random.cc))
 
  
 *******************************************************************************/
@@ -156,7 +156,7 @@ class RandomSeedGenerator : public RandomBase {
       bool initialize = true);
 
    // Destructor
-   virtual ~RandomSeedGenerator (void);
+   ~RandomSeedGenerator (void) override;
 
    // Get a seed for initializing some RandomBase derivative class. */
    void get_seed (unsigned short seed[3]);
@@ -192,7 +192,7 @@ class RandomGenerator : public RandomBase {
                     bool initialize = true);
 
    // Destructor
-   virtual ~RandomGenerator (void);
+   ~RandomGenerator (void) override;
 
 };
 
@@ -221,7 +221,7 @@ class RandomVectorUniform01 : public RandomGenerator {
                           bool initialize = true);
 
    // Destructor
-   virtual ~RandomVectorUniform01 (void);
+   ~RandomVectorUniform01 (void) override;
 
    // Get a random vector, overridable.
    // This class returns a uniform vector with elements drawn from U[0,1).

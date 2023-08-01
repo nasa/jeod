@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,7 +60,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_standard.o))
+  ((../src/time_standard.cc))
 ******************************************************************************/
 
 
@@ -191,16 +191,16 @@ public:
   //Constructor
    TimeStandard ();
   // Destructor
-   virtual ~TimeStandard ();
+   ~TimeStandard () override;
 
    void calendar_update (double simtime);
-   void initialize_initializer_time (TimeManagerInit * tm_init);
+   void initialize_initializer_time (TimeManagerInit * tm_init) override;
    void add_type_initialize (const int seeking_status,
-                             TimeManagerInit * tm_init);
-   void initialize_from_parent (TimeManagerInit * tm_init);
+                             TimeManagerInit * tm_init) override;
+   void initialize_from_parent (TimeManagerInit * tm_init) override;
 
-   virtual void set_time_by_seconds (const double new_seconds);
-   virtual void set_time_by_days (const double new_days);
+   void set_time_by_seconds (const double new_seconds) override;
+   void set_time_by_days (const double new_days) override;
    void set_time_by_trunc_julian (const double new_tjt);
 
    double julian_date_at_epoch (void);

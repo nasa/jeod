@@ -24,7 +24,7 @@ Assumptions and limitations:
   (TBS)
 
 Library dependencies:
-  ((lsode_first_order_ode_integrator__manager.o))
+  ((lsode_first_order_ode_integrator__manager.cc))
 
  
 
@@ -55,8 +55,8 @@ LsodeFirstOrderODEIntegrator::LsodeFirstOrderODEIntegrator (
 :
    Er7UtilsDeletable (),
    FirstOrderODEIntegrator (),
-   y(NULL),
-   y_dot(NULL),
+   y(nullptr),
+   y_dot(nullptr),
    cycle_target_time(0.0),
    convergence_factor(0.0),
    convergence_rate(0.0),
@@ -126,8 +126,8 @@ LsodeFirstOrderODEIntegrator::LsodeFirstOrderODEIntegrator (
 :
    Er7UtilsDeletable (),
    FirstOrderODEIntegrator (size, controls),
-   y(NULL),
-   y_dot(NULL),
+   y(nullptr),
+   y_dot(nullptr),
    cycle_target_time(0.0),
    convergence_factor(0.0),
    convergence_rate(0.0),
@@ -249,7 +249,7 @@ const
    er7_utils::MessageHandler::fail (__FILE__, __LINE__,
       er7_utils::IntegrationMessages::internal_error,
       "Copy constructor for LsodeFirstOrderODEIntegrator not implemented.\n");
-   return NULL;
+   return nullptr;
 }
 
 
@@ -272,12 +272,11 @@ const
  */
 double
 LsodeFirstOrderODEIntegrator::magnitude_of_weighted_array(
-     double     * v)
+     const double     * v)
 {
    double sum = 0.0;
-   double mult = 0.0;
    for (unsigned int ii = 0; ii < control_data.num_odes; ii++) {
-      mult = v[ii] * arrays.error_weight[ii];
+      double mult = v[ii] * arrays.error_weight[ii];
       sum += (mult * mult);
    }
    return sqrt(sum/control_data.num_odes);
@@ -296,9 +295,8 @@ LsodeFirstOrderODEIntegrator::magnitude_of_weighted_array(
      double    ** v)
 {
    double sum = 0.0;
-   double mult = 0.0;
    for (unsigned int ii = 0; ii < control_data.num_odes; ii++) {
-      mult = v[ii][index] * arrays.error_weight[ii];
+      double mult = v[ii][index] * arrays.error_weight[ii];
       sum += (mult * mult);
    }
    return sqrt(sum/control_data.num_odes);
@@ -321,8 +319,6 @@ LsodeFirstOrderODEIntegrator::gauss_elim_factor()
    // passed back by the return statement instead.
 
 
-   unsigned int l;
-   double t;
    int info = 0;
    if (control_data.num_odes >= 2) { // inverse go to 70;
       for (unsigned int k = 0; k < control_data.num_odes -1; k++) { // do 60
@@ -330,7 +326,7 @@ LsodeFirstOrderODEIntegrator::gauss_elim_factor()
          //  Original had IDAMAX + K -1.
          //  If nth tested element is max, IDAMAX returns n, while
          //  index_of_max_magnitude returns index = (n-1)+k
-         l = index_of_max_magnitude(control_data.num_odes - k,
+         unsigned int l = index_of_max_magnitude(control_data.num_odes - k,
                                     arrays.lin_alg,
                                     k);
          arrays.pivots[k] = l;
@@ -344,7 +340,7 @@ LsodeFirstOrderODEIntegrator::gauss_elim_factor()
             // 10
             }
             // compute multipliers
-            t = -1.0 / arrays.lin_alg[k][k];
+            double t = -1.0 / arrays.lin_alg[k][k];
             for (unsigned int ii = 0; ii< control_data.num_odes-k-1; ii++) {
                arrays.lin_alg[k+1+ii][k] *= t;
             }
@@ -391,14 +387,12 @@ LsodeFirstOrderODEIntegrator::gauss_elim_factor()
 void
 LsodeFirstOrderODEIntegrator::linear_solver()
 {
-
-   unsigned int l;
    double t;
    // job = 0 , solve  a * x = b;
    // first solve  l*y = b;
    if (control_data.num_odes > 1) { // inverse go to 30;
       for (unsigned int k = 0; k < control_data.num_odes - 1; k++) { // do 20
-         l = arrays.pivots[k];
+         unsigned int l = arrays.pivots[k];
          t = y[l];
          if (l != k) { // inverse go to 10;
             y[l] = y[k];
@@ -483,10 +477,9 @@ LsodeFirstOrderODEIntegrator::index_of_max_magnitude(
 
    unsigned int idamax = start_ix;
    double max_value = std::abs(array[start_ix][start_ix]);
-   double test_value = 0;
 
    for (unsigned int ii = 1; ii < num_points; ii++) {
-      test_value = std::abs(array[start_ix+ii][start_ix]);
+      double test_value = std::abs(array[start_ix+ii][start_ix]);
       if (test_value > max_value) {
          max_value = test_value;
          idamax = ii;

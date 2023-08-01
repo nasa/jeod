@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -275,7 +275,7 @@ const
 {
    EphemerisItem * enabled_item;
    for (enabled_item = head;
-        (enabled_item != NULL) && (! enabled_item->enabled);
+        (enabled_item != nullptr) && (! enabled_item->enabled);
         enabled_item = enabled_item->next) {
       ; // Null body
    }

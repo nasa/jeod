@@ -16,8 +16,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((gravity_integ_frame.o)
-   (environment/ephemerides/ephem_interface/ephem_ref_frame.o))
+  ((gravity_integ_frame.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc))
 
 
 
@@ -44,7 +44,7 @@ namespace jeod {
 GravityIntegFrame::GravityIntegFrame (
    void)
 {
-   ref_frame     = NULL;
+   ref_frame     = nullptr;
    is_third_body = false;
    Vector3::initialize (pos);
    Vector3::initialize (accel);

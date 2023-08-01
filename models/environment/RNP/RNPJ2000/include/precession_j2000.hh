@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -64,7 +64,7 @@ Assumptions and limitations:
   ((Earth specific))
 
 Library dependencies:
-  ((precession_j2000.o))
+  ((../src/precession_j2000.cc))
 
  
 
@@ -98,13 +98,13 @@ public: // public member functions
 
    PrecessionJ2000 ();
 
-   virtual ~PrecessionJ2000 ();
+   ~PrecessionJ2000 () override;
 
    // precession J2000 specific implementation of update_rotation, inherited
    // from PlanetRotation. Before this is called, the
    // current_time parameter must be set to julian centures since J2000,
    // in the terrestrial time format.
-   virtual void update_rotation ();
+   void update_rotation () override;
 
 private: // private member functions
 

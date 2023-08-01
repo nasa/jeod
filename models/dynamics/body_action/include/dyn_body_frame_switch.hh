@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_frame_switch.o))
+  ((../src/dyn_body_frame_switch.cc))
 
 
 
@@ -159,18 +159,18 @@ class DynBodyFrameSwitch : public BodyAction {
    DynBodyFrameSwitch ();
 
    // Destructor.
-   virtual ~DynBodyFrameSwitch ();
+   ~DynBodyFrameSwitch () override;
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
    // apply: Forward the apply call up the class heirarchy.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
    // is_ready: Is the action ready?
    // In this case, is the active flag set and has the body entered/left
    // the appropriate sphere of influence?
-   virtual bool is_ready (void);
+   bool is_ready (void) override;
 
 };
 

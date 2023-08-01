@@ -24,12 +24,12 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((ephem_orient_zxz.o)
-   (ephem_orient.o)
-   (ephem_item.o)
-   (utils/quaternion/quat.o)
-   (utils/quaternion/quat_norm.o)
-   (utils/quaternion/quat_to_mat.o))
+  ((ephem_orient_zxz.cc)
+   (ephem_orient.cc)
+   (ephem_item.cc)
+   (utils/quaternion/src/quat.cc)
+   (utils/quaternion/src/quat_norm.cc)
+   (utils/quaternion/src/quat_to_mat.cc))
 
 
 
@@ -170,7 +170,7 @@ EphemerisZXZOrientation::propagate (
    RefFrameRot * ref_state = &(target_frame->state.rot);
 
    double deltat;
-   double hwdt, hwdtsq;
+   double hwdt;
    double coshwdt, sinhwdt;
    Quaternion q;
 
@@ -190,7 +190,7 @@ EphemerisZXZOrientation::propagate (
    // for small deltat.
    hwdt   = 0.5 * ref_state->ang_vel_mag * deltat;
    if (hwdt < TAYLOR_CUTOFF) {
-      hwdtsq = hwdt * hwdt;
+      double hwdtsq = hwdt * hwdt;
       coshwdt = 1.0 - 0.5*hwdtsq;
       sinhwdt = hwdt * (1.0 - (1.0/6.0)*hwdtsq);
    }

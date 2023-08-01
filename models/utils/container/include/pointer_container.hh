@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -87,7 +87,7 @@ public:
    JeodPointerContainer (void)
    :
       JeodContainer<ContainerType, ElemType*>(),
-      base_type_descriptor(NULL)
+      base_type_descriptor(nullptr)
    {}
 
    /**
@@ -99,7 +99,7 @@ public:
    JeodPointerContainer (const JeodPointerContainer & source)
    :
       JeodContainer<ContainerType, ElemType*>(source),
-      base_type_descriptor(NULL)
+      base_type_descriptor(nullptr)
    {}
 
    /**
@@ -108,11 +108,11 @@ public:
     * This copies the Container contents, but not the Checkpointable contents.
     * @param source Pointer container to be copied.
     */
-   JeodPointerContainer (
+   explicit JeodPointerContainer (
       const typename ContainerType::stl_container_type & source)
    :
       JeodContainer<ContainerType, ElemType*>(source),
-      base_type_descriptor(NULL)
+      base_type_descriptor(nullptr)
    {}
 
    /**
@@ -152,16 +152,16 @@ public:
     * In the case of a JeodPointerContainer, this method gets the descriptor for
     * the type of data pointed to members of the container.
     */
-   virtual void
-   initialize_checkpointable (
-     const void * container,                // In: -- Not used.
-     const std::type_info & container_type, // In: -- Not used.
-     const std::string elem_name)           // In: -- Not used.
+   void initialize_checkpointable (
+   const void * container,                // In: -- Not used.
+   const std::type_info & container_type, // In: -- Not used.
+   const std::string & elem_name)         // In: -- Not used.
+   override
    {
       JeodContainer<ContainerType, ElemType*>::initialize_checkpointable (
          container, container_type, elem_name);
 
-      if (base_type_descriptor == NULL) {
+      if (base_type_descriptor == nullptr) {
          base_type_descriptor =
             JeodMemoryManager::get_type_descriptor (typeid(ElemType));
       }
@@ -171,8 +171,9 @@ public:
     * Return the value of the item to be written to the checkpoint file.
     * For a JeodPointerContainer, the value names the pointed-to object.
     */
-   virtual const std::string
+   const std::string
    get_item_value (void)
+   override
    {
       return JeodSimulationInterface::get_name_at_address (
                 reinterpret_cast<void *> (*this->checkpoint_iter),
@@ -184,9 +185,10 @@ public:
     * For a JeodPointerContainer, the value should specify (in string form)
     * the address of some object in active memory.
     */
-   virtual void
+   void
    perform_insert_action (
       const std::string & value)
+   override
    {
       this->insert (
          this->end(),

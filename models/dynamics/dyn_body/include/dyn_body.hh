@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,7 +52,7 @@ Purpose:
 ()
 
 Library dependencies:
-((dyn_body.o))
+((../src/dyn_body.cc))
 
 
 *******************************************************************************/
@@ -69,6 +69,7 @@ Library dependencies:
 #include "body_ref_frame.hh"
 #include "body_force_collect.hh"
 #include "frame_derivs.hh"
+#include "dyn_body_generic_rigid_attach.hh"
 
 // JEOD includes
 #include "dynamics/mass/include/mass.hh"
@@ -129,7 +130,7 @@ public:
    /**
     * DynBody destructor.
     */
-   virtual ~DynBody ();
+   ~DynBody () override;
 
 
    /**
@@ -163,7 +164,7 @@ public:
     *
     * @param[in] name_in Name of this body
     */
-   void set_name ( std::string name_in );
+   void set_name ( const std::string & name_in );
 
 
    // Gravity controls convenience methods (pass through to grav_interaction)
@@ -229,9 +230,9 @@ public:
     *                              that the integrator should try to attain.
     * @return The status (time advance, pass/fail status) of the integration.
     */
-   virtual er7_utils::IntegratorResult integrate (
+   er7_utils::IntegratorResult integrate (
       double dyn_dt,
-      unsigned int target_stage);
+      unsigned int target_stage) override;
 
 
    // Frame switch
@@ -260,18 +261,18 @@ public:
    virtual void switch_integration_frames (const char * new_integ_frame_name);
 
    // Required by IntegrableObject, but calling this is erroroneous.
-   virtual void create_integrators (
+   void create_integrators (
       const er7_utils::IntegratorConstructor & generator,
       er7_utils::IntegrationControls & controls,
-      const er7_utils::TimeInterface & time_if);
+      const er7_utils::TimeInterface & time_if) override;
 
    /** Destroy the integrators. Does nothing, but must be implemented to
     * complete abstract function from the inherited IntegrableObject
     */
-   virtual void destroy_integrators (void);
+   void destroy_integrators (void) override;
 
    // Reset the integrators.
-   virtual void reset_integrators (void);
+   void reset_integrators (void) override;
 
    /**
     * Find the BodyRefFrame named by the provided identifier. The name of a
@@ -306,7 +307,10 @@ public:
    JeodPointerVector<er7_utils::IntegrableObject>::type
    get_integrable_objects()
    {
-      return associated_integrable_objects;
+      JeodPointerVector<er7_utils::IntegrableObject>::type
+         integrable_objects(associated_integrable_objects);
+
+      return integrable_objects;
    }
 
    /**
@@ -369,7 +373,7 @@ public:
     * @param[out] subject_frame Frame to update
     */
    void set_attitude_left_quaternion (
-      const Quaternion left_quat, BodyRefFrame & subject_frame);
+      const Quaternion & left_quat, BodyRefFrame & subject_frame);
 
    /**
     * Set the attitude of the vehicle.
@@ -381,7 +385,7 @@ public:
     * @param[out] subject_frame Frame to update
     */
    void set_attitude_right_quaternion (
-      const Quaternion right_quat, BodyRefFrame & subject_frame);
+      const Quaternion & right_quat, BodyRefFrame & subject_frame);
 
    /**
     * Set the attitude of the vehicle.
@@ -546,8 +550,8 @@ public:
 
    // Attach child mass body at geometric location relative to parent structure frame
    virtual bool add_mass_body (
-      double offset[3],
-      double T_pstr_cstr[3][3],
+      const double offset[3],
+      const double T_pstr_cstr[3][3],
       MassBody & child );
 
    // Attach this body to parent body at specified mass points
@@ -558,8 +562,8 @@ public:
 
    // Attach this body to parent body at geometric location relative to parent structure frame
    virtual bool attach_to (
-      double offset_pstr_cstr_pstr[3],
-      double T_pstr_cstr[3][3],
+      const double offset_pstr_cstr_pstr[3],
+      const double T_pstr_cstr[3][3],
       DynBody & parent );
 
    // Attach child body to this body at specified mass points
@@ -570,9 +574,32 @@ public:
 
    // Attach child body to this body at geometric location relative to this body's structure frame
    virtual bool attach_child (
-      double offset_pstr_cstr_pstr[3],
-      double T_pstr_cstr[3][3],
+      const double offset_pstr_cstr_pstr[3],
+      const double T_pstr_cstr[3][3],
       DynBody & child );
+
+   // Kinematically attach this body to a generic reference frame using the current relative state offset
+   virtual bool attach_to_frame (
+      const char * parent_ref_frame_name );
+
+   // Kinematically attach this body to a generic reference frame using the current relative state offset
+   virtual bool attach_to_frame (
+      RefFrame & parent );
+
+   // Kinematically attach this body to a generic reference frame at specified mass point using offset from
+   // parent frame to the mass point
+   virtual bool attach_to_frame (
+      const char * this_point_name,
+      const char * parent_ref_frame_name,
+      const double offset_pframe_cpt_pframe[3],
+      const double T_pframe_cpt[3][3]);
+
+   // Kinematically attach this body to a generic reference frame using offset from parent frame to this body's
+   // structure reference frame
+   virtual bool attach_to_frame (
+      const double offset_pframe_cstr_pframe[3],
+      const double T_pframe_cstr[3][3],
+      RefFrame & parent );
 
    /**
     * Detach parent and child DynBodies, 'this' and the argument body, such
@@ -588,10 +615,11 @@ public:
     *   @return Success flag
     *   \param[in] other_body The other body at which the detach will occur
     */
-   virtual bool detach (DynBody & other_body);
+   virtual bool detach (DynBody & other_body); //cppcheck-suppress virtualCallInConstructor
 
    /**
-    * Detach this DynBody from its parent. Equivalent to the above function
+    * Detach this DynBody from its parent RefFrame or DynBody parent. If detaching from
+    * a DynBody, evoking this method is the equivalent to the above function
     * via detach(*dyn_parent)
     * \par Assumptions and Limitations
     * - Will inform and return false if the body has no parent.
@@ -619,7 +647,7 @@ public:
     *
     * @param[in,out] child The child mass subbody; the body to be detached
     */
-   virtual bool remove_mass_body (MassBody & child);
+   virtual bool remove_mass_body (MassBody & child);  //cppcheck-suppress virtualCallInConstructor
 
 
    // Member data
@@ -693,6 +721,14 @@ public:
     * user-defined forced rotation model.
     */
    bool rotational_dynamics; //!< trick_units(--)
+
+   /**
+    * Should the point derivatives for the body be computed?
+    * A child body's translational and rotational derivatives
+    * are only computed if this is true.  If this is false, they
+    * will be 0.
+    */
+   bool compute_point_derivative; //!< trick_units(--)
 
    /**
     * Is this a three degrees of freedom (translation only) body?
@@ -947,8 +983,8 @@ protected:
     * @param[in,out] child The child body; the body newly attached to this body.
     */
    virtual void attach_update_properties (
-      double offset_pstr_cstr_pstr[3],
-      double T_pstr_cstr[3][3],
+      const double offset_pstr_cstr_pstr[3],
+      const double T_pstr_cstr[3][3],
       DynBody & child);
 
    /**
@@ -978,8 +1014,8 @@ protected:
     * @param[in,out] child_body Body that is being attached to this body.
     */
    virtual void process_dynamic_attachment (
-      double offset_pstr_cstr_pstr[3],
-      double T_pstr_cstr[3][3],
+      const double offset_pstr_cstr_pstr[3],
+      const double T_pstr_cstr[3][3],
       DynBody & root_body,
       DynBody & child_body);
 
@@ -1124,6 +1160,14 @@ protected:
     * to another dynamic body.
     */
    DynBody * dyn_parent; //!< trick_units(--)
+
+   /**
+    * The RefFrame this body is attached to. Once attached, the DynBody will no longer
+    * numerically integrate rotational or dynamic states and is considered fixed wrt the RefFrame.
+    * The DynBody's integration frame will continue to be used to populate the composite_body,
+    * structure, core_body and mass point dynamic states.
+    */
+   DynBodyGenericFrameAttachment frame_attach;
 
    /**
     * The subset of the dynamic bodies attached to this dynamic body

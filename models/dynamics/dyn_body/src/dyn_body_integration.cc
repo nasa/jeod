@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_integration.o)
-   (dyn_body.o)
-   (dyn_body_messages.o)
-   (environment/gravity/gravity_interaction.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/integration/jeod_integration_time.o)
-   (utils/integration/generalized_second_order_ode_technique.o))
+  ((dyn_body_integration.cc)
+   (dyn_body.cc)
+   (dyn_body_messages.cc)
+   (environment/gravity/src/gravity_interaction.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/integration/src/jeod_integration_time.cc)
+   (utils/integration/src/generalized_second_order_ode_technique.cc))
 
 
 
@@ -64,7 +64,7 @@ DynBody::set_integ_frame (                // Return: -- Void
    // Body does not yet have an integration frame:
    // Link each of the three primary frames (core, composite, structure) and
    // each of the vehicle point frames to the provided integration frame.
-   if (integ_frame == NULL) {
+   if (integ_frame == nullptr) {
       new_integ_frame.add_child (core_body);
       new_integ_frame.add_child (composite_body);
       new_integ_frame.add_child (structure);
@@ -130,12 +130,13 @@ DynBody::set_integ_frame (                // Return: -- Void
    EphemerisRefFrame * new_integ_frame;
 
    new_integ_frame = dyn_manager->find_integ_frame (new_integ_frame_name);
-   if (new_integ_frame == NULL) {
+   if (new_integ_frame == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, DynBodyMessages::invalid_name,
          "Reference frame '%s' sent to DynBody '%s'\n"
          "is not a valid integration frame.",
          new_integ_frame_name, name.c_str());
+      return;
    }
 
    set_integ_frame (*new_integ_frame);
@@ -151,7 +152,7 @@ DynBody::switch_integration_frames (      // Return: -- Void
 
    // Pass the buck to the root body.
    // FIXME: Should calling this for a non-root body be an error?
-   if (dyn_parent != NULL) {
+   if (dyn_parent != nullptr) {
       dyn_parent->switch_integration_frames (new_integ_frame);
       return;
    }
@@ -192,12 +193,13 @@ DynBody::switch_integration_frames (      // Return: -- Void
    EphemerisRefFrame * new_integ_frame;
 
    new_integ_frame = dyn_manager->find_integ_frame (new_integ_frame_name);
-   if (new_integ_frame == NULL) {
+   if (new_integ_frame == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, DynBodyMessages::invalid_name,
          "Reference frame '%s' sent to DynBody '%s'\n"
          "is not a valid integration frame.",
          new_integ_frame_name, name.c_str());
+      return;
    }
 
    switch_integration_frames (*new_integ_frame);
@@ -262,7 +264,7 @@ DynBody::create_integrators (
     // Attempt to correct improper call if cast is possible
     const JeodIntegrationTime* time_mngr =
             dynamic_cast<const JeodIntegrationTime*>(&time_if);
-    if( time_mngr != NULL )
+    if( time_mngr != nullptr )
     {
         create_body_integrators( generator, controls, *time_mngr );
     }
@@ -317,18 +319,32 @@ DynBody::integrate (
 {
    er7_utils::IntegratorResult status (false);
 
-   // Integrate the translational state if enabled to do so.
-   if (translational_dynamics) {
-      integ_results_merger.merge_integrator_result (
-         trans_integ (dyn_dt, target_stage),
-         status);
-   }
+   if(!frame_attach.isAttached()) {
 
-   // Integrate the rotational state if enabled to do so.
-   if (rotational_dynamics) {
-      integ_results_merger.merge_integrator_result (
-         rot_integ (dyn_dt, target_stage),
-         status);
+      // Integrate the translational state if enabled to do so.
+      if (translational_dynamics) {
+         integ_results_merger.merge_integrator_result (
+            trans_integ (dyn_dt, target_stage),
+            status);
+      }
+
+      // Integrate the rotational state if enabled to do so.
+      if (rotational_dynamics) {
+         integ_results_merger.merge_integrator_result (
+            rot_integ (dyn_dt, target_stage),
+            status);
+      }
+   }
+   else
+   {
+       // Get the integ_frame to parent_frame relative state
+       RefFrameState X_iframe_to_pframe;
+       frame_attach.get_parent_frame()->compute_relative_state(*integ_frame, X_iframe_to_pframe);
+       // Add the parent_frame to struct offset from the attachment
+       RefFrameState X_iframe_to_struct(X_iframe_to_pframe);
+       X_iframe_to_pframe.incr_right(frame_attach.get_attach_offset());
+       // Reset the structure state to the new attached state relative to integ_frame
+       set_state(RefFrameItems::Pos_Vel_Att_Rate, X_iframe_to_pframe, structure);
    }
 
    // Mark the state as updated.
@@ -353,13 +369,11 @@ DynBody::trans_integ (
    double dyn_dt,
    unsigned int target_stage)
 {
-   RefFrameTrans & trans_state = composite_body.state.trans;
-
    // Integrate the translational state.
    return trans_integrator.integrate (
              dyn_dt, target_stage,
              derivs.trans_accel,
-             trans_state.velocity, trans_state.position);
+             composite_body.state.trans.velocity, composite_body.state.trans.position);
 }
 
 

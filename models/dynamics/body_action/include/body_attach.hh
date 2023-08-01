@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_attach.o))
+  ((../src/body_attach.cc))
 
 
 
@@ -66,6 +66,7 @@ Library dependencies:
 // System includes
 
 // JEOD includes
+#include "utils/ref_frames/include/class_declarations.hh"
 #include "dynamics/dyn_body/include/class_declarations.hh"
 #include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "dynamics/mass/include/class_declarations.hh"
@@ -101,14 +102,19 @@ class BodyAttach : public BodyAction {
  public:
 
    /**
-    * Set the parent mass body of this action. Resets dyn_parent to null
+    * Set the parent mass body of this action. Resets dyn_parent, frame_parent to null
     */
    void set_parent_body(MassBody & mass_body_in);
 
    /**
-    * Set the parent dyn body of this action. Resets mass_parent to null
+    * Set the parent dyn body of this action. Resets mass_parent, frame_parent to null
     */
    void set_parent_body(DynBody & dyn_body_in);
+
+   /**
+    * Set the parent ref frame of this action. Resets mass_parent, dyn_parent to null
+    */
+   void set_parent_frame(RefFrame & ref_parent_in);
 
    /**
     * Did the attachment succeed?
@@ -121,7 +127,7 @@ class BodyAttach : public BodyAction {
     * The MassBody corresponding to which the subject body is to be attached,
     * directly if the subject body is a root body, and indirectly by attaching
     * the subject body's root body to the parent body otherwise.
-    * This or the dyn_parent pointer must be supplied.
+    * This pointer is one of ithe 3 possible pointers that must be supplied.
     */
    MassBody * mass_parent; //!< trick_units(--)
 
@@ -129,9 +135,17 @@ class BodyAttach : public BodyAction {
     * The DynBody corresponding to which the subject body is to be attached,
     * directly if the subject body is a root body, and indirectly by attaching
     * the subject body's root body to the parent body otherwise.
-    * This or the parent pointer must be supplied.
+    * This pointer is one of ithe 3 possible pointers that must be supplied.
     */
    DynBody * dyn_parent; //!< trick_units(--)
+
+   /**
+    * The RefFrame corresponding to which the subject body is to be attached,
+    * directly if the subject body is a root body, and indirectly by attaching
+    * the subject body's root body to the parent RefFrame otherwise.
+    * This pointer is one of ithe 3 possible pointers that must be supplied.
+    */
+   RefFrame * ref_parent; //!< trick_units(--)
 
  // Member functions
  // The copy constructor and assignment operator for this class are
@@ -148,13 +162,13 @@ class BodyAttach : public BodyAction {
    BodyAttach ();
 
    // Destructor.
-   virtual ~BodyAttach ();
+   ~BodyAttach () override;
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
    // apply: Forward the apply call up the class heirarchy.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
 };
 

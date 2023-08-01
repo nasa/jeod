@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_trans_state.o)
-   (body_action_messages.o)
-   (dyn_body_init.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((dyn_body_init_trans_state.cc)
+   (body_action_messages.cc)
+   (dyn_body_init.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -51,9 +51,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dm_invert.o)
-   (dm_invert_symm.o)
-   (math_messages.o))
+  ((../src/dm_invert.cc)
+   (../src/dm_invert_symm.cc)
+   (../src/math_messages.cc))
 
  
 *******************************************************************************/

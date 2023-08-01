@@ -15,11 +15,11 @@ Purpose:
   ()
 
 Library dependencies:
-  ((gravitation.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (dynamics/mass/mass_point_state.o)
-   (environment/gravity/gravity_manager.o)
-   (utils/ref_frames/ref_frame.o))
+  ((gravitation.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (environment/gravity/src/gravity_manager.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -55,7 +55,7 @@ DynManager::initialize_gravity_controls (
    // The loop that follows will drop core if there is no Gravity Manager.
    // That this method was called is highly suspect.
    // It means the call comes from outside the dynamics manager.
-   if (gravity_manager == NULL) {
+   if (gravity_manager == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, DynManagerMessages::inconsistent_setup,
          "DynManager::initialize_gravity_controls() should not be called\n"
@@ -90,7 +90,7 @@ DynManager::reset_gravity_controls (
    // The loop that follows will drop core if there is no Gravity Manager.
    // This method is intended to be called at the S_define level, so
    // the call itself is not suspect.
-   if (gravity_manager == NULL) {
+   if (gravity_manager == nullptr) {
 
       // Use the gravity_off flag to limit the spew.
       if (! gravity_off) {
@@ -129,7 +129,7 @@ DynManager::gravitation (
    // The loop that follows will drop core if there is no Gravity Manager.
    // A message will already have been issued if the model is initialized,
    // so don't complain in such a case (we would get spew otherwise).
-   if (gravity_manager == NULL) {
+   if (gravity_manager == nullptr) {
       if (! initialized) {
          MessageHandler::error (
             __FILE__, __LINE__, DynManagerMessages::inconsistent_setup,
@@ -157,7 +157,7 @@ DynManager::gravitation (
       // subsequent calls to this method will do nothing, but silently.
       initialized = true;
       gravity_off = true;
-      gravity_manager = NULL;
+      gravity_manager = nullptr;
       return;
    }
 

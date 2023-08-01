@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((propagated_planet.o))
+  ((../src/propagated_planet.cc))
 
 
 *******************************************************************************/
@@ -128,7 +128,7 @@ public:
  // Member functions
    // Constructor (non-default) and destructor
    PropagatedEphemerisPlanet (DynBody & dyn_body, BodyRefFrame & frame);
-   ~PropagatedEphemerisPlanet (void);
+   ~PropagatedEphemerisPlanet (void) override;
 
  // This class does not have copy constructor or assignment operator.
  private:
@@ -186,7 +186,7 @@ public:
 
    // Constructor (non-default) and destructor
    PropagatedEphemerisOrientation (DynBody & dyn_body, BodyRefFrame & frame);
-   ~PropagatedEphemerisOrientation (void);
+   ~PropagatedEphemerisOrientation (void) override;
 
 
  // Member functions
@@ -287,7 +287,7 @@ public:
 
    // Constructor and destructor
    PropagatedPlanet (void);
-   ~PropagatedPlanet (void);
+   ~PropagatedPlanet (void) override;
 
 
    // S_define-level interfaces
@@ -300,22 +300,22 @@ public:
    void shutdown (void);
 
    // EphemInterface methods
-   void activate (void);
-   void deactivate (void);
+   void activate (void) override;
+   void deactivate (void) override;
 
    // EphemInterface accessors
-   double timestamp (void) const;
+   double timestamp (void) const override;
 
-   const char * get_name (void) const;
+   const char * get_name (void) const override;
 
    // EphemeridesManager interface methods
-   void ephem_initialize (EphemeridesManager & ephem_manager);
+   void ephem_initialize (EphemeridesManager & ephem_manager) override;
 
-   void ephem_activate (EphemeridesManager & ephem_manager);
+   void ephem_activate (EphemeridesManager & ephem_manager) override;
 
-   void ephem_build_tree (EphemeridesManager & ephem_manager);
+   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
 
-   void ephem_update (void);
+   void ephem_update (void) override;
 
    // Model-specific interfaces
    // Set the commanded mode.

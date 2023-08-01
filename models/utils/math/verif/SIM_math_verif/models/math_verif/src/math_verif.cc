@@ -12,9 +12,9 @@ CLASS:
    (derivative)
 
 LIBRARY DEPENDENCY:
-   ((math_verif.o)
-    (utils/math/dm_invert.o)
-    (utils/math/dm_invert_symm.o))
+   ((math_verif.cc)
+    (utils/math/src/dm_invert.cc)
+    (utils/math/src/dm_invert_symm.cc))
 
  
 *******************************************************************************/

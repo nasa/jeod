@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((spherical_harmonics_delta_controls.o))
+  ((../src/spherical_harmonics_delta_controls.cc))
 
 
 

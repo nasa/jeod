@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -64,7 +64,7 @@ Assumptions and limitations:
   ((Earth specific))
 
 Library dependencies:
-  ((rnp_j2000.o))
+  ((../src/rnp_j2000.cc))
 
  
 *******************************************************************************/
@@ -132,17 +132,17 @@ public: // public member functions
 
    RNPJ2000 ();
 
-   virtual ~RNPJ2000 ();
+   ~RNPJ2000 () override;
 
    // function to initialize the RNP. Deletes modules and sets their
    // pointers to null based on the options set in enable_polar and
    // rnp_type. This then calls the base class initialize
-   void initialize (DynManager& manager);
+   void initialize (DynManager& manager) override;
 
    // updates the entire RNP, including both setting the time for each
    // module then updating the RNP and sending it to the ref_frame found
    // in the dyn manager at initialization
-   void update_rnp (TimeTT& time_tt, TimeGMST& time_gmst, TimeUT1& time_ut1);
+   void update_rnp (const TimeTT& time_tt, TimeGMST& time_gmst, const TimeUT1& time_ut1);
 
    // does the same thing as update_rnp but only updates the rotation (z axis
    // axial rotation) of the RNP.
@@ -152,13 +152,13 @@ public: // public member functions
    // EphemInterface non-pure virtual
 
    // Indicates when class was last updated
-   virtual double timestamp() const;
+   double timestamp() const override;
 
    // Identify the model
-   virtual const char* get_name() const;
+   const char* get_name() const override;
 
    // update the model. This calls the update_axial_rotation function.
-   virtual void ephem_update();
+   void ephem_update() override;
 
    /**
     * The hard coded internal name to be returned on calling

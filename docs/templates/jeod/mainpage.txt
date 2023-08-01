@@ -1,6 +1,6 @@
 /**
 @mainpage JEOD
-These pages present the JEOD 5.0 API in HTML format.
+These pages present the JEOD 5.1 API in HTML format.
 
 @n Click on
  - "Main Page" to display this page.
@@ -18,7 +18,7 @@ and a history of JEOD are described in the \ref readme "JEOD README file".
 The main documentation for JEOD is in the form of pdf files.
 These pdf files collectively form JSC-61777, "JSC Engineering Orbital Dynamics".
 This documentation tree is headed by the
-<a href="../../../docs/JEOD.pdf">JEOD toplevel document</a>.
+<a href="../../docs/JEOD.pdf">JEOD toplevel document</a>.
 
 Each model is accompanied with a document named \<model_name\>.pdf, where
 where \<model_name\> is the name of the model. This document describes the
@@ -42,15 +42,15 @@ The diagrams and dot files listed below depict the dependencies in the
 dynamics comparison simulation
 (\ref dyncomp_sdefine "click to see the S_define"):
  - Initialization jobs:
-   <a href="../../../verif/SIM_dyncomp/docs/tex/figs/initialization.png">
+   <a href="../../verif/SIM_dyncomp/docs/tex/figs/initialization.png">
    dependencies diagram</a> and
    \ref initialization_dotfile "dot file".
  - Scheduled jobs:
-   <a href="../../../verif/SIM_dyncomp/docs/tex/figs/scheduled.png">
+   <a href="../../verif/SIM_dyncomp/docs/tex/figs/scheduled.png">
    dependencies diagram</a> and
    \ref scheduled_dotfile "dot file".
  - Derivative jobs:
-   <a href="../../../verif/SIM_dyncomp/docs/tex/figs/derivative.png">
+   <a href="../../verif/SIM_dyncomp/docs/tex/figs/derivative.png">
    dependencies diagram</a> and
    \ref derivative_dotfile "dot file".
 
@@ -59,6 +59,45 @@ dynamics comparison simulation
 
 These doxygen pages include the as-released JEOD source code.
 Local changes, if any, are not reflected in the displayed code.
+
+
+@section copyright Copyright
+Copyright 2023 United States Government as represented by the Administrator
+of the National Aeronautics and Space Administration.  All Rights Reserved.
+
+@section disclaimer Disclaimer
+No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+
+Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+AGREEMENT.
+
+@section license License
+JEOD is released under the [NASA Open Source Agreement Version 1.3](https://github.com/nasa/jeod/blob/main/LICENSE).
+
+@section responsible_org Responsible Organization
+Simulation and Graphics Branch, Mail Code ER7\n
+Software, Robotics & Simulation Division\n
+NASA, Johnson Space Center\n
+2101 NASA Parkway, Houston, TX  77058
 
 
 @defgroup Models Models
@@ -96,40 +135,40 @@ The JEOD tools are intended primary for internal JEOD use.
   @{
     @defgroup BodyAction Body Action
     The Body Action Model
-    (<a href="../../../models/dynamics/body_action/docs/body_action.pdf">
+    (<a href="../../models/dynamics/body_action/docs/body_action.pdf">
     model document</a>)
     provides mechanisms for performing asynchronous actions on
     mass bodies and dynamic bodies.
 
     @defgroup DerivedState Derived State
     The Derived State Model
-    (<a href="../../../models/dynamics/derived_state/docs/derived_state.pdf">
+    (<a href="../../models/dynamics/derived_state/docs/derived_state.pdf">
     model document</a>)
     provides mechanisms for computing some state that
     derives from a dynamic body state.
 
     @defgroup DynBody Dynamic Body
     The Dynamic Body Model
-    (<a href="../../../models/dynamics/dyn_body/docs/dyn_body.pdf">
+    (<a href="../../models/dynamics/dyn_body/docs/dyn_body.pdf">
     model document</a>)
     defines dynamic bodies, typically used to represent
     vehicles in space.
 
     @defgroup DynManager Dynamics Manager
     The Dynamics Manager Model
-    (<a href="../../../models/dynamics/dyn_manager/docs/dyn_manager.pdf">
+    (<a href="../../models/dynamics/dyn_manager/docs/dyn_manager.pdf">
     model document</a>)
     manages the dynamics of a simulation.
 
     @defgroup Mass Mass
     The Mass Model
-    (<a href="../../../models/dynamics/mass/docs/mass.pdf">
+    (<a href="../../models/dynamics/mass/docs/mass.pdf">
     model document</a>)
     defines mass bodies, which form the basis of dynamic bodies.
 
     @defgroup RelKin Relative Kinematics
     The Relative Kinematics model
-    (<a href="../../../models/dynamics/rel_kin/docs/rel_kin.pdf">
+    (<a href="../../models/dynamics/rel_kin/docs/rel_kin.pdf">
     model document</a>)
     provides tools for computing relative state.
   @}
@@ -142,7 +181,7 @@ The JEOD tools are intended primary for internal JEOD use.
   @{
     @defgroup RNP RNP
     The Rotation, Nutation and Precession Model
-    (<a href="../../../models/environment/RNP/docs/RNP.pdf">
+    (<a href="../../models/environment/RNP/docs/RNP.pdf">
     model document</a>)
     abstractly describes planet orientation in terms of rotation, nutation and
     precession and provides an implementation of an RNP model of the Earth.
@@ -160,7 +199,7 @@ The JEOD tools are intended primary for internal JEOD use.
     @}
 
     @defgroup Atmosphere Atmosphere
-    (<a href="../../../models/environment/atmosphere/docs/atmosphere.pdf">
+    (<a href="../../models/environment/atmosphere/docs/atmosphere.pdf">
     model document</a>)
     abstractly describes the atmosphere of a planet and
     provides an implementation of the Earth's atmosphere.
@@ -185,13 +224,13 @@ The JEOD tools are intended primary for internal JEOD use.
 
     @defgroup EarthLighting Earth Lighting
     The Earth Lighting Model
-    (<a href="../../../models/environment/earth_lighting/docs/earth_lighting.pdf">
+    (<a href="../../models/environment/earth_lighting/docs/earth_lighting.pdf">
     model document</a>)
     provides a low-fidelity model of lighting of an object in low-Earth orbit.
 
     @defgroup Ephemerides Ephemerides
     The Ephemerides Model
-    (<a href="../../../models/environment/ephemerides/docs/ephemerides.pdf">
+    (<a href="../../models/environment/ephemerides/docs/ephemerides.pdf">
     model document</a>)
     Defines tools for describing the planetary states
     and provides a solar system ephemeris model using JPL's Developmental
@@ -219,25 +258,25 @@ The JEOD tools are intended primary for internal JEOD use.
 
     @defgroup Gravity Gravity
     The Gravity Model
-    (<a href="../../../models/environment/gravity/docs/gravity.pdf">
+    (<a href="../../models/environment/gravity/docs/gravity.pdf">
     model document</a>)
     Computes the effects of gravitation on some dynamic body.
 
     @defgroup Planet Planet
     The Planet Model
-    (<a href="../../../models/environment/planet/docs/planet.pdf">
+    (<a href="../../models/environment/planet/docs/planet.pdf">
     model document</a>)
     models planets.
 
     @defgroup Spice Spice
     The Spice Model
-    (<a href="../../../models/environment/spice/docs/spice.pdf">
+    (<a href="../../models/environment/spice/docs/spice.pdf">
     model document</a>)
     intefaces with the JPL SPICE package.
 
     @defgroup Time Time
     The Time Model
-    (<a href="../../../models/environment/time/docs/time.pdf">
+    (<a href="../../models/environment/time/docs/time.pdf">
     model document</a>)
     models time.
   @}
@@ -250,32 +289,32 @@ The JEOD tools are intended primary for internal JEOD use.
   @{
     @defgroup Aerodynamics Aerodynamics
     The Aerodynamics Model
-    (<a href="../../../models/interactions/aerodynamics/docs/aerodynamics.pdf">
+    (<a href="../../models/interactions/aerodynamics/docs/aerodynamics.pdf">
     model document</a>)
     models the effects of aerodynamics on a dynamic body.
 
     @defgroup Contact Contact
     The Contact Model
-    (<a href="../../../models/interactions/contact/docs/contact.pdf">
+    (<a href="../../models/interactions/contact/docs/contact.pdf">
     model document</a>)
     models contact between dynamic bodies.
 
     @defgroup GravityTorque Gravity Torque
     The Gravity Torque Model
-    (<a href="../../../models/interactions/gravity_torque/docs/gravity_torque.pdf">
+    (<a href="../../models/interactions/gravity_torque/docs/gravity_torque.pdf">
     model document</a>)
     Computes the torques induced by gravitation on a dynamic body.
 
     @defgroup RadiationPressure Radiation Pressure
     The Radiation Pressure Model
-    (<a href="../../../models/interactions/radiation_pressure/docs/radiation_pressure.pdf">
+    (<a href="../../models/interactions/radiation_pressure/docs/radiation_pressure.pdf">
     model document</a>)
     computes the forces and torques that result from solar and other
     radiation impinging on a dynamic body.
 
     @defgroup ThermalRider Thermal Rider
     The Thermal Rider Model
-    (<a href="../../../models/interactions/thermal_rider/docs/thermal_rider.pdf">
+    (<a href="../../models/interactions/thermal_rider/docs/thermal_rider.pdf">
     model document</a>)
     provides an interaction surface with thermal modeling capabilities.
   @}
@@ -287,14 +326,14 @@ The JEOD tools are intended primary for internal JEOD use.
   @{
     @defgroup Container Container
     The Container Model
-    (<a href="../../../models/utils/container/docs/container.pdf">
+    (<a href="../../models/utils/container/docs/container.pdf">
     model document</a>)
     provides checkpoint/restart capability, including checkpointable-restartable
     encapsulation of STL containers.
 
     @defgroup Integration Integration
     The Integration Model
-    (<a href="../../../models/utils/integration/docs/integration.pdf">
+    (<a href="../../models/utils/integration/docs/integration.pdf">
     model document</a>)
     provides various means for numerically integrating a set of second order
     differential equations.
@@ -312,57 +351,57 @@ The JEOD tools are intended primary for internal JEOD use.
 
     @defgroup LvlhFrame LVLH Frame
     The LVLH Frame Model
-    (<a href="../../../models/utils/lvlh_frame/docs/lvlh_frame.pdf">
+    (<a href="../../models/utils/lvlh_frame/docs/lvlh_frame.pdf">
     model document</a>)
     provides a simple standalone model for defining a reference frame with
     respect to the position and velocity vectors of an on-orbit object.
 
     @defgroup Math Math
     The Math Model
-    (<a href="../../../models/utils/math/docs/math.pdf">
+    (<a href="../../models/utils/math/docs/math.pdf">
     model document</a>)
     provides miscellaneous mathematical functions.
 
     @defgroup Memory Memory
     The Memory Model
-    (<a href="../../../models/utils/memory/docs/memory.pdf">
+    (<a href="../../models/utils/memory/docs/memory.pdf">
     model document</a>)
     provides means for allocating and deallocating memory.
 
     @defgroup Message Message
     The Message Model
-    (<a href="../../../models/utils/message/docs/message.pdf">
+    (<a href="../../models/utils/message/docs/message.pdf">
     model document</a>)
     provides a generic means for issuing messages, ranging from fatal errors
     that terminate the simulation to messages intended for debugging.
 
     @defgroup ModelTemplate Model Template
     A template for creating modules
-    (<a href="../../../models/utils/model_template/docs/model_template.pdf">
+    (<a href="../../models/utils/model_template/docs/model_template.pdf">
         model document</a>).
 
     @defgroup NamedItem Named Item
     The Named Item Model
-    (<a href="../../../models/utils/named_item/docs/named_item.pdf">
+    (<a href="../../models/utils/named_item/docs/named_item.pdf">
     model document</a>)
     provides low-level utilities for constructing names for named items.
 
     @defgroup OrbitalElements Orbital Elements
     The Orbital Elements Model
-    (<a href="../../../models/utils/orbital_elements/docs/orbital_elements.pdf">
+    (<a href="../../models/utils/orbital_elements/docs/orbital_elements.pdf">
     model document</a>)
     transforms position and velocity to and from Keplerian orbital elements.
 
     @defgroup Orientation Orientation
     The Orientation Model
-    (<a href="../../../models/utils/orientation/docs/orientation.pdf">
+    (<a href="../../models/utils/orientation/docs/orientation.pdf">
     model document</a>)
     provides techniques for representing the orientation of some object
     with respect to another.
 
     @defgroup PlanetFixed Planet Fixed
     The Planet Fixed Model
-    (<a href="../../../models/utils/planet_fixed/docs/planet_fixed.pdf">
+    (<a href="../../models/utils/planet_fixed/docs/planet_fixed.pdf">
     model document</a>)
     Transforms Cartesian position to and from planetary altitude, latitude
     And longitude and defines a local north-east-down reference frame.
@@ -378,27 +417,27 @@ The JEOD tools are intended primary for internal JEOD use.
 
     @defgroup Quaternion Quaternion
     The Quaternion Model
-    (<a href="../../../models/utils/quaternion/docs/quaternion.pdf">
+    (<a href="../../models/utils/quaternion/docs/quaternion.pdf">
     model document</a>)
     provides mechanisms for representing and operating on right transformation
     unit quaternions.
 
     @defgroup RefFrames Reference Frames
     The Reference Frames Model
-    (<a href="../../../models/utils/ref_frames/docs/ref_frames.pdf">
+    (<a href="../../models/utils/ref_frames/docs/ref_frames.pdf">
     model document</a>)
     defines the JEOD concept of a reference frame, which is one of the
     distinguishing features of JEOD 2.x.
 
     @defgroup SimInterface Simulation Interface
     The Simulation Interface Model
-    (<a href="../../../models/utils/sim_interface/docs/sim_interface.pdf">
+    (<a href="../../models/utils/sim_interface/docs/sim_interface.pdf">
     model document</a>)
     encapsulates the interface between JEOD and the simulation engine.
 
     @defgroup SurfaceModel Surface Model
     The Surface Model
-    (<a href="../../../models/utils/surface/docs/surface.pdf">
+    (<a href="../../models/utils/surface/docs/surface.pdf">
     model document</a>)
     models a surface. Several interaction models use surfaces to
     represent the interaction they are modeling.
@@ -421,18 +460,6 @@ The JEOD tools are intended primary for internal JEOD use.
     The message model used in the experimental constraints model.
 
   @}
-@}
-
-
-@addtogroup Tools
-@{
-  @defgroup Analysis Analysis
-  Provides tools for analyzing code.
-  The only tool provided is the metrix++ program, used internally to assess
-  cyclomatic complexity.
-
-  @defgroup TestHarness Test Harness
-  Provides tools for testing code in a standalone (non-simulation) environment.
 @}
 
 
@@ -461,16 +488,16 @@ The JEOD tools are intended primary for internal JEOD use.
 The main documentation for JEOD is in the form of pdf files.
 These pdf files collectively form JSC-61777, " Engineering Orbital Dynamics".
 This documentation tree is headed by the
-<a href="../../../docs/JEOD.pdf">JEOD toplevel document</a>.
+<a href="../../docs/JEOD.pdf">JEOD toplevel document</a>.
 
 The
-<a href="../../../verif/SIM_dyncomp/docs/DYNCOMP.pdf">
+<a href="../../verif/SIM_dyncomp/docs/DYNCOMP.pdf">
 Dynamic comparison document</a>
 describes a validation simulation that can be used to determine whether
 JEOD is operating as expected in a given simulation environment.
 
 The
-<a href="../../../docs/coordinates/COORDFRAME.pdf">
+<a href="../../docs/coordinates/COORDFRAME.pdf">
 Coordinate frames document</a>
 describes the coordinate frames used in JEOD.
 
@@ -478,74 +505,74 @@ describes the coordinate frames used in JEOD.
 
 Model documentation, organized by model type, are:
   - Dynamics Models
-    - <a href="../../../models/dynamics/body_action/docs/body_action.pdf">
+    - <a href="../../models/dynamics/body_action/docs/body_action.pdf">
       Body Action Model</a>
-    - <a href="../../../models/dynamics/derived_state/docs/derived_state.pdf">
+    - <a href="../../models/dynamics/derived_state/docs/derived_state.pdf">
       Derived State Model</a>
-    - <a href="../../../models/dynamics/dyn_body/docs/dyn_body.pdf">
+    - <a href="../../models/dynamics/dyn_body/docs/dyn_body.pdf">
       Dynamic Body Model</a>
-    - <a href="../../../models/dynamics/dyn_manager/docs/dyn_manager.pdf">
+    - <a href="../../models/dynamics/dyn_manager/docs/dyn_manager.pdf">
       Dynamics Manager Model</a>
-    - <a href="../../../models/dynamics/mass/docs/mass.pdf">
+    - <a href="../../models/dynamics/mass/docs/mass.pdf">
       Mass Body Model</a>
-    - <a href="../../../models/dynamics/rel_kin/docs/rel_kin.pdf">
+    - <a href="../../models/dynamics/rel_kin/docs/rel_kin.pdf">
       Relative Kinematics Computations Model</a>
   - Environment Models
-    - <a href="../../../models/environment/atmosphere/docs/atmosphere.pdf">
+    - <a href="../../models/environment/atmosphere/docs/atmosphere.pdf">
       Atmosphere Model</a>
-    - <a href="../../../models/environment/earth_lighting/docs/earth_lighting.pdf">
+    - <a href="../../models/environment/earth_lighting/docs/earth_lighting.pdf">
       Earth Lighting Model</a>
-    - <a href="../../../models/environment/ephemerides/docs/ephemerides.pdf">
+    - <a href="../../models/environment/ephemerides/docs/ephemerides.pdf">
       Ephemerides Model</a>
-    - <a href="../../../models/environment/gravity/docs/gravity.pdf">
+    - <a href="../../models/environment/gravity/docs/gravity.pdf">
       Gravity Model</a>
-    - <a href="../../../models/environment/planet/docs/planet.pdf">
+    - <a href="../../models/environment/planet/docs/planet.pdf">
       Planet Model</a>
-    - <a href="../../../models/environment/RNP/docs/RNP.pdf">
+    - <a href="../../models/environment/RNP/docs/RNP.pdf">
       Rotation, Nutation, and Precession Model</a>
-    - <a href="../../../models/environment/spice/docs/spice.pdf">
+    - <a href="../../models/environment/spice/docs/spice.pdf">
       Spice Model</a>
-    - <a href="../../../models/environment/time/docs/time.pdf">
+    - <a href="../../models/environment/time/docs/time.pdf">
       Time Model</a>
   - Interaction Models
-    - <a href="../../../models/interactions/aerodynamics/docs/aerodynamics.pdf">
+    - <a href="../../models/interactions/aerodynamics/docs/aerodynamics.pdf">
       Aerodynamics Model</a>
-    - <a href="../../../models/interactions/contact/docs/contact.pdf">
+    - <a href="../../models/interactions/contact/docs/contact.pdf">
       Contact Model</a>
-    - <a href="../../../models/interactions/gravity_torque/docs/gravity_torque.pdf">
+    - <a href="../../models/interactions/gravity_torque/docs/gravity_torque.pdf">
       Gravity Gradient Torque Model</a>
-    - <a href="../../../models/interactions/radiation_pressure/docs/radiation_pressure.pdf">
+    - <a href="../../models/interactions/radiation_pressure/docs/radiation_pressure.pdf">
       Radiation Pressure Model</a>
-    - <a href="../../../models/interactions/thermal_rider/docs/thermal_rider.pdf">
+    - <a href="../../models/interactions/thermal_rider/docs/thermal_rider.pdf">
       Thermal Model</a>
   - Utility Models
-    - <a href="../../../models/utils/container/docs/container.pdf">
+    - <a href="../../models/utils/container/docs/container.pdf">
       Container Model</a>
-    - <a href="../../../models/utils/integration/docs/integration.pdf">
+    - <a href="../../models/utils/integration/docs/integration.pdf">
       Integration Model</a>
-    - <a href="../../../models/utils/lvlh_frame/docs/lvlh_frame.pdf">
+    - <a href="../../models/utils/lvlh_frame/docs/lvlh_frame.pdf">
       LVLH Frame Model</a>
-    - <a href="../../../models/utils/math/docs/math.pdf">
+    - <a href="../../models/utils/math/docs/math.pdf">
       Mathematical Functions Model</a>
-    - <a href="../../../models/utils/memory/docs/memory.pdf">
+    - <a href="../../models/utils/memory/docs/memory.pdf">
       Memory Management Model</a>
-    - <a href="../../../models/utils/message/docs/message.pdf">
+    - <a href="../../models/utils/message/docs/message.pdf">
       Message Handler Model</a>
-    - <a href="../../../models/utils/named_item/docs/named_item.pdf">
+    - <a href="../../models/utils/named_item/docs/named_item.pdf">
       Named Item Model</a>
-    - <a href="../../../models/utils/orbital_elements/docs/orbital_elements.pdf">
+    - <a href="../../models/utils/orbital_elements/docs/orbital_elements.pdf">
       Orbital Elements Model</a>
-    - <a href="../../../models/utils/orientation/docs/orientation.pdf">
+    - <a href="../../models/utils/orientation/docs/orientation.pdf">
       Orientation Model</a>
-    - <a href="../../../models/utils/planet_fixed/docs/planet_fixed.pdf">
+    - <a href="../../models/utils/planet_fixed/docs/planet_fixed.pdf">
       Planet Fixed Model</a>
-    - <a href="../../../models/utils/quaternion/docs/quaternion.pdf">
+    - <a href="../../models/utils/quaternion/docs/quaternion.pdf">
       Quaternion Model</a>
-    - <a href="../../../models/utils/ref_frames/docs/ref_frames.pdf">
+    - <a href="../../models/utils/ref_frames/docs/ref_frames.pdf">
       Reference Frame Model</a>
-    - <a href="../../../models/utils/sim_interface/docs/sim_interface.pdf">
+    - <a href="../../models/utils/sim_interface/docs/sim_interface.pdf">
       Simulation Engine Interface Model</a>
-    - <a href="../../../models/utils/surface_model/docs/surface_model.pdf">
+    - <a href="../../models/utils/surface_model/docs/surface_model.pdf">
       Surface Model</a>
 
 */

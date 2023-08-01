@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -38,7 +38,7 @@
 Purpose:
   (Test container model checkpoint and restart capabilities.)
 Library dependencies:
-  ((test_object.o))
+  ((../src/test_object.cc))
 *******************************************************************************/
 
 
@@ -90,14 +90,14 @@ JEOD_MAKE_SIM_INTERFACES(TestSimple)
 
 public:
    TestSimple () : value(0), hidden_value(42) {}
-   virtual ~TestSimple (void) {}
+   ~TestSimple (void) override {}
 
    void assign (int val) {
       value = val;
       hidden_value = value + 42;
    }
 
-   virtual void simple_restore (void) {
+   void simple_restore (void) override {
       if (hidden_value != value+42) {
          std::cout << "Restoring in TestSimple::simple_restore()\n\n";
          hidden_value = value+42;

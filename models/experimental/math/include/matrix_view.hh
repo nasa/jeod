@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -112,6 +112,10 @@ public:
         {
             throw std::length_error ("Incompatible sizes");
         }
+
+        //To make cppcheck happy
+        n_rows = src.n_rows;
+        n_cols = src.n_cols;
 
         for (unsigned ii = 0; ii < n_rows; ++ii)
         {

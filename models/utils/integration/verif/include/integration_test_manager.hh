@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -50,7 +50,7 @@ Assumptions and limitations:
   ((This model is intended for IV&V purposes only.))
 
 Library dependencies:
-  ((integration_test_manager.o))
+  ((../src/integration_test_manager.cc))
 
  
 
@@ -97,7 +97,7 @@ public:
    IntegrationTestManager (void);
 
    // Destructor
-   ~IntegrationTestManager (void);
+   ~IntegrationTestManager (void) override;
 
    // Initialize tests.
    void initialize (
@@ -151,7 +151,7 @@ public:
    /**
     * Update an integration group; does nothing.
     */
-   virtual void update_integration_group (JeodIntegrationGroup&) {
+   void update_integration_group (JeodIntegrationGroup&) override {
    }
 
 

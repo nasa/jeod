@@ -16,10 +16,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((lvlh_frame.o)
-   (lvlh_frame_messages.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o))
+  ((lvlh_frame.cc)
+   (lvlh_frame_messages.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
  
 
@@ -54,9 +54,9 @@ LvlhFrame::LvlhFrame (
    frame(),
    subject_name(""),
    planet_name(""),
-   subject_frame(NULL),
-   planet_centered_inertial(NULL),
-   local_dm(NULL)
+   subject_frame(nullptr),
+   planet_centered_inertial(nullptr),
+   local_dm(nullptr)
 {
    ;
 }
@@ -72,16 +72,16 @@ LvlhFrame::~LvlhFrame (
    // Disconnect the LVLH frame from the planet-centered inertial frame.
    frame.remove_from_parent();
 
-   if (local_dm != NULL) {
+   if (local_dm != nullptr) {
       // Remove from dyn manager
       local_dm->remove_ref_frame (frame);
    }
 
    // Remove the initialization-time frame subscriptions.
-   if (subject_frame != NULL) {
+   if (subject_frame != nullptr) {
       subject_frame->unsubscribe();
    }
-   if (planet_centered_inertial != NULL) {
+   if (planet_centered_inertial != nullptr) {
       planet_centered_inertial->unsubscribe();
    }
 }
@@ -100,7 +100,7 @@ LvlhFrame::initialize (
    //Cache a pointer to the dyn manager. We will need it for the destructor.
    local_dm = &dyn_manager;
 
-   if (subject_frame == NULL) {
+   if (subject_frame == nullptr) {
       // Check that subject_name has something to it.
       if (subject_name.empty()) {
          MessageHandler::fail (
@@ -115,7 +115,7 @@ LvlhFrame::initialize (
       subject_frame = dyn_manager.find_ref_frame (subject_name.c_str());
 
       // Ensure the above worked.
-      if (subject_frame == NULL) {
+      if (subject_frame == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, LvlhFrameMessages::invalid_name,
             "Invalid subject frame '%s' for LvlhFrame",
@@ -132,7 +132,7 @@ LvlhFrame::initialize (
    subject_frame->subscribe();
 
 
-   if (planet_centered_inertial == NULL) {
+   if (planet_centered_inertial == nullptr) {
       // Check that some kind of planet name was provided.
       if (planet_name.empty()) {
          MessageHandler::fail (
@@ -148,7 +148,7 @@ LvlhFrame::initialize (
       planet = dyn_manager.find_base_planet (planet_name.c_str());
 
       // Ensure the above worked.
-      if (planet == NULL) {
+      if (planet == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, LvlhFrameMessages::invalid_name,
             "Invalid planet name '%s' for LvlhFrame",
@@ -218,7 +218,7 @@ LvlhFrame::update (
  */
 void
 LvlhFrame::set_subject_name (
-   const std::string new_name)
+   const std::string & new_name)
 {
    subject_name = new_name;
 }
@@ -241,7 +241,7 @@ LvlhFrame::set_subject_frame (
  */
 void
 LvlhFrame::set_planet_name (
-   const std::string new_name)
+   const std::string & new_name)
 {
    planet_name = new_name;
 }

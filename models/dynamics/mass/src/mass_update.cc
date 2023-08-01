@@ -16,10 +16,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((mass_update.o)
-   (mass.o)
-   (mass_point_state.o)
-   (utils/math/dm_invert_symm.o))
+  ((mass_update.cc)
+   (mass.cc)
+   (mass_point_state.cc)
+   (utils/math/src/dm_invert_symm.cc))
 
 
 
@@ -52,9 +52,6 @@ void
 MassBody::update_mass_properties (
    void)
 {
-   double r_cm_cm_str[3];             // M     CoM to CoM in structural coords
-
-
    // If this body is not marked for update then just return
    if (! needs_update) {
       return;
@@ -94,6 +91,7 @@ MassBody::update_mass_properties (
 
       // Calculate the location of the child's composite CoM wrt this body's
       // composite CoM in this body's body frame.
+      double r_cm_cm_str[3]; // M     CoM to CoM in structural coords
       for (auto* link : TreeLinksChildrenRange<MassBodyLinks>(links)) {
          MassBody& child = link->container();
 

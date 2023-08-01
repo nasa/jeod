@@ -15,9 +15,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((generalized_second_order_ode_technique.o)
-   (integration_messages.o)
-   (utils/message/message_handler.o)
+  ((generalized_second_order_ode_technique.cc)
+   (integration_messages.cc)
+   (utils/message/src/message_handler.cc)
   )
 
  
@@ -79,7 +79,7 @@ GeneralizedSecondOrderODETechnique::validate_technique (
    const char * name)
 {
    // Replace a null name with something that won't drop core.
-   if (name == NULL) {
+   if (name == nullptr) {
       name = "<unnamed>";
    }
 

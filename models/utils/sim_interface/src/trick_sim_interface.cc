@@ -16,14 +16,14 @@ Purpose:
   ()
 
 Library dependencies:
-  ((trick_sim_interface.o)
-   (checkpoint_input_manager.o)
-   (checkpoint_output_manager.o)
-   (sim_interface_messages.o)
-   (simulation_interface.o)
-   (trick_memory_interface.o)
-   (trick_message_handler.o)
-   (utils/memory/memory_manager.o))
+  ((trick_sim_interface.cc)
+   (checkpoint_input_manager.cc)
+   (checkpoint_output_manager.cc)
+   (sim_interface_messages.cc)
+   (simulation_interface.cc)
+   (trick_memory_interface.cc)
+   (trick_message_handler.cc)
+   (utils/memory/src/memory_manager.cc))
 
  
 
@@ -68,8 +68,8 @@ BasicJeodTrickSimInterface::BasicJeodTrickSimInterface (
    checkpoint_file_name(),
    section_start(),
    section_end(),
-   checkpoint_reader(NULL),
-   checkpoint_writer(NULL)
+   checkpoint_reader(nullptr),
+   checkpoint_writer(nullptr)
 {
 
    // Tell the message handler to register its checkpointable content, which it
@@ -98,15 +98,10 @@ BasicJeodTrickSimInterface::BasicJeodTrickSimInterface (
 BasicJeodTrickSimInterface::~BasicJeodTrickSimInterface (
    void)
 {
-   if (checkpoint_reader != NULL) {
-      delete checkpoint_reader;
-      checkpoint_reader = NULL;
-   }
-
-   if (checkpoint_writer != NULL) {
-      delete checkpoint_writer;
-      checkpoint_writer = NULL;
-   }
+   delete checkpoint_reader;
+   checkpoint_reader = nullptr;
+   delete checkpoint_writer;
+   checkpoint_writer = nullptr;
 }
 
 
@@ -152,7 +147,7 @@ double
 BasicJeodTrickSimInterface::get_job_cycle_internal (
    void)
 {
-   return exec_get_job_cycle (NULL);
+   return exec_get_job_cycle (nullptr);
 }
 
 
@@ -215,7 +210,7 @@ SectionedOutputStream
 BasicJeodTrickSimInterface::get_checkpoint_writer_internal (
    const std::string & section_id)
 {
-   if (checkpoint_writer == NULL) {
+   if (checkpoint_writer == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::phasing_error,
          "JEOD checkpoint file is not open for output.");
@@ -234,10 +229,8 @@ void
 BasicJeodTrickSimInterface::close_checkpoint_file (
    void)
 {
-   if (checkpoint_writer != NULL) {
-      delete checkpoint_writer;
-      checkpoint_writer = NULL;
-   }
+   delete checkpoint_writer;
+   checkpoint_writer = nullptr;
 }
 
 
@@ -288,7 +281,7 @@ SectionedInputStream
 BasicJeodTrickSimInterface::get_checkpoint_reader_internal (
    const std::string & section_id)
 {
-   if (checkpoint_reader == NULL) {
+   if (checkpoint_reader == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::phasing_error,
          "JEOD checkpoint file is not open for output.");
@@ -307,10 +300,8 @@ void
 BasicJeodTrickSimInterface::close_restart_file (
    void)
 {
-   if (checkpoint_reader != NULL) {
-      delete checkpoint_reader;
-      checkpoint_reader = NULL;
-   }
+   delete checkpoint_reader;
+   checkpoint_reader = nullptr;
 }
 
 

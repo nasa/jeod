@@ -22,13 +22,13 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((radiation_surface_factory.o)
-     (flat_plate_radiation_factory.o)
-     (radiation_messages.o)
-     (radiation_params.o)
-     (utils/message/message_handler.o)
-     (utils/surface_model/facet_params.o)
-     (utils/surface_model/interaction_surface_factory.o))
+    ((radiation_surface_factory.cc)
+     (flat_plate_radiation_factory.cc)
+     (radiation_messages.cc)
+     (radiation_params.cc)
+     (utils/message/src/message_handler.cc)
+     (utils/surface_model/src/facet_params.cc)
+     (utils/surface_model/src/interaction_surface_factory.cc))
 
 
 *******************************************************************************/
@@ -69,11 +69,11 @@ void
 RadiationSurfaceFactory::add_facet_params (
    FacetParams* to_add)
 {
-   RadiationParams* temp_ptr = NULL;
+   RadiationParams* temp_ptr = nullptr;
 
    temp_ptr = dynamic_cast<RadiationParams*> (to_add);
 
-   if (temp_ptr == NULL) {
+   if (temp_ptr == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"

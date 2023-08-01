@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((xpyp_daily.o))
+  ((../src/xpyp_daily.cc))
 ******************************************************************************/
 
 #ifndef JEOD_POLARMOTIONJ2000INIT_XPYP_DAILY_DEFAULT_DATA_H

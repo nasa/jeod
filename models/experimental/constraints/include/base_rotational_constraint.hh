@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -55,7 +55,7 @@ Purpose: ()
 #define JEOD_BASE_ROTATIONAL_CONSTRAINT_HH
 
 
-#include "utils/math/include/solver_types.hh"
+#include "experimental/math/include/solver_types.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 

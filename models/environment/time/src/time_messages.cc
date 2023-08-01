@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((None))
 
 Library dependencies:
-  ((time_messages.o))
+  ((time_messages.cc))
 
  
 

@@ -29,7 +29,7 @@ Class:
   (PlanetRotationInit)
 
 Library dependencies:
-  ((planet_rotation_init.o))
+  ((planet_rotation_init.cc))
 
  
 

@@ -16,11 +16,11 @@ PURPOSE:
     ()
 
 Library dependencies:
-   ((point_contact_facet_factory.o)
-    (point_contact_facet.o)
-    (utils/surface_model/flat_plate_circular.o)
-    (dynamics/dyn_body/dyn_body.o)
-    (contact_messages.o))
+   ((point_contact_facet_factory.cc)
+    (point_contact_facet.cc)
+    (utils/surface_model/src/flat_plate_circular.cc)
+    (dynamics/dyn_body/src/dyn_body.cc)
+    (contact_messages.cc))
 
 
 *******************************************************************************/
@@ -83,8 +83,8 @@ PointContactFacetFactory::create_facet (
    Facet* facet,
    FacetParams* params)
 {
-   ContactParams* contact_params = NULL;
-   FlatPlateCircular* plate          = NULL;
+   ContactParams* contact_params = nullptr;
+   FlatPlateCircular* plate          = nullptr;
 
    contact_params = dynamic_cast<ContactParams*> (params);
    plate      = dynamic_cast<FlatPlateCircular*> (facet);
@@ -92,7 +92,7 @@ PointContactFacetFactory::create_facet (
 
    // We have tried casting the facet and params to the correct types.
    // if they were not the correct type, send out an error message
-   if (contact_params == NULL) {
+   if (contact_params == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__,
@@ -100,9 +100,9 @@ PointContactFacetFactory::create_facet (
          "the params supplied to "
          "PointContactFacetFactory::create_facet was not of type "
          "ContactParams, as is required");
-
+      return nullptr;
    }
-   if (plate == NULL) {
+   if (plate == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__,
@@ -110,7 +110,7 @@ PointContactFacetFactory::create_facet (
          "the Facet supplied to "
          "PointContactFacetFactory::create_facet was not of type "
          "CircularFlatPlate, as is required");
-
+      return nullptr;
    }
 
    // Create the interaction facet
@@ -126,11 +126,11 @@ PointContactFacetFactory::create_facet (
 
    inter_facet->surface_type = contact_params;
 
-   Vector3::copy (plate->position, inter_facet->position);
-   Vector3::copy (plate->normal, inter_facet->normal);
+   Vector3::copy (plate->position, inter_facet->position); 
+   Vector3::copy (plate->normal, inter_facet->normal); 
 
    inter_facet->vehicle_body = facet->get_mass_body_ptr()->dyn_owner;
-   if (inter_facet->vehicle_body == NULL) {
+   if (inter_facet->vehicle_body == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__,
@@ -138,7 +138,7 @@ PointContactFacetFactory::create_facet (
          "mass_body_ptr contained in the facet supplied to"
          "PointContactFacetFactory::create_facet was not of type "
          "DynBody, as is required");
-
+      return nullptr;
    }
 
    inter_facet->create_vehicle_point ();

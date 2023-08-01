@@ -15,8 +15,8 @@ PURPOSE:
   ()
 
 LIBRARY DEPENDENCY:
-  ((mass_calc_composite_inertia.o)
-   (mass.o))
+  ((mass_calc_composite_inertia.cc)
+   (mass.cc))
 
 
 

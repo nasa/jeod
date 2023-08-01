@@ -15,10 +15,10 @@ PURPOSE:
     ()
 
 Library dependencies:
-    ((contact_surface_factory.o)
-     (contact_messages.o)
-     (contact_params.o)
-     (utils/surface_model/facet_params.o))
+    ((contact_surface_factory.cc)
+     (contact_messages.cc)
+     (contact_params.cc)
+     (utils/surface_model/src/facet_params.cc))
 
 
 *******************************************************************************/
@@ -85,25 +85,24 @@ ContactSurfaceFactory::create_surface (
    InteractionSurface* inter_surface)
 {
    // can't hand this un-allocated things. check for that.
-   if (surface == NULL) {
+   if (surface == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, ContactMessages::initialization_error,
          "The SurfaceModel pointer supplied to "
          "InteractionSurfaceFactory::create_surface was NULL. Please "
          "provide a SurfaceModel pointer.");
-
       return;
    }
 
-   if (inter_surface == NULL) {
+   if (inter_surface == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, ContactMessages::initialization_error,
          "The InteractionSurface pointer supplied to "
          "InteractionSurfaceFactory::create_surface was NULL. Please "
          "provide an InteractionSurface pointer.");
-
+      return;
    }
 
 
@@ -115,7 +114,7 @@ ContactSurfaceFactory::create_surface (
    // For all facets in the surface, match up an interaction facet factory
    for (unsigned int ii = 0; ii < surface->facets.size (); ++ii) {
 
-      InteractionFacetFactory* facet_factory = NULL;
+      InteractionFacetFactory* facet_factory = nullptr;
 
       for (unsigned int jj = 0; jj < factories.size (); ++jj) {
 
@@ -126,7 +125,7 @@ ContactSurfaceFactory::create_surface (
 
       }
 
-      if (facet_factory == NULL) {
+      if (facet_factory == nullptr) {
 
          MessageHandler::fail (
             __FILE__, __LINE__, ContactMessages::initialization_error,
@@ -140,11 +139,11 @@ ContactSurfaceFactory::create_surface (
       // For each facet, try to match up a facet_params that matches
       // them.
 
-      FacetParams* facet_params = NULL;
+      FacetParams* facet_params = nullptr;
 
       for (unsigned int jj = 0; jj < params.size (); ++jj) {
 
-         if (surface->facets[ii]->param_name == NULL) {
+         if (surface->facets[ii]->param_name == nullptr) {
             MessageHandler::fail (
                __FILE__, __LINE__,
                ContactMessages::initialization_error,
@@ -158,7 +157,7 @@ ContactSurfaceFactory::create_surface (
          }
       }
 
-      if (facet_params == NULL) {
+      if (facet_params == nullptr) {
 
          MessageHandler::fail (
             __FILE__, __LINE__,
@@ -215,11 +214,11 @@ ContactSurfaceFactory::add_facet_params (
    }
 
    // The param MUST be an
-   ContactParams* temp_ptr = NULL;
+   ContactParams* temp_ptr = nullptr;
 
    temp_ptr = dynamic_cast<ContactParams*> (to_add);
 
-   if (temp_ptr == NULL) {
+   if (temp_ptr == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, ContactMessages::pre_initialization_error,

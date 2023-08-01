@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,8 +54,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_orient.o)
-   (ephem_item.o))
+  ((../src/ephem_orient.cc)
+   (../src/ephem_item.cc))
 
 
 
@@ -96,22 +96,22 @@ public:
 
    // Constructor and destructor
    EphemerisOrientation ();
-   virtual ~EphemerisOrientation ();
+   ~EphemerisOrientation () override;
 
    // EphemerisOrientation objects modify the rotational state.
-   virtual TargetAspect updates_what (void) const;
+   TargetAspect updates_what (void) const override;
 
    // Enable the item.
-   virtual void enable ();
+   void enable () override;
 
    // Note that the planet-fixed frame's active status has changed
-   virtual void note_frame_status_change (RefFrame * frame);
+   void note_frame_status_change (RefFrame * frame) override;
 
    // Default suffix, "pfix" in the case of an orientation.
-   virtual const char * default_suffix () const;
+   const char * default_suffix () const override;
 
    // Disconnect (no-op for an orientation)
-   virtual void disconnect_from_tree ();
+   void disconnect_from_tree () override;
 
 
 protected:

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -48,7 +48,7 @@
 
 /*
 Purpose: ()
-Library dependencies: ((constrained_rigid_mass.o))
+Library dependencies: ((../src/constrained_rigid_mass.cc))
 */
 
 
@@ -106,7 +106,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~ConstrainedRigidMass () = default;
+    ~ConstrainedRigidMass () override = default;
 
     /**
      * Prepare this object for solving a constraint problem.
@@ -116,9 +116,9 @@ public:
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */
-    virtual void setup_constraint (
+    void setup_constraint (
         const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state);
+        const VehicleNonGravState& non_grav_state) override;
 
 
     // New functionality.

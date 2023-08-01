@@ -16,12 +16,12 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_detach_specific.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (dynamics/dyn_body/dyn_body_detach.o)
-   (utils/message/message_handler.o))
+  ((body_detach_specific.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (dynamics/dyn_body/src/dyn_body_detach.cc)
+   (utils/message/src/message_handler.cc))
 
 
 

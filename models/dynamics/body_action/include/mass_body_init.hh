@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((mass_body_init.o))
+  ((../src/mass_body_init.cc))
 
 
 
@@ -128,10 +128,10 @@ class MassBodyInit : public BodyAction {
    MassBodyInit ();
 
    // Destructor.
-   virtual ~MassBodyInit ();
+   ~MassBodyInit () override;
 
    // apply: Initialize the subject body's mass properties and mass points.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
 };
 

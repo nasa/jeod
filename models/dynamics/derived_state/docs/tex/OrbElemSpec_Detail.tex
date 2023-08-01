@@ -22,18 +22,22 @@ The \OrbElemDesc\ contains only one class:
 \classitem{OrbElemDerivedState}
 \textref{DerivedState}{ref:DerivedState}
 
-This contains only the methods \textit{compute\_orbital\_elements}, \textit{initialize} and \textit{update}:
+This contains only the methods \textit{compute\_orbital\_elements}, \textit{set\_use\_alt\_inertial}, \textit{initialize} and \textit{update}:
 \begin{enumerate}
 \funcitem{compute\_orbital\_elements}
 Simply calls the Orbital Elements method \textit{from\_cartesian} to convert the data from a Cartesian frame to a set of orbital elements.  See the 
 \href{file:\JEODHOME/models/utils/orbital_elements/docs/orbital_elements.pdf}{Orbital Elements document}~\cite{dynenv:ORBITALELEMENTS} for details on this method. 
 
+\funcitem{set\_use\_alt\_inertial}
+This method sets the flag indicating whether to use the default inertial reference frame associated with the planet or the alternate one, if one is available for the planet.
+
 \funcitem{initialize}
 The initialization process comprises the following steps:
 \begin{enumerate}
 \item{} The generic DerivedState initialization routine is called to assign the \textit{subject} value, establish the naming convention for the state identifier.  
-\item{} Calls the Orbital Elements routine \textit{set\_object\_name} to set the name of the vehicle.
 \item{} Calls the Derived State method, \textit{find\_planet} to identify the planet with name specified by \textit{reference\_name}.
+\item{} Calls the Orbital Elements routine \textit{set\_object\_name} to set the name of the vehicle.
+\item{} Depending on the value of \textit{use\_alt\_inertial}, the element \textit{inertial\_ptr} is set to either the default inertial frame or the alternate inertial frame of the planet identified by \textit{reference\_name} and the frame is subscribed.
 \item{} Calls the Orbital Elements routine \textit{set\_planet\_name} to set the name of the planet.
 \end{enumerate}
 

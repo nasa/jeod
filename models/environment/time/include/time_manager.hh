@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,8 +59,8 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_manager.o)
-   (time_manager__initialize.o))
+  ((../src/time_manager.cc)
+   (../src/time_manager__initialize.cc))
 
 ******************************************************************************/
 
@@ -140,7 +140,7 @@ public:
   //Constructor
    TimeManager ();
   // Destructor
-   ~TimeManager ();
+   ~TimeManager () override;
 
    void initialize (TimeManagerInit * time_manager_init);
 
@@ -160,8 +160,8 @@ public:
    void register_time_named (JeodBaseTime & time_ref, const std::string& name);
 
    void register_converter ( TimeConverter & converter_ref,
-                                     std::string name_a = "",
-                                     std::string name_b = "");
+                                     const std::string & name_a = "",
+                                     const std::string & name_b = "");
 
    // Expose the private inheritance.
    // This is implemented as a function rather than as a conversion operator
@@ -170,8 +170,8 @@ public:
 
    // Implement the pure virtual getters inherited from JeodIntegrationTime.
    // Note that this class exposes these functions as public methods.
-   virtual double get_time_scale_factor () const;
-   virtual double get_timestamp_time () const;
+   double get_time_scale_factor () const override;
+   double get_timestamp_time () const override;
 
    // Make the already-implemented time change subscriber methods inherited
    // from JeodIntegrationTime public.
@@ -182,7 +182,7 @@ public:
 private:
 
    // Implement the pure virtual update_time inherited from JeodIntegrationTime.
-   virtual void update_time (double time);
+   void update_time (double time) override;
 
 
  // The copy constructor and assignment operator for this class are

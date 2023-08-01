@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -43,7 +43,7 @@ Assumptions and Limitations:
   ((Assumes a system of 12 point masses.))
 
 Library Dependency:
-   ((gravity_verif.o))
+   ((../src/gravity_verif.cc))
 
 
 *******************************************************************************/

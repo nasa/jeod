@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@
      ((N/A))
 
 Library dependencies:
-    ((line_contact_facet_factory.o))
+    ((../src/line_contact_facet_factory.cc))
 
  
 
@@ -93,13 +93,13 @@ public:
    LineContactFacetFactory ();
 
    // destructor
-   ~LineContactFacetFactory ();
+   ~LineContactFacetFactory () override;
 
-   virtual InteractionFacet* create_facet (Facet* facet, FacetParams* params);
+   InteractionFacet* create_facet (Facet* facet, FacetParams* params) override;
 
    // 'true' if this factory is meant to be used on the type of facet
    // sent in through the 'facet' pointer. 'false' otherwise
-   virtual bool is_correct_factory (Facet* facet);
+   bool is_correct_factory (Facet* facet) override;
 
 protected:
 

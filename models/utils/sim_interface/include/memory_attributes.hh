@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -73,7 +73,7 @@ Purpose:
 // Some installations may not be able to fit within the confines of the main
 // body of this header. Include the alternate implementation if defined.
 #ifdef JEOD_ATTRIBUTES_IMPLEMENTATION_HEADER
-#include JEOD_ATTRIBUTES_IMPLEMENTATION_HEADER
+#include JEOD_ATTRIBUTES_IMPLEMENTATION_HEADER // cppcheck-suppress preprocessorErrorDirective
 
 // The the main body of this header is within this #else.
 #else

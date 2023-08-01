@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -169,7 +169,7 @@ public:
       const JeodMemoryInterface & memory_interface =
          JeodSimulationInterface::get_memory_interface();
       const JEOD_ATTRIBUTES_POINTER_TYPE attr = is_exportable ?
-         memory_interface.find_attributes (typeid(Type)) : NULL;
+         memory_interface.find_attributes (typeid(Type)) : nullptr;
       return memory_interface.structure_attributes (attr, sizeof (Type));
    }
 };

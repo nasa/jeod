@@ -15,11 +15,11 @@ Purpose:
   ()
 
 Library dependencies:
-  ((initialize_model.o)
-   (dyn_manager_messages.o)
-   (environment/ephemerides/ephem_item/ephem_item.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o)
+  ((initialize_model.cc)
+   (dyn_manager_messages.cc)
+   (environment/ephemerides/ephem_item/src/ephem_item.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc)
   )
 
 
@@ -112,7 +112,7 @@ DynManager::initialize_model_internal (
    mode = init.mode;
 
   if (mode != DynManagerInit::EphemerisMode_Ephemerides) {
-     if ((init.central_point_name == NULL) ||
+     if ((init.central_point_name == nullptr) ||
          (init.central_point_name[0] == '\0')) {
          MessageHandler::fail (
             __FILE__, __LINE__, DynManagerMessages::invalid_name,
@@ -164,7 +164,7 @@ DynManager::initialize_model_internal (
    if (integ_groups.empty()) {
 
       // Create the integrator constructor.
-      if (init.integ_constructor != NULL) {
+      if (init.integ_constructor != nullptr) {
          integ_constructor = init.integ_constructor->create_copy();
       }
       else {
@@ -182,7 +182,7 @@ DynManager::initialize_model_internal (
 
 
       // Create the default integration group.
-      if (init.integ_group_constructor != NULL) {
+      if (init.integ_group_constructor != nullptr) {
          default_integ_group =
             init.integ_group_constructor->create_group (
                *this,

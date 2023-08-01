@@ -2,6 +2,7 @@ veh2.dyn_body.set_name ("veh2")
 veh2.dyn_body.integ_frame_name = "central_point.inertial"
 veh2.dyn_body.translational_dynamics = True
 veh2.dyn_body.rotational_dynamics = True
+veh2.dyn_body.compute_point_derivative = False
 
 # Mass-init
 veh2.mass_init.action_name = "veh2_mass_init"

@@ -129,9 +129,6 @@ ifeq ($(TRICKIFIED),1)
       find ${JEOD_HOME}/models -name verif -prune -o -name src -print \
       | sort |  tr '\n' ':' | sed 's/\(.*\):/\1 /')
 
-  $(info JEOD_INC_DIRS = ${JEOD_INC_DIRS})
-
-
   # Make JEOD appear as an external library to trick.
   TRICK_EXT_LIB_DIRS += :$(JEOD_INC_DIRS):$(JEOD_SRC_DIRS)
   TRICK_GTE_EXT += :${JEOD_HOME}/models

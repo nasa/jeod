@@ -36,13 +36,13 @@ Assumptions and limitations:
     ))
 
 Library dependencies:
-  ((planet_rnp.o)
-   (RNP_messages.o)
-   (dynamics/dyn_manager/dyn_manager.o)
-   (environment/planet/planet.o)
-   (utils/ref_frames/ref_frame_state.o)
-   (utils/message/message_handler.o)
-   (utils/quaternion/quat_from_mat.o))
+  ((planet_rnp.cc)
+   (RNP_messages.cc)
+   (dynamics/dyn_manager/src/dyn_manager.cc)
+   (environment/planet/src/planet.cc)
+   (utils/ref_frames/src/ref_frame_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/quaternion/src/quat_from_mat.cc))
 
  
 
@@ -72,10 +72,10 @@ namespace jeod {
 PlanetRNP::PlanetRNP (
    void)
 :
-   nutation(NULL),
-   precession(NULL),
-   polar_motion(NULL),
-   rotation(NULL),
+   nutation(nullptr),
+   precession(nullptr),
+   polar_motion(nullptr),
+   rotation(nullptr),
    rnp_type(FullRNP),
    enable_polar(true)
 {
@@ -107,7 +107,7 @@ PlanetRNP::update_rnp (
    // Update the nutation and precession, checking both that they are
    // required and that they exist
    if (rnp_type == FullRNP) {
-      if (nutation == NULL) {
+      if (nutation == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, RNPMessages::fidelity_error,
             "The PlanetRotation* nutation pointer"
@@ -117,7 +117,7 @@ PlanetRNP::update_rnp (
       else {
          nutation->update_rotation();
       }
-      if (precession == NULL) {
+      if (precession == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, RNPMessages::fidelity_error,
             "The PlanetRotation* precession pointer"
@@ -136,7 +136,7 @@ PlanetRNP::update_rnp (
    }
 
    // Update the rotation, first checking if it has been set to something
-   if (rotation == NULL) {
+   if (rotation == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::setup_error,
          "The PlanetRotation* rotation pointer was"
@@ -149,7 +149,7 @@ PlanetRNP::update_rnp (
    // Update the polar motion, checking if it has been set to something
    // Only do this if polar motion is enabled
    if (enable_polar == true) {
-      if (polar_motion == NULL) {
+      if (polar_motion == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, RNPMessages::fidelity_error,
             "The PlanetRotation* polar_motion pointer"
@@ -176,7 +176,7 @@ PlanetRNP::update_axial_rotation (
 
 
    // Update the rotation, first checking if it has been set to something
-   if (rotation == NULL) {
+   if (rotation == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::setup_error,
          "The PlanetRotation* rotation pointer was"
@@ -204,7 +204,7 @@ PlanetRNP::propagate_rnp (
 
    // rotation should ALWAYS going to be present, so check if it is present
 
-   if (rotation == NULL) {
+   if (rotation == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::setup_error,
          "The PlanetRotation* rotation pointer was"
@@ -233,7 +233,7 @@ PlanetRNP::propagate_rnp (
    // polar_motion^T * rotation^T into the temp matrix. Otherwise,
    // copy only rotation^T into the temp matrix.
    if (enable_polar == true) {
-      if (polar_motion == NULL) {
+      if (polar_motion == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, RNPMessages::fidelity_error,
             "The PlanetRotation* polar_motion pointer"

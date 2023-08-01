@@ -15,11 +15,11 @@
 Purpose: ()
 
 Library dependencies:
-  ((structure_integrated_dyn_body.o)
-   (structure_integrated_dyn_body_collect.o)
-   (structure_integrated_dyn_body_integration.o)
-   (structure_integrated_dyn_body_pt_accel.o)
-   (structure_integrated_dyn_body_solve.o))
+  ((structure_integrated_dyn_body.cc)
+   (structure_integrated_dyn_body_collect.cc)
+   (structure_integrated_dyn_body_integration.cc)
+   (structure_integrated_dyn_body_pt_accel.cc)
+   (structure_integrated_dyn_body_solve.cc))
 
 */
 

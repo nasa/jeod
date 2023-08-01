@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@
      ((N/A))
 
 Library dependencies:
-    ((spring_pair_interaction.o))
+    ((../src/spring_pair_interaction.cc))
 
  
 
@@ -104,15 +104,15 @@ public:
    SpringPairInteraction ();
 
    // destructor
-   virtual ~SpringPairInteraction ();
+   ~SpringPairInteraction () override;
 
    /* force calculation function */
-   virtual void calculate_forces (
+   void calculate_forces (
       ContactFacet * subject,
       ContactFacet * target,
       RelativeDerivedState * rel_state,
       double* penetration_vector,
-      double* rel_velocity);
+      double* rel_velocity) override;
 
 
 

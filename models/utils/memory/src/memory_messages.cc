@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((memory_messages.o))
+  ((memory_messages.cc))
 
  
 

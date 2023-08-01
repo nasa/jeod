@@ -22,8 +22,8 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((spherical_harmonics_tidal_effects_init.o)
-   (spherical_harmonics_delta_coeffs_init.o))
+  ((spherical_harmonics_tidal_effects_init.cc)
+   (spherical_harmonics_delta_coeffs_init.cc))
 
 
 *******************************************************************************/
@@ -47,8 +47,8 @@ SphericalHarmonicsTidalEffectsInit::SphericalHarmonicsTidalEffectsInit (
 {
    xp               = yp = 0.0;
    k2               = 0.0;
-   Knm              = NULL;
-   tidal_body_names = NULL;
+   Knm              = nullptr;
+   tidal_body_names = nullptr;
    num_tidal_bodies = 0;
 
 }

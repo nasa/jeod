@@ -26,8 +26,8 @@ ASSUMPTIONS AND LIMITATIONS:
    ((Too many to enumerate here.))
 
 LIBRARY DEPENDENCY:
-  ((environment/atmosphere/base_atmos/atmosphere_messages.o)
-   (utils/message/src/message_handler.o))
+  ((environment/atmosphere/base_atmos/src/atmosphere_messages.cc)
+   (utils/message/src/message_handler.cc))
 
 
 *****************************************************************************/
@@ -289,7 +289,7 @@ METAtmosphere::update_atmosphere (
    const PlanetFixedPosition * pfix_pos,
    AtmosphereState           * ext_state)
 {
-   if (ext_state == NULL) {
+   if (ext_state == nullptr) {
      MessageHandler::error(
        __FILE__,__LINE__, AtmosphereMessages::framework_error,
        "state pointer is NULL.  Cannot populate state.\n");
@@ -325,7 +325,7 @@ METAtmosphere::update_atmosphere (
    const PlanetFixedPosition * pfix_pos,
    METAtmosphereStateVars    * ext_state)
 {
-   if (ext_state == NULL) {
+   if (ext_state == nullptr) {
      MessageHandler::error(
        __FILE__,__LINE__, AtmosphereMessages::framework_error,
        "state pointer is NULL.  Cannot populate state.\n");
@@ -347,7 +347,7 @@ void
 METAtmosphere::update_atmosphere(
    const PlanetFixedPosition * pfix_pos)
 {
-   if (pfix_pos == NULL) {
+   if (pfix_pos == nullptr) {
      MessageHandler::error(
        __FILE__,__LINE__, AtmosphereMessages::framework_error,
        "Position pointer is NULL.\n"

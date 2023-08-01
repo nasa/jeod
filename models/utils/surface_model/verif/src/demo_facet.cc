@@ -9,7 +9,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_facet.o)
+    (demo_facet.cc)
 
  
 *******************************************************************************/

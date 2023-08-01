@@ -9,8 +9,8 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    ((demo_surface.o)
-     (utils/sim_interface/memory_interface.o))
+    ((demo_surface.cc)
+     (utils/sim_interface/src/memory_interface.cc))
 
  
 *******************************************************************************/
@@ -51,7 +51,7 @@ void DemoInteraction1::run_interaction(
 
 
 DemoInteraction2::DemoInteraction2() :
-   interaction_name(NULL)
+   interaction_name(nullptr)
 {
 
    // empty for now

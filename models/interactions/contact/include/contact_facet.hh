@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@
      ((N/A))
 
  Library dependencies:
-    ((contact_facet.o))
+    ((../src/contact_facet.cc))
 
 
 *****************************************************************************/
@@ -127,7 +127,7 @@ public:
    ContactFacet ();
 
    // destructor
-   virtual ~ContactFacet ();
+   ~ContactFacet () override;
 
    /**
     Create a vehicle point to track the state information of the contact

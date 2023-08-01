@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -39,7 +39,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((grav_verif.o))
+  ((../src/grav_verif.cc))
 ******************************************************************************/
 
 #ifndef JEOD_SPHERICALHARMONICSGRAVITYBODY_GRAV_VERIF_DEFAULT_DATA_H
@@ -53,7 +53,7 @@ namespace jeod {
 class SphericalHarmonicsGravitySource_grav_verif_default_data :
     public  SphericalHarmonicsGravitySource_default_data {
  public:
-   virtual void initialize (SphericalHarmonicsGravitySource*);
+   void initialize (SphericalHarmonicsGravitySource*) override;
 };
 
 } // End JEOD namespace

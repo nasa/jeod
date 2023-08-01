@@ -24,7 +24,7 @@ Assumptions and limitations:
   (TBS)
 
 Library dependencies:
-  ((lsode_generalized_second_order_ode_integrator.o))
+  ((lsode_generalized_second_order_ode_integrator.cc))
 
  
 
@@ -53,7 +53,8 @@ using namespace jeod;
  */
 LsodeGeneralizedDerivSecondOrderODEIntegrator::LsodeGeneralizedDerivSecondOrderODEIntegrator(void)
 :
-   LsodeSecondOrderODEIntegrator()
+   LsodeSecondOrderODEIntegrator(),
+   posdot(NULL)
 {}
 
 /**
@@ -102,7 +103,7 @@ const
       "Copy constructor for LsodeGeneralizedDerivSecondOrderODEIntegrator "
       "not implemented.\n");
    //return er7_utils::alloc::replicate_object (*this);
-   return NULL;
+   return nullptr;
 }
 
 

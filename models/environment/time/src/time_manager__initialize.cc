@@ -23,15 +23,15 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_manager.o)
-   (time.o)
-   (time_dyn.o)
-   (time_manager_init.o)
-   (time_messages.o)
-   (time_standard.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_manager.cc)
+   (time.cc)
+   (time_dyn.cc)
+   (time_manager_init.cc)
+   (time_messages.cc)
+   (time_standard.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/

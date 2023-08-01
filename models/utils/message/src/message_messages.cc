@@ -17,7 +17,7 @@ Purpose:
 
 
 Library dependencies:
-  ((message_messages.o))
+  ((message_messages.cc))
 
  
 

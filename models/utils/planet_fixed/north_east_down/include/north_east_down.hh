@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
    ()
 
 Library Dependency:
-   ((north_east_down.o))
+   ((../src/north_east_down.cc))
 
 
 *******************************************************************************/
@@ -122,16 +122,16 @@ class NorthEastDown : public PlanetFixedPosition {
 
    // Constructor & Destructor
    NorthEastDown();
-   virtual ~NorthEastDown();
+   ~NorthEastDown() override;
 
    // Update from Cartesian position input
-   virtual void update_from_cart (double const cart[3]);
+   void update_from_cart (double const cart[3]) override;
 
    // Update from spherical position input
-   virtual void update_from_spher (const AltLatLongState &spher);
+   void update_from_spher (const AltLatLongState &spher) override;
 
    // Update from elliptical position input
-   virtual void update_from_ellip (const AltLatLongState &ellip);
+   void update_from_ellip (const AltLatLongState &ellip) override;
 
    // Build NED frame orientation based on current reference point information
    virtual void build_ned_orientation ();

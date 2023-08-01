@@ -18,10 +18,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_ref_frame.o)
-   (environment/ephemerides/ephem_interface/ephem_messages.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o))
+  ((ephem_ref_frame.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -50,7 +50,7 @@ namespace jeod {
 EphemerisRefFrame::EphemerisRefFrame (
    void)
 :
-   ephem_manager(NULL)
+   ephem_manager(nullptr)
 {}
 
 
@@ -88,7 +88,7 @@ EphemerisRefFrame::set_active_status (
 
    // Nominally, tell the ephemerides manager that it might need to
    // rebuild the ephemerides models and the reference frame tree.
-   if (ephem_manager != NULL) {
+   if (ephem_manager != nullptr) {
       ephem_manager->ephem_note_tree_status_change ();
    }
 

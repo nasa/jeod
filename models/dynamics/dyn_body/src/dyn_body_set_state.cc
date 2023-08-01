@@ -22,11 +22,11 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((dyn_body_set_state.o)
-   (dyn_body.o)
-   (dyn_body_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_set_state.cc)
+   (dyn_body.cc)
+   (dyn_body_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -140,7 +140,7 @@ DynBody::set_state_source (
 
    // 1. The supplied frame must be owned by a DynBody.
    source_body = dynamic_cast <const DynBody *> (frame.get_owner ());
-   if (source_body == NULL) {
+   if (source_body == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, DynBodyMessages::invalid_frame,
          "Reference frame '%s' is not a valid body reference frame.",
@@ -169,7 +169,7 @@ DynBody::set_state_source (
    }
 
    // Use the internal equivalent to do the bulk of the work.
-   if (dyn_parent == NULL) {
+   if (dyn_parent == nullptr) {
       root_body = this;
    }
    else {
@@ -216,7 +216,7 @@ DynBody::set_velocity (
 // Set the attitude of the vehicle.
 void
 DynBody::set_attitude_left_quaternion (
-   const Quaternion left_quat,
+   const Quaternion & left_quat,
    BodyRefFrame & subject_frame)
 {
    DynBody * root_body = get_root_body_internal();
@@ -235,7 +235,7 @@ DynBody::set_attitude_left_quaternion (
 // Set the attitude of the vehicle.
 void
 DynBody::set_attitude_right_quaternion (
-   const Quaternion right_quat,
+   const Quaternion & right_quat,
    BodyRefFrame & subject_frame)
 {
    DynBody * root_body = get_root_body_internal();

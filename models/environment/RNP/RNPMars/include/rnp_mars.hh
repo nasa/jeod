@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -68,7 +68,7 @@ Assumptions and limitations:
   ((Mars specific))
 
 Library dependencies:
-  ((rnp_mars.o))
+  ((../src/rnp_mars.cc))
 
  
 
@@ -171,12 +171,12 @@ private:
 public:
    RNPMars ();
 
-   virtual ~RNPMars ();
+   ~RNPMars () override;
 
    // Function to initialize the RNP. Deletes modules and sets their
    // pointers to NULL based on the options set in rnp_type. This then
    // calls the base class initialize.
-   void initialize (DynManager& manager);
+   void initialize (DynManager& manager) override;
 
    // Updates the entire RNP, including both setting the time for each
    // module then updating the RNP and sending it to the ref_frame found
@@ -191,13 +191,13 @@ public:
    // EphemInterface non-pure virtual
 
    // Indicates when class was last updated
-   virtual double timestamp() const;
+   double timestamp() const override;
 
    // Identify the model
-   virtual const char* get_name() const;
+   const char* get_name() const override;
 
    // Update the model. This calls the update_axial_rotation function.
-   virtual void ephem_update();
+   void ephem_update() override;
 
 
 // Private member functions

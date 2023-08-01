@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -51,7 +51,7 @@ PURPOSE:
     ()
 
 LIBRARY DEPENDENCY:
-   ((solar_beta_derived_state.o))
+   ((../src/solar_beta_derived_state.cc))
 
 ******************************************************************************/
 
@@ -142,20 +142,20 @@ JEOD_MAKE_SIM_INTERFACES(SolarBetaDerivedState)
 
    // Default constructor
    SolarBetaDerivedState ();
-   virtual ~SolarBetaDerivedState ();
+   ~SolarBetaDerivedState () override;
 
    // initialize(): Initialize the DerivedState (but not necessarily the
    // state itself.)
    // Rules for derived classes:
    // All derived classes must forward the initialize() call to the immediate
    // parent class and then perform class-dependent object initializations.
-   virtual void initialize (DynBody & subject_body, DynManager & dyn_manager);
+   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
 
    // update(): Update the DerivedState representation of the subject DynBody.
    // Rules for derived classes:
    // All derived classes must perform class-dependent actions and then
    // must forward the update() call to the immediate parent class.
-   virtual void update (void);
+   void update (void) override;
 
  protected:
 

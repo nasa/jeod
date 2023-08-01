@@ -84,7 +84,7 @@ int main (int arg_c, char ** arg_v) {
   double *angvel;
 
 // Check lvlh frame orientation calculations
-  Quaternion att_quat;
+  jeod::Quaternion att_quat;
   double angmom[3];
   double hmag;
   double rmag;
@@ -95,7 +95,7 @@ int main (int arg_c, char ** arg_v) {
   double **computedLvlhVel = new double *[numRows];
   double **computedLvlhAngVel = new double *[numRows];
   double ***computedLvlhOrient = new double **[numRows];
-  Quaternion **computedLvlhQuat = new Quaternion *[numRows];
+  jeod::Quaternion **computedLvlhQuat = new jeod::Quaternion *[numRows];
  
 std::cout << "numRows: " << numRows << std::endl;
 
@@ -131,7 +131,7 @@ std::cout << "numRows: " << numRows << std::endl;
     cross(computedLvlhOrient[ii][0], computedLvlhOrient[ii][1], computedLvlhOrient[ii][2]);
     normalize(computedLvlhOrient[ii][0]);
 
-    computedLvlhQuat[ii] = new Quaternion(*computedLvlhOrient[ii][0]);
+    computedLvlhQuat[ii] = new jeod::Quaternion(*computedLvlhOrient[ii][0]);
 
     // Ang velocity is only about y-axis by definition
     computedLvlhAngVel[ii] = new double [3];

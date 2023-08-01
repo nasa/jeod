@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,7 +60,7 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((spherical_harmonics_tidal_effects.o))
+  ((../src/spherical_harmonics_tidal_effects.cc))
 
 
 *******************************************************************************/
@@ -149,13 +149,13 @@ protected:
 
    // Constructor & Destructor
    SphericalHarmonicsTidalEffects ();
-   virtual ~SphericalHarmonicsTidalEffects ();
+   ~SphericalHarmonicsTidalEffects () override;
 
-   virtual void initialize (
+   void initialize (
       SphericalHarmonicsDeltaCoeffsInit & var_init,
-      BaseDynManager& dyn_manager);
+      BaseDynManager& dyn_manager) override;
 
-   virtual void update (SphericalHarmonicsGravityControls & controls);
+   void update (SphericalHarmonicsGravityControls & controls) override;
 
 };
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -62,7 +62,7 @@
  
 
  Library dependencies:
- ((time_converter_dyn_tdb.o))
+ ((../src/time_converter_dyn_tdb.cc))
  ******************************************************************************/
 
 #ifndef time_converter_dyn_tdb_hh
@@ -108,15 +108,15 @@ public:
     // Constructor
     TimeConverter_Dyn_TDB ();
     // Destructor
-    ~TimeConverter_Dyn_TDB ();
+    ~TimeConverter_Dyn_TDB () override;
 
     // Initialize the converter
     void initialize (JeodBaseTime * parent,
                      JeodBaseTime * child,
-                     const int direction);
+                     const int direction) override;
 
     // convert_a_to_b: Apply the converter in the direction
-    void convert_a_to_b (void);
+    void convert_a_to_b (void) override;
 
     // Copy constructor and assignment operator for this class are
     // declared private and not implemented to prevent usage of C++ defaults

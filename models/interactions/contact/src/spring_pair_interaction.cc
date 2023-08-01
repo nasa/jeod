@@ -21,7 +21,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((spring_pair_interaction.o))
+    ((spring_pair_interaction.cc))
 
 
 *******************************************************************************/
@@ -143,7 +143,7 @@ SpringPairInteraction::calculate_forces (
    Vector3::sum (subject->force, tmp_force, subject->force);
 
    /* add Force and Torque to Target Facet */
-   if (target != NULL) {
+   if (target != nullptr) {
       // negate force to make it equal and opposite to force on subject
       Vector3::negate(force, force);
       // rotate force to target frame

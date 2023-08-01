@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -45,7 +45,7 @@ ASSUMPTIONS AND LIMITATIONS:
   (none)
 
 LIBRARY DEPENDENCY:
-  ((orb_elem_ver.o))
+  ((../src/orb_elem_ver.cc))
 
  
 ************************************************************************/
@@ -56,8 +56,8 @@ LIBRARY DEPENDENCY:
 // JEOD includes
 #include "utils/orbital_elements/include/orbital_elements.hh"
 
-#ifndef _ORB_ELEM_VER_H_
-#define _ORB_ELEM_VER_H_
+#ifndef ORB_ELEM_VER_H_
+#define ORB_ELEM_VER_H_
 
 //! Namespace jeod
 namespace jeod {

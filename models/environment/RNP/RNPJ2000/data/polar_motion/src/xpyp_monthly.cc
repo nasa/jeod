@@ -39,13 +39,13 @@ PolarMotionJ2000Init_xpyp_monthly_default_data::initialize (
    PolarMotionJ2000Init * PolarMotionJ2000Init_ptr)
 {
    PolarMotionJ2000Init_ptr->override_table = false;
-   PolarMotionJ2000Init_ptr->last_table_index = 732;
+   PolarMotionJ2000Init_ptr->last_table_index = 737;
    PolarMotionJ2000Init_ptr->polar_mjd =
-      JEOD_ALLOC_PRIM_ARRAY (733, double);
+      JEOD_ALLOC_PRIM_ARRAY (738, double);
    PolarMotionJ2000Init_ptr->xp_tbl =
-      JEOD_ALLOC_PRIM_ARRAY (733, double);
+      JEOD_ALLOC_PRIM_ARRAY (738, double);
    PolarMotionJ2000Init_ptr->yp_tbl =
-      JEOD_ALLOC_PRIM_ARRAY (733, double);
+      JEOD_ALLOC_PRIM_ARRAY (738, double);
 
 static const double ARCSECONDS_TO_RADIANS = 4.84813681109536e-06;
 
@@ -2248,6 +2248,21 @@ static const double ARCSECONDS_TO_RADIANS = 4.84813681109536e-06;
    PolarMotionJ2000Init_ptr->polar_mjd[732]   = 59945; /* 2023 1 1 */
    PolarMotionJ2000Init_ptr->xp_tbl[732] = ARCSECONDS_TO_RADIANS * (0.062699);
    PolarMotionJ2000Init_ptr->yp_tbl[732] = ARCSECONDS_TO_RADIANS * (0.200944);
+   PolarMotionJ2000Init_ptr->polar_mjd[733]   = 59976; /* 2023 2 1 */
+   PolarMotionJ2000Init_ptr->xp_tbl[733] = ARCSECONDS_TO_RADIANS * (-0.002295);
+   PolarMotionJ2000Init_ptr->yp_tbl[733] = ARCSECONDS_TO_RADIANS * (0.247865);
+   PolarMotionJ2000Init_ptr->polar_mjd[734]   = 60004; /* 2023 3 1 */
+   PolarMotionJ2000Init_ptr->xp_tbl[734] = ARCSECONDS_TO_RADIANS * (-0.045086);
+   PolarMotionJ2000Init_ptr->yp_tbl[734] = ARCSECONDS_TO_RADIANS * (0.316379);
+   PolarMotionJ2000Init_ptr->polar_mjd[735]   = 60035; /* 2023 4 1 */
+   PolarMotionJ2000Init_ptr->xp_tbl[735] = ARCSECONDS_TO_RADIANS * (-0.018834);
+   PolarMotionJ2000Init_ptr->yp_tbl[735] = ARCSECONDS_TO_RADIANS * (0.404570);
+   PolarMotionJ2000Init_ptr->polar_mjd[736]   = 60065; /* 2023 5 1 */
+   PolarMotionJ2000Init_ptr->xp_tbl[736] = ARCSECONDS_TO_RADIANS * (0.027648);
+   PolarMotionJ2000Init_ptr->yp_tbl[736] = ARCSECONDS_TO_RADIANS * (0.473495);
+   PolarMotionJ2000Init_ptr->polar_mjd[737]   = 60096; /* 2023 6 1 */
+   PolarMotionJ2000Init_ptr->xp_tbl[737] = ARCSECONDS_TO_RADIANS * (0.096324);
+   PolarMotionJ2000Init_ptr->yp_tbl[737] = ARCSECONDS_TO_RADIANS * (0.507821);
 }
 
 

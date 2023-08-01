@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -55,7 +55,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_ned_state.o))
+  ((../src/dyn_body_init_ned_state.cc))
 
 
 
@@ -68,6 +68,7 @@ Library dependencies:
 // System includes
 
 // JEOD includes
+#include "environment/ephemerides/ephem_interface/include/class_declarations.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/planet_fixed/planet_fixed_posn/include/alt_lat_long_state.hh"
 #include "utils/planet_fixed/north_east_down/include/north_east_down.hh"
@@ -106,6 +107,18 @@ class DynBodyInitNedState : public DynBodyInitPlanetDerived {
     */
    NorthEastDown::AltLatLongType altlatlong_type; //!< trick_units(--)
 
+protected:
+
+   /**
+    * Use pfix or alt_pfix flag
+    */
+   bool use_alt_pfix; //!< trick_units(--)
+   
+   /**
+    * Pointer to planet fixed frame to be used, either 
+    * pfix or alt_pfix
+    */
+   EphemerisRefFrame * pfix_ptr; //!< trick_units(--)
 
  // Member functions
 
@@ -121,13 +134,16 @@ class DynBodyInitNedState : public DynBodyInitPlanetDerived {
 
    DynBodyInitNedState ();
 
-   virtual ~DynBodyInitNedState ();
+   ~DynBodyInitNedState () override;
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
    // apply: Apply the state to the subject body.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
+
+   // Setter for use_alt_pfix
+   void set_use_alt_pfix (const bool use_alt_pfix_in);
 
 };
 

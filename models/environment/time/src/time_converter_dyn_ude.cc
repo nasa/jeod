@@ -21,15 +21,15 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_converter_dyn_ude.o)
-   (time_converter.o)
-   (time.o)
-   (time_dyn.o)
-   (time_ude.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_converter_dyn_ude.cc)
+   (time_converter.cc)
+   (time.cc)
+   (time_dyn.cc)
+   (time_ude.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -58,8 +58,8 @@ namespace jeod {
 TimeConverter_Dyn_UDE::TimeConverter_Dyn_UDE (
    void)
 {
-   dyn_ptr               = NULL;
-   ude_ptr               = NULL;
+   dyn_ptr               = nullptr;
+   ude_ptr               = nullptr;
    a_name                = "Dyn";
    b_name                = "";
    valid_directions = A_TO_B;
@@ -89,20 +89,22 @@ TimeConverter_Dyn_UDE::initialize (
 
       // Convert the parent to a TimeDyn, ensuring that this conversion works.
       dyn_ptr = dynamic_cast<TimeDyn *> (parent_ptr);
-      if (dyn_ptr == NULL) {
+      if (dyn_ptr == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
             "Object '%s' is not a %s object as expected with int_dir = 1\n",
-            "TimeDyn", dyn_ptr->name.c_str());
+            parent_ptr->name.c_str(), "TimeDyn");
+         return;
       }
 
       // Convert the parent to a TimeUDE, ensuring that this conversion works.
       ude_ptr = dynamic_cast<TimeUDE *> (child_ptr);
-      if (ude_ptr == NULL) {
+      if (ude_ptr == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
             "Object '%s' is not a %s object as expected with int_dir = 1\n",
-            "TimeUDE", ude_ptr->name.c_str());
+            child_ptr->name.c_str(), "TimeUDE");
+         return;
       }
    }
 
@@ -111,6 +113,7 @@ TimeConverter_Dyn_UDE::initialize (
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::incomplete_setup_error, "\n"
          "There is no converter available for converting UDE to Dyn.\n");
+      return;
    }
 
    // All other int_dirs are *always* invalid.
@@ -118,6 +121,7 @@ TimeConverter_Dyn_UDE::initialize (
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
          "Illegal value of int_dir in Dyn->UDE initializer");
+      return;
    }
 
    // Compute the initial offset.

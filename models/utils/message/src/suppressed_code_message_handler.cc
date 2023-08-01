@@ -16,9 +16,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((suppressed_code_message_handler.o)
-   (message_handler.o)
-   (message_messages.o))
+  ((suppressed_code_message_handler.cc)
+   (message_handler.cc)
+   (message_messages.cc))
 
  
 

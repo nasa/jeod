@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((surface_model.o))
+    ((../src/surface_model.cc))
 
  
 *******************************************************************************/
@@ -117,7 +117,7 @@ struct FacetStateInfo {
     * FacetStateInfo non-default constructor.
     * @param new_mass_body The mass body to which this object will refer.
     */
-   FacetStateInfo(MassBody* new_mass_body)
+   explicit FacetStateInfo(MassBody* new_mass_body)
       :
       mass_body(new_mass_body)
       {}
@@ -126,7 +126,7 @@ struct FacetStateInfo {
     * FacetStateInfo non-default constructor.
     * @param new_mass_body The mass body to which this object will refer.
     */
-   FacetStateInfo(MassBody& new_mass_body)
+   explicit FacetStateInfo(MassBody& new_mass_body)
       :
       mass_body(&new_mass_body)
       {}

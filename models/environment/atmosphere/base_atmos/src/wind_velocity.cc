@@ -16,8 +16,8 @@ PURPOSE:
     function of altitude; wind direction is a simple analytic function of
     position (inertial-z cross r).)
 LIBRARY DEPENDENCY:
-  ((atmosphere_messages.o)
-   (utils/message/src/message_handler.o))
+  ((atmosphere_messages.cc)
+   (utils/message/src/message_handler.cc))
 
 *******************************************************************************/
 
@@ -46,7 +46,7 @@ WindVelocity::WindVelocity (
    active(true),
    omega(0.0),
    num_layers(0),
-   omega_scale_table(NULL),
+   omega_scale_table(nullptr),
    array_index(0),
    first_pass(true),
    increasing_altitude(true)
@@ -82,15 +82,16 @@ WindVelocity::update_wind (
       return;
    }
 
-   if (omega_scale_table == NULL ||
-       inertial_pos      == NULL ||
-       wind_inertial     == NULL) {
+   if (omega_scale_table == nullptr ||
+       inertial_pos      == nullptr ||
+       wind_inertial     == nullptr) {
       MessageHandler::error(
          __FILE__,__LINE__, AtmosphereMessages::framework_error,
          "One of the required pointers is NULL.\n"
          "Wind cannot be computed.\n"
          "Deactivating model to prevent this message repeating.\n");
       active = false;
+      return;
    }
 
    /* Value by which omega is scaled depending on alt. */
@@ -209,7 +210,7 @@ void WindVelocity::set_omega_scale_table(double altitude, double factor)
    num_layers = 1;
 }
 
-void WindVelocity::set_omega_scale_table(unsigned int num_layers, double* altitude, double* factor)
+void WindVelocity::set_omega_scale_table(unsigned int num_layers, const double* altitude, const double* factor)
 {
    if(num_layers < 1) {
       MessageHandler::error(

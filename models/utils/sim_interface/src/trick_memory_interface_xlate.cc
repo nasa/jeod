@@ -16,8 +16,8 @@ Purpose:
   ()
 
 Library Dependency:
-  ((trick_memory_interface_xlate.o)
-   (trick10_memory_interface.o))
+  ((trick_memory_interface_xlate.cc)
+   (trick10_memory_interface.cc))
 
  
 
@@ -94,7 +94,7 @@ const
    std::string result;
 
    // A null pointer is a null pointer. Period.
-   if (addr == NULL) {
+   if (addr == nullptr) {
       result = "NULL";
    }
 
@@ -127,7 +127,7 @@ const
 {
    void * result = translate_name_to_addr (name);
 
-   if ((result == NULL) && (name != "NULL")) {
+   if ((result == nullptr) && (name != "NULL")) {
       // FIXME: Is this case already handled?
    }
 
@@ -198,7 +198,6 @@ JeodTrick10MemoryInterface::translate_name_to_addr (
 const
 {
    std::string name(spec);
-   std::size_t offset = 0;
    void * result;
    std::size_t position;
 
@@ -220,16 +219,17 @@ const
 
    // "NULL" means NULL, but ref_attributes doesn't grok "NULL".
    if (name.compare("NULL") == 0) {
-      result = NULL;
+      result = nullptr;
    }
 
    else {
+      std::size_t offset = 0;
 
       // Deal with strings of the form "&foo.bar + 42":
       // Interpret and then get rid of the trailing offset.
       position = name.find_first_of('+');
       if (position < name.length()) {
-         offset = std::strtoul(name.substr(position+1).c_str(), NULL, 0);
+         offset = std::strtoul(name.substr(position+1).c_str(), nullptr, 0);
          name.erase (position);
       }
 
@@ -248,7 +248,7 @@ const
          REF2 * ref = ref_attributes (const_cast<char*>(name_string));
 
          // We have a good name spec: form the result.
-         if (ref != NULL) {
+         if (ref != nullptr) {
             result = static_cast<void*> (
                         static_cast<char*> (ref->address) + offset);
 
@@ -266,7 +266,7 @@ const
                __FILE__, __LINE__, SimInterfaceMessages::interface_error,
                "Name '%s' cannot be translated to an address.",
                spec.c_str());
-            result = NULL;
+            result = nullptr;
          }
       }
 
@@ -276,7 +276,7 @@ const
             __FILE__, __LINE__, SimInterfaceMessages::interface_error,
             "Name '%s' is illegal.",
             spec.c_str());
-         result = NULL;
+         result = nullptr;
       }
    }
 

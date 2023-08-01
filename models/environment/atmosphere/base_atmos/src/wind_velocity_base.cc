@@ -14,9 +14,9 @@
 PURPOSE:
    ()
 Library dependencies:
-   ((wind_velocity_base.o)
-    (atmosphere_messages.o)
-    (utils/message/message_handler.o))
+   ((wind_velocity_base.cc)
+    (atmosphere_messages.cc)
+    (utils/message/src/message_handler.cc))
 
 *******************************************************************************/
 

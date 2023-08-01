@@ -22,7 +22,7 @@
  ((N/A))
 
  Library dependencies:
- ((contact_pair.o))
+ ((contact_pair.cc))
 
  
 
@@ -47,10 +47,10 @@ namespace jeod {
 ContactPair::ContactPair (
    void)
 : // Return: -- None
-interaction (NULL),
+interaction (nullptr),
 interaction_distance(0.0),
-subject (NULL),
-target (NULL)
+subject (nullptr),
+target (nullptr)
 {
 
 }
@@ -102,7 +102,7 @@ bool
 ContactPair::is_complete (
    void)
 {
-   if(target != NULL) {
+   if(target != nullptr) {
       return true;
    }
    return false;

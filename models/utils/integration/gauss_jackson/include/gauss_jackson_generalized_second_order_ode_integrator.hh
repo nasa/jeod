@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((gauss_jackson_generalized_second_order_ode_integrator.o))
+  ((../src/gauss_jackson_generalized_second_order_ode_integrator.cc))
 */
 
 
@@ -99,8 +99,8 @@ public:
       SecondOrderODEIntegrator (),
       vel_integrator (),
       pos_integrator (),
-      posdot (NULL),
-      posdotdot (NULL)
+      posdot (nullptr),
+      posdotdot (nullptr)
    {}
 
 
@@ -134,7 +134,7 @@ public:
    /**
     * Destructor.
     */
-   ~GaussJacksonGeneralizedDerivSecondOrderODEIntegrator ();
+   ~GaussJacksonGeneralizedDerivSecondOrderODEIntegrator () override;
 
 
    /**
@@ -160,13 +160,13 @@ public:
    /**
     * Replicate this.
     */
-   virtual er7_utils::SecondOrderODEIntegrator* create_copy() const;
+   er7_utils::SecondOrderODEIntegrator* create_copy() const override;
 
 
    /**
     * Reset the integrator.
     */
-   void reset_integrator ()
+   void reset_integrator () override
    {
       vel_integrator.reset_integrator ();
       pos_integrator.reset_integrator ();
@@ -181,7 +181,7 @@ public:
       unsigned int target_stage,
       double const * ER7_UTILS_RESTRICT acc,
       double * ER7_UTILS_RESTRICT vel,
-      double * ER7_UTILS_RESTRICT pos)
+      double * ER7_UTILS_RESTRICT pos) override
    {
       compute_posdot (pos, vel, posdot);
       compute_posdotdot (pos, vel, acc, posdotdot);

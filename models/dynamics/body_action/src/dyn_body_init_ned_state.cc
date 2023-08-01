@@ -16,18 +16,18 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_ned_state.o)
-   (body_action_messages.o)
-   (dyn_body_init.o)
-   (dyn_body_init_planet_derived.o)
-   (dyn_body_init_wrt_planet.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/planet_fixed/north_east_down/north_east_down.o)
-   (utils/planet_fixed/planet_fixed_posn/alt_lat_long_state.o)
-   (utils/planet_fixed/planet_fixed_posn/planet_fixed_posn.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((dyn_body_init_ned_state.cc)
+   (body_action_messages.cc)
+   (dyn_body_init.cc)
+   (dyn_body_init_planet_derived.cc)
+   (dyn_body_init_wrt_planet.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/planet_fixed/north_east_down/src/north_east_down.cc)
+   (utils/planet_fixed/planet_fixed_posn/src/alt_lat_long_state.cc)
+   (utils/planet_fixed/planet_fixed_posn/src/planet_fixed_posn.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -62,7 +62,9 @@ DynBodyInitNedState::DynBodyInitNedState (
 :
    DynBodyInitPlanetDerived(),
    ref_point(),
-   altlatlong_type(NorthEastDown::undefined)
+   altlatlong_type(NorthEastDown::undefined),
+   use_alt_pfix(false),
+   pfix_ptr(nullptr)
 {
    required_items = RefFrameItems::Pos;
    body_is_required = false;
@@ -82,6 +84,16 @@ DynBodyInitNedState::~DynBodyInitNedState (
 
 
 /**
+ * Setter for use_alt_pfix
+ */
+void
+DynBodyInitNedState::set_use_alt_pfix (
+   const bool use_alt_pfix_in)
+{
+   use_alt_pfix = use_alt_pfix_in;
+}
+
+/**
  * Initialize the initializer.
  * \param[in,out] dyn_manager Dynamics manager
  */
@@ -97,6 +109,14 @@ DynBodyInitNedState::initialize (
    // Pass the message up the chain. This will initialize the base
    // characteristics of the instance.
    DynBodyInitPlanetDerived::initialize (dyn_manager);
+
+   // Choose the planet fixed frame to be used
+   if (use_alt_pfix) {
+      planet->calculate_alt_pfix();
+      pfix_ptr = &(planet->alt_pfix);
+   } else {
+      pfix_ptr = &(planet->pfix);
+   }
 }
 
 
@@ -118,7 +138,7 @@ DynBodyInitNedState::apply (
 
    // Populate the planet-fixed state.
    // No reference body: Use the reference point as the basis for the state.
-   if (ref_body == NULL) {
+   if (ref_body == nullptr) {
 
       // The point is stationary wrt the rotating planet.
       Vector3::initialize (ned_state.ned_frame.state.trans.velocity);
@@ -156,7 +176,7 @@ DynBodyInitNedState::apply (
       RefFrameState rel_state;
 
       // Compute the state of the reference body to the planet fixed frame.
-      ref_body->composite_body.compute_relative_state (planet->pfix, rel_state);
+      ref_body->composite_body.compute_relative_state (*pfix_ptr, rel_state);
 
       // Set the north-east-down frame's translational states.
       ned_state.set_ned_trans_states (
@@ -174,7 +194,7 @@ DynBodyInitNedState::apply (
 
    /* (Temporarily) attach the north-east-down frame to the planet-centered,
       planet-fixed frame. */
-   planet->pfix.add_child (ned_state.ned_frame);
+   pfix_ptr->add_child (ned_state.ned_frame);
 
 
    // The position/velocity/attitude/rate data pertain to this newly
@@ -195,7 +215,7 @@ DynBodyInitNedState::apply (
 
    // The N-E-D frame will go out of scope on returning from this function.
    // The reference_ref_frame should no longer refer to this frame.
-   reference_ref_frame = NULL;
+   reference_ref_frame = nullptr;
 
    return;
 }

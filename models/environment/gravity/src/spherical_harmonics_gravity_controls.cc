@@ -16,15 +16,15 @@ Purpose:
   ()
 
 Library dependencies:
-  ((spherical_harmonics_gravity_controls.o)
-   (spherical_harmonics_calc_nonspherical.o)
-   (gravity_controls.o)
-   (spherical_harmonics_delta_coeffs.o)
-   (spherical_harmonics_delta_controls.o)
-   (spherical_harmonics_gravity_source.o)
-   (gravity_manager.o)
-   (gravity_messages.o)
-   (utils/message/message_handler.o))
+  ((spherical_harmonics_gravity_controls.cc)
+   (spherical_harmonics_calc_nonspherical.cc)
+   (gravity_controls.cc)
+   (spherical_harmonics_delta_coeffs.cc)
+   (spherical_harmonics_delta_controls.cc)
+   (spherical_harmonics_gravity_source.cc)
+   (gravity_manager.cc)
+   (gravity_messages.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -57,12 +57,12 @@ SphericalHarmonicsGravityControls::SphericalHarmonicsGravityControls (
    void)
 :
    min_radius_warn(false),
-   harmonics_source(NULL),
-   Pnm(NULL),
+   harmonics_source(nullptr),
+   Pnm(nullptr),
    delta_degree(0),
    delta_order(0),
-   delta_Cnm(NULL),
-   delta_Snm(NULL),
+   delta_Cnm(nullptr),
+   delta_Snm(nullptr),
    total_dC20(0.0),
 
    degree(0),
@@ -93,14 +93,14 @@ SphericalHarmonicsGravityControls::~SphericalHarmonicsGravityControls (
    // Array Pnm was allocated to degree/order specified in harmonics body,
    // which is the size of the entire spherical harmonics model, not to the
    // to-be-used degree/order specified in this control.
-   if (Pnm != NULL) {
+   if (Pnm != nullptr) {
       for (unsigned int ii = 0; ii <= harmonics_source->degree; ++ii) {
          JEOD_DELETE_ARRAY (Pnm[ii]);
       }
       JEOD_DELETE_ARRAY (Pnm);
    }
 
-   if (delta_Cnm != NULL) {
+   if (delta_Cnm != nullptr) {
       for (unsigned int ii = 0; ii <= delta_degree; ++ii) {
          JEOD_DELETE_ARRAY (delta_Cnm[ii]);
          JEOD_DELETE_ARRAY (delta_Snm[ii]);
@@ -200,7 +200,7 @@ SphericalHarmonicsGravityControls::add_deltacontrol (
       unsigned int new_degree = temp_deltacoeff->degree;
       unsigned int new_order = temp_deltacoeff->order;
 
-      if (delta_Cnm != NULL) {
+      if (delta_Cnm != nullptr) {
          for (unsigned int ii = 0; ii < delta_degree; ++ii) {
             JEOD_DELETE_ARRAY (delta_Cnm[ii]);
             JEOD_DELETE_ARRAY (delta_Snm[ii]);

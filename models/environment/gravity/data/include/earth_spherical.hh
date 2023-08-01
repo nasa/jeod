@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -39,7 +39,7 @@ Purpose:
   (Provide an opportunity for earth spherical gravity field)
 
 Library dependencies:
-  ((earth_spherical.o))
+  ((../src/earth_spherical.cc))
 ******************************************************************************/
 
 #ifndef JEOD_SPHERICALHARMONICSGRAVITYBODY_EARTH_SPHERICAL_DEFAULT_DATA_H
@@ -53,7 +53,7 @@ namespace jeod {
 class SphericalHarmonicsGravitySource_earth_spherical_default_data :
       public SphericalHarmonicsGravitySource_default_data {
  public:
-   virtual void initialize (SphericalHarmonicsGravitySource*);
+   void initialize (SphericalHarmonicsGravitySource*) override;
 };
 
 } // End JEOD namespace

@@ -21,15 +21,15 @@ ASSUMPTIONS AND LIMITATIONS:
   ((This class converts from TimeDyn to TimeTAI *only*))
 
 LIBRARY DEPENDENCY:
-  ((time_converter_dyn_tai.o)
-   (time_converter.o)
-   (time.o)
-   (time_dyn.o)
-   (time_tai.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_converter_dyn_tai.cc)
+   (time_converter.cc)
+   (time.cc)
+   (time_dyn.cc)
+   (time_tai.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -59,8 +59,8 @@ namespace jeod {
 TimeConverter_Dyn_TAI::TimeConverter_Dyn_TAI (
    void)
 {
-   dyn_ptr               = NULL;
-   tai_ptr               = NULL;
+   dyn_ptr               = nullptr;
+   tai_ptr               = nullptr;
    a_name                = "Dyn";
    b_name                = "TAI";
    valid_directions = A_TO_B_UPDATE;
@@ -91,7 +91,7 @@ TimeConverter_Dyn_TAI::initialize (
 
       // Convert the parent to a TimeDyn, ensuring that this conversion works.
       dyn_ptr = dynamic_cast<TimeDyn *> (parent_ptr);
-      if (dyn_ptr == NULL) {
+      if (dyn_ptr == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, TimeMessages::invalid_setup_error,
             "\n Object '%s' is not an object of type %s, as was expected when"
@@ -101,7 +101,7 @@ TimeConverter_Dyn_TAI::initialize (
 
       // Convert the child to a TimeTAI, ensuring that this conversion works.
       tai_ptr = dynamic_cast<TimeTAI *> (child_ptr);
-      if (tai_ptr == NULL) {
+      if (tai_ptr == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, TimeMessages::invalid_setup_error,
             "\n Object '%s' is not an object of type %s, as was expected when"
@@ -117,7 +117,7 @@ TimeConverter_Dyn_TAI::initialize (
 
       // Convert the child to a TimeDyn, ensuring that this conversion works.
       dyn_ptr = dynamic_cast<TimeDyn *> (child_ptr);
-      if (dyn_ptr == NULL) {
+      if (dyn_ptr == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, TimeMessages::invalid_setup_error,
             "\n Object '%s' is not an object of type %s, as was expected when"
@@ -127,7 +127,7 @@ TimeConverter_Dyn_TAI::initialize (
 
       // Convert the parent to a TimeTAI, ensuring that this conversion works.
       tai_ptr = dynamic_cast<TimeTAI *> (parent_ptr);
-      if (tai_ptr == NULL) {
+      if (tai_ptr == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, TimeMessages::invalid_setup_error,
             "\n Object '%s' is not an object of type %s, as was expected when"

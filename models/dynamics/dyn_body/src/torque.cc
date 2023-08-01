@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((torque.o))
+  ((torque.cc))
 
 
 
@@ -67,8 +67,8 @@ Torque::~Torque (
 CollectTorque::CollectTorque (
    void)
 :
-   active(NULL),
-   torque(NULL)
+   active(nullptr),
+   torque(nullptr)
 {
    ; // Empty
 }
@@ -97,7 +97,7 @@ CollectTorque::CollectTorque (
 CollectTorque::CollectTorque (
    double torque_3vec[3])
 :
-   active(NULL),
+   active(nullptr),
    torque(torque_3vec)
 {
    ; // Empty
@@ -167,7 +167,7 @@ CInterfaceTorque::CInterfaceTorque (
 CInterfaceTorque::~CInterfaceTorque (
    void)
 {
-   if ((active != NULL) && JEOD_IS_ALLOCATED (active)) {
+   if ((active != nullptr) && JEOD_IS_ALLOCATED (active)) {
       JEOD_DELETE_OBJECT (active);
    }
 }

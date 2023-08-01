@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((radiation_facet.o))
+((../src/radiation_facet.cc))
 
 
 *******************************************************************************/
@@ -127,7 +127,7 @@ public:
    RadiationFacet ();
 
    // destructor
-   virtual ~RadiationFacet ();
+   ~RadiationFacet () override;
 
    /**
     * Calculates the effect of radiation pressure on the facet.
@@ -140,11 +140,11 @@ public:
     */
    virtual void initialize_geom (double cg[3]) = 0;
 
-   virtual void initialize();
+   void initialize() override;
 
    void define_facet_core (
       Facet * facet,
-      ThermalFacetRider &facet_thermal,
+      const ThermalFacetRider &facet_thermal,
       RadiationParams * params);
 
    /**

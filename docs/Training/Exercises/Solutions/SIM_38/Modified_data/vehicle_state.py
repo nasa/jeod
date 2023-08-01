@@ -1,4 +1,4 @@
-state.orb_init.dyn_subject              = vehicle.dyn_body
+state.orb_init.set_subject_body(vehicle.dyn_body)
 state.orb_init.reference_ref_frame_name = "Earth.inertial"
 state.orb_init.body_frame_id            = "composite_body"
 state.orb_init.set = trick.DynBodyInitOrbit.SmaEccIncAscnodeArgperTimeperi
@@ -13,7 +13,7 @@ state.orb_init.ascending_node   = 0.0
 state.orb_init.time_periapsis   = 0.0
 
 
-vehicle.rot_init.dyn_subject 		  =  vehicle.dyn_body
+vehicle.rot_init.set_subject_body(vehicle.dyn_body)
 vehicle.rot_init.reference_ref_frame_name = "Earth.inertial"
 vehicle.rot_init.body_frame_id            = "composite_body"
 vehicle.rot_init.orientation.data_source = trick.Orientation.InputEigenRotation

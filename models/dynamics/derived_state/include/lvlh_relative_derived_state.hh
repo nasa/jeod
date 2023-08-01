@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((lvlh_relative_derived_state.o))
+  ((../src/lvlh_relative_derived_state.cc))
 
 
 
@@ -116,17 +116,17 @@ class LvlhRelativeDerivedState : public RelativeDerivedState {
    /**
     * Destructor; defined because it's virtual.
     */
-   virtual ~LvlhRelativeDerivedState (void) {return;}
+   ~LvlhRelativeDerivedState (void) override {return;}
 
    // initialize(): Initialize the LvlhRelativeDerivedState instance
-   virtual void initialize (DynBody & subject_body, DynManager & dyn_manager);
+   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
 
    // update(): Compute the LVLH relative state
-   virtual void update (void);
+   void update (void) override;
 
    // Convert between types of LVLH coordinates
-   void convert_rect_to_circ (const RefFrameState rect_rel_state);
-   void convert_circ_to_rect (const RefFrameState circ_rel_state);
+   void convert_rect_to_circ (const RefFrameState & rect_rel_state);
+   void convert_circ_to_rect (const RefFrameState & circ_rel_state);
 
 
  private:

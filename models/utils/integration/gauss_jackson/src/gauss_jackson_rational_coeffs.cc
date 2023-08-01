@@ -16,7 +16,7 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((gauss_jackson_rational_coeffs.o))
+  ((gauss_jackson_rational_coeffs.cc))
 */
 
 

@@ -16,11 +16,11 @@ Purpose:
   ()
 
 Library dependencies:
-  ((memory_manager_static.o)
-   (memory_manager.o)
-   (memory_item.o)
-   (memory_messages.o)
-   (memory_type.o))
+  ((memory_manager_static.cc)
+   (memory_manager.cc)
+   (memory_item.cc)
+   (memory_messages.cc)
+   (memory_type.cc))
 
  
 *******************************************************************************/
@@ -47,7 +47,7 @@ Library dependencies:
 namespace jeod {
 
 // Linkage for JeodMemoryManager::Master
-JeodMemoryManager * JeodMemoryManager::Master = NULL;
+JeodMemoryManager * JeodMemoryManager::Master = nullptr;
 
 
 /**
@@ -63,7 +63,7 @@ JeodMemoryManager::check_master (
    bool error_is_fatal,
    int line)
 {
-   if (Master == NULL) {
+   if (Master == nullptr) {
       const char * msg = "The master memory manager has not been established.";
       if (error_is_fatal) {
          MessageHandler::fail (
@@ -185,7 +185,7 @@ JeodMemoryManager::register_class (
 
    // Not reached.
    else {
-      return JeodMemoryManager::TypeEntry (0, NULL);
+      return JeodMemoryManager::TypeEntry (0, nullptr);
    }
 }
 
@@ -204,7 +204,7 @@ const JeodMemoryTypeDescriptor *
 JeodMemoryManager::get_type_descriptor (
    const std::type_info & typeid_info)
 {
-   const JeodMemoryTypeDescriptor * result = NULL;
+   const JeodMemoryTypeDescriptor * result = nullptr;
 
    // Throw a fatal error if the singleton memory manager is not available.
    if (check_master (true, __LINE__)) {
@@ -233,7 +233,7 @@ JeodMemoryManager::get_type_descriptor (
    JeodMemoryManager::NameType name_type,
    const std::string & type_name)
 {
-   const JeodMemoryTypeDescriptor * result = NULL;
+   const JeodMemoryTypeDescriptor * result = nullptr;
 
    // Throw a fatal error if the singleton memory manager is not available.
    if (check_master (true, __LINE__)) {
@@ -274,7 +274,7 @@ JeodMemoryManager::create_memory (
    const char * file,
    unsigned int line)
 {
-   void * addr = NULL;       // -- Allocated memory
+   void * addr = nullptr;       // -- Allocated memory
 
    // Throw a fatal error if the singleton memory manager is not available.
    if (check_master (true, __LINE__)) {
@@ -380,13 +380,14 @@ JeodMemoryManager::register_container (
          Master->get_type_descriptor_atomic (container_type));
 
       // Protect against A null type descriptor (otherwise get core dump)
-      if (tdesc == NULL) {
+      if (tdesc == nullptr) {
          std::string type_name(NamedItem::demangle(container_type));
          MessageHandler::fail (
             __FILE__, __LINE__, MemoryMessages::null_pointer,
             "Illegal attempt to register container %s:%s contained in %p\n"
             "Class %s has not been registered with the memory manager.",
             type_name.c_str(), elem_name, container, type_name.c_str());
+         return;
       }
 
       // Register the checkpointable object with the sim interface.
@@ -427,13 +428,14 @@ JeodMemoryManager::deregister_container (
          Master->get_type_descriptor_atomic (container_type));
 
       // Protect against A null type descriptor (otherwise get core dump)
-      if (tdesc == NULL) {
+      if (tdesc == nullptr) {
          std::string type_name(NamedItem::demangle(container_type));
          MessageHandler::fail (
             __FILE__, __LINE__, MemoryMessages::null_pointer,
             "Illegal attempt to register container %s:%s contained in %p\n"
             "Class %s has not been registered with the memory manager.",
             type_name.c_str(), elem_name, container, type_name.c_str());
+         return;
       }
 
       // De-register the checkpointable object with the sim interface.

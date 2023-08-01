@@ -25,12 +25,12 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time.o)
-   (time_manager.o)
-   (time_manager_init.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((time.cc)
+   (time_manager.cc)
+   (time_manager_init.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
  
 
@@ -73,12 +73,10 @@ JeodBaseTime::add_type_update (
    const int seeking_status,
    TimeManagerInit * time_manager_init)
 {
-   int ii = 0; // -- index iterator
    int conv_index = 0; // -- converter index in TimeManagerInit
    int conv_dir = 0;       // -- direction of application of converter
-   JeodBaseTime * parent_ptr = NULL;  // -- pointer to the parent time.
+   JeodBaseTime * parent_ptr = nullptr;  // -- pointer to the parent time.
    int parent_index = -1;   // -- index-value of the parent time
-   int parent_status = -2;  // -- status of this time's parent time.
 
    time_manager_init->set_status (index, -1);
    // used to check for loops; resets before exit
@@ -100,7 +98,7 @@ JeodBaseTime::add_type_update (
    }
    // else if parent name is blank, do an auto-seek.
    else if (parent_index == -2) {
-      for (ii = 0; ii < time_manager->num_types; ++ii) {
+      for (int ii = 0; ii < time_manager->num_types; ++ii) {
          if (time_manager_init->get_status (ii) == seeking_status) {
             // TimeManagerInit converter unique index formula:
             conv_index = ii * time_manager->num_types + index;
@@ -132,7 +130,7 @@ JeodBaseTime::add_type_update (
    }
    else { // parent defined and found
       // Link it in
-      parent_status = time_manager_init->get_status (parent_index);
+      int parent_status = time_manager_init->get_status (parent_index);
       // 1. verify that this is not a loop.
       if (parent_status == -1) {
          MessageHandler::fail (
@@ -218,7 +216,7 @@ JeodBaseTime::add_type_update (
    int mgr_conv_ix = time_manager_init->get_conv_ptr_index (
       conv_index);
    TimeConverter * converter_ptr = time_manager->get_converter_ptr (mgr_conv_ix);
-   if (converter_ptr == NULL) {
+   if (converter_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::memory_error, "\n"
          "No converter found at index %i in the time_manager's converter registry"
@@ -226,6 +224,7 @@ JeodBaseTime::add_type_update (
          "time_manager_init, derived from the time types %s and %s,\n"
          "with indices %i and %i respectively.\n",
          conv_index, name.c_str(), parent_ptr->name.c_str(), index, parent_index);
+      return;
    }
 
    if (!converter_ptr->is_initialized()) {

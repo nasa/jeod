@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -42,7 +42,7 @@
          basis.)
      
     Library dependencies:
-        ((message_subscriber_verif.o))
+        ((../src/message_subscriber_verif.cc))
 */
 
 #ifndef MESSAGEFILEVERIF_HH
@@ -67,12 +67,12 @@ namespace jeod {
     class MessageFileVerif : public Trick::MessageFile {
         public:
             MessageFileVerif()  = default;
-            ~MessageFileVerif() = default;
+            ~MessageFileVerif() override = default;
 
             /**
              @brief Output message to the file excluding the header.
              */
-            virtual void update( unsigned int level, std::string header, std::string message );
+            void update( unsigned int level, std::string header, std::string message ) override;
 
     };
 }

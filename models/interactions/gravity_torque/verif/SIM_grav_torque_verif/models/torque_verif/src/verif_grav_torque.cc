@@ -18,7 +18,7 @@ CLASS:
   (derivative)
 
 LIBRARY DEPENDENCY:
-  ((verif_grav_torque.o))
+  ((verif_grav_torque.cc))
 
 
 */

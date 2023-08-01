@@ -23,11 +23,11 @@ ASSUMPTIONS AND LIMITATIONS:
 CLASS:
     (scheduled)
 LIBRARY DEPENDENCY:
-    ((radiation_pressure.o)
-     (radiation_pressure__surface_model.o)
-     (radiation_pressure__default_surface.o)
-     (radiation_source.o)
-     (radiation_third_body.o))
+    ((radiation_pressure.cc)
+     (radiation_pressure__surface_model.cc)
+     (radiation_pressure__default_surface.cc)
+     (radiation_source.cc)
+     (radiation_third_body.cc))
 
 
 
@@ -76,9 +76,9 @@ RadiationPressure::RadiationPressure (
    Vector3::initialize (force);
    Vector3::initialize (torque);
    illum_factor = 0.0;
-   surface_ptr = NULL;
-   default_surface_ptr = NULL;
-   dyn_manager_ptr = NULL;
+   surface_ptr = nullptr;
+   default_surface_ptr = nullptr;
+   dyn_manager_ptr = nullptr;
    JEOD_REGISTER_CLASS(RadiationPressure);
    JEOD_REGISTER_CLASS(RadiationThirdBody);
    JEOD_REGISTER_CHECKPOINTABLE(this,third_bodies);
@@ -141,7 +141,7 @@ RadiationPressure::update (
    // methods called here are more managerial that operational.  The operational
    // methods are in the appropriate Surface class, and are called by these
    // managerial methods.  They do belong in RadiationPressure.
-   if (surface_ptr == NULL) {
+   if (surface_ptr == nullptr) {
       update_default_surface();
    }
    else {
@@ -183,11 +183,12 @@ void
 RadiationPressure::add_third_body (
     RadiationThirdBody * third_body_ptr)
 {
-   if (third_body_ptr == NULL) {
+   if (third_body_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "Attempted to push a NULL object onto the ThirdBody vector in "
          "the Radiation Pressure model.\n");
+      return;
    }
    // third_body_ptr is not NULL
    // If third body is not named, then fail at initialization, and flag a
@@ -290,7 +291,7 @@ RadiationPressure::set_third_body_active (
       else {
          third_bodies_active = true;
          third_bodies[body_index]->active = true;
-         if (third_bodies[body_index]->local_frame_ptr != NULL) {
+         if (third_bodies[body_index]->local_frame_ptr != nullptr) {
             dyn_manager_ptr->subscribe_to_frame (
                   *third_bodies[body_index]->local_frame_ptr);
          }
@@ -326,7 +327,7 @@ RadiationPressure::set_third_body_inactive (
       }
       else {
          third_bodies[body_index]->active = false;
-         if (third_bodies[body_index]->local_frame_ptr != NULL) {
+         if (third_bodies[body_index]->local_frame_ptr != nullptr) {
             dyn_manager_ptr->unsubscribe_to_frame (
                              *third_bodies[body_index]->local_frame_ptr);
          }

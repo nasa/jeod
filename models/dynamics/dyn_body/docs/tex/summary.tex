@@ -73,6 +73,10 @@ Much more also happens when DynBody objects attach and detach, including
 conservation of momenta. Vehicle states change, and these changes must be
 performed in a manner consistent with the laws of physics.
 
+Additionally, DynBody objects may be kinematically attached to any reference frame as a means of holding position 
+relative to that frame. In this case, the mass tree is unaffected. One use case for this capability is when a vehicle 
+is at a launchpad and should remain fixed positionally and rotationally w.r.t. the planet-fixed frame.
+
 \subsection*{Initialization}
 Initializing a DynBody object is a rather complex process. The zeroth stage
 of the initialization process occurs when the object is constructed.

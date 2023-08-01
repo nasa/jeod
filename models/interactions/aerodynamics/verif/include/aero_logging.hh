@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ PURPOSE:
    (Logging for the aerodynamics verification sim)
 
 LIBRARY DEPENDENCY:
-   ((aero_logging.o))
+   ((../src/aero_logging.cc))
 
 ASSUMPTIONS:
 

@@ -21,17 +21,17 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_manager_init.o)
-   (time_manager.o)
-   (time.o)
-   (time__add_type_update.o)
-   (time_ude.o)
-   (time_converter.o)
-   (time_converter_tai_utc.o)
-   (time_converter_tai_ut1.o)
-   (utils/sim_interface/memory_interface.o)
-   (time_messages.o)
-   (utils/message/message_handler.o))
+  ((time_manager_init.cc)
+   (time_manager.cc)
+   (time.cc)
+   (time__add_type_update.cc)
+   (time_ude.cc)
+   (time_converter.cc)
+   (time_converter_tai_utc.cc)
+   (time_converter_tai_ut1.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (time_messages.cc)
+   (utils/message/src/message_handler.cc))
 
  
 ******************************************************************************/
@@ -64,19 +64,19 @@ namespace jeod {
 TimeManagerInit::TimeManagerInit (
    void)
 :
-   time_manager(NULL)
+   time_manager(nullptr),
+   initializer("")
 {
    num_added_total  = 0;
    sim_start_format = TimeEnum::undefined;
 
-   initializer                = "";
    initializer_index          = -1;
    dyn_time_index             = -1;
    num_added_pass             = -1;
-   status                     = NULL;
-   converter_ptrs_index       = NULL;
-   init_converter_dir_table   = NULL;
-   update_converter_dir_table = NULL;
+   status                     = nullptr;
+   converter_ptrs_index       = nullptr;
+   init_converter_dir_table   = nullptr;
+   update_converter_dir_table = nullptr;
 
 
 }
@@ -275,16 +275,14 @@ void
 TimeManagerInit::populate_converter_registry (
    void)
 {
-   int index_a;
-   int index_b;
    int conv_indx_ab;
    int conv_indx_ba;
 
    for (unsigned int ii = 0; ii < time_manager->converter_vector.size();
         ++ii) {
-      index_a = time_manager->time_lookup
+      int index_a = time_manager->time_lookup
                    (time_manager->converter_vector[ii]->a_name );
-      index_b = time_manager->time_lookup
+      int index_b = time_manager->time_lookup
                    (time_manager->converter_vector[ii]->b_name );
       if (index_a < 0) {
          MessageHandler::inform (
@@ -447,7 +445,7 @@ TimeManagerInit::create_init_tree (
       TimeUDE * init_ude_ptr = dynamic_cast<TimeUDE *>
                                (time_manager->time_vector[
                                    initializer_index ]);
-      if (init_ude_ptr != NULL) {
+      if (init_ude_ptr != nullptr) {
          int upd_index =
             time_manager->time_lookup (init_ude_ptr->update_from_name);
          // If unable to tie the UDE to a standard: fatal error
@@ -811,16 +809,16 @@ TimeManagerInit::increment_status (
 TimeManagerInit::~TimeManagerInit (
    void)
 {
-   if (status != NULL) {
+   if (status != nullptr) {
       JEOD_DELETE_ARRAY (status);
    }
-   if (converter_ptrs_index != NULL) {
+   if (converter_ptrs_index != nullptr) {
       JEOD_DELETE_ARRAY (converter_ptrs_index);
    }
-   if (init_converter_dir_table != NULL) {
+   if (init_converter_dir_table != nullptr) {
       JEOD_DELETE_ARRAY (init_converter_dir_table);
    }
-   if (update_converter_dir_table != NULL) {
+   if (update_converter_dir_table != nullptr) {
       JEOD_DELETE_ARRAY (update_converter_dir_table);
    }
 }

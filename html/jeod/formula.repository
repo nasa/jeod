@@ -1,0 +1,22 @@
+\form#0:\begin{align*} \begin{split} \boldsymbol a_{\text{A,pm-pm}} =& \phantom{+} \sum_{B\ne A} \frac{GM_B}{r^3_{AB}}(\boldsymbol r_B - \boldsymbol r_A) \bigl(1+\frac {s_1} {c^2}\bigr) \\ & + \frac 1 {c^2} \sum_{B\ne A} \frac{GM_B}{r^3_{AB}}(\boldsymbol v_A - \boldsymbol v_B) \Bigl( \bigl( \boldsymbol r_A - \boldsymbol r_B \bigr) \cdot \bigl( (2+2\gamma)\boldsymbol v_A - (1+2\gamma)\boldsymbol v_B \bigr) \Bigr) \\ & + \frac {3+4\gamma} {2c^2} \sum_{B\ne A} \frac{GM_B}{r_{AB}} \boldsymbol a_B \end{split} \end{align*}
+\form#1:$ \boldsymbol a_B $
+\form#2:\begin{equation*} \begin{split} s_1 = & - 2(\beta+\gamma) \sum_{C\ne A}\frac{GM_C}{r_{AC}} - (2\beta-1) \sum_{C\ne A}\frac{GM_C}{r_{BC}} \\ & + \gamma v_a^2 + (1+\gamma) v_b^2 - 2(1+\gamma)\boldsymbol v_A \cdot \boldsymbol v_B \\ & - \frac32 \left( \frac{(\boldsymbol r_A - \boldsymbol r_B) \cdot \boldsymbol v_B}{r_B} \right)^2 \\ & + \frac12(\boldsymbol r_B - \boldsymbol r_A)\cdot \boldsymbol a_B \end{split} \end{equation*}
+\form#3:\begin{equation*} \begin{split} \boldsymbol \Delta a_{\text{A,B}} = \frac 1 c^2 \frac {GM_B}{r_{AB}} \Biggl\{ & \phantom{+} \frac{\boldsymbol r_B - \boldsymbol r_A}{r^2_{AB}} s_1 \\ & + \frac{\boldsymbol v_A - \boldsymbol v_B}{r^2_{AB}} \Bigl( \bigl( \boldsymbol r_A - \boldsymbol r_B \bigr) \cdot \bigl( (2+2\gamma)\boldsymbol v_A - (1+2\gamma)\boldsymbol v_B \bigr) \Bigr) \\ & + \frac {3+4\gamma}{2} \boldsymbol a_B \Biggr\} \end{split} \end{equation*}
+\form#4:$ \frac 1 c^2 \frac {GM_B}{r_{AB}} $
+\form#5:$ \beta $
+\form#6:$ \gamma $
+\form#7:$ (3+4\gamma)/2 $
+\form#8:$ 2 \beta - 1 $
+\form#9:$\phi$
+\form#10:$\hat{\mathbf u}$
+\form#11:\[ T_{ij} = \cos\phi\,\delta_{ij} + (1-\cos\phi)\,\hat u_i \hat u_j + \epsilon_{ijk}\sin\phi\,\hat u_k \]
+\form#12:$\delta_{ij}$
+\form#13:$(i+j) \bmod 3$
+\form#14:$\epsilon_{ijk}$
+\form#15:\begin{eqnarray*} \mathrm{tr}(T) &=& 2\cos\phi + 1 \\ T_{ij}-T_{ji} &=& 2\epsilon_{ijk}\sin\phi\,\hat u_k \\ T_{ij}+T_{ji} &=& 2(1-\cos\phi)\,\hat u_i \hat u_j \end{eqnarray*}
+\form#16:\[ d_k = T_{ij}-T_{ji} = 2 \sin\phi\,\hat u_k \]
+\form#17:\begin{eqnarray*} \phi &=& \arcsin\left(\frac{||\mathbf d||} 2\right) \\ \hat{\mathbf u} &=& \frac{\mathbf d}{||\mathbf d||} \end{eqnarray*}
+\form#18:\begin{eqnarray*} \phi &=& \arccos\left(\frac{\mathrm{tr}(T)-1} 2\right) \\ |\hat u_i| &=& \sqrt{\frac{T_{ii} - \cos \phi}{1-\cos\phi}} \end{eqnarray*}
+\form#19:\begin{eqnarray*} T_{ij}+T_{ji} &=& 2(1-\cos\phi)\,\hat u_i \hat u_j \\ T_{ik}+T_{ki} &=& 2(1-\cos\phi)\,\hat u_i \hat u_k \end{eqnarray*}
+\form#20:\[ \left[\array{ccc} \cos\psi\cos\theta & \cdots & \cdots \\ -\sin\psi\cos\theta & \cdots & \cdots \\ \sin\theta & -\cos\theta\sin\phi & \cos\theta\cos\phi \endarray\right] \]
+\form#21:\[ \left[\array{ccc} 0 & \sin(\phi+\psi) & -cos(\phi+\psi) \\ 0 & \cos(\phi+\psi) & \sin(\phi+\psi) \\ 1 & 0 & 0 \endarray\right] \]

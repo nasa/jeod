@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ned_derived_state.o))
+  ((../src/ned_derived_state.cc))
 
 
 
@@ -104,14 +104,26 @@ class NedDerivedState : public DerivedState {
     * The NorthEastDown frame plus spherical/elliptical selector.
     */
    NorthEastDown ned_state; //!< trick_units(--)
+   
+   /**
+    * The planet, the name of which is specified by the inherited
+    * reference_name data member.
+    */
+   Planet * planet; //!< trick_units(--)
 
 
  protected:
 
    /**
-    * The rotating frame with origin at the center of the specified planet.
+    * Use pfix or alt_pfix flag
     */
-   RefFrame * planet_centered_planet_fixed; //!< trick_units(--)
+   bool use_alt_pfix;
+   
+   /**
+    * Pointer to planet fixed frame to be used, either 
+    * pfix or alt_pfix
+    */
+   EphemerisRefFrame * pfix_ptr;
 
    /**
     * Vehicle state relative to the planet-center, planet-fixed frame.
@@ -125,20 +137,23 @@ class NedDerivedState : public DerivedState {
 
    // Default constructor and destructor
    NedDerivedState ();
-   ~NedDerivedState ();
+   ~NedDerivedState () override;
+
+   // Setter for use_alt_pfix
+   void set_use_alt_pfix (const bool use_alt_pfix_in);
 
    // initialize(): Initialize the DerivedState (but not necessarily the
    // state itself.)
    // Rules for derived classes:
    // All derived classes must forward the initialize() call to the immediate
    // parent class and then perform class-dependent object initializations.
-   virtual void initialize (DynBody & subject_body, DynManager & dyn_manager);
+   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
 
    // update(): Update the DerivedState representation of the subject DynBody.
    // Rules for derived classes:
    // All derived classes must perform class-dependent actions and then
    // must forward the update() call to the immediate parent class.
-   virtual void update (void);
+   void update (void) override;
 
 
  protected:

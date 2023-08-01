@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((data_rnp_j2000.o))
+  ((../src/data_rnp_j2000.cc))
 ******************************************************************************/
 
 #ifndef JEOD_RNPJ2000_RNP_J2000_DEFAULT_DATA_H

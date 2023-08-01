@@ -24,7 +24,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((planet_fixed_messages.o))
+  ((planet_fixed_messages.cc))
 
  
 *******************************************************************************/

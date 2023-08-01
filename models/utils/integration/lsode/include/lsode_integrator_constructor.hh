@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,8 +61,8 @@ Assumptions and limitations:
   (())
 
 Library dependencies:
-  ((lsode_integrator_constructor.o)
-   (lsode_integration_controls.o))
+  ((../src/lsode_integrator_constructor.cc)
+   (../src/lsode_integration_controls.cc))
 
  
 
@@ -123,14 +123,14 @@ public:
    /**
     * Return the class name.
     */
-   virtual const char * get_class_name (void) const
+   const char * get_class_name (void) const override
    { return "LsodeIntegratorConstructor"; }
 
    /**
     * Lsode currently does not implement a second order generalized step
     * integrator.
     */
-   virtual bool implements (er7_utils::Integration::ODEProblemType problem_type) const
+   bool implements (er7_utils::Integration::ODEProblemType problem_type) const override
    {
       return (problem_type != er7_utils::Integration::GeneralizedDerivSecondOrderODE) &&
              (problem_type != er7_utils::Integration::GeneralizedStepSecondOrderODE);
@@ -140,7 +140,7 @@ public:
     * Lsode currently does not provide a second order generalized step
     * integrator.
     */
-   virtual bool provides (er7_utils::Integration::ODEProblemType problem_type) const
+   bool provides (er7_utils::Integration::ODEProblemType problem_type) const override
    {
       return (problem_type != er7_utils::Integration::GeneralizedDerivSecondOrderODE) &&
              (problem_type != er7_utils::Integration::GeneralizedStepSecondOrderODE);
@@ -151,14 +151,14 @@ public:
     * The caller is responsible for deleting the returned object.
     * @return Duplicated constructor.
     */
-   virtual er7_utils::IntegratorConstructor * create_copy (void) const;
+   er7_utils::IntegratorConstructor * create_copy (void) const override;
 
    /**
     * Create an integration controls that guides the Lsode integration process.
     * The caller is responsible for deleting the created object.
     * @return Integration controls object
     */
-   virtual er7_utils::IntegrationControls * create_integration_controls (void) const;
+   er7_utils::IntegrationControls * create_integration_controls (void) const override;
 
    /**
     * Create an Lsode state integrator for a first order ODE.
@@ -167,9 +167,9 @@ public:
     * @param[in]     size      State size
     * @param[in,out] controls  Integration controls
     */
-   virtual er7_utils::FirstOrderODEIntegrator * create_first_order_ode_integrator (
+   er7_utils::FirstOrderODEIntegrator * create_first_order_ode_integrator (
       unsigned int size,
-      er7_utils::IntegrationControls & controls) const;
+      er7_utils::IntegrationControls & controls) const override;
 
    /**
     * Create an Lsode state integrator for a simple second order ODE.
@@ -178,9 +178,9 @@ public:
     * @param[in]     size      State size
     * @param[in,out] controls  Integration controls
     */
-   virtual er7_utils::SecondOrderODEIntegrator * create_second_order_ode_integrator (
+   er7_utils::SecondOrderODEIntegrator * create_second_order_ode_integrator (
       unsigned int size,
-      er7_utils::IntegrationControls & controls) const;
+      er7_utils::IntegrationControls & controls) const override;
 
    /**
     * Create an Lsode state integrator for a generalized second order ODE
@@ -193,19 +193,19 @@ public:
     * @param[in]     deriv_funs     Position derivative functions container
     * @param[in,out] controls       Integration controls
     */
-   virtual er7_utils::SecondOrderODEIntegrator *
+   er7_utils::SecondOrderODEIntegrator *
    create_generalized_deriv_second_order_ode_integrator (
       unsigned int position_size,
       unsigned int velocity_size,
       const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
-      er7_utils::IntegrationControls & controls) const;
+      er7_utils::IntegrationControls & controls) const override;
 
 
    /**
     * Lsode dioes not use a linear transition table
     * @return Always returns 0.
     */
-   virtual unsigned int get_transition_table_size (void) const
+   unsigned int get_transition_table_size (void) const override
    { return 0; }
 
 

@@ -21,14 +21,14 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((radiation_surface.o)
-(radiation_facet.o)
-(radiation_messages.o)
-(interactions/thermal_rider/thermal_facet_rider.o)
-(utils/sim_interface/memory_interface.o)
-(utils/message/message_handler.o)
-(utils/surface_model/interaction_facet.o)
-(utils/surface_model/interaction_surface.o))
+((radiation_surface.cc)
+(radiation_facet.cc)
+(radiation_messages.cc)
+(interactions/thermal_rider/src/thermal_facet_rider.cc)
+(utils/sim_interface/src/memory_interface.cc)
+(utils/message/src/message_handler.cc)
+(utils/surface_model/src/interaction_facet.cc)
+(utils/surface_model/src/interaction_surface.cc))
 
 
 *******************************************************************************/
@@ -65,10 +65,10 @@ JEOD_DECLARE_ATTRIBUTES (RadiationFacet)
 RadiationSurface::RadiationSurface (
    void)
 {
-   facets             = NULL;
+   facets             = nullptr;
    num_facets         = 0;
    include_conduction = false;
-   thermal_conduction = NULL;
+   thermal_conduction = nullptr;
 
    Vector3::initialize (force);
    Vector3::initialize (torque);
@@ -141,7 +141,7 @@ RadiationSurface::allocate_array (
    unsigned int size)
 {
 
-   if (facets != NULL) {
+   if (facets != nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::operational_setup_error, "\n"
          "Before setting up the array of RadiationFacet pointers (facets),\n"
@@ -156,7 +156,7 @@ RadiationSurface::allocate_array (
 
    // Make sure all pointers are NULL so destructor never crashes
    for (ii_facet = 0; ii_facet < num_facets; ++ii_facet) {
-      facets[ii_facet] = NULL;
+      facets[ii_facet] = nullptr;
    }
 
    return;
@@ -192,11 +192,11 @@ RadiationSurface::allocate_interaction_facet (
       dynamic casting it. If the dynamic cast fails, we want to destroy
       the InteractionFacet so we don't get a memory leak */
 
-   InteractionFacet* temp_facet = NULL;
+   InteractionFacet* temp_facet = nullptr;
 
    temp_facet = factory->create_facet (facet, params);
 
-   if (temp_facet == NULL) {
+   if (temp_facet == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::operational_setup_error, "\n"
          "create_facet failed, returning a NULL pointer.\n");
@@ -209,7 +209,7 @@ RadiationSurface::allocate_interaction_facet (
       dynamic_cast<RadiationFacet*> (temp_facet);
 
 
-   if (temp_radiation_facet == NULL) {
+   if (temp_radiation_facet == nullptr) {
 
       // temp_facet can NOT be NULL, since it was already checked for above
       JEOD_DELETE_OBJECT (temp_facet);
@@ -375,10 +375,10 @@ RadiationSurface::~RadiationSurface (
    void)
 {
 
-   if (facets != NULL) {
+   if (facets != nullptr) {
 
       for (ii_facet = 0; ii_facet < num_facets; ++ii_facet) {
-         if (facets[ii_facet] != NULL) {
+         if (facets[ii_facet] != nullptr) {
             JEOD_DELETE_OBJECT (facets[ii_facet]);
          }
       }

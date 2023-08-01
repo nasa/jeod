@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -56,7 +56,7 @@ ASSUMPTIONS AND LIMITATIONS:
    ((The inertial frame of the planet causing the wind velocity must have it's
      Z-axis nominally aligned with the major rotation of the planet))
 LIBRARY DEPENDENCIES:
-   ((wind_velocity.o))
+   ((../src/wind_velocity.cc))
 
 *******************************************************************************/
 
@@ -92,7 +92,7 @@ public:
 
    void set_omega_scale_table(double altitude, double factor);
 
-   void set_omega_scale_table(unsigned int num_layers, double* altitude, double* factor);
+   void set_omega_scale_table(unsigned int num_layers, const double* altitude, const double* factor);
 
    /*
     * model is active flag

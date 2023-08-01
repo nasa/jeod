@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((trick_message_handler.o))
+  ((../src/trick_message_handler.cc))
 
  
 
@@ -110,10 +110,10 @@ public:
       /**
     * Destructor.
     */
-   virtual ~TrickMessageHandler (void) {}
+   ~TrickMessageHandler (void) override {}
 
    // register_contents() registers the checkpointable contents.
-   virtual void register_contents (void);
+   void register_contents (void) override;
 
 
  protected:
@@ -121,7 +121,7 @@ public:
    // Member functions
 
    // process_message() handles all messages.
-   virtual void process_message (
+   void process_message (
       int severity,
       const char * prefix,
       const char * file,
@@ -129,7 +129,7 @@ public:
       const char * msg_code,
       const char * format,
       va_list args)
-   const;
+   const override;
 
 
  // The copy constructor and assignment operator for this class are declared

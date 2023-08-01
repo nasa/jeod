@@ -23,7 +23,7 @@ Assumptions and limitations:
   ((None))
 
 Library dependencies:
-  ((thermal_messages.o))
+  ((thermal_messages.cc))
 
 
 *******************************************************************************/

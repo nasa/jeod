@@ -16,15 +16,15 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_attach_aligned.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (body_attach.o)
-   (dynamics/mass/mass_point_state.o)
-   (dynamics/dyn_manager/dyn_manager.o)
-   (dynamics/dyn_body/dyn_body_attach.o)
-   (dynamics/mass/mass_attach.o)
-   (utils/message/message_handler.o))
+  ((body_attach_aligned.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (body_attach.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (dynamics/dyn_manager/src/dyn_manager.cc)
+   (dynamics/dyn_body/src/dyn_body_attach.cc)
+   (dynamics/mass/src/mass_attach.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -104,29 +104,57 @@ void
 BodyAttachAligned::apply (
    DynManager & dyn_manager)
 {
-    // DynBody to DynBody
-    if( dyn_subject != nullptr && dyn_parent != nullptr )
+    if (dyn_parent != nullptr)
     {
-        succeeded = dyn_parent->attach_child( parent_point_name.c_str(),
-                                        subject_point_name.c_str(),
-                                        *dyn_subject);
+        if (dyn_subject != nullptr) // DynBody to DynBody
+        {
+            succeeded = dyn_parent->attach_child( parent_point_name.c_str(),
+                                            subject_point_name.c_str(),
+                                            *dyn_subject);
+        }
+        else // MassBody subbody/subassembly to DynBody
+        {
+            succeeded = dyn_parent->add_mass_body( parent_point_name.c_str(),
+                                                   subject_point_name.c_str(),
+                                                   *mass_subject);
+        }
     }
-    // MassBody subbody/subassembly to DynBody
-    else if( dyn_subject == nullptr && dyn_parent != nullptr )
+    else if (mass_parent != nullptr)
     {
-        succeeded = dyn_parent->add_mass_body( parent_point_name.c_str(),
-                                               subject_point_name.c_str(),
-                                               *mass_subject);
+        if (dyn_subject != nullptr) // DynBody to MassBody -- ILLEGAL
+        {
+            succeeded = false;
+        }
+        else // MassBody/MassBody assembly to MassBody
+        {
+            succeeded = mass_subject->attach_to ( subject_point_name.c_str(),
+                                             parent_point_name.c_str(),
+                                             *mass_parent);
+        }
     }
-    // MassBody/MassBody assembly to MassBody
-    else if( dyn_subject == nullptr && dyn_parent == nullptr )
+    else if (ref_parent != nullptr)
     {
-        succeeded = mass_subject->attach_to ( subject_point_name.c_str(),
-                                         parent_point_name.c_str(),
-                                         *mass_parent);
+        if (dyn_subject != nullptr) // DynBody to RefFrame
+        {
+            // Construct the affine transformation from the attach point on the child
+            // body to the parent ref frame.
+            // Per JEOD convention, this is always defined as a zero offset with a
+            // corresponding 180 degree yaw orientation.
+            // Thus, the point is initialized with zero offset and identity transform.
+            double vec[3], mat[3][3];
+            Vector3::initialize(vec);
+            Matrix3x3::identity(mat);
+            mat[0][0] = -1.0;
+            mat[1][1] = -1.0;
+            succeeded = dyn_subject->attach_to_frame(subject_point_name.c_str(),
+                                                     parent_point_name.c_str(), vec, mat);
+        }
+        else // MassBody to RefFrame -- ILLEGAL
+        {
+            succeeded = false;
+        }
     }
-    // DynBody to MassBody -- ILLEGAL
-    else // if( dyn_subject != nullptr && dyn_parent == nullptr )
+    else // Should be unreachable
     {
         succeeded = false;
     }

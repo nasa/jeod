@@ -16,10 +16,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((initialize_simulation.o)
-   (initialize_dyn_bodies.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (environment/gravity/gravity_manager.o))
+  ((initialize_simulation.cc)
+   (initialize_dyn_bodies.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (environment/gravity/src/gravity_manager.cc))
 
 
 ******************************************************************************/
@@ -55,7 +55,7 @@ DynManager::initialize_simulation (
    // but non-empty space simulations and planet-based sims with no gravity.
    // (That there is only one Gravity Manager is enforced elsewhere.)
    if ((mode != DynManagerInit::EphemerisMode_EmptySpace) &&
-       (gravity_manager == NULL) &&
+       (gravity_manager == nullptr) &&
        (! gravity_off)) {
       MessageHandler::warn (
          __FILE__, __LINE__, DynManagerMessages::inconsistent_setup,
@@ -70,7 +70,7 @@ DynManager::initialize_simulation (
    initialize_ephemerides ();
 
    // Initialize the gravity controls for each dynamic body.
-   if (gravity_manager != NULL) {
+   if (gravity_manager != nullptr) {
       initialize_gravity_controls ();
    }
 
@@ -84,7 +84,7 @@ DynManager::initialize_simulation (
    update_ephemerides ();
 
    // Initialize the gravitational bodies.
-   if (gravity_manager != NULL) {
+   if (gravity_manager != nullptr) {
       gravity_manager->initialize_state (*this);
    }
 
@@ -151,7 +151,7 @@ DynManager::update_integration_group (
         it != dyn_bodies.end();
         ++it) {
       DynBody * body = *it;
-      if (body->get_integration_group() == NULL) {
+      if (body->get_integration_group() == nullptr) {
          default_integ_group->add_dyn_body (*body);
       }
    }

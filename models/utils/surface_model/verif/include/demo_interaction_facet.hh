@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -45,7 +45,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_interaction_facet.o)
+    (../src/demo_interaction_facet.cc)
 
  
 *******************************************************************************/
@@ -70,7 +70,7 @@ public:
    DemoFacet1();
 
    // destructor
-   virtual ~DemoFacet1();
+   ~DemoFacet1() override;
 
    virtual void execute_demo_1(
       unsigned int interaction_number
@@ -96,7 +96,7 @@ public:
    DemoFacet2();
 
    // destructor
-   virtual ~DemoFacet2();
+   ~DemoFacet2() override;
 
    virtual void execute_demo_2(
       char* interaction_name
@@ -122,10 +122,10 @@ public:
    FlatPlateDemo1();
 
    // destructor
-   virtual ~FlatPlateDemo1();
+   ~FlatPlateDemo1() override;
 
-   virtual void execute_demo_1(
-      unsigned int interaction_number) ;
+   void execute_demo_1(
+      unsigned int interaction_number) override ;
 
    char* shape; // (--) The shape of the flat plate
 
@@ -148,10 +148,10 @@ public:
    FlatPlateDemo2();
 
    // destructor
-   virtual ~FlatPlateDemo2();
+   ~FlatPlateDemo2() override;
 
-   virtual void execute_demo_2(
-      char* interaction_name);
+   void execute_demo_2(
+      char* interaction_name) override;
 
    int sides; // (count) Number of sides
 
@@ -174,10 +174,10 @@ public:
    DemoInteractionFacet1();
 
    // destructor
-   virtual ~DemoInteractionFacet1();
+   ~DemoInteractionFacet1() override;
 
-   virtual void execute_demo_1(
-      unsigned int interaction_number);
+   void execute_demo_1(
+      unsigned int interaction_number) override;
 
    double weight; // N The weight of the facet
 
@@ -200,10 +200,10 @@ public:
    DemoInteractionFacet2();
 
    // destructor
-   virtual ~DemoInteractionFacet2();
+   ~DemoInteractionFacet2() override;
 
-   virtual void execute_demo_2(
-      char* interaction_name);
+   void execute_demo_2(
+      char* interaction_name) override;
 
    char* color; // -- The shape of the facet
 

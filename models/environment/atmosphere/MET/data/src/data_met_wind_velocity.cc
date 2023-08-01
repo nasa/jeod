@@ -60,7 +60,7 @@ void
 WindVelocity_wind_velocity_default_data::initialize (
    WindVelocity * WindVelocity_ptr)
 {
-   if (WindVelocity_ptr == NULL) {
+   if (WindVelocity_ptr == nullptr) {
      MessageHandler::fail(
      __FILE__,__LINE__,"Invalid argument\n",
      "Must pass in a legitimate pointer to a WindVelocity instance.\n");

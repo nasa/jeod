@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -469,7 +469,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~JeodMemoryTypeDescriptorDerived () {}
+   ~JeodMemoryTypeDescriptorDerived () override {}
 
 
    // Virtual interfaces, defined.
@@ -479,7 +479,7 @@ public:
     * Create a copy of the descriptor.
     * @return Copy.
     */
-   virtual JeodMemoryTypeDescriptor * clone() const
+   JeodMemoryTypeDescriptor * clone() const override
    {
       JeodMemoryTypeDescriptorDerived * dup =
          new JeodMemoryTypeDescriptorDerived (*this);
@@ -490,7 +490,7 @@ public:
     * Indicate whether the type associated with the descriptor is
     * a structured (non-primitive, non-pointer) type.
     */
-   virtual bool is_structured (void) const
+   bool is_structured (void) const override
    {
       return std::is_class<Type>::value;
    }
@@ -498,7 +498,7 @@ public:
    /**
     * Construct an array of objects of the type.
     */
-   virtual void * construct_array (std::size_t nelem, void * addr) const
+   void * construct_array (std::size_t nelem, void * addr) const override
    {
       return jeod_alloc_construct_array<Type>(nelem, addr);
    }
@@ -508,7 +508,7 @@ public:
     * @param[in] addr Pointer to be examined
     * @return Pointer to most-derived object.
     */
-   virtual const void * most_derived_pointer (const void * addr) const
+   const void * most_derived_pointer (const void * addr) const override
    {
       return most_derived_pointer (const_cast<void*> (addr));
    }
@@ -518,7 +518,7 @@ public:
     * @param[in] addr Pointer to be examined
     * @return Pointer to most-derived object.
     */
-   virtual void * most_derived_pointer (void * addr) const
+   void * most_derived_pointer (void * addr) const override
    {
       Type * ptr = static_cast<Type*> (addr);
       return jeod_alloc_get_allocated_pointer (ptr);
@@ -531,7 +531,7 @@ protected:
     * In other words, delete[] addr.
     * @param[in,out] addr Address to be deleted
     */
-   virtual void delete_array (void * addr) const
+   void delete_array (void * addr) const override
    {
       Type * array = reinterpret_cast <Type *>(addr);
       delete [] array;
@@ -542,7 +542,7 @@ protected:
     * In other words, delete addr.
     * @param[in,out] addr Address to be deleted
     */
-   virtual void delete_object (void * addr) const
+   void delete_object (void * addr) const override
    {
       Type * object = reinterpret_cast<Type *>(addr);
       delete object;
@@ -551,7 +551,7 @@ protected:
    /**
     * Destroy an array of @a nelem instances of type @a Type.
     */
-   virtual void destruct_array (std::size_t nelem, void * addr) const
+   void destruct_array (std::size_t nelem, void * addr) const override
    {
       jeod_alloc_destruct_array<Type>(nelem, addr);
    }
@@ -645,7 +645,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~JeodMemoryTypePreDescriptorDerived ()
+   ~JeodMemoryTypePreDescriptorDerived () override
    {
       delete descriptor;
    }
@@ -673,7 +673,7 @@ public:
     * Get the type info for the type.
     * @return Type info
     */
-   virtual const std::type_info & get_typeid () const
+   const std::type_info & get_typeid () const override
    {
       return typeid (Type);
    }
@@ -687,7 +687,7 @@ public:
     *
     * @return Type descriptor.
     */
-   virtual const JeodMemoryTypeDescriptor & get_descriptor ()
+   const JeodMemoryTypeDescriptor & get_descriptor () override
    {
       if (! descriptor) {
          descriptor = new TypeDescriptor (is_exportable);

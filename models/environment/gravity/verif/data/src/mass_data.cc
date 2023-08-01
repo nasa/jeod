@@ -13,7 +13,7 @@ Assumptions and Limitations:
       actual orbit sim work))
 
 Library dependencies:
-  ((mass_data.o))
+  ((mass_data.cc))
 
 
 
@@ -28,8 +28,7 @@ class PointMass;
 
 // Unsupported includes
 #include "../include/mass_data.hh"
-#include "environment/gravity/verif/include/point_mass.hh"
-
+#include "../include/gravity_verif.hh"
 
 
 //! Namespace jeod

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,7 +61,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_converter_tai_tdb.o))
+  ((../src/time_converter_tai_tdb.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_CONVERTER_TAI_TDB_HH
@@ -102,10 +102,6 @@ private:
     */
   double a_to_b_offset_epoch; //!< trick_units(s)
     /**
-     * Calculated value of a_to_b_offset
-     */
-  double a_to_b_offset;       //!< trick_units(--)
-    /**
      * TAI seconds from previous loop iteration
      */
   double prev_tai_seconds;    //!< trick_units(s)
@@ -135,21 +131,21 @@ public:
   // Constructor
    TimeConverter_TAI_TDB ();
   // Destructor
-   ~TimeConverter_TAI_TDB ();
+   ~TimeConverter_TAI_TDB () override;
 
   // Initialize the converter
    void initialize (JeodBaseTime * parent,
                     JeodBaseTime * child,
-                    const int direction);
+                    const int direction) override;
 
   // set_a_to_b_offset: Calculate and set the offset to be used in convert_a_to_b and _b_to_a
   void set_a_to_b_offset (void);
 
   // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void);
+   void convert_a_to_b (void) override;
 
   // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void);
+   void convert_b_to_a (void) override;
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.

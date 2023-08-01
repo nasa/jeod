@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dynamics_integration_group.o))
+  ((../src/dynamics_integration_group.cc))
 
 
 
@@ -111,7 +111,7 @@ public:
       JeodIntegrationTime & time_mngr);
 
    // Destructor
-   virtual ~DynamicsIntegrationGroup ();
+   ~DynamicsIntegrationGroup () override;
 
 
    // Non-virtual methods.
@@ -182,9 +182,9 @@ public:
    // Integrate the states of the DynBody objects that comprise the group.
    // This function should only be called by IntegrationControls::integrate
    // or by an override of that function.
-   virtual er7_utils::IntegratorResult integrate_bodies (
+   er7_utils::IntegratorResult integrate_bodies (
       double cycle_dyndt,
-      unsigned int target_stage);
+      unsigned int target_stage) override;
 
    using JeodIntegrationGroup::initialize_group;
 
@@ -217,7 +217,7 @@ protected:
    // integrator's history invalid (call comes from outside).
    // When this happens, integrators that depend on history need to reset their
    // internal state to indicate that they have no history data.
-   virtual void reset_body_integrators (void);
+   void reset_body_integrators (void) override;
 
 
    // Member data

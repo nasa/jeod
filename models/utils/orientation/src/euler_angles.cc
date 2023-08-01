@@ -24,9 +24,11 @@ Purpose:
 
 // JEOD includes
 #include "utils/math/include/matrix3x3.hh"
+#include "utils/message/include/message_handler.hh"
 
 // Model includes
 #include "../include/orientation.hh"
+#include "../include/orientation_messages.hh"
 
 
 //! Namespace jeod
@@ -126,6 +128,17 @@ Orientation::compute_quaternion_from_euler_angles (
    const double euler_angles[3],
    Quaternion & quat)
 {
+   // Validate the value of the euler_sequence member.
+   // Note that an invalid value means the object is left unchanged.
+   if ((euler_sequence < EulerXYZ) || (euler_sequence > EulerZYZ)) {
+      MessageHandler::error (
+         __FILE__, __LINE__, OrientationMessages::invalid_enum,
+         "The euler_sequence data member has not been set or is invalid; "
+         "value=%d",
+         static_cast<int> (euler_sequence));
+      return;
+   }
+
    const unsigned int * axes = Euler_info[euler_sequence].indices;
    Quaternion q[3], q21;
 
@@ -160,14 +173,23 @@ Orientation::compute_matrix_from_euler_angles (
    const double euler_angles[3],
    double trans[3][3])
 {
+   // Validate the value of the euler_sequence member.
+   // Note that an invalid value means the object is left unchanged.
+   if ((euler_sequence < EulerXYZ) || (euler_sequence > EulerZYZ)) {
+      MessageHandler::error (
+         __FILE__, __LINE__, OrientationMessages::invalid_enum,
+         "The euler_sequence data member has not been set or is invalid; "
+         "value=%d",
+         static_cast<int> (euler_sequence));
+      return;
+   }
    const unsigned int * axes = Euler_info[euler_sequence].indices;
    double m[3][3][3], m21[3][3];
-   double sin_theta, cos_theta;
 
    for (int ii = 0; ii < 3; ii++) {
       Matrix3x3::initialize (m[ii]);
-      sin_theta = std::sin (euler_angles[ii]);
-      cos_theta = std::cos (euler_angles[ii]);
+      double sin_theta = std::sin (euler_angles[ii]);
+      double cos_theta = std::cos (euler_angles[ii]);
       switch (axes[ii]) {
       case 0:
          m[ii][0][0] = 1.0;
@@ -285,6 +307,16 @@ Orientation::compute_euler_angles_from_matrix (
    EulerSequence euler_sequence,
    double euler_angles[3])
 {
+   // Validate the value of the euler_sequence member.
+   // Note that an invalid value means the object is left unchanged.
+   if ((euler_sequence < EulerXYZ) || (euler_sequence > EulerZYZ)) {
+      MessageHandler::error (
+         __FILE__, __LINE__, OrientationMessages::invalid_enum,
+         "The euler_sequence data member has not been set or is invalid; "
+         "value=%d",
+         static_cast<int> (euler_sequence));
+      return;
+   }
    const EulerInfo & info = Euler_info[euler_sequence];  // See above
 
    double phi;            // First Euler angle

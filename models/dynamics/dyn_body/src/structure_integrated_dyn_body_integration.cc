@@ -39,13 +39,11 @@ StructureIntegratedDynBody::trans_integ (
    double dyn_dt,
    unsigned int target_stage)
 {
-    RefFrameTrans & trans_state = structure.state.trans;
-
     // Integrate the translational state.
     return trans_integrator.integrate (
                dyn_dt, target_stage,
                struct_derivs.trans_accel,
-               trans_state.velocity, trans_state.position);
+               structure.state.trans.velocity, structure.state.trans.position);
 }
 
 

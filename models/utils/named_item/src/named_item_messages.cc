@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((named_item_messages.o))
+  ((named_item_messages.cc))
 
  
 

@@ -22,15 +22,15 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((spherical_harmonics_tidal_effects.o)
-   (spherical_harmonics_delta_coeffs.o)
-   (spherical_harmonics_delta_coeffs_init.o)
-   (spherical_harmonics_tidal_effects_init.o)
-   (spherical_harmonics_gravity_source.o)
-   (gravity_messages.o)
-   (environment/planet/planet.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o))
+  ((spherical_harmonics_tidal_effects.cc)
+   (spherical_harmonics_delta_coeffs.cc)
+   (spherical_harmonics_delta_coeffs_init.cc)
+   (spherical_harmonics_tidal_effects_init.cc)
+   (spherical_harmonics_gravity_source.cc)
+   (gravity_messages.cc)
+   (environment/planet/src/planet.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -72,11 +72,11 @@ SphericalHarmonicsTidalEffects::SphericalHarmonicsTidalEffects (
    xp               = 0.0;
    yp               = 0.0;
    k2               = 0.0;
-   Knm              = NULL;
+   Knm              = nullptr;
    num_tidal_bodies = 0;
-   tidal_bodies          = NULL;
-   tidal_bodies_inertial = NULL;
-   pfix                  = NULL;
+   tidal_bodies          = nullptr;
+   tidal_bodies_inertial = nullptr;
+   pfix                  = nullptr;
 }
 
 
@@ -87,22 +87,22 @@ SphericalHarmonicsTidalEffects::~SphericalHarmonicsTidalEffects (
    void)
 {
 
-   if (tidal_bodies != NULL) {
+   if (tidal_bodies != nullptr) {
       JEOD_DELETE_ARRAY (tidal_bodies);
-      tidal_bodies = NULL;
+      tidal_bodies = nullptr;
    }
 
-   if (tidal_bodies_inertial != NULL) {
+   if (tidal_bodies_inertial != nullptr) {
       JEOD_DELETE_ARRAY (tidal_bodies_inertial);
-      tidal_bodies_inertial = NULL;
+      tidal_bodies_inertial = nullptr;
    }
 
-   if (Knm != NULL) {
+   if (Knm != nullptr) {
       for (unsigned int ii = 0; ii <= degree; ++ii) {
          JEOD_DELETE_ARRAY (Knm[ii]);
       }
       JEOD_DELETE_ARRAY (Knm);
-      Knm = NULL;
+      Knm = nullptr;
    }
 }
 
@@ -125,7 +125,7 @@ SphericalHarmonicsTidalEffects::initialize (
    var_init = dynamic_cast<SphericalHarmonicsTidalEffectsInit*> (&gen_var_init);
 
    // Failure to cast is a non-fatal error.
-   if (var_init == NULL) {
+   if (var_init == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, GravityMessages::invalid_object,
          "Invalid SphericalHarmonicsDeltaCoeffsInit object.\n"
@@ -142,7 +142,7 @@ SphericalHarmonicsTidalEffects::initialize (
    num_tidal_bodies = var_init->num_tidal_bodies;
 
    // A null body names array for a non-empty list of tidal bodies is fatal.
-   if ((var_init->tidal_body_names == NULL) && (num_tidal_bodies != 0)) {
+   if ((var_init->tidal_body_names == nullptr) && (num_tidal_bodies != 0)) {
       MessageHandler::fail (
          __FILE__, __LINE__, GravityMessages::invalid_object,
          "Invalid SphericalHarmonicsTidalEffectsInit object.\n"
@@ -160,7 +160,7 @@ SphericalHarmonicsTidalEffects::initialize (
    for (unsigned int ii = 0; ii < num_tidal_bodies; ++ii) {
 
       // Check for an invalid name.
-      if ((var_init->tidal_body_names[ii] == NULL) ||
+      if ((var_init->tidal_body_names[ii] == nullptr) ||
           (var_init->tidal_body_names[ii][0] == '\0')) {
          MessageHandler::fail (
             __FILE__, __LINE__, GravityMessages::invalid_name,
@@ -174,7 +174,7 @@ SphericalHarmonicsTidalEffects::initialize (
          var_init->tidal_body_names[ii]);
 
       // The supplied name must specify a registered planet.
-      if (tidal_bodies[ii] == NULL) {
+      if (tidal_bodies[ii] == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, GravityMessages::invalid_name,
             "tidal_body_name[%d]=\"%s\" is not a valid planet name.",

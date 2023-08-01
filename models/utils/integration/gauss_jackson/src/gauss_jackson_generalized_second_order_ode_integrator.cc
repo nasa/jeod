@@ -49,8 +49,8 @@ GaussJacksonGeneralizedDerivSecondOrderODEIntegrator (
                    velocity_size, priming_controls),
    pos_integrator (primer_constructor, controls,
                    position_size, priming_controls),
-   posdot (NULL),
-   posdotdot (NULL)
+   posdot (nullptr),
+   posdotdot (nullptr)
 {
     posdot = er7_utils::alloc::allocate_array<double> (position_size);
     posdotdot = er7_utils::alloc::allocate_array<double> (position_size);
@@ -65,8 +65,8 @@ GaussJacksonGeneralizedDerivSecondOrderODEIntegrator (
    SecondOrderODEIntegrator (src),
    vel_integrator (src.vel_integrator),
    pos_integrator (src.pos_integrator),
-   posdot (NULL),
-   posdotdot (NULL)
+   posdot (nullptr),
+   posdotdot (nullptr)
 {
     posdot =
        er7_utils::alloc::replicate_array<double> (

@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_reattach.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (dynamics/mass/mass_reattach.o)
-   (utils/message/message_handler.o)
-   (utils/orientation/orientation.o))
+  ((body_reattach.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (dynamics/mass/src/mass_reattach.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/orientation/src/orientation.cc))
 
 
 
@@ -71,11 +71,11 @@ BodyReattach::apply (
    pstr_cstr.compute_transform ();
 
    // Rettach the body.
-   // FIXME, JEOD 2.1: reattach needs to return a status.
+   // FIXME, JEOD 2.1: reattach needs to return a status. This will resolve the cppcheck issue and the suppressions will no longer be needed.
    mass_subject->reattach (offset_pstr_cstr_pstr, pstr_cstr.trans);
 
    // Terminate the sim if requested to do so on failed attachments.
-   if ((! succeeded) && terminate_on_error) {
+   if ((! succeeded) && terminate_on_error) { //cppcheck-suppress knownConditionTrueFalse
       MessageHandler::fail (
          __FILE__, __LINE__, BodyActionMessages::fatal_error,
          "%s failed:\n"
@@ -85,7 +85,7 @@ BodyReattach::apply (
    }
 
    // Debug.
-   if (succeeded) {
+   if (succeeded) { //cppcheck-suppress knownConditionTrueFalse
       MessageHandler::debug (
             __FILE__, __LINE__, BodyActionMessages::trace,
             "%s: %s reattached.",

@@ -15,10 +15,10 @@ Purpose:
   ()
 
 Library Dependencies:
-  ((contact_facet.o)
-  (contact_messages.o)
-  (dynamics/mass/mass_point_init.o)
-  (dynamics/dyn_body/dyn_body.o))
+  ((contact_facet.cc)
+  (contact_messages.cc)
+  (dynamics/mass/src/mass_point_init.cc)
+  (dynamics/dyn_body/src/dyn_body.cc))
 
 
 *******************************************************************************/
@@ -50,8 +50,8 @@ ContactFacet::ContactFacet (
    void)
    : // Return: -- None
    active (true),
-   surface_type (NULL),
-   vehicle_body (NULL),
+   surface_type (nullptr),
+   vehicle_body (nullptr),
    max_dimension (0.0)
 {
    Vector3::initialize (position);

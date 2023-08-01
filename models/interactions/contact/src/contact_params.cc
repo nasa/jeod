@@ -21,7 +21,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((contact_params.o))
+    ((contact_params.cc))
 
 
 *******************************************************************************/

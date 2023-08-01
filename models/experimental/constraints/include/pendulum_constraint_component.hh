@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -48,7 +48,7 @@
 
 /*
 Purpose: ()
-Library dependencies: ((pendulum_constraint_component.o))
+Library dependencies: ((../src/pendulum_constraint_component.cc))
 */
 
 
@@ -104,7 +104,7 @@ public:
     /**
      * Destructor.
      */
-    ~PendulumConstraintComponent() = default;
+    ~PendulumConstraintComponent() override = default;
 
 
     // Interfaces needed by IntegrableObject
@@ -116,10 +116,10 @@ public:
      * @param controls   The integration controls created the integrator
      *                   constructor's create_integration_controls method.
      */
-    virtual void create_integrators(
+    void create_integrators(
        const er7_utils::IntegratorConstructor & generator,
        er7_utils::IntegrationControls & controls,
-       const er7_utils::TimeInterface &);
+       const er7_utils::TimeInterface &) override;
 
     /**
      * Advance bob state by the specified dynamic time interval.
@@ -129,19 +129,19 @@ public:
      *
      * @return The status of the integration step.
      */
-    virtual er7_utils::IntegratorResult integrate(
+    er7_utils::IntegratorResult integrate(
          double dyn_dt,
-         unsigned int target_stage);
+         unsigned int target_stage) override;
 
     /**
      * Reset the integrator that integrates the pendulum bob state.
      */
-    virtual void reset_integrators();
+    void reset_integrators() override;
 
     /**
      * Destroy the integrator that integrates the pendulum bob state.
      */
-    virtual void destroy_integrators()
+    void destroy_integrators() override
     {
         bob_integrator.destroy_integrator ();
     }
@@ -156,9 +156,9 @@ public:
      *   root body to non-constraint forces and torques, including
      *   the pre-constraint wrenches.
      */
-    virtual void setup_constraint (
+    void setup_constraint (
         const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state);
+        const VehicleNonGravState& non_grav_state) override;
 
     /**
      * Compute the response of the constrained object to the overall behavior
@@ -167,25 +167,25 @@ public:
      * @param non_grav_state  The non-gravitational response of the
      *   root body to external forces and torques, including the constraints.
      */
-    virtual void compute_constraint_response (
+    void compute_constraint_response (
         const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state);
+        const VehicleNonGravState& non_grav_state) override;
 
     /**
      * Add this object as an integrator for the DynBody associated with the
      * constraints solver associated with the parent of this component.
      */
-    virtual void attach_to_solver (
+    void attach_to_solver (
         DynBodyConstraintsSolver* solver,
-        DynBody* dyn_body_in);
+        DynBody* dyn_body_in) override;
 
     /**
      * Remove this object as an integrator for the DynBody associated with the
      * constraints solver associated with the parent of this component.
      */
-    virtual void detach_from_solver (
+    void detach_from_solver (
         DynBodyConstraintsSolver* solver,
-        DynBody* dyn_body_in);
+        DynBody* dyn_body_in) override;
 
     /**
      * Activate the constraint.

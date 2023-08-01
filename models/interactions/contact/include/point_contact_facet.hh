@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@
      ((N/A))
 
 Library dependencies:
-    ((point_contact_facet.o))
+    ((../src/point_contact_facet.cc))
 
  
 
@@ -104,23 +104,23 @@ public:
    PointContactFacet ();
 
    // destructor
-   virtual ~PointContactFacet ();
+   ~PointContactFacet () override;
 
    /*
     Overloaded functions to create a contact pair of the appropriate type and return
     a pointer too the pair to the Contact class.
     */
-   virtual ContactPair * create_pair();
-   virtual ContactPair * create_pair(ContactFacet * target, Contact *contact);
+   ContactPair * create_pair() override;
+   ContactPair * create_pair(ContactFacet * target, Contact *contact) override;
 
    // calculate the max dimension of the facet for range limit determination
-   virtual void set_max_dimension();
+   void set_max_dimension() override;
 
    // calculate the contact point based on the relstate and radius.
    virtual void calculate_contact_point (double nvec[3]);
 
    // calculate the torque acting on the facet in the vehicle structural frame.
-   virtual void calculate_torque(double *tmp_force);
+   void calculate_torque(double *tmp_force) override;
 
 private:
    // Operator = and copy constructor locked from use by being made private

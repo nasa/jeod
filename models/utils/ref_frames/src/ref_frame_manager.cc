@@ -15,8 +15,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ref_frame_manager.o)
-   (ref_frame.o))
+  ((ref_frame_manager.cc)
+   (ref_frame.cc))
 
  
 ******************************************************************************/
@@ -46,7 +46,7 @@ RefFrameManager::RefFrameManager (
    void)
 :
    BaseRefFrameManager (),
-   root_node (NULL),
+   root_node (nullptr),
    ref_frames ()
 {
    JEOD_REGISTER_CLASS (RefFrameManager);
@@ -101,7 +101,7 @@ RefFrameManager::add_ref_frame (
    }
 
    // 3. The frame must have a unique name.
-   if (find_ref_frame (ref_frame.get_name()) != NULL) {
+   if (find_ref_frame (ref_frame.get_name()) != nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, RefFrameMessages::duplicate_entry,
          "Reference frame with name '%s' was previously registered.",
@@ -147,7 +147,7 @@ RefFrameManager::find_ref_frame (
    const char * name)
 const
 {
-   RefFrame * found_frame = NULL;
+   RefFrame * found_frame = nullptr;
 
    // Search the reference frame list until a match is found.
    for (std::vector<RefFrame *>::const_iterator it = ref_frames.begin();
@@ -178,7 +178,7 @@ RefFrameManager::find_ref_frame (
 const
 {
    std::string pname(prefix);
-   RefFrame * found_frame = NULL;
+   RefFrame * found_frame = nullptr;
 
    // Search the reference frame list until a match is found.
    for (std::vector<RefFrame *>::const_iterator it = ref_frames.begin();
@@ -213,7 +213,7 @@ const
         it != ref_frames.end();
         ++it) {
       RefFrame * ref_frame = *it;
-      if (ref_frame->is_active() && (ref_frame->get_owner() == NULL)) {
+      if (ref_frame->is_active() && (ref_frame->get_owner() == nullptr)) {
          MessageHandler::warn (
             __FILE__, __LINE__, RefFrameMessages::inconsistent_setup,
             "Reference frame '%s' has no owner", ref_frame->get_name());
@@ -229,7 +229,7 @@ void
 RefFrameManager::reset_tree_root_node (
    void)
 {
-   root_node = NULL;
+   root_node = nullptr;
 }
 
 
@@ -248,7 +248,7 @@ RefFrameManager::add_frame_to_tree (
    // Handle errors.
 
    /* Insert the node in the tree. */
-   if (parent == NULL) {
+   if (parent == nullptr) {
       root_node = &ref_frame;
       root_node->make_root ();
    }
@@ -286,7 +286,7 @@ RefFrameManager::subscribe_to_frame (
 
    // 2. The frame must exist.
    ref_frame = find_ref_frame (frame_name);
-   if (ref_frame == NULL) {
+   if (ref_frame == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, RefFrameMessages::invalid_name,
          "Invalid reference frame name '%s'", frame_name);
@@ -337,7 +337,7 @@ RefFrameManager::unsubscribe_to_frame (
 
    // 2. The frame must exist.
    ref_frame = find_ref_frame (frame_name);
-   if (ref_frame == NULL) {
+   if (ref_frame == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, RefFrameMessages::invalid_name,
          "Invalid reference frame name '%s'", frame_name);
@@ -392,7 +392,7 @@ RefFrameManager::frame_is_subscribed (
 
    // 2. The frame must exist.
    ref_frame = find_ref_frame (frame_name);
-   if (ref_frame == NULL) {
+   if (ref_frame == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, RefFrameMessages::invalid_name,
          "Invalid reference frame name '%s'", frame_name);
@@ -441,7 +441,7 @@ const
 {
 
    // Check for a null value.
-   if (variable_value == NULL) {
+   if (variable_value == nullptr) {
       MessageHandler::error (
          file, line, RefFrameMessages::null_pointer,
          "%s %s value is NULL",

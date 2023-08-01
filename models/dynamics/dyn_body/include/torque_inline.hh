@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -105,7 +105,7 @@ CollectTorque::is_active (
    void)
 const
 {
-   return ((torque != NULL) && ((active == NULL) || *active));
+   return ((torque != nullptr) && ((active == nullptr) || *active));
 }
 
 

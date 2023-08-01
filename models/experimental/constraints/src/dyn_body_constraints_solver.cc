@@ -13,7 +13,7 @@
 /*
 Purpose: ()
 Library dependencies: (
-  (dyn_body_constraint.o))
+  (dyn_body_constraint.cc))
 */
 
 
@@ -124,7 +124,7 @@ template <typename T>
 bool
 accumulate_wrenches (
     const Wrench& (T::*get_wrench)() const,
-    DynBodyConstraintsSolver::ConstraintsVectorT& active_constraints,
+    const DynBodyConstraintsSolver::ConstraintsVectorT& active_constraints,
     const double point[3],
     Wrench& sum)
 {
@@ -705,10 +705,10 @@ DynBodyConstraintsSolver::send_solution (
 {
     for (unsigned ii = 0; ii < n_constraints; ++ii)
     {
-        auto& constraint_ii = *active_constraints[ii];
         auto& range_ii = constraint_indices[ii];
         if (range_ii.second > range_ii.first)
         {
+            auto& constraint_ii = *active_constraints[ii];
             constraint_ii.set_constraint_values (
                 SubVectorView<std::vector<double>, double>(x_vector, range_ii));
         }

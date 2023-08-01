@@ -18,10 +18,10 @@ Purpose:
    ()
 
 Library dependency:
-   ((de4xx_file_init.o)
-    (de4xx_file.o)
-    (environment/ephemerides/ephem_interface/ephem_messages.o)
-    (utils/message/message_handler.o))
+   ((de4xx_file_init.cc)
+    (de4xx_file.cc)
+    (environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+    (utils/message/src/message_handler.cc))
 
 
 
@@ -72,7 +72,7 @@ De4xxFile::pre_initialize (
    void)
 {
    // Sanity check: Already initialized: simulation programmer error.
-   if (io.file != NULL) {
+   if (io.file != nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::internal_error,
          "Ephemerides model already initialized.");
@@ -85,15 +85,15 @@ De4xxFile::pre_initialize (
    open (); // flawfinder: ignore
 
    // Clear dlerror
-   char * dlError = dlerror();
+   dlerror();
 
    // Grab the first segment data segment symbol as a starting point
    io.recno = 0;
    io.segment_index = 0;
    io.segment_recno = 0;
    io.coeffs_segment_starting_addr = (double *)dlsym(io.file, "segment_coeffs_0");
-   if (io.coeffs_segment_starting_addr == NULL) {
-      dlError = dlerror();
+   if (io.coeffs_segment_starting_addr == nullptr) {
+      char * dlError = dlerror();
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
          "Error obtaining ephemeris file symbol 'segment_coeffs_0' from '%s' for input: %s",
@@ -277,7 +277,6 @@ l1_point (
    double   b1b2_mass_ratio)
 {
    double k, kp1, k3p2, k3p1;
-   double f, df;
    double z, dz;
 
    // The ratio of the body1-L1 distance to the body1-body2 distance 'z'
@@ -292,8 +291,8 @@ l1_point (
    z = 0.8;
    dz = 1.0;
    while ((dz > 1e-15) || (dz < -1e-15)) {
-      f  = -1.0 + z*(2.0 - z*(1.0 - z*(k3p1 - z*(k3p2 - z*kp1))));
-      df =  2.0 - z*(2.0 - z*(3.0*k3p1 - z*(4.0*k3p2 - z*5.0*kp1)));
+      double f  = -1.0 + z*(2.0 - z*(1.0 - z*(k3p1 - z*(k3p2 - z*kp1))));
+      double df =  2.0 - z*(2.0 - z*(3.0*k3p1 - z*(4.0*k3p2 - z*5.0*kp1)));
       dz = -f / df;
       z += dz;
    }

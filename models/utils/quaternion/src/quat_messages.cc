@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((quat.o))
+  ((quat.cc))
 
  
 

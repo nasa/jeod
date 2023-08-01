@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((orb_elem_derived_state.o))
+  ((../src/orb_elem_derived_state.cc))
 
 
 
@@ -99,13 +99,24 @@ class OrbElemDerivedState : public DerivedState {
     */
    OrbitalElements elements; //!< trick_units(--)
 
+   /**
+    * The planet, the name of which is specified by the inherited
+    * reference_name data member.
+    */
+   Planet * planet; //!< trick_units(--)
 
  protected:
 
    /**
-    * Planet about which the object orbits.
+    * Use inertial or alt_inertial flag
     */
-   Planet * planet; //!< trick_units(--)
+   bool use_alt_inertial;
+
+   /**
+    * Pointer to planet inertial frame to be used, either 
+    * inertial or alt_inertial
+    */
+   EphemerisRefFrame * inertial_ptr;
 
    /**
     * Relative state; only used when the vehicle integration from is not the
@@ -120,30 +131,26 @@ class OrbElemDerivedState : public DerivedState {
 
    // Default constructor and destructor
    OrbElemDerivedState ();
-   ~OrbElemDerivedState ();
+   ~OrbElemDerivedState () override;
+
+   // Setter for use_alt_inertial
+   void set_use_alt_inertial (const bool use_alt_inertial_in);
 
    // initialize(): Initialize the DerivedState (but not necessarily the
    // state itself.)
    // Rules for derived classes:
    // All derived classes must forward the initialize() call to the immediate
    // parent class and then perform class-dependent object initializations.
-   virtual void initialize (DynBody & subject_body, DynManager & dyn_manager);
-
-   // Setter for use_alt_inertial
-   void set_use_alt_inertial (const bool use_alt_inertial_in);
+   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
 
    // update(): Update the DerivedState representation of the subject DynBody.
    // Rules for derived classes:
    // All derived classes must perform class-dependent actions and then
    // must forward the update() call to the immediate parent class.
-   virtual void update (void);
+   void update (void) override;
 
 
  protected:
-
-   bool use_alt_inertial;
-
-   EphemerisRefFrame * ref_frame_ptr;
 
    void compute_orbital_elements (const RefFrameTrans & rel_trans);
 

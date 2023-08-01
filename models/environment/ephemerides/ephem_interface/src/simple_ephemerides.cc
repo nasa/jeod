@@ -18,13 +18,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((simple_ephemerides.o)
-   (ephem_messages.o)
-   (ephem_ref_frame.o)
-   (environment/ephemerides/ephem_item/ephem_item.o)
-   (environment/ephemerides/ephem_item/ephem_point.o)
-   (environment/ephemerides/ephem_manager/ephem_manager.o)
-   (utils/message/message_handler.o))
+  ((simple_ephemerides.cc)
+   (ephem_messages.cc)
+   (ephem_ref_frame.cc)
+   (environment/ephemerides/ephem_item/src/ephem_item.cc)
+   (environment/ephemerides/ephem_item/src/ephem_point.cc)
+   (environment/ephemerides/ephem_manager/src/ephem_manager.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -63,7 +63,7 @@ Purpose:
 SinglePointEphemeris::SinglePointEphemeris (
    void)
 :
-   identifier(NULL),
+   identifier(nullptr),
    update_time(0.0),
    active(true)
 {
@@ -77,7 +77,7 @@ SinglePointEphemeris::SinglePointEphemeris (
 SinglePointEphemeris::~SinglePointEphemeris (
    void)
 {
-   if ((identifier != NULL) && (JEOD_IS_ALLOCATED (identifier))) {
+   if ((identifier != nullptr) && (JEOD_IS_ALLOCATED (identifier))) {
       JEOD_DELETE_ARRAY (identifier);
    }
 }
@@ -120,7 +120,7 @@ SinglePointEphemeris::set_name (
 {
 
    // Trying to change the name is an error.
-   if (identifier != NULL) {
+   if (identifier != nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Erroneous call the SinglePointEphemeris::set_name(\"%s\")\n"
@@ -225,7 +225,7 @@ EmptySpaceEphemeris::ephem_initialize (
    EphemeridesManager & ephem_manager JEOD_UNUSED)
 {
    // At this point, the central point must have a target frame.
-   if (central_point.get_target_frame() == NULL) {
+   if (central_point.get_target_frame() == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Could not find planet named \"%s\".\n"
@@ -265,7 +265,7 @@ EmptySpaceEphemeris::ephem_build_tree (
       return;
    }
 
-   ephem_manager.add_frame_to_tree (central_frame, NULL);
+   ephem_manager.add_frame_to_tree (central_frame, nullptr);
 }
 
 
@@ -377,8 +377,8 @@ SinglePlanetEphemeris::ephem_initialize (
 
    // At this point, the planet with same name as the model must exist and
    // the central point must have a target frame.
-   if ((ephem_manager.find_base_planet (identifier) == NULL) ||
-       (central_point.get_target_frame() == NULL)) {
+   if ((ephem_manager.find_base_planet (identifier) == nullptr) ||
+       (central_point.get_target_frame() == nullptr)) {
       MessageHandler::error (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Could not find planet named \"%s\".\n"
@@ -419,7 +419,7 @@ SinglePlanetEphemeris::ephem_build_tree (
    }
 
    ephem_manager.add_frame_to_tree (
-      *(central_point.get_target_frame()), NULL);
+      *(central_point.get_target_frame()), nullptr);
 }
 
 } // End JEOD namespace

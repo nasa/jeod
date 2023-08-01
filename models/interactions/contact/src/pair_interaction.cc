@@ -23,7 +23,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((pair_interaction.o))
+    ((pair_interaction.cc))
 
 
 *******************************************************************************/
@@ -46,8 +46,8 @@ namespace jeod {
 PairInteraction::PairInteraction (
    void)
    : // Return: -- None
-   params_1 (NULL),
-   params_2 (NULL),
+   params_1 (nullptr),
+   params_2 (nullptr),
    friction_mag (0.0)
 {
 

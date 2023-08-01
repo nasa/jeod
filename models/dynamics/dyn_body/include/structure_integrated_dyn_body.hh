@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -49,7 +49,7 @@
 
 /*
 Purpose: ()
-Library dependencies: ((structure_integrated_dyn_body.o))
+Library dependencies: ((../src/structure_integrated_dyn_body.cc))
 */
 
 
@@ -130,7 +130,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~StructureIntegratedDynBody ();
+    ~StructureIntegratedDynBody () override;
 
 
     /**
@@ -143,7 +143,7 @@ public:
      * non-transmitted forces and torques should be called as scheduled jobs
      * or as lower phase derivative class jobs.
      */
-   virtual void collect_forces_and_torques ();
+   void collect_forces_and_torques () override;
 
 
     /**
@@ -176,14 +176,14 @@ public:
      *                are to be calculated.
      * @param derivs  The calculated derivatives.
      */
-   virtual void compute_vehicle_point_derivatives (
-      const BodyRefFrame & frame, FrameDerivs &derivs);
+   void compute_vehicle_point_derivatives (
+      const BodyRefFrame & frame, FrameDerivs &derivs) override;
 
    /**
     * Break the logical connectivity between parent and child.
     * @param[in,out] other_body The other body to detach from
     */
-   virtual bool detach (DynBody & other_body);
+   bool detach (DynBody & other_body) override;
 
 
 protected:
@@ -255,10 +255,10 @@ protected:
      *            structural frame to the child body's structural frame.
      * @param[in,out] child The child body being attached to this body.
      */
-    virtual void attach_update_properties (
-        double offset_pstr_cstr_pstr[3],
-        double T_pstr_cstr[3][3],
-        DynBody & child);
+    void attach_update_properties (
+        const double offset_pstr_cstr_pstr[3],
+        const double T_pstr_cstr[3][3],
+        DynBody & child) override;
 
 
 
@@ -278,9 +278,9 @@ protected:
      *                             that the integrator should try to attain.
      * @return The status (time advance, pass/fail status) of the integration.
      */
-    virtual er7_utils::IntegratorResult trans_integ (
+    er7_utils::IntegratorResult trans_integ (
         double dyn_dt,
-        unsigned int target_stage);
+        unsigned int target_stage) override;
 
     /**
      * Integrate the rotational state of a StructureIntegratedDynBody.
@@ -289,9 +289,9 @@ protected:
      *                             that the integrator should try to attain.
      * @return The status (time advance, pass/fail status) of the integration.
      */
-    virtual er7_utils::IntegratorResult rot_integ (
+    er7_utils::IntegratorResult rot_integ (
         double dyn_dt,
-        unsigned int target_stage);
+        unsigned int target_stage) override;
 
     /**
      * Collect the local forces and torques that directly act on the vehicle.

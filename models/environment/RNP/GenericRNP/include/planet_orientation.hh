@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -62,7 +62,7 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((planet_orientation.o))
+  ((../src/planet_orientation.cc))
 
  
 
@@ -104,7 +104,7 @@ public:
 
    PlanetOrientation ();
 
-   virtual ~PlanetOrientation ();
+   ~PlanetOrientation () override;
 
    //  initializer, goes to the dyn manager given and searches for the the
    //  planet indicated by the user inputted name, in the given dyn manager.
@@ -112,8 +112,8 @@ public:
    virtual void initialize (DynManager& dyn_manager);
 
    // implementing the virtual functions from ActivateInterface
-   virtual void activate();
-   virtual void deactivate();
+   void activate() override;
+   void deactivate() override;
 
    /**
     * Is the orientation model actively updating?  Defaults to true.
@@ -147,15 +147,15 @@ public:
    // name is left to inheriting classes
 
    // Initialize the ephemeris aspect of the class
-   virtual void ephem_initialize (EphemeridesManager & manager);
+   void ephem_initialize (EphemeridesManager & manager) override;
 
    // Activate the model
-   virtual void ephem_activate (EphemeridesManager& manager);
+   void ephem_activate (EphemeridesManager& manager) override;
 
    // Build this model's contribution to the reference frame tree.
    // Nominally does nothing for PlanetOrientation and its inheriters.
    // This can, obviously, be overridden.
-   virtual void ephem_build_tree (EphemeridesManager& manager);
+   void ephem_build_tree (EphemeridesManager& manager) override;
 
    // ephem_update is left to the inheriting class.
 
@@ -178,7 +178,7 @@ public:
     * to convince trick that yes, this is a pure virtual class.
     * @return Planet name.
     */
-   virtual const char* get_name() const = 0;
+   const char* get_name() const override = 0;
 
 private: // private member functions
 

@@ -24,7 +24,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((lsode_simple_second_order_ode_integrator.o))
+  ((lsode_simple_second_order_ode_integrator.cc))
 
  
 
@@ -72,7 +72,7 @@ const
    er7_utils::MessageHandler::fail (__FILE__, __LINE__,
       er7_utils::IntegrationMessages::internal_error,
       "Copy constructor for LsodeSecondOrderODEIntegrator not implemented.\n");
-   return NULL;
+   return nullptr;
 }
 
 

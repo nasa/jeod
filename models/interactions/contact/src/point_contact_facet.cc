@@ -15,9 +15,9 @@ Purpose:
   ()
 
 Library Dependencies:
-  ((contact_messages.o)
-   (point_contact_facet.o)
-   (point_contact_pair.o))
+  ((contact_messages.cc)
+   (point_contact_facet.cc)
+   (point_contact_pair.cc))
 
 
 *******************************************************************************/
@@ -83,7 +83,7 @@ PointContactFacet::create_pair (
    // Allocate a ContactPair instance
    contact_pair = JEOD_ALLOC_CLASS_OBJECT (PointContactPair, ());
    // set the subject and target of the new pair
-   contact_pair->initialize_pair(this, NULL);
+   contact_pair->initialize_pair(this, nullptr);
 
    return contact_pair;
 }
@@ -105,13 +105,13 @@ PointContactFacet::create_pair (
 
    // attempt to cast the target to a PointContactFacet
    temp_ptr = dynamic_cast<PointContactFacet*> (target);
-   if (temp_ptr == NULL) {
+   if (temp_ptr == nullptr) {
       MessageHandler::warn (
          __FILE__, __LINE__, ContactMessages::initialization_warns,
          "The target ContactFacet passed into PointContactFacet::create_pair was "
          "not of type PointContactFacet as required.");
 
-      return NULL;
+      return nullptr;
    }
 
    PointContactPair * contact_pair;
@@ -119,8 +119,8 @@ PointContactFacet::create_pair (
    contact_pair = JEOD_ALLOC_CLASS_OBJECT (PointContactPair, ());
 
    contact_pair->interaction = contact->find_interaction(surface_type, target->surface_type);
-   if (contact_pair->interaction == NULL) {
-      return NULL;
+   if (contact_pair->interaction == nullptr) {
+      return nullptr;
    }
    // set the subject and target of the new pair
    contact_pair->initialize_pair(this, temp_ptr);

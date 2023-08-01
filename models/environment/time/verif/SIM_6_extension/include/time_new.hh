@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -47,7 +47,7 @@ Assumptions and limitations:
  
 
 Library dependencies:
-  ((time_new.o))
+  ((../src/time_new.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_NEW_HH
@@ -79,8 +79,8 @@ public:
   TimeNew();
 
   // Destructor
-  ~TimeNew();
-  void set_epoch(void) {};
+  ~TimeNew() override;
+  void set_epoch(void) override {};
 
 };
 /*----------------------------------------------------------------------------*/

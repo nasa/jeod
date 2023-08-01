@@ -31,10 +31,10 @@ Assumptions and limitations:
 ((Mars specific))
 
 Library dependencies:
-((precession_mars.o)
-(environment/RNP/GenericRNP/RNP_messages.o)
-(environment/RNP/GenericRNP/planet_rotation.o)
-(utils/message/message_handler.o))
+((precession_mars.cc)
+(environment/RNP/GenericRNP/src/RNP_messages.cc)
+(environment/RNP/GenericRNP/src/planet_rotation.cc)
+(utils/message/src/message_handler.cc))
 
  
 
@@ -61,7 +61,7 @@ namespace jeod {
 PrecessionMars::PrecessionMars (
       void)
 :
-   nutation(NULL),
+   nutation(nullptr),
    psi_at_j2000(0.0),
    psi_dot(0.0),
    psi_precess(0.0),
@@ -95,7 +95,7 @@ PrecessionMars::update_rotation (
    // Psi(t) = Psi_o + Psi_dot*time + Psi_nut
 
    // Access nutation of longitude term for use in equation
-   if (nutation ==  NULL) {
+   if (nutation ==  nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::setup_error,
          "PrecessionMars is not currently pointing "

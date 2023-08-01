@@ -30,13 +30,13 @@ Class:
   (NutationJ2000)
 
 Library dependencies:
-  ((nutation_j2000.o)
-   (nutation_j2000_init.o)
-   (environment/RNP/GenericRNP/RNP_messages.o)
-   (environment/RNP/GenericRNP/planet_rotation.o)
-   (environment/RNP/GenericRNP/planet_rotation_init.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((nutation_j2000.cc)
+   (nutation_j2000_init.cc)
+   (environment/RNP/GenericRNP/src/RNP_messages.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation_init.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
  
 
@@ -67,15 +67,15 @@ NutationJ2000::NutationJ2000 (
    void)
 :
    num_coeffs(0),
-   L_coeffs(NULL),
-   M_coeffs(NULL),
-   F_coeffs(NULL),
-   D_coeffs(NULL),
-   omega_coeffs(NULL),
-   long_coeffs(NULL),
-   long_t_coeffs(NULL),
-   obliq_coeffs(NULL),
-   obliq_t_coeffs(NULL),
+   L_coeffs(nullptr),
+   M_coeffs(nullptr),
+   F_coeffs(nullptr),
+   D_coeffs(nullptr),
+   omega_coeffs(nullptr),
+   long_coeffs(nullptr),
+   long_t_coeffs(nullptr),
+   obliq_coeffs(nullptr),
+   obliq_t_coeffs(nullptr),
    nutation_in_longitude(0.0),
    nutation_in_obliquity(0.0),
    L(0.0),
@@ -96,42 +96,42 @@ NutationJ2000::NutationJ2000 (
 NutationJ2000::~NutationJ2000 (
    void)
 {
-   if (L_coeffs != NULL && JEOD_IS_ALLOCATED(L_coeffs)) {
+   if (L_coeffs != nullptr && JEOD_IS_ALLOCATED(L_coeffs)) {
       JEOD_DELETE_ARRAY (L_coeffs);
-      L_coeffs = NULL;
+      L_coeffs = nullptr;
    }
-   if (M_coeffs != NULL && JEOD_IS_ALLOCATED(M_coeffs)) {
+   if (M_coeffs != nullptr && JEOD_IS_ALLOCATED(M_coeffs)) {
       JEOD_DELETE_ARRAY (M_coeffs);
-      M_coeffs = NULL;
+      M_coeffs = nullptr;
    }
-   if (F_coeffs != NULL && JEOD_IS_ALLOCATED(F_coeffs)) {
+   if (F_coeffs != nullptr && JEOD_IS_ALLOCATED(F_coeffs)) {
       JEOD_DELETE_ARRAY (F_coeffs);
-      F_coeffs = NULL;
+      F_coeffs = nullptr;
    }
-   if (D_coeffs != NULL && JEOD_IS_ALLOCATED(D_coeffs)) {
+   if (D_coeffs != nullptr && JEOD_IS_ALLOCATED(D_coeffs)) {
       JEOD_DELETE_ARRAY (D_coeffs);
-      D_coeffs = NULL;
+      D_coeffs = nullptr;
    }
-   if (omega_coeffs != NULL && JEOD_IS_ALLOCATED(omega_coeffs)) {
+   if (omega_coeffs != nullptr && JEOD_IS_ALLOCATED(omega_coeffs)) {
       JEOD_DELETE_ARRAY (omega_coeffs);
-      omega_coeffs = NULL;
+      omega_coeffs = nullptr;
    }
 
-   if (long_coeffs != NULL && JEOD_IS_ALLOCATED(long_coeffs)) {
+   if (long_coeffs != nullptr && JEOD_IS_ALLOCATED(long_coeffs)) {
       JEOD_DELETE_ARRAY (long_coeffs);
-      long_coeffs = NULL;
+      long_coeffs = nullptr;
    }
-   if (long_t_coeffs != NULL && JEOD_IS_ALLOCATED(long_t_coeffs)) {
+   if (long_t_coeffs != nullptr && JEOD_IS_ALLOCATED(long_t_coeffs)) {
       JEOD_DELETE_ARRAY (long_t_coeffs);
-      long_t_coeffs = NULL;
+      long_t_coeffs = nullptr;
    }
-   if (obliq_coeffs != NULL && JEOD_IS_ALLOCATED(obliq_coeffs)) {
+   if (obliq_coeffs != nullptr && JEOD_IS_ALLOCATED(obliq_coeffs)) {
       JEOD_DELETE_ARRAY (obliq_coeffs);
-      obliq_coeffs = NULL;
+      obliq_coeffs = nullptr;
    }
-   if (obliq_t_coeffs != NULL && JEOD_IS_ALLOCATED(obliq_t_coeffs)) {
+   if (obliq_t_coeffs != nullptr && JEOD_IS_ALLOCATED(obliq_t_coeffs)) {
       JEOD_DELETE_ARRAY (obliq_t_coeffs);
-      obliq_t_coeffs = NULL;
+      obliq_t_coeffs = nullptr;
    }
 
 }
@@ -184,17 +184,15 @@ NutationJ2000::update_rotation (
            0.000002222222222222222 * time3;
 
 
-   double api = 0.0;
-
    nutation_in_longitude = 0.0;
    nutation_in_obliquity = 0.0;
    for (unsigned int i = 0; i < num_coeffs; ++i) {
 
-      api = L_coeffs[i] * L +
-            M_coeffs[i] * M +
-            F_coeffs[i] * F +
-            D_coeffs[i] * D +
-            omega_coeffs[i] * omega;
+      double api = L_coeffs[i] * L +
+                   M_coeffs[i] * M +
+                   F_coeffs[i] * F +
+                   D_coeffs[i] * D +
+                   omega_coeffs[i] * omega;
       api *= DEGTORAD;
 
       nutation_in_longitude +=
@@ -274,11 +272,12 @@ NutationJ2000::initialize (
    // cast will return NULL if it is not.
    NutationJ2000Init* nut_init = dynamic_cast<NutationJ2000Init*> (init);
 
-   if (nut_init == NULL) {
+   if (nut_init == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::initialization_error,
          "Init object sent to NutationJ2000 was"
          " not of type NutationJ2000Init");
+      return;
    }
 
    num_coeffs = nut_init->num_coeffs;

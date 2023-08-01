@@ -21,10 +21,10 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((facet.o)
-     (surface_model_messages.o)
-     (dynamics/mass/mass.o)
-     (dynamics/mass/mass_point_state.o))
+    ((facet.cc)
+     (surface_model_messages.cc)
+     (dynamics/mass/src/mass.cc)
+     (dynamics/mass/src/mass_point_state.cc))
 
  
 *******************************************************************************/
@@ -54,10 +54,10 @@ namespace jeod {
 Facet::Facet (
    void)
 : // Return: -- void
-   param_name(NULL),
+   param_name(nullptr),
    name(),
-   mass_body_name(NULL),
-   mass_body_ptr(NULL),
+   mass_body_name(nullptr),
+   mass_body_ptr(nullptr),
    connections_initialized(false)
 {
    Vector3::initialize (position);
@@ -99,7 +99,7 @@ Facet::initialize_mass_connection (
 
    mass_body_ptr = manager.find_mass_body(mass_body_name);
 
-   if(mass_body_ptr == NULL){
+   if(mass_body_ptr == nullptr){
 
       MessageHandler::fail (
          __FILE__, __LINE__, SurfaceModelMessages::initialization_error,

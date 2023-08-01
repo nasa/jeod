@@ -22,8 +22,8 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((trick_message_handler.o)
-   (utils/message/message_handler.o))
+  ((trick_message_handler.cc)
+   (utils/message/src/message_handler.cc))
 
  
 
@@ -123,7 +123,7 @@ const
 
       // *Safely* generate the location information.
       char where[256];
-      std::snprintf (where, sizeof(where), "%s line %d", file, line);
+      std::snprintf (where, sizeof(where), "%s line %u", file, line);
 
 
       // Message is to be generated. The user has control over the appearance

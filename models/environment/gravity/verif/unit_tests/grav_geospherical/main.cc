@@ -190,7 +190,7 @@ char * argv[])
 int Tester::readTestRecs() {
 FILE *f=fopen("data/verif_out.txt", "r");
 
-if (f == NULL) {
+if (f == nullptr) {
 cerr << "Data file not found" << endl;
 return 1;
 } // end if
@@ -198,7 +198,7 @@ return 1;
 my_string str;
 int caseNum=0;
 
-while (fgets(str, STRING_LENGTH, f) != NULL) {
+while (fgets(str, STRING_LENGTH, f) != nullptr) {
 TestRec *tr_ptr=&testRecs[caseNum++];
 int numFields=
 sscanf(str, "%d %d %d %d %d %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",

@@ -21,9 +21,9 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate_aero_params.o)
-     (aero_params.o)
-     (aero_drag.o))
+    ((flat_plate_aero_params.cc)
+     (aero_params.cc)
+     (aero_drag.cc))
 
 
 *******************************************************************************/

@@ -21,10 +21,10 @@ ASSUMPTIONS AND LIMITATIONS:
    ((None))
 
 Library dependencies:
-   ((gravity_torque.o)
-    (gravity_torque_messages.o)
-    (dynamics/dyn_body/dyn_body.o)
-    (utils/message/message_handler.o))
+   ((gravity_torque.cc)
+    (gravity_torque_messages.cc)
+    (dynamics/dyn_body/src/dyn_body.cc)
+    (utils/message/src/message_handler.cc))
 
 
 
@@ -53,7 +53,7 @@ namespace jeod {
 GravityTorque::GravityTorque (
    void)
 {
-   subject_body = NULL;
+   subject_body = nullptr;
    Vector3::initialize (torque);
    active = true;
 }
@@ -98,7 +98,7 @@ GravityTorque::update (
       return;
    }
 
-   if (subject_body == NULL) {
+   if (subject_body == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, GravityTorqueMessages::initialization_error,
          "GravityTorque object was not properly initialized.");

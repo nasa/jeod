@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -71,7 +71,7 @@ Assumptions and limitations:
     ))
 
 Library dependencies:
-  ((planet_rnp.o))
+  ((../src/planet_rnp.cc))
 
  
 
@@ -169,7 +169,7 @@ public: // public member functions
 
    PlanetRNP ();
 
-   virtual ~PlanetRNP ();
+   ~PlanetRNP () override;
 
    // Invokes the calculation for all rotation models contained in the RNP,
    // based on the last time set in each model through
@@ -194,7 +194,7 @@ public: // public member functions
     * to convince trick that yes, this is a pure virtual class.
     * @return Planet name.
     */
-   virtual const char* get_name() const = 0;
+   const char* get_name() const override = 0;
 
 
 private: // private member functions

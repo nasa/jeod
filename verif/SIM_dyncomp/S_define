@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -185,10 +185,60 @@ VehicleSimObject vehicle ( dynamics.dyn_manager,
                            earth.atmos,
                            earth.wind_velocity);
 
+##include "dynamics/body_action/include/body_attach_aligned.hh"
 
-vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   vehicle.force_extern
+class DynBodySimObject : public Trick::SimObject
+{
+public:
+  jeod::DynBody dyn_body;
+  jeod::DynManager * dyn_manager_ptr;
+  double external_force[3]; //!< trick_units(N)
+
+  DynBodySimObject() :
+    dyn_manager_ptr(nullptr)
+  {
+     dyn_body.collect.collect_effector_forc.push_back(
+                       jeod::CollectForce::create(external_force) );
+     P_ENV ("initialization") dyn_body.initialize_model( *dyn_manager_ptr );
+  }
+
 };
+
+class AttachToFrameHelper : public Trick::SimObject
+{
+public:
+   AttachToFrameHelper(jeod::DynBody & bodyIn) :
+       body(bodyIn)
+   {}
+
+   double position[3];
+   double rotation[3][3];
+
+   void attach_wrap_child_parent_pos_rot(const std::string & child_frame, const std::string & parent_frame)
+   {
+      body.attach_to_frame(child_frame.c_str(), parent_frame.c_str(), position, rotation);
+   }
+
+   void attach_wrap_pos_rot_parent(jeod::RefFrame & parentIn)
+   {
+      body.attach_to_frame(position, rotation, parentIn);
+   }
+
+
+private:
+   jeod::DynBody & body;
+
+   AttachToFrameHelper (const AttachToFrameHelper&);
+   AttachToFrameHelper & operator = (const AttachToFrameHelper&);
+};
+
+AttachToFrameHelper attach_to_frame_helper(vehicle.dyn_body);
+
+
+// Note: Moved to create_connections for restart testing
+//vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+//   vehicle.force_extern
+//};
 vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
 };
 vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
@@ -203,5 +253,11 @@ vcollect vehicle.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::crea
    vehicle.aero_drag.aero_torque,
    vehicle.grav_torque.torque
 };
+
+void create_connections()
+{
+   vehicle.dyn_body.collect.collect_effector_forc.push_back(
+                       jeod::CollectForce::create(vehicle.force_extern) );
+}
 
 IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth, vehicle;

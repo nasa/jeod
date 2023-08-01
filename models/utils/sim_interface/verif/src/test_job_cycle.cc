@@ -13,7 +13,7 @@ CLASS:
   (scheduled)
 
 LIBRARY DEPENDENCY:
-  ((test_job_cycle.o))
+  ((test_job_cycle.cc))
 
  
 ************************************************************************/

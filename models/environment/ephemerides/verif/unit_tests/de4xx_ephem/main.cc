@@ -469,9 +469,9 @@ dataset_test (
    nchecked = nbad = 0;
 
    testdata = fopen (testpo, "r");
-   if (testdata != NULL) {
+   if (testdata != nullptr) {
 
-   while (fgets (buf, sizeof(buf), testdata) != NULL) {
+   while (fgets (buf, sizeof(buf), testdata) != nullptr) {
 
       iline++;
 
@@ -668,7 +668,7 @@ pleph (
 {
     /* Mapping from Fortran/PLEPH bodies to JEOD frames */
    static const char * frame_names[14] = {
-      NULL,  /* Fortran numbering starts at 1 */
+      nullptr,  /* Fortran numbering starts at 1 */
       "Mercury.inertial",
       "Venus.inertial",
       "Earth.inertial",

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((lsode_integration_controls.o))
+  ((../src/lsode_integration_controls.cc))
 
  
 
@@ -99,26 +99,26 @@ public:
     * LsodeIntegrationControls default constructor.
     */
    LsodeIntegrationControls(void);
-   LsodeIntegrationControls(unsigned int num_stages);
+   explicit LsodeIntegrationControls(unsigned int num_stages);
 
    /**
     * LsodeIntegrationControls destructor.
     */
-   virtual ~LsodeIntegrationControls() {};
+   ~LsodeIntegrationControls() override {};
 
 
    // Member functions.
-   virtual unsigned int integrate ( double start_time,
+   unsigned int integrate ( double start_time,
                                     double sim_dt,
                                     er7_utils::TimeInterface & time_interface,
                                     er7_utils::IntegratorInterface & integ_interface,
-                                    er7_utils::BaseIntegrationGroup & integ_group);
+                                    er7_utils::BaseIntegrationGroup & integ_group) override;
 
    /**
     * Create a copy of 'this' StandardIntegrationControls object.
     * @return Clone of 'this'.
     */
-   virtual LsodeIntegrationControls * create_copy () const ;
+   LsodeIntegrationControls * create_copy () const override ;
 
 
 private:

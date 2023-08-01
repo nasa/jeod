@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,12 +58,12 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((lsode_first_order_ode_integrator__integrator.o)
-   (lsode_first_order_ode_integrator__manager.o)
-   (lsode_first_order_ode_integrator__support.o)
-   (lsode_first_order_ode_integrator__utility.o)
-   (lsode_data_classes.o)
-   (lsode_control_data_interface.o))
+  ((../src/lsode_first_order_ode_integrator__integrator.cc)
+   (../src/lsode_first_order_ode_integrator__manager.cc)
+   (../src/lsode_first_order_ode_integrator__support.cc)
+   (../src/lsode_first_order_ode_integrator__utility.cc)
+   (../src/lsode_data_classes.cc)
+   (../src/lsode_control_data_interface.cc))
 
  
 
@@ -165,7 +165,7 @@ public:
    /**
     * LsodeFirstOrderODEIntegrator destructor.
     */
-   virtual ~LsodeFirstOrderODEIntegrator();
+   ~LsodeFirstOrderODEIntegrator() override;
 
 
    // Member functions.
@@ -188,7 +188,7 @@ public:
     * Create a copy of 'this' LsodeFirstOrderODEIntegrator object.
     * @return Clone of 'this'.
     */
-   virtual LsodeFirstOrderODEIntegrator * create_copy() const;
+   LsodeFirstOrderODEIntegrator * create_copy() const override;
 
 
    /**
@@ -210,13 +210,13 @@ public:
     *
     * @return The status (time advance, pass/fail status) of the integration.
     */
-   virtual er7_utils::IntegratorResult integrate (
+   er7_utils::IntegratorResult integrate (
                                 double dyn_dt,
                                 unsigned int target_stage,
                                 double const * ER7_UTILS_RESTRICT y_dot,
-                                double * ER7_UTILS_RESTRICT y);
+                                double * ER7_UTILS_RESTRICT y) override;
 
-   void reset_integrator ();
+   void reset_integrator () override;
 
 protected:
    void process_entry_point_cycle_start();
@@ -270,14 +270,14 @@ protected:
 public:
    void update_control_data();
 protected:
-   double magnitude_of_weighted_array( double * v);                   // was DVNORM
+   double magnitude_of_weighted_array( const double * v);             // was DVNORM
    double magnitude_of_weighted_array( unsigned int ix, double ** v); // was DVNORM
    int gauss_elim_factor();                                           // was DGEFA
    void linear_solver();                                              // was DGESL
    unsigned int index_of_max_magnitude(unsigned int num_points,       // was IDAMAX
                                        double ** mx,
                                        int starting_ix);
-    void load_derivatives(double * derivs);                       // was a part of F
+    void load_derivatives(double * derivs);                           // was a part of F
 
 
 // Variables:

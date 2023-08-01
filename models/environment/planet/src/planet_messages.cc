@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((planet_messages.o))
+  ((planet_messages.cc))
 
 
 

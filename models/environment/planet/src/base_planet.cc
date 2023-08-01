@@ -15,10 +15,10 @@ Purpose:
    ()
 
 Library Dependency:
-   ((base_planet.o)
-    (planet_messages.o)
-    (environment/ephemerides/ephem_interface/ephem_ref_frame.o)
-    (utils/message/message_handler.o))
+   ((base_planet.cc)
+    (planet_messages.cc)
+    (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc)
+    (utils/message/src/message_handler.cc))
 
 
 
@@ -49,11 +49,14 @@ BasePlanet::BasePlanet(
    void)
 :
    name (),
-   grav_source (NULL),
+   grav_source (nullptr),
    inertial(),
    pfix(),
-   alt_inertial_set (false)
-{ }
+   alt_inertial_set (false),
+   alt_pfix_set (false)
+{ 
+   Matrix3x3::identity(alt_pfix_transform);
+}
 
 
 /**
@@ -81,6 +84,7 @@ BasePlanet::set_alt_inertial(
    alt_inertial.state.rot.compute_quaternion();
 }
 
+
 /**
  * Use the celestial and ecliptic poles to set the conventional fixed
  * transformation from J2000 to alt_inertial
@@ -106,6 +110,45 @@ BasePlanet::set_alt_inertial(
    set_alt_inertial(m);
 }
 
+
+/**
+ * Set the fixed transformation from pfix to alt_pfix
+ *
+ * \par Assumptions and Limitations
+ *  - Method only works once
+ * \param[in] trans trans pfix->alt_pfix
+ */
+void
+BasePlanet::set_alt_pfix(
+   const double trans[3][3])
+{
+   if (alt_pfix_set) {
+      return;
+   }
+   alt_pfix_set = true;
+
+   Matrix3x3::copy(trans, alt_pfix_transform);
+}
+
+
+/**
+ * Calculate the current transformation from J2000 to alt_pfix
+ * using the fixed transformation between pfix and alt_pfix
+ *
+ * \par Assumptions and Limitations
+ *      calculates J2000 to alt_pfix using a fixed 
+ *      transformation from pfix to alt_pfix
+ */
+void
+BasePlanet::calculate_alt_pfix(void)
+{
+   Matrix3x3::product(alt_pfix_transform, pfix.state.rot.T_parent_this,
+                      alt_pfix.state.rot.T_parent_this);
+
+   alt_pfix.state.rot.compute_quaternion();
+}
+
+
 /**
  * Register a BasePlanet object with the Ephemerides Manager.
  * \param[in,out] ephem_manager Ephemerides Manager
@@ -128,16 +171,19 @@ BasePlanet::register_planet (
    inertial.set_name (name.c_str(), "inertial");
    alt_inertial.set_name (name.c_str(), "alt_inertial");
    pfix.set_name (name.c_str(), "pfix");
+   alt_pfix.set_name (name.c_str(), "alt_pfix");
 
    // Link the planet-fixed frame to the planet-centered inertial frame.
    inertial.add_child (pfix);
    inertial.add_child (alt_inertial);
+   inertial.add_child (alt_pfix);
 
    // Register the planet and the planet reference frames with the manager.
    ephem_manager.add_planet (*this);
    ephem_manager.add_integ_frame (inertial);
    ephem_manager.add_ref_frame (alt_inertial);
    ephem_manager.add_ref_frame (pfix);
+   ephem_manager.add_ref_frame (alt_pfix);
 
    return;
 }

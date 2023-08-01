@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -417,12 +417,9 @@ class TreeLinks {
    bool is_progeny_of (const Links & target) const
    {
       bool result = false;
-
-      for (auto* link : path_to_node_) {
-         if (link == &target) {
+      if(std::any_of(path_to_node_.begin(),path_to_node_.end(),
+         [&target](const Links* link) { return link == &target; })) {
             result = true;
-            break;
-         }
       }
 
       return result;
@@ -437,7 +434,6 @@ class TreeLinks {
     */
    int find_last_common_index (const Links & target) const
    {
-      int max_index;
       int last_common;
 
       // Both links must have a path and must be part of the same tree. If this
@@ -450,7 +446,8 @@ class TreeLinks {
 
       else {
          // Determine the maximum possible index as the shortest length - 1.
-         max_index = std::min(path_length(), target.path_length()) - 1;
+         
+         int max_index = std::min(path_length(), target.path_length()) - 1;
 
          // Paths are common up to max_index: This is the last common node.
          if (path_to_node_[max_index] == target.path_to_node_[max_index]) {

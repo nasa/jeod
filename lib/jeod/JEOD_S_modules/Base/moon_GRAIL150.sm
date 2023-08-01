@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,7 +60,13 @@ class Moon_GRAIL150_SimObject: public PlanetGenericSimObject
                             grav_in,
                             moon_default_data,
                             moon_grav_default_data)
-  { }
+  {  
+    //
+    // Environment class jobs
+    //
+    //Must be called after update_ephemerides
+    P60001("environment") planet.calculate_alt_pfix();
+  }
  private:
   Moon_GRAIL150_SimObject (const Moon_GRAIL150_SimObject&);
   Moon_GRAIL150_SimObject & operator = (const Moon_GRAIL150_SimObject&);

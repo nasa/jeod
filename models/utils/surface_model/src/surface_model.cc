@@ -21,9 +21,9 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((surface_model.o)
-     (surface_model_messages.o)
-     (utils/message/message_handler.o))
+    ((surface_model.cc)
+     (surface_model_messages.cc)
+     (utils/message/src/message_handler.cc))
 
  
 *******************************************************************************/
@@ -57,8 +57,8 @@ SurfaceModel::SurfaceModel (
    void)
 :
    articulation_active(false),
-   struct_body_name(NULL),
-   struct_body_ptr(NULL)
+   struct_body_name(nullptr),
+   struct_body_ptr(nullptr)
 {
 
    JEOD_REGISTER_CLASS(SurfaceModel);
@@ -92,7 +92,7 @@ SurfaceModel::add_facets (
 {
 
    // check for a NULL pointer being sent in
-   if (new_facets == NULL) {
+   if (new_facets == nullptr) {
       MessageHandler::warn (
          __FILE__, __LINE__, SurfaceModelMessages::setup_error,
          "A NULL pointer was given to the add_facets function. "
@@ -101,7 +101,7 @@ SurfaceModel::add_facets (
    }
 
    for (unsigned int ii = 0; ii < num_new_facets; ++ii) {
-      if (new_facets[ii] == NULL) {
+      if (new_facets[ii] == nullptr) {
          MessageHandler::warn (
             __FILE__, __LINE__, SurfaceModelMessages::setup_error,
             "A NULL pointer was given to the add_facets function "
@@ -125,7 +125,7 @@ SurfaceModel::add_facet (
    Facet* new_facet)
 {
 
-   if(new_facet == NULL) {
+   if(new_facet == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SurfaceModelMessages::setup_error,
          "A NULL pointer was given to the add_facet function. "
@@ -155,7 +155,7 @@ SurfaceModel::initialize_mass_connections (
 
    struct_body_ptr = manager.find_mass_body(struct_body_name);
 
-   if(struct_body_ptr == NULL) {
+   if(struct_body_ptr == nullptr) {
       MessageHandler::fail (
       __FILE__, __LINE__, SurfaceModelMessages::initialization_error,
       "In SurfaceModel::initialize_mass_connections, no mass body was found, "

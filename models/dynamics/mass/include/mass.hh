@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ ASSUMPTIONS AND LIMITATIONS:
    (Tree attachment Structure))
 
 LIBRARY DEPENDENCIES:
-  ((mass.o))
+  ((../src/mass.cc))
 
 
 
@@ -188,7 +188,7 @@ public:
    virtual bool detach (MassBody & from_body);
 
    // Detach body from its parent
-   virtual bool detach (void);
+   virtual bool detach (void);  //cppcheck-suppress virtualCallInConstructor
 
    // Test whether detachment is valid
    virtual bool detach_validate (const MassBody * parent, bool generate_message)
@@ -284,7 +284,7 @@ protected:
     * Create a MassBody, marking is_dynamic as true. Utilized by DynBody
     * via friendship.
     */
-   MassBody(DynBody& owner);
+   explicit MassBody(DynBody& owner);
 
    // Attachment methods
 
@@ -307,8 +307,8 @@ protected:
 
    // Establish physical connectivity between parent and child (sent to parent)
    virtual void attach_update_properties (
-      double offset_pstr_cstr_pstr[3],
-      double T_pstr_cstr[3][3],
+      const double offset_pstr_cstr_pstr[3],
+      const double T_pstr_cstr[3][3],
       MassBody & child);
 
 

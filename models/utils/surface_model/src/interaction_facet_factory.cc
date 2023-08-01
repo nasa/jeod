@@ -22,9 +22,9 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((interaction_facet_factory.o)
-     (facet.o)
-     (facet_params.o))
+    ((interaction_facet_factory.cc)
+     (facet.cc)
+     (facet_params.cc))
 
  
 *******************************************************************************/

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -92,7 +92,7 @@ public:
     Destructor.
     For now, this does nothing.
     */
-   ~SectionedOutputBuffer() {}
+   ~SectionedOutputBuffer() override {}
 
 #ifndef SWIG
    /**
@@ -100,7 +100,7 @@ public:
     @return False if object is OK.
     */
    bool operator ! () const
-   { return ((file_buf == NULL) || !file_buf); }
+   { return file_buf == nullptr; }
 #endif
 
 private:
@@ -122,11 +122,11 @@ private:
       if (!!*this) {
          this->sync();
       }
-      file_buf = NULL;
+      file_buf = nullptr;
    }
 
    // Write a character to the file when the output buffer overflows.
-   virtual std::streambuf::int_type overflow (std::streambuf::int_type c);
+   std::streambuf::int_type overflow (std::streambuf::int_type c) override;
 
 
    // Member data
@@ -176,7 +176,7 @@ public:
    SectionedOutputStream (const SectionedOutputStream &);
 
    // Destructor.
-   ~SectionedOutputStream ();
+   ~SectionedOutputStream () override;
 
    // Is the object able to be activated?
    bool is_activatable () const;
@@ -193,7 +193,7 @@ public:
     @return False if object is OK.
     */
    bool operator ! () const
-   { return (!is_active || (stream == NULL) || !stream || !sectbuf); }
+   { return (!is_active || stream == nullptr || !sectbuf); }
 
    /**
     Conversion to void*.
@@ -202,7 +202,7 @@ public:
     @return this pointer (cast to void*) if object is OK, NULL otherwise.
     */
    operator void* () const
-   { return (!*this) ? NULL : const_cast<SectionedOutputStream*>(this); }
+   { return (!*this) ? nullptr : const_cast<SectionedOutputStream*>(this); }
 #endif
 
 
@@ -307,13 +307,13 @@ public:
     @return True if there is an active writer, false otherwise.
    */
    bool have_active_writer () const
-   { return (current_writer != NULL); }
+   { return (current_writer != nullptr); }
 
    // Denote a writer as *the* currently active writer.
    bool register_writer (SectionedOutputStream * writer);
 
    // Denote a writer as no longer being *the* currently active writer.
-   bool deregister_writer (SectionedOutputStream * writer);
+   bool deregister_writer (const SectionedOutputStream * writer);
 
 private:
 

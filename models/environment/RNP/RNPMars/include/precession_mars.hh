@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -68,7 +68,7 @@ Assumptions and limitations:
 ((Mars specific))
 
 Library dependencies:
-((precession_mars.o))
+((../src/precession_mars.cc))
 
  
 
@@ -149,13 +149,13 @@ public:
 
    PrecessionMars ();
 
-   virtual ~PrecessionMars ();
+   ~PrecessionMars () override;
 
    // PrecessionMars specific implementation of update_rotation, inherited
    // from PlanetRotation. Before this is called, the current_time
    // parameter must be set to Julian days since standard epoch J2000, per
    // Konopliv references.
-   virtual void update_rotation ();
+   void update_rotation () override;
 
    // Initialize the constant rotation matrices associated with data
    // members N and J, so they don't have to be calculated repeatedly.

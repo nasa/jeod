@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((jeod_integration_group.o))
+  ((../src/jeod_integration_group.cc))
 
  
 
@@ -156,7 +156,7 @@ public:
    /**
     * JeodIntegrationGroup destructor
     */
-   virtual ~JeodIntegrationGroup ();
+   ~JeodIntegrationGroup () override;
 
 
    // Non-virtual methods.
@@ -202,9 +202,9 @@ public:
    /**
     * Respond to a change in the nature of time.
     */
-   virtual void respond_to_time_change ()
+   void respond_to_time_change () override
    {
-      if (integ_controls != NULL) {
+      if (integ_controls != nullptr) {
          integ_controls->set_reset_needed();
       }
    }
@@ -214,7 +214,7 @@ public:
     * Some integration techniques are configurable by user input, and thus
     * the creation of the controls and integrators needs to be delayed a bit.
     */
-   virtual void initialize_group ();
+   void initialize_group () override;
 
    /**
     * Reset the integrators for the integrable objects managed by this group.
@@ -224,7 +224,7 @@ public:
     * When either happens, integrators that depend on history need to reset
     * their internal state to indicate that the saved data are invalid.)
     */
-   virtual void reset_body_integrators (void)
+   void reset_body_integrators (void) override
    {
        reset_container (integrable_objects);
    }
@@ -242,9 +242,9 @@ public:
     *                              that the integrator should try to attain.
     * @return The status (time advance, pass/fail status) of the integration.
     */
-   virtual er7_utils::IntegratorResult integrate_bodies (
+   er7_utils::IntegratorResult integrate_bodies (
       double cycle_dyndt,
-      unsigned int target_stage)
+      unsigned int target_stage) override
    {
        return integrate_container (
                  cycle_dyndt, target_stage, integrable_objects);

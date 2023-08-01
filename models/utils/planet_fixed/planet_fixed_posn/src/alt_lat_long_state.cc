@@ -17,7 +17,7 @@ PURPOSE:
    ()
 
 LIBRARY DEPENDENCY:
-   ((alt_lat_long_state.o))
+   ((alt_lat_long_state.cc))
 
  
 

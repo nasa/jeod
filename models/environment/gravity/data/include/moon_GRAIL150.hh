@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -39,7 +39,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((moon_GRAIL150.o))
+  ((../src/moon_GRAIL150.cc))
 ******************************************************************************/
 
 #ifndef JEOD_SPHERICALHARMONICSGRAVITYBODY_MOON_GRAIL150_DEFAULT_DATA_H
@@ -53,7 +53,7 @@ namespace jeod {
 class SphericalHarmonicsGravitySource_moon_GRAIL150_default_data :
       public SphericalHarmonicsGravitySource_default_data {
  public:
-   virtual void initialize (SphericalHarmonicsGravitySource*);
+   void initialize (SphericalHarmonicsGravitySource*) override;
 };
 
 } // End JEOD namespace

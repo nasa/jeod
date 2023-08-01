@@ -15,13 +15,13 @@ PURPOSE:
     ()
 
 Library dependencies:
-    ((aero_surface_factory.o)
-     (aero_params.o)
-     (aerodynamics_messages.o)
-     (flat_plate_aero_factory.o)
-     (flat_plate_thermal_aero_factory.o)
-     (utils/surface_model/interaction_surface_factory.o)
-     (utils/message/message_handler.o))
+    ((aero_surface_factory.cc)
+     (aero_params.cc)
+     (aerodynamics_messages.cc)
+     (flat_plate_aero_factory.cc)
+     (flat_plate_thermal_aero_factory.cc)
+     (utils/surface_model/src/interaction_surface_factory.cc)
+     (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -92,11 +92,11 @@ AeroSurfaceFactory::add_facet_params (
    }
 
    // The param MUST be an
-   AeroParams* temp_ptr = NULL;
+   AeroParams* temp_ptr = nullptr;
 
    temp_ptr = dynamic_cast<AeroParams*> (to_add);
 
-   if (temp_ptr == NULL) {
+   if (temp_ptr == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, AerodynamicsMessages::pre_initialization_error,

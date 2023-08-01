@@ -19,7 +19,7 @@ Assumptions and limitations:
   ((Take great care in mixing Trick integration and JEOD integration.))
 
 Library dependencies:
-  ((trick_dynbody_integ_loop.o))
+  ((trick_dynbody_integ_loop.cc))
 
  
 *******************************************************************************/
@@ -54,14 +54,14 @@ namespace jeod {
 // JeodDynbodyIntegrationLoop default constructor.
 JeodDynbodyIntegrationLoop::JeodDynbodyIntegrationLoop ()
 :
-   Trick::IntegLoopScheduler(0.0, NULL),
-   loop_sim_object(NULL),
-   dyn_manager(NULL),
-   time_manager(NULL),
-   gravity_manager(NULL),
-   integ_constructor(NULL),
-   integ_group_factory(NULL),
-   integ_group(NULL),
+   Trick::IntegLoopScheduler(0.0, nullptr),
+   loop_sim_object(nullptr),
+   dyn_manager(nullptr),
+   time_manager(nullptr),
+   gravity_manager(nullptr),
+   integ_constructor(nullptr),
+   integ_group_factory(nullptr),
+   integ_group(nullptr),
    deriv_ephem_update(false)
 {
 }
@@ -84,7 +84,7 @@ JeodDynbodyIntegrationLoop::JeodDynbodyIntegrationLoop (
    gravity_manager(&grav_manager_in),
    integ_constructor(&integ_cotr_in),
    integ_group_factory(&integ_group_factory_in),
-   integ_group(NULL),
+   integ_group(nullptr),
    deriv_ephem_update(false)
 {
 
@@ -106,7 +106,7 @@ JeodDynbodyIntegrationLoop::JeodDynbodyIntegrationLoop (
 JeodDynbodyIntegrationLoop::~JeodDynbodyIntegrationLoop (
    void)
 {
-   if ((integ_group != NULL) && (JEOD_IS_ALLOCATED (integ_group))) {
+   if ((integ_group != nullptr) && (JEOD_IS_ALLOCATED (integ_group))) {
       JEOD_DELETE_OBJECT (integ_group);
    }
 }
@@ -118,7 +118,7 @@ JeodDynbodyIntegrationLoop::initialize_integ_loop (
    void)
 {
    // The integrator_constructor should have been populated at this point.
-   if (*integ_constructor == NULL) {
+   if (*integ_constructor == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::integration_error,
          "The integrator constructor for a JeodDynbodyIntegrationLoop "
@@ -157,7 +157,7 @@ JeodDynbodyIntegrationLoop::find_containing_sim_object (
       obj_name = obj_name.substr(1);
    }
 
-   Trick::SimObject * sim_object = NULL;
+   Trick::SimObject * sim_object = nullptr;
 
    // Find the sim object using the integrable object's name, starting with the
    // outermost parent name and proceeding to more basic names.
@@ -170,7 +170,7 @@ JeodDynbodyIntegrationLoop::find_containing_sim_object (
       sim_object =
          manager.find_sim_object (
             JeodSimulationInterface::get_address_at_name (obj_name));
-      if (sim_object != NULL) {
+      if (sim_object != nullptr) {
          break;
       }
    }
@@ -244,12 +244,12 @@ JeodDynbodyIntegrationLoop::integrate_dt (
       // Perform any integration class jobs associated with this integrator.
       integ_jobs.reset_curr_index();
       Trick::JobData * curr_job;
-      while ((curr_job = integ_jobs.get_next_job()) != NULL) {
+      while ((curr_job = integ_jobs.get_next_job()) != nullptr) {
 
          // Get the integrator object associated with this job.
          trick_curr_integ =
             *(static_cast<Trick::Integrator**>(curr_job->sup_class_data));
-         if (trick_curr_integ == NULL) {
+         if (trick_curr_integ == nullptr) {
             MessageHandler::error (
                __FILE__, __LINE__, SimInterfaceMessages::integration_error,
                "Integrate job has no associated Integrator.");
@@ -355,7 +355,7 @@ JeodDynbodyIntegrationLoop::add_sim_object_bodies (
         ++iter) {
       DynBody * body = *iter;
       Trick::SimObject * sim_obj = find_containing_sim_object (*body);
-      if ((sim_obj != NULL) &&
+      if ((sim_obj != nullptr) &&
           (find_sim_object (*sim_obj) != sim_objects.end())) {
          integ_group->add_dyn_body (*body);
       }

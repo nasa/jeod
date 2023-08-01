@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,7 +60,7 @@ Assumptions and limitations:
     (There is only one instance of this converter.))
 
 Library dependencies:
-  ((time_converter_dyn_tai.o))
+  ((../src/time_converter_dyn_tai.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_CONVERTER_DYN_TAI_HH
@@ -106,15 +106,15 @@ public:
   // Constructor
    TimeConverter_Dyn_TAI ();
   // Destructor
-   ~TimeConverter_Dyn_TAI ();
+   ~TimeConverter_Dyn_TAI () override;
 
   // Initialize the converter
    void initialize (JeodBaseTime * parent,
                     JeodBaseTime * child,
-                    const int direction);
+                    const int direction) override;
 
   // convert_a_to_b: Apply the converter in the direct
-   void convert_a_to_b (void);
+   void convert_a_to_b (void) override;
 
 
  // The copy constructor and assignment operator for this class are

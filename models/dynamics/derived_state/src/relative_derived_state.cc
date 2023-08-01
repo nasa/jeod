@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((relative_derived_state.o)
-   (derived_state.o)
-   (derived_state_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((relative_derived_state.cc)
+   (derived_state.cc)
+   (derived_state_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -53,12 +53,12 @@ RelativeDerivedState::RelativeDerivedState (
    void)
 :
    name(),
-   subject_frame_name(NULL),
-   target_frame_name(NULL),
+   subject_frame_name(nullptr),
+   target_frame_name(nullptr),
    direction_sense(undefined),
    active(true),
-   subject_frame(NULL),
-   target_frame(NULL)
+   subject_frame(nullptr),
+   target_frame(nullptr)
 {
 }
 
@@ -71,10 +71,10 @@ RelativeDerivedState::~RelativeDerivedState (
    void)
 {
    // Remove initialization-time subscriptions to the target and subject frames.
-   if ((target_frame != NULL) && (target_frame->subscriptions() > 0)) {
+   if ((target_frame != nullptr) && (target_frame->subscriptions() > 0)) {
       target_frame->unsubscribe ();
    }
-   if ((subject_frame != NULL) && (subject_frame->subscriptions() > 0)) {
+   if ((subject_frame != nullptr) && (subject_frame->subscriptions() > 0)) {
       subject_frame->unsubscribe ();
    }
 }
@@ -120,7 +120,7 @@ RelativeDerivedState::initialize (
    // Find the subject and target frames, checking for errors.
 
    // Ensure that the subject_frame_name has something to it.
-   if ((subject_frame_name == NULL) || (subject_frame_name[0] == '\0')) {
+   if ((subject_frame_name == nullptr) || (subject_frame_name[0] == '\0')) {
       MessageHandler::fail (
          __FILE__, __LINE__, DerivedStateMessages::invalid_name,
          "Missing subject_frame_name for RelativeDerivedState '%s'",
@@ -134,7 +134,7 @@ RelativeDerivedState::initialize (
    // the possibility of an implied body name prefix, which might be
    // true if a DynBody is being used. Otherwise, a full frame name
    // must be supplied.
-   if (subject != NULL) {
+   if (subject != nullptr) {
 
       // There is a subject DynBody, so use it for frame lookup
       subject_frame = subject->find_body_frame (subject_frame_name);
@@ -150,7 +150,7 @@ RelativeDerivedState::initialize (
 
 
    // Ensure the above worked.
-   if (subject_frame == NULL) {
+   if (subject_frame == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, DerivedStateMessages::invalid_name,
          "Invalid subject frame '%s' for RelativeDerivedState '%s'",
@@ -161,7 +161,7 @@ RelativeDerivedState::initialize (
    }
 
    // Ensure that the target_frame_name has something to it.
-   if ((target_frame_name == NULL) || (target_frame_name[0] == '\0')) {
+   if ((target_frame_name == nullptr) || (target_frame_name[0] == '\0')) {
       MessageHandler::fail (
          __FILE__, __LINE__, DerivedStateMessages::invalid_name,
          "Missing target_frame_name for RelativeDerivedState '%s'",
@@ -175,7 +175,7 @@ RelativeDerivedState::initialize (
    target_frame = dyn_manager.find_ref_frame (target_frame_name);
 
    // Ensure the above worked.
-   if (target_frame == NULL) {
+   if (target_frame == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, DerivedStateMessages::invalid_name,
          "Invalid target frame '%s' for RelativeDerivedState '%s'",

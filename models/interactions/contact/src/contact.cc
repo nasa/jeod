@@ -22,8 +22,8 @@
      ((N/A))
 
  Library dependencies:
-    ((contact.o)
-     (contact_pair.o))
+    ((contact.cc)
+     (contact_pair.cc))
 
  
 *****************************************************************************/
@@ -128,10 +128,10 @@ Contact::initialize_contact (
          for (tar = contact_pairs.begin (); tar != contact_pairs.end (); ++tar) {
             if ((*sub)->get_subject() != (*tar)->get_subject() && unique_pair((*sub)->get_subject(), (*tar)->get_subject())) {
                pair = (*sub)->get_subject()->create_pair((*tar)->get_subject(), this);
-               if (pair == NULL) {
+               if (pair == nullptr) {
                   pair = (*tar)->get_subject()->create_pair((*sub)->get_subject(), this);
                }
-               if (pair != NULL) {
+               if (pair != nullptr) {
                   pair->initialize_relstate(dyn_manager);
                   contact_pairs.push_back(pair);
                }
@@ -150,8 +150,8 @@ Contact::initialize_contact (
  */
 bool
 Contact::unique_pair (
-   ContactFacet * facet_1,
-   ContactFacet * facet_2)
+   const ContactFacet * facet_1,
+   const ContactFacet * facet_2)
 {
    std::list<ContactPair *>::iterator cp;
 
@@ -178,7 +178,7 @@ Contact::register_contact (
    ContactPair * pair;
 
    pair = facet->create_pair();
-   if(pair != NULL) {
+   if(pair != nullptr) {
       contact_pairs.push_back (pair);
    }
 
@@ -217,10 +217,10 @@ Contact::register_contact (
 {
    ContactPair * pair;
    pair = facet1->create_pair(facet2, this);
-   if (pair == NULL) {
+   if (pair == nullptr) {
       pair = facet2->create_pair(facet1, this);
    }
-   if(pair != NULL) {
+   if(pair != nullptr) {
       (pair)->initialize_relstate(dyn_manager);
       contact_pairs.push_back (pair);
    }
@@ -287,7 +287,7 @@ Contact::find_interaction (
       }
    }
 
-   return NULL;
+   return nullptr;
 }
 
 } // End JEOD namespace

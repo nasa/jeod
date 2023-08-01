@@ -20,6 +20,17 @@ The instance of \textit{PlanetaryDerivedState} needs to be defined, the model in
 \subsection{Generating the Input File}
 The input file (or Modified Data file) must contain the name of the planet, identified as \textit{reference\_name}.
 
+In the input file, the user may specify which planet-centered, planet-fixed reference frame (default or alternate) to use as the basis of the position calculations. Note: this only works with Planets that have an alternate reference frame defined.
+\begin{verbatim}
+example_of_rel_state_object.example_of_planetary_state.set_use_alt_pfix(False);
+
+\end{verbatim}
+or
+\begin{verbatim}
+example_of_rel_state_object.example_of_planetary_state.set_use_alt_pfix(True);
+
+\end{verbatim}
+
 See the \textref{Analysis}{sec:planetaryuseranalysis} section for an example of how the input data may appear.
 
 \subsection{Logging the Data}

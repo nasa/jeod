@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((spice_ephem_point.o))
+  ((../src/spice_ephem_point.cc))
 
 
 
@@ -108,7 +108,7 @@ public:
 
    // Constructor and destructor.
    SpiceEphemPoint ();
-   virtual ~SpiceEphemPoint ();
+   ~SpiceEphemPoint () override;
 
 
    // Status and SPICE ID accessors.

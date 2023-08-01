@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate_thermal.o))
+    ((../src/flat_plate_thermal.cc))
 
  
 *******************************************************************************/
@@ -91,7 +91,7 @@ public:
    FlatPlateThermal ();
 
    // destructor
-   virtual ~FlatPlateThermal ();
+   ~FlatPlateThermal () override;
 
    /**
     * Thermal characteristics rider.

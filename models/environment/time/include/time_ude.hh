@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,7 +60,7 @@ Assumptions and limitations:
  
 
 Library dependencies:
-  ((time_ude.o))
+  ((../src/time_ude.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_UDE_HH
@@ -205,21 +205,21 @@ public:
    TimeUDE ();
 
   // destructor
-   virtual ~TimeUDE ();
+   ~TimeUDE () override;
 
-   void initialize_initializer_time (TimeManagerInit * tm_init);
+   void initialize_initializer_time (TimeManagerInit * tm_init) override;
    void add_type_initialize (const int seeking_status,
-                             TimeManagerInit * tm_init);
-   void initialize_from_parent (TimeManagerInit * tm_init);
+                             TimeManagerInit * tm_init) override;
+   void initialize_from_parent (TimeManagerInit * tm_init) override;
    void set_time_by_clock (void);
-   void set_time_by_seconds (const double new_seconds);
-   void set_time_by_days (const double new_days);
+   void set_time_by_seconds (const double new_seconds) override;
+   void set_time_by_days (const double new_days) override;
    void set_epoch_initializing_value (const double simtime,
                                       const double epoch_initializing_value);
 
 protected:
    // All TimeUDE objects default to NOT requiring singletons.
-   bool must_be_singleton ();
+   bool must_be_singleton () override;
 
    void convert_epoch_to_update (JeodBaseTime * epoch_ptr,
                                  JeodBaseTime * update_ptr,

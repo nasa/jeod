@@ -30,10 +30,10 @@ Class:
   (RotationJ2000)
 
 Library dependencies:
-  ((rotation_j2000.o)
-   (environment/RNP/GenericRNP/RNP_messages.o)
-   (environment/RNP/GenericRNP/planet_rotation.o)
-   (utils/message/message_handler.o))
+  ((rotation_j2000.cc)
+   (environment/RNP/GenericRNP/src/RNP_messages.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation.cc)
+   (utils/message/src/message_handler.cc))
 
  
 
@@ -61,8 +61,10 @@ RotationJ2000::RotationJ2000 (
    void)
 :
    planet_rotational_velocity(0.0),
-   nutation(NULL),
-   use_full_rnp(true)
+   nutation(nullptr),
+   use_full_rnp(true),
+   theta_gast(0.0),
+   GMST(0.0)
 {
 // empty for now
 }
@@ -100,11 +102,12 @@ RotationJ2000::update_rotation (
 
       // ask nutation for equation of the equinoxes
 
-      if (nutation ==  NULL) {
+      if (nutation ==  nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, RNPMessages::setup_error,
             "RotationJ2000 is not currently pointing"
             " to a nutation object");
+         return;
       }
 
       // The following code is a direct port from Jeod 1.52 . According to Vallado,

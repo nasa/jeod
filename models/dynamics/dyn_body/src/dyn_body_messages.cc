@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((dyn_body_messages.o))
+  ((dyn_body_messages.cc))
 
 
 

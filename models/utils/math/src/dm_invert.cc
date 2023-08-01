@@ -39,8 +39,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dm_invert.o)
-   (math_messages.o))
+  ((dm_invert.cc)
+   (math_messages.cc))
 
  
 

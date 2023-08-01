@@ -17,12 +17,12 @@ Purpose:
    ()
 
 Library Dependency:
-   ((north_east_down.o)
-    (utils/message/message_handler.o)
-    (utils/planet_fixed/planet_fixed_posn/planet_fixed_messages.o)
-    (utils/planet_fixed/planet_fixed_posn/planet_fixed_posn.o)
-    (utils/quaternion/quat_from_mat.o)
-    (utils/ref_frames/ref_frame.o))
+   ((north_east_down.cc)
+    (utils/message/src/message_handler.cc)
+    (utils/planet_fixed/planet_fixed_posn/src/planet_fixed_messages.cc)
+    (utils/planet_fixed/planet_fixed_posn/src/planet_fixed_posn.cc)
+    (utils/quaternion/src/quat_from_mat.cc)
+    (utils/ref_frames/src/ref_frame.cc))
 
  
 *******************************************************************************/

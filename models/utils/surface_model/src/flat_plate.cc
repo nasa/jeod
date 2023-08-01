@@ -21,8 +21,8 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate.o)
-     (facet.o))
+    ((flat_plate.cc)
+     (facet.cc))
 
  
 *******************************************************************************/

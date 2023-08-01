@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_ref_frame.o))
+  ((../src/ephem_ref_frame.cc))
 
 
 *******************************************************************************/
@@ -106,7 +106,7 @@ public:
 
    // Constructor and destructor
    EphemerisRefFrame ();
-   virtual ~EphemerisRefFrame ();
+   ~EphemerisRefFrame () override;
 
    // Set the ephemerides manager, needed for callbacks.
    virtual void set_ephem_manager (BaseEphemeridesManager * manager);
@@ -117,7 +117,7 @@ protected:
 
    // Set the activity of the frame and relay the change to the
    // ephemerides manager.
-   virtual void set_active_status (bool new_status);
+   void set_active_status (bool new_status) override;
 
    // Member data
 

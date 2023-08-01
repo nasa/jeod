@@ -21,17 +21,17 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_manager.o)
-   (time_manager__initialize.o)
-   (time.o)
-   (time_dyn.o)
-   (time_manager_init.o)
-   (time_messages.o)
-   (time_standard.o)
-   (utils/integration/jeod_integration_time.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_manager.cc)
+   (time_manager__initialize.cc)
+   (time.cc)
+   (time_dyn.cc)
+   (time_manager_init.cc)
+   (time_messages.cc)
+   (time_standard.cc)
+   (utils/integration/src/jeod_integration_time.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -92,7 +92,7 @@ const
    TimeConverter * converter_ptr;
 
    if (index < 0) {
-      converter_ptr = NULL;
+      converter_ptr = nullptr;
    }
    else {
       converter_ptr = converter_vector[index];
@@ -180,7 +180,7 @@ const
 {
    JeodBaseTime * time_ptr;
    if (index < 0) {
-      time_ptr = NULL;
+      time_ptr = nullptr;
    }
    else {
       time_ptr = time_vector[index];
@@ -265,8 +265,8 @@ TimeManager::register_time_named (
 void
 TimeManager::register_converter (
    TimeConverter & conv_ref,
-   std::string name_a,
-   std::string name_b)
+   const std::string & name_a,
+   const std::string & name_b)
 {
    converter_vector.push_back (& conv_ref);
    if( conv_ref.a_name.empty() ) {
@@ -333,7 +333,7 @@ TimeManager::time_standards_exist (
    for (unsigned ii = 0; ii < time_vector.size(); ii++) {
       JeodBaseTime * time_ptr     = time_vector[ ii ];
       TimeStandard * time_ptr_std = dynamic_cast<TimeStandard *> (time_ptr);
-      if (time_ptr_std != NULL) {
+      if (time_ptr_std != nullptr) {
          return true;
       }
    }

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ref_frame_manager.o))
+  ((../src/ref_frame_manager.cc))
 
  
 
@@ -96,41 +96,41 @@ public:
 
    // Constructor and destructor
    RefFrameManager ();
-   virtual ~RefFrameManager ();
+   ~RefFrameManager () override;
 
 
    // Add a reference frame to the list of such.
-   virtual void add_ref_frame (RefFrame & ref_frame);
+   void add_ref_frame (RefFrame & ref_frame) override;
 
    // Remove a reference frame from the list of such.
-   virtual void remove_ref_frame (RefFrame & ref_frame);
+   void remove_ref_frame (RefFrame & ref_frame) override;
 
    // Find a reference frame.
-   virtual RefFrame * find_ref_frame (const char * name) const;
-   virtual RefFrame * find_ref_frame (
-      const char * prefix, const char * suffix) const;
+   RefFrame * find_ref_frame (const char * name) const override;
+   RefFrame * find_ref_frame (
+      const char * prefix, const char * suffix) const override;
 
    // Check whether each reference frame has an owner.
-   virtual void check_ref_frame_ownership (void) const;
+   void check_ref_frame_ownership (void) const override;
 
    // Reset the root node in anticipation of rebuilding the entire tree.
-   virtual void reset_tree_root_node ();
+   void reset_tree_root_node () override;
 
    // Add a reference frame to the reference frame tree.
-   virtual void add_frame_to_tree (RefFrame & ref_frame, RefFrame * parent);
+   void add_frame_to_tree (RefFrame & ref_frame, RefFrame * parent) override;
 
 
    // Add a subscription to a reference frame.
-   virtual void subscribe_to_frame (const char * frame_name);
-   virtual void subscribe_to_frame (RefFrame & frame);
+   void subscribe_to_frame (const char * frame_name) override;
+   void subscribe_to_frame (RefFrame & frame) override;
 
    // Remove a subscription from a reference frame.
-   virtual void unsubscribe_to_frame (const char * frame_name);
-   virtual void unsubscribe_to_frame (RefFrame & frame);
+   void unsubscribe_to_frame (const char * frame_name) override;
+   void unsubscribe_to_frame (RefFrame & frame) override;
 
    // Check whether a reference frame has subscriptions.
-   virtual bool frame_is_subscribed (const char * frame_name);
-   virtual bool frame_is_subscribed (RefFrame & frame);
+   bool frame_is_subscribed (const char * frame_name) override;
+   bool frame_is_subscribed (RefFrame & frame) override;
 
 
 protected:

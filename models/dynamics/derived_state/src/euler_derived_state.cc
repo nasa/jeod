@@ -16,11 +16,11 @@ Purpose:
   ()
 
 Library dependencies:
-  ((euler_derived_state.o)
-   (derived_state.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((euler_derived_state.cc)
+   (derived_state.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -49,7 +49,7 @@ EulerDerivedState::EulerDerivedState (
    void)
 :
    sequence (Orientation::Roll_Pitch_Yaw),
-   rel_frame (NULL)
+   rel_frame (nullptr)
 {
    ref_body_angles[0] = 0.0;
    ref_body_angles[1] = 0.0;
@@ -68,7 +68,7 @@ EulerDerivedState::~EulerDerivedState (
    void)
 {
    // Remove the initialization-time subscription to the target frame.
-   if (rel_frame != NULL) {
+   if (rel_frame != nullptr) {
       rel_frame->unsubscribe();
    }
 }
@@ -136,7 +136,7 @@ EulerDerivedState::update (
    DerivedState::update(); // This really doesn't do anything!
 
    // Check to see if Euler angles are relative to another frame.
-   if ((rel_frame == NULL) ||
+   if ((rel_frame == nullptr) ||
        (subject->composite_body.get_parent() == rel_frame)) {
 
       // Copy the body's state information for convenience.

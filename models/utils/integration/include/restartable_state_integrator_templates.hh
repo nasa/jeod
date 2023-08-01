@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -179,7 +179,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableStateIntegrator ()
+   ~RestartableStateIntegrator () override
    {
       destroy_integrator ();
    }
@@ -194,7 +194,7 @@ public:
       er7_utils::IntegrationControls & controls)
    {
       // Using an instance created with the default constructor is an error.
-      if (integrator_handle == NULL) {
+      if (integrator_handle == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, IntegrationMessages::invalid_request,
             "The pointer to the integrator object has not been set.");
@@ -213,7 +213,7 @@ public:
     */
    void destroy_integrator ()
    {
-      if (integrator_handle != NULL) {
+      if (integrator_handle != nullptr) {
          er7_utils::Er7UtilsDeletable::delete_instance (*integrator_handle);
       }
    }
@@ -225,7 +225,7 @@ public:
     */
    void clear_integrator_reference ()
    {
-      integrator_handle = NULL;
+      integrator_handle = nullptr;
    }
 
    /**
@@ -245,11 +245,11 @@ public:
     * This currently (pre-Trick 13.0) needs to be called after calling
     * set_integrator_reference.
     */
-   virtual void simple_restore ()
+   void simple_restore () override
    {
       // Restore the integrator from the checkpoint-restored value in the
       // external pointer and perform technique-specific actions on it.
-      if (integrator_handle != NULL) {
+      if (integrator_handle != nullptr) {
          simple_restore_internal (*integrator_handle);
       }
    }
@@ -263,7 +263,7 @@ protected:
    RestartableStateIntegrator ()
    :
       SimpleCheckpointable(),
-      integrator_handle(NULL)
+      integrator_handle(nullptr)
    { }
 
    /**
@@ -356,7 +356,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableFirstOrderODEIntegrator ()
+   ~RestartableFirstOrderODEIntegrator () override
    { }
 
 
@@ -369,9 +369,9 @@ private:
     * @param[in] generator  Integrator constructor used to create the integrator.
     * @param[in,out] controls   Integration controls to be passed to the generator.
     */
-   virtual er7_utils::FirstOrderODEIntegrator * create_integrator_internal (
+   er7_utils::FirstOrderODEIntegrator * create_integrator_internal (
       const er7_utils::IntegratorConstructor & generator,
-      er7_utils::IntegrationControls & controls)
+      er7_utils::IntegrationControls & controls) override
    {
       return generator.create_first_order_ode_integrator (size, controls);
    }
@@ -408,7 +408,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableSecondOrderODEIntegrator ()
+   ~RestartableSecondOrderODEIntegrator () override
    { }
 
 
@@ -483,7 +483,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableSimpleSecondOrderODEIntegrator ()
+   ~RestartableSimpleSecondOrderODEIntegrator () override
    { }
 
 
@@ -496,9 +496,9 @@ private:
     * @param[in] generator  Integrator constructor used to create the integrator.
     * @param[in,out] controls   Integration controls to be passed to the generator.
     */
-   virtual er7_utils::SecondOrderODEIntegrator * create_integrator_internal (
+   er7_utils::SecondOrderODEIntegrator * create_integrator_internal (
       const er7_utils::IntegratorConstructor & generator,
-      er7_utils::IntegrationControls & controls)
+      er7_utils::IntegrationControls & controls) override
    {
       return generator.create_second_order_ode_integrator (size, controls);
    }
@@ -559,7 +559,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableGeneralizedDerivSecondOrderODEIntegrator ()
+   ~RestartableGeneralizedDerivSecondOrderODEIntegrator () override
    { }
 
 
@@ -572,9 +572,9 @@ private:
     * @param[in] generator  Integrator constructor used to create the integrator.
     * @param[in,out] controls   Integration controls to be passed to the generator.
     */
-   virtual er7_utils::SecondOrderODEIntegrator * create_integrator_internal (
+   er7_utils::SecondOrderODEIntegrator * create_integrator_internal (
       const er7_utils::IntegratorConstructor & generator,
-      er7_utils::IntegrationControls & controls)
+      er7_utils::IntegrationControls & controls) override
    {
       return generator.create_generalized_deriv_second_order_ode_integrator (
                 position_size, velocity_size, DerivFunctions(), controls);
@@ -586,10 +586,10 @@ private:
     * to the derivative function to be restored.
     * @param[in,out] integrator_ptr  The base class's integrator data member
     */
-   virtual void simple_restore_internal (
-      er7_utils::SecondOrderODEIntegrator * integrator_ptr)
+   void simple_restore_internal (
+      er7_utils::SecondOrderODEIntegrator * integrator_ptr) override
    {
-      if (integrator_ptr != NULL) {
+      if (integrator_ptr != nullptr) {
          integrator_ptr->set_position_derivative_functions (DerivFunctions());
       }
    }
@@ -651,7 +651,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableGeneralizedStepSecondOrderODEIntegrator ()
+   ~RestartableGeneralizedStepSecondOrderODEIntegrator () override
    { }
 
 
@@ -664,9 +664,9 @@ private:
     * @param[in] generator  Integrator constructor used to create the integrator.
     * @param[in,out] controls   Integration controls to be passed to the generator.
     */
-   virtual er7_utils::SecondOrderODEIntegrator * create_integrator_internal (
+   er7_utils::SecondOrderODEIntegrator * create_integrator_internal (
       const er7_utils::IntegratorConstructor & generator,
-      er7_utils::IntegrationControls & controls)
+      er7_utils::IntegrationControls & controls) override
    {
       return generator.create_generalized_step_second_order_ode_integrator (
                 position_size, velocity_size, StepFunctions(), controls);
@@ -678,10 +678,10 @@ private:
     * to the derivative function to be restored.
     * @param[in,out] integrator_ptr  The base class's integrator data member
     */
-   virtual void simple_restore_internal (
-      er7_utils::SecondOrderODEIntegrator * integrator_ptr)
+   void simple_restore_internal (
+      er7_utils::SecondOrderODEIntegrator * integrator_ptr) override
    {
-      if (integrator_ptr != NULL) {
+      if (integrator_ptr != nullptr) {
          integrator_ptr->set_position_step_functions (StepFunctions());
       }
    }

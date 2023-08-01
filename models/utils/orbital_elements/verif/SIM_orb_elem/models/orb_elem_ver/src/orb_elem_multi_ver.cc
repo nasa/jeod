@@ -13,8 +13,8 @@ CLASS:
   (scheduled)
 
 LIBRARY DEPENDENCY:
-  ((orb_elem_multi_ver.o)
-   (utils/orbital_elements/orbital_elements.o))
+  ((orb_elem_multi_ver.cc)
+   (utils/orbital_elements/src/orbital_elements.cc))
 
  
 ************************************************************************/

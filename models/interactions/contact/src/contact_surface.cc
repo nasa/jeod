@@ -21,9 +21,9 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((contact_surface.o)
-     (contact_messages.o)
-     (contact_facet.o))
+    ((contact_surface.cc)
+     (contact_messages.cc)
+     (contact_facet.cc))
 
 
 *******************************************************************************/
@@ -57,7 +57,7 @@ JEOD_DECLARE_ATTRIBUTES (ContactFacet)
 ContactSurface::ContactSurface (
    void)
    : // Return: -- void
-   contact_facets (NULL),
+   contact_facets (nullptr),
    facets_size (0)
 {
    JEOD_REGISTER_CLASS(ContactSurface);
@@ -72,10 +72,10 @@ ContactSurface::~ContactSurface (
    void)
 {
 
-   if (contact_facets != NULL) {
+   if (contact_facets != nullptr) {
 
       for (unsigned int ii = 0; ii < facets_size; ++ii) {
-         if (contact_facets[ii] != NULL) {
+         if (contact_facets[ii] != nullptr) {
             JEOD_DELETE_OBJECT (contact_facets[ii]);
          }
       }
@@ -98,7 +98,7 @@ ContactSurface::allocate_array (
    unsigned int size)
 {
 
-   if (contact_facets != NULL) {
+   if (contact_facets != nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, ContactMessages::initialization_error,
@@ -114,7 +114,7 @@ ContactSurface::allocate_array (
 
    // Make sure all pointers are NULL so destructor never crashes
    for (unsigned int ii = 0; ii < facets_size; ++ii) {
-      contact_facets[ii] = NULL;
+      contact_facets[ii] = nullptr;
    }
 
    return;
@@ -156,13 +156,13 @@ ContactSurface::allocate_interaction_facet (
       dynamic casting it. If the dynamic cast fails, we want to destroy
       the InteractionFacet so we don't get a memory leak */
 
-   InteractionFacet* temp_facet = NULL;
+   InteractionFacet* temp_facet = nullptr;
 
    // attempt to create the facet
    temp_facet = factory->create_facet (facet, params);
 
    // if the facet is NULL, then we have a problem
-   if (temp_facet == NULL) {
+   if (temp_facet == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, ContactMessages::initialization_error,
@@ -178,7 +178,7 @@ ContactSurface::allocate_interaction_facet (
 
 
    // If that fails, it doesn't belong in this surface so there is a problem
-   if (temp_contact_facet == NULL) {
+   if (temp_contact_facet == nullptr) {
 
       // temp_facet can NOT be NULL, since it was already checked for above
       JEOD_DELETE_OBJECT (temp_facet);

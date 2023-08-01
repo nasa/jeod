@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -123,7 +123,7 @@ ContactUtils::copy_const_char_to_char (
 
    char ** out_str)
 {
-/*   if (in_str == NULL) {
+/*   if (in_str == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, ContactMessages::initialization_error,
          "A NULL pointer was given to the copy_const_char_to_char function. "

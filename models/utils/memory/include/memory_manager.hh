@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,9 +52,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((memory_manager.o)
-   (memory_manager_protected.o)
-   (memory_manager_static.o))
+  ((../src/memory_manager.cc)
+   (../src/memory_manager_protected.cc)
+   (../src/memory_manager_static.cc))
 
  
 *******************************************************************************/

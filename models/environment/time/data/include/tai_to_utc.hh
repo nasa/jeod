@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((tai_to_utc.o))
+  ((../src/tai_to_utc.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIMECONVERTER_TAI_UTC_TAI_TO_UTC_DEFAULT_DATA_H

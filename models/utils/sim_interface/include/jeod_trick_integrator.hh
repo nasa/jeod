@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -93,7 +93,7 @@ public:
    /**
     * Destructor
     */
-   virtual ~TrickJeodIntegrator () {}
+   ~TrickJeodIntegrator () override {}
 
 
    // Trick::Integrator methods
@@ -103,12 +103,12 @@ public:
    /**
     * Does nothing.
     */
-   int integrate () {return -1;}
+   int integrate () override {return -1;}
 
    /**
     * Does nothing.
     */
-   void initialize (int, double) {}
+   void initialize (int, double) override {}
 };
 
 
@@ -129,21 +129,22 @@ public:
    JeodTrickIntegrator ()
    :
       JeodIntegratorInterface(),
-      trick_integrator()
+      trick_integrator(),
+      default_first_step_deriv(false)
    {}
 
 
    /**
     * Destructor.
     */
-   virtual ~JeodTrickIntegrator () {}
+   ~JeodTrickIntegrator () override {}
 
    /**
     * Interpret the integration technique
     */
-   virtual er7_utils::Integration::Technique interpret_integration_type (
+   er7_utils::Integration::Technique interpret_integration_type (
       int integ_technique)
-   const
+   const override
    {
       return er7_utils::translate_trick_integrator_type (
                 static_cast<Integrator_type> (integ_technique));
@@ -153,7 +154,7 @@ public:
     * Get the simulation engine's integrator.
     * @return Pointer to the simulation engine's integrator.
     */
-   virtual ::Trick::Integrator* get_integrator ()
+   virtual ::Trick::Integrator* get_integrator () //cppcheck-suppress missingOverride
    {
       return &trick_integrator;
    }
@@ -162,7 +163,7 @@ public:
     * Get the integration cycle time step.
     * @return                Simulation time delta t, in seconds
     */
-   virtual double get_dt () const
+   double get_dt () const override
    {
       return trick_integrator.dt;
    }
@@ -172,7 +173,7 @@ public:
     * on the initial step of each integration cycle.
     * @return Value of the first step derivatives flag
     */
-   virtual bool get_first_step_derivs_flag () const
+   bool get_first_step_derivs_flag () const override
    {
       return trick_integrator.first_step_deriv;
    }
@@ -182,7 +183,7 @@ public:
     * on the initial step of each integration cycle.
     * @param[in] value       Value of the first step derivatives flag
     */
-   virtual void set_first_step_derivs_flag (bool value)
+   void set_first_step_derivs_flag (bool value) override
    {
       trick_integrator.first_step_deriv = value;
    }
@@ -193,7 +194,7 @@ public:
     * needed just after a reset. The behavior should revert to nominal after
     * the reset has been performed.
     */
-   virtual void reset_first_step_derivs_flag ()
+   void reset_first_step_derivs_flag () override
    {
       default_first_step_deriv = trick_integrator.first_step_deriv;
       trick_integrator.first_step_deriv = true;
@@ -204,7 +205,7 @@ public:
     * on the initial step of each integration cycle to it's value prior to
     * the most recent call to reset_first_step_derivs_flag.
     */
-   virtual void restore_first_step_derivs_flag ()
+   void restore_first_step_derivs_flag () override
    {
       trick_integrator.first_step_deriv = default_first_step_deriv;
    }
@@ -213,7 +214,7 @@ public:
     * Set the step number within an integration cycle.
     * @param[in] stepno      Step number
     */
-   virtual void set_step_number (unsigned int stepno)
+   void set_step_number (unsigned int stepno) override
    {
       trick_integrator.intermediate_step = stepno;
    }
@@ -222,7 +223,7 @@ public:
     * Update the time model given the simulation time.
     * @param[in] sim_time Simulation time
     */
-   virtual void set_time (double sim_time)
+   void set_time (double sim_time) override
    {
       trick_integrator.time = sim_time;
    }

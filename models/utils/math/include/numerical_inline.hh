@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -131,7 +131,7 @@ Numerical::compare_exact (
    double x,
    double y)
 {
-   return *((long long *)&x)==*((long long *)&y);
+   return *((long long *)&x)==*((long long *)&y); // cppcheck-suppress invalidPointerCast
 }
 
 } // End JEOD namespace

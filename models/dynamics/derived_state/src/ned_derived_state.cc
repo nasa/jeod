@@ -16,14 +16,14 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ned_derived_state.o)
-   (derived_state.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/planet_fixed/north_east_down/north_east_down.o)
-   (utils/planet_fixed/planet_fixed_posn/planet_fixed_posn.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o)
-   (utils/ref_frames/ref_frame_set_name.o))
+  ((ned_derived_state.cc)
+   (derived_state.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/planet_fixed/north_east_down/src/north_east_down.cc)
+   (utils/planet_fixed/planet_fixed_posn/src/planet_fixed_posn.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc)
+   (utils/ref_frames/src/ref_frame_set_name.cc))
 
 
 
@@ -56,7 +56,9 @@ NedDerivedState::NedDerivedState (
    DerivedState(),
    register_frame(true),
    ned_state(),
-   planet_centered_planet_fixed(NULL),
+   planet (nullptr),
+   use_alt_pfix(false),
+   pfix_ptr(nullptr),
    pfix_rel_state()
 {
    return;
@@ -73,17 +75,27 @@ NedDerivedState::~NedDerivedState (
    // Disconnect the NED frame from the planet-center planet-fixed frame.
    ned_state.ned_frame.remove_from_parent();
 
-   // Remove the initialization-time subscription to the planet-centered frame.
-   if (planet_centered_planet_fixed != NULL) {
-      planet_centered_planet_fixed->unsubscribe();
-   }
-
    // Recant the registration done by the initialize() method.
    if (register_frame) {
       // FIXME: There is no way to do this yet.
    }
 
+   if (pfix_ptr != nullptr) {
+      pfix_ptr->unsubscribe();
+   }
+
    return;
+}
+
+
+/**
+ * Setter for use_alt_pfix
+ */
+void
+NedDerivedState::set_use_alt_pfix (
+   const bool use_alt_pfix_in)
+{
+   use_alt_pfix = use_alt_pfix_in;
 }
 
 
@@ -100,22 +112,27 @@ NedDerivedState::initialize (
    DynBody & subject_body,
    DynManager & dyn_manager)
 {
-   Planet * planet;
-
+   // Initialize as a DerivedState.
    DerivedState::initialize (subject_body, dyn_manager);
 
    // Find the planet.
    // Note that find_planet doesn't return if the named planet is not found.
    planet = find_planet (dyn_manager, reference_name, "reference_name");
 
+   // Choose the planet fixed frame to be used
+   if (use_alt_pfix) {
+      pfix_ptr = &(planet->alt_pfix);
+   } else {
+      pfix_ptr = &(planet->pfix);
+   }
+   pfix_ptr->subscribe();
+
    // Name the frame as <vehicle>.<planet>.ned
    ned_state.ned_frame.set_name (subject_body.name.c_str(), reference_name, "ned");
 
    // Connect the frame to the planet's planet-fixed frame
    // and subscribe to that frame.
-   planet_centered_planet_fixed = &(planet->pfix);
-   planet_centered_planet_fixed->add_child (ned_state.ned_frame);
-   planet_centered_planet_fixed->subscribe ();
+   pfix_ptr->add_child (ned_state.ned_frame);
 
    // If requested, register the frame with the dynamics manager.
    if (register_frame) {
@@ -136,7 +153,7 @@ NedDerivedState::update (
 {
    // Update the NED frame based on the vehicle's state relative to the planet.
    subject->composite_body.compute_relative_state (
-      *planet_centered_planet_fixed, pfix_rel_state);
+      *pfix_ptr, pfix_rel_state);
    compute_ned_frame (pfix_rel_state.trans);
 
    // Timestamp the frame per the vehicle timestamp.

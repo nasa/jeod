@@ -24,7 +24,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((lsode_first_order_ode_integrator__manager.o))
+  ((lsode_first_order_ode_integrator__manager.cc))
 
  
 

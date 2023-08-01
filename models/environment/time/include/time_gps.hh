@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_gps.o))
+  ((../src/time_gps.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_GPS_HH
@@ -120,17 +120,17 @@ public:
   //Constructor
    TimeGPS ();
   // Destructor
-   ~TimeGPS ();
+   ~TimeGPS () override;
 
-   void set_time_by_seconds (const double new_seconds);
-   void set_time_by_days (const double new_seconds);
+   void set_time_by_seconds (const double new_seconds) override;
+   void set_time_by_days (const double new_seconds) override;
    void set_time_by_trunc_julian (const double new_tjt);
 
 private:
 
-   void calculate_calendar_values (void);
-   void convert_from_calendar (void);
-   void set_epoch(void);
+   void calculate_calendar_values (void) override;
+   void convert_from_calendar (void) override;
+   void set_epoch(void) override; //cppcheck-suppress virtualCallInConstructor
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.

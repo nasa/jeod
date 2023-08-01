@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((aero_surface.o))
+    ((../src/aero_surface.cc))
 
 
 *******************************************************************************/
@@ -92,7 +92,7 @@ public:
    AeroSurface ();
 
    // destructor
-   virtual ~AeroSurface ();
+   ~AeroSurface () override;
 
    /**
     * An array of pointers to aerodynamic interaction facets.
@@ -107,17 +107,17 @@ public:
    unsigned int facets_size; //!< trick_units(count)
 
    // Allocates the aero_facets array from the given size
-   virtual void allocate_array (unsigned int size);
+   void allocate_array (unsigned int size) override;
 
    // Allocates the facet at the "index" value in aero_facets, using
    // the base Facet given by the pointer facet, and using the parameter
    // object pointed to by params pointer and using the
    // InteractionFacetFactory pointed to by factory.
-   virtual void allocate_interaction_facet (
+   void allocate_interaction_facet (
       Facet* facet,
       InteractionFacetFactory* factory,
       FacetParams* params,
-      unsigned int index);
+      unsigned int index) override;
 
 
 protected:

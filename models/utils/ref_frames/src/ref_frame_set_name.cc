@@ -15,9 +15,9 @@
     ()
 
   LIBRARY DEPENDENCY:
-    ((ref_frame_set_name.o)
-     (utils/sim_interface/memory_interface.o)
-     (utils/named_item/named_item.o))
+    ((ref_frame_set_name.cc)
+     (utils/sim_interface/src/memory_interface.cc)
+     (utils/named_item/src/named_item.cc))
 
    
 

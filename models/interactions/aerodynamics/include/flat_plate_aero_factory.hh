@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate_aero_factory.o))
+    ((../src/flat_plate_aero_factory.cc))
 
 
 *******************************************************************************/
@@ -90,13 +90,13 @@ public:
    FlatPlateAeroFactory ();
 
    // destructor
-   ~FlatPlateAeroFactory ();
+   ~FlatPlateAeroFactory () override;
 
-   virtual InteractionFacet* create_facet (Facet* facet, FacetParams* params);
+   InteractionFacet* create_facet (Facet* facet, FacetParams* params) override;
 
    // 'true' if this factory is meant to be used on the type of facet
    // sent in through the 'facet' pointer. 'false' otherwise
-   virtual bool is_correct_factory (Facet* facet);
+   bool is_correct_factory (Facet* facet) override;
 
 protected:
 

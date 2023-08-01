@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -103,7 +103,7 @@ class RefFrameLinks : public TreeLinks<RefFrameLinks,
     * Non-default constructor.
     * @param container_in The RefFrame object that contains this object.
     */
-   RefFrameLinks (RefFrame & container_in)
+   explicit RefFrameLinks (RefFrame & container_in)
    :
       TreeLinks<RefFrameLinks, RefFrame, RefFrameMessages> (
          container_in, default_path_size)
@@ -112,7 +112,7 @@ class RefFrameLinks : public TreeLinks<RefFrameLinks,
    /**
     * Destructor.
     */
-   virtual ~RefFrameLinks (void)
+   ~RefFrameLinks (void) override
    { }
 
 

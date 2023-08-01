@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -51,7 +51,7 @@ Purpose:
   ()
 
 Library Dependency:
-   ((base_planet.o))
+   ((../src/base_planet.cc))
 
 
 *******************************************************************************/
@@ -96,7 +96,6 @@ class BasePlanet {
     */
    std::string name; //!< trick_units(--)
 
-
    /**
     * The GravitySource corresponding to the same planet represented by this
     */
@@ -120,6 +119,10 @@ class BasePlanet {
     */
    EphemerisRefFrame pfix; //!< trick_units(--)
 
+   /**
+    * A secondary planet-fixed frame which can be defined by the user.
+    */
+   EphemerisRefFrame alt_pfix; //!< trick_units(--)
 
  // Member functions
  public:
@@ -133,7 +136,7 @@ class BasePlanet {
    /**
     * Setter for the name.
     */
-   void set_name (std::string name_in)
+   void set_name (const std::string & name_in)
    {
       name = name_in;
    }
@@ -145,6 +148,13 @@ class BasePlanet {
    // by using the celestial and ecliptic poles.
    virtual void set_alt_inertial (const double cp[3], const double ep[3]);
 
+   // Set the fixed transformation from pfix to alt_pfix
+   virtual void set_alt_pfix (const double trans[3][3]);
+
+   // Calculate the current transformation from J2000 to alt_pfix
+   // using the fixed transformation between pfix and alt_pfix
+   virtual void calculate_alt_pfix (void);
+
    // Register the planet with the ephemerides manager
    virtual void register_planet (
       BaseEphemeridesManager & ephem_manager);
@@ -154,6 +164,16 @@ class BasePlanet {
     * Flag to insure the alt_inertial frame is set only once
     */
    bool alt_inertial_set; //!< trick_units(--)
+  
+   /**
+    * The transform from pfix to alt_pfix.
+    */
+   double alt_pfix_transform[3][3]; //!< trick_units(--)
+
+   /**
+    * Flag to insure the alt_pfix transform never changed
+    */
+   bool alt_pfix_set; //!< trick_units(--)
 
 
 

@@ -24,7 +24,7 @@ Assumptions and limitations:
   (TBS)
 
 Library dependencies:
-  ((lsode_data_classes.o))
+  ((lsode_data_classes.cc))
 
  
 
@@ -85,14 +85,14 @@ LsodeDataStode::LsodeDataStode()
 
 LsodeDataArrays::LsodeDataArrays()
 :
-   pivots(NULL),
-   history(NULL),
+   pivots(nullptr),
+   history(nullptr),
    lin_alg_1(0.0),
    lin_alg_2(0.0),
-   lin_alg(NULL),
-   error_weight(NULL),
-   save(NULL),
-   accum_correction(NULL),
+   lin_alg(nullptr),
+   error_weight(nullptr),
+   save(nullptr),
+   accum_correction(nullptr),
    lin_alg_index1(0),
    num_odes(3),
    allocated(false)

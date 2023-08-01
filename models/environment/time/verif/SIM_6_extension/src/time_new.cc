@@ -9,7 +9,7 @@ ASSUMPTIONS AND LIMITATIONS:
   (None)
 
 LIBRARY DEPENDENCY:
-  (time_new.o)
+  (time_new.cc)
 
 
 ******************************************************************************/

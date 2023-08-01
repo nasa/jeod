@@ -87,16 +87,16 @@ class Foo : public virtual Base {
       trace ("Constructing", what_are_you_really(), (void*)this);
    }
 
-   virtual ~Foo ()
+   ~Foo () override
    {
       trace ("Destructing", what_are_you_really(), (void*)this);
       check_ok();
    }
 
-   virtual char * address () {return (char*)this;}
-   virtual const char * what_are_you_really () {return "Foo";}
-   virtual bool are_you_ok () {return yes_im_ok() && Base::are_you_ok();}
-   virtual int * elem_addr () {return &foo;}
+   char * address () override {return (char*)this;}
+   const char * what_are_you_really () override {return "Foo";}
+   bool are_you_ok () override {return yes_im_ok() && Base::are_you_ok();}
+   int * elem_addr () override {return &foo;}
 
    bool yes_im_ok () {return (foo == 2);}
    const char * what_are_you () {return "Foo";}
@@ -114,16 +114,16 @@ class Bar : public Foo {
       trace ("Constructing", what_are_you_really(), (void*)this);
    }
 
-   virtual ~Bar ()
+   ~Bar () override
    {
       trace ("Destructing", what_are_you_really(), (void*)this);
       check_ok();
    }
 
-   virtual char * address () {return (char*)this;}
-   virtual const char * what_are_you_really () {return "Bar";}
-   virtual bool are_you_ok () {return yes_im_ok() && Foo::are_you_ok();}
-   virtual int * elem_addr () {return &bar;}
+   char * address () override {return (char*)this;}
+   const char * what_are_you_really () override {return "Bar";}
+   bool are_you_ok () override {return yes_im_ok() && Foo::are_you_ok();}
+   int * elem_addr () override {return &bar;}
 
    bool yes_im_ok () {return (bar == 3);}
    const char * what_are_you () {return "Bar";}
@@ -141,16 +141,16 @@ class Baz : public virtual Base {
       trace ("Constructing", what_are_you_really(), (void*)this);
    }
 
-   virtual ~Baz ()
+   ~Baz () override
    {
       trace ("Destructing", what_are_you_really(), (void*)this);
       check_ok();
    }
 
-   virtual char * address () {return (char*)this;}
-   virtual const char * what_are_you_really () {return "Baz";}
-   virtual bool are_you_ok () {return yes_im_ok() && Base::are_you_ok();}
-   virtual int * elem_addr () {return &baz;}
+   char * address () override {return (char*)this;}
+   const char * what_are_you_really () override {return "Baz";}
+   bool are_you_ok () override {return yes_im_ok() && Base::are_you_ok();}
+   int * elem_addr () override {return &baz;}
 
    bool yes_im_ok () {return (baz == 4);}
    const char * what_are_you () {return "Baz";}
@@ -168,18 +168,18 @@ class Qux : public Bar, public Baz {
       trace ("Constructing", what_are_you_really(), (void*)this);
    }
 
-   virtual ~Qux ()
+   ~Qux () override
    {
       trace ("Destructing", what_are_you_really(), (void*)this);
       check_ok();
    }
 
-   virtual char * address () {return (char*)this;}
-   virtual const char * what_are_you_really () {return "Qux";}
-   virtual bool are_you_ok () {return yes_im_ok() &&
+   char * address () override {return (char*)this;}
+   const char * what_are_you_really () override {return "Qux";}
+   bool are_you_ok () override {return yes_im_ok() &&
                                       Bar::are_you_ok() &&
                                       Baz::are_you_ok();}
-   virtual int * elem_addr () {return &qux;}
+   int * elem_addr () override {return &qux;}
 
    bool yes_im_ok () {return (qux == 5);}
    const char * what_are_you () {return "Qux";}
@@ -197,18 +197,18 @@ class Quxx : public Baz, public Bar {
       trace ("Constructing", what_are_you_really(), (void*)this);
    }
 
-   virtual ~Quxx ()
+   ~Quxx () override
    {
       trace ("Destructing", what_are_you_really(), (void*)this);
       check_ok();
    }
 
-   virtual char * address () {return (char*)this;}
-   virtual const char * what_are_you_really () {return "Quxx";}
-   virtual bool are_you_ok () {return yes_im_ok() &&
+   char * address () override {return (char*)this;}
+   const char * what_are_you_really () override {return "Quxx";}
+   bool are_you_ok () override {return yes_im_ok() &&
                                       Baz::are_you_ok() &&
                                       Bar::are_you_ok();}
-   virtual int * elem_addr () {return &quxx;}
+   int * elem_addr () override {return &quxx;}
 
    bool yes_im_ok () {return (quxx == 6);}
    const char * what_are_you () {return "Quxx";}
@@ -251,7 +251,7 @@ class Allocator {
 template <typename DerivedType, typename BaseType>
 class TypeAllocator : public Allocator {
  public:
-   void * run (unsigned int nrepeat)
+   void * run (unsigned int nrepeat) override
    {
       unsigned int nkeep = 60 / nrepeat;
       unsigned int istart;
@@ -348,7 +348,7 @@ class TestThread {
    TestThread (
       void)
    :
-      allocator(NULL),
+      allocator(nullptr),
       nrepeat(0)
    { }
 
@@ -369,7 +369,7 @@ class TestThread {
    void start (
       void)
    {
-      pthread_create (&thread, NULL,
+      pthread_create (&thread, nullptr,
                       run_thread, reinterpret_cast<void*>(this));
    }
 
@@ -382,7 +382,7 @@ class TestThread {
    void join (
       void)
    {
-      pthread_join (thread, NULL);
+      pthread_join (thread, nullptr);
    }
 
  // Member data

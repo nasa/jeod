@@ -9,7 +9,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_params.o)
+    (demo_params.cc)
 
  
 *******************************************************************************/
@@ -47,7 +47,7 @@ DemoParams1::~DemoParams1(){
 }
 
 DemoParams2::DemoParams2() :
-   color(NULL)
+   color(nullptr)
 {
    // empty for now
 }
@@ -59,7 +59,7 @@ DemoParams2::~DemoParams2(){
 }
 
 FlatPlateDemoParams1::FlatPlateDemoParams1() :
-   shape(NULL)
+   shape(nullptr)
 {
    // empty for now
 }

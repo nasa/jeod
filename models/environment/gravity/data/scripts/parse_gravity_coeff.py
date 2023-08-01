@@ -28,7 +28,7 @@ Purpose:
   ()
 
 Library dependencies:
-  (({0}.o))
+  (({0}.cc))
 ******************************************************************************/
 
 #ifndef JEOD_SPHERICALHARMONICSGRAVITYBODY_{1}_DEFAULT_DATA_H

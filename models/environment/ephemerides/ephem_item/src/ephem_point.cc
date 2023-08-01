@@ -24,9 +24,9 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((ephem_point.o)
-   (ephem_item.o)
-   (utils/message/message_handler.o))
+  ((ephem_point.cc)
+   (ephem_item.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -124,7 +124,7 @@ EphemerisPoint::disconnect_from_tree (
 {
    // Disconnect the inertial frame from the reference frame tree.
    // The frame will be reinserted if needed in a (possibly different) tree.
-   if (active && (target_frame != NULL)) {
+   if (active && (target_frame != nullptr)) {
       target_frame->remove_from_parent();
    }
 }

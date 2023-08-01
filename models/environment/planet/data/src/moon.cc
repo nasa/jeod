@@ -33,10 +33,19 @@ void
 Planet_moon_default_data::initialize (
    Planet * Planet_ptr)
 {
+   /* Transformation from Moon_PA to Moon_ME */
+   double m[3][3]={
+                   {0.99999987, -0.00032929, 0.00038087},
+                   {0.00032929, 0.99999995, -0.00000145444094},
+                   {-0.00038087, 0.00000157985579, 0.99999993}};
+   
+
    Planet_ptr->name = "Moon";
 
    /* GSFC Moon fact sheet */
    Planet_ptr->flat_coeff = 0.00125;
    Planet_ptr->r_eq = 1000 * (1738.14);
+
+   Planet_ptr->set_alt_pfix(m);
 }
 } // End JEOD namespace

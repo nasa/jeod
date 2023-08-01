@@ -25,7 +25,7 @@ Class:
    (None)
 
 Library dependencies:
-  ((contact_messages.o))
+  ((contact_messages.cc))
 
 
 

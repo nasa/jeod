@@ -11,7 +11,7 @@ Assumptions and limitations:
   ()
 
 Library dependencies:
-  ((terrain_radius.o))
+  ((terrain_radius.cc))
 
 
 *******************************************************************************/
@@ -20,7 +20,7 @@ Library dependencies:
 #include "utils/math/include/vector3.hh"
 
 // Local includes
-#include "terrain_radius.hh"
+#include "../include/terrain_radius.hh"
 
 //! Namespace jeod
 namespace jeod {

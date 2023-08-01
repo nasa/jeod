@@ -16,16 +16,16 @@ Purpose:
   ()
 
 Library dependencies:
-  ((orientation.o)
-   (eigen_rotation.o)
-   (euler_angles.o)
-   (orientation_messages.o)
-   (utils/message/message_handler.o)
-   (utils/quaternion/quat.o)
-   (utils/quaternion/quat_from_mat.o)
-   (utils/quaternion/quat_norm.o)
-   (utils/quaternion/quat_to_eigenrot.o)
-   (utils/quaternion/quat_to_mat.o))
+  ((orientation.cc)
+   (eigen_rotation.cc)
+   (euler_angles.cc)
+   (orientation_messages.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/quaternion/src/quat.cc)
+   (utils/quaternion/src/quat_from_mat.cc)
+   (utils/quaternion/src/quat_norm.cc)
+   (utils/quaternion/src/quat_to_eigenrot.cc)
+   (utils/quaternion/src/quat_to_mat.cc))
 
  
 

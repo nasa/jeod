@@ -16,12 +16,12 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_propagate_state.o)
-   (dyn_body.o)
-   (dyn_body_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (environment/time/time_manager.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_propagate_state.cc)
+   (dyn_body.cc)
+   (dyn_body_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (environment/time/src/time_manager.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -219,8 +219,6 @@ DynBody::compute_state_elements_forward (
    BodyRefFrame & derived_frame)
 const
 {
-   double wxr[3];
-
    // A = integration frame
    // B = source frame
    // C = derived frame
@@ -256,6 +254,7 @@ const
    // v_A->C:A = v_A->B:A + v_B->C:A
    //   = v_A->B:A + T_A->B^T * (w_A->B:B X r_B->C:B)
    if (state_items.contains (RefFrameItems::Vel)) {
+      double wxr[3];
       Vector3::copy (
          source_frame.state.trans.velocity,
          derived_frame.state.trans.velocity);
@@ -338,8 +337,6 @@ DynBody::compute_state_elements_reverse (
    BodyRefFrame & derived_frame)
 const
 {
-   double wxr[3];
-
    // A = integration frame
    // B = source frame
    // C = derived frame
@@ -375,6 +372,7 @@ const
    // v_A->C:A = v_A->B:A + v_B->C:A
    //   = v_A->B:A + T_A->B^T * (w_A->B:B X r_B->C:B)
    if (state_items.contains (RefFrameItems::Vel)) {
+      double wxr[3];
       Vector3::copy (
          source_frame.state.trans.velocity,
          derived_frame.state.trans.velocity);
@@ -462,7 +460,7 @@ DynBody::update_integrated_state ()
    }
 
 
-   // Attitide rate:
+   // Attitude rate:
    // Note that rate is initialized if the source is the integrated frame.
    if (rate_source == integrated_frame) {
       initialized_states.add (RefFrameItems::Rate);
@@ -811,8 +809,9 @@ DynBody::compute_vehicle_point_states (
            it != vehicle_points.end();
            ++it) {
          BodyRefFrame * point = *it;
+         RefFrameItems items(set_items);
          compute_state_elements_forward (
-            structure, *(point->mass_point), set_items, *point);
+            structure, *(point->mass_point), items, *point);
       }
    }
 }

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -64,7 +64,7 @@ Assumptions and limitations:
     put into the initialization file))
 
 Library dependencies:
-  ((polar_motion_j2000_init.o))
+  ((../src/polar_motion_j2000_init.cc))
 
  
 
@@ -129,7 +129,7 @@ public: // public member functions
 
    PolarMotionJ2000Init ();
 
-   virtual ~PolarMotionJ2000Init ();
+   ~PolarMotionJ2000Init () override;
 
 private: // private member functions
 

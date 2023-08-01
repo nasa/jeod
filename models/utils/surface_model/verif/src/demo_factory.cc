@@ -9,10 +9,10 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-   ((demo_factory.o)
-    (demo_interaction_facet.o)
-    (utils/surface_model/flat_plate.o)
-    (utils/sim_interface/memory_interface.o))
+   ((demo_factory.cc)
+    (demo_interaction_facet.cc)
+    (utils/surface_model/src/flat_plate.cc)
+    (utils/sim_interface/src/memory_interface.cc))
 
  
 *******************************************************************************/
@@ -58,16 +58,16 @@ InteractionFacet* FlatPlateDemoFactory1::create_facet(
    Facet* facet,
    FacetParams* params){
 
-   FlatPlateDemoParams1* demo_params = NULL;
-   FlatPlate* flat_plate = NULL;
+   FlatPlateDemoParams1* demo_params = nullptr;
+   FlatPlate* flat_plate = nullptr;
 
    demo_params = dynamic_cast<FlatPlateDemoParams1*>(params);
    flat_plate = dynamic_cast<FlatPlate*>(facet);
 
-   if(demo_params == NULL){
+   if(demo_params == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
-   if(flat_plate == NULL){
+   if(flat_plate == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
 
@@ -110,16 +110,16 @@ InteractionFacet* FlatPlateDemoFactory2::create_facet(
    Facet* facet,
    FacetParams* params){
 
-   FlatPlateDemoParams2* demo_params = NULL;
-   FlatPlate* flat_plate = NULL;
+   FlatPlateDemoParams2* demo_params = nullptr;
+   FlatPlate* flat_plate = nullptr;
 
    demo_params = dynamic_cast<FlatPlateDemoParams2*>(params);
    flat_plate = dynamic_cast<FlatPlate*>(facet);
 
-   if(demo_params == NULL){
+   if(demo_params == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
-   if(flat_plate == NULL){
+   if(flat_plate == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
 
@@ -160,16 +160,16 @@ InteractionFacet* DemoFacetFactory1::create_facet(
    Facet* facet,
    FacetParams* params){
 
-   DemoParams1* demo_params = NULL;
-   DemoFacet* flat_plate = NULL;
+   DemoParams1* demo_params = nullptr;
+   DemoFacet* flat_plate = nullptr;
 
    demo_params = dynamic_cast<DemoParams1*>(params);
    flat_plate = dynamic_cast<DemoFacet*>(facet);
 
-   if(demo_params == NULL){
+   if(demo_params == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
-   if(flat_plate == NULL){
+   if(flat_plate == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
 
@@ -210,16 +210,16 @@ InteractionFacet* DemoFacetFactory2::create_facet(
    Facet* facet,
    FacetParams* params){
 
-   DemoParams2* demo_params = NULL;
-   DemoFacet* flat_plate = NULL;
+   DemoParams2* demo_params = nullptr;
+   DemoFacet* flat_plate = nullptr;
 
    demo_params = dynamic_cast<DemoParams2*>(params);
    flat_plate = dynamic_cast<DemoFacet*>(facet);
 
-   if(demo_params == NULL){
+   if(demo_params == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
-   if(flat_plate == NULL){
+   if(flat_plate == nullptr){
       // INSERT ERROR MESSAGE HERE
    }
 

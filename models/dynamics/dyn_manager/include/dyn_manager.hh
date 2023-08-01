@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_manager.o))
+  ((../src/dyn_manager.cc))
 
 
 
@@ -126,7 +126,7 @@ public:
    // Constructor and destructor
    // Note: The copy constructor and assignment operator are deleted.
    DynManager ();
-   virtual ~DynManager ();
+   ~DynManager () override;
 
    /**
     * Determine if the manager has been initialized.
@@ -152,56 +152,56 @@ public:
    void initialize_simulation (void);
 
    // Set the Gravity Manager.
-   virtual void set_gravity_manager (GravityManager & gravity);
+   void set_gravity_manager (GravityManager & gravity) override;
 
    // Initialize the gravity model controls.
-   virtual void initialize_gravity_controls (void);
+   void initialize_gravity_controls (void) override;
 
    // Reset the gravity model controls.
-   virtual void reset_gravity_controls (void);
+   void reset_gravity_controls (void) override;
 
    // Compute gravity. Note: NOT virtual.
    void gravitation (void);
 
 
    // Add a mass body to the list of such.
-   virtual void add_mass_body (MassBody & mass_body);
+   void add_mass_body (MassBody & mass_body) override;
 #ifndef SWIG
-   virtual void add_mass_body (MassBody * mass_body);
+   void add_mass_body (MassBody * mass_body) override;
 #endif
 
    // Find a mass body.
-   virtual MassBody * find_mass_body (const char * name) const;
+   MassBody * find_mass_body (const char * name) const override;
 
    // Check if a mass body has been registered with the dynamics manager.
-   virtual bool is_mass_body_registered (const MassBody * mass_body) const;
+   bool is_mass_body_registered (const MassBody * mass_body) const override;
 
 
    // Add a dynamic body to the list of such.
-   virtual void add_dyn_body (DynBody & dyn_body);
+   void add_dyn_body (DynBody & dyn_body) override;
 
    // Find a dynamic body.
-   virtual DynBody * find_dyn_body (const char * name) const;
+   DynBody * find_dyn_body (const char * name) const override;
 
    /**
     * Return a copy of the list of registered dynamic bodies.
     * @return Copy of dyn_bodies data member
     */
-   virtual std::vector<DynBody*> get_dyn_bodies () const
+   std::vector<DynBody*> get_dyn_bodies () const override
    {
       return dyn_bodies;
    }
 
    // Check if a dynamic body has been registered with the dynamics manager.
-   virtual bool is_dyn_body_registered (const DynBody * dyn_body) const;
+   bool is_dyn_body_registered (const DynBody * dyn_body) const override;
 
 
    // Add an integration group to the list of such.
-   virtual void add_integ_group (DynamicsIntegrationGroup & integ_group);
+   void add_integ_group (DynamicsIntegrationGroup & integ_group) override;
 
    // Check if an integration group has been registered.
-   virtual bool is_integ_group_registered (
-      const DynamicsIntegrationGroup * integ_group) const;
+   bool is_integ_group_registered (
+      const DynamicsIntegrationGroup * integ_group) const override;
 
 
    // Enqueue a body action.
@@ -218,7 +218,7 @@ public:
    void initialize_integ_groups (void);
 
    // Update the specified integ group (which should be the default group).
-   virtual void update_integration_group (JeodIntegrationGroup & group);
+   void update_integration_group (JeodIntegrationGroup & group) override;
 
 
    // Initialize all registered dynamic bodies.
@@ -239,14 +239,14 @@ public:
    /**
     * Force all integrators to reset themselves.
     */
-   virtual void reset_integrators ();
+   void reset_integrators () override;
 
    /**
     * Instruct specific integrator to reset itself.
     * @param integ_group  Integration group to be reset.
     */
-   virtual void reset_integrators (
-           DynamicsIntegrationGroup & integ_group)
+   void reset_integrators (
+           DynamicsIntegrationGroup & integ_group) override
    {
      integ_group.reset_integrators();
    }
@@ -262,7 +262,7 @@ public:
 
 
    // Get the time at which the manager was last updated.
-   virtual double timestamp (void) const;
+   double timestamp (void) const override;
 
 
    // Get the manager's name.
@@ -308,9 +308,9 @@ protected:
       TimeManager & time_mngr);
 
    // initialize_dyn_bodies support methods
-   void perform_mass_body_initializations (MassBody * body = NULL);
+   void perform_mass_body_initializations (MassBody * body = nullptr);
    void perform_mass_attach_initializations (void);
-   void perform_dyn_body_initializations (DynBody * body = NULL);
+   void perform_dyn_body_initializations (DynBody * body = nullptr);
    void check_for_uninitialized_states (void);
 
 

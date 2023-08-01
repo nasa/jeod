@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -117,8 +117,8 @@ GaussJacksonOneState,
 er7_utils::FirstOrderODEIntegrator>::replicate_primer (
    const er7_utils::FirstOrderODEIntegrator * src)
 {
-   if (src == NULL) {
-      return NULL;
+   if (src == nullptr) {
+      return nullptr;
    }
    else {
       return src->create_copy();

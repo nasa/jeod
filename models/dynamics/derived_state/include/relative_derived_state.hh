@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((relative_derived_state.o))
+  ((../src/relative_derived_state.cc))
 
 
 
@@ -173,7 +173,7 @@ class RelativeDerivedState : public DerivedState {
 
    // Default constructor and destructor
    RelativeDerivedState ();
-   virtual ~RelativeDerivedState ();
+   ~RelativeDerivedState () override;
 
    /**
     * Setter for the name.
@@ -198,13 +198,13 @@ class RelativeDerivedState : public DerivedState {
    void set_subject_frame (BodyRefFrame &sf) {subject_frame = &sf; }
 
    // initialize(): Initialize the RelativeDerivedState instance
-   virtual void initialize (DynBody & subject_body, DynManager & dyn_manager);
+   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
 
    // initialize(): Initialize the RelativeDerivedState instance
    virtual void initialize (DynManager & dyn_manager);
 
    // update(): Compute the relative state
-   virtual void update (void);
+   void update (void) override;
 
    /* set_activation_flag(): Set the activation_flag to true or false
     * /param raf  RelativeDerivedState activation flag for RelKin manager

@@ -24,10 +24,10 @@ Assumptions and limitations:
     prior to calling this method.))
 
 Library dependencies:
-  ((dyn_body_collect.o)
-   (dyn_body.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_collect.cc)
+   (dyn_body.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -151,9 +151,6 @@ DynBody::collect_forces_and_torques ()
    if (dyn_parent != nullptr) {
       double effector_forc_pstr[3];
       double environ_forc_pstr[3];
-      double effector_torq_pstr[3];
-      double environ_torq_pstr[3];
-      double pcm_to_ccm[3];
 
       // Translational dynamics is on:
       // Transmit forces to the parent (but in the parent's structural frame).
@@ -187,6 +184,9 @@ DynBody::collect_forces_and_torques ()
       // Rotational dynamics is on:
       // Transmit torques to the parent (but in the parent's structural frame).
       if (rotational_dynamics) {
+         double effector_torq_pstr[3];
+         double environ_torq_pstr[3];
+         double pcm_to_ccm[3];
 
          // Transform transmittable torques to parent structural.
          Vector3::transform_transpose (
@@ -216,6 +216,12 @@ DynBody::collect_forces_and_torques ()
 
       // There is nothing to do here if rotational dynamics is off.
       else {
+      }
+
+      //If requested, compute child body pt derivatives
+      if (compute_point_derivative) {
+         compute_vehicle_point_derivatives (composite_body,
+                                            derivs);
       }
    }
 

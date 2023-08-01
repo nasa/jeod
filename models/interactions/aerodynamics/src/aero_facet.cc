@@ -21,8 +21,8 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((aero_facet.o)
-     (utils/surface_model/interaction_facet.o))
+    ((aero_facet.cc)
+     (utils/surface_model/src/interaction_facet.cc))
 
 
 *******************************************************************************/

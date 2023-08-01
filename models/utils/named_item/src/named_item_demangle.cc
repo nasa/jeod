@@ -21,7 +21,7 @@ Assumptions and limitations:
   ((For now, GNU c++ only.))
 
 Library Dependency:
-  ((named_item_demangle.o))
+  ((named_item_demangle.cc))
 
  
 
@@ -60,35 +60,28 @@ const std::string
 NamedItem::demangle (
    const std::type_info & info)
 {
-   std::string result;
-   bool have_result = false;
-
 #ifdef HAVE_ABI
-   const char * type_name = NULL;
+   std::string result;
+   const char * type_name = nullptr;
    int status;
 
-   type_name = abi::__cxa_demangle (info.name(), NULL, NULL, &status);
+   type_name = abi::__cxa_demangle (info.name(), nullptr, nullptr, &status);
 
    if (status == 0) {
       result = type_name;
-      have_result = true;
-   }
-   else {
-      have_result = false;
    }
 
-   if (type_name != NULL) {
+   if (type_name != nullptr) {
       std::free (const_cast<char *>(type_name));
-      type_name = NULL;
+      type_name = nullptr;
+   }
+
+   if (status == 0) {
+      return result;
    }
 #endif
-
-   // Punted by the above: Use the mangled name.
-   if (! have_result) {
-      result = info.name();
-   }
-
-   return result;
+   // If either punted by the above or HAVE_ABI undefined: Use the mangled name.
+   return info.name();
 }
 
 } // End JEOD namespace

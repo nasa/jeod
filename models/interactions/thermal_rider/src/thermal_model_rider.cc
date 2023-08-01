@@ -25,8 +25,8 @@ ASSUMPTIONS AND LIMITATIONS:
       (This is not a stand-alone interaction model))
 
 Library dependencies:
-   ((thermal_model_rider.o)
-    (thermal_facet_rider.o))
+   ((thermal_model_rider.cc)
+    (thermal_facet_rider.cc))
 
 
 *******************************************************************************/

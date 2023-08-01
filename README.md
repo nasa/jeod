@@ -19,7 +19,7 @@ control systems. More than one spacecraft can be simulated about one central
 body or separate spacecraft about separate central bodies.
 
 ## Copyright:
-Copyright 2022 United States Government as represented by the Administrator
+Copyright 2023 United States Government as represented by the Administrator
 of the National Aeronautics and Space Administration.  All Rights Reserved.
 
 ## Disclaimer:

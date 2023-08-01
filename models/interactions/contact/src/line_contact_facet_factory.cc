@@ -16,11 +16,11 @@ PURPOSE:
     ()
 
 Library dependencies:
-   ((line_contact_facet_factory.o)
-    (line_contact_facet.o)
-    (utils/surface_model/cylinder.o)
-    (dynamics/dyn_body/dyn_body.o)
-    (contact_messages.o))
+   ((line_contact_facet_factory.cc)
+    (line_contact_facet.cc)
+    (utils/surface_model/src/cylinder.cc)
+    (dynamics/dyn_body/src/dyn_body.cc)
+    (contact_messages.cc))
 
 
 *******************************************************************************/
@@ -83,8 +83,8 @@ LineContactFacetFactory::create_facet (
    Facet* facet,
    FacetParams* params)
 {
-   ContactParams* contact_params = NULL;
-   Cylinder* cylinder          = NULL;
+   ContactParams* contact_params = nullptr;
+   Cylinder* cylinder          = nullptr;
 
    contact_params = dynamic_cast<ContactParams*> (params);
    cylinder      = dynamic_cast<Cylinder*> (facet);
@@ -92,7 +92,7 @@ LineContactFacetFactory::create_facet (
 
    // We have tried casting the facet and params to the correct types.
    // if they were not the correct type, send out an error message
-   if (contact_params == NULL) {
+   if (contact_params == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__,
@@ -100,9 +100,9 @@ LineContactFacetFactory::create_facet (
          "the params supplied to "
          "PointContactFacetFactory::create_facet was not of type "
          "ContactParams, as is required");
-
+      return nullptr;
    }
-   if (cylinder == NULL) {
+   if (cylinder == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__,
@@ -110,7 +110,7 @@ LineContactFacetFactory::create_facet (
          "the Facet supplied to "
          "PointContactFacetFactory::create_facet was not of type "
          "CircularFlatPlate, as is required");
-
+      return nullptr;
    }
 
    // Create the interaction facet
@@ -132,7 +132,7 @@ LineContactFacetFactory::create_facet (
 
 
    inter_facet->vehicle_body = facet->get_mass_body_ptr()->dyn_owner;
-   if (inter_facet->vehicle_body == NULL) {
+   if (inter_facet->vehicle_body == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__,
@@ -140,7 +140,7 @@ LineContactFacetFactory::create_facet (
          "mass_body_ptr contained in the facet supplied to"
          "PointContactFacetFactory::create_facet was not of type "
          "DynBody, as is required");
-
+      return nullptr;
    }
 
    inter_facet->create_vehicle_point();

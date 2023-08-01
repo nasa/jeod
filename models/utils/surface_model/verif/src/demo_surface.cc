@@ -9,8 +9,8 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    ((demo_surface.o)
-     (utils/sim_interface/memory_interface.o))
+    ((demo_surface.cc)
+     (utils/sim_interface/src/memory_interface.cc))
 
  
 *******************************************************************************/
@@ -35,7 +35,7 @@ JEOD_DECLARE_ATTRIBUTES (DemoFacet2)
 
 
 DemoSurface1::DemoSurface1() :
-   demo_facets(NULL),
+   demo_facets(nullptr),
    facets_size(0)
 {
 
@@ -44,10 +44,10 @@ DemoSurface1::DemoSurface1() :
 
 DemoSurface1::~DemoSurface1(){
 
-   if(demo_facets != NULL){
+   if(demo_facets != nullptr){
 
       for(unsigned int ii = 0; ii < facets_size; ++ii){
-         if (demo_facets[ii] != NULL){
+         if (demo_facets[ii] != nullptr){
             JEOD_DELETE_OBJECT(demo_facets[ii]);
          }
       }
@@ -60,7 +60,7 @@ DemoSurface1::~DemoSurface1(){
 
 void DemoSurface1::allocate_array(unsigned int size) {
 
-   if(demo_facets != NULL) {
+   if(demo_facets != nullptr) {
       // INSERT ERROR MESSAGE HERE
       return;
    }
@@ -71,7 +71,7 @@ void DemoSurface1::allocate_array(unsigned int size) {
 
    // Make sure all pointers are NULL so destructor never crashes
    for(unsigned int ii = 0; ii < facets_size; ++ii){
-      demo_facets[ii] = NULL;
+      demo_facets[ii] = nullptr;
    }
 
    return;
@@ -95,10 +95,10 @@ void DemoSurface1::allocate_interaction_facet(Facet* facet,
       dynamic casting it. If the dynamic cast fails, we want to destroy
       the InteractionFacet so we don't get a memory leak */
 
-   InteractionFacet* temp_facet = NULL;
+   InteractionFacet* temp_facet = nullptr;
    temp_facet = factory->create_facet(facet, params);
 
-   if(temp_facet == NULL){
+   if(temp_facet == nullptr){
 
       // INSERT ERROR MESSAGE HERE
 
@@ -109,7 +109,7 @@ void DemoSurface1::allocate_interaction_facet(Facet* facet,
    DemoFacet1* temp_demo_facet = dynamic_cast<DemoFacet1*>(temp_facet);
 
 
-   if(temp_demo_facet == NULL) {
+   if(temp_demo_facet == nullptr) {
 
       // temp_facet can NOT be NULL, since it was already checked for above
       JEOD_DELETE_OBJECT(temp_facet);
@@ -127,7 +127,7 @@ void DemoSurface1::allocate_interaction_facet(Facet* facet,
 }
 
 DemoSurface2::DemoSurface2() :
-   demo_facets(NULL),
+   demo_facets(nullptr),
    facets_size(0)
 {
 
@@ -137,10 +137,10 @@ DemoSurface2::DemoSurface2() :
 
 DemoSurface2::~DemoSurface2(){
 
-   if(demo_facets != NULL){
+   if(demo_facets != nullptr){
 
       for(unsigned int ii = 0; ii < facets_size; ++ii){
-         if (demo_facets[ii] != NULL){
+         if (demo_facets[ii] != nullptr){
             JEOD_DELETE_OBJECT(demo_facets[ii]);
          }
       }
@@ -153,7 +153,7 @@ DemoSurface2::~DemoSurface2(){
 
 void DemoSurface2::allocate_array(unsigned int size) {
 
-   if(demo_facets != NULL) {
+   if(demo_facets != nullptr) {
       // INSERT ERROR MESSAGE HERE
       return;
    }
@@ -164,7 +164,7 @@ void DemoSurface2::allocate_array(unsigned int size) {
 
    // Make sure all pointers are NULL so destructor never crashes
    for(unsigned int ii = 0; ii < facets_size; ++ii){
-      demo_facets[ii] = NULL;
+      demo_facets[ii] = nullptr;
    }
 
    return;
@@ -188,10 +188,10 @@ void DemoSurface2::allocate_interaction_facet(Facet* facet,
       dynamic casting it. If the dynamic cast fails, we want to destroy
       the InteractionFacet so we don't get a memory leak */
 
-   InteractionFacet* temp_facet = NULL;
+   InteractionFacet* temp_facet = nullptr;
    temp_facet = factory->create_facet(facet, params);
 
-   if(temp_facet == NULL){
+   if(temp_facet == nullptr){
 
       // INSERT ERROR MESSAGE HERE
 
@@ -202,7 +202,7 @@ void DemoSurface2::allocate_interaction_facet(Facet* facet,
    DemoFacet2* temp_demo_facet = dynamic_cast<DemoFacet2*>(temp_facet);
 
 
-   if(temp_demo_facet == NULL) {
+   if(temp_demo_facet == nullptr) {
 
       // temp_facet can NOT be NULL, since it was already checked for above
       JEOD_DELETE_OBJECT(temp_facet);

@@ -15,9 +15,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((jeod_integration_time.o)
-   (integration_messages.o)
-   (utils/message/message_handler.o))
+  ((jeod_integration_time.cc)
+   (integration_messages.cc)
+   (utils/message/src/message_handler.cc))
 
  
 ******************************************************************************/

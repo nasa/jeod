@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -49,7 +49,7 @@ Assumptions and limitations:
   ((This model is intended for IV&V purposes only.))
 
 Library dependencies:
-  ((rotation_test.o))
+  ((../src/rotation_test.cc))
 
  
 
@@ -197,7 +197,7 @@ public:
       max_energy_time(0.0),
       min_energy_error(0.0),
       min_energy_time(0.0),
-      integ_generator(NULL)
+      integ_generator(nullptr)
    {
       zhat[0] = 0.0;
       zhat[1] = 0.0;
@@ -232,7 +232,7 @@ public:
       max_energy_time(0.0),
       min_energy_error(0.0),
       min_energy_time(0.0),
-      integ_generator(NULL)
+      integ_generator(nullptr)
    {
       zhat[0] = 0.0;
       zhat[1] = 0.0;
@@ -246,7 +246,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RotationTest (void)
+   ~RotationTest (void) override
    {
       JEOD_DELETE_OBJECT (integ_generator);
    }
@@ -256,46 +256,46 @@ public:
      Create a copy of the object.
      \return Constructed IntegrationTest object
    */
-   virtual IntegrationTest * replicate (unsigned int test_incr) = 0;
+   IntegrationTest * replicate (unsigned int test_incr) override = 0;
 
 
    // Initialization methods.
-   virtual void pre_initialize (void);
+   void pre_initialize (void) override;
 
-   virtual void post_initialize (void);
+   void post_initialize (void) override;
 
-   virtual void validate_integrability (
-      const er7_utils::IntegratorConstructor & generator);
+   void validate_integrability (
+      const er7_utils::IntegratorConstructor & generator) override;
 
    void
    create_integrators (
       const er7_utils::IntegratorConstructor & generator,
       er7_utils::IntegrationControls & controls,
-      const er7_utils::TimeInterface & time_if);
+      const er7_utils::TimeInterface & time_if) override;
 
    /**
     * Destroy the translation test state integrator.
     */
-   virtual void destroy_integrators (
-      void)
+   void destroy_integrators (
+      void) override
    {
       integ_generator->destroy_integrator ();
       JEOD_DELETE_OBJECT (integ_generator);
    }
 
    // Propagating over time.
-   virtual void propagate (double dyn_time, bool update_errors);
+   void propagate (double dyn_time, bool update_errors) override;
 
    // Integrate over delta-time.
-   virtual er7_utils::IntegratorResult integrate (
+   er7_utils::IntegratorResult integrate (
       double dyn_dt,
-      unsigned int target_stage);
+      unsigned int target_stage) override;
 
    // Compute derivatives; assumed to be time-independent.
-   virtual void compute_derivatives (void);
+   void compute_derivatives (void) override;
 
    // Generate shutdown report.
-   virtual void shutdown (double sim_time, double dyn_time, FILE * report);
+   void shutdown (double sim_time, double dyn_time, FILE * report) override;
 
    /**
     * Compute the integrated and true potential energy.
@@ -502,7 +502,7 @@ class RotationTestTorqueFreeSphere : public RotationTest {
    /**
      Destructor.
    */
-   ~RotationTestTorqueFreeSphere(void)
+   ~RotationTestTorqueFreeSphere(void) override
    {}
 
  private:
@@ -515,13 +515,13 @@ class RotationTestTorqueFreeSphere : public RotationTest {
  public:
 
    // Overloaded methods
-   virtual IntegrationTest * replicate (unsigned int test_incr);
+   IntegrationTest * replicate (unsigned int test_incr) override;
 
-   virtual void pre_initialize (void);
+   void pre_initialize (void) override;
 
-   virtual void post_initialize (void);
+   void post_initialize (void) override;
 
-   virtual void propagate (double dyn_dt, bool update_errors);
+   void propagate (double dyn_dt, bool update_errors) override;
 };
 
 
@@ -577,7 +577,7 @@ class RotationTestTorqueFreeSymTop : public RotationTest {
    /**
      Destructor.
    */
-   ~RotationTestTorqueFreeSymTop(void)
+   ~RotationTestTorqueFreeSymTop(void) override
    {}
 
 
@@ -591,13 +591,13 @@ class RotationTestTorqueFreeSymTop : public RotationTest {
  public:
 
    // Overloaded methods
-   virtual IntegrationTest * replicate (unsigned int test_incr);
+   IntegrationTest * replicate (unsigned int test_incr) override;
 
-   virtual void pre_initialize (void);
+   void pre_initialize (void) override;
 
-   virtual void post_initialize (void);
+   void post_initialize (void) override;
 
-   virtual void propagate (double dyn_dt, bool update_errors);
+   void propagate (double dyn_dt, bool update_errors) override;
 
 
  // Member data
@@ -672,7 +672,7 @@ class RotationTestTorqueFreeSymTopB : public RotationTestTorqueFreeSymTop {
    /**
      Destructor.
    */
-   ~RotationTestTorqueFreeSymTopB(void)
+   ~RotationTestTorqueFreeSymTopB(void) override
    {}
 
 
@@ -686,7 +686,7 @@ class RotationTestTorqueFreeSymTopB : public RotationTestTorqueFreeSymTop {
  public:
 
    // Overloaded methods
-   virtual IntegrationTest * replicate (unsigned int test_incr);
+   IntegrationTest * replicate (unsigned int test_incr) override;
 };
 
 
@@ -720,7 +720,7 @@ class RotationTestSHOSphere : public RotationTest {
    /**
      Destructor.
    */
-   ~RotationTestSHOSphere(void)
+   ~RotationTestSHOSphere(void) override
    {}
 
  private:
@@ -732,16 +732,16 @@ class RotationTestSHOSphere : public RotationTest {
  public:
 
    // Overloaded methods.
-   virtual IntegrationTest * replicate (unsigned int test_incr);
+   IntegrationTest * replicate (unsigned int test_incr) override;
 
-   virtual void pre_initialize (void);
+   void pre_initialize (void) override;
 
-   virtual void post_initialize (void);
+   void post_initialize (void) override;
 
-   virtual void propagate (double dyn_dt, bool update_errors);
+   void propagate (double dyn_dt, bool update_errors) override;
 
-   virtual void compute_potential (void);
-   virtual void compute_torque (void);
+   void compute_potential (void) override;
+   void compute_torque (void) override;
 
 
  // Member data

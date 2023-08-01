@@ -24,24 +24,24 @@
     (N/A)
 
   LIBRARY DEPENDENCY:
-    ((mass.o)
-     (mass_attach.o)
-     (mass_calc_composite_cm.o)
-     (mass_calc_composite_inertia.o)
-     (mass_point_mass_inertia.o)
-     (mass_detach.o)
-     (mass_print_body.o)
-     (mass_print_tree.o)
-     (mass_reattach.o)
-     (mass_update.o)
-     (mass_properties.o)
-     (mass_properties_init.o)
-     (mass_point_init.o)
-     (mass_point.o)
-     (mass_messages.o)
-     (utils/named_item/named_item.o)
-     (dynamics/dyn_body/dyn_body_vehicle_point.o)
-     (dynamics/dyn_manager/dyn_manager.o))
+    ((mass.cc)
+     (mass_attach.cc)
+     (mass_calc_composite_cm.cc)
+     (mass_calc_composite_inertia.cc)
+     (mass_point_mass_inertia.cc)
+     (mass_detach.cc)
+     (mass_print_body.cc)
+     (mass_print_tree.cc)
+     (mass_reattach.cc)
+     (mass_update.cc)
+     (mass_properties.cc)
+     (mass_properties_init.cc)
+     (mass_point_init.cc)
+     (mass_point.cc)
+     (mass_messages.cc)
+     (utils/named_item/src/named_item.cc)
+     (dynamics/dyn_body/src/dyn_body_vehicle_point.cc)
+     (dynamics/dyn_manager/src/dyn_manager.cc))
 
 
 *******************************************************************************/
@@ -372,11 +372,10 @@ const
       pt_suffix = name.suffix(pt_name);
 
       // Search for the point.
-      for (const auto* point : mass_points) {
-         if (point->name.ends_with(search_offset, pt_suffix)) {
-            found_point = point;
-            break;
-         }
+      const auto iter = std::find_if(mass_points.begin(), mass_points.end(), 
+         [&search_offset, &pt_suffix](const MassPoint* point) { return point->name.ends_with(search_offset, pt_suffix); });
+      if (iter != mass_points.end()) {
+         found_point = *iter;
       }
    }
 

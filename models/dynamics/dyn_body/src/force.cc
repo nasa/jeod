@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((force.o))
+  ((force.cc))
 
 
 
@@ -67,8 +67,8 @@ Force::~Force (
 CollectForce::CollectForce (
    void)
 :
-   active(NULL),
-   force(NULL)
+   active(nullptr),
+   force(nullptr)
 {
    ; // Empty
 }
@@ -97,7 +97,7 @@ CollectForce::CollectForce (
 CollectForce::CollectForce (
    double force_3vec[3])
 :
-   active(NULL),
+   active(nullptr),
    force(force_3vec)
 {
    ; // Empty
@@ -167,7 +167,7 @@ CInterfaceForce::CInterfaceForce (
 CInterfaceForce::~CInterfaceForce (
    void)
 {
-   if ((active != NULL) && JEOD_IS_ALLOCATED (active)) {
+   if ((active != nullptr) && JEOD_IS_ALLOCATED (active)) {
       JEOD_DELETE_OBJECT (active);
    }
 }

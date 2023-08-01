@@ -10,8 +10,8 @@
      ((N/A))
 
  Library dependencies:
-    ((contact_ground.o)
-     (ground_interaction.o))
+    ((contact_ground.cc)
+     (ground_interaction.cc))
 
  
 
@@ -42,8 +42,8 @@ ContactGround::ContactGround (
    void)
    : // Return: -- None
    ground_active (true),
-   planet (NULL),
-   terrain (NULL)
+   planet (nullptr),
+   terrain (nullptr)
 {
    JEOD_REGISTER_CLASS(ContactGround);
    JEOD_REGISTER_CLASS(GroundInteraction);
@@ -120,7 +120,7 @@ ContactGround::get_ground_interaction ( /* Return: -- ground interaction */
       }
    }
 
-   return NULL;
+   return nullptr;
 }
 
 /*******************************************************************************
@@ -133,7 +133,7 @@ ContactGround::is_unique_ground_interaction ( /* Return: -- bool */
 {
    std::list<GroundInteraction *>::iterator gi;
 
-   if (facet == NULL) {
+   if (facet == nullptr) {
       return false;
    }
 
@@ -170,14 +170,14 @@ ContactGround::initialize_ground ( /* Return: -- Void */
       for (cp = contact_pairs.begin (); cp != contact_pairs.end (); ++cp) {
          if (is_unique_ground_interaction((*cp)->get_subject())) {
             ground_interaction = (*gf)->create_interaction((*cp)->get_subject(), this);
-            if (ground_interaction != NULL) {
+            if (ground_interaction != nullptr) {
                ground_interaction->initialize(terrain);
 	            ground_interactions.push_back(ground_interaction);
             }
          }
          if ((*cp)->is_complete() && is_unique_ground_interaction((*cp)->get_target())) {
             ground_interaction = (*gf)->create_interaction((*cp)->get_target(), this);
-            if (ground_interaction != NULL) {
+            if (ground_interaction != nullptr) {
                ground_interaction->initialize(terrain);
 	            ground_interactions.push_back(ground_interaction);
             }

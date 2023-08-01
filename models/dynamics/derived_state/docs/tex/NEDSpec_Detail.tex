@@ -21,7 +21,7 @@ The \NEDDesc\ contains only one class:
 \classitem{NedDerivedState}
 \textref{DerivedState}{ref:DerivedState}
 
-This contains the methods \textit{compute\_ned\_frame}, \textit{initialize}, and \textit{update}:
+This contains the methods \textit{compute\_ned\_frame}, \textit{set\_use\_alt\_pfix}, \textit{initialize}, and \textit{update}:
 \begin{enumerate}
 
 \funcitem{compute\_ned\_frame}
@@ -29,13 +29,16 @@ This method utilizes methods from the planet-fixed model, see the \href{file:\JE
 
 It uses the NorthEastDown methods (from the planet-fixed model) \textit{set\_ned\_trans\_states} and \textit{build\_ned\_orientation} to generate the NED state.  The former, in turn, calls the PlanetFixedPosition method \textit{update\_from\_cart} to convert the Cartesian representation into spherical and elliptical representations.  The latter uses these generated latitude and longitude values to  produce a transformation matrix and corresponding quaternions for going from the planet-fixed reference frame to the NorthEastDown reference frame.
 
+\funcitem{set\_use\_alt\_pfix}
+This method sets the flag indicating whether to use the default planet-centered, planet-fixed reference frame associated with the planet or the alternate one, if one is available for the planet.
+
 \funcitem{initialize}
 The initialization process comprises the following steps:
 \begin{enumerate}
 \item{} The generic DerivedState initialization routine is called to establish the naming convention of the reference object (i.e., the planet about which the vehicle is orbiting) and state identifier.
 \item{} The DerivedState method \textit{find\_planet} is called (which subsequently calls the  \href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{\em Dynamics Manager}~\cite{dynenv:DYNMANAGER}) method of the same name to find a planet by name; that name is stored as \textit{reference\_name}, and is usually assigned in an input file.
+\item{} Depending on the value of \textit{use\_alt\_pfix}, the element \textit{pfix\_ptr} is set to either the default planet-fixed reference frame or the alternate planet-fixed reference frame of the planet identified by \textit{reference\_name} and the frame is subscribed.
 \item{} The name of the NED state is set as \textit{vehicle\_name.planet\_name.ned}.
-\item{} The element \textit{planet\_centered\_planet\_fixed} is set to be the planet-fixed reference frame identified by \textit{reference\_name}.
 \item{} The North-East-Down reference frame is added as a child to the \textit{planet\_centered\_planet\_fixed} frame.
 \item{} The North-East-Down frame is registered with the Dynamics manager (optional, user can specify with the \textit{register\_frame} flag, default is true).
 \item {} The identified planet is then passed into the initialize method for the PlanetFixedPosition object, \textit{ned\_state} (\textit{ned\_state} is a NorthEastDown state, which inherits from PlanetFixedPosition), which simply records a pointer to the planet just found in the PlanetFixedPosition class (see \href{file:\JEODHOME/models/utils/planet\_fixed/docs/planet\_fixed.pdf}{\em Planet Fixed} documentation~\cite{dynenv:PLANETFIXED}).

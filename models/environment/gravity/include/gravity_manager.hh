@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((gravity_manager.o))
+  ((../src/gravity_manager.cc))
 
 
 *******************************************************************************/
@@ -119,13 +119,13 @@ class GravityManager {
 
    ~GravityManager ();
 
-   GravitySource * find_grav_source (std::string source_name) const;
+   GravitySource * find_grav_source (const std::string & source_name) const;
 
    void add_grav_source (GravitySource & source);
 
    void initialize_model (BaseDynManager & manager);
 
-   void initialize_state (BaseDynManager & manager);
+   void initialize_state (const BaseDynManager & manager);
 
    /**
     * Compute the gravitational attraction of gravitational bodies on the

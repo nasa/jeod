@@ -49,7 +49,7 @@ GaussJacksonIntegrationControls::GaussJacksonIntegrationControls ()
 :
    er7_utils::Er7UtilsDeletable (),
    er7_utils::IntegrationControls (),
-   priming_controls (NULL),
+   priming_controls (nullptr),
    cycle_starttime (0.0),
    cycle_simdt (0.0),
    cycle_dyndt (0.0),
@@ -75,7 +75,7 @@ GaussJacksonIntegrationControls::GaussJacksonIntegrationControls (
 :
    er7_utils::Er7UtilsDeletable (),
    er7_utils::IntegrationControls (config_in.final_order),
-   priming_controls (NULL),
+   priming_controls (nullptr),
    cycle_starttime (0.0),
    cycle_simdt (0.0),
    cycle_dyndt (0.0),
@@ -104,7 +104,7 @@ GaussJacksonIntegrationControls::GaussJacksonIntegrationControls (
 :
    er7_utils::Er7UtilsDeletable (),
    er7_utils::IntegrationControls (src.config.final_order),
-   priming_controls (NULL),
+   priming_controls (nullptr),
    cycle_starttime (src.cycle_starttime),
    cycle_simdt (src.cycle_simdt),
    cycle_dyndt (src.cycle_dyndt),
@@ -119,7 +119,7 @@ GaussJacksonIntegrationControls::GaussJacksonIntegrationControls (
    edit_count (src.edit_count),
    at_end_of_tour (src.at_end_of_tour)
 {
-   if (src.priming_controls != NULL) {
+   if (src.priming_controls != nullptr) {
       priming_controls = src.priming_controls->create_copy ();
    }
 }
@@ -252,7 +252,7 @@ GaussJacksonIntegrationControls::integrate (
          break;
       case GaussJacksonStateMachine::Reset:
       default:
-         assert ("Internal error" == NULL);
+         assert ("Internal error" == nullptr);
          break;
       }
    }

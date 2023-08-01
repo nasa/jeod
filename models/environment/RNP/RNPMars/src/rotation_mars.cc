@@ -31,10 +31,10 @@ Assumptions and limitations:
   ((Mars specific))
 
 Library dependencies:
-  ((rotation_mars.o)
-   (environment/RNP/GenericRNP/planet_rotation.o)
-   (environment/RNP/GenericRNP/RNP_messages.o)
-   (utils/message/message_handler.o))
+  ((rotation_mars.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation.cc)
+   (environment/RNP/GenericRNP/src/RNP_messages.cc)
+   (utils/message/src/message_handler.cc))
 
  
 
@@ -62,7 +62,7 @@ RotationMars::RotationMars (
    void)
 :
    planet_rotational_velocity(0.0),
-   nutation(NULL),
+   nutation(nullptr),
    use_full_rnp(true),
    phi_at_j2000(0.0),
    phi_spin(0.0)
@@ -99,7 +99,7 @@ RotationMars::update_rotation (
    else {
 
       // Request nutation correction from nutation
-      if (nutation ==  NULL) {
+      if (nutation ==  nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, RNPMessages::setup_error,
             "RotationMars is not currently pointing "

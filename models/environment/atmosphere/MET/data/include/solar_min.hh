@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((solar_min.o))
+  ((../src/solar_min.cc))
 ******************************************************************************/
 
 #ifndef JEOD_METATMOSPHERE_SOLAR_MIN_DEFAULT_DATA_H

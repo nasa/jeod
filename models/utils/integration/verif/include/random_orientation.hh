@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -48,7 +48,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((angular_variance.o))
+  ((../src/angular_variance.cc))
 
  
 
@@ -88,7 +88,7 @@ JEOD_MAKE_SIM_INTERFACES(VectorOrientation)
    VectorOrientation (bool init_from_vector=true);
 
    // Initializer
-   virtual void initialize (void);
+   void initialize (void) override;
 
    // Setters; no getters (yet)
    virtual void set_initialize_from_vector (bool value);
@@ -160,7 +160,7 @@ JEOD_MAKE_SIM_INTERFACES(RandomOrientation)
                       bool random_orientation=false);
 
    // Initializer
-   virtual void initialize (void);
+   void initialize (void) override;
 
    // Set skip count (only used prior to initialize)
    void set_skip_count (unsigned int value);

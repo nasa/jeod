@@ -10,7 +10,7 @@
  ((N/A))
 
  Library dependencies:
- ((point_ground_interaction.o))
+ ((point_ground_interaction.cc))
 
  
 
@@ -37,7 +37,7 @@ namespace jeod {
 PointGroundInteraction::PointGroundInteraction (
    void)
 : // Return: -- None
-subject_point (NULL)
+subject_point (nullptr)
 {
 
 }
@@ -121,7 +121,7 @@ void PointGroundInteraction::in_contact ( // Return: -- void
                     rel_velocity);
 
       // calculate the forces on the facets
-      interaction->calculate_forces(subject, NULL, NULL, vec, rel_velocity);
+      interaction->calculate_forces(subject, nullptr, nullptr, vec, rel_velocity);
 
       contact = true;
       velocity_mag = Vector3::vmag(rel_velocity);

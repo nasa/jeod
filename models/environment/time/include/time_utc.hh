@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
  
 
 Library dependencies:
-  ((time_utc.o))
+  ((../src/time_utc.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_UTC_HH
@@ -97,14 +97,14 @@ public:
    TimeUTC ();
 
   // Destructor
-   ~TimeUTC ();
+   ~TimeUTC () override;
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.
  private:
    TimeUTC (const TimeUTC&);
    TimeUTC & operator = (const TimeUTC&);
-   void set_epoch(void);
+   void set_epoch(void) override; //cppcheck-suppress virtualCallInConstructor
 
 };
 

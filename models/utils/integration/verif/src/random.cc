@@ -4,7 +4,7 @@ Purpose:
   (Implement some random classes.)
 
 Library dependencies:
-  ((random.o))
+  ((random.cc))
 
  
 

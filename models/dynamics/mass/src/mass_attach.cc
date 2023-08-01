@@ -16,12 +16,12 @@ Purpose:
     ()
 
 LIBRARY DEPENDENCY:
-    ((mass_attach.o)
-     (mass.o)
-     (mass_point.o)
-     (mass_messages.o)
-     (mass_point_state.o)
-     (utils/quaternion/quat.o))
+    ((mass_attach.cc)
+     (mass.cc)
+     (mass_point.cc)
+     (mass_messages.cc)
+     (mass_point_state.cc)
+     (utils/quaternion/src/quat.cc))
 
 
 
@@ -387,8 +387,8 @@ const
     bool is_valid = true;
 
     // MassBody connection methods must not be established for DynBody
-    if(   dyn_manager != NULL
-       && dyn_manager->find_dyn_body( parent.name.c_str() ) != NULL )
+    if(   dyn_manager != nullptr
+       && dyn_manager->find_dyn_body( parent.name.c_str() ) != nullptr )
     {
         if( generate_message )
         {
@@ -529,8 +529,8 @@ MassBody::attach_establish_links (
  */
 void
 MassBody::attach_update_properties (
-   double offset_pstr_cstr_pstr[3],
-   double T_pstr_cstr[3][3],
+   const double offset_pstr_cstr_pstr[3],
+   const double T_pstr_cstr[3][3],
    MassBody & child)
 {
 

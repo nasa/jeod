@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,7 +60,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_converter_tai_utc.o))
+  ((../src/time_converter_tai_utc.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_CONVERTER_TAI_UTC_HH
@@ -151,25 +151,25 @@ public:
   // Constructor
    TimeConverter_TAI_UTC ();
   // Destructor
-   ~TimeConverter_TAI_UTC ();
+   ~TimeConverter_TAI_UTC () override;
 
   // Initialize the converter
    void initialize (JeodBaseTime * parent,
                     JeodBaseTime * child,
-                    const int direction);
+                    const int direction) override;
 
   // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void);
+   void convert_a_to_b (void) override;
 
   // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void);
+   void convert_b_to_a (void) override;
 
  private:
   // initialize_leap_second: Initialize the leap second table
    void initialize_leap_second (void);
 
   // used at time reversals to verify the ends of the lookup table
-   void verify_table_lookup_ends (void);
+   void verify_table_lookup_ends (void) override;
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.

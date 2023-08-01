@@ -16,12 +16,12 @@ Purpose:
   ()
 
 Library dependencies:
-  ((orb_elem_derived_state.o)
-   (derived_state.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/orbital_elements/orbital_elements.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((orb_elem_derived_state.cc)
+   (derived_state.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/orbital_elements/src/orbital_elements.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -49,13 +49,12 @@ namespace jeod {
 OrbElemDerivedState::OrbElemDerivedState (
    void)
 :
-   planet( NULL ),
-   use_alt_inertial (false),
-   ref_frame_ptr (NULL)
+   planet (nullptr),
+   use_alt_inertial(false),
+   inertial_ptr(nullptr)
 {
    return;
 }
-
 
 
 /**
@@ -63,18 +62,15 @@ OrbElemDerivedState::OrbElemDerivedState (
  */
 OrbElemDerivedState::~OrbElemDerivedState (
    void)
-{
-   // Remove the initialization-time subscription to the planet-centered frame.
-   if (ref_frame_ptr != NULL) {
-      ref_frame_ptr->unsubscribe();
+{ 
+   if (inertial_ptr != nullptr) {
+      inertial_ptr->unsubscribe();
    }
 }
 
 
-
 /**
- * Determine whether or not this instance uses the
- * planet's alternate inertial frame.
+ * Setter for use_alt_inertial
  */
 void
 OrbElemDerivedState::set_use_alt_inertial (
@@ -82,7 +78,6 @@ OrbElemDerivedState::set_use_alt_inertial (
 {
    use_alt_inertial = use_alt_inertial_in;
 }
-
 
 
 /**
@@ -99,30 +94,28 @@ OrbElemDerivedState::initialize (
    DynManager & dyn_manager)
 {
 
-   // Make sure to perform the base class initialization.
+   // Initialize as a DerivedState.
    DerivedState::initialize (subject_body, dyn_manager);
+
+   // Find the planet.
+   // Note that find_planet doesn't return if the named planet is not found.
+   planet = find_planet (dyn_manager, reference_name, "reference_name");
+
+   // Choose the planet inertial frame to be used
+   if (use_alt_inertial) {
+      inertial_ptr = &(planet->alt_inertial);
+   } else {
+      inertial_ptr = &(planet->inertial);
+   }
+   inertial_ptr->subscribe();
 
    // Copy the orbital object body name.
    elements.set_object_name (subject_body.name.c_str());
 
-   // Must have a planetary body for orbital elements.
-   planet = find_planet (dyn_manager, reference_name, "reference_name");
-
    // Set the planet name about which the object orbits.
    elements.set_planet_name (planet->name.c_str());
 
-// Choose the planet inertial frame to be used
-   if (use_alt_inertial) {
-      ref_frame_ptr = &(planet->alt_inertial);
-   } else {
-      ref_frame_ptr = &(planet->inertial);
-   }
-
-   // Subscribe to the planet-centered inertial frame.
-   ref_frame_ptr->subscribe ();
-
    return;
-
 }
 
 
@@ -137,12 +130,12 @@ OrbElemDerivedState::update (
    DerivedState::update(); // This really doesn't do anything!
 
    // Check to see if the integration state is planet centered inertial.
-   if (subject->composite_body.get_parent() == ref_frame_ptr) {
+   if (subject->composite_body.get_parent() == inertial_ptr) {
       compute_orbital_elements (subject->composite_body.state.trans);
    }
    else {
       // If not planet centered inertial, compute it.
-      subject->composite_body.compute_relative_state (*ref_frame_ptr,
+      subject->composite_body.compute_relative_state (*inertial_ptr,
                                                       rel_state);
       compute_orbital_elements (rel_state.trans);
    }

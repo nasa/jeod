@@ -21,15 +21,15 @@
  ((This class converts from TimeDyn to TimeTDB *only*))
 
  LIBRARY DEPENDENCY:
- ((time_converter_dyn_tdb.o)
- (time_converter.o)
- (time.o)
- (time_dyn.o)
- (time_tdb.o)
- (time_messages.o)
- (utils/sim_interface/memory_interface.o)
- (utils/message/message_handler.o)
- (utils/named_item/named_item.o))
+ ((time_converter_dyn_tdb.cc)
+ (time_converter.cc)
+ (time.cc)
+ (time_dyn.cc)
+ (time_tdb.cc)
+ (time_messages.cc)
+ (utils/sim_interface/src/memory_interface.cc)
+ (utils/message/src/message_handler.cc)
+ (utils/named_item/src/named_item.cc))
 
   
  ******************************************************************************/
@@ -59,8 +59,8 @@ namespace jeod {
 TimeConverter_Dyn_TDB::TimeConverter_Dyn_TDB (
                                               void)
 {
-    dyn_ptr               = NULL;
-    tdb_ptr               = NULL;
+    dyn_ptr               = nullptr;
+    tdb_ptr               = nullptr;
     a_name                = "Dyn";
     b_name                = "TDB";
     valid_directions = A_TO_B;
@@ -91,7 +91,7 @@ TimeConverter_Dyn_TDB::initialize (
 
         // Convert the parent to a TimeDyn, ensuring that this conversion works.
         dyn_ptr = dynamic_cast<TimeDyn *> (parent_ptr);
-        if (dyn_ptr == NULL) {
+        if (dyn_ptr == nullptr) {
             MessageHandler::fail (
                                   __FILE__, __LINE__, TimeMessages::invalid_setup_error,
                                   "\n Object '%s' is not an object of type %s, as was expected when"
@@ -101,7 +101,7 @@ TimeConverter_Dyn_TDB::initialize (
 
         // Convert the child to a TimeTDB, ensuring that this conversion works.
         tdb_ptr = dynamic_cast<TimeTDB *> (child_ptr);
-        if (tdb_ptr == NULL) {
+        if (tdb_ptr == nullptr) {
             MessageHandler::fail (
                                   __FILE__, __LINE__, TimeMessages::invalid_setup_error,
                                   "\n Object '%s' is not an object of type %s, as was expected when"

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_reattach.o))
+  ((../src/body_reattach.cc))
 
 
 
@@ -119,10 +119,10 @@ class BodyReattach : public BodyAction {
    BodyReattach ();
 
    // Destructor.
-   virtual ~BodyReattach ();
+   ~BodyReattach () override;
 
    // apply: Attach the specified mass bodies.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
 };
 

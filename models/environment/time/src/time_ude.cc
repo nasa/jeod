@@ -21,15 +21,15 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_ude.o)
-   (time.o)
-   (time_dyn.o)
-   (time_manager.o)
-   (time_manager_init.o)
-   (time_messages.o)
-   (time_standard.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((time_ude.cc)
+   (time.cc)
+   (time_dyn.cc)
+   (time_manager.cc)
+   (time_manager_init.cc)
+   (time_messages.cc)
+   (time_standard.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
  
 ******************************************************************************/
@@ -182,7 +182,7 @@ TimeUDE::add_type_initialize (
       // must be initialized after epoch.
       TimeUDE * epoch_ptr_ude = dynamic_cast<TimeUDE *>
                                 (time_manager->get_time_ptr (epoch_index));
-      if (epoch_ptr_ude != NULL) {
+      if (epoch_ptr_ude != nullptr) {
          // verify that this is not a loop
          if (time_manager_init->get_status (epoch_index) == -1) {
             MessageHandler::fail (
@@ -284,7 +284,7 @@ TimeUDE::convert_epoch_to_update (
    // sim-start-time if it is needed at the update tree build.
    TimeUDE * epoch_ptr_ude = dynamic_cast<TimeUDE *> (epoch_ptr);
    // If the being converted is not a UDE time
-   if (epoch_ptr_ude == NULL) {
+   if (epoch_ptr_ude == nullptr) {
       update_from_ptr->override_initialized( false );
       converter_ptr->initialize (epoch_ptr,
                                  update_from_ptr,
@@ -318,10 +318,8 @@ TimeUDE::initialize_from_parent (
 {
    int conv_index = 0; // -- index of converter in time_manager_inits register.
    int conv_dir = 0;  // -- direction in which to apply converter.
-   TimeConverter * converter_ptr = NULL;
+   TimeConverter * converter_ptr = nullptr;
    double temp_ppp_secs = 0; // -- for storing parent values
-   double temp_eee_secs = 0; // -- for storing epoch values.
-   bool revert_epoch = false;
    bool revert_parent = false;
 
 
@@ -391,7 +389,7 @@ TimeUDE::initialize_from_parent (
          // Must have the epoch-parent converter established here before setting
          // epoch times if epoch is a UDE.
          TimeUDE * epoch_ptr_ude = dynamic_cast<TimeUDE *> (epoch_ptr);
-         if (epoch_ptr_ude != NULL) { // if epoch is a UDE
+         if (epoch_ptr_ude != nullptr) { // if epoch is a UDE
             conv_index = epoch_index * time_manager->num_types +
                          update_index;
             converter_ptr = time_manager->get_converter_ptr (
@@ -418,6 +416,8 @@ TimeUDE::initialize_from_parent (
          // be overridden; if not, it will have to appear as though it is in order
          // to initialize the converters.
          // Either way, this has to be corrected later.
+         double temp_eee_secs = 0; // -- for storing epoch values.
+         bool revert_epoch;
          if (epoch_ptr->is_initialized()) {
             revert_epoch  = true;
             temp_eee_secs = epoch_ptr->seconds;
@@ -518,7 +518,7 @@ TimeUDE::initialize_initializer_time (
    verify_update();
 
    JeodBaseTime * update_from_ptr = time_manager->get_time_ptr (update_index);
-   if (dynamic_cast<TimeDyn *> (update_from_ptr) != NULL) {
+   if (dynamic_cast<TimeDyn *> (update_from_ptr) != nullptr) {
       updates_from_dyn = true;
    }
 
@@ -599,7 +599,7 @@ TimeUDE::initialize_initializer_time (
 
 
 
-   if ((dynamic_cast<TimeUDE *> (epoch_ptr)) != NULL) { // i.e. epoch is a UDE.
+   if ((dynamic_cast<TimeUDE *> (epoch_ptr)) != nullptr) { // i.e. epoch is a UDE.
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
          "Attempted to initialize the simulation from a time-type with a\n"
@@ -609,7 +609,7 @@ TimeUDE::initialize_initializer_time (
 
    //  Initializing with a UDE at an epoch defined in dyn_time can
    //  only work if there are no absolute (standard) times.
-   if (dynamic_cast<TimeDyn *> (epoch_ptr) != NULL) { // i.e. epoch is TimeDyn
+   if (dynamic_cast<TimeDyn *> (epoch_ptr) != nullptr) { // i.e. epoch is TimeDyn
       if (time_manager->time_standards_exist()) {
          MessageHandler::fail (
             __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
@@ -723,13 +723,13 @@ TimeUDE::set_epoch_times (
    TimeDyn * epoch_ptr_dyn      = dynamic_cast<TimeDyn *> (epoch_ptr);
 
    // Make "epoch" take on the epoch time.  Method depends on the time type
-   if (epoch_ptr_std != NULL) {
+   if (epoch_ptr_std != nullptr) {
       set_epoch_std (epoch_ptr_std);
    }
-   else if (epoch_ptr_ude != NULL) {
+   else if (epoch_ptr_ude != nullptr) {
       set_epoch_ude (epoch_ptr_ude);
    }
-   else if (epoch_ptr_dyn != NULL) {
+   else if (epoch_ptr_dyn != nullptr) {
       set_epoch_dyn (epoch_ptr_dyn);
    }
    else {
@@ -1456,7 +1456,7 @@ TimeUDE::verify_update (
    }
    TimeUDE * update_ptr_ude = dynamic_cast<TimeUDE *>
                               (time_manager->get_time_ptr (update_index));
-   if (update_ptr_ude != NULL) {
+   if (update_ptr_ude != nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
          "UDE-types cannot be updated from other UDEs, but should be updated from a"

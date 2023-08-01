@@ -16,8 +16,8 @@ Purpose:
    ()
 
 Library dependencies:
-   ((memory_type.o)
-    (utils/named_item/named_item_demangle.o))
+   ((memory_type.cc)
+    (utils/named_item/src/named_item_demangle.cc))
 
  
 *******************************************************************************/

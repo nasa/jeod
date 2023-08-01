@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -51,7 +51,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((aux_classes.o))
+  ((../src/aux_classes.cc))
 
 
 
@@ -95,6 +95,70 @@ release_vector (
    vec.clear();
 }
 
+template<typename CollectType, typename value_type>
+void collect_insert(CollectType & collect_in, value_type & elem)
+{
+    typedef typename CollectType::iterator iterator;
+    bool entry_found = false;
+    for(iterator it = collect_in.begin(); it != collect_in.end(); ++it) {
+        value_type collect_ptr = *it;
+        if(*collect_ptr == *elem) {
+            entry_found = true;
+            break;
+        }
+    }
+    if (!entry_found)
+    {
+        collect_in.insert(collect_in.end(), elem);
+    } else {
+        if (JEOD_IS_ALLOCATED (elem)) {
+           jeod::JeodMemoryManager::destroy_memory (
+              jeod::jeod_alloc_get_allocated_pointer (elem),
+              false,
+              __FILE__, __LINE__);
+           MessageHandler::inform (
+                   __FILE__, __LINE__, "collect.insert",
+                   "pointer to vector already exists in STL. Deallocating Collect container");
+        } else {
+            MessageHandler::inform (
+                    __FILE__, __LINE__, "collect.insert",
+                    "pointer to vector already exists in STL");
+        }
+    }
+}
+
+template<typename CollectType, typename value_type>
+void collect_push_back(CollectType & collect_in, value_type & elem)
+{
+    typedef typename CollectType::iterator iterator;
+    bool entry_found = false;
+    for(iterator it = collect_in.begin(); it != collect_in.end(); ++it) {
+        value_type collect_ptr = *it;
+        if(*collect_ptr == *elem) {
+            entry_found = true;
+            break;
+        }
+    }
+    if (!entry_found)
+    {
+        collect_in.contents.push_back (elem);
+    } else {
+        if (JEOD_IS_ALLOCATED (elem)) {
+           jeod::JeodMemoryManager::destroy_memory (
+              jeod::jeod_alloc_get_allocated_pointer (elem),
+              false,
+              __FILE__, __LINE__);
+           MessageHandler::inform (
+                   __FILE__, __LINE__, "collect.push_back",
+                   "pointer to vector already exists in STL. Deallocating Collect container");
+        } else {
+            MessageHandler::inform (
+                    __FILE__, __LINE__, "collect.push_back",
+                    "pointer to vector already exists in STL");
+        }
+    }
+}
+
 
 /**
  * This is a derived version of the template class
@@ -103,21 +167,39 @@ release_vector (
  */
 class JPVCollectForce: public JeodPointerVector<CollectForce>::type {
 
+     template<typename CollectType, typename value_type>
+     friend void collect_insert(CollectType & collect_in, value_type & elem);
+
+     template<typename CollectType, typename value_type>
+     friend void collect_push_back(CollectType & collect_in, value_type & elem);
+
 public:
 
-   /**
-    * Free stale data, typically following a restore from checkpoint.
-    */
-   virtual void perform_cleanup_action (
-      const std::string &) {
+    /**
+     * Interpret the provided value and add it to the list.
+     * For a JPVCollectForce, the value should specify (in string form)
+     * the address of a unique force vector pointer in active memory.
+     * If the entry already exists, check and delete the "restored" CollectTorque
+     */
+    void
+    perform_insert_action (
+       const std::string & value) override
+    {
+        value_type value_ptr = reinterpret_cast<value_type> (
+                     JeodSimulationInterface::get_address_at_name (value));
+        collect_insert(*this, value_ptr);
+    }
 
-#if ((TRICK_VER > 13) || (TRICK_VER == 13 && TRICK_MINOR >= 3))
-// Not needed prior to Trick 13.3
-      release_vector(*this);
-#endif
-
-   }
-
+    /**
+     * Add an element to the end of the contents.
+     * @param elem Element to be added.
+     */
+    void
+    push_back (
+       CollectForce* const & elem)
+    {
+        collect_push_back(*this, elem);
+    }
 };
 
 
@@ -127,22 +209,38 @@ public:
  * perform_cleanup_action which frees and clears stale data following a restore.
  */
 class JPVCollectTorque: public JeodPointerVector<CollectTorque>::type {
+    template<typename CollectType, typename value_type>
+    friend void collect_insert(CollectType & collect_in, value_type & elem);
 
+    template<typename CollectType, typename value_type>
+    friend void collect_push_back(CollectType & collect_in, value_type & elem);
 public:
 
-   /**
-    * Free stale data, typically following a restore from checkpoint.
-    */
-   virtual void perform_cleanup_action (
-      const std::string &) {
+    /**
+     * Interpret the provided value and add it to the list.
+     * For a JPVCollectTorque, the value should specify (in string form)
+     * the address of a unique torque vector pointer in active memory.
+     * If the entry already exists, check and delete the "restored" CollectTorque
+     */
+    void
+    perform_insert_action (
+       const std::string & value) override
+    {
+        value_type value_ptr = reinterpret_cast<value_type> (
+                     JeodSimulationInterface::get_address_at_name (value));
+        collect_insert(*this, value_ptr);
+    }
 
-#if ((TRICK_VER > 13) || (TRICK_VER == 13 && TRICK_MINOR >= 3))
-// Not needed prior to Trick 13.3
-      release_vector(*this);
-#endif
-
-   }
-
+    /**
+     * Add an element to the end of the contents.
+     * @param elem Element to be added.
+     */
+    void
+    push_back (
+            CollectTorque* const & elem)
+    {
+        collect_push_back(*this, elem);
+    }
 };
 
 

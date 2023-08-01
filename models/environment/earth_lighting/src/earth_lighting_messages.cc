@@ -25,7 +25,7 @@ Class:
    (None)
 
 Library dependencies:
-  ((earth_lighting_messages.o))
+  ((earth_lighting_messages.cc))
 
 
 

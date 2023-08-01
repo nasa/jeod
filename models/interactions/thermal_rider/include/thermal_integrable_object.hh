@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((thermal_integrable_object.o))
+((../src/thermal_integrable_object.cc))
 
 
 *******************************************************************************/
@@ -93,25 +93,25 @@ public:
    // Member methods
 
    ThermalIntegrableObject();
-   virtual ~ThermalIntegrableObject();
+   ~ThermalIntegrableObject() override;
 
    void initialize (double temperature, ThermalFacetRider &associated_rider);
 
    // Required by IntegrableObject
-   virtual void create_integrators (
+   void create_integrators (
       const er7_utils::IntegratorConstructor & generator,
       er7_utils::IntegrationControls & controls,
-      const er7_utils::TimeInterface & time_if);
+      const er7_utils::TimeInterface & time_if) override;
 
    // Destroy the integrators.
-   virtual void destroy_integrators ();
+   void destroy_integrators () override; //cppcheck-suppress virtualCallInConstructor
 
    // Reset the integrators.
-   virtual void reset_integrators ();
+   void reset_integrators () override;
 
    // Propagate state.
-   virtual er7_utils::IntegratorResult integrate (
-      double dyn_dt, unsigned int target_stage);
+   er7_utils::IntegratorResult integrate (
+      double dyn_dt, unsigned int target_stage) override;
 
    // Computes time derivative of temperature and sets rider->power_emitted
    void compute_temp_dot();

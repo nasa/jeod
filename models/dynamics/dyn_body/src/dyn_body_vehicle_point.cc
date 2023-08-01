@@ -16,10 +16,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_vehicle_point.o)
-   (dyn_body_messages.o)
-   (dynamics/mass/mass.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_vehicle_point.cc)
+   (dyn_body_messages.cc)
+   (dynamics/mass/src/mass.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -109,11 +109,10 @@ const
    if ((pt_name != nullptr) && (*pt_name != '\0')) {
       const char * pt_suffix = name.suffix(pt_name);
       // Search for the point.
-      for (const auto* point : vehicle_points) {
-         if (std::strcmp (pt_suffix, point->get_name()+search_offset) == 0) {
-            found_point = point;
-            break;
-         }
+      const auto iter = std::find_if(vehicle_points.begin(), vehicle_points.end(), 
+         [&search_offset, &pt_suffix](const BodyRefFrame* point) { return std::strcmp (pt_suffix, point->get_name()+search_offset) == 0; });
+      if (iter != vehicle_points.end()) {
+         found_point = *iter;
       }
    }
 

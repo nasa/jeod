@@ -23,11 +23,11 @@ ASSUMPTIONS AND LIMITATIONS:
 CLASS:
     (scheduled)
 LIBRARY DEPENDENCY:
-    ((radiation_pressure.o)
-     (radiation_source.o)
-     (radiation_surface.o)
-     (radiation_third_body.o)
-     (interactions/thermal_rider/thermal_model_rider.o))
+    ((radiation_pressure.cc)
+     (radiation_source.cc)
+     (radiation_surface.cc)
+     (radiation_third_body.cc)
+     (interactions/thermal_rider/src/thermal_model_rider.cc))
 
 
 

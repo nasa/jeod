@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -46,7 +46,7 @@
  ((N/A))
 
  Library dependencies:
- ((point_ground_interaction.o))
+ ((../src/point_ground_interaction.cc))
 
  
 
@@ -83,12 +83,12 @@ public:
    PointGroundInteraction();
 
    // destructor
-   virtual ~PointGroundInteraction();
+   ~PointGroundInteraction() override;
 
    /*
     Virtual funtion to determine if the contact facet is touching the ground.
     */
-   virtual void in_contact(void);
+   void in_contact(void) override;
 
 protected:
 

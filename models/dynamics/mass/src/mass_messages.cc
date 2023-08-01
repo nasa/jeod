@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((mass_messages.o))
+  ((mass_messages.cc))
 
 
 

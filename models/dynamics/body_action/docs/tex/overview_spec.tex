@@ -16,7 +16,7 @@ for setting aspects of instances of the MassBody class, DynBody class, and
 their derived classes. The capabilities provided by the model include:
 \begin{itemize}
 \item Setting the mass properties of a MassBody object,
-\item Attaching and detaching MassBody and DynBody objects to/from one another,
+\item Attaching and detaching MassBody and DynBody objects to/from one another or a RefFrame,
 \item Setting the state of a DynBody object, and
 \item Changing the frame in which a DynBody object's state is propagated.
 \end{itemize}
@@ -81,11 +81,11 @@ MassBodyInit class.
 \item BodyAttach and BodyDetach. \\
 Connected vehicle objects form a mass tree topology.
 Classes that derive from BodyAttach attach a subject Body object to
-some other Body object. JEOD defines the BodyAttachAligned class to connect
-two bodies by aligning specified vehicle points on each body at coincident
+some other Body object or RefFrame. JEOD defines the BodyAttachAligned class to connect
+two bodies or a body and reference frame by aligning specified vehicle points or reference frames at coincident
 position with a 180 degree yaw relative orientataion. The BodyAttachMatrix
 class defines attachment by defining the relative position of a child body
-structure with respect to a parent body structure point.
+structure with respect to a parent body structure point or reference frame.
 The classes BodyDetach and BodyDetachSpecific undo
 these attachments.
 

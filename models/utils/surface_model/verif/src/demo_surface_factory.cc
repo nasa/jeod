@@ -9,7 +9,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_surface_factory.o)
+    (demo_surface_factory.cc)
 
  
 *******************************************************************************/
@@ -36,11 +36,11 @@ DemoSurfaceFactory1::~DemoSurfaceFactory1(){
 
 void DemoSurfaceFactory1::add_facet_params(FacetParams* to_add){
 
-   DemoParams* temp_ptr = NULL;
+   DemoParams* temp_ptr = nullptr;
 
    temp_ptr = dynamic_cast<DemoParams*> (to_add);
 
-   if(temp_ptr == NULL){
+   if(temp_ptr == nullptr){
 
       // INSERT ERROR MESSAGE HERE
 
@@ -66,11 +66,11 @@ DemoSurfaceFactory2::~DemoSurfaceFactory2(){
 
 void DemoSurfaceFactory2::add_facet_params(FacetParams* to_add){
 
-   DemoParams* temp_ptr = NULL;
+   DemoParams* temp_ptr = nullptr;
 
    temp_ptr = dynamic_cast<DemoParams*> (to_add);
 
-   if(temp_ptr == NULL){
+   if(temp_ptr == nullptr){
 
       // INSERT ERROR MESSAGE HERE
 

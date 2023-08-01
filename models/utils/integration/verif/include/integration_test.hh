@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -50,7 +50,7 @@ Assumptions and limitations:
   ((This model is intended for IV&V purposes only.))
 
 Library dependencies:
-  ((integration_test.o))
+  ((../src/integration_test.cc))
 
  
 
@@ -116,7 +116,7 @@ public:
    /**
      Destructor.
    */
-   virtual ~IntegrationTest (void);
+   ~IntegrationTest (void) override;
 
    // Final methods
 
@@ -155,9 +155,9 @@ public:
    /**
      Reset the integrators.
    */
-   void reset_integrators (void)
+   void reset_integrators (void) override
    {
-      if (state_integrator != NULL) {
+      if (state_integrator != nullptr) {
          state_integrator->reset_integrator ();
       }
    }
@@ -212,9 +212,9 @@ public:
      \param[in] target_state Integration stage to be achieved
      Units: s
    */
-   virtual er7_utils::IntegratorResult integrate (
+   er7_utils::IntegratorResult integrate (
       double dyn_dt,
-      unsigned int target_stage) = 0;
+      unsigned int target_stage) override = 0;
 
    /**
      Compute state derivatives.

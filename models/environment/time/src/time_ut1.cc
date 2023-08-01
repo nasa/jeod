@@ -21,11 +21,11 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_ut1.o)
-   (time.o)
-   (time_standard.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/named_item/named_item.o))
+  ((time_ut1.cc)
+   (time.cc)
+   (time_standard.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/

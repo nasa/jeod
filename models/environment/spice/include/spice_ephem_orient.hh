@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((spice_ephem_orient.o))
+  ((../src/spice_ephem_orient.cc))
 
 
 
@@ -93,7 +93,7 @@ public:
 
    // Constructor and destructor.
    SpiceEphemOrientation ();
-   virtual ~SpiceEphemOrientation ();
+   ~SpiceEphemOrientation () override;
 
    // Update the rotational state of the target frame.
    void update (double time_tdb, double time_dyn);
@@ -108,7 +108,7 @@ public:
     * Setter for the name of the SPICE frame.
     * \param new_name  Name of the SPICE frame
     */
-   void set_spice_frame_name (const std::string new_name) {
+   void set_spice_frame_name (const std::string & new_name) {
       spice_frame_name = new_name;
    }
 

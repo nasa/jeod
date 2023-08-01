@@ -23,5 +23,20 @@ exec(compile(open("Modified_data/attach_detach.py", "rb").read(), "Modified_data
 
 trick.add_read( 10    , "veh1.attach_to_2.active = True")
 trick.add_read( 20    , "veh1.detach_from_2.active = True")
+trick.add_read( 30    , '''
+veh1.dyn_body.set_attitude_rate([0.0, 1.0, 0.0], veh1.dyn_body.composite_body)
+''')
+trick.add_read( 35    , '''
+attach_to_frame_helper.rotation[0][0] = -1.0
+attach_to_frame_helper.rotation[1][1] = -1.0
+attach_to_frame_helper.attach_wrap_pos_rot_parent(veh1.dyn_body.find_vehicle_point("node13"))
+''')
+trick.add_read( 40    , 'veh1.dyn_body.attach_to_frame("central_point.inertial")')
+trick.add_read( 50    , '''
+veh1.dyn_body.detach()
+attach_to_frame_helper.rotation[0][0] = 1.0
+attach_to_frame_helper.rotation[1][1] = 1.0
+attach_to_frame_helper.attach_wrap_child_parent_pos_rot("veh1.node12", "central_point.inertial")
+''')
 
-trick.sim_services.exec_set_terminate_time(30)
+trick.sim_services.exec_set_terminate_time(60)

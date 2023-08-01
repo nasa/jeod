@@ -22,12 +22,12 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((interaction_surface_factory.o)
-     (surface_model_messages.o)
-     (interaction_facet_factory.o)
-     (surface_model.o)
-     (interaction_surface.o)
-     (utils/message/message_handler.o))
+    ((interaction_surface_factory.cc)
+     (surface_model_messages.cc)
+     (interaction_facet_factory.cc)
+     (surface_model.cc)
+     (interaction_surface.cc)
+     (utils/message/src/message_handler.cc))
 
  
 *******************************************************************************/
@@ -95,7 +95,7 @@ InteractionSurfaceFactory::create_surface (
 {
 
    // can't hand this un-allocated things. check for that.
-   if (surface == NULL) {
+   if (surface == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, SurfaceModelMessages::initialization_error,
@@ -106,14 +106,14 @@ InteractionSurfaceFactory::create_surface (
       return;
    }
 
-   if (inter_surface == NULL) {
+   if (inter_surface == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, SurfaceModelMessages::initialization_error,
          "The InteractionSurface pointer supplied to "
          "InteractionSurfaceFactory::create_surface was NULL. Please "
          "provide an InteractionSurface pointer.");
-
+      return;
    }
 
 
@@ -127,7 +127,7 @@ InteractionSurfaceFactory::create_surface (
    // For all facets in the surface, match up an interaction facet factory
    for (unsigned int ii = 0; ii < surface->facets.size(); ++ii) {
 
-      InteractionFacetFactory* facet_factory = NULL;
+      InteractionFacetFactory* facet_factory = nullptr;
 
       for (unsigned int jj = 0; jj < factories.size(); ++jj) {
 
@@ -138,7 +138,7 @@ InteractionSurfaceFactory::create_surface (
 
       }
 
-      if (facet_factory == NULL) {
+      if (facet_factory == nullptr) {
 
          MessageHandler::fail (
             __FILE__, __LINE__, SurfaceModelMessages::initialization_error,
@@ -152,11 +152,11 @@ InteractionSurfaceFactory::create_surface (
       // For each facet, try to match up a facet_params that matches
       // them.
 
-      FacetParams* facet_params = NULL;
+      FacetParams* facet_params = nullptr;
 
       for (unsigned int jj = 0; jj < params.size(); ++jj) {
 
-         if (surface->facets[ii]->param_name == NULL) {
+         if (surface->facets[ii]->param_name == nullptr) {
             MessageHandler::fail (
                __FILE__, __LINE__,
                SurfaceModelMessages::initialization_error,
@@ -170,7 +170,7 @@ InteractionSurfaceFactory::create_surface (
          }
       }
 
-      if (facet_params == NULL) {
+      if (facet_params == nullptr) {
 
          MessageHandler::fail (
             __FILE__, __LINE__,
@@ -199,7 +199,7 @@ void
 InteractionSurfaceFactory::add_facet_factory (
    InteractionFacetFactory* to_add)
 {
-   if (to_add == NULL) {
+   if (to_add == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SurfaceModelMessages::setup_error,
          "A NULL pointer was given to the add_facet_factory function. "
@@ -221,7 +221,7 @@ void
 InteractionSurfaceFactory::add_facet_params (
    FacetParams* to_add)
 {
-   if (to_add == NULL) {
+   if (to_add == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SurfaceModelMessages::setup_error,
          "A NULL pointer was given to the add_facet_params function. "

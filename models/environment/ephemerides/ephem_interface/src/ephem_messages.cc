@@ -18,7 +18,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_messages.o))
+  ((ephem_messages.cc))
 
 
 

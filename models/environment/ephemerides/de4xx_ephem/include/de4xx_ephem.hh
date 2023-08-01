@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((de4xx_ephem.o))
+  ((../src/de4xx_ephem.cc))
 
 
 
@@ -206,7 +206,7 @@ public:
    De4xxEphemeris (void);
 
    // Destructor
-   ~De4xxEphemeris (void);
+   ~De4xxEphemeris (void) override;
 
 
    // S_define-level interfaces
@@ -214,10 +214,10 @@ public:
    // Initialize the model
    void initialize_model (
       const TimeManager & time_manager, DynManager & dyn_manager,
-      std::string time_type="TT");
+      const std::string & time_type="TT");
    void initialize_model (
       const TimeManager & time_manager, EphemeridesManager & ephem_manager,
-      std::string time_type="TT");
+      const std::string & time_type="TT");
 
    // Propagate the lunar orientation
    void propagate_lunar_rnp (void);
@@ -227,22 +227,22 @@ public:
 
    // EphemInterface methods
 
-   void activate (void);
-   void deactivate (void);
+   void activate (void) override;
+   void deactivate (void) override;
 
    // EphemInterface accessors
-   double timestamp (void) const;
+   double timestamp (void) const override;
 
-   const char * get_name (void) const;
+   const char * get_name (void) const override;
 
    // EphemeridesManager interface methods
-   void ephem_initialize (EphemeridesManager & ephem_manager);
+   void ephem_initialize (EphemeridesManager & ephem_manager) override;
 
-   void ephem_activate (EphemeridesManager & ephem_manager);
+   void ephem_activate (EphemeridesManager & ephem_manager) override;
 
-   void ephem_build_tree (EphemeridesManager & ephem_manager);
+   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
 
-   void ephem_update (void);
+   void ephem_update (void) override;
 
    // Check whether the time is represented in the ephemeris file
    bool time_is_in_range (void) const;
@@ -381,7 +381,7 @@ private:
    // Member functions
 
    // Initialize timing
-   void initialize_time (const TimeManager & time_manager, std::string time_type);
+   void initialize_time (const TimeManager & time_manager, const std::string & time_type);
 
    // Initialize the DE4xx file object
    void initialize_file (void);

@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((sim_interface_messages.o))
+  ((sim_interface_messages.cc))
 
  
 

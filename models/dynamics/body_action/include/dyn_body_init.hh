@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init.o))
+  ((../src/dyn_body_init.cc))
 
 
 
@@ -219,7 +219,7 @@ class DynBodyInit : public BodyAction {
    DynBodyInit ();
 
    // Destructor.
-   virtual ~DynBodyInit ();
+   ~DynBodyInit () override;
 
 
    // report_failure: Report that an initializer failed.
@@ -227,7 +227,7 @@ class DynBodyInit : public BodyAction {
 
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
    // initializes_what: Indicate what aspect of the state is initialized.
    // Derived classes must override this method as the base DynBodyInit
@@ -237,12 +237,12 @@ class DynBodyInit : public BodyAction {
    // is_ready: Indicate whether the initializer is ready to be applied.
    // Derived classes that cannot run immediately due to dependencies must
    // override this method as the base DynBodyInit is always ready.
-   virtual bool is_ready (void);
+   bool is_ready (void) override;
 
    // apply: Initialize the elements of the subject dyn_body's body_ref_frame
    // based on the state member datum. Only those state elements selected by the
    // (overloaded) initializes_what member function are set.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
 
  protected:
@@ -258,19 +258,19 @@ class DynBodyInit : public BodyAction {
 
    // find_planet: Find specified Planet, failing if not found.
    Planet * find_planet (
-      DynManager & dyn_manager,
+      const DynManager & dyn_manager,
       const std::string & planet_name,
       const std::string & variable_name);
 
    // find_dyn_body: Find specified DynBody, failing if not found.
    DynBody * find_dyn_body (
-      DynManager & dyn_manager,
+      const DynManager & dyn_manager,
       const std::string & dyn_body_name,
       const std::string & variable_name);
 
    // find_ref_frame: Find specified BodyRefFrame, failing if not found.
    RefFrame * find_ref_frame (
-      DynManager & dyn_manager,
+      const DynManager & dyn_manager,
       const std::string & ref_frame_name,
       const std::string & variable_name);
 

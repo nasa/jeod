@@ -21,10 +21,10 @@ Assumptions and limitations:
     allocated memory is the responsibility of the calling function.))
 
 Library Dependency:
-  ((named_item.o)
-   (named_item_demangle.o)
-   (named_item_messages.o)
-   (utils/message/message_handler.o))
+  ((named_item.cc)
+   (named_item_demangle.cc)
+   (named_item_messages.cc)
+   (utils/message/src/message_handler.cc))
 
  
 
@@ -76,14 +76,13 @@ NamedItem::va_construct_name (
    const char * name_item,
    va_list args)
 {
-   const char * item;                  // -- A single argument
    std::size_t num_items;              // -- Number of arguments
    bool terminated;                    // -- Arguments terminated with NULL?
 
    // Protect against a null first argument.
-   if (name_item == NULL) {
+   if (name_item == nullptr) {
       va_end (args);
-      return NULL;
+      return nullptr;
    }
 
    std::string name(name_item);        // -- The constructed name
@@ -96,10 +95,10 @@ NamedItem::va_construct_name (
    // or when too many arguments have been pulled off
    // (The latter probably means the caller forgot to end with a null).
    while (1) {
-      item = va_arg (args, const char *);
+      const char * item = va_arg (args, const char *);
 
       // NULL terminates the argument list.
-      if (item == NULL) {
+      if (item == nullptr) {
          terminated = true;
          break;
       }
@@ -127,7 +126,7 @@ NamedItem::va_construct_name (
       MessageHandler::fail (
          __FILE__, __LINE__, NamedItemMessages::bad_args,
          "Too many arguments to NamedItem::construct_name");
-      return NULL;
+      return nullptr;
    }
 
 
@@ -151,7 +150,7 @@ NamedItem::suffix (
    // Return the full name if
    // - the name is NULL (sanity check) or
    // - the name does not start with "prefix."
-   if ((name == NULL) ||
+   if ((name == nullptr) ||
        (std::strncmp (name, prefix, prefix_len) != 0) ||
        (name[prefix_len] != '.')) {
       return name;
@@ -176,11 +175,12 @@ NamedItem::validate_name (
 {
 
    // Check for a null value.
-   if (variable_value == NULL) {
+   if (variable_value == nullptr) {
       MessageHandler::fail (
          file, line, NamedItemMessages::invalid_name,
          "%s %s value is NULL",
          variable_type, variable_name);
+      return;
    }
 
    // Check for the empty string.

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((gravity_controls.o))
+  ((../src/gravity_controls.cc))
 
 
 
@@ -226,7 +226,7 @@ class GravityControls {
    // Compute the acceleration due to the gravitional body associated with
    // this control at the specified point of interest. This version of
    // gravitation must not be used if relativistic gravity is enabled.
-   void gravitation (              // Return: --   Void
+   virtual void gravitation (      // Return: --   Void
       const double integ_pos[3],   // In:     m    Pt. of interest, integ coords
       unsigned int integ_frame_idx,// In:     --   Integ frame index
       double body_grav_accel[3],   // Out:    m/s2 Accel for given grav body
@@ -237,7 +237,7 @@ class GravityControls {
    // Compute the acceleration due to the gravitional body associated with
    // this control at the specified point of interest. This version of
    // gravitation is needed if relativistic gravity is enabled.
-   void gravitation (
+   virtual void gravitation (
       const RefFrame& point_of_interest,
                                    // In:     --    Pt. of interest, as a frame
       unsigned int integ_frame_idx,// In:     --    Integ frame index
@@ -277,10 +277,12 @@ class GravityControls {
     */
 
    virtual void calc_nonspherical (
-      const double posn[3],
-      double body_grav_accel[3],
-      double dgdx[3][3],
-      double Pot[1]) = 0;
+       const double integ_pos[3],
+       const double posn[3],
+       const GravityIntegFrame& grav_source_frame,
+       double body_grav_accel[3],
+       double dgdx[3][3],
+       double&  pot) = 0;
 
    /**
     * Calculates the relativistic correction to gravitational acceleration.

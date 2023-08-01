@@ -25,7 +25,7 @@ Class:
    (None)
 
 Library dependencies:
-  ((aerodynamics_messages.o))
+  ((aerodynamics_messages.cc))
 
 
 

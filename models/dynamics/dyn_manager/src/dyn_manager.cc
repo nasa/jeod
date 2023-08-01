@@ -15,22 +15,22 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_manager.o)
-   (dyn_bodies_primitives.o)
-   (gravitation.o)
-   (initialize_dyn_bodies.o)
-   (initialize_model.o)
-   (initialize_simulation.o)
-   (integ_group_primitives.o)
-   (mass_bodies_primitives.o)
-   (perform_actions.o)
-   (dyn_manager_messages.o)
-   (dynamics_integration_group.o)
-   (dynamics/mass/mass.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (dynamics/body_action/body_action.o)
-   (environment/ephemerides/ephem_interface/simple_ephemerides.o)
-   (utils/message/message_handler.o))
+  ((dyn_manager.cc)
+   (dyn_bodies_primitives.cc)
+   (gravitation.cc)
+   (initialize_dyn_bodies.cc)
+   (initialize_model.cc)
+   (initialize_simulation.cc)
+   (integ_group_primitives.cc)
+   (mass_bodies_primitives.cc)
+   (perform_actions.cc)
+   (dyn_manager_messages.cc)
+   (dynamics_integration_group.cc)
+   (dynamics/mass/src/mass.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (dynamics/body_action/src/body_action.cc)
+   (environment/ephemerides/ephem_interface/src/simple_ephemerides.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -69,13 +69,13 @@ DynManager::DynManager (
    deriv_ephem_update (false),
    gravity_off (false),
    mode (DynManagerInit::EphemerisMode_Ephemerides),
-   sim_integrator (NULL),
+   sim_integrator (nullptr),
    initialized (false),
-   gravity_manager (NULL),
-   integ_constructor (NULL),
-   integ_interface (NULL),
-   default_integ_group(NULL),
-   simple_ephemeris (NULL),
+   gravity_manager (nullptr),
+   integ_constructor (nullptr),
+   integ_interface (nullptr),
+   default_integ_group(nullptr),
+   simple_ephemeris (nullptr),
    integ_groups (),
    body_actions ()
 {
@@ -102,17 +102,17 @@ DynManager::~DynManager (
    void)
 {
    // Free locally-allocated memory.
-   if ((simple_ephemeris != NULL) &&
+   if ((simple_ephemeris != nullptr) &&
        (JEOD_IS_ALLOCATED (simple_ephemeris))) {
       JEOD_DELETE_OBJECT (simple_ephemeris);
    }
 
-   if ((integ_interface != NULL) &&
+   if ((integ_interface != nullptr) &&
        (JEOD_IS_ALLOCATED (integ_interface))) {
       JEOD_DELETE_OBJECT (integ_interface);
    }
 
-   if ((default_integ_group != NULL) &&
+   if ((default_integ_group != nullptr) &&
        (JEOD_IS_ALLOCATED (default_integ_group))) {
       JEOD_DELETE_OBJECT (default_integ_group);
    }
@@ -169,7 +169,7 @@ DynManager::set_gravity_manager (
 {
 
    // Handle errors.
-   if (gravity_manager != NULL) {
+   if (gravity_manager != nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, DynManagerMessages::singleton_error,
          "A Gravity Manager was already registered with the dynamics manager.\n"
@@ -212,7 +212,7 @@ DynManager::add_body_action (
    // Note well: These are treated as severe rather than fatal errors.
 
    // 1. The action must not be null.
-   if (body_action == NULL) {
+   if (body_action == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, DynManagerMessages::null_pointer,
          "Null pointer passed to add_body_action()\n"
@@ -253,7 +253,7 @@ void
 DynManager::remove_body_action (
          char * action_name_in)
 {
-  if (action_name_in == NULL) {
+  if (action_name_in == nullptr) {
     return;
   }
   for (std::list<BodyAction *>::iterator it = body_actions.begin();
@@ -281,12 +281,12 @@ DynManager::reset_integrators ()
 {
    if (!integ_groups.empty()) {
      for (size_t ii = 0; ii < integ_groups.size(); ++ii) {
-       if (integ_groups[ii] != NULL) {
+       if (integ_groups[ii] != nullptr) {
          reset_integrators( *integ_groups[ii]);
        }
      }
    }
-   else if (default_integ_group != NULL) {
+   else if (default_integ_group != nullptr) {
      reset_integrators(*default_integ_group);
    }
    // there is no else, checking for default_integ_group is a safety check

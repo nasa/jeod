@@ -22,12 +22,12 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((spherical_harmonics_solid_body_tides.o)
-   (spherical_harmonics_delta_coeffs_init.o)
-   (spherical_harmonics_gravity_source.o)
-   (spherical_harmonics_gravity_controls.o)
-   (environment/planet/planet.o)
-   (utils/ref_frames/ref_frame.o))
+  ((spherical_harmonics_solid_body_tides.cc)
+   (spherical_harmonics_delta_coeffs_init.cc)
+   (spherical_harmonics_gravity_source.cc)
+   (spherical_harmonics_gravity_controls.cc)
+   (environment/planet/src/planet.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 *******************************************************************************/
@@ -100,9 +100,6 @@ SphericalHarmonicsSolidBodyTides::update (
 
 {
    double pfix_position[3];
-   double tidal_body_mu;
-   double r, phi;
-   double Rovr_3;
    double F = 0.0;
    double deltaC20;
 
@@ -110,11 +107,11 @@ SphericalHarmonicsSolidBodyTides::update (
       tidal_bodies_inertial[ii]->compute_position_from (*pfix,
                                                         pfix_position);
 
-      tidal_body_mu = tidal_bodies[ii]->grav_source->mu;
+      double tidal_body_mu = tidal_bodies[ii]->grav_source->mu;
 
-      r = Vector3::vmag (pfix_position);
-      phi    = asin (pfix_position[2] / r);
-      Rovr_3 = grav_source->radius / r;
+      double r = Vector3::vmag (pfix_position);
+      double phi    = asin (pfix_position[2] / r);
+      double Rovr_3 = grav_source->radius / r;
       Rovr_3 *= Rovr_3 * Rovr_3;
 
       F += tidal_body_mu / grav_source->mu* Rovr_3* sqrt (5.0) *

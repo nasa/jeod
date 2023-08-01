@@ -16,12 +16,12 @@
   ()
 
 Library dependencies:
-  ((dyn_body_attach.o)
-   (dyn_body.o)
-   (dyn_body_messages.o)
-   (dynamics/mass/mass.o)
-   (utils/ref_frames/ref_frame.o)
-   (environment/ephemerides/ephem_interface/ephem_ref_frame.o))
+  ((dyn_body_attach.cc)
+   (dyn_body.cc)
+   (dyn_body_messages.cc)
+   (dynamics/mass/src/mass.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc))
 
 
 
@@ -46,6 +46,7 @@ Library dependencies:
 #include "../include/body_ref_frame.hh"
 #include "../../dyn_manager/include/dynamics_integration_group.hh"
 #include "environment/ephemerides/ephem_interface/include/ephem_ref_frame.hh"
+#include "../../derived_state/include/relative_derived_state.hh"
 
 
 //! Namespace jeod
@@ -254,11 +255,115 @@ bool DynBody::attach_to (
  * \param[in,out] parent The parent body; the body to which this body's root body is to be attached.
  */
 bool DynBody::attach_to (
-   double offset_pstr_cstr_pstr[3],
-   double T_pstr_cstr[3][3],
+   const double offset_pstr_cstr_pstr[3],
+   const double T_pstr_cstr[3][3],
    DynBody & parent )
 {
     return parent.attach_child(offset_pstr_cstr_pstr, T_pstr_cstr, *this);
+}
+
+
+
+bool DynBody::attach_to_frame(const char * parent_ref_frame_name)
+{
+    bool success = false;
+    RefFrame * parent_ref_frame = dyn_manager->find_ref_frame(parent_ref_frame_name);
+    if (parent_ref_frame == nullptr)
+    {
+        MessageHandler::warn (
+                __FILE__, __LINE__, DynBodyMessages::invalid_attachment,
+                "Unable to find RefFrame to attach to\n"
+                "Attachment of '%s.structure' to '%s' was not performed.\n",
+                mass.name.c_str(), parent_ref_frame_name);
+    }
+    else
+    {
+        attach_to_frame(*parent_ref_frame);
+        success = true;
+    }
+    return success;
+}
+
+bool DynBody::attach_to_frame(RefFrame &parent)
+{
+    DynBody *root_body = get_root_body_internal();
+    RefFrameState curr_rel_state;
+    root_body->structure.compute_relative_state(parent, curr_rel_state);
+    root_body->frame_attach.initialize_attachment(parent, curr_rel_state);
+    return true;
+}
+
+bool DynBody::attach_to_frame( const char * this_point_name,
+                               const char * parent_ref_frame_name,
+                               const double offset_pframe_cpt_pframe[3],
+                               const double T_pframe_cpt[3][3])
+{
+    bool success = false;
+    const BodyRefFrame * this_vehicle_pt = find_vehicle_point( this_point_name );
+    const MassPoint*    subject_pt;
+    RefFrame * parent_ref_frame = dyn_manager->find_ref_frame(parent_ref_frame_name);
+    if (this_vehicle_pt == nullptr)
+    {
+        subject_pt = mass.find_mass_point(this_point_name);
+
+    } else {
+        subject_pt = this_vehicle_pt->mass_point;
+    }
+
+    if (subject_pt == nullptr)
+    {
+        MessageHandler::warn (
+                __FILE__, __LINE__, DynBodyMessages::invalid_attachment,
+                "Unable to find DynBody attachment point\n"
+                "Attachment of '%s' to '%s' was not performed.\n",
+                this_point_name, parent_ref_frame_name);
+    } else if (parent_ref_frame == nullptr)
+    {
+        MessageHandler::warn (
+                __FILE__, __LINE__, DynBodyMessages::invalid_attachment,
+                "Unable to find RefFrame to attach to\n"
+                "Attachment of '%s' to '%s' was not performed.\n",
+                this_point_name, parent_ref_frame_name);
+    }
+    else
+    {
+        // Perform the final attachment to the root_body only.
+        DynBody *root_body = get_root_body_internal();
+        RefFrameState X_pframe_to_cpt;
+        Vector3::copy(offset_pframe_cpt_pframe, X_pframe_to_cpt.trans.position);
+        Matrix3x3::copy(T_pframe_cpt, X_pframe_to_cpt.rot.T_parent_this);
+        X_pframe_to_cpt.rot.Q_parent_this.left_quat_from_transformation(T_pframe_cpt);
+
+        MassPointState MP_struct_to_cpt;
+        subject_pt->compute_state_wrt_pred(*(root_body->structure.mass_point), MP_struct_to_cpt);
+
+        RefFrameState X_struct_to_cpt;
+        Vector3::copy(MP_struct_to_cpt.position, X_struct_to_cpt.trans.position);
+        Matrix3x3::copy(MP_struct_to_cpt.T_parent_this, X_struct_to_cpt.rot.T_parent_this);
+        X_struct_to_cpt.rot.Q_parent_this = MP_struct_to_cpt.Q_parent_this;
+
+        RefFrameState X_pframe_to_struct(X_pframe_to_cpt);
+        X_pframe_to_struct.decr_right(X_struct_to_cpt);
+
+        root_body->frame_attach.initialize_attachment(*parent_ref_frame, X_pframe_to_struct);
+
+        success = true;
+    }
+    return success;
+}
+
+bool DynBody::attach_to_frame(const double offset_pframe_cstr_pframe[3],
+                              const double T_pframe_cstr[3][3],
+                              RefFrame & parent)
+{
+    DynBody *root_body = get_root_body_internal();
+
+    RefFrameState offset_init;
+    Vector3::copy (offset_pframe_cstr_pframe, offset_init.trans.position);
+    Matrix3x3::copy (T_pframe_cstr, offset_init.rot.T_parent_this);
+
+    root_body->frame_attach.initialize_attachment(parent, offset_init);
+    return true;
 }
 
 /**
@@ -404,15 +509,14 @@ bool DynBody::attach_child (
  * attach_child()
  */
 bool DynBody::attach_child (
-   double xyz_cstr_wrt_pstr[3],
-   double T_pstr_to_cstr[3][3],
+   const double xyz_cstr_wrt_pstr[3],
+   const double T_pstr_to_cstr[3][3],
    DynBody & child )
 {
     // References looked up
     DynBody* child_root;
 
     // Status variables
-    std::string reason;
     bool success;
 
     // Validate
@@ -610,15 +714,14 @@ bool DynBody::add_mass_body (
 
 // Attach mass body aligned at specified mass point
 bool DynBody::add_mass_body (
-   double xyz_cstr_wrt_pstr[3],
-   double T_pstr_to_cstr[3][3],
+   const double xyz_cstr_wrt_pstr[3],
+   const double T_pstr_to_cstr[3][3],
    MassBody & child)
 {
     // References looked up
     MassBody* child_root;
 
     // Status variables
-    std::string reason;
     bool success;
 
 
@@ -700,12 +803,11 @@ bool DynBody::add_mass_body (
 void DynBody::add_mass_body_frames( MassBody &subbody )
 {
     // Add points from current subbody
-    BodyRefFrame* pt_frame;
     for(std::list<MassPoint*>::iterator pt = subbody.mass_points.begin();
         pt != subbody.mass_points.end();
-        pt++)
+        ++pt)
     {
-        pt_frame = JEOD_ALLOC_CLASS_OBJECT( BodyRefFrame, ());
+        BodyRefFrame* pt_frame = JEOD_ALLOC_CLASS_OBJECT( BodyRefFrame, ());
         pt_frame->set_name(name.c_str(),(*pt)->get_name());
         pt_frame->mass_point = (*pt);
         pt_frame->set_owner(this);
@@ -767,8 +869,8 @@ DynBody::attach_establish_links (
 // properties.
 void
 DynBody::attach_update_properties (
-   double offset_pstr_cstr_pstr[3],
-   double T_pstr_cstr[3][3],
+   const double offset_pstr_cstr_pstr[3],
+   const double T_pstr_cstr[3][3],
    DynBody & child)
 {
    DynBody * root_body  = get_root_body_internal();
@@ -849,8 +951,8 @@ DynBody::attach_update_properties (
 // Process the attachment event of one body from another.
 void
 DynBody::process_dynamic_attachment (
-   double offset_pstr_cstr_pstr[3],
-   double T_pstr_cstr[3][3],
+   const double offset_pstr_cstr_pstr[3],
+   const double T_pstr_cstr[3][3],
    DynBody & root_body,
    DynBody & child_body)
 {

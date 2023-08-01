@@ -4,7 +4,7 @@ PURPOSE:
    (Logging for the aerodynamics verification sim)
 
 LIBRARY DEPENDENCY:
-   ((aero_logging.o))
+   ((aero_logging.cc))
 
 ASSUMPTIONS:
 

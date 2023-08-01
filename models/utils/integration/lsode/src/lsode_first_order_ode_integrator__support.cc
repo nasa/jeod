@@ -24,7 +24,7 @@ Assumptions and limitations:
   (TBS)
 
 Library dependencies:
-  ((lsode_first_order_ode_integrator__manager.o))
+  ((lsode_first_order_ode_integrator__manager.cc))
 
 
 
@@ -132,8 +132,7 @@ LsodeFirstOrderODEIntegrator::calculate_integration_coefficients()
    for (unsigned int ii = 0; ii < 13; ii++) {
       poly_coeff[ii] = 0;
    }
-   int nqp1;
-   double pint,xpin,tsign,agamq,ragq,rqfac,rq1fac;
+   double rqfac,rq1fac;
 
    switch (control_data.integration_method) {
    case LsodeControlDataInterface::ImplicitAdamsNonStiff:
@@ -160,7 +159,6 @@ LsodeFirstOrderODEIntegrator::calculate_integration_coefficients()
          // Initially, p(x) = 1.;
          rq1fac = rqfac;
          rqfac = rqfac/nq;
-         nqp1 = nq+1;
 
          // Form coefficients of p(x)*(x+nq-1). ------------------------
          poly_coeff[nq-1] = 0.0;
@@ -174,9 +172,9 @@ LsodeFirstOrderODEIntegrator::calculate_integration_coefficients()
          poly_coeff[0] = (nq-1) * poly_coeff[0];
 
          // Compute integral, -1 to 0, of p(x) and x*p(x). ----------
-         pint = poly_coeff[0];
-         xpin = poly_coeff[0]/2.0;
-         tsign = 1.0;
+         double pint = poly_coeff[0];
+         double xpin = poly_coeff[0]/2.0;
+         double tsign = 1.0;
          for (int ii = 2; ii <= nq; ii++) { // do 120
             tsign = -tsign;
             pint = pint + tsign*poly_coeff[ii-1]/ii;
@@ -191,8 +189,8 @@ LsodeFirstOrderODEIntegrator::calculate_integration_coefficients()
             // 130
             method_coeffs_complete[ii][nq-1] = rq1fac*poly_coeff[ii-1]/ii;
          }
-         agamq = rqfac*xpin;
-         ragq = 1.0/agamq;
+         double agamq = rqfac*xpin;
+         double ragq = 1.0/agamq;
          test_coeffs_complete[1][nq-1] = ragq;
          if (nq < 12) {
            test_coeffs_complete[0][nq] = ragq*rqfac/(nq+1);
@@ -206,7 +204,7 @@ LsodeFirstOrderODEIntegrator::calculate_integration_coefficients()
       poly_coeff[0] = 1.0;
       rq1fac = 1.0;
       for (int nq = 1; nq <= 5; nq++) { // do 230
-         nqp1 = nq + 1;
+         int nqp1 = nq + 1;
          // Form coefficients of p(x)*(x+nq).
          poly_coeff[nq] = 0.0;
 
@@ -299,12 +297,10 @@ LsodeFirstOrderODEIntegrator::interpolate_y()
    // 20
       y[ii] = c * arrays.history[ii][num_nordsiek_cols-1];
    }
-   int j;
    if (method_order_current != 0) { // inverse go to 55 (K .EQ. NQ)
       for (unsigned int jb = 1; jb <= method_order_current; jb++) {
                                                                       // do 50
-         j = method_order_current - jb;
-         c = 1.0;
+         int j = method_order_current - jb;
          // 35
          for (unsigned int ii = 0; ii < control_data.num_odes; ii++) { // do 40
             // 40
@@ -519,7 +515,6 @@ bool
 LsodeFirstOrderODEIntegrator::jacobian_prep_loop()
 {
    int jj;
-   double r;
 
    switch (control_data.corrector_method) {
 
@@ -543,7 +538,7 @@ LsodeFirstOrderODEIntegrator::jacobian_prep_loop()
          // Prepare for next call to generate derivatives.
          jj = data_prepj.index;
          data_prepj.yj = y[jj];
-         r = std::max( (arrays.lin_alg_1 * std::abs(data_prepj.yj)) ,
+         double r = std::max( (arrays.lin_alg_1 * std::abs(data_prepj.yj)) ,
                        (data_prepj.r0 / arrays.error_weight[jj]));
          y[jj] += r;
          data_prepj.fac = -data_prepj.hl0/r;
@@ -621,7 +616,6 @@ LsodeFirstOrderODEIntegrator::jacobian_prep_loop()
 bool
 LsodeFirstOrderODEIntegrator::jacobian_prep_wrap_up()
 {
-   double r0, di;
    switch (control_data.corrector_method) {
    case LsodeControlDataInterface::NewtonIterUserJac:
       for (unsigned int ii = 0; ii < control_data.num_odes; ii++) { // do 110
@@ -645,8 +639,8 @@ LsodeFirstOrderODEIntegrator::jacobian_prep_wrap_up()
    case LsodeControlDataInterface::JacobiNewtonInternalJac:
       load_derivatives(arrays.lin_alg[0]);
       for (unsigned int ii = 0; ii < control_data.num_odes; ii++) { // do 320
-         r0 = step_size*arrays.save[ii] - arrays.history[ii][2];
-         di = 0.1 * r0 - step_size*(arrays.lin_alg[0][ii] - arrays.save[ii]);
+         double r0 = step_size*arrays.save[ii] - arrays.history[ii][2];
+         double di = 0.1 * r0 - step_size*(arrays.lin_alg[0][ii] - arrays.save[ii]);
          arrays.lin_alg[0][ii] = 1.0;
          if (std::abs(r0) >= (epsilon / arrays.error_weight[ii])) {
                                                         // inverse go to 320;
@@ -740,7 +734,7 @@ void
 LsodeFirstOrderODEIntegrator::linear_chord_iteration()
 {
 
-   double hl0, phl0, r, di;
+   double hl0, phl0;
 
    modified_iteration_matrix_singular = false;
    switch (control_data.corrector_method) {
@@ -755,9 +749,9 @@ LsodeFirstOrderODEIntegrator::linear_chord_iteration()
       hl0 = step_size*method_coeff_first;
       arrays.lin_alg_2 = hl0;
       if (!Numerical::compare_exact(hl0,phl0)) {// go to 330;
-         r = hl0/phl0;
+         double r = hl0/phl0;
          for (unsigned int ii = 0; ii < control_data.num_odes; ii++) { // do 320
-            di = 1.0 - r*(1.0 - 1.0/arrays.lin_alg[0][ii]);
+            double di = 1.0 - r*(1.0 - 1.0/arrays.lin_alg[0][ii]);
             if (std::fpclassify(di) == FP_ZERO) { // go to 390;
                // 390
                modified_iteration_matrix_singular = true;

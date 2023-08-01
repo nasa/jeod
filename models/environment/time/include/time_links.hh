@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -81,7 +81,7 @@ class TimeLinks : public TreeLinks<TimeLinks, JeodBaseTime, TimeMessages>
 
    // Member functions
 public:
-   TimeLinks( JeodBaseTime& time_in )
+   explicit TimeLinks( JeodBaseTime& time_in )
    : TreeLinks<TimeLinks,JeodBaseTime, TimeMessages>(time_in, default_path_size)
      { }
 
@@ -94,7 +94,7 @@ public:
    /**
     * Default destructor
     */
-   virtual ~TimeLinks() = default;
+   ~TimeLinks() override = default;
 
    // Member attributes
 private:

@@ -21,11 +21,11 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((radiation_default_surface.o)
-(radiation_messages.o)
-(radiation_third_body.o)
-(interactions/thermal_rider/thermal_facet_rider.o)
-(utils/message/message_handler.o))
+((radiation_default_surface.cc)
+(radiation_messages.cc)
+(radiation_third_body.cc)
+(interactions/thermal_rider/src/thermal_facet_rider.cc)
+(utils/message/src/message_handler.cc))
 
 
 

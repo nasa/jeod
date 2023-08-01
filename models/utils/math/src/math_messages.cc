@@ -17,7 +17,7 @@ Purpose:
 
 
 Library dependencies:
-  ((math_messages.o))
+  ((math_messages.cc))
 
  
 

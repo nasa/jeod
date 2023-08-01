@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -42,7 +42,7 @@ REFERENCES:
 ASSUMPTIONS AND LIMITATIONS:
     ((None))
 LIBRARY DEPENDENCY:
-    ((lighting_ephem.o))
+    ((../src/lighting_ephem.cc))
 ******************************************************************************/
 
 #ifndef JEOD_LIGHTING_EPHEM_HH
@@ -65,25 +65,25 @@ class LightingEphem : public EphemerisInterface {
 public:
 
    LightingEphem();
-   virtual ~LightingEphem();
+   ~LightingEphem() override;
 
-   virtual double timestamp(void) const;
+   double timestamp(void) const override;
 
-   virtual const char * get_name (void) const;
+   const char * get_name (void) const override;
 
-   virtual void ephem_initialize (
-      EphemeridesManager& manager);
+   void ephem_initialize (
+      EphemeridesManager& manager) override;
 
-   virtual void ephem_activate (
-      EphemeridesManager& manager);
+   void ephem_activate (
+      EphemeridesManager& manager) override;
 
-   virtual void ephem_build_tree(
-      EphemeridesManager& manager);
+   void ephem_build_tree(
+      EphemeridesManager& manager) override;
 
-   virtual void ephem_update(void);
+   void ephem_update(void) override;
 
-   virtual void activate(){return;}
-   virtual void deactivate(){return;}
+   void activate() override{return;}
+   void deactivate() override{return;}
 
    EphemerisPoint sun;
    EphemerisPoint moon;

@@ -7,9 +7,9 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((angular_variance.o)
-   (utils/quaternion/quat.o)
-   (utils/quaternion/quat_to_eigenrot.o))
+  ((angular_variance.cc)
+   (utils/quaternion/src/quat.cc)
+   (utils/quaternion/src/quat_to_eigenrot.cc))
 
  
 

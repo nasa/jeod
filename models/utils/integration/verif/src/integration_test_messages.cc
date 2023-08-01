@@ -4,7 +4,7 @@ Purpose:
   (Implement the class IntegrationTestMessages.)
 
 Library dependencies:
-  ((integration_test_messages.o))
+  ((integration_test_messages.cc))
 
  
 

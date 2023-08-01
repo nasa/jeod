@@ -22,13 +22,13 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time.o)
-   (time__add_type_update.o)
-   (time_manager.o)
-   (time_manager_init.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((time.cc)
+   (time__add_type_update.cc)
+   (time_manager.cc)
+   (time_manager_init.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
  
 
@@ -58,6 +58,8 @@ namespace jeod {
 JeodBaseTime::JeodBaseTime (
    void)
 :    name(),
+     initialize_from_name(""),
+     update_from_name(""),
      links(*this)
 {
    index       = 0;
@@ -70,10 +72,8 @@ JeodBaseTime::JeodBaseTime (
 
    update_converter_direction = 0;
    seconds                    = 0.0;
-   initialize_from_name       = "";
-   update_from_name           = "";
-   time_manager               = NULL;
-   update_converter_ptr       = NULL;
+   time_manager               = nullptr;
+   update_converter_ptr       = nullptr;
 
    return;
 }

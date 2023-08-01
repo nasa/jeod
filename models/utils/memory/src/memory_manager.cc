@@ -16,10 +16,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((memory_manager.o)
-   (memory_item.o)
-   (memory_messages.o)
-   (memory_type.o))
+  ((memory_manager.cc)
+   (memory_item.cc)
+   (memory_messages.cc)
+   (memory_type.cc))
 
  
 *******************************************************************************/
@@ -79,7 +79,7 @@ JeodMemoryManager::JeodMemoryManager (
    // Nominal case: There is no master memory manager yet.
    // This object will become that master memory manager.
    // Complete construction.
-   if (Master == NULL) {
+   if (Master == nullptr) {
 
       // This is the master memory manager.
       Master = this;
@@ -154,7 +154,7 @@ JeodMemoryManager::~JeodMemoryManager (
    if (Master == this) {
 
       // The master is gone.
-      Master = NULL;
+      Master = nullptr;
 
       // Destroy the mutex.
       // NOTE WELL: From this point onward it is assumed to be OK to perform
@@ -286,14 +286,14 @@ void
 JeodMemoryManager::restart_clear_memory (
    void)
 {
-   void * addr = NULL;
+   void * addr = nullptr;
    JeodMemoryItem item;
-   const JeodMemoryTypeDescriptor * type = NULL;
+   const JeodMemoryTypeDescriptor * type = nullptr;
 
    // Just keep a deletin' and destroyin' 'til nothing's left.
    // NOTE: This only works if we are using placement new.
    for (delete_oldest_alloc_entry_atomic (addr, item, type);
-        addr != NULL;
+        addr != nullptr;
         delete_oldest_alloc_entry_atomic (addr, item, type)) {
 
       // De-register the item with the simulation engine.
@@ -346,7 +346,7 @@ JeodMemoryManager::restart_reallocate (
       get_type_entry_atomic (Typeid_type_name, mangled_type_name);
    const JeodMemoryTypeDescriptor * type = tentry.tdesc;
 
-   if (type == NULL) {
+   if (type == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, MemoryMessages::suspect_pointer,
          "Unable to find type '%s' for jeod_alloc_%06d.\n"
@@ -478,7 +478,7 @@ JeodMemoryManager::register_memory_internal (
 
    // Construct and save a string describing the place the memory was
    // allocated, but only if debugging levels are high enough.
-   if ((file == NULL) || (debug_level <= 1)) {
+   if ((file == nullptr) || (debug_level <= 1)) {
       alloc_idx = 0;
    }
    else {
@@ -554,12 +554,12 @@ JeodMemoryManager::is_allocated_internal (
    const char * file,
    unsigned int line)
 {
-   void * found_addr = NULL;
+   void * found_addr = nullptr;
    JeodMemoryItem found_item;
-   const JeodMemoryTypeDescriptor * found_type = NULL;
+   const JeodMemoryTypeDescriptor * found_type = nullptr;
 
    // Silently indicate that a null pointer was not allocated by JEOD.
-   if (addr == NULL) {
+   if (addr == nullptr) {
       return false;
    }
 
@@ -568,7 +568,7 @@ JeodMemoryManager::is_allocated_internal (
                             found_addr, found_item, found_type);
 
    // A non-null address means the input address is allocated by JEOD.
-   return found_addr != NULL;
+   return found_addr != nullptr;
 }
 
 
@@ -590,12 +590,12 @@ JeodMemoryManager::destroy_memory_internal (
    const char * file,
    unsigned int line)
 {
-   void * found_addr = NULL;
+   void * found_addr = nullptr;
    JeodMemoryItem found_item;
-   const JeodMemoryTypeDescriptor * found_type = NULL;
+   const JeodMemoryTypeDescriptor * found_type = nullptr;
 
    // Nothing to do if address is null.
-   if (addr == NULL) {
+   if (addr == nullptr) {
       MessageHandler::warn (
          __FILE__, __LINE__, MemoryMessages::null_pointer,
          "Attempt to free a null pointer at %s:%d",
@@ -613,7 +613,7 @@ JeodMemoryManager::destroy_memory_internal (
    // The most likely cause is trying to delete something not allocated by JEOD,
    // e.g., allocated by new, by the simulation engine, or from the stack.
    // The response here is to do nothing other than complain.
-   if (found_addr == NULL) {
+   if (found_addr == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, MemoryMessages::suspect_pointer,
          "JEOD memory error: Memory at %p was not created by JEOD.\n"
@@ -737,8 +737,8 @@ JeodMemoryManager::allocate_memory (
    int fill)
 const
 {
-   void * addr = NULL;
-   char * buf = NULL;
+   void * addr = nullptr;
+   char * buf = nullptr;
    std::size_t length = nelems * elem_size;
    unsigned int start_offset;
    unsigned int end_offset;
@@ -765,11 +765,11 @@ const
    // *Try* to print a message.
    // Note to the user: If the program drops core in the message handler call
    // it means your sim has consumed all memory.
-   if (buf == NULL) {
+   if (buf == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, MemoryMessages::out_of_memory,
          "Out of memory");
-      return NULL;
+      return nullptr;
    }
 
    // Insert guards.

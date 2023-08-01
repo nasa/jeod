@@ -16,14 +16,14 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_attach_matrix.o)
-   (body_action.o)
-   (body_attach.o)
-   (dynamics/mass/mass_point_state.o)
-   (dynamics/dyn_manager/dyn_manager.o)
-   (dynamics/dyn_body/dyn_body_attach.o)
-   (dynamics/mass/mass_attach.o)
-   (utils/orientation/orientation.o))
+  ((body_attach_matrix.cc)
+   (body_action.cc)
+   (body_attach.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (dynamics/dyn_manager/src/dyn_manager.cc)
+   (dynamics/dyn_body/src/dyn_body_attach.cc)
+   (dynamics/mass/src/mass_attach.cc)
+   (utils/orientation/src/orientation.cc))
 
 
 
@@ -68,28 +68,40 @@ BodyAttachMatrix::apply (
     // Convert user-specified orientation to transformation matrix.
     pstr_cstr.compute_transform ();
 
-    // DynBody to DynBody
-    if( dyn_subject != nullptr && dyn_parent != nullptr )
+    if (dyn_parent != nullptr)
     {
-        succeeded = dyn_parent->attach_child( offset_pstr_cstr_pstr,
-                                        pstr_cstr.trans,
-                                        *dyn_subject);
+        if (dyn_subject != nullptr) // DynBody to DynBody
+        {
+            succeeded = dyn_parent->attach_child(offset_pstr_cstr_pstr, pstr_cstr.trans, *dyn_subject);
+        }
+        else // MassBody subbody/subassembly to DynBody
+        {
+            succeeded = dyn_parent->add_mass_body(offset_pstr_cstr_pstr, pstr_cstr.trans, *mass_subject);
+        }
     }
-    // MassBody subbody/subassembly to DynBody
-    else if( dyn_subject == nullptr && dyn_parent != nullptr )
+    else if (mass_parent != nullptr)
     {
-        succeeded = dyn_parent->add_mass_body( offset_pstr_cstr_pstr,
-                                               pstr_cstr.trans,
-                                               *mass_subject);
+        if (dyn_subject != nullptr) // DynBody to MassBody -- ILLEGAL
+        {
+            succeeded = false;
+        }
+        else // MassBody/MassBody assembly to MassBody
+        {
+            succeeded = mass_subject->attach_to (offset_pstr_cstr_pstr, pstr_cstr.trans, *mass_parent);
+        }
     }
-    // MassBody/MassBody assembly to MassBody
-    else if( dyn_subject == nullptr && dyn_parent == nullptr )
+    else if (ref_parent != nullptr)
     {
-        succeeded = mass_subject->attach_to (offset_pstr_cstr_pstr, pstr_cstr.trans, *mass_parent);
-
+        if (dyn_subject != nullptr) // DynBody to RefFrame
+        {
+            succeeded = dyn_subject->attach_to_frame(offset_pstr_cstr_pstr, pstr_cstr.trans, *ref_parent);
+        }
+        else // MassBody to RefFrame -- ILLEGAL
+        {
+            succeeded = false;
+        }
     }
-    // DynBody to MassBody -- ILLEGAL
-    else // if( dyn_subject != nullptr && dyn_parent == nullptr )
+    else // Should be unreachable
     {
         succeeded = false;
     }

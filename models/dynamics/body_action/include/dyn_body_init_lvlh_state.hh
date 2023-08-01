@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_lvlh_state.o))
+  ((../src/dyn_body_init_lvlh_state.cc))
 
 
 
@@ -111,16 +111,16 @@ public:
 
    DynBodyInitLvlhState ();
 
-   virtual ~DynBodyInitLvlhState ();
+   ~DynBodyInitLvlhState () override;
 
    //set_lvlh_frame_object: Sets a pointer to user-supplied LvlhFrame
    void set_lvlh_frame_object (LvlhFrame & lvh_frame_object);
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
    // apply: Apply the state to the subject body.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
 
 private:

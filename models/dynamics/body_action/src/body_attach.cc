@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_attach.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (dynamics/dyn_manager/dyn_manager.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (utils/message/message_handler.o))
+  ((body_attach.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (dynamics/dyn_manager/src/dyn_manager.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -55,7 +55,8 @@ BodyAttach::BodyAttach (
    BodyAction(),
    succeeded(false),
    mass_parent(nullptr),
-   dyn_parent(nullptr)
+   dyn_parent(nullptr),
+   ref_parent(nullptr)
 {
    active = true;
 
@@ -76,7 +77,19 @@ BodyAttach::initialize (
    // Forward the request up the chain.
    BodyAction::initialize (dyn_manager);
 
-   validate_body_inputs(dyn_parent, mass_parent, "parent");
+   // Check for mass/dyn body parents first.
+   if(!validate_body_inputs(dyn_parent, mass_parent, "parent", true) )
+   {
+       // Check for generic reference frame attach
+       if(ref_parent == nullptr)
+       {
+           MessageHandler::fail (
+              __FILE__, __LINE__, BodyActionMessages::null_pointer,
+              "%s failed:\n"
+              "The %s body/frame was not assigned",
+              action_identifier.c_str(), "parent");
+       }
+   }
 
    return;
 }
@@ -85,11 +98,20 @@ void BodyAttach::set_parent_body(MassBody &mass_body_in)
 {
     mass_parent = &mass_body_in;
     dyn_parent = nullptr;
+    ref_parent = nullptr;
 }
 
 void BodyAttach::set_parent_body(DynBody &dyn_body_in)
 {
     dyn_parent = &dyn_body_in;
+    mass_parent = nullptr;
+    ref_parent = nullptr;
+}
+
+void BodyAttach::set_parent_frame(RefFrame & ref_parent_in)
+{
+    ref_parent = &ref_parent_in;
+    dyn_parent = nullptr;
     mass_parent = nullptr;
 }
 
@@ -103,13 +125,32 @@ void
 BodyAttach::apply (
    DynManager & dyn_manager)
 {
+   std::string subject_name("Unknown");
+   std::string parent_name("Unknown");
+	if (dyn_parent != nullptr) {
+		parent_name = dyn_parent->name.get_name();
+	} else {
+		if (mass_parent != nullptr) {
+			parent_name = mass_parent->name.get_name();
+		} else if (ref_parent != nullptr) {
+			parent_name = ref_parent->get_name();
+		}
+	}
+
+	if (dyn_subject != nullptr) {
+		subject_name = dyn_subject->name.get_name();
+	} else {
+		if (mass_subject != nullptr) {
+			subject_name = mass_subject->name.get_name();
+		}
+	}
 
    // Attachment succeeded: Debug.
    if (succeeded) {
       MessageHandler::debug (
          __FILE__, __LINE__, BodyActionMessages::trace,
          "%s: %s attached to %s.",
-         action_identifier.c_str(), mass_subject->name.c_str(), mass_parent->name.c_str());
+         action_identifier.c_str(), subject_name.c_str(), parent_name.c_str());
    }
 
    // Attachment failed: Terminate the sim if terminate_on_error is set.
@@ -119,7 +160,7 @@ BodyAttach::apply (
          "'%s' failed to attach '%s' to '%s'. "
          "The terminate_on_failure flag set and an attachment error occurred.\n"
          "The attachment error described above is fatal per this setting.",
-         action_identifier.c_str(), mass_subject->name.c_str(), mass_parent->name.c_str());
+         action_identifier.c_str(), subject_name.c_str(), parent_name.c_str());
    }
 
    // Attachment failed, terminate_ not set: Tell the user about the problem.
@@ -127,7 +168,7 @@ BodyAttach::apply (
       MessageHandler::error (
          __FILE__, __LINE__, BodyActionMessages::not_performed,
          "%s failed to attach %s to %s.",
-         action_identifier.c_str(), mass_subject->name.c_str(), mass_parent->name.c_str());
+         action_identifier.c_str(), subject_name.c_str(), parent_name.c_str());
    }
 
 

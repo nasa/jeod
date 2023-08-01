@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ PURPOSE:
    interface for calculating state, taking a polymorphic AtmosphereModel class
    as it's method for calculating the state.)
 Library dependencies:
-   (atmosphere_state.o)
+   (../src/atmosphere_state.cc)
 *******************************************************************************/
 
 #ifndef JEOD_ATMOSPHERE_STATE_HH

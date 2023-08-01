@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -48,7 +48,7 @@
 
 /*
 Purpose: ()
-Library dependencies: ((gauss_jordan_solver.o))
+Library dependencies: ((../src/gauss_jordan_solver.cc))
 */
 
 
@@ -102,7 +102,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~GaussJordanSolver ()
+    ~GaussJordanSolver () override
     {
         JEOD_DEREGISTER_CHECKPOINTABLE (this, avail_rows);
         JEOD_DEREGISTER_CHECKPOINTABLE (this, pivot_row);
@@ -111,7 +111,7 @@ public:
     /**
      * Set the maximum dimensionality of the problem.
      */
-    virtual void set_max_dimensions (unsigned max_dims_in)
+    void set_max_dimensions (unsigned max_dims_in) override
     {
         LinearSystemSolver::set_max_dimensions(max_dims_in);
         augmented_matrix.reserve(max_dims*(max_dims+1u));
@@ -122,7 +122,7 @@ public:
     /**
      * Set the current dimensionality of the problem.
      */
-    virtual void set_n_dimensions (unsigned n_dims)
+    void set_n_dimensions (unsigned n_dims) override
     {
         LinearSystemSolver::set_n_dimensions(n_dims);
         augmented_matrix.resize(n_dims,n_dims+1u);
@@ -133,7 +133,7 @@ public:
     /**
      * Solve for x in A*x = b.
      */
-    virtual unsigned solve(DoubleVectorT& x);
+    unsigned solve(DoubleVectorT& x) override;
 
 protected:
 

@@ -17,10 +17,10 @@ Purpose:
    ()
 
 Library Dependency:
-   ((planet_fixed_posn.o)
-    (alt_lat_long_state.o)
-    (planet_fixed_messages.o)
-    (utils/message/message_handler.o))
+   ((planet_fixed_posn.cc)
+    (alt_lat_long_state.cc)
+    (planet_fixed_messages.cc)
+    (utils/message/src/message_handler.cc))
 
  
 
@@ -58,7 +58,7 @@ PlanetFixedPosition::PlanetFixedPosition(
    void)
 {
    Vector3::initialize(cart_coords);
-   planet = NULL;
+   planet = nullptr;
 }
 
 
@@ -302,10 +302,9 @@ PlanetFixedPosition::get_elliptic_parameters (/* Return: --
       double bz=b*z;
       double w=atan(bz/ar);
       double c=(a*a-b*b)/sqrt(ar*ar+bz*bz);
-      double d;
 
       for (numIters=0; numIters < maxIters; numIters++) {
-         d = 2.0*(cos(y0-w) - c*cos(2.0*y0));
+         double d = 2.0*(cos(y0-w) - c*cos(2.0*y0));
          y = y0 - (2.0*sin(y0-w)-c*sin(2.0*y0))/d;
          if (fabs(y-y0) < 1.0e-12) {
             break;

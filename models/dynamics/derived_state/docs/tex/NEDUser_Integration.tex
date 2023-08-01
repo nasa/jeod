@@ -43,5 +43,16 @@ example_of_rel_state_object.example_of_ned_state.ned_state.altlatlong_type =
                                                      NorthEastDown::elliptical;
 \end{verbatim}
 
+The user may specify which planet-centered, planet-fixed reference frame (default or alternate) to use as the basis of the relative state calculations for the North-East-Down reference frame. Note: this only works with Planets that have an alternate reference frame defined.
+\begin{verbatim}
+example_of_rel_state_object.example_of_ned_state.set_use_alt_pfix(False);
+
+\end{verbatim}
+or
+\begin{verbatim}
+example_of_rel_state_object.example_of_ned_state.set_use_alt_pfix(True);
+
+\end{verbatim}
+
 \subsection{Logging the Data}
 See the \textref{Analysis}{sec:neduseranalysis} section for a list of available output data, although again, typically, the desired output results from the relative state implementation of the NED reference frame, rather than from the NED state.  See the \textref{Analysis}{sec:relativeuseranalysis} section for a list of available output data from a RelativeDerivedState.

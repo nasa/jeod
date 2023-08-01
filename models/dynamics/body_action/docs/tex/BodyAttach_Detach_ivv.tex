@@ -65,7 +65,7 @@ $\cdots$Reattach & BodyAction &
 This section describes various tests conducted to verify and validate
 that the \partxname satisfies the requirements levied against it.
 All verification and validation test source code, simulations and procedures
-for this sub-model are in the {\tt SIM\_verif\_attach\_mass} subdirectory of
+for this sub-model are in the {\tt SIM\_verif\_attach\_mass}, or {\tt SIM\_ref\_attach}, subdirectory of
 the JEOD directory {\tt models/dynamics/body\_action/verif}.
 
 \test[Attach/detach]{MassBody Attach/Detach}
@@ -100,6 +100,27 @@ and~\ref{reqt:BodyAttach_Detach:attach_support}
 to~\ref{reqt:BodyAttach_Detach:detach_specific}.
 \end{description}
 
+\test[Kinematic Attach/detach]{Kinematic Attach}
+\label{test:BodyAttach_Detach:ref_attach}
+\begin{description}
+\item[Background]
+This test exercises the capabilities for this sub-model's kinematic RefFrame attach capability. For the RefFrame
+attachments, we must demonstrate that the resulting attachment zeroes any previous velocities w.r.t. the parent frame
+and that mass tree is not impacted by this type of attachment.
+\item[Test description]
+Test RUN\_ref\_attach\_pt2pt attaches a Dynbody to a planet reference frame using the point-to-point attachment.
+Test RUN\_ref\_attach\_matrix attaches a DynBody to a planet reference frame using the matrix/offset
+attachment mechanism.
+
+\item[Test results]
+All test cases pass.
+
+\item[Applicable requirements]
+This series of tests collectively exercises the capabilities of this sub-model. These tests demonstrate
+requirements~\ref{reqt:BodyAttach_Detach:ref_attach}
+\end{description}
+
+
 \section{Requirements Traceability}
 Table~\ref{tab:BodyAttach_Detach:reqt_traceability}
 summarizes the inspections and tests that demonstrate the satisfaction of the
@@ -124,6 +145,9 @@ requirements levied on the \partxname.
    Test & \ref{test:BodyAttach_Detach:attach_detach} &
    Attach/detach\\[4pt]
 \ref{reqt:BodyAttach_Detach:detach_specific} & Specific detach &
+   Test & \ref{test:BodyAttach_Detach:attach_detach} &
+   Attach/detach\\[4pt]
+\ref{reqt:BodyAttach_Detach:ref_attach} & Specific detach &
    Test & \ref{test:BodyAttach_Detach:attach_detach} &
    Attach/detach\\
 \hline

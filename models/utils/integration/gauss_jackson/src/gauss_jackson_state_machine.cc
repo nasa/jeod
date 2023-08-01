@@ -62,6 +62,7 @@ GaussJacksonStateMachine::GaussJacksonStateMachine ()
 
    step_increment(0),
    steps_since_reset(0),
+   correction_iterations(0),
 
    cycle_scale(0.0),
    cycle_start_time(0.0),
@@ -195,7 +196,7 @@ GaussJacksonStateMachine::transition_state ()
       break;
 
    default:
-      assert("State machine called incorrectly" == NULL);
+      assert("State machine called incorrectly" == nullptr);
       break;
    }
 }

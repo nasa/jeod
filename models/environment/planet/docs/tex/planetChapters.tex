@@ -309,10 +309,16 @@ planetary bodies:
 \item{name:} The name of the planetary object being defined,
 
 \item{inertial:} The planet-centered J2000 pseudo-inertial reference frame, of
-object type EphemerisRefFrame, associated with this object, and
+object type EphemerisRefFrame, associated with this object,
+
+\item{alt\_inertial:} A secondary pseudo-inertial reference frame, of
+object type EphemerisRefFrame, associated with this object, 
 
 \item{pfix:} The planet-centered, planet-fixed Cartesian reference frame, of
-object type EphemerisRefFrame, associated with this planet.
+object type EphemerisRefFrame, associated with this planet, and
+
+\item{alt\_pfix:} A secondary planet-centered, planet-fixed Cartesian 
+reference frame, of object type EphemerisRefFrame, associated with this planet.
 \end{itemize}
 
 In addition to the default constructor and the destructor,
@@ -338,6 +344,46 @@ This member function sets the name of the planetary body being represented.
 \item{In:} const char * new\_name - new name to be applied
 \end{itemize}
 
+\paragraph{set\_alt\_inertial}
+
+This member function sets the fixed transformation from J2000 to alt\_inertial.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{Inout:} const double trans[3][3] - the transformation matrix from J2000
+to alt\_inertial
+\end{itemize}
+
+\paragraph{set\_alt\_inertial}
+
+This member function sets the fixed transformation from J2000 to alt\_inertial
+by using the celestial and ecliptic poles.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{Inout:} const double cp[3] - the celestial pole
+\item{Inout:} const double ep[3] - the ecliptic pole
+\end{itemize}
+
+\paragraph{set\_alt\_pfix}
+
+This member function sets the fixed transformation from pfix to alt\_pfix.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{Inout:} const double trans[3][3] - the transformation matrix from pfix
+to alt\_pfix
+\end{itemize}
+
+\paragraph{calculate\_alt\_pfix}
+
+This member function calculates the current transformation from J2000 to
+alt\_pfix using the fixed transformation between pfix and alt\_pfix.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{Inout:} void - no input value.
+\end{itemize}
 
 \subsubsection{Planet Class Design}
 

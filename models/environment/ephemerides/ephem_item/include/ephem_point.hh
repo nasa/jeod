@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,8 +54,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_point.o)
-   (ephem_item.o))
+  ((../src/ephem_point.cc)
+   (../src/ephem_item.cc))
 
 
 
@@ -93,20 +93,20 @@ public:
 
    // Constructor and destructor
    EphemerisPoint ();
-   virtual ~EphemerisPoint ();
+   ~EphemerisPoint () override;
 
 
    // EphemerisPoint objects modify the translational state.
-   virtual TargetAspect updates_what (void) const;
+   TargetAspect updates_what (void) const override;
 
    // Default suffix, "inertial" in the case of a point.
-   virtual const char * default_suffix () const;
+   const char * default_suffix () const override;
 
    // Disconnect the inertial frame from the ref frame tree.
-   virtual void disconnect_from_tree ();
+   void disconnect_from_tree () override;
 
    // Note that the inertial frame's active status has changed
-   virtual void note_frame_status_change (RefFrame * frame);
+   void note_frame_status_change (RefFrame * frame) override;
 
    // Initialize (zero out) the state
    virtual void initialize_state ();

@@ -225,10 +225,10 @@ class Logger (object) :
          select=['quat', 'matrix', 'rate']
 
       if isinstance(spec, str) :
-         if ('Q_inertial_body' in select) or ('quat' in select) :
-            self.log_quaternion (spec + '.Q_inertial_body')
-         if ('T_inertial_body' in select) or 'matrix' in select :
-            self.log_matrix (spec + '.T_inertial_body')
+         if ('Q_parent_this' in select) or ('quat' in select) :
+            self.log_quaternion (spec + '.Q_parent_this')
+         if ('T_parent_this' in select) or 'matrix' in select :
+            self.log_matrix (spec + '.T_parent_this')
          if ('ang_vel_this' in select) or ('rate' in select) :
             self.log_vector (spec + '.ang_vel_this')
          if ('ang_vel_mag' in select) or ('aux' in select) :

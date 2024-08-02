@@ -73,8 +73,7 @@ DynBody::detach (
     // 2) parent_body is null => First search failed.
     if (parent == nullptr) {
        // Search from other_body up to this
-       for(auto* link :
-               TreeLinksAscendRange<MassBodyLinks>(other_body.mass.links))
+       for(auto* link : TreeLinksAscendRange<MassBodyLinks>(other_body.mass.links))
        {
           MassBody* iter_body = &(link->container());
           if (iter_body == &mass) {
@@ -259,21 +258,9 @@ void DynBody::detach_mass_body_frames( MassBody &subbody )
     }
 
     // Call for each of subbody's children
-    if( subbody.links.has_children() )
+    for (auto* child_link : TreeLinksChildrenRange<MassBodyLinks>(subbody.links))
     {
-        MassBodyLinks* it = subbody.links.child_head();
-        while( true )
-        {
-            detach_mass_body_frames(it->container());
-            if( it == subbody.links.child_tail() )
-            {
-                break;
-            }
-            else
-            {
-                it++;
-            }
-        }
+        detach_mass_body_frames(child_link->container());
     }
 
     return;

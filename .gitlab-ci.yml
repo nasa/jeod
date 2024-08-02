@@ -29,7 +29,7 @@ stages:
     variables:
         VERIF_DATA: SET_test_val_rh8
     image:
-        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:$CONTAINER_MASTER_TAG
+        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:previous
 
 .OS-Ubuntu18: &OS-Ubuntu18
     variables:
@@ -433,7 +433,7 @@ Release-Job:
         - CppCheck-Full-Oracle8
     stage: Release
     image:
-        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:$CONTAINER_MASTER_TAG
+        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:previous
     only:
         - tags
     script:
@@ -499,8 +499,8 @@ Build-Oracle-8-Docker-Image:
   #push the updated image
   script:
     - cd $CI_PROJECT_DIR/docker/oracle8
-    - docker build --build-arg myuser=gitlab-ci-token --pull --no-cache -t $CI_REGISTRY_IMAGE/jeod_oracle8:$CONTAINER_MASTER_TAG .
-    - docker push $CI_REGISTRY_IMAGE/jeod_oracle8:$CONTAINER_MASTER_TAG
+    - docker build --build-arg myuser=gitlab-ci-token --pull --no-cache -t $CI_REGISTRY_IMAGE/jeod_oracle8:previous .
+    - docker push $CI_REGISTRY_IMAGE/jeod_oracle8:previous
   when: manual
 
 #job to build

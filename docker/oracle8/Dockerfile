@@ -20,11 +20,11 @@ RUN dnf -y groupinstall "Development Tools" && \
     cppcheck vim emacs doxygen && \
     pip2 install matplotlib flawfinder && pip3 install flawfinder matplotlib metrixpp
 
-# Set up and build trick on the image under /data/ 
+# Set up and build trick on the image under /data/
 RUN mkdir /data/ && \
     export TRICK_CFLAGS=-g && export TRICK_CXXFLAGS=-g && export MAKEFLAGS=-j6 && \
     cd /data/ && git clone https://github.com/nasa/trick && \
-    cd /data/trick && git checkout 19.6.0 -b r19.6.0 && ./configure && make && \
+    cd /data/trick && git checkout 19.7.2 -b r19.7.2 && ./configure && make && \
     chmod -R ugo+rx /data/trick*
 
 ENV CSPICE_URL http://naif.jpl.nasa.gov/pub/naif/toolkit/C/PC_Linux_GCC_64bit/packages

@@ -52,7 +52,7 @@
 Purpose:
  ()
 
- 
+
 *******************************************************************************/
 
 
@@ -144,7 +144,7 @@ class TreeLinks {
 
 
    /**
-    * Iterator that points to the first child.
+    * Reference to the first child.
     */
    Links* child_head()
    {
@@ -152,7 +152,7 @@ class TreeLinks {
    }
 
    /**
-    * Iterator that points to the last child.
+    * Reference to the last child.
     */
    Links* child_tail()
    {
@@ -446,7 +446,7 @@ class TreeLinks {
 
       else {
          // Determine the maximum possible index as the shortest length - 1.
-         
+
          int max_index = std::min(path_length(), target.path_length()) - 1;
 
          // Paths are common up to max_index: This is the last common node.

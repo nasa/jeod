@@ -39,6 +39,7 @@ Library dependencies:
 #include "utils/math/include/matrix3x3.hh"
 #include "utils/math/include/vector3.hh"
 #include "utils/message/include/message_handler.hh"
+#include "utils/ref_frames/include/tree_links_iterator.hh"
 
 // Model includes
 #include "../include/dyn_body.hh"
@@ -820,21 +821,9 @@ void DynBody::add_mass_body_frames( MassBody &subbody )
     }
 
     // Call for each of subbody's children
-    if( subbody.links.has_children() )
+    for (auto* child_link : TreeLinksChildrenRange<MassBodyLinks>(subbody.links))
     {
-        MassBodyLinks* it = subbody.links.child_head();
-        while(true)
-        {
-            add_mass_body_frames(it->container());
-            if( it == subbody.links.child_tail() )
-            {
-                break;
-            }
-            else
-            {
-                it++;
-            }
-        }
+        add_mass_body_frames(child_link->container());
     }
 
     return;

@@ -60,7 +60,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_WITH_PLANET_HH
 #define JEOD_DYN_BODY_INIT_WITH_PLANET_HH
 
@@ -69,82 +68,66 @@ Library dependencies:
 // JEOD includes
 #include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "environment/planet/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/ref_frames/include/ref_frame_items.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "dyn_body_init.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize selected aspects of a vehicle's state with respect to some frame
  * based on the planet.
  */
-class DynBodyInitWrtPlanet : public DynBodyInit {
+class DynBodyInitWrtPlanet : public DynBodyInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitWrtPlanet)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitWrtPlanet)
+    // Member data
 
+public:
+    /**
+     * The name of the planet about which the reference body's LVLH frame
+     * is to be computed.
+     */
+    std::string planet_name{""}; //!< trick_units(--)
 
- // Member data
+    /**
+     * The state elements to be set by this initializer.
+     */
+    RefFrameItems::Items set_items{RefFrameItems::Pos_Vel_Att_Rate}; //!< trick_units(--)
 
- public:
+protected:
+    /**
+     * The planet corresponding to the planet_name.
+     * Note that this is not a user inputtable item.
+     */
+    Planet * planet{}; //!< trick_io(**)
 
-   /**
-    * The name of the planet about which the reference body's LVLH frame
-    * is to be computed.
-    */
-   std::string planet_name; //!< trick_units(--)
+    // Member functions
+public:
+    DynBodyInitWrtPlanet() = default;
+    ~DynBodyInitWrtPlanet() override = default;
+    DynBodyInitWrtPlanet(const DynBodyInitWrtPlanet &) = delete;
+    DynBodyInitWrtPlanet & operator=(const DynBodyInitWrtPlanet &) = delete;
 
-   /**
-    * The state elements to be set by this initializer.
-    */
-   RefFrameItems::Items set_items; //!< trick_units(--)
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
+    // initializes_what: identifies state elements to be initialized
+    RefFrameItems::Items initializes_what() override;
 
- protected:
+    // is_ready: Indicate whether the initializer is ready to be applied.
+    bool is_ready() override;
 
-   /**
-    * The planet corresponding to the planet_name.
-    * Note that this is not a user inputtable item.
-    */
-   Planet * planet; //!< trick_io(**)
-
-
- // Member functions
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DynBodyInitWrtPlanet (const DynBodyInitWrtPlanet&);
-   DynBodyInitWrtPlanet & operator = (const DynBodyInitWrtPlanet&);
-
-
- public:
-
-   DynBodyInitWrtPlanet ();
-
-   ~DynBodyInitWrtPlanet () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // initializes_what: identifies state elements to be initialized
-   RefFrameItems::Items initializes_what (void) override;
-
-   // is_ready: Indicate whether the initializer is ready to be applied.
-   bool is_ready (void) override;
-
-   // apply: Apply the state to the subject body.
-   void apply (DynManager & dyn_manager) override;
-
+    // apply: Apply the state to the subject body.
+    void apply(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

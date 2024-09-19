@@ -74,63 +74,45 @@ Library dependencies:
 
 // Model includes
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Computes the torque on an object due to gravitation.
  */
-class GravityTorque {
-
-   JEOD_MAKE_SIM_INTERFACES(GravityTorque)
+class GravityTorque
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GravityTorque)
 
 public:
+    GravityTorque() = default;
+    ~GravityTorque() = default;
+    GravityTorque & operator=(const GravityTorque &) = delete;
+    GravityTorque(const GravityTorque &) = delete;
 
-   // constructor
-   GravityTorque ();
+    void initialize(DynBody & subject);
 
-   // destructor
-   ~GravityTorque ();
+    void update();
 
-   void initialize (DynBody& subject);
+    /**
+     * The output torque, in the structural frame
+     */
+    double torque[3]{}; //!< trick_units(N*m)
 
-   void update ();
-
-   /**
-    * The output torque, in the structural frame
-    */
-   double torque[3]; //!< trick_units(N*m)
-
-   /**
-    * Is the model active?
-    */
-   bool active; //!< trick_units(--)
-
-
+    /**
+     * Is the model active?
+     */
+    bool active{true}; //!< trick_units(--)
 
 protected:
-
-   /**
-    * The subject body for the gradient torque
-    */
-   DynBody* subject_body; //!< trick_units(--)
-
-
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   GravityTorque& operator = (const GravityTorque& rhs);
-   GravityTorque (const GravityTorque& rhs);
-
+    /**
+     * The subject body for the gradient torque
+     */
+    DynBody * subject_body{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

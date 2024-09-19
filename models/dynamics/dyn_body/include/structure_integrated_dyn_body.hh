@@ -52,25 +52,22 @@ Purpose: ()
 Library dependencies: ((../src/structure_integrated_dyn_body.cc))
 */
 
-
 #ifndef JEOD_STRUCTURE_INTEGRATED_DYN_BODY_HH
 #define JEOD_STRUCTURE_INTEGRATED_DYN_BODY_HH
 
-
 #include "body_wrench_collect.hh"
-#include "vehicle_properties.hh"
 #include "vehicle_non_grav_state.hh"
+#include "vehicle_properties.hh"
 
 #include "dynamics/dyn_body/include/dyn_body.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class DynBodyConstraint;
 class DynBodyConstraintsSolver;
-
 
 /**
  * Extends DynBody to integrate an object's structural reference frame
@@ -90,12 +87,11 @@ class DynBodyConstraintsSolver;
  */
 class StructureIntegratedDynBody : public DynBody
 {
-    JEOD_MAKE_SIM_INTERFACES(StructureIntegratedDynBody)
+    JEOD_MAKE_SIM_INTERFACES(jeod, StructureIntegratedDynBody)
 
     friend class DynBodyConstraintsSolver;
 
 public:
-
     // Member data.
 
     /**
@@ -117,21 +113,11 @@ public:
      */
     BodyWrenchCollect effector_wrench_collection; //!< trick_units(--)
 
-
     // Member functions.
-
-
-    /**
-     * Constructor.
-     */
     StructureIntegratedDynBody();
-
-
-    /**
-     * Destructor.
-     */
-    ~StructureIntegratedDynBody () override;
-
+    ~StructureIntegratedDynBody() override = default;
+    StructureIntegratedDynBody(const StructureIntegratedDynBody &) = delete;
+    StructureIntegratedDynBody & operator=(const StructureIntegratedDynBody &) = delete;
 
     /**
      * Compute the rotational and translational accelerations that result
@@ -143,21 +129,19 @@ public:
      * non-transmitted forces and torques should be called as scheduled jobs
      * or as lower phase derivative class jobs.
      */
-   void collect_forces_and_torques () override;
-
+    void collect_forces_and_torques() override;
 
     /**
      * Set the solver to be used to solve contraints.
      */
-    void set_solver (DynBodyConstraintsSolver& solver_in);
+    void set_solver(DynBodyConstraintsSolver & solver_in);
 
     /**
      * Add a constraint to the constraints solver.
      * @note Both the constraint and the solver must be non-null.
      * @param constraint The constraint to be added to the solver.
      */
-    void add_constraint (
-        DynBodyConstraint* constraint);
+    void add_constraint(DynBodyConstraint * constraint);
 
     /**
      * Solve for constraint forces and torques acting on the vehicle
@@ -168,7 +152,7 @@ public:
      * should be called as derivative class jobs with a phase intermediate
      * between that of collect_forces_and_torques and of this function.
      */
-   virtual void solve_constraints ();
+    virtual void solve_constraints();
 
     /**
      * Compute the state derivatives at a vehicle point.
@@ -176,18 +160,15 @@ public:
      *                are to be calculated.
      * @param derivs  The calculated derivatives.
      */
-   void compute_vehicle_point_derivatives (
-      const BodyRefFrame & frame, FrameDerivs &derivs) override;
+    void compute_vehicle_point_derivatives(const BodyRefFrame & frame, FrameDerivs & derivs) override;
 
-   /**
-    * Break the logical connectivity between parent and child.
-    * @param[in,out] other_body The other body to detach from
-    */
-   bool detach (DynBody & other_body) override;
-
+    /**
+     * Break the logical connectivity between parent and child.
+     * @param[in,out] other_body The other body to detach from
+     */
+    bool detach(DynBody & other_body) override;
 
 protected:
-
     // Member data.
 
     /**
@@ -197,7 +178,7 @@ protected:
      * This can be left unassigned (null) in simulations that do not have
      * vehicular constraints.
      */
-    DynBodyConstraintsSolver* constraints_solver; //!< trick_units(--)
+    DynBodyConstraintsSolver * constraints_solver{}; //!< trick_units(--)
 
     /**
      * Wrench into which the effector wrenches are accumulated.
@@ -223,24 +204,23 @@ protected:
      * Structure-referenced inertial acceleration at the structure frame origin
      * due to vehicle angular velocity.
      */
-    double inertial_accel_struct_omega[3]; //!< trick_units(m/s2)
+    double inertial_accel_struct_omega[3]{}; //!< trick_units(m/s2)
 
     /**
      * Structure-referenced inertial acceleration at the structure frame origin
      * due to vehicle angular acceleration.
      */
-    double inertial_accel_struct_omega_dot[3]; //!< trick_units(m/s2)
+    double inertial_accel_struct_omega_dot[3]{}; //!< trick_units(m/s2)
 
     /**
      * Structure-referenced inertial acceleration at the structure frame origin.
      */
-    double inertial_accel_struct[3]; //!< trick_units(m/s2)
+    double inertial_accel_struct[3]{}; //!< trick_units(m/s2)
 
     /**
      * Inertial-referenced inertial acceleration at the structure frame origin.
      */
-    double inertial_accel_inrtl[3]; //!< trick_units(m/s2)
-
+    double inertial_accel_inrtl[3]{}; //!< trick_units(m/s2)
 
     // Member functions.
 
@@ -255,18 +235,14 @@ protected:
      *            structural frame to the child body's structural frame.
      * @param[in,out] child The child body being attached to this body.
      */
-    void attach_update_properties (
-        const double offset_pstr_cstr_pstr[3],
-        const double T_pstr_cstr[3][3],
-        DynBody & child) override;
-
-
-
+    void attach_update_properties(const double offset_pstr_cstr_pstr[3],
+                                  const double T_pstr_cstr[3][3],
+                                  DynBody & child) override;
 
     /**
      * Get the vehicle properties as a const reference.
      */
-    const VehicleProperties& get_vehicle_properties () const
+    const VehicleProperties & get_vehicle_properties() const
     {
         return vehicle_properties;
     }
@@ -278,9 +254,7 @@ protected:
      *                             that the integrator should try to attain.
      * @return The status (time advance, pass/fail status) of the integration.
      */
-    er7_utils::IntegratorResult trans_integ (
-        double dyn_dt,
-        unsigned int target_stage) override;
+    er7_utils::IntegratorResult trans_integ(double dyn_dt, unsigned int target_stage) override;
 
     /**
      * Integrate the rotational state of a StructureIntegratedDynBody.
@@ -289,63 +263,43 @@ protected:
      *                             that the integrator should try to attain.
      * @return The status (time advance, pass/fail status) of the integration.
      */
-    er7_utils::IntegratorResult rot_integ (
-        double dyn_dt,
-        unsigned int target_stage) override;
+    er7_utils::IntegratorResult rot_integ(double dyn_dt, unsigned int target_stage) override;
 
     /**
      * Collect the local forces and torques that directly act on the vehicle.
      */
-    void collect_local_forces_and_torques ();
+    void collect_local_forces_and_torques();
 
     /**
      * Propagate forces and torques up the kinematic chain.
      */
-    void PropagateForcesAndTorques ();
+    void PropagateForcesAndTorques();
 
     /**
-     * Compute the inertial torque 
+     * Compute the inertial torque
      */
-    void compute_inertial_torque ();
+    void compute_inertial_torque();
 
     /**
      * Compute the body- and structure-referenced rotational acceleration.
      */
-    void compute_rotational_acceleration ();
+    void compute_rotational_acceleration();
 
     /**
      * Compute the inertial-referenced translational acceleration vector.
      */
-    void compute_translational_acceleration ();
+    void compute_translational_acceleration();
 
     /**
      * Finalize computation of the inertial-referenced translational
      * acceleration vector.
      */
-    void complete_translational_acceleration ();
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   StructureIntegratedDynBody (const StructureIntegratedDynBody &);
-
-   /**
-    * Not implemented.
-    */
-   StructureIntegratedDynBody & operator= (const StructureIntegratedDynBody &);
-
+    void complete_translational_acceleration();
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

@@ -22,27 +22,10 @@ Library dependencies:
 #include "utils/math/include/vector3.hh"
 
 //! Namespace jeod
-namespace jeod {
-
-Terrain::Terrain (
-	void)
-:
-planet (nullptr),
-offset (0.0)
+namespace jeod
 {
-}
 
-Terrain::~Terrain( // Return: -- N/A
-    void)
-{
-   return;
-}
-
-int
-Terrain::calculate_normal (
-  double point1[3],
-  double point2[3],
-  double point3[3])
+int Terrain::calculate_normal(double point1[3], double point2[3], double point3[3])
 {
     double line1[3];
     double line2[3];
@@ -57,4 +40,4 @@ Terrain::calculate_normal (
     return 0;
 }
 
-} // End JEOD namespace
+} // namespace jeod

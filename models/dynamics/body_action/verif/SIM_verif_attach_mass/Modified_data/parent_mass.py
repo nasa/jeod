@@ -45,65 +45,62 @@ def parent_mass_orientation_optionA():
 
 
 def parent_mass_points_1():
-  components.parent_init.num_points = 1
-  components.parent_init.points = \
-                          trick.sim_services.alloc_type(1, "jeod::MassPointInit")
-  components.parent_init.points[0].set_name("top_to_right")
-  components.parent_init.points[0].position  = [ 0.0, 0.5, 0.0]
-  components.parent_init.points[0].pt_orientation.data_source = \
+  components.parent_init.allocate_points(1)
+
+  components.parent_init.get_mass_point(0).set_name("top_to_right")
+  components.parent_init.get_mass_point(0).position  = [ 0.0, 0.5, 0.0]
+  components.parent_init.get_mass_point(0).pt_orientation.data_source = \
                                                 trick.Orientation.InputMatrix
-  components.parent_init.points[0].pt_orientation.trans = [[ 0.0, 1.0, 0.0],
+  components.parent_init.get_mass_point(0).pt_orientation.trans = [[ 0.0, 1.0, 0.0],
                                                            [ 0.0, 0.0, 1.0],
                                                            [ 1.0, 0.0, 0.0]]
 
 def parent_mass_points_2():
-  components.parent_init.num_points = 2
-  components.parent_init.points = \
-                         trick.sim_services.alloc_type( 2 , "jeod::MassPointInit" )
-  components.parent_init.points[0].set_name("bottom_to_top")
-  components.parent_init.points[0].position  = [ 0.0, -0.5, 0.0]
-  components.parent_init.points[0].pt_orientation.data_source = \
+  components.parent_init.allocate_points(2)
+
+  components.parent_init.get_mass_point(0).set_name("bottom_to_top")
+  components.parent_init.get_mass_point(0).position  = [ 0.0, -0.5, 0.0]
+  components.parent_init.get_mass_point(0).pt_orientation.data_source = \
                                           trick.Orientation.InputEulerRotation
-  components.parent_init.points[0].pt_orientation.euler_sequence = \
+  components.parent_init.get_mass_point(0).pt_orientation.euler_sequence = \
                                           trick.Orientation.Yaw_Pitch_Roll
-  components.parent_init.points[0].pt_orientation.euler_angles  = \
+  components.parent_init.get_mass_point(0).pt_orientation.euler_angles  = \
                                     trick.attach_units( "degree",[ -90.0, 0.0, 0.0])
 
-  components.parent_init.points[1].set_name("top_to_bottom")
-  components.parent_init.points[1].position  = [ 0.0, 0.5, 0.0]
-  components.parent_init.points[1].pt_orientation.data_source = \
+  components.parent_init.get_mass_point(1).set_name("top_to_bottom")
+  components.parent_init.get_mass_point(1).position  = [ 0.0, 0.5, 0.0]
+  components.parent_init.get_mass_point(1).pt_orientation.data_source = \
                                           trick.Orientation.InputEulerRotation
-  components.parent_init.points[1].pt_orientation.euler_sequence = \
+  components.parent_init.get_mass_point(1).pt_orientation.euler_sequence = \
                                           trick.Orientation.Yaw_Pitch_Roll
-  components.parent_init.points[1].pt_orientation.euler_angles  = \
+  components.parent_init.get_mass_point(1).pt_orientation.euler_angles  = \
                                     trick.attach_units( "degree",[ 90.0, 0.0, 0.0])
 
 
 def parent_mass_points_3():
-  components.parent_init.num_points = 3
-  components.parent_init.points = \
-                         trick.sim_services.alloc_type( 3 , "jeod::MassPointInit" )
-  components.parent_init.points[0].set_name("front_to_back")
-  components.parent_init.points[0].position  = [ -0.5, 0.0, 0.0]
-  components.parent_init.points[0].pt_orientation.data_source = \
+  components.parent_init.allocate_points(3)
+
+  components.parent_init.get_mass_point(0).set_name("front_to_back")
+  components.parent_init.get_mass_point(0).position  = [ -0.5, 0.0, 0.0]
+  components.parent_init.get_mass_point(0).pt_orientation.data_source = \
                                                 trick.Orientation.InputMatrix
-  components.parent_init.points[0].pt_orientation.trans = [[ -1.0,  0.0, 0.0],
+  components.parent_init.get_mass_point(0).pt_orientation.trans = [[ -1.0,  0.0, 0.0],
                                                            [  0.0, -1.0, 0.0],
                                                            [  0.0,  0.0, 1.0]]
 
-  components.parent_init.points[1].set_name("back_to_front")
-  components.parent_init.points[1].position  = [ 0.5, 0.0, 0.0]
-  components.parent_init.points[1].pt_orientation.data_source = \
+  components.parent_init.get_mass_point(1).set_name("back_to_front")
+  components.parent_init.get_mass_point(1).position  = [ 0.5, 0.0, 0.0]
+  components.parent_init.get_mass_point(1).pt_orientation.data_source = \
                                                 trick.Orientation.InputMatrix
-  components.parent_init.points[1].pt_orientation.trans = [[ 1.0, 0.0, 0.0],
+  components.parent_init.get_mass_point(1).pt_orientation.trans = [[ 1.0, 0.0, 0.0],
                                                            [ 0.0, 1.0, 0.0],
                                                            [ 0.0, 0.0, 1.0]]
 
-  components.parent_init.points[2].set_name("parent_to_child2")
-  components.parent_init.points[2].position  = [ 2.5, 0.0, 1.0]
-  components.parent_init.points[2].pt_orientation.data_source = \
+  components.parent_init.get_mass_point(2).set_name("parent_to_child2")
+  components.parent_init.get_mass_point(2).position  = [ 2.5, 0.0, 1.0]
+  components.parent_init.get_mass_point(2).pt_orientation.data_source = \
                                                 trick.Orientation.InputMatrix
-  components.parent_init.points[2].pt_orientation.trans = [[ 1.0, 0.0,  0.0],
+  components.parent_init.get_mass_point(2).pt_orientation.trans = [[ 1.0, 0.0,  0.0],
                                                            [ 0.0, 0.0, -1.0],
                                                            [ 0.0, 1.0,  0.0]]
-  components.parent_init.points[2].pt_orientation.trans[2]  = [ 0.0, 1.0,  0.0]
+  components.parent_init.get_mass_point(2).pt_orientation.trans[2]  = [ 0.0, 1.0,  0.0]

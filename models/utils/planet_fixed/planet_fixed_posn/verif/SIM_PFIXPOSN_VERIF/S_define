@@ -47,20 +47,20 @@
 //
 //==============================================================================
 
-
 // Define job calling intervals
-#define ENVIRONMENT     1.00   // Ephemeris update interval
-
+#define ENVIRONMENT 1.00 // Ephemeris update interval
 
 // Define the phase initialization priorities.
 // NOTE: Initialization jobs lacking an assigned phase initialization priority
 // run after all initialization jobs that have assigned phase init priorities.
-#define P_TIME  P10   // Highest priority; these jobs only depend on time
-#define P_ENV   P20   // Environment initializations
-#define P_BODY  P30   // Orbital body initializations
+#define P_TIME P10 // Highest priority; these jobs only depend on time
+#define P_ENV P20  // Environment initializations
+#define P_BODY P30 // Orbital body initializations
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 //***************************************************************
@@ -68,7 +68,6 @@
 // PURPOSE:
 //  ( This sim object represents the earth)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "environment/planet/data/include/earth.hh"
@@ -79,54 +78,50 @@
 ##include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 
 
-class EarthSimObject: public Trick::SimObject {
+class EarthSimObject: public Trick::SimObject
+{
+public:
+    jeod::SphericalHarmonicsGravitySource gravity_source;
+    jeod::Planet planet;
 
-   public:
+    double cartesian_pos[3];
+    jeod::AltLatLongState spherical_pos;
+    jeod::AltLatLongState elliptical_pos;
 
-   jeod::SphericalHarmonicsGravitySource gravity_source;
-   jeod::Planet planet;
+    jeod::PlanetFixedPosition pfix_pos;
 
-   double cartesian_pos[3];
-   jeod::AltLatLongState spherical_pos;
-   jeod::AltLatLongState elliptical_pos;
+    // Default data objects
+    jeod::Planet_earth_default_data planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data gravity_default_data;
 
-   jeod::PlanetFixedPosition pfix_pos;
+    // Constructor
+    EarthSimObject()
+    {
+        ("default_data") planet_default_data.initialize(&planet);
+        ("default_data") gravity_default_data.initialize(&gravity_source);
 
-// Default data objects
-   jeod::Planet_earth_default_data planet_default_data;
-   jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data  gravity_default_data;
+        //
+        //
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") gravity_source.initialize_body();
 
-//Constructor
-    EarthSimObject() {
+        P_BODY("initialization") planet.initialize();
 
-       ("default_data") planet_default_data.initialize(&planet);
-       ("default_data") gravity_default_data.initialize(&gravity_source);
-
-   //
-   //
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") gravity_source.initialize_body ( );
-
-      P_BODY  ("initialization") planet.initialize ( );
-
-      P_BODY  ("initialization") pfix_pos.initialize(
-         &planet);
-
+        P_BODY("initialization") pfix_pos.initialize(&planet);
     }
 
     // Temporary functions because Swig / Trick don't seem to like
     // calling the wrapped function from the input file
-    void update_from_cart() {
-       pfix_pos.update_from_cart(cartesian_pos);
-       return;
+    void update_from_cart()
+    {
+        pfix_pos.update_from_cart(cartesian_pos);
+        return;
     }
 
-  private:
-    EarthSimObject (const EarthSimObject&);
-    EarthSimObject & operator = (const EarthSimObject&);
-
+    EarthSimObject(const EarthSimObject &) = delete;
+    EarthSimObject & operator=(const EarthSimObject &) = delete;
 };
 
 EarthSimObject earth;

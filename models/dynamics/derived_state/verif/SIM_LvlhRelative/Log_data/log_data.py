@@ -6,7 +6,7 @@ def log_3x3_mx( drg, var):
   for ii in range(3):
     log_3_vec( drg, var+"["+str(ii)+"]")
 
-drg1 = trick.sim_services.DRAscii("RelState")
+drg1 = trick.sim_services.DRBinary("RelState")
 drg1.set_cycle(1)
 drg1.freq = trick.sim_services.DR_Always
 
@@ -28,7 +28,7 @@ drg1.add_variable("rel_state.vehB_in_vehA_curvilvlh.use_theta_dot_correction")
 trick.add_data_record_group(drg1)
 
 
-drg2 = trick.sim_services.DRAscii("VehState")
+drg2 = trick.sim_services.DRBinary("VehState")
 drg2.set_cycle(1)
 drg2.freq = trick.sim_services.DR_Always
 

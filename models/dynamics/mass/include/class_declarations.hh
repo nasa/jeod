@@ -55,12 +55,12 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_BODY_CLASS_DECL_HH
 #define JEOD_MASS_BODY_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class MassBody;
 class MassBodyLinks;
@@ -69,7 +69,7 @@ class MassPointInit;
 class MassProperties;
 class MassPropertiesInit;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

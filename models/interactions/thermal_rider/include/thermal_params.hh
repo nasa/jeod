@@ -58,10 +58,6 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/thermal_params.cc))
-
-
 *******************************************************************************/
 
 #ifndef JEOD_THERMAL_PARAMS_HH
@@ -72,57 +68,46 @@ Library dependencies:
 
 // Model includes
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A virtual base class for thermal facet parameters, used to add to the
  * parameter lists for specific-model facets in their respective
  * InteractionSurfaceFactorys
  */
-class ThermalParams {
-   JEOD_MAKE_SIM_INTERFACES(ThermalParams)
-
-
-public:
-   /**
-    * Fraction of sigma-T^4 (potential for emissive thermal) that is
-    * actually emitted.
-    */
-  double emissivity; //!< trick_units(--)
-
-   /**
-    * Heat Capacity per unit area of surface.
-    */
-  double heat_capacity_per_area; //!< trick_units(--)
-
-   /**
-    * Rate at which thermal energy is dumped (positive) / extracted
-    * (negative) into a facet from within the vehicle. Used for radiators and
-    * the like.
-    */
-  double thermal_power_dump; //!< trick_units(--)
+class ThermalParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ThermalParams)
 
 public:
+    /**
+     * Fraction of sigma-T^4 (potential for emissive thermal) that is
+     * actually emitted.
+     */
+    double emissivity{}; //!< trick_units(--)
 
-   // constructor
-   ThermalParams ();
+    /**
+     * Heat Capacity per unit area of surface.
+     */
+    double heat_capacity_per_area{1.0E+20}; //!< trick_units(--)
 
-   // destructor
-   virtual ~ThermalParams ();
+    /**
+     * Rate at which thermal energy is dumped (positive) / extracted
+     * (negative) into a facet from within the vehicle. Used for radiators and
+     * the like.
+     */
+    double thermal_power_dump{}; //!< trick_units(--)
 
-protected:
-
-private:
-
-   ThermalParams& operator = (const ThermalParams& rhs);
-   ThermalParams (const ThermalParams& rhs);
-
+public:
+    ThermalParams() = default;
+    virtual ~ThermalParams() = default;
+    ThermalParams & operator=(const ThermalParams &) = delete;
+    ThermalParams(const ThermalParams &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

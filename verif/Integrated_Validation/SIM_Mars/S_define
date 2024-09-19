@@ -53,17 +53,19 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
 // #define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
-#define DYNAMICS       1.0 // Vehicle and plantary dynamics interval (1Hz)
+#define DYNAMICS 1.0 // Vehicle and plantary dynamics interval (1Hz)
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
-#include "default_priority_settings.sm"
 
+// Include the default jeod object
+#include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
 
 // include the standard S-modules
 #define TIME_CALENDAR_UPDATE_INTERVAL DYNAMICS
@@ -75,6 +77,7 @@
 #include "environment.sm"
 #include "mars_MRO110B2.sm"
 #include "sun_basic.sm"
+
 #include "dawn.sm"
 
-IntegLoop sim_integ_loop  (DYNAMICS) mars, dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) mars, dynamics;

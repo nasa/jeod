@@ -28,7 +28,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -36,36 +35,28 @@ Library dependencies:
 
 #define PATH "dynamics/dyn_body/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
-char const * DynBodyMessages::invalid_body =
-    PATH "invalid_body";
+const char * DynBodyMessages::invalid_body = PATH "invalid_body";
 
-char const * DynBodyMessages::invalid_group =
-    PATH "invalid_group";
+const char * DynBodyMessages::invalid_group = PATH "invalid_group";
 
-char const * DynBodyMessages::invalid_name =
-    PATH "invalid_name";
+const char * DynBodyMessages::invalid_name = PATH "invalid_name";
 
-char const * DynBodyMessages::invalid_frame =
-    PATH "invalid_frame";
+const char * DynBodyMessages::invalid_frame = PATH "invalid_frame";
 
-char const * DynBodyMessages::invalid_attachment =
-    PATH "invalid_attachment";
+const char * DynBodyMessages::invalid_attachment = PATH "invalid_attachment";
 
-char const * DynBodyMessages::invalid_technique =
-    PATH "invalid_technique";
+const char * DynBodyMessages::invalid_technique = PATH "invalid_technique";
 
-char const * DynBodyMessages::not_dyn_body =
-    PATH "not_dyn_body";
+const char * DynBodyMessages::not_dyn_body = PATH "not_dyn_body";
 
-char const * DynBodyMessages::internal_error =
-    PATH "internal_error";
+const char * DynBodyMessages::internal_error = PATH "internal_error";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

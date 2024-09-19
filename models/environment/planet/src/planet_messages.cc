@@ -28,7 +28,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -36,16 +35,16 @@ Library dependencies:
 
 #define PATH "environment/planet/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
-char const * PlanetMessages::name_error         = PATH "name_error";
-char const * PlanetMessages::registration_error = PATH "registration_error";
-char const * PlanetMessages::domain_error       = PATH "domain_error";
+const char * PlanetMessages::name_error = PATH "name_error";
+const char * PlanetMessages::registration_error = PATH "registration_error";
+const char * PlanetMessages::domain_error = PATH "domain_error";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

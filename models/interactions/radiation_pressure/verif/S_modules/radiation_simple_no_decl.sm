@@ -39,46 +39,36 @@
 ##include "interactions/radiation_pressure/include/radiation_third_body.hh"
 ##include "interactions/radiation_pressure/include/radiation_default_surface.hh"
 
-class Radiation_simpleSimObject: public Trick::SimObject {
+class Radiation_simpleSimObject: public Trick::SimObject
+{
+public:
+    jeod::RadiationPressure rad_pressure;
+    jeod::RadiationDefaultSurface rad_surface;
 
-   public:
-    jeod::RadiationPressure        rad_pressure;
-    jeod::RadiationDefaultSurface  rad_surface;
-
-//Constructor
-    Radiation_simpleSimObject(
-           jeod::DynManager        & dyn_mngr_in,
-           jeod::DynBody & veh_in,
-           jeod::TimeDyn           & dyn_time_in)
-        :
-           dyn_mngr(dyn_mngr_in),
-           veh(veh_in),
-           dyn_time(dyn_time_in)
+    // Constructor
+    Radiation_simpleSimObject(jeod::DynManager & dyn_mngr_in, jeod::DynBody & veh_in, jeod::TimeDyn & dyn_time_in)
+        : dyn_mngr(dyn_mngr_in),
+          veh(veh_in),
+          dyn_time(dyn_time_in)
     {
-
-
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") rad_pressure.initialize(
-           dyn_mngr,
-          &rad_surface);
-   //
-   // Scheduled jobs
-   //
-      (DYNAMICS, "scheduled") rad_pressure.update(
-           veh.structure,
-           veh.mass.composite_properties.position,
-           dyn_time.scale_factor,
-           dyn_time.seconds);
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") rad_pressure.initialize(dyn_mngr, &rad_surface);
+        //
+        // Scheduled jobs
+        //
+        (DYNAMICS, "scheduled") rad_pressure.update(veh.structure,
+                                                    veh.mass.composite_properties.position,
+                                                    dyn_time.scale_factor,
+                                                    dyn_time.seconds);
     }
 
-  private:
-    jeod::DynManager        & dyn_mngr;
+    Radiation_simpleSimObject(const Radiation_simpleSimObject &) = delete;
+    Radiation_simpleSimObject & operator=(const Radiation_simpleSimObject &) = delete;
+
+private:
+    jeod::DynManager & dyn_mngr;
     jeod::DynBody & veh;
-    jeod::TimeDyn           & dyn_time;
-
-    Radiation_simpleSimObject (const Radiation_simpleSimObject&);
-    Radiation_simpleSimObject & operator = (const Radiation_simpleSimObject&);
-
+    jeod::TimeDyn & dyn_time;
 };

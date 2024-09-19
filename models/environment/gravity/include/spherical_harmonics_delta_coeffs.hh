@@ -65,10 +65,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SPHERICAL_HARMONICS_DELTA_COEFFS_HH
 #define JEOD_SPHERICAL_HARMONICS_DELTA_COEFFS_HH
-
 
 // System includes
 
@@ -78,71 +76,62 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseDynManager;
 
 /**
  * Base class for tidal and temporal gravity models.
  */
-class SphericalHarmonicsDeltaCoeffs {
+class SphericalHarmonicsDeltaCoeffs
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsDeltaCoeffs)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsDeltaCoeffs)
+    // Member data
+public:
+    /**
+     * Pointer to the gravity body associated with this effect
+     */
+    SphericalHarmonicsGravitySource * grav_source{}; //!< trick_units(--)
 
+    /**
+     * Normalized real (cosine) variational spherical harmonic coefficients.
+     */
+    double ** delta_Cnm{}; //!< trick_units(--)
 
- // Member data
- public:
+    /**
+     * Normalized imaginary (sine) variational spherical harmonic coeffs.
+     */
+    double ** delta_Snm{}; //!< trick_units(--)
 
-   /**
-    * Pointer to the gravity body associated with this effect
-    */
-   SphericalHarmonicsGravitySource * grav_source; //!< trick_units(--)
+    /**
+     * Coefficient degree to be used for this SphericalHarmonicsDeltaCoeffs.
+     */
+    unsigned int degree{}; //!< trick_units(--)
 
-   /**
-    * Normalized real (cosine) variational spherical harmonic coefficients.
-    */
-   double ** delta_Cnm; //!< trick_units(--)
+    /**
+     * Coefficient order to be used for this SphericalHarmonicsDeltaCoeffs.
+     */
+    unsigned int order{}; //!< trick_units(--)
 
-   /**
-    * Normalized imaginary (sine) variational spherical harmonic coeffs.
-    */
-   double ** delta_Snm; //!< trick_units(--)
+    /**
+     * delta C20 coefficient for first order effect
+     */
+    double dC20{}; //!< trick_units(--)
 
-   /**
-    * Coefficient degree to be used for this SphericalHarmonicsDeltaCoeffs.
-    */
-   unsigned int degree; //!< trick_units(--)
+    // Member functions
+public:
+    SphericalHarmonicsDeltaCoeffs() = default;
+    virtual ~SphericalHarmonicsDeltaCoeffs();
 
-   /**
-    * Coefficient order to be used for this SphericalHarmonicsDeltaCoeffs.
-    */
-   unsigned int order; //!< trick_units(--)
+    virtual void initialize(SphericalHarmonicsDeltaCoeffsInit & var_init, BaseDynManager & dyn_manager);
 
-   /**
-    * delta C20 coefficient for first order effect
-    */
-   double dC20; //!< trick_units(--)
-
-
- // Member functions
- public:
-
-   // Constructor & Destructor
-   SphericalHarmonicsDeltaCoeffs ();
-   virtual ~SphericalHarmonicsDeltaCoeffs ();
-
-   virtual void initialize (
-      SphericalHarmonicsDeltaCoeffsInit & var_init,
-       BaseDynManager& dyn_manager);
-
-   virtual void update (SphericalHarmonicsGravityControls & controls);
-
+    virtual void update(SphericalHarmonicsGravityControls & controls);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

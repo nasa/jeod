@@ -51,21 +51,18 @@ Purpose: ()
 Library dependencies: ((../src/constrained_point_mass.cc))
 */
 
-
 #ifndef JEOD_CONSTRAINED_POINT_MASS_HH
 #define JEOD_CONSTRAINED_POINT_MASS_HH
 
-
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class ConstraintFrame;
 class VehicleNonGravState;
 class VehicleProperties;
-
 
 /**
  * A constrained point mass is a point mass that is constrained to more or
@@ -75,11 +72,9 @@ class VehicleProperties;
  */
 class ConstrainedPointMass
 {
-
-    JEOD_MAKE_SIM_INTERFACES(ConstrainedPointMass)
+    JEOD_MAKE_SIM_INTERFACES(jeod, ConstrainedPointMass)
 
 public:
-
     // Instances of this class are assumed to be protected members of
     // a DynBodyConstraint-derived object, so all member data are public.
 
@@ -88,12 +83,12 @@ public:
     /**
      * The frame in which the constraint position is most naturally expressed.
      */
-    const ConstraintFrame* constraint_frame;
+    const ConstraintFrame * constraint_frame;
 
     /**
      * The effective mass of this constrained object.
      */
-    double mass; //!< trick_units(kg)
+    double mass{}; //!< trick_units(kg)
 
     /**
      * The position at which the constraint equation applies, expressed in the
@@ -102,57 +97,53 @@ public:
      * pendulum whose mass is concentrated at the end of a massless rod is the
      * hinge point position rather than the bob position.
      */
-    double constraint_position_constraint_frame[3]; //!< trick_units(m)
+    double constraint_position_constraint_frame[3]{}; //!< trick_units(m)
 
     /**
      * The constraint position, expressed in root structural frame coordinates.
      */
-    double constraint_position_root[3]; //!< trick_units(m)
+    double constraint_position_root[3]{}; //!< trick_units(m)
 
     /**
      * The constraint position relative to the root vehicle center of mass,
      * expressed in root structural frame coordinates.
      */
-    double constraint_position_com[3]; //!< trick_units(m)
+    double constraint_position_com[3]{}; //!< trick_units(m)
 
     /**
      * The non-gravitational acceleration at the constraint point in root
      * structural coordinates.
      */
-    double non_grav_accel_root[3]; //!< trick_units(m/s^2)
+    double non_grav_accel_root[3]{}; //!< trick_units(m/s^2)
 
     /**
      * The acceleration at the constraint point due to vehicular rotation and
      * external forces and torques, in constraint frame coordinates.
      */
-    double non_grav_accel_constraint_frame[3]; //!< trick_units(m/s^2)
+    double non_grav_accel_constraint_frame[3]{}; //!< trick_units(m/s^2)
 
     /**
      * The force at the constraint point; mass * non_grav_accel_constraint_frame.
      */
-    double force_constraint_frame[3]; //!< trick_units(N)
-
+    double force_constraint_frame[3]{}; //!< trick_units(N)
 
     /**
      * Default constructor.
      */
-    ConstrainedPointMass (
-        const ConstraintFrame* constraint_frame_in = nullptr);
+    ConstrainedPointMass(const ConstraintFrame * constraint_frame_in = nullptr);
 
     /**
      * Destructor.
      */
-    virtual ~ConstrainedPointMass () = default;
-
+    virtual ~ConstrainedPointMass() = default;
 
     /**
      * Update information about the relation between this constrained object
      * and the root DynBody.
      */
-    virtual void update_attachment (
-        const VehicleProperties&)
+    virtual void update_attachment(const VehicleProperties &)
     {
-        compute_constraint_position_root ();
+        compute_constraint_position_root();
     }
 
     /**
@@ -163,15 +154,13 @@ public:
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */
-    virtual void setup_constraint (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state)
+    virtual void setup_constraint(const VehicleProperties & vehicle_properties,
+                                  const VehicleNonGravState & non_grav_state)
     {
-        compute_constraint_position_root ();
-        compute_constraint_position_com (vehicle_properties);
-        compute_non_grav_accel (non_grav_state);
+        compute_constraint_position_root();
+        compute_constraint_position_com(vehicle_properties);
+        compute_non_grav_accel(non_grav_state);
     }
-
 
     // New functionality.
 
@@ -179,7 +168,7 @@ public:
      * Set the constrained object's effective mass.
      * @param mass_in  The effective mass.
      */
-    void set_mass (double mass_in)
+    void set_mass(double mass_in)
     {
         mass = mass_in;
     }
@@ -189,33 +178,28 @@ public:
      * @param constraint_position  Constraint point, in constraint frame
      * coordinates.
      */
-    void set_constraint_position (
-        const double constraint_position[3]);
+    void set_constraint_position(const double constraint_position[3]);
 
     /**
      * Compute the constraint point in root structural coordinates.
      */
-    void compute_constraint_position_root ();
+    void compute_constraint_position_root();
 
     /**
      * Compute the constraint point relative to the root body center of mass,
      * in root structural coordinates.
      */
-    void compute_constraint_position_com (
-        const VehicleProperties& vehicle_properties);
+    void compute_constraint_position_com(const VehicleProperties & vehicle_properties);
 
     /**
      * Compute the non-gravitational acceleration at the constraint point.
      */
-    void compute_non_grav_accel (
-        const VehicleNonGravState& non_grav_state);
+    void compute_non_grav_accel(const VehicleNonGravState & non_grav_state);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

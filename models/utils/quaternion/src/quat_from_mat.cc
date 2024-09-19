@@ -19,7 +19,7 @@ Purpose:
 Library dependency:
   ((quat_from_mat.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -92,7 +92,6 @@ Library dependency:
  * dominates.
  *----------------------------------------------------------------------------*/
 
-
 // System includes
 #include <cmath>
 
@@ -101,10 +100,9 @@ Library dependency:
 // Model includes
 #include "../include/quat.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Compute the parent-to-child left quaternion from the input
@@ -114,63 +112,64 @@ namespace jeod {
  *  - Matrix is orthonormal.
  * \param[in] T Transformation matrix
  */
-void
-Quaternion::left_quat_from_transformation (
-   const double T[3][3])
+void Quaternion::left_quat_from_transformation(const double T[3][3])
 {
-   double tr;                   /* Trace of input transformation matrix */
-   double tmax;                 /* Max of tr, diagonal elements */
-   double qix2;                 /* sqrt(1+max(tr,t_i)) */
-   double fact;                 /* 0.5/qix2 */
-   int meth;                    /* Index of tmax in t (-1 if trace dominates) */
-   int ii;
-
+    double tr;   /* Trace of input transformation matrix */
+    double tmax; /* Max of tr, diagonal elements */
+    double qix2; /* sqrt(1+max(tr,t_i)) */
+    double fact; /* 0.5/qix2 */
+    int meth;    /* Index of tmax in t (-1 if trace dominates) */
+    int ii;
 
     /* Compute the trace of the matrix. */
-   tr = T[0][0] + T[1][1] + T[2][2];
+    tr = T[0][0] + T[1][1] + T[2][2];
 
     /* Find the largest of the trace (meth = -1) and the three diagonal
      * elements of 'a' (meth = 0, 1, or 2). */
-   meth = -1;
-   tmax = tr;
-   for (ii = 0; ii < 3; ii++) {
-      if (T[ii][ii] > tmax) {
-         meth = ii;
-         tmax = T[ii][ii];
-      }
-   }
+    meth = -1;
+    tmax = tr;
+    for(ii = 0; ii < 3; ii++)
+    {
+        if(T[ii][ii] > tmax)
+        {
+            meth = ii;
+            tmax = T[ii][ii];
+        }
+    }
 
     /* Use method -1 when no diagonal element dominates the trace. */
-   if (meth == -1) {
+    if(meth == -1)
+    {
+        qix2 = std::sqrt(1.0 + tr);
+        fact = 0.5 / qix2;
+        scalar = 0.5 * qix2;
+        vector[0] = fact * (T[2][1] - T[1][2]);
+        vector[1] = fact * (T[0][2] - T[2][0]);
+        vector[2] = fact * (T[1][0] - T[0][1]);
 
-      qix2   = std::sqrt (1.0 + tr);
-      fact   = 0.5 / qix2;
-      scalar = 0.5 * qix2;
-      vector[0] = fact * (T[2][1] - T[1][2]);
-      vector[1] = fact * (T[0][2] - T[2][0]);
-      vector[2] = fact * (T[1][0] - T[0][1]);
+        /* Use method 0,1, or 2 based on the dominant diagonal element. */
+    }
+    else
+    {
+        ii = meth;
+        int jj = (ii + 1) % 3;
+        int kk = (jj + 1) % 3;
 
-    /* Use method 0,1, or 2 based on the dominant diagonal element. */
-   } else {
-
-      ii = meth;
-      int jj = (ii+1)%3;
-      int kk = (jj+1)%3;
-
-      double di = T[kk][jj] - T[jj][kk]; /* a_kj - a_jk */
-      qix2 = sqrt (1.0 + T[ii][ii] - (T[jj][jj] + T[kk][kk]));
-      if (di < 0.0) {
-         qix2 = -qix2;
-      }
-      fact = 0.5 / qix2;
-      vector[ii] = 0.5 * qix2;
-      vector[jj] = fact * (T[ii][jj] + T[jj][ii]);
-      vector[kk] = fact * (T[ii][kk] + T[kk][ii]);
-      scalar = fact * di;
-   }
+        double di = T[kk][jj] - T[jj][kk]; /* a_kj - a_jk */
+        qix2 = sqrt(1.0 + T[ii][ii] - (T[jj][jj] + T[kk][kk]));
+        if(di < 0.0)
+        {
+            qix2 = -qix2;
+        }
+        fact = 0.5 / qix2;
+        vector[ii] = 0.5 * qix2;
+        vector[jj] = fact * (T[ii][jj] + T[jj][ii]);
+        vector[kk] = fact * (T[ii][kk] + T[kk][ii]);
+        scalar = fact * di;
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

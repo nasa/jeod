@@ -59,10 +59,9 @@ Reference:
 Library dependencies:
   ((../src/lsode_integration_controls.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_LSODE_INTEGRATION_CONTROLS_HH
 #define JEOD_LSODE_INTEGRATION_CONTROLS_HH
@@ -75,10 +74,9 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 // Integration includes
-#include "er7_utils/integration/core/include/standard_integration_controls.hh"
 #include "er7_utils/integration/core/include/generalized_position_derivative.hh"
+#include "er7_utils/integration/core/include/standard_integration_controls.hh"
 
 namespace jeod
 {
@@ -88,51 +86,29 @@ namespace jeod
  */
 class LsodeIntegrationControls : public er7_utils::StandardIntegrationControls
 {
-// JEOD_MAKE_SIM_INTERFACES(LsodeIntegrationControls)
-JEOD_MAKE_SIM_INTERFACES(LsodeIntegrationControls)
+    // JEOD_MAKE_SIM_INTERFACES(jeod,LsodeIntegrationControls)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeIntegrationControls)
 
-
-// Methods:
+    // Methods:
 public:
+    LsodeIntegrationControls() = default;
+    explicit LsodeIntegrationControls(unsigned int num_stages);
+    ~LsodeIntegrationControls() override = default;
+    LsodeIntegrationControls & operator=(const LsodeIntegrationControls &) = delete;
+    LsodeIntegrationControls(const LsodeIntegrationControls &) = delete;
 
-   /**
-    * LsodeIntegrationControls default constructor.
-    */
-   LsodeIntegrationControls(void);
-   explicit LsodeIntegrationControls(unsigned int num_stages);
+    // Member functions.
+    unsigned int integrate(double start_time,
+                           double sim_dt,
+                           er7_utils::TimeInterface & time_interface,
+                           er7_utils::IntegratorInterface & integ_interface,
+                           er7_utils::BaseIntegrationGroup & integ_group) override;
 
-   /**
-    * LsodeIntegrationControls destructor.
-    */
-   ~LsodeIntegrationControls() override {};
-
-
-   // Member functions.
-   unsigned int integrate ( double start_time,
-                                    double sim_dt,
-                                    er7_utils::TimeInterface & time_interface,
-                                    er7_utils::IntegratorInterface & integ_interface,
-                                    er7_utils::BaseIntegrationGroup & integ_group) override;
-
-   /**
-    * Create a copy of 'this' StandardIntegrationControls object.
-    * @return Clone of 'this'.
-    */
-   LsodeIntegrationControls * create_copy () const override ;
-
-
-private:
-   /**
-    * LsodeIntegrationControls assignment operator.
-    * @param src  Item to be copied.
-    */
-   LsodeIntegrationControls & operator=(const LsodeIntegrationControls & src);
-   /**
-    * LsodeIntegrationControls copy constructor.
-    * @param[in] src  Item to be copied.
-    */
-   LsodeIntegrationControls(const LsodeIntegrationControls & src);
-
+    /**
+     * Create a copy of 'this' StandardIntegrationControls object.
+     * @return Clone of 'this'.
+     */
+    LsodeIntegrationControls * create_copy() const override;
 };
 
 } // namespace jeod

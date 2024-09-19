@@ -29,14 +29,14 @@ and a MassBody was \hasa by necessity. JEOD 1.5 was implemented in C,
 which does not offer \isa relationships. That limitation does not
 exist in JEOD 2.0. Making the relation \isa offered the advantage of overridden
 functions over a \hasa relationship. The JEOD 2.0 DynBody class
-inherited from the JEOD 2.0 MassBody class. In JEOD 4.0, the relationship was 
-reverted to a \hasa relationship with friendship. This removed the need for 
+inherited from the JEOD 2.0 MassBody class. In JEOD 4.0, the relationship was
+reverted to a \hasa relationship with friendship. This removed the need for
 constant checks to differentiate between a MassBody and a DynBody, and provides
- extension stability by preventing users from overriding protected JEOD 
+ extension stability by preventing users from overriding protected JEOD
  functionality.
 
 The enhanced flexibility introduced with recent changes to
-the \hypermodelref{INTEGRATION} \INTEGRATION are enabled by abstracting the 
+the \hypermodelref{INTEGRATION} \INTEGRATION are enabled by abstracting the
 sorts of things which JEOD can integrate in the er7\_utils::IntegrableObject
 class. Now a DynBody \isa er7\_utils::IntegrableObject.  In addition, the
 DynBody class now provides the capability to associate additional
@@ -64,9 +64,9 @@ rudimentary reference frames include an origin and a set of orthogonal
 right-handed axes, but exclude the derivatives information found in the
 \hypermodelref{REFFRAMES}.
 A basic MassBody object lacks a connection to the
-outside world. The DynBody class adds that connection to a MassBody object. 
+outside world. The DynBody class adds that connection to a MassBody object.
 DynBody mass attributes exist in the MassBody \verb+DynBody::mass+  member.
-MassBody's referring to the mass contents of a DynBody contain a pointer DynBody \verb+MassBody::dyn_owner+ member. 
+MassBody's referring to the mass contents of a DynBody contain a pointer DynBody \verb+MassBody::dyn_owner+ member.
 Pure mass items, which do not refer to a dynamic body, should have a \verb+NULL+ value for this member.
 
 \subsubsection{State}
@@ -370,8 +370,7 @@ frames must be made consistent with this integrated frame. This is performed
 by propagating the results of the integration to all frames associated
 with the DynBody object, including the DynBody objects attached as children
 to the root DynBody object. This propagation is performed using the geometry
-information embodied in the MassBody objects from which the DynBody objects
-are derived.
+information embodied in the MassBody objects contained in the DynBody objects.
 
 \subsubsection{Point Acceleration}
 A reference frame state contains zeroth and first derivatives. Second

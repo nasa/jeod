@@ -62,7 +62,6 @@ Library dependencies:
 #ifndef JEOD_PROPAGATED_PLANET_HH
 #define JEOD_PROPAGATED_PLANET_HH
 
-
 // System includes
 
 // JEOD includes
@@ -73,9 +72,9 @@ Library dependencies:
 #include "environment/ephemerides/ephem_item/include/ephem_point.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BasePlanet;
 class BodyRefFrame;
@@ -83,7 +82,6 @@ class DynManager;
 class EphemeridesManager;
 class TimeDyn;
 class TimeManager;
-
 
 /**
  * A PropagatedEphemerisPlanet is an EphemerisPoint whose state
@@ -116,54 +114,34 @@ class TimeManager;
  * for translation rather than rotation. See PropagatedEphemerisOrientation
  * for a description of the behavior of the class.
  */
-class PropagatedEphemerisPlanet : public EphemerisPoint {
-JEOD_MAKE_SIM_INTERFACES(PropagatedEphemerisPlanet)
+class PropagatedEphemerisPlanet : public EphemerisPoint
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PropagatedEphemerisPlanet)
 
 public:
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // Member functions
+    PropagatedEphemerisPlanet(DynBody & dyn_body, BodyRefFrame & frame);
+    ~PropagatedEphemerisPlanet() override = default;
+    PropagatedEphemerisPlanet(const PropagatedEphemerisPlanet &) = delete;
+    PropagatedEphemerisPlanet & operator=(const PropagatedEphemerisPlanet &) = delete;
 
-   // Constructor and destructor
+    // Update the state.
+    using EphemerisPoint::update; /* ** */
+    virtual void update(double time);
 
- // Member functions
-   // Constructor (non-default) and destructor
-   PropagatedEphemerisPlanet (DynBody & dyn_body, BodyRefFrame & frame);
-   ~PropagatedEphemerisPlanet (void) override;
+    // Member data
+protected:
+    /**
+     * The dynamic body whose state is tied to that of the planet.
+     */
+    DynBody & body; //!< trick_units(--)
 
- // This class does not have copy constructor or assignment operator.
- private:
-   /**
-    * Not implemented.
-    */
-   PropagatedEphemerisPlanet (const PropagatedEphemerisPlanet &);
-   /**
-    * Not implemented.
-    */
-   PropagatedEphemerisPlanet & operator= (const PropagatedEphemerisPlanet &);
-
- public:
-
-   // Update the state.
-   using EphemerisPoint::update; /* ** */
-   virtual void update (double time);
-
-
- // Member data
- protected:
-
-   /**
-    * The dynamic body whose state is tied to that of the planet.
-    */
-   DynBody & body; //!< trick_units(--)
-
-   /**
-    * The body reference frame whose translational state is coupled with that
-    * of the planet's inertial frame.
-    */
-   BodyRefFrame & body_ref_frame; //!< trick_units(--)
-
+    /**
+     * The body reference frame whose translational state is coupled with that
+     * of the planet's inertial frame.
+     */
+    BodyRefFrame & body_ref_frame; //!< trick_units(--)
 };
-
 
 /**
  * A PropagatedEphemerisOrientation is an EphemerisOrientation whose state is
@@ -176,54 +154,33 @@ public:
  * for rotation rather than translation. See PropagatedEphemerisPlanet
  * for a description of the behavior of the class.
  */
-class PropagatedEphemerisOrientation : public EphemerisOrientation {
-JEOD_MAKE_SIM_INTERFACES(PropagatedEphemerisOrientation)
+class PropagatedEphemerisOrientation : public EphemerisOrientation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PropagatedEphemerisOrientation)
 
 public:
+    // Member functions
+    PropagatedEphemerisOrientation(DynBody & dyn_body, BodyRefFrame & frame);
+    ~PropagatedEphemerisOrientation() override = default;
+    PropagatedEphemerisOrientation(const PropagatedEphemerisOrientation &) = delete;
+    PropagatedEphemerisOrientation & operator=(const PropagatedEphemerisOrientation &) = delete;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // Update the state
+    virtual void update(double time);
 
-   // Constructor (non-default) and destructor
-   PropagatedEphemerisOrientation (DynBody & dyn_body, BodyRefFrame & frame);
-   ~PropagatedEphemerisOrientation (void) override;
+    // Member data
+protected:
+    /**
+     * The dynamic body whose state is tied to that of the planet.
+     */
+    DynBody & body; //!< trick_units(--)
 
-
- // Member functions
- public:
-   // Constructor (non-default) and destructor
-
- public:
-
-   // Update the state
-   virtual void update (double time);
-
-
- // Member data
- protected:
-
-   /**
-    * The dynamic body whose state is tied to that of the planet.
-    */
-   DynBody & body; //!< trick_units(--)
-
-   /**
-    * The body reference frame whose rotational state is coupled with that
-    * of the planet's planet-fixed frame.
-    */
-   BodyRefFrame & body_ref_frame; //!< trick_units(--)
-
-
-private:
-   ///
-   /// Not implemented.
-   PropagatedEphemerisOrientation (const PropagatedEphemerisOrientation &);
-   ///
-   /// Not implemented.
-   PropagatedEphemerisOrientation & operator= (
-      const PropagatedEphemerisOrientation &);
+    /**
+     * The body reference frame whose rotational state is coupled with that
+     * of the planet's planet-fixed frame.
+     */
+    BodyRefFrame & body_ref_frame; //!< trick_units(--)
 };
-
 
 /**
  * The PropagatedPlanet ephemeris model provides planetary state via a DynBody
@@ -243,193 +200,171 @@ private:
  * planet's planet-centered frame and between the rotational states of the
  * dynamic body's composite frame and the planet's planet-fixed frame.
  */
-class PropagatedPlanet: public EphemerisInterface {
-JEOD_MAKE_SIM_INTERFACES(PropagatedPlanet)
+class PropagatedPlanet : public EphemerisInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PropagatedPlanet)
 
 public:
+    // Types
 
-   // Types
+    /**
+     * Defines the modes in which an active PropagatedPlanet object operates.
+     * A PropagatedPlanet contains a BasePlanet pointer PropagatedPlanet::planet
+     * and a DynBody PropagatedPlanet::body. The translational states of the
+     * planet-centered inertial frame and the body's composite_body frame are
+     * tied to one another, as are the rotational states of the planet-fixed
+     * frame and the the body's composite_body frame. This enum identifies
+     * which of the planet or the body is the source of translational and the
+     * the rotational parts of the state.
+     */
+    enum Mode
+    {
+        TransFromPlanet_RotFromPlanet = 0, /*
+           The planet-centered inertial frame and planet-fixed frame are the
+           sources of the translational and rotational states. The dynamic body's
+           composite frame is slaved to these planetary sources. */
+        TransFromPlanet_RotFromBody = 1,   /*
+           The planet-centered inertial frame is the source of the translational
+           state and the dynamic body's composite frame is the source of the
+           rotational state. The composite frame's translational state and the
+           planet-fixed frame's rotational state are slaved to these sources. */
+        TransFromBody_RotFromPlanet = 2,   /*
+           The dynamic body's composite frame is the source of the translational
+           state and the planet-fixed frame is the source of the rotational state.
+           The planet-centered inertial translational state and the composite
+           frame's rotational state are slaved to these sources. */
+        TransFromBody_RotFromBody = 3      /*
+           The dynamic body's composite frame is the source of the translational
+           and rotational states. The planet-centered inertial frame and the
+           planet-fixed frame are slaved to these dynamic body sources. */
+    };
 
-   /**
-    * Defines the modes in which an active PropagatedPlanet object operates.
-    * A PropagatedPlanet contains a BasePlanet pointer PropagatedPlanet::planet
-    * and a DynBody PropagatedPlanet::body. The translational states of the
-    * planet-centered inertial frame and the body's composite_body frame are
-    * tied to one another, as are the rotational states of the planet-fixed
-    * frame and the the body's composite_body frame. This enum identifies
-    * which of the planet or the body is the source of translational and the
-    * the rotational parts of the state.
-    */
-   enum Mode {
-      TransFromPlanet_RotFromPlanet = 0, /*
-         The planet-centered inertial frame and planet-fixed frame are the
-         sources of the translational and rotational states. The dynamic body's
-         composite frame is slaved to these planetary sources. */
-      TransFromPlanet_RotFromBody   = 1, /*
-         The planet-centered inertial frame is the source of the translational
-         state and the dynamic body's composite frame is the source of the
-         rotational state. The composite frame's translational state and the
-         planet-fixed frame's rotational state are slaved to these sources. */
-      TransFromBody_RotFromPlanet   = 2, /*
-         The dynamic body's composite frame is the source of the translational
-         state and the planet-fixed frame is the source of the rotational state.
-         The planet-centered inertial translational state and the composite
-         frame's rotational state are slaved to these sources. */
-      TransFromBody_RotFromBody     = 3  /*
-         The dynamic body's composite frame is the source of the translational
-         and rotational states. The planet-centered inertial frame and the
-         planet-fixed frame are slaved to these dynamic body sources. */
-   };
+    // Member functions
 
+    // Constructor and destructor
+    PropagatedPlanet();
+    ~PropagatedPlanet() override = default;
+    PropagatedPlanet(const PropagatedPlanet &) = delete;
+    PropagatedPlanet & operator=(const PropagatedPlanet &) = delete;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // S_define-level interfaces
 
-   // Constructor and destructor
-   PropagatedPlanet (void);
-   ~PropagatedPlanet (void) override;
+    // Initialize the model
+    void initialize_model(const TimeManager & time_manager, DynManager & dyn_manager);
 
+    // EphemInterface methods
+    void activate() override;
+    void deactivate() override;
 
-   // S_define-level interfaces
+    // EphemInterface accessors
+    double timestamp() const override;
 
-   // Initialize the model
-   void initialize_model (
-      const TimeManager & time_manager, DynManager & dyn_manager);
+    std::string get_name() const override;
 
-   // Close the model (free resources)
-   void shutdown (void);
+    // EphemeridesManager interface methods
+    void ephem_initialize(EphemeridesManager & ephem_manager) override;
 
-   // EphemInterface methods
-   void activate (void) override;
-   void deactivate (void) override;
+    void ephem_activate(EphemeridesManager & ephem_manager) override;
 
-   // EphemInterface accessors
-   double timestamp (void) const override;
+    void ephem_build_tree(EphemeridesManager & ephem_manager) override;
 
-   const char * get_name (void) const override;
+    void ephem_update() override;
 
-   // EphemeridesManager interface methods
-   void ephem_initialize (EphemeridesManager & ephem_manager) override;
+    // Model-specific interfaces
+    // Set the commanded mode.
+    void set_commanded_mode(Mode new_mode);
 
-   void ephem_activate (EphemeridesManager & ephem_manager) override;
+    // Member data
 
-   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
+    /**
+     * The name of the planet.
+     * This is used at initialization time only.
+     */
+    std::string planet_name; //!< trick_units(--)
 
-   void ephem_update (void) override;
+    /**
+     * The name of the parent frame.
+     * This is used at initialization time only.
+     */
+    std::string parent_name; //!< trick_units(--)
 
-   // Model-specific interfaces
-   // Set the commanded mode.
-   void set_commanded_mode (Mode new_mode);
+    /**
+     * The dynamic body whose state is tied to that of the planet.
+     */
+    DynBody body; //!< trick_units(--)
 
-
-   // Member data
-
-   /**
-    * The name of the planet.
-    * This is used at initialization time only.
-    */
-   char * planet_name; //!< trick_units(--)
-
-   /**
-    * The name of the parent frame.
-    * This is used at initialization time only.
-    */
-   char * parent_name; //!< trick_units(--)
-
-   /**
-    * The dynamic body whose state is tied to that of the planet.
-    */
-   DynBody body; //!< trick_units(--)
-
-   /**
-    * The mode in which the model should operate.
-    */
-   Mode commanded_mode; //!< trick_units(--)
-
+    /**
+     * The mode in which the model should operate.
+     */
+    Mode commanded_mode{TransFromPlanet_RotFromPlanet}; //!< trick_units(--)
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Set the mode.
+    void set_mode();
 
-   // Set the mode.
-   void set_mode (void);
+    // Member data
 
+    /**
+     * Has the model been initialized?
+     */
+    bool initialized{}; //!< trick_units(--)
 
-   // Member data
+    /**
+     * The mode in which the model is operating.
+     */
+    Mode mode{TransFromPlanet_RotFromPlanet}; //!< trick_units(--)
 
-   /**
-    * Has the model been initialized?
-    */
-   bool initialized; //!< trick_units(--)
+    /**
+     * Model name; used for reporting errors.
+     */
+    std::string ident; //!< trick_units(--)
 
-   /**
-    * The mode in which the model is operating.
-    */
-   Mode mode; //!< trick_units(--)
+    /**
+     * Is the planet present and marked as active?
+     */
+    bool active{true}; //!< trick_units(--)
 
-   /**
-    * Model name; used for reporting errors.
-    */
-   char * ident; //!< trick_units(--)
+    /**
+     * Time of last update, dynamic time seconds
+     */
+    double update_time{-99e99}; //!< trick_units(s)
 
-   /**
-    * Is the planet present and marked as active?
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * The planet tied to the body.
+     */
+    BasePlanet * planet{}; //!< trick_units(--)
 
-   /**
-    * Time of last update, dynamic time seconds
-    */
-   double update_time; //!< trick_units(s)
+    /**
+     * The parent of the planet.
+     */
+    EphemerisRefFrame * parent_frame{}; //!< trick_units(--)
 
-   /**
-    * The planet tied to the body.
-    */
-   BasePlanet * planet; //!< trick_units(--)
+    /**
+     * The dynamics manager.
+     */
+    DynManager * dyn_manager{}; //!< trick_units(--)
 
-   /**
-    * The parent of the planet.
-    */
-   EphemerisRefFrame * parent_frame; //!< trick_units(--)
+    /**
+     * The source of dynamic time information.
+     */
+    const TimeDyn * time_dyn{}; //!< trick_units(--)
 
-   /**
-    * The dynamics manager.
-    */
-   DynManager * dyn_manager; //!< trick_units(--)
+    /**
+     * The ephemeris item that couples the translational states of the
+     * body's composite body frame  and the planet's inertial frame.
+     */
+    PropagatedEphemerisPlanet ephem_planet; //!< trick_units(--)
 
-   /**
-    * The source of dynamic time information.
-    */
-   const TimeDyn * time_dyn; //!< trick_units(--)
-
-   /**
-    * The ephemeris item that couples the translational states of the
-    * body's composite body frame  and the planet's inertial frame.
-    */
-   PropagatedEphemerisPlanet ephem_planet; //!< trick_units(--)
-
-   /**
-    * The ephemeris item that couples the rotational states of the
-    * body's composite body frame  and the planet's planet-fixed frame.
-    */
-   PropagatedEphemerisOrientation ephem_orient; //!< trick_units(--)
-
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   ///
-   /// Not implemented.
-   PropagatedPlanet (const PropagatedPlanet &);
-   ///
-   /// Not implemented.
-   PropagatedPlanet & operator= (const PropagatedPlanet &);
+    /**
+     * The ephemeris item that couples the rotational states of the
+     * body's composite body frame  and the planet's planet-fixed frame.
+     */
+    PropagatedEphemerisOrientation ephem_orient; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

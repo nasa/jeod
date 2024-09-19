@@ -46,16 +46,18 @@ Library dependencies:
 #ifndef JEOD_METATMOSPHERE_SOLAR_MEAN_DEFAULT_DATA_H
 #define JEOD_METATMOSPHERE_SOLAR_MEAN_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class METAtmosphere;
 
-class METAtmosphere_solar_mean_default_data {
- public:
-   void initialize (METAtmosphere*);
+class METAtmosphere_solar_mean_default_data
+{
+public:
+    void initialize(METAtmosphere *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

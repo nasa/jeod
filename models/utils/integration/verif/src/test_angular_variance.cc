@@ -14,10 +14,9 @@ Assumptions and limitations:
 Library dependencies:
   ((angular_variance.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 #include <cmath>
@@ -30,64 +29,76 @@ Library dependencies:
 // Model includes
 #include "../include/angular_variance.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-int main ()
+namespace jeod
 {
-   double a = 1;
-   double b = 0.025;
-   double w = M_PI / 64.0;
-   double phi_0 = -M_PI / 4.0;
-   double theta, omega, theta_prev, omega_prev;
-   double uhat[3], angvel[3];
-   Quaternion qu;
-   AngularVariance angvar;
 
-   Vector3::initialize (uhat);
-   uhat[0] =  2.0 / 3.0;
-   uhat[1] = -1.0 / 3.0;
-   uhat[2] =  2.0 / 3.0;
+int main()
+{
+    double a = 1;
+    double b = 0.025;
+    double w = M_PI / 64.0;
+    double phi_0 = -M_PI / 4.0;
+    double theta, omega, theta_prev, omega_prev;
+    double uhat[3], angvel[3];
+    Quaternion qu;
+    AngularVariance angvar;
 
-   theta_prev = omega_prev = 0.0;
+    Vector3::initialize(uhat);
+    uhat[0] = 2.0 / 3.0;
+    uhat[1] = -1.0 / 3.0;
+    uhat[2] = 2.0 / 3.0;
 
-   for (int ii = 0; ii < 10000; ii++) {
-      double t   = static_cast <double> (ii);
-      double phi = w*t + phi_0;
-      double cosphi = cos(phi);
-      double sinphi = sin(phi);
-      int su, sw;
+    theta_prev = omega_prev = 0.0;
 
-      theta = (b*t - a) * sinphi;
-      omega = b * sinphi +  w * (b*t - a) * cosphi;
+    for(int ii = 0; ii < 10000; ii++)
+    {
+        auto t = static_cast<double>(ii);
+        double phi = w * t + phi_0;
+        double cosphi = cos(phi);
+        double sinphi = sin(phi);
+        int su = 0;
+        int sw = 0;
 
-      su = theta*theta_prev < 0.0 ? 1 : 0;
-      sw = omega*omega_prev < 0.0 ? 1 : 0;
+        theta = (b * t - a) * sinphi;
+        omega = b * sinphi + w * (b * t - a) * cosphi;
 
-      qu.left_quat_from_eigen_rotation (theta, uhat);
-      Vector3::scale (uhat, omega, angvel);
+        if(theta * theta_prev < 0.0)
+        {
+            su = 1;
+        }
 
-      if (ii == 0) {
-         angvar.initialize (qu, angvel);
-      }
-      else {
-         angvar.update (qu, angvel);
-      }
+        if(omega * omega_prev < 0.0)
+        {
+            sw = 1;
+        }
 
-      printf ("%5d  %d %d %3d  %7.4f    %7.4f  %7.4f  %7.4f\n",
-              ii,
-              su, sw,
-              angvar.nwrap(),
-              (theta-angvar.theta())/M_PI,
-              (theta-theta_prev)/M_PI,
-              theta/M_PI,
-              angvar.theta()/M_PI);
+        qu.left_quat_from_eigen_rotation(theta, uhat);
+        Vector3::scale(uhat, omega, angvel);
 
-      theta_prev = theta;
-      omega_prev = omega;
-   }
+        if(ii == 0)
+        {
+            angvar.initialize(qu, angvel);
+        }
+        else
+        {
+            angvar.update(qu, angvel);
+        }
 
-   return 0;
+        printf("%5d  %d %d %3d  %7.4f    %7.4f  %7.4f  %7.4f\n",
+               ii,
+               su,
+               sw,
+               angvar.nwrap(),
+               (theta - angvar.theta()) / M_PI,
+               (theta - theta_prev) / M_PI,
+               theta / M_PI,
+               angvar.theta() / M_PI);
+
+        theta_prev = theta;
+        omega_prev = omega;
+    }
+
+    return 0;
 }
-} // End JEOD namespace
+} // namespace jeod

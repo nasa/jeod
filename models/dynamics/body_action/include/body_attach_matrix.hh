@@ -59,22 +59,21 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_BODY_ATTACH_MATRIX_HH
 #define JEOD_MASS_BODY_ATTACH_MATRIX_HH
 
 // System includes
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/orientation/include/orientation.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "body_attach.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Attaches a pair of MassBody objects using the offset+matrix attach mechanism.
@@ -84,56 +83,39 @@ namespace jeod {
  * - The orientation between these two reference frames's axes is that given by
  *   the pstr_cstr data member.
  */
-class BodyAttachMatrix : public BodyAttach {
+class BodyAttachMatrix : public BodyAttach
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyAttachMatrix)
 
- JEOD_MAKE_SIM_INTERFACES(BodyAttachMatrix)
+    // Member data
 
+public:
+    /**
+     * Location of this body's structural origin with respect to the new parent
+     * body's structural origin (or generic reference frame),
+     * specified in structural coordinates of the new parent body.
+     */
+    double offset_pstr_cstr_pstr[3]{}; //!< trick_units(m)
 
- // Member data
+    /**
+     * Orientation of child's structural frame with respect to that of the
+     * new parent; sense is parent-to-child.
+     */
+    Orientation pstr_cstr; //!< trick_units(--)
 
- public:
+    // Methods
 
-   /**
-    * Location of this body's structural origin with respect to the new parent
-    * body's structural origin (or generic reference frame),
-    * specified in structural coordinates of the new parent body.
-    */
-   double offset_pstr_cstr_pstr[3];   //!< trick_units(m)
+public:
+    BodyAttachMatrix() = default;
+    ~BodyAttachMatrix() override = default;
+    BodyAttachMatrix(const BodyAttachMatrix &) = delete;
+    BodyAttachMatrix & operator=(const BodyAttachMatrix &) = delete;
 
-   /**
-    * Orientation of child's structural frame with respect to that of the
-    * new parent; sense is parent-to-child.
-    */
-   Orientation pstr_cstr;             //!< trick_units(--)
-
-
- // Methods
-
- public:
-
-   // Default constructor.
-   BodyAttachMatrix ();
-
-   // Destructor.
-   ~BodyAttachMatrix () override;
-
-   // apply: Attach the specified mass bodies.
-   void apply (DynManager & dyn_manager) override;
-
+    // apply: Attach the specified mass bodies.
+    void apply(DynManager & dyn_manager) override;
 };
 
-
-/**
- * Destructor
- */
-inline
-BodyAttachMatrix::~BodyAttachMatrix (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

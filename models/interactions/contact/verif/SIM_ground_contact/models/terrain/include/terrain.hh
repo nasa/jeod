@@ -49,7 +49,7 @@
  ((../src/terrain.cc)
   (../../../../../../utils/planet_fixed/planet_fixed_posn/planet_fixed_posn.cc))
 
- 
+
  *******************************************************************************/
 #ifndef JEOD_TERRAIN_HH_
 #define JEOD_TERRAIN_HH_
@@ -59,39 +59,31 @@
 #include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class Terrain {
-
+class Terrain
+{
 public:
+    Planet * planet{};
+    double offset{}; /* trick_units(m) @n
+       Offset to match sim to graphics. */
 
-   Planet * planet;
-   double offset; /* trick_units(m) @n
-      Offset to match sim to graphics. */
+    Terrain() = default;
+    virtual ~Terrain() = default;
+    Terrain(const Terrain &) = delete;
+    Terrain & operator=(const Terrain &) = delete;
 
-   Terrain();
+    /*  initialize the terrain model */
+    virtual int initialize(Planet * planet_in) = 0;
 
-   virtual ~Terrain();
+    /* find the altitude given a specific lat-long  */
+    virtual int find_altitude(PlanetFixedPosition * point, double normal[3]) = 0;
 
-   /*  initialize the terrain model */
-   virtual int initialize(Planet * planet_in) = 0;
-
-   /* find the altitude given a specific lat-long  */
-   virtual int find_altitude (PlanetFixedPosition *point, double normal[3]) = 0;
-
-   /* find the normal given three points in the planet frame */
-   int calculate_normal (
-      double point1[3],
-      double point2[3],
-      double point3[3]);
-
-
-private:
-   Terrain (const Terrain&);
-   Terrain & operator =(const Terrain&);
-
+    /* find the normal given three points in the planet frame */
+    int calculate_normal(double point1[3], double point2[3], double point3[3]);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif // end JEOD_TERRAIN_HH_ -- nothing after this line!

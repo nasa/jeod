@@ -45,31 +45,26 @@ Library dependencies:
 #include "../include/dyn_manager.hh"
 #include "../include/dyn_manager_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Attributes used in allocations
-JEOD_DECLARE_ATTRIBUTES (EmptySpaceEphemeris)
-JEOD_DECLARE_ATTRIBUTES (SinglePlanetEphemeris)
-
+JEOD_DECLARE_ATTRIBUTES(EmptySpaceEphemeris)
+JEOD_DECLARE_ATTRIBUTES(SinglePlanetEphemeris)
 
 /**
  * Begin initialization of the JEOD manager model.
  * \param[in,out] init Initialization data
  * \param[in,out] time_mngr Time manager
  */
-void
-DynManager::initialize_model (
-   DynManagerInit & init,
-   TimeManager & time_mngr)
+void DynManager::initialize_model(DynManagerInit & init, TimeManager & time_mngr)
 {
-   integ_interface = JeodSimulationInterface::create_integrator_interface();
-   sim_integrator = integ_interface->get_integrator();
+    integ_interface = JeodSimulationInterface::create_integrator_interface();
+    sim_integrator = integ_interface->get_integrator();
 
-   initialize_model_internal (init, time_mngr);
+    initialize_model_internal(init, time_mngr);
 }
-
 
 /**
  * Begin initialization of the JEOD manager model.
@@ -80,18 +75,13 @@ DynManager::initialize_model (
 Class:
   (initialization)
 ******************************************************************************/
-void
-DynManager::initialize_model (
-   JeodIntegratorInterface & integ_if,
-   DynManagerInit & init,
-   TimeManager & time_mngr)
+void DynManager::initialize_model(JeodIntegratorInterface & integ_if, DynManagerInit & init, TimeManager & time_mngr)
 {
-   integ_interface = &integ_if;
-   sim_integrator = integ_interface->get_integrator();
+    integ_interface = &integ_if;
+    sim_integrator = integ_interface->get_integrator();
 
-   initialize_model_internal (init, time_mngr);
+    initialize_model_internal(init, time_mngr);
 }
-
 
 /**
  * Begin initialization of the JEOD manager model.
@@ -102,107 +92,102 @@ DynManager::initialize_model (
  * \param[in,out] init Initialization data
  * \param[in,out] time_mngr Time manager
  */
-void
-DynManager::initialize_model_internal (
-   DynManagerInit & init,
-   TimeManager & time_mngr)
+void DynManager::initialize_model_internal(DynManagerInit & init, TimeManager & time_mngr)
 {
+    // Set the mode.
+    mode = init.mode;
 
-   // Set the mode.
-   mode = init.mode;
+    if(mode != DynManagerInit::EphemerisMode_Ephemerides)
+    {
+        if(init.central_point_name.empty())
+        {
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 DynManagerMessages::invalid_name,
+                                 "Invalid value (empty string) for "
+                                 "DynManagerInit.central_point_name");
+            return;
+        }
 
-  if (mode != DynManagerInit::EphemerisMode_Ephemerides) {
-     if ((init.central_point_name == nullptr) ||
-         (init.central_point_name[0] == '\0')) {
-         MessageHandler::fail (
-            __FILE__, __LINE__, DynManagerMessages::invalid_name,
-            "Invalid value (NULL or empty string) for "
-            "DynManagerInit.central_point_name");
-         return;
-      }
+        switch(mode)
+        {
+            // Empty space mode:
+            // Make an empty space ephemeris model to represent all of (empty) space.
+            case DynManagerInit::EphemerisMode_EmptySpace:
+                simple_ephemeris = JEOD_ALLOC_CLASS_OBJECT(EmptySpaceEphemeris, ());
+                break;
 
+            // Single planet mode:
+            // Make an single-planet ephemeris model to represent space.
+            // Note: The simulation must define exactly one Planet object, give it the
+            // same name as the central point, and register it with the manager.
+            case DynManagerInit::EphemerisMode_SinglePlanet:
+                simple_ephemeris = JEOD_ALLOC_CLASS_OBJECT(SinglePlanetEphemeris, ());
+                break;
+            // Anything else is an error.
+            case DynManagerInit::EphemerisMode_Ephemerides:
+            default:
+                MessageHandler::fail(__FILE__, __LINE__, DynManagerMessages::inconsistent_setup, "Illegal mode value");
+                return;
+        }
 
-      switch (mode) {
-      // Empty space mode:
-      // Make an empty space ephemeris model to represent all of (empty) space.
-      case DynManagerInit::EphemerisMode_EmptySpace:
-         simple_ephemeris =
-            JEOD_ALLOC_CLASS_OBJECT (EmptySpaceEphemeris, ());
-         break;
+        // There shouldn't be any ephemerides models registered with the
+        // ephemerides manager, but just in case, disable them and empty the list.
+        clear_added_ephemerides();
 
-      // Single planet mode:
-      // Make an single-planet ephemeris model to represent space.
-      // Note: The simulation must define exactly one Planet object, give it the
-      // same name as the central point, and register it with the manager.
-      case DynManagerInit::EphemerisMode_SinglePlanet:
-         simple_ephemeris =
-            JEOD_ALLOC_CLASS_OBJECT (SinglePlanetEphemeris, ());
-         break;
-      // Anything else is an error.
-      case DynManagerInit::EphemerisMode_Ephemerides:
-      default:
-         MessageHandler::fail (
-            __FILE__, __LINE__, DynManagerMessages::inconsistent_setup,
-            "Illegal mode value");
-         return;
-      }
+        // Initialize the simple ephemeris model.
+        simple_ephemeris->set_name(init.central_point_name);
+        simple_ephemeris->initialize_model(*this);
 
-      // There shouldn't be any ephemerides models registered with the
-      // ephemerides manager, but just in case, disable them and empty the list.
-      clear_added_ephemerides ();
+        // Tell the ephemeris manager to reject subsequent ephemerides.
+        disable_add_ephemeris();
+    }
 
-      // Initialize the simple ephemeris model.
-      simple_ephemeris->set_name (init.central_point_name);
-      simple_ephemeris->initialize_model (*this);
-
-      // Tell the ephemeris manager to reject subsequent ephemerides.
-      disable_add_ephemeris ();
-   }
-
-
-   // Create the default integration group, if needed.
-   if (integ_groups.empty()) {
-
-      // Create the integrator constructor.
-      if (init.integ_constructor != nullptr) {
-         integ_constructor = init.integ_constructor->create_copy();
-      }
-      else {
-         if (init.jeod_integ_opt == er7_utils::Integration::Unspecified) {
-            init.jeod_integ_opt =
-               integ_interface->interpret_integration_type (init.sim_integ_opt);
-            if (init.jeod_integ_opt == er7_utils::Integration::Unspecified) {
-               // FIXME! This will die in the factory. Better to die here.
+    // Create the default integration group, if needed.
+    if(integ_groups.empty())
+    {
+        // Create the integrator constructor.
+        if(init.integ_constructor != nullptr)
+        {
+            integ_constructor = init.integ_constructor->create_copy();
+        }
+        else
+        {
+            if(init.jeod_integ_opt == er7_utils::Integration::Unspecified)
+            {
+                init.jeod_integ_opt = integ_interface->interpret_integration_type(init.sim_integ_opt);
+                if(init.jeod_integ_opt == er7_utils::Integration::Unspecified)
+                {
+                    MessageHandler::fail(__FILE__,
+                                         __LINE__,
+                                         DynManagerMessages::inconsistent_setup,
+                                         "Integration type unspecified.");
+                    return;
+                }
             }
-         }
-         integ_constructor =
-            er7_utils::IntegratorConstructorFactory::create (
-               init.jeod_integ_opt);
-      }
+            integ_constructor = er7_utils::IntegratorConstructorFactory::create(init.jeod_integ_opt);
+        }
 
-
-      // Create the default integration group.
-      if (init.integ_group_constructor != nullptr) {
-         default_integ_group =
-            init.integ_group_constructor->create_group (
-               *this,
-               *integ_constructor,
-               *integ_interface,
-               time_mngr.get_jeod_integration_time());
-      }
-      else {
-         default_integ_group =
-            JEOD_ALLOC_CLASS_OBJECT (
-               DynamicsIntegrationGroup,
-               (*this,
-                *integ_constructor,
-                *integ_interface,
-                time_mngr.get_jeod_integration_time()));
-      }
-   }
+        // Create the default integration group.
+        if(init.integ_group_constructor != nullptr)
+        {
+            default_integ_group = init.integ_group_constructor->create_group(*this,
+                                                                             *integ_constructor,
+                                                                             *integ_interface,
+                                                                             time_mngr.get_jeod_integration_time());
+        }
+        else
+        {
+            default_integ_group = JEOD_ALLOC_CLASS_OBJECT(DynamicsIntegrationGroup,
+                                                          (*this,
+                                                           *integ_constructor,
+                                                           *integ_interface,
+                                                           time_mngr.get_jeod_integration_time()));
+        }
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

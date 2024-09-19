@@ -51,10 +51,8 @@ Purpose: ()
 Library dependencies: ((../src/dyn_body_pendulum_constraint.cc))
 */
 
-
 #ifndef JEOD_DYN_BODY_PENDULUM_CONSTRAINT_HH
 #define JEOD_DYN_BODY_PENDULUM_CONSTRAINT_HH
-
 
 #include "dyn_body_constraint.hh"
 
@@ -65,20 +63,17 @@ Library dependencies: ((../src/dyn_body_pendulum_constraint.cc))
 
 #include <cassert>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class BasePendulumModel;
 
-
 class DynBodyPendulumConstraint : public DynBodyConstraint
 {
-
-    JEOD_MAKE_SIM_INTERFACES(DynBodyPendulumConstraint)
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyPendulumConstraint)
 
 public:
-
     /**
      * Default constructor.
      * Constructs a DynBodyPendulumConstraint modeled by the supplied model.
@@ -86,12 +81,10 @@ public:
      * parameters. The default null pointer should only be used for
      * for simulation checkpoint/restart.
      */
-    DynBodyPendulumConstraint (
-        BasePendulumModel* pendulum_model = nullptr)
-    :
-        DynBodyConstraint(),
-        constrained_mass(&constraint_frame),
-        pendulum_component(&constraint_frame, &constrained_mass, pendulum_model)
+    DynBodyPendulumConstraint(BasePendulumModel * pendulum_model = nullptr)
+        : DynBodyConstraint(),
+          constrained_mass(&constraint_frame),
+          pendulum_component(&constraint_frame, &constrained_mass, pendulum_model)
     {
         n_dimensions = 1;
     }
@@ -101,16 +94,15 @@ public:
      */
     ~DynBodyPendulumConstraint() override = default;
 
-
     /**
      * Activate the constraint.
      */
-    void activate () override;
+    void activate() override;
 
     /**
      * Deactivate the constraint.
      */
-    void deactivate () override;
+    void deactivate() override;
 
     /**
      * Get the known wrench for this constrained object.
@@ -119,7 +111,7 @@ public:
      *   with the effects of all of the pre-constraint wrenches incorporated
      *   into the non_grav_state argument to that function.
      */
-    const Wrench& get_effector_wrench () const override
+    const Wrench & get_effector_wrench() const override
     {
         return pendulum_component.get_effector_wrench();
     }
@@ -129,7 +121,7 @@ public:
      * @return A const reference to the constraint wrench for this object.
      * @note This function is called after the constraint values have been set.
      */
-    const Wrench& get_constraint_wrench () const override
+    const Wrench & get_constraint_wrench() const override
     {
         return pendulum_component.get_constraint_wrench();
     }
@@ -141,7 +133,7 @@ public:
      *   The nonlinear aspects are assumed to be small; they are not
      *   taken into account while solving the constraints equation.
      */
-    const Wrench& get_nonlinear_response_wrench () const override
+    const Wrench & get_nonlinear_response_wrench() const override
     {
         return pendulum_component.get_nonlinear_response_wrench();
     }
@@ -152,9 +144,9 @@ public:
      *   This is not bounds-checked.
      * @return The indexed component constraint.
      */
-    ConstraintComponent* get_component(unsigned index) override
+    ConstraintComponent * get_component(unsigned index) override
     {
-        assert (index == 0);
+        assert(index == 0);
         return &pendulum_component;
     }
 
@@ -163,12 +155,11 @@ public:
      * and the root DynBody.
      * @param vehicle_properties  Various vehicle properties.
      */
-    void update_attachment (
-        const VehicleProperties& vehicle_properties) override
+    void update_attachment(const VehicleProperties & vehicle_properties) override
     {
-        DynBodyConstraint::update_attachment (vehicle_properties);
-        constrained_mass.update_attachment (vehicle_properties);
-        pendulum_component.update_attachment (vehicle_properties);
+        DynBodyConstraint::update_attachment(vehicle_properties);
+        constrained_mass.update_attachment(vehicle_properties);
+        pendulum_component.update_attachment(vehicle_properties);
     }
 
     /**
@@ -180,12 +171,11 @@ public:
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */
-    void setup_constraint(
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) override
+    void setup_constraint(const VehicleProperties & vehicle_properties,
+                          const VehicleNonGravState & non_grav_state) override
     {
-        constrained_mass.setup_constraint (vehicle_properties, non_grav_state);
-        pendulum_component.setup_constraint (vehicle_properties, non_grav_state);
+        constrained_mass.setup_constraint(vehicle_properties, non_grav_state);
+        pendulum_component.setup_constraint(vehicle_properties, non_grav_state);
     }
 
     /**
@@ -193,7 +183,7 @@ public:
      * on transition between modes.
      * This should be called as a scheduled job at the dynamics rate.
      */
-    bool check_for_reset ()
+    bool check_for_reset()
     {
         return pendulum_component.check_for_reset();
     }
@@ -201,33 +191,29 @@ public:
     /**
      * Trigger that the pendulum should be set to its quiescent vertical state,
      */
-    void reset_quiescent ()
+    void reset_quiescent()
     {
-        pendulum_component.reset_quiescent ();
+        pendulum_component.reset_quiescent();
     }
 
     /**
      * Set the points at which the transitions from Cartesian to angular
      * and angular to Cartesian representations occur.
      */
-    void set_transition_points (
-        double new_cos_sq_theta_angular,
-        double new_cos_sq_theta_cartesian)
+    void set_transition_points(double new_cos_sq_theta_angular, double new_cos_sq_theta_cartesian)
     {
-        pendulum_component.set_transition_points (
-            new_cos_sq_theta_angular, new_cos_sq_theta_cartesian);
+        pendulum_component.set_transition_points(new_cos_sq_theta_angular, new_cos_sq_theta_cartesian);
     }
 
     /**
      * Getter for the bob position.
      */
-    const double* get_bob_position () const
+    const double * get_bob_position() const
     {
         return pendulum_component.get_bob_position();
     }
 
 protected:
-
     /**
      * The pendulum as a constrained mass.
      */
@@ -239,11 +225,9 @@ protected:
     PendulumConstraintComponent pendulum_component;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

@@ -12,7 +12,6 @@ ASSUMPTIONS AND LIMITATIONS:
 
 */
 
-
 class AerodynamicDrag;
 #define JEOD_FRIEND_CLASS AerodynamicDrag_aero_model_default_data
 
@@ -22,18 +21,14 @@ class AerodynamicDrag;
 // Unsupported includes
 #include "../include/aero_model.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-AerodynamicDrag_aero_model_default_data::initialize (
-   AerodynamicDrag * AerodynamicDrag_ptr)
+namespace jeod
 {
-   AerodynamicDrag_ptr->param.gas_const = 287;
-   AerodynamicDrag_ptr->param.temp_free_stream = 1487;
-   AerodynamicDrag_ptr->active = true;
 
+void AerodynamicDrag_aero_model_default_data::initialize(AerodynamicDrag * AerodynamicDrag_ptr)
+{
+    AerodynamicDrag_ptr->param.gas_const = 287;
+    AerodynamicDrag_ptr->param.temp_free_stream = 1487;
+    AerodynamicDrag_ptr->active = true;
 }
-} // End JEOD namespace
+} // namespace jeod

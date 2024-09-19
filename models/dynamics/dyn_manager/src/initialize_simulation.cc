@@ -24,7 +24,6 @@ Library dependencies:
 
 ******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -37,127 +36,114 @@ Library dependencies:
 #include "../include/dyn_manager.hh"
 #include "../include/dyn_manager_messages.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Complete initialization of the JEOD manager model.
  */
-void
-DynManager::initialize_simulation (
-   void)
+void DynManager::initialize_simulation()
 {
+    // Sanity check:
+    // There should be an overarching Gravity Manager for the simulation for all
+    // but non-empty space simulations and planet-based sims with no gravity.
+    // (That there is only one Gravity Manager is enforced elsewhere.)
+    if((mode != DynManagerInit::EphemerisMode_EmptySpace) && (gravity_manager == nullptr) && (!gravity_off))
+    {
+        MessageHandler::warn(__FILE__,
+                             __LINE__,
+                             DynManagerMessages::inconsistent_setup,
+                             "A Gravity Manager has not been registered with the dynamics manager\n"
+                             "for a simulation that involves planets and dynamic bodies.\n"
+                             "Gravity will not be calculated for this simulation.\n"
+                             "Please check the order in which initialization jobs are called.");
+    }
 
-   // Sanity check:
-   // There should be an overarching Gravity Manager for the simulation for all
-   // but non-empty space simulations and planet-based sims with no gravity.
-   // (That there is only one Gravity Manager is enforced elsewhere.)
-   if ((mode != DynManagerInit::EphemerisMode_EmptySpace) &&
-       (gravity_manager == nullptr) &&
-       (! gravity_off)) {
-      MessageHandler::warn (
-         __FILE__, __LINE__, DynManagerMessages::inconsistent_setup,
-         "A Gravity Manager has not been registered with the dynamics manager\n"
-         "for a simulation that involves planets and dynamic bodies.\n"
-         "Gravity will not be calculated for this simulation.\n"
-         "Please check the order in which initialization jobs are called.");
-   }
+    // Initialize the ephemerides.
+    initialize_ephemerides();
 
+    // Initialize the gravity controls for each dynamic body.
+    if(gravity_manager != nullptr)
+    {
+        initialize_gravity_controls();
+    }
 
-   // Initialize the ephemerides.
-   initialize_ephemerides ();
+    // Check that each subscribed frame has an owner.
+    check_ref_frame_ownership();
 
-   // Initialize the gravity controls for each dynamic body.
-   if (gravity_manager != nullptr) {
-      initialize_gravity_controls ();
-   }
+    // Compute ephemerides for active planets.
+    activate_ephemerides();
 
-   // Check that each subscribed frame has an owner.
-   check_ref_frame_ownership ();
+    // Update the ephemerides.
+    update_ephemerides();
 
-   // Compute ephemerides for active planets.
-   activate_ephemerides ();
+    // Initialize the gravitational bodies.
+    if(gravity_manager != nullptr)
+    {
+        gravity_manager->initialize_state(*this);
+    }
 
-   // Update the ephemerides.
-   update_ephemerides ();
+    // Initialize the integration groups.
+    initialize_integ_groups();
 
-   // Initialize the gravitational bodies.
-   if (gravity_manager != nullptr) {
-      gravity_manager->initialize_state (*this);
-   }
+    // Initialize the dynamic bodies.
+    initialize_dyn_bodies();
 
-   // Initialize the integration groups.
-   initialize_integ_groups ();
-
-   // Initialize the dynamic bodies.
-   initialize_dyn_bodies ();
-
-   // Indicate that initialization has been completed.
-   initialized = true;
-
-   return;
+    // Indicate that initialization has been completed.
+    initialized = true;
 }
-
 
 /**
  * Complete initialization of the initialization groups.
  */
-void
-DynManager::initialize_integ_groups (
-   void)
+void DynManager::initialize_integ_groups()
 {
-   // Initialize the integration groups.
-   // Monolithic mode (no external groups registered):
-   // Initialize the default group.
-   if (integ_groups.empty()) {
-      default_integ_group->initialize_group (*this);
-   }
+    // Initialize the integration groups.
+    // Monolithic mode (no external groups registered):
+    // Initialize the default group.
+    if(integ_groups.empty())
+    {
+        default_integ_group->initialize_group(*this);
+    }
 
-   // Multiple integrators mode:
-   // Initialize each integration group.
-   // The default group is left uninitialized.
-   else {
-      for (std::vector<DynamicsIntegrationGroup *>::iterator it =
-              integ_groups.begin();
-           it != integ_groups.end();
-           ++it) {
-         DynamicsIntegrationGroup * group = *it;
-         group->initialize_group (*this);
-      }
-   }
+    // Multiple integrators mode:
+    // Initialize each integration group.
+    // The default group is left uninitialized.
+    else
+    {
+        for(auto group : integ_groups)
+        {
+            group->initialize_group(*this);
+        }
+    }
 }
-
 
 /**
  * Add DynBody objects to the default integration group.
  * @param[in,out] group  Group to be updated
-*/
-void
-DynManager::update_integration_group (
-   JeodIntegrationGroup & group)
+ */
+void DynManager::update_integration_group(JeodIntegrationGroup & group)
 {
-   // The group should be the default integration group.
-   // This is one of those "this should never happen" kind of errors.
-   if (&group != default_integ_group) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, DynManagerMessages::inconsistent_setup,
-         "Internal error.");
-   }
+    // The group should be the default integration group.
+    // This is one of those "this should never happen" kind of errors.
+    if(&group != default_integ_group)
+    {
+        MessageHandler::fail(__FILE__, __LINE__, DynManagerMessages::inconsistent_setup, "Internal error.");
+    }
 
-   // Add each body that doesn't have an integrator to the default group.
-   for (std::vector<DynBody *>::const_iterator it = dyn_bodies.begin();
-        it != dyn_bodies.end();
-        ++it) {
-      DynBody * body = *it;
-      if (body->get_integration_group() == nullptr) {
-         default_integ_group->add_dyn_body (*body);
-      }
-   }
+    // Add each body that doesn't have an integrator to the default group.
+    for(std::vector<DynBody *>::const_iterator it = dyn_bodies.begin(); it != dyn_bodies.end(); ++it)
+    {
+        DynBody * body = *it;
+        if(body->get_integration_group() == nullptr)
+        {
+            default_integ_group->add_dyn_body(*body);
+        }
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

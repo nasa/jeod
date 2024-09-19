@@ -51,7 +51,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -68,9 +68,9 @@ Purpose:
 #include <cstddef>
 #include <vector>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
 Members unique to std::vector:
@@ -81,165 +81,146 @@ operator[]
 at
 */
 
-
 /**
  * The JEOD replacement for std::vector.
  */
-template <typename ElemType>
-class JeodVector :
-    public JeodSequenceContainer< ElemType, std::vector<ElemType> > {
-
+template<typename ElemType> class JeodVector : public JeodSequenceContainer<ElemType, std::vector<ElemType>>
+{
 public:
+    // Types
 
-   // Types
+    /**
+     * This particular JeodVector type.
+     */
+    using this_container_type = JeodVector<ElemType>;
 
-   /**
-    * This particular JeodVector type.
-    */
-   typedef JeodVector<ElemType> this_container_type;
+    /**
+     * The JeodSequenceContainer type.
+     */
+    using jeod_sequence_container_type = JeodSequenceContainer<ElemType, std::vector<ElemType>>;
 
-   /**
-    * The JeodSequenceContainer type.
-    */
-   typedef JeodSequenceContainer< ElemType, std::vector<ElemType> >
-      jeod_sequence_container_type;
+    /**
+     * The JeodSTLContainer type.
+     */
+    using jeod_stl_container_type = JeodSTLContainer<ElemType, std::vector<ElemType>>;
 
-   /**
-    * The JeodSTLContainer type.
-    */
-   typedef JeodSTLContainer<ElemType, std::vector<ElemType> >
-      jeod_stl_container_type;
+    /**
+     * The std::vector itself.
+     */
+    using stl_container_type = std::vector<ElemType>;
 
-   /**
-    * The std::vector itself.
-    */
-   typedef std::vector<ElemType> stl_container_type;
+    // Member functions
 
+    // Constructors and destructors
+    // NOTE: The constructors are protected. See jeod_stl_container.hh.
 
-   // Member functions
+    /**
+     * Destructor.
+     */
+    virtual ~JeodVector() = default;
 
-   // Constructors and destructors
-   // NOTE: The constructors are protected. See jeod_stl_container.hh.
+    // Assignment operators
 
-   /**
-    * Destructor.
-    */
-   virtual ~JeodVector (void) {}
+    /**
+     * Copy contents from the given source.
+     */
+    JeodVector & operator=(const this_container_type & src)
+    {
+        jeod_stl_container_type::operator=(src);
+        return *this;
+    }
 
-   // Assignment operators
+    /**
+     * Copy contents from the given source.
+     */
+    JeodVector & operator=(const stl_container_type & src)
+    {
+        jeod_stl_container_type::operator=(src);
+        return *this;
+    }
 
-   /**
-    * Copy contents from the given source.
-    */
-   JeodVector &
-   operator= (const this_container_type & src)
-   {
-      jeod_stl_container_type::operator= (src);
-      return *this;
-   }
+    // Capacity
 
-   /**
-    * Copy contents from the given source.
-    */
-   JeodVector &
-   operator= (const stl_container_type & src)
-   {
-      jeod_stl_container_type::operator= (src);
-      return *this;
-   }
+    /**
+     * Returns the size of the allocated storage space for the vector.
+     */
+    typename jeod_stl_container_type::size_type capacity() const
+    {
+        return this->contents.capacity();
+    }
 
+    /**
+     * Requests that the capacity of the allocated storage space
+     * be made large enough to hold at least @a n elements.
+     */
+    void reserve(typename jeod_stl_container_type::size_type n)
+    {
+        this->contents.reserve(n);
+    }
 
-   // Capacity
+    // Element access
 
-   /**
-    * Returns the size of the allocated storage space for the vector.
-    */
-   typename jeod_stl_container_type::size_type
-   capacity (void) const
-   {
-      return this->contents.capacity();
-   }
+    /**
+     * Get the nth element of the vector.
+     * @return Nth element of the vector.
+     */
+    typename stl_container_type::reference operator[](std::size_t n)
+    {
+        return this->contents[n];
+    }
 
-   /**
-    * Requests that the capacity of the allocated storage space
-    * be made large enough to hold at least @a n elements.
-    */
-   void
-   reserve (
-      typename jeod_stl_container_type::size_type n)
-   {
-      this->contents.reserve(n);
-   }
+    /**
+     * Get the nth element of the vector.
+     * @return Nth element of the vector.
+     */
+    typename stl_container_type::const_reference operator[](std::size_t n) const
+    {
+        return this->contents[n];
+    }
 
+    /**
+     * Get the nth element of the vector, throwing exception if out of range.
+     * @return Nth element of the vector.
+     */
+    typename stl_container_type::reference at(std::size_t n)
+    {
+        return this->contents.at(n);
+    }
 
-   // Element access
-
-   /**
-    * Get the nth element of the vector.
-    * @return Nth element of the vector.
-    */
-   typename stl_container_type::reference
-   operator[] (std::size_t n)
-   {
-      return this->contents[n];
-   }
-
-   /**
-    * Get the nth element of the vector.
-    * @return Nth element of the vector.
-    */
-   typename stl_container_type::const_reference
-   operator[] (std::size_t n) const
-   {
-      return this->contents[n];
-   }
-
-   /**
-    * Get the nth element of the vector, throwing exception if out of range.
-    * @return Nth element of the vector.
-    */
-   typename stl_container_type::reference
-   at (std::size_t n)
-   {
-      return this->contents.at(n);
-   }
-
-   /**
-    * Get the nth element of the vector, throwing exception if out of range.
-    * @return Nth element of the vector.
-    */
-   typename stl_container_type::const_reference
-   at (std::size_t n) const
-   {
-      return this->contents.at(n);
-   }
-
+    /**
+     * Get the nth element of the vector, throwing exception if out of range.
+     * @return Nth element of the vector.
+     */
+    typename stl_container_type::const_reference at(std::size_t n) const
+    {
+        return this->contents.at(n);
+    }
 
 protected:
+    /**
+     * Default constructor.
+     */
+    JeodVector() = default;
 
-   /**
-    * Default constructor.
-    */
-   JeodVector (void) {}
+    /**
+     * Copy constructor.
+     */
+    explicit JeodVector(const this_container_type & src)
+        : jeod_sequence_container_type(src)
+    {
+    }
 
-   /**
-    * Copy constructor.
-    */
-   JeodVector (const this_container_type & src)
-   : jeod_sequence_container_type (src)
-   {}
-
-   /**
-    * Copy constructor from STL container.
-    * @param src Source container to be copied
-    */
-   explicit JeodVector (const stl_container_type & src)
-   : jeod_sequence_container_type (src)
-   {}
+    /**
+     * Copy constructor from STL container.
+     * @param src Source container to be copied
+     */
+    explicit JeodVector(const stl_container_type & src)
+        : jeod_sequence_container_type(src)
+    {
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

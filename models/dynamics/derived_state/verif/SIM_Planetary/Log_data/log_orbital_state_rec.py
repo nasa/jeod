@@ -3,7 +3,7 @@ def log_3_vec( drg, var):
     drg.add_variable(var+"["+str(ii)+"]")
 
 
-dr_group = trick.sim_services.DRAscii("V_1_State")
+dr_group = trick.sim_services.DRBinary("V_1_State")
 dr_group.set_cycle(12)
 dr_group.freq = trick.sim_services.DR_Always
 

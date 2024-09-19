@@ -9,5 +9,5 @@ env.spice.add_orientation("Itokawa")
 env.spice.add_orientation("Phobos")
 
 # Log the results
-exec(compile(open("../Log_data/phobos.dr", "rb").read(), "../Log_data/phobos.dr", 'exec'))
-exec(compile(open("../Log_data/itokawa.dr", "rb").read(), "../Log_data/itokawa.dr", 'exec'))
+exec(compile(open("../Log_data/phobos.py", "rb").read(), "../Log_data/phobos.py", 'exec'))
+exec(compile(open("../Log_data/itokawa.py", "rb").read(), "../Log_data/itokawa.py", 'exec'))

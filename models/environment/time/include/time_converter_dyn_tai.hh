@@ -73,9 +73,9 @@ Library dependencies:
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeDyn;
 class TimeTAI;
@@ -85,48 +85,38 @@ class JeodBaseTime;
  * Define class TimeConverter_Dyn_TAI, which converts from simulation dynamic
  * time to International Atomic Time.
  */
-class TimeConverter_Dyn_TAI : public TimeConverter {
-
-
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_Dyn_TAI)
-// Member Data
+class TimeConverter_Dyn_TAI : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_Dyn_TAI)
+    // Member Data
 private:
-   /**
-    * Converter parent time, always a TimeDyn for this converter.
-    */
-  TimeDyn * dyn_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeDyn for this converter.
+     */
+    TimeDyn * dyn_ptr{}; //!< trick_units(--)
 
-   /**
-    * Converter child time, always a TimeTAI for this converter.
-    */
-  TimeTAI * tai_ptr; //!< trick_units(--)
+    /**
+     * Converter child time, always a TimeTAI for this converter.
+     */
+    TimeTAI * tai_ptr{}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_Dyn_TAI ();
-  // Destructor
-   ~TimeConverter_Dyn_TAI () override;
+    TimeConverter_Dyn_TAI();
+    ~TimeConverter_Dyn_TAI() override = default;
+    TimeConverter_Dyn_TAI(const TimeConverter_Dyn_TAI &) = delete;
+    TimeConverter_Dyn_TAI & operator=(const TimeConverter_Dyn_TAI &) = delete;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the direct
-   void convert_a_to_b (void) override;
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeConverter_Dyn_TAI (const TimeConverter_Dyn_TAI&);
-   TimeConverter_Dyn_TAI & operator = (const TimeConverter_Dyn_TAI&);
+    // convert_a_to_b: Apply the converter in the direct
+    void convert_a_to_b() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

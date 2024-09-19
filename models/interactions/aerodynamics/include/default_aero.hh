@@ -66,90 +66,78 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class AeroDragParameters;
 
 /*
   Purpose:
-    (Gives different options for calculating basic drag in the default, simple aero model. These include coefficient of drag, ballistic coefficient, etc.)
+    (Gives different options for calculating basic drag in the default, simple aero model. These include coefficient of
+  drag, ballistic coefficient, etc.)
  */
-
 
 /**
  * The simple, default, aerodynamic drag model, including
  * coefficient of drag, ballistic coefficient, etc. This can be
  * overriden with a user defined model in the AerodynamicDrag class.
  */
-class DefaultAero {
-
-   JEOD_MAKE_SIM_INTERFACES(DefaultAero)
+class DefaultAero
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DefaultAero)
 
 public:
+    /**
+     * Specifies how drag is to be computed.
+     */
+    enum DragOption
+    {
+        DRAG_OPT_CD = 0,   /**< Use Coefficient of drag for drag computations. */
+        DRAG_OPT_BC = 1,   /**< Use Ballistic Coefficient for drag computations. */
+        DRAG_OPT_CONST = 2 /**< Use specified constant drag. */
+    };
 
-   /**
-    * Specifies how drag is to be computed.
-    */
-   enum DragOption {
-      DRAG_OPT_CD = 0,   /**< Use Coefficient of drag for drag computations. */
-      DRAG_OPT_BC = 1,   /**< Use Ballistic Coefficient for drag computations. */
-      DRAG_OPT_CONST = 2 /**< Use specified constant drag. */
-   };
+    DefaultAero() = default;
+    virtual ~DefaultAero() = default;
+    DefaultAero & operator=(const DefaultAero &) = delete;
+    DefaultAero(const DefaultAero &) = delete;
 
-   // constructor
-   DefaultAero ();
+    // Calculates the aerodynamic drag force and torque on a vehicle, given
+    // the necessary parameters
+    virtual void aerodrag_force(const double velocity_mag,
+                                const double rel_vel_hat[3],
+                                AeroDragParameters * aero_drag_param_ptr,
+                                double mass,
+                                double force[3],
+                                double torque[3]);
 
-   // destructor
-   virtual ~DefaultAero ();
+    /**
+     * Coefficient of drag
+     */
+    double Cd{}; //!< trick_units(--)
+    /**
+     * Ballistic Coefficient
+     */
+    double BC{}; //!< trick_units(kg/m2)
+    /**
+     * Vehicle aerodynamic area.
+     */
+    double area{}; //!< trick_units(m2)
 
-   // Calculates the aerodynamic drag force and torque on a vehicle, given
-   // the necessary parameters
-   virtual void aerodrag_force (
-      const double velocity_mag,
-      const double rel_vel_hat[3],
-      AeroDragParameters* aero_drag_param_ptr,
-      double mass,
-      double force[3],
-      double torque[3]);
+    /**
+     * Drag calculated during use. Can be set by user and
+     * will then never be changed with a DRAG_OPT_CONST
+     */
+    double drag{}; //!< trick_units(N)
 
-   /**
-    * Coefficient of drag
-    */
-   double Cd; //!< trick_units(--)
-   /**
-    * Ballistic Coefficient
-    */
-   double BC; //!< trick_units(kg/m2)
-   /**
-    * Vehicle aerodynamic area.
-    */
-   double area; //!< trick_units(m2)
-
-   /**
-    * Drag calculated during use. Can be set by user and
-    * will then never be changed with a DRAG_OPT_CONST
-    */
-   double drag; //!< trick_units(N)
-
-   /**
-    * The type of simple drag to use
-    */
-   DragOption option; //!< trick_units(--)
-
-
-protected:
-
-private:
-
-   // Operator = and copy constructor locked away from use
-   DefaultAero& operator = (const DefaultAero& rhs);
-   DefaultAero (const DefaultAero& rhs);
-
+    /**
+     * The type of simple drag to use
+     */
+    DragOption option{DRAG_OPT_CONST}; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

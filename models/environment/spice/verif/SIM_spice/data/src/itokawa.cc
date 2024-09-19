@@ -25,19 +25,16 @@ class Planet;
 // Unsupported includes
 #include "../include/itokawa.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-Planet_itokawa_default_data::initialize (
-   Planet * Planet_ptr)
+namespace jeod
 {
-   Planet_ptr->name = "Itokawa";
 
-   // Geometric mean of two longest dimensions
-   Planet_ptr->r_eq =396.6;
-   Planet_ptr->r_pol =209.0;
+void Planet_itokawa_default_data::initialize(Planet * Planet_ptr)
+{
+    Planet_ptr->name = "Itokawa";
+
+    // Geometric mean of two longest dimensions
+    Planet_ptr->r_eq = 396.6;
+    Planet_ptr->r_pol = 209.0;
 }
-} // End JEOD namespace
+} // namespace jeod

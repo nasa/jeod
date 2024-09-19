@@ -59,15 +59,14 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_ORB_ELEM_DERIVED_STATE_HH
 #define JEOD_ORB_ELEM_DERIVED_STATE_HH
 
 // System includes
 
 // JEOD includes
-#include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "dynamics/dyn_body/include/class_declarations.hh"
+#include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "environment/planet/include/class_declarations.hh"
 #include "utils/orbital_elements/include/orbital_elements.hh"
 #include "utils/ref_frames/include/ref_frame_state.hh"
@@ -76,95 +75,81 @@ Library dependencies:
 // Model includes
 #include "derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used for deriving the orbital elements representation
  * of a subject DynBody's position.
  */
-class OrbElemDerivedState : public DerivedState {
+class OrbElemDerivedState : public DerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, OrbElemDerivedState)
 
- JEOD_MAKE_SIM_INTERFACES(OrbElemDerivedState)
+    // Member data
 
+public:
+    /**
+     * The orbital elements of the subject body with respect to the planet
+     * specified by the reference name.
+     */
+    OrbitalElements elements; //!< trick_units(--)
 
- // Member data
+    /**
+     * The planet, the name of which is specified by the inherited
+     * reference_name data member.
+     */
+    Planet * planet{}; //!< trick_units(--)
 
- public:
+protected:
+    /**
+     * Use inertial or alt_inertial flag
+     */
+    bool use_alt_inertial{};
 
-   /**
-    * The orbital elements of the subject body with respect to the planet
-    * specified by the reference name.
-    */
-   OrbitalElements elements; //!< trick_units(--)
+    /**
+     * Pointer to planet inertial frame to be used, either
+     * inertial or alt_inertial
+     */
+    EphemerisRefFrame * inertial_ptr{};
 
-   /**
-    * The planet, the name of which is specified by the inherited
-    * reference_name data member.
-    */
-   Planet * planet; //!< trick_units(--)
+    /**
+     * Relative state; only used when the vehicle integration from is not the
+     * planet-centered inertial frame.
+     */
+    RefFrameState rel_state; //!< trick_units(--)
 
- protected:
+    // Methods
 
-   /**
-    * Use inertial or alt_inertial flag
-    */
-   bool use_alt_inertial;
+public:
+    // Default constructor and destructor
+    OrbElemDerivedState() = default;
+    ~OrbElemDerivedState() override;
+    OrbElemDerivedState(const OrbElemDerivedState &) = delete;
+    OrbElemDerivedState & operator=(const OrbElemDerivedState &) = delete;
 
-   /**
-    * Pointer to planet inertial frame to be used, either 
-    * inertial or alt_inertial
-    */
-   EphemerisRefFrame * inertial_ptr;
+    // Setter for use_alt_inertial
+    void set_use_alt_inertial(const bool use_alt_inertial_in);
 
-   /**
-    * Relative state; only used when the vehicle integration from is not the
-    * planet-centered inertial frame.
-    */
-   RefFrameState rel_state; //!< trick_units(--)
+    // initialize(): Initialize the DerivedState (but not necessarily the
+    // state itself.)
+    // Rules for derived classes:
+    // All derived classes must forward the initialize() call to the immediate
+    // parent class and then perform class-dependent object initializations.
+    void initialize(DynBody & subject_body, DynManager & dyn_manager) override;
 
+    // update(): Update the DerivedState representation of the subject DynBody.
+    // Rules for derived classes:
+    // All derived classes must perform class-dependent actions and then
+    // must forward the update() call to the immediate parent class.
+    void update() override;
 
- // Methods
-
- public:
-
-   // Default constructor and destructor
-   OrbElemDerivedState ();
-   ~OrbElemDerivedState () override;
-
-   // Setter for use_alt_inertial
-   void set_use_alt_inertial (const bool use_alt_inertial_in);
-
-   // initialize(): Initialize the DerivedState (but not necessarily the
-   // state itself.)
-   // Rules for derived classes:
-   // All derived classes must forward the initialize() call to the immediate
-   // parent class and then perform class-dependent object initializations.
-   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
-
-   // update(): Update the DerivedState representation of the subject DynBody.
-   // Rules for derived classes:
-   // All derived classes must perform class-dependent actions and then
-   // must forward the update() call to the immediate parent class.
-   void update (void) override;
-
-
- protected:
-
-   void compute_orbital_elements (const RefFrameTrans & rel_trans);
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   OrbElemDerivedState (const OrbElemDerivedState&);
-   OrbElemDerivedState & operator = (const OrbElemDerivedState&);
-
+protected:
+    void compute_orbital_elements(const RefFrameTrans & rel_trans);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "environment/planet/include/planet.hh"

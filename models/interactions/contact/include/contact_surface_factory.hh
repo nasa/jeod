@@ -68,69 +68,56 @@ Library dependencies:
 
 /* JEOD includes */
 #include "utils/sim_interface/include/jeod_class.hh"
-#include "utils/surface_model/include/interaction_surface_factory.hh"
 #include "utils/surface_model/include/class_declarations.hh"
+#include "utils/surface_model/include/interaction_surface_factory.hh"
 
 /* Model includes */
-#include "point_contact_facet_factory.hh"
 #include "line_contact_facet_factory.hh"
+#include "point_contact_facet_factory.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The surface factory that creates an contact specific surface from a
  * general surface. Used with the surface model.
  */
-class ContactSurfaceFactory : public InteractionSurfaceFactory {
-
-
-   JEOD_MAKE_SIM_INTERFACES (ContactSurfaceFactory)
+class ContactSurfaceFactory : public InteractionSurfaceFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ContactSurfaceFactory)
 
 public:
+    ContactSurfaceFactory();
+    ~ContactSurfaceFactory() override = default;
+    ContactSurfaceFactory & operator=(const ContactSurfaceFactory &) = delete;
+    ContactSurfaceFactory(const ContactSurfaceFactory &) = delete;
 
-   // constructor
-   ContactSurfaceFactory ();
+    // Creates the interaction surface from a base surface model
+    void create_surface(SurfaceModel * surface, InteractionSurface * inter_surface) override;
 
-   // destructor
-   ~ContactSurfaceFactory () override;
-
-   // Creates the interaction surface from a base surface model
-   void create_surface (
-      SurfaceModel* surface, InteractionSurface* inter_surface) override;
-
-   // Add a set of facet params to the ContactSurfaceFactory.
-   // The type of FacetParams MUST be ContactParams, or the function
-   // will fail.
-   void add_facet_params (FacetParams* to_add) override;
+    // Add a set of facet params to the ContactSurfaceFactory.
+    // The type of FacetParams MUST be ContactParams, or the function
+    // will fail.
+    void add_facet_params(FacetParams * to_add) override;
 
 protected:
+    // Included so JEOD can include all default facet factories that
+    // it knows about. For extensibility the user can add
+    // factories with add_facet_factory
 
-   // Included so JEOD can include all default facet factories that
-   // it knows about. For extensibility the user can add
-   // factories with add_facet_factory
+    /**
+     * A factory that can create a point contact facet from a circular flat plate.
+     */
+    PointContactFacetFactory point_contact_facet_factory; //!< trick_units(--)
 
-   /**
-    * A factory that can create a point contact facet from a circular flat plate.
-    */
-   PointContactFacetFactory point_contact_facet_factory;  //!< trick_units(--)
-
-   /**
-    * A factory that can create a line contact facet from a cylinder.
-    */
-   LineContactFacetFactory line_contact_facet_factory;  //!< trick_units(--)
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   ContactSurfaceFactory& operator = (const ContactSurfaceFactory & rhs);
-   ContactSurfaceFactory (const ContactSurfaceFactory & rhs);
-
+    /**
+     * A factory that can create a line contact facet from a cylinder.
+     */
+    LineContactFacetFactory line_contact_facet_factory; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

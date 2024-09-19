@@ -50,38 +50,36 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_NUMERICAL_H
 #define JEOD_NUMERICAL_H
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides miscellaneous numerical functions.
  */
-class Numerical {
+class Numerical
+{
+public:
+    // Absolute value
+    static double fabs(double x);
 
- public:
+    // Square of a number, with underflow protection
+    static double square(double value);
 
-   // Absolute value
-   static double fabs (double x);
+    // Increment by the square of a number, with underflow protection
+    static double square_incr(double value, double & sum);
 
-   // Square of a number, with underflow protection
-   static double square (double value);
-
-   // Increment by the square of a number, with underflow protection
-   static double square_incr (double value, double & sum);
-
-   //Exact comparison between variables
-   static bool compare_exact (double x, double y);
+    // Exact comparison between variables
+    static bool compare_exact(double x, double y);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #include "numerical_inline.hh"
 

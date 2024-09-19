@@ -11,14 +11,14 @@ exec(compile(open("Modified_data/setup.py", "rb").read(), "Modified_data/setup.p
 set_setup()
 
 # Use Gauss-Jackson.
-integ_constructor.constructor = integ_constructor.gj_constructor;
+integ_constructor.constructor = integ_constructor.gj_constructor
 
 # Run the sim for 150 years and 30 days.
 trick.stop(86400*(365*150+30))
 
 # Switch to propagated mode immediately after initialization.
 trick.add_read(0 , """
-sun.switch_to_propagated();
-jupiter.switch_to_propagated();
-saturn.switch_to_propagated();
+sun.switch_to_propagated()
+jupiter.switch_to_propagated()
+saturn.switch_to_propagated()
 """)

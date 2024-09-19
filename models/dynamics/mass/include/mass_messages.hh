@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASSBODY_MESSAGES_HH
 #define JEOD_MASSBODY_MESSAGES_HH
 
@@ -68,9 +67,9 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specify the message IDs used in the MassBody model.
@@ -79,69 +78,62 @@ namespace jeod {
  *  - This is a complete catalog of all the messages sent by the MassBody model.
  *  - This is not an exhaustive list of all the things that can go awry.
  */
-class MassBodyMessages {
+class MassBodyMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MassBodyMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued to provide information regarding an attachment.
+     */
+    static const char * attach_info; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(MassBodyMessages)
+    /**
+     * Issued when an attachment cannot be performed as requested.
+     */
+    static const char * invalid_attach; //!< trick_units(--)
 
+    /**
+     * Issued when a detachment cannot be performed as requested.
+     */
+    static const char * invalid_detach; //!< trick_units(--)
 
- // Static member data
- public:
-   /**
-    * Issued to provide information regarding an attachment.
-    */
-   static char const * attach_info; //!< trick_units(--)
+    /**
+     * Issued when a node does not have expected linkages.
+     */
+    static const char * invalid_node; //!< trick_units(--)
 
-   /**
-    * Issued when an attachment cannot be performed as requested.
-    */
-   static char const * invalid_attach; //!< trick_units(--)
+    /**
+     * Issued when a name is invalid -- NULL, empty, a duplicate, ...
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
-   /**
-    * Issued when a detachment cannot be performed as requested.
-    */
-   static char const * invalid_detach; //!< trick_units(--)
+    /**
+     * Issued when a enum value is not one of the enumerated values.
+     */
+    static const char * invalid_enum; //!< trick_units(--)
 
-   /**
-    * Issued when a node does not have expected linkages.
-    */
-   static char const * invalid_node; //!< trick_units(--)
+    /**
+     * Issued when an I/O error occurs.
+     */
+    static const char * io_error; //!< trick_units(--)
 
-   /**
-    * Issued when a name is invalid -- NULL, empty, a duplicate, ...
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Error issued when some internal error occurred.
+     * These errors should never happen.
+     */
+    static const char * internal_error; //!< trick_units(--)
 
-   /**
-    * Issued when a enum value is not one of the enumerated values.
-    */
-   static char const * invalid_enum; //!< trick_units(--)
-
-   /**
-    * Issued when an I/O error occurs.
-    */
-   static char const * io_error; //!< trick_units(--)
-
-   /**
-    * Error issued when some internal error occurred.
-    * These errors should never happen.
-    */
-   static char const * internal_error; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   MassBodyMessages (void);
-   MassBodyMessages (const MassBodyMessages &);
-   MassBodyMessages & operator= (const MassBodyMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    MassBodyMessages() = delete;
+    MassBodyMessages(const MassBodyMessages &) = delete;
+    MassBodyMessages & operator=(const MassBodyMessages &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

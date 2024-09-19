@@ -59,10 +59,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_CONTAINER_COMPARATORS_H
 #define JEOD_MEMORY_CONTAINER_COMPARATORS_H
@@ -72,7 +71,6 @@ Purpose:
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
-
 
 // The 18 functions can be defined a bit more easily with macros.
 // In fact, the 18 functions *were* defined with macros.
@@ -96,7 +94,7 @@ Purpose:
  * Cast a JEOD container to its STL equivalent.
  * @param x Argument.
  */
-#define JEOD_CONTAINER_CAST_TO_STL(x) static_cast<const ContainerType&>(x)
+#define JEOD_CONTAINER_CAST_TO_STL(x) static_cast<const ContainerType &>(x)
 
 
 // Next define three macros that generate function templates to compare
@@ -109,36 +107,37 @@ Purpose:
  * a JEOD container to an STL container.
  * @param op Comparison operator
  */
-#define JEOD_CONTAINER_GENERATE_JEOD_TO_STL_COMPARATOR(op) \
-   template <typename ElemType, typename ContainerType> \
-   inline bool operator op ( \
-      const jeod::JeodSTLContainer<ElemType, ContainerType> & x, \
-      const ContainerType & y) \
-   { return JEOD_CONTAINER_CAST_TO_STL(x) op y; }
+#define JEOD_CONTAINER_GENERATE_JEOD_TO_STL_COMPARATOR(op)                                                             \
+    template<typename ElemType, typename ContainerType>                                                                \
+    inline bool operator op(const jeod::JeodSTLContainer<ElemType, ContainerType> & x, const ContainerType & y)        \
+    {                                                                                                                  \
+        return JEOD_CONTAINER_CAST_TO_STL(x) op y;                                                                     \
+    }
 
 /**
  * Generate a comparison operator function template that compares
  * an STL container to a JEOD container.
  * @param op Comparison operator
  */
-#define JEOD_CONTAINER_GENERATE_STL_TO_JEOD_COMPARATOR(op) \
-   template <typename ElemType, typename ContainerType> \
-   inline bool operator op ( \
-      const ContainerType & x, \
-      const jeod::JeodSTLContainer<ElemType, ContainerType> & y) \
-   { return x op JEOD_CONTAINER_CAST_TO_STL(y); }
+#define JEOD_CONTAINER_GENERATE_STL_TO_JEOD_COMPARATOR(op)                                                             \
+    template<typename ElemType, typename ContainerType>                                                                \
+    inline bool operator op(const ContainerType & x, const jeod::JeodSTLContainer<ElemType, ContainerType> & y)        \
+    {                                                                                                                  \
+        return x op JEOD_CONTAINER_CAST_TO_STL(y);                                                                     \
+    }
 
 /**
  * Generate a comparison operator function template that compares
  * a JEOD container to a JEOD container.
  * @param op Comparison operator
  */
-#define JEOD_CONTAINER_GENERATE_JEOD_TO_JEOD_COMPARATOR(op) \
-   template <typename ElemType, typename ContainerType> \
-   inline bool operator op ( \
-      const jeod::JeodSTLContainer<ElemType, ContainerType> & x, \
-      const jeod::JeodSTLContainer<ElemType, ContainerType> & y) \
-   { return JEOD_CONTAINER_CAST_TO_STL(x) op JEOD_CONTAINER_CAST_TO_STL(y); }
+#define JEOD_CONTAINER_GENERATE_JEOD_TO_JEOD_COMPARATOR(op)                                                            \
+    template<typename ElemType, typename ContainerType>                                                                \
+    inline bool operator op(const jeod::JeodSTLContainer<ElemType, ContainerType> & x,                                 \
+                            const jeod::JeodSTLContainer<ElemType, ContainerType> & y)                                 \
+    {                                                                                                                  \
+        return JEOD_CONTAINER_CAST_TO_STL(x) op JEOD_CONTAINER_CAST_TO_STL(y);                                         \
+    }
 
 
 // Next define a macro that simply invokes the above three macros.
@@ -148,10 +147,10 @@ Purpose:
  * for a given operator.
  * @param op Comparison operator
  */
-#define JEOD_CONTAINER_GENERATE_THREE_COMPARATORS(op) \
-   JEOD_CONTAINER_GENERATE_JEOD_TO_STL_COMPARATOR (op) \
-   JEOD_CONTAINER_GENERATE_STL_TO_JEOD_COMPARATOR (op) \
-   JEOD_CONTAINER_GENERATE_JEOD_TO_JEOD_COMPARATOR (op)
+#define JEOD_CONTAINER_GENERATE_THREE_COMPARATORS(op)                                                                  \
+    JEOD_CONTAINER_GENERATE_JEOD_TO_STL_COMPARATOR(op)                                                                 \
+    JEOD_CONTAINER_GENERATE_STL_TO_JEOD_COMPARATOR(op)                                                                 \
+    JEOD_CONTAINER_GENERATE_JEOD_TO_JEOD_COMPARATOR(op)
 
 
 // Now we can generate all eighteen comparison function templates.
@@ -172,33 +171,16 @@ JEOD_CONTAINER_GENERATE_THREE_COMPARATORS (<=)
 
 #endif
 
-
 /**
  * Test if x is less than y.
  * @param x Comparand
  * @param y Comparand
  * @return x < y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator < (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const ContainerType & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator<(const jeod::JeodSTLContainer<ElemType, ContainerType> & x, const ContainerType & y)
 {
-   return static_cast<const ContainerType&>(x) < y;
-}
-
-/**
- * Test if x is less than y.
- * @param x Comparand
- * @param y Comparand
- * @return x < y
- */
-template <typename ElemType, typename ContainerType>
-inline bool operator < (
-   const ContainerType & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
-{
-   return x < static_cast<const ContainerType&>(y);
+    return static_cast<const ContainerType &>(x) < y;
 }
 
 /**
@@ -207,13 +189,23 @@ inline bool operator < (
  * @param y Comparand
  * @return x < y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator < (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator<(const ContainerType & x, const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return static_cast<const ContainerType&>(x) <
-          static_cast<const ContainerType&>(y);
+    return x < static_cast<const ContainerType &>(y);
+}
+
+/**
+ * Test if x is less than y.
+ * @param x Comparand
+ * @param y Comparand
+ * @return x < y
+ */
+template<typename ElemType, typename ContainerType>
+inline bool operator<(const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
+                      const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+{
+    return static_cast<const ContainerType &>(x) < static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -222,12 +214,10 @@ inline bool operator < (
  * @param y Comparand
  * @return x == y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator == (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const ContainerType & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator==(const jeod::JeodSTLContainer<ElemType, ContainerType> & x, const ContainerType & y)
 {
-   return static_cast<const ContainerType&>(x) == y;
+    return static_cast<const ContainerType &>(x) == y;
 }
 
 /**
@@ -236,12 +226,10 @@ inline bool operator == (
  * @param y Comparand
  * @return x == y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator == (
-   const ContainerType & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator==(const ContainerType & x, const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return x == static_cast<const ContainerType&>(y);
+    return x == static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -250,13 +238,11 @@ inline bool operator == (
  * @param y Comparand
  * @return x == y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator == (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator==(const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
+                       const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return static_cast<const ContainerType&>(x) ==
-          static_cast<const ContainerType&>(y);
+    return static_cast<const ContainerType &>(x) == static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -265,12 +251,10 @@ inline bool operator == (
  * @param y Comparand
  * @return x > y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator > (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const ContainerType & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator>(const jeod::JeodSTLContainer<ElemType, ContainerType> & x, const ContainerType & y)
 {
-   return static_cast<const ContainerType&>(x) > y;
+    return static_cast<const ContainerType &>(x) > y;
 }
 
 /**
@@ -279,12 +263,10 @@ inline bool operator > (
  * @param y Comparand
  * @return x > y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator > (
-   const ContainerType & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator>(const ContainerType & x, const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return x > static_cast<const ContainerType&>(y);
+    return x > static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -293,13 +275,11 @@ inline bool operator > (
  * @param y Comparand
  * @return x > y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator > (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator>(const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
+                      const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return static_cast<const ContainerType&>(x) >
-          static_cast<const ContainerType&>(y);
+    return static_cast<const ContainerType &>(x) > static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -308,12 +288,10 @@ inline bool operator > (
  * @param y Comparand
  * @return x >= y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator >= (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const ContainerType & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator>=(const jeod::JeodSTLContainer<ElemType, ContainerType> & x, const ContainerType & y)
 {
-   return static_cast<const ContainerType&>(x) >= y;
+    return static_cast<const ContainerType &>(x) >= y;
 }
 
 /**
@@ -322,12 +300,10 @@ inline bool operator >= (
  * @param y Comparand
  * @return x >= y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator >= (
-   const ContainerType & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator>=(const ContainerType & x, const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return x >= static_cast<const ContainerType&>(y);
+    return x >= static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -336,13 +312,11 @@ inline bool operator >= (
  * @param y Comparand
  * @return x >= y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator >= (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator>=(const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
+                       const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return static_cast<const ContainerType&>(x) >=
-          static_cast<const ContainerType&>(y);
+    return static_cast<const ContainerType &>(x) >= static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -351,12 +325,10 @@ inline bool operator >= (
  * @param y Comparand
  * @return x != y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator != (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const ContainerType & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator!=(const jeod::JeodSTLContainer<ElemType, ContainerType> & x, const ContainerType & y)
 {
-   return static_cast<const ContainerType&>(x) != y;
+    return static_cast<const ContainerType &>(x) != y;
 }
 
 /**
@@ -365,12 +337,10 @@ inline bool operator != (
  * @param y Comparand
  * @return x != y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator != (
-   const ContainerType & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator!=(const ContainerType & x, const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return x != static_cast<const ContainerType&>(y);
+    return x != static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -379,13 +349,11 @@ inline bool operator != (
  * @param y Comparand
  * @return x != y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator != (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator!=(const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
+                       const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return static_cast<const ContainerType&>(x) !=
-          static_cast<const ContainerType&>(y);
+    return static_cast<const ContainerType &>(x) != static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -394,12 +362,10 @@ inline bool operator != (
  * @param y Comparand
  * @return x <= y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator <= (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const ContainerType & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator<=(const jeod::JeodSTLContainer<ElemType, ContainerType> & x, const ContainerType & y)
 {
-   return static_cast<const ContainerType&>(x) <= y;
+    return static_cast<const ContainerType &>(x) <= y;
 }
 
 /**
@@ -408,12 +374,10 @@ inline bool operator <= (
  * @param y Comparand
  * @return x <= y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator <= (
-   const ContainerType & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator<=(const ContainerType & x, const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return x <= static_cast<const ContainerType&>(y);
+    return x <= static_cast<const ContainerType &>(y);
 }
 
 /**
@@ -422,13 +386,11 @@ inline bool operator <= (
  * @param y Comparand
  * @return x <= y
  */
-template <typename ElemType, typename ContainerType>
-inline bool operator <= (
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
-   const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
+template<typename ElemType, typename ContainerType>
+inline bool operator<=(const jeod::JeodSTLContainer<ElemType, ContainerType> & x,
+                       const jeod::JeodSTLContainer<ElemType, ContainerType> & y)
 {
-   return static_cast<const ContainerType&>(x) <=
-          static_cast<const ContainerType&>(y);
+    return static_cast<const ContainerType &>(x) <= static_cast<const ContainerType &>(y);
 }
 
 #endif

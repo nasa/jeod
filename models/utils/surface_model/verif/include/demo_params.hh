@@ -44,10 +44,6 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       (None)
 
-Library dependencies:
-    (../src/demo_params.cc)
-
- 
 *******************************************************************************/
 
 #ifndef DEMO_PARAMS_HH
@@ -57,123 +53,72 @@ Library dependencies:
 #include "utils/surface_model/include/facet_params.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class DemoParams : public FacetParams {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoParams)
-
-public:
-
-   // constructor
-   DemoParams();
-
-   // destructor
-   ~DemoParams() override;
-
-
-protected:
-
-   DemoParams& operator = (const DemoParams& rhs);
-   DemoParams(const DemoParams& rhs);
-
-private:
-
-
-};
-
-class DemoParams1 : public DemoParams {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoParams1)
+class DemoParams : public FacetParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoParams)
 
 public:
-
-   // constructor
-   DemoParams1();
-
-   // destructor
-   ~DemoParams1() override;
-
-   double weight; // (N) a weight, just to have something to do
-
-protected:
-
-private:
-
-   DemoParams1& operator = (const DemoParams1& rhs);
-   DemoParams1(const DemoParams1& rhs);
-
+    DemoParams() = default;
+    ~DemoParams() override = default;
+    DemoParams & operator=(const DemoParams &) = delete;
+    DemoParams(const DemoParams &) = delete;
 };
 
-class DemoParams2 : public DemoParams {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoParams2)
+class DemoParams1 : public DemoParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoParams1)
 
 public:
+    DemoParams1() = default;
+    ~DemoParams1() override = default;
+    DemoParams1 & operator=(const DemoParams1 &) = delete;
+    DemoParams1(const DemoParams1 &) = delete;
 
-   // constructor
-   DemoParams2();
-
-   // destructor
-   ~DemoParams2() override;
-
-   char* color; // (--) The color of the thing
-
-protected:
-
-private:
-
-   DemoParams2& operator = (const DemoParams2& rhs);
-   DemoParams2(const DemoParams2& rhs);
-
+    double weight{}; // (N) a weight, just to have something to do
 };
 
-class FlatPlateDemoParams1 : public DemoParams {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateDemoParams1)
+class DemoParams2 : public DemoParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoParams2)
 
 public:
+    DemoParams2() = default;
+    ~DemoParams2() override = default;
+    DemoParams2 & operator=(const DemoParams2 &) = delete;
+    DemoParams2(const DemoParams2 &) = delete;
 
-   // constructor
-   FlatPlateDemoParams1();
-
-   // destructor
-   ~FlatPlateDemoParams1() override;
-
-   char* shape; // (--) The shape of the thing
-
-protected:
-
-private:
-
-   FlatPlateDemoParams1& operator = (const FlatPlateDemoParams1& rhs);
-   FlatPlateDemoParams1(const FlatPlateDemoParams1& rhs);
-
+    std::string color; // (--) The color of the thing
 };
 
-class FlatPlateDemoParams2 : public DemoParams {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateDemoParams2)
+class FlatPlateDemoParams1 : public DemoParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateDemoParams1)
 
 public:
+    FlatPlateDemoParams1() = default;
+    ~FlatPlateDemoParams1() override = default;
+    FlatPlateDemoParams1 & operator=(const FlatPlateDemoParams1 &) = delete;
+    FlatPlateDemoParams1(const FlatPlateDemoParams1 &) = delete;
 
-   // constructor
-   FlatPlateDemoParams2();
-
-   // destructor
-   ~FlatPlateDemoParams2() override;
-
-   int sides; // (count) The number of sides of the plate
-
-protected:
-
-private:
-
-   FlatPlateDemoParams2& operator = (const FlatPlateDemoParams2& rhs);
-   FlatPlateDemoParams2(const FlatPlateDemoParams2& rhs);
-
+    std::string shape; // (--) The shape of the thing
 };
 
-} // End JEOD namespace
+class FlatPlateDemoParams2 : public DemoParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateDemoParams2)
+
+public:
+    FlatPlateDemoParams2() = default;
+    ~FlatPlateDemoParams2() override = default;
+    FlatPlateDemoParams2 & operator=(const FlatPlateDemoParams2 &) = delete;
+    FlatPlateDemoParams2(const FlatPlateDemoParams2 &) = delete;
+
+    int sides{}; // (count) The number of sides of the plate
+};
+
+} // namespace jeod
 
 #endif

@@ -28,78 +28,80 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
 #include "dynamics/mass/include/mass.hh"
-#include "utils/math/include/vector3.hh"
 #include "utils/message/include/message_handler.hh"
 
 // Model includes
-#include "../include/body_reattach.hh"
 #include "../include/body_action_messages.hh"
-
+#include "../include/body_reattach.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Construct a MassBodyReattach.
  */
-BodyReattach::BodyReattach (
-   void)
-:
-   pstr_cstr()
+BodyReattach::BodyReattach()
 {
-   active = false;
-   Vector3::initialize (offset_pstr_cstr_pstr);
+    active = false;
 }
-
 
 /**
  * Initialize the core mass properties of the subject MassBody.
  * \param[in,out] dyn_manager Jeod manager
  */
-void
-BodyReattach::apply (
-   DynManager & dyn_manager)
+void BodyReattach::apply(DynManager & dyn_manager)
 {
-   bool succeeded = true;
+    // Convert user-specified orientation to transformation matrix.
+    pstr_cstr.compute_transform();
 
-   // Convert user-specified orientation to transformation matrix.
-   pstr_cstr.compute_transform ();
+    // Rettach the body.
+    bool succeeded = mass_subject->reattach(offset_pstr_cstr_pstr, pstr_cstr.trans);
 
-   // Rettach the body.
-   // FIXME, JEOD 2.1: reattach needs to return a status. This will resolve the cppcheck issue and the suppressions will no longer be needed.
-   mass_subject->reattach (offset_pstr_cstr_pstr, pstr_cstr.trans);
+    // Terminate the sim if requested to do so on failed attachments.
+    if(!succeeded)
+    {
+        if(terminate_on_error)
+        {
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 BodyActionMessages::fatal_error,
+                                 "%s failed:\n"
+                                 "terminate_on_failure flag set and attachment error occurred.\n"
+                                 "The attachment error described above is fatal per this setting.",
+                                 action_identifier.c_str());
+        }
+        else
+        {
+            MessageHandler::error(__FILE__,
+                                  __LINE__,
+                                  BodyActionMessages::invalid_object,
+                                  "%s: %s failed to reattach.",
+                                  action_identifier.c_str(),
+                                  mass_subject->name.c_str());
+        }
+    }
 
-   // Terminate the sim if requested to do so on failed attachments.
-   if ((! succeeded) && terminate_on_error) { //cppcheck-suppress knownConditionTrueFalse
-      MessageHandler::fail (
-         __FILE__, __LINE__, BodyActionMessages::fatal_error,
-         "%s failed:\n"
-         "terminate_on_failure flag set and attachment error occurred.\n"
-         "The attachment error described above is fatal per this setting.",
-         action_identifier.c_str());
-   }
+    // Debug.
+    if(succeeded)
+    {
+        MessageHandler::debug(__FILE__,
+                              __LINE__,
+                              BodyActionMessages::trace,
+                              "%s: %s reattached.",
+                              action_identifier.c_str(),
+                              mass_subject->name.c_str());
+    }
 
-   // Debug.
-   if (succeeded) { //cppcheck-suppress knownConditionTrueFalse
-      MessageHandler::debug (
-            __FILE__, __LINE__, BodyActionMessages::trace,
-            "%s: %s reattached.",
-            action_identifier.c_str(), mass_subject->name.c_str());
-   }
-
-
-   // Forward the action up the chain.
-   BodyAction::apply (dyn_manager);
-
-   return;
+    // Forward the action up the chain.
+    BodyAction::apply(dyn_manager);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

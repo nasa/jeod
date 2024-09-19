@@ -61,22 +61,26 @@ Purpose:
 #ifndef JEOD_MEMORY_MANAGER_HIDE_FROM_TRICK_HH
 #define JEOD_MEMORY_MANAGER_HIDE_FROM_TRICK_HH
 
+#include "memory_item.hh"
+#include "memory_table.hh"
+#include "memory_type.hh"
+#include <map>
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * An AllocTable maps memory addresses to memory descriptions.
  */
-typedef std::map <const void *, JeodMemoryItem> AllocTable;
+using AllocTable = std::map<const void *, JeodMemoryItem>;
 
 /**
  * The type type itself is a memory table with copy implemented by clone().
  */
-typedef JeodMemoryTableClonable<JeodMemoryTypeDescriptor> TypeTable;
+using TypeTable = JeodMemoryTableClonable<JeodMemoryTypeDescriptor>;
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

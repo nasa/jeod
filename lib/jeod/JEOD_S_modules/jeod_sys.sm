@@ -44,134 +44,128 @@
 #define MESSAGE_HANDLER_CLASS jeod::TrickMessageHandler
 #endif
 
+class JEODSysSimObject : public Trick::SimObject
+{
+public:
+    //
+    // Data structures
+    //
+    MESSAGE_HANDLER_CLASS message_handler;
+    jeod::BasicJeodTrickSimInterface jeod_sim_interface;
+    jeod::JeodSimulationInterfaceInit interface_init;
 
-class JEODSysSimObject : public Trick::SimObject {
+    JEODSysSimObject()
+        : jeod_sim_interface(message_handler)
+    {
+        // Configure the message handler settings
+        P0("initialization")
+        jeod_sim_interface.configure(interface_init);
 
-  public:
-   //
-   // Data structures
-   //
-   MESSAGE_HANDLER_CLASS message_handler;
-   jeod::BasicJeodTrickSimInterface jeod_sim_interface;
-   jeod::JeodSimulationInterfaceInit interface_init;
+        // Control the sim interface state machine
+        // Notes:
+        // - The use of job phase P0 versus P65535 is used to differentiate
+        //   between state transitions that need to be made at the start versus
+        //   the end of the targeted job class.
+        // - Do not change these job phases.
 
-   JEODSysSimObject()
-   :
-      jeod_sim_interface (message_handler)
-   {
+        P0("default_data")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Initialization);
 
-      // Control the sim interface state machine
-      // Notes:
-      // - The use of job phase P0 versus P65535 is used to differentiate
-      //   between state transitions that need to be made at the start versus
-      //   the end of the targeted job class.
-      // - FIXME: These job phases need to be peer-reviewed.
-      // - Do not change these job phases.
+        P65535("initialization")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Operational);
 
-      P0     ("default_data")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Initialization);
+        P0("checkpoint")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::PreCheckpoint);
 
-      P65535 ("initialization")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Operational);
+        P65535("checkpoint")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Checkpoint);
 
-      P0     ("checkpoint")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::PreCheckpoint);
+        P0("post_checkpoint")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::PostCheckpoint);
 
-      P65535 ("checkpoint")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Checkpoint);
+        P65535("post_checkpoint")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Restore);
 
-      P0     ("post_checkpoint")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::PostCheckpoint);
+        P0("preload_checkpoint")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Restart);
 
-      P65535 ("post_checkpoint")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Restore);
+        P65535("restart")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Restore);
 
-      P0     ("preload_checkpoint")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Restart);
+        P0("shutdown")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Shutdown);
 
-      P65535 ("restart")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Restore);
+        P65535("shutdown")
+        jeod_sim_interface.set_mode(jeod::JeodSimulationInterface::Dead);
 
-      P0     ("shutdown")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Shutdown);
+        // Checkpoint / restore JEOD data
+        // Notes on the impact on checkpoint etc. jobs in sim objects created
+        // after the JEODSysSimObject sim object:
+        // - Use of checkpoint and restart files:
+        //   -- The output JEOD checkpoint file is available to all (almost all)
+        //      checkpoint and post_checkpoint jobs in sim objects registered
+        //      after the JEODSysSimObject. Similarly, the input JEOD checkpoint
+        //      file is available to all (almost all) preload_checkpoint and
+        //      restart jobs in sim objects registered after the JEODSysSimObject.
+        //   -- P65535 post_checkpoint and restart jobs cannot access the
+        //      JEOD checkpoint files. C'est la vie.
+        // - Use of JEOD_ALLOC:
+        //   -- Data JEOD_ALLOCed by checkpoint jobs with default phase and
+        //      lower will be fully checkpointed (allocations and contents).
+        //   -- Data JEOD_ALLOCed by checkpoint jobs with phase higher than the
+        //      default will have the contents but not the allocations
+        //      checkpointed, resulting in a checkpoint file unusable for restart.
+        //   -- Data JEOD_ALLOCed by post_checkpoint jobs will not be
+        //      checkpointed, period. This is safe but of dubious utility.
+        //   -- Data JEOD_ALLOCed by preload_checkpoint with phase lower than
+        //      the default phase will disappear with the execution of the
+        //      jeod_sim_interface.restore_allocations job. Safe but dubious.
+        //   -- Data JEOD_ALLOCed by preload_checkpoint with the default phase
+        //      or higher and by all restart jobs will be available after the
+        //      restart is complete.
+        // - Use of JeodCheckpointable objects:
+        //   -- Modifications to checkpointable objects by all checkpoint jobs
+        //      and by post_checkpoint jobs with the default phase or lower will
+        //      be checkpointed.
+        //   -- Modifications made by post_checkpoint jobs with phase higher than
+        //      the default phase will not be checkpointed.
+        //   -- Modifications made by all preload_checkpoint jobs and by restart
+        //      jobs with phase lower than the default phase will disappear with
+        //      the execution of the jeod_sim_interface.restore_containers job.
+        //   -- Accesses of the contents of checkpointable objects made by
+        //      all preload_checkpoint jobs and by restart jobs with phase
+        //      lower than the default will be to the pre-restart rather than
+        //      post-restart contents.
 
-      P65535 ("shutdown")
-      jeod_sim_interface.set_mode (jeod::JeodSimulationInterface::Dead);
+        P0("checkpoint")
+        jeod_sim_interface.open_checkpoint_file();
 
+        P60001("checkpoint")
+        jeod_sim_interface.checkpoint_allocations();
 
-      // Checkpoint / restore JEOD data
-      // Notes on the impact on checkpoint etc. jobs in sim objects created
-      // after the JEODSysSimObject sim object:
-      // - Use of checkpoint and restart files:
-      //   -- The output JEOD checkpoint file is available to all (almost all)
-      //      checkpoint and post_checkpoint jobs in sim objects registered
-      //      after the JEODSysSimObject. Similarly, the input JEOD checkpoint
-      //      file is available to all (almost all) preload_checkpoint and
-      //      restart jobs in sim objects registered after the JEODSysSimObject.
-      //   -- P65535 post_checkpoint and restart jobs cannot access the
-      //      JEOD checkpoint files. C'est la vie.
-      // - Use of JEOD_ALLOC:
-      //   -- Data JEOD_ALLOCed by checkpoint jobs with default phase and
-      //      lower will be fully checkpointed (allocations and contents).
-      //   -- Data JEOD_ALLOCed by checkpoint jobs with phase higher than the
-      //      default will have the contents but not the allocations
-      //      checkpointed, resulting in a checkpoint file unusable for restart.
-      //   -- Data JEOD_ALLOCed by post_checkpoint jobs will not be
-      //      checkpointed, period. This is safe but of dubious utility.
-      //   -- Data JEOD_ALLOCed by preload_checkpoint with phase lower than
-      //      the default phase will disappear with the execution of the
-      //      jeod_sim_interface.restore_allocations job. Safe but dubious.
-      //   -- Data JEOD_ALLOCed by preload_checkpoint with the default phase
-      //      or higher and by all restart jobs will be available after the
-      //      restart is complete.
-      // - Use of JeodCheckpointable objects:
-      //   -- Modifications to checkpointable objects by all checkpoint jobs
-      //      and by post_checkpoint jobs with the default phase or lower will
-      //      be checkpointed.
-      //   -- Modifications made by post_checkpoint jobs with phase higher than
-      //      the default phase will not be checkpointed.
-      //   -- Modifications made by all preload_checkpoint jobs and by restart
-      //      jobs with phase lower than the default phase will disappear with
-      //      the execution of the jeod_sim_interface.restore_containers job.
-      //   -- Accesses of the contents of checkpointable objects made by
-      //      all preload_checkpoint jobs and by restart jobs with phase
-      //      lower than the default will be to the pre-restart rather than
-      //      post-restart contents.
+        P60001("post_checkpoint")
+        jeod_sim_interface.checkpoint_containers();
 
-      P0     ("checkpoint")
-      jeod_sim_interface.open_checkpoint_file ( );
+        P65535("post_checkpoint")
+        jeod_sim_interface.close_checkpoint_file();
 
-      P60001 ("checkpoint")
-      jeod_sim_interface.checkpoint_allocations ( );
+        // Restart from a checkpoint
 
-      P60001 ("post_checkpoint")
-      jeod_sim_interface.checkpoint_containers ( );
+        P0("preload_checkpoint")
+        jeod_sim_interface.open_restart_file();
 
-      P65535 ("post_checkpoint")
-      jeod_sim_interface.close_checkpoint_file ( );
+        P59999("preload_checkpoint")
+        jeod_sim_interface.restore_allocations();
 
+        P59999("restart")
+        jeod_sim_interface.restore_containers();
 
-      // Restart from a checkpoint
+        P65535("restart")
+        jeod_sim_interface.close_restart_file();
+    }
 
-      P0     ("preload_checkpoint")
-      jeod_sim_interface.open_restart_file ( );
-
-      P59999 ("preload_checkpoint")
-      jeod_sim_interface.restore_allocations ( );
-
-      P59999 ("restart")
-      jeod_sim_interface.restore_containers ( );
-
-      P65535 ("restart")
-      jeod_sim_interface.close_restart_file ( );
-
-   }
-
-  private:
-   // This object is not copyable
-   JEODSysSimObject operator =(const JEODSysSimObject &);
-
+    JEODSysSimObject operator=(const JEODSysSimObject &) = delete;
 };
 
-//Instantiate
+// Instantiate
 JEODSysSimObject jeod_sys;

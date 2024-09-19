@@ -60,7 +60,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SIMPLE_EPHEMERIDES_HH
 #define JEOD_SIMPLE_EPHEMERIDES_HH
 
@@ -74,268 +73,197 @@ Library dependencies:
 #include "ephem_interface.hh"
 #include "ephem_ref_frame.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A SinglePointEphemeris has one ephemeris point.
  */
-class SinglePointEphemeris : public EphemerisInterface {
-
-  JEOD_MAKE_SIM_INTERFACES(SinglePointEphemeris)
+class SinglePointEphemeris : public EphemerisInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SinglePointEphemeris)
 
 public:
+    SinglePointEphemeris() = default;
+    ~SinglePointEphemeris() override = default;
+    SinglePointEphemeris(const SinglePointEphemeris &) = delete;
+    SinglePointEphemeris & operator=(const SinglePointEphemeris &) = delete;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // Set the names of this object and of the central frame.
+    virtual void set_name(const std::string & new_name);
 
-   // Constructor and destructor
-   SinglePointEphemeris (void);
-   ~SinglePointEphemeris (void) override;
+    // Implemented EphemerisInterface methods
 
+    // Activate the model. (Null implementation.)
+    void activate() override;
 
-   // Set the names of this object and of the central frame.
-   virtual void set_name (const char * new_name);
+    // Dectivate the model. (Null implementation.)
+    void deactivate() override;
 
+    // Return the last update time.
+    double timestamp() const override;
 
-   // Implemented EphemerisInterface methods
+    // Return the identifier.
+    std::string get_name() const override;
 
-   // Activate the model. (Null implementation.)
-   void activate (void) override;
+    // Update the ephemeris model; nothing to do with a single point ephemeris.
+    void ephem_update() override;
 
-   // Dectivate the model. (Null implementation.)
-   void deactivate (void) override;
+    // Unimplemented SinglePointEphemeris methods
 
+    /**
+     * Register the model and its ephemeris points.
+     * \param[in,out] manager Ephemerides manager
+     */
 
-   // Return the last update time.
-   double timestamp (void) const override;
+    /*
+     Purpose: (Register the model and its ephemeris points.)
+     */
+    virtual void initialize_model(EphemeridesManager & manager) = 0;
 
-   // Return the identifier.
-   const char * get_name (void) const override;
+    // Unimplemented EphemerisInterface methods
 
-   // Update the ephemeris model; nothing to do with a single point ephemeris.
-   void ephem_update (void) override;
+    /**
+     * Initialize the ephemerides.
+     * \param[in,out] manager Ephemerides manager
+     */
 
+    /*
+     Purpose: (Initialize the ephemerides.)
+     */
+    void ephem_initialize(EphemeridesManager & manager) override = 0;
 
-   // Unimplemented SinglePointEphemeris methods
+    /**
+     * Activate the model.
+     * \param[in,out] manager Ephemerides manager
+     */
+    void ephem_activate(EphemeridesManager & manager) override = 0;
 
-      /**
-    * Register the model and its ephemeris points.
-    * \param[in,out] manager Ephemerides manager
-    */
-
-   /*
-    Purpose: (Register the model and its ephemeris points.)
-    */
-   virtual void initialize_model (
-      EphemeridesManager & manager)
-   = 0;
-
-
-   // Unimplemented EphemerisInterface methods
-
-      /**
-    * Initialize the ephemerides.
-    * \param[in,out] manager Ephemerides manager
-    */
-
-   /*
-    Purpose: (Initialize the ephemerides.)
-    */
-   void ephem_initialize (
-      EphemeridesManager & manager)
-   override = 0;
-
-
-      /**
-    * Activate the model.
-    * \param[in,out] manager Ephemerides manager
-    */
-   void ephem_activate (
-      EphemeridesManager & manager)
-   override = 0;
-
-
-      /**
-    * Build the model's contribution to the reference frame tree.
-    * \param[in,out] manager Ephemerides manager
-    */
-   void ephem_build_tree (
-      EphemeridesManager & manager)
-   override = 0;
-
+    /**
+     * Build the model's contribution to the reference frame tree.
+     * \param[in,out] manager Ephemerides manager
+     */
+    void ephem_build_tree(EphemeridesManager & manager) override = 0;
 
 protected:
+    // Member data
 
-   // Member data
+    /**
+     * Identifier for this model.
+     */
+    std::string identifier; //!< trick_units(--)
 
-   /**
-    * Identifier for this model.
-    */
-   char * identifier; //!< trick_units(--)
+    /**
+     * Time of last update, dynamic time seconds
+     */
+    double update_time{}; //!< trick_units(s)
 
-   /**
-    * Time of last update, dynamic time seconds
-    */
-   double update_time; //!< trick_units(s)
-
-   /**
-    * Is the model active?
-    */
-   bool active; //!< trick_units(--)
-
-
-private:
-   ///
-   /// Not implemented.
-   SinglePointEphemeris (const SinglePointEphemeris &);
-   ///
-   /// Not implemented.
-   SinglePointEphemeris & operator = (const SinglePointEphemeris &);
+    /**
+     * Is the model active?
+     */
+    bool active{true}; //!< trick_units(--)
 };
-
 
 /**
  * Empty space has one ephemeris point.
  */
-class EmptySpaceEphemeris : public SinglePointEphemeris {
-
-  JEOD_MAKE_SIM_INTERFACES(EmptySpaceEphemeris)
+class EmptySpaceEphemeris : public SinglePointEphemeris
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EmptySpaceEphemeris)
 
 public:
+    // Member functions
+    EmptySpaceEphemeris();
+    ~EmptySpaceEphemeris() override = default;
+    EmptySpaceEphemeris(const EmptySpaceEphemeris &) = delete;
+    EmptySpaceEphemeris & operator=(const EmptySpaceEphemeris &) = delete;
 
-   // Member functions
+    // Set the names of this object and of the central frame.
+    void set_name(const std::string & frame_name) override;
 
-   // Constructor and destructor
-   EmptySpaceEphemeris (void);
-   ~EmptySpaceEphemeris (void) override;
+    // Initialize the model.
+    void initialize_model(EphemeridesManager & ephem_manager) override;
 
-   // Set the names of this object and of the central frame.
-   void set_name (const char * frame_name) override;
-
-   // Initialize the model.
-   void initialize_model (EphemeridesManager & ephem_manager) override;
-
-   // EphemerisInterface methods.
-   void ephem_initialize (EphemeridesManager & ephem_manager) override;
-   void ephem_activate (EphemeridesManager & ephem_manager) override;
-   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
-
+    // EphemerisInterface methods.
+    void ephem_initialize(EphemeridesManager & ephem_manager) override;
+    void ephem_activate(EphemeridesManager & ephem_manager) override;
+    void ephem_build_tree(EphemeridesManager & ephem_manager) override;
 
 protected:
+    // Member data
 
-   // Member data
+    /**
+     * The EphemerisPoint that represents the center of an empty universe.
+     */
+    EphemerisPoint central_point; //!< trick_units(--)
 
-   /**
-    * The EphemerisPoint that represents the center of an empty universe.
-    */
-   EphemerisPoint central_point; //!< trick_units(--)
-
-   /**
-    * The sole ephemeris frame for this model.
-    */
-   EphemerisRefFrame central_frame; //!< trick_units(--)
-
-
-private:
-   ///
-   /// Not implemented.
-   EmptySpaceEphemeris (const EmptySpaceEphemeris &);
-   ///
-   /// Not implemented.
-   EmptySpaceEphemeris & operator = (const EmptySpaceEphemeris &);
+    /**
+     * The sole ephemeris frame for this model.
+     */
+    EphemerisRefFrame central_frame; //!< trick_units(--)
 };
-
 
 /**
  * A space with one gravitation body has one ephemeris point.
  * Note well: A SinglePlanetEphemeris does not contain a Planet object.
  * The planet must be specified elsewhere.
  */
-class SinglePlanetEphemeris : public SinglePointEphemeris {
-
-  JEOD_MAKE_SIM_INTERFACES(SinglePlanetEphemeris)
+class SinglePlanetEphemeris : public SinglePointEphemeris
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SinglePlanetEphemeris)
 
 public:
+    // Member functions
+    SinglePlanetEphemeris();
+    ~SinglePlanetEphemeris() override = default;
+    SinglePlanetEphemeris(const SinglePlanetEphemeris &) = delete;
+    SinglePlanetEphemeris & operator=(const SinglePlanetEphemeris &) = delete;
 
-   // Member functions
+    // Set the names of this object and of the central planet.
+    void set_name(const std::string & frame_name) override;
 
-   // Constructor and destructor
-   SinglePlanetEphemeris (void);
-   ~SinglePlanetEphemeris (void) override;
+    // Initialize the model.
+    void initialize_model(EphemeridesManager & ephem_manager) override;
 
-   // Set the names of this object and of the central planet.
-   void set_name (const char * frame_name) override;
+    // EphemerisInterface methods.
+    void ephem_initialize(EphemeridesManager & ephem_manager) override;
+    void ephem_activate(EphemeridesManager & ephem_manager) override;
+    void ephem_build_tree(EphemeridesManager & ephem_manager) override;
 
-   // Initialize the model.
-   void initialize_model (EphemeridesManager & ephem_manager) override;
+protected:
+    // Member data
 
-   // EphemerisInterface methods.
-   void ephem_initialize (EphemeridesManager & ephem_manager) override;
-   void ephem_activate (EphemeridesManager & ephem_manager) override;
-   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
-
-
- protected:
-
-   // Member data
-
-   /**
-    * The EphemerisPoint that represents the center of a simple universe.
-    */
-   EphemerisPoint central_point; //!< trick_units(--)
-
-
-private:
-   ///
-   /// Not implemented.
-   SinglePlanetEphemeris (const SinglePlanetEphemeris &);
-   ///
-   /// Not implemented.
-   SinglePlanetEphemeris & operator = (const SinglePlanetEphemeris &);
+    /**
+     * The EphemerisPoint that represents the center of a simple universe.
+     */
+    EphemerisPoint central_point; //!< trick_units(--)
 };
-
 
 /**
  * Retrieve the timestamp.
  * @return Timestamp\n Units: s
  */
-inline double
-SinglePointEphemeris::timestamp (
-   void)
-const
+inline double SinglePointEphemeris::timestamp() const
 {
-   return update_time;
+    return update_time;
 }
-
 
 /**
  * Retrieve the identifier.
  * @return Identifier
  */
-inline const char *
-SinglePointEphemeris::get_name (
-   void)
-const
+inline std::string SinglePointEphemeris::get_name() const
 {
-   return identifier;
+    return identifier;
 }
-
 
 /**
  * Update the ephemerides, which in this case is a no-op.
  */
-inline void
-SinglePointEphemeris::ephem_update (
-   void)
-{
-   return;
-}
+inline void SinglePointEphemeris::ephem_update() {}
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

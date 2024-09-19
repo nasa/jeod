@@ -35,6 +35,4 @@
 //
 //
 #include "Base/vehicle_atmosphere.sm"
-VehicleAtmSimObject vehicle(dynamics.dyn_manager,
-                            earth.atmos,
-                            earth.wind_velocity);
+VehicleAtmSimObject vehicle(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);

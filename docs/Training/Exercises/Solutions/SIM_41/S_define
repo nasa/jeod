@@ -36,20 +36,27 @@
 //
 //=============================================================================
 // Creates a basic simulation with 2 vehicles.
-// 
+//
 //=============================================================================
 
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
+
 #include "integ_loop.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics_multi_group.sm"
-#include "environment_sans_de405.sm"
 #include "earth_basic.sm"
+#include "environment_sans_de405.sm"
 #include "vehicle_basic.sm"
 VehicleSimObject vehicle2(dynamics.dyn_manager);
 VehicleSimObject vehicle3(dynamics.dyn_manager);
@@ -58,22 +65,19 @@ VehicleSimObject vehicle3(dynamics.dyn_manager);
 ##include "er7_utils/integration/rk4/include/rk4_integrator_constructor.hh"
 class IntegrationSimObject: public Trick::SimObject
 {
- public:
-  jeod::DynamicsIntegrationGroup group;
-  er7_utils::RK4IntegratorConstructor rk4_constructor;
-  er7_utils::IntegratorConstructor * rk4_constructor_ptr;
-  IntegrationSimObject()
-   :
-   rk4_constructor_ptr( &rk4_constructor)
-   {};
- private:
-  IntegrationSimObject (const IntegrationSimObject&);
-  IntegrationSimObject & operator = (const IntegrationSimObject&);
+public:
+    jeod::DynamicsIntegrationGroup group;
+    er7_utils::RK4IntegratorConstructor rk4_constructor;
+    er7_utils::IntegratorConstructor * rk4_constructor_ptr;
+    IntegrationSimObject()
+        : rk4_constructor_ptr(&rk4_constructor){};
+
+private:
+    IntegrationSimObject(const IntegrationSimObject &);
+    IntegrationSimObject & operator=(const IntegrationSimObject &);
 };
+
 IntegrationSimObject integ;
-
-
-
 
 JeodIntegLoopSimObject fast(0.005,
                             integ.rk4_constructor_ptr,
@@ -84,13 +88,13 @@ JeodIntegLoopSimObject fast(0.005,
                             &vehicle,
                             NULL);
 JeodIntegLoopSimObject med(1.0,
-                            integ.rk4_constructor_ptr,
-                            integ.group,
-                            jeod_time.time_manager,
-                            dynamics.dyn_manager,
-                            env.gravity_manager,
-                            &vehicle2,
-                            NULL);
+                           integ.rk4_constructor_ptr,
+                           integ.group,
+                           jeod_time.time_manager,
+                           dynamics.dyn_manager,
+                           env.gravity_manager,
+                           &vehicle2,
+                           NULL);
 JeodIntegLoopSimObject slow(100,
                             integ.rk4_constructor_ptr,
                             integ.group,

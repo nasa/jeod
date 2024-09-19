@@ -60,14 +60,12 @@
 
 *****************************************************************************/
 
-
-
 #ifndef JEOD_CONTACT_CLASS_DECL_HH
 #define JEOD_CONTACT_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Contact;
 class ContactFacet;
@@ -98,7 +96,7 @@ class PlateContactFacet;
 class PlateContactFactory;
 class PlateContactPair;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

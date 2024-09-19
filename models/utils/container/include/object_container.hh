@@ -51,10 +51,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_OBJECT_CONTAINER_H
 #define JEOD_MEMORY_OBJECT_CONTAINER_H
@@ -72,229 +71,217 @@ Purpose:
 #include <cstddef>
 #include <string>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A JeodObjectContainer is a JeodContainer that contains objects
  * of type ElemType.
  */
-template <typename ContainerType, typename ElemType>
-class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
+template<typename ContainerType, typename ElemType>
+class JeodObjectContainer : public JeodContainer<ContainerType, ElemType>
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodObjectContainer)
 
-   JEOD_MAKE_SIM_INTERFACES(JeodObjectContainer)
+public:
+    /**
+     * Construct a JeodObjectContainer.
+     */
+    JeodObjectContainer()
+        : index(0),
+          copy(NULL)
+    {
+    }
 
- public:
-   /**
-    * Construct a JeodObjectContainer.
-    */
-   JeodObjectContainer (void)
-   :
-      index(0),
-      copy(NULL)
-   {}
+    /**
+     * Copy-construct a JeodObjectContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Object container to be copied.
+     */
+    JeodObjectContainer(const JeodObjectContainer & source)
+        : JeodContainer<ContainerType, ElemType>(source),
+          index(0),
+          copy(NULL)
+    {
+    }
 
-   /**
-    * Copy-construct a JeodObjectContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Object container to be copied.
-    */
-   JeodObjectContainer (const JeodObjectContainer & source)
-   :
-      JeodContainer<ContainerType, ElemType>(source),
-      index(0),
-      copy(NULL)
-   {}
+    /**
+     * Copy-construct a JeodObjectContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Object container to be copied.
+     */
+    explicit JeodObjectContainer(const typename ContainerType::stl_container_type & source)
+        : JeodContainer<ContainerType, ElemType>(source),
+          index(0),
+          copy(NULL)
+    {
+    }
 
-   /**
-    * Copy-construct a JeodObjectContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Object container to be copied.
-    */
-   explicit JeodObjectContainer (
-      const typename ContainerType::stl_container_type & source)
-   :
-      JeodContainer<ContainerType, ElemType>(source),
-      index(0),
-      copy(NULL)
-   {}
+    /**
+     * Copy from a JeodObjectContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Object container to be copied.
+     */
+    JeodObjectContainer & operator=(const JeodObjectContainer & source)
+    {
+        JeodContainer<ContainerType, ElemType>::operator=(source);
+        return *this;
+    }
 
-   /**
-    * Copy from a JeodObjectContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Object container to be copied.
-    */
-   JeodObjectContainer &
-   operator= (const JeodObjectContainer & source)
-   {
-      JeodContainer<ContainerType, ElemType>::operator= (source);
-      return *this;
-   }
+    /**
+     * Copy from an STL container.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Object container to be copied.
+     */
+    JeodObjectContainer & operator=(const typename ContainerType::stl_container_type & source)
+    {
+        JeodContainer<ContainerType, ElemType>::operator=(source);
+        return *this;
+    }
 
-   /**
-    * Copy from an STL container.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Object container to be copied.
-    */
-   JeodObjectContainer &
-   operator= (const typename ContainerType::stl_container_type & source)
-   {
-      JeodContainer<ContainerType, ElemType>::operator= (source);
-      return *this;
-   }
+    /**
+     * Destruct a JeodObjectContainer.
+     */
+    virtual ~JeodObjectContainer()
+    {
+        post_checkpoint();
+    }
 
-   /**
-    * Destruct a JeodObjectContainer.
-    */
-   virtual ~JeodObjectContainer (void)
-   { post_checkpoint(); }
+    /**
+     * Prepare to checkpoint a JeodObjectContainer.
+     * The contents of an object container is checkpointed by allocating a
+     * C-style array of the same size as the container and populating the
+     * array with copies of the container contents. The existing checkpoint
+     * capabilities will checkpoint this array, so all that remains to be done
+     * is to associate the array elements with the container.
+     */
+    void pre_checkpoint() override
+    {
+        if(this->size() > 0)
+        {
+            unsigned int ii = 0;
+            copy = JEOD_ALLOC_CLASS_ARRAY(this->size(), ElemType);
+            for(typename ContainerType::iterator iter = this->begin(); iter != this->end(); ++iter)
+            {
+                copy[ii] = *iter;
+                ++ii;
+            }
+        }
+    }
 
-   /**
-    * Prepare to checkpoint a JeodObjectContainer.
-    * The contents of an object container is checkpointed by allocating a
-    * C-style array of the same size as the container and populating the
-    * array with copies of the container contents. The existing checkpoint
-    * capabilities will checkpoint this array, so all that remains to be done
-    * is to associate the array elements with the container.
-    */
-   void pre_checkpoint (void) override
-   {
-      if (this->size() > 0) {
-         unsigned int ii = 0;
-         copy = JEOD_ALLOC_CLASS_ARRAY (this->size(), ElemType);
-         for (typename ContainerType::iterator iter = this->begin();
-              iter != this->end();
-              ++iter) {
-            copy[ii] = *iter;
-            ++ii;
-         }
-      }
-   }
+    /**
+     * Cleanup after performing a checkpoint.
+     */
+    void post_checkpoint() override // cppcheck-suppress virtualCallInConstructor
+    {
+        if(copy != NULL)
+        {
+            JEOD_DELETE_ARRAY(copy);
+        }
+        copy = NULL;
+    }
 
-   /**
-    * Cleanup after performing a checkpoint.
-    */
-   void post_checkpoint (void) override //cppcheck-suppress virtualCallInConstructor   
-   {
-      if (copy != NULL) {
-         JEOD_DELETE_ARRAY (copy);
-      }
-      copy = NULL;
-   }
+    /**
+     * Cleanup after performing a restart.
+     */
+    void post_restart() override
+    {
+        post_checkpoint();
+    }
 
-   /**
-    * Cleanup after performing a restart.
-    */
-   void post_restart (void) override
-   {
-      post_checkpoint ();
-   }
+    /**
+     * Prepare to checkpoint the object in question.
+     * The local checkpoint index is initialized to zero to reflect that the
+     * parent class' checkpoint iterator starts at the zeroth element.
+     */
+    void start_checkpoint() override
+    {
+        index = 0;
+        JeodContainer<ContainerType, ElemType>::start_checkpoint();
+    }
 
-   /**
-    * Prepare to checkpoint the object in question.
-    * The local checkpoint index is initialized to zero to reflect that the
-    * parent class' checkpoint iterator starts at the zeroth element.
-    */
-   void start_checkpoint (void) override
-   {
-      index = 0;
-      JeodContainer<ContainerType, ElemType>::start_checkpoint();
-   }
+    /**
+     * Advance to the next item to be checkpointed.
+     * The local checkpoint index is advanced to keep in sync with the
+     * parent class' checkpoint iterator.
+     */
+    void advance_checkpoint() override
+    {
+        ++index;
+        JeodContainer<ContainerType, ElemType>::advance_checkpoint();
+    }
 
-   /**
-    * Advance to the next item to be checkpointed.
-    * The local checkpoint index is advanced to keep in sync with the
-    * parent class' checkpoint iterator.
-    */
-   void advance_checkpoint (void) override
-   {
-      ++index;
-      JeodContainer<ContainerType, ElemType>::advance_checkpoint();
-   }
+    /**
+     * Return the value of the item to be written to the checkpoint file.
+     * For a JeodObjectContainer, the value is the name of the corresponding
+     * object in the C-style copy of the object's contents.
+     */
+    const std::string get_item_value() override
+    {
+        return JeodSimulationInterface::get_name_at_address(reinterpret_cast<void *>(&copy[index]),
+                                                            this->elem_type_descriptor);
+    }
 
-   /**
-    * Return the value of the item to be written to the checkpoint file.
-    * For a JeodObjectContainer, the value is the name of the corresponding
-    * object in the C-style copy of the object's contents.
-    */
-   const std::string get_item_value (void) override
-   {
-      return JeodSimulationInterface::get_name_at_address (
-                reinterpret_cast<void *> (&copy[index]),
-                this->elem_type_descriptor);
-   }
+    /**
+     * Interpret the provided value and add it to the list.
+     * For a JeodObjectContainer, the value should name an element of the
+     * C-style copy of the object's contents.
+     */
+    void perform_insert_action(const std::string & value) // In: -- Value to be added.
+        override
+    {
+        const ElemType * temp_obj = reinterpret_cast<ElemType *>(JeodSimulationInterface::get_address_at_name(value));
 
-   /**
-    * Interpret the provided value and add it to the list.
-    * For a JeodObjectContainer, the value should name an element of the
-    * C-style copy of the object's contents.
-    */
-   void perform_insert_action (
-      const std::string & value) // In: -- Value to be added.
-   override
-   {
-      const ElemType * temp_obj =
-         reinterpret_cast<ElemType *> (
-            JeodSimulationInterface::get_address_at_name (value));
+        this->insert(this->end(), *temp_obj);
+    }
 
-      this->insert (this->end(), *temp_obj);
-   }
+    /**
+     * Return the value of the item to be written to the checkpoint file.
+     * For a JeodObjectContainer, the value is the name of the corresponding
+     * object in the C-style copy of the object's contents.
+     */
+    const std::string get_final_value() override
+    {
+        return JeodSimulationInterface::get_name_at_address(reinterpret_cast<void *>(copy), this->elem_type_descriptor);
+    }
 
-   /**
-    * Return the value of the item to be written to the checkpoint file.
-    * For a JeodObjectContainer, the value is the name of the corresponding
-    * object in the C-style copy of the object's contents.
-    */
-   const std::string get_final_value (void) override
-   {
-      return JeodSimulationInterface::get_name_at_address (
-                reinterpret_cast<void *> (copy),
-                this->elem_type_descriptor);
-   }
+    /**
+     * Cleanup detritus created during the restore process.
+     * Here we delete the temporary array created during checkpoint.
+     * @param value String name of cleanup target.
+     */
+    void perform_cleanup_action(const std::string & value) override
+    {
+        auto * temp_obj = reinterpret_cast<ElemType *>(JeodSimulationInterface::get_address_at_name(value));
+        if(temp_obj != NULL)
+        {
+            JEOD_DELETE_ARRAY(temp_obj);
+        }
+    }
 
-   /**
-    * Cleanup detritus created during the restore process.
-    * Here we delete the temporary array created during checkpoint.
-    * @param value String name of cleanup target.
-    */
-   void perform_cleanup_action (const std::string & value) override
-   {
-      ElemType * temp_obj =
-         reinterpret_cast<ElemType *> (
-            JeodSimulationInterface::get_address_at_name (value));
-      if (temp_obj != NULL) {
-         JEOD_DELETE_ARRAY (temp_obj);
-      }
-   }
+protected:
+    /**
+     * Index number into the copy; used during checkpoint process.
+     */
+    JEOD_SIZE_T index; //!< trick_io(**)
 
-
- protected:
-
-   /**
-    * Index number into the copy; used during checkpoint process.
-    */
-   JEOD_SIZE_T index; //!< trick_io(**)
-
-   /**
-    * C-style array copy of the object; used during checkpoint process.
-    */
-   ElemType * copy; //!< trick_io(**)
+    /**
+     * C-style array copy of the object; used during checkpoint process.
+     */
+    ElemType * copy; //!< trick_io(**)
 };
-
 
 // DO NOT USE.
 // This is deprecated and will disappear with the next release.
 // Use one of the JeodObjectXxx classes instead.
-#define JEOD_OBJECT_CONTAINER(container_type,elem_type) \
-   JeodObjectContainer<Jeod##container_type<elem_type>,elem_type>
+#define JEOD_OBJECT_CONTAINER(container_type, elem_type) JeodObjectContainer<Jeod##container_type<elem_type>, elem_type>
 
-
- } // End JEOD namespace
+} // namespace jeod
 
 #endif
 

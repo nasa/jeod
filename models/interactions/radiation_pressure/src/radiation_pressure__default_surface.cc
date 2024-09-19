@@ -37,19 +37,18 @@ LIBRARY DEPENDENCY:
 
 // JEOD includes
 #include "dynamics/dyn_manager/include/dyn_manager.hh"
-#include "utils/math/include/vector3.hh"
 #include "interactions/thermal_rider/include/thermal_model_rider.hh"
+#include "utils/math/include/vector3.hh"
 
 // Model structure includes
-#include "../include/radiation_pressure.hh"
 #include "../include/radiation_default_surface.hh"
-#include "../include/radiation_third_body.hh"
+#include "../include/radiation_pressure.hh"
 #include "../include/radiation_source.hh"
-
-
+#include "../include/radiation_third_body.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /******************************************************************************/
 /******************************************************************************/
@@ -67,66 +66,57 @@ namespace jeod {
     (Initialize the radiation pressure model when using a
     RadiationDefaultSurface (i.e. spherical, uniform properties.))
 ******************************************************************************/
-void
-RadiationPressure::initialize (
-   DynManager & dyn_mgr,
-   RadiationDefaultSurface * surf_ptr)
+void RadiationPressure::initialize(DynManager & dyn_mgr, RadiationDefaultSurface * surf_ptr)
 {
+    dyn_manager_ptr = &(dyn_mgr);
 
-   dyn_manager_ptr = &(dyn_mgr);
+    // initialize the 3rd bodies (provides compatibility with Trick7 methodology
+    // of defining 3rd bodies in default data)
+    for(unsigned int ii_body = 0; ii_body < source.num_bodies; ++ii_body)
+    {
+        add_third_body(source.third_body[ii_body]);
+        int old_shadow_geom = source.shadow_geometry;
+        third_bodies.back()->convert_shadow_from_int(old_shadow_geom);
+    }
 
-   // initialize the 3rd bodies (provides compatibility with Trick7 methodology
-   // of defining 3rd bodies in default data)
-   for (unsigned int ii_body = 0; ii_body < source.num_bodies; ++ii_body) {
-      add_third_body(source.third_body[ii_body]);
-      int old_shadow_geom = source.shadow_geometry;
-      third_bodies.back()->convert_shadow_from_int(old_shadow_geom);
-   }
-
-   initialize_environment (dyn_manager_ptr);
-   default_surface_ptr = surf_ptr;
-   default_surface_ptr->initialize();
-   return;
+    initialize_environment(dyn_manager_ptr);
+    default_surface_ptr = surf_ptr;
+    default_surface_ptr->initialize();
 }
 
 /**
  * Used to update the model when the surface is a default surface.
  */
-void
-RadiationPressure::update_default_surface (
-   void)
+void RadiationPressure::update_default_surface()
 {
-   default_surface_ptr->initialize_runtime_values();
+    default_surface_ptr->initialize_runtime_values();
 
-   if (source.flux_mag > 0) {
-      default_surface_ptr->incident_radiation (source.flux_mag,
-                                               source.flux_struc_hat,
-                                               calculate_forces);
-   }
+    if(source.flux_mag > 0)
+    {
+        default_surface_ptr->incident_radiation(source.flux_mag, source.flux_struc_hat, calculate_forces);
+    }
 
-   for (unsigned int ii_body = 0; ii_body < num_third_bodies; ++ii_body) {
-      if (third_bodies[ii_body]->is_interactive() &&
-          third_bodies[ii_body]->active) {
-         default_surface_ptr->interact_with_third_body( third_bodies[ii_body],
-                                                        calculate_forces);
-      }
-   }
+    for(unsigned int ii_body = 0; ii_body < num_third_bodies; ++ii_body)
+    {
+        if(third_bodies[ii_body]->is_interactive() && third_bodies[ii_body]->active)
+        {
+            default_surface_ptr->interact_with_third_body(third_bodies[ii_body], calculate_forces);
+        }
+    }
 
-   default_surface_ptr->thermal_update();
+    default_surface_ptr->thermal_update();
 
-   if (calculate_forces) {
-      Vector3::sum ( default_surface_ptr->F_absorption,
+    if(calculate_forces)
+    {
+        Vector3::sum(default_surface_ptr->F_absorption,
                      default_surface_ptr->F_specular,
                      default_surface_ptr->F_diffuse,
                      force);
-   }
-   Vector3::initialize (torque);
-
-
-   return;
+    }
+    Vector3::initialize(torque);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

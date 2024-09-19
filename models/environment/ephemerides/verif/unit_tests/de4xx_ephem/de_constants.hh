@@ -43,56 +43,52 @@ Purpose: (The DE constants are now hidden.)
 
 #include "environment/ephemerides/de4xx_ephem/include/de4xx_file.hh"
 
+//! Namespace jeod
+namespace jeod
+{
 
-//! Namespace jeod 
-namespace jeod {
+class DE4xxConstants
+{
+public:
+    DE4xxConstants(const De4xxFileHeader &);
 
-class DE4xxConstants {
- public:
-   DE4xxConstants(const De4xxFileHeader &);
+    const double emrat;
 
-   const double emrat;
+    const double vlight;
+    const double au;
 
-   const double vlight;
-   const double au;
-
-   const double gm1;
-   const double gm2;
-   const double gmb;
-   const double gm4;
-   const double gm5;
-   const double gm6;
-   const double gm7;
-   const double gm8;
-   const double gm9;
-   const double gms;
+    const double gm1;
+    const double gm2;
+    const double gmb;
+    const double gm4;
+    const double gm5;
+    const double gm6;
+    const double gm7;
+    const double gm8;
+    const double gm9;
+    const double gms;
 };
 
+inline DE4xxConstants::DE4xxConstants(const De4xxFileHeader & hdr)
+    : emrat(hdr.em_mass_ratio),
 
-inline
-DE4xxConstants::DE4xxConstants (
-   const De4xxFileHeader & hdr)
-:
-  emrat(hdr.em_mass_ratio),
+      vlight(hdr.vlight),
+      au(hdr.au),
 
-  vlight(hdr.vlight),
-  au(hdr.au),
-
-  gm1(hdr.gmbody[0]),
-  gm2(hdr.gmbody[1]),
-  gmb(hdr.gmbody[2]),
-  gm4(hdr.gmbody[3]),
-  gm5(hdr.gmbody[4]),
-  gm6(hdr.gmbody[5]),
-  gm7(hdr.gmbody[6]),
-  gm8(hdr.gmbody[7]),
-  gm9(hdr.gmbody[8]),
-  gms(hdr.gmbody[10])
+      gm1(hdr.gmbody[0]),
+      gm2(hdr.gmbody[1]),
+      gmb(hdr.gmbody[2]),
+      gm4(hdr.gmbody[3]),
+      gm5(hdr.gmbody[4]),
+      gm6(hdr.gmbody[5]),
+      gm7(hdr.gmbody[6]),
+      gm8(hdr.gmbody[7]),
+      gm9(hdr.gmbody[8]),
+      gms(hdr.gmbody[10])
 {
-   // Empty
+    // Empty
 }
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

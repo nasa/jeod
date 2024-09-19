@@ -49,10 +49,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_NULL_MEMORY_INTERFACE_HH
 #define JEOD_NULL_MEMORY_INTERFACE_HH
@@ -70,249 +69,224 @@ Purpose:
 // Model includes
 #include "test_harness_messages.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A NullMemoryInterface extends the JeodMemoryInterface, providing the
  * required functionality of the parent class in a null manner.
  */
-class NullMemoryInterface : public JeodMemoryInterface {
+class NullMemoryInterface : public JeodMemoryInterface
+{
+    // Member functions
+public:
+    /**
+     * Default constructor.
+     */
+    NullMemoryInterface() {}
 
- // Member functions
- public:
+    /**
+     * Destructor.
+     */
+    ~NullMemoryInterface() {}
 
-   /**
-    * Default constructor.
-    */
-   NullMemoryInterface () {}
+    explicit NullMemoryInterface(const NullMemoryInterface &) = delete;
+    NullMemoryInterface & operator=(const NullMemoryInterface &) = delete;
 
-   /**
-    * Destructor.
-    */
-   ~NullMemoryInterface () {}
+    /**
+     * Checkpoint/restart is not supported here.
+     * @return False
+     */
+    bool is_checkpoint_restart_supported() const
+    {
+        return false;
+    }
 
+    /**
+     * Do-nothing get_name_at_address handler.
+     * @return Empty string
+     * \param[in] addr Ignored
+     * \param[in] tdesc Ignored
+     */
+    const std::string get_name_at_address(const void * addr JEOD_UNUSED,
+                                          const JeodMemoryTypeDescriptor * tdesc JEOD_UNUSED)
 
-      /**
-    * Checkpoint/restart is not supported here.
-    * @return False
-    */
-   bool is_checkpoint_restart_supported (
-      void)
-   const
-   {
-      return false;
-   }
+        const
+    {
+        return "";
+    }
 
-      /**
-    * Do-nothing get_name_at_address handler.
-    * @return Empty string
-    * \param[in] addr Ignored
-    * \param[in] tdesc Ignored
-    */
-   const std::string get_name_at_address (
-      const void * addr JEOD_UNUSED,
-      const JeodMemoryTypeDescriptor * tdesc JEOD_UNUSED)
+    /**
+     * Do-nothing get_address_at_name handler.
+     * @return Null pointer
+     * \param[in] name Ignored
+     */
+    void * get_address_at_name(const std::string & name JEOD_UNUSED) const
+    {
+        return nullptr;
+    }
 
-   const
-   {
-      return "";
-   }
+    /**
+     * Do-nothing find_attributes handler.
+     * @return nullptr
+     */
+    const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes(const std::string &) // In: -- Ignored
+        const
+    {
+        return nullptr;
+    }
 
-      /**
-    * Do-nothing get_address_at_name handler.
-    * @return Null pointer
-    * \param[in] name Ignored
-    */
-   void * get_address_at_name (
-      const std::string & name JEOD_UNUSED)
-   const
-   {
-      return NULL;
-   }
+    /**
+     * Do-nothing find_attributes handler.
+     * @return nullptr
+     */
+    const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes(const std::type_info &) // In: -- Ignored
+        const
+    {
+        return nullptr;
+    }
 
-      /**
-    * Do-nothing find_attributes handler.
-    * @return NULL
-    */
-   const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
-      const std::string &)                              // In: -- Ignored
-   const
-   {
-      return NULL;
-   }
-
-      /**
-    * Do-nothing find_attributes handler.
-    * @return NULL
-    */
-   const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
-      const std::type_info &)                          // In: -- Ignored
-   const
-   {
-      return NULL;
-   }
-
-      /**
-    * Do-nothing primitive_attributes handler.
-    * @return Dummy
-    */
-   JEOD_ATTRIBUTES_TYPE primitive_attributes (
-      const std::type_info &)                  // In: -- Ignored
-   const
-   {
+    /**
+     * Do-nothing primitive_attributes handler.
+     * @return Dummy
+     */
+    JEOD_ATTRIBUTES_TYPE primitive_attributes(const std::type_info &) // In: -- Ignored
+        const
+    {
 #ifdef TRICK_VER
-      ATTRIBUTES dummy;
-      return dummy;
+        ATTRIBUTES dummy;
+        return dummy;
 #else
-      return 0;
+        return 0;
 #endif
-   }
+    }
 
-      /**
-    * Do-nothing pointer_attributes handler.
-    * @return Dummy
-    */
-   JEOD_ATTRIBUTES_TYPE pointer_attributes (
-      const JEOD_ATTRIBUTES_TYPE &)          // In: -- Ignored
-   const
-   {
+    /**
+     * Do-nothing pointer_attributes handler.
+     * @return Dummy
+     */
+    JEOD_ATTRIBUTES_TYPE pointer_attributes(const JEOD_ATTRIBUTES_TYPE &) // In: -- Ignored
+        const
+    {
 #ifdef TRICK_VER
-      ATTRIBUTES dummy;
-      return dummy;
+        ATTRIBUTES dummy;
+        return dummy;
 #else
-      return 0;
+        return 0;
 #endif
-   }
+    }
 
-      /**
-    * Do-nothing pointer_attributes handler.
-    * @return Dummy
-    */
-   JEOD_ATTRIBUTES_TYPE void_pointer_attributes (
-      void)
-   const
-   {
+    /**
+     * Do-nothing pointer_attributes handler.
+     * @return Dummy
+     */
+    JEOD_ATTRIBUTES_TYPE void_pointer_attributes() const
+    {
 #ifdef TRICK_VER
-      ATTRIBUTES dummy;
-      return dummy;
+        ATTRIBUTES dummy;
+        return dummy;
 #else
-      return 0;
+        return 0;
 #endif
-   }
+    }
 
-      /**
-    * Do-nothing pointer_attributes handler.
-    * @return Dummy
-    */
-   JEOD_ATTRIBUTES_TYPE structure_attributes (
-      const JEOD_ATTRIBUTES_POINTER_TYPE,      // In: -- Ignored
-      std::size_t)                             // In: -- Ignored
-   const
-   {
+    /**
+     * Do-nothing pointer_attributes handler.
+     * @return Dummy
+     */
+    JEOD_ATTRIBUTES_TYPE structure_attributes(const JEOD_ATTRIBUTES_POINTER_TYPE, // In: -- Ignored
+                                              std::size_t)                        // In: -- Ignored
+        const
+    {
 #ifdef TRICK_VER
-      ATTRIBUTES dummy;
-      return dummy;
+        ATTRIBUTES dummy;
+        return dummy;
 #else
-      return 0;
+        return 0;
 #endif
-   }
+    }
 
-      /**
-    * Do-nothing register_allocation handler.
-    * @return True
-    * \param[in] addr Allocated memory
-    * \param[in] item Description of the memory
-    * \param[in] tdesc Description of the type
-    * \param[in] file File containing JEOD_ALLOC
-    * \param[in] line Line containing JEOD_ALLOC
-    */
-   virtual bool register_allocation (
-      const void * addr,
-      const JeodMemoryItem & item,
-      const JeodMemoryTypeDescriptor & tdesc,
-      const char * file,
-      unsigned int line)
-   {
-      MessageHandler::debug (
-         file, line, TestHarnessMessages::debug,
-        "Memory at %p registered as a %s, size=%zd",
-        addr, tdesc.type_spec(item).c_str(), tdesc.buffer_size(item));
-      return true;
-   }
+    /**
+     * Do-nothing register_allocation handler.
+     * @return True
+     * \param[in] addr Allocated memory
+     * \param[in] item Description of the memory
+     * \param[in] tdesc Description of the type
+     * \param[in] file File containing JEOD_ALLOC
+     * \param[in] line Line containing JEOD_ALLOC
+     */
+    virtual bool register_allocation(const void * addr,
+                                     const JeodMemoryItem & item,
+                                     const JeodMemoryTypeDescriptor & tdesc,
+                                     const char * file,
+                                     unsigned int line)
+    {
+        MessageHandler::debug(file,
+                              line,
+                              TestHarnessMessages::debug,
+                              "Memory at %p registered as a %s, size=%zd",
+                              addr,
+                              tdesc.type_spec(item).c_str(),
+                              tdesc.buffer_size(item));
+        return true;
+    }
 
-      /**
-    * Do-nothing deregister_allocation handler.
-    * \param[in] addr Allocated memory
-    * \param[in] item Description of the memory
-    * \param[in] tdesc Description of the type
-    * \param[in] file File containing JEOD_ALLOC
-    * \param[in] line Line containing JEOD_ALLOC
-    */
-   virtual void deregister_allocation (
-      const void * addr,
-      const JeodMemoryItem & item,
-      const JeodMemoryTypeDescriptor & tdesc,
-      const char * file,
-      unsigned int line)
-   {
-      MessageHandler::debug (
-         file, line, TestHarnessMessages::debug,
-        "Memory at %p deregistered as a %s, size=%zd",
-        addr, tdesc.type_spec(item).c_str(), tdesc.buffer_size(item));
-   }
+    /**
+     * Do-nothing deregister_allocation handler.
+     * \param[in] addr Allocated memory
+     * \param[in] item Description of the memory
+     * \param[in] tdesc Description of the type
+     * \param[in] file File containing JEOD_ALLOC
+     * \param[in] line Line containing JEOD_ALLOC
+     */
+    virtual void deregister_allocation(const void * addr,
+                                       const JeodMemoryItem & item,
+                                       const JeodMemoryTypeDescriptor & tdesc,
+                                       const char * file,
+                                       unsigned int line)
+    {
+        MessageHandler::debug(file,
+                              line,
+                              TestHarnessMessages::debug,
+                              "Memory at %p deregistered as a %s, size=%zd",
+                              addr,
+                              tdesc.type_spec(item).c_str(),
+                              tdesc.buffer_size(item));
+    }
 
-      /**
-    * Do-nothing register_container handler.
-    * \param[in] container Ignored
-    * \param[in] container_type Ignored
-    * \param[in] elem_name Ignored
-    * \param[in] checkpointable Ignored
-    */
-   void register_container (
-      const void * container JEOD_UNUSED,
-      const JeodMemoryTypeDescriptor & container_type JEOD_UNUSED,
-      const char * elem_name JEOD_UNUSED,
-      JeodCheckpointable & checkpointable JEOD_UNUSED)
-   {
-      ; // Empty
-   }
+    /**
+     * Do-nothing register_container handler.
+     * \param[in] container Ignored
+     * \param[in] container_type Ignored
+     * \param[in] elem_name Ignored
+     * \param[in] checkpointable Ignored
+     */
+    void register_container(const void * container JEOD_UNUSED,
+                            const JeodMemoryTypeDescriptor & container_type JEOD_UNUSED,
+                            const std::string & elem_name JEOD_UNUSED,
+                            JeodCheckpointable & checkpointable JEOD_UNUSED)
+    {
+        ; // Empty
+    }
 
-      /**
-    * Do-nothing deregister_container handler.
-    * \param[in] container Ignored
-    * \param[in] container_type Ignored
-    * \param[in] elem_name Ignored
-    * \param[in] checkpointable Ignored
-    */
-   void deregister_container (
-      const void * container JEOD_UNUSED,
-      const JeodMemoryTypeDescriptor & container_type JEOD_UNUSED,
-      const char * elem_name JEOD_UNUSED,
-      JeodCheckpointable & checkpointable JEOD_UNUSED)
-   {
-      ; // Empty
-   }
-
-
- // The copy constructor and assignment operator are private/unimplemented.
- private:
-
-   /**
-    * Not implemented.
-    */
-   explicit NullMemoryInterface (const NullMemoryInterface &);
-
-   /**
-    * Not implemented.
-    */
-   NullMemoryInterface & operator= (const NullMemoryInterface &);
+    /**
+     * Do-nothing deregister_container handler.
+     * \param[in] container Ignored
+     * \param[in] container_type Ignored
+     * \param[in] elem_name Ignored
+     * \param[in] checkpointable Ignored
+     */
+    void deregister_container(const void * container JEOD_UNUSED,
+                              const JeodMemoryTypeDescriptor & container_type JEOD_UNUSED,
+                              const std::string & elem_name JEOD_UNUSED,
+                              JeodCheckpointable & checkpointable JEOD_UNUSED)
+    {
+        ; // Empty
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

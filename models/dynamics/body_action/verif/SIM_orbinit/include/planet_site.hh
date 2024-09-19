@@ -44,69 +44,61 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_PLANET_SITE_HH
 #define JEOD_PLANET_SITE_HH
 
 // System includes
 
 // JEOD includes
-#include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "dynamics/dyn_body/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
+#include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "utils/planet_fixed/north_east_down/include/north_east_down.hh"
 #include "utils/planet_fixed/planet_fixed_posn/include/alt_lat_long_state.hh"
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*******************************************************************************
 Purpose: (Define a point on the Earth.)
 *******************************************************************************/
-class PlanetSite {
+class PlanetSite
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetSite)
 
-   JEOD_MAKE_SIM_INTERFACES(PlanetSite)
-
-
- // Member data
+    // Member data
 
 public:
+    NorthEastDown ned; /* trick_units(--) @n
+       The NorthEastDown frame plus spherical/elliptical selector. */
 
-   NorthEastDown ned; /* trick_units(--) @n
-      The NorthEastDown frame plus spherical/elliptical selector. */
+    std::string site_id; /* trick_units(--) @n
+       Site identifier. */
 
-   char * site_id; /* trick_units(--) @n
-      Site identifier. */
+    AltLatLongState loc; /* trick_units(--) @n
+       User-input site location. */
 
-   AltLatLongState loc; /* trick_units(--) @n
-      User-input site location. */
+    NorthEastDown::AltLatLongType altlatlong_type{NorthEastDown::elliptical}; /* trick_units(--) @n
+       Use spherical or elliptical coordinates? */
 
-   NorthEastDown::AltLatLongType altlatlong_type; /* trick_units(--) @n
-      Use spherical or elliptical coordinates? */
+private:
+    DynManager * local_dm{};
 
+    // Methods
 
- // Methods
+public:
+    // Default constructor and destructor
+    PlanetSite() = default;
+    ~PlanetSite();
 
- public:
+    // initialize(): Initialize the site.
+    void initialize(Planet & planet, DynManager & dyn_manager);
 
-   // Default constructor and destructor
-   PlanetSite ();
-   ~PlanetSite ();
-
-   // initialize(): Initialize the site.
-   void initialize (Planet & planet, DynManager & dyn_manager);
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   PlanetSite (const PlanetSite&);
-   PlanetSite & operator = (const PlanetSite&);
+    PlanetSite(const PlanetSite &) = delete;
+    PlanetSite & operator=(const PlanetSite &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

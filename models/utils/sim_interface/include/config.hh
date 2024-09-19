@@ -51,7 +51,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -60,32 +60,31 @@ Purpose:
 
 // For Trick-based applications,
 // Use the version-specific configuration for Trick-based builds.
-#if (defined TRICK_VER)
+#if(defined TRICK_VER)
 #include "config_trick10.hh"
 
 // Standalone JEOD unit tests use the test harness configuration.
-#elif (defined JEOD_UNIT_TEST)
+#elif(defined JEOD_UNIT_TEST)
 #include "config_test_harness.hh"
 
-// FUTURE, if needed: configure for the non-Trick demo capability.
+#define JEOD_THROW(x)
 
+// FUTURE, if needed: configure for the non-Trick demo capability.
 
 // Non-Trick installations should consolidate requisite configuration
 // information in a single header file and compile JEOD with
 // JEOD_CONFIG_HEADER defined to be this config file.
-#elif (defined JEOD_CONFIG_HEADER)
+#elif(defined JEOD_CONFIG_HEADER)
 #include JEOD_CONFIG_HEADER
 
 #else
 // We're out of options. Compilation will be hosed.
 #endif
 
-
 // Define macros that enable the package to take advantage of extensions
 // to c++, if possible.
 
-#if (! defined SWIG) && \
-    ((defined __GNUC__) || (defined __llvm__) || (defined __clang__))
+#if(!defined SWIG) && ((defined __GNUC__) || (defined __llvm__) || (defined __clang__))
 
 /**
  * @def JEOD_UNUSED
@@ -93,6 +92,31 @@ Purpose:
  * be marked as JEOD_UNUSED.
  */
 #define JEOD_UNUSED __attribute__((unused))
+#ifndef JEOD_THROW
+#define JEOD_THROW(x) throw x
+#endif
+
+#ifndef JEOD_DEPRECATED
+#if defined(__GNUC__) || defined(__clang__)
+#define JEOD_DEPRECATED __attribute__((deprecated))
+#elif defined(_MSC_VER)
+#define JEOD_DEPRECATED __declspec(deprecated)
+#else
+#pragma message("WARNING: You need to implement DEPRECATED for this compiler")
+#define JEOD_DEPRECATED
+#endif
+#endif
+
+#ifndef JEOD_DEPRECATED
+#if defined(__GNUC__) || defined(__clang__)
+#define JEOD_DEPRECATED __attribute__((deprecated))
+#elif defined(_MSC_VER)
+#define JEOD_DEPRECATED __declspec(deprecated)
+#else
+#pragma message("WARNING: You need to implement DEPRECATED for this compiler")
+#define JEOD_DEPRECATED
+#endif
+#endif
 
 #else
 #define JEOD_UNUSED
@@ -114,7 +138,6 @@ Purpose:
 
 #endif
 
-
 // Provide standard defaults for integral types
 #ifndef JEOD_SIZE_T
 #define JEOD_SIZE_T std::size_t
@@ -131,7 +154,6 @@ Purpose:
 #ifndef JEOD_UINTPTR_T
 #define JEOD_UINTPTR_T uintptr_t
 #endif
-
 
 #endif
 

@@ -48,7 +48,7 @@
  Library dependencies:
  ((../src/ground_interaction.cc))
 
- 
+
 
  *****************************************************************************/
 
@@ -56,18 +56,17 @@
 #define GROUND_INTERACTION_HH
 
 /* JEOD includes */
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "interactions/contact/include/class_declarations.hh"
-#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 #include "interactions/contact/include/contact_facet.hh"
+#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 /* Rover includes */
 #include "../../terrain/include/terrain.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Class declarations
 class Terrain;
@@ -77,80 +76,69 @@ class GroundFacet;
  Purpose:
  (An base ground interaction class for use in the contact model.)
  */
-class GroundInteraction {
-
-   JEOD_MAKE_SIM_INTERFACES(GroundInteraction)
+class GroundInteraction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GroundInteraction)
 
 public:
-   ContactFacet *subject; /* trick_units(--) @n
-      contact facet that can interact with the ground */
+    ContactFacet * subject{}; /* trick_units(--) @n
+        contact facet that can interact with the ground */
 
-   GroundFacet *ground; /* trick_units(--) @n
-      ground contact facet */
+    GroundFacet * ground{}; /* trick_units(--) @n
+        ground contact facet */
 
-   PairInteraction *interaction; /* trick_units(--) @n
-      Parameters that define the force calculation function between the contact
-      facet and the ground */
+    PairInteraction * interaction{}; /* trick_units(--) @n
+        Parameters that define the force calculation function between the contact
+        facet and the ground */
 
-   double interaction_distance; /* trick_units(m) @n
-      rel_state distance at which in_contact should be called. */
+    double interaction_distance{}; /* trick_units(m) @n
+       rel_state distance at which in_contact should be called. */
 
-   bool contact; /* trick_units(--) @n
-      the subject is touching the ground. */
+    bool contact{}; /* trick_units(--) @n
+       the subject is touching the ground. */
 
-   double friction_mag;  /* trick_units(N) @n
+    double friction_mag{}; /* trick_units(N) @n
       magnitude of the friction force on the contact surface. */
 
-   double velocity_mag; /* trick_units(m/s) @n
-      magnitude of the relative velocity between the ground and facet. */
+    double velocity_mag{}; /* trick_units(m/s) @n
+       magnitude of the relative velocity between the ground and facet. */
 
-   Terrain * terrain; /* trick_units(--) @n
-      terrain object associated with this interaction. */
+    Terrain * terrain{}; /* trick_units(--) @n
+       terrain object associated with this interaction. */
 
-   PlanetFixedPosition point; /* trick_units(--) @n
-      planet fixed position used to store ground location. */
+    PlanetFixedPosition point; /* trick_units(--) @n
+       planet fixed position used to store ground location. */
 
-   double ground_normal[3]; /* trick_units(--) @n
-      ground normal from last in contact calculation. */
+    double ground_normal[3]{}; /* trick_units(--) @n
+       ground normal from last in contact calculation. */
 
-   // constructor
-   GroundInteraction();
+    GroundInteraction() = default;
+    virtual ~GroundInteraction() = default;
+    GroundInteraction & operator=(const GroundInteraction &) = delete;
+    GroundInteraction(const GroundInteraction &) = delete;
 
-   // destructor
-   virtual ~GroundInteraction();
+    virtual void initialize(Terrain * terrain_in);
 
-   virtual void initialize(Terrain *terrain_in);
+    // test whether facet is in range of the section of ground. */
+    bool in_range();
 
-   // test whether facet is in range of the section of ground. */
-   bool in_range();
+    // check to make sure the contact facet is active.
+    bool is_active();
 
-   // check to make sure the contact facet is active.
-   bool is_active();
+    // check to make sure the contact facet is active.
+    ContactFacet * get_subject();
 
-   // check to make sure the contact facet is active.
-   ContactFacet * get_subject();
-
-   /*
-    Virtual funtion to determine if the contact facet is touching the ground.
-    */
-   virtual void in_contact() = 0;
-
-protected:
-
-private:
-
-   /* Operator = and copy constructor hidden from use by being private */
-   GroundInteraction& operator = (const GroundInteraction & rhs);
-   GroundInteraction (const GroundInteraction & rhs);
-
+    /*
+     Virtual funtion to determine if the contact facet is touching the ground.
+     */
+    virtual void in_contact() = 0;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
-#if (defined TRICK_VER)// && (TRICK_VER < 10)
-#include "interactions/contact/include/pair_interaction.hh"
+#if(defined TRICK_VER) // && (TRICK_VER < 10)
 #include "ground_facet.hh"
+#include "interactions/contact/include/pair_interaction.hh"
 #endif
-
 
 #endif

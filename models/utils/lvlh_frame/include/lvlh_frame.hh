@@ -55,10 +55,9 @@ Purpose:
 Library dependencies:
   ((../src/lvlh_frame.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_LVLH_FRAME_HH
 #define JEOD_LVLH_FRAME_HH
@@ -66,106 +65,93 @@ Library dependencies:
 // System includes
 #include <string>
 
-
 // JEOD includes
 #include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "environment/planet/include/class_declarations.hh"
 #include "utils/ref_frames/include/ref_frame.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used to represent an LVLH reference frame associated
  * with a subject DynBody.
  */
-class LvlhFrame {
+class LvlhFrame
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LvlhFrame)
 
- JEOD_MAKE_SIM_INTERFACES(LvlhFrame)
+    // Member data
+public:
+    /**
+     * The LVLH frame defined by the subject frame's motion with respect to
+     * the reference planet.
+     */
+    RefFrame frame; //!< trick_units(--)
 
- // Member data
- public:
+    /**
+     * The frame whose motion defines LVLH. Can be on a vehicle or not.
+     */
+    std::string subject_name{""}; //!< trick_units(--)
 
-   /**
-    * The LVLH frame defined by the subject frame's motion with respect to
-    * the reference planet.
-    */
-   RefFrame frame; //!< trick_units(--)
+    /**
+     * The planet used as reference for the LVLH frame.
+     */
+    std::string planet_name{""}; //!< trick_units(--)
 
-   /**
-    * The frame whose motion defines LVLH. Can be on a vehicle or not.
-    */
-   std::string subject_name; //!< trick_units(--)
+protected:
+    /**
+     * The (moving) frame specified with subject_name.
+     */
+    RefFrame * subject_frame{}; //!< trick_units(--)
 
-   /**
-    * The planet used as reference for the LVLH frame.
-    */
-   std::string planet_name; //!< trick_units(--)
+    /**
+     * The inertial frame with origin at the center of the specified planet.
+     */
+    RefFrame * planet_centered_inertial{}; //!< trick_units(--)
 
- protected:
+private:
+    /**
+     * A local pointer to the dynamics manager needed for clean-up
+     */
+    DynManager * local_dm{}; //!< trick_units(--)
 
-   /**
-    * The (moving) frame specified with subject_name.
-    */
-   RefFrame * subject_frame; //!< trick_units(--)
+    // Methods
+public:
+    // Default constructor and destructor
+    LvlhFrame() = default;
+    ~LvlhFrame();
 
-   /**
-    * The inertial frame with origin at the center of the specified planet.
-    */
-   RefFrame * planet_centered_inertial; //!< trick_units(--)
+    LvlhFrame(const LvlhFrame &) = delete;
+    LvlhFrame & operator=(const LvlhFrame &) = delete;
 
- private:
+    // Initialize the model (but not necessarily the state).
+    void initialize(DynManager & dyn_manager);
 
-   /**
-    * A local pointer to the dynamics manager needed for clean-up
-    */
-      DynManager *local_dm;      //!< trick_units(--)
+    // Update the state of the LVLH frame relative to its parent
+    // frame, which is the planet-centered inertial.
+    void update();
 
+    // Specify the defining frame's name
+    void set_subject_name(const std::string & new_name);
 
- // Methods
- public:
+    // Specify the reference planet's name
+    void set_planet_name(const std::string & new_name);
 
-   // Default constructor and destructor
-   LvlhFrame ();
-   ~LvlhFrame ();
+    // Specify the defining frame
+    void set_subject_frame(RefFrame & new_frame);
 
-   // Initialize the model (but not necessarily the state).
-   void initialize (DynManager & dyn_manager);
+    // Specify the reference planet whose PCI frame defines LVLH
+    void set_planet(BasePlanet & new_planet);
 
-   // Update the state of the LVLH frame relative to its parent
-   // frame, which is the planet-centered inertial.
-   void update ();
-
-   // Specify the defining frame's name
-   void set_subject_name (const std::string & new_name);
-
-   // Specify the reference planet's name
-   void set_planet_name (const std::string & new_name);
-
-   // Specify the defining frame
-   void set_subject_frame (RefFrame & new_frame);
-
-   // Specify the reference planet whose PCI frame defines LVLH
-   void set_planet (BasePlanet & new_planet);
-
- protected:
-
-   // Calculate the current LVLH frame orientation based on given state.
-   void compute_lvlh_frame (const RefFrameTrans & rel_trans);
-
- private:
-
-   // The copy constructor and assignment operator for this class are
-   // declared private and are not implemented.
-   LvlhFrame (const LvlhFrame&);
-   LvlhFrame & operator = (const LvlhFrame&);
-
+protected:
+    // Calculate the current LVLH frame orientation based on given state.
+    void compute_lvlh_frame(const RefFrameTrans & rel_trans);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

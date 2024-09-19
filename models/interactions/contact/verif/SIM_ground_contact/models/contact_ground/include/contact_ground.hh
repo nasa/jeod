@@ -49,7 +49,7 @@
  Library dependencies:
     ((../src/contact_ground.cc))
 
- 
+
 
 *****************************************************************************/
 
@@ -61,16 +61,17 @@
 
 /* JEOD includes */
 #include "dynamics/dyn_manager/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
-#include "utils/container/include/pointer_list.hh"
 #include "interactions/contact/include/contact.hh"
+#include "utils/container/include/pointer_list.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "ground_interaction.hh"
 #include "ground_facet.hh"
+#include "ground_interaction.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Class declarations
 class Planet;
@@ -81,72 +82,65 @@ class ContactFacet;
   Purpose:
     (An base contact class for use in the surface model.)
  */
-class ContactGround : public Contact {
-
-   JEOD_MAKE_SIM_INTERFACES(ContactGround)
+class ContactGround : public Contact
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ContactGround)
 
 public:
+    bool ground_active{true}; /* trick_units(--) @n
+       is the ground active */
 
-   bool ground_active; /* trick_units(--) @n
-      is the ground active */
+    Planet * planet{}; /* trick_units(--) @n
+       Planet object which the terrain is associated with, also need for
+       reference frame information. */
 
-   Planet * planet; /* trick_units(--) @n
-      Planet object which the terrain is associated with, also need for
-      reference frame information. */
+    // constructor
+    ContactGround();
 
-   // constructor
-   ContactGround ();
+    // destructor
+    ~ContactGround() override;
 
-   // destructor
-   ~ContactGround () override;
+    ContactGround & operator=(const ContactGround &) = delete;
+    ContactGround(const ContactGround &) = delete;
 
-   /*
-    Create the list of ground interfaces using the pairs list and set the
-    and terrain for this contact model.  Note that this should be run before
-    initializing ground.
-    */
-   void initialize_ground (Planet * planet_in, Terrain * terrain_in);
+    /*
+     Create the list of ground interfaces using the pairs list and set the
+     and terrain for this contact model.  Note that this should be run before
+     initializing ground.
+     */
+    void initialize_ground(Planet * planet_in, Terrain * terrain_in);
 
-   /*
-    Register a GroundFacet with the ContactGround class.
-    */
-   void register_ground_facet(GroundFacet * ground_facet);
+    /*
+     Register a GroundFacet with the ContactGround class.
+     */
+    void register_ground_facet(GroundFacet * ground_facet);
 
-   /*
-    Check if a contact facet already has an GroundInterface defined
-    */
-   bool is_unique_ground_interaction(ContactFacet * facet);
+    /*
+     Check if a contact facet already has an GroundInterface defined
+     */
+    bool is_unique_ground_interaction(ContactFacet * facet);
 
-   /*
-    Get the ground_interaction for a specific ContactFacet.
-    */
-   GroundInteraction * get_ground_interaction(ContactFacet * facet);
+    /*
+     Get the ground_interaction for a specific ContactFacet.
+     */
+    GroundInteraction * get_ground_interaction(ContactFacet * facet);
 
-   /*
-    Function to check for contact.  Loops through all the created pairs.
-    */
-   void check_contact_ground ();
+    /*
+     Function to check for contact.  Loops through all the created pairs.
+     */
+    void check_contact_ground();
 
 protected:
+    Terrain * terrain{}; /* trick_units(--) @n
+       Terrain class that will give an altitude and normal */
 
-   Terrain * terrain; /* trick_units(--) @n
-      Terrain class that will give an altitude and normal */
+    JeodPointerList<GroundInteraction>::type ground_interactions; /* trick_io(**) @n
+       list of all possible ContactFacet and ground interfaces. */
 
-   JeodPointerList<GroundInteraction>::type ground_interactions; /* trick_io(**) @n
-      list of all possible ContactFacet and ground interfaces. */
-
-   JeodPointerList<GroundFacet>::type ground_facets; /* trick_io(**) @n
-      list of all possible ground facets. */
-
-private:
-   /* Operator = and copy constructor hidden from use by being private */
-
-   ContactGround& operator = (const ContactGround& rhs);
-   ContactGround (const ContactGround& rhs);
-
+    JeodPointerList<GroundFacet>::type ground_facets; /* trick_io(**) @n
+       list of all possible ground facets. */
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

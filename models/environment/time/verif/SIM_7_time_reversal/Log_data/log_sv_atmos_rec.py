@@ -9,7 +9,7 @@
 #ASSUMPTIONS AND LIMITATIONS:
 #    (none)
 #
-# 
+#
 #*/
 
 def log_sv_atmos_rec ( log_cycle , VEH_NAME , VEH_OBJ ) :
@@ -33,11 +33,11 @@ def log_sv_atmos_rec ( log_cycle , VEH_NAME , VEH_OBJ ) :
   for ii in range(0,3) :
     dr_group.add_variable(""+VEH_OBJ+".pfix.state.cart_coords[" + str(ii) + "]" )
   dr_group.add_variable(   ""+VEH_OBJ+".atmos.temperature")
-  dr_group.add_variable(   "earth.atmos.local_state.exo_temp")
+  dr_group.add_variable(   "earth.atmos.state.exo_temp")
   dr_group.add_variable(   ""+VEH_OBJ+".atmos.density")
-  dr_group.add_variable(   "earth.atmos.local_state.log10_dens")
+  dr_group.add_variable(   "earth.atmos.state.log10_dens")
   dr_group.add_variable(   ""+VEH_OBJ+".atmos.pressure")
-  dr_group.add_variable(   "earth.atmos.local_state.mol_weight")
+  dr_group.add_variable(   "earth.atmos.state.mol_weight")
 
   trick.add_data_record_group(dr_group)
   return

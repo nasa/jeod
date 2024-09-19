@@ -49,13 +49,11 @@
  * Gauss-Jackson predictor and corrector coefficients.
  */
 
-
 /*
 Purpose: ()
 Library dependencies:
   ((../src/gauss_jackson_coeffs.cc))
 */
-
 
 #ifndef JEOD_GAUSS_JACKSON_COEFFS_HH
 #define JEOD_GAUSS_JACKSON_COEFFS_HH
@@ -69,117 +67,108 @@ Library dependencies:
 // System includes
 #include <iosfwd>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Contains the Gauss-Jackson predictor and corrector coefficients.
  */
-class GaussJacksonCoeffs {
-
-  JEOD_MAKE_SIM_INTERFACES(GaussJacksonCoeffs)
+class GaussJacksonCoeffs
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GaussJacksonCoeffs)
 
 public:
+    // Member data.
 
-   // Member data.
+    /**
+     * Summed Adams and Gauss-Jackson predictor coefficients.
+     */
+    GaussJacksonCoefficientsPair predictor; //!< trick_units(--)
 
-   /**
-    * Summed Adams and Gauss-Jackson predictor coefficients.
-    */
-   GaussJacksonCoefficientsPair predictor; //!< trick_units(--)
+    /**
+     * Summed Adams and Gauss-Jackson corrector coefficients.
+     */
+    GaussJacksonCoefficientsPair * corrector{}; //!< trick_units(--)
 
-   /**
-    * Summed Adams and Gauss-Jackson corrector coefficients.
-    */
-   GaussJacksonCoefficientsPair* corrector; //!< trick_units(--)
+    /**
+     * Maximum order; used for sizing.
+     */
+    unsigned int max_order{}; //!< trick_units(--)
 
-   /**
-    * Maximum order; used for sizing.
-    */
-   unsigned int max_order; //!< trick_units(--)
+    /**
+     * Current order; dictates the coefficient values.
+     */
+    unsigned int order{}; //!< trick_units(--)
 
-   /**
-    * Current order; dictates the coefficient values.
-    */
-   unsigned int order; //!< trick_units(--)
+    // Member functions.
 
+    /**
+     * Default constructor.
+     */
+    GaussJacksonCoeffs() = default;
 
-   // Member functions.
+    /**
+     * Copy constructor.
+     * Note that this doesn't copy; it recomputes.
+     * The end result is as if a copy had been made.
+     * @param  src  Object to be copied.
+     */
+    GaussJacksonCoeffs(const GaussJacksonCoeffs & src)
+    {
+        if(max_order != src.max_order)
+        {
+            configure(src.max_order);
+            order = 0;
+        }
+        if(order != src.order)
+        {
+            compute_coeffs(src.order);
+        }
+    }
 
-   /**
-    * Default constructor.
-    */
-   GaussJacksonCoeffs ()
-   :
-      predictor(),
-      corrector(nullptr),
-      max_order(0),
-      order(0)
-   {}
+    /**
+     * Destructor.
+     */
+    ~GaussJacksonCoeffs();
 
-   /**
-    * Copy constructor.
-    * Note that this doesn't copy; it recomputes.
-    * The end result is as if a copy had been made.
-    * @param  src  Object to be copied.
-    */
-   GaussJacksonCoeffs (const GaussJacksonCoeffs & src)
-   {
-      if (max_order != src.max_order) {
-         configure (src.max_order);
-         order = 0;
-      }
-      if (order != src.order) {
-         compute_coeffs (src.order);
-      }
-   }
+    /**
+     * Copy-and-swap assignment operator.
+     * @param  src  Object to be copied.
+     */
+    GaussJacksonCoeffs & operator=(GaussJacksonCoeffs src)
+    {
+        swap(src);
+        return *this;
+    }
 
-   /**
-    * Destructor.
-    */
-   ~GaussJacksonCoeffs ();
+    /**
+     * Non-throwing swap.
+     * @param  src  Object to swap contents with.
+     */
+    void swap(GaussJacksonCoeffs & src);
 
-   /**
-    * Copy-and-swap assignment operator.
-    * @param  src  Object to be copied.
-    */
-   GaussJacksonCoeffs& operator= (GaussJacksonCoeffs src)
-   {
-      swap (src);
-      return *this;
-   }
+    /**
+     * Configure to enable coefficients up to the specified maximum order.
+     * @param  max_order_in  The maximum order to be used.
+     */
+    void configure(unsigned int max_order_in);
 
-   /**
-    * Non-throwing swap.
-    * @param  src  Object to swap contents with.
-    */
-   void swap (GaussJacksonCoeffs & src);
+    /**
+     * Compute coefficients for the specified order.
+     * @param  order_in  The current order.
+     */
+    void compute_coeffs(unsigned int order_in);
 
-   /**
-    * Configure to enable coefficients up to the specified maximum order.
-    * @param  max_order_in  The maximum order to be used.
-    */
-   void configure (unsigned int max_order_in);
-
-   /**
-    * Compute coefficients for the specified order.
-    * @param  order_in  The current order.
-    */
-   void compute_coeffs (unsigned int order_in);
-
-   /**
-    * Print the coefficients.
-    * @param  stream  The stream to be printed to.
-    * @param  coeff   The coefficients to be printed.
-    */
-   friend std::ostream & operator<< (
-      std::ostream& stream,
-      const GaussJacksonCoeffs& coeff);
+    /**
+     * Print the coefficients.
+     * @param  stream  The stream to be printed to.
+     * @param  coeff   The coefficients to be printed.
+     */
+    friend std::ostream & operator<<(std::ostream & stream, const GaussJacksonCoeffs & coeff);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -49,7 +49,7 @@
  Library dependencies:
  ((../src/terrain_radius.cc))
 
- 
+
  *******************************************************************************/
 #ifndef JEOD_TERRAIN_RADIUS_HH_
 #define JEOD_TERRAIN_RADIUS_HH_
@@ -59,28 +59,24 @@
 #include "terrain.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class TerrainRadius : public Terrain {
-
+class TerrainRadius : public Terrain
+{
 public:
+    TerrainRadius() = default;
+    ~TerrainRadius() override = default;
+    TerrainRadius(const TerrainRadius &) = delete;
+    TerrainRadius & operator=(const TerrainRadius &) = delete;
 
-   TerrainRadius();
+    /*  initialize the terrain model */
+    int initialize(Planet * planet_in) override;
 
-   ~TerrainRadius() override;
-
-   /*  initialize the terrain model */
-   int initialize(Planet * planet_in) override;
-
-   /* find the altitude given a specific lat-long  */
-   int find_altitude (PlanetFixedPosition *point, double normal[3]) override;
-
-private:
-   TerrainRadius (const TerrainRadius&);
-   TerrainRadius & operator =(const TerrainRadius&);
-
+    /* find the altitude given a specific lat-long  */
+    int find_altitude(PlanetFixedPosition * point, double normal[3]) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif // end JEOD_TERRAIN_RADIUS_HH_ -- nothing after this line!

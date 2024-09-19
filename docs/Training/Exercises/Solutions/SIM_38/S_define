@@ -36,49 +36,54 @@
 //
 //=============================================================================
 // single vehicle in Earth orbit with Solar beta angle measured
-// 
+//
 //=============================================================================
 
-#define DYNAMICS      10.0
+#define DYNAMICS 10.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
+
 #include "time_TAI_UTC_UT1_TT.sm"
+
 #include "dynamics.sm"
-#include "environment.sm"
 #include "earth_basic.sm"
-#include "sun_basic.sm"
+#include "environment.sm"
 #include "moon_basic.sm"
+#include "sun_basic.sm"
 #include "vehicle_basic.sm"
 
 ##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
 ##include "dynamics/derived_state/include/solar_beta_derived_state.hh"
-class StateSimObject : public Trick::SimObject {
+class StateSimObject : public Trick::SimObject
+{
+public:
+    jeod::DynBodyInitOrbit orb_init;
+    jeod::SolarBetaDerivedState solar_beta;
 
-  public:
-   jeod::DynBodyInitOrbit      orb_init;
-   jeod::SolarBetaDerivedState solar_beta;
+    StateSimObject(jeod::DynManager & dyn_mngr_in, jeod::DynBody & dyn_body_in)
+        : dyn_manager(dyn_mngr_in),
+          dyn_body(dyn_body_in)
+    {
+        P_DYN("initialization") solar_beta.initialize(dyn_body, dyn_manager);
+        (DYNAMICS, "environment") solar_beta.update();
+    }
 
-   StateSimObject( jeod::DynManager   &dyn_mngr_in,
-                   jeod::DynBody & dyn_body_in)
-     :
-       dyn_manager(dyn_mngr_in),
-       dyn_body(dyn_body_in)
-   {
-      P_DYN  ("initialization") solar_beta.initialize (dyn_body,
-                                                       dyn_manager);
-      (DYNAMICS, "environment") solar_beta.update ( );
-   };
-  private:
-   StateSimObject (const StateSimObject&);
-   StateSimObject & operator = (const StateSimObject&);
+private:
+    StateSimObject(const StateSimObject &);
+    StateSimObject & operator=(const StateSimObject &);
 
-   jeod::DynManager & dyn_manager;
-   jeod::DynBody &  dyn_body;
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & dyn_body;
 };
+
 StateSimObject state(dynamics.dyn_manager, vehicle.dyn_body);
 
-
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

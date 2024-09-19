@@ -8,6 +8,7 @@ exec(compile(open( "Log_data/log_data.py", "rb").read(), "Log_data/log_data.py",
 dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4
 dynamics.dyn_manager_init.mode = trick.DynManagerInit.EphemerisMode_SinglePlanet
 dynamics.dyn_manager_init.central_point_name = "ref_planet"
+dynamics.dyn_manager.gravity_off = 1
 
 # Set up the planet used for LVLH.
 dynamics.reference_planet.set_name("ref_planet")

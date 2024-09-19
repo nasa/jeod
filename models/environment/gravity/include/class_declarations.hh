@@ -61,13 +61,12 @@ Assumptions and limitations:
 
 ******************************************************************************/
 
-
 #ifndef JEOD_GRAVITY_FORWARD_HH
 #define JEOD_GRAVITY_FORWARD_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class GravitySource;
 class GravityControls;
@@ -85,7 +84,7 @@ class SphericalHarmonicsSolidBodyTidesInit;
 class SphericalHarmonicsTidalEffects;
 class SphericalHarmonicsTidalEffectsInit;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

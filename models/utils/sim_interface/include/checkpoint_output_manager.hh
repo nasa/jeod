@@ -50,7 +50,6 @@
  PURPOSE: ()
 */
 
-
 #ifndef JEOD_CHECKPOINTOUTPUTMANAGER_HH
 #define JEOD_CHECKPOINTOUTPUTMANAGER_HH
 
@@ -58,19 +57,18 @@
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // System includes
-#include <ostream>
 #include <fstream>
-#include <string>
 #include <map>
+#include <ostream>
+#include <string>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class SectionedOutputStream;
 class CheckPointOutputManager;
 class MemoryManagerWrapper;
-
 
 /**
  A SectionedOutputBuffer is a std::streambuf that writes a section of a
@@ -83,74 +81,64 @@ class MemoryManagerWrapper;
  from std::streambuf, *everything* in this class is private.
  This class is not extensible.
  */
-class SectionedOutputBuffer : public std::streambuf {
-friend class SectionedOutputStream;
+class SectionedOutputBuffer : public std::streambuf
+{
+    friend class SectionedOutputStream;
 
 public:
+    /**
+     Destructor.
+     For now, this does nothing.
+     */
+    ~SectionedOutputBuffer() override = default;
 
-   /**
-    Destructor.
-    For now, this does nothing.
-    */
-   ~SectionedOutputBuffer() override {}
+    SectionedOutputBuffer(const SectionedOutputBuffer &) = delete;
+    SectionedOutputBuffer & operator=(const SectionedOutputBuffer &) = delete;
 
 #ifndef SWIG
-   /**
-    Conversion to boolean.
-    @return False if object is OK.
-    */
-   bool operator ! () const
-   { return file_buf == nullptr; }
+    /**
+     Conversion to boolean.
+     @return False if object is OK.
+     */
+    bool operator!() const
+    {
+        return file_buf == nullptr;
+    }
 #endif
 
 private:
+    // Default constructor.
+    SectionedOutputBuffer();
 
-   // Default constructor.
-   SectionedOutputBuffer (void);
+    // Non-default constructor.
+    explicit SectionedOutputBuffer(std::ofstream * stream);
 
-   // Non-default constructor.
-   explicit SectionedOutputBuffer (std::ofstream * stream);
+    // Activate the object.
+    void activate(std::ofstream & stream);
 
-   // Activate the object.
-   void activate (std::ofstream & stream);
+    /**
+     Deactivate the object.
+     Used to disconnect the buffer when the stream is done, sometimes by force.
+     */
+    void deactivate()
+    {
+        if(!!*this)
+        {
+            this->sync();
+        }
+        file_buf = nullptr;
+    }
 
-   /**
-    Deactivate the object.
-    Used to disconnect the buffer when the stream is done, sometimes by force.
-    */
-   void deactivate (void) {
-      if (!!*this) {
-         this->sync();
-      }
-      file_buf = nullptr;
-   }
+    // Write a character to the file when the output buffer overflows.
+    std::streambuf::int_type overflow(std::streambuf::int_type c) override;
 
-   // Write a character to the file when the output buffer overflows.
-   std::streambuf::int_type overflow (std::streambuf::int_type c) override;
+    // Member data
 
-
-   // Member data
-
-   /**
-    * The file buffer that writes to the checkpoint file.
-    */
-   std::filebuf * file_buf; //!< trick_io(**)
-
-
-   // Deleted contents
-
-   /**
-    Not implemented.
-    */
-   SectionedOutputBuffer (const SectionedOutputBuffer &);
-
-   /**
-    Not implemented.
-    */
-   SectionedOutputBuffer & operator= (const SectionedOutputBuffer &);
-
+    /**
+     * The file buffer that writes to the checkpoint file.
+     */
+    std::filebuf * file_buf{}; //!< trick_io(**)
 };
-
 
 /**
  A SectionedOutputStream is a std::ostream that writes a section of a
@@ -165,110 +153,112 @@ private:
  This class is not extensible and is intended to be used within the
  context of a CheckPointOutputManager.
  */
-class SectionedOutputStream : public std::ostream {
-friend class CheckPointOutputManager;
+class SectionedOutputStream : public std::ostream
+{
+    friend class CheckPointOutputManager;
+
 public:
+    // Default constructor.
+    SectionedOutputStream();
 
-   // Default constructor.
-   SectionedOutputStream ();
+    // Copy constructor.
+    SectionedOutputStream(const SectionedOutputStream &);
 
-   // Copy constructor.
-   SectionedOutputStream (const SectionedOutputStream &);
+    // Destructor.
+    ~SectionedOutputStream() override;
 
-   // Destructor.
-   ~SectionedOutputStream () override;
+    SectionedOutputStream & operator=(const SectionedOutputStream &) = delete;
 
-   // Is the object able to be activated?
-   bool is_activatable () const;
+    // Is the object able to be activated?
+    bool is_activatable() const;
 
-   // Activate the object.
-   bool activate ();
+    // Activate the object.
+    bool activate();
 
-   // Deactivate the object.
-   void deactivate ();
+    // Deactivate the object.
+    void deactivate();
 
 #ifndef SWIG
-   /**
-    Conversion to boolean.
-    @return False if object is OK.
-    */
-   bool operator ! () const
-   { return (!is_active || stream == nullptr || !sectbuf); }
+    /**
+     Conversion to boolean.
+     @return False if object is OK.
+     */
+    bool operator!() const
+    {
+        return (!is_active || stream == nullptr || !sectbuf);
+    }
 
-   /**
-    Conversion to void*.
-    This method provides an alternative to the bang-bang trick to determine
-    if the object is OK.
-    @return this pointer (cast to void*) if object is OK, NULL otherwise.
-    */
-   operator void* () const
-   { return (!*this) ? nullptr : const_cast<SectionedOutputStream*>(this); }
+    /**
+     Conversion to void*.
+     This method provides an alternative to the bang-bang trick to determine
+     if the object is OK.
+     @return this pointer (cast to void*) if object is OK, NULL otherwise.
+     */
+    operator void *() const
+    {
+        if(!*this)
+        {
+            return nullptr;
+        }
+        else
+        {
+            return const_cast<SectionedOutputStream *>(this);
+        }
+    }
 #endif
 
-
 private:
+    // Construct a SectionedOutputStream (non-default constructor).
+    SectionedOutputStream(CheckPointOutputManager * mngr,
+                          std::ofstream & ofstream,
+                          const std::string & start_marker,
+                          const std::string & end_marker,
+                          const std::string & section_name);
 
-   // Construct a SectionedOutputStream (non-default constructor).
-   SectionedOutputStream (CheckPointOutputManager * mngr,
-                         std::ofstream & ofstream,
-                         const std::string & start_marker,
-                         const std::string & end_marker,
-                         const std::string & section_name);
+    // Member data
 
+    /**
+     * The std::streambuf that does the writing to the file.
+     */
+    SectionedOutputBuffer sectbuf; //!< trick_io(**)
 
-   // Member data
+    /**
+     * The input manager that created this object.
+     */
+    CheckPointOutputManager * manager{}; //!< trick_io(**)
 
-   /**
-    * The std::streambuf that does the writing to the file.
-    */
-   SectionedOutputBuffer sectbuf; //!< trick_io(**)
+    /**
+     * The C++ file stream that writes to the checkpoint file.
+     */
+    std::ofstream * stream{}; //!< trick_io(**)
 
-   /**
-    * The input manager that created this object.
-    */
-   CheckPointOutputManager * manager; //!< trick_io(**)
+    /**
+     * The string that indicates the start of a checkpoint file section.
+     */
+    const std::string * section_start{};
 
-   /**
-    * The C++ file stream that writes to the checkpoint file.
-    */
-   std::ofstream * stream; //!< trick_io(**)
+    /**
+     * The string that indicates the start of a checkpoint file section.
+     */
+    const std::string * section_end{};
 
-   /**
-    * The string that indicates the start of a checkpoint file section.
-    */
-   const std::string * section_start;
+    /**
+     * The name of the checkpoint file section.
+     */
+    const std::string tag{""};
 
-   /**
-    * The string that indicates the start of a checkpoint file section.
-    */
-   const std::string * section_end;
+    /**
+     * Is this a copy of some other SectionedOutputStream?
+     * Copies of copies are verboten.
+     */
+    bool is_copy{}; //!< trick_io(**)
 
-   /**
-    * The name of the checkpoint file section.
-    */
-   const std::string tag;
-
-   /**
-    * Is this a copy of some other SectionedOutputStream?
-    * Copies of copies are verboten.
-    */
-   bool is_copy; //!< trick_io(**)
-
-   /**
-    * Is this an active object?
-    * In the end, there can be only one.
-    */
-   bool is_active; //!< trick_io(**)
-
-
-   // Deleted contents
-
-   /**
-    Not implemented.
-    */
-   SectionedOutputStream & operator= (const SectionedOutputStream &);
+    /**
+     * Is this an active object?
+     * In the end, there can be only one.
+     */
+    bool is_active{}; //!< trick_io(**)
 };
-
 
 /**
  A CheckPointOutputManager provides the basic tools for writing a checkpoint
@@ -276,110 +266,101 @@ private:
  This class generates C++ output streams that write the section markers and
  that other objects can use to write checkpoint file section data.
  */
-class CheckPointOutputManager {
-friend class MemoryManagerWrapper;
+class CheckPointOutputManager
+{
+    friend class MemoryManagerWrapper;
 
 public:
+    // Non-default constructor.
+    CheckPointOutputManager(const std::string & fname,
+                            const std::string & start_marker,
+                            const std::string & end_marker);
 
-   // Non-default constructor.
-   CheckPointOutputManager (const std::string & fname,
-                           const std::string & start_marker,
-                           const std::string & end_marker);
+    CheckPointOutputManager(const CheckPointOutputManager &) = delete;
+    CheckPointOutputManager & operator=(const CheckPointOutputManager &) = delete;
 
-   /**
-    Create a C++ output stream that writes a checkpoint file section.
-    @return Constructed SectionedOutputStream.
-   */
-   SectionedOutputStream create_section_writer (const std::string & tag)
-   { return create_section_writer (false, tag); }
+    /**
+     Create a C++ output stream that writes a checkpoint file section.
+     @return Constructed SectionedOutputStream.
+    */
+    SectionedOutputStream create_section_writer(const std::string & tag)
+    {
+        return create_section_writer(false, tag);
+    }
 
 #ifndef SWIG
-   /**
-    Conversion to boolean.
-    @return False if object is OK.
-    */
-   bool operator ! () const
-   { return (!is_open || !stream); }
+    /**
+     Conversion to boolean.
+     @return False if object is OK.
+     */
+    bool operator!() const
+    {
+        return (!is_open || !stream);
+    }
 #endif
 
-   /**
-    Is there an active checkpoint section writer?
-    @return True if there is an active writer, false otherwise.
-   */
-   bool have_active_writer () const
-   { return (current_writer != nullptr); }
+    /**
+     Is there an active checkpoint section writer?
+     @return True if there is an active writer, false otherwise.
+    */
+    bool have_active_writer() const
+    {
+        return (current_writer != nullptr);
+    }
 
-   // Denote a writer as *the* currently active writer.
-   bool register_writer (SectionedOutputStream * writer);
+    // Denote a writer as *the* currently active writer.
+    bool register_writer(SectionedOutputStream * writer);
 
-   // Denote a writer as no longer being *the* currently active writer.
-   bool deregister_writer (const SectionedOutputStream * writer);
+    // Denote a writer as no longer being *the* currently active writer.
+    bool deregister_writer(const SectionedOutputStream * writer);
 
 private:
+    // Member functions
 
-   // Member functions
+    // Create a C++ output stream that writes a checkpoint file section.
+    SectionedOutputStream create_section_writer(bool trick, const std::string & tag);
 
-   // Create a C++ output stream that writes a checkpoint file section.
-   SectionedOutputStream create_section_writer (
-      bool trick,
-      const std::string & tag);
+    /**
+     Create a C++ output stream that writes a Trick checkpoint file section.
+     @return  A SectionedOutputStream object, which must be used to
+              initialize a local SectionedOutputStream variable.
+     */
+    SectionedOutputStream create_trick_section_writer();
 
-   /**
-    Create a C++ output stream that writes a Trick checkpoint file section.
-    @return  A SectionedOutputStream object, which must be used to
-             initialize a local SectionedOutputStream variable.
-    */
-   SectionedOutputStream create_trick_section_writer ();
+    // Member data
 
+    /**
+     * The C++ file stream that writes to the checkpoint file.
+     */
+    std::ofstream stream; //!< trick_io(**)
 
-   // Member data
+    /**
+     * The writer that currently is active.
+     */
+    SectionedOutputStream * current_writer{}; //!< trick_io(**)
 
-   /**
-    * The C++ file stream that writes to the checkpoint file.
-    */
-   std::ofstream stream; //!< trick_io(**)
+    /**
+     * The name of the checkpoint file.
+     */
+    const std::string filename;
 
-   /**
-    * The writer that currently is active.
-    */
-   SectionedOutputStream * current_writer; //!< trick_io(**)
+    /**
+     * The string that indicates the start of a checkpoint file section.
+     */
+    const std::string & section_start;
 
-   /**
-    * The name of the checkpoint file.
-    */
-   const std::string filename;
+    /**
+     * The string that indicates the start of a checkpoint file section.
+     */
+    const std::string & section_end;
 
-   /**
-    * The string that indicates the start of a checkpoint file section.
-    */
-   const std::string & section_start;
-
-   /**
-    * The string that indicates the start of a checkpoint file section.
-    */
-   const std::string & section_end;
-
-   /**
-    * Is the checkpoint file open?
-    */
-   bool is_open; //!< trick_io(**)
-
-
-   // Deleted contents.
-
-   /**
-    Not implemented.
-    */
-   CheckPointOutputManager (const CheckPointOutputManager &);
-
-   /**
-    Not implemented.
-    */
-   CheckPointOutputManager & operator= (const CheckPointOutputManager &);
+    /**
+     * Is the checkpoint file open?
+     */
+    bool is_open{true}; //!< trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

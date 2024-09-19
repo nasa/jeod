@@ -50,7 +50,7 @@ def _get_host_cpu () :
     import os
 
     command = 'trick-gte' if _is_modern_trick() else 'gte'
-    command += ' TRICK_HOST_CPU';
+    command += ' TRICK_HOST_CPU'
     process = os.popen(command)
     result = process.read()
     try :

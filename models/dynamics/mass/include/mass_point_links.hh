@@ -56,7 +56,6 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_POINT_LINKS_HH
 #define JEOD_MASS_POINT_LINKS_HH
 
@@ -67,57 +66,50 @@ Purpose:
 #include "mass_messages.hh"
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/ref_frames/include/tree_links.hh"
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class MassPointLinks;
 
 /**
  * Encapsulates the links between mass points.
  */
-class MassPointLinks :
-   public TreeLinks<MassPointLinks, MassPoint, MassBodyMessages> {
+class MassPointLinks : public TreeLinks<MassPointLinks, MassPoint, MassBodyMessages>
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MassPointLinks)
 
- JEOD_MAKE_SIM_INTERFACES(MassPointLinks)
+    // Member functions
+public:
+    /**
+     * Non-default constructor.
+     * @param container_in The MassPoint object that contains this object.
+     */
+    explicit MassPointLinks(MassPoint & container_in)
+        : TreeLinks<MassPointLinks, MassPoint, MassBodyMessages>(container_in, default_path_size)
+    {
+    }
 
+    // The default constructor, copy constructor, and copy assignment
+    // operator don't make sense and are deleted.
+    MassPointLinks() = delete;
+    MassPointLinks(const MassPointLinks &) = delete;
+    void operator=(const MassPointLinks &) = delete;
 
- // Member functions
- public:
+    /**
+     * Destructor.
+     */
+    ~MassPointLinks() override = default;
 
-   /**
-    * Non-default constructor.
-    * @param container_in The MassPoint object that contains this object.
-    */
-   explicit MassPointLinks (MassPoint & container_in)
-   :
-      TreeLinks<MassPointLinks, MassPoint, MassBodyMessages> (
-         container_in, default_path_size)
-   { }
-
-   // The default constructor, copy constructor, and copy assignment
-   // operator don't make sense and are deleted.
-   MassPointLinks () = delete;
-   MassPointLinks (const MassPointLinks&) = delete;
-   void operator= (const MassPointLinks&) = delete;
-
-   /**
-    * Destructor.
-    */
-   ~MassPointLinks () override = default;
-
-
- private:
-
-   const static unsigned int default_path_size = 8; /* trick_units(--) @n
-      The default length of a MassBodyLinks object's path_to_node_ array. */
+private:
+    const static unsigned int default_path_size = 8; /* trick_units(--) @n
+       The default length of a MassBodyLinks object's path_to_node_ array. */
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

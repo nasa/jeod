@@ -41,12 +41,9 @@ Library dependencies:
   ((../src/test_object.cc))
 *******************************************************************************/
 
-
 #ifndef CONTAINER_VERIF_TEST_HH
 #define CONTAINER_VERIF_TEST_HH
 
-#include <iostream>
-#include <string>
 #include "utils/container/include/object_list.hh"
 #include "utils/container/include/object_set.hh"
 #include "utils/container/include/object_vector.hh"
@@ -58,174 +55,175 @@ Library dependencies:
 #include "utils/container/include/primitive_vector.hh"
 #include "utils/container/include/simple_checkpointable.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
+#include <iostream>
+#include <string>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * A simple object used to test JeodObjectContainer capabilities.
  */
-class TestObject {
-JEOD_MAKE_SIM_INTERFACES(TestObject)
-   friend std::ostream& operator<< (std::ostream& out, const TestObject & obj);
-   friend bool operator<  (const TestObject & x, const TestObject & y);
+class TestObject
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TestObject)
+    friend std::ostream & operator<<(std::ostream & out, const TestObject & obj);
+    friend bool operator<(const TestObject & x, const TestObject & y);
+
 public:
-   TestObject () : ival(0), dval(0.0) {}
-   TestObject (int in) : ival(in), dval(in) {}
+    TestObject() = default;
+
+    TestObject(int in)
+        : ival(in),
+          dval(in)
+    {
+    }
+
 private:
-   int ival;    /* trick_units(--) @n
-      Integer value */
+    int ival{}; /* trick_units(--) @n
+    Integer value */
 
-   double dval; /* trick_units(--) @n
-      Double value */
+    double dval{}; /* trick_units(--) @n
+       Double value */
 };
-
 
 /**
  * A simple object used to test SimpleCheckpointable capabilities.
  */
-class TestSimple : public SimpleCheckpointable {
-JEOD_MAKE_SIM_INTERFACES(TestSimple)
+class TestSimple : public SimpleCheckpointable
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TestSimple)
 
 public:
-   TestSimple () : value(0), hidden_value(42) {}
-   ~TestSimple (void) override {}
+    TestSimple() = default;
+    ~TestSimple() override = default;
 
-   void assign (int val) {
-      value = val;
-      hidden_value = value + 42;
-   }
+    void assign(int val)
+    {
+        value = val;
+        hidden_value = value + 42;
+    }
 
-   void simple_restore (void) override {
-      if (hidden_value != value+42) {
-         std::cout << "Restoring in TestSimple::simple_restore()\n\n";
-         hidden_value = value+42;
-      }
-   }
+    void simple_restore() override
+    {
+        if(hidden_value != value + 42)
+        {
+            std::cout << "Restoring in TestSimple::simple_restore()\n\n";
+            hidden_value = value + 42;
+        }
+    }
 
-   void print_contents (void) {
-      std::cout << "Test_simple contents:"
-                << " value=" << value
-                << " hidden_value=" << hidden_value << "\n\n";
-   }
+    void print_contents()
+    {
+        std::cout << "Test_simple contents:"
+                  << " value=" << value << " hidden_value=" << hidden_value << "\n\n";
+    }
+
+    TestSimple(const TestSimple &) = delete;
+    TestSimple & operator=(const TestSimple &) = delete;
 
 private:
-   int value; /* trick_units(--) @n
-      Value exposed to Trick. */
+    int value{}; /* trick_units(--) @n
+       Value exposed to Trick. */
 
-   int hidden_value; /* trick_io(**) @n
-      Value hidden from Trick. */
-
-   TestSimple (const TestSimple &);
-   TestSimple & operator = (const TestSimple &);
+    int hidden_value{42}; /* trick_io(**) @n
+       Value hidden from Trick. */
 };
-
 
 /**
 Test container
 This object tests that each of the publicly-defined STL replacements
 can be checkpointed and restarted.
 */
-class TestContainer {
-JEOD_MAKE_SIM_INTERFACES(TestContainer)
+class TestContainer
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TestContainer)
 public:
-   TestContainer ();
-   ~TestContainer ();
-   void shutdown ();
-   void test1 ();
+    TestContainer();
+    ~TestContainer();
+    TestContainer(const TestContainer &) = delete;
+    TestContainer & operator=(const TestContainer &) = delete;
+    void shutdown();
+    void test1();
 
 private:
+    TestObject obj1; /* trick_units(--) @n
+     Object #1 */
 
-   TestObject obj1;   /* trick_units(--) @n
-      Object #1 */
+    TestObject obj2; /* trick_units(--) @n
+     Object #2 */
 
-   TestObject obj2;   /* trick_units(--) @n
-      Object #2 */
+    TestObject obj3; /* trick_units(--) @n
+     Object #3 */
 
-   TestObject obj3;   /* trick_units(--) @n
-      Object #3 */
+    TestSimple simple; /* trick_units(--) @n
+       Simple restorable object */
 
-   TestSimple simple; /* trick_units(--) @n
-      Simple restorable object */
-
-
-   JeodObjectList<TestObject>::type object_list;  /* trick_io(**) @n
+    JeodObjectList<TestObject>::type object_list; /* trick_io(**) @n
       Object list */
 
-   JeodObjectVector<TestObject>::type object_vec; /* trick_io(**) @n
-      Object vector */
+    JeodObjectVector<TestObject>::type object_vec; /* trick_io(**) @n
+       Object vector */
 
-   JeodObjectSet<TestObject>::type object_set;    /* trick_io(**) @n
-      Object set */
+    JeodObjectSet<TestObject>::type object_set; /* trick_io(**) @n
+    Object set */
 
-
-   JeodPointerList<TestObject>::type pointer_list;  /* trick_io(**) @n
+    JeodPointerList<TestObject>::type pointer_list; /* trick_io(**) @n
       Pointer list */
 
-   JeodPointerVector<TestObject>::type pointer_vec; /* trick_io(**) @n
-      Pointer vector */
+    JeodPointerVector<TestObject>::type pointer_vec; /* trick_io(**) @n
+       Pointer vector */
 
-   JeodPointerSet<TestObject>::type pointer_set;    /* trick_io(**) @n
-      Pointer set */
+    JeodPointerSet<TestObject>::type pointer_set; /* trick_io(**) @n
+    Pointer set */
 
-
-   JeodPrimitiveList<double>::type double_list;  /* trick_io(**) @n
+    JeodPrimitiveList<double>::type double_list; /* trick_io(**) @n
       Double list */
 
-   JeodPrimitiveVector<double>::type double_vec; /* trick_io(**) @n
-      Double vector */
+    JeodPrimitiveVector<double>::type double_vec; /* trick_io(**) @n
+       Double vector */
 
-   JeodPrimitiveSet<double>::type double_set;    /* trick_io(**) @n
-      Double set */
+    JeodPrimitiveSet<double>::type double_set; /* trick_io(**) @n
+    Double set */
 
-
-   JeodPrimitiveList<float>::type float_list;  /* trick_io(**) @n
+    JeodPrimitiveList<float>::type float_list; /* trick_io(**) @n
       Float list */
 
-   JeodPrimitiveVector<float>::type float_vec; /* trick_io(**) @n
-      Float vector */
+    JeodPrimitiveVector<float>::type float_vec; /* trick_io(**) @n
+       Float vector */
 
-   JeodPrimitiveSet<float>::type float_set;    /* trick_io(**) @n
-      Float set */
+    JeodPrimitiveSet<float>::type float_set; /* trick_io(**) @n
+    Float set */
 
-
-   JeodPrimitiveList<int>::type int_list;  /* trick_io(**) @n
+    JeodPrimitiveList<int>::type int_list; /* trick_io(**) @n
       Int list */
 
-   JeodPrimitiveVector<int>::type int_vec; /* trick_io(**) @n
-      Int vector */
+    JeodPrimitiveVector<int>::type int_vec; /* trick_io(**) @n
+       Int vector */
 
-   JeodPrimitiveSet<int>::type int_set;    /* trick_io(**) @n
-      Int set */
+    JeodPrimitiveSet<int>::type int_set; /* trick_io(**) @n
+    Int set */
 
-
-   JeodPrimitiveList<bool>::type bool_list;  /* trick_io(**) @n
+    JeodPrimitiveList<bool>::type bool_list; /* trick_io(**) @n
       Boolean list */
 
-   JeodPrimitiveVector<bool>::type bool_vec; /* trick_io(**) @n
-      Boolean vector */
+    JeodPrimitiveVector<bool>::type bool_vec; /* trick_io(**) @n
+       Boolean vector */
 
-   JeodPrimitiveSet<bool>::type bool_set;    /* trick_io(**) @n
-      Boolean set */
+    JeodPrimitiveSet<bool>::type bool_set; /* trick_io(**) @n
+    Boolean set */
 
-
-   JeodPrimitiveList<std::string>::type string_list;  /* trick_io(**) @n
+    JeodPrimitiveList<std::string>::type string_list; /* trick_io(**) @n
       String list */
 
-   JeodPrimitiveVector<std::string>::type string_vec; /* trick_io(**) @n
-      String vector */
+    JeodPrimitiveVector<std::string>::type string_vec; /* trick_io(**) @n
+       String vector */
 
-   JeodPrimitiveSet<std::string>::type string_set;    /* trick_io(**) @n
-      String set */
-
-
-
-   TestContainer (const TestContainer &);
-   TestContainer & operator = (const TestContainer &);
+    JeodPrimitiveSet<std::string>::type string_set; /* trick_io(**) @n
+    String set */
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -55,15 +55,15 @@ Purpose:
 Library dependencies:
   ((../src/ref_frame_items.cc))
 
- 
+
 
 ******************************************************************************/
-
 
 #ifndef JEOD_REF_FRAME_ITEMS_HH
 #define JEOD_REF_FRAME_ITEMS_HH
 
 // System includes
+#include <string>
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
@@ -71,106 +71,98 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Identify which aspects of a reference frame's state have been set.
  * The aspects that are managed are the position, velocity, attitude,
  * and attitude rate.
  */
-class RefFrameItems {
+class RefFrameItems
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RefFrameItems)
 
-  JEOD_MAKE_SIM_INTERFACES(RefFrameItems)
+    // Enumerations
+public:
+    /**
+     * The Items enumeration identifies the major items that can be
+     * set in a RefFrameState structure -- position, velocity, attitude, and
+     * attitude rate. The enumeration values are implemented as bit flags.
+     * The four basic items, position, velocity, attitude, and rate, have
+     * values of 1, 2, 4, and 8, respectively. Combinations thereof have values
+     * corresponding to the bitwise or of the basic components.
+     */
+    enum Items
+    {
+        // Values.
+        No_Items = 0,         ///< Nothing set
+        Pos = 1,              ///< Position
+        Vel = 2,              ///< Velocity
+        Pos_Vel = 3,          ///< Position + velocity
+        Att = 4,              ///< Attitude
+        Pos_Att = 5,          ///< Position + attitude
+        Vel_Att = 6,          ///< Velocity + attitude
+        Pos_Vel_Att = 7,      ///< Position + velocity + attitude
+        Rate = 8,             ///< Attitude rate
+        Pos_Rate = 9,         ///< Position + rate
+        Vel_Rate = 10,        ///< Velocity + rate
+        Pos_Vel_Rate = 11,    ///< Position + velocity + rate
+        Att_Rate = 12,        ///< Attitude + Rate
+        Pos_Att_Rate = 13,    ///< Position + attitude + Rate
+        Vel_Att_Rate = 14,    ///< Velocity + attitude + Rate
+        Pos_Vel_Att_Rate = 15 ///< Position + velocity + attitude + Rate
+    };
 
+    // Static member functions
+public:
+    // Return a string naming the set items.
+    static std::string to_string(Items test_items);
 
- // Enumerations
- public:
+    // Member data
+public:
+    /**
+     * Indicates which aspects of a RefFrameState have been set.
+     */
+    Items value; //!< trick_units(--)
 
+    // Member functions
+public:
+    // Constructors
+    RefFrameItems();
 
-   /**
-    * The Items enumeration identifies the major items that can be
-    * set in a RefFrameState structure -- position, velocity, attitude, and
-    * attitude rate. The enumeration values are implemented as bit flags.
-    * The four basic items, position, velocity, attitude, and rate, have
-    * values of 1, 2, 4, and 8, respectively. Combinations thereof have values
-    * corresponding to the bitwise or of the basic components.
-    */
-   enum Items {
+    explicit RefFrameItems(Items new_value);
 
-      // Values.
-      No_Items         =  0,  ///< Nothing set
-      Pos              =  1,  ///< Position
-      Vel              =  2,  ///< Velocity
-      Pos_Vel          =  3,  ///< Position + velocity
-      Att              =  4,  ///< Attitude
-      Pos_Att          =  5,  ///< Position + attitude
-      Vel_Att          =  6,  ///< Velocity + attitude
-      Pos_Vel_Att      =  7,  ///< Position + velocity + attitude
-      Rate             =  8,  ///< Attitude rate
-      Pos_Rate         =  9,  ///< Position + rate
-      Vel_Rate         = 10,  ///< Velocity + rate
-      Pos_Vel_Rate     = 11,  ///< Position + velocity + rate
-      Att_Rate         = 12,  ///< Attitude + Rate
-      Pos_Att_Rate     = 13,  ///< Position + attitude + Rate
-      Vel_Att_Rate     = 14,  ///< Velocity + attitude + Rate
-      Pos_Vel_Att_Rate = 15   ///< Position + velocity + attitude + Rate
-   };
+    // Get the value of a RefFrameItems object.
+    Items get() const;
 
+    // Determine whether specified aspects of a RefFrameItems are set.
+    bool contains(Items test_items) const;
 
- // Static member functions
- public:
-   // Return a string naming the set items.
-   static const char * to_string (Items test_items);
+    // Determine whether a RefFrameItems equals the specified aspects.
+    bool equals(Items test_items) const;
 
+    // Determine whether a RefFrameItems has nothing set.
+    bool is_empty() const;
 
- // Member data
- public:
-   /**
-    * Indicates which aspects of a RefFrameState have been set.
-    */
-   Items value; //!< trick_units(--)
+    // Determine whether a RefFrameItems has everything set.
+    bool is_full() const;
 
+    // Set the value of a RefFrameItems object.
+    Items set(Items new_value);
 
- // Member functions
- public:
-   // Constructors
-   RefFrameItems (void);
+    // Mark aspects of a RefFrameItems as set.
+    Items add(Items new_items);
 
-   explicit RefFrameItems (Items new_value);
+    // Mark aspects of a RefFrameItems as not set.
+    Items remove(Items old_items);
 
-   // Get the value of a RefFrameItems object.
-   Items get (void) const;
-
-   // Determine whether specified aspects of a RefFrameItems are set.
-   bool contains (Items test_items) const;
-
-   // Determine whether a RefFrameItems equals the specified aspects.
-   bool equals (Items test_items) const;
-
-   // Determine whether a RefFrameItems has nothing set.
-   bool is_empty (void) const;
-
-   // Determine whether a RefFrameItems has everything set.
-   bool is_full (void) const;
-
-
-   // Set the value of a RefFrameItems object.
-   Items set (Items new_value);
-
-   // Mark aspects of a RefFrameItems as set.
-   Items add (Items new_items);
-
-   // Mark aspects of a RefFrameItems as not set.
-   Items remove (Items old_items);
-
-   // Return a string naming the set items.
-   const char * to_string (void) const;
-
+    // Return a string naming the set items.
+    std::string to_string() const;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #include "ref_frame_items_inline.hh"
 

@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python3
 
 import os, subprocess, sys, time, shutil
 import json
@@ -33,9 +33,9 @@ relPath = scriptPath.partition(scriptRootPath)[2][1:]
 rootPath = os.getcwd()
 
 if len(sys.argv) != 2:
-  print "Usage: download_artifacts.py <Job ID>"
+  print("Usage: download_artifacts.py <Job ID>")
   sys.exit(-1)
-  
+
 data = {
        }
 job_url = project_url + '/jobs/' + str(sys.argv[1])
@@ -44,38 +44,38 @@ response.raise_for_status()
 rjson = response.json()
 jobHash = rjson['commit']['id']
 ccmd = ['git', 'log', '--pretty=tformat:"%H"', '-1']
-proc = subprocess.Popen(ccmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+proc = subprocess.Popen(ccmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
 res = proc.communicate()
 currHash = res[0].split('\n')[0]
-print currHash, jobHash, rjson['ref']
+print(currHash, jobHash, rjson['ref'])
 
 if currHash != jobHash:
-   print "Warning, the current hash of this repo is\n\t", currHash, "\nbut the artifacts downloaded were generated on hash\n\t", \
-         jobHash, "\nin reference to\n\t", rjson['ref']
-   print "The regression data may be out-of-sync with the CI job test"
-   yesNo = raw_input("Would you like to continue downloading? (y/n) ")
+   print("Warning, the current hash of this repo is\n\t", currHash, "\nbut the artifacts downloaded were generated on hash\n\t", \
+         jobHash, "\nin reference to\n\t", rjson['ref'])
+   print("The regression data may be out-of-sync with the CI job test")
+   yesNo = input("Would you like to continue downloading? (y/n) ")
    while True:
       if str(yesNo).lower() == 'n':
-         print "Exiting.."
+         print("Exiting..")
          sys.exit(-1)
       elif str(yesNo).lower() == 'y':
-         print "Proceeding.."
+         print("Proceeding..")
          break
       else:
-         print "Invalid response..."
-         yesNo = raw_input("Would you like to continue downloading? (y/n) ")
+         print("Invalid response...")
+         yesNo = input("Would you like to continue downloading? (y/n) ")
 
 data = {
        }
 artifacts_url = gitlab_url + '/jobs/' + str(sys.argv[1]) + '/artifacts'
 outName = 'artifacts_' + str(sys.argv[1]) + '.zip'
 if os.path.exists(outName):
-  print "Removed old zip file"
+  print("Removed old zip file")
   os.remove(outName)
 if os.path.exists('artifacts'):
-  print "Removed old artifacts directory"
+  print("Removed old artifacts directory")
   shutil.rmtree('artifacts')
-print "Downloading job as", outName, "..."
+print("Downloading job as", outName, "...")
 response = requests.get(artifacts_url, data=data, headers=headers,verify=False)
 response.raise_for_status()
 with open(outName, 'wb') as fp:
@@ -84,6 +84,6 @@ with open(outName, 'wb') as fp:
 os.system('unzip ' + outName)
 
 if __name__ == '__main__':
-   print "Script complete"
+   print("Script complete")
    os.system("notify-send -t 1000000000 \"Your friendly neighborhood download_artifacts.py script reports: Script complete!\"")
 sys.exit(0)

@@ -67,54 +67,51 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Describes messages used in the Atmosphere model.
  */
-class AtmosphereMessages {
+class AtmosphereMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AtmosphereMessages)
 
-   JEOD_MAKE_SIM_INTERFACES(AtmosphereMessages)
-
-   // Static member data
+    // Static member data
 
 public:
+    // Errors
 
-   // Errors
+    /**
+     * Indicates an error during initialization.
+     */
+    static const char * initialization_error; //!< trick_units(--)
 
-   /**
-    * Indicates an error during initialization.
-    */
-   static char const * initialization_error;   //!< trick_units(--)
+    /**
+     * Indicates an error during use of the generic framework.
+     */
+    static const char * framework_error; //!< trick_units(--)
 
-   /**
-    * Indicates an error during use of the generic framework.
-    */
-   static char const * framework_error;   //!< trick_units(--)
+    // Warnings
 
-   // Warnings
+    /**
+     * Indicates a warning associated with the generic framework.
+     */
+    static const char * framework_warning; //!< trick_units(--)
 
-   /**
-    * Indicates a warning associated with the generic framework.
-    */
-   static char const * framework_warning; //!< trick_units(--)
+    /**
+     * Indicates a warning associated with numerical values
+     */
+    static const char * numerical_warning; //!< trick_units(--)
 
-   /**
-    * Indicates a warning associated with numerical values
-    */
-   static char const * numerical_warning; //!< trick_units(--)
-
-private:
-
-   // Class is not instantiable, operator = and copy constructor are
-   // hidden from use.
-   AtmosphereMessages (void);
-   AtmosphereMessages (const AtmosphereMessages& rhs);
-   AtmosphereMessages& operator = (const AtmosphereMessages& rhs);
-
+    // Class is not instantiable, operator = and copy constructor are
+    // hidden from use.
+    AtmosphereMessages() = delete;
+    AtmosphereMessages(const AtmosphereMessages & rhs) = delete;
+    AtmosphereMessages & operator=(const AtmosphereMessages & rhs) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

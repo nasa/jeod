@@ -51,10 +51,8 @@ Purpose: ()
 SWIG: (No)
 */
 
-
 #ifndef JEOD_SUB_ARRAY_VIEW_HH
 #define JEOD_SUB_ARRAY_VIEW_HH
-
 
 #include "forward_view.hh"
 #include "matrix_view.hh"
@@ -62,9 +60,9 @@ SWIG: (No)
 
 #include <tuple>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Represents a subarray view into an array.
@@ -72,11 +70,10 @@ namespace jeod {
  * of the subarray. The member function at() ensures that the indexed
  * element is valid.
  */
-template <class ParentType, typename ElemType, typename RefType>
+template<class ParentType, typename ElemType, typename RefType>
 class SubArrayView : public MatrixView<ElemType, RefType>
 {
 public:
-
     /**
      * Non-default constructor.
      * @param array_in   The array for which a view is to be constructed.
@@ -84,16 +81,12 @@ public:
      * @param col_range  The leftmost and rightmost column of the view, plus one.
      * @throw std::out_of_range if sub-array bounds are invalid.
      */
-    SubArrayView (
-        ParentType& array_in,
-        const SolverTypes::IndexPairT& row_range,
-        const SolverTypes::IndexPairT& col_range)
-    :
-        SubArrayView(
-            array_in,
-            row_range.first, row_range.second,
-            col_range.first, col_range.second)
-    { }
+    SubArrayView(ParentType & array_in,
+                 const SolverTypes::IndexPairT & row_range,
+                 const SolverTypes::IndexPairT & col_range)
+        : SubArrayView(array_in, row_range.first, row_range.second, col_range.first, col_range.second)
+    {
+    }
 
     /**
      * Non-default constructor.
@@ -104,27 +97,18 @@ public:
      * @param end_col_in  The rightmost column of the view, plus one.
      * @throw std::out_of_range if sub-array bounds are invalid.
      */
-    SubArrayView (
-        ParentType& array_in,
-        unsigned beg_row_in,
-        unsigned end_row_in,
-        unsigned beg_col_in,
-        unsigned end_col_in)
-    :
-        MatrixView<ElemType, RefType>(
-            end_row_in-beg_row_in, end_col_in-beg_col_in),
-        array(array_in),
-        beg_row(beg_row_in),
-        beg_col(beg_col_in)
+    SubArrayView(
+        ParentType & array_in, unsigned beg_row_in, unsigned end_row_in, unsigned beg_col_in, unsigned end_col_in)
+        : MatrixView<ElemType, RefType>(end_row_in - beg_row_in, end_col_in - beg_col_in),
+          array(array_in),
+          beg_row(beg_row_in),
+          beg_col(beg_col_in)
     {
-        const auto& array_size = array_in.size();
-        if ((end_row_in <  beg_row_in) ||
-            (end_row_in >  array_size.first) ||
-            (end_col_in <  beg_col_in) ||
-            (end_col_in >  array_size.second))
+        const auto & array_size = array_in.size();
+        if((end_row_in < beg_row_in) || (end_row_in > array_size.first) || (end_col_in < beg_col_in) ||
+           (end_col_in > array_size.second))
         {
-            throw std::out_of_range(
-                "Attempt to create illegal SubArrayView");
+            JEOD_THROW(std::out_of_range("Attempt to create illegal SubArrayView"));
         }
     }
 
@@ -135,35 +119,31 @@ public:
      * @param i_col  The column number, zero based.
      * @return L-value reference to the specified element.
      */
-    virtual RefType operator() (unsigned i_row, unsigned i_col) final
+    virtual RefType operator()(unsigned i_row, unsigned i_col) final
     {
-        return array(beg_row+i_row, beg_col+i_col);
+        return array(beg_row + i_row, beg_col + i_col);
     }
 
-
 private:
-
     /**
      * The array into which a view is being presented.
      */
-    ParentType& array; //!< trick_units(--)
+    ParentType & array; //!< trick_units(--)
 
     /**
      * The topmost row of the view.
      */
-    unsigned beg_row; //!< trick_units(--)
+    unsigned beg_row{}; //!< trick_units(--)
 
     /**
      * The leftmost column of the view.
      */
-    unsigned beg_col; //!< trick_units(--)
+    unsigned beg_col{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

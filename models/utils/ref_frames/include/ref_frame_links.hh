@@ -58,10 +58,9 @@
 Purpose:
  ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_REF_FRAME_LINKS_HH
 #define JEOD_REF_FRAME_LINKS_HH
@@ -76,12 +75,11 @@ Purpose:
 #include "ref_frame_messages.hh"
 #include "tree_links.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RefFrameLinks;
-
 
 /**
  * Encapsulates the links between reference frames.
@@ -89,61 +87,38 @@ class RefFrameLinks;
  * \par Assumptions and Limitations
  *  - Classes that use this class must keep the tree structure intact.
  */
-class RefFrameLinks : public TreeLinks<RefFrameLinks,
-                                       RefFrame,
-                                       RefFrameMessages> {
+class RefFrameLinks : public TreeLinks<RefFrameLinks, RefFrame, RefFrameMessages>
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RefFrameLinks)
 
-   JEOD_MAKE_SIM_INTERFACES(RefFrameLinks)
+    // Member functions
+public:
+    /**
+     * Non-default constructor.
+     * @param container_in The RefFrame object that contains this object.
+     */
+    explicit RefFrameLinks(RefFrame & container_in)
+        : TreeLinks<RefFrameLinks, RefFrame, RefFrameMessages>(container_in, default_path_size)
+    {
+    }
 
- // Member functions
- public:
+    /**
+     * Destructor.
+     */
+    ~RefFrameLinks() override = default;
 
+    // The default, constructor, copy constructor and assignment operator for
+    // this class are deleted.
+    RefFrameLinks() = delete;
+    RefFrameLinks(const RefFrameLinks &) = delete;
+    void operator=(const RefFrameLinks &) = delete;
 
-   /**
-    * Non-default constructor.
-    * @param container_in The RefFrame object that contains this object.
-    */
-   explicit RefFrameLinks (RefFrame & container_in)
-   :
-      TreeLinks<RefFrameLinks, RefFrame, RefFrameMessages> (
-         container_in, default_path_size)
-   { }
-
-   /**
-    * Destructor.
-    */
-   ~RefFrameLinks (void) override
-   { }
-
-
- private:
-
-   const static unsigned int default_path_size = 4; /* trick_units(--) @n
-      The default length of a RefFrameLinks object's path_to_node_ array. */
-
-
-   // The default, constructor, copy constructor and assignment operator for
-   // this class are declared private and are not implemented.
-
-   /**
-    * Not implemented.
-    */
-   RefFrameLinks (void);
-
-   /**
-    * Not implemented.
-    */
-   RefFrameLinks (const RefFrameLinks&);
-
-   /**
-    * Not implemented.
-    */
-   void operator = (const RefFrameLinks&);
-
+private:
+    const static unsigned int default_path_size = 4; /* trick_units(--) @n
+       The default length of a RefFrameLinks object's path_to_node_ array. */
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

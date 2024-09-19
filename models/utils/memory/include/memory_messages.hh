@@ -59,9 +59,8 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/memory_messages.cc))
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_MEMORY_MESSAGES_HH
 #define JEOD_MEMORY_MESSAGES_HH
@@ -76,100 +75,82 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Declares messages associated with the integration test model.
  */
-class MemoryMessages {
+class MemoryMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MemoryMessages)
 
+    // Static member data
+public:
+    /**
+     * Error issued when multiple instance of a class that should be a singleton
+     * are created or when no such instance exists (but should).
+     */
+    static const char * singleton_error; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(MemoryMessages)
+    /**
+     * Issued when malloc returns NULL.
+     */
+    static const char * out_of_memory; //!< trick_units(--)
 
+    /**
+     * Issued when problems arise with in protection for atomic operations.
+     */
+    static const char * lock_error; //!< trick_units(--)
 
- // Static member data
- public:
+    /**
+     * Issued when the caller attempts to do something with a null pointer
+     * such as registering or freeing.
+     */
+    static const char * null_pointer; //!< trick_units(--)
 
-   /**
-    * Error issued when multiple instance of a class that should be a singleton
-    * are created or when no such instance exists (but should).
-    */
-   static char const * singleton_error; //!< trick_units(--)
+    /**
+     * Issued when the caller attempts to register memory that overlaps with
+     * previously recording allocations or attempts to destroy memory that
+     * was not previously registered.
+     */
+    static const char * suspect_pointer; //!< trick_units(--)
 
-   /**
-    * Issued when malloc returns NULL.
-    */
-   static char const * out_of_memory; //!< trick_units(--)
+    /**
+     * Issued when the caller attempts to allocate zero bytes.
+     */
+    static const char * invalid_size; //!< trick_units(--)
 
-   /**
-    * Issued when problems arise with in protection for atomic operations.
-    */
-   static char const * lock_error; //!< trick_units(--)
+    /**
+     * Issued when guard bytes have been overwritten.
+     */
+    static const char * corrupted_memory; //!< trick_units(--)
 
-   /**
-    * Issued when the caller attempts to do something with a null pointer
-    * such as registering or freeing.
-    */
-   static char const * null_pointer; //!< trick_units(--)
+    /**
+     * Issued when a model programmer messed up.
+     */
+    static const char * registration_error; //!< trick_units(--)
 
-   /**
-    * Issued when the caller attempts to register memory that overlaps with
-    * previously recording allocations or attempts to destroy memory that
-    * was not previously registered.
-    */
-   static char const * suspect_pointer; //!< trick_units(--)
+    /**
+     * Issued when the memory model programmer messed up.
+     */
+    static const char * internal_error; //!< trick_units(--)
 
-   /**
-    * Issued when the caller attempts to allocate zero bytes.
-    */
-   static char const * invalid_size; //!< trick_units(--)
+    /**
+     * Used to identify debug output.
+     */
+    static const char * debug; //!< trick_units(--)
 
-   /**
-    * Issued when guard bytes have been overwritten.
-    */
-   static char const * corrupted_memory; //!< trick_units(--)
-
-   /**
-    * Issued when a model programmer messed up.
-    */
-   static char const * registration_error; //!< trick_units(--)
-
-   /**
-    * Issued when the memory model programmer messed up.
-    */
-   static char const * internal_error; //!< trick_units(--)
-
-   /**
-    * Used to identify debug output.
-    */
-   static char const * debug; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   /**
-    * Not implemented.
-    */
-   MemoryMessages (void);
-
-   /**
-    * Not implemented.
-    */
-   MemoryMessages (const MemoryMessages &);
-
-   /**
-    * Not implemented.
-    */
-   MemoryMessages & operator= (const MemoryMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    MemoryMessages() = delete;
+    MemoryMessages(const MemoryMessages &) = delete;
+    MemoryMessages & operator=(const MemoryMessages &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

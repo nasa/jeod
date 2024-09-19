@@ -49,29 +49,22 @@
 
 #include "Base/planet_generic.sm"
 
-class PhobosSimObject: public PlanetGenericSimObject {
+class PhobosSimObject: public PlanetGenericSimObject
+{
+public:
+    jeod::Planet_phobos_default_data planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_phobos_spherical_default_data gravity_default_data;
 
-   public:
+    // Constructor
+    PhobosSimObject(jeod::GravityManager & grav_in, jeod::DynManager & dyn_manager_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, planet_default_data, gravity_default_data)
+    {
+    }
 
-    jeod::Planet_phobos_default_data    planet_default_data;
-    jeod::SphericalHarmonicsGravitySource_phobos_spherical_default_data
-    gravity_default_data;
-
-//Constructor
-    PhobosSimObject(
-       jeod::GravityManager & grav_in,
-       jeod::DynManager   & dyn_manager_in)
-    :
-PlanetGenericSimObject (dyn_manager_in, grav_in,
-                        planet_default_data, gravity_default_data)
-    {}
-
-  private:
-    PhobosSimObject (const PhobosSimObject&);
-    PhobosSimObject & operator = (const PhobosSimObject&);
-
+    PhobosSimObject(const PhobosSimObject &) = delete;
+    PhobosSimObject & operator=(const PhobosSimObject &) = delete;
 };
 
-PhobosSimObject phobos ( env.gravity_manager, dynamics.dyn_manager);
+PhobosSimObject phobos(env.gravity_manager, dynamics.dyn_manager);
 
 #endif

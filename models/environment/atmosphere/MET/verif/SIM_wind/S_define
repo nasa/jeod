@@ -51,34 +51,34 @@
 #define DYNAMICS 1.0
 
 #define P_TIME P10
-
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
 
 ##include "environment/atmosphere/MET/data/include/met_data_wind_velocity.hh"
 ##include "environment/atmosphere/base_atmos/include/wind_velocity.hh"
 
-class EarthSimObject : public Trick::SimObject {
+class EarthSimObject : public Trick::SimObject
+{
+public:
+    double inrtl_pos[3];
+    double altitude;
+    double wind_vel[3]; // (m/s) output
 
-   public:
-   double inrtl_pos[3];
-   double altitude;
-   double wind_vel[3]; // (m/s) output
+    jeod::WindVelocity wind_velocity;
+    jeod::WindVelocity_wind_velocity_default_data wind_data;
 
-   jeod::WindVelocity wind_velocity;
-   jeod::WindVelocity_wind_velocity_default_data wind_data;
+    EarthSimObject()
+    {
+        ("default_data") wind_data.initialize(&wind_velocity);
+        (DYNAMICS, "environment") wind_velocity.update_wind(inrtl_pos, altitude, wind_vel);
+    }
 
-   EarthSimObject() {
-
-   ("default_data") wind_data.initialize( &wind_velocity);
-   (DYNAMICS, "environment") wind_velocity.update_wind(inrtl_pos,
-                                                       altitude,
-                                                       wind_vel);
-   }
-   private:
-   // This object not copyable
-   EarthSimObject operator =(const EarthSimObject &);
-   EarthSimObject(const EarthSimObject &);
+    EarthSimObject operator=(const EarthSimObject &) = delete;
+    EarthSimObject(const EarthSimObject &) = delete;
 };
 
 EarthSimObject earth;

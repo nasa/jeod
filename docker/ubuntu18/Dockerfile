@@ -14,7 +14,7 @@ RUN apt-get install -y bison clang flex git llvm make maven swig cmake \
      python3-dev zlib1g-dev llvm-dev libclang-dev libudunits2-dev \
      libgtest-dev openjdk-11-jdk zip \
      vim emacs \
-     python-enum34 python-numpy python-matplotlib \
+     python-enum34 python3-numpy python3-matplotlib\
      flawfinder apt-file \
      lcov \
      cppcheck \
@@ -25,7 +25,7 @@ RUN apt-get install -y bison clang flex git llvm make maven swig cmake \
 RUN mkdir -p /data/ && \
     export TRICK_CFLAGS=-g && export TRICK_CXXFLAGS=-g && export MAKEFLAGS=-j6 && export PYTHON_VERSION=3 && \
     cd /data/ && git clone https://github.com/nasa/trick && \
-    cd /data/trick && git checkout 19.6.0 -b r19.6.0 && ./configure && make && \
+    cd /data/trick && git checkout 19.7.2 -b r19.7.2 && ./configure && make && \
     chmod -R ugo+rx /data/trick*
 
 ENV CSPICE_URL http://naif.jpl.nasa.gov/pub/naif/toolkit/C/PC_Linux_GCC_64bit/packages

@@ -56,7 +56,7 @@ Reference:
 Assumptions and limitations:
   ((The name in this time class is UT1))
 
- 
+
 
 Library dependencies:
   ((../src/time_ut1.cc))
@@ -72,44 +72,38 @@ Library dependencies:
 
 #include "time_standard.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents Universal Time.
  */
-class TimeUT1 : public TimeStandard {
+class TimeUT1 : public TimeStandard
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeUT1)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeUT1)
-
-// Member Data
+    // Member Data
 public:
-   /**
-    * "False" for comparison with older versions of JEOD
-    */
-  bool true_ut1; //!< trick_units(--)
+    /**
+     * "False" for comparison with older versions of JEOD
+     */
+    bool true_ut1{true}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  //Constructor
-   TimeUT1 ();
+    TimeUT1();
+    ~TimeUT1() override = default;
+    TimeUT1(const TimeUT1 &) = delete;
+    TimeUT1 & operator=(const TimeUT1 &) = delete;
 
-  // Destructor
-   ~TimeUT1 () override;
+    double get_days();
 
-   double get_days ();
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeUT1 (const TimeUT1&);
-   TimeUT1 & operator = (const TimeUT1&);
-   void set_epoch(void) override;  //cppcheck-suppress virtualCallInConstructor
+private:
+    void set_epoch() override; // cppcheck-suppress virtualCallInConstructor
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

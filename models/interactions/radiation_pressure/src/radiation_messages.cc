@@ -10,7 +10,6 @@
  * Implement the class RadiationMessages.
  */
 
-
 /*******************************************************************************
 
 Purpose:
@@ -29,7 +28,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -37,29 +35,23 @@ Library dependencies:
 
 #define PATH "interactions/radiation_pressure/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 // Errors and warnings
-char const * RadiationMessages::incomplete_setup_error =
-    PATH "incomplete_setup_error";
+const char * RadiationMessages::incomplete_setup_error = PATH "incomplete_setup_error";
 
-char const * RadiationMessages::invalid_setup_error =
-    PATH "invalid_setup_error";
+const char * RadiationMessages::invalid_setup_error = PATH "invalid_setup_error";
 
-char const * RadiationMessages::operational_setup_error =
-    PATH "operational_setup_error";
+const char * RadiationMessages::operational_setup_error = PATH "operational_setup_error";
 
-char const * RadiationMessages::invalid_function_call =
-    PATH "invalid_function_call";
+const char * RadiationMessages::invalid_function_call = PATH "invalid_function_call";
 
-char const * RadiationMessages::unknown_numerical_error =
-    PATH "unknown_numerical_error";
+const char * RadiationMessages::unknown_numerical_error = PATH "unknown_numerical_error";
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

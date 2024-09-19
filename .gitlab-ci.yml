@@ -13,9 +13,9 @@ variables:
 
 stages:
     - Docker Build
-    - Build Libs
+    - Build Libs and Unit Test
     - Build Run and Verify
-    - Unit Tests And Analysis
+    - Analysis and Misc
     - Build Docs
     - Release
 
@@ -29,7 +29,7 @@ stages:
     variables:
         VERIF_DATA: SET_test_val_rh8
     image:
-        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:previous
+        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:$CONTAINER_MASTER_TAG
 
 .OS-Ubuntu18: &OS-Ubuntu18
     variables:
@@ -38,7 +38,7 @@ stages:
         name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_ubuntu18:$CONTAINER_MASTER_TAG
 
 .Build-Lib-Trick: &Build-Lib-Trick-Template
-    stage: Build Libs
+    stage: Build Libs and Unit Test
     tags:
         - docker
     when: always
@@ -55,14 +55,13 @@ stages:
     script:
         - "$TRICK_HOME/bin/trick-version"
         - "make -f bin/jeod/makefile TRICK_BUILD=1 BUILD_TYPE=Debug"
-        - "echo TODO: uname -r will report that of the host, not container: $(uname -r)"
         - "if [ -f lib_jeod*/libjeod.a ]; then $(exit 0); else $(exit 1); fi"
     artifacts:
         when: always
         paths:
            - "lib_build.txt"
            - "lib_jeod*/**/*"
-           - "build/CMakeCache.txt"
+           - "build*/CMakeCache.txt"
         expire_in: 1 week
 
 .Build-Trickified-Lib: &Build-Trickified-Lib-Template
@@ -70,7 +69,7 @@ stages:
         - docker
     when: always
     dependencies: []
-    stage: Build Libs
+    stage: Build Libs and Unit Test
     before_script:
         - "export USER=$(whoami)"
         - "export JEOD_HOME=$(pwd)"
@@ -83,15 +82,15 @@ stages:
     script:
         - "$TRICK_HOME/bin/trick-version"
         - "cd trickified &&  make && cd -"
-        - "if [ -f trickified/trickified_jeod.o ]; then $(exit 0); else $(exit 1); fi"
+        - "if [ -f trickified/trickified_jeod*.o ]; then $(exit 0); else $(exit 1); fi"
     artifacts:
         when: always
         paths:
-           - "trickified/build/"
-           - "trickified/python/"
+           - "trickified/build*/"
+           - "trickified/python*/"
            - "trickified/trick/"
            - "trickified/.trick/"
-           - "trickified/trickified_jeod.o"
+           - "trickified/trickified_jeod*.o"
         expire_in: 1 week
 
 .Buid-Lib: &Build-Lib-Template
@@ -99,7 +98,7 @@ stages:
         - docker
     when: always
     dependencies: []
-    stage: Build Libs
+    stage: Build Libs and Unit Test
     before_script:
         - "export USER=$(whoami)"
         - "export JEOD_HOME=$(pwd)"
@@ -111,14 +110,13 @@ stages:
         - export TRICK_CXXFLAGS="$TRICK_CXXFLAGS $WARNING_LIST_CXX"
     script:
         - "make -f bin/jeod/makefile TRICK_BUILD=0 BUILD_TYPE=Debug"
-        - "echo TODO: uname -r will report that of the host, not container: $(uname -r)"
-        - "if [ -f lib_jeod_*/libjeod.a ]; then $(exit 0); else $(exit 1); fi"
+        - "if [ -f lib_jeod*/libjeod.a ]; then $(exit 0); else $(exit 1); fi"
     artifacts:
         when: always
         paths:
            - "lib_build.txt"
            - "lib_jeod*/**/*"
-           - "build/CMakeCache.txt"
+           - "build*/CMakeCache.txt"
         expire_in: 1 week
 
 .Verify-Updated-Sims: &Verify-Updated-Sims-Template
@@ -139,6 +137,7 @@ stages:
         - "export TERM=xterm"
         - "cd $JEOD_HOME"
         - bin/jeod_cm/reset_artifacts_modtime.py
+        - git fetch origin trunk
         - "git diff --name-only HEAD origin/trunk > $JEOD_HOME/regression/git_diff.txt"
         - 'export TRICK_HOST_CPU=`trick-gte TRICK_HOST_CPU`'
         - export TRICK_CFLAGS="$TRICK_CFLAGS $WARNING_LIST_C"
@@ -185,7 +184,8 @@ stages:
     tags:
         - docker
     when: always
-    stage: Unit Tests And Analysis
+    dependencies: []
+    stage: Build Libs and Unit Test
     before_script:
         - "export USER=$(whoami)"
         - "export JEOD_HOME=$(pwd)"
@@ -194,14 +194,11 @@ stages:
         - "export PATH=${TRICK_HOME}/bin:${PATH}"
         - "export MAKEFLAGS=-j5"
     script:
-        - "bin/jeod_cm/jeod_auto_cm.pl -unit -lib"
-        - "echo TODO: Evaluate pass/fail status..."
-        - "if [ -f unit_error ]; then $(exit 1); else $(exit 0); fi"
+        - bin/jeod_cm/coverage.py -c 6
     artifacts:
         when: always
         paths:
-           - unit_error
-           - "**/unit_build_out.txt"
+           - artifacts
         expire_in: 1 week
 
 .FlawFinder: &FlawFinder-Template
@@ -209,7 +206,7 @@ stages:
         - docker
     when: always
     dependencies: []
-    stage: Unit Tests And Analysis
+    stage: Analysis and Misc
     script:
         - mkdir -p artifacts/flawfinder
         - flawfinder models/ 2>&1 > artifacts/flawfinder/flawfinder.out
@@ -225,7 +222,7 @@ stages:
         - docker
     when: always
     dependencies: []
-    stage: Unit Tests And Analysis
+    stage: Analysis and Misc
     before_script:
         - "export USER=$(whoami)"
         - "export JEOD_HOME=$(pwd)"
@@ -245,7 +242,7 @@ stages:
         - docker
     when: always
     dependencies: []
-    stage: Unit Tests And Analysis
+    stage: Analysis and Misc
     before_script:
         - "export USER=$(whoami)"
         - "export JEOD_HOME=$(pwd)"
@@ -255,6 +252,20 @@ stages:
         - "export MAKEFLAGS=-j5"
     script:
         - make -f bin/jeod/makefile REGEN_DE4XX_DATA=1 DE4XX_ONLY=1
+
+.Check-Formatting: &Check-Formatting-Template
+    tags:
+        - docker
+    when: always
+    dependencies: []
+    stage: Analysis and Misc
+    script:
+        - bin/jeod_cm/formatting.py
+    artifacts:
+        paths:
+           - artifacts
+        when: always
+        expire_in: 1 week
 
 .Docs: &Docs-Template
     tags:
@@ -273,155 +284,100 @@ stages:
         - "export PATH=$PATH:/usr/local/texlive/2018/bin/x86_64-linux"
         - "bin/jeod_cm/jeod_auto_cm.pl -pdfdoc"
         - "if [ -f doc_error ]; then $(exit 1); else $(exit 0); fi"
-    # TODO Add pdf collection as artifacts once we understand how to fix
-    # the issue with generating them on CentOS 7 -Jordan 1/2019
     artifacts:
         when: always
         paths:
            - doc_error
            - "**/*_out.txt"
+           - "**/*.pdf"
         expire_in: 1 week
 
 # BUILD LIBS ------------------------------------------------------------------
-Build-Lib-CentOS7.6-T19.6.0:
-    <<: *Build-Lib-Trick-Template
-    <<: *OS-CentOS7
+Build-Lib-CentOS7.6-T19.7.2:
+    <<: [*Build-Lib-Trick-Template, *OS-CentOS7]
 
-Build-Trickified-Lib-CentOS7.6-T19.6.0:
-    <<: *Build-Trickified-Lib-Template
-    <<: *OS-CentOS7
+Build-Trickified-Lib-CentOS7.6-T19.7.2:
+    <<: [*Build-Trickified-Lib-Template, *OS-CentOS7]
 
 Build-Lib-CentOS7.6:
-    <<: *Build-Lib-Template
-    <<: *OS-CentOS7
+    <<: [*Build-Lib-Template, *OS-CentOS7]
 
-Build-Lib-Oracle8-T19.6.0:
-    <<: *Build-Lib-Trick-Template
-    <<: *OS-Oracle8
+Build-Lib-Oracle8-T19.7.2:
+    <<: [*Build-Lib-Trick-Template, *OS-Oracle8]
 
-Build-Trickified-Lib-Oracle8-T19.6.0:
-    <<: *Build-Trickified-Lib-Template
-    <<: *OS-Oracle8
+Build-Trickified-Lib-Oracle8-T19.7.2:
+    <<: [*Build-Trickified-Lib-Template, *OS-Oracle8]
+    after_script:
+        - "bin/jeod_cm/trickified_header_check.py"
 
 Build-Lib-Oracle8:
-    <<: *Build-Lib-Template
-    <<: *OS-Oracle8
+    <<: [*Build-Lib-Template, *OS-Oracle8]
 
-Build-Lib-Ubuntu18.04-T19.6.0:
-    <<: *Build-Lib-Trick-Template
-    <<: *OS-Ubuntu18
+Build-Lib-Ubuntu18.04-T19.7.2:
+    <<: [*Build-Lib-Trick-Template, *OS-Ubuntu18]
 
-Build-Trickified-Lib-Ubuntu18.04-T19.6.0:
-    <<: *Build-Trickified-Lib-Template
-    <<: *OS-Ubuntu18
+Build-Trickified-Lib-Ubuntu18.04-T19.7.2:
+    <<: [*Build-Trickified-Lib-Template, *OS-Ubuntu18]
 
 Build-Lib-Ubuntu18.04:
-    <<: *Build-Lib-Template
-    <<: *OS-Ubuntu18
+    <<: [*Build-Lib-Template, *OS-Ubuntu18]
 
 # RUN SIM JOBS ----------------------------------------------------------------
-Verify-Updated-Sims-CentOS7.6-T19.6.0:
-    <<: *Verify-Updated-Sims-Template
-    <<: *OS-CentOS7
+Verify-Updated-Sims-CentOS7.6-T19.7.2:
+    <<: [*Verify-Updated-Sims-Template, *OS-CentOS7]
     dependencies:
-        - Build-Lib-CentOS7.6-T19.6.0
-        - Build-Trickified-Lib-CentOS7.6-T19.6.0
+        - Build-Lib-CentOS7.6-T19.7.2
+        - Build-Trickified-Lib-CentOS7.6-T19.7.2
 
-Verify-All-Sims-CentOS7.6-T19.6.0:
-    <<: *Verify-All-Sims-Template
-    <<: *OS-CentOS7
+Verify-All-Sims-CentOS7.6-T19.7.2:
+    <<: [*Verify-All-Sims-Template, *OS-CentOS7]
     dependencies:
-        - Build-Lib-CentOS7.6-T19.6.0
-        - Build-Trickified-Lib-CentOS7.6-T19.6.0
+        - Build-Lib-CentOS7.6-T19.7.2
+        - Build-Trickified-Lib-CentOS7.6-T19.7.2
 
-Verify-Updated-Sims-Oracle8-T19.6.0:
-    <<: *Verify-Updated-Sims-Template
-    <<: *OS-Oracle8
+Verify-Updated-Sims-Oracle8-T19.7.2:
+    <<: [*Verify-Updated-Sims-Template, *OS-Oracle8]
     dependencies:
-        - Build-Lib-Oracle8-T19.6.0
-        - Build-Trickified-Lib-Oracle8-T19.6.0
+        - Build-Lib-Oracle8-T19.7.2
+        - Build-Trickified-Lib-Oracle8-T19.7.2
 
-Verify-All-Sims-Oracle8-T19.6.0:
-    <<: *Verify-All-Sims-Template
-    <<: *OS-Oracle8
+Verify-All-Sims-Oracle8-T19.7.2:
+    <<: [*Verify-All-Sims-Template, *OS-Oracle8]
     dependencies:
-        - Build-Lib-Oracle8-T19.6.0
-        - Build-Trickified-Lib-Oracle8-T19.6.0
+        - Build-Lib-Oracle8-T19.7.2
+        - Build-Trickified-Lib-Oracle8-T19.7.2
 
-Verify-Updated-Sims-Ubuntu18.04-T19.6.0:
-    <<: *Verify-Updated-Sims-Template
-    <<: *OS-Ubuntu18
+Verify-Updated-Sims-Ubuntu18.04-T19.7.2:
+    <<: [*Verify-Updated-Sims-Template, *OS-Ubuntu18]
     dependencies:
-        - Build-Lib-Ubuntu18.04-T19.6.0
-        - Build-Trickified-Lib-Ubuntu18.04-T19.6.0
+        - Build-Lib-Ubuntu18.04-T19.7.2
+        - Build-Trickified-Lib-Ubuntu18.04-T19.7.2
 
-Verify-All-Sims-Ubuntu18.04-T19.6.0:
-    <<: *Verify-All-Sims-Template
-    <<: *OS-Ubuntu18
+Verify-All-Sims-Ubuntu18.04-T19.7.2:
+    <<: [*Verify-All-Sims-Template, *OS-Ubuntu18]
     dependencies:
-        - Build-Lib-Ubuntu18.04-T19.6.0
-        - Build-Trickified-Lib-Ubuntu18.04-T19.6.0
+        - Build-Lib-Ubuntu18.04-T19.7.2
+        - Build-Trickified-Lib-Ubuntu18.04-T19.7.2
 
 # UNIT TESTS ------------------------------------------------------------------
-Run-Unit-Tests-CentOS7.6:
-    <<: *Run-Unit-Tests-Template
-    <<: *OS-CentOS7
-    dependencies:
-        - Build-Lib-CentOS7.6
-
 Run-Unit-Tests-Oracle8:
-    <<: *Run-Unit-Tests-Template
-    <<: *OS-Oracle8
-    dependencies:
-        - Build-Lib-Oracle8
-
-Run-Unit-Tests-Ubuntu18.04:
-    <<: *Run-Unit-Tests-Template
-    <<: *OS-Ubuntu18
-    dependencies:
-        - Build-Lib-Ubuntu18.04
+    <<: [*Run-Unit-Tests-Template, *OS-Oracle8]
 
 FlawFinder-Oracle8:
-    <<: *FlawFinder-Template
-    <<: *OS-Oracle8
+    <<: [*FlawFinder-Template, *OS-Oracle8]
 
 CppCheck-Full-Oracle8:
-    <<: *CppCheck-Full-Template
-    <<: *OS-Oracle8
-
+    <<: [*CppCheck-Full-Template, *OS-Oracle8]
 
 Generate-Ephemeris-Oracle8:
-    <<: *Generate-Ephemeris-Template
-    <<: *OS-Oracle8
+    <<: [*Generate-Ephemeris-Template, *OS-Oracle8]
 
-# COVERAGE --------------------------------------------------------------------
-Manual-Coverage-CentOS7:
-    <<: *OS-CentOS7
-    tags:
-        - docker
-    when: manual
-    dependencies: []
-    stage: Build Docs
-    before_script:
-        - "export USER=$(whoami)"
-        - "export JEOD_HOME=$(pwd)"
-        - "export TRICK_HOME=/data/trick/"
-        - "export JEOD_SPICE_DIR=/data/cspice/"
-        - "export PATH=${TRICK_HOME}/bin:${PATH}"
-        - "export TERM=xterm"
-        - 'export TRICK_HOST_CPU=`trick-gte TRICK_HOST_CPU`'
-    script:
-        - bin/jeod_cm/coverage.py -c 6
-    artifacts:
-        paths:
-           - artifacts
-        when: always
-        expire_in: 1 week
+Check-Formatting-Oracle8:
+    <<: [*Check-Formatting-Template, *OS-Oracle8]
 
 # DOCUMENTATION JOBS ----------------------------------------------------------
-Docs-Oracle8-T19.6.0:
-    <<: *Docs-Template
-    <<: *OS-Oracle8
+Docs-Oracle8-T19.7.2:
+    <<: [*Docs-Template, *OS-Oracle8]
 
 # RELEASE JOBS ----------------------------------------------------------------
 Release-Job:
@@ -429,11 +385,10 @@ Release-Job:
         - docker
     when: manual
     dependencies:
-        - Manual-Coverage-CentOS7
         - CppCheck-Full-Oracle8
     stage: Release
     image:
-        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:previous
+        name: esgl-gitlab.jsc.nasa.gov:5005/jeod/jeod-dev/jeod_oracle8:$CONTAINER_MASTER_TAG
     only:
         - tags
     script:
@@ -499,8 +454,8 @@ Build-Oracle-8-Docker-Image:
   #push the updated image
   script:
     - cd $CI_PROJECT_DIR/docker/oracle8
-    - docker build --build-arg myuser=gitlab-ci-token --pull --no-cache -t $CI_REGISTRY_IMAGE/jeod_oracle8:previous .
-    - docker push $CI_REGISTRY_IMAGE/jeod_oracle8:previous
+    - docker build --build-arg myuser=gitlab-ci-token --pull --no-cache -t $CI_REGISTRY_IMAGE/jeod_oracle8:$CONTAINER_MASTER_TAG .
+    - docker push $CI_REGISTRY_IMAGE/jeod_oracle8:$CONTAINER_MASTER_TAG
   when: manual
 
 #job to build

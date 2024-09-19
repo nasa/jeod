@@ -63,7 +63,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_REL_KIN_MESSAGES_HH
 #define JEOD_REL_KIN_MESSAGES_HH
 
@@ -72,51 +71,43 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the orbital elements model.
  */
-class RelKinMessages {
+class RelKinMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RelKinMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued when a duplicate entry is found.
+     */
+    static const char * duplicate_entry; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(RelKinMessages)
+    /**
+     * Issued when an entry is not found.
+     */
+    static const char * entry_not_found; //!< trick_units(--)
 
+    /**
+     * Issued when function input is invalid.
+     */
+    static const char * invalid_entry; //!< trick_units(--)
 
- // Static member data
- public:
-
-   /**
-    * Issued when a duplicate entry is found.
-    */
-   static char const * duplicate_entry; //!< trick_units(--)
-
-   /**
-    * Issued when an entry is not found.
-    */
-   static char const * entry_not_found; //!< trick_units(--)
-
-   /**
-    * Issued when function input is invalid.
-    */
-   static char const * invalid_entry; //!< trick_units(--)
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   RelKinMessages (void);
-   RelKinMessages (const RelKinMessages &);
-   RelKinMessages & operator= (const RelKinMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    RelKinMessages() = delete;
+    RelKinMessages(const RelKinMessages &) = delete;
+    RelKinMessages & operator=(const RelKinMessages &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

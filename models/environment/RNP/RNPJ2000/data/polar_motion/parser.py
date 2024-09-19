@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os, sys, argparse
 try:
@@ -33,7 +33,7 @@ with open(args.inputFile, 'r') as fpIn:
         if int(ss[2]) == 1:
            monthlyEntries.append(ConversionEntry(ss[0], ss[1], ss[2], ss[3], ss[4], ss[5]))
      elif len(ss) > 1:
-        print("Line: '%s' doesn't have at least 6 columns. Skipping..." % line)
+        print("Line: {0} doesn't have at least 6 columns. Skipping...".format(line))
 
 
 if args.outputType == 'daily' or args.outputType == 'both':

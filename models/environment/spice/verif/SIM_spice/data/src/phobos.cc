@@ -25,19 +25,16 @@ class Planet;
 // Unsupported includes
 #include "../include/phobos.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-Planet_phobos_default_data::initialize (
-   Planet * Planet_ptr)
+namespace jeod
 {
-   Planet_ptr->name = "Phobos";
 
-   // r_eq = geometric mean of two largest dimensions
-   Planet_ptr->r_eq = 12173.74;
-   Planet_ptr->r_pol =9100.0;
+void Planet_phobos_default_data::initialize(Planet * Planet_ptr)
+{
+    Planet_ptr->name = "Phobos";
+
+    // r_eq = geometric mean of two largest dimensions
+    Planet_ptr->r_eq = 12173.74;
+    Planet_ptr->r_pol = 9100.0;
 }
-} // End JEOD namespace
+} // namespace jeod

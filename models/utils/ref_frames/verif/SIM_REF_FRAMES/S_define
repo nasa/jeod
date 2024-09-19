@@ -45,106 +45,99 @@
 //
 //==============================================================================
 
-
 // Define job calling intervals
-#define DEFAULT   1.00   // Default update interval
+#define DEFAULT 1.00 // Default update interval
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
 
 ##include "utils/ref_frames/include/ref_frame.hh"
 
-class RefFramesSimObject : public Trick::SimObject {
-
+class RefFramesSimObject : public Trick::SimObject
+{
 public:
+    jeod::RefFrame frame1A;
+    jeod::RefFrame frame1B;
+    jeod::RefFrame frame1C;
+    jeod::RefFrameState state1AwrtC;
+    jeod::RefFrameState state1CwrtA;
+    double pos1AfromC[3];
+    double pos1CfromA[3];
 
-   jeod::RefFrame frame1A;
-   jeod::RefFrame frame1B;
-   jeod::RefFrame frame1C;
-   jeod::RefFrameState state1AwrtC;
-   jeod::RefFrameState state1CwrtA;
-   double pos1AfromC[3];
-   double pos1CfromA[3];
+    jeod::RefFrame frame2A;
+    jeod::RefFrame frame2B;
+    jeod::RefFrame frame2C;
+    jeod::RefFrameState state2BwrtC;
+    jeod::RefFrameState state2CwrtB;
+    double pos2BfromC[3];
+    double pos2CfromB[3];
 
-   jeod::RefFrame frame2A;
-   jeod::RefFrame frame2B;
-   jeod::RefFrame frame2C;
-   jeod::RefFrameState state2BwrtC;
-   jeod::RefFrameState state2CwrtB;
-   double pos2BfromC[3];
-   double pos2CfromB[3];
+    RefFramesSimObject()
+    {
+        // initialize quaternions of all ref_frames
+        ("initialization") frame1A.state.rot.compute_quaternion();
+        ("initialization") frame1B.state.rot.compute_quaternion();
+        ("initialization") frame1C.state.rot.compute_quaternion();
 
-   RefFramesSimObject() {
+        ("initialization") frame2A.state.rot.compute_quaternion();
+        ("initialization") frame2B.state.rot.compute_quaternion();
+        ("initialization") frame2C.state.rot.compute_quaternion();
 
-      // initialize quaternions of all ref_frames
-      ("initialization") frame1A.state.rot.compute_quaternion();
-      ("initialization") frame1B.state.rot.compute_quaternion();
-      ("initialization") frame1C.state.rot.compute_quaternion();
+        // initialize angular velocity components of all ref_frames
+        ("initialization") frame1A.state.rot.compute_ang_vel_products();
+        ("initialization") frame1B.state.rot.compute_ang_vel_products();
+        ("initialization") frame1C.state.rot.compute_ang_vel_products();
 
+        ("initialization") frame2A.state.rot.compute_ang_vel_products();
+        ("initialization") frame2B.state.rot.compute_ang_vel_products();
+        ("initialization") frame2C.state.rot.compute_ang_vel_products();
 
-      ("initialization") frame2A.state.rot.compute_quaternion();
-      ("initialization") frame2B.state.rot.compute_quaternion();
-      ("initialization") frame2C.state.rot.compute_quaternion();
+        // setup structure 1
+        ("initialization") frame1A.add_child(frame1B);
 
-      // initialize angular velocity components of all ref_frames
-      ("initialization") frame1A.state.rot.compute_ang_vel_products();
-      ("initialization") frame1B.state.rot.compute_ang_vel_products();
-      ("initialization") frame1C.state.rot.compute_ang_vel_products();
+        ("initialization") frame1B.add_child(frame1C);
 
+        ("initialization") frame1A.make_root();
 
-      ("initialization") frame2A.state.rot.compute_ang_vel_products();
-      ("initialization") frame2B.state.rot.compute_ang_vel_products();
-      ("initialization") frame2C.state.rot.compute_ang_vel_products();
+        // setupt structure 2
+        ("initialization") frame2A.add_child(frame2B);
 
-      // setup structure 1
-      ("initialization") frame1A.add_child (frame1B);
+        ("initialization") frame2A.add_child(frame2C);
 
-      ("initialization") frame1B.add_child (frame1C);
+        ("initialization") frame2A.make_root();
 
-      ("initialization") frame1A.make_root();
+        /* Relative state/pos calculations for structure 1 */
 
+        ("initialization") frame1A.compute_relative_state(frame1C, false, state1AwrtC);
 
-      // setupt structure 2
-      ("initialization") frame2A.add_child (frame2B);
+        ("initialization") frame1C.compute_relative_state(frame1A, false, state1CwrtA);
 
-      ("initialization") frame2A.add_child (frame2C);
+        ("initialization") frame1A.compute_position_from(frame1C, pos1AfromC);
 
-      ("initialization") frame2A.make_root();
+        ("initialization") frame1C.compute_position_from(frame1A, pos1CfromA);
 
+        /* Relative state/pos calculations for structure 2 */
 
-      /* Relative state/pos calculations for structure 1 */
+        ("initialization") frame2B.compute_relative_state(frame2C, false, state2BwrtC);
 
-      ("initialization") frame1A.compute_relative_state (frame1C,false,state1AwrtC);
+        ("initialization") frame2C.compute_relative_state(frame2B, false, state2CwrtB);
 
-      ("initialization") frame1C.compute_relative_state (frame1A,false,state1CwrtA);
+        ("initialization") frame2B.compute_position_from(frame2C, pos2BfromC);
 
-      ("initialization") frame1A.compute_position_from (frame1C,pos1AfromC );
+        // This last one is a scheduled job just because trick REALLY prefers
+        // having a scheduled job in the S_define, otherwise you get weird
+        // behavior
+        (DEFAULT, "scheduled") frame2C.compute_position_from(frame2B, pos2CfromB);
+    }
 
-      ("initialization") frame1C.compute_position_from (frame1A,pos1CfromA);
-
-
-      /* Relative state/pos calculations for structure 2 */
-
-      ("initialization") frame2B.compute_relative_state (frame2C,false,state2BwrtC);
-
-      ("initialization") frame2C.compute_relative_state (frame2B,false,state2CwrtB);
-
-      ("initialization") frame2B.compute_position_from (frame2C,pos2BfromC );
-
-      // This last one is a scheduled job just because trick REALLY prefers
-      // having a scheduled job in the S_define, otherwise you get weird
-      // behavior
-      (DEFAULT, "scheduled") frame2C.compute_position_from (frame2B,pos2CfromB );
-
-   }
-
-   private:
-   // This object not copyable
-   RefFramesSimObject operator =(const RefFramesSimObject &);
-   RefFramesSimObject(const RefFramesSimObject &);
-
+    RefFramesSimObject operator=(const RefFramesSimObject &) = delete;
+    RefFramesSimObject(const RefFramesSimObject &) = delete;
 };
 
 RefFramesSimObject ref_frames;

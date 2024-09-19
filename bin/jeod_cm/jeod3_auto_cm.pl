@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
-###################################################################### 
+######################################################################
 #
 # jeod3_auto_cm.pl: JEOD CM Scritps for JEOD 3.x
 #
-###################################################################### 
+######################################################################
 
 use strict;
 use Getopt::Long;
@@ -53,27 +53,27 @@ sub process_unit_error;
 my (
     # Constants
     $Help,                         # -help
-    $Environment,                  # -env 
+    $Environment,                  # -env
     $Jeod_home,                    # Top level JEOD directory
     $Trick_home,                   # Trick Home
     $Swig_version,                 # SWIG version
     $Cpp11_supported,              # True if C++11 is supported
-    $Path,                         # Path 
+    $Path,                         # Path
     $Curdir,                       # Current working directory
     $Os_name,                      # Operating System type
     $CP,                           # Compile Sims flag
     $Run,                          # Run JEOD SET_test runs
     $Lib,                          # Build JEOD Library
-    $Unit,                         # Build and run unit tests    
+    $Unit,                         # Build and run unit tests
     $Docs,                         # Build PDF docs
     $Api,                          # Build JEOD Doxygenate API Doc
-    $Clean,                        # clean flag to do specific task 
+    $Clean,                        # clean flag to do specific task
     $Verify,                       # Verify SET_test vs SET_test_val
     $Valflag,                      # Flag indicating to use machine specific data
     $Valpath,                      # Path to machine specific val data
     $EnvPath,                      # Global environment PATH variable
     $Make_val,                     # Make validation data for SET_test
-    $Run_timeout,                  # Timout for runs in seconds, used to kill a S_main process if it gets stuck. 
+    $Run_timeout,                  # Timout for runs in seconds, used to kill a S_main process if it gets stuck.
     @Forked_run_pids               # forked pids of all the runs
    );
 
@@ -131,7 +131,7 @@ GetOptions (
 
 pod2usage(-exitstatus => 0, -verbose => 2) if $Help;
 
-# set global variable based on user option and arguments to 
+# set global variable based on user option and arguments to
 # this script
 
 # Sanity checks
@@ -169,12 +169,12 @@ $Cpp11_supported = ($cpp_standard =~ /c\+\+1[147]/);
 
 main();
 
-###################################################################### 
+######################################################################
 # Main function
-###################################################################### 
+######################################################################
 
 sub main() {
- 
+
    jeod_sim_level_tasks if ( $CP or $Run or $Verify or $Make_val );
    make_jeod_lib if $Lib;
    unit_test if $Unit;
@@ -188,7 +188,7 @@ sub main() {
    printf("Completed in %2d hours %2d minutes and %2d seconds\n", @time_parts[2,1,0]);
 
    chdir $Curdir or die "Cannot chdir from which this script was executed: $!\n";
-   
+
 }
 
 sub set_environment() {
@@ -228,7 +228,7 @@ sub set_environment() {
       my $tex_path = '/usr/local/texlive/2014/bin/x86_64-linux';
       $ENV{'PATH'} = "$tex_path:$ENV{'PATH'}";
    }
-   
+
 }
 
 sub print_environment() {
@@ -253,10 +253,10 @@ sub print_environment() {
 
 }
 
-###################################################################### 
+######################################################################
 # Wrapper function to appropriately direct to specific function based
 # on user input
-###################################################################### 
+######################################################################
 
 sub jeod_sim_level_tasks() {
 
@@ -275,7 +275,7 @@ sub jeod_sim_level_tasks() {
 
       chdir $Path or die "Cannot chdir to path $Path\n";
       chdir $sim or die "Cannot chdir to sim $sim: $!\n";
- 
+
       compile if $CP;
       run if $Run;
       verify if $Verify;
@@ -314,7 +314,7 @@ sub get_zombie_list {
    open ZOMBIE, "ps -e -o state,pid,user | grep '^Z' | grep $ENV{'USER'} |" or die "Cannot use ps command: $!\n";
    map chomp, (@pslist = <ZOMBIE>);
    close ZOMBIE;
-   
+
 
    foreach my $list (@pslist) {
       my ($stat, $pid) = split('\s+', $list);
@@ -326,7 +326,7 @@ sub get_zombie_list {
 }
 
 sub kill_zombie_process {
-   
+
    my $pid = shift;
    my $stat;
 
@@ -338,28 +338,28 @@ sub kill_zombie_process {
 
 }
 
-###################################################################### 
+######################################################################
 # Find all the sims under a user given path as an argument
-###################################################################### 
+######################################################################
 
 sub find_sim_dir() {        # list of jeod sims
 
    my @all_jeod_sims;
    my @jeod_sims;
    my $basename = basename($Path);
-   
+
    if ($basename =~ /SIM\_.*/) {
       @jeod_sims  = '.'
    } else {
       my @prune = qw(unsupported jeod_course 'jeod_tutorial*' build);
       my $prune = join ' -o ', map {"-name $_ -prune"} @prune;
-      open FIND, 
+      open FIND,
          "find . $prune -o -name 'SIM_*' -type d -print | sort |"
             or die;
       map chomp, (@all_jeod_sims = <FIND>);
       close FIND;
 
-      
+
       if ($Swig_major_ver >= 3 && $Cpp11_supported) {
          @jeod_sims = @all_jeod_sims;
       } else {
@@ -379,19 +379,19 @@ sub find_sim_dir() {        # list of jeod sims
 
 }
 
-###################################################################### 
+######################################################################
 # Compile JEOD sims specified by user given path as an argument
-###################################################################### 
+######################################################################
 
 sub compile() {
 
    my $simpath = getcwd;
    $simpath =~ s/$Jeod_home\///;
-  
+
    if ( $Clean ) {
       #system ('make spotless >& /dev/null') if ( -e 'S_source.cpp' or -e 'S_source.c' );
       return if ( not (-e "S_main_$ENV{'TRICK_HOST_CPU'}.exe" or -e 'Makefile' ) );
-      print "Make spotless SIM $simpath ...\n"; 
+      print "Make spotless SIM $simpath ...\n";
       system ("bash -c 'make spotless >& /dev/null'");
    } else {
       # check if sim is already have been compiled
@@ -403,16 +403,16 @@ sub compile() {
       system ("bash -c 'make spotless >& /dev/null'") if ( -e 'S_source.cpp' or -e 'S_source.c' );
       sleep 1;
       $Total_CP += 1;
-      print "Compiling SIM $simpath ...\n"; 
+      print "Compiling SIM $simpath ...\n";
       system ("bash -c '$Trick_home/bin/trick-CP >& /dev/null'");
       if ( ! -e "S_main_$ENV{'TRICK_HOST_CPU'}.exe" ) {
          $Failed_CP += 1;
          my $error_file = 'CP_error';
          open CPERROR, ">>$Jeod_home/$error_file";
-         print CPERROR "SIM $simpath Failed ...\n";   
+         print CPERROR "SIM $simpath Failed ...\n";
          close CPERROR;
-      } 
-   }  
+      }
+   }
 }
 
 sub remove_trick_stuff() {
@@ -423,9 +423,9 @@ sub remove_trick_stuff() {
 
 }
 
-###################################################################### 
+######################################################################
 # RUN JEOD sim's SET_test specified by user given path as an argument
-###################################################################### 
+######################################################################
 
 sub run {
 
@@ -442,7 +442,7 @@ sub run {
       print RUNERROR "No executable found for sim $simpath\n";
       close RUNERROR;
       return;
-   } 
+   }
 
    my @jeod_sim_runs = get_sim_runs($Run);
 
@@ -457,7 +457,7 @@ sub run {
       check_and_run($run);
       push(@non_restart_pids, pop(@Forked_run_pids)) if $have_restart_runs;
    }
-   
+
 
    if ( !$Clean) {
 
@@ -482,7 +482,7 @@ sub get_sim_runs {
    open FIND, "find SET_test -name $runname -type d | sort |" or die;
    map chomp, (@jeod_runs = <FIND>);
    close FIND;
- 
+
    return @jeod_runs;
 
 }
@@ -511,7 +511,7 @@ sub wait_for_fork() {
       chomp $num_proc;
       close PSOUT;
    } while ( $num_proc =~ /^[^\d]+$/ );
-   
+
    while ( $num_proc > $Max_Processes ) {
       foreach my $zombie_id (get_zombie_list($0)) {
          print "There are $num_proc out of $Max_Processes running ...\n";
@@ -521,23 +521,21 @@ sub wait_for_fork() {
       }
       sleep 10;
    }
-
-   return;
 }
 
 sub check_sendhs {  # return 1 if no need to run and 0 if needed to run
-   
+
    my $rundir = shift;
    my $already_ran;
 
    if ( -e "$rundir/send_hs" ) {
       open SENDHS, "$rundir/send_hs" or die "Cannot open $rundir/send_hs: $!\n";
-      $already_ran = grep { /reached/i and /termination/ and /time/ } <SENDHS>; 
+      $already_ran = grep { /reached/i and /termination/ and /time/ } <SENDHS>;
       close SENDHS;
    }
 
    return $already_ran;
-      
+
 }
 
 sub fork_run {   # run a run and if fails, reports it to run_error
@@ -548,7 +546,7 @@ sub fork_run {   # run a run and if fails, reports it to run_error
    $simpath =~ s/$Jeod_home\///;
    my $inputfile = 'input.py';
    my $error_file = 'run_error';
-      
+
    my $smain_num;
    open PSOUT, "ps -e -o user,comm | grep $ENV{'USER'} | grep S_main | grep -v grep | wc -l|" or die "Cannot run ps command: $!\n";
    $smain_num = <PSOUT>;
@@ -568,7 +566,7 @@ sub fork_run {   # run a run and if fails, reports it to run_error
 
    if ( $pid == 0 ) {
       eval {
-         local $SIG{'ALRM'} = sub { die "timeout\n" };     
+         local $SIG{'ALRM'} = sub { die "timeout\n" };
          alarm $Run_timeout;
 
          print "Running $simpath/$rundir ...\n";
@@ -597,16 +595,16 @@ sub fork_run {   # run a run and if fails, reports it to run_error
    }
 
 }
-   
+
 sub clean_run {
-   # check if log data exists 
+   # check if log data exists
    my $localdir = getcwd;
    my $relpath = $localdir;
    $relpath =~ s/$Jeod_home\///;
    my $rundir = shift;
    chdir $rundir;
    my @files = <*>;
-   # remove run data 
+   # remove run data
    my $data_exist = map m/log.*\.trk/,@files;
    print "Cleaning RUN $relpath/$rundir ...\n" if $data_exist;
    foreach my $filename (@files) {
@@ -616,19 +614,19 @@ sub clean_run {
      (unlink $filename and next) if ( $filename =~ /\.out/ );
      (unlink $filename and next) if ( $filename =~ /\.err/ );
      (unlink $filename and next) if ( $filename =~ /send_hs/ );
-   } 
+   }
    chdir $localdir;
 }
 
-###################################################################### 
+######################################################################
 # Creates JEOD Library used for unit tests
-###################################################################### 
+######################################################################
 
 sub make_jeod_lib() {
 
    unless ( $Clean ) {
       print "Compiling JEOD library ...\n";
-      system ("bash -c 'make -f bin/jeod/makefile TRICK_BUILD=0 ENABLE_UNIT_TESTS=1 >& lib_build.txt'");
+      system ("bash -c 'make -f bin/jeod/makefile BUILD_DIR=$ENV{'JEOD_HOME'}/build_unit_test TRICK_BUILD=0 ENABLE_UNIT_TESTS=1 >& lib_build.txt'");
    } else {
       print "Removing JEOD library ...\n";
       system ("bash -c 'make clean -f bin/jeod/makefile >& /dev/null'");
@@ -636,19 +634,19 @@ sub make_jeod_lib() {
 
 }
 
-###################################################################### 
+######################################################################
 # Run JEOD Unit Tests under user specified path
-###################################################################### 
+######################################################################
 
 sub unit_test() {
 
    my @jeod_unit_tests_dir = find_unit_test_dir;
    my $unit_pid;
    my @forked_unit_pids;
-  
+
    foreach my $unit_test (@jeod_unit_tests_dir) {
       my @test_cases = find_unit_tests($unit_test);
-      
+
       foreach my $test (@test_cases) {
          unless ( $Clean ) {
             $unit_pid = fork_unit_test($test);
@@ -670,7 +668,7 @@ sub unit_test() {
    }
 
    my $forked_unit = scalar(@forked_unit_pids);
-     
+
    if ( $forked_unit ) {
       foreach my $pid (@forked_unit_pids) {
          kill_zombie_process($pid);
@@ -682,7 +680,7 @@ sub unit_test() {
 sub find_unit_test_dir() {
 
    my @unit_tests;
-   open FIND, "find $Path/ -name 'unit_tests' -type d | sort |" 
+   open FIND, "find $Path/ -name 'unit_tests' -type d | sort |"
       or die;
    map chomp, (@unit_tests = <FIND>);
    map s/$Jeod_home\///, @unit_tests;
@@ -703,7 +701,7 @@ sub find_unit_tests {
    opendir ( DIR, $unit_test_dir ) || die "Error in opening dir $unit_test_dir\n";
    my @subdir = readdir (DIR);
    closedir (DIR);
-      
+
    # only list unit_test directories that have makefile
    foreach my $dir (@subdir) {
       next if ($dir =~ /^\.+/);
@@ -737,8 +735,8 @@ sub fork_unit_test {
    if ( $pid == 0) {
 
       my @unitlist;
-      
-         
+
+
       open MAKE, "ps -o pid,command | grep make | grep -v grep|" or die "Cannot use ps command: $!\n";
       map chomp, (@unitlist = <MAKE>);
       close MAKE;
@@ -759,20 +757,30 @@ sub fork_unit_test {
       my $make_build = system ("bash -c 'make build >& unit_build_out.txt'");
       if ($make_build) {
          # error in building unit_test
+         print "Unit test $test_case failed to build.\n";
+
+         # print to error file
          open UNITERROR, ">>$Jeod_home/$error_file";
          print UNITERROR "Unit test $test_case failed to build ...\n";
          close UNITERROR;
          exit 0;
+      } else {
+         print "Unit test $test_case succeeded to build.\n";
       }
 
       print "Running $test_case unit test ...\n";
       my $make_test = system ("bash -c 'make run >& /dev/null'");
       if ($make_test) {
          # error in running unit_test
+         print "Unit test $test_case failed to run.\n";
+
+         # print to error file
          open UNITERROR, ">>$Jeod_home/$error_file";
          print UNITERROR "Unit test $test_case failed to run ...\n";
          close UNITERROR;
          exit 0;
+      } else {
+         print "Unit test $test_case succeeded to run.\n";
       }
       exit 0;
    } elsif ( $pid ) {
@@ -783,12 +791,12 @@ sub fork_unit_test {
 
 }
 
-###################################################################### 
+######################################################################
 # Verify JEOD sim's SET_test data with SET_test_val (validation data)
-###################################################################### 
+######################################################################
 
 sub verify() {
-   
+
    my $simpath = getcwd;
    $simpath =~ s/$Jeod_home\///;
    my $error_file = 'verif_error';
@@ -834,7 +842,7 @@ sub verify() {
 
      $set_val_run = $Valpath . $simpath . '/' . $set_val_run if ($Valflag);
 
-      @run_data = get_run_data(@rundir_content); 
+      @run_data = get_run_data(@rundir_content);
 
       foreach my $file (@run_data) {
          push (@headers,$file) if ( $file =~ /\.header$/ );
@@ -842,7 +850,7 @@ sub verify() {
          push (@ascii_binaries,$file) if ( $file =~ /\.csv$/ );
          push (@ascii_binaries,$file) if ( $file =~ /\.out$/ );
       }
-      
+
       unless (scalar(@ascii_binaries)) {
          open VERIFERROR, ">>$Jeod_home/$error_file";
          print VERIFERROR "RUN $simpath/$run has NO data ...\n";
@@ -874,14 +882,14 @@ sub verify() {
             close VERIFERROR;
             next;
          }
-         
+
       }
 
    }
 }
 
 sub get_run_data {
-      
+
    my @run_files = @_;
    my @important_files;
 
@@ -896,23 +904,23 @@ sub get_run_data {
 
       # Input files are now included as part of the validation data. (08/14/2013)
       #next if ( $file =~ /input/ ); Input files are now included as part of the validation data. (08/14/2013)
-     
+
       push (@important_files,$file);
    }
-   
+
    return @important_files;
 }
 
-###################################################################### 
+######################################################################
 # Build JEOD PDF Documents
-###################################################################### 
+######################################################################
 
 sub build_pdf_docs() {
    chdir $Jeod_home;
    my @tex_dirs = find_tex_dirs;
    my @pdf_pidlist;
    my $pdf_pid;
-   
+
    foreach my $tex_dir (@tex_dirs) {
       unless ( $Clean ) {
          build_pdf($tex_dir);
@@ -926,7 +934,7 @@ sub build_pdf_docs() {
 sub find_tex_dirs() {        # list of jeod sims
 
    my @dirs;
-   open FIND, "find $Path -name 'tex' -type d | grep -v 'jeod_course' | grep -v 'jeod_tutorial' | sort |" 
+   open FIND, "find $Path -name 'tex' -type d | grep -v 'jeod_course' | grep -v 'jeod_tutorial' | sort |"
       or die;
    map chomp, (@dirs = <FIND>);
    map s/$Jeod_home\///, @dirs;
@@ -937,7 +945,7 @@ sub find_tex_dirs() {        # list of jeod sims
 }
 
 sub build_pdf {
- 
+
    my $tex_dir = shift;
    my $error_file = 'doc_error';
    chdir "$Jeod_home/$tex_dir" or die "Cannot chdir to $tex_dir: $!\n";
@@ -958,7 +966,7 @@ sub build_pdf {
 }
 
 sub clean_pdf {
-   
+
    my $tex_dir = shift;
    chdir "$Jeod_home/$tex_dir" or die "Cannot chdir to $tex_dir: $!\n";
    print "Cleaning PDF in $tex_dir ...\n";
@@ -966,19 +974,19 @@ sub clean_pdf {
 
 }
 
-###################################################################### 
+######################################################################
 # Build JEOD Doxygentated API
-###################################################################### 
+######################################################################
 
 sub build_jeod_api() {
    chdir $Jeod_home;
    system ('dgh_scripts/doxygenate.csh');
 }
 
-###################################################################### 
-# Creats a validation data for new sims 
+######################################################################
+# Creats a validation data for new sims
 # One need to have SET_test data for a run to create a validation data
-###################################################################### 
+######################################################################
 
 sub make_validation_data() {
 
@@ -996,8 +1004,8 @@ sub make_validation_data() {
    }
 
    # Check if SET_test_val exists and if not create it using svn command
-   system ("svn mkdir SET_test_val") unless ( -d 'SET_test_val' ); 
-      
+   system ("svn mkdir SET_test_val") unless ( -d 'SET_test_val' );
+
    my @set_test_runs = get_sim_runs($Make_val);
 
    foreach my $run (@set_test_runs) {
@@ -1013,7 +1021,7 @@ sub make_validation_data() {
       my $set_val_run = $run;
       $set_val_run =~ s/SET_test/SET_test_val/;
 
-      @run_data = get_run_data(@rundir_content); 
+      @run_data = get_run_data(@rundir_content);
 
       foreach my $file (@run_data) {
          push (@headers,$file) if ( $file =~ /\.header$/ );
@@ -1022,7 +1030,7 @@ sub make_validation_data() {
          push (@ascii_binaries,$file) if ( $file =~ /\.csv$/ );
          push (@ascii_binaries,$file) if ( $file =~ /\.out$/ );
       }
-      
+
       unless (scalar(@ascii_binaries)) {
          open VALERROR, ">>$Jeod_home/$error_file";
          print VALERROR "RUN $simpath/$run has NO date to host in SET_test_val ...\n";
@@ -1036,7 +1044,7 @@ sub make_validation_data() {
          # Check if SET_test_val/RUN has this file to compare against
          unless ( -e "$set_val_run/$file" ) {
             print "Copying $simpath/$run/$file to $simpath/$set_val_run ...\n";
-            copy("$run/$file","$set_val_run/$file") 
+            copy("$run/$file","$set_val_run/$file")
                or die "Copy failed from $simpath/$run/$file to $simpath/$set_val_run\n";
             system ("svn add $set_val_run/$file");
             next;
@@ -1045,33 +1053,33 @@ sub make_validation_data() {
          # compare SET_test and SET_test_val
          if ( compare("$run/$file","$set_val_run/$file") != 0 ) {
             print "Copying $simpath/$run/$file to $simpath/$set_val_run ...\n";
-            copy("$run/$file","$set_val_run/$file") 
+            copy("$run/$file","$set_val_run/$file")
                or die "Copy failed from $simpath/$run/$file to $simpath/$set_val_run\n";
             next;
          }
-         
+
       }
 
    }
 
 }
 
-###################################################################### 
+######################################################################
 # Pretty Error Files
-###################################################################### 
+######################################################################
 
 sub pretty_error_files() {
-      
+
    chdir $Jeod_home;
    my @error_files;
-   open FIND, "find . -maxdepth 1 -name '*_error' -type f | sort |" 
+   open FIND, "find . -maxdepth 1 -name '*_error' -type f | sort |"
       or die;
    map chomp, (@error_files = <FIND>);
    close FIND;
 
    foreach my $file (@error_files) {
       my @file_content;
-      
+
       process_cp_error($file) if ( $file =~ /cp/i );
       process_run_error($file) if ( $file =~ /run/ );
       process_unit_error($file) if ( $file =~ /unit/ );
@@ -1122,11 +1130,11 @@ sub process_run_error  {
       next if /RUN_fail/i;
       next if /SIM_message_handler.*\/RUN_test/i;
       push (@file_content, $_);
-      
+
    }
    close RUNERROR;
    unlink $file_name;
-   
+
    return if ( scalar(@file_content) == 0 );
    push (@file_content, "==============================================================\n");
 
@@ -1222,7 +1230,7 @@ Print this page and exit.
 
 =item B<-cp> [-path [path argument]] [-clean]
 
-Compiles JEOD sims under specified path. $JEOD_HOME is the default path. 
+Compiles JEOD sims under specified path. $JEOD_HOME is the default path.
 If B<-clean> option is applied, it will clean the affected JEOD sims (make spotless).
 
 =item B<-run [runname]> [-path [path argument]] [-clean]
@@ -1232,7 +1240,7 @@ If B<-clean> option is applied, it will clean the affected SET_test runs.
 
 =item B<-lib> [-clean]
 
-Builds JEOD Library, mainly used for unit test. 
+Builds JEOD Library, mainly used for unit test.
 if B<-clean> option is applied, it will clean the library content from JEOD.
 
 =item B<-unit> [-path [path argument]] [-clean]
@@ -1242,22 +1250,22 @@ if B<-clean> option is applied, it will clean the affected unit test.
 
 =item B<-pdfdoc> [-path [path argument]] [-clean]
 
-Builds PDF from LaTex source code under a specified path. $JEOD_HOME is the default path. 
+Builds PDF from LaTex source code under a specified path. $JEOD_HOME is the default path.
 If B<-clean> option is applied, it will clean the affected LaTex source director[y|ies].
 
-=item B<-apidoc> [-clean] 
+=item B<-apidoc> [-clean]
 
 Buils Top Level JEOD Doxygenated API Document.
 if B<-clean> option is applied, it will remove the API Document from JEOD.
 
 =item B<-verify> [-path [path argument]]
 
-Verifies all the sims under a specified path if the SET_test run's data matches that of the 
+Verifies all the sims under a specified path if the SET_test run's data matches that of the
 validation date. $JEOD_HOME is the default path.
 
 =item B<-valflag> [-path [path argument]]
 
-Verifies all the sims under a specified path if the SET_test run's data matches that of the 
+Verifies all the sims under a specified path if the SET_test run's data matches that of the
 machine specific validation date. This option is used in conjuction with [-verify] option.
 $JEOD_HOME is the default path.
 
@@ -1270,7 +1278,7 @@ exists. $JEOD_HOME is the default path.
 
 Specify a relative path under which one need to use a specific JEOD related task. $JEOD_HOME is the default path.
 
-=item B<-clean> 
+=item B<-clean>
 
 Clean option will clean either a SIM or Run or Unit Test or Document based on with which option this is being
 used with. So if this option is used with B<-cp>, it will clean respective sims under B<-path> (make spotless)
@@ -1281,7 +1289,7 @@ used with. So if this option is used with B<-cp>, it will clean respective sims 
 
 =over 8
 
-=item B<$JEOD_HOME> 
+=item B<$JEOD_HOME>
 
 Top level JEOD directory path.
 

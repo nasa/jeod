@@ -74,113 +74,110 @@ Library dependencies:
 // Model includes
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeUTC;
 class TimeTAI;
 class JeodBaseTime;
 
-
 /**
  * Converts between International Atomic Time and Coordinated Universal Time.
  */
-class TimeConverter_TAI_UTC : public TimeConverter {
+class TimeConverter_TAI_UTC : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_TAI_UTC)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_TAI_UTC)
-
-// Member Data
+    // Member Data
 public:
-   /**
-    * "True" to enter user-specified tai-utc offset
-    */
-  bool override_data_table;       //!< trick_units(--)
+    /**
+     * "True" to enter user-specified tai-utc offset
+     */
+    bool override_data_table{}; //!< trick_units(--)
 
 private:
-   /**
-    * Converter parent time, always a TimeTAI for this converter.
-    */
-  TimeTAI * tai_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeTAI for this converter.
+     */
+    TimeTAI * tai_ptr{}; //!< trick_units(--)
 
-   /**
-    * Converter parent time, always a TimeUTC for this converter.
-    */
-  TimeUTC * utc_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeUTC for this converter.
+     */
+    TimeUTC * utc_ptr{}; //!< trick_units(--)
 
 public:
-   /**
-    * User specified value (TAI - UTC)
-    */
-  double leap_sec_override_val; //!< trick_units(s)
-   /**
-    * Maximum index in the leap tables.
-    */
-  int last_index;   //!< trick_units(--)
-   /**
-    * Current index in the leap tables
-    */
-  int index;        //!< trick_units(--)
-   /**
-    * Tabulated values of leap_value
-    */
-  int * val_vec;    //!< trick_units(s)
-   /**
-    * Tabulated values of Julian time corresponding
-    * to changes in leap_value
-    */
-  double * when_vec;    //!< trick_units(day)
+    /**
+     * User specified value (TAI - UTC)
+     */
+    double leap_sec_override_val{}; //!< trick_units(s)
+
+    /**
+     * Maximum index in the leap tables.
+     */
+    int last_index{}; //!< trick_units(--)
+
+    /**
+     * Current index in the leap tables
+     */
+    int index{-1}; //!< trick_units(--)
+
+    /**
+     * Tabulated values of leap_value
+     */
+    int * val_vec{}; //!< trick_units(s)
+
+    /**
+     * Tabulated values of Julian time corresponding
+     * to changes in leap_value
+     */
+    double * when_vec{}; //!< trick_units(day)
 private:
-   /**
-    * The next (future) UTC time of a leap second instance
-    */
-  double next_when;     //!< trick_units(--)
-   /**
-    * The most recent (past) UTC time of a leap
-    * second instance
-    */
-  double prev_when;     //!< trick_units(--)
-   /**
-    * Flag to indicate that the current time is
-    * not covered by the leap-second tables
-    */
-  bool off_table_end;    //!< trick_units(--)
+    /**
+     * The next (future) UTC time of a leap second instance
+     */
+    double next_when{}; //!< trick_units(--)
 
-// Member functions:
+    /**
+     * The most recent (past) UTC time of a leap
+     * second instance
+     */
+    double prev_when{}; //!< trick_units(--)
+
+    /**
+     * Flag to indicate that the current time is
+     * not covered by the leap-second tables
+     */
+    bool off_table_end{}; //!< trick_units(--)
+
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_TAI_UTC ();
-  // Destructor
-   ~TimeConverter_TAI_UTC () override;
+    TimeConverter_TAI_UTC();
+    ~TimeConverter_TAI_UTC() override;
+    TimeConverter_TAI_UTC(const TimeConverter_TAI_UTC &) = delete;
+    TimeConverter_TAI_UTC & operator=(const TimeConverter_TAI_UTC &) = delete;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void) override;
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 
-  // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void) override;
+    // convert_b_to_a: Apply the converter in the reverse direction
+    void convert_b_to_a() override;
 
- private:
-  // initialize_leap_second: Initialize the leap second table
-   void initialize_leap_second (void);
+private:
+    // initialize_leap_second: Initialize the leap second table
+    void initialize_leap_second();
 
-  // used at time reversals to verify the ends of the lookup table
-   void verify_table_lookup_ends (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
-   TimeConverter_TAI_UTC (const TimeConverter_TAI_UTC&);
-   TimeConverter_TAI_UTC & operator = (const TimeConverter_TAI_UTC&);
-
+    // used at time reversals to verify the ends of the lookup table
+    void verify_table_lookup_ends() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

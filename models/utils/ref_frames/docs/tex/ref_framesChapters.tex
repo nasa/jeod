@@ -714,33 +714,15 @@ using the Reference Frame Manager as a front end to interacting
 with reference frames.
 
 \subsection{Reference Frame Utilities}
-
-The RefFrame class has a series of functions for setting
-the name of a reference frame by joining a set of individual
-names with '.'s. There are seven versions of this, all taking
-consecutively more C style strings as arguments. For example,
-the prototype that takes 4 arguments is:
-
-\begin{verbatim}
-void set_name(
-   const char* name_item1,
-   const char* name_item2,
-   const char* name_item3,
-   const char* name_item4);
-\end{verbatim}
-
-The function will then take each consecutive argument, conjoin them
-together with a '.', and set that as the name of the reference frame.
-
 Three functions are associated with if the reference frame
 is active or inactive. They are:
 
 \begin{verbatim}
-virtual void activate (void);
+virtual void activate ();
 
-virtual void deactivate (void);
+virtual void deactivate ();
 
-virtual bool is_active (void) const;
+virtual bool is_active ()st;
 \end{verbatim}
 
 These are simple functions that set an active flag (in the form of
@@ -756,11 +738,11 @@ will also adjust the number of subscribers of the reference frame
 accordingly. These functions are:
 
 \begin{verbatim}
-virtual void subscribe (void);
+virtual void subscribe ();
 
-virtual void unsubscribe (void);
+virtual void unsubscribe ();
 
-virtual unsigned int subscriptions (void) const;
+virtual unsigned int subscriptions () const;
 \end{verbatim}
 
 The owner of the frame, usually interpreted as the object that
@@ -769,7 +751,7 @@ contains or updates the reference frame, has similar functionality.
 \begin{verbatim}
 virtual void set_owner (RefFrameOwner * new_owner);
 
-virtual RefFrameOwner * get_owner (void) const;
+virtual RefFrameOwner * get_owner () const;
 \end{verbatim}
 
 There are also functions related to the time-stamping (update of the last
@@ -779,7 +761,7 @@ of the reference frame.
 \begin{verbatim}
 virtual void set_timestamp (double time);
 
-virtual double timestamp (void) const;
+virtual double timestamp () const;
 \end{verbatim}
 
 Finally, when working with reference frames and specifically reference frame
@@ -988,8 +970,8 @@ for previously registered RefFrames, by name. These functions
 are:
 
 \begin{verbatim}
-RefFrame * find_ref_frame (const char * name) const;
-RefFrame * find_ref_frame (const char * prefix, const char * suffix) const;
+RefFrame * find_ref_frame (const std::string & name) const;
+RefFrame * find_ref_frame (const std::string & prefix, const std::string & suffix) const;
 \end{verbatim}
 
 Both of these functions find reference frames by name. The first
@@ -1035,13 +1017,13 @@ Six functions exist for accessing the RefFrame subscription
 functionality through the RefFrameManager. They are:
 
 \begin{verbatim}
-void subscribe_to_frame (const char * frame_name);
+void subscribe_to_frame (const std::string & frame_name);
 void subscribe_to_frame (RefFrame & frame);
 
-void unsubscribe_to_frame (const char * frame_name);
+void unsubscribe_to_frame (const std::string & frame_name);
 void unsubscribe_to_frame (RefFrame & frame);
 
-bool frame_is_subscribed (const char * frame_name);
+bool frame_is_subscribed (const std::string & frame_name);
 bool frame_is_subscribed (RefFrame & frame);
 \end{verbatim}
 
@@ -1080,11 +1062,11 @@ that may be overridden:
 
 \begin{verbatim}
 
-virtual void activate (void);
+virtual void activate ();
 
-virtual void deactivate (void);
+virtual void deactivate ();
 
-virtual bool is_active (void) const;
+virtual bool is_active () const;
 \end{verbatim}
 
 These functions will be utilized in the Dynamics Manager Model
@@ -1258,9 +1240,9 @@ class. Its signature is as follows:
 bool validate_name (
    const char * file,
    unsigned int line,
-   const char * variable_value,
-   const char * variable_type,
-   const char * variable_name) const;
+   const std::string & variable_value,
+   const std::string & variable_type,
+   const std::string & variable_name) const;
 \end{verbatim}
 
 This function will check if a given name (the ``variable\_value" argument) is either NULL, or
@@ -1426,13 +1408,13 @@ class RefFrame {
   public:
 
    // activate: Mark the frame as active
-   virtual void activate (void);
+   virtual void activate ();
 
    // deactivate: Mark the frame as inactive
-   virtual void deactivate (void);
+   virtual void deactivate ();
 
    // is_active: Is the frame active?
-   virtual bool is_active (void) const;
+   virtual bool is_active () const;
 
 };
 \end{verbatim}
@@ -1455,13 +1437,13 @@ class RefFrame {
  public:
 
    // subscribe: Increment the subscription count and activate
-   virtual void subscribe (void);
+   virtual void subscribe ();
 
    // unsubscribe: Decrement the subscription count and deactivate when unsed
-   virtual void unsubscribe (void);
+   virtual void unsubscribe ();
 
    // subscriptions: Return the subscription count
-   virtual unsigned int subscriptions (void) const;
+   virtual unsigned int subscriptions () const;
 
 };
 
@@ -1476,8 +1458,8 @@ The class ``RefFrameManager" contains the following implemented functions:
 
 \begin{verbatim}
 // Find a reference frame.
-RefFrame * find_ref_frame (const char * name) const;
-RefFrame * find_ref_frame (const char * prefix, const char * suffix) const;
+RefFrame * find_ref_frame (const std::string & name) const;
+RefFrame * find_ref_frame (const std::string & prefix, const std::string & suffix) const;
 \end{verbatim}
 
 These functions allow a user to search the reference frames registered with this
@@ -1508,15 +1490,15 @@ The class ``RefFrameManager" contains the following implemented functions:
 
 \begin{verbatim}
 // Add a subscription to a reference frame.
-void subscribe_to_frame (const char * frame_name);
+void subscribe_to_frame (const std::string & frame_name);
 void subscribe_to_frame (RefFrame & frame);
 
 // Remove a subscription from a reference frame.
-void unsubscribe_to_frame (const char * frame_name);
+void unsubscribe_to_frame (const std::string & frame_name);
 void unsubscribe_to_frame (RefFrame & frame);
 
 // Check whether a reference frame has subscriptions.
-bool frame_is_subscribed (const char * frame_name);
+bool frame_is_subscribed (const std::string & frame_name);
 bool frame_is_subscribed (RefFrame & frame);
 \end{verbatim}
 

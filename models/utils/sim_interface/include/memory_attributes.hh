@@ -59,7 +59,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -68,7 +68,6 @@ Purpose:
 
 // Get the JEOD configuration.
 #include "config.hh"
-
 
 // Some installations may not be able to fit within the confines of the main
 // body of this header. Include the alternate implementation if defined.
@@ -88,7 +87,8 @@ Purpose:
 // #include "memory_interface.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class JeodSimulationInterface;
 
@@ -98,7 +98,6 @@ class JeodSimulationInterface;
  */
 #define JEOD_DECLARE_ATTRIBUTES(class_name)
 
-
 /**
  * \def JEOD_ATTRIBUTES(type)
  *   Get a pointer to or construct the name of the attributes for the type.
@@ -106,10 +105,9 @@ class JeodSimulationInterface;
  * \param type    Data type.
  * \return        Pointer to or symbolic name of the attributes for the type.
  */
-#define JEOD_ATTRIBUTES(type) \
-   JeodSimulationInterface::get_memory_interface().find_attributes(#type)
+#define JEOD_ATTRIBUTES(type) JeodSimulationInterface::get_memory_interface().find_attributes(#type)
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

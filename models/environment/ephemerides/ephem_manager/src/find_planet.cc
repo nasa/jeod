@@ -25,7 +25,6 @@ Library dependencies:
 
 ******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -38,59 +37,57 @@ Library dependencies:
 // Model includes
 #include "../include/ephem_manager.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Find the planet with the given name.
  * @param name  Planet name
  * @return Found planet, as a Planet rather than a BasePlanet
-*/
-Planet *
-EphemeridesManager::find_planet (
-   const char * name)
-const
+ */
+Planet * EphemeridesManager::find_planet(const std::string & name) const
 {
-   BasePlanet * base_planet = find_base_planet (name);
-   Planet * planet;
+    BasePlanet * base_planet = find_base_planet(name);
+    Planet * planet;
 
-   // Found a BasePlanet with the given name:
-   // Try converting it to a Planet.
-   if (base_planet != nullptr) {
-      planet = dynamic_cast <Planet *>(base_planet);
+    // Found a BasePlanet with the given name:
+    // Try converting it to a Planet.
+    if(base_planet != nullptr)
+    {
+        planet = dynamic_cast<Planet *>(base_planet);
 
-      // Conversion failed: Warn user about this.
-      if (planet == nullptr) {
-         MessageHandler::warn (
-            __FILE__, __LINE__, EphemeridesMessages::invalid_item,
-            "BasePlanet '%s' is not a Planet. "
-            "Returning NULL from find_planet().",
-            name);
-      }
-   }
+        // Conversion failed: Warn user about this.
+        if(planet == nullptr)
+        {
+            MessageHandler::warn(__FILE__,
+                                 __LINE__,
+                                 EphemeridesMessages::invalid_item,
+                                 "BasePlanet '%s' is not a Planet. "
+                                 "Returning NULL from find_planet().",
+                                 name.c_str());
+        }
+    }
 
-   // BasePlanet not found: planet is NULL.
-   else {
-      planet = nullptr;
-   }
+    // BasePlanet not found: planet is NULL.
+    else
+    {
+        planet = nullptr;
+    }
 
-   return planet;
+    return planet;
 }
-
 
 /**
  * Add a planet to the registry.
  * @param planet  Planet to be added to the registry.
  */
-void
-EphemeridesManager::add_planet (
-   Planet & planet)
+void EphemeridesManager::add_planet(Planet & planet)
 {
-   add_planet (static_cast<BasePlanet&> (planet));
+    add_planet(static_cast<BasePlanet &>(planet));
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

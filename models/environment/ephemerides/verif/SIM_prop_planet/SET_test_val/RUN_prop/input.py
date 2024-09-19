@@ -18,7 +18,7 @@ trick.stop(86400*(365*150+30))
 
 # Switch to propagated mode immediately after initialization.
 trick.add_read(0 , """
-sun.switch_to_propagated();
-jupiter.switch_to_propagated();
-saturn.switch_to_propagated();
+sun.switch_to_propagated()
+jupiter.switch_to_propagated()
+saturn.switch_to_propagated()
 """)

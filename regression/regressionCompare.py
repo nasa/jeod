@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
+
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -32,8 +34,6 @@
 # AGREEMENT.
 #
 #=============================================================================
-
-#!/usr/bin/env python2
 
 import argparse, sys
 from CompareData import CompareData

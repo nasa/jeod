@@ -63,28 +63,27 @@ LIBRARY DEPENDENCY:
 #define JEOD_GRAVITY_GRADIENT_VERIF_FUNCTION_HH
 
 /* System includes. */
-#include <math.h>
+#include <cmath>
 
 /* Trick includes. */
-#include "sim_services/include/Flag.h"
-#include "trick_utils/math/include/vector_macros.h"
 #include "trick_utils/math/include/matrix_macros.h"
+#include "trick_utils/math/include/vector_macros.h"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-    /* ENTRY POINT: */
-int gravity_gradient(     /* RETURN: --  Always return zero.               */
-   int    active,         /* IN: --    Gravity gradient on/off flag.       */
-   double mu,             /* IN: M3/s2 Planetary gravitational parameter.  */
-   double pos[3],         /* IN: M     Position of c.g., Inrtl Ref.        */
-   double T_b_I[3][3],    /* IN: --    Body to Inertial attitude matrix.   */
-   double T_s_b[3][3],    /* IN: --    Structure to Body attitude matrix.  */
-   double inertia[3][3],  /* IN: kgM2  Inertia tensor about c.g., Body Ref.*/
-   double gg_torq_bdy[3], /* OUT: NM   Gravity gradient torque, Body Ref.  */
-   double gg_torq[3]    ); /* OUT: NM   Gravity gradient torque, Struct Ref.*/
+/* ENTRY POINT: */
+int gravity_gradient(                       /* RETURN: --  Always return zero.               */
+                     int active,            /* IN: --    Gravity gradient on/off flag.       */
+                     double mu,             /* IN: M3/s2 Planetary gravitational parameter.  */
+                     double pos[3],         /* IN: M     Position of c.g., Inrtl Ref.        */
+                     double T_b_I[3][3],    /* IN: --    Body to Inertial attitude matrix.   */
+                     double T_s_b[3][3],    /* IN: --    Structure to Body attitude matrix.  */
+                     double inertia[3][3],  /* IN: kgM2  Inertia tensor about c.g., Body Ref.*/
+                     double gg_torq_bdy[3], /* OUT: NM   Gravity gradient torque, Body Ref.  */
+                     double gg_torq[3]);    /* OUT: NM   Gravity gradient torque, Struct Ref.*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -35,9 +35,9 @@
 //
 //
 #include "Base/earth_GGM02C_MET.sm"
-Earth_GGM02C_MET_SimObject earth( dynamics.dyn_manager,
-                                  env.gravity_manager,
-                                  jeod_time.time_utc,
-                                  jeod_time.time_tt,
-                                  jeod_time.time_ut1,
-                                  jeod_time.time_gmst);
+Earth_GGM02C_MET_SimObject earth(dynamics.dyn_manager,
+                                 env.gravity_manager,
+                                 jeod_time.time_utc,
+                                 jeod_time.time_tt,
+                                 jeod_time.time_ut1,
+                                 jeod_time.time_gmst);

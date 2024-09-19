@@ -48,13 +48,10 @@ ASSUMPTIONS AND LIMITATIONS:
 LIBRARY DEPENDENCY:
   ((../src/orb_elem_multi_ver.cc))
 
- 
+
 ************************************************************************/
 
 #define DATA_POINTS 5001
-
-// Trick includes.
-#include "sim_services/include/Flag.h"
 
 // JEOD includes.
 #include "utils/orbital_elements/include/orbital_elements.hh"
@@ -62,30 +59,29 @@ LIBRARY DEPENDENCY:
 #ifndef ORB_ELEM_MULTI_VER_H_
 #define ORB_ELEM_MULTI_VER_H_
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class OrbElemMultiVer{
-
-  public:
-   Flag multi_use;                       /* trick_io(*i) trick_units(--) @n
+class OrbElemMultiVer
+{
+public:
+    bool multi_use;                      /* trick_io(*i) trick_units(--) @n
       Flag for multi use. */
-   double mu;                            /* trick_io(*i) trick_units(m3/s2) @n
+    double mu;                           /* trick_io(*i) trick_units(m3/s2) @n
       Gravity param. */
-   int    data_row;                      /* trick_io(*i) trick_units(--) @n
+    int data_row;                        /* trick_io(*i) trick_units(--) @n
       Row in data array. */
-   double data_vals_in[DATA_POINTS][6];  /* trick_io(*i) trick_units(--) @n
+    double data_vals_in[DATA_POINTS][6]; /* trick_io(*i) trick_units(--) @n
       Array of pos and vel. */
-   double data_vals_out[6];              /* trick_io(*o) trick_units(--) @n
+    double data_vals_out[6];             /* trick_io(*o) trick_units(--) @n
       Array of pos and vel. */
-   double data_vals_inout[6];            /* trick_io(*o) trick_units(--) @n
+    double data_vals_inout[6];           /* trick_io(*o) trick_units(--) @n
       Array of pos and vel. */
 
-   void update( OrbitalElements * orb_elem );
-
+    void update(OrbitalElements * orb_elem);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

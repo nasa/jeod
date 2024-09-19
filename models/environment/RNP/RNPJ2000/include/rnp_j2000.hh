@@ -66,9 +66,8 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/rnp_j2000.cc))
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef RNP_J2000_HH
 #define RNP_J2000_HH
@@ -76,154 +75,142 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "environment/RNP/GenericRNP/include/planet_rnp.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "nutation_j2000.hh"
 #include "polar_motion_j2000.hh"
-#include "rotation_j2000.hh"
 #include "precession_j2000.hh"
+#include "rotation_j2000.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeTT;
 class TimeUT1;
 class TimeGMST;
 class TimeDyn;
 
-
 // The J2000 RNP implementation from Jeod 1.52
 /**
  * Implements the J2000 RNP model using the generic RNP framework.
  */
-class RNPJ2000 : public PlanetRNP {
-
-   JEOD_MAKE_SIM_INTERFACES(RNPJ2000)
-
+class RNPJ2000 : public PlanetRNP
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RNPJ2000)
 
 public: // public member variables
+    // Model instances for rotation, nutation, precession and polar motion.
+    /**
+     * Earth J2000 rotation model.
+     */
+    RotationJ2000 RJ2000; //!< trick_units(--)
 
-   // Model instances for rotation, nutation, precession and polar motion.
-   /**
-    * Earth J2000 rotation model.
-    */
-   RotationJ2000 RJ2000;  //!< trick_units(--)
-   /**
-    * Earth J2000 nutation model.
-    */
-   NutationJ2000 NJ2000;  //!< trick_units(--)
-   /**
-    * Earth J2000 precession model.
-    */
-   PrecessionJ2000 PJ2000;  //!< trick_units(--)
-   /**
-    * Earth J2000 polar motion model.
-    */
-   PolarMotionJ2000 PMJ2000; //!< trick_units(--)
+    /**
+     * Earth J2000 nutation model.
+     */
+    NutationJ2000 NJ2000; //!< trick_units(--)
 
-protected: // protected member variables
+    /**
+     * Earth J2000 precession model.
+     */
+    PrecessionJ2000 PJ2000; //!< trick_units(--)
 
-
-private: // private member variables
+    /**
+     * Earth J2000 polar motion model.
+     */
+    PolarMotionJ2000 PMJ2000; //!< trick_units(--)
 
 public: // public member functions
+    RNPJ2000();
+    ~RNPJ2000() override = default;
+    RNPJ2000 & operator=(const RNPJ2000 &) = delete;
+    RNPJ2000(const RNPJ2000 &) = delete;
 
-   RNPJ2000 ();
+    // function to initialize the RNP. Deletes modules and sets their
+    // pointers to null based on the options set in enable_polar and
+    // rnp_type. This then calls the base class initialize
+    void initialize(DynManager & manager) override;
 
-   ~RNPJ2000 () override;
+    // updates the entire RNP, including both setting the time for each
+    // module then updating the RNP and sending it to the ref_frame found
+    // in the dyn manager at initialization
+    void update_rnp(const TimeTT & time_tt, TimeGMST & time_gmst, const TimeUT1 & time_ut1);
 
-   // function to initialize the RNP. Deletes modules and sets their
-   // pointers to null based on the options set in enable_polar and
-   // rnp_type. This then calls the base class initialize
-   void initialize (DynManager& manager) override;
+    // does the same thing as update_rnp but only updates the rotation (z axis
+    // axial rotation) of the RNP.
+    void update_axial_rotation(TimeGMST & time_gmst);
 
-   // updates the entire RNP, including both setting the time for each
-   // module then updating the RNP and sending it to the ref_frame found
-   // in the dyn manager at initialization
-   void update_rnp (const TimeTT& time_tt, TimeGMST& time_gmst, const TimeUT1& time_ut1);
+    // implementations to make the functions inherited from
+    // EphemInterface non-pure virtual
 
-   // does the same thing as update_rnp but only updates the rotation (z axis
-   // axial rotation) of the RNP.
-   void update_axial_rotation (TimeGMST& time_gmst);
+    // Indicates when class was last updated
+    double timestamp() const override;
 
-   // implementations to make the functions inherited from
-   // EphemInterface non-pure virtual
+    // Identify the model
+    std::string get_name() const override;
 
-   // Indicates when class was last updated
-   double timestamp() const override;
+    // update the model. This calls the update_axial_rotation function.
+    void ephem_update() override;
 
-   // Identify the model
-   const char* get_name() const override;
-
-   // update the model. This calls the update_axial_rotation function.
-   void ephem_update() override;
-
-   /**
-    * The hard coded internal name to be returned on calling
-    * the overridden EphemerisInterface function "get_name"
-    */
-   std::string internal_name; //!< trick_units(--)
-
+    /**
+     * The hard coded internal name to be returned on calling
+     * the overridden EphemerisInterface function "get_name"
+     */
+    std::string internal_name{"RNPJ2000"}; //!< trick_units(--)
 
 private: // private member functions
+    // accesses the TimeManager pointed to by the given TimeGMST,
+    // and then uses it to get the simulations DynTime. If
+    // a DynTime is not found, this is a fatal error.
+    void get_dyn_time_ptr(TimeGMST & gmst);
 
-   // accesses the TimeManager pointed to by the given TimeGMST,
-   // and then uses it to get the simulations DynTime. If
-   // a DynTime is not found, this is a fatal error.
-   void get_dyn_time_ptr(
-      TimeGMST& gmst);
+    /**
+     * Pointer to the TimeGMST used to update
+     * this object when ephem_update is invoked
+     */
+    TimeGMST * gmst_ptr{}; //!< trick_units(--)
 
-   /**
-    * Pointer to the TimeGMST used to update
-    * this object when ephem_update is invoked
-    */
-   TimeGMST* gmst_ptr; //!< trick_units(--)
+    /**
+     * Pointer to the TimeDyn object, used to time stamp the reference frame
+     * when it is being updated
+     */
+    TimeDyn * time_dyn_ptr{}; //!< trick_units(--)
 
-   /**
-    * Pointer to the TimeDyn object, used to time stamp the reference frame
-    * when it is being updated
-    */
-   TimeDyn* time_dyn_ptr; //!< trick_units(--)
+    /**
+     * The last update time, when updated through update_rnp,
+     * for the RNP, referencing TimeDyn.seconds .
+     * If the time from time_dyn_ptr is the same as this update time, then
+     * the RNP will not be updated. This is to prevent unnecessary
+     * updating.
+     */
+    double last_updated_time_full{}; //!< trick_units(s)
 
-   /**
-    * The last update time, when updated through update_rnp,
-    * for the RNP, referencing TimeDyn.seconds .
-    * If the time from time_dyn_ptr is the same as this update time, then
-    * the RNP will not be updated. This is to prevent unnecessary
-    * updating.
-    */
-   double last_updated_time_full; //!< trick_units(s)
+    /**
+     * Indicates that last_updated_time_full has never been populated, and
+     * that the update must be done regardless of given time.
+     */
+    bool never_updated_full{true}; //!< trick_units(--)
 
-   /**
-    * Indicates that last_updated_time_full has never been populated, and
-    * that the update must be done regardless of given time.
-    */
-   bool never_updated_full; //!< trick_units(--)
+    /**
+     * The last update time, when updated through update_axial_rotation,
+     * referencing TimeDyn.seconds .
+     * If the time from time_dyn_ptr is the same as this update time, then
+     * the R component of RNP will not be updated. This is to prevent
+     * unnecessary updating.
+     */
+    double last_updated_time_rotational{}; //!< trick_units(s)
 
-   /**
-    * The last update time, when updated through update_axial_rotation,
-    * referencing TimeDyn.seconds .
-    * If the time from time_dyn_ptr is the same as this update time, then
-    * the R component of RNP will not be updated. This is to prevent
-    * unnecessary updating.
-    */
-   double last_updated_time_rotational; //!< trick_units(s)
-
-   /**
-    * Indicates that last_updated_time_rotational has never been
-    * populated, and that the update must be done regardless of given time.
-    */
-   bool never_updated_rotational; //!< trick_units(--)
-
-   // operator = and copy constructor locked from use because they are private
-   RNPJ2000& operator = (const RNPJ2000& rhs);
-   RNPJ2000 (const RNPJ2000& rhs);
+    /**
+     * Indicates that last_updated_time_rotational has never been
+     * populated, and that the update must be done regardless of given time.
+     */
+    bool never_updated_rotational{true}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

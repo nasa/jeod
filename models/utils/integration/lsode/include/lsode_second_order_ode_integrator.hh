@@ -59,10 +59,9 @@ Reference:
 Library dependencies:
   ((../src/lsode_second_order_ode_integrator.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_LSODE_SECOND_ORDER_ODE_INTEGRATOR_HH
 #define JEOD_LSODE_SECOND_ORDER_ODE_INTEGRATOR_HH
@@ -84,100 +83,81 @@ namespace jeod
 
 class LsodeControlDataInterface;
 
-
 /**
  * JEOD-compatible version of the Livermore ODE solver, LSODE, capable of
  * integrating second-order ODEs.
  */
 class LsodeSecondOrderODEIntegrator : public er7_utils::SecondOrderODEIntegrator
 {
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeSecondOrderODEIntegrator)
 
-JEOD_MAKE_SIM_INTERFACES(LsodeSecondOrderODEIntegrator)
-
-
-// Methods:
+    // Methods:
 public:
+    /**
+     * LsodeSecondOrderODEIntegrator destructor.
+     */
+    ~LsodeSecondOrderODEIntegrator() override;
 
-   /**
-    * LsodeSecondOrderODEIntegrator destructor.
-    */
-   ~LsodeSecondOrderODEIntegrator() override;
+    LsodeSecondOrderODEIntegrator & operator=(const LsodeSecondOrderODEIntegrator &) = delete;
+    LsodeSecondOrderODEIntegrator(const LsodeSecondOrderODEIntegrator &) = delete;
 
+    // Member functions.
 
-   // Member functions.
-
-   /**
-    * Get the integrator's reentry point.
-    */
-   int get_re_entry_point() {return first_order_integrator.get_re_entry_point();};
+    /**
+     * Get the integrator's reentry point.
+     */
+    int get_re_entry_point()
+    {
+        return first_order_integrator.get_re_entry_point();
+    }
 
 protected:
-   // Constructors
+    LsodeSecondOrderODEIntegrator() = default;
 
-   /**
-    * LsodeSecondOrderODEIntegrator default constructor.
-    */
-   LsodeSecondOrderODEIntegrator(void);
-
-   /**
-    * LsodeSecondOrderODEIntegrator non-default constructor.
-    * @param[in]     data_in   LSODE-specific control data.
-    * @param[in,out] controls  Integration controls.
-    * @param[in]     size      State size.
-    */
-   LsodeSecondOrderODEIntegrator( const LsodeControlDataInterface & data_in,
+    /**
+     * LsodeSecondOrderODEIntegrator non-default constructor.
+     * @param[in]     data_in   LSODE-specific control data.
+     * @param[in,out] controls  Integration controls.
+     * @param[in]     size      State size.
+     */
+    LsodeSecondOrderODEIntegrator(const LsodeControlDataInterface & data_in,
                                   er7_utils::IntegrationControls & controls,
                                   unsigned int size);
 
-   LsodeSecondOrderODEIntegrator (
-      const LsodeControlDataInterface & data_in,
-      er7_utils::IntegrationControls & controls,
-      const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
-      unsigned int position_size,
-      unsigned int velocity_size);
+    LsodeSecondOrderODEIntegrator(const LsodeControlDataInterface & data_in,
+                                  er7_utils::IntegrationControls & controls,
+                                  const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
+                                  unsigned int position_size,
+                                  unsigned int velocity_size);
 
-   /**
-    * Reset the integrator.
-    */
-   void reset_integrator () override {first_order_integrator.reset_integrator();}
+    /**
+     * Reset the integrator.
+     */
+    void reset_integrator() override
+    {
+        first_order_integrator.reset_integrator();
+    }
 
-private:
-
-   /**
-    * LsodeSecondOrderODEIntegrator assignment operator. Not implemented.
-    */
-   LsodeSecondOrderODEIntegrator & operator=(
-                const  LsodeSecondOrderODEIntegrator &);
-
-   /**
-    * LsodeSecondOrderODEIntegrator copy constructor. Not implemented.
-    */
-   LsodeSecondOrderODEIntegrator(const LsodeSecondOrderODEIntegrator &);
-
-
-
-// Variables:
+    // Variables:
 
 public:
+    // State
+    /**
+     * State vector (zeroth derivative).
+     */
+    double * y{}; //!< trick_units(--)
 
+    /**
+     * State vector (first derivative).
+     */
+    double * y_dot{}; //!< trick_units(--)
 
-// State
-   /**
-    * State vector (zeroth derivative).
-    */
-   double * y;     //!< trick_units(--)
+    unsigned int zeroth_derivative_size{};
+    unsigned int first_derivative_size{};
 
-   /**
-    * State vector (first derivative).
-    */
-   double * y_dot; //!< trick_units(--)
+    LsodeFirstOrderODEIntegrator first_order_integrator;
 
-   unsigned int zeroth_derivative_size;
-   unsigned int first_derivative_size;
-
-   LsodeFirstOrderODEIntegrator first_order_integrator;
-
-   bool arrays_allocated;
+    bool arrays_allocated{};
 };
 
 } // namespace jeod

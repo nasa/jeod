@@ -61,10 +61,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_POINT_HH
 #define JEOD_EPHEM_POINT_HH
-
 
 // System includes
 
@@ -75,65 +73,49 @@ Library dependencies:
 #include "class_declarations.hh"
 #include "ephem_item.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An EphemerisPoint object updates the translational state of an ephemeris
  * reference frame.
  */
-class EphemerisPoint : public EphemerisItem {
-JEOD_MAKE_SIM_INTERFACES(EphemerisPoint)
+class EphemerisPoint : public EphemerisItem
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EphemerisPoint)
 
 public:
+    // Member functions
+    EphemerisPoint() = default;
+    ~EphemerisPoint() override = default;
+    EphemerisPoint(const EphemerisPoint &) = delete;
+    EphemerisPoint & operator=(const EphemerisPoint &) = delete;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // EphemerisPoint objects modify the translational state.
+    TargetAspect updates_what() const override;
 
-   // Constructor and destructor
-   EphemerisPoint ();
-   ~EphemerisPoint () override;
+    // Default suffix, "inertial" in the case of a point.
+    std::string default_suffix() const override;
 
+    // Disconnect the inertial frame from the ref frame tree.
+    void disconnect_from_tree() override;
 
-   // EphemerisPoint objects modify the translational state.
-   TargetAspect updates_what (void) const override;
+    // Note that the inertial frame's active status has changed
+    void note_frame_status_change(RefFrame * frame) override;
 
-   // Default suffix, "inertial" in the case of a point.
-   const char * default_suffix () const override;
+    // Initialize (zero out) the state
+    virtual void initialize_state();
 
-   // Disconnect the inertial frame from the ref frame tree.
-   void disconnect_from_tree () override;
+    // Update the state
+    virtual void update(const double * pos, const double * vel, double time);
+    virtual void update_scaled(const double * pos, const double * vel, double scale, double time);
 
-   // Note that the inertial frame's active status has changed
-   void note_frame_status_change (RefFrame * frame) override;
-
-   // Initialize (zero out) the state
-   virtual void initialize_state ();
-
-   // Update the state
-   virtual void update (const double * pos, const double * vel, double time);
-   virtual void update_scaled (const double * pos, const double * vel,
-                               double scale, double time);
-
-   // Member data
-   // This class does not have add data members.
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   ///
-   /// Not implemented.
-   EphemerisPoint (const EphemerisPoint &);
-   ///
-   /// Not implemented.
-   EphemerisPoint & operator= (const EphemerisPoint &);
+    // Member data
+    // This class does not have add data members.
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

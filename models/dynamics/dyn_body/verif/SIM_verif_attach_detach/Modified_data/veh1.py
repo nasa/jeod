@@ -14,20 +14,20 @@ veh1.mass_init.properties.mass      = 1.0
 veh1.mass_init.properties.inertia = [[ 10.0,     0.0,     0.0],
                                      [  0.0,    10.0,     0.0],
                                      [  0.0,     0.0,    10.0]]
-veh1.mass_init.num_points = 2
-veh1.mass_init.points = trick.sim_services.alloc_type( 2 , "jeod::MassPointInit" )
-veh1.mass_init.points[0].set_name ("node12")
-veh1.mass_init.points[0].position  = [ 10, 0, 0]
-veh1.mass_init.points[0].pt_orientation.data_source = \
+veh1.mass_init.allocate_points(2)
+
+veh1.mass_init.get_mass_point(0).set_name ("node12")
+veh1.mass_init.get_mass_point(0).position  = [ 10, 0, 0]
+veh1.mass_init.get_mass_point(0).pt_orientation.data_source = \
                                    trick.Orientation.InputQuaternion
 
-veh1.mass_init.points[1].set_name ("node13")
-veh1.mass_init.points[1].position  = [ 5, 0, -5]
-veh1.mass_init.points[1].pt_orientation.data_source = \
+veh1.mass_init.get_mass_point(1).set_name ("node13")
+veh1.mass_init.get_mass_point(1).position  = [ 5, 0, -5]
+veh1.mass_init.get_mass_point(1).pt_orientation.data_source = \
                                 trick.Orientation.InputEulerRotation
-veh1.mass_init.points[1].pt_orientation.euler_sequence  = \
+veh1.mass_init.get_mass_point(1).pt_orientation.euler_sequence  = \
                                 trick.Orientation.Yaw_Pitch_Roll
-veh1.mass_init.points[1].pt_orientation.euler_angles  = \
+veh1.mass_init.get_mass_point(1).pt_orientation.euler_angles  = \
                                 trick.attach_units( "degree",[ 0.0, 90.0, 0.0])
 
 dynamics.dyn_manager.add_body_action (veh1.mass_init)

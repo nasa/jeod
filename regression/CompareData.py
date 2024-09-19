@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -51,17 +51,6 @@ from textwrap import wrap
 from ColorStr import ColorStr
 from verif_utilities import tprint, validateOutputPath
 
-import pdb
-# In order to suppress the DeprecationWarning: Use the new widget gtk.Tooltip
-# warning in matplotlib
-# Remove this if we upgrade matplotlib versions / python versions
-# TODO: trickpy prints RuntimeWarning: numpy.dtype size changed, may indicate
-#       binary incompatibility when h5py is installed on the machine, but it's
-#       not required since it passes on except. Need to understand the
-#       implications of this, hiding the warning for now since don't use that
-#       file format.
-import warnings
-warnings.filterwarnings("ignore")
 import trickpy
 
 # Get python version
@@ -940,8 +929,8 @@ class CompareData:
                             'DARK_RED','ERROR')
 
         # Scale the plot appropriately. Do not exceed the specified min and max
-        minfrac = min(scldata);
-        maxfrac = max(scldata);
+        minfrac = min(scldata)
+        maxfrac = max(scldata)
         # Quick test, make sure we have something to plot.
         # This should never get hit.
         if maxfrac == 0.0:
@@ -953,7 +942,7 @@ class CompareData:
         # If all data is below minimum threshold, reset max threshold to give
         # some minimal plot size
         if maxfrac <= minlogaxis:
-            maxlogaxis = minlogaxis * 10.0;
+            maxlogaxis = minlogaxis * 10.0
         # Otherwise, lower the upper threshold if
         #  1.  all data has small deltas and
         #  2.  some or all of it lies above the minimum threshold:

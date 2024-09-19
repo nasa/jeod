@@ -13,128 +13,105 @@
 Purpose:
   ()
 
- 
+
 *******************************************************************************/
 
-
 // System includes
-#include <string>
 #include <sstream>
+#include <string>
 
 // Model includes
 #include "../include/test_sim_interface.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Define storage for TestSimInterface::the_lock_enabled.
  */
 bool TestSimInterface::the_lock_enabled = false;
 
-
 /**
  * Define storage for TestSimInterface::the_printf_mutex.
  */
-pthread_mutex_t * TestSimInterface::the_printf_mutex = NULL;
-
+pthread_mutex_t * TestSimInterface::the_printf_mutex = nullptr;
 
 /**
  * Construct a TestSimInterface object.
  */
-TestSimInterface::TestSimInterface (
-   void)
-:
-   failed (false),
-   allowed_error_count (0),
-   message_handler (*this),
-   memory_interface (),
-   memory_manager (NULL)
+TestSimInterface::TestSimInterface()
+    : message_handler(*this)
 {
-   pthread_mutex_init (&data_mutex, NULL);
-   pthread_mutex_init (&printf_mutex, NULL);
-   the_printf_mutex = &printf_mutex;
-   memory_manager = new JeodMemoryManager (memory_interface);
+    pthread_mutex_init(&data_mutex, nullptr);
+    pthread_mutex_init(&printf_mutex, nullptr);
+    the_printf_mutex = &printf_mutex;
+    memory_manager = new JeodMemoryManager(memory_interface);
 }
-
 
 /**
  * Destruct a TestSimInterface object.
  */
-TestSimInterface::~TestSimInterface (
-   void)
+TestSimInterface::~TestSimInterface()
 {
-   if (memory_manager != NULL) {
-      shutdown ();
-   }
-   pthread_mutex_destroy (&printf_mutex);
-   pthread_mutex_destroy (&data_mutex);
-   the_printf_mutex = NULL;
+    if(memory_manager != nullptr)
+    {
+        shutdown();
+    }
+    pthread_mutex_destroy(&printf_mutex);
+    pthread_mutex_destroy(&data_mutex);
+    the_printf_mutex = nullptr;
 }
-
 
 /**
  * Enable printf locking.
  */
-void
-TestSimInterface::enable_lock (
-   void)
+void TestSimInterface::enable_lock()
 {
-   the_lock_enabled = true;
+    the_lock_enabled = true;
 }
-
 
 /**
  * Disable printf locking.
  */
-void
-TestSimInterface::disable_lock (
-   void)
+void TestSimInterface::disable_lock()
 {
-   the_lock_enabled = false;
+    the_lock_enabled = false;
 }
-
 
 /**
  * Lock so we can do a printf without getting jumbled text.
  */
-void
-TestSimInterface::lock_printf (
-   void)
+void TestSimInterface::lock_printf()
 {
-   if (the_lock_enabled && (the_printf_mutex != NULL)) {
-      pthread_mutex_lock (the_printf_mutex);
-   }
+    if(the_lock_enabled && (the_printf_mutex != nullptr))
+    {
+        pthread_mutex_lock(the_printf_mutex);
+    }
 }
-
 
 /**
  * Unlock so other threads can print, too.
  */
-void
-TestSimInterface::unlock_printf (
-   void)
+void TestSimInterface::unlock_printf()
 {
-   if (the_lock_enabled && (the_printf_mutex != NULL)) {
-      pthread_mutex_unlock (the_printf_mutex);
-   }
+    if(the_lock_enabled && (the_printf_mutex != nullptr))
+    {
+        pthread_mutex_unlock(the_printf_mutex);
+    }
 }
-
 
 /**
  * Shutdown.
  */
-void
-TestSimInterface::shutdown (
-   void)
+void TestSimInterface::shutdown()
 {
-   if (memory_manager != NULL) {
-      delete memory_manager;
-      memory_manager = NULL;
-   }
+    if(memory_manager != nullptr)
+    {
+        delete memory_manager;
+        memory_manager = nullptr;
+    }
 }
-
 
 /**
  * Denote that error messages whose message code exactly matches the supplied
@@ -160,13 +137,10 @@ TestSimInterface::shutdown (
  *   verboten codes in case of conflict.
  * \param[in] code The message code to be marked as allowed
  */
-void
-TestSimInterface::add_allowed_code (
-   const std::string & code)
+void TestSimInterface::add_allowed_code(const std::string & code)
 {
-   message_handler.add_allowed_code (code);
+    message_handler.add_allowed_code(code);
 }
-
 
 /**
  * Denote that an error message whose message code partially matches the
@@ -184,56 +158,45 @@ TestSimInterface::add_allowed_code (
  *    verboten codes.
  * \param[in] code The message code to be marked as verboten
  */
-void
-TestSimInterface::add_verboten_code (
-   const std::string & code)
+void TestSimInterface::add_verboten_code(const std::string & code)
 {
-   message_handler.add_verboten_code (code);
+    message_handler.add_verboten_code(code);
 }
-
 
 /**
  * Set the failure threshold used in determining whether a non-fatal error
  * needs to undergo accepted/verboten code examination.
  * \param[in] threshold New failure threshold value
  */
-void
-TestSimInterface::set_failure_threshold (
-   int threshold)
+void TestSimInterface::set_failure_threshold(int threshold)
 {
-   message_handler.set_failure_threshold (threshold);
+    message_handler.set_failure_threshold(threshold);
 }
-
 
 /**
  * Get the allowed_error_count.
  * @return Allowed error count
  */
-unsigned int
-TestSimInterface::get_allowed_count (
-   void)
+unsigned int TestSimInterface::get_allowed_count()
 {
-   unsigned int count;
-   pthread_mutex_lock (&data_mutex);
-   count = allowed_error_count;
-   pthread_mutex_unlock (&data_mutex);
-   return count;
+    unsigned int count;
+    pthread_mutex_lock(&data_mutex);
+    count = allowed_error_count;
+    pthread_mutex_unlock(&data_mutex);
+    return count;
 }
-
 
 /**
  * Bump the allowed_error_count.
  */
-void
-TestSimInterface::bump_allowed_count (
-   void)
+void TestSimInterface::bump_allowed_count()
 {
-   pthread_mutex_lock (&data_mutex);
-   ++allowed_error_count;
-   pthread_mutex_unlock (&data_mutex);
+    pthread_mutex_lock(&data_mutex);
+    ++allowed_error_count;
+    pthread_mutex_unlock(&data_mutex);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

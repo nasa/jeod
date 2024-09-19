@@ -51,18 +51,17 @@ Purpose: ()
 Library dependencies: ((../src/pendulum_constraint_component.cc))
 */
 
-
 #ifndef JEOD_PENDULUM_CONSTRAINT_COMPONENT_HH
 #define JEOD_PENDULUM_CONSTRAINT_COMPONENT_HH
-
 
 #include "force_constraint_component.hh"
 
 #include "constrained_point_mass.hh"
 #include "pendulum_constraint_mode.hh"
 
-#include "utils/integration/include/restartable_state_integrator.hh"
 #include "utils/integration/include/restartable_2d_second_order_integrator.hh"
+#include "utils/integration/include/restartable_state_integrator.hh"
+#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // ER7 utilities includes
@@ -70,42 +69,35 @@ Library dependencies: ((../src/pendulum_constraint_component.cc))
 #include "er7_utils/integration/core/include/integrator_result.hh"
 #include "er7_utils/integration/core/include/integrator_result_merger_container.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class BasePendulumModel;
 class DynBody;
 class DynBodyConstraintsSolver;
 
-
 /**
  * Models a spherical pendulum as a constrained object, with the constraint
  * force acting at the hinge point.
  */
-class PendulumConstraintComponent :
-    public ForceConstraintComponent,
-    public er7_utils::IntegrableObject
+class PendulumConstraintComponent : public ForceConstraintComponent,
+                                    public er7_utils::IntegrableObject
 {
-
-    JEOD_MAKE_SIM_INTERFACES(PendulumConstraintComponent)
+    JEOD_MAKE_SIM_INTERFACES(jeod, PendulumConstraintComponent)
 
 public:
-
-
     /**
      * Default constructor.
      */
-    PendulumConstraintComponent(
-        ConstraintFrame* constraint_frame_in = nullptr,
-        ConstrainedPointMass* constrained_mass_in = nullptr,
-        BasePendulumModel* pendulum_model_in = nullptr);
+    PendulumConstraintComponent(ConstraintFrame * constraint_frame_in = nullptr,
+                                ConstrainedPointMass * constrained_mass_in = nullptr,
+                                BasePendulumModel * pendulum_model_in = nullptr);
 
     /**
      * Destructor.
      */
     ~PendulumConstraintComponent() override = default;
-
 
     // Interfaces needed by IntegrableObject
 
@@ -116,10 +108,9 @@ public:
      * @param controls   The integration controls created the integrator
      *                   constructor's create_integration_controls method.
      */
-    void create_integrators(
-       const er7_utils::IntegratorConstructor & generator,
-       er7_utils::IntegrationControls & controls,
-       const er7_utils::TimeInterface &) override;
+    void create_integrators(const er7_utils::IntegratorConstructor & generator,
+                            er7_utils::IntegrationControls & controls,
+                            const er7_utils::TimeInterface &) override;
 
     /**
      * Advance bob state by the specified dynamic time interval.
@@ -129,9 +120,7 @@ public:
      *
      * @return The status of the integration step.
      */
-    er7_utils::IntegratorResult integrate(
-         double dyn_dt,
-         unsigned int target_stage) override;
+    er7_utils::IntegratorResult integrate(double dyn_dt, unsigned int target_stage) override;
 
     /**
      * Reset the integrator that integrates the pendulum bob state.
@@ -143,9 +132,8 @@ public:
      */
     void destroy_integrators() override
     {
-        bob_integrator.destroy_integrator ();
+        bob_integrator.destroy_integrator();
     }
-
 
     // Interfaces needed for ForceConstraintComponent / ConstraintComponent.
 
@@ -156,9 +144,8 @@ public:
      *   root body to non-constraint forces and torques, including
      *   the pre-constraint wrenches.
      */
-    void setup_constraint (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) override;
+    void setup_constraint(const VehicleProperties & vehicle_properties,
+                          const VehicleNonGravState & non_grav_state) override;
 
     /**
      * Compute the response of the constrained object to the overall behavior
@@ -167,25 +154,20 @@ public:
      * @param non_grav_state  The non-gravitational response of the
      *   root body to external forces and torques, including the constraints.
      */
-    void compute_constraint_response (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) override;
+    void compute_constraint_response(const VehicleProperties & vehicle_properties,
+                                     const VehicleNonGravState & non_grav_state) override;
 
     /**
      * Add this object as an integrator for the DynBody associated with the
      * constraints solver associated with the parent of this component.
      */
-    void attach_to_solver (
-        DynBodyConstraintsSolver* solver,
-        DynBody* dyn_body_in) override;
+    void attach_to_solver(DynBodyConstraintsSolver * solver, DynBody * dyn_body_in) override;
 
     /**
      * Remove this object as an integrator for the DynBody associated with the
      * constraints solver associated with the parent of this component.
      */
-    void detach_from_solver (
-        DynBodyConstraintsSolver* solver,
-        DynBody* dyn_body_in) override;
+    void detach_from_solver(DynBodyConstraintsSolver * solver, DynBody * dyn_body_in) override;
 
     /**
      * Activate the constraint.
@@ -202,7 +184,7 @@ public:
      * In this case, there is none.
      * @return A null wrench.
      */
-    virtual const Wrench& get_effector_wrench () const
+    virtual const Wrench & get_effector_wrench() const
     {
         return null_wrench;
     }
@@ -211,11 +193,10 @@ public:
      * Get the residual nonlinear wrench for this constrained object.
      * @return A const reference to the nonlinear wrench for this object.
      */
-    virtual const Wrench& get_nonlinear_response_wrench () const
+    virtual const Wrench & get_nonlinear_response_wrench() const
     {
         return damping_wrench;
     }
-
 
     // New functionality.
 
@@ -224,14 +205,14 @@ public:
      * on transition between modes.
      * This should be called as a scheduled job at the dynamics rate.
      */
-    bool check_for_reset ();
+    bool check_for_reset();
 
     /**
      * Trigger that the pendulum should be set to its quiescent vertical state,
      */
-    void reset_quiescent ()
+    void reset_quiescent()
     {
-        if (mode != PendulumConstraintMode::Inactive)
+        if(mode != PendulumConstraintMode::Inactive)
         {
             new_mode = PendulumConstraintMode::Reset;
         }
@@ -241,9 +222,7 @@ public:
      * Set the points at which the transitions from Cartesian to angular
      * and angular to Cartesian representations occur.
      */
-    void set_transition_points (
-        double new_cos_sq_theta_angular,
-        double new_cos_sq_theta_cartesian)
+    void set_transition_points(double new_cos_sq_theta_angular, double new_cos_sq_theta_cartesian)
     {
         cos_sq_theta_angular = new_cos_sq_theta_angular;
         cos_sq_theta_cartesian = new_cos_sq_theta_cartesian;
@@ -252,25 +231,23 @@ public:
     /**
      * Getter for the bob position.
      */
-    const double* get_bob_position () const
+    const double * get_bob_position() const
     {
         return bob_position;
     }
 
-
 protected:
-
     // Member data; should be private but needs to be protected for Trick.
 
     /**
      * The object that provides pendulum parameters.
      */
-    BasePendulumModel* pendulum_model; //!< trick_units(--)
+    BasePendulumModel * pendulum_model; //!< trick_units(--)
 
     /**
      * The DynBody object on which this pendulum acts.
      */
-    DynBody* dyn_body; //!< trick_units(--)
+    DynBody * dyn_body{}; //!< trick_units(--)
 
     /**
      * Bob state checkpointable/restartable integrator generator.
@@ -280,132 +257,131 @@ protected:
     /**
      * The object that merges integration results.
      */
-    er7_utils::IntegratorResultMergerContainer
-       integ_results_merger; //!< trick_units(--)
+    er7_utils::IntegratorResultMergerContainer integ_results_merger; //!< trick_units(--)
 
     /**
      * Value of cos(theta)^2 below which the model switchs from cartesian to
      * angular integration.
      */
-    double cos_sq_theta_angular; //!< trick_units(--)
+    double cos_sq_theta_angular{0.45}; //!< trick_units(--)
 
     /**
      * Value of cos(theta)^2 above which the model switchs from angular to
      * cartesian integration.
      */
-    double cos_sq_theta_cartesian; //!< trick_units(--)
+    double cos_sq_theta_cartesian{0.55}; //!< trick_units(--)
 
     /**
      * The pendulum length; vmag(bob_position).
      */
-    double pendulum_length; //!< trick_units(m)
+    double pendulum_length{}; //!< trick_units(m)
 
     /**
      * The pendulum bob position, in tank coordinates.
      */
-    double bob_position[3]; //!< trick_units(m)
+    double bob_position[3]{}; //!< trick_units(m)
 
     /**
      * Time derivative of the pendulum bob position, in tank coordinates.
      */
-    double bob_velocity[3]; //!< trick_units(m/s)
+    double bob_velocity[3]{}; //!< trick_units(m/s)
 
     /**
      * Second time derivative of the pendulum bob position, in tank coordinates.
      * Note: Size is three even though only x and y are integrated.
      * The z accel is not computed.
      */
-    double bob_accel[3]; //!< trick_units(m/s^2)
+    double bob_accel[3]{}; //!< trick_units(m/s^2)
 
     /**
      * Polar bob angle.
      */
-    double theta; //!< trick_units(rad)
+    double theta{}; //!< trick_units(rad)
 
     /**
      * Azimuthal bob angle.
      */
-    double phi; //!< trick_units(rad)
+    double phi{}; //!< trick_units(rad)
 
     /**
      * Time derivative of theta.
      */
-    double theta_dot; //!< trick_units(rad/s)
+    double theta_dot{}; //!< trick_units(rad/s)
 
     /**
      * Time derivative of phi.
      */
-    double phi_dot; //!< trick_units(rad/s)
+    double phi_dot{}; //!< trick_units(rad/s)
 
     /**
      * Second time derivative of theta.
      */
-    double theta_dot_dot; //!< trick_units(rad/s^2)
+    double theta_dot_dot{}; //!< trick_units(rad/s^2)
 
     /**
      * Second time derivative of phi.
      */
-    double phi_dot_dot; //!< trick_units(rad/s^2)
+    double phi_dot_dot{}; //!< trick_units(rad/s^2)
 
     /**
      * sin(theta).
      */
-    double sin_theta; //!< trick_units(--)
+    double sin_theta{}; //!< trick_units(--)
 
     /**
      * cos(theta).
      */
-    double cos_theta; //!< trick_units(--)
+    double cos_theta{}; //!< trick_units(--)
 
     /**
      * sin(phi).
      */
-    double sin_phi; //!< trick_units(--)
+    double sin_phi{}; //!< trick_units(--)
 
     /**
      * cos(phi).
      */
-    double cos_phi; //!< trick_units(--)
+    double cos_phi{}; //!< trick_units(--)
 
     /**
      * cos^2(theta).
      */
-    double cos_sq_theta; //!< trick_units(--)
+    double cos_sq_theta{}; //!< trick_units(--)
 
     /**
      * Local spherical transformation matrix.
      */
-    double constraint_to_spherical_transform[3][3]; //!< trick_units(--)
+    double constraint_to_spherical_transform[3][3]{IDENTITY}; //!< trick_units(--)
 
     /**
      * Vehicle angular velocity expressed in the constraint frame.
      */
-    double omega_constraint_frame[3]; //!< trick_units(rad/s)
+    double omega_constraint_frame[3]{}; //!< trick_units(rad/s)
 
     /**
      * Vehicle angular acceleration expressed in the constraint frame.
      */
-    double omega_dot_constraint_frame[3]; //!< trick_units(rad/s^2)
+    double omega_dot_constraint_frame[3]{}; //!< trick_units(rad/s^2)
 
     /**
      * Cross product of angular velocity and bob position.
      */
-    double omega_cross_pos[3]; //!< trick_units(rad*m/s)
+    double omega_cross_pos[3]{}; //!< trick_units(rad*m/s)
 
     /**
      * Cross product of angular velocity and bob velocity.
      */
-    double omega_cross_vel[3]; //!< trick_units(rad*m/s^2)
+    double omega_cross_vel[3]{}; //!< trick_units(rad*m/s^2)
 
     /**
      * Time derivative of the bob direction unit vector.
      */
-    double rho_hat_dot[3]; //!< trick_units(1/s)
+    double rho_hat_dot[3]{}; //!< trick_units(1/s)
 
     /**
      * A wrench that is always zero and inactive.
      */
-    Wrench null_wrench; //!< trick_units(--)
+    Wrench null_wrench{true}; //!< trick_units(--)
 
     /**
      * The damping torque as a wrench, which is hopefully small.
@@ -422,18 +398,15 @@ protected:
      */
     PendulumConstraintMode new_mode; //!< trick_units(--)
 
-
     // Member functions.
 
     /**
      * Set the length of the pendulum.
      * @param new_length  New pendulum length.
      */
-    void set_pendulum_length (double new_length);
-
+    void set_pendulum_length(double new_length);
 
 private:
-
     /**
      * Compute bob angles in preparation for integrating in horizontal mode.
      */
@@ -449,18 +422,18 @@ private:
      * Compute the time derivative of the unit vector in the direction
      * of the pendulum bob.
      */
-    void compute_rho_hat_dot ();
+    void compute_rho_hat_dot();
 
     /**
      * Compute the bob position and velocity given its spherical coordinates.
      */
-    void compute_bob_state_spherical ();
+    void compute_bob_state_spherical();
 
     /**
      * Compute the bob z position and velocity given its x and y position
      * and velocity.
      */
-    void compute_bob_state_cartesian ();
+    void compute_bob_state_cartesian();
 
     /**
      * Integrate spherical state by the specified dynamic time interval.
@@ -470,9 +443,7 @@ private:
      *
      * @return The status of the integration step.
      */
-    virtual er7_utils::IntegratorResult integrate_spherical(
-         double dyn_dt,
-         unsigned int target_stage);
+    virtual er7_utils::IntegratorResult integrate_spherical(double dyn_dt, unsigned int target_stage);
 
     /**
      * Integrate Cartesian state by the specified dynamic time interval.
@@ -482,16 +453,12 @@ private:
      *
      * @return The status of the integration step.
      */
-    virtual er7_utils::IntegratorResult integrate_cartesian(
-         double dyn_dt,
-         unsigned int target_stage);
+    virtual er7_utils::IntegratorResult integrate_cartesian(double dyn_dt, unsigned int target_stage);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

@@ -9,37 +9,47 @@
 #     make TRICKIFIED=1 [other options]
 # - Do not mix and match TRICKIFIED values across builds.
 
-
-
 # Set Trick compilation flags
 TRICK_CFLAGS += -Wall -I${JEOD_HOME}/models
 TRICK_CXXFLAGS += -std=c++11 -Wall -I${JEOD_HOME}/models
 TRICK_SFLAGS +=-I${JEOD_HOME}/lib/jeod/JEOD_S_modules
 TRICK_SFLAGS +=-I${JEOD_HOME}/lib/jeod
 
-ifdef ENABLE_UNIT_TESTS
-TRICK_LDFLAGS += -pg --coverage
-endif
-
 ifdef JEOD_SPICE_DIR
 TRICK_CFLAGS += -I${JEOD_SPICE_DIR}/include
 TRICK_CXXFLAGS += -I${JEOD_SPICE_DIR}/include
 TRICK_USER_LINK_LIBS = ${JEOD_SPICE_DIR}/lib/cspice.a
-
-ifeq (1, $(TRICKIFIED))
-   ifeq (0, $(shell grep "spice" $(JEOD_HOME)/trickified/trickified_jeod.o -cs))
-      $(error Trickified library was built without spice, but it is linked here.)
-   endif
 endif
 
-else
+# Set up build and install directories
+JEOD_BUILD_DIR ?= ${JEOD_HOME}/build_${TRICK_HOST_CPU}
+JEOD_INSTALL_DIR ?= ${JEOD_HOME}/lib_jeod_${TRICK_HOST_CPU}
+DE4XX_DEST:=build/de4xx_lib
+DE4XX_SRC:=${JEOD_HOME}/lib_jeod_${TRICK_HOST_CPU}/de4xx_lib
 
-ifeq (1, $(TRICKIFIED))
-   ifneq (0, $(shell grep "spice" $(JEOD_HOME)/trickified/trickified_jeod.o -cs))
-      $(error Trickified library was built with spice, but it is not linked here.)
+
+#Trickified vars
+JEOD_TRICKIFIED := ${JEOD_HOME}/trickified
+TRICKIFIED_JEOD_LIB := $(JEOD_TRICKIFIED)/trickified_jeod_${TRICK_HOST_CPU}.o
+JEOD_TRICKBUILD_LIB := ${JEOD_INSTALL_DIR}/libjeod.a
+TRICKIFIED_JEOD_PYLIB := $(JEOD_TRICKIFIED)/python_${TRICK_HOST_CPU}
+TRICKIFIED_EXISTS := 0
+
+#Ensure configuration consistency with spice if previously built trickified
+ifeq (${TRICKIFIED},1)
+   #Check if build directory already exists
+   TRICKIFIED_EXISTS:=$(shell if [ -e ${TRICKIFIED_JEOD_LIB} ]; then echo 1; else echo 0; fi)
+   ifeq (${TRICKIFIED_EXISTS},1)
+      ifdef JEOD_SPICE_DIR
+         ifeq (0, $(shell grep "spice" $(TRICKIFIED_JEOD_LIB) -cs))
+            $(error Trickified library was built without spice, but it is linked here.)
+         endif
+      else
+         ifneq (0, $(shell grep "spice" $(TRICKIFIED_JEOD_LIB) -cs))
+            $(error Trickified library was built with spice, but it is not linked here.)
+         endif
+      endif
    endif
-endif
-
 endif
 
 #=============================================================================
@@ -64,9 +74,6 @@ else
    PYTHON_CMD:=python3
 endif
 
-DE4XX_DEST:=build/de4xx_lib
-DE4XX_SRC:=${JEOD_HOME}/lib_jeod_${TRICK_HOST_CPU}/de4xx_lib
-
 $(S_MAIN): $(DE4XX_DEST)
 
 $(DE4XX_DEST): $(DE4XX_SRC)
@@ -75,10 +82,10 @@ $(DE4XX_DEST): $(DE4XX_SRC)
 	lib_rel_path=`${PYTHON_CMD} -c 'import os.path, sys; print(os.path.relpath("$(DE4XX_SRC)", "."))'`;\
 	ln -snf $${lib_rel_path} de4xx_lib
 
-JEOD_TRICKIFIED = ${JEOD_HOME}/trickified
-TRICKIFIED_JEOD_LIB = $(JEOD_TRICKIFIED)/trickified_jeod.o
-JEOD_TRICKBUILD_LIB = ${JEOD_HOME}/lib_jeod_$(TRICK_HOST_CPU)/libjeod.a
 DE4XX_LIB := $(DE4XX_DEST)
+
+# Process non-TRICKIFIED build which only compiles the ephemeris data libs
+.PHONY: $(DE4XX_SRC)
 
 # If JEOD_BUILD_TYPE isn't specified, try to deduce from the TRICK_CXXFLAGS variable
 # If no option specified and no flags in the TRICK_CXXFLAGS, assume Debug
@@ -114,8 +121,7 @@ endif
 
 # Process TRICKIFIED option
 ifeq ($(TRICKIFIED),1)
-  #Check if build directory exists and is writeable
-  TRICKIFIED_EXISTS:=$(shell if [ -e ${TRICKIFIED_JEOD_LIB} ]; then echo 1; else echo 0; fi)
+  #Check if build directory is writeable
   TRICKIFIED_WRITEABLE:=$(shell if [ -w ${JEOD_TRICKIFIED} ]; then echo 1; else echo 0; fi)
 
   # Find all model header files except those in verif directories,
@@ -134,7 +140,7 @@ ifeq ($(TRICKIFIED),1)
   TRICK_GTE_EXT += :${JEOD_HOME}/models
 
   # Make swig look in the trickified directory.
-  TRICK_PYTHON_PATH += :$(JEOD_TRICKIFIED)/python
+  TRICK_PYTHON_PATH += :$(TRICKIFIED_JEOD_PYLIB)
   TRICK_SWIG_FLAGS += -I$(JEOD_TRICKIFIED)
 
   # Add the libraries as items to be dynamically linked / loaded.
@@ -159,20 +165,25 @@ else
 endif
 
 else
-  # Process non-TRICKIFIED build which only compiles the ephemeris data libs
-  .PHONY: $(DE4XX_SRC)
-
   $(DE4XX_SRC):
 	@ echo "Building JPL DE4XX ephemeris files" ;\
-	cd ${JEOD_HOME};\
-	$(MAKE) -f bin/jeod/makefile DE4XX_ONLY=1 TRICK_BUILD=1
+	$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} DE4XX_ONLY=1 TRICK_BUILD=1
 endif
 
-.PHONY: $(JEOD_TRICKBUILD_LIB) $(TRICKIFIED_JEOD_LIB)
+.PHONY: $(JEOD_TRICKBUILD_LIB) $(TRICKIFIED_JEOD_LIB) jeod_clean jeod_spotless
+
+jeod_clean:
+	-rm -rf ${JEOD_INSTALL_DIR};
+	-$(MAKE) -C ${JEOD_BUILD_DIR} clean;
+
+jeod_spotless: jeod_clean
+	-rm -rf ${JEOD_BUILD_DIR}
+
+apocalypse: jeod_spotless
 
 # Build the trickified JEOD library and JEOD model library if needed.
 $(JEOD_TRICKBUILD_LIB):
-	$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_TYPE=${JEOD_BUILD_TYPE} TRICK_BUILD=1
+	$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_TYPE=${JEOD_BUILD_TYPE} BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} TRICK_BUILD=1
 
 $(TRICKIFIED_JEOD_LIB):
 	$(MAKE) -s -C $(JEOD_TRICKIFIED)

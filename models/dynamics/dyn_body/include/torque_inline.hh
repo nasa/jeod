@@ -54,89 +54,68 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_TORQUE_INLINE_HH
 #define JEOD_TORQUE_INLINE_HH
-
 
 #include "torque.hh"
 
 #include <cstddef>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Access a torque element, non-const version.
  * @return Torque component at specified index\n Units: NM
  * \param[in] index Index number
  */
-inline double &
-Torque::operator[] (
-   const unsigned int index)
+inline double & Torque::operator[](const unsigned int index)
 {
-   return torque[index];
+    return torque[index];
 }
-
 
 /**
  * Access a torque element, const version.
  * @return Torque component at specified index\n Units: NM
  * \param[in] index Index number
  */
-inline double
-Torque::operator[] (
-   const unsigned int index)
-const
+inline double Torque::operator[](const unsigned int index) const
 {
-   return torque[index];
+    return torque[index];
 }
-
-
 
 /**
  * A torque is active if it has a non-null torque vector and
  * the active pointer is null or the pointed-to boolean is true.
  * @return Is the torque active?
  */
-inline bool
-CollectTorque::is_active (
-   void)
-const
+inline bool CollectTorque::is_active() const
 {
-   return ((torque != nullptr) && ((active == nullptr) || *active));
+    return ((torque != nullptr) && ((active == nullptr) || *active));
 }
-
 
 /**
  * Access a torque element, non-const version.
  * @return Torque component at specified index\n Units: N
  * \param[in] index Index number
  */
-inline double &
-CollectTorque::operator[] (
-   const unsigned int index)
+inline double & CollectTorque::operator[](const unsigned int index)
 {
-   return torque[index];
+    return torque[index];
 }
-
 
 /**
  * Access a torque element, const version.
  * @return Torque component at specified index\n Units: N
  * \param[in] index Index number
  */
-inline double
-CollectTorque::operator[] (
-   const unsigned int index)
-const
+inline double CollectTorque::operator[](const unsigned int index) const
 {
-   return torque[index];
+    return torque[index];
 }
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

@@ -48,7 +48,7 @@
  Library dependencies:
  ((../src/line_ground_interaction.cc))
 
- 
+
 
  *****************************************************************************/
 
@@ -62,7 +62,8 @@
 #include "ground_interaction.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Class declarations
 class LineContactFacet;
@@ -71,36 +72,25 @@ class LineContactFacet;
  Purpose:
  (An base ground interaction class for use in the contact model.)
  */
-class LineGroundInteraction : public GroundInteraction {
-
-   JEOD_MAKE_SIM_INTERFACES(LineGroundInteraction)
+class LineGroundInteraction : public GroundInteraction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LineGroundInteraction)
 
 public:
-   LineContactFacet *subject_line; /* trick_units(--) @n
-      point contact facet that can interact with the ground */
+    LineContactFacet * subject_line{}; /* trick_units(--) @n
+        point contact facet that can interact with the ground */
 
-   // constructor
-   LineGroundInteraction();
+    LineGroundInteraction() = default;
+    ~LineGroundInteraction() override = default;
+    LineGroundInteraction & operator=(const LineGroundInteraction &) = delete;
+    LineGroundInteraction(const LineGroundInteraction &) = delete;
 
-   // destructor
-   ~LineGroundInteraction() override;
-
-   /*
-    Virtual funtion to determine if the contact facet is touching the ground.
-    */
-   void in_contact(void) override;
-
-protected:
-
-private:
-
-   /* Operator = and copy constructor hidden from use by being private */
-   LineGroundInteraction& operator = (const LineGroundInteraction & rhs);
-   LineGroundInteraction (const LineGroundInteraction & rhs);
-
+    /*
+     Virtual funtion to determine if the contact facet is touching the ground.
+     */
+    void in_contact() override;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

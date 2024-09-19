@@ -9,10 +9,9 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    ((demo_surface.cc)
-     (utils/sim_interface/src/memory_interface.cc))
+    ((demo_surface.cc))
 
- 
+
 *******************************************************************************/
 
 // System includes
@@ -21,55 +20,24 @@ Library dependencies:
 // Model includes
 #include "../include/demo_interaction.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-DemoInteraction1::DemoInteraction1() :
-   interaction_number(0)
+namespace jeod
 {
 
-   // empty for now
-
-}
-
-DemoInteraction1::~DemoInteraction1(){
-
-
-}
-
-void DemoInteraction1::run_interaction(
-   DemoSurface1& surface)
+void DemoInteraction1::run_interaction(DemoSurface1 & surface)
 {
-   for(unsigned int ii = 0; ii < surface.facets_size; ++ii){
-      surface.demo_facets[ii]->execute_demo_1(interaction_number);
-   }
-   return;
-
+    for(unsigned int ii = 0; ii < surface.facets_size; ++ii)
+    {
+        surface.demo_facets[ii]->execute_demo_1(interaction_number);
+    }
 }
 
-
-
-DemoInteraction2::DemoInteraction2() :
-   interaction_name(nullptr)
+void DemoInteraction2::run_interaction(DemoSurface2 & surface)
 {
-
-   // empty for now
-
+    for(unsigned int ii = 0; ii < surface.facets_size; ++ii)
+    {
+        surface.demo_facets[ii]->execute_demo_2(interaction_name.c_str());
+    }
 }
 
-DemoInteraction2::~DemoInteraction2(){
-
-}
-
-void DemoInteraction2::run_interaction(
-   DemoSurface2& surface)
-{
-   for(unsigned int ii = 0; ii < surface.facets_size; ++ii){
-      surface.demo_facets[ii]->execute_demo_2(interaction_name);
-   }
-
-   return;
-
-}
-} // End JEOD namespace
+} // namespace jeod

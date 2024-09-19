@@ -63,7 +63,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_PLANET_MESSAGES_HH
 #define JEOD_PLANET_MESSAGES_HH
 
@@ -72,49 +71,43 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the planet model.
  */
-class PlanetMessages {
+class PlanetMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetMessages)
 
- JEOD_MAKE_SIM_INTERFACES(PlanetMessages)
+    // Static member data
+public:
+    /**
+     * Issued when the name is invalid.
+     */
+    static const char * name_error; //!< trick_units(--)
 
- // Static member data
- public:
+    /**
+     * Issued when the model has not been properly registered/initialized.
+     */
+    static const char * registration_error; //!< trick_units(--)
 
-   /**
-    * Issued when the name is invalid.
-    */
-   static char const * name_error; //!< trick_units(--)
+    /**
+     * Issued when some value is invalid.
+     */
+    static const char * domain_error; //!< trick_units(--)
 
-   /**
-    * Issued when the model has not been properly registered/initialized.
-    */
-   static char const * registration_error; //!< trick_units(--)
-
-   /**
-    * Issued when some value is invalid.
-    */
-   static char const * domain_error; //!< trick_units(--)
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   PlanetMessages (void);
-   PlanetMessages (const PlanetMessages &);
-   PlanetMessages & operator= (const PlanetMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    PlanetMessages() = delete;
+    PlanetMessages(const PlanetMessages &) = delete;
+    PlanetMessages & operator=(const PlanetMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

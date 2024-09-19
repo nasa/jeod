@@ -1,7 +1,7 @@
 """
 "  Executive
 """
-jeod_sys.interface_init.message_suppression_level = 9999
+jeod_sys.interface_init.message_suppression_level = trick.MessageHandler.Debug
 jeod_time.time_manager_init.initializer = "Dyn"
 
 dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4

@@ -61,70 +61,66 @@ Purpose:( This sim object models Earth with a GGM05C gravity model.
 #include "planet_generic.sm"
 class Earth_GGM05C_SimObject: public PlanetGenericSimObject
 {
- protected:
-  // External references
-  jeod::TimeTT       & tt;
-  jeod::TimeUT1      & ut1;
-  jeod::TimeGMST     & gmst;
+protected:
+    // External references
+    jeod::TimeTT & tt;
+    jeod::TimeUT1 & ut1;
+    jeod::TimeGMST & gmst;
 
- public:
-  jeod::RNPJ2000             rnp;
-  jeod::NutationJ2000Init    nut_init;
-  jeod::PolarMotionJ2000Init pm_init;
+public:
+    jeod::RNPJ2000 rnp;
+    jeod::NutationJ2000Init nut_init;
+    jeod::PolarMotionJ2000Init pm_init;
 
-  // Default data
-  jeod::Planet_earth_default_data  earth_default_data;
-  jeod::RNPJ2000_rnp_j2000_default_data                    rnp_default_data;
-  jeod::NutationJ2000Init_nutation_j2000_default_data      nut_init_default_data;
-  jeod::PolarMotionJ2000Init_xpyp_daily_default_data       pm_init_default_data;
+    // Default data
+    jeod::Planet_earth_default_data earth_default_data;
+    jeod::RNPJ2000_rnp_j2000_default_data rnp_default_data;
+    jeod::NutationJ2000Init_nutation_j2000_default_data nut_init_default_data;
+    jeod::PolarMotionJ2000Init_xpyp_daily_default_data pm_init_default_data;
 #ifdef JEOD_OVERRIDE_GGM05C_WITH_GEMT1
-  jeod::SphericalHarmonicsGravitySource_earth_GEMT1_default_data earth_grav_default_data;
+    jeod::SphericalHarmonicsGravitySource_earth_GEMT1_default_data earth_grav_default_data;
 #else
-  jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data earth_grav_default_data;
+    jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data earth_grav_default_data;
 #endif
 
-  Earth_GGM05C_SimObject( jeod::DynManager   & dyn_manager_in,
-                          jeod::GravityManager & grav_in,
-                          jeod::TimeTT       & tt_in,
-                          jeod::TimeUT1      & ut1_in,
-                          jeod::TimeGMST     & gmst_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            earth_default_data,
-                            earth_grav_default_data),
-    tt (tt_in),
-    ut1 (ut1_in),
-    gmst (gmst_in)
-  {
-    //
-    //Default data jobs
-    //
-    ("default_data") rnp_default_data.initialize ( &rnp );
-    ("default_data") nut_init_default_data.initialize ( &nut_init );
-    ("default_data") pm_init_default_data.initialize ( &pm_init );
+    Earth_GGM05C_SimObject(jeod::DynManager & dyn_manager_in,
+                           jeod::GravityManager & grav_in,
+                           jeod::TimeTT & tt_in,
+                           jeod::TimeUT1 & ut1_in,
+                           jeod::TimeGMST & gmst_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, earth_default_data, earth_grav_default_data),
+          tt(tt_in),
+          ut1(ut1_in),
+          gmst(gmst_in)
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") rnp_default_data.initialize(&rnp);
+        ("default_data") nut_init_default_data.initialize(&nut_init);
+        ("default_data") pm_init_default_data.initialize(&pm_init);
 
-    //
-    // Initialization jobs
-    //
-    P_ENV ("initialization") rnp.initialize( dyn_manager );
-    P_ENV ("initialization") rnp.nutation->initialize( &nut_init );
-    P_ENV ("initialization") rnp.polar_motion->initialize( &pm_init );
-    P_ENV ("initialization") rnp.update_rnp ( tt, gmst, ut1 );
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") rnp.initialize(dyn_manager);
+        P_ENV("initialization") rnp.nutation->initialize(&nut_init);
+        P_ENV("initialization") rnp.polar_motion->initialize(&pm_init);
+        P_ENV("initialization") rnp.update_rnp(tt, gmst, ut1);
 
-    //
-    // Environment class jobs
-    //
-    (LOW_RATE_ENV, "environment") rnp.update_rnp ( tt, gmst, ut1 );
+        //
+        // Environment class jobs
+        //
+        (LOW_RATE_ENV, "environment") rnp.update_rnp(tt, gmst, ut1);
 
-    //
-    // Derivative class jobs
-    //
-    P_ENV ("derivative") rnp.update_axial_rotation( gmst );
-  }
- private:
-  // Unimplemented copy constructor and assignment operator
-  Earth_GGM05C_SimObject (const Earth_GGM05C_SimObject&);
-  Earth_GGM05C_SimObject & operator = (const Earth_GGM05C_SimObject&);
+        //
+        // Derivative class jobs
+        //
+        P_ENV("derivative") rnp.update_axial_rotation(gmst);
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    Earth_GGM05C_SimObject(const Earth_GGM05C_SimObject &) = delete;
+    Earth_GGM05C_SimObject & operator=(const Earth_GGM05C_SimObject &) = delete;
 };
 #endif

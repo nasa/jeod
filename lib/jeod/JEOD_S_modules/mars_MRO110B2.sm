@@ -35,6 +35,4 @@
 //
 //
 #include "Base/mars_MRO110B2.sm"
-Mars_MRO110B2_SimObject mars ( dynamics.dyn_manager,
-                               env.gravity_manager,
-                               jeod_time.time_tt);
+Mars_MRO110B2_SimObject mars(dynamics.dyn_manager, env.gravity_manager, jeod_time.time_tt);

@@ -198,13 +198,25 @@ despite having the entire date range available.
 \subsection{Using other DE4XX Models}
 \label{sec:guide_de4xx}
 
-The standard JEOD \verb|env| De4xxEphemeris model will default to DE405 version
+The standard JEOD De4xxEphemeris model will default to DE405 version
 inside its constructor. To use any other version (currently DE421 and DE440), 
 simply set the model number in the input file for the simulation run.
 
 \begin{codeblock}
 env.de4xx.set_model_number(421)
 env.de4xx.set_model_number(440)
+\end{codeblock}
+
+\subsection{Specifying a DE4XX Model Directory}
+\label{sec:guide_de4xx_directory}
+
+The standard JEOD build process will default to installing the de4xx data libraries
+in \newline \verb|$JEOD_HOME/lib_jeod_$TRICK_HOST_CPU/de4xx_lib| which is then linked to the simulation 
+directory i.e. \verb|SIM_dyncomp/build/de4xx_lib|. If a different directory is required, simply tell 
+the De4xxEphemeris model where to look for the shared libraries.
+
+\begin{codeblock}
+env.de4xx.set_model_directory('/newdir/foo')
 \end{codeblock}
 
 
@@ -376,10 +388,14 @@ section~\ref{sec:guide_de4xx} for details.
 
 \item \emph{How do I make the JPL ephemeris model cover a longer time span?}
 \newline
-If you are using the DE421 model, you can't. It covers July 29, 1899 to
-October 9, 2053. If you are using the DE405 model,
-override the default value of the \verb|EPHEM_YEARS| make variable
-in your \verb|S_overrides.mk| file.
+Previous versions of JEOD required the sim integrator to set a range of years in
+a make variable as part of the build process. It has been reworked since then
+and a new technique for loading the data into memory allows the data set's entire
+range to be utilized as part of the input file process. In other words, 
+the sim time span is subject to the actual range of data available in the JPL 
+ephemeris model itself. If you are using the DE421 model, it covers July 29, 1899 to
+October 9, 2053. If you are using the DE405 model, it covers December 9, 1599 to 
+February 20, 2201. And finally DE440 covers December 21, 1549 to January 25, 2650.
 See section~\ref{sec:guide_s_overrides} for details.
 
 \item \emph{How do I update the lunar orientation?}\newline

@@ -22,7 +22,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -31,28 +30,26 @@ Library dependencies:
 // Model includes
 #include "../include/dyn_manager_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-#define MAKE_DYNMANAGER_MESSAGE_CODE(id) \
-   JEOD_MAKE_MESSAGE_CODE(DynManagerMessages, "dynamics/dyn_manager/", id)
-
+#define MAKE_DYNMANAGER_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(DynManagerMessages, "dynamics/dyn_manager/", id)
 
 // Define DynManagerMessages static member data
 
-MAKE_DYNMANAGER_MESSAGE_CODE (null_pointer);
-MAKE_DYNMANAGER_MESSAGE_CODE (duplicate_entry);
-MAKE_DYNMANAGER_MESSAGE_CODE (invalid_name);
-MAKE_DYNMANAGER_MESSAGE_CODE (invalid_frame);
-MAKE_DYNMANAGER_MESSAGE_CODE (invalid_type);
-MAKE_DYNMANAGER_MESSAGE_CODE (inconsistent_setup);
-MAKE_DYNMANAGER_MESSAGE_CODE (singleton_error);
-MAKE_DYNMANAGER_MESSAGE_CODE (internal_error);
+MAKE_DYNMANAGER_MESSAGE_CODE(null_pointer);
+MAKE_DYNMANAGER_MESSAGE_CODE(duplicate_entry);
+MAKE_DYNMANAGER_MESSAGE_CODE(invalid_name);
+MAKE_DYNMANAGER_MESSAGE_CODE(invalid_frame);
+MAKE_DYNMANAGER_MESSAGE_CODE(invalid_type);
+MAKE_DYNMANAGER_MESSAGE_CODE(inconsistent_setup);
+MAKE_DYNMANAGER_MESSAGE_CODE(singleton_error);
+MAKE_DYNMANAGER_MESSAGE_CODE(internal_error);
 
 #undef MAKE_DYNMANAGER_MESSAGE_CODE
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

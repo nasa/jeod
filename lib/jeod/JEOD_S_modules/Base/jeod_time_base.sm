@@ -50,19 +50,19 @@ Purpose:( This sim object provides the minimum time sim-object for a JEOD
 
 class JeodTimeBaseSimObject: public Trick::SimObject
 {
- public:
-  // The time manager and its initializer
-  jeod::TimeManager time_manager;
-  jeod::TimeManagerInit time_manager_init;
+public:
+    // The time manager and its initializer
+    jeod::TimeManager time_manager;
+    jeod::TimeManagerInit time_manager_init;
 
-  // Constructor
-  JeodTimeBaseSimObject () {
+    // Constructor
+    JeodTimeBaseSimObject()
+    {
+        P_TIME("initialization") time_manager.initialize(&time_manager_init);
+        (DYNAMICS, "environment") time_manager.update(exec_get_sim_time());
+    }
 
-     P_TIME  ("initialization") time_manager.initialize ( &time_manager_init);
-     (DYNAMICS, "environment") time_manager.update ( exec_get_sim_time());
-  }
- private:
-   JeodTimeBaseSimObject (const JeodTimeBaseSimObject&);
-   JeodTimeBaseSimObject & operator = (const JeodTimeBaseSimObject&);
+    JeodTimeBaseSimObject(const JeodTimeBaseSimObject &) = delete;
+    JeodTimeBaseSimObject & operator=(const JeodTimeBaseSimObject &) = delete;
 };
 #endif

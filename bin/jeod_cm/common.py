@@ -1,13 +1,14 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import os, sys, socket, glob, inspect, shutil, argparse, time, atexit, signal, fcntl, tempfile
 import subprocess
 import socket
 import threading
 import multiprocessing
+import mmap
 
 scriptStartTime = time.time()
- 
+
 thisFile = os.path.abspath(__file__)
 thisDir = os.path.dirname(thisFile)
 topDir = os.path.abspath(os.path.join(thisDir, '..', '..'))
@@ -26,7 +27,7 @@ if 'MAKEFLAGS' in os.environ:
          numCpus = multiprocessing.cpu_count()
 
 if numCpus < 1:
-   numCpus = multiprocessing.cpu_count() * 3 / 4
+   numCpus = int(multiprocessing.cpu_count() * 3 / 4)
    if 'MAKEFLAGS' in os.environ:
       os.environ['MAKEFLAGS']+=' -j{0}'.format(numCpus)
    else:
@@ -57,17 +58,17 @@ def enableParallel():
 def disableParallel():
   os.environ['MAKEFLAGS']= '{0} -j1'.format(origMakeFlags)
 
-def initArtifactArea(setOutputDir):
+def initArtifactArea(setOutputDir, skipClear=False):
   global outputDir, isOutputInitialized, TEST_out
   if not isOutputInitialized:
      outputDir = setOutputDir
      isOutputInitialized = True
-     if os.path.exists(outputDir):
+     if not skipClear and os.path.exists(outputDir):
         shutil.rmtree(outputDir)
      if not os.path.exists(outputDir):
         os.makedirs(outputDir)
 
-     TEST_out = open('{0}/TEST_OUTPUT.txt'.format(outputDir), 'w', buffering=0)
+     TEST_out = open('{0}/TEST_OUTPUT.txt'.format(outputDir), 'w', buffering=1)
   elif outputDir != setOutputDir:
      outMsg('TEST SETUP FAILURE: Output directory is already initialized but a call to initArtifactArea with a '
             'different directory was initiated.')
@@ -116,7 +117,7 @@ def outMsg( msg ):
   sys.stderr.flush()
 
 def kill_threads():
-  for name, threadObj in threadObjs.iteritems():
+  for name, threadObj in threadObjs.items():
      if threadObj != None:
         if threadObj.isAlive():
            threadObj.killThread = True
@@ -127,14 +128,14 @@ def kill_threads():
 atexit.register(kill_threads)
 
 class ProcessCmd():
-   def __init__(self, ccmd, label, outFile, execDir=os.getcwd(), fail=True, numRetries=0, stdin=subprocess.PIPE, reqReturn=0):
+   def __init__(self, ccmd, label, outFile, execDir=os.getcwd(), fail=True, numRetries=0, stdin=subprocess.PIPE, reqReturn=0, shell=False):
       if isinstance(ccmd, list):
          self.ccmd = ccmd
       else:
          self.ccmd = ccmd.split()
       self.label = label
       self.execDir = execDir
-      self.outFile = open(outFile, 'a+', buffering=0)
+      self.outFile = open(outFile, 'a+', buffering=1)
       if stdin != subprocess.PIPE:
          try:
             self.inputStr = ' < {0}'.format(stdin.name)
@@ -143,14 +144,18 @@ class ProcessCmd():
       else:
          self.inputStr = ''
       outMsg('Starting process {0}'.format(self.label))
-      self.outFile.write('Output file for command "{0}" executed from directory {1}\n\tCommand: {2}{3}\n'.format(self.label, 
-                         self.execDir, ' '.join(self.ccmd), self.inputStr))
+      self.outFile.write('Output file for command "{0}" executed from directory {1}\n\tCommand: {2}{3}\n'\
+                         .format(self.label, self.execDir, ' '.join(self.ccmd), self.inputStr))
       self.execDir = execDir
       self.fail = fail
       self.numRetries = numRetries
       self.reqReturn = reqReturn
-      self.process = subprocess.Popen(self.ccmd, stdin=stdin, stdout=self.outFile, stderr=self.outFile, 
-                                      cwd=self.execDir, universal_newlines=True)
+      if shell:
+         self.ccmd = ' '.join(self.ccmd)
+      self.shell = shell
+      self.process = None
+      self.process = subprocess.Popen(self.ccmd, stdin=stdin, stdout=self.outFile, stderr=self.outFile,
+                                      cwd=self.execDir, universal_newlines=True, shell=self.shell)
 
    def __del__(self):
       self.numRetries=0
@@ -161,7 +166,7 @@ class ProcessCmd():
 
    def retry(self):
       self.outFile.write('\n\n{0}\nRetrying command. Retries left {1}\n{0}\n\n'.format('*'*20, self.numRetries))
-      self.process = subprocess.Popen(self.ccmd, stdin=subprocess.PIPE, stdout=self.outFile, stderr=self.outFile, 
+      self.process = subprocess.Popen(self.ccmd, stdin=subprocess.PIPE, stdout=self.outFile, stderr=self.outFile,
                                       cwd=self.execDir, universal_newlines=True)
 
    def terminate(self):
@@ -205,7 +210,7 @@ class ProcessCmd():
          if self.process.returncode == -1:
             self.outFile.write('Process ended with {0} return code\n'.format(self.process.returncode))
          else:
-            self.outFile.write('Process ended with {0} return code "{1}"\n'.format(self.process.returncode, 
+            self.outFile.write('Process ended with {0} return code "{1}"\n'.format(self.process.returncode,
                                self.convertSignalToString(self.process.returncode)))
          if self.numRetries > 0:
             self.numRetries -= 1
@@ -220,7 +225,7 @@ class ProcessCmd():
 
 def shutdownAll():
   global threadObjs
-  for target, threadObj in threadObjs.iteritems():
+  for target, threadObj in threadObjs.items():
      if threadObj != None:
         if threadObj.isAlive():
            threadObj.killThread = True
@@ -244,3 +249,21 @@ def get_common_path(paths):
             common.pop()
 
     return '/'.join(common) + '/'
+
+def tail(filename, n):
+    """Returns last n lines from the filename. No exception handling"""
+    size = os.path.getsize(filename)
+    with open(filename, "rb") as f:
+        # for Windows the mmap parameters are different
+        fm = mmap.mmap(f.fileno(), 0, mmap.MAP_SHARED, mmap.PROT_READ)
+        try:
+            for i in range(size - 1, -1, -1):
+                if fm[i] == '\n':
+                    n -= 1
+                    if n == -1:
+                        break
+            byteLines = fm[i + 1 if i else 0:].splitlines()
+            strLines = [line.decode("utf-8") for line in byteLines]
+            return strLines
+        finally:
+            fm.close()

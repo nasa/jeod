@@ -36,7 +36,7 @@ Library dependencies:
 (environment/RNP/GenericRNP/src/planet_rotation.cc)
 (utils/message/src/message_handler.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -51,143 +51,106 @@ Library dependencies:
 // Model includes
 #include "../include/precession_mars.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Default constructor
- */
-PrecessionMars::PrecessionMars (
-      void)
-:
-   nutation(nullptr),
-   psi_at_j2000(0.0),
-   psi_dot(0.0),
-   psi_precess(0.0),
-   N(0.0),
-   J(0.0)
+namespace jeod
 {
-   Matrix3x3::initialize(NJ_matrix);
-}
-
-
-/**
- * Destructor
- */
-PrecessionMars::~PrecessionMars (
-      void)
-{
-   // Nothing to do
-}
-
 
 /**
  * PrecessionMars specific implementation of update_rotation,
  * to calculate precession.
  */
-void
-PrecessionMars::update_rotation (
-      void)
+void PrecessionMars::update_rotation()
 {
+    // Set up the relevant precession equation from pg. 39 of Konopliv 2006:
+    // Psi(t) = Psi_o + Psi_dot*time + Psi_nut
 
-   // Set up the relevant precession equation from pg. 39 of Konopliv 2006:
-   // Psi(t) = Psi_o + Psi_dot*time + Psi_nut
+    // Access nutation of longitude term for use in equation
+    if(nutation == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             RNPMessages::setup_error,
+                             "PrecessionMars is not currently pointing "
+                             "to a nutation object.");
+        return;
+    }
+    double psi_nut = 0.0;
+    psi_nut = nutation->nutation_in_longitude;
 
-   // Access nutation of longitude term for use in equation
-   if (nutation ==  nullptr) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, RNPMessages::setup_error,
-         "PrecessionMars is not currently pointing "
-         "to a nutation object.");
-      return;
-   }
-   double psi_nut = 0.0;
-   psi_nut = nutation->nutation_in_longitude;
+    // Calculate the current precession angle
+    psi_precess = psi_at_j2000 + psi_dot * current_time + psi_nut;
 
-   // Calculate the current precession angle
-   psi_precess = psi_at_j2000 + psi_dot * current_time + psi_nut;
+    // Take trigs of the precession angle to build the precession matrix
+    double cos_psi = cos(psi_precess);
+    double sin_psi = sin(psi_precess);
 
-   // Take trigs of the precession angle to build the precession matrix
-   double cos_psi  = cos (psi_precess);
-   double sin_psi  = sin (psi_precess);
+    double precession_matrix[3][3];
+    // Now populate the precession matrix, as follows:
 
-   double precession_matrix[3][3];
-   // Now populate the precession matrix, as follows:
+    precession_matrix[0][0] = cos_psi;
+    precession_matrix[0][1] = -sin_psi;
+    precession_matrix[0][2] = 0.0;
 
-   precession_matrix[0][0] = cos_psi;
-   precession_matrix[0][1] = -sin_psi;
-   precession_matrix[0][2] = 0.0;
+    precession_matrix[1][0] = sin_psi;
+    precession_matrix[1][1] = cos_psi;
+    precession_matrix[1][2] = 0.0;
 
-   precession_matrix[1][0] = sin_psi;
-   precession_matrix[1][1] = cos_psi;
-   precession_matrix[1][2] = 0.0;
+    precession_matrix[2][0] = 0.0;
+    precession_matrix[2][1] = 0.0;
+    precession_matrix[2][2] = 1.0;
 
-   precession_matrix[2][0] = 0.0;
-   precession_matrix[2][1] = 0.0;
-   precession_matrix[2][2] = 1.0;
-
-   // celestial frame = NJ_matrix * rot_z(-Psi) * mars frame
-   Matrix3x3::product(NJ_matrix, precession_matrix, rotation);
-
-   return;
+    // celestial frame = NJ_matrix * rot_z(-Psi) * mars frame
+    Matrix3x3::product(NJ_matrix, precession_matrix, rotation);
 }
 
 /**
  * Calculate constant rotation matrices resulting from N and J.
  */
-void
-PrecessionMars::compute_fixed_matrices (
-      void)
+void PrecessionMars::compute_fixed_matrices()
 {
+    // Take trigs of the angles to build their rotation matrices
+    double cos_N = cos(N);
+    double sin_N = sin(N);
+    double cos_J = cos(J);
+    double sin_J = sin(J);
 
-   // Take trigs of the angles to build their rotation matrices
-   double cos_N = cos (N);
-   double sin_N = sin (N);
-   double cos_J = cos (J);
-   double sin_J = sin (J);
+    // Populate the N rotation matrix as follows:
+    // celestial frame = rot_z(-N) * mars frame
+    double N_matrix[3][3];
+    Matrix3x3::initialize(N_matrix);
+    N_matrix[0][0] = cos_N;
+    N_matrix[0][1] = -sin_N;
+    N_matrix[0][2] = 0.0;
 
-   // Populate the N rotation matrix as follows:
-   // celestial frame = rot_z(-N) * mars frame
-   double N_matrix[3][3];
-   Matrix3x3::initialize (N_matrix);
-   N_matrix[0][0] = cos_N;
-   N_matrix[0][1] = -sin_N;
-   N_matrix[0][2] = 0.0;
+    N_matrix[1][0] = sin_N;
+    N_matrix[1][1] = cos_N;
+    N_matrix[1][2] = 0.0;
 
-   N_matrix[1][0] = sin_N;
-   N_matrix[1][1] = cos_N;
-   N_matrix[1][2] = 0.0;
+    N_matrix[2][0] = 0.0;
+    N_matrix[2][1] = 0.0;
+    N_matrix[2][2] = 1.0;
 
-   N_matrix[2][0] = 0.0;
-   N_matrix[2][1] = 0.0;
-   N_matrix[2][2] = 1.0;
+    // Populate the J rotation matrix as follows:
+    // celestial frame = rot_x(-J) * mars frame
+    double J_matrix[3][3];
+    Matrix3x3::initialize(J_matrix);
+    J_matrix[0][0] = 1.0;
+    J_matrix[0][1] = 0.0;
+    J_matrix[0][2] = 0.0;
 
+    J_matrix[1][0] = 0.0;
+    J_matrix[1][1] = cos_J;
+    J_matrix[1][2] = -sin_J;
 
-   // Populate the J rotation matrix as follows:
-   // celestial frame = rot_x(-J) * mars frame
-   double J_matrix[3][3];
-   Matrix3x3::initialize (J_matrix);
-   J_matrix[0][0] = 1.0;
-   J_matrix[0][1] = 0.0;
-   J_matrix[0][2] = 0.0;
+    J_matrix[2][0] = 0.0;
+    J_matrix[2][1] = sin_J;
+    J_matrix[2][2] = cos_J;
 
-   J_matrix[1][0] = 0.0;
-   J_matrix[1][1] = cos_J;
-   J_matrix[1][2] = -sin_J;
-
-   J_matrix[2][0] = 0.0;
-   J_matrix[2][1] = sin_J;
-   J_matrix[2][2] = cos_J;
-
-
-   // Combine the matrices and store in the appropriate member data variable
-   Matrix3x3::product(N_matrix, J_matrix, NJ_matrix);
-
-   return;
+    // Combine the matrices and store in the appropriate member data variable
+    Matrix3x3::product(N_matrix, J_matrix, NJ_matrix);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

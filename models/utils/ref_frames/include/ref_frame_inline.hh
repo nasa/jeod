@@ -57,14 +57,12 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
- 
+
 
 *******************************************************************************/
 
-
 #ifndef JEOD_REF_FRAME_INLINE_HH
 #define JEOD_REF_FRAME_INLINE_HH
-
 
 // System includes
 #include <cstddef>
@@ -74,140 +72,97 @@ Assumptions and limitations:
 #include "ref_frame.hh"
 #endif
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Return the name.
  * @return Void
  */
-inline const char *
-RefFrame::get_name (
-   void)
-const
+inline std::string RefFrame::get_name() const
 {
-   return name.c_str();
+    return name;
 }
-
 
 /**
  * Set the owner of this frame.
  * \param[in] new_owner New owner
  */
-inline void
-RefFrame::set_owner (
-   RefFrameOwner * new_owner)
+inline void RefFrame::set_owner(RefFrameOwner * new_owner)
 {
-   owner = new_owner;
-   return;
+    owner = new_owner;
 }
-
 
 /**
  * Return the owner of this frame.
  * @return Frame owner
  */
-inline RefFrameOwner *
-RefFrame::get_owner (
-   void)
-const
+inline RefFrameOwner * RefFrame::get_owner() const
 {
-   return owner;
+    return owner;
 }
-
 
 /**
  * Return the parent of this frame.
  * @return Frame parent
  */
-inline const RefFrame *
-RefFrame::get_parent (
-   void)
-const
+inline const RefFrame * RefFrame::get_parent() const
 {
-   return links.parent();
+    return links.parent();
 }
-
 
 /**
  * Return the root of this frame's tree.
  * @return Tree root
  */
-inline const RefFrame *
-RefFrame::get_root (
-   void)
-const
+inline const RefFrame * RefFrame::get_root() const
 {
-   return links.root();
+    return links.root();
 }
-
 
 /**
  * Set the update time of this frame.
  * \param[in] time Time\n Units: s
  */
-inline void
-RefFrame::set_timestamp (
-   double time)
+inline void RefFrame::set_timestamp(double time)
 {
-   update_time = time;
-   return;
+    update_time = time;
 }
-
 
 /**
  * Return the update time of this frame.
  * @return Time of last update\n Units: s
  */
-inline double
-RefFrame::timestamp (
-   void)
-const
+inline double RefFrame::timestamp() const
 {
-   return update_time;
+    return update_time;
 }
-
 
 /**
  * Make this frame a root frame.
  */
-inline void
-RefFrame::make_root (
-   void)
+inline void RefFrame::make_root()
 {
-   links.make_root();
-
-   return;
+    links.make_root();
 }
-
 
 /**
  * Add a child frame to this frame.
  * \param[in,out] frame Frame to add as child
  */
-inline void
-RefFrame::add_child (
-   RefFrame & frame)
+inline void RefFrame::add_child(RefFrame & frame)
 {
-   frame.links.attach (links);
-
-   return;
+    frame.links.attach(links);
 }
-
 
 /**
  * Remove this node as a child of its parent node.
  */
-inline void
-RefFrame::remove_from_parent (
-   void)
+inline void RefFrame::remove_from_parent()
 {
-   links.detach();
-
-   return;
+    links.detach();
 }
-
 
 /**
  * Each reference frame has a path from the root of the reference
@@ -217,14 +172,10 @@ RefFrame::remove_from_parent (
  * @return Last common node
  * \param[in] frame Other frame
  */
-inline int
-RefFrame::find_last_common_index (
-   const RefFrame & frame)
-const
+inline int RefFrame::find_last_common_index(const RefFrame & frame) const
 {
-   return links.find_last_common_index (frame.links);
+    return links.find_last_common_index(frame.links);
 }
-
 
 /**
  * Each reference frame has a path from the root of the reference
@@ -234,21 +185,18 @@ const
  * @return Last common node
  * \param[in] frame Other frame
  */
-inline const RefFrame *
-RefFrame::find_last_common_node (
-   const RefFrame & frame)
-const
+inline const RefFrame * RefFrame::find_last_common_node(const RefFrame & frame) const
 {
-   const RefFrameLinks * common_link =
-      links.find_last_common_node (frame.links);
-   if (common_link != nullptr) {
-      return (&(common_link->container()));
-   }
-   else {
-      return nullptr;
-   }
+    const RefFrameLinks * common_link = links.find_last_common_node(frame.links);
+    if(common_link != nullptr)
+    {
+        return (&(common_link->container()));
+    }
+    else
+    {
+        return nullptr;
+    }
 }
-
 
 /**
  * Return true if this frame is a progeny of the provided frame,
@@ -256,16 +204,12 @@ const
  * @return This is progeny of frame
  * \param[in] frame Other frame
  */
-inline bool
-RefFrame::is_progeny_of (
-   const RefFrame & frame)
-const
+inline bool RefFrame::is_progeny_of(const RefFrame & frame) const
 {
-   return links.is_progeny_of (frame.links);
+    return links.is_progeny_of(frame.links);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

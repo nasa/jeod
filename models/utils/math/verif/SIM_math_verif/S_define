@@ -37,8 +37,10 @@
 //===========================TRICK HEADER=====================
 // PURPOSE:
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 //***************************************************************
@@ -49,30 +51,26 @@
 ##include "utils/math/verif/SIM_math_verif/models/math_verif/include/math_verif.hh"
 
 
-class Math_testSimObject: public Trick::SimObject {
+class Math_testSimObject: public Trick::SimObject
+{
+public:
+    double A[3][3];
+    double B[3][3];
+    double C[3][3];
 
-   public:
+    double f[3];
+    double g[3];
 
-   double A[3][3];
-   double B[3][3];
-   double C[3][3];
+    double s;
 
-   double f[3];
-   double g[3];
-
-   double s;
-
-//Constructor
-    Math_testSimObject() {
-
-       (1.0, "environment") jeod::math_verif(
-         A, B, C, f, g, s);
-
+    // Constructor
+    Math_testSimObject()
+    {
+        (1.0, "environment") jeod::math_verif(A, B, C, f, g, s);
     }
 
-  private:
-    Math_testSimObject (const Math_testSimObject&);
-    Math_testSimObject & operator = (const Math_testSimObject&);
-
+    Math_testSimObject(const Math_testSimObject &) = delete;
+    Math_testSimObject & operator=(const Math_testSimObject &) = delete;
 };
-Math_testSimObject math_test ;
+
+Math_testSimObject math_test;

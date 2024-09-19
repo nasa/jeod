@@ -4,24 +4,25 @@ dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4
 exec(compile(open( "Log_data/log_orbital_state_rec.py", "rb").read(), "Log_data/log_orbital_state_rec.py", 'exec'))
 
 exec(compile(open( "Modified_data/date_and_time.py", "rb").read(), "Modified_data/date_and_time.py", 'exec'))
-earth.rnp.enable_polar = False
 
 exec(compile(open( "Modified_data/veh_config.py", "rb").read(), "Modified_data/veh_config.py", 'exec'))
 veh_config( veh)
 veh.grav_control_sun.source_name = "Sun"
 veh.grav_control_sun.active      = False
 veh.grav_control_sun.spherical   = True
-veh.dyn_body.grav_interaction.add_control(veh.grav_control_sun);
+veh.dyn_body.grav_interaction.add_control(veh.grav_control_sun)
 
 veh.grav_control_moon.source_name = "Moon"
 veh.grav_control_moon.active      = False
 veh.grav_control_moon.spherical   = True
-veh.dyn_body.grav_interaction.add_control(veh.grav_control_moon);
+veh.dyn_body.grav_interaction.add_control(veh.grav_control_moon)
 
 veh.solar_beta.reference_name = "Earth"
 
 exec(compile(open( "Modified_data/veh_mass.py", "rb").read(), "Modified_data/veh_mass.py", 'exec'))
 veh_mass(veh)
+
+earth.rnp.enable_polar = False
 
 #trick.stop(31536000)
 trick.stop(864000)

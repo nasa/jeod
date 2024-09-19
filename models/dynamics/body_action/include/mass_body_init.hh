@@ -59,11 +59,11 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_BODY_INIT_HH
 #define JEOD_MASS_BODY_INIT_HH
 
 // System includes
+#include <vector>
 
 // JEOD includes
 #include "dynamics/dyn_manager/include/class_declarations.hh"
@@ -72,14 +72,12 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "class_declarations.hh"
 #include "body_action.hh"
-
-
-
+#include "class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Base class for initializing a MassBody.
@@ -87,66 +85,41 @@ namespace jeod {
  * - The body's core mass properties
  * - The body's mass points.
  */
-class MassBodyInit : public BodyAction {
+class MassBodyInit : public BodyAction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MassBodyInit)
 
- JEOD_MAKE_SIM_INTERFACES(MassBodyInit)
+    // Member data
 
+public:
+    /**
+     * Specifications for the subject mass body's core mass properties.
+     */
+    MassPropertiesInit properties; //!< trick_units(--)
 
- // Member data
+    /**
+     * Specifications for the subject mass body's mass points.
+     */
+    std::vector<MassPointInit *> points; //!< trick_units(--)
 
- public:
+    // Methods
+public:
+    MassBodyInit() = default;
+    ~MassBodyInit() override;
+    MassBodyInit(const MassBodyInit &) = delete;
+    MassBodyInit & operator=(const MassBodyInit &) = delete;
 
-   /**
-    * Specifications for the subject mass body's core mass properties.
-    */
-   MassPropertiesInit properties; //!< trick_units(--)
+    // apply: Initialize the subject body's mass properties and mass points.
+    void apply(DynManager & dyn_manager) override;
 
-   /**
-    * Specifications for the subject mass body's mass points.
-    */
-   MassPointInit * points; //!< trick_units(--)
+    // allocate_points: Allocate additional points
+    void allocate_points(size_t num_points);
 
-   /**
-    * Size of the points array.
-    */
-   unsigned int num_points; //!< trick_units(--)
-
-
- // Methods
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   MassBodyInit (const MassBodyInit&);
-   MassBodyInit & operator = (const MassBodyInit&);
-
-
- public:
-
-   // Default constructor.
-   MassBodyInit ();
-
-   // Destructor.
-   ~MassBodyInit () override;
-
-   // apply: Initialize the subject body's mass properties and mass points.
-   void apply (DynManager & dyn_manager) override;
-
+    // get_mass_point: accessor for use in input files.
+    MassPointInit * get_mass_point(size_t index);
 };
 
-
-/**
- * Destructor.
- */
-inline
-MassBodyInit::~MassBodyInit (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

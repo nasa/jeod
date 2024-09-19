@@ -45,16 +45,18 @@ Library dependencies:
 #ifndef JEOD_POINT_MASS_GRAV_VERIF_DEFAULT_DATA_H
 #define JEOD_POINT_MASS_GRAV_VERIF_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class PointMass;
 
-class PointMass_grav_verif_default_data {
- public:
-   void initialize (PointMass*);
+class PointMass_grav_verif_default_data
+{
+public:
+    void initialize(PointMass *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

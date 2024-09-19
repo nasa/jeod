@@ -1,18 +1,45 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import os, sys, argparse, subprocess, glob, multiprocessing
 import common
 from common import *
 
 cmdLineParser = argparse.ArgumentParser()
-cmdLineParser.add_argument("-o", "--output", dest="output", help="Specify output directory unit test artifacts.", 
+cmdLineParser.add_argument("-o", "--output", dest="output", help="Specify output directory unit test artifacts.",
                            default='{0}/artifacts/verif_sims'.format(topDir))
-cmdLineParser.add_argument("-c", "--cpus", dest="cpus", help="Override MAKEFLAGS setting and set number of cores.", 
+cmdLineParser.add_argument("-c", "--cpus", dest="cpus", help="Override MAKEFLAGS setting and set number of cores.",
                            default=numCpus, type=int)
+cmdLineParser.add_argument("-a", "--append", dest="append", help="Append coverage with a pattern of directories to rerun",
+                           nargs='+')
 
 args = cmdLineParser.parse_args()
 
-initArtifactArea(args.output)
+exec(open('{0}/regression/verif_sim_list.py'.format(topDir)).read(), globals())
+
+isAtLeastOneSim = False
+for modelDir, modelData in verif_sim_list:
+   for sim in modelData:
+      simSubDir, simData = sim
+      simDir = os.path.join(topDir, modelDir, simSubDir)
+      if args.append:
+         for testDir in args.append:
+            if testDir in simDir:
+               isAtLeastOneSim = True
+               break
+      if isAtLeastOneSim:
+         break
+   if isAtLeastOneSim:
+      break
+
+if args.append and not isAtLeastOneSim:
+   outMsg("No verif sims for the input directory(ies) {0}. Skipping...".format(args.append))
+   sys.exit(0)
+
+if args.append:
+   initArtifactArea(args.output, skipClear=True)
+else:
+   initArtifactArea(args.output, skipClear=False)
+
 initProcessThreads(args.cpus)
 
 buildDirStr = ''
@@ -25,6 +52,19 @@ ccmd = 'trick-gte TRICK_HOST_CPU'
 hostCpu=subprocess.check_output(ccmd.split()).rstrip()
 smain='S_main_{0}.exe'.format(hostCpu)
 
+preExistingTRICK_CFLAGS = ''
+preExistingTRICK_CXXFLAGS = ''
+if 'TRICK_CFLAGS' in os.environ:
+   preExistingTRICK_CFLAGS = os.environ['TRICK_CFLAGS']
+   os.environ['TRICK_CFLAGS'] += ' -g -pg -fprofile-arcs -ftest-coverage'
+else:
+   os.environ['TRICK_CFLAGS'] = '-g -pg -fprofile-arcs -ftest-coverage'
+
+if 'TRICK_CXXFLAGS' in os.environ:
+   preExistingTRICK_CXXFLAGS = os.environ['TRICK_CXXFLAGS']
+   os.environ['TRICK_CXXFLAGS'] += ' -g -pg -fprofile-arcs -ftest-coverage'
+else:
+   os.environ['TRICK_CXXFLAGS'] = '-g -pg -fprofile-arcs -ftest-coverage'
 
 #Build JEOD lib for unit tests
 ccmd = 'make -f bin/jeod/makefile TRICK_BUILD=1 BUILD_DIR=build ENABLE_UNIT_TESTS=1'
@@ -35,13 +75,20 @@ ccmd = 'make ENABLE_UNIT_TESTS=1'
 buildOut = os.path.join(args.output, 'trickified_build.txt')
 ProcessCmd(ccmd, 'JEOD Trickified Library Build', buildOut, execDir='{0}/trickified'.format(topDir)).join()
 
-execfile('{0}/regression/verif_sim_list.py'.format(topDir), globals())
- 
 # Build sims
 for modelDir, modelData in verif_sim_list:
    for sim in modelData:
       simSubDir, simData = sim
       simDir = os.path.join(topDir, modelDir, simSubDir)
+      if args.append:
+         isIncluded = False
+         for testDir in args.append:
+            if testDir in simDir:
+               isIncluded = True
+               break
+         if not isIncluded:
+            continue
+
       ccmd = 'trick-CP TRICKIFIED=1 ENABLE_UNIT_TESTS=1'
       ss = simDir.partition(topDir + '/')
       ss = ss[2]
@@ -72,15 +119,34 @@ for root, dirs, files in os.walk('{0}'.format(topDir), topdown=True):
                   ccmd = 'cp {0} {1}'.format(fPath, destDir)
                   ProcessCmd(ccmd, 'Copying {0} {1}'.format(fPath, destDir), shellOut).join()
 
-for ii in range(args.cpus):
+# Copy all .gcno
+outMsg('Copying .gcno files to build_0')
+build0 = 'build_0'
+if os.path.exists(build0):
+   shutil.rmtree(build0)
+for root, dirs, files in os.walk('{0}/build'.format(topDir), topdown=True):
+   for name in files:
+      if name.endswith('.gcno'):
+         fPath = os.path.join(root, name)
+         subFile = fPath.partition('/build/')[2]
+         destFile = '{0}/build_0/{1}'.format(topDir, subFile)
+         destDir = os.path.dirname(destFile)
+         if not os.path.exists(destDir):
+            os.makedirs(destDir)
+         scmd = 'cp {0} {1}'.format(fPath, destDir)
+         os.system(scmd)
+for ii in range(1, args.cpus):
    buildRoot = 'build_{0}'.format(ii)
+   outMsg('Copying build_0 directory to {0}'.format(buildRoot))
    if os.path.exists(buildRoot):
       shutil.rmtree(buildRoot)
-   ccmd = 'cp -r build {0}'.format(buildRoot)
-   ProcessCmd(ccmd, 'Copying build {0}'.format(buildRoot), shellOut).join()
+   os.system('cp -r build_0 {0}'.format(buildRoot))
 
 lcovOut = os.path.join(args.output, 'lcov_output.txt')
-initInfo = '{0}/verif_sim_base.info'.format(args.output)
+if args.append:
+   initInfo = '{0}/verif_sim_base_append.info'.format(args.output)
+else:
+   initInfo = '{0}/verif_sim_base.info'.format(args.output)
 ccmd = 'lcov --capture --initial {0} --output-file {1}'.format('-directory {0}/build'.format(topDir), initInfo)
 ProcessCmd(ccmd, 'LCOV Init', lcovOut).join()
 
@@ -94,6 +160,15 @@ for modelDir, modelData in verif_sim_list:
             runpattern, compareList = runData
             reqReturn=0
          simDir = os.path.join(topDir, modelDir, simSubDir)
+         if args.append:
+            isIncluded = False
+            for testDir in args.append:
+               if testDir in simDir:
+                  isIncluded = True
+                  break
+            if not isIncluded:
+               continue
+
          globpattern = '{0}/SET_test/{1}'.format(simDir,runpattern)
          runs = glob.glob(globpattern)
          if not runs:
@@ -115,17 +190,27 @@ for modelDir, modelData in verif_sim_list:
 
 waitForAllProcesses()
 
-testInfo = '{0}/verif_sim_test.info'.format(args.output)
-totalInfo = '{0}/verif_sim_total.info'.format(args.output)
-reducedInfo = '{0}/verif_sim_reduced.info'.format(args.output)
+#Reset Trick_CFLAGS to original state
+os.environ['TRICK_CFLAGS'] = preExistingTRICK_CFLAGS
+os.environ['TRICK_CXXFLAGS'] = preExistingTRICK_CXXFLAGS
+
+if args.append:
+   testInfo = '{0}/verif_sim_test_append.info'.format(args.output)
+   totalInfo = '{0}/verif_sim_total_append.info'.format(args.output)
+   reducedInfo = '{0}/verif_sim_append.info'.format(args.output)
+else:
+   testInfo = '{0}/verif_sim_test.info'.format(args.output)
+   totalInfo = '{0}/verif_sim_total.info'.format(args.output)
+   reducedInfo = '{0}/verif_sim_reduced.info'.format(args.output)
+
 ccmd = 'lcov --capture --rc lcov_branch_coverage=1 {0} --output-file {1}'.format(buildDirStr, testInfo)
 ProcessCmd(ccmd, 'LCOV Capture Data', lcovOut).join()
 ccmd = 'lcov --rc lcov_branch_coverage=1 --add-tracefile {0} --add-tracefile {1} --output-file {2}'.format(initInfo, testInfo, totalInfo)
 ProcessCmd(ccmd, 'LCOV Add Tracefiles', lcovOut).join()
-ccmd = ['lcov', '--rc', 'lcov_branch_coverage=1', '--extract', totalInfo, '{0}/models/*'.format(topDir), 
+ccmd = ['lcov', '--rc', 'lcov_branch_coverage=1', '--extract', totalInfo, '{0}/models/*'.format(topDir),
         '--output-file', reducedInfo]
 ProcessCmd(ccmd, 'LCOV Final Verif Sim', lcovOut).join()
-   
+
 
 outMsg("Script complete")
 sys.exit(0)

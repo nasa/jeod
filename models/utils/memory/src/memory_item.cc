@@ -15,9 +15,8 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 /**
  * \addtogroup classes
@@ -33,9 +32,9 @@ Purpose:
 #include "../include/memory_item.hh"
 #include "../include/memory_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Construct the flags for a new JeodMemoryItem.
@@ -45,53 +44,32 @@ namespace jeod {
  * \param[in] is_guarded Is the item an array?
  * \param[in] is_structured Is the item a structured data type?
  */
-uint8_t
-JeodMemoryItem::construct_flags (
-   bool placement_new,
-   bool is_array,
-   bool is_guarded,
-   bool is_structured)
+uint8_t JeodMemoryItem::construct_flags(bool placement_new, bool is_array, bool is_guarded, bool is_structured)
 {
-   uint8_t flags = 0;
+    uint8_t flags = 0;
 
-   if (placement_new) {
-      flags |= JeodMemoryItem::PlacementNew;
-   }
+    if(placement_new)
+    {
+        flags |= JeodMemoryItem::PlacementNew;
+    }
 
-   if (is_array) {
-      flags |= JeodMemoryItem::IsArray;
-   }
+    if(is_array)
+    {
+        flags |= JeodMemoryItem::IsArray;
+    }
 
-   if (is_guarded) {
-      flags |= JeodMemoryItem::IsGuarded;
-   }
+    if(is_guarded)
+    {
+        flags |= JeodMemoryItem::IsGuarded;
+    }
 
-   if (is_structured) {
-      flags |= JeodMemoryItem::IsStructured;
-   }
+    if(is_structured)
+    {
+        flags |= JeodMemoryItem::IsStructured;
+    }
 
-   return flags;
+    return flags;
 }
-
-
-/**
- * Construct a JeodMemoryItem.
- * This default constructor generates meaningless values.
- * The intent is that this is to be used in conjunction with a copy.
- */
-JeodMemoryItem::JeodMemoryItem (
-   void)
-:
-   nelems (0),
-   alloc_info_index (0),
-   unique_id (0),
-   descriptor_index_hi (0),
-   descriptor_index_lo (0),
-   flags (0)
-{
-   ; // Empty
-}
-
 
 /**
  * Construct a JeodMemoryItem.
@@ -105,79 +83,65 @@ JeodMemoryItem::JeodMemoryItem (
  * \param[in] type_idx Type descriptor (index)
  * \param[in] alloc_idx Macro invocation info (index)
  */
-JeodMemoryItem::JeodMemoryItem (
-   bool placement_new,
-   bool is_array,
-   bool is_guarded,
-   bool is_structured,
-   unsigned int nelems_in,
-   unsigned int type_idx,
-   unsigned int alloc_idx)
-:
-   nelems (nelems_in),
-   alloc_info_index (alloc_idx),
-   unique_id (0),
-   descriptor_index_hi (static_cast<uint16_t> (type_idx >> 8)),
-   descriptor_index_lo (static_cast<uint8_t> (type_idx & 0xff)),
-   flags (construct_flags (placement_new, is_array, is_guarded, is_structured))
+JeodMemoryItem::JeodMemoryItem(bool placement_new,
+                               bool is_array,
+                               bool is_guarded,
+                               bool is_structured,
+                               unsigned int nelems_in,
+                               unsigned int type_idx,
+                               unsigned int alloc_idx)
+    : nelems(nelems_in),
+      alloc_info_index(alloc_idx),
+      descriptor_index_hi(static_cast<uint16_t>(type_idx >> 8)),
+      descriptor_index_lo(static_cast<uint8_t>(type_idx & 0xff)),
+      flags(construct_flags(placement_new, is_array, is_guarded, is_structured))
 {
-   ; // Empty
 }
-
-
-/**
- * Destruct a JeodMemoryItem.
- */
-JeodMemoryItem::~JeodMemoryItem (void)
-{
-   ; // Empty
-}
-
 
 /**
  * Set the unique identifier.
  * \param[in] id Unique identifier
  */
-void
-JeodMemoryItem::set_unique_id (
-   uint32_t id)
+void JeodMemoryItem::set_unique_id(uint32_t id)
 {
-   if (unique_id != 0) {
-      MessageHandler::error (
-         __FILE__, __LINE__, MemoryMessages::internal_error,
-         "Illegal attempt to reset a memory item's unique identifier.");
-      return;
-   }
+    if(unique_id != 0)
+    {
+        MessageHandler::error(__FILE__,
+                              __LINE__,
+                              MemoryMessages::internal_error,
+                              "Illegal attempt to reset a memory item's unique identifier.");
+        return;
+    }
 
-   if (id == 0) {
-      MessageHandler::error (
-         __FILE__, __LINE__, MemoryMessages::internal_error,
-         "The unique identifier must be positive.");
-      return;
-   }
+    if(id == 0)
+    {
+        MessageHandler::error(__FILE__,
+                              __LINE__,
+                              MemoryMessages::internal_error,
+                              "The unique identifier must be positive.");
+        return;
+    }
 
-   unique_id = id;
+    unique_id = id;
 }
-
 
 /**
  * Set the is_registered flag.
  * \param[in] value New value of the is_registered flag
  */
-void
-JeodMemoryItem::set_is_registered (
-   bool value)
+void JeodMemoryItem::set_is_registered(bool value)
 {
-   if (value) {
-      flags |= IsRegistered;
-   }
-   else {
-      flags &= ~IsRegistered & 0xff;
-   }
+    if(value)
+    {
+        flags |= IsRegistered;
+    }
+    else
+    {
+        flags &= ~IsRegistered & 0xff;
+    }
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

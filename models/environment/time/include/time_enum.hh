@@ -67,37 +67,36 @@ Assumptions and limitations:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Contains an enumeration of the formats in which time can be represented.
  */
-class TimeEnum {
-
-// Member Data
+class TimeEnum
+{
+    // Member Data
 public:
-
-   /**
-    * The enumeration of the formats in which time can be represented.
-    */
-  enum TimeFormat {
-    undefined = -1,    /**< Default setting. */
-    Julian ,           /**< Full Julian representation. */
-    julian ,           /**< Full Julian representation. */
-    modified_julian ,  /**< Modified-Julian representation. */
-    truncated_julian , /**< Truncated-Julian representation. */
-    calendar,          /**< Calendar (Gregorian)  representation. */
-    clock,             /**< "Calendar" representation for MET. */
-                       /* (no years and months). */
-    days_since_epoch,  /**< Days since the type's defined epoch. */
-    seconds_since_epoch/**< Seconds since the type's defined epoch. */
-  };
+    /**
+     * The enumeration of the formats in which time can be represented.
+     */
+    enum TimeFormat
+    {
+        undefined = -1,     /**< Default setting. */
+        Julian,             /**< Full Julian representation. */
+        julian,             /**< Full Julian representation. */
+        modified_julian,    /**< Modified-Julian representation. */
+        truncated_julian,   /**< Truncated-Julian representation. */
+        calendar,           /**< Calendar (Gregorian)  representation. */
+        clock,              /**< "Calendar" representation for MET. */
+                            /* (no years and months). */
+        days_since_epoch,   /**< Days since the type's defined epoch. */
+        seconds_since_epoch /**< Seconds since the type's defined epoch. */
+    };
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

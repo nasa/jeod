@@ -51,13 +51,16 @@ are defined in this sim:
 
 =============================================================================*/
 
-
 // Define job calling intervals
-#define DYNAMICS      1.00   // Orbital dynamics interval
+#define DYNAMICS 1.00 // Orbital dynamics interval
 
-
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
@@ -75,43 +78,40 @@ PURPOSE:
 ##include "environment/planet/include/base_planet.hh"
 
 
-class DynamicsSimObject: public Trick::SimObject {
- protected:
-  // Reference to the external time manager.
-  jeod::TimeManager & time_manager;
- public:
-  jeod::DynManager     dyn_manager;
-  jeod::DynManagerInit dyn_manager_init;
-  jeod::BasePlanet     reference_planet;
+class DynamicsSimObject: public Trick::SimObject
+{
+protected:
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 
-  // Constructor
-  DynamicsSimObject ( jeod::TimeManager & time_manager_in)
-    :
-    time_manager (time_manager_in)
-  {
-    P_MNGR  ("initialization") dyn_manager.initialize_model ( dyn_manager_init,
-                                                              time_manager);
-    P_MNGR_INIT_SIM ("initialization") dyn_manager.initialize_simulation ( );
+public:
+    jeod::DynManager dyn_manager;
+    jeod::DynManagerInit dyn_manager_init;
+    jeod::BasePlanet reference_planet;
 
-    P_ENV   ("initialization") reference_planet.register_planet ( dyn_manager);
+    // Constructor
+    DynamicsSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        P_MNGR("initialization") dyn_manager.initialize_model(dyn_manager_init, time_manager);
+        P_MNGR_INIT_SIM("initialization") dyn_manager.initialize_simulation();
 
-    // Derivative class jobs
-    ("derivative") dyn_manager.compute_derivatives ();
+        P_ENV("initialization") reference_planet.register_planet(dyn_manager);
 
-    // Integration jobs
-    ("integration", &dyn_manager.sim_integrator) trick_ret =
-                          dyn_manager.integrate ( exec_get_sim_time(),
-                                                  time_manager);
-  }
+        // Derivative class jobs
+        ("derivative") dyn_manager.compute_derivatives();
 
-private:
-   // Unimplemented copy constructor and assignment operator
-   DynamicsSimObject (const DynamicsSimObject&);
-   DynamicsSimObject & operator = (const DynamicsSimObject&);
+        // Integration jobs
+        ("integration", &dyn_manager.sim_integrator)
+            trick_ret = dyn_manager.integrate(exec_get_sim_time(), time_manager);
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    DynamicsSimObject(const DynamicsSimObject &) = delete;
+    DynamicsSimObject & operator=(const DynamicsSimObject &) = delete;
 };
 
-DynamicsSimObject dynamics (jeod_time.time_manager);
-
+DynamicsSimObject dynamics(jeod_time.time_manager);
 
 /*****************************************************************************
 VehSimObject
@@ -119,30 +119,28 @@ Purpose:(Models the vehicles)
 *****************************************************************************/
 #include "Base/vehicle_baseline.sm"
 ##include "utils/lvlh_frame/include/lvlh_frame.hh"
-class VehSimObject: public VehicleBasicSimObject {
+class VehSimObject: public VehicleBasicSimObject
+{
+public:
+    jeod::LvlhFrame lvlh_frame;
 
- public:
-  jeod::LvlhFrame               lvlh_frame;
-  // Constructor
-  VehSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {
-    P_DYN ("initialization") lvlh_frame.initialize (dyn_manager);
-          ("initialization") lvlh_frame.update ();
+    // Constructor
+    VehSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+        P_DYN("initialization") lvlh_frame.initialize(dyn_manager);
+        ("initialization") lvlh_frame.update();
 
-    // Environment class jobs
-    (DYNAMICS, "environment") lvlh_frame.update ();
-  }
+        // Environment class jobs
+        (DYNAMICS, "environment") lvlh_frame.update();
+    }
 
- private:
-  VehSimObject (const VehSimObject&);
-  VehSimObject & operator = (const VehSimObject&);
+    VehSimObject(const VehSimObject &) = delete;
+    VehSimObject & operator=(const VehSimObject &) = delete;
 };
 
-VehSimObject vehA (dynamics.dyn_manager);
-VehSimObject vehB (dynamics.dyn_manager);
-
+VehSimObject vehA(dynamics.dyn_manager);
+VehSimObject vehB(dynamics.dyn_manager);
 
 /***************************************************************
  CLASS: (RelstateSimObject)
@@ -154,73 +152,58 @@ VehSimObject vehB (dynamics.dyn_manager);
 ##include "dynamics/derived_state/include/relative_derived_state.hh"
 ##include "dynamics/derived_state/include/lvlh_relative_derived_state.hh"
 
-class RelstateSimObject: public Trick::SimObject {
+class RelstateSimObject: public Trick::SimObject
+{
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & vehA_body;
+    jeod::DynBody & vehB_body;
 
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
-  jeod::DynBody & vehA_body;
-  jeod::DynBody & vehB_body;
+public:
+    jeod::RelativeDerivedState vehB_wrt_vehA_in_A;
+    jeod::RelativeDerivedState vehA_wrt_vehB_in_B;
 
- public:
-  jeod::RelativeDerivedState      vehB_wrt_vehA_in_A;
-  jeod::RelativeDerivedState      vehA_wrt_vehB_in_B;
+    jeod::LvlhRelativeDerivedState vehB_in_vehA_rectilvlh;
+    jeod::LvlhRelativeDerivedState vehA_in_vehB_rectilvlh;
 
-  jeod::LvlhRelativeDerivedState  vehB_in_vehA_rectilvlh;
-  jeod::LvlhRelativeDerivedState  vehA_in_vehB_rectilvlh;
+    jeod::LvlhRelativeDerivedState vehB_in_vehA_curvilvlh;
+    jeod::LvlhRelativeDerivedState vehA_in_vehB_curvilvlh;
+    // This is a dummy LVLH RDS whose only purpose is to check
+    // conversion from curvilinear back to rectilinear LVLH
+    jeod::LvlhRelativeDerivedState test_c2r;
 
-  jeod::LvlhRelativeDerivedState  vehB_in_vehA_curvilvlh;
-  jeod::LvlhRelativeDerivedState  vehA_in_vehB_curvilvlh;
-  // This is a dummy LVLH RDS whose only purpose is to check
-  // conversion from curvilinear back to rectilinear LVLH
-  jeod::LvlhRelativeDerivedState  test_c2r;
+    // Constructor
+    RelstateSimObject(jeod::DynManager & dyn_mngr_in, jeod::DynBody & vehA_body_in, jeod::DynBody & vehB_body_in)
+        : dyn_manager(dyn_mngr_in),
+          vehA_body(vehA_body_in),
+          vehB_body(vehB_body_in)
+    {
+        // Initialization jobs
+        P_DYN("initialization") vehA_wrt_vehB_in_B.initialize(vehA_body, dyn_manager);
+        P_DYN("initialization") vehB_wrt_vehA_in_A.initialize(vehB_body, dyn_manager);
+        P_DYN("initialization") vehB_in_vehA_rectilvlh.initialize(vehB_body, dyn_manager);
+        P_DYN("initialization") vehA_in_vehB_rectilvlh.initialize(vehA_body, dyn_manager);
+        P_DYN("initialization") vehB_in_vehA_curvilvlh.initialize(vehB_body, dyn_manager);
+        P_DYN("initialization") vehA_in_vehB_curvilvlh.initialize(vehA_body, dyn_manager);
+        P_DYN("initialization") test_c2r.initialize(vehB_body, dyn_manager);
 
-  // Constructor
-  RelstateSimObject ( jeod::DynManager & dyn_mngr_in,
-                      jeod::DynBody & vehA_body_in,
-                      jeod::DynBody & vehB_body_in)
-    :
-    dyn_manager(dyn_mngr_in),
-    vehA_body(vehA_body_in),
-    vehB_body(vehB_body_in)
-  {
-      // Initialization jobs
-    P_DYN ("initialization") vehA_wrt_vehB_in_B.initialize( vehA_body,
-                                                            dyn_manager);
-    P_DYN ("initialization") vehB_wrt_vehA_in_A.initialize( vehB_body,
-                                                            dyn_manager);
-    P_DYN ("initialization") vehB_in_vehA_rectilvlh.initialize (vehB_body,
-                                                                dyn_manager);
-    P_DYN ("initialization") vehA_in_vehB_rectilvlh.initialize (vehA_body,
-                                                                dyn_manager);
-    P_DYN ("initialization") vehB_in_vehA_curvilvlh.initialize (vehB_body,
-                                                                dyn_manager);
-    P_DYN ("initialization") vehA_in_vehB_curvilvlh.initialize (vehA_body,
-                                                                dyn_manager);
-    P_DYN ("initialization") test_c2r.initialize (vehB_body,
-                                                  dyn_manager);
+        // Environment class jobs
+        (DYNAMICS, "environment") vehA_wrt_vehB_in_B.update();
+        (DYNAMICS, "environment") vehB_wrt_vehA_in_A.update();
 
-    // Environment class jobs
-    (DYNAMICS, "environment") vehA_wrt_vehB_in_B.update ();
-    (DYNAMICS, "environment") vehB_wrt_vehA_in_A.update ();
+        (DYNAMICS, "environment") vehB_in_vehA_rectilvlh.update();
+        (DYNAMICS, "environment") vehA_in_vehB_rectilvlh.update();
 
-    (DYNAMICS, "environment") vehB_in_vehA_rectilvlh.update ();
-    (DYNAMICS, "environment") vehA_in_vehB_rectilvlh.update ();
+        (DYNAMICS, "environment") vehB_in_vehA_curvilvlh.update();
+        (DYNAMICS, "environment") vehA_in_vehB_curvilvlh.update();
+        (DYNAMICS, "environment") test_c2r.convert_circ_to_rect(vehB_in_vehA_curvilvlh.rel_state);
+    }
 
-    (DYNAMICS, "environment") vehB_in_vehA_curvilvlh.update ();
-    (DYNAMICS, "environment") vehA_in_vehB_curvilvlh.update ();
-    (DYNAMICS, "environment") test_c2r.convert_circ_to_rect (
-                                           vehB_in_vehA_curvilvlh.rel_state);
-  }
-
- private:
-  RelstateSimObject (const RelstateSimObject&);
-  RelstateSimObject & operator = (const RelstateSimObject&);
+    RelstateSimObject(const RelstateSimObject &) = delete;
+    RelstateSimObject & operator=(const RelstateSimObject &) = delete;
 };
 
-RelstateSimObject rel_state (dynamics.dyn_manager,
-                             vehA.dyn_body,
-                             vehB.dyn_body);
+RelstateSimObject rel_state(dynamics.dyn_manager, vehA.dyn_body, vehB.dyn_body);
 
-
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

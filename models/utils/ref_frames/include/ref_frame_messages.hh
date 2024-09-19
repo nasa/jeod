@@ -60,10 +60,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/ref_frame_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_REF_FRAMES_MESSAGES_HH
 #define JEOD_REF_FRAMES_MESSAGES_HH
@@ -73,102 +72,95 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Declares messages associated with the reference frames model.
  */
-class RefFrameMessages {
+class RefFrameMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RefFrameMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued to provide information regarding an attachment.
+     */
+    static const char * attach_info; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(RefFrameMessages)
+    /**
+     * Issued when a duplicate reference frame is detected (name or address).
+     */
+    static const char * duplicate_entry; //!< trick_units(--)
 
+    /**
+     * Issued when some inconsistency is detected.
+     */
+    static const char * inconsistent_setup; //!< trick_units(--)
 
- // Static member data
- public:
-   /**
-    * Issued to provide information regarding an attachment.
-    */
-   static char const * attach_info; //!< trick_units(--)
+    /**
+     * Error issued when some internal error occurred.
+     * These errors should never happen.
+     */
+    static const char * internal_error; //!< trick_units(--)
 
-   /**
-    * Issued when a duplicate reference frame is detected (name or address).
-    */
-   static char const * duplicate_entry; //!< trick_units(--)
+    /**
+     * Issued when an attachment cannot be performed as requested.
+     */
+    static const char * invalid_attach; //!< trick_units(--)
 
-   /**
-    * Issued when some inconsistency is detected.
-    */
-   static char const * inconsistent_setup; //!< trick_units(--)
+    /**
+     * Issued when a detachment cannot be performed as requested.
+     */
+    static const char * invalid_detach; //!< trick_units(--)
 
-   /**
-    * Error issued when some internal error occurred.
-    * These errors should never happen.
-    */
-   static char const * internal_error; //!< trick_units(--)
+    /**
+     * Issued when a enum value is not one of the enumerated values.
+     */
+    static const char * invalid_enum; //!< trick_units(--)
 
-   /**
-    * Issued when an attachment cannot be performed as requested.
-    */
-   static char const * invalid_attach; //!< trick_units(--)
+    /**
+     * Issued when something other than an enum, name, or node is invalid.
+     */
+    static const char * invalid_item; //!< trick_units(--)
 
-   /**
-    * Issued when a detachment cannot be performed as requested.
-    */
-   static char const * invalid_detach; //!< trick_units(--)
+    /**
+     * Issued when a name is invalid -- NULL, empty, a duplicate, ...
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
-   /**
-    * Issued when a enum value is not one of the enumerated values.
-    */
-   static char const * invalid_enum; //!< trick_units(--)
+    /**
+     * Issued when a node does not have expected linkages.
+     */
+    static const char * invalid_node; //!< trick_units(--)
 
-   /**
-    * Issued when something other than an enum, name, or node is invalid.
-    */
-   static char const * invalid_item; //!< trick_units(--)
+    /**
+     * Issued when a pointer that is null should be non-null.
+     */
+    static const char * null_pointer; //!< trick_units(--)
 
-   /**
-    * Issued when a name is invalid -- NULL, empty, a duplicate, ...
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Error issued when a problem is detected in the subscription model.
+     */
+    static const char * subscription_error; //!< trick_units(--)
 
-   /**
-    * Issued when a node does not have expected linkages.
-    */
-   static char const * invalid_node; //!< trick_units(--)
+    /**
+     * Error issued when a removal cannot be performed because the frame is
+     * not registered.
+     */
+    static const char * removal_failed; //!< trick_units(--)
 
-   /**
-    * Issued when a pointer that is null should be non-null.
-    */
-   static char const * null_pointer; //!< trick_units(--)
-
-   /**
-    * Error issued when a problem is detected in the subscription model.
-    */
-   static char const * subscription_error; //!< trick_units(--)
-
-   /**
-    * Error issued when a removal cannot be performed because the frame is
-    * not registered.
-    */
-   static char const * removal_failed; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   RefFrameMessages (void);
-   RefFrameMessages (const RefFrameMessages &);
-   RefFrameMessages & operator= (const RefFrameMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    RefFrameMessages() = delete;
+    RefFrameMessages(const RefFrameMessages &) = delete;
+    RefFrameMessages & operator=(const RefFrameMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

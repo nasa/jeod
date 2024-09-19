@@ -24,19 +24,16 @@ class Planet;
 // Unsupported includes
 #include "../include/jupiter.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-Planet_jupiter_default_data::initialize (
-   Planet * Planet_ptr)
+namespace jeod
 {
-   Planet_ptr->name = "Jupiter";
 
-   /* GSFC Jupiter fact sheet */
-   Planet_ptr->flat_coeff = 0.06487;
-   Planet_ptr->r_eq = 1000 * (71492);
+void Planet_jupiter_default_data::initialize(Planet * Planet_ptr)
+{
+    Planet_ptr->name = "Jupiter";
+
+    /* GSFC Jupiter fact sheet */
+    Planet_ptr->flat_coeff = 0.06487;
+    Planet_ptr->r_eq = 1000 * (71492);
 }
-} // End JEOD namespace
+} // namespace jeod

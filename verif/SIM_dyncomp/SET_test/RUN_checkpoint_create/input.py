@@ -30,7 +30,7 @@
 #*****************************************************************************/
 
 # Import the JEOD checkpoint/restart module.
-import sys 
+import sys
 import os
 sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
 import jeod_checkpoint_restart
@@ -66,16 +66,16 @@ vehicle.aero_drag.active = True
 set_aero_drag_iss()
 
 ## Allocate a DynBody and attach to the vehicle to demonstrate some chkpt/restart
-child_vehicle = trick.castAsDynBodySimObject(  trick.TMM_declare_var_s("DynBodySimObject child_vehicle") )
+child_vehicle = trick.castAsDynBodySimObject(trick.TMM_declare_var_s("DynBodySimObject child_vehicle"))
 trick.exec_add_sim_object(child_vehicle, "child_vehicle")
 child_vehicle.dyn_manager_ptr = dynamics.dyn_manager
 child_vehicle.dyn_body.integ_frame_name = "Earth.inertial"
 child_vehicle.dyn_body.translational_dynamics = True
 child_vehicle.dyn_body.rotational_dynamics = True
 
-child_earth_grav_control = trick.castAsjeod__SphericalHarmonicsGravityControls( trick.TMM_declare_var_s("jeod::SphericalHarmonicsGravityControls child_earth_grav_control") )
-child_moon_grav_control  = trick.castAsjeod__SphericalHarmonicsGravityControls( trick.TMM_declare_var_s("jeod::SphericalHarmonicsGravityControls child_moon_grav_control") )
-child_sun_grav_control   = trick.castAsjeod__SphericalHarmonicsGravityControls( trick.TMM_declare_var_s("jeod::SphericalHarmonicsGravityControls child_sun_grav_control") )
+child_earth_grav_control = trick.castAsjeod__SphericalHarmonicsGravityControls(trick.TMM_declare_var_s("jeod::SphericalHarmonicsGravityControls child_earth_grav_control"))
+child_moon_grav_control  = trick.castAsjeod__SphericalHarmonicsGravityControls(trick.TMM_declare_var_s("jeod::SphericalHarmonicsGravityControls child_moon_grav_control"))
+child_sun_grav_control   = trick.castAsjeod__SphericalHarmonicsGravityControls(trick.TMM_declare_var_s("jeod::SphericalHarmonicsGravityControls child_sun_grav_control"))
 
 # Set up the gravity controls for the Earth.
 child_earth_grav_control.source_name     = "Earth"
@@ -103,7 +103,7 @@ child_vehicle.dyn_body.grav_interaction.add_control(child_sun_grav_control)
 child_vehicle.dyn_body.set_name("child_vehicle")
 
 # Set the child_vehicle_mass porperties for this child_vehicle_
-child_vehicle_mass_init = trick.castAsjeod__MassBodyInit( trick.TMM_declare_var_s("jeod::MassBodyInit child_vehicle_mass_init") )
+child_vehicle_mass_init = trick.castAsjeod__MassBodyInit(trick.TMM_declare_var_s("jeod::MassBodyInit child_vehicle_mass_init"))
 child_vehicle_mass_init.set_subject_body( child_vehicle.dyn_body.mass )
 
 # Set the struct to body reference frame orientation.
@@ -111,11 +111,11 @@ child_vehicle_mass_init.properties.pt_orientation.data_source = trick.Orientatio
 child_vehicle_mass_init.properties.pt_orientation.eigen_angle = 0.0
 child_vehicle_mass_init.properties.pt_orientation.eigen_axis  = [ 0.0, 1.0, 0.0]
 
-child_vehicle_mass_init.points = trick.castAsjeod__MassPointInit( trick.TMM_declare_var_s("jeod::MassPointInit child_vehicle_mass_init_points[1]") )
-child_vehicle_mass_init.num_points = 1
-child_vehicle_mass_init.points[0].set_name('child_test_point')
-child_vehicle_mass_init.points[0].pt_orientation.data_source = trick.Orientation.InputEulerRotation
-child_vehicle_mass_init.points[0].pt_orientation.euler_sequence = trick.Orientation.Roll_Pitch_Yaw
+child_vehicle_mass_init.allocate_points(1)
+
+child_vehicle_mass_init.get_mass_point(0).set_name('child_test_point')
+child_vehicle_mass_init.get_mass_point(0).pt_orientation.data_source = trick.Orientation.InputEulerRotation
+child_vehicle_mass_init.get_mass_point(0).pt_orientation.euler_sequence = trick.Orientation.Roll_Pitch_Yaw
 
 # Set the struct to body reference frame orientation.
 child_vehicle_mass_init.properties.pt_orientation.data_source = trick.Orientation.InputEigenRotation
@@ -132,7 +132,7 @@ child_vehicle_mass_init.properties.inertia[2]  = [ 0.0, 0.0, 0.4]
 dynamics.dyn_manager.add_body_action( child_vehicle_mass_init)
 
 # Set the trans state
-child_vehicle_trans_init = trick.castAsjeod__DynBodyInitTransState( trick.TMM_declare_var_s("jeod::DynBodyInitTransState child_vehicle_trans_init") )
+child_vehicle_trans_init = trick.castAsjeod__DynBodyInitTransState(trick.TMM_declare_var_s("jeod::DynBodyInitTransState child_vehicle_trans_init"))
 child_vehicle_trans_init.set_subject_body( child_vehicle.dyn_body )
 child_vehicle_trans_init.reference_ref_frame_name = "Earth.inertial"
 child_vehicle_trans_init.body_frame_id            = "composite_body"
@@ -141,7 +141,7 @@ child_vehicle_trans_init.body_frame_id            = "composite_body"
 child_vehicle_trans_init.position  = [ -4292653.41, 955168.47, 5139356.57]
 child_vehicle_trans_init.velocity  = [ 109.649663, -7527.726490, 1484.521489]
 
-child_vehicle_lvlh_init = trick.castAsjeod__DynBodyInitLvlhRotState( trick.TMM_declare_var_s("jeod::DynBodyInitLvlhRotState child_vehicle_lvlh_init") )
+child_vehicle_lvlh_init = trick.castAsjeod__DynBodyInitLvlhRotState(trick.TMM_declare_var_s("jeod::DynBodyInitLvlhRotState child_vehicle_lvlh_init"))
 child_vehicle_lvlh_init.set_subject_body( child_vehicle.dyn_body )
 child_vehicle_lvlh_init.planet_name                = "Earth"
 child_vehicle_lvlh_init.body_frame_id              = "composite_body"
@@ -155,7 +155,7 @@ dynamics.dyn_manager.add_body_action( child_vehicle_lvlh_init)
 
 dynamics.dyn_manager.add_body_action( child_vehicle_trans_init)
 
-attach_to_parent = trick.castAsjeod__BodyAttachAligned( trick.TMM_declare_var_s("jeod::BodyAttachAligned attach_to_parent") )
+attach_to_parent = trick.castAsjeod__BodyAttachAligned(trick.TMM_declare_var_s("jeod::BodyAttachAligned attach_to_parent"))
 attach_to_parent.set_parent_body(vehicle.dyn_body)
 attach_to_parent.set_subject_body( child_vehicle.dyn_body )
 attach_to_parent.subject_point_name = "child_test_point"

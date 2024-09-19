@@ -46,16 +46,18 @@ Library dependencies:
 #ifndef JEOD_NUTATIONJ2000INIT_NUTATION_J2000_DEFAULT_DATA_H
 #define JEOD_NUTATIONJ2000INIT_NUTATION_J2000_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class NutationJ2000Init;
 
-class NutationJ2000Init_nutation_j2000_default_data {
- public:
-   void initialize (NutationJ2000Init*);
+class NutationJ2000Init_nutation_j2000_default_data
+{
+public:
+    void initialize(NutationJ2000Init *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

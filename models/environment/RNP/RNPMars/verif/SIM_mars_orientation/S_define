@@ -51,22 +51,22 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
 #define LOGRATE 86400 // Period for all scheduled jobs including logging
-
 
 // Define the phase initialization priorities.
 // NOTE: Initialization jobs lacking an assigned phase initialization priority
 // run after all initialization jobs that have assigned phase init priorities.
-#define P_TIME  P10   // Highest priority; these jobs only depend on time
-#define P_MNGR  P20   // Dynamics manager initializations
-#define P_ENV   P30   // Environment initializations
-#define P_BODY  P40   // Orbital body initializations
-#define P_DYN   P50   // State-dependent initializations
+#define P_TIME P10 // Highest priority; these jobs only depend on time
+#define P_MNGR P20 // Dynamics manager initializations
+#define P_ENV P30  // Environment initializations
+#define P_BODY P40 // Orbital body initializations
+#define P_DYN P50  // State-dependent initializations
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 //***************************************************************
@@ -93,98 +93,80 @@
 ##include "environment/time/data/include/tai_to_ut1.hh"
 ##include "environment/time/data/include/tai_to_utc.hh"
 
-class Jeod_timeSimObject: public Trick::SimObject {
-
-   public:
+class Jeod_timeSimObject: public Trick::SimObject
+{
+public:
     jeod::TimeManager manager;
     jeod::TimeManagerInit manager_init;
     jeod::TimeTAI tai;
-    jeod::TimeTT  tt;
+    jeod::TimeTT tt;
     jeod::TimeUTC utc;
     jeod::TimeUT1 ut1;
     jeod::TimeGMST gmst;
-    jeod::TimeConverter_Dyn_TAI  conv_dyn_tai;
-    jeod::TimeConverter_TAI_TT   conv_tai_tt;
-    jeod::TimeConverter_UT1_GMST   conv_ut1_gmst;
-    jeod::TimeConverter_TAI_UT1  conv_tai_ut1;
-    jeod::TimeConverter_TAI_UTC  conv_tai_utc;
+    jeod::TimeConverter_Dyn_TAI conv_dyn_tai;
+    jeod::TimeConverter_TAI_TT conv_tai_tt;
+    jeod::TimeConverter_UT1_GMST conv_ut1_gmst;
+    jeod::TimeConverter_TAI_UT1 conv_tai_ut1;
+    jeod::TimeConverter_TAI_UTC conv_tai_utc;
 
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
 
-// Instances for default data:
-    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data    conv_tai_ut1_default_data;
-    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data    conv_tai_utc_default_data;
+    // Instances for default data:
+    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data conv_tai_ut1_default_data;
+    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data conv_tai_utc_default_data;
 
-//Constructor
-    Jeod_timeSimObject() {
+    // Constructor
+    Jeod_timeSimObject()
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") conv_tai_ut1_default_data.initialize(&conv_tai_ut1);
+        ("default_data") conv_tai_utc_default_data.initialize(&conv_tai_utc);
 
-   //
-   //Default data jobs
-   //
-      ("default_data") conv_tai_ut1_default_data.initialize ( &conv_tai_ut1 );
-      ("default_data") conv_tai_utc_default_data.initialize ( &conv_tai_utc );
-
-   //
-   //
-   // Time Scales
-   // Time Converters
-   //
-   // Initialization jobs
-   //
-   // Register the basic time scales with the time manager.
-   // TAI
-      P_TIME  ("initialization") manager.register_time(
-          tai);
-      P_TIME  ("initialization") manager.register_converter(
-          conv_dyn_tai);
-   // TT
-      P_TIME  ("initialization") manager.register_time(
-          tt );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_tai_tt );
-   // UT1
-      P_TIME  ("initialization") manager.register_time(
-          ut1 );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_tai_ut1 );
-   // GMST
-      P_TIME  ("initialization") manager.register_time(
-          gmst );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_ut1_gmst );
-   // UTC
-      P_TIME  ("initialization") manager.register_time(
-          utc );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_tai_utc );
-   // Initialize the time manager.
-      P_TIME  ("initialization") manager.initialize(
-          &manager_init);
-   // Compute appropriate calendar dates at initialization.
-      P_TIME  ("initialization") ut1.calendar_update(
-          exec_get_sim_time() );
-      P_TIME  ("initialization") utc.calendar_update(
-          exec_get_sim_time() );
-   //
-   // Scheduled jobs
-   //
-   // Update Time Scales
-      (LOGRATE, "environment") manager.update(
-          exec_get_sim_time());
-   // Update the calendar times of interest.
-      (LOGRATE, "environment") ut1.calendar_update(
-          exec_get_sim_time() );
-      (LOGRATE, "environment") utc.calendar_update(
-          exec_get_sim_time() );
+        //
+        //
+        // Time Scales
+        // Time Converters
+        //
+        // Initialization jobs
+        //
+        // Register the basic time scales with the time manager.
+        // TAI
+        P_TIME("initialization") manager.register_time(tai);
+        P_TIME("initialization") manager.register_converter(conv_dyn_tai);
+        // TT
+        P_TIME("initialization") manager.register_time(tt);
+        P_TIME("initialization") manager.register_converter(conv_tai_tt);
+        // UT1
+        P_TIME("initialization") manager.register_time(ut1);
+        P_TIME("initialization") manager.register_converter(conv_tai_ut1);
+        // GMST
+        P_TIME("initialization") manager.register_time(gmst);
+        P_TIME("initialization") manager.register_converter(conv_ut1_gmst);
+        // UTC
+        P_TIME("initialization") manager.register_time(utc);
+        P_TIME("initialization") manager.register_converter(conv_tai_utc);
+        // Initialize the time manager.
+        P_TIME("initialization") manager.initialize(&manager_init);
+        // Compute appropriate calendar dates at initialization.
+        P_TIME("initialization") ut1.calendar_update(exec_get_sim_time());
+        P_TIME("initialization") utc.calendar_update(exec_get_sim_time());
+        //
+        // Scheduled jobs
+        //
+        // Update Time Scales
+        (LOGRATE, "environment") manager.update(exec_get_sim_time());
+        // Update the calendar times of interest.
+        (LOGRATE, "environment") ut1.calendar_update(exec_get_sim_time());
+        (LOGRATE, "environment") utc.calendar_update(exec_get_sim_time());
     }
 
-  private:
-    Jeod_timeSimObject (const Jeod_timeSimObject&);
-    Jeod_timeSimObject & operator = (const Jeod_timeSimObject&);
-
+    Jeod_timeSimObject(const Jeod_timeSimObject &) = delete;
+    Jeod_timeSimObject & operator=(const Jeod_timeSimObject &) = delete;
 };
-Jeod_timeSimObject jeod_time ;
 
+Jeod_timeSimObject jeod_time;
 
 //***************************************************************
 // CLASS: (DynamicsSimObject)
@@ -200,41 +182,37 @@ Jeod_timeSimObject jeod_time ;
 ##include "dynamics/body_action/include/body_action.hh"
 
 
-class DynamicsSimObject: public Trick::SimObject {
+class DynamicsSimObject: public Trick::SimObject
+{
+public:
+    jeod::DynManager manager;
+    jeod::DynManagerInit manager_init;
 
-   public:
-    jeod::DynManager       manager;
-    jeod::DynManagerInit   manager_init;
-
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     Jeod_timeSimObject * internal_jeod_time;
 
-//Constructor
-    DynamicsSimObject(
-           Jeod_timeSimObject & ext_jeod_time) {
+    // Constructor
+    DynamicsSimObject(Jeod_timeSimObject & ext_jeod_time)
+    {
+        internal_jeod_time = &ext_jeod_time;
 
-    internal_jeod_time = & ext_jeod_time;
-
-   // Initialization jobs
-   //
-      P_MNGR  ("initialization") manager.initialize_model(
-          manager_init, internal_jeod_time->manager);
-      P_BODY  ("initialization") manager.initialize_simulation( );
-   //
-   // Derivative class jobs
-   //
-   //
-   // Integration jobs
-   //
+        // Initialization jobs
+        //
+        P_MNGR("initialization") manager.initialize_model(manager_init, internal_jeod_time->manager);
+        P_BODY("initialization") manager.initialize_simulation();
+        //
+        // Derivative class jobs
+        //
+        //
+        // Integration jobs
+        //
     }
 
-  private:
-    DynamicsSimObject (const DynamicsSimObject&);
-    DynamicsSimObject & operator = (const DynamicsSimObject&);
-
+    DynamicsSimObject(const DynamicsSimObject &) = delete;
+    DynamicsSimObject & operator=(const DynamicsSimObject &) = delete;
 };
-DynamicsSimObject dynamics ( jeod_time);
 
+DynamicsSimObject dynamics(jeod_time);
 
 //***************************************************************
 // CLASS: (EnvSimObject)
@@ -242,55 +220,47 @@ DynamicsSimObject dynamics ( jeod_time);
 //  ( This sim object models the space environment.)
 //***************************************************************
 
-
 // Include headers for classes that this class contains:
 ##include "environment/ephemerides/de4xx_ephem/include/de4xx_ephem.hh"
 
 
-class EnvSimObject: public Trick::SimObject {
-
-   public:
+class EnvSimObject: public Trick::SimObject
+{
+public:
     jeod::De4xxEphemeris de4xx;
 
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     Jeod_timeSimObject * internal_jeod_time;
     DynamicsSimObject * internal_dynamics;
 
-//Constructor
-    EnvSimObject(
-           Jeod_timeSimObject & ext_jeod_time,
-           DynamicsSimObject & ext_dynamics) {
+    // Constructor
+    EnvSimObject(Jeod_timeSimObject & ext_jeod_time, DynamicsSimObject & ext_dynamics)
+    {
+        internal_jeod_time = &ext_jeod_time;
+        internal_dynamics = &ext_dynamics;
 
-    internal_jeod_time = & ext_jeod_time;
-    internal_dynamics = & ext_dynamics;
-
-   //
-   // Initialization
-   //
-      P_ENV  ("initialization") de4xx.initialize_model (
-           internal_jeod_time->manager,
-           internal_dynamics->manager);
-   //
-   // Scheduled jobs
-   //
-   // Supports the update of multiple ephmeris models.
-      (LOGRATE, "environment") internal_dynamics->manager.update_ephemerides( );
+        //
+        // Initialization
+        //
+        P_ENV("initialization") de4xx.initialize_model(internal_jeod_time->manager, internal_dynamics->manager);
+        //
+        // Scheduled jobs
+        //
+        // Supports the update of multiple ephmeris models.
+        (LOGRATE, "environment") internal_dynamics->manager.update_ephemerides();
     }
 
-  private:
-    EnvSimObject (const EnvSimObject&);
-    EnvSimObject & operator = (const EnvSimObject&);
-
+    EnvSimObject(const EnvSimObject &) = delete;
+    EnvSimObject & operator=(const EnvSimObject &) = delete;
 };
-EnvSimObject env ( jeod_time, dynamics);
 
+EnvSimObject env(jeod_time, dynamics);
 
 //***************************************************************
 // CLASS: (MarsSimObject)
 // PURPOSE:
 //  ( This sim object models Mars.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "environment/planet/include/planet.hh"
@@ -300,57 +270,52 @@ EnvSimObject env ( jeod_time, dynamics);
 ##include "environment/RNP/RNPMars/data/include/rnp_mars.hh"
 ##include "environment/planet/data/include/mars.hh"
 
-class MarsSimObject: public Trick::SimObject {
+class MarsSimObject: public Trick::SimObject
+{
+public:
+    jeod::Planet planet;
+    jeod::RNPMars rnp;
 
-   public:
-    jeod::Planet        planet;
-    jeod::RNPMars       rnp;
-
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     DynamicsSimObject * internal_dynamics;
     // EnvSimObject * internal_env;
     Jeod_timeSimObject * internal_jeod_time;
 
-// Instances for default data:
-    jeod::RNPMars_rnp_mars_default_data    rnp_mars_default_data;
+    // Instances for default data:
+    jeod::RNPMars_rnp_mars_default_data rnp_mars_default_data;
     jeod::Planet_mars_default_data mars_data;
 
-//Constructor
+    // Constructor
     MarsSimObject(
-           // EnvSimObject & ext_env,
-           DynamicsSimObject & ext_dynamics,
-           Jeod_timeSimObject & ext_jeod_time) {
+        // EnvSimObject & ext_env,
+        DynamicsSimObject & ext_dynamics,
+        Jeod_timeSimObject & ext_jeod_time)
+    {
+        // internal_env = & ext_env;
+        internal_dynamics = &ext_dynamics;
+        internal_jeod_time = &ext_jeod_time;
 
-    // internal_env = & ext_env;
-    internal_dynamics = & ext_dynamics;
-    internal_jeod_time = & ext_jeod_time;
+        //
+        // Default data jobs
+        //
+        ("default_data") rnp_mars_default_data.initialize(&rnp);
+        ("default_data") mars_data.initialize(&planet);
 
-   //
-   //Default data jobs
-   //
-      ("default_data") rnp_mars_default_data.initialize ( &rnp );
-      ("default_data") mars_data.initialize ( &planet );
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") planet.register_planet(internal_dynamics->manager);
+        P_ENV("initialization") rnp.initialize(internal_dynamics->manager);
+        P_ENV("initialization") rnp.update_rnp(internal_jeod_time->tt);
 
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") planet.register_planet (
-internal_dynamics->manager);
-      P_ENV  ("initialization") rnp.initialize(
-          internal_dynamics->manager );
-      P_ENV  ("initialization") rnp.update_rnp(
-          internal_jeod_time->tt );
-
-   //
-   // Environment class jobs
-   //
-      (LOGRATE, "environment") rnp.update_rnp(
-          internal_jeod_time->tt );
+        //
+        // Environment class jobs
+        //
+        (LOGRATE, "environment") rnp.update_rnp(internal_jeod_time->tt);
     }
 
-  private:
-    MarsSimObject (const MarsSimObject&);
-    MarsSimObject & operator = (const MarsSimObject&);
-
+    MarsSimObject(const MarsSimObject &) = delete;
+    MarsSimObject & operator=(const MarsSimObject &) = delete;
 };
-MarsSimObject mars ( dynamics, jeod_time);
+
+MarsSimObject mars(dynamics, jeod_time);

@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -405,14 +405,13 @@ def _load_trk(path, variables):
     with open(path,'rb') as file:
 
         # Read the file header information
-        title = struct.unpack('10s', file.read(10))[0]
-        title, version, endianness = title.split('-')
+        trickVer = file.read(10).decode('ascii')
+        title, version, endianness = trickVer.split('-')
         if endianness == 'L':
             endianness = '<'
         else:
             endianness = '>'
         version = int(version)
-
         # Get the number of parameters recorded
         number_parameters = struct.unpack(endianness + 'i', file.read(4))[0]
 
@@ -423,9 +422,9 @@ def _load_trk(path, variables):
         sizes = []
         for index in range(number_parameters):
             name_length = struct.unpack(endianness + 'i', file.read(4))[0]
-            names.append(struct.unpack(endianness + str(name_length) + 's', file.read(name_length))[0])
+            names.append(file.read(name_length).decode('ascii'))
             unit_length = struct.unpack(endianness + 'i', file.read(4))[0]
-            units.append(struct.unpack(endianness + str(unit_length) + 's', file.read(unit_length))[0])
+            units.append(file.read(unit_length).decode('ascii'))
             codes.append(struct.unpack(endianness + 'i', file.read(4))[0])
             sizes.append(struct.unpack(endianness + 'i', file.read(4))[0])
 

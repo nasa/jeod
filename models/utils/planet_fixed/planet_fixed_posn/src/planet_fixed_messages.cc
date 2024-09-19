@@ -26,9 +26,8 @@ Assumptions and limitations:
 Library dependencies:
   ((planet_fixed_messages.cc))
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 // System includes
 
@@ -37,17 +36,17 @@ Library dependencies:
 
 #define PATH "environment/planet_fixed/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 // Errors
 
-char const * PlanetFixedMessages::invalid_request = PATH "invalid_request";
-char const * PlanetFixedMessages::domain_error    = PATH "domain_error";
+const char * PlanetFixedMessages::invalid_request = PATH "invalid_request";
+const char * PlanetFixedMessages::domain_error = PATH "domain_error";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

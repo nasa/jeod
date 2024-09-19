@@ -7,7 +7,7 @@ def log_3_vehicles_3_vec( drg, var):
     log_3_vec( drg, "veh"+ str(ii) + "." + var)
 
 recording_group_name =  "vehicle_State"
-dr_group = trick.sim_services.DRAscii("vehicle_State")
+dr_group = trick.sim_services.DRBinary("vehicle_State")
 dr_group.set_cycle(0.05)
 dr_group.freq = trick.sim_services.DR_Always
 trick.add_data_record_group(dr_group)

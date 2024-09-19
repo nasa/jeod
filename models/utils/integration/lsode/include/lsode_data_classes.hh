@@ -62,7 +62,7 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/lsode_data_classes.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -85,155 +85,136 @@ namespace jeod
  */
 class LsodeDataJacobianPrep
 {
-JEOD_MAKE_SIM_INTERFACES(LsodeDataJacobianPrep)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeDataJacobianPrep)
 
 public:
+    LsodeDataJacobianPrep() = default;
+    virtual ~LsodeDataJacobianPrep() = default;
+    LsodeDataJacobianPrep & operator=(const LsodeDataJacobianPrep &) = delete;
+    LsodeDataJacobianPrep(const LsodeDataJacobianPrep &) = delete;
 
-  /**
-   * Destructor.
-   */
-  virtual ~LsodeDataJacobianPrep(void){};
-  LsodeDataJacobianPrep(void);
-
-// variables used in DPREPJ - these used to be local, but have to be recorded with DPRERPJ getting severed
-// by the CALL F.
-   double fac;
-   double hl0;
-   int index;
-   int index_max;
-   double r0;
-   double yj;
-
-private:
-   LsodeDataJacobianPrep & operator=(const LsodeDataJacobianPrep & src);
-   LsodeDataJacobianPrep(const LsodeDataJacobianPrep & src);
+    // variables used in DPREPJ - these used to be local, but have to be recorded with DPRERPJ getting severed
+    // by the CALL F.
+    double fac{};
+    double hl0{};
+    int index{};
+    int index_max{};
+    double r0{};
+    double yj{};
 };
-
 
 /**
  * The data arrays
  */
 class LsodeDataArrays
 {
-JEOD_MAKE_SIM_INTERFACES(LsodeDataArrays)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeDataArrays)
 
 public:
+    LsodeDataArrays() = default;
 
-  /**
-   * Destructor.
-   */
-  virtual ~LsodeDataArrays(void)
-    {destroy_allocated_arrays();};
-  LsodeDataArrays(void);
+    virtual ~LsodeDataArrays()
+    {
+        destroy_allocated_arrays();
+    }
 
-  void allocate_arrays( unsigned int num_odes,
-                        LsodeControlDataInterface::CorrectorMethod corrector_method);
-  void destroy_allocated_arrays();
+    LsodeDataArrays & operator=(const LsodeDataArrays &) = delete;
+    LsodeDataArrays(const LsodeDataArrays &) = delete;
 
-   /**
-    * Was IWM(21) or IPVT.
-    * Pivot vector generated in dgefa, and used in dgesl.
-    */
-   int * pivots; //!< trick_units(--)
+    void allocate_arrays(unsigned int num_odes, LsodeControlDataInterface::CorrectorMethod corrector_method);
+    void destroy_allocated_arrays();
 
-// Breakdown of RWORK:
-// NOTE:   LYH, LEWT, LACOR, LSAVF, LWM all provide base address in a larger
-//         array (RWORK) for he vectors YH, EWT, ACOR, SAVF, and WM.
-//         I am dviding the RWORK array into these individual arrays, so do not
-//         need the indices any more.*/
+    /**
+     * Was IWM(21) or IPVT.
+     * Pivot vector generated in dgefa, and used in dgesl.
+     */
+    int * pivots{}; //!< trick_units(--)
 
-// RWORK[1-21] is divided into multiple variables now.
+    // Breakdown of RWORK:
+    // NOTE:   LYH, LEWT, LACOR, LSAVF, LWM all provide base address in a larger
+    //         array (RWORK) for he vectors YH, EWT, ACOR, SAVF, and WM.
+    //         I am dviding the RWORK array into these individual arrays, so do not
+    //         need the indices any more.*/
 
+    // RWORK[1-21] is divided into multiple variables now.
 
-   /**
-    * was RWORK[LYH:LYH+NYH*(MAXORD+1)-1].  LYH = 21
-    * First index is to "i" in y_i, second index is to history order.
-    * history[i,j] = rwork[LYH + j*nyh + i], with lyh = 21 typically.
-    */
-   double ** history; //!< trick_units(--)
-   double lin_alg_1;
-   double lin_alg_2;
-   /**
-    * was RWORK[LWM:LWM+LENWM-1].  LWM = LYH + (NYH*(MAXORD+1))
-    * lin_alg_1 = rwork[lwm]
-    * lin_alg_2 = rwork[lwm + 1]
-    * lin_alg[i,j] = rwork[lwm+ j*n + i + 2].
-    * The first two elements are treated differently, then it goes to an
-    * array that is sized based on the correction_method.
-    * The array sizes are as follows, ordered by value of correction_method:
-    * 0:     0
-    * 1,2:   n x n
-    * 3:     1 x n
-    * 4,5:   (2*ml+mu+1) x n.
-    */
-   double ** lin_alg; //!< trick_units(--)
-   /**
-    * was RWORK[LEWT:LEWT+N-1].  LEWT = LWM + LENWM
-    * error_weight[i] = rwork[lewt+i].
-    */
-   double * error_weight; //!< trick_units(--)
-   /**
-    * was RWORK[LSAVF:LSAVF+N-1]. LSAVF = LEWT + N
-    * save[i] = rwork[lsavf+i].
-    */
-   double * save; //!< trick_units(--)
-   /**
-    * was RWORK[LACOR:LACOR+N-1]. LACOR = LSAVF + N
-    * acum_correction[i] = rwork[lacor+i].
-    */
-   double * accum_correction; //!< trick_units(--)
+    /**
+     * was RWORK[LYH:LYH+NYH*(MAXORD+1)-1].  LYH = 21
+     * First index is to "i" in y_i, second index is to history order.
+     * history[i,j] = rwork[LYH + j*nyh + i], with lyh = 21 typically.
+     */
+    double ** history{}; //!< trick_units(--)
+    double lin_alg_1{};
+    double lin_alg_2{};
+    /**
+     * was RWORK[LWM:LWM+LENWM-1].  LWM = LYH + (NYH*(MAXORD+1))
+     * lin_alg_1 = rwork[lwm]
+     * lin_alg_2 = rwork[lwm + 1]
+     * lin_alg[i,j] = rwork[lwm+ j*n + i + 2].
+     * The first two elements are treated differently, then it goes to an
+     * array that is sized based on the correction_method.
+     * The array sizes are as follows, ordered by value of correction_method:
+     * 0:     0
+     * 1,2:   n x n
+     * 3:     1 x n
+     * 4,5:   (2*ml+mu+1) x n.
+     */
+    double ** lin_alg{}; //!< trick_units(--)
+    /**
+     * was RWORK[LEWT:LEWT+N-1].  LEWT = LWM + LENWM
+     * error_weight[i] = rwork[lewt+i].
+     */
+    double * error_weight{}; //!< trick_units(--)
+    /**
+     * was RWORK[LSAVF:LSAVF+N-1]. LSAVF = LEWT + N
+     * save[i] = rwork[lsavf+i].
+     */
+    double * save{}; //!< trick_units(--)
+    /**
+     * was RWORK[LACOR:LACOR+N-1]. LACOR = LSAVF + N
+     * acum_correction[i] = rwork[lacor+i].
+     */
+    double * accum_correction{}; //!< trick_units(--)
 
+    /**
+     * Number of record, this is the value used for data allocation.
+     */
+    unsigned int lin_alg_index1{}; //!< trick_units(--)
+    /**
+     * Number of record, this is the value used for data allocation.
+     */
+    unsigned int num_odes{3}; //!< trick_units(--)
 
-   /**
-    * Number of record, this is the value used for data allocation.
-    */
-   unsigned int lin_alg_index1; //!< trick_units(--)
-   /**
-    * Number of record, this is the value used for data allocation.
-    */
-   unsigned int num_odes;  //!< trick_units(--)
-
-   /**
-    * Indicator of whether the arrays have been allocated.
-    */
-   bool allocated; //!< trick_units(--)
-
-private:
-   LsodeDataArrays & operator=(const LsodeDataArrays & src);
-   LsodeDataArrays(            const LsodeDataArrays & src);
+    /**
+     * Indicator of whether the arrays have been allocated.
+     */
+    bool allocated{}; //!< trick_units(--)
 };
-
 
 /**
  * The data associated with method Dstode
  */
 class LsodeDataStode
 {
-JEOD_MAKE_SIM_INTERFACES(LsodeDataStode)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeDataStode)
 
 public:
+    LsodeDataStode() = default;
+    virtual ~LsodeDataStode() = default;
+    LsodeDataStode & operator=(const LsodeDataStode &) = delete;
+    LsodeDataStode(const LsodeDataStode &) = delete;
 
-  /**
-   * Destructor.
-   */
-  virtual ~LsodeDataStode(void){};
-  LsodeDataStode(void);
-
-// Variables used within the DSTODE method, which has been dividied into
-// multiple sub-methods.  Adding these to the class to avoid having to
-// track them across multiple methods.  They are internal.
-   double step_ratio;
-   double step_ratio_order_inc;
-   double told;
-   double dsm;
-   int iredo;
-   int iret;
-   unsigned int ncf;
-   unsigned int new_method_order;
-
-private:
-   LsodeDataStode & operator=(const LsodeDataStode & src);
-   LsodeDataStode(            const LsodeDataStode & src);
+    // Variables used within the DSTODE method, which has been dividied into
+    // multiple sub-methods.  Adding these to the class to avoid having to
+    // track them across multiple methods.  They are internal.
+    double step_ratio{};
+    double step_ratio_order_inc{};
+    double told{};
+    double dsm{};
+    int iredo{};
+    int iret{};
+    unsigned int ncf{};
+    unsigned int new_method_order{};
 };
 
 } // namespace jeod

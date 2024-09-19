@@ -45,7 +45,7 @@ def set_single_vehicle_run(jeod_sys, earth, target, options) :
   log_data(options)
 
 
-  jeod_sys.interface_init.message_suppression_level = 1000
+  jeod_sys.interface_init.message_suppression_level = trick.MessageHandler.Debug
 
 
   #// Initialize the launch pad.

@@ -56,10 +56,6 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/flat_plate_thermal.cc))
-
- 
 *******************************************************************************/
 
 #ifndef JEOD_FLAT_PLATE_THERMAL_HH
@@ -74,41 +70,30 @@ Library dependencies:
 // Model includes
 #include "flat_plate.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A FlatPlate implementation of Facet, with thermal information.
  */
-class FlatPlateThermal : public FlatPlate {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateThermal)
+class FlatPlateThermal : public FlatPlate
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateThermal)
 
 public:
+    FlatPlateThermal() = default;
+    ~FlatPlateThermal() override = default;
+    FlatPlateThermal & operator=(const FlatPlateThermal &) = delete;
+    FlatPlateThermal(const FlatPlateThermal &) = delete;
 
-   // constructor
-   FlatPlateThermal ();
-
-   // destructor
-   ~FlatPlateThermal () override;
-
-   /**
-    * Thermal characteristics rider.
-    */
-   ThermalFacetRider thermal; //!< trick_units(--)
-
-protected:
-
-private:
-
-   // Operator = and copy constructor locked from use by being private
-   FlatPlateThermal& operator = (const FlatPlateThermal& rhs);
-   FlatPlateThermal (const FlatPlateThermal& rhs);
-
+    /**
+     * Thermal characteristics rider.
+     */
+    ThermalFacetRider thermal; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

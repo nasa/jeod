@@ -27,7 +27,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -38,45 +37,27 @@ Library dependencies:
 // Model includes
 #include "../include/planetary_derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct a PlanetaryDerivedState object.
- */
-PlanetaryDerivedState::PlanetaryDerivedState (
-   void)
-:
-   planet (nullptr),
-   use_alt_pfix(false),
-   pfix_ptr(nullptr)
+namespace jeod
 {
-}
-
-
 /**
  * Destruct a PlanetaryDerivedState object.
  */
-PlanetaryDerivedState::~PlanetaryDerivedState (
-   void)
+PlanetaryDerivedState::~PlanetaryDerivedState()
 {
-   if (pfix_ptr != nullptr) {
-      pfix_ptr->unsubscribe();
-   }
+    if(pfix_ptr != nullptr)
+    {
+        pfix_ptr->unsubscribe();
+    }
 }
-
 
 /**
  * Setter for use_alt_pfix
  */
-void
-PlanetaryDerivedState::set_use_alt_pfix (
-   const bool use_alt_pfix_in)
+void PlanetaryDerivedState::set_use_alt_pfix(const bool use_alt_pfix_in)
 {
-   use_alt_pfix = use_alt_pfix_in;
+    use_alt_pfix = use_alt_pfix_in;
 }
-
 
 /**
  * Begin initialization of a PlanetaryDerivedState.
@@ -86,50 +67,44 @@ PlanetaryDerivedState::set_use_alt_pfix (
  * \param[in,out] subject_body Subject body
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-PlanetaryDerivedState::initialize (
-   DynBody & subject_body,
-   DynManager & dyn_manager)
+void PlanetaryDerivedState::initialize(DynBody & subject_body, DynManager & dyn_manager)
 {
+    // Initialize as a DerivedState.
+    DerivedState::initialize(subject_body, dyn_manager);
 
-   // Initialize as a DerivedState.
-   DerivedState::initialize (subject_body, dyn_manager);
+    // Find the planet.
+    // Note that find_planet doesn't return if the named planet is not found.
+    planet = find_planet(dyn_manager, reference_name, "reference_name");
 
-   // Find the planet.
-   // Note that find_planet doesn't return if the named planet is not found.
-   planet = find_planet (dyn_manager, reference_name, "reference_name");
+    // Choose the planet fixed frame to be used
+    if(use_alt_pfix)
+    {
+        pfix_ptr = &(planet->alt_pfix);
+    }
+    else
+    {
+        pfix_ptr = &(planet->pfix);
+    }
+    pfix_ptr->subscribe();
 
-   // Choose the planet fixed frame to be used
-   if (use_alt_pfix) {
-      pfix_ptr = &(planet->alt_pfix);
-   } else {
-      pfix_ptr = &(planet->pfix);
-   }
-   pfix_ptr->subscribe();
-
-   // Initialize the planet-fixed position.
-   state.initialize (planet);
-
-   return;
+    // Initialize the planet-fixed position.
+    state.initialize(planet);
 }
-
 
 /**
  * Update the state.
  */
-void
-PlanetaryDerivedState::update (
-   void)
+void PlanetaryDerivedState::update()
 {
-   double pfix_pos[3];
+    double pfix_pos[3];
 
-   // Compute the cartesian coordinates relative to the planet fixed frame and
-   // update the planet fixed position from these cartesian coordinates.
-   subject->composite_body.compute_position_from (*pfix_ptr, pfix_pos);
-   state.update_from_cart (pfix_pos);
+    // Compute the cartesian coordinates relative to the planet fixed frame and
+    // update the planet fixed position from these cartesian coordinates.
+    subject->composite_body.compute_position_from(*pfix_ptr, pfix_pos);
+    state.update_from_cart(pfix_pos);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -15,8 +15,8 @@ LIBRARY DEPENDENCY:
 ******************************************************************************/
 
 /* System Includes */
-#include <cstring>
 #include <cstdio>
+#include <cstring>
 
 /* JEOD Includes */
 #include "utils/named_item/include/named_item.hh"
@@ -24,11 +24,9 @@ LIBRARY DEPENDENCY:
 /* Model Includes */
 #include "../include/time_new.hh"
 
-
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /******************************************************************************
  Function: Time_New::Time_New
@@ -37,19 +35,8 @@ namespace jeod {
 ******************************************************************************/
 TimeNew::TimeNew()
 {
-  name = "New";
-}
-
-
-
-/******************************************************************************
- Function: Time_New::~Time_New
- Purpose: (Destroy a Time_TAINew
- Class:   (N/A)
-******************************************************************************/
-TimeNew::~TimeNew()
-{
+    name = "New";
 }
 
 /****************************************************************************/
-} // End JEOD namespace
+} // namespace jeod

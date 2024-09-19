@@ -58,10 +58,8 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_BASE_EPHEM_MANAGER_HH
 #define JEOD_BASE_EPHEM_MANAGER_HH
-
 
 // System includes
 #include <vector>
@@ -70,9 +68,9 @@ Purpose:
 #include "utils/ref_frames/include/base_ref_frame_manager.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Forward declarations
 class BasePlanet;
@@ -83,161 +81,149 @@ class EphemerisItem;
 class EphemerisOrientation;
 class EphemerisPoint;
 
-
 /**
  * The EphemManager class augments the RefFrameManager with ephemeris-related
  * items. This class defines the external interfaces to that class.
  */
-class BaseEphemeridesManager :
-   virtual public BaseRefFrameManager {
-
-JEOD_MAKE_SIM_INTERFACES(BaseEphemeridesManager)
+class BaseEphemeridesManager : virtual public BaseRefFrameManager
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BaseEphemeridesManager)
 
 public:
+    // Member functions
+    // Note: The default constructor, copy constructor, and assignment operator
+    // for this class are not declared. The C++ defaults are in force.
 
-   // Member functions
-   // Note: The default constructor, copy constructor, and assignment operator
-   // for this class are not declared. The C++ defaults are in force.
+    /**
+     * Destructor.
+     */
+    ~BaseEphemeridesManager() override = default;
 
-   /**
-    * Destructor.
-    */
-   ~BaseEphemeridesManager () override {}
+    // Ref frame tree methods
 
+    /**
+     * Denote that the tree needs to be rebuilt.
+     */
+    virtual void ephem_note_tree_status_change() = 0;
 
-   // Ref frame tree methods
+    // Planet methods
 
-   /**
-    * Denote that the tree needs to be rebuilt.
-    */
-   virtual void ephem_note_tree_status_change () = 0;
+    /**
+     * Add a planet to the list of such.
+     * @param planet  Planet to be added.
+     */
+    virtual void add_planet(BasePlanet & planet) = 0;
 
+    /**
+     * Add a planet to the list of such.
+     * @param planet  Planet to be added.
+     */
+    virtual void add_planet(Planet & planet) = 0;
 
-   // Planet methods
+    /**
+     * Find a planet.
+     * @param name  Planet name.
+     * @return Pointer to found planet.
+     */
+    virtual BasePlanet * find_base_planet(const std::string & name) const = 0;
 
-   /**
-    * Add a planet to the list of such.
-    * @param planet  Planet to be added.
-    */
-   virtual void add_planet (BasePlanet & planet) = 0;
+    /**
+     * Find a planet.
+     * @param name  Planet name.
+     * @return Pointer to found planet.
+     */
+    virtual Planet * find_planet(const std::string & name) const = 0;
 
-   /**
-    * Add a planet to the list of such.
-    * @param planet  Planet to be added.
-    */
-   virtual void add_planet (Planet & planet) = 0;
+    /**
+     * Return number of registered planets.
+     * @return Number of planets.
+     */
+    virtual unsigned int get_num_planets() const = 0;
 
-   /**
-    * Find a planet.
-    * @param name  Planet name.
-    * @return Pointer to found planet.
-    */
-   virtual BasePlanet * find_base_planet (const char * name) const = 0;
+    // Ephemeris model methods
 
-   /**
-    * Find a planet.
-    * @param name  Planet name.
-    * @return Pointer to found planet.
-    */
-   virtual Planet * find_planet (const char * name) const = 0;
+    /**
+     * Add an ephemeris model to the list of such.
+     * @param ephem_if  Ephemeris model to be added.
+     */
+    virtual void add_ephemeris(EphemerisInterface & ephem_if) = 0;
 
-   /**
-    * Return number of registered planets.
-    * @return Number of planets.
-    */
-   virtual unsigned int get_num_planets (void) const = 0;
+    /**
+     * Deactivate all registered ephemeris models.
+     */
+    virtual void clear_added_ephemerides() = 0;
 
+    /**
+     * Disable registration of new ephemeris models.
+     */
+    virtual void disable_add_ephemeris() = 0;
 
-   // Ephemeris model methods
+    // EphemerisItem methods
 
-   /**
-    * Add an ephemeris model to the list of such.
-    * @param ephem_if  Ephemeris model to be added.
-    */
-   virtual void add_ephemeris (EphemerisInterface & ephem_if) = 0;
+    /**
+     * Add an ephemeris item to the list of such.
+     * @param ephem_item  Item to be added.
+     */
+    virtual void add_ephem_item(EphemerisItem & ephem_item) = 0;
 
-   /**
-    * Deactivate all registered ephemeris models.
-    */
-   virtual void clear_added_ephemerides (void) = 0;
+    /**
+     * Find an ephemeris item.
+     * @param name  Item to be found.
+     * @return Found item.
+     */
+    virtual EphemerisItem * find_ephem_item(const std::string & name) const = 0;
 
-   /**
-    * Disable registration of new ephemeris models.
-    */
-   virtual void disable_add_ephemeris (void) = 0;
+    /**
+     * Find an ephemeris orientation.
+     * @param name  Item to be found.
+     * @return Found item.
+     */
+    virtual EphemerisOrientation * find_ephem_angle(const std::string & name) const = 0;
 
+    /**
+     * Find an ephemeris point.
+     * @param name  Item to be found.
+     * @return Found item.
+     */
+    virtual EphemerisPoint * find_ephem_point(const std::string & name) const = 0;
 
-   // EphemerisItem methods
+    // Integration frame methods
 
-   /**
-    * Add an ephemeris item to the list of such.
-    * @param ephem_item  Item to be added.
-    */
-   virtual void add_ephem_item (EphemerisItem & ephem_item) = 0;
+    /**
+     * Add an integration frame to the list of such.
+     * @param ref_frame  Frame to be added.
+     */
+    virtual void add_integ_frame(EphemerisRefFrame & ref_frame) = 0;
 
-   /**
-    * Find an ephemeris item.
-    * @param name  Item to be found.
-    * @return Found item.
-    */
-   virtual EphemerisItem * find_ephem_item (const char * name) const = 0;
+    /**
+     * Find an integration frame.
+     * @param name  Frame to be found.
+     * @return Found frame.
+     */
+    virtual EphemerisRefFrame * find_integ_frame(const std::string & name) const = 0;
 
-   /**
-    * Find an ephemeris orientation.
-    * @param name  Item to be found.
-    * @return Found item.
-    */
-   virtual EphemerisOrientation * find_ephem_angle (const char * name)
-   const = 0;
+    /**
+     * Check whether a reference frame is an integration frame.
+     * @param ref_frame  Frame to be checked.
+     * @return True if ref_frame is an integration frame, false otherwise.
+     */
+    virtual bool is_integ_frame(const RefFrame & ref_frame) const = 0;
 
-   /**
-    * Find an ephemeris point.
-    * @param name  Item to be found.
-    * @return Found item.
-    */
-   virtual EphemerisPoint * find_ephem_point (const char * name) const = 0;
+    /**
+     * Find a reference frame's index in the list of integration frames.
+     * @param ref_frame  Frame to be checked.
+     * @return Frame index.
+     */
+    virtual unsigned int find_integ_frame_index(const EphemerisRefFrame & ref_frame) const = 0;
 
-
-   // Integration frame methods
-
-   /**
-    * Add an integration frame to the list of such.
-    * @param ref_frame  Frame to be added.
-    */
-   virtual void add_integ_frame (EphemerisRefFrame & ref_frame) = 0;
-
-   /**
-    * Find an integration frame.
-    * @param name  Frame to be found.
-    * @return Found frame.
-    */
-   virtual EphemerisRefFrame * find_integ_frame (const char * name) const = 0;
-
-   /**
-    * Check whether a reference frame is an integration frame.
-    * @param ref_frame  Frame to be checked.
-    * @return True if ref_frame is an integration frame, false otherwise.
-    */
-   virtual bool is_integ_frame (const RefFrame & ref_frame) const = 0;
-
-   /**
-    * Find a reference frame's index in the list of integration frames.
-    * @param ref_frame  Frame to be checked.
-    * @return Frame index.
-    */
-   virtual unsigned int find_integ_frame_index (
-      const EphemerisRefFrame & ref_frame) const = 0;
-
-   /**
-    * Get the vector of integration frames.
-    * @return Vector of reference frame pointers.
-    */
-   virtual const std::vector<EphemerisRefFrame *> & get_integ_frames (void)
-   const = 0;
+    /**
+     * Get the vector of integration frames.
+     * @return Vector of reference frame pointers.
+     */
+    virtual const std::vector<EphemerisRefFrame *> & get_integ_frames() const = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

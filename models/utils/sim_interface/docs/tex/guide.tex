@@ -158,13 +158,13 @@ JeodIntegLoopSimObject fast_integ_loop (
    FAST_DYNAMICS,
    integ_constructor.selected_constr, integ_constructor.group,
    jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager,
-   &sun, &jupiter, &saturn, NULL);
+   &sun, &jupiter, &saturn, nullptr);
 
 JeodIntegLoopSimObject slow_integ_loop (
    SLOW_DYNAMICS,
    integ_constructor.selected_constr, integ_constructor.group,
    jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager,
-   NULL);
+   nullptr);
 \end{codeblock}
 
 The only public constructor for the \verb|JeodIntegLoopSimObject| is the

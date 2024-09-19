@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 fin = open('Rosseta_bench.txt', 'r')
 fout = open('rosseta_data.txt', 'w')
@@ -19,8 +19,8 @@ for line in fin:
       tmp_str = tmp_str.strip()
       out_str += ' ' + tmp_str + '\n'
       fout.write(out_str)
-   i += 1 
-     
+   i += 1
+
 fin.close()
 fout.close()
 

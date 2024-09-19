@@ -58,35 +58,33 @@ Assumptions:
 
 class DynamicsNoIntegSimObject: public Trick::SimObject
 {
- protected:
-  // Reference to the external time manager.
-  jeod::TimeManager & time_manager;
- public:
-  jeod::DynManager             dyn_manager;
-  jeod::DynManagerInit         dyn_manager_init;
+protected:
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 
-  // Constructor
-  DynamicsNoIntegSimObject ( jeod::TimeManager & time_manager_in)
-    :
-    time_manager (time_manager_in)
-  {
-    //
-    // Initialization jobs
-    //
-    P_MNGR  ("initialization") dyn_manager.initialize_model ( dyn_manager_init,
-                                                              time_manager);
-    P_MNGR_INIT_SIM ("initialization") dyn_manager.initialize_simulation ( );
+public:
+    jeod::DynManager dyn_manager;
+    jeod::DynManagerInit dyn_manager_init;
 
-    //
-    // Environment class jobs
-    //
-    (DYNAMICS, "environment") dyn_manager.update_ephemerides ( );
-    (DYNAMICS, "environment") dyn_manager.perform_actions ( );
-  }
+    // Constructor
+    DynamicsNoIntegSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_MNGR("initialization") dyn_manager.initialize_model(dyn_manager_init, time_manager);
+        P_MNGR_INIT_SIM("initialization") dyn_manager.initialize_simulation();
 
- private:
-   // Unimplemented copy constructor and assignment operator
-   DynamicsNoIntegSimObject (const DynamicsNoIntegSimObject&);
-   DynamicsNoIntegSimObject & operator = (const DynamicsNoIntegSimObject&);
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") dyn_manager.update_ephemerides();
+        (DYNAMICS, "environment") dyn_manager.perform_actions();
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    DynamicsNoIntegSimObject(const DynamicsNoIntegSimObject &) = delete;
+    DynamicsNoIntegSimObject & operator=(const DynamicsNoIntegSimObject &) = delete;
 };
 #endif

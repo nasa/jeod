@@ -59,79 +59,59 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/template_messages.cc))
 
- 
+
 
 *******************************************************************************/
 
-
 #ifndef JEOD_TEMPLATE_MESSAGES_HH
 #define JEOD_TEMPLATE_MESSAGES_HH
-
 
 // System includes
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Declares messages associated with the model template model.
  */
-class TemplateMessages {
+class TemplateMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TemplateMessages)
 
+    // Static member data
+public:
+    /**
+     * Number is less than -42.
+     */
+    static const char * big_negnum; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(TemplateMessages)
+    /**
+     * Number is zero.
+     */
+    static const char * zero; //!< trick_units(--)
 
+    /**
+     * Number is greater than 42.
+     */
+    static const char * big_posnum; //!< trick_units(--)
 
- // Static member data
- public:
-
-   /**
-    * Number is less than -42.
-    */
-   static char const * big_negnum; //!< trick_units(--)
-
-   /**
-    * Number is zero.
-    */
-   static char const * zero; //!< trick_units(--)
-
-   /**
-    * Number is greater than 42.
-    */
-   static char const * big_posnum; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   /**
-    * Not implemented.
-    */
-   TemplateMessages (void);
-
-   /**
-    * Not implemented.
-    */
-   TemplateMessages (const TemplateMessages &);
-
-   /**
-    * Not implemented.
-    */
-   TemplateMessages & operator= (const TemplateMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    TemplateMessages() = delete;
+    TemplateMessages(const TemplateMessages &) = delete;
+    TemplateMessages & operator=(const TemplateMessages &) = delete;
 };
 
 /**
  * @}
  */
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -53,24 +53,28 @@
 //
 //==============================================================================
 
-
 // Define job calling intervals
-#define DYNAMICS      1.00   // Dynamics update interval
+#define DYNAMICS 1.00 // Dynamics update interval
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
-#include "environment_sans_de405.sm"
 #include "earth_basic.sm"
+#include "environment_sans_de405.sm"
 
 ##include "dynamics/mass/include/mass_point_init.hh"
 #include "Base/vehicle_baseline.sm"
-VehicleBasicSimObject veh1( dynamics.dyn_manager);
-VehicleBasicSimObject veh2( dynamics.dyn_manager);
+VehicleBasicSimObject veh1(dynamics.dyn_manager);
+VehicleBasicSimObject veh2(dynamics.dyn_manager);
 
 
 //***************************************************************
@@ -88,53 +92,46 @@ VehicleBasicSimObject veh2( dynamics.dyn_manager);
 
 class RelkinSimObject: public Trick::SimObject
 {
-   protected:
-// Instances for matching to other sim objects:
+protected:
+    // Instances for matching to other sim objects:
 
-    jeod::DynManager        & dyn_mgr;
+    jeod::DynManager & dyn_mgr;
     jeod::DynBody & body2;
 
-   public:
-    jeod::RelativeKinematics         relkin;
-    jeod::RelativeDerivedState       cm_relstate;
-    jeod::RelativeDerivedState       sensor1_relstate;
-    jeod::RelativeDerivedState       sensor2_relstate;
+public:
+    jeod::RelativeKinematics relkin;
+    jeod::RelativeDerivedState cm_relstate;
+    jeod::RelativeDerivedState sensor1_relstate;
+    jeod::RelativeDerivedState sensor2_relstate;
 
-//Constructor
-    RelkinSimObject(
-           jeod::DynManager        & dyn_mgr_in,
-           jeod::DynBody & body2_in)
-      :
-      dyn_mgr( dyn_mgr_in),
-      body2  (body2_in)
-   {
-   //
-   // Initialization jobs
-   //
-      P_DYN  ("initialization") cm_relstate.initialize ( body2,
-                                                         dyn_mgr);
-      P_DYN  ("initialization") relkin.add_relstate ( cm_relstate);
-      P_DYN  ("initialization") sensor1_relstate.initialize ( body2,
-                                                              dyn_mgr);
-      P_DYN  ("initialization") relkin.add_relstate ( sensor1_relstate);
-      P_DYN  ("initialization") sensor2_relstate.initialize ( body2,
-                                                              dyn_mgr);
-      P_DYN  ("initialization") relkin.add_relstate ( sensor2_relstate);
-   //
-   // Environment class jobs
-   //
-      (DYNAMICS, "environment") relkin.update_all ( );
-   //
-   // Derivative class jobs
-   //
-      P_ENV ("derivative") relkin.update_single ( cm_relstate.name.c_str());
+    // Constructor
+    RelkinSimObject(jeod::DynManager & dyn_mgr_in, jeod::DynBody & body2_in)
+        : dyn_mgr(dyn_mgr_in),
+          body2(body2_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") cm_relstate.initialize(body2, dyn_mgr);
+        P_DYN("initialization") relkin.add_relstate(cm_relstate);
+        P_DYN("initialization") sensor1_relstate.initialize(body2, dyn_mgr);
+        P_DYN("initialization") relkin.add_relstate(sensor1_relstate);
+        P_DYN("initialization") sensor2_relstate.initialize(body2, dyn_mgr);
+        P_DYN("initialization") relkin.add_relstate(sensor2_relstate);
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") relkin.update_all();
+        //
+        // Derivative class jobs
+        //
+        P_ENV("derivative") relkin.update_single(cm_relstate.name.c_str());
     }
 
-  private:
-    RelkinSimObject (const RelkinSimObject&);
-    RelkinSimObject & operator = (const RelkinSimObject&);
-
+    RelkinSimObject(const RelkinSimObject &) = delete;
+    RelkinSimObject & operator=(const RelkinSimObject &) = delete;
 };
-RelkinSimObject relkin ( dynamics.dyn_manager, veh2.dyn_body);
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics, relkin;
+RelkinSimObject relkin(dynamics.dyn_manager, veh2.dyn_body);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, relkin;

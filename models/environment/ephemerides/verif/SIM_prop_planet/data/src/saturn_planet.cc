@@ -24,17 +24,15 @@ class Planet;
 // Unsupported includes
 #include "../include/saturn_planet.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-void
-Planet_saturn_default_data::initialize (
-   Planet * Planet_ptr)
+namespace jeod
 {
-   Planet_ptr->name = "Saturn";
-   Planet_ptr->flat_coeff = 0.09796;
-   Planet_ptr->r_eq = 1000 * (60268);
+
+void Planet_saturn_default_data::initialize(Planet * Planet_ptr)
+{
+    Planet_ptr->name = "Saturn";
+    Planet_ptr->flat_coeff = 0.09796;
+    Planet_ptr->r_eq = 1000 * (60268);
 }
 
-} // End JEOD namespace
+} // namespace jeod

@@ -34,17 +34,15 @@ Library dependencies:
    (nutation_j2000_init.cc)
    (environment/RNP/GenericRNP/src/RNP_messages.cc)
    (environment/RNP/GenericRNP/src/planet_rotation.cc)
-   (environment/RNP/GenericRNP/src/planet_rotation_init.cc)
-   (utils/sim_interface/src/memory_interface.cc)
    (utils/message/src/message_handler.cc))
 
- 
+
 
 *******************************************************************************/
 
 // System includes
-#include <cstddef>
 #include <cmath>
+#include <cstddef>
 
 // JEOD includes
 #include "environment/RNP/GenericRNP/include/RNP_messages.hh"
@@ -56,205 +54,114 @@ Library dependencies:
 #include "../include/nutation_j2000.hh"
 #include "../include/nutation_j2000_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Constructor. Initialize all in class data
- */
-NutationJ2000::NutationJ2000 (
-   void)
-:
-   num_coeffs(0),
-   L_coeffs(nullptr),
-   M_coeffs(nullptr),
-   F_coeffs(nullptr),
-   D_coeffs(nullptr),
-   omega_coeffs(nullptr),
-   long_coeffs(nullptr),
-   long_t_coeffs(nullptr),
-   obliq_coeffs(nullptr),
-   obliq_t_coeffs(nullptr),
-   nutation_in_longitude(0.0),
-   nutation_in_obliquity(0.0),
-   L(0.0),
-   M(0.0),
-   F(0.0),
-   D(0.0),
-   omega(0.0),
-   epsilon_bar(0.0),
-   equa_of_equi(0.0)
+namespace jeod
 {
-
-   // empty for now
-}
 
 /**
  * destructor
  */
-NutationJ2000::~NutationJ2000 (
-   void)
+NutationJ2000::~NutationJ2000()
 {
-   if (L_coeffs != nullptr && JEOD_IS_ALLOCATED(L_coeffs)) {
-      JEOD_DELETE_ARRAY (L_coeffs);
-      L_coeffs = nullptr;
-   }
-   if (M_coeffs != nullptr && JEOD_IS_ALLOCATED(M_coeffs)) {
-      JEOD_DELETE_ARRAY (M_coeffs);
-      M_coeffs = nullptr;
-   }
-   if (F_coeffs != nullptr && JEOD_IS_ALLOCATED(F_coeffs)) {
-      JEOD_DELETE_ARRAY (F_coeffs);
-      F_coeffs = nullptr;
-   }
-   if (D_coeffs != nullptr && JEOD_IS_ALLOCATED(D_coeffs)) {
-      JEOD_DELETE_ARRAY (D_coeffs);
-      D_coeffs = nullptr;
-   }
-   if (omega_coeffs != nullptr && JEOD_IS_ALLOCATED(omega_coeffs)) {
-      JEOD_DELETE_ARRAY (omega_coeffs);
-      omega_coeffs = nullptr;
-   }
-
-   if (long_coeffs != nullptr && JEOD_IS_ALLOCATED(long_coeffs)) {
-      JEOD_DELETE_ARRAY (long_coeffs);
-      long_coeffs = nullptr;
-   }
-   if (long_t_coeffs != nullptr && JEOD_IS_ALLOCATED(long_t_coeffs)) {
-      JEOD_DELETE_ARRAY (long_t_coeffs);
-      long_t_coeffs = nullptr;
-   }
-   if (obliq_coeffs != nullptr && JEOD_IS_ALLOCATED(obliq_coeffs)) {
-      JEOD_DELETE_ARRAY (obliq_coeffs);
-      obliq_coeffs = nullptr;
-   }
-   if (obliq_t_coeffs != nullptr && JEOD_IS_ALLOCATED(obliq_t_coeffs)) {
-      JEOD_DELETE_ARRAY (obliq_t_coeffs);
-      obliq_t_coeffs = nullptr;
-   }
-
+    JEOD_DELETE_ARRAY(L_coeffs);
+    JEOD_DELETE_ARRAY(M_coeffs);
+    JEOD_DELETE_ARRAY(F_coeffs);
+    JEOD_DELETE_ARRAY(D_coeffs);
+    JEOD_DELETE_ARRAY(omega_coeffs);
+    JEOD_DELETE_ARRAY(long_coeffs);
+    JEOD_DELETE_ARRAY(long_t_coeffs);
+    JEOD_DELETE_ARRAY(obliq_coeffs);
+    JEOD_DELETE_ARRAY(obliq_t_coeffs);
 }
 
 /**
  * Specific implementation of update_rotation, from the polymorphic
  * pure virtual base class PlanetRotation
  */
-void
-NutationJ2000::update_rotation (
-   void)
+void NutationJ2000::update_rotation()
 {
+    // This implements the Bond / Vallado implementation of J2000 nutation,
+    // as referenced in the documentation
+    // compute the fundamental arguments
+    // time2 is the square of the time, time3 is the cube
+    double time = current_time;
+    double time2 = 0.0;
+    double time3 = 0.0;
 
-   // This implements the Bond / Vallado implementation of J2000 nutation,
-   // as referenced in the documentation
-   // compute the fundamental arguments
-   // time2 is the square of the time, time3 is the cube
-   double time  = current_time;
-   double time2 = 0.0;
-   double time3 = 0.0;
+    time2 = time * time;
+    time3 = time2 * time;
 
-   time2 = time * time;
-   time3 = time2 * time;
+    // the fundamental arguments are in degrees
 
-   // the fundamental arguments are in degrees
+    L = 134.9629813888889 + 477198.8673980555 * time + 0.008697222222222223 * time2 + 0.00001777777777777778 * time3;
 
-   L = 134.9629813888889 +
-       477198.8673980555 * time +
-       0.008697222222222223 * time2 +
-       0.00001777777777777778 * time3;
+    M = 357.5277233333333 + 35999.05034 * time - 0.00016027777777777778 * time2 - 0.000003333333333333333 * time3;
 
-   M = 357.5277233333333 +
-       35999.05034 * time -
-       0.00016027777777777778 * time2 -
-       0.000003333333333333333 * time3;
+    F = 93.27191027777778 + 483202.0175380555 * time - 0.0036825 * time2 + 0.000003055555555555555 * time3;
 
-   F = 93.27191027777778 +
-       483202.0175380555 * time -
-       0.0036825 * time2 +
-       0.000003055555555555555 * time3;
+    D = 297.8503630555556 + 445267.11148 * time - 0.001914166666666667 * time2 + 0.0000052777777777777778 * time3;
 
-   D = 297.8503630555556 +
-       445267.11148 * time -
-       0.001914166666666667 * time2 +
-       0.0000052777777777777778 * time3;
+    omega = 125.0445222222222 - 1934.136260833333 * time + 0.00207083333333333 * time2 +
+            0.000002222222222222222 * time3;
 
-   omega = 125.0445222222222 -
-           1934.136260833333 * time +
-           0.00207083333333333 * time2 +
-           0.000002222222222222222 * time3;
+    nutation_in_longitude = 0.0;
+    nutation_in_obliquity = 0.0;
+    for(unsigned int i = 0; i < num_coeffs; ++i)
+    {
+        double api = L_coeffs[i] * L + M_coeffs[i] * M + F_coeffs[i] * F + D_coeffs[i] * D + omega_coeffs[i] * omega;
+        api *= DEGTORAD;
 
+        nutation_in_longitude += ((long_coeffs[i] + long_t_coeffs[i] * time)) * sin(api);
 
-   nutation_in_longitude = 0.0;
-   nutation_in_obliquity = 0.0;
-   for (unsigned int i = 0; i < num_coeffs; ++i) {
+        nutation_in_obliquity += ((obliq_coeffs[i] + obliq_t_coeffs[i] * time)) * cos(api);
 
-      double api = L_coeffs[i] * L +
-                   M_coeffs[i] * M +
-                   F_coeffs[i] * F +
-                   D_coeffs[i] * D +
-                   omega_coeffs[i] * omega;
-      api *= DEGTORAD;
+    } // for(unsigned int i = 0)
 
-      nutation_in_longitude +=
-         ((long_coeffs[i] + long_t_coeffs[i] * time)) *
-         sin (api);
+    // note that the numbers here have been converted from arcseconds to degrees
 
-      nutation_in_obliquity +=
-         ((obliq_coeffs[i] + obliq_t_coeffs[i] * time)) *
-         cos (api);
+    epsilon_bar = 23.43929111111111 - 0.01300416666666667 * time - 0.00000016388888889 * time2 +
+                  0.00000050361111111 * time3;
+    epsilon_bar *= DEGTORAD;
 
-   } // for(unsigned int i = 0)
+    // based on the JEOD 1.52 code, the nutations in obliquity and
+    // longitude are apparently in units of x 10^-4 arcseconds
+    // thus these conversions are necessary to get to radians
+    // also, to match numerical precesion of JEOD 1.52, some concessions
+    // (dividing by DEGTOSEC) are made to the old order of operations
+    nutation_in_obliquity = ((nutation_in_obliquity / 10000.0) / 3600.0) * DEGTORAD;
 
-   // note that the numbers here have been converted from arcseconds to degrees
+    double epsilon = 0.0;
+    epsilon = epsilon_bar + nutation_in_obliquity;
 
-   epsilon_bar = 23.43929111111111 -
-                 0.01300416666666667 * time -
-                 0.00000016388888889 * time2 +
-                 0.00000050361111111 * time3;
-   epsilon_bar *= DEGTORAD;
+    nutation_in_longitude /= 10000.0;
+    double c_eps = cos(epsilon);
+    equa_of_equi = (nutation_in_longitude * c_eps) / 15.0;
 
-   // based on the JEOD 1.52 code, the nutations in obliquity and
-   // longitude are apparently in units of x 10^-4 arcseconds
-   // thus these conversions are necessary to get to radians
-   // also, to match numerical precesion of JEOD 1.52, some concessions
-   // (dividing by DEGTOSEC) are made to the old order of operations
-   nutation_in_obliquity =
-      ((nutation_in_obliquity / 10000.0) / 3600.0) * DEGTORAD;
+    nutation_in_longitude = (nutation_in_longitude / 3600) * DEGTORAD;
 
-   double epsilon = 0.0;
-   epsilon = epsilon_bar + nutation_in_obliquity;
+    // populate the trig functions needed for the rotation matrix
+    double c_long = cos(nutation_in_longitude);
+    double s_long = sin(nutation_in_longitude);
 
-   nutation_in_longitude /= 10000.0;
-   double c_eps = cos (epsilon);
-   equa_of_equi = (nutation_in_longitude * c_eps) / 15.0;
+    double s_eps = sin(epsilon);
 
-   nutation_in_longitude =  (nutation_in_longitude / 3600) * DEGTORAD;
+    double c_eps_bar = cos(epsilon_bar);
+    double s_eps_bar = sin(epsilon_bar);
 
-   // populate the trig functions needed for the rotation matrix
-   double c_long = cos (nutation_in_longitude);
-   double s_long = sin (nutation_in_longitude);
+    Matrix3x3::identity(rotation);
 
-   double s_eps = sin (epsilon);
+    // populate the rotation matrix
+    rotation[0][0] = c_long;
+    rotation[0][1] = c_eps * s_long;
+    rotation[0][2] = s_eps * s_long;
 
-   double c_eps_bar = cos (epsilon_bar);
-   double s_eps_bar = sin (epsilon_bar);
+    rotation[1][0] = -c_eps_bar * s_long;
+    rotation[1][1] = c_eps * c_long * c_eps_bar + s_eps * s_eps_bar;
+    rotation[1][2] = s_eps * c_long * c_eps_bar - c_eps * s_eps_bar;
 
-   Matrix3x3::identity (rotation);
-
-   // populate the rotation matrix
-   rotation[0][0] = c_long;
-   rotation[0][1] = c_eps * s_long;
-   rotation[0][2] = s_eps * s_long;
-
-   rotation[1][0] = -c_eps_bar * s_long;
-   rotation[1][1] = c_eps * c_long * c_eps_bar + s_eps * s_eps_bar;
-   rotation[1][2] = s_eps * c_long * c_eps_bar - c_eps * s_eps_bar;
-
-   rotation[2][0] = -s_eps_bar * s_long;
-   rotation[2][1] = c_eps * c_long * s_eps_bar - s_eps * c_eps_bar;
-   rotation[2][2] = s_eps * s_eps_bar * c_long + c_eps * c_eps_bar;
-
-   return;
+    rotation[2][0] = -s_eps_bar * s_long;
+    rotation[2][1] = c_eps * c_long * s_eps_bar - s_eps * c_eps_bar;
+    rotation[2][2] = s_eps * s_eps_bar * c_long + c_eps * c_eps_bar;
 }
 
 /**
@@ -263,57 +170,51 @@ NutationJ2000::update_rotation (
  * fail message will occur
  * \param[in] init NutationJ2000Init object with needed coefficients
  */
-void
-NutationJ2000::initialize (
-   PlanetRotationInit* init)
+void NutationJ2000::initialize(PlanetRotationInit * init)
 {
+    // check to see that the init object is of the correct type.
+    // cast will return NULL if it is not.
+    auto * nut_init = dynamic_cast<NutationJ2000Init *>(init);
 
-   // check to see that the init object is of the correct type.
-   // cast will return NULL if it is not.
-   NutationJ2000Init* nut_init = dynamic_cast<NutationJ2000Init*> (init);
+    if(nut_init == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             RNPMessages::initialization_error,
+                             "Init object sent to NutationJ2000 was"
+                             " not of type NutationJ2000Init");
+        return;
+    }
 
-   if (nut_init == nullptr) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, RNPMessages::initialization_error,
-         "Init object sent to NutationJ2000 was"
-         " not of type NutationJ2000Init");
-      return;
-   }
+    num_coeffs = nut_init->num_coeffs;
 
-   num_coeffs = nut_init->num_coeffs;
+    L_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
+    M_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
+    F_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
+    D_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
+    omega_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
 
-   L_coeffs     = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
-   M_coeffs     = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
-   F_coeffs     = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
-   D_coeffs     = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
-   omega_coeffs = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
+    long_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
+    long_t_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
+    obliq_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
+    obliq_t_coeffs = JEOD_ALLOC_PRIM_ARRAY(num_coeffs, double);
 
-   long_coeffs    = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
-   long_t_coeffs  = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
-   obliq_coeffs   = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
-   obliq_t_coeffs = JEOD_ALLOC_PRIM_ARRAY (num_coeffs, double);
+    for(unsigned int ii = 0; ii < num_coeffs; ++ii)
+    {
+        L_coeffs[ii] = nut_init->L_coeffs[ii];
+        M_coeffs[ii] = nut_init->M_coeffs[ii];
+        F_coeffs[ii] = nut_init->F_coeffs[ii];
+        D_coeffs[ii] = nut_init->D_coeffs[ii];
+        omega_coeffs[ii] = nut_init->omega_coeffs[ii];
 
-   for (unsigned int ii = 0; ii < num_coeffs; ++ii) {
-
-      L_coeffs[ii]     = nut_init->L_coeffs[ii];
-      M_coeffs[ii]     = nut_init->M_coeffs[ii];
-      F_coeffs[ii]     = nut_init->F_coeffs[ii];
-      D_coeffs[ii]     = nut_init->D_coeffs[ii];
-      omega_coeffs[ii] = nut_init->omega_coeffs[ii];
-
-      long_coeffs[ii]    = nut_init->long_coeffs[ii];
-      long_t_coeffs[ii]  = nut_init->long_t_coeffs[ii];
-      obliq_coeffs[ii]   = nut_init->obliq_coeffs[ii];
-      obliq_t_coeffs[ii] = nut_init->obliq_t_coeffs[ii];
-
-   }
-
-
-   return;
+        long_coeffs[ii] = nut_init->long_coeffs[ii];
+        long_t_coeffs[ii] = nut_init->long_t_coeffs[ii];
+        obliq_coeffs[ii] = nut_init->obliq_coeffs[ii];
+        obliq_t_coeffs[ii] = nut_init->obliq_t_coeffs[ii];
+    }
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

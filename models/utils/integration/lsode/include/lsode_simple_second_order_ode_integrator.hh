@@ -63,10 +63,9 @@ Library dependencies:
   ((../src/lsode_simple_second_order_ode_integrator.cc)
    (../src/lsode_second_order_ode_integrator.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_LSODE_SIMPLE_SECOND_ORDER_ODE_INTEGRATOR_HH
 #define JEOD_LSODE_SIMPLE_SECOND_ORDER_ODE_INTEGRATOR_HH
@@ -87,78 +86,49 @@ namespace jeod
 
 class LsodeControlDataInterface;
 
-
 /**
  * JEOD-compatible version of the Livermore ODE solver, LSODE, capable of
  * integrating second-order ODEs.
  */
 class LsodeSimpleSecondOrderODEIntegrator : public LsodeSecondOrderODEIntegrator
 {
-JEOD_MAKE_SIM_INTERFACES(LsodeSimpleSecondOrderODEIntegrator)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeSimpleSecondOrderODEIntegrator)
 
-
-// Methods:
+    // Methods:
 public:
+    LsodeSimpleSecondOrderODEIntegrator() = default;
+    ~LsodeSimpleSecondOrderODEIntegrator() override = default;
+    LsodeSimpleSecondOrderODEIntegrator & operator=(const LsodeSimpleSecondOrderODEIntegrator &) = delete;
+    LsodeSimpleSecondOrderODEIntegrator(const LsodeSimpleSecondOrderODEIntegrator &) = delete;
 
-   /**
-    * LsodeSimpleSecondOrderODEIntegrator destructor.
-    */
-   ~LsodeSimpleSecondOrderODEIntegrator(void) override {};
+    /**
+     * LsodeSimpleSecondOrderODEIntegrator non-default constructor.
+     * @param[in]     data_in   State Variable Data
+     * @param[in]     size      State size
+     * @param[in,out] controls  Integration controls
+     */
+    LsodeSimpleSecondOrderODEIntegrator(const LsodeControlDataInterface & data_in,
+                                        er7_utils::IntegrationControls & controls,
+                                        unsigned int size);
 
+    LsodeSimpleSecondOrderODEIntegrator * create_copy() const override;
 
-
-   // Constructors
-
-   /**
-    * LsodeSimpleSecondOrderODEIntegrator default constructor.
-    */
-   LsodeSimpleSecondOrderODEIntegrator(void);
-
-   /**
-    * LsodeSimpleSecondOrderODEIntegrator non-default constructor.
-    * @param[in]     data_in   State Variable Data
-    * @param[in]     size      State size
-    * @param[in,out] controls  Integration controls
-    */
-   LsodeSimpleSecondOrderODEIntegrator(
-                 const LsodeControlDataInterface & data_in,
-                 er7_utils::IntegrationControls & controls,
-                 unsigned int size);
-
-
-   LsodeSimpleSecondOrderODEIntegrator * create_copy () const override;
-
-   /**
-    * Propagate state via Lsode's method.
-    * @param[in] dyn_dt        Integration interval step, dynamic time seconds.
-    * @param[in] target_stage  The stage of the integration process
-    *                          that the integrator should try to attain.
-    * @param[in] accel         Generalized acceleration vector.
-    * @param[in,out] velocity  Generalized velocity vector.
-    * @param[in,out] position  Generalized position vector.
-    *
-    * @return The status (time advance, pass/fail status) of the integration.
-    */
-   er7_utils::IntegratorResult integrate (
-      double dyn_dt,
-      unsigned int target_stage,
-      double const * ER7_UTILS_RESTRICT accel,
-      double * ER7_UTILS_RESTRICT velocity,
-      double * ER7_UTILS_RESTRICT position) override;
-
-private:
-   /**
-    * LsodeSimpleSecondOrderODEIntegrator assignment operator.  not implemented.
-    * @param src  Item to be copied.
-    */
-   LsodeSimpleSecondOrderODEIntegrator & operator=(
-                const  LsodeSimpleSecondOrderODEIntegrator & src);
-   /**
-    * LsodeSimpleSecondOrderODEIntegrator copy constructor.
-    * @param[in] src  Item to be copied.
-    */
-   LsodeSimpleSecondOrderODEIntegrator(
-                const LsodeSimpleSecondOrderODEIntegrator & src);
+    /**
+     * Propagate state via Lsode's method.
+     * @param[in] dyn_dt        Integration interval step, dynamic time seconds.
+     * @param[in] target_stage  The stage of the integration process
+     *                          that the integrator should try to attain.
+     * @param[in] accel         Generalized acceleration vector.
+     * @param[in,out] velocity  Generalized velocity vector.
+     * @param[in,out] position  Generalized position vector.
+     *
+     * @return The status (time advance, pass/fail status) of the integration.
+     */
+    er7_utils::IntegratorResult integrate(double dyn_dt,
+                                          unsigned int target_stage,
+                                          const double * ER7_UTILS_RESTRICT accel,
+                                          double * ER7_UTILS_RESTRICT velocity,
+                                          double * ER7_UTILS_RESTRICT position) override;
 };
 
 } // namespace jeod

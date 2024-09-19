@@ -57,86 +57,77 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/flat_plate_aero_params.cc))
-
-
 *******************************************************************************/
 
 #ifndef FLAT_PLATE_AERO_PARAMS_HH
 #define FLAT_PLATE_AERO_PARAMS_HH
 
-#include "utils/sim_interface/include/jeod_class.hh"
-#include "aero_params.hh"
 #include "aero_drag.hh"
+#include "aero_params.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * used in the FlatPlateAeroFactory to create a FlatPlateAeroFacet.
  */
-class FlatPlateAeroParams : public AeroParams {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateAeroParams)
+class FlatPlateAeroParams : public AeroParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateAeroParams)
 
 public:
+    FlatPlateAeroParams() = default;
+    ~FlatPlateAeroParams() override = default;
+    FlatPlateAeroParams & operator=(const FlatPlateAeroParams &) = delete;
+    FlatPlateAeroParams(const FlatPlateAeroParams &) = delete;
 
-   // constructor
-   FlatPlateAeroParams ();
+    /**
+     * Enum indicating which method of coef calculation to use:
+     * specular, diffuse, calculated, mixed
+     */
+    AeroDragEnum::CoefCalcMethod coef_method{AeroDragEnum::Specular}; //!< trick_units(--)
 
-   // destructor
-   ~FlatPlateAeroParams () override;
+    /**
+     * Whether to calculate the drag coefficient
+     */
+    bool calculate_drag_coef{}; //!< trick_units(--)
 
-   /**
-    * Enum indicating which method of coef calculation to use:
-    * specular, diffuse, calculated, mixed
-    */
-  AeroDragEnum::CoefCalcMethod coef_method; //!< trick_units(--)
-   /**
-    * Whether to calculate the drag coefficient
-    */
-  bool calculate_drag_coef;  //!< trick_units(--)
-   /**
-    * Fraction of molecules that "bounce"
-    */
-  double epsilon;            //!< trick_units(--)
-   /**
-    * Temperature of reflected molecules
-    */
-  double temp_reflect;       //!< trick_units(K)
-   /**
-    * The coefficient for calculating drag normal to the plate
-    */
-  double drag_coef_norm; //!< trick_units(--)
-   /**
-    * The coefficient for calculating drag tangential to the plate
-    */
-  double drag_coef_tang; //!< trick_units(--)
-   /**
-    * The coefficient for calculating drag resulting only from molecules bouncing
-    * off the surface
-    */
-  double drag_coef_spec; //!< trick_units(--)
-   /**
-    * The coefficient for calculating drag resulting only from molecules sticking
-    * to the surface
-    */
-  double drag_coef_diff; //!< trick_units(--)
+    /**
+     * Fraction of molecules that "bounce"
+     */
+    double epsilon{}; //!< trick_units(--)
 
+    /**
+     * Temperature of reflected molecules
+     */
+    double temp_reflect{}; //!< trick_units(K)
 
-protected:
+    /**
+     * The coefficient for calculating drag normal to the plate
+     */
+    double drag_coef_norm{}; //!< trick_units(--)
 
-private:
+    /**
+     * The coefficient for calculating drag tangential to the plate
+     */
+    double drag_coef_tang{}; //!< trick_units(--)
 
-   // Operator = and copy constructor locked from use by being private
+    /**
+     * The coefficient for calculating drag resulting only from molecules bouncing
+     * off the surface
+     */
+    double drag_coef_spec{}; //!< trick_units(--)
 
-   FlatPlateAeroParams& operator = (const FlatPlateAeroParams& rhs);
-   FlatPlateAeroParams (const FlatPlateAeroParams& rhs);
-
+    /**
+     * The coefficient for calculating drag resulting only from molecules sticking
+     * to the surface
+     */
+    double drag_coef_diff{}; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

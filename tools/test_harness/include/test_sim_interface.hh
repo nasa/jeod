@@ -53,17 +53,16 @@ Purpose:
 Library dependencies:
   ((../src/test_sim_interface.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_TEST_HARNESS_SIM_INTERFACE_HH
 #define JEOD_TEST_HARNESS_SIM_INTERFACE_HH
 
 // System includes
-#include <cstddef>
 #include <cstdarg>
+#include <cstddef>
 #include <cstdio>
 #include <cstring>
 #include <pthread.h>
@@ -77,207 +76,194 @@ Library dependencies:
 #include "utils/sim_interface/include/trick_message_handler.hh"
 
 // Model includes
-#include "test_message_handler.hh"
 #include "null_memory_interface.hh"
 #include "test_harness_messages.hh"
-
+#include "test_message_handler.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The TestSimInterface class is a JeodSimulationInterface that checks for
  * failures by means of message handler messages whose message code is deemed
  * indicative of a failure.
  */
-class TestSimInterface : public JeodSimulationInterface {
-
-JEOD_MAKE_SIM_INTERFACES (TestSimInterface)
+class TestSimInterface : public JeodSimulationInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TestSimInterface)
 
 public:
+    // Static functions
 
-   // Static functions
+    // Lock and unlock the printf mutex.
+    static void enable_lock();
+    static void disable_lock();
+    static void lock_printf();
+    static void unlock_printf();
 
-   // Lock and unlock the printf mutex.
-   static void enable_lock ();
-   static void disable_lock ();
-   static void lock_printf (void);
-   static void unlock_printf (void);
+    // Member functions
 
+    // Default constructor and destructor.
+    TestSimInterface();
+    ~TestSimInterface();
 
-   // Member functions
+    explicit TestSimInterface(const TestSimInterface &) = delete;
+    TestSimInterface & operator=(const TestSimInterface &) = delete;
 
-   // Default constructor and destructor.
-   TestSimInterface ();
-   ~TestSimInterface ();
+    // Shut down the memory manager.
+    void shutdown();
 
-   // Shut down the memory manager.
-   void shutdown ();
+    /**
+     * Get the test failure status.
+     * \return The value of the failed data member.
+     */
+    bool get_failed() const
+    {
+        return failed;
+    }
 
-   /**
-    * Get the test failure status.
-    * \return The value of the failed data member.
-    */
-   bool get_failed () const { return failed;}
+    /**
+     * Mark the test as failed.
+     * This method is used by the TestMessageHandler when a message with a
+     * verboten code is issued. Since the method has public visibility, the
+     * external test mechanism can also use this method to mark the test
+     * as failed. */
+    void set_failed()
+    {
+        failed = true;
+    }
 
-   /**
-    * Mark the test as failed.
-    * This method is used by the TestMessageHandler when a message with a
-    * verboten code is issued. Since the method has public visibility, the
-    * external test mechanism can also use this method to mark the test
-    * as failed. */
-   void set_failed () {failed = true;}
+    /**
+     * Get the allowed_error_count.
+     */
+    unsigned int get_allowed_count();
 
-   /**
-    * Get the allowed_error_count.
-    */
-   unsigned int get_allowed_count ();
+    /**
+     * Bump the allowed_error_count.
+     */
+    void bump_allowed_count();
 
-   /**
-    * Bump the allowed_error_count.
-    */
-   void bump_allowed_count ();
+    // Add a code to the allowed list.
+    void add_allowed_code(const std::string &);
 
-   // Add a code to the allowed list.
-   void add_allowed_code (const std::string &);
+    // Add a code to the verboten list.
+    void add_verboten_code(const std::string &);
 
-   // Add a code to the verboten list.
-   void add_verboten_code (const std::string &);
+    // Set the failure threshold.
+    void set_failure_threshold(int level);
 
-   // Set the failure threshold.
-   void set_failure_threshold (int level);
+    // The following methods are pure virtual in the parent class.
+    // Each returns dummy value.
 
+    /**
+     * Create an integrator interface.
+     */
+    JeodIntegratorInterface * create_integrator_internal()
+    {
+        return nullptr;
+    }
 
-   // The following methods are pure virtual in the parent class.
-   // Each returns dummy value.
+    /**
+     * Create an integrator interface.
+     */
+    JeodIntegratorInterface * create_integrator_internal(void *)
+    {
+        return nullptr;
+    }
 
-   /**
-    * Create an integrator interface.
-    */
-   JeodIntegratorInterface * create_integrator_internal (void)
-   {
-      return NULL;
-   }
+    /**
+     * Get the cycle time of the currently-executing job.
+     */
+    virtual double get_job_cycle_internal()
+    {
+        return 1.0;
+    }
 
-   /**
-    * Create an integrator interface.
-    */
-   JeodIntegratorInterface * create_integrator_internal (void *)
-   {
-      return NULL;
-   }
+    /**
+     * Get the interface with the simulation memory manager.
+     */
+    virtual JeodMemoryInterface & get_memory_interface_internal()
+    {
+        return memory_interface;
+    }
 
-   /**
-    * Get the cycle time of the currently-executing job.
-    */
-   virtual double get_job_cycle_internal (void)
-   {
-      return 1.0;
-   }
+    /**
+     * Get a checkpoint section reader.
+     */
+    virtual SectionedInputStream get_checkpoint_reader_internal(const std::string & section_id JEOD_UNUSED)
+    {
+        return SectionedInputStream();
+    }
 
-   /**
-    * Get the interface with the simulation memory manager.
-    */
-   virtual JeodMemoryInterface & get_memory_interface_internal (void)
-   {
-      return memory_interface;
-   }
-
-   /**
-    * Get a checkpoint section reader.
-    */
-   virtual SectionedInputStream get_checkpoint_reader_internal (
-      const std::string & section_id JEOD_UNUSED)
-   {
-      return SectionedInputStream();
-   }
-
-   /**
-    * Get a checkpoint section writer.
-    */
-   virtual SectionedOutputStream get_checkpoint_writer_internal (
-      const std::string & section_id JEOD_UNUSED)
-   {
-      return SectionedOutputStream();
-   }
-
+    /**
+     * Get a checkpoint section writer.
+     */
+    virtual SectionedOutputStream get_checkpoint_writer_internal(const std::string & section_id JEOD_UNUSED)
+    {
+        return SectionedOutputStream();
+    }
 
 private:
+    // Member data
 
-   // Member data
+    /**
+     * Locking is enabled if set.
+     */
+    static bool the_lock_enabled; //!< trick_units(--)
 
-   /**
-    * Locking is enabled if set.
-    */
-   static bool the_lock_enabled; //!< trick_units(--)
+    /**
+     * A mutex for locking c-style output.
+     */
+    static pthread_mutex_t * the_printf_mutex; //!< trick_io(**) trick_units(--)
 
-   /**
-    * A mutex for locking c-style output.
-    */
-   static pthread_mutex_t * the_printf_mutex; //!< trick_io(**) trick_units(--)
+    /**
+     * Has the test failed?
+     * This member is accessible via TestSimInterface::get_failed() and
+     * settable via TestSimInterface::set_failed(). Note that there is no
+     * interface to clear the failure code.
+     */
+    bool failed{}; //!< trick_units(--)
 
-   /**
-    * Has the test failed?
-    * This member is accessible via TestSimInterface::get_failed() and
-    * settable via TestSimInterface::set_failed(). Note that there is no
-    * interface to clear the failure code.
-    */
-   bool failed; //!< trick_units(--)
+    /**
+     * Count of the number of times a severe but non-fatal error message
+     * was generated whose message code matched one of the allowed codes.
+     */
+    unsigned int allowed_error_count{}; //!< trick_units(--)
 
-   /**
-    * Count of the number of times a severe but non-fatal error message
-    * was generated whose message code matched one of the allowed codes.
-    */
-   unsigned int allowed_error_count; //!< trick_units(--)
+    /**
+     * A mutex for locking c-style output.
+     */
+    pthread_mutex_t printf_mutex; //!< trick_io(**) trick_units(--)
 
-   /**
-    * A mutex for locking c-style output.
-    */
-   pthread_mutex_t printf_mutex; //!< trick_io(**) trick_units(--)
+    /**
+     * A mutex for locking data access.
+     */
+    pthread_mutex_t data_mutex; //!< trick_io(**) trick_units(--)
 
-   /**
-    * A mutex for locking data access.
-    */
-   pthread_mutex_t data_mutex; //!< trick_io(**) trick_units(--)
+    /**
+     * The message handler, which per JeodSimulationInterface rules must
+     * be instantiated prior to instantiating the memory manager. This
+     * message handler checks for test failures via messages whose message
+     * code matches one of the verboten codes and does not match one of the
+     * allowed codes.
+     */
+    TestMessageHandler message_handler; //!< trick_units(--)
 
-   /**
-    * The message handler, which per JeodSimulationInterface rules must
-    * be instantiated prior to instantiating the memory manager. This
-    * message handler checks for test failures via messages whose message
-    * code matches one of the verboten codes and does not match one of the
-    * allowed codes.
-    */
-   TestMessageHandler message_handler; //!< trick_units(--)
+    /**
+     * The memory interface used by the memory manager.
+     */
+    NullMemoryInterface memory_interface; //!< trick_units(--)
 
-   /**
-    * The memory interface used by the memory manager.
-    */
-   NullMemoryInterface memory_interface; //!< trick_units(--)
-
-   /**
-    * The memory manager. This is a pointer rather than a instance so that
-    * test failures that occur in destruction of the memory manager can
-    * be detected.
-    */
-   JeodMemoryManager * memory_manager; //!< trick_units(--)
-
-
-   // Deleted content
-   // The copy constructor and assignment operator are private/unimplemented.
-
-   /**
-    * Not implemented.
-    */
-   explicit TestSimInterface (const TestSimInterface &);
-
-   /**
-    * Not implemented.
-    */
-   TestSimInterface & operator= (const TestSimInterface &);
+    /**
+     * The memory manager. This is a pointer rather than a instance so that
+     * test failures that occur in destruction of the memory manager can
+     * be detected.
+     */
+    JeodMemoryManager * memory_manager{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

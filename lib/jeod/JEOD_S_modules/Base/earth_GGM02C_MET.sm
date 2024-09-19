@@ -53,52 +53,37 @@ Purpose:( This sim object models Earth with a GGM02C gravity model and
 #include "earth_GGM02C_baseline.sm"
 class Earth_GGM02C_MET_SimObject : public Earth_GGM02C_SimObject
 {
- protected:
-  // External references
-  jeod::TimeUTC      & utc;
+protected:
+    // External references
+    jeod::TimeUTC & utc;
 
- public:
-  jeod::WindVelocity   wind_velocity;
-  jeod::METAtmosphere  atmos;
+public:
+    jeod::WindVelocity wind_velocity;
+    jeod::METAtmosphere atmos;
 
-  // Default data
-  jeod::WindVelocity_wind_velocity_default_data  wind_velocity_default_data;
-  jeod::METAtmosphere_solar_mean_default_data    atmos_default_data;
+    // Default data
+    jeod::WindVelocity_wind_velocity_default_data wind_velocity_default_data;
+    jeod::METAtmosphere_solar_mean_default_data atmos_default_data;
 
-  Earth_GGM02C_MET_SimObject( jeod::DynManager   & dyn_manager_in,
-                              jeod::GravityManager & grav_in,
-                              jeod::TimeUTC      & utc_in,
-                              jeod::TimeTT       & tt_in,
-                              jeod::TimeUT1      & ut1_in,
-                              jeod::TimeGMST     & gmst_in)
-    :
-    Earth_GGM02C_SimObject( dyn_manager_in,
-                            grav_in,
-                            tt_in,
-                            ut1_in,
-                            gmst_in),
-    utc(utc_in)
-  {
-    //
-    //Default data jobs
-    //
-    ("default_data") wind_velocity_default_data.initialize ( &wind_velocity );
-    ("default_data") atmos_default_data.initialize ( &atmos );
+    Earth_GGM02C_MET_SimObject(jeod::DynManager & dyn_manager_in,
+                               jeod::GravityManager & grav_in,
+                               jeod::TimeUTC & utc_in,
+                               jeod::TimeTT & tt_in,
+                               jeod::TimeUT1 & ut1_in,
+                               jeod::TimeGMST & gmst_in)
+        : Earth_GGM02C_SimObject(dyn_manager_in, grav_in, tt_in, ut1_in, gmst_in),
+          utc(utc_in),
+          atmos(utc.trunc_julian_time)
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") wind_velocity_default_data.initialize(&wind_velocity);
+        ("default_data") atmos_default_data.initialize(&atmos);
+    }
 
-    //
-    // Initialization jobs
-    //
-    P_ENV ("initialization") atmos.update_time( utc );
-
-    //
-    // Environment class jobs
-    //
-    (DYNAMICS, "environment") atmos.update_time( utc );
-  }
-
- private:
-  // Unimplemented copy constructor and assignment operator
-  Earth_GGM02C_MET_SimObject (const Earth_GGM02C_MET_SimObject&);
-  Earth_GGM02C_MET_SimObject & operator = (const Earth_GGM02C_MET_SimObject&);
+    // Unimplemented copy constructor and assignment operator
+    Earth_GGM02C_MET_SimObject(const Earth_GGM02C_MET_SimObject &) = delete;
+    Earth_GGM02C_MET_SimObject & operator=(const Earth_GGM02C_MET_SimObject &) = delete;
 };
 #endif

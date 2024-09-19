@@ -26,4 +26,4 @@ exec(compile(open("Modified_data/vehicle_grav_controls.py", "rb").read(), "Modif
 
 state.orb_elem.reference_name = "Earth"
 
-trick.sim_services.exec_set_terminate_time(18000.0);
+trick.sim_services.exec_set_terminate_time(18000.0)

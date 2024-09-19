@@ -60,10 +60,6 @@ Assumptions and limitations:
     inherited from here and all pure virtual functions must be written
     in the inheriting class))
 
-Library dependencies:
-  ((../src/planet_rotation_init.cc))
-
- 
 
 *******************************************************************************/
 
@@ -76,7 +72,8 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // A polymorphic, pure virtual base class used for initializing planet rotation
 // model classes through PlanetRotation::initialize.
@@ -84,28 +81,18 @@ namespace jeod {
  * The generic base class for all
  * initializing classes for PlanetRotation derived classes.
  */
-class PlanetRotationInit {
-
-   JEOD_MAKE_SIM_INTERFACES(PlanetRotationInit)
-
-public: // public member variables
-
-
+class PlanetRotationInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetRotationInit)
 
 public: // public member functions
-
-   PlanetRotationInit ();
-
-   virtual ~PlanetRotationInit ();
-
-private: // private member functions
-
-// operator = and copy constructor locked from use by being private
-   PlanetRotationInit& operator = (const PlanetRotationInit& rhs);
-   PlanetRotationInit (const PlanetRotationInit& rhs);
+    PlanetRotationInit() = default;
+    virtual ~PlanetRotationInit() = default;
+    PlanetRotationInit & operator=(const PlanetRotationInit &) = delete;
+    PlanetRotationInit(const PlanetRotationInit &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

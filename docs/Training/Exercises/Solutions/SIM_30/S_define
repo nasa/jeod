@@ -36,16 +36,23 @@
 //
 //=============================================================================
 // Single vehicle in Earth orbit with articulating arrays
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
+
 #include "time_dyntime_only.sm"
+
 #include "dynamics_init_only.sm"
 
 //***************************************************************
@@ -67,54 +74,50 @@
 ##include "utils/surface_model/include/flat_plate.hh"
 
 
-class VehicleSimObject : public Trick::SimObject {
+class VehicleSimObject : public Trick::SimObject
+{
+public:
+    //
+    // Data structures
+    //
+    jeod::DynBody dyn_body;
 
-  public:
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
 
-   //
-   // Data structures
-   //
-   jeod::DynBody       dyn_body;
+    jeod::MassBody array;
+    jeod::BodyAttachMatrix mass_attach;
+    jeod::BodyReattach * reattachments;
 
-   jeod::DynBodyInitTransState   trans_init;
-   jeod::DynBodyInitRotState     rot_init;
-   jeod::MassBodyInit            mass_init;
+    jeod::SurfaceModel surface;
+    jeod::FlatPlate vehicle_plate;
+    jeod::FlatPlate array_plate;
 
-   jeod::MassBody            array;
-   jeod::BodyAttachMatrix    mass_attach;
-   jeod::BodyReattach*       reattachments;
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : dyn_manager(dyn_mngr_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
 
-   jeod::SurfaceModel            surface;
-   jeod::FlatPlate               vehicle_plate;
-   jeod::FlatPlate               array_plate;
+        P_ENV("initialization") dyn_manager.add_mass_body(array);
 
-   VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
-     :
-       dyn_manager(dyn_mngr_in)
-   {
+        P_BODY("initialization") surface.initialize_mass_connections(dyn_manager);
 
-      //
-      // Initialization jobs
-      //
-      P_ENV ("initialization") dyn_body.initialize_model(dyn_manager );
+        (DYNAMICS, "environment") surface.update_articulation();
+    }
 
-      P_ENV ("initialization") dyn_manager.add_mass_body(array);
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 
-      P_BODY ("initialization") surface.initialize_mass_connections( dyn_manager);
-
-      (DYNAMICS, "environment") surface.update_articulation();
-   };
-
-  private:
-
-   VehicleSimObject (const VehicleSimObject&);
-   VehicleSimObject & operator = (const VehicleSimObject&);
-
-   jeod::DynManager & dyn_manager;
-
+    jeod::DynManager & dyn_manager;
 };
+
 VehicleSimObject vehicle(dynamics.dyn_manager);
 
 ##include "environment/gravity/include/gravity_manager.hh"
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

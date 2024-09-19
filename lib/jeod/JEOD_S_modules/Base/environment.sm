@@ -51,29 +51,23 @@ Purpose:( This sim object provides the baseline environment, including
 #include "environment_basic.sm"
 class EnvSimObject: public EnvironmentBasicSimObject
 {
- protected:
-  // External references
-  jeod::TimeManager & time_manager;
+protected:
+    // External references
+    jeod::TimeManager & time_manager;
 
- public:
+public:
+    jeod::De4xxEphemeris de4xx;
 
-  jeod::De4xxEphemeris de4xx;
+    // Constructor
+    EnvSimObject(jeod::TimeManager & time_manager_in, jeod::DynManager & dyn_manager_in)
+        : EnvironmentBasicSimObject(dyn_manager_in),
+          time_manager(time_manager_in)
+    {
+        P_EPH("initialization") de4xx.initialize_model(time_manager, dyn_manager);
+    }
 
-  // Constructor
-  EnvSimObject( jeod::TimeManager & time_manager_in,
-                jeod::DynManager & dyn_manager_in)
-    :
-    EnvironmentBasicSimObject( dyn_manager_in),
-    time_manager(time_manager_in)
-  {
-
-    P_EPH  ("initialization") de4xx.initialize_model ( time_manager,
-                                                       dyn_manager);
-  }
-
- private:
-  // Unimplemented copy constructor and assignment operator
-  EnvSimObject (const EnvSimObject&);
-  EnvSimObject & operator = (const EnvSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    EnvSimObject(const EnvSimObject &) = delete;
+    EnvSimObject & operator=(const EnvSimObject &) = delete;
 };
 #endif

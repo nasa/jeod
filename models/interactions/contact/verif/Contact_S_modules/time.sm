@@ -66,54 +66,47 @@
 ##include "environment/time/include/time_tai.hh"
 ##include "environment/time/include/time_converter_dyn_tai.hh"
 
-class Jeod_timeSimObject: public Trick::SimObject {
-
-   public:
-    jeod::TimeManager     time_manager;
+class Jeod_timeSimObject: public Trick::SimObject
+{
+public:
+    jeod::TimeManager time_manager;
     jeod::TimeManagerInit manager_init;
     jeod::TimeTAI tai;
-    jeod::TimeConverter_Dyn_TAI  conv_dyn_tai;
+    jeod::TimeConverter_Dyn_TAI conv_dyn_tai;
 
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
 
-//Constructor
-    Jeod_timeSimObject() {
-
-   //
-   //
-   // Time scales of interest.
-   // Time converters
-   //
-   // Initialization jobs
-   //
-   // Register the basic time scales with the time manager.
-   // TAI
-      P_TIME  ("initialization") time_manager.register_time(
-          tai );
-      P_TIME  ("initialization") time_manager.register_converter(
-          conv_dyn_tai );
-   // Initialize the time manager.
-      P_TIME  ("initialization") time_manager.initialize(
-          &manager_init );
-   // Compute appropriate calendar dates are initialization.
-      P_TIME  ("initialization") tai.calendar_update(
-          exec_get_sim_time() );
-   //
-   // Scheduled jobs
-   //
-   // Update the base time scales.
-      (DYNAMICS, "environment") time_manager.update(
-          exec_get_sim_time() );
-   // Update the calendar times of interest.
-      (DYNAMICS, "environment") tai.calendar_update(
-          exec_get_sim_time() );
+    // Constructor
+    Jeod_timeSimObject()
+    {
+        //
+        //
+        // Time scales of interest.
+        // Time converters
+        //
+        // Initialization jobs
+        //
+        // Register the basic time scales with the time manager.
+        // TAI
+        P_TIME("initialization") time_manager.register_time(tai);
+        P_TIME("initialization") time_manager.register_converter(conv_dyn_tai);
+        // Initialize the time manager.
+        P_TIME("initialization") time_manager.initialize(&manager_init);
+        // Compute appropriate calendar dates are initialization.
+        P_TIME("initialization") tai.calendar_update(exec_get_sim_time());
+        //
+        // Scheduled jobs
+        //
+        // Update the base time scales.
+        (DYNAMICS, "environment") time_manager.update(exec_get_sim_time());
+        // Update the calendar times of interest.
+        (DYNAMICS, "environment") tai.calendar_update(exec_get_sim_time());
     }
 
-  private:
-    Jeod_timeSimObject (const Jeod_timeSimObject&);
-    Jeod_timeSimObject & operator = (const Jeod_timeSimObject&);
-
+    Jeod_timeSimObject(const Jeod_timeSimObject &) = delete;
+    Jeod_timeSimObject & operator=(const Jeod_timeSimObject &) = delete;
 };
-Jeod_timeSimObject jeod_time ;
 
-//Dependencies on the following sim objects:
+Jeod_timeSimObject jeod_time;
+
+// Dependencies on the following sim objects:

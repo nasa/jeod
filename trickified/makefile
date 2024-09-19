@@ -3,13 +3,16 @@ ifndef TRICK_HOME
 endif
 
 TRICKIFY := $(TRICK_HOME)/share/trick/makefiles/trickify.mk
+export TRICK_HOST_CPU := $(shell TRICK_FORCE_32BIT=$(TRICK_FORCE_32BIT) $(TRICK_HOME)/bin/trick-gte TRICK_HOST_CPU)
+export JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 
 ifeq ($(wildcard $(TRICKIFY)),)
     $(error This makefile requires at least Trick 17.1)
 endif
 
-export TRICKIFY_OBJECT_NAME = trickified_jeod.o
-export TRICKIFY_CXX_FLAGS = \
+export TRICKIFY_PYTHON_DIR := python_${TRICK_HOST_CPU}
+export TRICKIFY_OBJECT_NAME := trickified_jeod_${TRICK_HOST_CPU}.o
+export TRICKIFY_CXX_FLAGS := \
     -I${JEOD_HOME}/models \
     -I${TRICK_HOME}/trick_source \
     -std=c++11
@@ -24,7 +27,7 @@ all:
 	@$(MAKE) -s -f $(TRICKIFY)
 
 clean:
-	@rm -rf build python trick $(TRICKIFY_OBJECT_NAME)
+	@rm -rf build ${TRICKIFY_PYTHON_DIR} $(TRICKIFY_OBJECT_NAME)
 
 foo:
 	echo TRICK_CFLAGS=${TRICK_CFLAGS}

@@ -61,54 +61,44 @@ PURPOSE:
 // System includes
 
 // JEOD includes
-#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 #include "environment/time/include/time_standard.hh"
+#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Forward Declaration
 class AtmosphereState;
 
-
 /**
  * A generic base class for atmospheres.
  */
-class Atmosphere {
+class Atmosphere
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, Atmosphere)
 
-   JEOD_MAKE_SIM_INTERFACES(Atmosphere)
+public:
+    /**
+     * If true the atmosphere state will calculate, if false it will not
+     */
+    bool active{true}; /*!< trick_units(--) activity-control flag. */
 
-  public:
+    Atmosphere() = default;
+    virtual ~Atmosphere() = default;
+    Atmosphere & operator=(const Atmosphere & rhs) = delete;
+    Atmosphere(const Atmosphere & rhs) = delete;
 
-   /**
-    * If true the atmosphere state will calculate, if false it will not
-    */
-   bool active; /*!< trick_units(--) activity-control flag. */
-
-   // Default constructor
-   Atmosphere ()
-     :
-     active(true) {};
-
-   // Destructor
-   virtual ~Atmosphere (){/*empty*/};
-
-      /**
-    * A pure virtual function for updating the atmosphere, and inserting
-    * \param[in] position planet fixed position
-    * \param[out] state The AtmosphereState
-    */
-   virtual void update_atmosphere( const PlanetFixedPosition * position,
-                                   AtmosphereState           * state)    = 0;
-
-  private:
-   // operator = and copy constructor locked from use by being private
-   Atmosphere& operator = (const Atmosphere& rhs);
-   Atmosphere (const Atmosphere& rhs);
+    /**
+     * A pure virtual function for updating the atmosphere, and inserting
+     * \param[in] position planet fixed position
+     * \param[out] state The AtmosphereState
+     */
+    virtual void update_atmosphere(const PlanetFixedPosition * position, AtmosphereState * state) = 0;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

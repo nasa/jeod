@@ -46,46 +46,43 @@ def child1_mass_inertia_optionC():
                                        [ 0.0,        0.0,        0.0833333333]]
 
 def child1_mass_points_1A():
-  components.child1_init.num_points = 1
-  components.child1_init.points = \
-                               trick.sim_services.alloc_type( 1,"jeod::MassPointInit")
-  components.child1_init.points[0].set_name("right_to_top")
-  components.child1_init.points[0].position  = [ 0.0, 0.0, 1.0]
-  components.child1_init.points[0].pt_orientation.data_source = \
+  components.child1_init.allocate_points(1)
+
+  components.child1_init.get_mass_point(0).set_name("right_to_top")
+  components.child1_init.get_mass_point(0).position  = [ 0.0, 0.0, 1.0]
+  components.child1_init.get_mass_point(0).pt_orientation.data_source = \
                                                    trick.Orientation.InputMatrix
-  components.child1_init.points[0].pt_orientation.trans = [[ 0.0,  0.0, 1.0],
+  components.child1_init.get_mass_point(0).pt_orientation.trans = [[ 0.0,  0.0, 1.0],
                                                            [ 0.0, -1.0, 0.0],
                                                            [ 1.0,  0.0, 0.0]]
 
 def child1_mass_points_1B():
-  components.child1_init.num_points = 1
-  components.child1_init.points = \
-                               trick.sim_services.alloc_type( 1,"jeod::MassPointInit")
-  components.child1_init.points[0].set_name("bottom_to_top")
-  components.child1_init.points[0].position  = [ 0.0, -0.5, 0.0]
-  components.child1_init.points[0].pt_orientation.data_source = \
+  components.child1_init.allocate_points(1)
+
+  components.child1_init.get_mass_point(0).set_name("bottom_to_top")
+  components.child1_init.get_mass_point(0).position  = [ 0.0, -0.5, 0.0]
+  components.child1_init.get_mass_point(0).pt_orientation.data_source = \
                                             trick.Orientation.InputEulerRotation
-  components.child1_init.points[0].pt_orientation.euler_sequence = \
+  components.child1_init.get_mass_point(0).pt_orientation.euler_sequence = \
                                                 trick.Orientation.Yaw_Pitch_Roll
-  components.child1_init.points[0].pt_orientation.euler_angles = \
+  components.child1_init.get_mass_point(0).pt_orientation.euler_angles = \
                                    trick.attach_units( "degree",[ -90.0, 0.0, 0.0])
 
 def child1_mass_points_2():
-  components.child1_init.num_points = 2
-  components.child1_init.points = \
-                          trick.sim_services.alloc_type( 2 , "jeod::MassPointInit" )
-  components.child1_init.points[0].set_name("right_to_left")
-  components.child1_init.points[0].position  = [ 0.0, 0.0, 1.0]
-  components.child1_init.points[0].pt_orientation.data_source = \
+  components.child1_init.allocate_points(2)
+
+  components.child1_init.get_mass_point(0).set_name("right_to_left")
+  components.child1_init.get_mass_point(0).position  = [ 0.0, 0.0, 1.0]
+  components.child1_init.get_mass_point(0).pt_orientation.data_source = \
                                               trick.Orientation.InputMatrix
-  components.child1_init.points[0].pt_orientation.trans = [[ 0.0,  0.0, 1.0],
+  components.child1_init.get_mass_point(0).pt_orientation.trans = [[ 0.0,  0.0, 1.0],
                                                            [ 0.0, -1.0, 0.0],
                                                            [ 1.0,  0.0, 0.0]]
 
-  components.child1_init.points[1].set_name("left_to_right")
-  components.child1_init.points[1].position  = [ 0.0, 0.0, -1.0]
-  components.child1_init.points[1].pt_orientation.data_source = \
+  components.child1_init.get_mass_point(1).set_name("left_to_right")
+  components.child1_init.get_mass_point(1).position  = [ 0.0, 0.0, -1.0]
+  components.child1_init.get_mass_point(1).pt_orientation.data_source = \
                                               trick.Orientation.InputMatrix
-  components.child1_init.points[1].pt_orientation.trans = [[ 0.0, 0.0, -1.0],
+  components.child1_init.get_mass_point(1).pt_orientation.trans = [[ 0.0, 0.0, -1.0],
                                                            [ 0.0, 1.0,  0.0],
                                                            [ 1.0, 0.0,  0.0]]

@@ -50,26 +50,23 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_VEHICLE_NON_GRAV_STATE_HH
 #define JEOD_VEHICLE_NON_GRAV_STATE_HH
 
-
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Encapsulates various aspects of a vehicle's state with respect to inertial.
  */
 class VehicleNonGravState
 {
-    JEOD_MAKE_SIM_INTERFACES(VehicleNonGravState)
+    JEOD_MAKE_SIM_INTERFACES(jeod, VehicleNonGravState)
 
 public:
-
     /**
      * Vehicle angular velocity with respect to inertial,
      * in root body body frame coordinates.
@@ -106,11 +103,9 @@ public:
     double accel_struct[3]; //!< trick_units(m/s^2)
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

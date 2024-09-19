@@ -46,7 +46,6 @@
  * Defining the thermal functionality
  */
 
-
 /************************** TRICK HEADER***************************************
 PURPOSE:
     ()
@@ -70,57 +69,44 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class InteractionSurface;
+
 // Model includes
-
-
-
 
 /**
  * Defining the thermal functionality
  */
-class ThermalModelRider {
-
-  JEOD_MAKE_SIM_INTERFACES(ThermalModelRider)
+class ThermalModelRider
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ThermalModelRider)
 
 public:
-   /**
-    * Flag to allow thermal variation of facets.
-    */
-  bool active; //!< trick_units(--)
+    /**
+     * Flag to allow thermal variation of facets.
+     */
+    bool active{}; //!< trick_units(--)
 
-   /**
-    * Flag to include facet-to-facet conduction, and vehicle-to-facet thermal
-    * sources and sinks.
-    */
-  bool include_internal_thermal_effects; //!< trick_units(--)
+    /**
+     * Flag to include facet-to-facet conduction, and vehicle-to-facet thermal
+     * sources and sinks.
+     */
+    bool include_internal_thermal_effects{}; //!< trick_units(--)
 
+    // Member methods
+    ThermalModelRider() = default;
+    virtual ~ThermalModelRider() = default;
+    ThermalModelRider & operator=(const ThermalModelRider &) = delete;
+    ThermalModelRider(const ThermalModelRider &) = delete;
 
-
-
-
-// Member methods
-
-  ThermalModelRider();
-  virtual ~ThermalModelRider();
-
-  void update( InteractionSurface * surface_ptr );
-
-
-
-private:
-
-   ThermalModelRider& operator = (const ThermalModelRider& rhs);
-   ThermalModelRider(const ThermalModelRider& rhs);
-
+    void update(InteractionSurface * surface_ptr);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

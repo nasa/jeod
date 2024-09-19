@@ -22,9 +22,8 @@ Library dependencies:
    (memory_messages.cc)
    (memory_type.cc))
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 /**
  * \addtogroup classes
@@ -42,13 +41,12 @@ Library dependencies:
 #include "../include/memory_manager.hh"
 #include "../include/memory_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Linkage for JeodMemoryManager::Master
 JeodMemoryManager * JeodMemoryManager::Master = nullptr;
-
 
 /**
  * Many of the static methods are a pass-through to a private non-static method,
@@ -58,81 +56,70 @@ JeodMemoryManager * JeodMemoryManager::Master = nullptr;
  * \param[in] error_is_fatal True => call fail
  * \param[in] line __LINE__
  */
-bool
-JeodMemoryManager::check_master (
-   bool error_is_fatal,
-   int line)
+bool JeodMemoryManager::check_master(bool error_is_fatal, int line)
 {
-   if (Master == nullptr) {
-      const char * msg = "The master memory manager has not been established.";
-      if (error_is_fatal) {
-         MessageHandler::fail (
-            __FILE__, line, MemoryMessages::singleton_error, msg);
-      }
-      else {
-         MessageHandler::error (
-            __FILE__, line, MemoryMessages::singleton_error, msg);
-      }
-      return false;
-   }
-   else {
-      return true;
-   }
+    if(Master == nullptr)
+    {
+        const char * msg = "The master memory manager has not been established.";
+        if(error_is_fatal)
+        {
+            MessageHandler::fail(__FILE__, line, MemoryMessages::singleton_error, msg);
+        }
+        else
+        {
+            MessageHandler::error(__FILE__, line, MemoryMessages::singleton_error, msg);
+        }
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
-
 
 /**
  * Set the debug level.
  * \param[in] level New debug level
  */
-void
-JeodMemoryManager::set_debug_level (
-   DebugLevel level)
+void JeodMemoryManager::set_debug_level(DebugLevel level)
 {
-
-   // Throw a non-fatal error if the singleton memory manager is not available.
-   if (check_master (false, __LINE__)) {
-
-      // Master exists: Set the manager's debug level.
-      Master->debug_level = level;
-   }
+    // Throw a non-fatal error if the singleton memory manager is not available.
+    if(check_master(false, __LINE__))
+    {
+        // Master exists: Set the manager's debug level.
+        Master->debug_level = level;
+    }
 }
-
 
 /**
  * Set the debug level.
  * \param[in] level New debug level
  */
-void
-JeodMemoryManager::set_debug_level (
-   unsigned int level)
+void JeodMemoryManager::set_debug_level(unsigned int level)
 {
-   if (level > Full_details) {
-      set_debug_level (Full_details);
-   }
-   else {
-      set_debug_level (static_cast<DebugLevel>(level));
-   }
+    if(level > Full_details)
+    {
+        set_debug_level(Full_details);
+    }
+    else
+    {
+        set_debug_level(static_cast<DebugLevel>(level));
+    }
 }
-
 
 /**
  * Set the guard_enabled flag.
  * \param[in] value New value
  */
-void
-JeodMemoryManager::set_guard_enabled (
-   bool value)
+void JeodMemoryManager::set_guard_enabled(bool value)
 {
-
-   // Throw a non-fatal error if the singleton memory manager is not available.
-   if (check_master (false, __LINE__)) {
-
-      // Set the manager's guard_enabled flag.
-      Master->guard_enabled = value;
-   }
+    // Throw a non-fatal error if the singleton memory manager is not available.
+    if(check_master(false, __LINE__))
+    {
+        // Set the manager's guard_enabled flag.
+        Master->guard_enabled = value;
+    }
 }
-
 
 /**
  * Query whether all allocated memory has been freed.
@@ -142,22 +129,19 @@ JeodMemoryManager::set_guard_enabled (
  *     This method does not use a thread-safe query.
  * @return Has all memory been freed?
  */
-bool
-JeodMemoryManager::is_table_empty (
-   void)
+bool JeodMemoryManager::is_table_empty()
 {
-   bool is_empty = false;
+    bool is_empty = false;
 
-   // Throw a non-fatal error if the singleton memory manager is not available.
-   if (check_master (false, __LINE__)) {
+    // Throw a non-fatal error if the singleton memory manager is not available.
+    if(check_master(false, __LINE__))
+    {
+        // See if the table is empty.
+        is_empty = Master->alloc_table.empty();
+    }
 
-      // See if the table is empty.
-      is_empty = Master->alloc_table.empty();
-   }
-
-   return is_empty;
+    return is_empty;
 }
-
 
 /**
  * Register a class with the memory manager.
@@ -171,24 +155,21 @@ JeodMemoryManager::is_table_empty (
  * @return Type entry for the class
  * \param[in] tdesc Type pre-descriptor
  */
-const JeodMemoryManager::TypeEntry
-JeodMemoryManager::register_class (
-   JeodMemoryTypePreDescriptor & tdesc)
+const JeodMemoryManager::TypeEntry JeodMemoryManager::register_class(JeodMemoryTypePreDescriptor & tdesc)
 {
+    // Throw a fatal error if the singleton memory manager is not available.
+    if(check_master(true, __LINE__))
+    {
+        // Return a copy of the entry for the type, creating an entry if needed.
+        return Master->get_type_entry_atomic(tdesc);
+    }
 
-   // Throw a fatal error if the singleton memory manager is not available.
-   if (check_master (true, __LINE__)) {
-
-      // Return a copy of the entry for the type, creating an entry if needed.
-      return Master->get_type_entry_atomic (tdesc);
-   }
-
-   // Not reached.
-   else {
-      return JeodMemoryManager::TypeEntry (0, nullptr);
-   }
+    // Not reached.
+    else
+    {
+        return JeodMemoryManager::TypeEntry(0, nullptr);
+    }
 }
-
 
 /**
  * Get a type descriptor from the memory manager's type table.
@@ -200,22 +181,19 @@ JeodMemoryManager::register_class (
  * @return Type descriptor
  * \param[in] typeid_info C++ type descriptor
  */
-const JeodMemoryTypeDescriptor *
-JeodMemoryManager::get_type_descriptor (
-   const std::type_info & typeid_info)
+const JeodMemoryTypeDescriptor * JeodMemoryManager::get_type_descriptor(const std::type_info & typeid_info)
 {
-   const JeodMemoryTypeDescriptor * result = nullptr;
+    const JeodMemoryTypeDescriptor * result = nullptr;
 
-   // Throw a fatal error if the singleton memory manager is not available.
-   if (check_master (true, __LINE__)) {
+    // Throw a fatal error if the singleton memory manager is not available.
+    if(check_master(true, __LINE__))
+    {
+        // Get the descriptor from the master memory manager.
+        result = Master->get_type_descriptor_atomic(typeid_info);
+    }
 
-      // Get the descriptor from the master memory manager.
-      result = Master->get_type_descriptor_atomic (typeid_info);
-   }
-
-   return result;
+    return result;
 }
-
 
 /**
  * Get a type descriptor from the memory manager's type table.
@@ -228,23 +206,20 @@ JeodMemoryManager::get_type_descriptor (
  * \param[in] name_type Typeid or demangled name
  * \param[in] type_name Type name
  */
-const JeodMemoryTypeDescriptor *
-JeodMemoryManager::get_type_descriptor (
-   JeodMemoryManager::NameType name_type,
-   const std::string & type_name)
+const JeodMemoryTypeDescriptor * JeodMemoryManager::get_type_descriptor(JeodMemoryManager::NameType name_type,
+                                                                        const std::string & type_name)
 {
-   const JeodMemoryTypeDescriptor * result = nullptr;
+    const JeodMemoryTypeDescriptor * result = nullptr;
 
-   // Throw a fatal error if the singleton memory manager is not available.
-   if (check_master (true, __LINE__)) {
+    // Throw a fatal error if the singleton memory manager is not available.
+    if(check_master(true, __LINE__))
+    {
+        // Get the descriptor from the master memory manager.
+        result = Master->get_type_entry_atomic(name_type, type_name).tdesc;
+    }
 
-      // Get the descriptor from the master memory manager.
-      result = Master->get_type_entry_atomic(name_type, type_name).tdesc;
-   }
-
-   return result;
+    return result;
 }
-
 
 /**
  * Allocate memory and register the allocated memory with JEOD.
@@ -265,28 +240,20 @@ JeodMemoryManager::get_type_descriptor (
  * \param[in] file Source file containing JEOD_ALLOC
  * \param[in] line Line number containing JEOD_ALLOC
  */
-void *
-JeodMemoryManager::create_memory (
-   bool is_array,
-   unsigned int nelems,
-   int fill,
-   const TypeEntry & tentry,
-   const char * file,
-   unsigned int line)
+void * JeodMemoryManager::create_memory(
+    bool is_array, unsigned int nelems, int fill, const TypeEntry & tentry, const char * file, unsigned int line)
 {
-   void * addr = nullptr;       // -- Allocated memory
+    void * addr = nullptr; // -- Allocated memory
 
-   // Throw a fatal error if the singleton memory manager is not available.
-   if (check_master (true, __LINE__)) {
+    // Throw a fatal error if the singleton memory manager is not available.
+    if(check_master(true, __LINE__))
+    {
+        // Pass the call on to the singular memory manager.
+        addr = Master->create_memory_internal(is_array, nelems, fill, tentry, file, line);
+    }
 
-      // Pass the call on to the singular memory manager.
-      addr = Master->create_memory_internal (
-                is_array, nelems, fill, tentry, file, line);
-   }
-
-   return addr;
+    return addr;
 }
-
 
 /**
  * Query whether some address was allocated by JEOD.
@@ -300,24 +267,19 @@ JeodMemoryManager::create_memory (
  * \param[in] file Source file containing query
  * \param[in] line Line number containing query
  */
-bool
-JeodMemoryManager::is_allocated (
-   const void * addr,
-   const char * file,
-   unsigned int line)
+bool JeodMemoryManager::is_allocated(const void * addr, const char * file, unsigned int line)
 {
-   bool allocated = false;
+    bool allocated = false;
 
-   // Throw a non-fatal error if the singleton memory manager is not available.
-   if (check_master (false, __LINE__)) {
+    // Throw a non-fatal error if the singleton memory manager is not available.
+    if(check_master(false, __LINE__))
+    {
+        // Pass the call on to the singular memory manager.
+        allocated = Master->is_allocated_internal(addr, file, line);
+    }
 
-      // Pass the call on to the singular memory manager.
-      allocated = Master->is_allocated_internal (addr, file, line);
-   }
-
-   return allocated;
+    return allocated;
 }
-
 
 /**
  * Destroy memory previously registered with JEOD.
@@ -335,23 +297,15 @@ JeodMemoryManager::is_allocated (
  * \param[in] file Source file containing delete
  * \param[in] line Line number containing delete
  */
-void
-JeodMemoryManager::destroy_memory (
-   void * addr,
-   bool delete_array,
-   const char * file,
-   unsigned int line)
+void JeodMemoryManager::destroy_memory(void * addr, bool delete_array, const char * file, unsigned int line)
 {
-
-   // Throw a non-fatal error if the singleton memory manager is not available.
-   if (check_master (false, __LINE__)) {
-
-      // Pass the call on to the singular memory manager.
-      Master->destroy_memory_internal (
-         addr, delete_array, file, line);
-   }
+    // Throw a non-fatal error if the singleton memory manager is not available.
+    if(check_master(false, __LINE__))
+    {
+        // Pass the call on to the singular memory manager.
+        Master->destroy_memory_internal(addr, delete_array, file, line);
+    }
 }
-
 
 /**
  * Register a checkpointable object with the memory manager.
@@ -365,41 +319,39 @@ JeodMemoryManager::destroy_memory (
  * \param[in] elem_name Element name
  * \param[in,out] checkpointable Checkpointable object
  */
-void
-JeodMemoryManager::register_container (
-   const void * container,
-   const std::type_info & container_type,
-   const char * elem_name,
-   JeodCheckpointable & checkpointable)
+void JeodMemoryManager::register_container(const void * container,
+                                           const std::type_info & container_type,
+                                           const std::string & elem_name,
+                                           JeodCheckpointable & checkpointable)
 {
+    // Throw a fatal error if the singleton memory manager is not available.
+    if(check_master(true, __LINE__))
+    {
+        const JeodMemoryTypeDescriptor * tdesc(Master->get_type_descriptor_atomic(container_type));
 
-   // Throw a fatal error if the singleton memory manager is not available.
-   if (check_master (true, __LINE__)) {
+        // Protect against A null type descriptor (otherwise get core dump)
+        if(tdesc == nullptr)
+        {
+            std::string type_name(NamedItem::demangle(container_type));
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 MemoryMessages::null_pointer,
+                                 "Illegal attempt to register container %s:%s contained in %p\n"
+                                 "Class %s has not been registered with the memory manager.",
+                                 type_name.c_str(),
+                                 elem_name.c_str(),
+                                 container,
+                                 type_name.c_str());
+            return;
+        }
 
-      const JeodMemoryTypeDescriptor * tdesc (
-         Master->get_type_descriptor_atomic (container_type));
+        // Register the checkpointable object with the sim interface.
+        Master->sim_interface.register_container(container, *tdesc, elem_name, checkpointable);
 
-      // Protect against A null type descriptor (otherwise get core dump)
-      if (tdesc == nullptr) {
-         std::string type_name(NamedItem::demangle(container_type));
-         MessageHandler::fail (
-            __FILE__, __LINE__, MemoryMessages::null_pointer,
-            "Illegal attempt to register container %s:%s contained in %p\n"
-            "Class %s has not been registered with the memory manager.",
-            type_name.c_str(), elem_name, container, type_name.c_str());
-         return;
-      }
-
-      // Register the checkpointable object with the sim interface.
-      Master->sim_interface.register_container (
-         container, *tdesc, elem_name, checkpointable);
-
-      // Tell the checkpointable object to register / store type info.
-      checkpointable.initialize_checkpointable (
-         container, container_type, elem_name);
-   }
+        // Tell the checkpointable object to register / store type info.
+        checkpointable.initialize_checkpointable(container, container_type, elem_name);
+    }
 }
-
 
 /**
  * Deregister all checkpointable object contained within some object.
@@ -413,41 +365,39 @@ JeodMemoryManager::register_container (
  * \param[in] elem_name Element name
  * \param[in,out] checkpointable Checkpointable object
  */
-void
-JeodMemoryManager::deregister_container (
-   const void * container,
-   const std::type_info & container_type,
-   const char * elem_name,
-   JeodCheckpointable & checkpointable)
+void JeodMemoryManager::deregister_container(const void * container,
+                                             const std::type_info & container_type,
+                                             const std::string & elem_name,
+                                             JeodCheckpointable & checkpointable)
 {
+    // Throw a fatal error if the singleton memory manager is not available.
+    if(check_master(true, __LINE__))
+    {
+        const JeodMemoryTypeDescriptor * tdesc(Master->get_type_descriptor_atomic(container_type));
 
-   // Throw a fatal error if the singleton memory manager is not available.
-   if (check_master (true, __LINE__)) {
+        // Protect against A null type descriptor (otherwise get core dump)
+        if(tdesc == nullptr)
+        {
+            std::string type_name(NamedItem::demangle(container_type));
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 MemoryMessages::null_pointer,
+                                 "Illegal attempt to register container %s:%s contained in %p\n"
+                                 "Class %s has not been registered with the memory manager.",
+                                 type_name.c_str(),
+                                 elem_name.c_str(),
+                                 container,
+                                 type_name.c_str());
+            return;
+        }
 
-      const JeodMemoryTypeDescriptor * tdesc (
-         Master->get_type_descriptor_atomic (container_type));
+        // De-register the checkpointable object with the sim interface.
+        Master->sim_interface.deregister_container(container, *tdesc, elem_name, checkpointable);
 
-      // Protect against A null type descriptor (otherwise get core dump)
-      if (tdesc == nullptr) {
-         std::string type_name(NamedItem::demangle(container_type));
-         MessageHandler::fail (
-            __FILE__, __LINE__, MemoryMessages::null_pointer,
-            "Illegal attempt to register container %s:%s contained in %p\n"
-            "Class %s has not been registered with the memory manager.",
-            type_name.c_str(), elem_name, container, type_name.c_str());
-         return;
-      }
-
-      // De-register the checkpointable object with the sim interface.
-      Master->sim_interface.deregister_container (
-         container, *tdesc, elem_name, checkpointable);
-
-      // Undo the external actions performed by initialize_checkpointable.
-      checkpointable.undo_initialize_checkpointable (
-         container, container_type, elem_name);
-   }
+        // Undo the external actions performed by initialize_checkpointable.
+        checkpointable.undo_initialize_checkpointable(container, container_type, elem_name);
+    }
 }
-
 
 /**
  * Set the memory manager's simulation interface mode.
@@ -458,21 +408,17 @@ JeodMemoryManager::deregister_container (
  *     A fatal error results when this is not true.
  * \param[in] new_mode New mode
  */
-void
-JeodMemoryManager::set_mode (
-   JeodSimulationInterface::Mode new_mode)
+void JeodMemoryManager::set_mode(JeodSimulationInterface::Mode new_mode)
 {
-
-   // Throw a fatal error if the singleton memory manager is not available.
-   if (check_master (true, __LINE__)) {
-
-      // Tell the master memory manager about the new mode.
-      Master->set_mode_internal (new_mode);
-   }
+    // Throw a fatal error if the singleton memory manager is not available.
+    if(check_master(true, __LINE__))
+    {
+        // Tell the master memory manager about the new mode.
+        Master->set_mode_internal(new_mode);
+    }
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

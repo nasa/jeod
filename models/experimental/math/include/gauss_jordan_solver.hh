@@ -51,10 +51,8 @@ Purpose: ()
 Library dependencies: ((../src/gauss_jordan_solver.cc))
 */
 
-
 #ifndef JEOD_GAUSS_JORDAN_SOLVER_HH
 #define JEOD_GAUSS_JORDAN_SOLVER_HH
-
 
 #include "linear_system_solver.hh"
 #include "two_d_array.hh"
@@ -63,58 +61,59 @@ Library dependencies: ((../src/gauss_jordan_solver.cc))
 #include "utils/memory/include/jeod_alloc.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Solves a linear system of equations using Gauss-Jordan elimination.
  */
 class GaussJordanSolver : public LinearSystemSolver
 {
-    JEOD_MAKE_SIM_INTERFACES(GaussJordanSolver)
+    JEOD_MAKE_SIM_INTERFACES(jeod, GaussJordanSolver)
 
 public:
-
     /**
      * Vector of doubles.
      */
-    typedef LinearSystemSolver::DoubleVectorT DoubleVectorT;
+    using DoubleVectorT = LinearSystemSolver::DoubleVectorT;
 
     /**
      * Vector of unsigned ints.
      */
-    typedef JeodPrimitiveVector<unsigned>::type UnsignedVectorT;
-
+    using UnsignedVectorT = JeodPrimitiveVector<unsigned int>::type;
 
     // Member functions
 
     /**
      * Default constructor.
      */
-    GaussJordanSolver ()
+    GaussJordanSolver()
     {
         JEOD_REGISTER_CLASS(GaussJordanSolver);
-        JEOD_REGISTER_CHECKPOINTABLE (this, avail_rows);
-        JEOD_REGISTER_CHECKPOINTABLE (this, pivot_row);
+        JEOD_REGISTER_CHECKPOINTABLE(this, avail_rows);
+        JEOD_REGISTER_CHECKPOINTABLE(this, pivot_row);
     }
 
     /**
      * Destructor.
      */
-    ~GaussJordanSolver () override
+    ~GaussJordanSolver() override
     {
-        JEOD_DEREGISTER_CHECKPOINTABLE (this, avail_rows);
-        JEOD_DEREGISTER_CHECKPOINTABLE (this, pivot_row);
+        JEOD_DEREGISTER_CHECKPOINTABLE(this, avail_rows);
+        JEOD_DEREGISTER_CHECKPOINTABLE(this, pivot_row);
     }
+
+    GaussJordanSolver(const GaussJordanSolver &) = delete;
+    GaussJordanSolver & operator=(const GaussJordanSolver &) = delete;
 
     /**
      * Set the maximum dimensionality of the problem.
      */
-    void set_max_dimensions (unsigned max_dims_in) override
+    void set_max_dimensions(unsigned max_dims_in) override
     {
         LinearSystemSolver::set_max_dimensions(max_dims_in);
-        augmented_matrix.reserve(max_dims*(max_dims+1u));
+        augmented_matrix.reserve(max_dims * (max_dims + 1u));
         avail_rows.reserve(max_dims);
         pivot_row.reserve(max_dims);
     }
@@ -122,10 +121,10 @@ public:
     /**
      * Set the current dimensionality of the problem.
      */
-    void set_n_dimensions (unsigned n_dims) override
+    void set_n_dimensions(unsigned n_dims) override
     {
         LinearSystemSolver::set_n_dimensions(n_dims);
-        augmented_matrix.resize(n_dims,n_dims+1u);
+        augmented_matrix.resize(n_dims, n_dims + 1u);
         avail_rows.resize(n_dims);
         pivot_row.resize(n_dims);
     }
@@ -133,10 +132,9 @@ public:
     /**
      * Solve for x in A*x = b.
      */
-    unsigned solve(DoubleVectorT& x) override;
+    unsigned solve(DoubleVectorT & x) override;
 
 protected:
-
     /**
      * The augmented matrix, initialized to [A | b ]
      */
@@ -151,20 +149,11 @@ protected:
      * Rows that have been reduced.
      */
     UnsignedVectorT pivot_row; //!< trick_io(**)
-
-private:
-    // The copy constructor and copy assignment operator are not implemented
-    // to avoid erroneous copies.
-    GaussJordanSolver (const GaussJordanSolver&);
-    GaussJordanSolver& operator= (const GaussJordanSolver&);
-
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

@@ -50,10 +50,8 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_TWO_D_ARRAY_HH
 #define JEOD_TWO_D_ARRAY_HH
-
 
 #include "column_view.hh"
 #include "row_view.hh"
@@ -66,10 +64,9 @@ Purpose: ()
 
 #include <type_traits>
 
-
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Represents a two dimensional array, implemented as a vector that is
@@ -80,10 +77,9 @@ namespace jeod {
  */
 class TwoDArray
 {
-    JEOD_MAKE_SIM_INTERFACES(TwoDArray)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TwoDArray)
 
 public:
-
     // Member types.
 
     /**
@@ -91,20 +87,16 @@ public:
      * The data contents are stored in a DoubleVectorT, with 2D values stored
      * in this 1D array using either row-major or column-major indexing.
      */
-    typedef JeodPrimitiveVector<double>::type DoubleVectorT;
-
+    using DoubleVectorT = JeodPrimitiveVector<double>::type;
 
     // Member functions.
 
     /**
      * Default constructor.
      */
-    TwoDArray ()
-    :
-        repr(),
-        max_elems(0),
-        n_rows(0),
-        n_cols(0)
+    TwoDArray()
+        : repr()
+
     {
         register_contents();
     }
@@ -112,21 +104,19 @@ public:
     /**
      * Destructor.
      */
-    virtual ~TwoDArray ()
+    virtual ~TwoDArray()
     {
         deregister_contents();
     }
 
-
     // The copy constructor, move constructor, copy assignment operator, and
     // move assignment operators work just fine.
-    TwoDArray (const TwoDArray&) = default;
-    TwoDArray& operator= (const TwoDArray&) = default;
+    TwoDArray(const TwoDArray &) = default;
+    TwoDArray & operator=(const TwoDArray &) = default;
 #ifndef SWIG
-    TwoDArray (TwoDArray&&) = default;
-    TwoDArray& operator= (TwoDArray&&) = default;
+    TwoDArray(TwoDArray &&) = default;
+    TwoDArray & operator=(TwoDArray &&) = default;
 #endif
-
 
 #ifndef SWIG
     /**
@@ -135,18 +125,17 @@ public:
      */
     virtual SolverTypes::IndexPairT size() const
     {
-        return SolverTypes::IndexPairT(n_rows, n_cols);
+        return {n_rows, n_cols};
     }
 #endif
-
 
     /**
      * Reserve storage for at least max_elems_in elements.
      * @param max_elems_in  Amount of storage to be reserved.
      */
-    void reserve (unsigned max_elems_in)
+    void reserve(unsigned max_elems_in)
     {
-        if (max_elems < max_elems_in)
+        if(max_elems < max_elems_in)
         {
             max_elems = max_elems_in;
             repr.reserve(max_elems);
@@ -158,18 +147,17 @@ public:
      * @param n_rows_in  The number of rows in the array.
      * @param n_cols_in  The number of columns in the array.
      */
-    void resize (unsigned n_rows_in, unsigned n_cols_in)
+    void resize(unsigned n_rows_in, unsigned n_cols_in)
     {
-        unsigned n_elems = n_rows_in*n_cols_in;
+        unsigned n_elems = n_rows_in * n_cols_in;
         n_rows = n_rows_in;
         n_cols = n_cols_in;
-        reserve (n_elems);
-        if (repr.size() < n_elems)
+        reserve(n_elems);
+        if(repr.size() < n_elems)
         {
             repr.resize(n_elems);
         }
     }
-
 
     /**
      * Non-const row major element access to the underlying representation.
@@ -178,9 +166,9 @@ public:
      * @param i_col  The column number, zero based.
      * @return Reference to element at i_row, i_col.
      */
-    double& operator() (unsigned i_row, unsigned i_col)
+    double & operator()(unsigned i_row, unsigned i_col)
     {
-        return repr[i_row*n_cols + i_col];
+        return repr[i_row * n_cols + i_col];
     }
 
 #ifndef SWIG
@@ -191,12 +179,11 @@ public:
      * @param i_col  The column number, zero based.
      * @return Value of the element at i_row, i_col.
      */
-    double operator() (unsigned i_row, unsigned i_col) const
+    double operator()(unsigned i_row, unsigned i_col) const
     {
-        return const_cast<TwoDArray&>(*this)(i_row, i_col);
+        return const_cast<TwoDArray &>(*this)(i_row, i_col);
     }
 #endif
-
 
     /**
      * Non-const row major element access to the underlying representation.
@@ -205,11 +192,11 @@ public:
      * @param i_col  The column number, zero based.
      * @return Reference to element at i_row, i_col.
      */
-    double& at (unsigned i_row, unsigned i_col)
+    double & at(unsigned i_row, unsigned i_col)
     {
-        if ((i_row >= n_rows) || (i_col >= n_cols))
+        if((i_row >= n_rows) || (i_col >= n_cols))
         {
-            throw std::out_of_range("Index out of bounds");
+            JEOD_THROW(std::out_of_range("Index out of bounds"));
         }
         return (*this)(i_row, i_col);
     }
@@ -222,12 +209,11 @@ public:
      * @param i_col  The column number, zero based.
      * @return Value of the element at i_row, i_col.
      */
-    double at (unsigned i_row, unsigned i_col) const
+    double at(unsigned i_row, unsigned i_col) const
     {
-        return const_cast<TwoDArray&>(*this).at(i_row, i_col);
+        return const_cast<TwoDArray &>(*this).at(i_row, i_col);
     }
 #endif
-
 
 #ifndef SWIG
     /**
@@ -237,9 +223,8 @@ public:
      * @param row_range  Rows at which view begins and ends.
      * @param col_range  Columns at which view begins and ends.
      */
-    SubArrayView<TwoDArray, double> make_view (
-        const SolverTypes::IndexPairT& row_range,
-        const SolverTypes::IndexPairT& col_range)
+    SubArrayView<TwoDArray, double> make_view(const SolverTypes::IndexPairT & row_range,
+                                              const SolverTypes::IndexPairT & col_range)
     {
         return SubArrayView<TwoDArray, double>(*this, row_range, col_range);
     }
@@ -251,9 +236,7 @@ public:
      * @param the_row    The row of the view.
      * @param col_range  Columns at which view begins and ends/
      */
-    RowView<TwoDArray, double> make_view (
-        unsigned the_row,
-        const SolverTypes::IndexPairT& col_range)
+    RowView<TwoDArray, double> make_view(unsigned the_row, const SolverTypes::IndexPairT & col_range)
     {
         return RowView<TwoDArray, double>(*this, the_row, col_range);
     }
@@ -265,17 +248,13 @@ public:
      * @param row_range  Rows at which view begins and ends.
      * @param the_col    The column of the view.
      */
-    ColumnView<TwoDArray, double> make_view (
-        const SolverTypes::IndexPairT& row_range,
-        unsigned the_col)
+    ColumnView<TwoDArray, double> make_view(const SolverTypes::IndexPairT & row_range, unsigned the_col)
     {
         return ColumnView<TwoDArray, double>(*this, row_range, the_col);
     }
 #endif
 
-
 private:
-
     /**
      * The underlying representation.
      */
@@ -284,42 +263,39 @@ private:
     /**
      * The maximum number of elements in the array.
      */
-    unsigned max_elems; //!< trick_units(--)
+    unsigned max_elems{}; //!< trick_units(--)
 
     /**
      * The number of rows currently in use.
      */
-    unsigned n_rows; //!< trick_units(--)
+    unsigned n_rows{}; //!< trick_units(--)
 
     /**
      * The number of columns currently in use.
      */
-    unsigned n_cols; //!< trick_units(--)
-
+    unsigned n_cols{}; //!< trick_units(--)
 
     /**
      * JEOD registration.
      */
-    void register_contents ()
+    void register_contents()
     {
         JEOD_REGISTER_NONEXPORTED_CLASS(TwoDArray);
-        JEOD_REGISTER_CHECKPOINTABLE (this, repr);
+        JEOD_REGISTER_CHECKPOINTABLE(this, repr);
     }
 
     /**
      * JEOD deregistration.
      */
-    void deregister_contents ()
+    void deregister_contents()
     {
-        JEOD_DEREGISTER_CHECKPOINTABLE (this, repr);
+        JEOD_DEREGISTER_CHECKPOINTABLE(this, repr);
     }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

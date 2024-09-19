@@ -36,19 +36,25 @@
 //
 //============================================================================
 // Two vehicles in Earth orbit with planet-fixed states
-// 
+//
 //=============================================================================
 
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
-#include "default_priority_settings.sm"
-#include "time_dyntime_only.sm"
-#include "dynamics.sm"
-#include "environment_sans_de405.sm"
-#include "earth_basic.sm"
 
+// Include the default jeod object
+#include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
+
+#include "time_dyntime_only.sm"
+
+#include "dynamics.sm"
+#include "earth_basic.sm"
+#include "environment_sans_de405.sm"
 
 //***************************************************************
 // CLASS: (VehicleSimObject)
@@ -66,46 +72,40 @@
 ##include "dynamics/derived_state/include/orb_elem_derived_state.hh"
 ##include "dynamics/derived_state/include/planetary_derived_state.hh"
 
-class VehicleSimObject : public Trick::SimObject {
+class VehicleSimObject : public Trick::SimObject
+{
+public:
+    jeod::DynBody dyn_body;
+    jeod::SphericalHarmonicsGravityControls grav_control;
 
-  public:
-   jeod::DynBody    dyn_body;
-   jeod::SphericalHarmonicsGravityControls  grav_control;
+    jeod::DynBodyInitOrbit orb_init;
+    jeod::DynBodyInitLvlhRotState lvlh_rot_init;
+    jeod::DynBodyInitLvlhTransState lvlh_trans_init;
+    jeod::MassBodyInit mass_init;
 
-   jeod::DynBodyInitOrbit          orb_init;
-   jeod::DynBodyInitLvlhRotState   lvlh_rot_init;
-   jeod::DynBodyInitLvlhTransState lvlh_trans_init;
-   jeod::MassBodyInit              mass_init;
+    jeod::OrbElemDerivedState orb_elem;
+    jeod::PlanetaryDerivedState pfix;
 
-   jeod::OrbElemDerivedState orb_elem;
-   jeod::PlanetaryDerivedState pfix;
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : dyn_manager(dyn_mngr_in)
+    {
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
+        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") pfix.initialize(dyn_body, dyn_manager);
 
-   VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
-     :
-       dyn_manager(dyn_mngr_in)
-   {
-     P_ENV ("initialization") dyn_body.initialize_model(dyn_manager );
-     P_DYN  ("initialization") orb_elem.initialize ( dyn_body,
-                                                      dyn_manager);
-     P_DYN  ("initialization") pfix.initialize ( dyn_body,
-                                                  dyn_manager);
+        (DYNAMICS, "environment") orb_elem.update();
+        (DYNAMICS, "environment") pfix.update();
+    }
 
-     (DYNAMICS, "environment") orb_elem.update ( );
-     (DYNAMICS, "environment") pfix.update ( );
-   };
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 
-  private:
-
-   VehicleSimObject (const VehicleSimObject&);
-   VehicleSimObject & operator = (const VehicleSimObject&);
-
-   jeod::DynManager & dyn_manager;
-
+    jeod::DynManager & dyn_manager;
 };
+
 VehicleSimObject vehicleA(dynamics.dyn_manager);
 VehicleSimObject vehicleB(dynamics.dyn_manager);
 
-
-
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

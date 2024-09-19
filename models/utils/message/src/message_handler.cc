@@ -25,10 +25,9 @@ Library dependencies:
   ((message_handler.cc)
    (message_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 #include <cstdarg>
@@ -40,29 +39,24 @@ Library dependencies:
 #include "../include/message_handler.hh"
 #include "../include/message_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
  Define message severity levels. See the header for documentation.
 */
-
-const int MessageHandler::Failure =  -1;
-const int MessageHandler::Error   =   0;
-const int MessageHandler::Warning =   9;
-const int MessageHandler::Notice  =  99;
-const int MessageHandler::Debug   = 999;
-
-
+const int MessageHandler::Failure = -1;
+const int MessageHandler::Error = 0;
+const int MessageHandler::Warning = 9;
+const int MessageHandler::Notice = 99;
+const int MessageHandler::Debug = 999;
 
 /*
 Purpose:
   (Define and initialize the global message handler.)
 */
 MessageHandler * MessageHandler::handler = nullptr;
-
-
 
 /**
  * Generate a message with negative severity, MessageHandler::Failure,
@@ -81,31 +75,23 @@ MessageHandler * MessageHandler::handler = nullptr;
  * \param[in] format sprintf format
  * \param[in] ... sprintf arguments
  */
-void
-MessageHandler::fail (
-   const char * file,
-   unsigned int line,
-   const char * msg_code,
-   const char * format,
-   ...)
+void MessageHandler::fail(const char * file, unsigned int line, const char * msg_code, const char * format, ...)
 {
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Pass message to the handler.
-   else {
-      va_list args; // -- Varargs stack
-      va_start (args, format);
-      handler->process_message (
-         MessageHandler::Failure, "Fatal Error", file, line, msg_code,
-         format, args);
-      va_end (args);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        va_list args; // -- Varargs stack
+        va_start(args, format);
+        handler->process_message(MessageHandler::Failure, "Fatal Error", file, line, msg_code, format, args);
+        va_end(args);
+    }
 }
-
-
 
 /**
  * Generate a message with severity MessageHandler::Error.
@@ -123,30 +109,23 @@ MessageHandler::fail (
  * \param[in] format sprintf format
  * \param[in] ... sprintf arguments
  */
-void
-MessageHandler::error (
-   const char * file,
-   unsigned int line,
-   const char * msg_code,
-   const char * format,
-   ...)
+void MessageHandler::error(const char * file, unsigned int line, const char * msg_code, const char * format, ...)
 {
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Pass message to the handler.
-   else {
-      va_list args; // -- Varargs stack
-      va_start (args, format);
-      handler->process_message (
-         MessageHandler::Error  , "Error", file, line, msg_code, format, args);
-      va_end (args);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        va_list args; // -- Varargs stack
+        va_start(args, format);
+        handler->process_message(MessageHandler::Error, "Error", file, line, msg_code, format, args);
+        va_end(args);
+    }
 }
-
-
 
 /**
  * Generate a message with severity MessageHandler::Warning.
@@ -160,29 +139,23 @@ MessageHandler::error (
  * \param[in] format sprintf format
  * \param[in] ... sprintf arguments
  */
-void
-MessageHandler::warn (
-   const char * file,
-   unsigned int line,
-   const char * msg_code,
-   const char * format,
-   ...)
+void MessageHandler::warn(const char * file, unsigned int line, const char * msg_code, const char * format, ...)
 {
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Pass message to the handler.
-   else {
-      va_list args; // -- Varargs stack
-      va_start (args, format);
-      handler->process_message (
-        MessageHandler::Warning, "Warning", file, line, msg_code, format, args);
-      va_end (args);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        va_list args; // -- Varargs stack
+        va_start(args, format);
+        handler->process_message(MessageHandler::Warning, "Warning", file, line, msg_code, format, args);
+        va_end(args);
+    }
 }
-
 
 /**
  * Generates a message with severity MessageHandler::Notice.
@@ -194,29 +167,23 @@ MessageHandler::warn (
  * \param[in] format sprintf format
  * \param[in] ... sprintf arguments
  */
-void
-MessageHandler::inform (
-   const char * file,
-   unsigned int line,
-   const char * msg_code,
-   const char * format,
-   ...)
+void MessageHandler::inform(const char * file, unsigned int line, const char * msg_code, const char * format, ...)
 {
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Pass message to the handler.
-   else {
-      va_list args; // -- Varargs stack
-      va_start (args, format);
-      handler->process_message (
-         MessageHandler::Notice , "Notice", file, line, msg_code, format, args);
-      va_end (args);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        va_list args; // -- Varargs stack
+        va_start(args, format);
+        handler->process_message(MessageHandler::Notice, "Notice", file, line, msg_code, format, args);
+        va_end(args);
+    }
 }
-
 
 /**
  * Generate a message with severity MessageHandler::Debug.
@@ -229,29 +196,23 @@ MessageHandler::inform (
  * \param[in] format sprintf format
  * \param[in] ... sprintf arguments
  */
-void
-MessageHandler::debug (
-   const char * file,
-   unsigned int line,
-   const char * msg_code,
-   const char * format,
-   ...)
+void MessageHandler::debug(const char * file, unsigned int line, const char * msg_code, const char * format, ...)
 {
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Pass message to the handler.
-   else {
-      va_list args; // -- Varargs stack
-      va_start (args, format);
-      handler->process_message (
-         MessageHandler::Debug, "Debug", file, line, msg_code, format, args);
-      va_end (args);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        va_list args; // -- Varargs stack
+        va_start(args, format);
+        handler->process_message(MessageHandler::Debug, "Debug", file, line, msg_code, format, args);
+        va_end(args);
+    }
 }
-
 
 /**
  * Generic variable arguments message interface.
@@ -266,31 +227,29 @@ MessageHandler::debug (
  * \param[in] format sprintf format
  * \param[in] ... sprintf arguments
  */
-void
-MessageHandler::send_message (
-   int severity,
-   const char * prefix,
-   const char * file,
-   unsigned int line,
-   const char * msg_code,
-   const char * format,
-   ...)
+void MessageHandler::send_message(int severity,
+                                  const char * prefix,
+                                  const char * file,
+                                  unsigned int line,
+                                  const char * msg_code,
+                                  const char * format,
+                                  ...)
 {
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Pass message to the handler.
-   else {
-      va_list args; // -- Varargs stack
-      va_start (args, format);
-      handler->process_message (
-         severity, prefix, file, line, msg_code, format, args);
-      va_end (args);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        va_list args; // -- Varargs stack
+        va_start(args, format);
+        handler->process_message(severity, prefix, file, line, msg_code, format, args);
+        va_end(args);
+    }
 }
-
 
 /**
  * Generic variable arguments message interface.
@@ -306,75 +265,68 @@ MessageHandler::send_message (
  * \param[in] format sprintf format
  * \param[in,out] args Varargs stack
  */
-void
-MessageHandler::va_send_message (
-   int severity,
-   const char * prefix,
-   const char * file,
-   unsigned int line,
-   const char * msg_code,
-   const char * format,
-   va_list args)
+void MessageHandler::va_send_message(int severity,
+                                     const char * prefix,
+                                     const char * file,
+                                     unsigned int line,
+                                     const char * msg_code,
+                                     const char * format,
+                                     va_list args)
 {
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
-
-   // Handler exists: Pass message to the handler.
-   else {
-      handler->process_message (
-         severity, prefix, file, line, msg_code, format, args);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        handler->process_message(severity, prefix, file, line, msg_code, format, args);
+    }
 }
-
-
 
 /**
  * Set the suppression level in the global message handler.
  * \param[in] suppression_level New suppression level
  */
-void
-MessageHandler::set_suppression_level (
-   unsigned int suppression_level)
+void MessageHandler::set_suppression_level(unsigned int suppression_level)
 {
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
-
-   // Handler exists: Pass message to the handler.
-   else {
-      handler->suppression_level = suppression_level;
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        handler->suppression_level = suppression_level;
+    }
 }
-
 
 /**
  * Get the suppress_id of the global massage handler.
  * @return Suppression level value
  */
-unsigned int
-MessageHandler::get_suppression_level (
-   void)
+unsigned int MessageHandler::get_suppression_level()
 {
-   unsigned int result = -1;
+    unsigned int result = -1;
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Get value from the handler.
-   else {
-      result = handler->suppression_level;
-   }
+    // Handler exists: Get value from the handler.
+    else
+    {
+        result = handler->suppression_level;
+    }
 
-   return result;
+    return result;
 }
-
 
 /**
  * Add a message code to the set of messages that are to be suppressed
@@ -383,156 +335,176 @@ MessageHandler::get_suppression_level (
  * \param[in] msg_code Message code to be suppressed
  */
 
-void
-MessageHandler::add_suppressed_code (
-   const char * msg_code)
+void MessageHandler::add_suppressed_code(const char * msg_code)
 {
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
-
-   // Handler exists: Pass message to the handler.
-   else {
-      handler->process_add_suppressed_code (msg_code);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        handler->process_add_suppressed_code(msg_code);
+    }
 }
-
 
 /**
  * Delete a message code from the set of suppressed message codes.
  * \param[in] msg_code Message code to be unsuppressed
  */
 
-void
-MessageHandler::delete_suppressed_code (
-   const char * msg_code)
+void MessageHandler::delete_suppressed_code(const char * msg_code)
 {
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
-
-   // Handler exists: Pass message to the handler.
-   else {
-      handler->process_delete_suppressed_code (msg_code);
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        handler->process_delete_suppressed_code(msg_code);
+    }
 }
-
 
 /**
  * Clear the set of suppressed message codes.
  */
 
-void
-MessageHandler::clear_suppressed_codes (
-   void)
+void MessageHandler::clear_suppressed_codes()
 {
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
-
-   // Handler exists: Pass message to the handler.
-   else {
-      handler->process_clear_suppressed_codes ();
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        handler->process_clear_suppressed_codes();
+    }
 }
-
 
 /**
  * Set the suppress_id flag in the global message handler.
  * \param[in] suppress_id New suppress id value
  */
-void
-MessageHandler::set_suppress_id (
-   bool suppress_id)
+void MessageHandler::set_suppress_id(bool suppress_id)
 {
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
-
-   // Handler exists: Pass message to the handler.
-   else {
-      handler->suppress_id = suppress_id;
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        handler->suppress_id = suppress_id;
+    }
 }
-
 
 /**
  * Get the suppress_id of the global massage handler.
  * @return ID value\n Units: Suppress
  */
-bool
-MessageHandler::get_suppress_id (
-   void)
+bool MessageHandler::get_suppress_id()
 {
-   bool result = false;
+    bool result = false;
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Get value from the handler.
-   else {
-      result = handler->suppress_id;
-   }
+    // Handler exists: Get value from the handler.
+    else
+    {
+        result = handler->suppress_id;
+    }
 
-   return result;
+    return result;
 }
-
 
 /**
  * Set the suppress_location in the global message handler.
  * \param[in] suppress_location New suppress_loc value
  */
-void
-MessageHandler::set_suppress_location (
-   bool suppress_location)
+void MessageHandler::set_suppress_location(bool suppress_location)
 {
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
-
-   // Handler exists: Pass message to the handler.
-   else {
-      handler->suppress_location = suppress_location;
-   }
+    // Handler exists: Pass message to the handler.
+    else
+    {
+        handler->suppress_location = suppress_location;
+    }
 }
-
 
 /**
  * Get the suppress_location of the global massage handler.
  * @return Suppress location value
  */
-bool
-MessageHandler::get_suppress_location (
-   void)
+bool MessageHandler::get_suppress_location()
 {
-   bool result = false;
+    bool result = false;
 
-   // No handler: Exit.
-   if (handler == nullptr) {
-      no_handler_error ();
-   }
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
 
-   // Handler exists: Get value from the handler.
-   else {
-      result = handler->suppress_location;
-   }
+    // Handler exists: Get value from the handler.
+    else
+    {
+        result = handler->suppress_location;
+    }
 
-   return result;
+    return result;
 }
 
+/**
+ * Set the message handler's simulation interface mode.
+ *
+ * \par Assumptions and Limitations
+ *  - This method must not be called before the singleton message handler has
+ *     been created or after it has been destroyed.
+ *     A fatal error results when this is not true.
+ * \param[in] new_mode New mode
+ */
+void MessageHandler::set_mode(JeodSimulationInterface::Mode new_mode)
+{
+    // No handler: Exit.
+    if(handler == nullptr)
+    {
+        no_handler_error();
+    }
+    // Handler exists: Pass mode to the handler.
+    else
+    {
+        // Tell the master message handler about the new mode.
+        handler->set_mode_internal(new_mode);
+    }
+}
 
+/**
+ * Set the mode and perform mode transitions.
+ * \param[in] new_mode New mode
+ */
+void MessageHandler::set_mode_internal(JeodSimulationInterface::Mode new_mode)
+{
+    mode = new_mode;
+}
 
 /**
  * Handle the error condition where there is no global handler.
@@ -548,16 +520,13 @@ MessageHandler::get_suppress_location (
  *     An error message is printed and the simulation is terminated
  *     via a system call to exit.
  */
-void
-MessageHandler::no_handler_error (
-   void)
+void MessageHandler::no_handler_error()
 {
-   std::fprintf (stderr,
+    std::fprintf(stderr,
                  "Fatal error: No message handler exists.\n"
                  "Insert a JEOD simulation interface into your simulation.\n");
-   std::exit (1);
+    std::exit(1);
 }
-
 
 /**
  * Construct a MessageHandler.
@@ -566,42 +535,39 @@ MessageHandler::no_handler_error (
  * and lower will be printed. The suppress_id and suppress_location
  * flags are set to false; auxiliary information is not suppressed.
  */
-MessageHandler::MessageHandler (
-   void)
-:
-   suppression_level(MessageHandler::Warning),
-   suppress_id(false),
-   suppress_location(false)
+MessageHandler::MessageHandler()
+    : suppression_level(MessageHandler::Warning)
 {
+    // No message handler yet: This is the handler.
+    if(handler == nullptr)
+    {
+        handler = this;
+    }
 
-   // No message handler yet: This is the handler.
-   if (handler == nullptr) {
-      handler = this;
-   }
-
-   // Have a message handler: This is a singleton error.
-   else {
-      MessageHandler::error (
-         __FILE__, __LINE__, MessageMessages::singleton_error,
-         "A message handler already exists.\n"
-         "The newly created handler will not be used.");
-   }
+    // Have a message handler: This is a singleton error.
+    else
+    {
+        MessageHandler::error(__FILE__,
+                              __LINE__,
+                              MessageMessages::singleton_error,
+                              "A message handler already exists.\n"
+                              "The newly created handler will not be used.");
+    }
 }
-
 
 /**
  * Destruct a MessageHandler.
  */
-MessageHandler::~MessageHandler (
-   void)
+MessageHandler::~MessageHandler()
 {
-   // This can no longer serve as the global message handler.
-   if (handler == this) {
-      handler = nullptr;
-   }
+    // This can no longer serve as the global message handler.
+    if(handler == this)
+    {
+        handler = nullptr;
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

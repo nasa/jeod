@@ -27,24 +27,22 @@ Library Dependencies:
 
 ******************************************************************************/
 
-
 // Model includes
 #include "../include/mass.hh"
 #include "../include/mass_messages.hh"
 
 // JEOD includes
-#include "dynamics/dyn_manager/include/dyn_manager.hh"
 #include "dynamics/dyn_body/include/dyn_body.hh"
+#include "dynamics/dyn_manager/include/dyn_manager.hh"
 #include "utils/message/include/message_handler.hh"
 #include "utils/ref_frames/include/tree_links_iterator.hh"
 
 // System includes
 #include <cstddef>
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Detach the two bodies, 'this' and the argument body, from each other such
@@ -62,60 +60,62 @@ namespace jeod {
  * @return Success flag
  * \param[in,out] mass_body The other body
  */
-bool
-MassBody::detach (
-   MassBody & mass_body)
+bool MassBody::detach(MassBody & mass_body)
 {
-   MassBody * detaching_body = nullptr;
-   MassBody * parent_body = nullptr;
+    MassBody * detaching_body = nullptr;
+    MassBody * parent_body = nullptr;
 
+    // Find the body that is to be detached from its immediate parent.
+    // First search from 'this' up for the input mass_body, and if that fails
+    // search from the input mass_body up for 'this'. Both searches failing is
+    // an error.
 
-   // Find the body that is to be detached from its immediate parent.
-   // First search from 'this' up for the input mass_body, and if that fails
-   // search from the input mass_body up for 'this'. Both searches failing is
-   // an error.
-
-
-   for (auto* link : TreeLinksAscendRange<MassBodyLinks>(links)) {
-      MassBody* iter_body = &(link->container());
-      if (iter_body == &mass_body) {
-         parent_body = &mass_body;
-         break;
-      }
-      detaching_body = iter_body;
-   }
-
-   // parent_body is null => First search failed. Do the second search.
-   if (parent_body == nullptr) {
-      for (auto* link : TreeLinksAscendRange<MassBodyLinks>(mass_body.links)) {
-         MassBody* iter_body = &(link->container());
-         if (iter_body == this) {
-            parent_body = this;
+    for(auto * link : TreeLinksAscendRange<MassBodyLinks>(links))
+    {
+        MassBody * iter_body = &(link->container());
+        if(iter_body == &mass_body)
+        {
+            parent_body = &mass_body;
             break;
-         }
-         detaching_body = iter_body;
-      }
-   }
+        }
+        detaching_body = iter_body;
+    }
 
-   // parent_body is still null => both searches failed.
-   // There is no way to perform the requested detachment.
-   // This is a non-fatal error.
-   if (parent_body == nullptr) {
-      MessageHandler::inform (
-         __FILE__, __LINE__, MassBodyMessages::invalid_detach,
-         "\nWarning: Unable to find detach point between\n"
-            "bodies '%s' and '%s'. No detachment was performed.",
-         name.c_str(), mass_body.name.c_str());
+    // parent_body is null => First search failed. Do the second search.
+    if(parent_body == nullptr)
+    {
+        for(auto * link : TreeLinksAscendRange<MassBodyLinks>(mass_body.links))
+        {
+            MassBody * iter_body = &(link->container());
+            if(iter_body == this)
+            {
+                parent_body = this;
+                break;
+            }
+            detaching_body = iter_body;
+        }
+    }
 
-      return false;
-   }
+    // parent_body is still null => both searches failed.
+    // There is no way to perform the requested detachment.
+    // This is a non-fatal error.
+    if(parent_body == nullptr || detaching_body == nullptr)
+    {
+        MessageHandler::inform(__FILE__,
+                               __LINE__,
+                               MassBodyMessages::invalid_detach,
+                               "\nWarning: Unable to find detach point between\n"
+                               "bodies '%s' and '%s'. No detachment was performed.",
+                               name.c_str(),
+                               mass_body.name.c_str());
 
+        return false;
+    }
 
-   // Detach the detaching body from its immediate parent, returning the
-   // status from that method as the status from this method.
-   return (detaching_body->detach ());
+    // Detach the detaching body from its immediate parent, returning the
+    // status from that method as the status from this method.
+    return (detaching_body->detach());
 }
-
 
 /**
  * Detach a mass body from its immediate parent.
@@ -130,42 +130,41 @@ MassBody::detach (
  *     body is assumed to reflect a real physical attachment.
  * @return Success flag
  */
-bool
-MassBody::detach (
-   void)
+bool MassBody::detach()
 {
-   MassBody * parent = links.parent();
-   bool success;
+    MassBody * parent = links.parent();
+    bool success;
 
-   // If parent is a DynBody, call appropriate detach call
-   DynBody * parent_dyn_body = parent->dyn_owner;
-   if(parent_dyn_body != nullptr)
-   {
-       success = parent_dyn_body->remove_mass_body(*this);
-   } else {
+    // If parent is a DynBody, call appropriate detach call
+    DynBody * parent_dyn_body = parent->dyn_owner;
+    if(parent_dyn_body != nullptr)
+    {
+        success = parent_dyn_body->remove_mass_body(*this);
+    }
+    else
+    {
+        // Perform the detachment, but only if it is valid to do so.
+        if(detach_validate(parent, true))
+        {
+            // Tell the child (this) to break the logical links between the two.
+            detach_sever_links(*parent);
 
-       // Perform the detachment, but only if it is valid to do so.
-       if (detach_validate (parent, true)) {
+            // Tell the parent to update properties/state/...
+            parent->detach_update_properties(*this);
 
-          // Tell the child (this) to break the logical links between the two.
-          detach_sever_links (*parent);
+            // Note that the detachment was performed.
+            success = true;
+        }
 
-          // Tell the parent to update properties/state/...
-          parent->detach_update_properties (*this);
+        // Validation failed. Note that the detachment was not performed.
+        else
+        {
+            success = false;
+        }
+    }
 
-          // Note that the detachment was performed.
-          success = true;
-       }
-
-       // Validation failed. Note that the detachment was not performed.
-       else {
-          success = false;
-       }
-   }
-
-   return success;
+    return success;
 }
-
 
 /**
  * Validate whether the pending detachment is legal.
@@ -182,23 +181,18 @@ MassBody::detach (
  * \param[in] parent The parent body; the body from which this body is to be detached.
  * \param[in] generate_message Generate message if invalid?
  */
-bool
-MassBody::detach_validate (
-   const MassBody * parent,
-   bool generate_message)
-const
+bool MassBody::detach_validate(const MassBody * parent, bool generate_message) const
 {
-   bool is_valid;
+    bool is_valid;
 
-   // Validate that the child can detach from the parent in terms of
-   // - Connectivity (detach_validate_parent, sent to child)
-   // - Whatever (detach_validate_child, sent to parent).
-   is_valid = (detach_validate_parent (parent, generate_message) &&
-               parent->detach_validate_child (*this, generate_message));
+    // Validate that the child can detach from the parent in terms of
+    // - Connectivity (detach_validate_parent, sent to child)
+    // - Whatever (detach_validate_child, sent to parent).
+    is_valid = (detach_validate_parent(parent, generate_message) &&
+                parent->detach_validate_child(*this, generate_message));
 
-   return is_valid;
+    return is_valid;
 }
-
 
 /**
  * Validate whether the pending detachment is legal from a connectivity
@@ -213,43 +207,41 @@ const
  * \param[in] parent The parent body; the body from which this body is to be detached.
  * \param[in] generate_message Generate message if invalid?
  */
-bool
-MassBody::detach_validate_parent (
-   const MassBody * parent,
-   bool generate_message)
-const
+bool MassBody::detach_validate_parent(const MassBody * parent, bool generate_message) const
 {
-   bool is_valid = true;
+    bool is_valid = true;
 
-   // From a MassBody perspective, the only problem with detachment is
-   // when a root body attempts to detach.
-   is_valid = (parent != nullptr);
-   if( parent == nullptr )
-   {
-       is_valid = false;
-       if ( generate_message ) {
-           MessageHandler::inform (
-         __FILE__, __LINE__, MassBodyMessages::invalid_detach,
-         "\nWarning: Body '%s' is a root body and cannot be detached.",
-         name.c_str());
-       }
-   }
-   else if( parent->dyn_manager != nullptr
-     && parent->dyn_manager->find_dyn_body( parent->name.c_str() ) != nullptr )
-   {
-       is_valid = false;
-       if ( generate_message ) {
-           MessageHandler::warn (
-         __FILE__, __LINE__, MassBodyMessages::invalid_detach,
-         "\nWarning: Body '%s' refers to a DynBody and cannot be detached "
-         "through MassBody detach methods.",
-         parent->name.c_str());
-       }
-   }
+    // From a MassBody perspective, the only problem with detachment is
+    // when a root body attempts to detach.
+    is_valid = (parent != nullptr);
+    if(parent == nullptr)
+    {
+        is_valid = false;
+        if(generate_message)
+        {
+            MessageHandler::inform(__FILE__,
+                                   __LINE__,
+                                   MassBodyMessages::invalid_detach,
+                                   "\nWarning: Body '%s' is a root body and cannot be detached.",
+                                   name.c_str());
+        }
+    }
+    else if(parent->dyn_manager != nullptr && parent->dyn_manager->find_dyn_body(parent->name.get_name()) != nullptr)
+    {
+        is_valid = false;
+        if(generate_message)
+        {
+            MessageHandler::warn(__FILE__,
+                                 __LINE__,
+                                 MassBodyMessages::invalid_detach,
+                                 "\nWarning: Body '%s' refers to a DynBody and cannot be detached "
+                                 "through MassBody detach methods.",
+                                 parent->name.c_str());
+        }
+    }
 
-   return is_valid;
+    return is_valid;
 }
-
 
 /**
  * Validate whether the pending detachment is legal from a mass tree
@@ -262,30 +254,26 @@ const
  * \param[in] child The child body; the body to be detached from this body.
  * \param[in] generate_message Generate message if invalid?
  */
-bool
-MassBody::detach_validate_child (
-   const MassBody & child,
-   bool generate_message )
-const
+bool MassBody::detach_validate_child(const MassBody & child, bool generate_message) const
 {
     bool is_valid = true;
 
-    if( dyn_manager != nullptr
-     && dyn_manager->find_dyn_body( child.name.c_str() ) != nullptr )
+    if(dyn_manager != nullptr && dyn_manager->find_dyn_body(child.name.get_name()) != nullptr)
     {
         is_valid = false;
-        if ( generate_message ) {
-            MessageHandler::inform (
-                __FILE__, __LINE__, MassBodyMessages::invalid_detach,
-                "\nWarning: Body '%s' refers to a DynBody and cannot be detached "
-                "through MassBody detach methods.",
-                child.name.c_str());
+        if(generate_message)
+        {
+            MessageHandler::inform(__FILE__,
+                                   __LINE__,
+                                   MassBodyMessages::invalid_detach,
+                                   "\nWarning: Body '%s' refers to a DynBody and cannot be detached "
+                                   "through MassBody detach methods.",
+                                   child.name.c_str());
         }
     }
 
     return is_valid;
 }
-
 
 /**
  * Break the logical connectivity between parent and child.
@@ -301,17 +289,11 @@ const
  *  - The detachment is valid; not checked.
  * \param[in,out] parent The parent body; the body from which this body is to be detached.
  */
-void
-MassBody::detach_sever_links (
-   MassBody & parent JEOD_UNUSED)
+void MassBody::detach_sever_links(MassBody & parent JEOD_UNUSED)
 {
-
-   // Sever the mass links between child and parent, and siblings.
-   links.detach();
-
-   return;
+    // Sever the mass links between child and parent, and siblings.
+    links.detach();
 }
-
 
 /**
  * Update parent and child properties to reflect that they are detached.
@@ -330,34 +312,30 @@ MassBody::detach_sever_links (
  *     Neither assumption is checked.
  * \param[in,out] child The child body; the body newly detached from this body.
  */
-void
-MassBody::detach_update_properties (
-   MassBody & child)
+void MassBody::detach_update_properties(MassBody & child)
 {
+    // Update the mass properties from the root down to this body.
+    set_update_flag();
+    get_root_body_internal()->update_mass_properties();
 
-   // Update the mass properties from the root down to this body.
-   set_update_flag ();
-   get_root_body_internal()->update_mass_properties ();
+    // Re-initialize the child's auxiliarly attachment info.
+    child.structure_point.initialize_mass_point();
+    child.composite_wrt_pstr.initialize_mass_point();
+    child.composite_wrt_pbdy.initialize_mass_point();
 
-   // Re-initialize the child's auxiliarly attachment info.
-   child.structure_point.initialize_mass_point ();
-   child.composite_wrt_pstr.initialize_mass_point ();
-   child.composite_wrt_pbdy.initialize_mass_point ();
-
-   // Root bodies need a valid inverse inertia tensor.
-   // Child bodies don't, so calculate the child's inverse inertia tensor.
-   if (child.compute_inverse_inertia &&
-       (child.composite_properties.mass > 0.0)) {
-      Matrix3x3::invert_symmetric(child.composite_properties.inertia,
-                                  child.composite_properties.inverse_inertia);
-   } else {
-      Matrix3x3::initialize (child.composite_properties.inverse_inertia);
-   }
-
-   return;
+    // Root bodies need a valid inverse inertia tensor.
+    // Child bodies don't, so calculate the child's inverse inertia tensor.
+    if(child.compute_inverse_inertia && (child.composite_properties.mass > 0.0))
+    {
+        Matrix3x3::invert_symmetric(child.composite_properties.inertia, child.composite_properties.inverse_inertia);
+    }
+    else
+    {
+        Matrix3x3::initialize(child.composite_properties.inverse_inertia);
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -75,62 +75,53 @@ Library dependencies:
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeDyn;
 class TimeUDE;
 class JeodBaseTime;
 
-
 /**
  * Define class TimeConverter_Dyn_UDE, which converts from simulation dynamic
  * time to any specific instance of the generic User-Defined-Epoch Time.
  */
-class TimeConverter_Dyn_UDE : public TimeConverter {
+class TimeConverter_Dyn_UDE : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_Dyn_UDE)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_Dyn_UDE)
-
-// Member Data
+    // Member Data
 private:
-   /**
-    * Converter parent time, always a TimeDyn for this converter.
-    */
-  TimeDyn * dyn_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeDyn for this converter.
+     */
+    TimeDyn * dyn_ptr{}; //!< trick_units(--)
 
-   /**
-    * Converter child time, always a TimeUDE for this converter.
-    */
-  TimeUDE * ude_ptr; //!< trick_units(--)
+    /**
+     * Converter child time, always a TimeUDE for this converter.
+     */
+    TimeUDE * ude_ptr{}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_Dyn_UDE ();
-  // Destructor
-   ~TimeConverter_Dyn_UDE () override;
+    TimeConverter_Dyn_UDE();
+    ~TimeConverter_Dyn_UDE() override = default;
+    TimeConverter_Dyn_UDE(const TimeConverter_Dyn_UDE &) = delete;
+    TimeConverter_Dyn_UDE & operator=(const TimeConverter_Dyn_UDE &) = delete;
 
-   void reset_a_to_b_offset (void) override;
+    void reset_a_to_b_offset() override;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeConverter_Dyn_UDE (const TimeConverter_Dyn_UDE&);
-   TimeConverter_Dyn_UDE & operator = (const TimeConverter_Dyn_UDE&);
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

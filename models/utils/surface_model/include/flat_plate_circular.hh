@@ -56,52 +56,38 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/flat_plate_circular.cc))
-
- 
 *******************************************************************************/
 
 #ifndef JEOD_FLAT_PLATE_CIRCULAR_HH
 #define JEOD_FLAT_PLATE_CIRCULAR_HH
 
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "flat_plate.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An circular flat plate implementation of Facet.
  */
-class FlatPlateCircular : public FlatPlate {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateCircular)
+class FlatPlateCircular : public FlatPlate
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateCircular)
 
 public:
+    FlatPlateCircular() = default;
+    ~FlatPlateCircular() override = default;
+    FlatPlateCircular & operator=(const FlatPlateCircular &) = delete;
+    FlatPlateCircular(const FlatPlateCircular &) = delete;
 
-   // constructor
-   FlatPlateCircular ();
-
-   // destructor
-   ~FlatPlateCircular () override;
-
-   /**
-    * Radius of the plate.
-    */
-   double radius; //!< trick_units(m)
-
-protected:
-
-private:
-
-   // Operator = and copy constructor locked from use by being private
-   FlatPlateCircular& operator = (const FlatPlateCircular& rhs);
-   FlatPlateCircular (const FlatPlateCircular& rhs);
-
+    /**
+     * Radius of the plate.
+     */
+    double radius{}; //!< trick_units(m)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

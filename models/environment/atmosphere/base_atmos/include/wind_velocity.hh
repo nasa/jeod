@@ -66,98 +66,90 @@ LIBRARY DEPENDENCIES:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A generic wind velocity implementation.
  */
-class WindVelocity {
-
-   JEOD_MAKE_SIM_INTERFACES(WindVelocity)
-
+class WindVelocity
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, WindVelocity)
 
 public:
-   // Constructor
-   WindVelocity ();
+    WindVelocity() = default;
+    virtual ~WindVelocity();
+    WindVelocity(const WindVelocity &) = delete;
+    WindVelocity & operator=(const WindVelocity &) = delete;
 
-   // Destructor
-   virtual ~WindVelocity ();
+    virtual void update_wind(double inertial_pos[3], double altitude, double wind_inertial[3]);
 
-   virtual void update_wind (
-      double inertial_pos[3], double altitude, double wind_inertial[3]);
+    unsigned int get_num_layers();
 
-   unsigned int get_num_layers();
+    void set_omega_scale_table(double altitude, double factor);
 
-   void set_omega_scale_table(double altitude, double factor);
+    void set_omega_scale_table(unsigned int num_layers, const double * altitude, const double * factor);
 
-   void set_omega_scale_table(unsigned int num_layers, const double* altitude, const double* factor);
+    /*
+     * model is active flag
+     */
+    bool active{true}; //!< trick_units(--)
 
-   /*
-    * model is active flag
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * The rotational velocity of the planet
+     */
+    double omega{}; //!< trick_units(rad/s)
 
-   /**
-    * The rotational velocity of the planet
-    */
-   double omega; //!< trick_units(rad/s)
+    // Data type
 
-// Data type
+    /**
+     * An entry in an omega scale table.
+     */
+    struct OmegaTableEntry
+    {
+        /**
+         * Altitude at which omega is multiplied by the corresponding factor.
+         */
+        double altitude; //!< trick_units(m)
 
-   /**
-    * An entry in an omega scale table.
-    */
-   struct OmegaTableEntry {
+        /**
+         * Factor by which omega is multiplied depending on altitude.
+         */
+        double scale_factor; //!< trick_units(--)
+    };
 
-      /**
-       * Altitude at which omega is multiplied by the corresponding factor.
-       */
-      double altitude; //!< trick_units(m)
-
-      /**
-       * Factor by which omega is multiplied depending on altitude.
-       */
-      double scale_factor; //!< trick_units(--)
-   };
-
-   OmegaTableEntry* get_omega_scale_table();
+    OmegaTableEntry * get_omega_scale_table();
 
 protected:
-   /**
-    * Number of altitude layers.
-    */
-   unsigned int num_layers; //!< trick_units(count)
+    /**
+     * Number of altitude layers.
+     */
+    unsigned int num_layers{}; //!< trick_units(count)
 
-   /**
+    /**
      * Table of factors to scale omega based on altitude
      */
-   OmegaTableEntry* omega_scale_table;
+    OmegaTableEntry * omega_scale_table{};
 
 private:
-   /**
-    * last known index into the arrays
-    */
-   unsigned int array_index;
+    /**
+     * last known index into the arrays
+     */
+    unsigned int array_index{};
 
-   /**
-    * Altitude direction check flag
-    */
-   bool first_pass; //!< trick_units(--)
+    /**
+     * Altitude direction check flag
+     */
+    bool first_pass{true}; //!< trick_units(--)
 
-   /**
-    * Altitude increasing or decreasing flag
-    */
-   bool increasing_altitude; //!< trick_units(--)
+    /**
+     * Altitude increasing or decreasing flag
+     */
+    bool increasing_altitude{true}; //!< trick_units(--)
+};
 
-   // operator = and copy constructor locked from use by being private
-   WindVelocity (const WindVelocity& rhs);
-   WindVelocity& operator = (const WindVelocity& rhs);
-
-} ;
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

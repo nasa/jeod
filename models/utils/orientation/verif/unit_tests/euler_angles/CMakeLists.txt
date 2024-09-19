@@ -9,3 +9,4 @@ set(UNIT_TEST_SRC  main.cc)
 set(UNIT_TEST_NAME test_program)
 
 include(${JEOD_HOME}/bin/jeod/unit_test.cmake)
+target_link_libraries(${UNIT_TEST_NAME} gtest gtest_main gmock)

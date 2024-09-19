@@ -74,37 +74,34 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Describes messages used in the earth lighting model.
  */
-class EarthLightingMessages {
+class EarthLightingMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EarthLightingMessages)
 
-   JEOD_MAKE_SIM_INTERFACES(EarthLightingMessages)
-
-   // Static member data
+    // Static member data
 
 public:
+    // Errors
 
-   // Errors
+    /**
+     * Indicates an error during initialization.
+     */
+    static const char * initialization_error; //!< trick_units(--)
 
-   /**
-    * Indicates an error during initialization.
-    */
-   static char const * initialization_error;   //!< trick_units(--)
-
-private:
-
-   // Class is not instantiable, operator = and copy constructor are
-   // hidden from use.
-   EarthLightingMessages (void);
-   EarthLightingMessages (const EarthLightingMessages& rhs);
-   EarthLightingMessages& operator = (const EarthLightingMessages& rhs);
-
+    // Class is not instantiable, operator = and copy constructor are
+    // hidden from use.
+    EarthLightingMessages() = delete;
+    EarthLightingMessages(const EarthLightingMessages & rhs) = delete;
+    EarthLightingMessages & operator=(const EarthLightingMessages & rhs) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

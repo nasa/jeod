@@ -52,58 +52,43 @@
 ##include "utils/surface_model/include/flat_plate_thermal.hh"
 ##include "interactions/radiation_pressure/include/radiation_params.hh"
 
-class RadiationSimObject: public Trick::SimObject {
-
-   public:
-    jeod::RadiationPressure       rad_pressure;
+class RadiationSimObject: public Trick::SimObject
+{
+public:
+    jeod::RadiationPressure rad_pressure;
     jeod::RadiationSurfaceFactory surface_factory;
-    jeod::RadiationSurface        rad_surface;
-    jeod::SurfaceModel            surface;
-    jeod::RadiationDataRecorder   data_rec;
+    jeod::RadiationSurface rad_surface;
+    jeod::SurfaceModel surface;
+    jeod::RadiationDataRecorder data_rec;
 
-
-//Constructor
-    RadiationSimObject(
-           jeod::DynManager        & dyn_mngr_in,
-           jeod::DynBody & veh_in,
-           jeod::TimeDyn           & dyn_time_in)
-        :
-           dyn_mngr(dyn_mngr_in),
-           veh(veh_in),
-           dyn_time(dyn_time_in)
+    // Constructor
+    RadiationSimObject(jeod::DynManager & dyn_mngr_in, jeod::DynBody & veh_in, jeod::TimeDyn & dyn_time_in)
+        : dyn_mngr(dyn_mngr_in),
+          veh(veh_in),
+          dyn_time(dyn_time_in)
     {
-
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") surface_factory.create_surface(
-          &surface,
-          &rad_surface);
-      P_ENV  ("initialization") rad_pressure.initialize(
-           dyn_mngr,
-          &rad_surface,
-           veh.mass.composite_properties.position);
-   //
-   // Scheduled jobs
-   //
-      (DYNAMICS, "scheduled") rad_pressure.update(
-           veh.structure,
-           veh.mass.composite_properties.position,
-           dyn_time.scale_factor,
-           dyn_time.seconds);
-      (DYNAMICS, "scheduled") data_rec.record_data (
-          &rad_surface);
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") surface_factory.create_surface(&surface, &rad_surface);
+        P_ENV("initialization") rad_pressure.initialize(dyn_mngr, &rad_surface, veh.mass.composite_properties.position);
+        //
+        // Scheduled jobs
+        //
+        (DYNAMICS, "scheduled") rad_pressure.update(veh.structure,
+                                                    veh.mass.composite_properties.position,
+                                                    dyn_time.scale_factor,
+                                                    dyn_time.seconds);
+        (DYNAMICS, "scheduled") data_rec.record_data(&rad_surface);
     }
 
-  private:
-    jeod::DynManager        & dyn_mngr;
+    RadiationSimObject(const RadiationSimObject &) = delete;
+    RadiationSimObject & operator=(const RadiationSimObject &) = delete;
+
+private:
+    jeod::DynManager & dyn_mngr;
     jeod::DynBody & veh;
-    jeod::TimeDyn           & dyn_time;
-
-    RadiationSimObject (const RadiationSimObject&);
-    RadiationSimObject & operator = (const RadiationSimObject&);
-
+    jeod::TimeDyn & dyn_time;
 };
-RadiationSimObject radiation ( dynamics.dyn_manager,
-                               vehicle.dyn_body,
-                               jeod_time.time_manager.dyn_time);
+
+RadiationSimObject radiation(dynamics.dyn_manager, vehicle.dyn_body, jeod_time.time_manager.dyn_time);

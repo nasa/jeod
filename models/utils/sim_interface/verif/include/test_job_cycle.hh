@@ -47,7 +47,7 @@ ASSUMPTIONS AND LIMITATIONS:
 LIBRARY DEPENDENCY:
   ((../src/test_job_cycle.cc))
 
- 
+
 ************************************************************************/
 
 // Trick includes
@@ -59,31 +59,32 @@ LIBRARY DEPENDENCY:
 #define TEST_JOB_CYCLE_TIME_H_
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class JobCycleDriver{
-JEOD_MAKE_SIM_INTERFACES(JobCycleDriver)
+class JobCycleDriver
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JobCycleDriver)
 
-  public:
-JobCycleDriver();
-~JobCycleDriver();
+public:
+    JobCycleDriver() = default;
+    ~JobCycleDriver() = default;
+    JobCycleDriver & operator=(const JobCycleDriver &) = delete;
+    JobCycleDriver(const JobCycleDriver &) = delete;
 
-void update(void);
+    void update();
 
-bool active;
+    bool active{};
 
-void set_total_job_cycle_time (double time) {
-   total_job_cycle_time = time;
-}
+    void set_total_job_cycle_time(double time)
+    {
+        total_job_cycle_time = time;
+    }
 
 private:
-double total_job_cycle_time;
-
-
-JobCycleDriver& operator = (const JobCycleDriver&);
-JobCycleDriver(const JobCycleDriver&);
+    double total_job_cycle_time{};
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -37,56 +37,32 @@ Library dependencies:
 /*  JEOD includes */
 
 /* Model structure includes */
+#include "../include/thermal_facet_rider.hh"
 #include "../include/thermal_model_rider.hh"
 #include "utils/surface_model/include/interaction_surface.hh"
-#include "../include/thermal_facet_rider.hh"
-
-
-
 
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Constructor
- */
-ThermalModelRider::ThermalModelRider (
-   void)
+namespace jeod
 {
-   active                           = false;
-   include_internal_thermal_effects = false;
-}
 
 /**
  * update the thermal aspects of all facets
  * \param[in] surface_ptr pointer the surface.
  */
-void
-ThermalModelRider::update (
-   InteractionSurface * surface_ptr)
-
+void ThermalModelRider::update(InteractionSurface * surface_ptr)
 {
-   if (include_internal_thermal_effects) {
-      surface_ptr->accumulate_thermal_sources();
-   }
+    if(include_internal_thermal_effects)
+    {
+        surface_ptr->accumulate_thermal_sources();
+    }
 
-   if (active && (std::fpclassify(ThermalFacetRider::cycle_time) != FP_ZERO)) {
-      surface_ptr->thermal_integrator();
-   }
-   return;
+    if(active && (std::fpclassify(ThermalFacetRider::cycle_time) != FP_ZERO))
+    {
+        surface_ptr->thermal_integrator();
+    }
 }
 
-
-/**
- * Destructor
- */
-ThermalModelRider::~ThermalModelRider (
-   void)
-{
-}
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

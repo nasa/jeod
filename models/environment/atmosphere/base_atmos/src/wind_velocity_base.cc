@@ -25,31 +25,8 @@ Library dependencies:
 #include "utils/message/include/message_handler.hh"
 
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Default Constructor
- */
-
-WindVelocityBase::WindVelocityBase (
-   void)
+namespace jeod
 {
-
-   // empty for now
-
-}
-
-/**
- * Destructor
- */
-
-WindVelocityBase::~WindVelocityBase (
-   void)
-{
-
-   // empty for now
-
-}
 
 /**
  * Virtual function to define the interface for inheriting functions
@@ -58,26 +35,19 @@ WindVelocityBase::~WindVelocityBase (
  * \param[out] wind_inertial The wind applied to the craft, in the inertial frame
  */
 
-void
-WindVelocityBase::update_wind (
-   double[3],
-   double,
-   double[3])
+void WindVelocityBase::update_wind(double[3], double, double[3])
 {
+    // eventually this should be a pure virtual
 
-   // eventually this should be a pure virtual
-
-   MessageHandler::warn (
-      __FILE__, __LINE__, AtmosphereMessages::framework_warning,
-      "WindVelocityBase::update_wind is a virtual function with "
-      "no actual implementation. Only inheriting classes will have "
-      "full implementation. This function did nothing.\n");
-
-   return;
-
+    MessageHandler::warn(__FILE__,
+                         __LINE__,
+                         AtmosphereMessages::framework_warning,
+                         "WindVelocityBase::update_wind is a virtual function with "
+                         "no actual implementation. Only inheriting classes will have "
+                         "full implementation. This function did nothing.\n");
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

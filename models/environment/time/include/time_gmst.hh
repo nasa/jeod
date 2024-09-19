@@ -72,47 +72,39 @@ Library dependencies:
 
 #include "time_standard.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * To represent the clock known as Greenwich Mean Sidereal Time.
  */
-class TimeGMST : public TimeStandard{  // Greenwich Mean Sidereal Time
+class TimeGMST : public TimeStandard
+{ // Greenwich Mean Sidereal Time
 
-  JEOD_MAKE_SIM_INTERFACES(TimeGMST)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeGMST)
 
-// Member Data
+    // Member functions
 public:
-  // Member functions
-public:
-  // Constructor
-   TimeGMST ();
-  // Destructor
-   ~TimeGMST () override;
+    TimeGMST();
+    ~TimeGMST() override = default;
+    TimeGMST(const TimeGMST &) = delete;
+    TimeGMST & operator=(const TimeGMST &) = delete;
 
-   void set_time_by_trunc_julian (const double nonsense);
+    void set_time_by_trunc_julian(const double nonsense);
 
 private:
+    void calculate_calendar_values() override;
 
-   void calculate_calendar_values (void) override;
-
-   /**
-    * No action. Function is required to make this class instantiable.
-    */
-   void set_epoch(void) override {}
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeGMST (const TimeGMST&);
-   TimeGMST & operator = (const TimeGMST&);
-
+    /**
+     * No action. Function is required to make this class instantiable.
+     */
+    void set_epoch() override {}
 };
+
 /*----------------------------------------------------------------------------*/
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

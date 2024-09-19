@@ -65,8 +65,9 @@ def new_state( lat, lon, r):
   vehicle.position = [r*cos(lat_rad)*cos(lon_rad), \
                       r*cos(lat_rad)*sin(lon_rad), \
                       r*sin(lat_rad)]
-  print("\n**************\nSIM_TIME: %19.16f" % jeod_time.time_manager.dyn_time.seconds)
-  print("Location: %19.6f %19.6f %19.6f" % tuple(vehicle.position) )
+  time = jeod_time.time_manager.dyn_time.seconds
+  print("\n**************\nSIM_TIME: {0:19.16f} {1}".format(float(time), time.units))
+  print("Location: {0:19.6f} {1:19.6f} {2:19.6f}".format(*tuple(float(ref) for ref in vehicle.position)))
 
 trick.add_read(0.0, "new_state( lat = 90, lon = 120, r = 6800000)")
 trick.add_read(1.0, "new_state( lat = 90, lon = 120, r = 6800000)")

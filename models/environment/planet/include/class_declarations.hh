@@ -63,12 +63,13 @@ Assumptions and Limitations:
 #define JEOD_PLANET_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BasePlanet;
 class Planet;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

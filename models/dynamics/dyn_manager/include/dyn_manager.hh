@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_MANAGER_HH
 #define JEOD_DYN_MANAGER_HH
 
@@ -78,9 +77,9 @@ Library dependencies:
 #include "dyn_manager_init.hh"
 #include "dynamics_integration_group.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BodyAction;
 class DynamicsIntegrationGroup;
@@ -91,7 +90,6 @@ class GravityManager;
 class Planet;
 class TimeManager;
 class SinglePointEphemeris;
-
 
 /**
  * The DynManager class manages the dynamic elements of a simulation.
@@ -112,284 +110,244 @@ class SinglePointEphemeris;
  * single-planet mode it can properly register itself as
  * the owner of the reference frame tree root node.
  */
-class DynManager :
-   virtual public JeodIntegrationGroupOwner,
-   virtual public BaseDynManager,
-   public EphemeridesManager {
-
-   JEOD_MAKE_SIM_INTERFACES(DynManager)
+class DynManager : virtual public JeodIntegrationGroupOwner,
+                   virtual public BaseDynManager,
+                   public EphemeridesManager
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynManager)
 
 public:
+    // Member functions
 
-   // Member functions
+    // Constructor and destructor
+    DynManager();
+    ~DynManager() override;
 
-   // Constructor and destructor
-   // Note: The copy constructor and assignment operator are deleted.
-   DynManager ();
-   ~DynManager () override;
+    DynManager(const DynManager &) = delete;
+    DynManager & operator=(const DynManager &) = delete;
 
-   /**
-    * Determine if the manager has been initialized.
-    * @return Initialization status
-    */
-   bool is_initialized ()
-   {
-      return initialized;
-   }
+    /**
+     * Determine if the manager has been initialized.
+     * @return Initialization status
+     */
+    bool is_initialized()
+    {
+        return initialized;
+    }
 
+    // Initialize the DynManager (but not much else).
+    void initialize_model(DynManagerInit & init, TimeManager & time_mngr);
 
-   // Initialize the DynManager (but not much else).
-   void initialize_model (
-      DynManagerInit & init,
-      TimeManager & time_mngr);
+    void initialize_model(JeodIntegratorInterface & integ_if, DynManagerInit & init, TimeManager & time_mngr);
 
-   void initialize_model (
-      JeodIntegratorInterface & integ_if,
-      DynManagerInit & init,
-      TimeManager & time_mngr);
+    // Initialize the simulation.
+    void initialize_simulation();
 
-   // Initialize the simulation.
-   void initialize_simulation (void);
+    // Set the Gravity Manager.
+    void set_gravity_manager(GravityManager & gravity) override;
 
-   // Set the Gravity Manager.
-   void set_gravity_manager (GravityManager & gravity) override;
+    // Initialize the gravity model controls.
+    void initialize_gravity_controls() override;
 
-   // Initialize the gravity model controls.
-   void initialize_gravity_controls (void) override;
+    // Reset the gravity model controls.
+    void reset_gravity_controls() override;
 
-   // Reset the gravity model controls.
-   void reset_gravity_controls (void) override;
+    // Compute gravity. Note: NOT virtual.
+    void gravitation();
 
-   // Compute gravity. Note: NOT virtual.
-   void gravitation (void);
-
-
-   // Add a mass body to the list of such.
-   void add_mass_body (MassBody & mass_body) override;
+    // Add a mass body to the list of such.
+    void add_mass_body(MassBody & mass_body) override;
 #ifndef SWIG
-   void add_mass_body (MassBody * mass_body) override;
+    void add_mass_body(MassBody * mass_body) override;
 #endif
 
-   // Find a mass body.
-   MassBody * find_mass_body (const char * name) const override;
+    // Find a mass body.
+    MassBody * find_mass_body(const std::string & name) const override;
 
-   // Check if a mass body has been registered with the dynamics manager.
-   bool is_mass_body_registered (const MassBody * mass_body) const override;
+    // Check if a mass body has been registered with the dynamics manager.
+    bool is_mass_body_registered(const MassBody * mass_body) const override;
 
+    // Add a dynamic body to the list of such.
+    void add_dyn_body(DynBody & dyn_body) override;
 
-   // Add a dynamic body to the list of such.
-   void add_dyn_body (DynBody & dyn_body) override;
+    // Find a dynamic body.
+    DynBody * find_dyn_body(const std::string & name) const override;
 
-   // Find a dynamic body.
-   DynBody * find_dyn_body (const char * name) const override;
+    /**
+     * Return a copy of the list of registered dynamic bodies.
+     * @return Copy of dyn_bodies data member
+     */
+    std::vector<DynBody *> get_dyn_bodies() const override
+    {
+        return dyn_bodies;
+    }
 
-   /**
-    * Return a copy of the list of registered dynamic bodies.
-    * @return Copy of dyn_bodies data member
-    */
-   std::vector<DynBody*> get_dyn_bodies () const override
-   {
-      return dyn_bodies;
-   }
+    // Check if a dynamic body has been registered with the dynamics manager.
+    bool is_dyn_body_registered(const DynBody * dyn_body) const override;
 
-   // Check if a dynamic body has been registered with the dynamics manager.
-   bool is_dyn_body_registered (const DynBody * dyn_body) const override;
+    // Add an integration group to the list of such.
+    void add_integ_group(DynamicsIntegrationGroup & integ_group) override;
 
+    // Check if an integration group has been registered.
+    bool is_integ_group_registered(const DynamicsIntegrationGroup * integ_group) const override;
 
-   // Add an integration group to the list of such.
-   void add_integ_group (DynamicsIntegrationGroup & integ_group) override;
+    // Enqueue a body action.
+    void add_body_action(BodyAction & body_action);
 
-   // Check if an integration group has been registered.
-   bool is_integ_group_registered (
-      const DynamicsIntegrationGroup * integ_group) const override;
+    // remove a body action from the queue based on its name.
+    void remove_body_action(const std::string & action_name_in);
 
+    // Perform body actions that are ready to be applied.
+    void perform_actions();
 
-   // Enqueue a body action.
-   void add_body_action (BodyAction * body_action);
+    // Initialize the integration groups.
+    void initialize_integ_groups();
 
-   // remove a body action from the queue based on its name.
-   void remove_body_action( char * action_name_in);
+    // Update the specified integ group (which should be the default group).
+    void update_integration_group(JeodIntegrationGroup & group) override;
 
-   // Perform body actions that are ready to be applied.
-   void perform_actions (void);
+    // Initialize all registered dynamic bodies.
+    void initialize_dyn_bodies();
 
+    // Initialize a specific dynamic body.
+    void initialize_dyn_body(DynBody & body);
 
-   // Initialize the integration groups.
-   void initialize_integ_groups (void);
+    /**
+     * Collect forces and torques on each body and compute derivatives.
+     */
+    void compute_derivatives()
+    {
+        default_integ_group->collect_derivatives();
+    }
 
-   // Update the specified integ group (which should be the default group).
-   void update_integration_group (JeodIntegrationGroup & group) override;
+    /**
+     * Force all integrators to reset themselves.
+     */
+    void reset_integrators() override;
 
+    /**
+     * Instruct specific integrator to reset itself.
+     * @param integ_group  Integration group to be reset.
+     */
+    void reset_integrators(DynamicsIntegrationGroup & integ_group) override
+    {
+        integ_group.reset_integrators();
+    }
 
-   // Initialize all registered dynamic bodies.
-   void initialize_dyn_bodies (void);
+    /**
+     * Propagate all vehicles and propagate time.
+     * @param to_sim_time Simulation time seconds of end of integration interval.
+     * @return zero if complete, non-zero if incomplete.
+     */
+    int integrate(double to_sim_time, TimeManager &)
+    {
+        return default_integ_group->integrate_group_to(to_sim_time);
+    }
 
-   // Initialize a specific dynamic body.
-   void initialize_dyn_body (DynBody & body);
+    // Get the time at which the manager was last updated.
+    double timestamp() const override;
 
+    // Get the manager's name.
+    const std::string name() const;
 
-   /**
-    * Collect forces and torques on each body and compute derivatives.
-    */
-   void compute_derivatives ()
-   {
-      default_integ_group->collect_derivatives();
-   }
+    // Shutdown the dynamics manager.
+    void shutdown();
 
-   /**
-    * Force all integrators to reset themselves.
-    */
-   void reset_integrators () override;
+    // Member data
 
-   /**
-    * Instruct specific integrator to reset itself.
-    * @param integ_group  Integration group to be reset.
-    */
-   void reset_integrators (
-           DynamicsIntegrationGroup & integ_group) override
-   {
-     integ_group.reset_integrators();
-   }
-   /**
-    * Propagate all vehicles and propagate time.
-    * @param to_sim_time Simulation time seconds of end of integration interval.
-    * @return zero if complete, non-zero if incomplete.
-    */
-   int integrate (double to_sim_time, TimeManager &)
-   {
-      return default_integ_group->integrate_group_to (to_sim_time);
-   }
+    /**
+     * Update ephemerides at the derivative rate?
+     */
+    bool deriv_ephem_update{}; //!< trick_units(--)
 
+    /**
+     * This flag exists primarily to support unit tests. Typical simulations
+     * should not set this flag. The intent is to support simulations that use
+     * planetary ephemerides but neither need nor have a gravity model.
+     */
+    bool gravity_off{}; //!< trick_units(--)
 
-   // Get the time at which the manager was last updated.
-   double timestamp (void) const override;
+    /**
+     * The ephemeris mode in which the dynamics manager operates.
+     */
+    DynManagerInit::EphemerisMode mode{DynManagerInit::EphemerisMode_Ephemerides}; //!< trick_units(--)
 
-
-   // Get the manager's name.
-   const char * name (void) const;
-
-
-   // Shutdown the dynamics manager.
-   void shutdown (void);
-
-
-   // Member data
-
-   /**
-    * Update ephemerides at the derivative rate?
-    */
-   bool deriv_ephem_update; //!< trick_units(--)
-
-   /**
-    * This flag exists primarily to support unit tests. Typical simulations
-    * should not set this flag. The intent is to support simulations that use
-    * planetary ephemerides but neither need nor have a gravity model.
-    */
-   bool gravity_off; //!< trick_units(--)
-
-   /**
-    * The ephemeris mode in which the dynamics manager operates.
-    */
-   DynManagerInit::EphemerisMode mode;  //!< trick_units(--)
-
-   /**
-    * Pointer to the integration object used by the simulation engine itself.
-    */
-   JEOD_SIM_INTEGRATOR_POINTER_TYPE sim_integrator; //!< trick_units(--)
-
+    /**
+     * Pointer to the integration object used by the simulation engine itself.
+     */
+    JEOD_SIM_INTEGRATOR_POINTER_TYPE sim_integrator{}; //!< trick_units(--)
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Initialize the DynManager (but not much else).
+    virtual void initialize_model_internal(DynManagerInit & init, TimeManager & time_mngr);
 
-   // Initialize the DynManager (but not much else).
-   virtual void initialize_model_internal (
-      DynManagerInit & init,
-      TimeManager & time_mngr);
+    // initialize_dyn_bodies support methods
+    void perform_mass_body_initializations(MassBody * body = nullptr);
+    void perform_mass_attach_initializations();
+    void perform_dyn_body_initializations(DynBody * body = nullptr);
+    void check_for_uninitialized_states();
 
-   // initialize_dyn_bodies support methods
-   void perform_mass_body_initializations (MassBody * body = nullptr);
-   void perform_mass_attach_initializations (void);
-   void perform_dyn_body_initializations (DynBody * body = nullptr);
-   void check_for_uninitialized_states (void);
+    // Member data
 
+    /**
+     * Have all initializations been performed?
+     */
+    bool initialized{}; //!< trick_units(--)
 
-   // Member data
+    /**
+     * The model that encapsulates all of the gravity models.
+     */
+    GravityManager * gravity_manager{}; //!< trick_units(--)
 
-   /**
-    * Have all initializations been performed?
-    */
-   bool initialized; //!< trick_units(--)
+    /**
+     * Integrator generator
+     */
+    er7_utils::IntegratorConstructor * integ_constructor{}; //!< trick_units(--)
 
-   /**
-    * The model that encapsulates all of the gravity models.
-    */
-   GravityManager * gravity_manager;    //!< trick_units(--)
+    /**
+     * Interface with the simulation integration structure
+     */
+    JeodIntegratorInterface * integ_interface{}; //!< trick_units(--)
 
-   /**
-    * Integrator generator
-    */
-   er7_utils::IntegratorConstructor * integ_constructor; //!< trick_units(--)
+    /**
+     * The integration group used for simple monolithic simulations.
+     */
+    DynamicsIntegrationGroup * default_integ_group{}; //!< trick_units(--)
 
-   /**
-    * Interface with the simulation integration structure
-    */
-   JeodIntegratorInterface * integ_interface; //!< trick_units(--)
+    /**
+     * Simple ephemeris for use in empty space and single planet modes
+     */
+    SinglePointEphemeris * simple_ephemeris{}; //!< trick_units(--)
 
-   /**
-    * The integration group used for simple monolithic simulations.
-    */
-   DynamicsIntegrationGroup * default_integ_group; //!< trick_units(--)
+    /**
+     * List of vehicle models.
+     */
+    std::vector<MassBody *> mass_bodies;
 
-   /**
-    * Simple ephemeris for use in empty space and single planet modes
-    */
-   SinglePointEphemeris * simple_ephemeris; //!< trick_units(--)
+    /**
+     * List of vehicle models.
+     */
+    std::vector<DynBody *> dyn_bodies;
 
-   /**
-    * List of vehicle models.
-    */
-   std::vector<MassBody*> mass_bodies;
+    /**
+     * List of integration groups.
+     */
+    std::vector<DynamicsIntegrationGroup *> integ_groups;
 
-   /**
-    * List of vehicle models.
-    */
-   std::vector<DynBody*> dyn_bodies;
-
-   /**
-    * List of integration groups.
-    */
-   std::vector<DynamicsIntegrationGroup*> integ_groups;
-
-   /**
-    * List of body initializers.
-    */
-   std::list<BodyAction*> body_actions;
-
-
-private:
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   DynManager (const DynManager &);
-
-   /**
-    * Not implemented.
-    */
-   DynManager & operator= (const DynManager &);
+    /**
+     * List of body initializers.
+     */
+    std::list<BodyAction *> body_actions;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "environment/ephemerides/ephem_interface/include/simple_ephemerides.hh"
 #include "er7_utils/integration/core/include/integrator_constructor_factory.hh"
 #endif
-
 
 #endif
 

@@ -67,132 +67,117 @@
 #define CONTACT_FACET_HH
 
 // JEOD includes
+#include "dynamics/dyn_body/include/dyn_body.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/surface_model/include/facet.hh"
 #include "utils/surface_model/include/interaction_facet.hh"
-#include "dynamics/dyn_body/include/dyn_body.hh"
 
 // Model includes
 #include "class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An contact interaction specific facet for use in the surface model.
  */
-class ContactFacet : public InteractionFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(ContactFacet)
+class ContactFacet : public InteractionFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ContactFacet)
 
 public:
-   /**
-    * toggles this contact facet on and off, true=on false=off
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * toggles this contact facet on and off, true=on false=off
+     */
+    bool active{true}; //!< trick_units(--)
 
-   /**
-    * Stores the name of surface material that the facet is constructed of. This
-    * information is used to deturmine the contact parameters used when pairs
-    * are constructed.
-    */
-   ContactParams * surface_type; //!< trick_units(--)
+    /**
+     * Stores the name of surface material that the facet is constructed of. This
+     * information is used to deturmine the contact parameters used when pairs
+     * are constructed.
+     */
+    ContactParams * surface_type{}; //!< trick_units(--)
 
-   /**
-    * DynBody associated with this facet for structural frame information.
-    */
-   DynBody* vehicle_body;  //!< trick_units(--)
+    /**
+     * DynBody associated with this facet for structural frame information.
+     */
+    DynBody * vehicle_body{}; //!< trick_units(--)
 
-   /**
-    * maximum dimension of the contact facet for use in limiting pair in_contact calls
-    */
-   double max_dimension; //!< trick_units(m)
+    /**
+     * maximum dimension of the contact facet for use in limiting pair in_contact calls
+     */
+    double max_dimension{}; //!< trick_units(m)
 
-   /**
-    * position of the facet in vehicle structural frame.
-    */
-   double position[3]; //!< trick_units(m)
+    /**
+     * position of the facet in vehicle structural frame.
+     */
+    double position[3]{}; //!< trick_units(m)
 
-   /**
-    * normal of the facet relative to the vehicle structural frame.
-    */
-   double normal[3]; //!< trick_units(--)
+    /**
+     * normal of the facet relative to the vehicle structural frame.
+     */
+    double normal[3]{}; //!< trick_units(--)
 
-   /**
-    * Vehicle point for relstate calculations.
-    */
-   const BodyRefFrame* vehicle_point; //!< trick_units(--)
+    /**
+     * Vehicle point for relstate calculations.
+     */
+    const BodyRefFrame * vehicle_point{}; //!< trick_units(--)
 
-   // constructor
-   ContactFacet ();
+    ContactFacet() = default;
+    ~ContactFacet() override = default;
+    ContactFacet & operator=(const ContactFacet &) = delete;
+    ContactFacet(const ContactFacet &) = delete;
 
-   // destructor
-   ~ContactFacet () override;
+    /**
+     Create a vehicle point to track the state information of the contact
+     facet.
+     */
+    void create_vehicle_point();
 
-   /**
-    Create a vehicle point to track the state information of the contact
-    facet.
-    */
-   void create_vehicle_point (void);
+    /**
+     Calculate the max dimension of the facet for range limit determination.
+     */
+    virtual void set_max_dimension() = 0;
 
-   /**
-    Calculate the max dimension of the facet for range limit determination.
-    */
-   virtual void set_max_dimension(
-      void)
-   = 0;
+    // Name access.
+    std::string get_name() const;
 
-   // Name access.
-   const char * get_name (void) const;
+    /**
+     Calculate the torque acting on the facet in the vehicle structural frame.
+     In: N force from one contact interaction.
+     */
+    virtual void calculate_torque(double * tmp_force) = 0;
 
-   /**
-    Calculate the torque acting on the facet in the vehicle structural frame.
-    */
-   virtual void calculate_torque(
-      double *tmp_force) // In: N force from one contact interaction.
-   = 0;
+    /**
+     Overloaded functions that create a ContactPair and pass the address
+     of it to the Contact class for addition to the list of pairs.
+     This function is called to create a pair that only contains a subject.
+     Return: -- ContactPair that was created
+     */
+    virtual ContactPair * create_pair() = 0;
 
-   /**
-    Overloaded functions that create a ContactPair and pass the address
-    of it to the Contact class for addition to the list of pairs.
-    This function is called to create a pair that only contains a subject.
-    */
-   virtual ContactPair * create_pair( /* Return: -- ContactPair that was created */
-      void)
-   = 0;
-
-   /**
-    Overloaded functions that creates a ContactPair and pass the address
-    of it to the Contact class for addition to the list of pairs.
-    This function is called when a subject and target are known.
-    */
-   virtual ContactPair * create_pair ( /* Return: -- ContactPair that was created */
-      ContactFacet * target, /* InOut: -- target ContactFacet */
-      Contact * contact) /* In: -- Contact object used to find the pair interaction */
-   = 0;
-
-private:
-   /* Operator = and copy constructor hidden from use by being private */
-
-   ContactFacet& operator = (const ContactFacet& rhs);
-   ContactFacet (const ContactFacet& rhs);
-
+    /**
+     Overloaded functions that creates a ContactPair and pass the address
+     of it to the Contact class for addition to the list of pairs.
+     This function is called when a subject and target are known.
+     Return: -- ContactPair that was created
+     InOut: -- target ContactFacet
+     In: -- Contact object used to find the pair interaction
+     */
+    virtual ContactPair * create_pair(ContactFacet * target, Contact * contact) = 0;
 };
 
 /**
  * Accessor for name.
  * @return Point name
  */
-inline const char *
-ContactFacet::get_name (
-   void)
-const
+inline std::string ContactFacet::get_name() const
 {
-   return base_facet->name.c_str();
+    return base_facet->name;
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

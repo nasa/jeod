@@ -47,175 +47,107 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     (../src/demo_interaction_facet.cc)
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_DEMO_INTERACTION_FACET_HH
 #define JEOD_DEMO_INTERACTION_FACET_HH
 
-#include "utils/sim_interface/include/jeod_class.hh"
+#include <string>
 
+#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/surface_model/include/interaction_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class DemoFacet1 : public InteractionFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoFacet1)
-
-public:
-
-   // constructor
-   DemoFacet1();
-
-   // destructor
-   ~DemoFacet1() override;
-
-   virtual void execute_demo_1(
-      unsigned int interaction_number
-      ) = 0;
-
-
-protected:
-
-private:
-
-   DemoFacet1& operator = (const DemoFacet1& rhs);
-   DemoFacet1(const DemoFacet1& rhs);
-
-};
-
-class DemoFacet2 : public InteractionFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoFacet2)
+class DemoFacet1 : public InteractionFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoFacet1)
 
 public:
+    DemoFacet1() = default;
+    ~DemoFacet1() override = default;
+    DemoFacet1 & operator=(const DemoFacet1 &) = delete;
+    DemoFacet1(const DemoFacet1 &) = delete;
 
-   // constructor
-   DemoFacet2();
-
-   // destructor
-   ~DemoFacet2() override;
-
-   virtual void execute_demo_2(
-      char* interaction_name
-      ) = 0;
-
-
-protected:
-
-private:
-
-   DemoFacet2& operator = (const DemoFacet2& rhs);
-   DemoFacet2(const DemoFacet2& rhs);
-
+    virtual void execute_demo_1(unsigned int interaction_number) = 0;
 };
 
-class FlatPlateDemo1 : public DemoFacet1 {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateDemo1)
+class DemoFacet2 : public InteractionFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoFacet2)
 
 public:
+    DemoFacet2() = default;
+    ~DemoFacet2() override = default;
+    DemoFacet2 & operator=(const DemoFacet2 &) = delete;
+    DemoFacet2(const DemoFacet2 &) = delete;
 
-   // constructor
-   FlatPlateDemo1();
-
-   // destructor
-   ~FlatPlateDemo1() override;
-
-   void execute_demo_1(
-      unsigned int interaction_number) override ;
-
-   char* shape; // (--) The shape of the flat plate
-
-protected:
-
-private:
-
-   FlatPlateDemo1& operator = (const FlatPlateDemo1& rhs);
-   FlatPlateDemo1(const FlatPlateDemo1& rhs);
-
+    virtual void execute_demo_2(const char * interaction_name) = 0;
 };
 
-class FlatPlateDemo2 : public DemoFacet2 {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateDemo2)
+class FlatPlateDemo1 : public DemoFacet1
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateDemo1)
 
 public:
+    FlatPlateDemo1() = default;
+    ~FlatPlateDemo1() override = default;
+    FlatPlateDemo1 & operator=(const FlatPlateDemo1 &) = delete;
+    FlatPlateDemo1(const FlatPlateDemo1 &) = delete;
 
-   // constructor
-   FlatPlateDemo2();
+    void execute_demo_1(unsigned int interaction_number) override;
 
-   // destructor
-   ~FlatPlateDemo2() override;
-
-   void execute_demo_2(
-      char* interaction_name) override;
-
-   int sides; // (count) Number of sides
-
-protected:
-
-private:
-
-   FlatPlateDemo2& operator = (const FlatPlateDemo2& rhs);
-   FlatPlateDemo2(const FlatPlateDemo2& rhs);
-
+    std::string shape; // (--) The shape of the flat plate
 };
 
-class DemoInteractionFacet1 : public DemoFacet1 {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoInteractionFacet1)
+class FlatPlateDemo2 : public DemoFacet2
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateDemo2)
 
 public:
+    FlatPlateDemo2() = default;
+    ~FlatPlateDemo2() override = default;
+    FlatPlateDemo2 & operator=(const FlatPlateDemo2 &) = delete;
+    FlatPlateDemo2(const FlatPlateDemo2 &) = delete;
 
-   // constructor
-   DemoInteractionFacet1();
+    void execute_demo_2(const char * interaction_name) override;
 
-   // destructor
-   ~DemoInteractionFacet1() override;
-
-   void execute_demo_1(
-      unsigned int interaction_number) override;
-
-   double weight; // N The weight of the facet
-
-protected:
-
-private:
-
-   DemoInteractionFacet1& operator = (const DemoInteractionFacet1& rhs);
-   DemoInteractionFacet1(const DemoInteractionFacet1& rhs);
-
+    int sides{}; // (count) Number of sides
 };
 
-class DemoInteractionFacet2 : public DemoFacet2 {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoInteractionFacet2)
+class DemoInteractionFacet1 : public DemoFacet1
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoInteractionFacet1)
 
 public:
+    DemoInteractionFacet1() = default;
+    ~DemoInteractionFacet1() override = default;
+    DemoInteractionFacet1 & operator=(const DemoInteractionFacet1 &) = delete;
+    DemoInteractionFacet1(const DemoInteractionFacet1 &) = delete;
 
-   // constructor
-   DemoInteractionFacet2();
+    void execute_demo_1(unsigned int interaction_number) override;
 
-   // destructor
-   ~DemoInteractionFacet2() override;
-
-   void execute_demo_2(
-      char* interaction_name) override;
-
-   char* color; // -- The shape of the facet
-
-protected:
-
-private:
-
-   DemoInteractionFacet2& operator = (const DemoInteractionFacet2& rhs);
-   DemoInteractionFacet2(const DemoInteractionFacet2& rhs);
-
+    double weight{}; // N The weight of the facet
 };
 
-} // End JEOD namespace
+class DemoInteractionFacet2 : public DemoFacet2
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoInteractionFacet2)
+
+public:
+    DemoInteractionFacet2() = default;
+    ~DemoInteractionFacet2() override = default;
+    DemoInteractionFacet2 & operator=(const DemoInteractionFacet2 &) = delete;
+    DemoInteractionFacet2(const DemoInteractionFacet2 &) = delete;
+
+    void execute_demo_2(const char * interaction_name) override;
+
+    std::string color{}; // -- The shape of the facet
+};
+
+} // namespace jeod
 
 #endif

@@ -51,7 +51,7 @@ def set_double_vehicle_run(jeod_sys, earth, target, options) :
   options["LOG_CHASER_RATE"] = 1
 
   log_data(options)
-  jeod_sys.interface_init.message_suppression_level = 1000
+  jeod_sys.interface_init.message_suppression_level = trick.MessageHandler.Debug
 
   #// Initialize the launch pad.
   earth.pad_39a.loc.altitude  = 3.0

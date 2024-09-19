@@ -56,38 +56,42 @@
 //
 //==============================================================================
 
-
 // Define job calling intervals
-#define DYNAMICS      1.00
+#define DYNAMICS 1.00
 
-
-#include "JEOD_S_modules/default_priority_settings.sm"
-
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "JEOD_S_modules/jeod_sys.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
+
+// Include the default system classes:
 #define TIME_MODEL_TT
-#include "JEOD_S_modules/jeod_time.sm"
-#include "JEOD_S_modules/dynamics.sm"
-#include "JEOD_S_modules/environment.sm"
-#include "JEOD_S_modules/sun_basic.sm"
-#include "JEOD_S_modules/vehicle_basic.sm"
+#include "jeod_time.sm"
+
+#include "dynamics.sm"
+#include "environment.sm"
+#include "sun_basic.sm"
+#include "vehicle_basic.sm"
 
 // Include the model modules
 #include "../S_modules/radiation.sm"
 #include "../S_modules/radiation_simple_no_decl.sm"
 
-Radiation_simpleSimObject radiation_simple_inside ( dynamics.dyn_manager,
-                                             vehicle.dyn_body,
-                                             jeod_time.time_manager.dyn_time);
-Radiation_simpleSimObject radiation_simple_cx_area ( dynamics.dyn_manager,
-                                             vehicle.dyn_body,
-                                             jeod_time.time_manager.dyn_time);
-Radiation_simpleSimObject radiation_simple_surf_area ( dynamics.dyn_manager,
-                                             vehicle.dyn_body,
-                                             jeod_time.time_manager.dyn_time);
-Radiation_simpleSimObject radiation_simple_outside ( dynamics.dyn_manager,
-                                             vehicle.dyn_body,
-                                             jeod_time.time_manager.dyn_time);
+Radiation_simpleSimObject radiation_simple_inside(dynamics.dyn_manager,
+                                                  vehicle.dyn_body,
+                                                  jeod_time.time_manager.dyn_time);
+Radiation_simpleSimObject radiation_simple_cx_area(dynamics.dyn_manager,
+                                                   vehicle.dyn_body,
+                                                   jeod_time.time_manager.dyn_time);
+Radiation_simpleSimObject radiation_simple_surf_area(dynamics.dyn_manager,
+                                                     vehicle.dyn_body,
+                                                     jeod_time.time_manager.dyn_time);
+Radiation_simpleSimObject radiation_simple_outside(dynamics.dyn_manager,
+                                                   vehicle.dyn_body,
+                                                   jeod_time.time_manager.dyn_time);
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

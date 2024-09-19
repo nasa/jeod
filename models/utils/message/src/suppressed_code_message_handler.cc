@@ -20,10 +20,9 @@ Library dependencies:
    (message_handler.cc)
    (message_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 #include <cstdarg>
@@ -37,33 +36,28 @@ Library dependencies:
 // Model includes
 #include "../include/suppressed_code_message_handler.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Register the MessageHandler's checkpointable contents.
  */
-void
-SuppressedCodeMessageHandler::register_contents (
-   void)
+void SuppressedCodeMessageHandler::register_contents()
 {
-   JEOD_REGISTER_CLASS (SuppressedCodeMessageHandler);
-   JEOD_REGISTER_CHECKPOINTABLE (this, suppressed_codes);
+    JEOD_REGISTER_CLASS(SuppressedCodeMessageHandler);
+    JEOD_REGISTER_CHECKPOINTABLE(this, suppressed_codes);
 }
-
 
 /**
  * Deregister the MessageHandler's checkpointable contents.
  */
-void
-SuppressedCodeMessageHandler::deregister_contents (
-   void)
+void SuppressedCodeMessageHandler::deregister_contents()
 {
-   JEOD_DEREGISTER_CHECKPOINTABLE (this, suppressed_codes);
+    JEOD_DEREGISTER_CHECKPOINTABLE(this, suppressed_codes);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -64,16 +64,15 @@ Library dependencies:
   ((../src/lsode_integrator_constructor.cc)
    (../src/lsode_integration_controls.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_LSODE_INTEGRATOR_CONSTRUCTOR_HH
 #define JEOD_LSODE_INTEGRATOR_CONSTRUCTOR_HH
 
 // System includes
-#include<vector>
+#include <vector>
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
@@ -82,11 +81,11 @@ Library dependencies:
 #include "er7_utils/integration/core/include/integrator_constructor.hh"
 
 // Model includes
+#include "lsode_control_data_interface.hh"
 #include "lsode_first_order_ode_integrator.hh"
+#include "lsode_generalized_second_order_ode_integrator.hh"
 #include "lsode_second_order_ode_integrator.hh"
 #include "lsode_simple_second_order_ode_integrator.hh"
-#include "lsode_generalized_second_order_ode_integrator.hh"
-#include "lsode_control_data_interface.hh"
 
 namespace jeod
 {
@@ -96,135 +95,126 @@ namespace jeod
  */
 class LsodeIntegratorConstructor : public er7_utils::IntegratorConstructor
 {
-JEOD_MAKE_SIM_INTERFACES(LsodeIntegratorConstructor)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeIntegratorConstructor)
 
-   // Note: The default constructor, copy constructor, assignment operator,
-   // and destructor for this class are not declared.
-   // The implicit C++ defaults suffice for this class.
+    // Note: The default constructor, copy constructor, assignment operator,
+    // and destructor for this class are not declared.
+    // The implicit C++ defaults suffice for this class.
 
 public:
-   /**
-    * Default constructor.
-    */
-   LsodeIntegratorConstructor(void) {};
-   LsodeIntegratorConstructor(const LsodeIntegratorConstructor & src);
+    LsodeIntegratorConstructor() = default;
+    LsodeIntegratorConstructor(const LsodeIntegratorConstructor & src);
+    LsodeIntegratorConstructor & operator=(const LsodeIntegratorConstructor &) = delete;
 
-   // Static member functions.
+    // Static member functions.
 
-   /**
-    * Named constructor; create an LsodeIntegratorConstructor instance.
-    * The caller is responsible for deleting the returned object.
-    * @return Newly created LsodeIntegratorConstructor instance.
-    */
-   static er7_utils::IntegratorConstructor* create_constructor (void);
+    /**
+     * Named constructor; create an LsodeIntegratorConstructor instance.
+     * The caller is responsible for deleting the returned object.
+     * @return Newly created LsodeIntegratorConstructor instance.
+     */
+    static er7_utils::IntegratorConstructor * create_constructor();
 
-   // Member functions.
+    // Member functions.
 
-   /**
-    * Return the class name.
-    */
-   const char * get_class_name (void) const override
-   { return "LsodeIntegratorConstructor"; }
+    /**
+     * Return the class name.
+     */
+    const char * get_class_name() const override
+    {
+        return "LsodeIntegratorConstructor";
+    }
 
-   /**
-    * Lsode currently does not implement a second order generalized step
-    * integrator.
-    */
-   bool implements (er7_utils::Integration::ODEProblemType problem_type) const override
-   {
-      return (problem_type != er7_utils::Integration::GeneralizedDerivSecondOrderODE) &&
-             (problem_type != er7_utils::Integration::GeneralizedStepSecondOrderODE);
-   }
+    /**
+     * Lsode currently does not implement a second order generalized step
+     * integrator.
+     */
+    bool implements(er7_utils::Integration::ODEProblemType problem_type) const override
+    {
+        return (problem_type != er7_utils::Integration::GeneralizedDerivSecondOrderODE) &&
+               (problem_type != er7_utils::Integration::GeneralizedStepSecondOrderODE);
+    }
 
-   /**
-    * Lsode currently does not provide a second order generalized step
-    * integrator.
-    */
-   bool provides (er7_utils::Integration::ODEProblemType problem_type) const override
-   {
-      return (problem_type != er7_utils::Integration::GeneralizedDerivSecondOrderODE) &&
-             (problem_type != er7_utils::Integration::GeneralizedStepSecondOrderODE);
-   }
+    /**
+     * Lsode currently does not provide a second order generalized step
+     * integrator.
+     */
+    bool provides(er7_utils::Integration::ODEProblemType problem_type) const override
+    {
+        return (problem_type != er7_utils::Integration::GeneralizedDerivSecondOrderODE) &&
+               (problem_type != er7_utils::Integration::GeneralizedStepSecondOrderODE);
+    }
 
-   /**
-    * Create a duplicate of the constructor.
-    * The caller is responsible for deleting the returned object.
-    * @return Duplicated constructor.
-    */
-   er7_utils::IntegratorConstructor * create_copy (void) const override;
+    /**
+     * Create a duplicate of the constructor.
+     * The caller is responsible for deleting the returned object.
+     * @return Duplicated constructor.
+     */
+    er7_utils::IntegratorConstructor * create_copy() const override;
 
-   /**
-    * Create an integration controls that guides the Lsode integration process.
-    * The caller is responsible for deleting the created object.
-    * @return Integration controls object
-    */
-   er7_utils::IntegrationControls * create_integration_controls (void) const override;
+    /**
+     * Create an integration controls that guides the Lsode integration process.
+     * The caller is responsible for deleting the created object.
+     * @return Integration controls object
+     */
+    er7_utils::IntegrationControls * create_integration_controls() const override;
 
-   /**
-    * Create an Lsode state integrator for a first order ODE.
-    * The caller is responsible for deleting the created object.
-    * @return State integrator
-    * @param[in]     size      State size
-    * @param[in,out] controls  Integration controls
-    */
-   er7_utils::FirstOrderODEIntegrator * create_first_order_ode_integrator (
-      unsigned int size,
-      er7_utils::IntegrationControls & controls) const override;
+    /**
+     * Create an Lsode state integrator for a first order ODE.
+     * The caller is responsible for deleting the created object.
+     * @return State integrator
+     * @param[in]     size      State size
+     * @param[in,out] controls  Integration controls
+     */
+    er7_utils::FirstOrderODEIntegrator * create_first_order_ode_integrator(
+        unsigned int size, er7_utils::IntegrationControls & controls) const override;
 
-   /**
-    * Create an Lsode state integrator for a simple second order ODE.
-    * The caller is responsible for deleting the created object.
-    * @return State integrator
-    * @param[in]     size      State size
-    * @param[in,out] controls  Integration controls
-    */
-   er7_utils::SecondOrderODEIntegrator * create_second_order_ode_integrator (
-      unsigned int size,
-      er7_utils::IntegrationControls & controls) const override;
+    /**
+     * Create an Lsode state integrator for a simple second order ODE.
+     * The caller is responsible for deleting the created object.
+     * @return State integrator
+     * @param[in]     size      State size
+     * @param[in,out] controls  Integration controls
+     */
+    er7_utils::SecondOrderODEIntegrator * create_second_order_ode_integrator(
+        unsigned int size, er7_utils::IntegrationControls & controls) const override;
 
-   /**
-    * Create an Lsode state integrator for a generalized second order ODE
-    * where generalized position is advanced with the use of the
-    * position derivative function.
-    * The caller is responsible for deleting the created object.
-    * @return State integrator
-    * @param[in]     position_size  Size of the generalized position
-    * @param[in]     velocity_size  Size of the generalized velocity
-    * @param[in]     deriv_funs     Position derivative functions container
-    * @param[in,out] controls       Integration controls
-    */
-   er7_utils::SecondOrderODEIntegrator *
-   create_generalized_deriv_second_order_ode_integrator (
-      unsigned int position_size,
-      unsigned int velocity_size,
-      const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
-      er7_utils::IntegrationControls & controls) const override;
+    /**
+     * Create an Lsode state integrator for a generalized second order ODE
+     * where generalized position is advanced with the use of the
+     * position derivative function.
+     * The caller is responsible for deleting the created object.
+     * @return State integrator
+     * @param[in]     position_size  Size of the generalized position
+     * @param[in]     velocity_size  Size of the generalized velocity
+     * @param[in]     deriv_funs     Position derivative functions container
+     * @param[in,out] controls       Integration controls
+     */
+    er7_utils::SecondOrderODEIntegrator * create_generalized_deriv_second_order_ode_integrator(
+        unsigned int position_size,
+        unsigned int velocity_size,
+        const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
+        er7_utils::IntegrationControls & controls) const override;
 
+    /**
+     * Lsode dioes not use a linear transition table
+     * @return Always returns 0.
+     */
+    unsigned int get_transition_table_size() const override
+    {
+        return 0;
+    }
 
-   /**
-    * Lsode dioes not use a linear transition table
-    * @return Always returns 0.
-    */
-   unsigned int get_transition_table_size (void) const override
-   { return 0; }
-
-
-   LsodeControlDataInterface data_interface;
-
-private:
-   LsodeIntegratorConstructor & operator=(const LsodeIntegratorConstructor & src);
-
+    LsodeControlDataInterface data_interface;
 };
 
 } // namespace jeod
 
-
 #ifdef TRICK_ICG
 #include "er7_utils/integration/core/include/single_cycle_integration_controls.hh"
-//#include "lsode_first_order_ode_integrator.hh"
-//#include "lsode_second_order_ode_integrator.hh"
+// #include "lsode_first_order_ode_integrator.hh"
+// #include "lsode_second_order_ode_integrator.hh"
 #endif
-
 
 #endif
 

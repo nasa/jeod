@@ -57,16 +57,16 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_REF_FRAME_FORWARD_HH
 #define JEOD_REF_FRAME_FORWARD_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RefFrame;
 class RefFrameItems;
@@ -77,13 +77,12 @@ class RefFrameRot;
 class RefFrameState;
 class RefFrameTrans;
 
-template <class Links, class Container> class TreeLinksIterator;
-template <class Links, class Container> class TreeLinksParentIterator;
-template <class Links, class Container> class TreeLinksDescentIterator;
-template <class Links, class Container> class TreeLinksChildIterator;
+template<class Links, class Container> class TreeLinksIterator;
+template<class Links, class Container> class TreeLinksParentIterator;
+template<class Links, class Container> class TreeLinksDescentIterator;
+template<class Links, class Container> class TreeLinksChildIterator;
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -46,7 +46,6 @@
  * Radiation pressure parameter and variable definitions
  */
 
-
 /***************************TRICK * HEADER**************************************
 PURPOSE:
     ()
@@ -65,7 +64,6 @@ Library dependencies:
 
 *****************************************************************************/
 
-
 #ifndef JEOD_RADIATION_SOURCE_HH
 #define JEOD_RADIATION_SOURCE_HH
 
@@ -76,9 +74,9 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RefFrame;
 class DynManager;
@@ -89,165 +87,152 @@ class RadiationThirdBody;
 /**
  * Provides information on the source of the incident radiation
  */
-class RadiationSource {
-   JEOD_MAKE_SIM_INTERFACES(RadiationSource)
+class RadiationSource
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationSource)
 
 public:
+    /**
+     * Solar Luminosity.
+     */
+    const double solar_luminosity{3.827E+26}; //!< trick_units(--)
 
+    /**
+     * Mean solar radius.
+     */
+    const double solar_radius{6.98E+08}; //!< trick_units(m)
 
-   /**
-    * Solar Luminosity.
-    */
-  const double solar_luminosity; //!< trick_units(--)
+    /**
+     * The name of the source of the illumination (usually Sun)
+     */
+    std::string name{"Sun"}; //!< trick_units(--)
 
-   /**
-    * Mean solar radius.
-    */
-  const double solar_radius; //!< trick_units(m)
+    /**
+     * (inertial) unit vector associated with primary radiative flux.
+     */
+    double flux_hat[3]{}; //!< trick_units(--)
 
-   /**
-    * The name of the source of the illumination (usually Sun)
-    */
-  std::string name;   //!< trick_units(--)
+    /**
+     * magnitude of principle radiative flux vector
+     */
+    double flux_mag{}; //!< trick_units(N/m2)
 
-   /**
-    * (inertial) unit vector associated with primary radiative flux.
-    */
-  double flux_hat[3] ;    //!< trick_units(--)
+    /**
+     * distance from source to vehicle cg.
+     */
+    double d_source_to_cg{}; //!< trick_units(m)
 
-   /**
-    * magnitude of principle radiative flux vector
-    */
-  double flux_mag ;       //!< trick_units(N/m2)
+    /**
+     * Luminosity of primary source
+     */
+    double luminosity{solar_luminosity}; //!< trick_units(--)
 
+    /**
+     * Radius of primary source
+     */
+    double radius{solar_radius}; //!< trick_units(m)
 
-   /**
-    * distance from source to vehicle cg.
-    */
-  double d_source_to_cg ;       //!< trick_units(m)
+    /**
+     * (N/M/s)  Power per unit area in the inertial reference frame
+     */
+    double flux_inertial[3]{}; //!< trick_units(--)
 
-   /**
-    * Luminosity of primary source
-    */
-  double luminosity; //!< trick_units(--)
+    /**
+     * (N/M*s)  Power per unit area in the vehicle structural reference frame
+     */
+    double flux_struc[3]{}; //!< trick_units(--)
 
-   /**
-    * Radius of primary source
-    */
-  double radius; //!< trick_units(m)
+    /**
+     * Unit vector representing flux vector in the vehicle structural
+     * reference frame
+     */
+    double flux_struc_hat[3]{}; //!< trick_units(--)
 
-   /**
-    * (N/M/s)  Power per unit area in the inertial reference frame
-    */
-  double flux_inertial[3]; //!< trick_units(--)
+    /**
+     * vehicle cg position w.r.t vehicle strucural origin, expressed in
+     * inertial RF.
+     */
+    double inertial_cg[3]{}; //!< trick_units(m)
 
-   /**
-    * (N/M*s)  Power per unit area in the vehicle structural reference frame
-    */
-  double flux_struc[3]; //!< trick_units(--)
+    /**
+     * vehicle cg position relative to the source
+     */
+    double source_to_cg[3]{}; //!< trick_units(m)
 
-   /**
-    * Unit vector representing flux vector in the vehicle structural
-    * reference frame
-    */
-  double flux_struc_hat[3]; //!< trick_units(--)
+    /**
+     * vehicle struc frame origin position relative to source.
+     */
+    double source_to_struc_origin[3]{}; //!< trick_units(m)
 
-   /**
-    * vehicle cg position w.r.t vehicle strucural origin, expressed in
-    * inertial RF.
-    */
-  double inertial_cg[3];  //!< trick_units(m)
+    /**
+     * flags that more than one body are casting shadows on the vehicle.
+     */
+    bool multiple_shadow_bodies{}; //!< trick_units(--)
 
-   /**
-    * vehicle cg position relative to the source
-    */
-  double source_to_cg[3] ; //!< trick_units(m)
+    /**
+     * the inertial reference frame associated with this source
+     */
+    RefFrame * inertial_frame_ptr{}; //!< trick_units(--)
 
-   /**
-    * vehicle struc frame origin position relative to source.
-    */
-  double source_to_struc_origin[3];  //!< trick_units(m)
+    /*  The following 5 objects are a hold-over from JEOD 2.1 running under Trick 7.
+        With Trick10, there is an alternate preferred method for declaring
+        RadiationThirdBody objects, and these elements should not be used.  However,
+        they are retained for backwards-compatibility.*/
 
-   /**
-    * flags that more than one body are casting shadows on the vehicle.
-    */
-  bool multiple_shadow_bodies;  //!< trick_units(--)
+    /**
+     * can there be 3rd-body interference, either shadowing or reflection.
+     */
+    bool bodies_active{}; //!< trick_units(--)
 
-   /**
-    * the inertial reference frame associated with this source
-    */
-  RefFrame * inertial_frame_ptr;  //!< trick_units(--)
+    /**
+     * number of ThirdBodies available.
+     */
+    unsigned int num_bodies{}; //!< trick_units(count)
 
+    /**
+     * Planetary bodies that provide shadowing or indirect, reflected,
+     * illumination.
+     */
+    RadiationThirdBody ** third_body{}; //!< trick_units(--)
 
+    /**
+     * distinguishes between conical and cylindrical shadowing.  NOTE this is
+     * provided for backward-compatibility and should not be used.
+     */
+    enum OldShadowGeometry
+    {
+        Cylindrical = 0, /**< planet casts a cylindrical shadow */
+        Cyl = 1,         /**< planet casts a cylindrical shadow */
+        Conical = 2,     /**< planet casts a conical shadow */
+        Con = 3          /**< planet casts a conical shadow */
+    };
 
-/*  The following 5 objects are a hold-over from JEOD 2.1 running under Trick 7.
-    With Trick10, there is an alternate preferred method for declaring
-    RadiationThirdBody objects, and these elements should not be used.  However,
-    they are retained for backwards-compatibility.*/
+    /**
+     * Flag indicating cylindrical / conical shadow geometry
+     */
+    OldShadowGeometry shadow_geometry{}; //!< trick_units(--)
 
-   /**
-    * can there be 3rd-body interference, either shadowing or reflection.
-    */
-  bool bodies_active ;     //!< trick_units(--)
+    //  END OF COMPATIBILITY-DRIVEN BLOCK
 
-   /**
-    * number of ThirdBodies available.
-    */
-  unsigned int num_bodies;  //!< trick_units(count)
+    RadiationSource() = default;
+    virtual ~RadiationSource() = default;
+    RadiationSource(const RadiationSource &) = delete;
+    RadiationSource & operator=(const RadiationSource &) = delete;
 
-   /**
-    * Planetary bodies that provide shadowing or indirect, reflected,
-    * illumination.
-    */
-  RadiationThirdBody ** third_body;   //!< trick_units(--)
+    virtual void initialize(DynManager * dyn_manager_ptr);
 
+    virtual void calculate_flux(RefFrame & veh_struc_frame, const double center_grav[3]);
 
-   /**
-    * distinguishes between conical and cylindrical shadowing.  NOTE this is
-    * provided for backward-compatibility and should not be used.
-    */
-  enum OldShadowGeometry {
-      Cylindrical = 0 , /**< planet casts a cylindrical shadow */
-      Cyl = 1 ,             /**< planet casts a cylindrical shadow */
-      Conical = 2 ,         /**< planet casts a conical shadow */
-      Con = 3               /**< planet casts a conical shadow */
-  };
-
-   /**
-    * Flag indicating cylindrical / conical shadow geometry
-    */
-  OldShadowGeometry  shadow_geometry ; //!< trick_units(--)
-//  END OF COMPATIBILITY-DRIVEN BLOCK
-
-   RadiationSource ();
-
-   virtual ~RadiationSource ();
-
-   virtual void initialize (DynManager * dyn_manager_ptr);
-
-   virtual void calculate_flux (
-      RefFrame& veh_struc_frame, const double center_grav[3]);
-
-
-   /**
-    * Setter for the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   RadiationSource (const RadiationSource&);
-   RadiationSource & operator = (const RadiationSource&);
+    /**
+     * Setter for the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

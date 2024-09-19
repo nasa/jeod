@@ -70,12 +70,11 @@ Assumptions and limitations:
 Library dependencies:
 ((../src/nutation_mars.cc))
 
- 
+
 *****************************************************************************/
 
 #ifndef JEOD_NUTATION_MARS_HH
 #define JEOD_NUTATION_MARS_HH
-
 
 // System includes
 
@@ -85,106 +84,96 @@ Library dependencies:
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Implements the nutation portion of the "Pathfinder" Mars RNP model.
  */
-class NutationMars : public PlanetRotation {
+class NutationMars : public PlanetRotation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, NutationMars)
 
-   JEOD_MAKE_SIM_INTERFACES(NutationMars)
-
-   // Public data members
+    // Public data members
 public:
-   /**
-    * The latest calculated nutation correction term in longitude
-    */
-   double nutation_in_longitude; //!< trick_units(rad)
+    /**
+     * The latest calculated nutation correction term in longitude
+     */
+    double nutation_in_longitude{}; //!< trick_units(rad)
 
-   /**
-    * The latest calculated nutation correction term in obliquity
-    */
-   double nutation_in_obliquity; //!< trick_units(rad)
+    /**
+     * The latest calculated nutation correction term in obliquity
+     */
+    double nutation_in_obliquity{}; //!< trick_units(rad)
 
-   /**
-    * The (constant) obliquity angle of Mars at the J2000 epoch.
-    */
-   double I_at_j2000; //!< trick_units(rad)
+    /**
+     * The (constant) obliquity angle of Mars at the J2000 epoch.
+     */
+    double I_at_j2000{}; //!< trick_units(rad)
 
-   /**
-    * The (constant) simple secular change in Mars obliquity relative to
-    * the Mars mean orbit.
-    */
-   double I_dot; //!< trick_units(rad/s)
+    /**
+     * The (constant) simple secular change in Mars obliquity relative to
+     * the Mars mean orbit.
+     */
+    double I_dot{}; //!< trick_units(rad/s)
 
-   /**
-    * The latest calculated angle of obliquity, that is, the current orbit
-    * inclination angle as measured relative to the Mars mean orbit, measured
-    * since the J2000 epoch.
-    */
-   double obliquity_angle; //!< trick_units(rad)
+    /**
+     * The latest calculated angle of obliquity, that is, the current orbit
+     * inclination angle as measured relative to the Mars mean orbit, measured
+     * since the J2000 epoch.
+     */
+    double obliquity_angle{}; //!< trick_units(rad)
 
-   /**
-    * The mean motion of Mars, that is, the average orbit arc traversed.
-    */
-   double mean_motion; //!< trick_units(rad/s)
+    /**
+     * The mean motion of Mars, that is, the average orbit arc traversed.
+     */
+    double mean_motion{}; //!< trick_units(rad/s)
 
-   /**
-    * The Mars mean anomaly at the J2000 epoch.
-    */
-   double mean_anomaly_j2000; //!< trick_units(rad)
+    /**
+     * The Mars mean anomaly at the J2000 epoch.
+     */
+    double mean_anomaly_j2000{}; //!< trick_units(rad)
 
-   /**
-    * Parameter q is a slowly varying angle defined in Konopliv 2006 as
-    * 2 times w, where w is the argument of perihelion of the Mars orbit
-    * relative to the node of the Mars equator and Mars mean orbit. This
-    * data member is the value of q at the J2000 epoch.
-    */
-   double q_angle_j2000; //!< trick_units(rad)
+    /**
+     * Parameter q is a slowly varying angle defined in Konopliv 2006 as
+     * 2 times w, where w is the argument of perihelion of the Mars orbit
+     * relative to the node of the Mars equator and Mars mean orbit. This
+     * data member is the value of q at the J2000 epoch.
+     */
+    double q_angle_j2000{}; //!< trick_units(rad)
 
-   /**
-    * The obliquity nutation amplitude parameters.
-    */
-   double * I_m_orig; //!< trick_units(rad)
+    /**
+     * The obliquity nutation amplitude parameters.
+     */
+    double * I_m_orig{}; //!< trick_units(rad)
 
-   /**
-    * The longitude nutation amplitude parameters.
-    */
-   double * psi_m_orig; //!< trick_units(rad)
+    /**
+     * The longitude nutation amplitude parameters.
+     */
+    double * psi_m_orig{}; //!< trick_units(rad)
 
-   /**
-    * 0 to 9 cast as doubles for use in summation
-    */
-   double * int_to_double; //!< trick_units(--)
+    /**
+     * 0 to 9 cast as doubles for use in summation
+     */
+    double * int_to_double{}; //!< trick_units(--)
 
-
-   // Private data members
+    // Private data members
 private:
-
-
-   // Public member functions
+    // Public member functions
 public:
-   NutationMars ();
+    NutationMars() = default;
+    ~NutationMars() override;
+    NutationMars & operator=(const NutationMars &) = delete;
+    NutationMars(const NutationMars &) = delete;
 
-   ~NutationMars () override;
-
-   // NutationMars specific implementation of update rotation
-   // Before this is called, the current_time parameter must be set to
-   // Julian days since standard epoch J2000, per Konopliv references.
-   void update_rotation () override;
-
-
-   // Private member functions
-private:
-   // Lock away the copy constructor and operator = by making them private.
-   NutationMars& operator = (const NutationMars& rhs);
-   NutationMars (const NutationMars& rhs);
-
+    // NutationMars specific implementation of update rotation
+    // Before this is called, the current_time parameter must be set to
+    // Julian days since standard epoch J2000, per Konopliv references.
+    void update_rotation() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

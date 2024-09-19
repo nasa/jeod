@@ -48,39 +48,31 @@
 ##include "environment/spice/include/spice_ephem.hh"
 #include "Base/environment_basic.sm"
 
-
-class SpiceEnvSimObject: public EnvironmentBasicSimObject {
-
+class SpiceEnvSimObject: public EnvironmentBasicSimObject
+{
 public:
+    jeod::SpiceEphemeris spice;
 
-   jeod::SpiceEphemeris spice;
+    // Constructor
+    SpiceEnvSimObject(jeod::TimeManager & time_manager_in, jeod::DynManager & dyn_manager_in)
+        : EnvironmentBasicSimObject(dyn_manager_in),
+          time_manager(time_manager_in),
+          dyn_manager(dyn_manager_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_EPH("initialization") spice.initialize_model(time_manager, dyn_manager);
+    }
 
-
-   // Constructor
-   SpiceEnvSimObject(
-      jeod::TimeManager & time_manager_in,
-      jeod::DynManager & dyn_manager_in)
-   :
-      EnvironmentBasicSimObject(dyn_manager_in),
-      time_manager(time_manager_in),
-      dyn_manager(dyn_manager_in)
-   {
-
-      //
-      // Initialization jobs
-      //
-      P_EPH  ("initialization") spice.initialize_model (
-         time_manager, dyn_manager);
-   }
+    // Unimplemented copy constructor and assignment operator
+    SpiceEnvSimObject(const SpiceEnvSimObject &) = delete;
+    SpiceEnvSimObject & operator=(const SpiceEnvSimObject &) = delete;
 
 private:
-   // References to the external time and dynamics managers
-   jeod::TimeManager & time_manager;
-   jeod::DynManager & dyn_manager;
-
-   // Unimplemented copy constructor and assignment operator
-   SpiceEnvSimObject (const SpiceEnvSimObject&);
-   SpiceEnvSimObject & operator = (const SpiceEnvSimObject&);
+    // References to the external time and dynamics managers
+    jeod::TimeManager & time_manager;
+    jeod::DynManager & dyn_manager;
 };
 
-SpiceEnvSimObject env (jeod_time.time_manager, dynamics.dyn_manager);
+SpiceEnvSimObject env(jeod_time.time_manager, dynamics.dyn_manager);

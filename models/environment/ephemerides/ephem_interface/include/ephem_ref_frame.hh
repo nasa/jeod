@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_REF_FRAME_HH
 #define JEOD_EPHEM_REF_FRAME_HH
 
@@ -71,9 +70,9 @@ Library dependencies:
 #include "utils/ref_frames/include/ref_frame_interface.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseEphemeridesManager;
 
@@ -96,52 +95,37 @@ class BaseEphemeridesManager;
  * Only planet-centered inertial and barycenter inertial frames can serve
  * as integration frames or as the root of the reference frame tree.
  */
-class EphemerisRefFrame : public RefFrame {
-JEOD_MAKE_SIM_INTERFACES(EphemerisRefFrame)
+class EphemerisRefFrame : public RefFrame
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EphemerisRefFrame)
 
 public:
+    // Member functions
+    EphemerisRefFrame() = default;
+    ~EphemerisRefFrame() override = default;
+    EphemerisRefFrame(const EphemerisRefFrame &) = delete;
+    EphemerisRefFrame & operator=(const EphemerisRefFrame &) = delete;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
-
-   // Constructor and destructor
-   EphemerisRefFrame ();
-   ~EphemerisRefFrame () override;
-
-   // Set the ephemerides manager, needed for callbacks.
-   virtual void set_ephem_manager (BaseEphemeridesManager * manager);
+    // Set the ephemerides manager, needed for callbacks.
+    virtual void set_ephem_manager(BaseEphemeridesManager * manager);
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Set the activity of the frame and relay the change to the
+    // ephemerides manager.
+    void set_active_status(bool new_status) override;
 
-   // Set the activity of the frame and relay the change to the
-   // ephemerides manager.
-   void set_active_status (bool new_status) override;
+    // Member data
 
-   // Member data
-
-   /**
-    * The ephemerides manager to which notifications of changes in
-    * ephemeris reference frame activity status are sent.
-    */
-   BaseEphemeridesManager * ephem_manager; //!< trick_units(--)
-
-
-private:
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies.
-
-   ///
-   /// Not implemented.
-   EphemerisRefFrame (const EphemerisRefFrame &);
-   ///
-   /// Not implemented.
-   EphemerisRefFrame & operator= (const EphemerisRefFrame &);
+    /**
+     * The ephemerides manager to which notifications of changes in
+     * ephemeris reference frame activity status are sent.
+     */
+    BaseEphemeridesManager * ephem_manager{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

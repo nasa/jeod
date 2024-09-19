@@ -36,14 +36,13 @@ Library dependencies:
 #define PATH "environment/earth_lighting/"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Errors
-char const * EarthLightingMessages::initialization_error =
-   PATH "initialization_error";
+const char * EarthLightingMessages::initialization_error = PATH "initialization_error";
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

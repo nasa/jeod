@@ -2,17 +2,17 @@
 %
 % Purpose:
 %
-%  
+%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
 
 The \ModelDesc\ maintains the mass properties of all non-planetary massive
-objects in the simulation.  Mass-Body objects that also have a dynamic state are
-represented as Dyn-Body objects, Dyn-Body being an inheritance from Mass-Body.
+objects in the simulation.  MassBody objects that also have a dynamic state are
+represented as DynBody objects, where DynBody contains a MassBody.
 Consequently, the most frequently encountered Mass Body objects
-are the Dyn-Body-based simulation vehicle(s); this model accurately maintains the mass
+are contained in DynBody-based simulation vehicle(s); this model accurately maintains the mass
 properties of such entities throughout processes such as mass depletion due to
 fuel usage, the attaching and detaching of one Mass Body to/from another, and
 the relative motion of individual massive components of a composite body

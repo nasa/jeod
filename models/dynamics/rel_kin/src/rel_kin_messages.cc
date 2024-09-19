@@ -28,7 +28,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -36,22 +35,19 @@ Library dependencies:
 
 #define PATH "dynamics/rel_kin/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 
-char const * RelKinMessages::duplicate_entry =
-   PATH "duplicate_entry";
+const char * RelKinMessages::duplicate_entry = PATH "duplicate_entry";
 
-char const * RelKinMessages::entry_not_found =
-   PATH "entry_not_found";
+const char * RelKinMessages::entry_not_found = PATH "entry_not_found";
 
-char const * RelKinMessages::invalid_entry =
-   PATH "invalid_entry";
+const char * RelKinMessages::invalid_entry = PATH "invalid_entry";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

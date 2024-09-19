@@ -58,17 +58,10 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
-Library dependencies:
-  ((../src/spherical_harmonics_delta_controls.cc))
-
-
-
 *******************************************************************************/
-
 
 #ifndef JEOD_SPHERICAL_HARMONICS_DELTA_CONTROLS_HH
 #define JEOD_SPHERICAL_HARMONICS_DELTA_CONTROLS_HH
-
 
 // System includes
 
@@ -78,63 +71,56 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides controls for how a variational model affects a vehicle.
  */
-class SphericalHarmonicsDeltaControls {
+class SphericalHarmonicsDeltaControls
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsDeltaControls)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsDeltaControls)
+    // Member data
+public:
+    /**
+     * Pointer to associated coefficient-altering gravitational effect
+     */
+    SphericalHarmonicsDeltaCoeffs * grav_effect{}; //!< trick_units(--)
 
+    /**
+     * Pointer to the gravity body associated with this effect
+     */
+    SphericalHarmonicsGravitySource * grav_source{}; //!< trick_units(--)
 
- // Member data
- public:
+    /**
+     * Is this variational gravity effect active for this body?
+     */
+    bool active{}; //!< trick_units(--)
 
-   /**
-    * Pointer to associated coefficient-altering gravitational effect
-    */
-   SphericalHarmonicsDeltaCoeffs * grav_effect;  //!< trick_units(--)
+    /**
+     * Calculate first-order term of this effect only; default to true for 2.0
+     */
+    bool first_order_only{true}; //!< trick_units(--)
 
-   /**
-    * Pointer to the gravity body associated with this effect
-    */
-   SphericalHarmonicsGravitySource * grav_source; //!< trick_units(--)
+    /**
+     * Coefficient degree to be used for this gravity effect.
+     */
+    unsigned int degree{}; //!< trick_units(--)
 
-   /**
-    * Is this variational gravity effect active for this body?
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * Coefficient order to be used for this gravity effect.
+     */
+    unsigned int order{}; //!< trick_units(--)
 
-   /**
-    * Calculate first-order term of this effect only; default to true for 2.0
-    */
-   bool first_order_only; //!< trick_units(--)
-
-   /**
-    * Coefficient degree to be used for this gravity effect.
-    */
-   unsigned int degree; //!< trick_units(--)
-
-   /**
-    * Coefficient order to be used for this gravity effect.
-    */
-   unsigned int order; //!< trick_units(--)
-
-
- // Member functions
- public:
-
-   // Constructor & Destructor
-   SphericalHarmonicsDeltaControls ();
-   ~SphericalHarmonicsDeltaControls ();
+    // Member functions
+public:
+    SphericalHarmonicsDeltaControls() = default;
+    ~SphericalHarmonicsDeltaControls() = default;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

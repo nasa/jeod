@@ -12,10 +12,9 @@ Assumptions and limitations:
 Library dependencies:
   ((message_handler_verif_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -24,16 +23,16 @@ Library dependencies:
 
 #define PATH "utils/message/verif/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
- // Static member data
+// Static member data
 
-char const * MessageHandlerVerifMessages::error   = PATH "Error";
-char const * MessageHandlerVerifMessages::warning = PATH "Warning";
-char const * MessageHandlerVerifMessages::inform  = PATH "Information";
-char const * MessageHandlerVerifMessages::debug   = PATH "Debug";
-char const * MessageHandlerVerifMessages::message = PATH "Message";
+const char * MessageHandlerVerifMessages::error = PATH "Error";
+const char * MessageHandlerVerifMessages::warning = PATH "Warning";
+const char * MessageHandlerVerifMessages::inform = PATH "Information";
+const char * MessageHandlerVerifMessages::debug = PATH "Debug";
+const char * MessageHandlerVerifMessages::message = PATH "Message";
 
-} // End JEOD namespace
+} // namespace jeod

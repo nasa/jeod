@@ -53,53 +53,46 @@ Purpose:( This sim object models Mars with a MRO110B2 gravity model.
 #include "planet_generic.sm"
 class Mars_MRO110B2_SimObject: public PlanetGenericSimObject
 {
- protected:
-  // External references
-  jeod::TimeTT       & time_tt;
+protected:
+    // External references
+    jeod::TimeTT & time_tt;
 
- public:
-  jeod::RNPMars       rnp;
+public:
+    jeod::RNPMars rnp;
 
-  // Default data
-  jeod::Planet_mars_default_data    mars_default_data;
-  jeod::SphericalHarmonicsGravitySource_mars_MRO110B2_default_data    mars_grav_default_data;
-  jeod::RNPMars_rnp_mars_default_data    rnp_default_data;
+    // Default data
+    jeod::Planet_mars_default_data mars_default_data;
+    jeod::SphericalHarmonicsGravitySource_mars_MRO110B2_default_data mars_grav_default_data;
+    jeod::RNPMars_rnp_mars_default_data rnp_default_data;
 
-  // Constructor
-  Mars_MRO110B2_SimObject( jeod::DynManager   & dyn_manager_in,
-                           jeod::GravityManager & grav_in,
-                           jeod::TimeTT       & tt_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            mars_default_data,
-                            mars_grav_default_data),
-    time_tt(tt_in)
-  {
-    //
-    //Default data jobs
-    //
-    ("default_data") rnp_default_data.initialize ( &rnp );
+    // Constructor
+    Mars_MRO110B2_SimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in, jeod::TimeTT & tt_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, mars_default_data, mars_grav_default_data),
+          time_tt(tt_in)
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") rnp_default_data.initialize(&rnp);
 
-    //
-    // Initialization jobs
-    //
-    P_ENV  ("initialization") rnp.initialize( dyn_manager );
-    P_ENV  ("initialization") rnp.update_rnp( time_tt );
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") rnp.initialize(dyn_manager);
+        P_ENV("initialization") rnp.update_rnp(time_tt);
 
-    //
-    // Environment class jobs
-    //
-    (LOW_RATE_ENV, "environment") rnp.update_rnp( time_tt );
+        //
+        // Environment class jobs
+        //
+        (LOW_RATE_ENV, "environment") rnp.update_rnp(time_tt);
 
-    //
-    // Derivative class jobs
-    //
-    P_ENV  ("derivative") rnp.update_axial_rotation( time_tt );
-  }
+        //
+        // Derivative class jobs
+        //
+        P_ENV("derivative") rnp.update_axial_rotation(time_tt);
+    }
 
- private:
-  Mars_MRO110B2_SimObject (const Mars_MRO110B2_SimObject&);
-  Mars_MRO110B2_SimObject & operator = (const Mars_MRO110B2_SimObject&);
+    Mars_MRO110B2_SimObject(const Mars_MRO110B2_SimObject &) = delete;
+    Mars_MRO110B2_SimObject & operator=(const Mars_MRO110B2_SimObject &) = delete;
 };
 #endif

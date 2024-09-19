@@ -50,18 +50,17 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_PENDULUM_CONSTRAINT_MODE_HH
 #define JEOD_PENDULUM_CONSTRAINT_MODE_HH
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Describes the modes in which a PendulumConstraint can operate.
  */
- enum class PendulumConstraintMode
+enum class PendulumConstraintMode
 {
     /**
      * Pendulum is inactive.
@@ -93,10 +92,9 @@ namespace jeod {
     Reset
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

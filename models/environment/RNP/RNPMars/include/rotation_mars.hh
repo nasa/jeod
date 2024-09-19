@@ -70,13 +70,12 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/rotation_mars.cc))
 
- 
+
 
 *******************************************************************************/
 
 #ifndef JEOD_ROTATION_MARS_HH
 #define JEOD_ROTATION_MARS_HH
-
 
 // System includes
 
@@ -87,75 +86,66 @@ Library dependencies:
 // Model includes
 #include "nutation_mars.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Implements the axial rotation portion of the "Pathfinder" Mars RNP model.
  */
-class RotationMars : public PlanetRotation {
+class RotationMars : public PlanetRotation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RotationMars)
 
-   JEOD_MAKE_SIM_INTERFACES(RotationMars)
-
-// Public data members
+    // Public data members
 public:
-   /**
-    * The Mars average axial rotational velocity.
-    */
-   double planet_rotational_velocity; //!< trick_units(rad/s)
+    /**
+     * The Mars average axial rotational velocity.
+     */
+    double planet_rotational_velocity{}; //!< trick_units(rad/s)
 
-   /**
-    * Pointer to the Mars nutation object, used to access nutation in longitude
-    * information. Will be NULL (automatically) if anything but Full_Term_RNP
-    * is set in the RNPMars object.
-    */
-   NutationMars* nutation; //!< trick_units(--)
+    /**
+     * Pointer to the Mars nutation object, used to access nutation in longitude
+     * information. Will be NULL (automatically) if anything but Full_Term_RNP
+     * is set in the RNPMars object.
+     */
+    NutationMars * nutation{}; //!< trick_units(--)
 
-   /**
-    * Tells the rotation object if it should use a full blown rotation
-    * formulation, or if it should just use the time passed multiplied by the
-    * rotational velocity.  Used with the different intialization options for
-    * the main RNP class.
-    */
-   bool use_full_rnp; //!< trick_units(--)
+    /**
+     * Tells the rotation object if it should use a full blown rotation
+     * formulation, or if it should just use the time passed multiplied by the
+     * rotational velocity.  Used with the different intialization options for
+     * the main RNP class.
+     */
+    bool use_full_rnp{true}; //!< trick_units(--)
 
-   /**
-    * The (constant) rotated angle of Mars at the J2000 epoch.
-    */
-   double phi_at_j2000; //!< trick_units(rad)
+    /**
+     * The (constant) rotated angle of Mars at the J2000 epoch.
+     */
+    double phi_at_j2000{}; //!< trick_units(rad)
 
-   /**
-    * The most recent calculated value of the rotation angle for Mars, measured
-    * since J2000 epoch.
-    */
-   double phi_spin; //!< trick_units(rad)
+    /**
+     * The most recent calculated value of the rotation angle for Mars, measured
+     * since J2000 epoch.
+     */
+    double phi_spin{}; //!< trick_units(rad)
 
-
-// Private data members
+    // Private data members
 private:
-
-
-// Public member functions
+    // Public member functions
 public:
-   RotationMars ();
+    RotationMars() = default;
+    ~RotationMars() override = default;
+    RotationMars & operator=(const RotationMars &) = delete;
+    RotationMars(const RotationMars &) = delete;
 
-   ~RotationMars () override;
-
-   // RotationMars specific implementation of update rotation
-   // Before this is called, the current_time parameter must be set to
-   // Julian days since standard epoch J2000, per Konopliv references.
-   void update_rotation () override;
-
-// Private member functions
-private:
-   // Lock away the copy constructor and operator = by making them private.
-   RotationMars& operator = (const RotationMars& rhs);
-   RotationMars (const RotationMars& rhs);
-
+    // RotationMars specific implementation of update rotation
+    // Before this is called, the current_time parameter must be set to
+    // Julian days since standard epoch J2000, per Konopliv references.
+    void update_rotation() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

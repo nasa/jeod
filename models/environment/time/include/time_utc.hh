@@ -56,7 +56,7 @@ Reference:
 Assumptions and limitations:
   ((The name in this time class is UTC))
 
- 
+
 
 Library dependencies:
   ((../src/time_utc.cc))
@@ -73,42 +73,37 @@ Library dependencies:
 // Model includes
 #include "time_standard.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents Coordinated Universal Time.
  */
-class TimeUTC : public TimeStandard {  // Universal Time.
+class TimeUTC : public TimeStandard
+{ // Universal Time.
 
-  JEOD_MAKE_SIM_INTERFACES(TimeUTC)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeUTC)
 
-// Member Data
+    // Member Data
 public:
-   /**
-    * "False" for comparison with older versions of JEOD
-    */
-  bool true_utc;  //!< trick_units(--)
+    /**
+     * "False" for comparison with older versions of JEOD
+     */
+    bool true_utc{true}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  //Constructor
-   TimeUTC ();
+    TimeUTC();
+    ~TimeUTC() override = default;
+    TimeUTC(const TimeUTC &) = delete;
+    TimeUTC & operator=(const TimeUTC &) = delete;
 
-  // Destructor
-   ~TimeUTC () override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeUTC (const TimeUTC&);
-   TimeUTC & operator = (const TimeUTC&);
-   void set_epoch(void) override; //cppcheck-suppress virtualCallInConstructor
-
+private:
+    void set_epoch() override; // cppcheck-suppress virtualCallInConstructor
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

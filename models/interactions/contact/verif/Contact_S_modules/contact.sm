@@ -52,31 +52,28 @@
 // Include headers for classes that this class contains:
 ##include "interactions/contact/include/contact.hh"
 
-class ContactSimObject: public Trick::SimObject {
+class ContactSimObject: public Trick::SimObject
+{
+public:
+    jeod::Contact contact;
 
-   public:
-    jeod::Contact contact; 
-
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     DynamicsSimObject * internal_dynamics;
 
-//Constructor
-    ContactSimObject(
-      DynamicsSimObject  & ext_dynamics) {
+    // Constructor
+    ContactSimObject(DynamicsSimObject & ext_dynamics)
+    {
+        internal_dynamics = &ext_dynamics;
 
-      internal_dynamics = & ext_dynamics;
-
-      P_DYN  ("initialization") contact.initialize_contact(
-          & internal_dynamics->dyn_manager);
-      //
-      // Derivative class jobs
-      //
-      P_DYN   ("derivative") contact.check_contact();
+        P_DYN("initialization") contact.initialize_contact(&internal_dynamics->dyn_manager);
+        //
+        // Derivative class jobs
+        //
+        P_DYN("derivative") contact.check_contact();
     }
 
-  private:
-    ContactSimObject (const ContactSimObject&);
-    ContactSimObject & operator = (const ContactSimObject&);
-
+    ContactSimObject(const ContactSimObject &) = delete;
+    ContactSimObject & operator=(const ContactSimObject &) = delete;
 };
+
 ContactSimObject contact(dynamics);

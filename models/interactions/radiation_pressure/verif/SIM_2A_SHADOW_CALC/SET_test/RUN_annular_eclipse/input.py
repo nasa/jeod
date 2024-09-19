@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_annular_eclipse/ 
+#  (To define the input data for simulation SET_test/RUN_annular_eclipse/
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -8,7 +8,7 @@
 
 
 trick.sim_services.exec_set_trap_sigfpe(1)
-dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4;
+dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4
 
 
 #############  NUMERICAL DEFAULT DATA  #################
@@ -45,7 +45,7 @@ vehicle.dyn_body.structure.state.rot.T_parent_this[2]  = [ 0, 0, 1]
 
 
 #/******************************************************************************/
-#/* Set up the simple radiation object (with the default surface)              */  
+#/* Set up the simple radiation object (with the default surface)              */
 #/******************************************************************************/
 exec(compile(open( "Modified_data/third_bodies.py", "rb").read(), "Modified_data/third_bodies.py", 'exec'))
 radiation_simple.rad_surface.cx_area = 2.0

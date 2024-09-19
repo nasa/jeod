@@ -48,141 +48,107 @@ Library dependencies:
 // Model includes
 #include "../include/ephem_orient.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct an ephemeris angle.
- */
-EphemerisOrientation::EphemerisOrientation (
-   void)
-:
-   EphemerisItem(),
-   subscribed_to_inertial(false)
+namespace jeod
 {
-}
-
-
-/**
- * Destroy an ephemeris angle.
- */
-EphemerisOrientation::~EphemerisOrientation (
-   void)
-{
-   ; // Empty; object does not allocate memory
-}
-
 
 /**
  * Specify the aspect of the target frame updated by the object.
  * EphemerisOrientation objects update the rotational state.
  * @return Target of object
  */
-EphemerisItem::TargetAspect
-EphemerisOrientation::updates_what (
-   void)
-const
+EphemerisItem::TargetAspect EphemerisOrientation::updates_what() const
 {
-   return EphemerisItem::Rotation;
+    return EphemerisItem::Rotation;
 }
-
 
 /**
  * Enable a EphemerisItem object.
  */
-void
-EphemerisOrientation::enable (
-   void)
+void EphemerisOrientation::enable()
 {
-   if (! enabled) {
-      EphemerisOrientation * enabled_item =
-         dynamic_cast <EphemerisOrientation *> (get_enabled_item ());
+    if(!enabled)
+    {
+        auto * enabled_item = dynamic_cast<EphemerisOrientation *>(get_enabled_item());
 
-      if ((enabled_item != nullptr) && enabled_item->subscribed_to_inertial) {
-         enabled_item->subscribed_to_inertial = false;
-         subscribed_to_inertial = true;
-      }
-      else {
-         subscribed_to_inertial = false;
-      }
+        if((enabled_item != nullptr) && enabled_item->subscribed_to_inertial)
+        {
+            enabled_item->subscribed_to_inertial = false;
+            subscribed_to_inertial = true;
+        }
+        else
+        {
+            subscribed_to_inertial = false;
+        }
 
-      EphemerisItem::enable ();
-   }
+        EphemerisItem::enable();
+    }
 }
-
-
 
 /**
  * Null implementation.
  * \param[in] frame Frame whose status has changed
  */
-void
-EphemerisOrientation::note_frame_status_change (
-   RefFrame * frame)
+void EphemerisOrientation::note_frame_status_change(RefFrame * frame)
 {
-   RefFrame * inertial = const_cast <RefFrame *> (frame->get_parent());
+    auto * inertial = const_cast<RefFrame *>(frame->get_parent());
 
-   // The frame had better be the planet-fixed frame.
-   if (frame != target_frame) {
-      MessageHandler::error (
-         __FILE__, __LINE__, EphemeridesMessages::internal_error,
-         "Unexpected frame passed to note_frame_status_change");
-      return;
-   }
+    // The frame had better be the planet-fixed frame.
+    if(frame != target_frame)
+    {
+        MessageHandler::error(__FILE__,
+                              __LINE__,
+                              EphemeridesMessages::internal_error,
+                              "Unexpected frame passed to note_frame_status_change");
+        return;
+    }
 
-   // Planet-centered frame is active:
-   // Activate this object and issue a subscription if needed.
-   if (target_frame->is_active()) {
+    // Planet-centered frame is active:
+    // Activate this object and issue a subscription if needed.
+    if(target_frame->is_active())
+    {
+        activate();
 
-      activate ();
+        if(!subscribed_to_inertial)
+        {
+            subscribed_to_inertial = true;
+            inertial->subscribe();
+        }
+    }
 
-      if (! subscribed_to_inertial) {
-         subscribed_to_inertial = true;
-         inertial->subscribe();
-      }
-   }
+    // Planet-centered frame is not active:
+    // Deactivate and retract subscription.
+    else
+    {
+        deactivate();
 
-   // Planet-centered frame is not active:
-   // Deactivate and retract subscription.
-   else {
-
-      deactivate ();
-
-      if (subscribed_to_inertial) {
-         subscribed_to_inertial = false;
-         inertial->unsubscribe();
-      }
-   }
+        if(subscribed_to_inertial)
+        {
+            subscribed_to_inertial = false;
+            inertial->unsubscribe();
+        }
+    }
 }
-
 
 /**
  * Return the default suffix for this item class, i.e., "pfix".
  * @return Default suffix
  */
-const char *
-EphemerisOrientation::default_suffix (
-   void)
-const
+std::string EphemerisOrientation::default_suffix() const
 {
-   return "pfix";
+    return "pfix";
 }
-
 
 /**
  * Disconnect the item from the tree; this is a no-op for an
  * EphemerisOrientation.
  */
-void
-EphemerisOrientation::disconnect_from_tree (
-   void)
+void EphemerisOrientation::disconnect_from_tree()
 {
-   ; // No-op
+    ; // No-op
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

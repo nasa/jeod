@@ -14,7 +14,7 @@ ASSUMPTIONS AND LIMITATIONS:
     ((Earth specific)
      (Earth rotation rate is taken from GEM-T1 gravity model))
 
- 
+
 */
 
 class RNPJ2000;
@@ -29,22 +29,16 @@ class RNPJ2000;
 // Unsupported includes
 #include "../include/rnp_j2000.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-RNPJ2000_rnp_j2000_default_data::initialize (
-   RNPJ2000 * RNPJ2000_ptr)
+namespace jeod
 {
 
-
-   RNPJ2000_ptr->name = "Earth";
-   RNPJ2000_ptr->rnp_type = PlanetRNP::FullRNP;
-   RNPJ2000_ptr->enable_polar = true;
-   RNPJ2000_ptr->planet_omega = 7.292115146706388e-5;
-   /* FROM GEM-T1 Gravity model */
-
+void RNPJ2000_rnp_j2000_default_data::initialize(RNPJ2000 * RNPJ2000_ptr)
+{
+    RNPJ2000_ptr->name = "Earth";
+    RNPJ2000_ptr->rnp_type = PlanetRNP::FullRNP;
+    RNPJ2000_ptr->enable_polar = true;
+    RNPJ2000_ptr->planet_omega = 7.292115146706388e-5;
+    /* FROM GEM-T1 Gravity model */
 }
-} // End JEOD namespace
+} // namespace jeod

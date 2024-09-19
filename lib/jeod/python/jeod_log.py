@@ -45,7 +45,7 @@ class Logger (object) :
 
       # Close the "data" group.
       logger.close_group ()
-     
+
    """
 
 
@@ -53,7 +53,7 @@ class Logger (object) :
       if id is None :
          return "(default)"
       else :
-         return '"%s"' % (id)
+         return "{0}".format(id)
 
 
    def open_group (self, log_cycle, group_name, group_format='trk') :
@@ -77,7 +77,7 @@ class Logger (object) :
       if self.__dr_group is not None :
          raise IOError ("Attempt to open new group " +
                          __stringify(group_name) +
-                        " before closing existing group " + 
+                        " before closing existing group " +
                          __stringify(self.__group_name))
 
       # Map the specified format to the function that creates the group.
@@ -141,7 +141,7 @@ class Logger (object) :
 
       if isinstance(spec, str) :
          self.log_scalar (
-            ['%s[%d]' % (spec, ii) for ii in range(0,size)])
+            ['{0}[{1}]'.format(spec, ii) for ii in range(0,size)])
       elif isinstance(spec, list) or isinstance(spec, tuple) :
          for item in spec :
             self.log_vector (item)
@@ -167,7 +167,7 @@ class Logger (object) :
 
       if isinstance(spec, str) :
          self.log_scalar (
-            [( ['%s[%d][%d]' % (spec, ii, jj) for jj in range(0,sizeN)] ) for ii in range(0,sizeM)] 
+            [( ['{0}[{1}][{2}]'.format(spec, ii, jj) for jj in range(0,sizeN)] ) for ii in range(0,sizeM)]
          )
       elif isinstance(spec, list) or isinstance(spec, tuple) :
          for item in spec :
@@ -225,10 +225,10 @@ class Logger (object) :
          select=['quat', 'matrix', 'rate']
 
       if isinstance(spec, str) :
-         if ('Q_inertial_body' in select) or ('quat' in select) :
-            self.log_quaternion (spec + '.Q_inertial_body')
-         if ('T_inertial_body' in select) or 'matrix' in select :
-            self.log_matrix (spec + '.T_inertial_body')
+         if ('Q_parent_this' in select) or ('quat' in select) :
+            self.log_quaternion (spec + '.Q_parent_this')
+         if ('T_parent_this' in select) or 'matrix' in select :
+            self.log_matrix (spec + '.T_parent_this')
          if ('ang_vel_this' in select) or ('rate' in select) :
             self.log_vector (spec + '.ang_vel_this')
          if ('ang_vel_mag' in select) or ('aux' in select) :
@@ -331,7 +331,7 @@ class Logger (object) :
 
       Sample usage:
       Assume my.var contains data members
-      - foo, a scalar;
+      - foo, a scalar
       - bar, a 3-vector; and
       - baz, a 3x3 matrix.
       The following will result in the contents of my.variable being logged:
@@ -351,11 +351,10 @@ class Logger (object) :
                else :
                   opt_data = item[2]
                if key not in self.__log_set_dictionary :
-                  raise KeyError ('Invalid type "%s"' % (key))
+                  raise KeyError ('Invalid type {0}'.format(key))
                self.__log_set (key, spec, member, opt_data)
             else :
-               raise TypeError ('select argument "%s" has wrong structure' % \
-                                (str(select)))
+               raise TypeError ('select argument {0} has wrong structure'.format(str(select)))
       elif isinstance(spec, list) or isinstance(spec, tuple) :
          for item in spec :
             self.log_set (item, select)

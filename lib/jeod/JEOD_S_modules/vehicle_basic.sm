@@ -37,8 +37,6 @@
 #include "Base/vehicle_baseline.sm"
 VehicleBasicSimObject vehicle(dynamics.dyn_manager);
 
-
-
 // Deprecated naming, included here for backward compatibility only:
 // VehicleSimObject is now intended to be used for user-defined
 // vehicle-sim-objects, including those defined by inheriting from the basic
@@ -54,14 +52,13 @@ VehicleBasicSimObject vehicle(dynamics.dyn_manager);
 // compatibility.
 class VehicleSimObject : public VehicleBasicSimObject
 {
- public:
-  VehicleSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject (dyn_mngr_in)
-  {}
+public:
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+    }
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };

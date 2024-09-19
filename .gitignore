@@ -14,8 +14,10 @@ dep_jeod_*
 .S_library_icg
 .icg_no_found
 *.pyc
-trickified/python
+trickified/python*
 regression/logs
+build*
+artifacts
 
 #documentation build products
 **/tex/coarse_metrics.tex
@@ -80,6 +82,8 @@ makefile
 makefile.bak
 
 **/gcov/**
+default.profraw
+default.profdata
 
 # Ignore generated trks but dont ignore ones in SET_test_val directories
 **/SIM_*/**/log_*.header

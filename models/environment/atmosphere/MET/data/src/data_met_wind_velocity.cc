@@ -28,26 +28,9 @@ class WindVelocity;
 // Unsupported includes
 #include "../include/met_data_wind_velocity.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/*****************************************************************************
-Constructor
-*****************************************************************************/
-WindVelocity_wind_velocity_default_data::WindVelocity_wind_velocity_default_data()
-  :
-  omega(7.292115146706388e-5)
+namespace jeod
 {
-  double scratch_fac[num_layers] =
-  { 1.0, 1.1, 1.16, 1.21, 1.25, 1.3, 1.34, 1.38, 1.4, 1.405, 1.41, 1.4142136};
-  memcpy(omega_scale_fac, scratch_fac, sizeof(omega_scale_fac));
-
-  double scratch_alt[num_layers] =
-  { 180000.0, 200000.0, 220000.0, 240000.0, 260000.0, 280000.0,
-    300000.0, 320000.0, 340000.0, 360000.0, 380000.0, 400000.0};
-  memcpy(omega_scale_alt, scratch_alt, sizeof(omega_scale_alt));
-}
 
 /*****************************************************************************
 initialize
@@ -56,23 +39,23 @@ Purpose:(initializes the WindVelocity model with these data.
          data elements from this class.)
 Limitations: (First method is deprecated)
 *****************************************************************************/
-void
-WindVelocity_wind_velocity_default_data::initialize (
-   WindVelocity * WindVelocity_ptr)
+void WindVelocity_wind_velocity_default_data::initialize(WindVelocity * WindVelocity_ptr)
 {
-   if (WindVelocity_ptr == nullptr) {
-     MessageHandler::fail(
-     __FILE__,__LINE__,"Invalid argument\n",
-     "Must pass in a legitimate pointer to a WindVelocity instance.\n");
-   }
-   initialize( *WindVelocity_ptr);
+    if(WindVelocity_ptr == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             "Invalid argument\n",
+                             "Must pass in a legitimate pointer to a WindVelocity instance.\n");
+        return;
+    }
+    initialize(*WindVelocity_ptr);
 }
+
 //****************************************************************************
-void
-WindVelocity_wind_velocity_default_data::initialize (
-   WindVelocity & wind_velocity)
+void WindVelocity_wind_velocity_default_data::initialize(WindVelocity & wind_velocity)
 {
-   wind_velocity.omega = omega;
-   wind_velocity.set_omega_scale_table(num_layers, omega_scale_alt, omega_scale_fac);
+    wind_velocity.omega = omega;
+    wind_velocity.set_omega_scale_table(num_layers, omega_scale_alt, omega_scale_fac);
 }
-} // End JEOD namespace
+} // namespace jeod

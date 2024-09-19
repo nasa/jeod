@@ -16,10 +16,9 @@ Purpose:
 Library dependencies:
   ((test_harness_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -29,22 +28,20 @@ Library dependencies:
 // Model includes
 #include "../include/test_harness_messages.hh"
 
-#define MAKE_TEST_HARNESS_MESSAGE_CODE(id) \
-   JEOD_MAKE_MESSAGE_CODE(TestHarnessMessages, "tools/test_harness/", id)
-
+#define MAKE_TEST_HARNESS_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(TestHarnessMessages, "tools/test_harness/", id)
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Define TestHarnessMessages static member data
-MAKE_TEST_HARNESS_MESSAGE_CODE (inconsistent_setup);
-MAKE_TEST_HARNESS_MESSAGE_CODE (invalid_option);
-MAKE_TEST_HARNESS_MESSAGE_CODE (test_failed);
-MAKE_TEST_HARNESS_MESSAGE_CODE (test_message);
-MAKE_TEST_HARNESS_MESSAGE_CODE (debug);
+MAKE_TEST_HARNESS_MESSAGE_CODE(inconsistent_setup);
+MAKE_TEST_HARNESS_MESSAGE_CODE(invalid_option);
+MAKE_TEST_HARNESS_MESSAGE_CODE(test_failed);
+MAKE_TEST_HARNESS_MESSAGE_CODE(test_message);
+MAKE_TEST_HARNESS_MESSAGE_CODE(debug);
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #undef MAKE_TEST_HARNESS_MESSAGE_CODE
 

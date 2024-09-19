@@ -72,68 +72,52 @@ Library dependencies:
 // Model includes
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Facet;
 class AeroFacet;
 class InteractionFacetFactory;
 
-
 /**
  * The aerodynamic specific interaction surface, for use with the surface model.
  */
-class AeroSurface : public InteractionSurface {
-
-   JEOD_MAKE_SIM_INTERFACES(AeroSurface)
+class AeroSurface : public InteractionSurface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AeroSurface)
 
 public:
+    AeroSurface();
+    ~AeroSurface() override;
+    AeroSurface & operator=(const AeroSurface &) = delete;
+    AeroSurface(const AeroSurface &) = delete;
 
-   // constructor
-   AeroSurface ();
+    /**
+     * An array of pointers to aerodynamic interaction facets.
+     * AeroFacets is a pure virtual, so these will all
+     * be pointed to inheriting classes through polymorphism
+     */
+    AeroFacet ** aero_facets{}; //!< trick_units(--)
 
-   // destructor
-   ~AeroSurface () override;
+    /**
+     * Size of the aero_facets array
+     */
+    unsigned int facets_size{}; //!< trick_units(count)
 
-   /**
-    * An array of pointers to aerodynamic interaction facets.
-    * AeroFacets is a pure virtual, so these will all
-    * be pointed to inheriting classes through polymorphism
-    */
-   AeroFacet** aero_facets; //!< trick_units(--)
+    // Allocates the aero_facets array from the given size
+    void allocate_array(unsigned int size) override;
 
-   /**
-    * Size of the aero_facets array
-    */
-   unsigned int facets_size; //!< trick_units(count)
-
-   // Allocates the aero_facets array from the given size
-   void allocate_array (unsigned int size) override;
-
-   // Allocates the facet at the "index" value in aero_facets, using
-   // the base Facet given by the pointer facet, and using the parameter
-   // object pointed to by params pointer and using the
-   // InteractionFacetFactory pointed to by factory.
-   void allocate_interaction_facet (
-      Facet* facet,
-      InteractionFacetFactory* factory,
-      FacetParams* params,
-      unsigned int index) override;
-
-
-protected:
-
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   AeroSurface& operator = (const AeroSurface& rhs);
-   AeroSurface (const AeroSurface& rhs);
-
+    // Allocates the facet at the "index" value in aero_facets, using
+    // the base Facet given by the pointer facet, and using the parameter
+    // object pointed to by params pointer and using the
+    // InteractionFacetFactory pointed to by factory.
+    void allocate_interaction_facet(Facet * facet,
+                                    InteractionFacetFactory * factory,
+                                    FacetParams * params,
+                                    unsigned int index) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "aero_facet.hh"

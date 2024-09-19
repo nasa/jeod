@@ -14,8 +14,8 @@ Purpose:
 
 #include "trick_utils/math/include/trick_math.h"
 
-#include <string>
 #include <cstdio>
+#include <string>
 
 using namespace jeod;
 
@@ -24,69 +24,59 @@ ColorText color;
 unsigned int tests_made = 0;
 unsigned int tests_passed = 0;
 
+void test_name(const NamedItem &, const std::string &);
+void update_results(bool);
 
-
-void test_name (const NamedItem&, const std::string&);
-void update_results (bool);
-
-
-void die (
-   const char * msg)
+void die(const char * msg)
 {
-   printf ("%s\n", msg);
-   exit (1);
+    printf("%s\n", msg);
+    exit(1);
 }
 
-
-int
-main (
-   int argc,
-   char * argv[])
+int main(int argc, char * argv[])
 {
+    CmdlineParser cmdline_parser;
 
-   CmdlineParser cmdline_parser;
+    TestSimInterface sim_interface;
 
-   TestSimInterface sim_interface;
+    cmdline_parser.add_switch("verbose", &verbose);
+    cmdline_parser.parse(argc, argv);
 
+    if(verbose)
+    {
+        std::printf("Testing NamedItem\n");
+    }
+    NamedItem named_item;
+    test_name(named_item, "");
 
-   cmdline_parser.add_switch ("verbose", &verbose);
-   cmdline_parser.parse (argc, argv);
+    named_item.set_name("foo");
+    test_name(named_item, "foo");
 
+    named_item.set_name("foo", "bar");
+    test_name(named_item, "foo.bar");
 
-   if (verbose) {
-      std::printf ("Testing NamedItem\n");
-   }
-   NamedItem named_item;
-   test_name (named_item, "");
+    std::printf("Ran %u tests; number failures = %u\n", tests_made, tests_made - tests_passed);
 
-   named_item.set_name("foo");
-   test_name (named_item, "foo");
-
-   named_item.set_name("foo", "bar");
-   test_name (named_item, "foo.bar");
-
-
-   std::printf ("Ran %u tests; number failures = %u\n",
-      tests_made, tests_made-tests_passed);
-   return (tests_passed == tests_made) ? 0 : 1;
+    if(tests_passed == tests_made)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
-
-void
-test_name (
-   const NamedItem& named_item,
-   const std::string& expected)
+void test_name(const NamedItem & named_item, const std::string & expected)
 {
-   update_results (named_item.get_name() == expected);
+    update_results(named_item.get_name() == expected);
 }
 
-
-void
-update_results (
-   bool passed)
+void update_results(bool passed)
 {
-   tests_made++;
-   if (passed) {
-      tests_passed++;
-   }
+    tests_made++;
+    if(passed)
+    {
+        tests_passed++;
+    }
 }

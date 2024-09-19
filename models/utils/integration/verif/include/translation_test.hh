@@ -51,7 +51,7 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/translation_test.cc))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_TRANSLATION_TEST_HH
@@ -78,472 +78,351 @@ Library dependencies:
 // Model includes
 #include "angular_variance.hh"
 #include "integration_test.hh"
-#include "random_orientation.hh"
 #include "integration_test_messages.hh"
-
+#include "random_orientation.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TranslationTest;
 class TranslationTestOrbit;
 
-
 /*
 Purpose: (Describe a translational state.)
 */
-class TranslationState {
+class TranslationState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TranslationState)
 
- JEOD_MAKE_SIM_INTERFACES(TranslationState)
+    friend class TranslationTest;
+    friend class TranslationTestOrbit;
+    friend class TranslationTestSpringDamper;
 
- friend class TranslationTest;
- friend class TranslationTestOrbit;
- friend class TranslationTestSpringDamper;
-
- // Member functions
+    // Member functions
 public:
+    TranslationState() = default;
 
-   /**
-     Default constructor.
-   */
-   TranslationState (void) :
-      Q_inertial_body(),
-      potential_energy(0.0),
-      kinetic_energy(0.0),
-      total_energy(0.0)
-   {
-      Matrix3x3::identity (T_inertial_body);
-      Vector3::initialize (position);
-      Vector3::initialize (velocity);
-   }
-
- // Member data
+    // Member data
 protected:
-   Quaternion Q_inertial_body; /* trick_units(--) @n
-      Inertial-to-body quaternion */
+    Quaternion Q_inertial_body; /* trick_units(--) @n
+       Inertial-to-body quaternion */
 
-   double T_inertial_body[3][3]; /* trick_units(--) @n
-      Inertial-to-body transformation */
+    double T_inertial_body[3][3]{IDENTITY}; /* trick_units(--) @n
+       Inertial-to-body transformation */
 
-   double position[3]; /* trick_units(m) @n
-      Object position in the TranslationState frame. */
+    double position[3]{}; /* trick_units(m) @n
+       Object position in the TranslationState frame. */
 
-   double velocity[3]; /* trick_units(m/s) @n
-      Object velocity in the TranslationState frame. */
+    double velocity[3]{}; /* trick_units(m/s) @n
+       Object velocity in the TranslationState frame. */
 
-   double potential_energy; /* trick_units(m2/s2) @n
-      Potential energy T, model-dependent */
+    double potential_energy{}; /* trick_units(m2/s2) @n
+       Potential energy T, model-dependent */
 
-   double kinetic_energy; /* trick_units(m2/s2) @n
-      Kinetic energy K = 1/2 m v^2 */
+    double kinetic_energy{}; /* trick_units(m2/s2) @n
+       Kinetic energy K = 1/2 m v^2 */
 
-   double total_energy; /* trick_units(m2/s2) @n
-      Total energy E = T + K */
+    double total_energy{}; /* trick_units(m2/s2) @n
+       Total energy E = T + K */
 };
 
+class TranslationTest : public IntegrationTest
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TranslationTest)
 
-class TranslationTest : public IntegrationTest {
-
- JEOD_MAKE_SIM_INTERFACES(TranslationTest)
-
- // Member functions
+    // Member functions
 public:
-
-   /**
-     Default constructor.
-   */
-   TranslationTest (void) :
-      IntegrationTest(),
-      mass(22026.4657948067),
-      true_canon_state(),
-      true_integ_state(),
-      prop_integ_state(),
-      position_scale(1.0),
-      velocity_scale(1.0),
-      energy_scale(1.0),
-      rel_position_err_mag(0.0),
-      rel_velocity_err_mag(0.0),
-      rel_energy_error(0.0),
-      max_position_error(0.0),
-      max_position_time(0.0),
-      max_velocity_error(0.0),
-      max_velocity_time(0.0),
-      max_energy_error(0.0),
-      max_energy_time(0.0),
-      min_energy_error(0.0),
-      min_energy_time(0.0),
-      integ_generator(state_integrator)
-   {
-      Vector3::initialize (grav_accel);
-      Vector3::initialize (dynamic_accel);
-      Vector3::initialize (forc_body);
-      Vector3::initialize (position_error);
-      Vector3::initialize (velocity_error);
-   }
-
-   /**
-     Copy constructor.
-   */
-   TranslationTest (const TranslationTest & source,
-                    unsigned int test_incr = 0) :
-      IntegrationTest (source, test_incr),
-      mass (source.mass),
-      true_canon_state(),
-      true_integ_state(),
-      prop_integ_state(),
-      position_scale(1.0),
-      velocity_scale(1.0),
-      energy_scale(1.0),
-      rel_position_err_mag(0.0),
-      rel_velocity_err_mag(0.0),
-      rel_energy_error(0.0),
-      max_position_error(0.0),
-      max_position_time(0.0),
-      max_velocity_error(0.0),
-      max_velocity_time(0.0),
-      max_energy_error(0.0),
-      max_energy_time(0.0),
-      min_energy_error(0.0),
-      min_energy_time(0.0),
-      integ_generator(state_integrator)
-   {}
-
-   /**
-     Destructor.
-   */
-   ~TranslationTest (void) override {}
-
-   /**
-     Create a copy of the object.
-     \return Constructed IntegrationTest object
-   */
-   IntegrationTest * replicate (unsigned int test_incr) override = 0;
-
-
-   // Overloaded methods
-   void pre_initialize (void) override;
-
-   void post_initialize (void) override;
-
-   void validate_integrability (
-      const er7_utils::IntegratorConstructor & generator __attribute__ ((unused)) ) override
-   { }
-
-   void create_integrators (
-      const er7_utils::IntegratorConstructor & generator,
-      er7_utils::IntegrationControls & controls,
-      const er7_utils::TimeInterface & time_if __attribute__ ((unused)) ) override
-   {
-      integ_generator.create_integrator (generator, controls);
-   }
-
-
-   /**
-    * Destroy the translation test state integrator.
+    /**
+      Default constructor.
     */
-   void destroy_integrators (
-      void) override
-   {
-      integ_generator.destroy_integrator ();
-   }
+    TranslationTest()
+        : integ_generator(state_integrator)
+    {
+    }
 
-   // Propagating over time.
-   void propagate (double dyn_time, bool update_errors) override;
+    /**
+      Copy constructor.
+    */
+    TranslationTest(const TranslationTest & source, unsigned int test_incr = 0)
+        : IntegrationTest(source, test_incr),
+          mass(source.mass),
+          integ_generator(state_integrator)
+    {
+    }
 
-   // Integrate over delta-time.
-   er7_utils::IntegratorResult integrate (
-      double dyn_dt,
-      unsigned int target_stage) override;
+    ~TranslationTest() override = default;
+    TranslationTest & operator=(const TranslationTest &) = delete;
 
-   // Compute derivatives; assumed to be time-independent.
-   void compute_derivatives (void) override;
+    /**
+      Create a copy of the object.
+      \return Constructed IntegrationTest object
+    */
+    IntegrationTest * replicate(unsigned int test_incr) override = 0;
 
-   // Generate shutdown report.
-   void shutdown (double sim_time, double dyn_time, FILE * report) override;
+    // Overloaded methods
+    void pre_initialize() override;
 
+    void post_initialize() override;
 
-   /**
-    Compute the integrated and true potential energy.
-    The default implementation is that there is no potential.
-   */
-   virtual void compute_potential (void) {
-      prop_integ_state.potential_energy =
-      true_canon_state.potential_energy = 0.0;
-   }
+    void validate_integrability(const er7_utils::IntegratorConstructor & generator __attribute__((unused))) override {}
 
-   /**
-    Compute the external force on the object.
-    The default implementation is that there is no external force.
-   */
-   virtual void compute_force (void) {
-      Vector3::initialize (forc_body);
-   }
+    void create_integrators(const er7_utils::IntegratorConstructor & generator,
+                            er7_utils::IntegrationControls & controls,
+                            const er7_utils::TimeInterface & time_if __attribute__((unused))) override
+    {
+        integ_generator.create_integrator(generator, controls);
+    }
 
+    /**
+     * Destroy the translation test state integrator.
+     */
+    void destroy_integrators() override
+    {
+        integ_generator.destroy_integrator();
+    }
 
- // Member data
+    // Propagating over time.
+    void propagate(double dyn_time, bool update_errors) override;
+
+    // Integrate over delta-time.
+    er7_utils::IntegratorResult integrate(double dyn_dt, unsigned int target_stage) override;
+
+    // Compute derivatives; assumed to be time-independent.
+    void compute_derivatives() override;
+
+    // Generate shutdown report.
+    void shutdown(double sim_time, double dyn_time, FILE * report) override;
+
+    /**
+     Compute the integrated and true potential energy.
+     The default implementation is that there is no potential.
+    */
+    virtual void compute_potential()
+    {
+        prop_integ_state.potential_energy = true_canon_state.potential_energy = 0.0;
+    }
+
+    /**
+     Compute the external force on the object.
+     The default implementation is that there is no external force.
+    */
+    virtual void compute_force()
+    {
+        Vector3::initialize(forc_body);
+    }
+
+    // Member data
 protected:
-   double mass; /* trick_units(kg) @n
-      Object mass. */
+    double mass{22026.4657948067}; /* trick_units(kg) @n
+       Object mass. */
 
-   TranslationState true_canon_state; /* trick_units(--) @n
-      Computed canonical state. */
+    TranslationState true_canon_state; /* trick_units(--) @n
+       Computed canonical state. */
 
-   TranslationState true_integ_state; /* trick_units(--) @n
-      Computed state transformed to integration frames. */
+    TranslationState true_integ_state; /* trick_units(--) @n
+       Computed state transformed to integration frames. */
 
-   TranslationState prop_integ_state; /* trick_units(--) @n
-      Propagated state. */
+    TranslationState prop_integ_state; /* trick_units(--) @n
+       Propagated state. */
 
-   double grav_accel[3]; /* trick_units(--) @n
-      Integ. frame acceleration due to gravity at propagated position. */
+    double grav_accel[3]{}; /* trick_units(--) @n
+       Integ. frame acceleration due to gravity at propagated position. */
 
-   double dynamic_accel[3]; /* trick_units(--) @n
-      Integ. frame total acceleration (grav_accel + F/m). */
+    double dynamic_accel[3]{}; /* trick_units(--) @n
+       Integ. frame total acceleration (grav_accel + F/m). */
 
-   double forc_body[3]; /* trick_units(--) @n
-      Propagation body frame external force. */
+    double forc_body[3]{}; /* trick_units(--) @n
+       Propagation body frame external force. */
 
-   double position_scale; /* trick_units(m) @n
-      Position error scale factor. */
+    double position_scale{1.0}; /* trick_units(m) @n
+       Position error scale factor. */
 
-   double velocity_scale; /* trick_units(m/s) @n
-      Velocity error scale factor. */
+    double velocity_scale{1.0}; /* trick_units(m/s) @n
+       Velocity error scale factor. */
 
-   double energy_scale; /* trick_units(m2/s2) @n
-      Velocity error scale factor. */
+    double energy_scale{1.0}; /* trick_units(m2/s2) @n
+       Velocity error scale factor. */
 
-   double position_error[3]; /* trick_units(m) @n
-      Position error, integrated - true, in integration inertial coordinates. */
+    double position_error[3]{}; /* trick_units(m) @n
+       Position error, integrated - true, in integration inertial coordinates. */
 
-   double rel_position_err_mag; /* trick_units(--) @n
-      Magnitude of position_error scaled by position_scale. */
+    double rel_position_err_mag{}; /* trick_units(--) @n
+       Magnitude of position_error scaled by position_scale. */
 
-   double velocity_error[3]; /* trick_units(m/s) @n
-      Velocity error, integrated - true, in integration inertial coordinates. */
+    double velocity_error[3]{}; /* trick_units(m/s) @n
+       Velocity error, integrated - true, in integration inertial coordinates. */
 
-   double rel_velocity_err_mag; /* trick_units(--) @n
-      Magnitude of velocity_error scaled by velocity_scale. */
+    double rel_velocity_err_mag{}; /* trick_units(--) @n
+       Magnitude of velocity_error scaled by velocity_scale. */
 
-   double rel_energy_error; /* trick_units(--) @n
-      Relative energy error. */
+    double rel_energy_error{}; /* trick_units(--) @n
+       Relative energy error. */
 
-   double max_position_error; /* trick_units(--) @n
-      Maximum of rel_position_err_mag. */
-   double max_position_time; /* trick_units(s) @n
-      Time at which above was set */
+    double max_position_error{}; /* trick_units(--) @n
+       Maximum of rel_position_err_mag. */
+    double max_position_time{};  /* trick_units(s) @n
+        Time at which above was set */
 
-   double max_velocity_error; /* trick_units(--) @n
-      Maximum of rel_velocity_err_mag. */
-   double max_velocity_time; /* trick_units(s) @n
-      Time at which above was set */
+    double max_velocity_error{}; /* trick_units(--) @n
+       Maximum of rel_velocity_err_mag. */
+    double max_velocity_time{};  /* trick_units(s) @n
+        Time at which above was set */
 
-   double max_energy_error; /* trick_units(--) @n
-      Maximum of rel_energy_error */
-   double max_energy_time; /* trick_units(s) @n
-      Time at which above was set */
+    double max_energy_error{}; /* trick_units(--) @n
+       Maximum of rel_energy_error */
+    double max_energy_time{};  /* trick_units(s) @n
+        Time at which above was set */
 
-   double min_energy_error; /* trick_units(--) @n
-      Minimum of rel_energy_error */
-   double min_energy_time; /* trick_units(s) @n
-      Time at which above was set */
+    double min_energy_error{}; /* trick_units(--) @n
+       Minimum of rel_energy_error */
+    double min_energy_time{};  /* trick_units(s) @n
+        Time at which above was set */
 
-   RestartableSimpleSecondOrderODEIntegrator<3> integ_generator; /* trick_io(**) @n
-      Restartable integrator generator. */
-
-private:
-   /**
-    Assignment operator is private and unimplemented.
-   */
-   TranslationTest & operator = (const TranslationTest & source);
+    RestartableSimpleSecondOrderODEIntegrator<3> integ_generator; /* trick_io(**) @n
+       Restartable integrator generator. */
 };
 
-
-class TranslationTestOrbit : public TranslationTest {
-
- JEOD_MAKE_SIM_INTERFACES(TranslationTestOrbit)
+class TranslationTestOrbit : public TranslationTest
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TranslationTestOrbit)
 
 public:
+    TranslationTestOrbit() = default;
+    TranslationTestOrbit & operator=(const TranslationTestOrbit &) = delete;
 
-   /**
-     Default constructor.
-   */
-   TranslationTestOrbit(void) :
-      TranslationTest(),
-      sma(6811.137e3),
-      ecc(0.0),
-      manom0(0.0),
-      mdot(1.1231543952404041e-03),
-      ecp(1.0),
-      GMb(0.0)
-   {}
+    /**
+      Copy constructor.
+    */
+    TranslationTestOrbit(const TranslationTestOrbit & source, unsigned int test_incr = 0)
+        : TranslationTest(source, test_incr),
+          sma(source.sma),
+          ecc(source.ecc),
+          manom0(source.manom0),
+          mdot(source.mdot)
+    {
+    }
 
-   /**
-     Copy constructor.
-   */
-   TranslationTestOrbit (const TranslationTestOrbit & source,
-                         unsigned int test_incr = 0) :
-      TranslationTest(source, test_incr),
-      sma (source.sma),
-      ecc (source.ecc),
-      manom0 (source.manom0),
-      mdot (source.mdot)
-   {}
+    // Overloaded methods
+    IntegrationTest * replicate(unsigned int test_incr) override;
 
-   // Overloaded methods
-   IntegrationTest * replicate (unsigned int test_incr) override;
+    void pre_initialize() override;
 
-   void pre_initialize (void) override;
+    void post_initialize() override;
 
-   void post_initialize (void) override;
+    void propagate(double dyn_dt, bool update_errors) override;
 
-   void propagate (double dyn_dt, bool update_errors) override;
+    void compute_force() override;
 
-   void compute_force (void) override;
+    void compute_potential() override;
 
-   void compute_potential (void) override;
+    void compute_true_state(double dyn_time);
 
-   void compute_true_state (double dyn_time);
-
-
- // Member data
+    // Member data
 protected:
-   double sma; /* trick_units(m) @n
-      Semi-major axis length. */
+    double sma{6811.137e3}; /* trick_units(m) @n
+       Semi-major axis length. */
 
-   double ecc; /* trick_units(--) @n
-      Eccentricity. */
+    double ecc{}; /* trick_units(--) @n
+       Eccentricity. */
 
-   double manom0; /* trick_units(rad) @n
-      Initial mean anomaly. */
+    double manom0{}; /* trick_units(rad) @n
+       Initial mean anomaly. */
 
-   double mdot; /* trick_units(rad/s) @n
-      Mean motion. */
+    double mdot{1.1231543952404041e-03}; /* trick_units(rad/s) @n
+       Mean motion. */
 
-   double ecp; /* trick_units(--) @n
-      sqrt(1-e^2). */
+    double ecp{1.0}; /* trick_units(--) @n
+       sqrt(1-e^2). */
 
-   double GMb; /* trick_units(m3/s2) @n
-      Gravitational constant. */
-
-private:
-   /**
-    Assignment operator is private and unimplemented.
-   */
-   TranslationTestOrbit & operator = (const TranslationTestOrbit & source);
+    double GMb{}; /* trick_units(m3/s2) @n
+       Gravitational constant. */
 };
 
-
-class TranslationTestSpringDamper : public TranslationTest {
-
- JEOD_MAKE_SIM_INTERFACES(TranslationTestSpringDamper)
+class TranslationTestSpringDamper : public TranslationTest
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TranslationTestSpringDamper)
 
 public:
+    enum Damping
+    {
+        UnderDamped,
+        CriticallyDamped,
+        OverDamped
+    };
 
-   enum Damping {
-      UnderDamped,
-      CriticallyDamped,
-      OverDamped
-   };
+    TranslationTestSpringDamper() = default;
+    TranslationTestSpringDamper & operator=(const TranslationTestSpringDamper & source) = delete;
 
+    /**
+      Copy constructor.
+    */
+    TranslationTestSpringDamper(const TranslationTestSpringDamper & source, unsigned int test_incr = 0)
+        : TranslationTest(source, test_incr),
+          lambda_value(source.lambda_value),
+          omega_0(source.omega_0),
+          x0(source.x0)
+    {
+    }
 
-   /**
-     Default constructor.
-   */
-   TranslationTestSpringDamper(void) :
-      TranslationTest(),
-      lambda_value(1.0),
-      omega_0(1.0),
-      x0(1.0),
-      omega_sq(1.0),
-      phi(0.0),
-      omega_under(0.0),
-      k_under(0.0),
-      k_fast(0.0),
-      k_slow(0.0),
-      xA(0.0),
-      vA(0.0),
-      damping(CriticallyDamped)
-   {}
+    // Overloaded methods
+    IntegrationTest * replicate(unsigned int test_incr) override;
 
-   /**
-     Copy constructor.
-   */
-   TranslationTestSpringDamper (const TranslationTestSpringDamper & source,
-                                unsigned int test_incr = 0) :
-      TranslationTest (source, test_incr),
-      lambda_value (source.lambda_value),
-      omega_0 (source.omega_0),
-      x0 (source.x0)
-   {}
+    void pre_initialize() override;
 
-   // Overloaded methods
-   IntegrationTest * replicate (unsigned int test_incr) override;
+    void post_initialize() override;
 
-   void pre_initialize (void) override;
+    void propagate(double dyn_dt, bool update_errors) override;
 
-   void post_initialize (void) override;
+    void compute_force() override;
 
-   void propagate (double dyn_dt, bool update_errors) override;
+    void compute_potential() override;
 
-   void compute_force (void) override;
+    void compute_true_state(double dyn_time);
 
-   void compute_potential (void) override;
+    double lambda_value{1.0}; /* trick_units(--) @n
+       Damping factor. */
 
-   void compute_true_state (double dyn_time);
-
-   double lambda_value; /* trick_units(--) @n
-      Damping factor. */
-
- // Member data
+    // Member data
 protected:
+    double omega_0{1.0}; /* trick_units(1/s) @n
+       Undamped system frequency. */
 
-   double omega_0; /* trick_units(1/s) @n
-      Undamped system frequency. */
+    double x0{1.0}; /* trick_units(m) @n
+       Initial displacement. */
 
+    double omega_sq{1.0}; /* trick_units(1/s2) @n
+       Square of omega_0. */
 
-   double x0; /* trick_units(m) @n
-      Initial displacement. */
+    double phi{}; /* trick_units(rad) @n
+       Phase angle (underdamped only) */
 
+    double omega_under{}; /* trick_units(rad/s) @n
+       Underdamped oscillator frequency. */
 
-   double omega_sq; /* trick_units(1/s2) @n
-      Square of omega_0. */
+    double k_under{}; /* trick_units(1/s) @n
+       Underdamped exponential decay factor. */
 
-   double phi; /* trick_units(rad) @n
-      Phase angle (underdamped only) */
+    double k_fast{}; /* trick_units(1/s) @n
+       Fast exponential decay factor:
+       k_fast = omega_0 (lambda_value + sqrt(lambda_value^2-1)) */
 
-   double omega_under; /* trick_units(rad/s) @n
-      Underdamped oscillator frequency. */
+    double k_slow{}; /* trick_units(1/s) @n
+       Slow exponential decay factor:
+       k_slow = omega_0 (lambda_value - sqrt(lambda_value^2-1)) */
 
-   double k_under; /* trick_units(1/s) @n
-      Underdamped exponential decay factor. */
+    double xA{}; /* trick_units(m) @n
+       Underdamped:       x_0 / cos(phi)
+       Overdamped:        x_0 / (k_fast - k_slow)
+       Critically damped: Unused. */
 
-   double k_fast; /* trick_units(1/s) @n
-      Fast exponential decay factor:
-      k_fast = omega_0 (lambda_value + sqrt(lambda_value^2-1)) */
+    double vA{}; /* trick_units(m) @n
+       Underdamped:       x_A * omega_0
+       Overdamped:        x_A * omega_0^2
+       Critically damped: Unused. */
 
-   double k_slow; /* trick_units(1/s) @n
-      Slow exponential decay factor:
-      k_slow = omega_0 (lambda_value - sqrt(lambda_value^2-1)) */
-
-   double xA; /* trick_units(m) @n
-      Underdamped:       x_0 / cos(phi)
-      Overdamped:        x_0 / (k_fast - k_slow)
-      Critically damped: Unused. */
-
-   double vA; /* trick_units(m) @n
-      Underdamped:       x_A * omega_0
-      Overdamped:        x_A * omega_0^2
-      Critically damped: Unused. */
-
-   Damping damping; /* trick_units(--) @n
-      Damping type. */
-
-private:
-   /**
-    Assignment operator is private and unimplemented.
-   */
-   TranslationTestSpringDamper & operator = (
-      const TranslationTestSpringDamper & source);
+    Damping damping{CriticallyDamped}; /* trick_units(--) @n
+       Damping type. */
 };
 
 /*
@@ -588,7 +467,6 @@ x = A(exp(-at)-a/b exp(-bt))
 v = -Aa(exp(-at)-exp(-bt))
 */
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

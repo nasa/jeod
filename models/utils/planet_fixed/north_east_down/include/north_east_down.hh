@@ -68,89 +68,75 @@ Library Dependency:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 #include "utils/planet_fixed/planet_fixed_posn/include/class_declarations.hh"
-
+#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Defines a local North-East-Down reference frame.
  */
-class NorthEastDown : public PlanetFixedPosition {
+class NorthEastDown : public PlanetFixedPosition
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, NorthEastDown)
 
- JEOD_MAKE_SIM_INTERFACES(NorthEastDown)
+    // Member Data
+public:
+    /**
+     * The local North-East-Down reference frame, centered at the reference
+     * point stored in the ellip_coords, sphere_coords, and cart_coords data
+     * fields inherited from PlanetFixedPosition
+     */
+    RefFrame ned_frame; //!< trick_units(--)
 
+    /**
+     * Specifies whether the latitude is spherical or elliptical.
+     */
+    enum AltLatLongType
+    {
+        undefined = -1, /*
+        Default value, which will lead to an error if left unchanged */
 
- // Member Data
- public:
+        spherical, /*
+   Spherical coordinates form basis for the orientation of the
+   North-East-Down frame to which this enum refers */
 
-   /**
-    * The local North-East-Down reference frame, centered at the reference
-    * point stored in the ellip_coords, sphere_coords, and cart_coords data
-    * fields inherited from PlanetFixedPosition
-    */
-   RefFrame ned_frame; //!< trick_units(--)
+        elliptical /*
+   Elliptical coordinates form basis for the orientation of the
+   North-East-Down frame to which this enum refers */
+    };
 
+    /**
+     * Is reference point specified in spherical or elliptical coords?
+     */
+    AltLatLongType altlatlong_type{undefined}; //!< trick_units(--)
 
-   /**
-    * Specifies whether the latitude is spherical or elliptical.
-    */
-   enum AltLatLongType {
-      undefined = -1,    /*
-         Default value, which will lead to an error if left unchanged */
+    // Member functions
+public:
+    NorthEastDown() = default;
+    ~NorthEastDown() override = default;
+    NorthEastDown(const NorthEastDown &) = delete;
+    NorthEastDown & operator=(const NorthEastDown &) = delete;
 
-      spherical,         /*
-         Spherical coordinates form basis for the orientation of the
-         North-East-Down frame to which this enum refers */
+    // Update from Cartesian position input
+    void update_from_cart(const double cart[3]) override;
 
-      elliptical         /*
-         Elliptical coordinates form basis for the orientation of the
-         North-East-Down frame to which this enum refers */
-   };
+    // Update from spherical position input
+    void update_from_spher(const AltLatLongState & spher) override;
 
+    // Update from elliptical position input
+    void update_from_ellip(const AltLatLongState & ellip) override;
 
-   /**
-    * Is reference point specified in spherical or elliptical coords?
-    */
-   AltLatLongType altlatlong_type; //!< trick_units(--)
+    // Build NED frame orientation based on current reference point information
+    virtual void build_ned_orientation();
 
-
- // Member functions
- public:
-
-   // Constructor & Destructor
-   NorthEastDown();
-   ~NorthEastDown() override;
-
-   // Update from Cartesian position input
-   void update_from_cart (double const cart[3]) override;
-
-   // Update from spherical position input
-   void update_from_spher (const AltLatLongState &spher) override;
-
-   // Update from elliptical position input
-   void update_from_ellip (const AltLatLongState &ellip) override;
-
-   // Build NED frame orientation based on current reference point information
-   virtual void build_ned_orientation ();
-
-   // Set NED frame translational states using given values
-   virtual void set_ned_trans_states (
-      const double pos[3], const double vel[3]);
-
-   private:
-
-   // Copy constructor and assignment operator for this class are
-   // declared private and are not implemented.
-   NorthEastDown(const NorthEastDown& rhs);
-   NorthEastDown & operator = (const NorthEastDown&);
-
+    // Set NED frame translational states using given values
+    virtual void set_ned_trans_states(const double pos[3], const double vel[3]);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

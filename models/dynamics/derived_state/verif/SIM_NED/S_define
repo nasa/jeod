@@ -53,19 +53,23 @@ The following simulation objects are defined in this sim:
 ==============================================================================*/
 
 // Define job calling intervals
-#define DYNAMICS        1.00  // Moon/orbital dynamics interval
-#define LOW_RATE_ENV 5400.00  // Ephemeris update frequency
+#define DYNAMICS 1.00        // Moon/orbital dynamics interval
+#define LOW_RATE_ENV 5400.00 // Ephemeris update frequency
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
-#include "dynamics.sm"
-#include "environment.sm"
-#include "earth_GGM05C.sm"
 
+#include "dynamics.sm"
+#include "earth_GGM05C.sm"
+#include "environment.sm"
 
 /*****************************************************************************
 VehSimObject
@@ -75,31 +79,27 @@ Purpose:(Models the vehicle)
 ##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
 ##include "dynamics/derived_state/include/ned_derived_state.hh"
-class VehSimObject: public VehicleBasicSimObject {
+class VehSimObject: public VehicleBasicSimObject
+{
+public:
+    jeod::DynBodyInitOrbit init_orbit;
+    jeod::DynBodyInitLvlhRotState init_lvlh;
+    jeod::NedDerivedState ned;
 
- public:
-  jeod::DynBodyInitOrbit  init_orbit;
-  jeod::DynBodyInitLvlhRotState init_lvlh;
-  jeod::NedDerivedState ned;
+    // Constructor
+    VehSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+        P_DYN("initialization") ned.initialize(dyn_body, dyn_manager);
+        (DYNAMICS, "environment") ned.update();
+    }
 
-  // Constructor
-  VehSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {
-    P_DYN  ("initialization") ned.initialize ( dyn_body,
-                                               dyn_manager);
-    (DYNAMICS, "environment") ned.update ( );
-  }
-
- private:
-  VehSimObject (const VehSimObject&);
-  VehSimObject & operator = (const VehSimObject&);
+    VehSimObject(const VehSimObject &) = delete;
+    VehSimObject & operator=(const VehSimObject &) = delete;
 };
 
-VehSimObject vehA ( dynamics.dyn_manager);
-VehSimObject vehB ( dynamics.dyn_manager);
-
+VehSimObject vehA(dynamics.dyn_manager);
+VehSimObject vehB(dynamics.dyn_manager);
 
 /***********************************************************************
 CLASS: (Rel_stateSimObject)
@@ -108,43 +108,35 @@ PURPOSE:
 ***********************************************************************/
 ##include "dynamics/derived_state/include/relative_derived_state.hh"
 
-class Rel_stateSimObject: public Trick::SimObject {
+class Rel_stateSimObject: public Trick::SimObject
+{
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & vehA_body;
+    jeod::DynBody & vehB_body;
 
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
-  jeod::DynBody & vehA_body;
-  jeod::DynBody & vehB_body;
+public:
+    jeod::RelativeDerivedState vehB_wrt_vehA;
+    jeod::RelativeDerivedState vehA_wrt_vehB;
 
- public:
-  jeod::RelativeDerivedState vehB_wrt_vehA;
-  jeod::RelativeDerivedState vehA_wrt_vehB;
+    // Constructor
+    Rel_stateSimObject(jeod::DynManager & dyn_mngr_in, jeod::DynBody & vehA_body_in, jeod::DynBody & vehB_body_in)
+        : dyn_manager(dyn_mngr_in),
+          vehA_body(vehA_body_in),
+          vehB_body(vehB_body_in)
+    {
+        P_DYN("initialization") vehA_wrt_vehB.initialize(vehA_body, dyn_manager);
+        P_DYN("initialization") vehB_wrt_vehA.initialize(vehB_body, dyn_manager);
 
-  // Constructor
-  Rel_stateSimObject ( jeod::DynManager & dyn_mngr_in,
-                       jeod::DynBody & vehA_body_in,
-                       jeod::DynBody & vehB_body_in)
-    :
-    dyn_manager(dyn_mngr_in),
-    vehA_body(vehA_body_in),
-    vehB_body(vehB_body_in)
-  {
-    P_DYN  ("initialization") vehA_wrt_vehB.initialize ( vehA_body,
-                                                        dyn_manager);
-    P_DYN  ("initialization") vehB_wrt_vehA.initialize ( vehB_body,
-                                                        dyn_manager);
+        (DYNAMICS, "environment") vehA_wrt_vehB.update();
+        (DYNAMICS, "environment") vehB_wrt_vehA.update();
+    }
 
-    (DYNAMICS, "environment") vehA_wrt_vehB.update ( );
-    (DYNAMICS, "environment") vehB_wrt_vehA.update ( );
-  }
-
- private:
-  Rel_stateSimObject (const Rel_stateSimObject&);
-  Rel_stateSimObject & operator = (const Rel_stateSimObject&);
-
+    Rel_stateSimObject(const Rel_stateSimObject &) = delete;
+    Rel_stateSimObject & operator=(const Rel_stateSimObject &) = delete;
 };
-Rel_stateSimObject rel_state (dynamics.dyn_manager,
-                              vehA.dyn_body,
-                              vehB.dyn_body);
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth;
+Rel_stateSimObject rel_state(dynamics.dyn_manager, vehA.dyn_body, vehB.dyn_body);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

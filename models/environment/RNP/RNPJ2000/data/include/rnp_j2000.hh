@@ -46,16 +46,18 @@ Library dependencies:
 #ifndef JEOD_RNPJ2000_RNP_J2000_DEFAULT_DATA_H
 #define JEOD_RNPJ2000_RNP_J2000_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class RNPJ2000;
 
-class RNPJ2000_rnp_j2000_default_data {
- public:
-   void initialize (RNPJ2000*);
+class RNPJ2000_rnp_j2000_default_data
+{
+public:
+    void initialize(RNPJ2000 *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

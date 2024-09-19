@@ -2,17 +2,17 @@
 %----------------------------------
 The User Guide is divided into three instruction sets:
 \begin{enumerate}
- \item \textbf{Instructions for Simulation Users}.  This instruction-set 
- contains a description of how to modify \ModelDesc\ variables after the 
- simulation has compiled, including an in-depth discussion of the input file; 
- an overview of how to interpret (but not edit) the S\_define file; and a 
+ \item \textbf{Instructions for Simulation Users}.  This instruction-set
+ contains a description of how to modify \ModelDesc\ variables after the
+ simulation has compiled, including an in-depth discussion of the input file;
+ an overview of how to interpret (but not edit) the S\_define file; and a
  sample of some of the typical variables that may be logged.
- \item \textbf{Instructions for Simulation Developers}.  This instruction-set 
- builds on the previous set, and adds information on the necessary 
- configuration of the \ModelDesc\ within an S\_define file, and the creation of 
+ \item \textbf{Instructions for Simulation Developers}.  This instruction-set
+ builds on the previous set, and adds information on the necessary
+ configuration of the \ModelDesc\ within an S\_define file, and the creation of
  standard run directories.
- \item \textbf{Instructions for Model Developers}.   This instruction-set 
- builds on the previous set, and adds information on the potential for 
+ \item \textbf{Instructions for Model Developers}.   This instruction-set
+ builds on the previous set, and adds information on the potential for
  extending the model to perform tasks that are beyond its current abilities.
 \end{enumerate}
 
@@ -22,18 +22,13 @@ The User Guide is divided into three instruction sets:
 \input{guide_simdev}
 \section{Instructions for Model Developers}
 
-The \ModelDesc is intended to provide a baseline configuration for objects that 
-have mass.  It is quite extensible; an example of that extension is in the 
-Dynamic Body model, discussed briefly in this document and extensively in the 
-Dynamic Body model document (~\cite{dynenv:DYNBODY}).
+The \ModelDesc is intended to provide a baseline configuration for objects that
+have mass.  It is quite extensible.
 
-Authors of an extension will have to pay close attention to the limitations of 
-the \ModelDesc, and consider whether the methods provided are suitable for the 
-task in the new environment.  For example, when attaching two bodies, the 
-\ModelDesc provides all of the functionality associated with positioning the 
-mass bodies correctly in the mass tree, with the correct orientation and 
-relative positions.  It does not provide any capabilities for modeling the 
-changes to the dynamic state, because it knows nothing of any dynamic states.  
-Consequently, the Dynamic Body model extension of the \ModelDesc must provide 
-its own unique methods for handling state; these are called in addition to the 
-generic \ModelDesc methods when two DynBody objects attach.
+Authors of an extension will have to pay close attention to the limitations of
+the \ModelDesc, and consider whether the methods provided are suitable for the
+task in the new environment.  For example, when attaching two bodies, the
+\ModelDesc provides all of the functionality associated with positioning the
+mass bodies correctly in the mass tree, with the correct orientation and
+relative positions.  It does not provide any capabilities for modeling the
+changes to the dynamic state, because it knows nothing of any dynamic states.

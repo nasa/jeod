@@ -59,24 +59,19 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/interaction_facet_factory.cc))
-
- 
 *******************************************************************************/
 
 #ifndef JEOD_INTERACTION_FACET_FACTORY_HH
 #define JEOD_INTERACTION_FACET_FACTORY_HH
-
 
 // System includes
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Facet;
 class FacetParams;
@@ -84,69 +79,49 @@ class InteractionFacet;
 
 // Model includes
 
-
-
 /**
  * A factory to create a specific interaction facet from a general facet.
  */
-class InteractionFacetFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(InteractionFacetFactory)
+class InteractionFacetFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, InteractionFacetFactory)
 
 public:
+    InteractionFacetFactory() = default;
+    virtual ~InteractionFacetFactory() = default;
+    InteractionFacetFactory & operator=(const InteractionFacetFactory &) = delete;
+    InteractionFacetFactory(const InteractionFacetFactory &) = delete;
+    /**
+     * A pure virtual function that creates a specific interaction
+     * facet from a base facet with the given FacetParams. This
+     * defines interface for all classes that inherit from
+     * InteractionFacetFactory
+     * @return The new interaction facet
+     * \param[in] facet The facet the InteractionFacet is created from
+     * \param[in] params The parameter object to be added.
+     */
 
-   // constructor
-   InteractionFacetFactory ();
+    virtual InteractionFacet * create_facet(Facet * facet, FacetParams * params) = 0; /* In: -- The specific parameters
+                                                                                         used to create the interaction
+                                                                                         facet */
 
-   // destructor
-   virtual ~InteractionFacetFactory ();
+    /**
+     * A pure virtual function. Returns true or false: is the given facet
+     * the type this factory is meant to use?
+     * @return true or false. Is the given facet the correct type for this factory?
+     * \param[in] facet The facet that is being checked
+     */
 
-   /**
-    * A pure virtual function that creates a specific interaction
-    * facet from a base facet with the given FacetParams. This
-    * defines interface for all classes that inherit from
-    * InteractionFacetFactory
-    * @return The new interaction facet
-    * \param[in] facet The facet the InteractionFacet is created from
-    * \param[in] params The parameter object to be added.
-    */
-
-   virtual InteractionFacet* create_facet(
-      Facet* facet,
-      FacetParams* params)
- = 0; /* In: -- The specific parameters used to
-                                   create the interaction facet */
-
-   /**
-    * A pure virtual function. Returns true or false: is the given facet
-    * the type this factory is meant to use?
-    * @return true or false. Is the given facet the correct type for this factory?
-    * \param[in] facet The facet that is being checked
-    */
-
-   virtual bool is_correct_factory(
-      Facet* facet)
- = 0; /* In: -- The facet that is being checked */
+    virtual bool is_correct_factory(Facet * facet) = 0; /* In: -- The facet that is being checked */
 
 protected:
-
-   /**
-    * Unused data field to expedite dynamic allocation in Trick environment
-    */
-   bool trick_bool; //!< trick_units(--)
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   InteractionFacetFactory& operator = (const InteractionFacetFactory& rhs);
-   InteractionFacetFactory (const InteractionFacetFactory& rhs);
-
+    /**
+     * Unused data field to expedite dynamic allocation in Trick environment
+     */
+    bool trick_bool{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

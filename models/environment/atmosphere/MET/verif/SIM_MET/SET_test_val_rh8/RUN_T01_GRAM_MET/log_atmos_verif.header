@@ -3,6 +3,6 @@ log_atmos_verif	double	     s	sys.exec.out.time
 log_atmos_verif	double	     m	vehicle.pos.ellip_coords.altitude
 log_atmos_verif	double	   rad	vehicle.pos.ellip_coords.latitude
 log_atmos_verif	double	   rad	vehicle.pos.ellip_coords.longitude
-log_atmos_verif	double	 kg/m3	atmos_met.atmos_state.density
-log_atmos_verif	double	  N/m2	atmos_met.atmos_state.pressure
-log_atmos_verif	double	     K	atmos_met.atmos_state.temperature
+log_atmos_verif	double	 kg/m3	vehicle.atmos_state.density
+log_atmos_verif	double	  N/m2	vehicle.atmos_state.pressure
+log_atmos_verif	double	     K	vehicle.atmos_state.temperature

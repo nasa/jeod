@@ -49,7 +49,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -57,8 +57,8 @@ Purpose:
 #define JEOD_TEST_CHECK_ITEM_HH
 
 // System includes
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 
 // JEOD includes
 #include "utils/math/include/matrix3x3.hh"
@@ -66,9 +66,9 @@ Purpose:
 #include "utils/orientation/include/orientation.hh"
 #include "utils/quaternion/include/quat.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides several static methods for checking whether a computed value
@@ -131,163 +131,118 @@ namespace jeod {
  * </tr>
  * </table>
  */
-class CheckItem {
- public:
+class CheckItem
+{
+public:
+    // The within_tolerance methods apply to scalars, vectors, and matrices.
+    // There are two basic methods for each class of test article:
+    //   - Those that take a single tolerance argument.
+    //     These are the absolute tolerance methods.
+    //     The test is of the absolute error versus the tolerance.
+    //   - Those that take a pair of tolerance arguments.
+    //     These are the absolute+relative tolerance methods.
+    //     An absolute error test is used for small values of expected but
+    //     a relative error test for larger values. The transition point is
+    //     the point at which the two tests are equivalent.
+    // Another bifurcation exists for composite test articles. The pass/fail
+    // status of each element is returned in the result vector/matrix in
+    // those methods that take a result argument.
 
-   // The within_tolerance methods apply to scalars, vectors, and matrices.
-   // There are two basic methods for each class of test article:
-   //   - Those that take a single tolerance argument.
-   //     These are the absolute tolerance methods.
-   //     The test is of the absolute error versus the tolerance.
-   //   - Those that take a pair of tolerance arguments.
-   //     These are the absolute+relative tolerance methods.
-   //     An absolute error test is used for small values of expected but
-   //     a relative error test for larger values. The transition point is
-   //     the point at which the two tests are equivalent.
-   // Another bifurcation exists for composite test articles. The pass/fail
-   // status of each element is returned in the result vector/matrix in
-   // those methods that take a result argument.
+    // Scalar within tolerance, two versions, absolute versus absolute+relative.
+    static bool within_tolerance(double computed, double expected, double abs_tol);
 
-   // Scalar within tolerance, two versions, absolute versus absolute+relative.
-   static bool within_tolerance (
-      double computed, double expected, double abs_tol);
+    static bool within_tolerance(double computed, double expected, double abs_tol, double rel_tol);
 
-   static bool within_tolerance (
-      double computed, double expected,
-      double abs_tol, double rel_tol);
+    // Vector within tolerance, four versions.
+    static bool within_tolerance(const double computed[3], const double expected[3], double abs_tol);
 
+    static bool within_tolerance(const double computed[3], const double expected[3], double abs_tol, bool result[3]);
 
-   // Vector within tolerance, four versions.
-   static bool within_tolerance (
-      const double computed[3], const double expected[3], double abs_tol);
+    static bool within_tolerance(const double computed[3], const double expected[3], double abs_tol, double rel_tol);
 
-   static bool within_tolerance (
-      const double computed[3], const double expected[3], double abs_tol,
-      bool result[3]);
+    static bool within_tolerance(
+        const double computed[3], const double expected[3], double abs_tol, double rel_tol, bool result[3]);
 
-   static bool within_tolerance (
-      const double computed[3], const double expected[3],
-      double abs_tol, double rel_tol);
+    // Matrix within tolerance, four versions.
+    static bool within_tolerance(const double computed[3][3], const double expected[3][3], double abs_tol);
 
-   static bool within_tolerance (
-      const double computed[3], const double expected[3],
-      double abs_tol, double rel_tol,
-      bool result[3]);
+    static bool within_tolerance(const double computed[3][3],
+                                 const double expected[3][3],
+                                 double abs_tol,
+                                 bool result[3][3]);
 
+    static bool within_tolerance(const double computed[3][3],
+                                 const double expected[3][3],
+                                 double abs_tol,
+                                 double rel_tol);
 
-   // Matrix within tolerance, four versions.
-   static bool within_tolerance (
-      const double computed[3][3], const double expected[3][3], double abs_tol);
+    static bool within_tolerance(
+        const double computed[3][3], const double expected[3][3], double abs_tol, double rel_tol, bool result[3][3]);
 
-   static bool within_tolerance (
-      const double computed[3][3], const double expected[3][3], double abs_tol,
-      bool result[3][3]);
+    // The is_within methods apply to scalars, vectors, and matrices.
+    static bool is_within(double computed, double lower_lim, double upper_lim);
 
-   static bool within_tolerance (
-      const double computed[3][3], const double expected[3][3],
-      double abs_tol, double rel_tol);
+    static bool is_within(const double computed[3], const double lower_lim[3], const double upper_lim[3]);
 
-   static bool within_tolerance (
-      const double computed[3][3], const double expected[3][3],
-      double abs_tol, double rel_tol,
-      bool result[3][3]);
+    static bool is_within(const double computed[3],
+                          const double lower_lim[3],
+                          const double upper_lim[3],
+                          bool result[3]);
 
+    static bool is_within(const double computed[3][3], const double lower_lim[3][3], const double upper_lim[3][3]);
 
-   // The is_within methods apply to scalars, vectors, and matrices.
-   static bool is_within (
-      double computed, double lower_lim, double upper_lim);
+    static bool is_within(const double computed[3][3],
+                          const double lower_lim[3][3],
+                          const double upper_lim[3][3],
+                          bool result[3][3]);
 
-   static bool is_within (
-      const double computed[3],
-      const double lower_lim[3], const double upper_lim[3]);
+    // The is_zero methods apply to scalars, vectors, and matrices.
+    static bool is_zero(const double computed, double abs_tol);
 
-   static bool is_within (
-      const double computed[3],
-      const double lower_lim[3], const double upper_lim[3],
-      bool result[3]);
+    static bool is_zero(const double computed[3], double abs_tol);
 
-   static bool is_within (
-      const double computed[3][3],
-      const double lower_lim[3][3], const double upper_lim[3][3]);
+    static bool is_zero(const double computed[3], double abs_tol, bool result[3]);
 
-   static bool is_within (
-      const double computed[3][3],
-      const double lower_lim[3][3], const double upper_lim[3][3],
-      bool result[3][3]);
+    static bool is_zero(const double computed[3][3], double abs_tol);
 
+    static bool is_zero(const double computed[3][3], double abs_tol, bool result[3][3]);
 
-   // The is_zero methods apply to scalars, vectors, and matrices.
-   static bool is_zero (
-      const double computed, double abs_tol);
+    // The is_identity methods apply to matrices and quaternions.
+    static bool is_identity(const double computed[3][3], double diag_tol, double off_diag_tol);
 
-   static bool is_zero (
-      const double computed[3], double abs_tol);
+    static bool is_identity(const double computed[3][3], double diag_tol, double off_diag_tol, bool result[3][3]);
 
-   static bool is_zero (
-      const double computed[3], double abs_tol, bool result[3]);
+    static bool is_identity(const Quaternion & computed, double scalar_tol, double vector_tol);
 
-   static bool is_zero (
-      const double computed[3][3], double abs_tol);
+    // The is_unit methods apply to scalars, vectors, matrices, and quaternions.
+    // Note that because this test applies to the object as a whole there is
+    // no test to identify the culprits on an element-by-element basis.
+    static bool is_unit(const double computed, double abs_tol);
 
-   static bool is_zero (
-      const double computed[3][3], double abs_tol, bool result[3][3]);
+    static bool is_unit(const double computed[3], double abs_tol);
 
+    static bool is_unit(const double computed[3][3], double unit_tol, double normal_tol);
 
-   // The is_identity methods apply to matrices and quaternions.
-   static bool is_identity (
-      const double computed[3][3],
-      double diag_tol, double off_diag_tol);
+    static bool is_unit(const Quaternion & computed, double abs_tol);
 
-   static bool is_identity (
-      const double computed[3][3],
-      double diag_tol, double off_diag_tol, bool result[3][3]);
+    // The within_rss_tolerance methods apply to vectors and matrices.
+    static bool within_rss_tolerance(const double computed[3], const double expected[3], double rss_tolerance);
 
-   static bool is_identity (
-      const Quaternion & computed,
-      double scalar_tol, double vector_tol);
+    static bool within_rss_tolerance(const double computed[3][3], const double expected[3][3], double rss_tolerance);
 
+    // The within_eigen_tolerance methods apply to matrices and quaternions.
+    static bool within_eigen_tolerance(const double computed[3][3],
+                                       const double expected[3][3],
+                                       double angular_tolerance);
 
-   // The is_unit methods apply to scalars, vectors, matrices, and quaternions.
-   // Note that because this test applies to the object as a whole there is
-   // no test to identify the culprits on an element-by-element basis.
-   static bool is_unit (
-      const double computed, double abs_tol);
-
-   static bool is_unit (
-      const double computed[3], double abs_tol);
-
-   static bool is_unit (
-      const double computed[3][3], double unit_tol, double normal_tol);
-
-   static bool is_unit (
-      const Quaternion & computed, double abs_tol);
-
-
-   // The within_rss_tolerance methods apply to vectors and matrices.
-   static bool within_rss_tolerance (
-      const double computed[3], const double expected[3],
-      double rss_tolerance);
-
-   static bool within_rss_tolerance (
-      const double computed[3][3], const double expected[3][3],
-      double rss_tolerance);
-
-
-   // The within_eigen_tolerance methods apply to matrices and quaternions.
-   static bool within_eigen_tolerance (
-      const double computed[3][3], const double expected[3][3],
-      double angular_tolerance);
-
-   static bool within_eigen_tolerance (
-      const Quaternion & computed, const Quaternion & expected,
-      double angular_tolerance);
+    static bool within_eigen_tolerance(const Quaternion & computed,
+                                       const Quaternion & expected,
+                                       double angular_tolerance);
 };
-
 
 /*******************************************************************************
 within_tolerance
 *******************************************************************************/
-
 
 /**
  * Test whether the computed value agrees with the expected value.
@@ -305,7 +260,6 @@ within_tolerance
  * \param[in] abs_tol Max absolute error
  */
 
-
 /*
 Purpose:
   (Test whether the computed value agrees with the expected value.
@@ -317,15 +271,10 @@ Assumptions and limitations:
     tolerance lest the comparison devolve to equality. An absolute ratio of
     1e14 or smaller is preferable.))
 */
-inline bool
-CheckItem::within_tolerance (
-   double computed,
-   double expected,
-   double abs_tol)
+inline bool CheckItem::within_tolerance(double computed, double expected, double abs_tol)
 {
-   return std::abs(computed - expected) <= abs_tol;
+    return std::abs(computed - expected) <= abs_tol;
 }
-
 
 /**
  * Test whether the computed value agrees with the expected value.
@@ -342,17 +291,10 @@ CheckItem::within_tolerance (
  * \param[in] abs_tol Max absolute error, used when expected is small
  * \param[in] rel_tol Max relative error, for not-so-small values
  */
-inline bool
-CheckItem::within_tolerance (
-   double computed,
-   double expected,
-   double abs_tol,
-   double rel_tol)
+inline bool CheckItem::within_tolerance(double computed, double expected, double abs_tol, double rel_tol)
 {
-   return std::abs(computed - expected) <=
-          std::max(abs_tol, rel_tol*std::abs(expected));
+    return std::abs(computed - expected) <= std::max(abs_tol, rel_tol * std::abs(expected));
 }
-
 
 /**
  * Test whether each element of the computed vector agrees with the
@@ -363,17 +305,11 @@ CheckItem::within_tolerance (
  * \param[in] expected The expected value
  * \param[in] abs_tol Max absolute error
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3],
-   const double expected[3],
-   double abs_tol)
+inline bool CheckItem::within_tolerance(const double computed[3], const double expected[3], double abs_tol)
 {
-   return within_tolerance (computed[0], expected[0], abs_tol) &&
-          within_tolerance (computed[1], expected[1], abs_tol) &&
-          within_tolerance (computed[2], expected[2], abs_tol);
+    return within_tolerance(computed[0], expected[0], abs_tol) && within_tolerance(computed[1], expected[1], abs_tol) &&
+           within_tolerance(computed[2], expected[2], abs_tol);
 }
-
 
 /**
  * Test whether each element of the computed vector agrees with the
@@ -385,20 +321,17 @@ CheckItem::within_tolerance (
  * \param[in] abs_tol Max absolute error
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3],
-   const double expected[3],
-   double abs_tol,
-   bool result[3])
+inline bool CheckItem::within_tolerance(const double computed[3],
+                                        const double expected[3],
+                                        double abs_tol,
+                                        bool result[3])
 {
-   result[0] = within_tolerance (computed[0], expected[0], abs_tol);
-   result[1] = within_tolerance (computed[1], expected[1], abs_tol);
-   result[2] = within_tolerance (computed[2], expected[2], abs_tol);
+    result[0] = within_tolerance(computed[0], expected[0], abs_tol);
+    result[1] = within_tolerance(computed[1], expected[1], abs_tol);
+    result[2] = within_tolerance(computed[2], expected[2], abs_tol);
 
-   return result[0] && result[1] && result[2];
+    return result[0] && result[1] && result[2];
 }
-
 
 /**
  * Test whether each element of the computed vector agrees with the
@@ -410,18 +343,15 @@ CheckItem::within_tolerance (
  * \param[in] abs_tol Max absolute error
  * \param[in] rel_tol Max relative error
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3],
-   const double expected[3],
-   double abs_tol,
-   double rel_tol)
+inline bool CheckItem::within_tolerance(const double computed[3],
+                                        const double expected[3],
+                                        double abs_tol,
+                                        double rel_tol)
 {
-   return within_tolerance (computed[0], expected[0], abs_tol, rel_tol) &&
-          within_tolerance (computed[1], expected[1], abs_tol, rel_tol) &&
-          within_tolerance (computed[2], expected[2], abs_tol, rel_tol);
+    return within_tolerance(computed[0], expected[0], abs_tol, rel_tol) &&
+           within_tolerance(computed[1], expected[1], abs_tol, rel_tol) &&
+           within_tolerance(computed[2], expected[2], abs_tol, rel_tol);
 }
-
 
 /**
  * Test whether each element of the computed vector agrees with the
@@ -434,21 +364,15 @@ CheckItem::within_tolerance (
  * \param[in] rel_tol Max relative error
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3],
-   const double expected[3],
-   double abs_tol,
-   double rel_tol,
-   bool result[3])
+inline bool CheckItem::within_tolerance(
+    const double computed[3], const double expected[3], double abs_tol, double rel_tol, bool result[3])
 {
-   result[0] = within_tolerance (computed[0], expected[0], abs_tol, rel_tol);
-   result[1] = within_tolerance (computed[1], expected[1], abs_tol, rel_tol);
-   result[2] = within_tolerance (computed[2], expected[2], abs_tol, rel_tol);
+    result[0] = within_tolerance(computed[0], expected[0], abs_tol, rel_tol);
+    result[1] = within_tolerance(computed[1], expected[1], abs_tol, rel_tol);
+    result[2] = within_tolerance(computed[2], expected[2], abs_tol, rel_tol);
 
-   return result[0] && result[1] && result[2];
+    return result[0] && result[1] && result[2];
 }
-
 
 /**
  * Test whether each element of the computed matrix agrees with the
@@ -459,17 +383,11 @@ CheckItem::within_tolerance (
  * \param[in] expected The expected matrix
  * \param[in] abs_tol Max absolute error
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3][3],
-   const double expected[3][3],
-   double abs_tol)
+inline bool CheckItem::within_tolerance(const double computed[3][3], const double expected[3][3], double abs_tol)
 {
-   return within_tolerance (computed[0], expected[0], abs_tol) &&
-          within_tolerance (computed[1], expected[1], abs_tol) &&
-          within_tolerance (computed[2], expected[2], abs_tol);
+    return within_tolerance(computed[0], expected[0], abs_tol) && within_tolerance(computed[1], expected[1], abs_tol) &&
+           within_tolerance(computed[2], expected[2], abs_tol);
 }
-
 
 /**
  * Test whether each element of the computed matrix agrees with the
@@ -481,22 +399,19 @@ CheckItem::within_tolerance (
  * \param[in] abs_tol Max absolute error
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3][3],
-   const double expected[3][3],
-   double abs_tol,
-   bool result[3][3])
+inline bool CheckItem::within_tolerance(const double computed[3][3],
+                                        const double expected[3][3],
+                                        double abs_tol,
+                                        bool result[3][3])
 {
-   bool vresult0, vresult1, vresult2;
+    bool vresult0, vresult1, vresult2;
 
-   vresult0 = within_tolerance (computed[0], expected[0], abs_tol, result[0]);
-   vresult1 = within_tolerance (computed[1], expected[1], abs_tol, result[1]);
-   vresult2 = within_tolerance (computed[2], expected[2], abs_tol, result[2]);
+    vresult0 = within_tolerance(computed[0], expected[0], abs_tol, result[0]);
+    vresult1 = within_tolerance(computed[1], expected[1], abs_tol, result[1]);
+    vresult2 = within_tolerance(computed[2], expected[2], abs_tol, result[2]);
 
-   return vresult0 && vresult1 && vresult2;
+    return vresult0 && vresult1 && vresult2;
 }
-
 
 /**
  * Test whether each element of the computed matrix agrees with the
@@ -508,18 +423,15 @@ CheckItem::within_tolerance (
  * \param[in] abs_tol Max absolute error
  * \param[in] rel_tol Max relative error
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3][3],
-   const double expected[3][3],
-   double abs_tol,
-   double rel_tol)
+inline bool CheckItem::within_tolerance(const double computed[3][3],
+                                        const double expected[3][3],
+                                        double abs_tol,
+                                        double rel_tol)
 {
-   return within_tolerance (computed[0], expected[0], abs_tol, rel_tol) &&
-          within_tolerance (computed[1], expected[1], abs_tol, rel_tol) &&
-          within_tolerance (computed[2], expected[2], abs_tol, rel_tol);
+    return within_tolerance(computed[0], expected[0], abs_tol, rel_tol) &&
+           within_tolerance(computed[1], expected[1], abs_tol, rel_tol) &&
+           within_tolerance(computed[2], expected[2], abs_tol, rel_tol);
 }
-
 
 /**
  * Test whether each element of the computed matrix agrees with the
@@ -532,31 +444,21 @@ CheckItem::within_tolerance (
  * \param[in] rel_tol Max relative error
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::within_tolerance (
-   const double computed[3][3],
-   const double expected[3][3],
-   double abs_tol,
-   double rel_tol,
-   bool result[3][3])
+inline bool CheckItem::within_tolerance(
+    const double computed[3][3], const double expected[3][3], double abs_tol, double rel_tol, bool result[3][3])
 {
-   bool vresult0, vresult1, vresult2;
+    bool vresult0, vresult1, vresult2;
 
-   vresult0 = within_tolerance (computed[0], expected[0], abs_tol, rel_tol,
-                                result[0]);
-   vresult1 = within_tolerance (computed[1], expected[1], abs_tol, rel_tol,
-                                result[1]);
-   vresult2 = within_tolerance (computed[2], expected[2], abs_tol, rel_tol,
-                                result[2]);
+    vresult0 = within_tolerance(computed[0], expected[0], abs_tol, rel_tol, result[0]);
+    vresult1 = within_tolerance(computed[1], expected[1], abs_tol, rel_tol, result[1]);
+    vresult2 = within_tolerance(computed[2], expected[2], abs_tol, rel_tol, result[2]);
 
-   return vresult0 && vresult1 && vresult2;
+    return vresult0 && vresult1 && vresult2;
 }
-
 
 /*******************************************************************************
 is_within
 *******************************************************************************/
-
 
 /**
  * Test whether the computed value is between the specified bounds, inclusive.
@@ -566,20 +468,14 @@ is_within
  * \param[in] upper_lim The upper limit
  */
 
-
 /*
 Purpose:
   (Test whether the computed value is between the specified bounds, inclusive.)
 */
-inline bool
-CheckItem::is_within (
-   double computed,
-   double lower_lim,
-   double upper_lim)
+inline bool CheckItem::is_within(double computed, double lower_lim, double upper_lim)
 {
-   return (computed >= lower_lim) && (computed <= upper_lim);
+    return (computed >= lower_lim) && (computed <= upper_lim);
 }
-
 
 /**
  * Test whether each element of the computed vector is between the corresponding
@@ -589,17 +485,11 @@ CheckItem::is_within (
  * \param[in] lower_lim The lower limit
  * \param[in] upper_lim The upper limit
  */
-inline bool
-CheckItem::is_within (
-   const double computed[3],
-   const double lower_lim[3],
-   const double upper_lim[3])
+inline bool CheckItem::is_within(const double computed[3], const double lower_lim[3], const double upper_lim[3])
 {
-   return is_within (computed[0], lower_lim[0], upper_lim[0]) &&
-          is_within (computed[1], lower_lim[1], upper_lim[1]) &&
-          is_within (computed[2], lower_lim[2], upper_lim[2]);
+    return is_within(computed[0], lower_lim[0], upper_lim[0]) && is_within(computed[1], lower_lim[1], upper_lim[1]) &&
+           is_within(computed[2], lower_lim[2], upper_lim[2]);
 }
-
 
 /**
  * Test whether each element of the computed vector is between the corresponding
@@ -610,20 +500,17 @@ CheckItem::is_within (
  * \param[in] upper_lim The upper limit
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::is_within (
-   const double computed[3],
-   const double lower_lim[3],
-   const double upper_lim[3],
-   bool result[3])
+inline bool CheckItem::is_within(const double computed[3],
+                                 const double lower_lim[3],
+                                 const double upper_lim[3],
+                                 bool result[3])
 {
-   result[0] = is_within (computed[0], lower_lim[0], upper_lim[0]);
-   result[1] = is_within (computed[1], lower_lim[1], upper_lim[1]);
-   result[2] = is_within (computed[2], lower_lim[2], upper_lim[2]);
+    result[0] = is_within(computed[0], lower_lim[0], upper_lim[0]);
+    result[1] = is_within(computed[1], lower_lim[1], upper_lim[1]);
+    result[2] = is_within(computed[2], lower_lim[2], upper_lim[2]);
 
-   return result[0] && result[1] && result[2];
+    return result[0] && result[1] && result[2];
 }
-
 
 /**
  * Test whether each element of the computed matrix is between the corresponding
@@ -633,17 +520,13 @@ CheckItem::is_within (
  * \param[in] lower_lim The lower limit
  * \param[in] upper_lim The upper limit
  */
-inline bool
-CheckItem::is_within (
-   const double computed[3][3],
-   const double lower_lim[3][3],
-   const double upper_lim[3][3])
+inline bool CheckItem::is_within(const double computed[3][3],
+                                 const double lower_lim[3][3],
+                                 const double upper_lim[3][3])
 {
-   return is_within (computed[0], lower_lim[0], upper_lim[0]) &&
-          is_within (computed[1], lower_lim[1], upper_lim[1]) &&
-          is_within (computed[2], lower_lim[2], upper_lim[2]);
+    return is_within(computed[0], lower_lim[0], upper_lim[0]) && is_within(computed[1], lower_lim[1], upper_lim[1]) &&
+           is_within(computed[2], lower_lim[2], upper_lim[2]);
 }
-
 
 /**
  * Test whether each element of the computed matrix is between the corresponding
@@ -654,27 +537,23 @@ CheckItem::is_within (
  * \param[in] upper_lim The upper limit
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::is_within (
-   const double computed[3][3],
-   const double lower_lim[3][3],
-   const double upper_lim[3][3],
-   bool result[3][3])
+inline bool CheckItem::is_within(const double computed[3][3],
+                                 const double lower_lim[3][3],
+                                 const double upper_lim[3][3],
+                                 bool result[3][3])
 {
-   bool vresult0, vresult1, vresult2;
+    bool vresult0, vresult1, vresult2;
 
-   vresult0 = is_within (computed[0], lower_lim[0], upper_lim[0]);
-   vresult1 = is_within (computed[1], lower_lim[1], upper_lim[1]);
-   vresult1 = is_within (computed[2], lower_lim[2], upper_lim[2]);
+    vresult0 = is_within(computed[0], lower_lim[0], upper_lim[0]);
+    vresult1 = is_within(computed[1], lower_lim[1], upper_lim[1]);
+    vresult1 = is_within(computed[2], lower_lim[2], upper_lim[2]);
 
-   return vresult0 && vresult1 && vresult2;
+    return vresult0 && vresult1 && vresult2;
 }
-
 
 /*******************************************************************************
 is_zero
 *******************************************************************************/
-
 
 /**
  * Test whether the computed value is approximately equal to zero.
@@ -683,19 +562,14 @@ is_zero
  * \param[in] abs_tol Max absolute error
  */
 
-
 /*
 Purpose:
   (Test whether the computed value is approximately equal to zero.)
 */
-inline bool
-CheckItem::is_zero (
-   double computed,
-   double abs_tol)
+inline bool CheckItem::is_zero(double computed, double abs_tol)
 {
-   return std::abs(computed) <= abs_tol;
+    return std::abs(computed) <= abs_tol;
 }
-
 
 /**
  * Test whether each element of the computed vector is approximately zero.
@@ -703,16 +577,10 @@ CheckItem::is_zero (
  * \param[in] computed The computed vector
  * \param[in] abs_tol Max absolute error
  */
-inline bool
-CheckItem::is_zero (
-   const double computed[3],
-   double abs_tol)
+inline bool CheckItem::is_zero(const double computed[3], double abs_tol)
 {
-   return is_zero (computed[0], abs_tol) &&
-          is_zero (computed[1], abs_tol) &&
-          is_zero (computed[2], abs_tol);
+    return is_zero(computed[0], abs_tol) && is_zero(computed[1], abs_tol) && is_zero(computed[2], abs_tol);
 }
-
 
 /**
  * Test whether each element of the computed vector is approximately zero.
@@ -721,19 +589,14 @@ CheckItem::is_zero (
  * \param[in] abs_tol Max absolute error
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::is_zero (
-   const double computed[3],
-   double abs_tol,
-   bool result[3])
+inline bool CheckItem::is_zero(const double computed[3], double abs_tol, bool result[3])
 {
-   result[0] = is_zero (computed[0], abs_tol);
-   result[1] = is_zero (computed[1], abs_tol);
-   result[2] = is_zero (computed[2], abs_tol);
+    result[0] = is_zero(computed[0], abs_tol);
+    result[1] = is_zero(computed[1], abs_tol);
+    result[2] = is_zero(computed[2], abs_tol);
 
-   return result[0] && result[1] && result[2];
+    return result[0] && result[1] && result[2];
 }
-
 
 /**
  * Test whether each element of the computed matrix is approximately zero.
@@ -741,16 +604,10 @@ CheckItem::is_zero (
  * \param[in] computed The computed matrix
  * \param[in] abs_tol Max absolute error
  */
-inline bool
-CheckItem::is_zero (
-   const double computed[3][3],
-   double abs_tol)
+inline bool CheckItem::is_zero(const double computed[3][3], double abs_tol)
 {
-   return is_zero (computed[0], abs_tol) &&
-          is_zero (computed[1], abs_tol) &&
-          is_zero (computed[2], abs_tol);
+    return is_zero(computed[0], abs_tol) && is_zero(computed[1], abs_tol) && is_zero(computed[2], abs_tol);
 }
-
 
 /**
  * Test whether each element of the computed matrix is approximately zero.
@@ -759,27 +616,21 @@ CheckItem::is_zero (
  * \param[in] abs_tol Max absolute error
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::is_zero (
-   const double computed[3][3],
-   double abs_tol,
-   bool result[3][3])
+inline bool CheckItem::is_zero(const double computed[3][3], double abs_tol, bool result[3][3])
 {
-   bool vresult0, vresult1, vresult2;
+    bool vresult0, vresult1, vresult2;
 
-   vresult0 = is_zero (computed[0], abs_tol, result[0]);
-   vresult1 = is_zero (computed[1], abs_tol, result[1]);
-   vresult2 = is_zero (computed[2], abs_tol, result[2]);
+    vresult0 = is_zero(computed[0], abs_tol, result[0]);
+    vresult1 = is_zero(computed[1], abs_tol, result[1]);
+    vresult2 = is_zero(computed[2], abs_tol, result[2]);
 
-   return vresult0 && vresult1 && vresult2;
+    return vresult0 && vresult1 && vresult2;
 }
-
 
 /*******************************************************************************
 is_identity
 *******************************************************************************/
 
-
 /**
  * Test whether the computed matrix is more or less the identity matrix.
  * @return Is the matrix an identity matrix?
@@ -788,28 +639,18 @@ is_identity
  * \param[in] off_diag_tol Max error, off-diagonal elements
  */
 
-
 /*
 Purpose:
   (Test whether the computed matrix is more or less the identity matrix.)
 */
-inline bool
-CheckItem::is_identity (
-   const double computed[3][3],
-   double diag_tol,
-   double off_diag_tol)
+inline bool CheckItem::is_identity(const double computed[3][3], double diag_tol, double off_diag_tol)
 {
-   return is_unit (computed[0][0], diag_tol) &&
-          is_unit (computed[1][1], diag_tol) &&
-          is_unit (computed[2][2], diag_tol) &&
-          is_zero (computed[0][1], off_diag_tol) &&
-          is_zero (computed[0][2], off_diag_tol) &&
-          is_zero (computed[1][0], off_diag_tol) &&
-          is_zero (computed[1][2], off_diag_tol) &&
-          is_zero (computed[2][0], off_diag_tol) &&
-          is_zero (computed[2][1], off_diag_tol);
+    return is_unit(computed[0][0], diag_tol) && is_unit(computed[1][1], diag_tol) &&
+           is_unit(computed[2][2], diag_tol) && is_zero(computed[0][1], off_diag_tol) &&
+           is_zero(computed[0][2], off_diag_tol) && is_zero(computed[1][0], off_diag_tol) &&
+           is_zero(computed[1][2], off_diag_tol) && is_zero(computed[2][0], off_diag_tol) &&
+           is_zero(computed[2][1], off_diag_tol);
 }
-
 
 /**
  * Test whether the computed matrix is more or less the identity matrix.
@@ -819,28 +660,21 @@ CheckItem::is_identity (
  * \param[in] off_diag_tol Max error, off-diagonal elements
  * \param[out] result Item-by-item status
  */
-inline bool
-CheckItem::is_identity (
-   const double computed[3][3],
-   double diag_tol,
-   double off_diag_tol,
-   bool result[3][3])
+inline bool CheckItem::is_identity(const double computed[3][3], double diag_tol, double off_diag_tol, bool result[3][3])
 {
-   result[0][0] = is_unit (computed[0][0], diag_tol);
-   result[1][1] = is_unit (computed[1][1], diag_tol);
-   result[2][2] = is_unit (computed[2][2], diag_tol);
-   result[0][1] = is_zero (computed[0][1], off_diag_tol);
-   result[0][2] = is_zero (computed[0][2], off_diag_tol);
-   result[1][0] = is_zero (computed[1][0], off_diag_tol);
-   result[1][2] = is_zero (computed[1][2], off_diag_tol);
-   result[2][0] = is_zero (computed[2][0], off_diag_tol);
-   result[2][1] = is_zero (computed[2][1], off_diag_tol);
+    result[0][0] = is_unit(computed[0][0], diag_tol);
+    result[1][1] = is_unit(computed[1][1], diag_tol);
+    result[2][2] = is_unit(computed[2][2], diag_tol);
+    result[0][1] = is_zero(computed[0][1], off_diag_tol);
+    result[0][2] = is_zero(computed[0][2], off_diag_tol);
+    result[1][0] = is_zero(computed[1][0], off_diag_tol);
+    result[1][2] = is_zero(computed[1][2], off_diag_tol);
+    result[2][0] = is_zero(computed[2][0], off_diag_tol);
+    result[2][1] = is_zero(computed[2][1], off_diag_tol);
 
-   return result[0][0] && result[0][1] && result[0][2] &&
-          result[1][0] && result[1][1] && result[1][2] &&
-          result[2][0] && result[2][1] && result[2][2];
+    return result[0][0] && result[0][1] && result[0][2] && result[1][0] && result[1][1] && result[1][2] &&
+           result[2][0] && result[2][1] && result[2][2];
 }
-
 
 /**
  * Test whether the computed quaternion is the real unit quaternion.
@@ -849,21 +683,14 @@ CheckItem::is_identity (
  * \param[in] scalar_tol Max error, scalar part
  * \param[in] vector_tol Max error, vector elements
  */
-inline bool
-CheckItem::is_identity (
-   const Quaternion & computed,
-   double scalar_tol,
-   double vector_tol)
+inline bool CheckItem::is_identity(const Quaternion & computed, double scalar_tol, double vector_tol)
 {
-   return is_unit (computed.scalar, scalar_tol) &&
-          is_zero (computed.vector, vector_tol);
+    return is_unit(computed.scalar, scalar_tol) && is_zero(computed.vector, vector_tol);
 }
-
 
 /*******************************************************************************
 is_unit
 *******************************************************************************/
-
 
 /**
  * Test whether the computed value is approximately equal to one.
@@ -872,19 +699,14 @@ is_unit
  * \param[in] abs_tol Max absolute error
  */
 
-
 /*
 Purpose:
   (Test whether the computed value is approximately equal to one.)
 */
-inline bool
-CheckItem::is_unit (
-   double computed,
-   double abs_tol)
+inline bool CheckItem::is_unit(double computed, double abs_tol)
 {
-   return std::abs(computed - 1.0) <= abs_tol;
+    return std::abs(computed - 1.0) <= abs_tol;
 }
-
 
 /**
  * Test whether the computed vector is more or less a unit vector.
@@ -892,16 +714,10 @@ CheckItem::is_unit (
  * \param[in] computed The computed vector
  * \param[in] abs_tol Max absolute error
  */
-inline bool
-CheckItem::is_unit (
-   const double computed[3],
-   double abs_tol)
+inline bool CheckItem::is_unit(const double computed[3], double abs_tol)
 {
-   return is_within (Vector3::vmagsq(computed),
-                     1.0 - abs_tol*(2.0-abs_tol),
-                     1.0 + abs_tol*(2.0+abs_tol));
+    return is_within(Vector3::vmagsq(computed), 1.0 - abs_tol * (2.0 - abs_tol), 1.0 + abs_tol * (2.0 + abs_tol));
 }
-
 
 /**
  * Test whether the computed matrix is more or less a rotation matrix.
@@ -910,27 +726,18 @@ CheckItem::is_unit (
  * \param[in] unit_tol Unit vector tolerance
  * \param[in] normal_tol Normality tolerance
  */
-inline bool
-CheckItem::is_unit (
-   const double computed[3][3],
-   double unit_tol,
-   double normal_tol)
+inline bool CheckItem::is_unit(const double computed[3][3], double unit_tol, double normal_tol)
 {
-   double e1_cross_e2[3];
+    double e1_cross_e2[3];
 
-   return is_unit (computed[0], unit_tol) &&
-          is_unit (computed[1], unit_tol) &&
-          is_unit (computed[2], unit_tol) &&
+    return is_unit(computed[0], unit_tol) && is_unit(computed[1], unit_tol) && is_unit(computed[2], unit_tol) &&
 
-          is_zero (Vector3::dot (computed[0], computed[1]), normal_tol) &&
-          is_zero (Vector3::dot (computed[0], computed[2]), normal_tol) &&
-          is_zero (Vector3::dot (computed[1], computed[2]), normal_tol) &&
+           is_zero(Vector3::dot(computed[0], computed[1]), normal_tol) &&
+           is_zero(Vector3::dot(computed[0], computed[2]), normal_tol) &&
+           is_zero(Vector3::dot(computed[1], computed[2]), normal_tol) &&
 
-          (Vector3::dot (
-              Vector3::cross (computed[0], computed[1], e1_cross_e2),
-              computed[2]) > 0.0);
+           (Vector3::dot(Vector3::cross(computed[0], computed[1], e1_cross_e2), computed[2]) > 0.0);
 }
-
 
 /**
  * Test whether the computed quaternion is more or less a unit quaternion.
@@ -938,21 +745,14 @@ CheckItem::is_unit (
  * \param[in] computed The computed quaternion
  * \param[in] abs_tol Max absolute error
  */
-inline bool
-CheckItem::is_unit (
-   const Quaternion & computed,
-   double abs_tol)
+inline bool CheckItem::is_unit(const Quaternion & computed, double abs_tol)
 {
-   return is_within (computed.norm_sq(),
-                     1.0 - abs_tol*(2.0-abs_tol),
-                     1.0 + abs_tol*(2.0+abs_tol));
+    return is_within(computed.norm_sq(), 1.0 - abs_tol * (2.0 - abs_tol), 1.0 + abs_tol * (2.0 + abs_tol));
 }
-
 
 /*******************************************************************************
 within_rss_tolerance
 *******************************************************************************/
-
 
 /**
  * Test whether the computed and expected vectors are close to one another
@@ -963,23 +763,16 @@ within_rss_tolerance
  * \param[in] rss_tolerance Allowed RSS error
  */
 
-
 /*
 Purpose:
   (Test whether the computed and expected vectors are close to one another
    in a root sum square (Euclidean norm) sense.)
 */
-inline bool
-CheckItem::within_rss_tolerance (
-   const double computed[3],
-   const double expected[3],
-   double rss_tolerance)
+inline bool CheckItem::within_rss_tolerance(const double computed[3], const double expected[3], double rss_tolerance)
 {
-   double diff[3];
-   return is_zero (Vector3::vmagsq (Vector3::diff (computed, expected, diff)),
-                   rss_tolerance*rss_tolerance);
+    double diff[3];
+    return is_zero(Vector3::vmagsq(Vector3::diff(computed, expected, diff)), rss_tolerance * rss_tolerance);
 }
-
 
 /**
  * Test whether the computed and expected matrices are close to one another
@@ -989,28 +782,23 @@ CheckItem::within_rss_tolerance (
  * \param[in] expected The expected matrix
  * \param[in] rss_tolerance Allowed RSS error
  */
-inline bool
-CheckItem::within_rss_tolerance (
-   const double computed[3][3],
-   const double expected[3][3],
-   double rss_tolerance)
+inline bool CheckItem::within_rss_tolerance(const double computed[3][3],
+                                            const double expected[3][3],
+                                            double rss_tolerance)
 {
-   double diff[3];
-   double emagsq[3];
+    double diff[3];
+    double emagsq[3];
 
-   emagsq[0] = Vector3::vmagsq (Vector3::diff (computed[0], expected[0], diff));
-   emagsq[1] = Vector3::vmagsq (Vector3::diff (computed[1], expected[1], diff));
-   emagsq[2] = Vector3::vmagsq (Vector3::diff (computed[2], expected[2], diff));
+    emagsq[0] = Vector3::vmagsq(Vector3::diff(computed[0], expected[0], diff));
+    emagsq[1] = Vector3::vmagsq(Vector3::diff(computed[1], expected[1], diff));
+    emagsq[2] = Vector3::vmagsq(Vector3::diff(computed[2], expected[2], diff));
 
-   return is_zero (emagsq[0] + emagsq[1] + emagsq[2],
-                   rss_tolerance*rss_tolerance);
+    return is_zero(emagsq[0] + emagsq[1] + emagsq[2], rss_tolerance * rss_tolerance);
 }
-
 
 /*******************************************************************************
 within_eigen_tolerance
 *******************************************************************************/
-
 
 /**
  * Test whether the computed and expected matrices are close to one another
@@ -1022,29 +810,24 @@ within_eigen_tolerance
  * \param[in] angular_tolerance Allowed angular error\n Units: r
  */
 
-
 /*
 Purpose:
   (Test whether the computed and expected matrices are close to one another
    in an eigen rotation sense. The test passes if the eigen rotation from
    expected to computed is a small angle.)
 */
-inline bool
-CheckItem::within_eigen_tolerance (
-   const double computed[3][3],
-   const double expected[3][3],
-   double angular_tolerance)
+inline bool CheckItem::within_eigen_tolerance(const double computed[3][3],
+                                              const double expected[3][3],
+                                              double angular_tolerance)
 {
-   double error_matrix[3][3];
-   double eigen_angle;
-   double eigen_axis[3];
+    double error_matrix[3][3];
+    double eigen_angle;
+    double eigen_axis[3];
 
-   Matrix3x3::product_left_transpose (computed, expected, error_matrix);
-   Orientation::compute_eigen_rotation_from_matrix (
-      error_matrix, &eigen_angle, eigen_axis);
-   return std::abs(eigen_angle) <= angular_tolerance;
+    Matrix3x3::product_left_transpose(computed, expected, error_matrix);
+    Orientation::compute_eigen_rotation_from_matrix(error_matrix, &eigen_angle, eigen_axis);
+    return std::abs(eigen_angle) <= angular_tolerance;
 }
-
 
 /**
  * Test whether the computed and expected quaternions are close to one another
@@ -1055,20 +838,18 @@ CheckItem::within_eigen_tolerance (
  * \param[in] expected The expected value
  * \param[in] angular_tolerance Allowed angular error\n Units: r
  */
-inline bool
-CheckItem::within_eigen_tolerance (
-   const Quaternion & computed,
-   const Quaternion & expected,
-   double angular_tolerance)
+inline bool CheckItem::within_eigen_tolerance(const Quaternion & computed,
+                                              const Quaternion & expected,
+                                              double angular_tolerance)
 {
-   double eigen_angle;
-   double eigen_axis[3];
+    double eigen_angle;
+    double eigen_axis[3];
 
-   computed.eigen_compare (expected, &eigen_angle, eigen_axis);
-   return std::abs(eigen_angle) <= angular_tolerance;
+    computed.eigen_compare(expected, &eigen_angle, eigen_axis);
+    return std::abs(eigen_angle) <= angular_tolerance;
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

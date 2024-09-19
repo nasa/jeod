@@ -1,4 +1,4 @@
-dr_group = trick.sim_services.DRAscii("V_1_State")
+dr_group = trick.sim_services.DRBinary("V_1_State")
 dr_group.set_cycle(5400)
 dr_group.freq = trick.sim_services.DR_Always
 dr_group.add_variable(   "veh.solar_beta.solar_beta")

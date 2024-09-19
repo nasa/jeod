@@ -51,7 +51,7 @@
 Purpose:
   ()
 
- 
+
 
 ******************************************************************************/
 
@@ -63,39 +63,31 @@ Purpose:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A TimeChangeSubscriber is some object that wants to
  * be notified of changes in the nature of time.
  */
-class TimeChangeSubscriber {
-
- JEOD_MAKE_SIM_INTERFACES(TimeChangeSubscriber)
+class TimeChangeSubscriber
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeChangeSubscriber)
 
 public:
+    TimeChangeSubscriber() = default;
+    virtual ~TimeChangeSubscriber() = default;
+    TimeChangeSubscriber(const TimeChangeSubscriber &) = default;
+    TimeChangeSubscriber & operator=(const TimeChangeSubscriber &) = default;
 
-   // NOTE:
-   // The default constructor, copy constructor, and assignment operator
-   // are not declared. The C++ defaults suffice, and until C++11 becomes
-   // viable, not declaring these is the better option.
-
-   /**
-    * Destructor.
-    */
-   virtual ~TimeChangeSubscriber () {}
-
-
-   /**
-    * Somehow respond to a change in the nature of time.
-    */
-   virtual void respond_to_time_change () = 0;
+    /**
+     * Somehow respond to a change in the nature of time.
+     */
+    virtual void respond_to_time_change() = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

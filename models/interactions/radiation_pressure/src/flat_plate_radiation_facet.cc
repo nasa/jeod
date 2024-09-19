@@ -31,7 +31,6 @@ LIBRARY DEPENDENCY:
 
 ******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -44,61 +43,34 @@ LIBRARY DEPENDENCY:
 #include "../include/radiation_messages.hh"
 #include "../include/radiation_third_body.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct a FlatPlateRadiationFacet
- */
-FlatPlateRadiationFacet::FlatPlateRadiationFacet
-(
-   void) : // Return: -- void
-   normal(nullptr)
+namespace jeod
 {
-   sin_theta = 0.0;
-   Vector3::initialize(incident_flux_hat);
-
-}
-
 
 /**
  * Defines the facet data values
  * \param[in] flat_plate pointer to the flat plate object
  */
-void
-FlatPlateRadiationFacet::define_facet (
-   FlatPlate * flat_plate)
+void FlatPlateRadiationFacet::define_facet(FlatPlate * flat_plate)
 {
-   // already done RadiationFacet values, which includes position.
-   // point the local center of pressure and normal to the correct
-   // flat plate values.  Note that these values are dynamic if
-   // the surface is articulated, so their values cannot be copied over.
-   center_pressure = flat_plate->position;
-   normal = flat_plate->normal;
-
-   return;
+    // already done RadiationFacet values, which includes position.
+    // point the local center of pressure and normal to the correct
+    // flat plate values.  Note that these values are dynamic if
+    // the surface is articulated, so their values cannot be copied over.
+    center_pressure = flat_plate->position;
+    normal = flat_plate->normal;
 }
-
-
-
-
 
 /**
  * Initializes the Facet for use in the model
  * \param[in] center_grav center of gravity position\n Units: M
  */
-void
-FlatPlateRadiationFacet::initialize_geom (
-   double center_grav[3])
+void FlatPlateRadiationFacet::initialize_geom(double center_grav[3])
 {
-   RadiationFacet::initialize();
+    RadiationFacet::initialize();
 
-   thermal.initialize (base_facet->temperature, base_facet->area);
-   Vector3::diff (center_pressure,
-                  center_grav,
-                  crot_to_cp);
-   return;
+    thermal.initialize(base_facet->temperature, base_facet->area);
+    Vector3::diff(center_pressure, center_grav, crot_to_cp);
 }
 
 /**
@@ -110,121 +82,90 @@ FlatPlateRadiationFacet::initialize_geom (
  * \param[in] flux_struct_hat the flux unit vector in structural frame
  * \param[in] calculate_forces on/off flag for whether to calculate forces.
  */
-void
-FlatPlateRadiationFacet::incident_radiation (
-   const double flux_mag,
-   const double flux_struct_hat[3],
-   const bool calculate_forces)
+void FlatPlateRadiationFacet::incident_radiation(const double flux_mag,
+                                                 const double flux_struct_hat[3],
+                                                 const bool calculate_forces)
 {
-   sin_theta = -(Vector3::dot (normal, flux_struct_hat));
-   if (sin_theta < 0) { /* plate is not illuminated */
-      return;
-   }
-   cx_area               = base_facet->area * sin_theta;
+    sin_theta = -(Vector3::dot(normal, flux_struct_hat));
+    if(sin_theta < 0)
+    { /* plate is not illuminated */
+        return;
+    }
+    cx_area = base_facet->area * sin_theta;
 
-   areaxflux_e           = cx_area * flux_mag;
-   thermal.power_absorb += (1.0 - albedo) * areaxflux_e;
+    areaxflux_e = cx_area * flux_mag;
+    thermal.power_absorb += (1.0 - albedo) * areaxflux_e;
 
-   if (!calculate_forces) {
-      return;
-   }
+    if(!calculate_forces)
+    {
+        return;
+    }
 
-   // Convert to momentum
-   areaxflux = areaxflux_e / speed_of_light;
+    // Convert to momentum
+    areaxflux = areaxflux_e / speed_of_light;
 
-   double tempvec1[3];
-   double tempvec2[3];
-   // absorption
-   Vector3::scale (flux_struct_hat,
-                   areaxflux * (1.0 - albedo),
-                   tempvec1);
-   Vector3::incr( tempvec1,
-                  F_absorption);
+    double tempvec1[3];
+    double tempvec2[3];
+    // absorption
+    Vector3::scale(flux_struct_hat, areaxflux * (1.0 - albedo), tempvec1);
+    Vector3::incr(tempvec1, F_absorption);
 
-   // reflection
-   double ref_flux =  areaxflux * albedo; // total reflected flux
+    // reflection
+    double ref_flux = areaxflux * albedo; // total reflected flux
 
-   // diffuse reflection
-   Vector3::scale ( normal,
-                    two_thirds,
-                    tempvec1),
-                    Vector3::diff (  flux_struct_hat,
-                                     tempvec1,
-                                     tempvec2 ); // tempvec2 = phi_hat - 2/3 n_hat
-   Vector3::scale ( diffuse * ref_flux,
-                    tempvec2);
-   Vector3::incr (  tempvec2,
-                    F_diffuse);
+    // diffuse reflection
+    Vector3::scale(normal, two_thirds, tempvec1), Vector3::diff(flux_struct_hat,
+                                                                tempvec1,
+                                                                tempvec2); // tempvec2 = phi_hat - 2/3 n_hat
+    Vector3::scale(diffuse * ref_flux, tempvec2);
+    Vector3::incr(tempvec2, F_diffuse);
 
-   // specular reflection */
-   Vector3::scale (normal,
+    // specular reflection */
+    Vector3::scale(normal,
                    2 * (diffuse - 1) * ref_flux * sin_theta,
                    tempvec1); // (diffuse-1) < 0, this makes F opposite to
-   // normal
-   Vector3::incr ( tempvec1,
-                   F_specular);
-
-   return;
+    // normal
+    Vector3::incr(tempvec1, F_specular);
 }
-
-
 
 /**
  * Calculates the radiative emission force, accumulated force, and torque
  * acting on a facet.
  */
-void
-FlatPlateRadiationFacet::radiation_pressure (
-   void)
+void FlatPlateRadiationFacet::radiation_pressure()
 {
-   if (thermal.integrable_object.active) {
-      thermal.integrable_object.compute_temp_dot();
-   }
+    if(thermal.integrable_object.active)
+    {
+        thermal.integrable_object.compute_temp_dot();
+    }
 
-   if (thermal.power_emit < 0) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, RadiationMessages::unknown_numerical_error, "\n"
-         "On facet(%s), the calculation of emitted power yielded negative emission"
-         ",\n which is a non-physical situation corresponding to emission \n"
-         "producing a net gain in thermal energy.\n", base_facet->name.c_str());
-   }
-   else {
-      // If there is some thermal emission, convert it to an emission force and
-      // add it to the total plate force to give the final plate force
-      Vector3::scale (normal,
-                      -two_thirds * thermal.power_emit / speed_of_light,
-                      F_emission);
-   }
-   //  Combining, accumulating
-   Vector3::sum ( F_absorption,
-                  F_specular,
-                  F_diffuse,
-                  force);
-   Vector3::incr (F_emission,
-                  force);
+    if(thermal.power_emit < 0)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             RadiationMessages::unknown_numerical_error,
+                             "\n"
+                             "On facet(%s), the calculation of emitted power yielded negative emission"
+                             ",\n which is a non-physical situation corresponding to emission \n"
+                             "producing a net gain in thermal energy.\n",
+                             base_facet->name.c_str());
+    }
+    else
+    {
+        // If there is some thermal emission, convert it to an emission force and
+        // add it to the total plate force to give the final plate force
+        Vector3::scale(normal, -two_thirds * thermal.power_emit / speed_of_light, F_emission);
+    }
+    //  Combining, accumulating
+    Vector3::sum(F_absorption, F_specular, F_diffuse, force);
+    Vector3::incr(F_emission, force);
 
-   // - Reminder crot_to_cp is the moment arm from cg (center of rotation) to cp
-   // (center of pressure - effective center of facet)
-   Vector3::cross (crot_to_cp,
-                   force,
-                   torque);
-
-   return;
+    // - Reminder crot_to_cp is the moment arm from cg (center of rotation) to cp
+    // (center of pressure - effective center of facet)
+    Vector3::cross(crot_to_cp, force, torque);
 }
 
-/**
- * Destructor for FlatPlateRadiationFacet
- */
-FlatPlateRadiationFacet::~FlatPlateRadiationFacet (
-   void)
-{
-
-   // empty for now
-
-}
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

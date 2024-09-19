@@ -47,7 +47,6 @@
  * used in the Radiation model.
  */
 
-
 /*******************************************************************************
 
 Purpose:
@@ -67,7 +66,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_RADIATION_MESSAGES_HH
 #define JEOD_RADIATION_MESSAGES_HH
 
@@ -76,56 +74,50 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides error messages
  */
-class RadiationMessages {
+class RadiationMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationMessages)
 
+    // Static member data
+public:
+    // Errors
+    /**
+     * The setup was not fully defined.
+     */
+    static const char * incomplete_setup_error; //!< trick_units(--)
+    /**
+     * The setup is invalid
+     */
+    static const char * invalid_setup_error; //!< trick_units(--)
+    /**
+     * Something internal went wrong in the setup methods without obvious user
+     * error.
+     */
+    static const char * operational_setup_error; //!< trick_units(--)
+    /**
+     * A function was called before it was fully implemented.
+     */
+    static const char * invalid_function_call; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(RadiationMessages)
+    /**
+     * Something went horribly wrong.
+     */
+    static const char * unknown_numerical_error; //!< trick_units(--)
 
-
- // Static member data
- public:
-   // Errors
-   /**
-    * The setup was not fully defined.
-    */
-   static char const * incomplete_setup_error; //!< trick_units(--)
-   /**
-    * The setup is invalid
-    */
-   static char const * invalid_setup_error; //!< trick_units(--)
-   /**
-    * Something internal went wrong in the setup methods without obvious user
-    * error.
-    */
-   static char const * operational_setup_error; //!< trick_units(--)
-   /**
-    * A function was called before it was fully implemented.
-    */
-   static char const * invalid_function_call; //!< trick_units(--)
-
-   /**
-    * Something went horribly wrong.
-    */
-   static char const * unknown_numerical_error; //!< trick_units(--)
-
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   RadiationMessages (void);
-   RadiationMessages (const RadiationMessages &);
-   RadiationMessages & operator= (const RadiationMessages &);
-
+    // The constructors and assignment operator for this class are deleted.
+    RadiationMessages() = delete;
+    RadiationMessages(const RadiationMessages &) = delete;
+    RadiationMessages & operator=(const RadiationMessages &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

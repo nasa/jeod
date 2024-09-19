@@ -53,18 +53,16 @@ Library dependencies:
   ((../src/body_wrench_collect.cc))
 */
 
-
 #ifndef JEOD_BODY_WRENCH_COLLECT_HH
 #define JEOD_BODY_WRENCH_COLLECT_HH
-
 
 #include "wrench.hh"
 
 #include "utils/container/include/pointer_vector.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Serves as the collection point for wrenches that act on a vehicle.
@@ -80,7 +78,6 @@ namespace jeod {
 class BodyWrenchCollect
 {
 public:
-
     // Member data
 
     /**
@@ -99,28 +96,24 @@ public:
      */
     JeodPointerVector<Wrench>::type collect_wrench; //!< trick_io(**)
 
-
     // Member functions
-
 
     // Member functions
 
     /**
      * Default constructor.
      */
-    BodyWrenchCollect ();
+    BodyWrenchCollect();
 
     /**
      * Destructor.
      */
-   ~BodyWrenchCollect ();
+    ~BodyWrenchCollect();
 
-
-   // The copy constructor and copy assignment operator are deleted
-   // to avoid erroneous copies.
-   BodyWrenchCollect (const BodyWrenchCollect&) = delete;
-   BodyWrenchCollect& operator= (const BodyWrenchCollect&) = delete;
-
+    // The copy constructor and copy assignment operator are deleted
+    // to avoid erroneous copies.
+    BodyWrenchCollect(const BodyWrenchCollect &) = delete;
+    BodyWrenchCollect & operator=(const BodyWrenchCollect &) = delete;
 
     /**
      * Accumulate the collected wrenches.
@@ -128,9 +121,9 @@ public:
      * The summation is about sum.point.
      * @return Reference to the input wrench.
      */
-    Wrench& accumulate(Wrench& sum) const
+    Wrench & accumulate(Wrench & sum) const
     {
-        sum.accumulate (collect_wrench);
+        sum.accumulate(collect_wrench);
         return sum;
     }
 
@@ -140,18 +133,16 @@ public:
      * @param sum    Wrench into which the accumulated sum is to be placed.
      * @return Reference to the input wrench.
      */
-    Wrench& accumulate(const double point[3], Wrench& sum) const
+    Wrench & accumulate(const double point[3], Wrench & sum) const
     {
         sum.set_point(point);
         return accumulate(sum);
     }
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

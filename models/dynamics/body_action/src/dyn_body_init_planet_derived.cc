@@ -27,7 +27,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -41,60 +40,28 @@ Library dependencies:
 #include "../include/body_action_messages.hh"
 #include "../include/dyn_body_init_planet_derived.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * DynBodyInitPlanetDerived default constructor.
- */
-DynBodyInitPlanetDerived::DynBodyInitPlanetDerived (
-   void)
-:
-   DynBodyInitWrtPlanet(),
-   ref_body_name(),
-   ref_body(nullptr),
-   required_items(RefFrameItems::Pos_Vel_Att_Rate),
-   body_is_required(true)
+namespace jeod
 {
-   return;
-}
-
-
-/**
- * DynBodyInitPlanetDerived destructor.
- */
-DynBodyInitPlanetDerived::~DynBodyInitPlanetDerived (
-   void)
-{
-   return;
-}
-
 
 /**
  * Initialize the initializer.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitPlanetDerived::initialize (
-   DynManager & dyn_manager)
+void DynBodyInitPlanetDerived::initialize(DynManager & dyn_manager)
 {
+    // Pass the message up the chain. This will initialize the base
+    // characteristics of the instance.
+    DynBodyInitWrtPlanet::initialize(dyn_manager);
 
-   // Pass the message up the chain. This will initialize the base
-   // characteristics of the instance.
-   DynBodyInitWrtPlanet::initialize (dyn_manager);
-
-
-   // Find the reference body that will be used to determine the derived frame.
-   // Bypass if some derived class already set this or if the
-   // ref_body is not truly needed.
-   if ((ref_body == nullptr) && body_is_required) {
-      ref_body = find_dyn_body (dyn_manager, ref_body_name, "ref_body_name");
-   }
-
-   return;
+    // Find the reference body that will be used to determine the derived frame.
+    // Bypass if some derived class already set this or if the
+    // ref_body is not truly needed.
+    if((ref_body == nullptr) && body_is_required)
+    {
+        ref_body = find_dyn_body(dyn_manager, ref_body_name, "ref_body_name");
+    }
 }
-
 
 /**
  * Indicate whether the initializer is ready to run.
@@ -103,22 +70,16 @@ DynBodyInitPlanetDerived::initialize (
  * items before the initializer can run.
  * @return Is initializer ready?
  */
-bool
-DynBodyInitPlanetDerived::is_ready (
-   void)
+bool DynBodyInitPlanetDerived::is_ready()
 {
-
-   // The initializer is ready if all internal and external dependencies have
-   // been satisfied.
-   // The parent class handles the internal dependencies.
-   // Externally, the reference body (if any) must have the requisite
-   // required_items set before the initializer can run.
-   return (DynBodyInitWrtPlanet::is_ready () &&
-           ((ref_body == nullptr) ||
-            ref_body->composite_body.initialized_items.contains (
-               required_items)));
+    // The initializer is ready if all internal and external dependencies have
+    // been satisfied.
+    // The parent class handles the internal dependencies.
+    // Externally, the reference body (if any) must have the requisite
+    // required_items set before the initializer can run.
+    return (DynBodyInitWrtPlanet::is_ready() &&
+            ((ref_body == nullptr) || ref_body->composite_body.initialized_items.contains(required_items)));
 }
-
 
 /**
  * Apply the initializer: This is just a pass through.
@@ -126,18 +87,13 @@ DynBodyInitPlanetDerived::is_ready (
  * DynBodyInit uses to initialize the state.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitPlanetDerived::apply (
-   DynManager & dyn_manager)
+void DynBodyInitPlanetDerived::apply(DynManager & dyn_manager)
 {
-
-   // Pass the message up the chain.
-   DynBodyInitWrtPlanet::apply (dyn_manager);
-
-   return;
+    // Pass the message up the chain.
+    DynBodyInitWrtPlanet::apply(dyn_manager);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -1,10 +1,10 @@
 trick.sim_services.exec_set_trap_sigfpe(1)
 
 # Set logging for the celestial objects in the simulation.
-exec(compile(open("../Log_data/earth.dr", "rb").read(), "../Log_data/earth.dr", 'exec'))
-exec(compile(open("../Log_data/moon.dr", "rb").read(), "../Log_data/moon.dr", 'exec'))
-exec(compile(open("../Log_data/mars.dr", "rb").read(), "../Log_data/mars.dr", 'exec'))
-exec(compile(open("../Log_data/sun.dr", "rb").read(), "../Log_data/sun.dr", 'exec'))
+exec(compile(open("../Log_data/earth.py", "rb").read(), "../Log_data/earth.py", 'exec'))
+exec(compile(open("../Log_data/moon.py", "rb").read(), "../Log_data/moon.py", 'exec'))
+exec(compile(open("../Log_data/mars.py", "rb").read(), "../Log_data/mars.py", 'exec'))
+exec(compile(open("../Log_data/sun.py", "rb").read(), "../Log_data/sun.py", 'exec'))
 
 # Set the conditions for the simulation.
 exec(compile(open("Modified_data/sim_start.py", "rb").read(), "Modified_data/sim_start.py", 'exec'))

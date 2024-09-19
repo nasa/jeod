@@ -44,7 +44,7 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
- 
+
 
 Library dependencies:
   ((../src/time_new.cc))
@@ -56,35 +56,31 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "environment/time/include/time_standard.hh"
-
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*----------------------------------------------------------------------------*/
-class TimeNew : public TimeStandard {  // New Time class
+class TimeNew : public TimeStandard
+{ // New Time class
 
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeNew)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeNew)
-
-// Member Data
+    // Member functions:
 public:
+    TimeNew();
+    ~TimeNew() override = default;
+    TimeNew(const TimeNew &) = delete;
+    TimeNew & operator=(const TimeNew &) = delete;
 
-// Member functions:
-public:
-  // Constructor
-  TimeNew();
-
-  // Destructor
-  ~TimeNew() override;
-  void set_epoch(void) override {};
-
+    void set_epoch() override{};
 };
+
 /*----------------------------------------------------------------------------*/
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

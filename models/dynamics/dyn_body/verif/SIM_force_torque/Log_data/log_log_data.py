@@ -2,7 +2,7 @@ def log_3_vec(drg, var):
   for ii in range(3):
     drg.add_variable( var + "[" + str(ii) + "]")
 
-dr_group = trick.sim_services.DRAscii("rot_state")
+dr_group = trick.sim_services.DRBinary("rot_state")
 dr_group.set_cycle(1)
 dr_group.freq = trick.sim_services.DR_Always
 trick.add_data_record_group(dr_group)

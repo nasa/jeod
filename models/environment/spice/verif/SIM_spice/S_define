@@ -37,8 +37,13 @@
 #define DYNAMICS 1.0
 #define LOW_RATE_ENV 100
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #define TIME_MODEL_UTC
@@ -47,18 +52,18 @@
 #include "jeod_time.sm"
 
 #include "dynamics.sm"
-#include "environment_spice.sm"
 #include "earth_basic.sm"
-#include "moon_basic.sm"
-#include "sun_basic.sm"
-#include "mars_basic.sm"
-#include "itokawa_basic.sm"
-#include "phobos_basic.sm"
+#include "environment_spice.sm"
 #include "in_ssb.sm"
+#include "itokawa_basic.sm"
+#include "mars_basic.sm"
+#include "moon_basic.sm"
+#include "phobos_basic.sm"
+#include "sun_basic.sm"
 
-InSSBSimObject earth_in_ssb (dynamics.dyn_manager, earth.planet.inertial);
-InSSBSimObject mars_in_ssb (dynamics.dyn_manager, mars.planet.inertial);
-InSSBSimObject moon_in_ssb (dynamics.dyn_manager, moon.planet.inertial);
-InSSBSimObject sun_in_ssb (dynamics.dyn_manager, sun.planet.inertial);
+InSSBSimObject earth_in_ssb(dynamics.dyn_manager, earth.planet.inertial);
+InSSBSimObject mars_in_ssb(dynamics.dyn_manager, mars.planet.inertial);
+InSSBSimObject moon_in_ssb(dynamics.dyn_manager, moon.planet.inertial);
+InSSBSimObject sun_in_ssb(dynamics.dyn_manager, sun.planet.inertial);
 
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

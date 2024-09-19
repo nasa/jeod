@@ -46,7 +46,6 @@
  * Define an IntegrableObject class adapted to thermal integration
  */
 
-
 /************************** TRICK HEADER***************************************
 PURPOSE:
 ()
@@ -77,109 +76,100 @@ Library dependencies:
 // Model includes
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class ThermalFacetRider;
 
 /**
  * Encapsulates a thermal integrator for a facet.
  */
-class ThermalIntegrableObject : public er7_utils::IntegrableObject {
-
-   JEOD_MAKE_SIM_INTERFACES(ThermalIntegrableObject)
+class ThermalIntegrableObject : public er7_utils::IntegrableObject
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ThermalIntegrableObject)
 
 public:
+    // Member methods
+    ThermalIntegrableObject();
+    ~ThermalIntegrableObject() override;
+    ThermalIntegrableObject & operator=(const ThermalIntegrableObject &) = delete;
+    ThermalIntegrableObject(const ThermalIntegrableObject &) = delete;
 
-   // Member methods
+    void initialize(double temperature, ThermalFacetRider & associated_rider);
 
-   ThermalIntegrableObject();
-   ~ThermalIntegrableObject() override;
+    // Required by IntegrableObject
+    void create_integrators(const er7_utils::IntegratorConstructor & generator,
+                            er7_utils::IntegrationControls & controls,
+                            const er7_utils::TimeInterface & time_if) override;
 
-   void initialize (double temperature, ThermalFacetRider &associated_rider);
+    // Destroy the integrators.
+    void destroy_integrators() override; // cppcheck-suppress virtualCallInConstructor
 
-   // Required by IntegrableObject
-   void create_integrators (
-      const er7_utils::IntegratorConstructor & generator,
-      er7_utils::IntegrationControls & controls,
-      const er7_utils::TimeInterface & time_if) override;
+    // Reset the integrators.
+    void reset_integrators() override;
 
-   // Destroy the integrators.
-   void destroy_integrators () override; //cppcheck-suppress virtualCallInConstructor
+    // Propagate state.
+    er7_utils::IntegratorResult integrate(double dyn_dt, unsigned int target_stage) override;
 
-   // Reset the integrators.
-   void reset_integrators () override;
+    // Computes time derivative of temperature and sets rider->power_emitted
+    void compute_temp_dot();
 
-   // Propagate state.
-   er7_utils::IntegratorResult integrate (
-      double dyn_dt, unsigned int target_stage) override;
+    // Accessors
 
-   // Computes time derivative of temperature and sets rider->power_emitted
-   void compute_temp_dot();
+    /**
+     * Get the temperature.
+     * @return Facet temperature.
+     */
+    double get_temp()
+    {
+        return temp;
+    }
 
-   //Accessors
+    /**
+     * Get the temperature time derivative.
+     * @return Facet temperature time derivative.
+     */
+    double get_temp_dot()
+    {
+        return temp_dot;
+    }
 
-   /**
-    * Get the temperature.
-    * @return Facet temperature.
-    */
-   double get_temp ()
-   {
-      return temp;
-   }
+    // Member data
 
-   /**
-    * Get the temperature time derivative.
-    * @return Facet temperature time derivative.
-    */
-   double get_temp_dot ()
-   {
-      return temp_dot;
-   }
-
-
-   // Member data
-
-   /**
-    * If true, this IntegrableObject will integrate temperature.
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * If true, this IntegrableObject will integrate temperature.
+     */
+    bool active{}; //!< trick_units(--)
 
 private:
+    // Member data
+    /**
+     * Integrates temperature on one facet
+     */
+    RestartableScalarFirstOrderODEIntegrator integrator; //!< trick_units(--)
 
-   // Member data
-   /**
-    * Integrates temperature on one facet
-    */
-   RestartableScalarFirstOrderODEIntegrator integrator; //!< trick_units(--)
+    /**
+     * Cached pointer to the associated ThermalFacetRider
+     */
+    ThermalFacetRider * rider{}; //!< trick_units(--)
 
-   /**
-    * Cached pointer to the associated ThermalFacetRider
-    */
-   ThermalFacetRider *rider; //!< trick_units(--)
+    /**
+     * Temperature of the facet
+     */
+    double temp{}; //!< trick_units(K)
 
-   /**
-    * Temperature of the facet
-    */
-   double temp; //!< trick_units(K)
+    /**
+     * Time derivative of temperature
+     */
+    double temp_dot{}; //!< trick_units(K/s)
 
-   /**
-    * Time derivative of temperature
-    */
-   double temp_dot; //!< trick_units(K/s)
-
-   /**
-    * Fourth power of current temperature
-    */
-   double t_pow4; //!< trick_units(K*K*K*K)
-
-
-// Assignment and copy constructors are private and unimplemented
-   ThermalIntegrableObject& operator = (const ThermalIntegrableObject& rhs);
-   ThermalIntegrableObject(const ThermalIntegrableObject& rhs);
+    /**
+     * Fourth power of current temperature
+     */
+    double t_pow4{}; //!< trick_units(K*K*K*K)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

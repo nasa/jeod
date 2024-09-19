@@ -41,17 +41,17 @@
 Purpose:
   (This simple simulation tests the JEOD message handling system.)
 
- 
+
 
 *******************************************************************************/
 
-
 #define DYNAMICS 1.0
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
 
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 // Include headers for classes that this class contains:
 
@@ -64,32 +64,32 @@ Purpose:
 //  ( This is the verification driver.)
 //***************************************************************
 
-class VerifSimObject: public Trick::SimObject {
-
-   public:
+class VerifSimObject: public Trick::SimObject
+{
+public:
     jeod::MessageHandlerVerifDriver driver;
     jeod::MessageFileVerif output_file;
 
-//Constructor
-    VerifSimObject() {
+    // Constructor
+    VerifSimObject()
+    {
         // Object construction
         output_file.name = "verification_subscriber";
         output_file.file_name = "jeod_hs";
 
         // Initialization
-        ("default_data") trick_message.mpublisher.subscribe( &output_file );
+        ("default_data") trick_message.mpublisher.subscribe(&output_file);
         ("initialization") output_file.init();
 
         // Scheduled jobs
         (DYNAMICS, "scheduled") driver.generate_messages();
 
         // Shutdown (do not want to capture SIM / CPU TIME output)
-        ("shutdown") trick_message.mpublisher.unsubscribe( &output_file );
+        ("shutdown") trick_message.mpublisher.unsubscribe(&output_file);
     }
 
-  private:
-    VerifSimObject (const VerifSimObject&);
-    VerifSimObject & operator = (const VerifSimObject&);
-
+    VerifSimObject(const VerifSimObject &) = delete;
+    VerifSimObject & operator=(const VerifSimObject &) = delete;
 };
+
 VerifSimObject verif;

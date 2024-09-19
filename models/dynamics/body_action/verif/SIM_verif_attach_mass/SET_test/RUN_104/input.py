@@ -2,9 +2,9 @@ exec(compile(open("Modified_data/system.py", "rb").read(), "Modified_data/system
 
 parent_mass_default()
 parent_mass_points_1()
-components.parent_init.points[0].set_name("left_to_right")
-components.parent_init.points[0].position  = [ 0.0, 0.0, -1.0]
-components.parent_init.points[0].pt_orientation.trans = [[ 0.0, 0.0, -1.0],
+components.parent_init.get_mass_point(0).set_name("left_to_right")
+components.parent_init.get_mass_point(0).position  = [ 0.0, 0.0, -1.0]
+components.parent_init.get_mass_point(0).pt_orientation.trans = [[ 0.0, 0.0, -1.0],
                                                          [ 0.0, 1.0,  0.0],
                                                          [ 1.0, 0.0,  0.0]]
 child1_mass_default()

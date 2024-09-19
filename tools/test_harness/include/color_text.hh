@@ -51,75 +51,69 @@ Purpose:
 #ifndef JEOD_COLOR_TEXT_HH
 #define JEOD_COLOR_TEXT_HH
 
-#include <cstring>
 #include <cstdio>
+#include <cstring>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Defines methods that highlight key outputs from a unit test run.
  */
-class ColorText {
+class ColorText
+{
+public:
+    /**
+     * Enumerates the standard ASCII text colors, sans black and white.
+     */
+    enum TextColor
+    {
+        Red = 31,     ///< Red text
+        Green = 32,   ///< Green text
+        Yellow = 33,  ///< Yellow text
+        Blue = 34,    ///< Blue text
+        Magenta = 35, ///< Magenta text
+        Cyan = 36     ///< Cyan text
+    };
 
- public:
+    ColorText();
 
-   /**
-    * Enumerates the standard ASCII text colors, sans black and white.
-    */
-   enum TextColor {
-      Red     = 31,   ///< Red text
-      Green   = 32,   ///< Green text
-      Yellow  = 33,   ///< Yellow text
-      Blue    = 34,   ///< Blue text
-      Magenta = 35,   ///< Magenta text
-      Cyan    = 36    ///< Cyan text
-   };
+    std::string color(const std::string & text, TextColor color);
 
-   ColorText ();
+    std::string pass_fail(bool passed);
+    std::string pass_fail(bool passed, const std::string & text);
+    std::string pass_fail(bool passed, const char * format, int number);
+    std::string pass_fail(bool passed, const char * format, double number);
+    std::string pass_fail(
+        const bool passed[3], const char * format, unsigned int nsp1st, unsigned int nspmid, double number[3]);
+    std::string pass_fail(
+        const bool passed[3][3], const char * format, unsigned int nsp1st, unsigned int nspmid, double number[3][3]);
 
-   std::string color (const std::string & text, TextColor color);
-
-   std::string pass_fail (bool passed);
-   std::string pass_fail (bool passed, const std::string & text);
-   std::string pass_fail (bool passed, const char * format, int number);
-   std::string pass_fail (bool passed, const char * format, double number);
-   std::string pass_fail (
-      const bool passed[3], const char * format,
-      unsigned int nsp1st, unsigned int nspmid, double number[3]);
-   std::string pass_fail (
-      const bool passed[3][3], const char * format,
-      unsigned int nsp1st, unsigned int nspmid, double number[3][3]);
-
- private:
-   /**
-    * Array of ascii colors.
-    */
-   char ascii_color[7][6]; //!< trick_units(--)
-   /**
-    * Buffer for internal use.
-    */
-   char buf[64]; //!< trick_units(--)
+private:
+    /**
+     * Array of ascii colors.
+     */
+    char ascii_color[7][6]; //!< trick_units(--)
+    /**
+     * Buffer for internal use.
+     */
+    char buf[64]; //!< trick_units(--)
 };
-
 
 /**
  * Default constructor.
  */
-inline
-ColorText::ColorText (
-   void)
+inline ColorText::ColorText()
 {
-   std::strcpy (&ascii_color[0][0], "\033[00m");
-   std::strcpy (&ascii_color[1][0], "\033[31m");
-   std::strcpy (&ascii_color[2][0], "\033[32m");
-   std::strcpy (&ascii_color[3][0], "\033[33m");
-   std::strcpy (&ascii_color[4][0], "\033[34m");
-   std::strcpy (&ascii_color[5][0], "\033[35m");
-   std::strcpy (&ascii_color[6][0], "\033[36m");
+    std::strcpy(&ascii_color[0][0], "\033[00m");
+    std::strcpy(&ascii_color[1][0], "\033[31m");
+    std::strcpy(&ascii_color[2][0], "\033[32m");
+    std::strcpy(&ascii_color[3][0], "\033[33m");
+    std::strcpy(&ascii_color[4][0], "\033[34m");
+    std::strcpy(&ascii_color[5][0], "\033[35m");
+    std::strcpy(&ascii_color[6][0], "\033[36m");
 }
-
 
 /**
  * Base method used by the other ColorText methods to wrap a chunk of text
@@ -130,16 +124,12 @@ ColorText::ColorText (
  * \param[in] text       The text to be processed
  * \param[in] text_color The color to be applied
  */
-inline std::string
-ColorText::color (
-   const std::string & text,
-   TextColor text_color)
+inline std::string ColorText::color(const std::string & text, TextColor text_color)
 {
-   unsigned int color_idx = static_cast<unsigned int>(text_color) - 30;
-   std::string result = ascii_color[color_idx] + text + ascii_color[0];
-   return result;
+    unsigned int color_idx = static_cast<unsigned int>(text_color) - 30;
+    std::string result = ascii_color[color_idx] + text + ascii_color[0];
+    return result;
 }
-
 
 /**
  * Generate a string whose c_str() value is "Passed" or "Failed" sandwiched
@@ -149,18 +139,17 @@ ColorText::color (
  * \return  An ASCII-colored Passed/Failed string
  * \param[in] passed Pass/fail flag
  */
-inline std::string
-ColorText::pass_fail (
-   bool passed)
+inline std::string ColorText::pass_fail(bool passed)
 {
-   if (passed) {
-      return color ("Passed", Green);
-   }
-   else {
-      return color ("Failed", Red);
-   }
+    if(passed)
+    {
+        return color("Passed", Green);
+    }
+    else
+    {
+        return color("Failed", Red);
+    }
 }
-
 
 /**
  * Generate a string whose c_str() value is that of the provided @a text but
@@ -170,14 +159,17 @@ ColorText::pass_fail (
  * \param[in] passed Pass/fail flag
  * \param[in] text   String
  */
-inline std::string
-ColorText::pass_fail (
-   bool passed,
-   const std::string & text)
+inline std::string ColorText::pass_fail(bool passed, const std::string & text)
 {
-   return color (text, passed ? Green : Red);
+    if(passed)
+    {
+        return color(text, Green);
+    }
+    else
+    {
+        return color(text, Red);
+    }
 }
-
 
 /**
  * Generate a string whose c_str() value is the number as formatted per the
@@ -188,16 +180,18 @@ ColorText::pass_fail (
  * \param[in] format C-language sprintf format (e.g. "%d")
  * \param[in] number The number to be formatted and colored
  */
-inline std::string
-ColorText::pass_fail (
-   bool passed,
-   const char * format,
-   int number)
+inline std::string ColorText::pass_fail(bool passed, const char * format, int number)
 {
-   std::snprintf (buf, sizeof(buf), format, number);
-   return color (buf, passed ? Green : Red);
+    std::snprintf(buf, sizeof(buf), format, number);
+    if(passed)
+    {
+        return color(buf, Green);
+    }
+    else
+    {
+        return color(buf, Red);
+    }
 }
-
 
 /**
  * Generate a string whose c_str() value is the number as formatted per the
@@ -208,16 +202,18 @@ ColorText::pass_fail (
  * \param[in] format C-language sprintf format (e.g. "%g" or "%.7f")
  * \param[in] number The number to be formatted and colored
  */
-inline std::string
-ColorText::pass_fail (
-   bool passed,
-   const char * format,
-   double number)
+inline std::string ColorText::pass_fail(bool passed, const char * format, double number)
 {
-   std::snprintf (buf, sizeof(buf), format, number);
-   return color (buf, passed ? Green : Red);
+    std::snprintf(buf, sizeof(buf), format, number);
+    if(passed)
+    {
+        return color(buf, Green);
+    }
+    else
+    {
+        return color(buf, Red);
+    }
 }
-
 
 /**
  * Generate a string whose c_str() value is the number as formatted per the
@@ -230,31 +226,34 @@ ColorText::pass_fail (
  * \param[in] nspmid Number of spaces between items
  * \param[in] number The vector to be formatted and colored
  */
-inline std::string
-ColorText::pass_fail (
-   const bool passed[3],
-   const char * format,
-   unsigned int nsp1st,
-   unsigned int nspmid,
-   double number[3])
+inline std::string ColorText::pass_fail(
+    const bool passed[3], const char * format, unsigned int nsp1st, unsigned int nspmid, double number[3])
 {
-   std::snprintf (buf, sizeof(buf), "%*s", nsp1st, "");
-   std::string result (buf);
+    std::snprintf(buf, sizeof(buf), "%*s", nsp1st, "");
+    std::string result(buf);
 
-   std::snprintf (buf, sizeof(buf), "%*s", nspmid, "");
-   std::string sep (buf);
+    std::snprintf(buf, sizeof(buf), "%*s", nspmid, "");
+    std::string sep(buf);
 
-   for (unsigned int ii = 0; ii < 3; ++ii) {
-      std::snprintf (buf, sizeof(buf), format, number[ii]);
-      result += color (buf, passed[ii] ? Green : Red);
-      if (ii < 2) {
-         result += sep;
-      }
-   }
+    for(unsigned int ii = 0; ii < 3; ++ii)
+    {
+        std::snprintf(buf, sizeof(buf), format, number[ii]);
+        if(passed[ii])
+        {
+            result += color(buf, Green);
+        }
+        else
+        {
+            result += color(buf, Red);
+        }
+        if(ii < 2)
+        {
+            result += sep;
+        }
+    }
 
-   return result;
+    return result;
 }
-
 
 /**
  * Generate a string whose c_str() value is the number as formatted per the
@@ -267,25 +266,21 @@ ColorText::pass_fail (
  * \param[in] nspmid Number of spaces between items
  * \param[in] number The matrix to be formatted and colored
  */
-inline std::string
-ColorText::pass_fail (
-   const bool passed[3][3],
-   const char * format,
-   unsigned int nsp1st,
-   unsigned int nspmid,
-   double number[3][3])
+inline std::string ColorText::pass_fail(
+    const bool passed[3][3], const char * format, unsigned int nsp1st, unsigned int nspmid, double number[3][3])
 {
-   std::string result("");
+    std::string result("");
 
-   for (unsigned int ii = 0; ii < 3; ++ii) {
-      result += pass_fail (passed[ii], format, nsp1st, nspmid, number[ii]);
-      result += "\n";
-   }
+    for(unsigned int ii = 0; ii < 3; ++ii)
+    {
+        result += pass_fail(passed[ii], format, nsp1st, nspmid, number[ii]);
+        result += "\n";
+    }
 
-   return result;
+    return result;
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

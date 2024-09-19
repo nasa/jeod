@@ -51,10 +51,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_SIMPLE_CHECKPOINTABLE_HH
 #define JEOD_SIMPLE_CHECKPOINTABLE_HH
@@ -67,9 +66,9 @@ Purpose:
 // Model includes
 #include "checkpointable.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The SimpleCheckpointable class provides a simple checkpoint/restart interface
@@ -83,116 +82,111 @@ namespace jeod {
  * classes should not override the overrides provided by this class. Derived
  * classes can override the pre_ and post_ checkpoint and restart methods.
  */
-class SimpleCheckpointable : public JeodCheckpointable {
-
-   JEOD_MAKE_SIM_INTERFACES(SimpleCheckpointable)
+class SimpleCheckpointable : public JeodCheckpointable
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SimpleCheckpointable)
 
 public:
-   /**
-    * Construct a SimpleCheckpointable object.
-    */
-   SimpleCheckpointable () {
-   }
+    /**
+     * Construct a SimpleCheckpointable object.
+     */
+    SimpleCheckpointable() = default;
 
-   /**
-    * Destruct a SimpleCheckpointable object.
-    */
-   ~SimpleCheckpointable (void) override {}
+    /**
+     * Destruct a SimpleCheckpointable object.
+     */
+    ~SimpleCheckpointable() override = default;
 
-   /**
-    * Return the name of the initial restart action, in this case "restore".
-    * A derived class can of course override this.
-    */
-   const std::string get_init_name (void) override {
-      return "restore";
-   }
+    /**
+     * Return the name of the initial restart action, in this case "restore".
+     * A derived class can of course override this.
+     */
+    const std::string get_init_name() override
+    {
+        return "restore";
+    }
 
-   /**
-    * Return the name of the current restart action, in this case "".
-    * This method is not called because the class immediately designates the
-    * checkpoint to be finished.
-    */
-   const std::string get_item_name (void) override { return ""; }
+    /**
+     * Return the name of the current restart action, in this case "".
+     * This method is not called because the class immediately designates the
+     * checkpoint to be finished.
+     */
+    const std::string get_item_name() override
+    {
+        return "";
+    }
 
-   /**
-    * Return the value of the current restart action, in this case "".
-    * This method is not called because the class immediately designates the
-    * checkpoint to be finished.
-    */
-   const std::string get_item_value (void) override { return ""; }
+    /**
+     * Return the value of the current restart action, in this case "".
+     * This method is not called because the class immediately designates the
+     * checkpoint to be finished.
+     */
+    const std::string get_item_value() override
+    {
+        return "";
+    }
 
-   /**
-    * In general, start the checkpoint process.
-    * For this class, do nothing.
-    */
-   void start_checkpoint (void) override { }
+    /**
+     * In general, start the checkpoint process.
+     * For this class, do nothing.
+     */
+    void start_checkpoint() override {}
 
-   /**
-    * In general, advance to the next checkpoint item; in this case, do nothing.
-    * This method is not called because the class immediately designates the
-    * checkpoint to be finished.
-    */
-   void advance_checkpoint (void) override { }
+    /**
+     * In general, advance to the next checkpoint item; in this case, do nothing.
+     * This method is not called because the class immediately designates the
+     * checkpoint to be finished.
+     */
+    void advance_checkpoint() override {}
 
-   /**
-    * In general, indicate when checkpointing is complete.
-    * For this class, always return true.
-    */
-   bool is_checkpoint_finished (void) override {
-      return true;
-   }
+    /**
+     * In general, indicate when checkpointing is complete.
+     * For this class, always return true.
+     */
+    bool is_checkpoint_finished() override
+    {
+        return true;
+    }
 
-   /**
-    * In general, respond to the actions recorded in the checkpoint file.
-    * For this class, the only recorded action is "restore", and the response
-    * is to invoke the (undefined) simple_restore method.
-    * @param action_name  The name of the action; here just "restore".
-    * @param action_value The value of the action; here ignored.
-    * @return             Success (zero) / failure (non-zero).
-    */
-   int perform_restore_action (
-      const std::string & action_name,
-      const std::string & action_value JEOD_UNUSED) override
-   {
-      int return_code;
+    /**
+     * In general, respond to the actions recorded in the checkpoint file.
+     * For this class, the only recorded action is "restore", and the response
+     * is to invoke the (undefined) simple_restore method.
+     * @param action_name  The name of the action; here just "restore".
+     * @param action_value The value of the action; here ignored.
+     * @return             Success (zero) / failure (non-zero).
+     */
+    int perform_restore_action(const std::string & action_name, const std::string & action_value JEOD_UNUSED) override
+    {
+        int return_code;
 
-      // "restore" action is to call the (undefined) simple_restore method.
-      if (action_name.compare("restore") == 0) {
-         simple_restore ();
-         return_code = 0;
-      }
+        // "restore" action is to call the (undefined) simple_restore method.
+        if(action_name.compare("restore") == 0)
+        {
+            simple_restore();
+            return_code = 0;
+        }
 
-      // All other actions are illegal and should never happen.
-      else {
-         return_code = -1;
-      }
+        // All other actions are illegal and should never happen.
+        else
+        {
+            return_code = -1;
+        }
 
-      return return_code;
-   }
+        return return_code;
+    }
+
+    SimpleCheckpointable(const SimpleCheckpointable &) = delete;
+    SimpleCheckpointable & operator=(const SimpleCheckpointable &) = delete;
 
 protected:
-
-   /**
-    * Perform the sole restore action.
-    */
-   virtual void simple_restore (void) = 0;
-
-
-private:
-
-   /**
-    * Not implemented.
-    */
-   SimpleCheckpointable (const SimpleCheckpointable &);
-
-   /**
-    * Not implemented.
-    */
-   SimpleCheckpointable & operator = (const SimpleCheckpointable &);
+    /**
+     * Perform the sole restore action.
+     */
+    virtual void simple_restore() = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

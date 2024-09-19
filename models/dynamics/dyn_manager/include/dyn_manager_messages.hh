@@ -63,7 +63,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYNBODY_MESSAGES_HH
 #define JEOD_DYNBODY_MESSAGES_HH
 
@@ -72,90 +71,70 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the DynManager model.
  */
-class DynManagerMessages {
+class DynManagerMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynManagerMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued when a pointer should be non-NULL but isn't.
+     */
+    static const char * null_pointer; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(DynManagerMessages)
+    /**
+     * Issued on request to add a pointer to a list a second time.
+     */
+    static const char * duplicate_entry; //!< trick_units(--)
 
+    /**
+     * Issued when a name is invalid -- empty, a duplicate, ...
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
- // Static member data
- public:
+    /**
+     * Issued when a frame is invalid -- not an integ frame, ...
+     */
+    static const char * invalid_frame; //!< trick_units(--)
 
-   /**
-    * Issued when a pointer should be non-NULL but isn't.
-    */
-   static char const * null_pointer; //!< trick_units(--)
+    /**
+     * Issued when an object of an unexpected type is encountered.
+     */
+    static const char * invalid_type; //!< trick_units(--)
 
-   /**
-    * Issued on request to add a pointer to a list a second time.
-    */
-   static char const * duplicate_entry; //!< trick_units(--)
+    /**
+     * Issued when some conditions are inconsistent.
+     */
+    static const char * inconsistent_setup; //!< trick_units(--)
 
-   /**
-    * Issued when a name is invalid -- empty, a duplicate, ...
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Error issued when multiple instance of a class that should be a singleton
+     * are created or when no such instance exists (but should).
+     */
+    static const char * singleton_error; //!< trick_units(--)
 
-   /**
-    * Issued when a frame is invalid -- not an integ frame, ...
-    */
-   static char const * invalid_frame; //!< trick_units(--)
+    /**
+     * Error issued when some internal error occurred.
+     * These errors should never happen.
+     */
+    static const char * internal_error; //!< trick_units(--)
 
-   /**
-    * Issued when an object of an unexpected type is encountered.
-    */
-   static char const * invalid_type; //!< trick_units(--)
-
-   /**
-    * Issued when some conditions are inconsistent.
-    */
-   static char const * inconsistent_setup; //!< trick_units(--)
-
-   /**
-    * Error issued when multiple instance of a class that should be a singleton
-    * are created or when no such instance exists (but should).
-    */
-   static char const * singleton_error; //!< trick_units(--)
-
-   /**
-    * Error issued when some internal error occurred.
-    * These errors should never happen.
-    */
-   static char const * internal_error; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   /**
-    * Not implemented.
-    */
-   DynManagerMessages (void);
-
-   /**
-    * Not implemented.
-    */
-   DynManagerMessages (const DynManagerMessages &);
-
-   /**
-    * Not implemented.
-    */
-   DynManagerMessages & operator= (const DynManagerMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    DynManagerMessages() = delete;
+    DynManagerMessages(const DynManagerMessages &) = delete;
+    DynManagerMessages & operator=(const DynManagerMessages &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

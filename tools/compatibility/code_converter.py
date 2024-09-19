@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 """
 description:
-Processes the specified JEOD simulation input and attempts to identify 
-obsolete and/or migrated code which requires attention. By default, potential 
+Jeod 3.4 -> Jeod 5.0.1 converter.
+Processes the specified JEOD simulation input and attempts to identify
+obsolete and/or migrated code which requires attention. By default, potential
 issues are printed via stdout. Recommend logging to file via the terminal stream
 operator (e.g. ./code_converter.py [flags] source_file > log_file)"
 """
-# TODO support for "-from" and "-to" arguments to support conversion between
-#      different versions
 
 ###
 #  Includes
 ###
 
 import regex # supports operations with groups of unfixed size, unlike 're'
-import os 
+import os
 import sys
 import glob
 import errno
@@ -59,7 +58,7 @@ time_conv = ['time_type',
              'a_to_b_initialization',
              'b_to_a_runtime',
              'b_to_a_initialization']
-time_conv_new = dict(zip(time_conv, 
+time_conv_new = dict(zip(time_conv,
                   [None,
                    'trick.A_TO_B_UPDATE',
                    'trick.A_TO_B_INIT',
@@ -72,7 +71,7 @@ time_conv_new = dict(zip(time_conv,
 ###
 def print_warning(filename,line_num,msg):
     msg = msg.replace('\n','\n\t         ')
-    print('%s:%d\n\t%s' % (filename,line_num+1,msg) )
+    print('{0}:{1}\n\t{2}'.format(filename,line_num+1,msg) )
 
 def find_file(filename):
     global searchpath
@@ -80,7 +79,7 @@ def find_file(filename):
         for ff in  pathlib.Path(pp).rglob( os.path.basename(filename) ):
             return str(ff) # return first not null
 
-    
+
 
 def determine_filetype(filename):
     if filename.endswith(cpp_ext):
@@ -90,8 +89,8 @@ def determine_filetype(filename):
     elif filename.endswith(python_ext):
         return 'python'
     else:
-        raise IOERROR(errno.EIO, 'Unrecognized filetype: ".%s"\n' 
-                        % filename.split('.')[-1] )
+        raise IOERROR(errno.EIO, 'Unrecognized filetype: ".{0}"\n'
+                        .format(filename.split('.')[-1] ))
     return None # unreached
 
 def find_all_python(filename):
@@ -116,33 +115,33 @@ def find_all_python(filename):
             match = regex.search(r'exec\s*\(\s*open\s*\(\s*'+rq+r'([\w\/\.]+)'+rq+r'\s*\)\s*\.\s*read\s*\(\s*\)\s*\)', line)
             if match:
                 sub =  find_file(match.groups()[0])
-                if sub: 
+                if sub:
                     if not sub in searchfile:
                         find_all_python(sub)
                 else:
-                    print('"%s" not in search path. Skipping..."' % match.groups()[0])
+                    print('{0} not in search path. Skipping..."'.format(match.groups()[0]))
                 continue
             match = regex.search(r'exec\s*\(\s*compile\s*\(\s*open\s*\(\s*'+rq+r'([\w\/\.]+)'+rq+r'\s*\)\s*\.\s*read\s*\(\s*\)\s*\)', line)
             if match:
                 sub =  find_file(match.groups()[0])
-                if sub: 
+                if sub:
                     if not sub in searchfile:
                         find_all_python(sub)
                 else:
-                    print('"%s" not in search path. Skipping..."' % match.groups()[0])
+                    print('{0} not in search path. Skipping..."'.format(match.groups()[0]))
                 continue
 
             match = regex.search(r'execfile\s*\(\s*'+rq+r'([\w\/\.]+)'+rq+r'\s*\)',line)
             if match:
                 sub =  find_file(match.groups()[0])
-                if sub: 
+                if sub:
                     if not sub in searchfile:
                         find_all_python(sub)
                 else:
-                    print('"%s" not in search path. Skipping..."' % match.groups()[0])
+                    print('{0} not in search path. Skipping..."'.format(match.groups()[0]))
                 continue
     return
-                
+
 def find_all_cpp(filename):
     # Does not search system path includes <>
     global searchfile
@@ -170,21 +169,21 @@ def find_all_cpp(filename):
                     continue
                 else:
                     in_comment = True # in comment after reading this line
-            #includes 
+            #includes
             match = regex.search(r'#include\s+\"([\w\.\/]+)\"', line)
             if match:
                 sub =  find_file(match.groups()[0])
-                if sub: 
+                if sub:
                     if not sub in searchfile:
                         find_all_cpp(sub)
                 else:
-                    print('"%s" not in search path. Skipping..."' % match.groups()[0])
+                    print('{0} not in search path. Skipping..."'.format(match.groups()[0]))
     # Search for source corresponding to header
     name,hdr_ext = os.path.splitext(filename)
     if hdr_ext in ('.hpp','.hxx','.h++','.hh','.h'):
         for src_ext in ('.cpp','.cxx','.c++','.cc','.c'):
             sub = find_file(name+src_ext)
-            if sub: 
+            if sub:
                 if not sub in searchfile:
                     find_all_cpp(sub)
                 break
@@ -215,25 +214,25 @@ def find_all_trick(filename):
                     continue
                 else:
                     in_comment = True # in comment after reading this line
-            #includes 
+            #includes
             match = regex.search(r'#include\s+\"([\w\.\/]+)\"', line)
             if match:
                 sub =  find_file(match.groups()[0])
-                if sub: 
+                if sub:
                     if not sub in searchfile:
                         find_all_trick(sub)
                 else:
-                    print('"%s" not in search path. Skipping..."' % match.groups()[0])
+                    print('{0} not in search path. Skipping..."'.format(match.groups()[0]))
                 continue
-            ##includes 
+            ##includes
             match = regex.search(r'##include\s+\"([\w\.\/]+)\"', line)
             if match:
                 sub =  find_file(match.groups()[0])
-                if sub: 
+                if sub:
                     if not sub in searchfile:
                         find_all_cpp(sub)
                 else:
-                    print('"%s" not in search path. Skipping..."' % match.groups()[0])
+                    print('{0} not in search path. Skipping..."'.format(match.groups()[0]))
                 continue
     return
 
@@ -267,7 +266,7 @@ def lint_python(filename):
     global forcefix
     global mass_props
     global time_conv
-    print('... Searching %s ...' % filename )
+    print('... Searching {0} ...'.format(filename) )
     with open(filename,'r') as fin:
         filedata = str()
         for ii, line in enumerate(fin):
@@ -306,7 +305,7 @@ def lint_python(filename):
                if forcefix:
                   line = bodyaction_fixup_pointers(line, 'subject')
                print_warning(filename,ii,"BodyAction classes use set_subject_body to set the subject")
-            
+
             # BodyAttach change to set_parent_body for DynBody and MassBody assignments
             elif ('.parent=' in lineNoSpaces) \
             or ('.dyn_parent=' in lineNoSpaces):
@@ -332,7 +331,7 @@ def lint_python(filename):
             elif ('body' in line):
                 for attr in mass_props:
                     if regex.search('body\.'+attr,line):
-                        if forcefix: 
+                        if forcefix:
                             line = line.replace('body.'+attr,'body.mass.'+attr)
                         print_warning(filename,ii,"DynBody no longer inherits from MassBody.\n"
                                 "Access through MassBody DynBody::mass\n"
@@ -390,7 +389,7 @@ def lint_cpp(filename):
     global forcefix
     global mass_props
     global time_conv
-    print('... Searching %s ...' % filename )
+    print('... Searching {0} ...'.format(filename) )
     found_namespace = False
     with open(filename,'r') as fin:
         filedata = str()
@@ -433,7 +432,7 @@ def lint_cpp(filename):
                   refName = lineNoSpaces.partition('=')[2]
                   line = line.replace(refName, 'set_subject_body({0})'.format(refName))
                print_warning(filename,ii,"BodyAction classes use set_subject_body to set the subject")
-            
+
             # BodyAttach change to set_parent_body for DynBody and MassBody assignments
             elif ('.parent=' in lineNoSpaces) \
             or ('.dyn_parent=' in lineNoSpaces):
@@ -462,7 +461,7 @@ def lint_cpp(filename):
                 for attr in mass_props:
                     if regex.search('body\.'+attr,line) \
                     or regex.search('DynBody::'+attr,line):
-                        if forcefix: 
+                        if forcefix:
                             line = line.replace('body.'+attr,'body.mass.'+attr)
                         print_warning(filename,ii,"DynBody no longer inherits from MassBody.\n"
                             "Access through MassBody DynBody::mass\n"
@@ -540,7 +539,7 @@ def lint_trick(filename):
                               "macro switches.\n"
                               "Set De4xxFileSpec::denum instead.")
     lint_cpp(filename)
-    return 
+    return
 
 def lint_like(files):
     ret = []
@@ -579,12 +578,12 @@ parser.add_argument('-I',type=str,action='append',nargs=1,dest="searchpath",\
 
 clargs, errargs = parser.parse_known_args()
 for a in errargs: # Lazy error handle: report first and exit.
-    raise parser.exit(errno.EINVAL,"Unknown input argument '%s'\n" % str(a))
+    raise parser.exit(errno.EINVAL,"Unknown input argument {0}\n".format(str(a)))
 if clargs.searchpath:
-    # flatten path list 
+    # flatten path list
     clargs.searchpath = [ os.path.expanduser(item) \
                           for sublist in clargs.searchpath \
-                              for item in sublist] 
+                              for item in sublist]
     searchpath += clargs.searchpath
 searchpath += [os.path.abspath(os.path.dirname(clargs.input_file))]
 forcefix = clargs.force

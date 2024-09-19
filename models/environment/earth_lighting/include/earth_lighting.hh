@@ -66,215 +66,190 @@ LIBRARY DEPENDENCY:
 #ifndef JEOD_EARTH_LIGHTING_HH
 #define JEOD_EARTH_LIGHTING_HH
 
-
 // JEOD includes
 #include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "environment/planet/include/class_declarations.hh"
 #include "utils/ref_frames/include/class_declarations.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents a major source of light in a space environment, such as the sun, the Earth, the moon, etc.
  */
-class LightingBody {
-
-  JEOD_MAKE_SIM_INTERFACES(LightingBody)
+class LightingBody
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LightingBody)
 
 public:
+    LightingBody() = default;
+    ~LightingBody() = default;
+    LightingBody & operator=(const LightingBody &) = delete;
+    LightingBody(const LightingBody &) = delete;
 
-   // constructor
-   LightingBody ();
+    /**
+     * Celestial body mean equitorial radius.
+     */
+    double radius{}; //!< trick_units(m)
 
-   // destructor
-   ~LightingBody ();
+    /**
+     * Inertial position relative to observer.
+     */
+    double position[3]{}; //!< trick_units(m)
 
-   /**
-    * Celestial body mean equitorial radius.
-    */
-   double radius;      //!< trick_units(m)
-   /**
-    * Inertial position relative to observer.
-    */
-   double position[3]; //!< trick_units(m)
-   /**
-    * Distance from observer to light body.
-    */
-   double distance;    //!< trick_units(m)
-   /**
-    * Apparent half angle of body disk.
-    */
-   double half_angle;  //!< trick_units(rad)
+    /**
+     * Distance from observer to light body.
+     */
+    double distance{}; //!< trick_units(m)
 
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they are private
-   LightingBody& operator = (const LightingBody& rhs);
-   LightingBody (const LightingBody& rhs);
-
+    /**
+     * Apparent half angle of body disk.
+     */
+    double half_angle{}; //!< trick_units(rad)
 };
 
 /**
  * Contains important parameters for lighting information.
  */
-class LightingParams {
-
-  JEOD_MAKE_SIM_INTERFACES(LightingParams)
+class LightingParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LightingParams)
 
 public:
+    LightingParams() = default;
+    ~LightingParams() = default;
+    LightingParams & operator=(const LightingParams &) = delete;
+    LightingParams(const LightingParams &) = delete;
 
-   // constructor
-   LightingParams ();
+    /**
+     * Apparent observation angle from light source.
+     */
+    double obs_angle{}; //!< trick_units(rad)
 
-   // destructor
-   ~LightingParams ();
+    /**
+     * Apparent lighting phase of planet.
+     */
+    double phase{}; //!< trick_units(--)
 
-   /**
-    * Apparent observation angle from light source.
-    */
-   double obs_angle; //!< trick_units(rad)
+    /**
+     * Fraction of planetary surface occlusion.
+     */
+    double occlusion{}; //!< trick_units(--)
 
-   /**
-    * Apparent lighting phase of planet.
-    */
-   double phase;     //!< trick_units(--)
+    /**
+     * Fraction of planetary surface visible.
+     */
+    double visible{}; //!< trick_units(--)
 
-   /**
-    * Fraction of planetary surface occlusion.
-    */
-   double occlusion; //!< trick_units(--)
-   /**
-    * Fraction of planetary surface visible.
-    */
-   double visible;   //!< trick_units(--)
-   /**
-    * Fraction of lighting (phase * visible).
-    */
-   double lighting;  //!< trick_units(--)
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they are private
-   LightingParams& operator = (const LightingParams& rhs);
-   LightingParams (const LightingParams& rhs);
-
+    /**
+     * Fraction of lighting (phase * visible).
+     */
+    double lighting{}; //!< trick_units(--)
 };
 
 /**
  * A class for calculating lighting effects in low Earth orbit.
  */
-class EarthLighting {
-
-  JEOD_MAKE_SIM_INTERFACES(EarthLighting)
+class EarthLighting
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EarthLighting)
 
 public:
+    EarthLighting() = default;
+    ~EarthLighting() = default;
+    EarthLighting & operator=(const EarthLighting &) = delete;
+    EarthLighting(const EarthLighting &) = delete;
 
-   // constructor
-   EarthLighting ();
+    void initialize(DynManager & manager);
 
-   // destructor
-   ~EarthLighting ();
+    // note: units were not specified in JEOD 2.0, and should not matter
+    // as long as you stay self consistent.
+    int circle_intersect(double r_bottom, double r_top, double d_centers, double * area);
 
-   void initialize (DynManager& manager);
+    void calc_lighting(const double pos_veh[3]);
 
-   // note: units were not specified in JEOD 2.0, and should not matter
-   // as long as you stay self consistent.
-   int circle_intersect (
-      double r_bottom, double r_top, double d_centers, double* area);
+    /**
+     * flag for if the model is active or not
+     */
+    bool active{true}; //!< trick_units(--)
 
-   void calc_lighting (const double pos_veh[3]);
+    /**
+     * Pointer to the Earth planet from the DynManager
+     */
+    Planet * earth{}; //!< trick_units(--)
 
-   /**
-    * flag for if the model is active or not
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * Pointer to the Moon planet from the DynManager
+     */
+    Planet * moon{}; //!< trick_units(--)
 
-   /**
-    * Pointer to the Earth planet from the DynManager
-    */
-   Planet* earth; //!< trick_units(--)
-   /**
-    * Pointer to the Moon planet from the DynManager
-    */
-   Planet* moon; //!< trick_units(--)
-   /**
-    * Pointer to the Sun planet from the DynManager
-    */
-   Planet* sun; //!< trick_units(--)
+    /**
+     * Pointer to the Sun planet from the DynManager
+     */
+    Planet * sun{}; //!< trick_units(--)
 
-   /**
-    * Pointer to the translation information for Earth inertial
-    */
-   const RefFrame* earth_frame; //!< trick_units(--)
-   /**
-    * Pointer to the translation information for Moon inertial
-    */
-   const RefFrame* moon_frame; //!< trick_units(--)
-   /**
-    * Pointer to the translation information for Sun inertial
-    */
-   const RefFrame* sun_frame; //!< trick_units(--)
+    /**
+     * Pointer to the translation information for Earth inertial
+     */
+    const RefFrame * earth_frame{}; //!< trick_units(--)
 
-   /**
-    * Sun stellar parameters.
-    */
-   LightingBody sun_body; //!< trick_units(--)
-   /**
-    * Earth planetary parameters.
-    */
-   LightingBody earth_body; //!< trick_units(--)
-   /**
-    * Lunar planetary parameters.
-    */
-   LightingBody moon_body;  //!< trick_units(--)
+    /**
+     * Pointer to the translation information for Moon inertial
+     */
+    const RefFrame * moon_frame{}; //!< trick_units(--)
 
-   /**
-    * Lighting of sun w.r.t. vehicle.
-    */
-   LightingParams sun_earth;    //!< trick_units(--)
-   /**
-    * Lighting of moon w.r.t. vehicle.
-    */
-   LightingParams moon_earth;   //!< trick_units(--)
-   /**
-    * Earth albedo lighting.
-    */
-   LightingParams earth_albedo; //!< trick_units(--)
+    /**
+     * Pointer to the translation information for Sun inertial
+     */
+    const RefFrame * sun_frame{}; //!< trick_units(--)
+
+    /**
+     * Sun stellar parameters.
+     */
+    LightingBody sun_body; //!< trick_units(--)
+
+    /**
+     * Earth planetary parameters.
+     */
+    LightingBody earth_body; //!< trick_units(--)
+
+    /**
+     * Lunar planetary parameters.
+     */
+    LightingBody moon_body; //!< trick_units(--)
+
+    /**
+     * Lighting of sun w.r.t. vehicle.
+     */
+    LightingParams sun_earth; //!< trick_units(--)
+
+    /**
+     * Lighting of moon w.r.t. vehicle.
+     */
+    LightingParams moon_earth; //!< trick_units(--)
+
+    /**
+     * Earth albedo lighting.
+     */
+    LightingParams earth_albedo; //!< trick_units(--)
 
 protected:
+    // These values are calculated when calc_lighting is called. Should
+    // not be filled in, and filled in values will not be used
+    /**
+     * Moon position wrt Earth inertial
+     */
+    double pos_moon[3]{}; //!< trick_units(m)
 
-
-   // These values are calculated when calc_lighting is called. Should
-   // not be filled in, and filled in values will not be used
-   /**
-    * Moon position wrt Earth inertial
-    */
-   double pos_moon[3]; //!< trick_units(m)
-   /**
-    * Sun position wrt Earth inertial
-    */
-   double pos_sun[3]; //!< trick_units(m)
-
-private:
-
-   // copy constructor and operator = locked from use
-   EarthLighting& operator = (const EarthLighting& rhs);
-   EarthLighting (const EarthLighting& rhs);
-
+    /**
+     * Sun position wrt Earth inertial
+     */
+    double pos_sun[3]{}; //!< trick_units(m)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "environment/planet/include/planet.hh"

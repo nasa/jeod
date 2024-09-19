@@ -2,7 +2,7 @@
 """
 description:
 Processes the Jet Propulsions Laboratory Developmental ephemerics (JPL DE)
-raw ASCII tables into Johnson Space Center Engineering Orbital Dynamics (JEOD) 
+raw ASCII tables into Johnson Space Center Engineering Orbital Dynamics (JEOD)
 compatible C++ source files.
 """
 
@@ -11,7 +11,7 @@ compatible C++ source files.
 ###
 
 import regex
-import os 
+import os
 import sys
 import glob
 import errno
@@ -92,12 +92,12 @@ def parse_header_file(filename):
         if match:
             data.ksize = int(match.groups()[0])
         else:
-            raise IOError(errno.EIO,'Header missing required entry KSIZE') 
+            raise IOError(errno.EIO,'Header missing required entry KSIZE')
         match = regex.search(r'NCOEFF\s*?=\s*?(\d+)', line)
         if match:
             data.ncoeff = int(match.groups()[0])
         else:
-            raise IOError(errno.EIO,'Header missing required entry NCOEFF') 
+            raise IOError(errno.EIO,'Header missing required entry NCOEFF')
         if (2*data.ncoeff) != data.ksize:
             raise IOError(errno.EIO,'Header has unrecognized NCOEFF and/or KSIZE')
         # Find groups
@@ -121,7 +121,7 @@ def parse_header_file(filename):
             # Grab first nonblank, non-ID line as title
             if not line.isspace() and not regex.search(r'GROUP\s+\d+',line):
                 data.title = str(line).strip()
-                break;
+                break
         # Group 1030
         fin.seek(0) # Reset file cursor
         lines = islice(fin, data.group_line_dict['1030'][0],\
@@ -136,7 +136,7 @@ def parse_header_file(filename):
                 data.delta_epoch = line[2][1]
                 break
             pass
-            
+
         # Group 1040
         fin.seek(0) # Reset file cursor
         keys = []
@@ -168,8 +168,8 @@ def parse_header_file(filename):
                 if int(match.groups()[1]) != data.nconsts:
                     raise IOError(errno.EIO,\
                     'Header disagreement between number of constants:\n'
-                    'GROUP 1040: %d\nGROUP 1041: %d'\
-                    % (data.nconsts, int(match.groups()[0]) ) )
+                    'GROUP 1040: {0}\nGROUP 1041: {1}'\
+                   .format(data.nconsts, match.groups()[0]))
             # replace 1.0D+01 -> 1.0E+01
             line = regex.sub(r'(?<=[+-]*\d\.\d+)D(?=[+-]\d+)','E',line)
             # Grab constants
@@ -178,9 +178,9 @@ def parse_header_file(filename):
             values = values + line
         if len(keys) != len(values):
             raise IOError(errno.EIO,'Header mismatched constants:\n'
-                    '# of constant names:  %d\n'
-                    '# of constant values: %d'\
-                    % (len(keys), len(values)) )
+                    '# of constant names:  {0}\n'
+                    '# of constant values: {1}'\
+                   .format(len(keys), len(values)) )
         data.consts = {keys[x]:values[x] for x in range(len(values))}
 
         # Group 1050
@@ -197,21 +197,21 @@ def parse_header_file(filename):
         for ii in range(len(arr[0])):
             # If included in header, but absent from files, warn
             if (int(arr[1][ii])==0) or (int(arr[2][ii])==0):
-                print("! Warning: item %d has no associated poly coefs !" % ii )
+                print("! Warning: item {0} has no associated poly coefs !".format(ii) )
         data.coef_start_index = [int(x) for x in arr[0]]
         data.num_coef_per_component = [int(x) for x in arr[1]]
         data.num_coef_sets = [int(x) for x in arr[2]]
         data.num_items = len(data.num_coef_sets)
 
     # Print summary
-    print('KSIZE= %d\tNCOEFF=%d' % (data.ksize, data.ncoeff) )
-    print('"%s"' % data.title )
-    print('Start Epoch = %s' % data.start_epoch )
-    print('Stop  Epoch = %s' % data.stop_epoch )
-    print('Delta Epoch = %s' % data.delta_epoch )
-    print('Processed %d constants' % len(data.consts) )
-    print('Processing records for %d ephemeris items' % data.num_items )
-    
+    print('KSIZE= {0}\tNCOEFF={1}'.format(data.ksize, data.ncoeff) )
+    print('{0}'.format(data.title) )
+    print('Start Epoch = {0}'.format(data.start_epoch) )
+    print('Stop  Epoch = {0}'.format(data.stop_epoch) )
+    print('Delta Epoch = {0}'.format(data.delta_epoch) )
+    print('Processed {0} constants'.format(len(data.consts)) )
+    print('Processing records for {0} ephemeris items'.format(data.num_items) )
+
     return data
 
 
@@ -244,8 +244,8 @@ def parse_data_file(mdata, filename):
                   inRecord=False
                   if len(coefs_ii) != mdata.ncoeff:
                      raise IOError(errno.EIO,
-                         "%s:%d\n\tmisaligned record at index %d" %
-                            ( filename, line_no, ii+1 ) )
+                         "{0}:{1}\n\tmisaligned record at index {2}"\
+                        .format( filename, line_no, ii+1 ) )
                   poly.coefs.append(coefs_ii)
                   poly.record_length.append(elemsRequired)
                   poly.record_start_epoch.append(coefs_ii[0])
@@ -286,7 +286,7 @@ parser.add_argument('-tf',type=int,default=-1,dest="tf",\
 
 clargs, errargs = parser.parse_known_args()
 for a in errargs: # Lazy error handle: report first and exit.
-    raise parser.exit(errno.EINVAL,"Unknown input argument '%s'\n" % str(a))
+    raise parser.exit(errno.EINVAL,"Unknown input argument {0}\n".format(str(a)))
 
 denum = str(clargs.denum[0])
 in_dir  = os.path.realpath(clargs.indir)
@@ -296,10 +296,10 @@ tf = int(clargs.tf)
 ascp = glob.glob(os.path.join(in_dir, 'ascp*.'+denum))
 hdr  = glob.glob(os.path.join(in_dir,'header.'+denum))
 if len(ascp) == 0:
-    raise IOError(errno.ENOENT, 
+    raise IOError(errno.ENOENT,
             'No such file:\n' + os.path.join(in_dir,'ascp*.'+denum))
 elif len(hdr) != 1:
-    raise IOError(errno.ENOENT, 
+    raise IOError(errno.ENOENT,
             'Could not find unique header:\n' + os.path.join(in_dir,'header.'+denum))
 else:
     hdr = hdr[0]
@@ -315,13 +315,13 @@ for f in ascp:
         else:
             segments.append(f)
 if len(segments) == 0:
-    raise IOError(errno.ENOENT, 
-            'No ascp*.%s files between t0=%d and tf=%d' % (t0,tf) )
+    raise IOError(errno.ENOENT,
+            'No ascp*.{0} files between t0={1} and tf={2}'.format(denum,t0,tf) )
 segments.sort()
 
-print("----- Generating JEOD Ephemeris source for JPL DE%s -----" % denum)
-print("Raw ASCII: %s" % in_dir)
-print("C++ output: %s" % out_dir)
+print("----- Generating JEOD Ephemeris source for JPL DE{0} -----".format(denum))
+print("Raw ASCII: {0}".format(in_dir))
+print("C++ output: {0}".format(out_dir))
 
 # Parse JPL DE files
 meta = parse_header_file(hdr)
@@ -332,21 +332,21 @@ for fin in segments:
     poly.append(parse_data_file(meta, fin))
     frec = poly[-1].num_records
     records = records + frec
-    print('%6d records found in %s' % (frec, os.path.basename(fin) ) )
+    print('{0:6d} records found in {1}'.format(frec, os.path.basename(fin) ) )
 
 # Remove old DE files
 oldDeFiles  = glob.glob(os.path.join(out_dir,'de{0}*.cc'.format(denum)))
 for oldDeFile in oldDeFiles:
     os.remove(oldDeFile)
-    print("Removing old DE file '%s'" % oldDeFile)
+    print("Removing old DE file {0}".format(oldDeFile))
 
 # Write C++ified DE file
 frec = 0
 for ii in range(len(poly)):
-    fout = os.path.join(out_dir,'de%s_%d.cc'%(denum,ii))
+    fout = os.path.join(out_dir,'de{0}_{1}.cc'.format(denum,ii))
     text = Template(filename='eph_meta.cc.mako').render(segIdx=ii, data=poly, meta=meta)
     oFile = open(fout, 'w')
     oFile.write(text)
     oFile.close()
     print("Generated {0}".format(fout))
-print('----- %10d total records written into JEOD Ephemeris -----' % records)
+print('----- {0:10d} total records written into JEOD Ephemeris -----'.format(records))

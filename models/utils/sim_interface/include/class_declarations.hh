@@ -51,17 +51,16 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_UTILS_MISC_CLASS_DECL_HH
 #define JEOD_UTILS_MISC_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class JeodMemoryInterface;
 class JeodSimulationInterface;
@@ -71,8 +70,7 @@ class JeodTrickSimInterface;
 class SimInterfaceMessages;
 class TrickMessageHandler;
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

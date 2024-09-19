@@ -10,12 +10,12 @@ def mass_props(VEH):
   VEH.mass_init.properties.pt_orientation.eigen_axis = [0,0,1]
 
 
-  VEH.mass_init.num_points = 1
-  VEH.mass_init.points = trick.sim_services.alloc_type( 1 , "jeod::MassPointInit" )
-  VEH.mass_init.points[0].name = "point"
-  VEH.mass_init.points[0].position  = [1.0, 0.0, 0.0]
-  VEH.mass_init.points[0].pt_orientation.data_source=trick.Orientation.InputEigenRotation
-  VEH.mass_init.points[0].pt_orientation.eigen_angle = 0.0
-  VEH.mass_init.points[0].pt_orientation.eigen_axis = [0,0,1]
+  VEH.mass_init.allocate_points(1)
+
+  VEH.mass_init.get_mass_point(0).name = "point"
+  VEH.mass_init.get_mass_point(0).position  = [1.0, 0.0, 0.0]
+  VEH.mass_init.get_mass_point(0).pt_orientation.data_source=trick.Orientation.InputEigenRotation
+  VEH.mass_init.get_mass_point(0).pt_orientation.eigen_angle = 0.0
+  VEH.mass_init.get_mass_point(0).pt_orientation.eigen_axis = [0,0,1]
 
   dynamics.dyn_manager.add_body_action( VEH.mass_init )

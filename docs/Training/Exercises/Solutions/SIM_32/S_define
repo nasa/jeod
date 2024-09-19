@@ -36,32 +36,38 @@
 //
 //=============================================================================
 // Single vehicle in Earth orbit with simple thrusters
-// 
+//
 //=============================================================================
 
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
+
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "vehicle_basic.sm"
 
+class EffectorSimObject : public Trick::SimObject
+{
+public:
+    jeod::Force thruster;
+    EffectorSimObject(){};
 
-class EffectorSimObject : public Trick::SimObject {
-
-  public:
-   jeod::Force                   thruster;
-   EffectorSimObject( ) {};
-  private:
-   EffectorSimObject (const EffectorSimObject&);
-   EffectorSimObject & operator = (const EffectorSimObject&);
+private:
+    EffectorSimObject(const EffectorSimObject &);
+    EffectorSimObject & operator=(const EffectorSimObject &);
 };
+
 EffectorSimObject effector;
 
-vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-            effector.thruster.force
-};
+vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{effector.thruster.force};
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

@@ -36,14 +36,21 @@
 //
 #define DYNAMICS 10.0
 #define LOW_RATE_ENV 100
+
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics.sm"
-#include "environment.sm"
 #include "earth_GGM05C.sm"
+#include "environment.sm"
 #include "sun_basic.sm"
 
 /*****************************************************************************
@@ -62,26 +69,23 @@ Purpose:(This models Moon, including the LP150Q gravity model)
 #include "Base/moon_LP150Q.sm"
 class MoonSimObject: public Moon_LP150Q_SimObject
 {
- protected:
-  // External references
-  jeod::De4xxEphemeris  & de4xx;
- public:
-  MoonSimObject(
-         EnvSimObject & environment_in,
-         jeod::DynManager & dyn_mgr_in)
-    :
-    Moon_LP150Q_SimObject( dyn_mgr_in, environment_in.gravity_manager),
-    de4xx( environment_in.de4xx)
-  {
-    P_ENV ("derivative") de4xx.propagate_lunar_rnp ( );
-  }
+protected:
+    // External references
+    jeod::De4xxEphemeris & de4xx;
 
- private:
-  MoonSimObject (const MoonSimObject&);
-  MoonSimObject & operator = (const MoonSimObject&);
+public:
+    MoonSimObject(EnvSimObject & environment_in, jeod::DynManager & dyn_mgr_in)
+        : Moon_LP150Q_SimObject(dyn_mgr_in, environment_in.gravity_manager),
+          de4xx(environment_in.de4xx)
+    {
+        P_ENV("derivative") de4xx.propagate_lunar_rnp();
+    }
+
+private:
+    MoonSimObject(const MoonSimObject &);
+    MoonSimObject & operator=(const MoonSimObject &);
 };
-MoonSimObject moon ( env, dynamics.dyn_manager);
-
+MoonSimObject moon(env, dynamics.dyn_manager);
 
 /*****************************************************************************
 VehicleSimObject
@@ -92,27 +96,26 @@ Purpose:(Common model for vehicle and lunar_vehicle)
 #include "Base/vehicle_baseline.sm"
 class VehicleSimObject : public VehicleBasicSimObject
 {
- public:
-  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
-  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
-  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
+public:
+    jeod::SphericalHarmonicsGravityControls earth_grav_control;
+    jeod::SphericalHarmonicsGravityControls moon_grav_control;
+    jeod::SphericalHarmonicsGravityControls sun_grav_control;
 
-  jeod::DynBodyInitLvlhRotState lvlh_init;
+    jeod::DynBodyInitLvlhRotState lvlh_init;
 
-  VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  { }
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+    }
 
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 };
 VehicleSimObject earth_vehicle(dynamics.dyn_manager);
-VehicleSimObject moon_vehicle (dynamics.dyn_manager);
-
+VehicleSimObject moon_vehicle(dynamics.dyn_manager);
 
 /*****************************************************************************
 Integration
 *****************************************************************************/
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth, moon;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth, moon;

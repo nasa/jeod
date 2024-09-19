@@ -59,35 +59,37 @@ Purpose:
 *******************************************************************************/
 
 // Define job calling intervals
-#define DYNAMICS 0.01  // High rate needed for rotation phase
-#define LOGGING  1.0
+#define DYNAMICS 0.01 // High rate needed for rotation phase
+#define LOGGING 1.0
 
-
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "Base/dynamics.sm"
 
+class DynamicsTestSimObject : public DynamicsSimObject
+{
+public:
+    DynamicsTestSimObject(jeod::TimeManager & time_manager_in)
+        : DynamicsSimObject(time_manager_in)
+    {
+        // Compute derivatives as a scheduled job to make log file current
+        (LOGGING, "environment") dyn_manager.compute_derivatives();
+    }
 
-class DynamicsTestSimObject: public DynamicsSimObject {
-
- public:
-  DynamicsTestSimObject ( jeod::TimeManager & time_manager_in)
-    :
-    DynamicsSimObject(time_manager_in)
-  {
-    // Compute derivatives as a scheduled job to make log file current
-    (LOGGING, "environment") dyn_manager.compute_derivatives ();
-  };
- private:
-  DynamicsTestSimObject (const DynamicsTestSimObject&);
-  DynamicsTestSimObject & operator = (const DynamicsTestSimObject&);
+    DynamicsTestSimObject(const DynamicsTestSimObject &) = delete;
+    DynamicsTestSimObject & operator=(const DynamicsTestSimObject &) = delete;
 };
-DynamicsTestSimObject dynamics (jeod_time.time_manager);
 
+DynamicsTestSimObject dynamics(jeod_time.time_manager);
 
 /***************************************************************
 CLASS: (Body1SimObject)
@@ -99,28 +101,25 @@ PURPOSE: ( This sim object models a simple vehicle.)
 ##include "dynamics/dyn_body/include/force.hh"
 ##include "dynamics/dyn_body/include/torque.hh"
 
-class Body1SimObject: public VehicleBasicSimObject {
+class Body1SimObject: public VehicleBasicSimObject
+{
+public:
+    jeod::Force no_xmit_forc1;
+    jeod::Torque no_xmit_torq1;
 
- public:
-  jeod::Force  no_xmit_forc1;
-  jeod::Torque no_xmit_torq1;
+    // Constructor
+    Body1SimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+        // Scheduled jobs
+        (DYNAMICS, "scheduled") dyn_body.mass.update_mass_properties();
+    }
 
-  // Constructor
-  Body1SimObject (jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {
-    // Scheduled jobs
-    (DYNAMICS, "scheduled") dyn_body.mass.update_mass_properties();
-  }
-
- private:
-  Body1SimObject (const Body1SimObject&);
-  Body1SimObject & operator = (const Body1SimObject&);
-
+    Body1SimObject(const Body1SimObject &) = delete;
+    Body1SimObject & operator=(const Body1SimObject &) = delete;
 };
-Body1SimObject body1 (dynamics.dyn_manager);
 
+Body1SimObject body1(dynamics.dyn_manager);
 
 /***************************************************************
 CLASS: (Body2SimObject)
@@ -129,76 +128,56 @@ PURPOSE: ( Collect forces and torques on body
 ##include "dynamics/body_action/include/body_attach_aligned.hh"
 ##include "dynamics/body_action/include/body_detach.hh"
 
-class Body2SimObject: public VehicleBasicSimObject {
-
+class Body2SimObject: public VehicleBasicSimObject
+{
 public:
-  jeod::BodyAttachAligned attach;
-  jeod::BodyDetach detach;
-  jeod::Force effector_forc1;
-  jeod::Force environ_forc1;
-  jeod::Force environ_forc2;
-  jeod::Force no_xmit_forc1;
-  jeod::Force no_xmit_forc2;
-  double no_xmit_forc3[3];
-  jeod::Torque effector_torq1;
-  jeod::Torque environ_torq1;
-  jeod::Torque environ_torq2;
-  jeod::Torque no_xmit_torq1;
-  jeod::Torque no_xmit_torq2;
-  double no_xmit_torq3[3];
+    jeod::BodyAttachAligned attach;
+    jeod::BodyDetach detach;
+    jeod::Force effector_forc1;
+    jeod::Force environ_forc1;
+    jeod::Force environ_forc2;
+    jeod::Force no_xmit_forc1;
+    jeod::Force no_xmit_forc2;
+    double no_xmit_forc3[3];
+    jeod::Torque effector_torq1;
+    jeod::Torque environ_torq1;
+    jeod::Torque environ_torq2;
+    jeod::Torque no_xmit_torq1;
+    jeod::Torque no_xmit_torq2;
+    double no_xmit_torq3[3];
 
-  // Constructor
-  Body2SimObject (jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {
-    // Scheduled jobs
-    (DYNAMICS, "scheduled") dyn_body.mass.update_mass_properties();
-    (DYNAMICS, "scheduled") dyn_body.compute_vehicle_point_derivatives (
-                                                     dyn_body.composite_body,
-                                                     dyn_body.derivs);
-  }
+    // Constructor
+    Body2SimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+        // Scheduled jobs
+        (DYNAMICS, "scheduled") dyn_body.mass.update_mass_properties();
+        (DYNAMICS, "scheduled") dyn_body.compute_vehicle_point_derivatives(dyn_body.composite_body, dyn_body.derivs);
+    }
 
- private:
-  Body2SimObject (const Body2SimObject&);
-  Body2SimObject & operator = (const Body2SimObject&);
+    Body2SimObject(const Body2SimObject &) = delete;
+    Body2SimObject & operator=(const Body2SimObject &) = delete;
 };
-Body2SimObject body2 (dynamics.dyn_manager);
 
+Body2SimObject body2(dynamics.dyn_manager);
 
 /*****************************************************************************
 collect mechanism
 Purpose: Collect forces and torques onto the bodies.
 *****************************************************************************/
-vcollect body1.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   body1.no_xmit_forc1
-};
-vcollect body1.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   body1.no_xmit_torq1
-};
-vcollect body2.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   body2.effector_forc1
-};
-vcollect body2.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   body2.effector_torq1
-};
-vcollect body2.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
-   body2.environ_forc1,
-   body2.environ_forc2
-};
-vcollect body2.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create {
-   body2.environ_torq1,
-   body2.environ_torq2
-};
-vcollect body2.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   body2.no_xmit_forc1,
-   body2.no_xmit_forc2,
-   body2.no_xmit_forc3
-};
-vcollect body2.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   body2.no_xmit_torq1,
-   body2.no_xmit_torq2,
-   body2.no_xmit_torq3
-};
+vcollect body1.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{body1.no_xmit_forc1};
+vcollect body1.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{body1.no_xmit_torq1};
+vcollect body2.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{body2.effector_forc1};
+vcollect body2.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{body2.effector_torq1};
+vcollect body2.dyn_body.collect.collect_environ_forc jeod::CollectForce::create{body2.environ_forc1,
+                                                                                body2.environ_forc2};
+vcollect body2.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create{body2.environ_torq1,
+                                                                                 body2.environ_torq2};
+vcollect body2.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{body2.no_xmit_forc1,
+                                                                                body2.no_xmit_forc2,
+                                                                                body2.no_xmit_forc3};
+vcollect body2.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{body2.no_xmit_torq1,
+                                                                                 body2.no_xmit_torq2,
+                                                                                 body2.no_xmit_torq3};
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

@@ -57,35 +57,33 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
-#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
+#define DYNAMICS 0.03125   // Vehicle and plantary dynamics interval (32Hz)
 
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 // Define the phase initialization priorities.
 #include "default_priority_settings.sm"
-
-
- // Include the default system classes:
-#include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
-
 
 // Set up desired time types and include the JEOD time S_module
 #define TIME_MODEL_UT1
 #define TIME_MODEL_UTC
 #define TIME_MODEL_TT
 #define TIME_MODEL_GMST
-#define TIME_CALENDAR_UPDATE_INTERVAL  DYNAMICS
+#define TIME_CALENDAR_UPDATE_INTERVAL DYNAMICS
 #include "jeod_time.sm"
+
 #include "dynamics.sm"
 #include "environment.sm"
-#include "sun_basic.sm"
 #include "moon_basic.sm"
+#include "sun_basic.sm"
 #define JEOD_OVERRIDE_GGM02C_WITH_GEMT1
 #include "earth_GGM05C_MET_RNP.sm"
-
 
 /*****************************************************************************
 Vehicle Sim Object
@@ -114,31 +112,28 @@ Purpose:(Provides the vehicle object)
 
 class VehicleBasicSimObject : public Trick::SimObject
 {
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
 
- public:
-  jeod::StructureIntegratedDynBody dyn_body;
-  jeod::SphericalHarmonicsGravityControls  grav_control;
+public:
+    jeod::StructureIntegratedDynBody dyn_body;
+    jeod::SphericalHarmonicsGravityControls grav_control;
 
-  jeod::DynBodyInitTransState   trans_init;
-  jeod::DynBodyInitRotState     rot_init;
-  jeod::MassBodyInit            mass_init;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
 
-  VehicleBasicSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    dyn_manager(dyn_mngr_in)
-  {
-     P_ENV ("initialization") dyn_body.initialize_model(dyn_manager );
-  };
+    VehicleBasicSimObject(jeod::DynManager & dyn_mngr_in)
+        : dyn_manager(dyn_mngr_in)
+    {
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
+    }
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  VehicleBasicSimObject (const VehicleBasicSimObject&);
-  VehicleBasicSimObject & operator = (const VehicleBasicSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    VehicleBasicSimObject(const VehicleBasicSimObject &) = delete;
+    VehicleBasicSimObject & operator=(const VehicleBasicSimObject &) = delete;
 };
-
 
 // Vehicle with atmosphere
 ##include "environment/atmosphere/base_atmos/include/atmosphere.hh"
@@ -148,146 +143,118 @@ class VehicleBasicSimObject : public Trick::SimObject
 
 class VehicleAtmSimObject : public VehicleBasicSimObject
 {
- protected:
-  // External references
-  jeod::METAtmosphere & atmos;
-  jeod::WindVelocity  & wind;
- public:
-  jeod::AtmosphereState       atmos_state;
-  jeod::PlanetaryDerivedState pfix;
+protected:
+    // External references
+    jeod::METAtmosphere & atmos;
+    jeod::WindVelocity & wind;
 
+public:
+    jeod::AtmosphereState atmos_state;
+    jeod::PlanetaryDerivedState pfix;
 
-  VehicleAtmSimObject( jeod::DynManager       & dyn_mngr_in,
-                       jeod::METAtmosphere    & atmos_in,
-                       jeod::WindVelocity     & wind_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in),
-    atmos(atmos_in),
-    wind(wind_in)
-  {
-     //
-     // Initialization jobs
-     //
-     P_BODY ("initialization") pfix.initialize( dyn_body, dyn_manager);
-     P_BODY ("initialization") pfix.update();
+    VehicleAtmSimObject(jeod::DynManager & dyn_mngr_in, jeod::METAtmosphere & atmos_in, jeod::WindVelocity & wind_in)
+        : VehicleBasicSimObject(dyn_mngr_in),
+          atmos(atmos_in),
+          wind(wind_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_BODY("initialization") pfix.initialize(dyn_body, dyn_manager);
+        P_BODY("initialization") pfix.update();
 
-     P_DYN  ("initialization") atmos_state.update_state( &atmos, &pfix.state);
-     P_DYN  ("initialization") atmos_state.update_wind( &wind,
-                                     dyn_body.composite_body.state.trans.position,
-                                     pfix.state.ellip_coords.altitude);
+        P_DYN("initialization") atmos_state.update_state(&atmos, &pfix.state);
+        P_DYN("initialization")
+        atmos_state.update_wind(&wind, dyn_body.composite_body.state.trans.position, pfix.state.ellip_coords.altitude);
 
-     //
-     // Environment class jobs
-     //
-     (DYNAMICS,"environment") pfix.update();
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") pfix.update();
 
-     (DYNAMICS, "environment") atmos_state.update_state( &atmos, &pfix.state);
-     (DYNAMICS, "environment") atmos_state.update_wind( &wind,
-                                     dyn_body.composite_body.state.trans.position,
-                                     pfix.state.ellip_coords.altitude);
-  };
+        (DYNAMICS, "environment") atmos_state.update_state(&atmos, &pfix.state);
+        (DYNAMICS, "environment") atmos_state.update_wind(&wind,
+                                                          dyn_body.composite_body.state.trans.position,
+                                                          pfix.state.ellip_coords.altitude);
+    }
 
- private:
-  VehicleAtmSimObject (const VehicleAtmSimObject&);
-  VehicleAtmSimObject & operator = (const VehicleAtmSimObject&);
+    VehicleAtmSimObject(const VehicleAtmSimObject &) = delete;
+    VehicleAtmSimObject & operator=(const VehicleAtmSimObject &) = delete;
 };
-
 
 // Vehile with initializations and external forces and torques
 class VehicleSimObject : public VehicleAtmSimObject
 {
- public:
-  jeod::DynBodyInitLvlhRotState lvlh_init;
-  jeod::EulerDerivedState     euler;
-  jeod::LvlhDerivedState      lvlh;
-  jeod::EulerDerivedState     lvlh_euler;
-  jeod::OrbElemDerivedState   orb_elem;
-  jeod::Force  force_extern;
-  jeod::Torque torque_extern;
-  jeod::GravityTorque grav_torque;
-  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
-  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
-  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
-  jeod::AerodynamicDrag  aero_drag;
+public:
+    jeod::DynBodyInitLvlhRotState lvlh_init;
+    jeod::EulerDerivedState euler;
+    jeod::LvlhDerivedState lvlh;
+    jeod::EulerDerivedState lvlh_euler;
+    jeod::OrbElemDerivedState orb_elem;
+    jeod::Force force_extern;
+    jeod::Torque torque_extern;
+    jeod::GravityTorque grav_torque;
+    jeod::SphericalHarmonicsGravityControls earth_grav_control;
+    jeod::SphericalHarmonicsGravityControls moon_grav_control;
+    jeod::SphericalHarmonicsGravityControls sun_grav_control;
+    jeod::AerodynamicDrag aero_drag;
 
-  // Instances for default data:
-  jeod::AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+    // Instances for default data:
+    jeod::AerodynamicDrag_aero_model_default_data aero_drag_default_data;
 
-  //Constructor
-  VehicleSimObject( jeod::DynManager    & dyn_manager_,
-                    jeod::METAtmosphere & atmos_,
-                    jeod::WindVelocity  & wind_)
-     :
-     VehicleAtmSimObject( dyn_manager_, atmos_, wind_)
-  {
-    //
-    //Default data jobs
-    //
-    ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+    // Constructor
+    VehicleSimObject(jeod::DynManager & dyn_manager_, jeod::METAtmosphere & atmos_, jeod::WindVelocity & wind_)
+        : VehicleAtmSimObject(dyn_manager_, atmos_, wind_)
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") aero_drag_default_data.initialize(&aero_drag);
 
-    //
-    // Initialization jobs
-    //
-    P_DYN  ("initialization") euler.initialize( dyn_body,
-                                                dyn_manager );
-    P_DYN  ("initialization") lvlh.initialize( dyn_body,
-                                               dyn_manager );
-    P_DYN  ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
-                                                     dyn_body,
-                                                     dyn_manager );
-    P_DYN  ("initialization") orb_elem.initialize( dyn_body,
-                                                   dyn_manager );
-    ("initialization") euler.update( );
-    ("initialization") pfix.update( );
-    ("initialization") lvlh.update( );
-    ("initialization") lvlh_euler.update( );
-    ("initialization") orb_elem.update( );
-    ("initialization") grav_torque.initialize( dyn_body );
-    //
-    // Environment class jobs
-    //
-    (DYNAMICS, "environment") euler.update( );
-    (DYNAMICS, "environment") lvlh.update( );
-    (DYNAMICS, "environment") lvlh_euler.update( );
-    (DYNAMICS, "environment") orb_elem.update( );
-    //
-    // Derivative class jobs
-    //
-    P_BODY   ("derivative") aero_drag.aero_drag(
-          dyn_body.composite_body.state.trans.velocity,
-          &atmos_state,
-          dyn_body.structure.state.rot.T_parent_this,
-          dyn_body.mass.composite_properties.mass,
-          dyn_body.mass.composite_properties.position);
-    P_PGRAV   ("derivative") grav_torque.update();
-  }
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") euler.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh_euler.initialize(lvlh.lvlh_frame, dyn_body, dyn_manager);
+        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
+        ("initialization") euler.update();
+        ("initialization") pfix.update();
+        ("initialization") lvlh.update();
+        ("initialization") lvlh_euler.update();
+        ("initialization") orb_elem.update();
+        ("initialization") grav_torque.initialize(dyn_body);
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") euler.update();
+        (DYNAMICS, "environment") lvlh.update();
+        (DYNAMICS, "environment") lvlh_euler.update();
+        (DYNAMICS, "environment") orb_elem.update();
+        //
+        // Derivative class jobs
+        //
+        P_BODY("derivative")
+        aero_drag.aero_drag(dyn_body.composite_body.state.trans.velocity,
+                            &atmos_state,
+                            dyn_body.structure.state.rot.T_parent_this,
+                            dyn_body.mass.composite_properties.mass,
+                            dyn_body.mass.composite_properties.position);
+        P_PGRAV("derivative") grav_torque.update();
+    }
 
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
-
-};
-VehicleSimObject vehicle ( dynamics.dyn_manager,
-                           earth.atmos,
-                           earth.wind_velocity);
-
-
-vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   vehicle.force_extern
-};
-vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
-};
-vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   vehicle.aero_drag.aero_force
-};
-vcollect vehicle.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   vehicle.torque_extern
-};
-vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create {
-};
-vcollect vehicle.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   vehicle.aero_drag.aero_torque,
-   vehicle.grav_torque.torque
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth, vehicle;
+VehicleSimObject vehicle(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+
+vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{vehicle.force_extern};
+vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create{};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{vehicle.aero_drag.aero_force};
+vcollect vehicle.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{vehicle.torque_extern};
+vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create{};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{vehicle.aero_drag.aero_torque,
+                                                                                   vehicle.grav_torque.torque};
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth, vehicle;

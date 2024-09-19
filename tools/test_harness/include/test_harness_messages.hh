@@ -53,10 +53,9 @@ Purpose:
 Library dependencies:
   ((../src/ephem_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_TEST_HARNESS_MESSAGES_HH
 #define JEOD_TEST_HARNESS_MESSAGES_HH
@@ -66,74 +65,50 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the test harness model.
  */
-class TestHarnessMessages {
+class TestHarnessMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TestHarnessMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued when the the programmer has done something wrong.
+     */
+    static const char * inconsistent_setup; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(TestHarnessMessages)
+    /**
+     * Issued when a something is wrong with the command line.
+     */
+    static const char * invalid_option; //!< trick_units(--)
 
+    /**
+     * Issued when a test has failed.
+     */
+    static const char * test_failed; //!< trick_units(--)
 
- // Static member data
- public:
+    /**
+     * Used for testing purposes.
+     */
+    static const char * test_message; //!< trick_units(--)
 
-   /**
-    * Issued when the the programmer has done something wrong.
-    */
-   static char const * inconsistent_setup; //!< trick_units(--)
+    /**
+     * Used for testing purposes.
+     */
+    static const char * debug; //!< trick_units(--)
 
-   /**
-    * Issued when a something is wrong with the command line.
-    */
-   static char const * invalid_option; //!< trick_units(--)
-
-   /**
-    * Issued when a test has failed.
-    */
-   static char const * test_failed; //!< trick_units(--)
-
-   /**
-    * Used for testing purposes.
-    */
-   static char const * test_message; //!< trick_units(--)
-
-   /**
-    * Used for testing purposes.
-    */
-   static char const * debug; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   /**
-    * Not implemented.
-    */
-   TestHarnessMessages (void);
-
-   /**
-    * Not implemented.
-    */
-   TestHarnessMessages (const TestHarnessMessages &);
-
-   /**
-    * Not implemented.
-    */
-   TestHarnessMessages & operator= (const TestHarnessMessages &);
-
+    TestHarnessMessages() = delete;
+    TestHarnessMessages(const TestHarnessMessages &) = delete;
+    TestHarnessMessages & operator=(const TestHarnessMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

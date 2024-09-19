@@ -72,63 +72,54 @@ Library dependencies:
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeGPS;
 class TimeTAI;
 class JeodBaseTime;
 
-
 /**
  * Define class TimeConverter_TAI_GPS, which converts between International Atomic
  * Time and the clock associated with the Global Positioning System.
  */
-class TimeConverter_TAI_GPS : public TimeConverter {
+class TimeConverter_TAI_GPS : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_TAI_GPS)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_TAI_GPS)
-
-// Member Data
+    // Member Data
 private:
-   /**
-    * Converter parent time, always a TimeTAI for this converter.
-    */
-  TimeTAI * tai_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeTAI for this converter.
+     */
+    TimeTAI * tai_ptr{}; //!< trick_units(--)
 
-   /**
-    * Converter parent time, always a TimeGPS for this converter.
-    */
-  TimeGPS * gps_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeGPS for this converter.
+     */
+    TimeGPS * gps_ptr{}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_TAI_GPS ();
-  // Destructor
-   ~TimeConverter_TAI_GPS () override;
+    TimeConverter_TAI_GPS();
+    ~TimeConverter_TAI_GPS() override = default;
+    TimeConverter_TAI_GPS(const TimeConverter_TAI_GPS &) = delete;
+    TimeConverter_TAI_GPS & operator=(const TimeConverter_TAI_GPS &) = delete;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void) override;
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 
-  // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeConverter_TAI_GPS (const TimeConverter_TAI_GPS&);
-   TimeConverter_TAI_GPS & operator = (const TimeConverter_TAI_GPS&);
+    // convert_b_to_a: Apply the converter in the reverse direction
+    void convert_b_to_a() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

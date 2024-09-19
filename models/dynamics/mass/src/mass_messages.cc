@@ -28,7 +28,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -36,36 +35,28 @@ Library dependencies:
 
 #define PATH "dynamics/mass/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
-char const * MassBodyMessages::attach_info =
-    PATH "attach_info";
+const char * MassBodyMessages::attach_info = PATH "attach_info";
 
-char const * MassBodyMessages::invalid_attach =
-    PATH "invalid_attach";
+const char * MassBodyMessages::invalid_attach = PATH "invalid_attach";
 
-char const * MassBodyMessages::invalid_detach =
-    PATH "invalid_detach";
+const char * MassBodyMessages::invalid_detach = PATH "invalid_detach";
 
-char const * MassBodyMessages::invalid_node =
-    PATH "invalid_node";
+const char * MassBodyMessages::invalid_node = PATH "invalid_node";
 
-char const * MassBodyMessages::invalid_name =
-    PATH "invalid_name";
+const char * MassBodyMessages::invalid_name = PATH "invalid_name";
 
-char const * MassBodyMessages::invalid_enum =
-    PATH "invalid_enum";
+const char * MassBodyMessages::invalid_enum = PATH "invalid_enum";
 
-char const * MassBodyMessages::io_error =
-    PATH "io_error";
+const char * MassBodyMessages::io_error = PATH "io_error";
 
-char const * MassBodyMessages::internal_error =
-    PATH "internal_error";
+const char * MassBodyMessages::internal_error = PATH "internal_error";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

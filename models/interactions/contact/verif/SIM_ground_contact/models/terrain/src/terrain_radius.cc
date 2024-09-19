@@ -23,40 +23,26 @@ Library dependencies:
 #include "../include/terrain_radius.hh"
 
 //! Namespace jeod
-namespace jeod {
-
-TerrainRadius::TerrainRadius (
-	void)
+namespace jeod
 {
 
-}
-
-TerrainRadius::~TerrainRadius( // Return: -- N/A
-    void)
+int TerrainRadius::initialize( // Return: -- status
+    Planet * planet_in)
 {
+    planet = planet_in;
 
+    return 0;
 }
 
-int
-TerrainRadius::initialize ( // Return: -- status
-  Planet * planet_in)
+int TerrainRadius::find_altitude( // Return: -- status
+    PlanetFixedPosition * point,  // In: r latitude in radians
+    double normal[3])             // In: r longitude in radiams
 {
-   planet = planet_in;
+    point->ellip_coords.set_data(0.0, point->ellip_coords.latitude, point->ellip_coords.longitude);
+    point->update_from_ellip(point->ellip_coords);
+    Vector3::normalize(point->cart_coords, normal);
 
-   return 0;
+    return 1;
 }
 
-int
-TerrainRadius::find_altitude ( // Return: -- status
-   PlanetFixedPosition *point, // In: r latitude in radians
-   double normal[3]) // In: r longitude in radiams
-{
-
-   point->ellip_coords.set_data(0.0, point->ellip_coords.latitude, point->ellip_coords.longitude);
-   point->update_from_ellip(point->ellip_coords);
-   Vector3::normalize(point->cart_coords, normal);
-
-   return 1;
-}
-
-} // End JEOD namespace
+} // namespace jeod

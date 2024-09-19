@@ -17,13 +17,6 @@ log_rec( LOG_CYCLE )
 
 #############  ASSIGNMENTS, CALLS, and CONTROL  #################
 
-#sys.exec.in.trap_sigfpe          = 1;
-#sys.exec.in.pre_init_checkpoint  = 0;
-#sys.exec.in.post_init_checkpoint = 0;
-#sys.exec.in.end_checkpoint       = 0;
-#sys.exec.in.reduced_checkpoint   = 0;
-#sys.exec.sim_com.monitor_on      = 0;
-#sys.exec.rt_log.group[0].record  = 0;
 
 jeod_time.time_manager_init.initializer = "UTC"
 jeod_time.time_manager_init.sim_start_format = trick.TimeEnum.calendar

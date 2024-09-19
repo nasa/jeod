@@ -51,49 +51,33 @@ Purpose: ()
 SWIG: (No)
 */
 
-
 #ifndef JEOD_VIEW_FORWARD_DECLARATIONS_HH
 #define JEOD_VIEW_FORWARD_DECLARATIONS_HH
 
-//! Namespace jeod 
-namespace jeod {
-
+//! Namespace jeod
+namespace jeod
+{
 
 #ifndef SWIG
 
-template<typename ElemType, typename RefType=ElemType&> class VectorView;
+template<typename ElemType, typename RefType = ElemType &> class VectorView;
 
-template<typename ElemType, typename RefType=ElemType&> class MatrixView;
+template<typename ElemType, typename RefType = ElemType &> class MatrixView;
 
-template <class ArrayType, typename ElemType, typename RefType=ElemType&>
-class ColumnView;
+template<class ArrayType, typename ElemType, typename RefType = ElemType &> class ColumnView;
 
-template <
-    class ArrayType,
-    typename ElemType,
-    typename RefType=ElemType&>
-class RowView;
+template<class ArrayType, typename ElemType, typename RefType = ElemType &> class RowView;
 
-template <
-    class UnderlyingType,
-    typename ElemType,
-    typename RefType=ElemType&,
-    typename BaseRefType=ElemType&>
+template<class UnderlyingType, typename ElemType, typename RefType = ElemType &, typename BaseRefType = ElemType &>
 class SubVectorView;
 
-template <
-    class ParentType,
-    typename ElemType,
-    typename RefType=ElemType&>
-class SubArrayView;
+template<class ParentType, typename ElemType, typename RefType = ElemType &> class SubArrayView;
 
 #endif
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

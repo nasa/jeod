@@ -48,101 +48,70 @@ Library dependencies:
 // Model includes
 #include "../include/ephem_point.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct an ephemeris point.
- */
-EphemerisPoint::EphemerisPoint (
-   void)
-:
-   EphemerisItem()
+namespace jeod
 {
-   ; // Empty
-}
-
-
-/**
- * Destroy an ephemeris point.
- */
-EphemerisPoint::~EphemerisPoint (
-   void)
-{
-   ; // Empty; object does not allocate memory
-}
-
 
 /**
  * Set active status to correspond with that of the inertial frame.
  * \param[in] frame Frame whose status has changed
  */
-void
-EphemerisPoint::note_frame_status_change (
-   RefFrame * frame)
+void EphemerisPoint::note_frame_status_change(RefFrame * frame)
 {
+    // The frame had better be the inertial frame.
+    if(frame != target_frame)
+    {
+        MessageHandler::error(__FILE__,
+                              __LINE__,
+                              EphemeridesMessages::internal_error,
+                              "Unexpected frame passed to note_frame_status_change");
+        return;
+    }
 
-   // The frame had better be the inertial frame.
-   if (frame != target_frame) {
-      MessageHandler::error (
-         __FILE__, __LINE__, EphemeridesMessages::internal_error,
-         "Unexpected frame passed to note_frame_status_change");
-      return;
-   }
-
-   // Make this point have the same activity level as the inertial frame
-   // associated with the point.
-   if (target_frame->is_active()) {
-      activate ();
-   } else {
-      deactivate ();
-   }
+    // Make this point have the same activity level as the inertial frame
+    // associated with the point.
+    if(target_frame->is_active())
+    {
+        activate();
+    }
+    else
+    {
+        deactivate();
+    }
 }
-
 
 /**
  * Return the default suffix for this item class, i.e., "inertial".
  * @return Default suffix
  */
-const char *
-EphemerisPoint::default_suffix (
-   void)
-const
+std::string EphemerisPoint::default_suffix() const
 {
-   return "inertial";
+    return "inertial";
 }
-
 
 /**
  * Disconnect the associated inertial frame from the tree.
  */
-void
-EphemerisPoint::disconnect_from_tree (
-   void)
+void EphemerisPoint::disconnect_from_tree()
 {
-   // Disconnect the inertial frame from the reference frame tree.
-   // The frame will be reinserted if needed in a (possibly different) tree.
-   if (active && (target_frame != nullptr)) {
-      target_frame->remove_from_parent();
-   }
+    // Disconnect the inertial frame from the reference frame tree.
+    // The frame will be reinserted if needed in a (possibly different) tree.
+    if(active && (target_frame != nullptr))
+    {
+        target_frame->remove_from_parent();
+    }
 }
-
 
 /**
  * Zero-out the inertial frame's translational state.
  */
-inline void
-EphemerisPoint::initialize_state (
-   void)
+inline void EphemerisPoint::initialize_state()
 {
-   RefFrameTrans & trans = target_frame->state.trans;
+    RefFrameTrans & trans = target_frame->state.trans;
 
-   Vector3::initialize (trans.position);
-   Vector3::initialize (trans.velocity);
+    Vector3::initialize(trans.position);
+    Vector3::initialize(trans.velocity);
 }
-
 
 /**
  * Update the inertial frame's translational state.
@@ -150,20 +119,15 @@ EphemerisPoint::initialize_state (
  * \param[in] velocity Velocity wrt parent\n Units: M/s
  * \param[in] time Timestamp\n Units: s
  */
-void
-EphemerisPoint::update (
-   const double * position,
-   const double * velocity,
-   double time)
+void EphemerisPoint::update(const double * position, const double * velocity, double time)
 {
-   RefFrameTrans & trans (target_frame->state.trans);
+    RefFrameTrans & trans(target_frame->state.trans);
 
-   Vector3::copy (position, trans.position);
-   Vector3::copy (velocity, trans.velocity);
-   update_time = time;
-   target_frame->set_timestamp (time);
+    Vector3::copy(position, trans.position);
+    Vector3::copy(velocity, trans.velocity);
+    update_time = time;
+    target_frame->set_timestamp(time);
 }
-
 
 /**
  * Update the inertial frame's translational state.
@@ -172,36 +136,27 @@ EphemerisPoint::update (
  * \param[in] scale Scale factor
  * \param[in] time Timestamp\n Units: s
  */
-void
-EphemerisPoint::update_scaled (
-   const double * position,
-   const double * velocity,
-   double scale,
-   double time)
+void EphemerisPoint::update_scaled(const double * position, const double * velocity, double scale, double time)
 {
-   RefFrameTrans & trans (target_frame->state.trans);
+    RefFrameTrans & trans(target_frame->state.trans);
 
-   Vector3::scale (position, scale, trans.position);
-   Vector3::scale (velocity, scale, trans.velocity);
-   update_time = time;
-   target_frame->set_timestamp (time);
+    Vector3::scale(position, scale, trans.position);
+    Vector3::scale(velocity, scale, trans.velocity);
+    update_time = time;
+    target_frame->set_timestamp(time);
 }
-
 
 /**
  * Specify the aspect of the target frame updated by the object.
  * EphemerisPoint objects update the translational state.
  * @return Target of object
  */
-EphemerisItem::TargetAspect
-EphemerisPoint::updates_what (
-   void)
-const
+EphemerisItem::TargetAspect EphemerisPoint::updates_what() const
 {
-   return EphemerisItem::Translation;
+    return EphemerisItem::Translation;
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

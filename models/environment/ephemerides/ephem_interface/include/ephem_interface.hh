@@ -57,117 +57,83 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEMERIS_INTERFACE_HH
 #define JEOD_EPHEMERIS_INTERFACE_HH
 
 // System includes
+#include <string>
 
 // JEOD includes
 #include "utils/ref_frames/include/subscription.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class EphemeridesManager;
-
-
 
 /**
  * Interface class that specifies minimal functionality of an ephemeris model.
  */
-class EphemerisInterface : virtual public ActivateInterface {
-JEOD_MAKE_SIM_INTERFACES(EphemerisInterface)
+class EphemerisInterface : virtual public ActivateInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EphemerisInterface)
 
 public:
+    // Member functions
+    // Note: This class does not define a constructor.
+    // The au-gratis constructor does nothing, which is what is desired.
+    // The freebie copy constructor and assignment operator are OK as well.
 
-   // Member functions
-   // Note: This class does not define a constructor.
-   // The au-gratis constructor does nothing, which is what is desired.
-   // The freebie copy constructor and assignment operator are OK as well.
+    // Destructor - does nothing other than the virtual designation.
+    ~EphemerisInterface() override = default;
 
-   // Destructor - does nothing other than the virtual designation.
-   ~EphemerisInterface (void) override;
+    // Pure virtual methods.
 
+    /**
+     * Indicates when class was last updated.
+     * @return Time of last update\n Units: s
+     */
 
-   // Pure virtual methods.
+    /*
+     Purpose: (Indicates when class was last updated.)
+     */
+    virtual double timestamp() const = 0;
 
-      /**
-    * Indicates when class was last updated.
-    * @return Time of last update\n Units: s
-    */
+    /**
+     * Identify the model.
+     * @return Model name
+     */
+    virtual std::string get_name() const = 0;
 
-   /*
-    Purpose: (Indicates when class was last updated.)
-    */
-   virtual double timestamp (
-      void)
-   const
-   = 0;
+    /**
+     * Initialize the model.
+     * \param[in,out] manager Ephemerides manager
+     */
+    virtual void ephem_initialize(EphemeridesManager & manager) = 0;
 
+    /**
+     * Activate the model.
+     * \param[in,out] manager Ephemerides manager
+     */
+    virtual void ephem_activate(EphemeridesManager & manager) = 0;
 
-      /**
-    * Identify the model.
-    * @return Model name
-    */
-   virtual const char * get_name (
-      void)
-   const
-   = 0;
+    /**
+     * Build the model's contribution to the reference frame tree.
+     * \param[in,out] manager Ephemerides manager
+     */
+    virtual void ephem_build_tree(EphemeridesManager & manager) = 0;
 
+    /**
+     * Update the model.
+     */
+    virtual void ephem_update() = 0;
 
-      /**
-    * Initialize the model.
-    * \param[in,out] manager Ephemerides manager
-    */
-   virtual void ephem_initialize (
-      EphemeridesManager & manager)
-   = 0;
-
-
-      /**
-    * Activate the model.
-    * \param[in,out] manager Ephemerides manager
-    */
-   virtual void ephem_activate (
-      EphemeridesManager & manager)
-   = 0;
-
-
-      /**
-    * Build the model's contribution to the reference frame tree.
-    * \param[in,out] manager Ephemerides manager
-    */
-   virtual void ephem_build_tree (
-      EphemeridesManager & manager)
-   = 0;
-
-
-      /**
-    * Update the model.
-    */
-   virtual void ephem_update (
-      void)
-   = 0;
-
-   // Member data: None. This is an interface class.
+    // Member data: None. This is an interface class.
 };
 
-
-/**
- * Destructor; there is nothing to destroy here.
- */
-inline
-EphemerisInterface::~EphemerisInterface (
-   void)
-{
-   ; // Empty
-}
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

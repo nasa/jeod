@@ -11,13 +11,13 @@ this section.
 
 \subsection{Mass}
 
-A DynBody \hasa public MassBody attribute with friendship access 
+A DynBody \hasa public MassBody attribute with friendship access
 declared in MassBody.
 
 In dyn\_body.hh
 \begin{verbatim}
 class DynBody : virtual public RefFrameOwner,
-    virtual public er7_utils::IntegrableObject { 
+    virtual public er7_utils::IntegrableObject {
 ...
 public:
 ...
@@ -35,20 +35,20 @@ class MassBody {
 };
 \end{verbatim}
 
-Note that the DynBody class uses multiple inheritance. The RefFrameOwner class 
-is merely an abstract class for defining interface taxonomy. The MassBody 
+Note that the DynBody class uses multiple inheritance. The RefFrameOwner class
+is merely an abstract class for defining interface taxonomy. The MassBody
 class is a full-fledged class.
-The public MassBody friendship 
+The public MassBody friendship
 functionality is passed to other classes and functions that use a
 DynBody object. The protected MassBody functionality is fully visible
-within a DynBody class but not within classes that derive from the DynBody 
+within a DynBody class but not within classes that derive from the DynBody
 class. Readers who wish to learn more about the MassBody
 functionality should refer to the \hypermodelref{MASS}.
 
-In previous versions of JEOD, a Simple6DofDynBody class inherited from the 
-DynBody class to provide IntegrableObject functionality to DynBody. All of 
-this functionality was collapsed into DynBody itself as of JEOD v4.0, because 
-nearly all JEOD use cases implemented Simple6DofDynBody, making intermediate 
+In previous versions of JEOD, a Simple6DofDynBody class inherited from the
+DynBody class to provide IntegrableObject functionality to DynBody. All of
+this functionality was collapsed into DynBody itself as of JEOD v4.0, because
+nearly all JEOD use cases implemented Simple6DofDynBody, making intermediate
 inheritance unnecessary.
 
 \subsection{State}
@@ -62,9 +62,9 @@ three MassProperties objects defined in the MassBody class. These are
 \item \verb+structure+, which represents the state of the
   MassBody's \verb+structure_point+ object.
 \end{inparaenum}
-The connection between these three three BodyRefFrame objects and the
-corresponding MassProperties object is made by the DynBody constructor. 
-Further BodyRefFrame's corresponding to the MassBody's MassPoints may be 
+The connection between these three BodyRefFrame objects and the
+corresponding MassProperties object is made by the DynBody constructor.
+Further BodyRefFrame's corresponding to the MassBody's MassPoints may be
 constructed through attachment.
 
 \subsection{Inertial Frames}
@@ -90,31 +90,31 @@ The protected methods are overloaded versions of \verb+set_integ_frame()+.
 These methods do not preserve state and are for internal use only.
 
 \subsection{Attach/Detach}\label{sec:detailed_attach_detach}
-The DynBody attach/detach mechanism separately performs the actions encompassed 
-by MassBody attach/mechanisms, with further extensions to verify validity and 
+The DynBody attach/detach mechanism separately performs the actions encompassed
+by MassBody attach/mechanisms, with further extensions to verify validity and
 perform dynamics updates (e.g. update the composite BodyRefFrame). The mathematics
-of this is described in section~\ref{sec:math_attach_detach}. None of the 
-attach methods are intended to be overridden by derived classes in order to 
-preserve core functionality. Extensibility can be achieved by manipulating 
+of this is described in section~\ref{sec:math_attach_detach}. None of the
+attach methods are intended to be overridden by derived classes in order to
+preserve core functionality. Extensibility can be achieved by manipulating
 configuration before or after invoking these interface methods.
 
 The top level methods used to attach and detach DynBody instances are: \begin{itemize}
-\item \verb+DynBody::attach_child()+ to specify a DynBody to attach as a child, 
-\item \verb+DynBody::attach_to()+ to specify a DynBody to attach as a parent, 
-\item \verb+DynBody::attach_to_frame()+ to specify a RefFrame to kinematically attach as a parent, 
-\item \verb+DynBody::add_mass_body()+ to specify a MassBody or linkage of 
-    MassBodys to attach as child(ren), 
-\item \verb+DynBody::detach()+ to order this body to detach from its parent 
+\item \verb+DynBody::attach_child()+ to specify a DynBody to attach as a child,
+\item \verb+DynBody::attach_to()+ to specify a DynBody to attach as a parent,
+\item \verb+DynBody::attach_to_frame()+ to specify a RefFrame to kinematically attach as a parent,
+\item \verb+DynBody::add_mass_body()+ to specify a MassBody or linkage of
+    MassBodys to attach as child(ren),
+\item \verb+DynBody::detach()+ to order this body to detach from its parent
     or detach another DynBody from this body,
-\item \verb+DynBody::remove_mass_body()+ to order this body to detach child(ren) 
-    MassBodys. 
+\item \verb+DynBody::remove_mass_body()+ to order this body to detach child(ren)
+    MassBodys.
 \end{itemize}
 
-Attachment orientation is specified in one of two ways: **explicitly** by 
-relative position/orientation between the body structures or **implicitly** by 
-names of body points to mate (with orientation defined as opposing in X and 
-aligned in Y w.r.t. point frames). 
-Momentum conservation is performed only if both the child and parent are two DynBody objects and 
+Attachment orientation is specified in one of two ways: **explicitly** by
+relative position/orientation between the body structures or **implicitly** by
+names of body points to mate (with orientation defined as opposing in X and
+aligned in Y w.r.t. point frames).
+Momentum conservation is performed only if both the child and parent are two DynBody objects and
 have fully initialized states. Two other cases are possible:
 \begin{itemize}
 \item The parent is a RefFrame and the attachment is treated kinematically.
@@ -129,23 +129,23 @@ body's core and structural states. State is propagated from the parent
 body's structural frame.
 \end{itemize}
 
-The attach mechanism invokes protected intermediate functions to organize the 
+The attach mechanism invokes protected intermediate functions to organize the
 attachment process. Several of these functions belong to MassBody and are
 exploited by DynBody through friendship.
 These methods are\begin{itemize}
-\item \verb+DynBody::attach_update_properties()+ to perform dynamic attachment, 
-\item \verb+MassBody::attach_establish_links()+ to update searchable tree linkage, 
-\item \verb+MassBody::detach_establish_links()+ to remove tree linkage, 
+\item \verb+DynBody::attach_update_properties()+ to perform dynamic attachment,
+\item \verb+MassBody::attach_establish_links()+ to update searchable tree linkage,
+\item \verb+MassBody::detach_establish_links()+ to remove tree linkage,
 \item \verb+MassBody::attach_update_properties()+ to combine the MassBody's internal
-    properties, 
+    properties,
 \item \verb+MassBody::attach_update_properties()+ to separate the MassBody's internal
     properties, and
-\item \verb+MassPoint::compute_state_wrt_pred()+ to perform relative geometry 
-    calculations. 
+\item \verb+MassPoint::compute_state_wrt_pred()+ to perform relative geometry
+    calculations.
 \end{itemize}
-These functions ensure that the attribute MassBody have correct composite 
-properties and linkages. The DynBody attach/detach methods also invoke 
-validation checks during the process to verify the commanded attachment is 
+These functions ensure that the attribute MassBody have correct composite
+properties and linkages. The DynBody attach/detach methods also invoke
+validation checks during the process to verify the commanded attachment is
 valid.
 These methods are\begin{itemize}
 \item \verb+attach_validate_parent()+,
@@ -155,9 +155,9 @@ These methods are\begin{itemize}
 \item \verb+add_mass_body_validate()+,
   which is called by the DynBody with the child MassBody supplied as an argument;
 \end{itemize}
-The validation methods ensure that the bodies are registered with JEOD, will 
-not create a nodal attach tree such that any node is multiply or cyclically 
-attached, and that the supplied arguments do not refer to invalid types (e.g., 
+The validation methods ensure that the bodies are registered with JEOD, will
+not create a nodal attach tree such that any node is multiply or cyclically
+attached, and that the supplied arguments do not refer to invalid types (e.g.,
 a DynBody may not attach as a child to a MassBody parent).
 
 \subsection{Initialization}
@@ -482,7 +482,7 @@ The term `state propagation' as used in this document and in the model code
 means propagating the state from a reference frame associated with a DynBody
 object to other reference frames associated with that DynBody object, either
 directly or via attachment, using the geometry information embedded in the
-MassBody objects that underlie the DynBody objects. State propagation is a
+MassBody objects contained in the DynBody objects. State propagation is a
 topic distinct from state integration. State needs to be propagated from frame
 to frame for several reasons:
 \begin{itemize}

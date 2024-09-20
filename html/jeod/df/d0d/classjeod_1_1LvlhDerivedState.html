@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,8 +48,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::LvlhDerivedState Class Reference</div>  </div>
@@ -65,7 +63,7 @@ Inheritance diagram for jeod::LvlhDerivedState:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d86/classjeod_1_1LvlhDerivedState__inherit__graph.png" border="0" usemap="#jeod_1_1LvlhDerivedState_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1LvlhDerivedState_inherit__map" id="jeod_1_1LvlhDerivedState_inherit__map">
-<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="17,5,148,32"/>
+<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="19,5,162,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -73,72 +71,78 @@ Collaboration diagram for jeod::LvlhDerivedState:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/ddf/classjeod_1_1LvlhDerivedState__coll__graph.png" border="0" usemap="#jeod_1_1LvlhDerivedState_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1LvlhDerivedState_coll__map" id="jeod_1_1LvlhDerivedState_coll__map">
-<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="1812,1339,1943,1365"/>
-<area shape="rect" id="node3" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1371,777,1479,804"/>
-<area shape="rect" id="node23" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1640,824,1756,851"/>
-<area shape="rect" id="node44" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="2000,824,2121,851"/>
-<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="5,547,156,573"/>
-<area shape="rect" id="node7" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="261,659,373,685"/>
-<area shape="rect" id="node6" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="1009,725,1184,752"/>
-<area shape="rect" id="node12" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="586,916,729,943"/>
-<area shape="rect" id="node17" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="787,753,977,794"/>
-<area shape="rect" id="node29" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="576,380,739,407"/>
-<area shape="rect" id="node46" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. " alt="" coords="2916,901,3031,928"/>
-<area shape="rect" id="node8" title="STL class. " alt="" coords="41,1331,121,1357"/>
-<area shape="rect" id="node21" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="1035,1289,1158,1316"/>
-<area shape="rect" id="node9" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="552,549,763,576"/>
-<area shape="rect" id="node18" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1017,389,1176,416"/>
-<area shape="rect" id="node28" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="1007,288,1187,315"/>
-<area shape="rect" id="node13" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="244,1072,389,1099"/>
-<area shape="rect" id="node14" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="1011,557,1182,584"/>
-<area shape="rect" id="node15" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="1032,608,1161,635"/>
-<area shape="rect" id="node16" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="1001,659,1192,701"/>
-<area shape="rect" id="node26" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="2683,928,2811,955"/>
-<area shape="rect" id="node19" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="1017,905,1176,932"/>
-<area shape="rect" id="node24" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="1018,1172,1175,1199"/>
-<area shape="rect" id="node25" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="1007,1223,1187,1265"/>
-<area shape="rect" id="node27" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="2339,1182,2517,1223"/>
-<area shape="rect" id="node30" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="574,431,741,473"/>
-<area shape="rect" id="node31" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="558,183,757,225"/>
-<area shape="rect" id="node32" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="562,249,753,290"/>
-<area shape="rect" id="node33" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="577,314,737,355"/>
-<area shape="rect" id="node34" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="2337,1248,2519,1275"/>
-<area shape="rect" id="node35" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="1977,1251,2144,1277"/>
-<area shape="rect" id="node36" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="2334,337,2522,364"/>
-<area shape="rect" id="node39" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="2355,876,2501,903"/>
-<area shape="rect" id="node40" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="1980,875,2141,917"/>
-<area shape="rect" id="node42" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="1973,947,2148,989"/>
+<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="2075,87,2218,113"/>
+<area shape="rect" id="node3" title="STL class. " alt="" coords="243,1368,329,1395"/>
+<area shape="rect" id="node5" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1755,696,1872,723"/>
+<area shape="rect" id="node9" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="530,625,649,652"/>
+<area shape="rect" id="node22" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="1389,468,1523,495"/>
+<area shape="rect" id="node35" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="489,1496,689,1523"/>
+<area shape="rect" id="node45" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="2477,741,2609,768"/>
+<area shape="rect" id="node47" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. " alt="" coords="3473,445,3599,472"/>
+<area shape="rect" id="node4" title="STL class. " alt="" coords="5,1361,144,1402"/>
+<area shape="rect" id="node24" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="2085,507,2209,533"/>
+<area shape="rect" id="node6" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="205,368,367,395"/>
+<area shape="rect" id="node8" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="1362,855,1550,881"/>
+<area shape="rect" id="node13" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="907,1097,1059,1124"/>
+<area shape="rect" id="node18" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="1123,851,1329,893"/>
+<area shape="rect" id="node30" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="896,487,1071,513"/>
+<area shape="rect" id="node10" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="868,537,1099,564"/>
+<area shape="rect" id="node19" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1370,367,1542,393"/>
+<area shape="rect" id="node29" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="1357,316,1555,343"/>
+<area shape="rect" id="node14" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="511,1295,667,1321"/>
+<area shape="rect" id="node15" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="1361,636,1551,663"/>
+<area shape="rect" id="node16" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="1386,687,1526,713"/>
+<area shape="rect" id="node17" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="1353,738,1559,779"/>
+<area shape="rect" id="node27" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="3221,497,3361,524"/>
+<area shape="rect" id="node20" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="1371,804,1541,831"/>
+<area shape="rect" id="node25" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="1368,1200,1544,1227"/>
+<area shape="rect" id="node26" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="1359,1251,1553,1293"/>
+<area shape="rect" id="node28" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="2850,790,3046,831"/>
+<area shape="rect" id="node31" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="890,225,1077,266"/>
+<area shape="rect" id="node32" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="874,290,1093,331"/>
+<area shape="rect" id="node33" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="876,355,1091,397"/>
+<area shape="rect" id="node34" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="897,421,1070,462"/>
+<area shape="rect" id="node36" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="193,1584,379,1611"/>
+<area shape="rect" id="node37" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="2844,233,3052,260"/>
+<area shape="rect" id="node40" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="2867,445,3029,472"/>
+<area shape="rect" id="node41" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="2453,441,2633,482"/>
+<area shape="rect" id="node43" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="2446,574,2641,615"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad3b122c23d68a567746f18c85e318999"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ad3b122c23d68a567746f18c85e318999">LvlhDerivedState</a> ()</td></tr>
-<tr class="memdesc:ad3b122c23d68a567746f18c85e318999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html" title="The class used for deriving the rectilinear LVLH representations of a subject DynBody&#39;s state...">LvlhDerivedState</a> object.  <a href="#ad3b122c23d68a567746f18c85e318999">More...</a><br /></td></tr>
-<tr class="separator:ad3b122c23d68a567746f18c85e318999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a723cefc0b72db3bcbe207475b28ac71c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a723cefc0b72db3bcbe207475b28ac71c">LvlhDerivedState</a> ()=default</td></tr>
+<tr class="separator:a723cefc0b72db3bcbe207475b28ac71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7214072dd4971698fb2454468d7c19e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a7214072dd4971698fb2454468d7c19e9">~LvlhDerivedState</a> () override</td></tr>
 <tr class="memdesc:a7214072dd4971698fb2454468d7c19e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html" title="The class used for deriving the rectilinear LVLH representations of a subject DynBody&#39;s state...">LvlhDerivedState</a> object.  <a href="#a7214072dd4971698fb2454468d7c19e9">More...</a><br /></td></tr>
 <tr class="separator:a7214072dd4971698fb2454468d7c19e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cfb78a5357c768f6252ce193822ab5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a2cfb78a5357c768f6252ce193822ab5c">LvlhDerivedState</a> (const <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html">LvlhDerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:a2cfb78a5357c768f6252ce193822ab5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86e9f57440254e409021721af58fae24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html">LvlhDerivedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a86e9f57440254e409021721af58fae24">operator=</a> (const <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html">LvlhDerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:a86e9f57440254e409021721af58fae24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae483f0cb9ffe1c3f1b7acf7cc06b5269"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize</a> (<a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> &amp;subject_body, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager) override</td></tr>
 <tr class="memdesc:ae483f0cb9ffe1c3f1b7acf7cc06b5269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin initialization of a <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html" title="The class used for deriving the rectilinear LVLH representations of a subject DynBody&#39;s state...">LvlhDerivedState</a>.  <a href="#ae483f0cb9ffe1c3f1b7acf7cc06b5269">More...</a><br /></td></tr>
 <tr class="separator:ae483f0cb9ffe1c3f1b7acf7cc06b5269"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a361f461bae09fbde8b665328ba28250b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a361f461bae09fbde8b665328ba28250b">update</a> (void) override</td></tr>
-<tr class="memdesc:a361f461bae09fbde8b665328ba28250b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state.  <a href="#a361f461bae09fbde8b665328ba28250b">More...</a><br /></td></tr>
-<tr class="separator:a361f461bae09fbde8b665328ba28250b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe7b7f3e039814b667dc674a62df1f38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#afe7b7f3e039814b667dc674a62df1f38">update</a> () override</td></tr>
+<tr class="memdesc:afe7b7f3e039814b667dc674a62df1f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state.  <a href="#afe7b7f3e039814b667dc674a62df1f38">More...</a><br /></td></tr>
+<tr class="separator:afe7b7f3e039814b667dc674a62df1f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:ab898fec30f04e03728838a833893141e inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab898fec30f04e03728838a833893141e">DerivedState</a> ()</td></tr>
-<tr class="memdesc:ab898fec30f04e03728838a833893141e inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. ">DerivedState</a>.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#ab898fec30f04e03728838a833893141e">More...</a><br /></td></tr>
-<tr class="separator:ab898fec30f04e03728838a833893141e inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67be4fea306898b2cc3f8daa72b6dd11 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a67be4fea306898b2cc3f8daa72b6dd11">~DerivedState</a> ()</td></tr>
-<tr class="memdesc:a67be4fea306898b2cc3f8daa72b6dd11 inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. ">DerivedState</a>.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a67be4fea306898b2cc3f8daa72b6dd11">More...</a><br /></td></tr>
-<tr class="separator:a67be4fea306898b2cc3f8daa72b6dd11 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1180e25ce1e6c5d7e522eb079a58e740 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a1180e25ce1e6c5d7e522eb079a58e740">set_reference_name</a> (const char *new_name)</td></tr>
-<tr class="memdesc:a1180e25ce1e6c5d7e522eb079a58e740 inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the reference_name to a copy of the supplied value.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a1180e25ce1e6c5d7e522eb079a58e740">More...</a><br /></td></tr>
-<tr class="separator:a1180e25ce1e6c5d7e522eb079a58e740 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b73f8812a44941f96090def15a67d58 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a9b73f8812a44941f96090def15a67d58">DerivedState</a> ()=default</td></tr>
+<tr class="separator:a9b73f8812a44941f96090def15a67d58 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab51168300e18ef17fda3a151d7db0693 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab51168300e18ef17fda3a151d7db0693">~DerivedState</a> ()=default</td></tr>
+<tr class="separator:ab51168300e18ef17fda3a151d7db0693 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeea31bec0b4534d5fd57034bda2aaa1 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#adeea31bec0b4534d5fd57034bda2aaa1">DerivedState</a> (const <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">DerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:adeea31bec0b4534d5fd57034bda2aaa1 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa1db9f16c30e75cc61fa583d237ad88 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">DerivedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#afa1db9f16c30e75cc61fa583d237ad88">operator=</a> (const <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">DerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:afa1db9f16c30e75cc61fa583d237ad88 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a561371c2f134ebc46a826eaa12083fbd inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a561371c2f134ebc46a826eaa12083fbd">set_reference_name</a> (const std::string &amp;new_name)</td></tr>
+<tr class="memdesc:a561371c2f134ebc46a826eaa12083fbd inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the reference_name to a copy of the supplied value.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a561371c2f134ebc46a826eaa12083fbd">More...</a><br /></td></tr>
+<tr class="separator:a561371c2f134ebc46a826eaa12083fbd inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a6416ef80ca2ee38087961807ec32e47b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a6416ef80ca2ee38087961807ec32e47b">register_frame</a></td></tr>
+<tr class="memitem:a6416ef80ca2ee38087961807ec32e47b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a6416ef80ca2ee38087961807ec32e47b">register_frame</a> {true}</td></tr>
 <tr class="memdesc:a6416ef80ca2ee38087961807ec32e47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set (default), the LVLH frame will be registered with the dynamics manager at initialization time.  <a href="#a6416ef80ca2ee38087961807ec32e47b">More...</a><br /></td></tr>
 <tr class="separator:a6416ef80ca2ee38087961807ec32e47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a252737fc047fc75c031d03ed4c875ea1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a252737fc047fc75c031d03ed4c875ea1">lvlh_frame</a></td></tr>
@@ -148,34 +152,24 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a265c3dfbc605601be3f0a280270e6cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. ">LvlhFrame</a> object responsible for maintaining the lvlh_frame.  <a href="#a265c3dfbc605601be3f0a280270e6cdc">More...</a><br /></td></tr>
 <tr class="separator:a265c3dfbc605601be3f0a280270e6cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">subject</a></td></tr>
+<tr class="memitem:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">subject</a> {}</td></tr>
 <tr class="memdesc:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">The body that is the subject of the derived state.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">More...</a><br /></td></tr>
 <tr class="separator:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc012061fdfa849cdb2c6c4391bd85d0 inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#adc012061fdfa849cdb2c6c4391bd85d0">reference_name</a></td></tr>
-<tr class="memdesc:adc012061fdfa849cdb2c6c4391bd85d0 inherit pub_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the object with respect to which the subject state is assessed.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#adc012061fdfa849cdb2c6c4391bd85d0">More...</a><br /></td></tr>
-<tr class="separator:adc012061fdfa849cdb2c6c4391bd85d0 inherit pub_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae80dc716624e7a481e75c9b52ac3093c inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ae80dc716624e7a481e75c9b52ac3093c">reference_name</a></td></tr>
+<tr class="memdesc:ae80dc716624e7a481e75c9b52ac3093c inherit pub_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the object with respect to which the subject state is assessed.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#ae80dc716624e7a481e75c9b52ac3093c">More...</a><br /></td></tr>
+<tr class="separator:ae80dc716624e7a481e75c9b52ac3093c inherit pub_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:abefb57c9a90971a2565b9cb57a4f731f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#abefb57c9a90971a2565b9cb57a4f731f">planet_centered_inertial</a></td></tr>
+<tr class="memitem:abefb57c9a90971a2565b9cb57a4f731f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#abefb57c9a90971a2565b9cb57a4f731f">planet_centered_inertial</a> {}</td></tr>
 <tr class="memdesc:abefb57c9a90971a2565b9cb57a4f731f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The inertial frame with origin at the center of the specified planet.  <a href="#abefb57c9a90971a2565b9cb57a4f731f">More...</a><br /></td></tr>
 <tr class="separator:abefb57c9a90971a2565b9cb57a4f731f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:acb9bf530a6188bea9c43b2b562981c9f inherit pro_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#acb9bf530a6188bea9c43b2b562981c9f">state_identifier</a></td></tr>
-<tr class="memdesc:acb9bf530a6188bea9c43b2b562981c9f inherit pro_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">An identifier for this derived state, constructed at initialization time from the class name, the subject body name, and the reference name.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#acb9bf530a6188bea9c43b2b562981c9f">More...</a><br /></td></tr>
-<tr class="separator:acb9bf530a6188bea9c43b2b562981c9f inherit pro_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a04ff7a2dec62963cde532044afc6866c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a04ff7a2dec62963cde532044afc6866c">LvlhDerivedState</a> (const <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html">LvlhDerivedState</a> &amp;)</td></tr>
-<tr class="separator:a04ff7a2dec62963cde532044afc6866c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae03cff66c4e31ea8e479ffacb94a5405"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html">LvlhDerivedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae03cff66c4e31ea8e479ffacb94a5405">operator=</a> (const <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html">LvlhDerivedState</a> &amp;)</td></tr>
-<tr class="separator:ae03cff66c4e31ea8e479ffacb94a5405"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ae95560fe2ebc9360746eaa909a26d650"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae95560fe2ebc9360746eaa909a26d650">local_dm</a></td></tr>
+<tr class="memitem:ae95560fe2ebc9360746eaa909a26d650"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae95560fe2ebc9360746eaa909a26d650">local_dm</a> {}</td></tr>
 <tr class="separator:ae95560fe2ebc9360746eaa909a26d650"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
+<tr class="memitem:a23cc970e37c57f75a968975e58633890 inherit pro_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a23cc970e37c57f75a968975e58633890">state_identifier</a></td></tr>
+<tr class="memdesc:a23cc970e37c57f75a968975e58633890 inherit pro_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">An identifier for this derived state, constructed at initialization time from the class name, the subject body name, and the reference name.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a23cc970e37c57f75a968975e58633890">More...</a><br /></td></tr>
+<tr class="separator:a23cc970e37c57f75a968975e58633890 inherit pro_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -187,34 +181,37 @@ Friends</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:a799a3bb2627ceedd6258b9d5da35123d inherit pro_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a799a3bb2627ceedd6258b9d5da35123d">find_planet</a> (const <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager, const char *planet_name, const char *variable_name)</td></tr>
-<tr class="memdesc:a799a3bb2627ceedd6258b9d5da35123d inherit pro_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. ">Planet</a> with the given name, failing if not found.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a799a3bb2627ceedd6258b9d5da35123d">More...</a><br /></td></tr>
-<tr class="separator:a799a3bb2627ceedd6258b9d5da35123d inherit pro_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a301f1650f1f0b4e94c6ea647219c1fad inherit pro_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a301f1650f1f0b4e94c6ea647219c1fad">find_planet</a> (const <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager, const std::string &amp;planet_name, const std::string &amp;variable_name)</td></tr>
+<tr class="memdesc:a301f1650f1f0b4e94c6ea647219c1fad inherit pro_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. ">Planet</a> with the given name, failing if not found.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a301f1650f1f0b4e94c6ea647219c1fad">More...</a><br /></td></tr>
+<tr class="separator:a301f1650f1f0b4e94c6ea647219c1fad inherit pro_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class used for deriving the rectilinear LVLH representations of a subject <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a>'s state. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00085">85</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00084">84</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad3b122c23d68a567746f18c85e318999"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3b122c23d68a567746f18c85e318999">&#9670;&nbsp;</a></span>LvlhDerivedState() <span class="overload">[1/2]</span></h2>
+<a id="a723cefc0b72db3bcbe207475b28ac71c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a723cefc0b72db3bcbe207475b28ac71c">&#9670;&nbsp;</a></span>LvlhDerivedState() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">jeod::LvlhDerivedState::LvlhDerivedState </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>Construct a <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html" title="The class used for deriving the rectilinear LVLH representations of a subject DynBody&#39;s state...">LvlhDerivedState</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html#l00051">51</a> of file <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html">lvlh_derived_state.cc</a>.</p>
 
 </div>
 </div>
@@ -230,7 +227,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">jeod::LvlhDerivedState::~LvlhDerivedState </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -244,14 +240,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Destruct a <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html" title="The class used for deriving the rectilinear LVLH representations of a subject DynBody&#39;s state...">LvlhDerivedState</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html#l00069">69</a> of file <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html">lvlh_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html#l00050">50</a> of file <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html">lvlh_derived_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae95560fe2ebc9360746eaa909a26d650">local_dm</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a252737fc047fc75c031d03ed4c875ea1">lvlh_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#adb06115d8e0542a79bdc8d389e978b4c">jeod::RefFrame::remove_from_parent()</a>, and <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3d2dc6a2c40760f1c29ac13a9166a717">jeod::RefFrameManager::remove_ref_frame()</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae95560fe2ebc9360746eaa909a26d650">local_dm</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a252737fc047fc75c031d03ed4c875ea1">lvlh_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a668dc81a01e719afe7fc2441f003282f">jeod::RefFrame::remove_from_parent()</a>, and <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3d2dc6a2c40760f1c29ac13a9166a717">jeod::RefFrameManager::remove_ref_frame()</a>.</p>
 
 </div>
 </div>
-<a id="a04ff7a2dec62963cde532044afc6866c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04ff7a2dec62963cde532044afc6866c">&#9670;&nbsp;</a></span>LvlhDerivedState() <span class="overload">[2/2]</span></h2>
+<a id="a2cfb78a5357c768f6252ce193822ab5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cfb78a5357c768f6252ce193822ab5c">&#9670;&nbsp;</a></span>LvlhDerivedState() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,7 +265,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -322,14 +318,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab71fbf3bbd91bae3b125d9770ec37ada">jeod::DerivedState</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html#l00092">92</a> of file <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html">lvlh_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html#l00070">70</a> of file <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html">lvlh_derived_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a71aa9c3db5903ce878baad9edc2bd21a">jeod::EphemeridesManager::add_ref_frame()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a3fb1af0a1367dc9cb2201ae57e7b3469">jeod::DynBody::composite_body</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">jeod::LvlhFrame::frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5508e671597d26defd7e3aa40a804e0c">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">jeod::LvlhFrame::initialize()</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab71fbf3bbd91bae3b125d9770ec37ada">jeod::DerivedState::initialize()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae95560fe2ebc9360746eaa909a26d650">local_dm</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a252737fc047fc75c031d03ed4c875ea1">lvlh_frame</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a265c3dfbc605601be3f0a280270e6cdc">lvlh_state</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a581e95ac83c6243dff1550b851692caf">jeod::DynBody::name</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#abefb57c9a90971a2565b9cb57a4f731f">planet_centered_inertial</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#adc012061fdfa849cdb2c6c4391bd85d0">jeod::DerivedState::reference_name</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a6416ef80ca2ee38087961807ec32e47b">register_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5fa985a007f8db031efd480f24c796e5">jeod::RefFrame::set_name()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523f8fcdbc367f4e728f40a8e630030a">jeod::LvlhFrame::set_planet_name()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a968f464b328567e084b353d23c5086a0">jeod::LvlhFrame::set_subject_frame()</a>, and <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">jeod::DerivedState::subject</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a931cdbd471c81ce318d00ab45c361a51">jeod::RefFrame::add_child()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a71aa9c3db5903ce878baad9edc2bd21a">jeod::EphemeridesManager::add_ref_frame()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a3fb1af0a1367dc9cb2201ae57e7b3469">jeod::DynBody::composite_body</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">jeod::LvlhFrame::frame</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#acc0ae701362b5c2072992d5bf538b07e">jeod::NamedItem::get_name()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#aa6a2cde84644f457e00ec88de5360033">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab71fbf3bbd91bae3b125d9770ec37ada">jeod::DerivedState::initialize()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">jeod::LvlhFrame::initialize()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae95560fe2ebc9360746eaa909a26d650">local_dm</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a252737fc047fc75c031d03ed4c875ea1">lvlh_frame</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a265c3dfbc605601be3f0a280270e6cdc">lvlh_state</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a581e95ac83c6243dff1550b851692caf">jeod::DynBody::name</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#abefb57c9a90971a2565b9cb57a4f731f">planet_centered_inertial</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ae80dc716624e7a481e75c9b52ac3093c">jeod::DerivedState::reference_name</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a6416ef80ca2ee38087961807ec32e47b">register_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a92214d7d317f8020b96ec38ddaa770cb">jeod::RefFrame::set_name()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523f8fcdbc367f4e728f40a8e630030a">jeod::LvlhFrame::set_planet_name()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a968f464b328567e084b353d23c5086a0">jeod::LvlhFrame::set_subject_frame()</a>, and <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">jeod::DerivedState::subject</a>.</p>
 
 </div>
 </div>
-<a id="ae03cff66c4e31ea8e479ffacb94a5405"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae03cff66c4e31ea8e479ffacb94a5405">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a86e9f57440254e409021721af58fae24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86e9f57440254e409021721af58fae24">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,15 +343,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a361f461bae09fbde8b665328ba28250b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a361f461bae09fbde8b665328ba28250b">&#9670;&nbsp;</a></span>update()</h2>
+<a id="afe7b7f3e039814b667dc674a62df1f38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe7b7f3e039814b667dc674a62df1f38">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +362,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::LvlhDerivedState::update </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -380,11 +375,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Update the state. </p>
 
-<p>Reimplemented from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a4f6d1f5ddf274d52a989cad44d5016bb">jeod::DerivedState</a>.</p>
+<p>Reimplemented from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a6b7a9834bb8e6ae5acf6bd5a0729ac63">jeod::DerivedState</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html#l00119">119</a> of file <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html">lvlh_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html#l00093">93</a> of file <a class="el" href="../../d6/d16/lvlh__derived__state_8cc_source.html">lvlh_derived_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">jeod::LvlhFrame::frame</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a252737fc047fc75c031d03ed4c875ea1">lvlh_frame</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a265c3dfbc605601be3f0a280270e6cdc">lvlh_state</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">jeod::RefFrame::set_timestamp()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a1a6d3aedd2e24947d9ee2257e62debb7">jeod::RefFrame::timestamp()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a682400bd327357e9ce10bde9970d2720">jeod::LvlhFrame::update()</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">jeod::LvlhFrame::frame</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a252737fc047fc75c031d03ed4c875ea1">lvlh_frame</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a265c3dfbc605601be3f0a280270e6cdc">lvlh_state</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">jeod::RefFrame::set_timestamp()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a903f6616fe8f7d3b37795396321a19ad">jeod::RefFrame::timestamp()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a682400bd327357e9ce10bde9970d2720">jeod::LvlhFrame::update()</a>.</p>
 
 </div>
 </div>
@@ -434,7 +429,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00087">87</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00086">86</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
 
 </div>
 </div>
@@ -449,17 +444,17 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::LvlhDerivedState::local_dm</td>
+          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::LvlhDerivedState::local_dm {}</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00123">123</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00113">113</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a7214072dd4971698fb2454468d7c19e9">~LvlhDerivedState()</a>.</p>
 
@@ -480,9 +475,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The LVLH frame of the subject body with respect to the planet specified by the reference name. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00105">105</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00100">100</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a361f461bae09fbde8b665328ba28250b">update()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a7214072dd4971698fb2454468d7c19e9">~LvlhDerivedState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#afe7b7f3e039814b667dc674a62df1f38">update()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a7214072dd4971698fb2454468d7c19e9">~LvlhDerivedState()</a>.</p>
 
 </div>
 </div>
@@ -501,9 +496,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. ">LvlhFrame</a> object responsible for maintaining the lvlh_frame. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00110">110</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00105">105</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a361f461bae09fbde8b665328ba28250b">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#afe7b7f3e039814b667dc674a62df1f38">update()</a>.</p>
 
 </div>
 </div>
@@ -517,7 +512,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::LvlhDerivedState::planet_centered_inertial</td>
+          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::LvlhDerivedState::planet_centered_inertial {}</td>
         </tr>
       </table>
   </td>
@@ -530,7 +525,7 @@ Additional Inherited Members</h2></td></tr>
 <p>The inertial frame with origin at the center of the specified planet. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00118">118</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00111">111</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize()</a>.</p>
 
@@ -543,7 +538,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::LvlhDerivedState::register_frame</td>
+          <td class="memname">bool jeod::LvlhDerivedState::register_frame {true}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -551,7 +546,7 @@ Additional Inherited Members</h2></td></tr>
 <p>If set (default), the LVLH frame will be registered with the dynamics manager at initialization time. </p>
 <p>This will make the frame accessible through the dynamic manager via its find_ref_frame method.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00099">99</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html#l00094">94</a> of file <a class="el" href="../../dc/d94/lvlh__derived__state_8hh_source.html">lvlh_derived_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">initialize()</a>.</p>
 

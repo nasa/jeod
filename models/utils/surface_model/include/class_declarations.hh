@@ -56,14 +56,15 @@ References:
 Assumptions and Limitations:
    ((None))
 
- 
+
 *****************************************************************************/
 
 #ifndef JEOD_SURFACE_MODEL_CLASS_DECL_HH
 #define JEOD_SURFACE_MODEL_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Facet;
 class FacetParams;
@@ -82,7 +83,7 @@ class Ellipsoid;
 class PlateEllipseHole;
 class PlatePolygonHole;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -50,7 +50,6 @@ $(function() {
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::PropagatedPlanet Class Reference</div>  </div>
@@ -66,8 +65,8 @@ Inheritance diagram for jeod::PropagatedPlanet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/dc9/classjeod_1_1PropagatedPlanet__inherit__graph.png" border="0" usemap="#jeod_1_1PropagatedPlanet_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1PropagatedPlanet_inherit__map" id="jeod_1_1PropagatedPlanet_inherit__map">
-<area shape="rect" id="node2" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="5,80,172,107"/>
-<area shape="rect" id="node3" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="12,5,165,32"/>
+<area shape="rect" id="node2" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="5,80,191,107"/>
+<area shape="rect" id="node3" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="13,5,183,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -75,49 +74,49 @@ Collaboration diagram for jeod::PropagatedPlanet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d81/classjeod_1_1PropagatedPlanet__coll__graph.png" border="0" usemap="#jeod_1_1PropagatedPlanet_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1PropagatedPlanet_coll__map" id="jeod_1_1PropagatedPlanet_coll__map">
-<area shape="rect" id="node2" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="697,43,864,69"/>
-<area shape="rect" id="node25" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="1229,43,1412,69"/>
-<area shape="rect" id="node42" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="1044,197,1187,224"/>
-<area shape="rect" id="node3" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="325,43,478,69"/>
-<area shape="rect" id="node4" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="693,768,868,795"/>
-<area shape="rect" id="node13" href="../../d5/d53/classjeod_1_1BasePlanet.html" title="A BasePlanet contains the base data needed to model a planet in JEOD. " alt="" coords="1823,904,1944,931"/>
-<area shape="rect" id="node14" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet; pure virtual. " alt="" coords="1457,924,1594,951"/>
-<area shape="rect" id="node15" href="../../de/da2/classjeod_1_1GravityIntegFrame.html" title="Class that aids in determining whether gravity should be applied as a direct effect or a third body e..." alt="" coords="1034,953,1197,980"/>
-<area shape="rect" id="node29" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1061,545,1169,572"/>
-<area shape="rect" id="node5" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="345,615,457,641"/>
-<area shape="rect" id="node20" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="699,599,862,625"/>
-<area shape="rect" id="node31" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="709,456,852,483"/>
-<area shape="rect" id="node6" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="38,672,165,699"/>
-<area shape="rect" id="node7" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="26,332,177,359"/>
-<area shape="rect" id="node8" href="../../d8/d46/classjeod_1_1RefFrameLinks.html" title="Encapsulates the links between reference frames. " alt="" coords="30,571,173,597"/>
-<area shape="rect" id="node9" title="STL class. " alt="" coords="61,1188,141,1215"/>
-<area shape="rect" id="node30" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="340,1003,463,1029"/>
-<area shape="rect" id="node38" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="1823,568,1944,595"/>
-<area shape="rect" id="node44" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="710,1301,851,1328"/>
-<area shape="rect" id="node46" href="../../d1/da4/classjeod_1_1TimeConverter.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="331,1239,471,1265"/>
-<area shape="rect" id="node10" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="30,621,173,648"/>
-<area shape="rect" id="node11" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="296,443,507,469"/>
-<area shape="rect" id="node18" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="701,397,860,424"/>
-<area shape="rect" id="node19" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="1025,1004,1205,1031"/>
-<area shape="rect" id="node12" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="5,476,197,503"/>
-<area shape="rect" id="node16" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="2496,487,2624,513"/>
-<area shape="rect" id="node17" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="2160,315,2339,357"/>
-<area shape="rect" id="node32" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1467,561,1583,588"/>
-<area shape="rect" id="node21" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="697,875,864,917"/>
-<area shape="rect" id="node22" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="681,941,880,982"/>
-<area shape="rect" id="node23" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="685,1006,876,1047"/>
-<area shape="rect" id="node24" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="701,1071,861,1113"/>
-<area shape="rect" id="node26" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="2155,264,2343,291"/>
-<area shape="rect" id="node40" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html" title="A PropagatedEphemerisPlanet is an EphemerisPoint whose state is coupled with the translational state ..." alt="" coords="1792,218,1975,259"/>
-<area shape="rect" id="node48" href="../../d8/d70/classjeod_1_1PropagatedEphemerisOrientation.html" title="A PropagatedEphemerisOrientation is an EphemerisOrientation whose state is coupled with the rotationa..." alt="" coords="1792,318,1975,359"/>
-<area shape="rect" id="node33" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="2176,676,2323,703"/>
-<area shape="rect" id="node34" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="1803,670,1964,711"/>
-<area shape="rect" id="node36" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="1796,502,1971,543"/>
-<area shape="rect" id="node41" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame..." alt="" coords="1452,145,1599,172"/>
-<area shape="rect" id="node49" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html" title="An EphemerisOrientation object updates the rotational state of an ephemeris reference frame..." alt="" coords="1436,196,1615,223"/>
-<area shape="rect" id="node43" href="../../d4/dac/classjeod_1_1TimeDyn.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="1062,1352,1169,1379"/>
-<area shape="rect" id="node45" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="1459,1304,1592,1331"/>
-<area shape="rect" id="node47" href="../../d6/d9a/classjeod_1_1TimeLinks.html" title="jeod::TimeLinks" alt="" coords="344,1367,459,1393"/>
+<area shape="rect" id="node2" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="757,1457,942,1484"/>
+<area shape="rect" id="node25" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="1120,872,1320,899"/>
+<area shape="rect" id="node42" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="1141,1408,1299,1435"/>
+<area shape="rect" id="node3" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="347,1457,518,1484"/>
+<area shape="rect" id="node4" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="755,1001,943,1028"/>
+<area shape="rect" id="node13" href="../../d5/d53/classjeod_1_1BasePlanet.html" title="A BasePlanet contains the base data needed to model a planet in JEOD. " alt="" coords="1905,1072,2036,1099"/>
+<area shape="rect" id="node14" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet;. " alt="" coords="1501,1099,1651,1125"/>
+<area shape="rect" id="node15" href="../../de/da2/classjeod_1_1GravityIntegFrame.html" title="Class that aids in determining whether gravity should be applied as a direct effect or a third body e..." alt="" coords="1131,1024,1309,1051"/>
+<area shape="rect" id="node29" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1161,709,1279,736"/>
+<area shape="rect" id="node5" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="373,1279,492,1305"/>
+<area shape="rect" id="node20" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="762,169,937,196"/>
+<area shape="rect" id="node31" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="773,1287,925,1313"/>
+<area shape="rect" id="node6" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="39,1345,178,1372"/>
+<area shape="rect" id="node7" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="28,1417,189,1444"/>
+<area shape="rect" id="node8" href="../../d8/d46/classjeod_1_1RefFrameLinks.html" title="Encapsulates the links between reference frames. " alt="" coords="32,1244,185,1271"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="65,827,152,853"/>
+<area shape="rect" id="node30" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="365,483,500,509"/>
+<area shape="rect" id="node38" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="1905,633,2037,660"/>
+<area shape="rect" id="node44" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="774,57,925,84"/>
+<area shape="rect" id="node46" href="../../d1/da4/classjeod_1_1TimeConverter.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="355,225,510,252"/>
+<area shape="rect" id="node10" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="32,1295,185,1321"/>
+<area shape="rect" id="node11" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="317,533,548,560"/>
+<area shape="rect" id="node18" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="763,533,935,560"/>
+<area shape="rect" id="node19" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="1121,289,1319,316"/>
+<area shape="rect" id="node12" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="5,295,212,321"/>
+<area shape="rect" id="node16" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="2648,484,2788,511"/>
+<area shape="rect" id="node17" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="2277,275,2473,317"/>
+<area shape="rect" id="node32" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1514,527,1638,553"/>
+<area shape="rect" id="node21" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="756,417,943,458"/>
+<area shape="rect" id="node22" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="740,221,959,262"/>
+<area shape="rect" id="node23" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="742,286,957,327"/>
+<area shape="rect" id="node24" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="763,351,936,393"/>
+<area shape="rect" id="node26" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="2271,224,2479,251"/>
+<area shape="rect" id="node40" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html" title="A PropagatedEphemerisPlanet is an EphemerisPoint whose state is coupled with the translational state ..." alt="" coords="1870,1294,2071,1335"/>
+<area shape="rect" id="node48" href="../../d8/d70/classjeod_1_1PropagatedEphemerisOrientation.html" title="A PropagatedEphemerisOrientation is an EphemerisOrientation whose state is coupled with the rotationa..." alt="" coords="1870,1382,2071,1423"/>
+<area shape="rect" id="node33" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="2293,341,2456,368"/>
+<area shape="rect" id="node34" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="1881,326,2061,367"/>
+<area shape="rect" id="node36" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="1873,443,2068,485"/>
+<area shape="rect" id="node41" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame..." alt="" coords="1496,1360,1656,1387"/>
+<area shape="rect" id="node49" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html" title="An EphemerisOrientation object updates the rotational state of an ephemeris reference frame..." alt="" coords="1476,1411,1676,1437"/>
+<area shape="rect" id="node43" href="../../d4/dac/classjeod_1_1TimeDyn.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="1161,33,1279,60"/>
+<area shape="rect" id="node45" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="1503,71,1649,97"/>
+<area shape="rect" id="node47" href="../../d6/d9a/classjeod_1_1TimeLinks.html" title="jeod::TimeLinks" alt="" coords="370,7,495,33"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -133,30 +132,30 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af513a2e422dd76981c4d57bae167a148"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af513a2e422dd76981c4d57bae167a148">PropagatedPlanet</a> (void)</td></tr>
-<tr class="memdesc:af513a2e422dd76981c4d57bae167a148"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> default constructor.  <a href="#af513a2e422dd76981c4d57bae167a148">More...</a><br /></td></tr>
-<tr class="separator:af513a2e422dd76981c4d57bae167a148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09414d6f42707680b53c3a34ef2785eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a09414d6f42707680b53c3a34ef2785eb">~PropagatedPlanet</a> (void) override</td></tr>
-<tr class="memdesc:a09414d6f42707680b53c3a34ef2785eb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> destructor.  <a href="#a09414d6f42707680b53c3a34ef2785eb">More...</a><br /></td></tr>
-<tr class="separator:a09414d6f42707680b53c3a34ef2785eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91217c920414f0c597e619dad295b2a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a91217c920414f0c597e619dad295b2a4">PropagatedPlanet</a> ()</td></tr>
+<tr class="memdesc:a91217c920414f0c597e619dad295b2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> default constructor.  <a href="#a91217c920414f0c597e619dad295b2a4">More...</a><br /></td></tr>
+<tr class="separator:a91217c920414f0c597e619dad295b2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a646d62c281ee3c4f13ec4727e41fcd2f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a646d62c281ee3c4f13ec4727e41fcd2f">~PropagatedPlanet</a> () override=default</td></tr>
+<tr class="separator:a646d62c281ee3c4f13ec4727e41fcd2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa48cd006863ba2933706c4b93df3718"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aaa48cd006863ba2933706c4b93df3718">PropagatedPlanet</a> (const <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html">PropagatedPlanet</a> &amp;)=delete</td></tr>
+<tr class="separator:aaa48cd006863ba2933706c4b93df3718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2d528a88ff280beb3e71bed9f73f90d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html">PropagatedPlanet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae2d528a88ff280beb3e71bed9f73f90d">operator=</a> (const <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html">PropagatedPlanet</a> &amp;)=delete</td></tr>
+<tr class="separator:ae2d528a88ff280beb3e71bed9f73f90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5595ba048a013815d85b8b0f05e10357"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model</a> (const <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html">TimeManager</a> &amp;time_manager, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;<a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a>)</td></tr>
 <tr class="memdesc:a5595ba048a013815d85b8b0f05e10357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> model.  <a href="#a5595ba048a013815d85b8b0f05e10357">More...</a><br /></td></tr>
 <tr class="separator:a5595ba048a013815d85b8b0f05e10357"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1ebb3743f519126597e01c36443b040"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ad1ebb3743f519126597e01c36443b040">shutdown</a> (void)</td></tr>
-<tr class="memdesc:ad1ebb3743f519126597e01c36443b040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free resources allocated by the <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> model.  <a href="#ad1ebb3743f519126597e01c36443b040">More...</a><br /></td></tr>
-<tr class="separator:ad1ebb3743f519126597e01c36443b040"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3866be6c2b1baafe822e935dd2e28a0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a3866be6c2b1baafe822e935dd2e28a0f">activate</a> (void) override</td></tr>
-<tr class="memdesc:a3866be6c2b1baafe822e935dd2e28a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nominally, activate the object.  <a href="#a3866be6c2b1baafe822e935dd2e28a0f">More...</a><br /></td></tr>
-<tr class="separator:a3866be6c2b1baafe822e935dd2e28a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7de1313c219a39373e78d9a10029c9c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7de1313c219a39373e78d9a10029c9c4">deactivate</a> (void) override</td></tr>
-<tr class="memdesc:a7de1313c219a39373e78d9a10029c9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivate the <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> object.  <a href="#a7de1313c219a39373e78d9a10029c9c4">More...</a><br /></td></tr>
-<tr class="separator:a7de1313c219a39373e78d9a10029c9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfcc51e71056f9fee2e49eecf888e71a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#adfcc51e71056f9fee2e49eecf888e71a">timestamp</a> (void) const override</td></tr>
-<tr class="memdesc:adfcc51e71056f9fee2e49eecf888e71a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return time of last update.  <a href="#adfcc51e71056f9fee2e49eecf888e71a">More...</a><br /></td></tr>
-<tr class="separator:adfcc51e71056f9fee2e49eecf888e71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37c8b7b2c22e274058fef1268209a74b"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a37c8b7b2c22e274058fef1268209a74b">get_name</a> (void) const override</td></tr>
-<tr class="memdesc:a37c8b7b2c22e274058fef1268209a74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return model name.  <a href="#a37c8b7b2c22e274058fef1268209a74b">More...</a><br /></td></tr>
-<tr class="separator:a37c8b7b2c22e274058fef1268209a74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3bfdbea3117944b9d05e9efa03416f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae3bfdbea3117944b9d05e9efa03416f9">activate</a> () override</td></tr>
+<tr class="memdesc:ae3bfdbea3117944b9d05e9efa03416f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nominally, activate the object.  <a href="#ae3bfdbea3117944b9d05e9efa03416f9">More...</a><br /></td></tr>
+<tr class="separator:ae3bfdbea3117944b9d05e9efa03416f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12baa8a8469b0439613c5f14d6f7b4aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a12baa8a8469b0439613c5f14d6f7b4aa">deactivate</a> () override</td></tr>
+<tr class="memdesc:a12baa8a8469b0439613c5f14d6f7b4aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivate the <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> object.  <a href="#a12baa8a8469b0439613c5f14d6f7b4aa">More...</a><br /></td></tr>
+<tr class="separator:a12baa8a8469b0439613c5f14d6f7b4aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3f3fd09f7226ed5dc8f19eb0d9e9106"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ab3f3fd09f7226ed5dc8f19eb0d9e9106">timestamp</a> () const override</td></tr>
+<tr class="memdesc:ab3f3fd09f7226ed5dc8f19eb0d9e9106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return time of last update.  <a href="#ab3f3fd09f7226ed5dc8f19eb0d9e9106">More...</a><br /></td></tr>
+<tr class="separator:ab3f3fd09f7226ed5dc8f19eb0d9e9106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a317fc60908fc8ccbbf613f1863056bf9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a317fc60908fc8ccbbf613f1863056bf9">get_name</a> () const override</td></tr>
+<tr class="memdesc:a317fc60908fc8ccbbf613f1863056bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return model name.  <a href="#a317fc60908fc8ccbbf613f1863056bf9">More...</a><br /></td></tr>
+<tr class="separator:a317fc60908fc8ccbbf613f1863056bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5140518541ab5e60e3aeb50a788df3ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize</a> (<a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;ephem_manager) override</td></tr>
 <tr class="memdesc:a5140518541ab5e60e3aeb50a788df3ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark appropriate items in the model as active.  <a href="#a5140518541ab5e60e3aeb50a788df3ec">More...</a><br /></td></tr>
 <tr class="separator:a5140518541ab5e60e3aeb50a788df3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,74 +165,69 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa083057f4a1725a6727499751e197a62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa083057f4a1725a6727499751e197a62">ephem_build_tree</a> (<a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;ephem_manager) override</td></tr>
 <tr class="memdesc:aa083057f4a1725a6727499751e197a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the ephemeris model portions of the reference frame tree.  <a href="#aa083057f4a1725a6727499751e197a62">More...</a><br /></td></tr>
 <tr class="separator:aa083057f4a1725a6727499751e197a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae18f9933410b7f45581cf4b97c4857ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update</a> (void) override</td></tr>
-<tr class="memdesc:ae18f9933410b7f45581cf4b97c4857ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update ephemerides for subscribed items.  <a href="#ae18f9933410b7f45581cf4b97c4857ec">More...</a><br /></td></tr>
-<tr class="separator:ae18f9933410b7f45581cf4b97c4857ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af31612adf510b47ff4e8cb72ddbec6b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update</a> () override</td></tr>
+<tr class="memdesc:af31612adf510b47ff4e8cb72ddbec6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update ephemerides for subscribed items.  <a href="#af31612adf510b47ff4e8cb72ddbec6b9">More...</a><br /></td></tr>
+<tr class="separator:af31612adf510b47ff4e8cb72ddbec6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb2cb580cd9894b3625c2506e19d6019"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aeb2cb580cd9894b3625c2506e19d6019">set_commanded_mode</a> (<a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a> new_mode)</td></tr>
 <tr class="memdesc:aeb2cb580cd9894b3625c2506e19d6019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the commanded mode.  <a href="#aeb2cb580cd9894b3625c2506e19d6019">More...</a><br /></td></tr>
 <tr class="separator:aeb2cb580cd9894b3625c2506e19d6019"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1EphemerisInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1EphemerisInterface')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html">jeod::EphemerisInterface</a></td></tr>
-<tr class="memitem:a15a1c9025e8c34bbbe0a15705d384210 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a15a1c9025e8c34bbbe0a15705d384210">~EphemerisInterface</a> (void) override</td></tr>
-<tr class="memdesc:a15a1c9025e8c34bbbe0a15705d384210 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor; there is nothing to destroy here.  <a href="../../de/d30/classjeod_1_1EphemerisInterface.html#a15a1c9025e8c34bbbe0a15705d384210">More...</a><br /></td></tr>
-<tr class="separator:a15a1c9025e8c34bbbe0a15705d384210 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9a79918b99e84aeb53e39a537c423b inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a9e9a79918b99e84aeb53e39a537c423b">~EphemerisInterface</a> () override=default</td></tr>
+<tr class="separator:a9e9a79918b99e84aeb53e39a537c423b inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1ActivateInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1ActivateInterface')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html">jeod::ActivateInterface</a></td></tr>
-<tr class="memitem:a1e2c4e3126f2105b15e32651e3e5c883 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a1e2c4e3126f2105b15e32651e3e5c883">ActivateInterface</a> ()</td></tr>
-<tr class="memdesc:a1e2c4e3126f2105b15e32651e3e5c883 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Default constructor.  <a href="../../da/d54/classjeod_1_1ActivateInterface.html#a1e2c4e3126f2105b15e32651e3e5c883">More...</a><br /></td></tr>
-<tr class="separator:a1e2c4e3126f2105b15e32651e3e5c883 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5f7026b8f548b7c5b25c20c7cc9391d inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#ac5f7026b8f548b7c5b25c20c7cc9391d">~ActivateInterface</a> ()</td></tr>
-<tr class="memdesc:ac5f7026b8f548b7c5b25c20c7cc9391d inherit pub_methods_classjeod_1_1ActivateInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Destructor.  <a href="../../da/d54/classjeod_1_1ActivateInterface.html#ac5f7026b8f548b7c5b25c20c7cc9391d">More...</a><br /></td></tr>
-<tr class="separator:ac5f7026b8f548b7c5b25c20c7cc9391d inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a735ddfc8f504cb54e2b874fa47d95131 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a735ddfc8f504cb54e2b874fa47d95131">ActivateInterface</a> ()=default</td></tr>
+<tr class="separator:a735ddfc8f504cb54e2b874fa47d95131 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa12963a4f5aedaa0d27a3f72cdf90020 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#aa12963a4f5aedaa0d27a3f72cdf90020">~ActivateInterface</a> ()=default</td></tr>
+<tr class="separator:aa12963a4f5aedaa0d27a3f72cdf90020 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a804babdda189425bd4c7f2212c0644d4"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a804babdda189425bd4c7f2212c0644d4">planet_name</a></td></tr>
-<tr class="memdesc:a804babdda189425bd4c7f2212c0644d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the planet.  <a href="#a804babdda189425bd4c7f2212c0644d4">More...</a><br /></td></tr>
-<tr class="separator:a804babdda189425bd4c7f2212c0644d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28624940b94531fead46b20449d6cce4"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a28624940b94531fead46b20449d6cce4">parent_name</a></td></tr>
-<tr class="memdesc:a28624940b94531fead46b20449d6cce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the parent frame.  <a href="#a28624940b94531fead46b20449d6cce4">More...</a><br /></td></tr>
-<tr class="separator:a28624940b94531fead46b20449d6cce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a470f4be84ab9962df2fdddb140cb1392"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a470f4be84ab9962df2fdddb140cb1392">planet_name</a></td></tr>
+<tr class="memdesc:a470f4be84ab9962df2fdddb140cb1392"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the planet.  <a href="#a470f4be84ab9962df2fdddb140cb1392">More...</a><br /></td></tr>
+<tr class="separator:a470f4be84ab9962df2fdddb140cb1392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead6b9ef8cde0a41736931b79e9837c0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aead6b9ef8cde0a41736931b79e9837c0">parent_name</a></td></tr>
+<tr class="memdesc:aead6b9ef8cde0a41736931b79e9837c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the parent frame.  <a href="#aead6b9ef8cde0a41736931b79e9837c0">More...</a><br /></td></tr>
+<tr class="separator:aead6b9ef8cde0a41736931b79e9837c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17761ebbe0e6c480f3296396fd44ebb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a17761ebbe0e6c480f3296396fd44ebb3">body</a></td></tr>
 <tr class="memdesc:a17761ebbe0e6c480f3296396fd44ebb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dynamic body whose state is tied to that of the planet.  <a href="#a17761ebbe0e6c480f3296396fd44ebb3">More...</a><br /></td></tr>
 <tr class="separator:a17761ebbe0e6c480f3296396fd44ebb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a502d8338484b25d908a6e44fc3b7f31a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a502d8338484b25d908a6e44fc3b7f31a">commanded_mode</a></td></tr>
+<tr class="memitem:a502d8338484b25d908a6e44fc3b7f31a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a502d8338484b25d908a6e44fc3b7f31a">commanded_mode</a> {<a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883ea55374f974cf3dfc13701ec1df5441ee1">TransFromPlanet_RotFromPlanet</a>}</td></tr>
 <tr class="memdesc:a502d8338484b25d908a6e44fc3b7f31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode in which the model should operate.  <a href="#a502d8338484b25d908a6e44fc3b7f31a">More...</a><br /></td></tr>
 <tr class="separator:a502d8338484b25d908a6e44fc3b7f31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a7cfc7216ccded4c974d70c726977548c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode</a> (void)</td></tr>
-<tr class="memdesc:a7cfc7216ccded4c974d70c726977548c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the behavior of a <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a>.  <a href="#a7cfc7216ccded4c974d70c726977548c">More...</a><br /></td></tr>
-<tr class="separator:a7cfc7216ccded4c974d70c726977548c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94796e9361066e23347cb9bc9e2669f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode</a> ()</td></tr>
+<tr class="memdesc:a94796e9361066e23347cb9bc9e2669f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the behavior of a <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a>.  <a href="#a94796e9361066e23347cb9bc9e2669f8">More...</a><br /></td></tr>
+<tr class="separator:a94796e9361066e23347cb9bc9e2669f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:af6f03c486296f5ce7ad984b8d0dd674f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af6f03c486296f5ce7ad984b8d0dd674f">initialized</a></td></tr>
+<tr class="memitem:af6f03c486296f5ce7ad984b8d0dd674f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af6f03c486296f5ce7ad984b8d0dd674f">initialized</a> {}</td></tr>
 <tr class="memdesc:af6f03c486296f5ce7ad984b8d0dd674f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has the model been initialized?  <a href="#af6f03c486296f5ce7ad984b8d0dd674f">More...</a><br /></td></tr>
 <tr class="separator:af6f03c486296f5ce7ad984b8d0dd674f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5293fd5d352d621d4d34163a2fddf6c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5293fd5d352d621d4d34163a2fddf6c4">mode</a></td></tr>
+<tr class="memitem:a5293fd5d352d621d4d34163a2fddf6c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5293fd5d352d621d4d34163a2fddf6c4">mode</a> {<a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883ea55374f974cf3dfc13701ec1df5441ee1">TransFromPlanet_RotFromPlanet</a>}</td></tr>
 <tr class="memdesc:a5293fd5d352d621d4d34163a2fddf6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode in which the model is operating.  <a href="#a5293fd5d352d621d4d34163a2fddf6c4">More...</a><br /></td></tr>
 <tr class="separator:a5293fd5d352d621d4d34163a2fddf6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51abc48f06d4b344e1c151f7f3eb4933"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a51abc48f06d4b344e1c151f7f3eb4933">ident</a></td></tr>
-<tr class="memdesc:a51abc48f06d4b344e1c151f7f3eb4933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model name; used for reporting errors.  <a href="#a51abc48f06d4b344e1c151f7f3eb4933">More...</a><br /></td></tr>
-<tr class="separator:a51abc48f06d4b344e1c151f7f3eb4933"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0da4b87e390146b8a8d8686d9316183"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a></td></tr>
+<tr class="memitem:a6f9cd233c463b0f5b5605fe405f5e15a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a6f9cd233c463b0f5b5605fe405f5e15a">ident</a></td></tr>
+<tr class="memdesc:a6f9cd233c463b0f5b5605fe405f5e15a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model name; used for reporting errors.  <a href="#a6f9cd233c463b0f5b5605fe405f5e15a">More...</a><br /></td></tr>
+<tr class="separator:a6f9cd233c463b0f5b5605fe405f5e15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0da4b87e390146b8a8d8686d9316183"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a> {true}</td></tr>
 <tr class="memdesc:aa0da4b87e390146b8a8d8686d9316183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the planet present and marked as active?  <a href="#aa0da4b87e390146b8a8d8686d9316183">More...</a><br /></td></tr>
 <tr class="separator:aa0da4b87e390146b8a8d8686d9316183"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a300303a34a8c275f49db5e4c0567c56f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a300303a34a8c275f49db5e4c0567c56f">update_time</a></td></tr>
+<tr class="memitem:a300303a34a8c275f49db5e4c0567c56f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a300303a34a8c275f49db5e4c0567c56f">update_time</a> {-99e99}</td></tr>
 <tr class="memdesc:a300303a34a8c275f49db5e4c0567c56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time of last update, dynamic time seconds.  <a href="#a300303a34a8c275f49db5e4c0567c56f">More...</a><br /></td></tr>
 <tr class="separator:a300303a34a8c275f49db5e4c0567c56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15c780eb1f38c56e5fc7dcb323ba45da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a15c780eb1f38c56e5fc7dcb323ba45da">planet</a></td></tr>
+<tr class="memitem:a15c780eb1f38c56e5fc7dcb323ba45da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a15c780eb1f38c56e5fc7dcb323ba45da">planet</a> {}</td></tr>
 <tr class="memdesc:a15c780eb1f38c56e5fc7dcb323ba45da"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planet tied to the body.  <a href="#a15c780eb1f38c56e5fc7dcb323ba45da">More...</a><br /></td></tr>
 <tr class="separator:a15c780eb1f38c56e5fc7dcb323ba45da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa40eaa4d55fcdaa1cd21dcb338cd2c14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa40eaa4d55fcdaa1cd21dcb338cd2c14">parent_frame</a></td></tr>
+<tr class="memitem:aa40eaa4d55fcdaa1cd21dcb338cd2c14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa40eaa4d55fcdaa1cd21dcb338cd2c14">parent_frame</a> {}</td></tr>
 <tr class="memdesc:aa40eaa4d55fcdaa1cd21dcb338cd2c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent of the planet.  <a href="#aa40eaa4d55fcdaa1cd21dcb338cd2c14">More...</a><br /></td></tr>
 <tr class="separator:aa40eaa4d55fcdaa1cd21dcb338cd2c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16040eeb2f8c65ed4c0126d35d673fe6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a></td></tr>
+<tr class="memitem:a16040eeb2f8c65ed4c0126d35d673fe6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a> {}</td></tr>
 <tr class="memdesc:a16040eeb2f8c65ed4c0126d35d673fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dynamics manager.  <a href="#a16040eeb2f8c65ed4c0126d35d673fe6">More...</a><br /></td></tr>
 <tr class="separator:a16040eeb2f8c65ed4c0126d35d673fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac78463c86e5fb2d21800c58a8333e0e4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html">TimeDyn</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ac78463c86e5fb2d21800c58a8333e0e4">time_dyn</a></td></tr>
+<tr class="memitem:ac78463c86e5fb2d21800c58a8333e0e4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html">TimeDyn</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ac78463c86e5fb2d21800c58a8333e0e4">time_dyn</a> {}</td></tr>
 <tr class="memdesc:ac78463c86e5fb2d21800c58a8333e0e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The source of dynamic time information.  <a href="#ac78463c86e5fb2d21800c58a8333e0e4">More...</a><br /></td></tr>
 <tr class="separator:ac78463c86e5fb2d21800c58a8333e0e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a084c9a87189aa6d395ace37062322bfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html">PropagatedEphemerisPlanet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a></td></tr>
@@ -242,17 +236,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:aa3377814834a74097a6348ba42aa59b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d70/classjeod_1_1PropagatedEphemerisOrientation.html">PropagatedEphemerisOrientation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a></td></tr>
 <tr class="memdesc:aa3377814834a74097a6348ba42aa59b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ephemeris item that couples the rotational states of the body's composite body frame and the planet's planet-fixed frame.  <a href="#aa3377814834a74097a6348ba42aa59b2">More...</a><br /></td></tr>
 <tr class="separator:aa3377814834a74097a6348ba42aa59b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a1dabbc491f138fd94f90eefc8333789a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a1dabbc491f138fd94f90eefc8333789a">PropagatedPlanet</a> (const <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html">PropagatedPlanet</a> &amp;)</td></tr>
-<tr class="memdesc:a1dabbc491f138fd94f90eefc8333789a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Not implemented.  <a href="#a1dabbc491f138fd94f90eefc8333789a">More...</a><br /></td></tr>
-<tr class="separator:a1dabbc491f138fd94f90eefc8333789a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad491836566b98d8254ec0e314d7b063a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html">PropagatedPlanet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ad491836566b98d8254ec0e314d7b063a">operator=</a> (const <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html">PropagatedPlanet</a> &amp;)</td></tr>
-<tr class="memdesc:ad491836566b98d8254ec0e314d7b063a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Not implemented.  <a href="#ad491836566b98d8254ec0e314d7b063a">More...</a><br /></td></tr>
-<tr class="separator:ad491836566b98d8254ec0e314d7b063a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -269,7 +252,7 @@ Friends</h2></td></tr>
 </ul>
 <p>The <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> model provides mechanisms that accommodate these scenarios. The class defines multiple modes in which a propagated planet planet object operates. In all modes, the model ensures consistency between the translational states of the dynamic body's composite frame and the planet's planet-centered frame and between the rotational states of the dynamic body's composite frame and the planet's planet-fixed frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00246">246</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00199">199</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a24df1ab45a8669c9e090a0170715883e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24df1ab45a8669c9e090a0170715883e">&#9670;&nbsp;</a></span>Mode</h2>
@@ -292,13 +275,13 @@ Friends</h2></td></tr>
 <tr><td class="fieldname"><a id="a24df1ab45a8669c9e090a0170715883eae46c2e0162728f595f372768e6b105fc"></a>TransFromBody_RotFromBody&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00263">263</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00214">214</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af513a2e422dd76981c4d57bae167a148"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af513a2e422dd76981c4d57bae167a148">&#9670;&nbsp;</a></span>PropagatedPlanet() <span class="overload">[1/2]</span></h2>
+<a id="a91217c920414f0c597e619dad295b2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91217c920414f0c597e619dad295b2a4">&#9670;&nbsp;</a></span>PropagatedPlanet() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +289,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::PropagatedPlanet::PropagatedPlanet </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -315,14 +297,14 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00203">203</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00165">165</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, and <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a5a69b8768fc62ca7ae05dcaf3d38631b">jeod::EphemerisItem::set_owner()</a>.</p>
 
 </div>
 </div>
-<a id="a09414d6f42707680b53c3a34ef2785eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09414d6f42707680b53c3a34ef2785eb">&#9670;&nbsp;</a></span>~PropagatedPlanet()</h2>
+<a id="a646d62c281ee3c4f13ec4727e41fcd2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a646d62c281ee3c4f13ec4727e41fcd2f">&#9670;&nbsp;</a></span>~PropagatedPlanet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,28 +315,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::PropagatedPlanet::~PropagatedPlanet </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00230">230</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ad1ebb3743f519126597e01c36443b040">shutdown()</a>.</p>
-
 </div>
 </div>
-<a id="a1dabbc491f138fd94f90eefc8333789a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dabbc491f138fd94f90eefc8333789a">&#9670;&nbsp;</a></span>PropagatedPlanet() <span class="overload">[2/2]</span></h2>
+<a id="aaa48cd006863ba2933706c4b93df3718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa48cd006863ba2933706c4b93df3718">&#9670;&nbsp;</a></span>PropagatedPlanet() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -372,19 +347,16 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p><br />
-Not implemented. </p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3866be6c2b1baafe822e935dd2e28a0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3866be6c2b1baafe822e935dd2e28a0f">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="ae3bfdbea3117944b9d05e9efa03416f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3bfdbea3117944b9d05e9efa03416f9">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -395,7 +367,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::PropagatedPlanet::activate </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -410,16 +381,16 @@ Not implemented. </p>
 <p>Nominally, activate the object. </p>
 <p>In the case of a <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> object, an inactive object cannot be activated. </p>
 
-<p>Implements <a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a22762a993c476fd767ca9b32a0ffb642">jeod::ActivateInterface</a>.</p>
+<p>Implements <a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a93ec2f790a6bf1ba4a08d1a2e0732131">jeod::ActivateInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00258">258</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00179">179</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, and <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a875ea3181d1383490945e9433c54b00b">jeod::EphemeridesMessages::internal_error</a>.</p>
 
 </div>
 </div>
-<a id="a7de1313c219a39373e78d9a10029c9c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7de1313c219a39373e78d9a10029c9c4">&#9670;&nbsp;</a></span>deactivate()</h2>
+<a id="a12baa8a8469b0439613c5f14d6f7b4aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12baa8a8469b0439613c5f14d6f7b4aa">&#9670;&nbsp;</a></span>deactivate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -430,7 +401,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::PropagatedPlanet::deactivate </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -444,9 +414,9 @@ Not implemented. </p>
 
 <p>Deactivate the <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> object. </p>
 
-<p>Implements <a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a745a29386a80cc3638491d4a54bc5224">jeod::ActivateInterface</a>.</p>
+<p>Implements <a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a5b4bcd6bfbf388c5158fbecaff2d8c19">jeod::ActivateInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00275">275</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00193">193</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>.</p>
 
@@ -486,7 +456,7 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a3a02bef9e0e6e7b8c31cf84ddfd3e671">jeod::EphemerisInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00512">512</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00396">396</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a17761ebbe0e6c480f3296396fd44ebb3">body</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5293fd5d352d621d4d34163a2fddf6c4">mode</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#af244aafe8140800fdc0572cc5c7c32c3">jeod::DynBody::rotational_dynamics</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883eae46c2e0162728f595f372768e6b105fc">TransFromBody_RotFromBody</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883ea8127dbba4a77e26ae263280251cf352a">TransFromBody_RotFromPlanet</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883eae227d9d14cb2add025b617964b63c5b8">TransFromPlanet_RotFromBody</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#afa2acb04224564d1acf96d03d8df9e9b">jeod::DynBody::translational_dynamics</a>.</p>
 
@@ -526,9 +496,9 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a104a5880bb7a2798b8e0c0de006a750c">jeod::EphemerisInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00534">534</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00410">410</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a525cc09b73ff0e09515ab25792cf97de">jeod::RefFrameManager::add_frame_to_tree()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5508e671597d26defd7e3aa40a804e0c">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a8a8f8c2a977b00da8139032e2c282b12">jeod::BasePlanet::inertial</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa40eaa4d55fcdaa1cd21dcb338cd2c14">parent_frame</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a15c780eb1f38c56e5fc7dcb323ba45da">planet</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#adb06115d8e0542a79bdc8d389e978b4c">jeod::RefFrame::remove_from_parent()</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a525cc09b73ff0e09515ab25792cf97de">jeod::RefFrameManager::add_frame_to_tree()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#aa6a2cde84644f457e00ec88de5360033">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a8a8f8c2a977b00da8139032e2c282b12">jeod::BasePlanet::inertial</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa40eaa4d55fcdaa1cd21dcb338cd2c14">parent_frame</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a15c780eb1f38c56e5fc7dcb323ba45da">planet</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a668dc81a01e719afe7fc2441f003282f">jeod::RefFrame::remove_from_parent()</a>.</p>
 
 </div>
 </div>
@@ -566,14 +536,14 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a713a73c011fd703b16d7d414fa314059">jeod::EphemerisInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00396">396</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00294">294</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7ce58e26795e84c53c74a00235eddcc8">jeod::EphemeridesManager::find_base_planet()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a3a364997002b5a9c20837cb6620a9fe1">jeod::EphemerisItem::get_target_frame()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a8a8f8c2a977b00da8139032e2c282b12">jeod::BasePlanet::inertial</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#ac7ff26edf139b3a04afc8b3959918759">jeod::BasePlanet::pfix</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a15c780eb1f38c56e5fc7dcb323ba45da">planet</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a804babdda189425bd4c7f2212c0644d4">planet_name</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8f60af362587ec2cf30cd55294fe3f24">jeod::EphemeridesManager::set_target_frame()</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a4590bb6b39afe751a56a8575b6e5e4a1">jeod::Subscription::subscribe()</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa626fc6ec3f08c65ab4a31751a746cde">jeod::EphemeridesManager::find_base_planet()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a3a364997002b5a9c20837cb6620a9fe1">jeod::EphemerisItem::get_target_frame()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a8a8f8c2a977b00da8139032e2c282b12">jeod::BasePlanet::inertial</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#ac7ff26edf139b3a04afc8b3959918759">jeod::BasePlanet::pfix</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a15c780eb1f38c56e5fc7dcb323ba45da">planet</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a470f4be84ab9962df2fdddb140cb1392">planet_name</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8f60af362587ec2cf30cd55294fe3f24">jeod::EphemeridesManager::set_target_frame()</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#ad60c693071cde2785924c8539c6fe723">jeod::Subscription::subscribe()</a>.</p>
 
 </div>
 </div>
-<a id="ae18f9933410b7f45581cf4b97c4857ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae18f9933410b7f45581cf4b97c4857ec">&#9670;&nbsp;</a></span>ephem_update()</h2>
+<a id="af31612adf510b47ff4e8cb72ddbec6b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af31612adf510b47ff4e8cb72ddbec6b9">&#9670;&nbsp;</a></span>ephem_update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -584,7 +554,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::PropagatedPlanet::ephem_update </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -598,16 +567,16 @@ Not implemented. </p>
 
 <p>Update ephemerides for subscribed items. </p>
 
-<p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a12c7d16c8ea0bbde5d27ba1e4fa5af95">jeod::EphemerisInterface</a>.</p>
+<p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#aae149a706a846a5758a228f2e29398d6">jeod::EphemerisInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00555">555</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00429">429</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a17761ebbe0e6c480f3296396fd44ebb3">body</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a502d8338484b25d908a6e44fc3b7f31a">commanded_mode</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a6b3043c95e201a1634d06a05e517a943">jeod::DynManager::initialize_dyn_body()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af6f03c486296f5ce7ad984b8d0dd674f">initialized</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5293fd5d352d621d4d34163a2fddf6c4">mode</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae14a1c05e6871a20bcfe039bc4633cb0">jeod::DynBody::propagate_state()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ac78463c86e5fb2d21800c58a8333e0e4">time_dyn</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883eae46c2e0162728f595f372768e6b105fc">TransFromBody_RotFromBody</a>, <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a19934baf362c115de9b2cc9a2fd75211">jeod::PropagatedEphemerisPlanet::update()</a>, <a class="el" href="../../d8/d70/classjeod_1_1PropagatedEphemerisOrientation.html#a5fc52e23c652a00f1167ce44d14ccaf9">jeod::PropagatedEphemerisOrientation::update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a300303a34a8c275f49db5e4c0567c56f">update_time</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a17761ebbe0e6c480f3296396fd44ebb3">body</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a502d8338484b25d908a6e44fc3b7f31a">commanded_mode</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a6b3043c95e201a1634d06a05e517a943">jeod::DynManager::initialize_dyn_body()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af6f03c486296f5ce7ad984b8d0dd674f">initialized</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5293fd5d352d621d4d34163a2fddf6c4">mode</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae14a1c05e6871a20bcfe039bc4633cb0">jeod::DynBody::propagate_state()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ac78463c86e5fb2d21800c58a8333e0e4">time_dyn</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883eae46c2e0162728f595f372768e6b105fc">TransFromBody_RotFromBody</a>, <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a19934baf362c115de9b2cc9a2fd75211">jeod::PropagatedEphemerisPlanet::update()</a>, <a class="el" href="../../d8/d70/classjeod_1_1PropagatedEphemerisOrientation.html#a5fc52e23c652a00f1167ce44d14ccaf9">jeod::PropagatedEphemerisOrientation::update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a300303a34a8c275f49db5e4c0567c56f">update_time</a>.</p>
 
 </div>
 </div>
-<a id="a37c8b7b2c22e274058fef1268209a74b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37c8b7b2c22e274058fef1268209a74b">&#9670;&nbsp;</a></span>get_name()</h2>
+<a id="a317fc60908fc8ccbbf613f1863056bf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a317fc60908fc8ccbbf613f1863056bf9">&#9670;&nbsp;</a></span>get_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -616,9 +585,8 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char * jeod::PropagatedPlanet::get_name </td>
+          <td class="memname">std::string jeod::PropagatedPlanet::get_name </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -633,11 +601,11 @@ Not implemented. </p>
 <p>Return model name. </p>
 <dl class="section return"><dt>Returns</dt><dd>Name </dd></dl>
 
-<p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a6930d080e9a4dfb9be76361eeff57f99">jeod::EphemerisInterface</a>.</p>
+<p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a216909fb3aee33ef81b333c24f278492">jeod::EphemerisInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00302">302</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00211">211</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a51abc48f06d4b344e1c151f7f3eb4933">ident</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a6f9cd233c463b0f5b5605fe405f5e15a">ident</a>.</p>
 
 </div>
 </div>
@@ -680,14 +648,14 @@ Not implemented. </p>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00320">320</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00225">225</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">jeod::EphemeridesManager::add_ephem_item()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10e4c3d2d9fc956006069ca48eb5b154">jeod::EphemeridesManager::add_ephemeris()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a17761ebbe0e6c480f3296396fd44ebb3">body</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#aa050b96068395fa0c8bad81a55c1b364">jeod::NamedItem::construct_name()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a226f16d26dba4a6e90194a5c2906c472">jeod::EphemeridesManager::find_integ_frame()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a56679d019052211ee4ce7e5d3ed3010d">jeod::TimeManager::get_time_ptr()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a51abc48f06d4b344e1c151f7f3eb4933">ident</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ab1d9b4e3b4977c23cb3f3c5c7284c724">jeod::DynBody::initialize_model()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a8a8a2cc215839cb5bdea5655eeee7da0">jeod::DynBody::integ_frame_name</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a581e95ac83c6243dff1550b851692caf">jeod::DynBody::name</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa40eaa4d55fcdaa1cd21dcb338cd2c14">parent_frame</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a28624940b94531fead46b20449d6cce4">parent_name</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a804babdda189425bd4c7f2212c0644d4">planet_name</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ac54251361516baddf30b1f0c743135f4">jeod::EphemerisItem::set_name()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#ac174076dc5439e9368eccb6c3825649c">jeod::NamedItem::set_name()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a48bb0de7b5d2cd482b7745ab3317650d">jeod::NamedItem::size()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ac78463c86e5fb2d21800c58a8333e0e4">time_dyn</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa0da4b87e390146b8a8d8686d9316183">active</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">jeod::EphemeridesManager::add_ephem_item()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10e4c3d2d9fc956006069ca48eb5b154">jeod::EphemeridesManager::add_ephemeris()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a17761ebbe0e6c480f3296396fd44ebb3">body</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#afe416900f4b3fd9c40d6f830b5385bb7">jeod::NamedItem::construct_name()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a05139b0f6dee46c5c057b1a31aa46c04">jeod::EphemeridesManager::find_integ_frame()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a56679d019052211ee4ce7e5d3ed3010d">jeod::TimeManager::get_time_ptr()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a6f9cd233c463b0f5b5605fe405f5e15a">ident</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ab1d9b4e3b4977c23cb3f3c5c7284c724">jeod::DynBody::initialize_model()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a33d7b2c325f439db7cfd98942c64140a">jeod::DynBody::integ_frame_name</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a581e95ac83c6243dff1550b851692caf">jeod::DynBody::name</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa40eaa4d55fcdaa1cd21dcb338cd2c14">parent_frame</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aead6b9ef8cde0a41736931b79e9837c0">parent_name</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a470f4be84ab9962df2fdddb140cb1392">planet_name</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a4c3bd481da4749a94b9b3d0bebb6d838">jeod::EphemerisItem::set_name()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a5ce36e44b2e978802b7c45472e0faf66">jeod::NamedItem::set_name()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a48bb0de7b5d2cd482b7745ab3317650d">jeod::NamedItem::size()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ac78463c86e5fb2d21800c58a8333e0e4">time_dyn</a>.</p>
 
 </div>
 </div>
-<a id="ad491836566b98d8254ec0e314d7b063a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad491836566b98d8254ec0e314d7b063a">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ae2d528a88ff280beb3e71bed9f73f90d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2d528a88ff280beb3e71bed9f73f90d">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -705,13 +673,10 @@ Not implemented. </p>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p><br />
-Not implemented. </p>
 
 </div>
 </div>
@@ -739,14 +704,14 @@ Not implemented. </p>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00453">453</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00344">344</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a502d8338484b25d908a6e44fc3b7f31a">commanded_mode</a>.</p>
 
 </div>
 </div>
-<a id="a7cfc7216ccded4c974d70c726977548c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cfc7216ccded4c974d70c726977548c">&#9670;&nbsp;</a></span>set_mode()</h2>
+<a id="a94796e9361066e23347cb9bc9e2669f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94796e9361066e23347cb9bc9e2669f8">&#9670;&nbsp;</a></span>set_mode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -757,7 +722,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::PropagatedPlanet::set_mode </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -771,42 +735,16 @@ Not implemented. </p>
 
 <p>Change the behavior of a <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00464">464</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00352">352</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a502d8338484b25d908a6e44fc3b7f31a">commanded_mode</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a85e668b414e06c895fc34d9b99013305">jeod::EphemerisItem::disable()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a16040eeb2f8c65ed4c0126d35d673fe6">dyn_manager</a>, <a class="el" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html#a0b080d547428524bf18972230e37b1ac">jeod::EphemerisOrientation::enable()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ae541a13773239fd4edefa08607e14a59">jeod::EphemerisItem::enable()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#afed24aec87f7f41d203ed9370f6db702">jeod::EphemeridesManager::ephem_note_tree_status_change()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa3377814834a74097a6348ba42aa59b2">ephem_orient</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a084c9a87189aa6d395ace37062322bfb">ephem_planet</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5293fd5d352d621d4d34163a2fddf6c4">mode</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883eae46c2e0162728f595f372768e6b105fc">TransFromBody_RotFromBody</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883ea8127dbba4a77e26ae263280251cf352a">TransFromBody_RotFromPlanet</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883eae227d9d14cb2add025b617964b63c5b8">TransFromPlanet_RotFromBody</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883ea55374f974cf3dfc13701ec1df5441ee1">TransFromPlanet_RotFromPlanet</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>.</p>
 
 </div>
 </div>
-<a id="ad1ebb3743f519126597e01c36443b040"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1ebb3743f519126597e01c36443b040">&#9670;&nbsp;</a></span>shutdown()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void jeod::PropagatedPlanet::shutdown </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Free resources allocated by the <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> model. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00241">241</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a51abc48f06d4b344e1c151f7f3eb4933">ident</a>, and <a class="el" href="../../d0/d87/group__external.html#gadf1a832034f778e030e076b7e44cbde0">JEOD_DELETE_ARRAY</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a09414d6f42707680b53c3a34ef2785eb">~PropagatedPlanet()</a>.</p>
-
-</div>
-</div>
-<a id="adfcc51e71056f9fee2e49eecf888e71a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfcc51e71056f9fee2e49eecf888e71a">&#9670;&nbsp;</a></span>timestamp()</h2>
+<a id="ab3f3fd09f7226ed5dc8f19eb0d9e9106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3f3fd09f7226ed5dc8f19eb0d9e9106">&#9670;&nbsp;</a></span>timestamp()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -817,7 +755,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">double jeod::PropagatedPlanet::timestamp </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -833,9 +770,9 @@ Not implemented. </p>
 <dl class="section return"><dt>Returns</dt><dd>Timestamp<br />
  Units: day </dd></dl>
 
-<p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a087443d3e9130eeb165646c67c985499">jeod::EphemerisInterface</a>.</p>
+<p>Implements <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a5450c24f60bbb6259c3733ea37034082">jeod::EphemerisInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00289">289</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00202">202</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a300303a34a8c275f49db5e4c0567c56f">update_time</a>.</p>
 
@@ -887,7 +824,7 @@ Not implemented. </p>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00247">247</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00201">201</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 </div>
 </div>
@@ -902,7 +839,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::PropagatedPlanet::active</td>
+          <td class="memname">bool jeod::PropagatedPlanet::active {true}</td>
         </tr>
       </table>
   </td>
@@ -915,9 +852,9 @@ Not implemented. </p>
 <p>Is the planet present and marked as active? </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00378">378</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00321">321</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a3866be6c2b1baafe822e935dd2e28a0f">activate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7de1313c219a39373e78d9a10029c9c4">deactivate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa083057f4a1725a6727499751e197a62">ephem_build_tree()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae3bfdbea3117944b9d05e9efa03416f9">activate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a12baa8a8469b0439613c5f14d6f7b4aa">deactivate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa083057f4a1725a6727499751e197a62">ephem_build_tree()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
 
 </div>
 </div>
@@ -936,9 +873,9 @@ Not implemented. </p>
 <p>The dynamic body whose state is tied to that of the planet. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00342">342</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00288">288</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a0602640d7eab6629e2bea57be1e5d698">ephem_activate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a0602640d7eab6629e2bea57be1e5d698">ephem_activate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
 
 </div>
 </div>
@@ -949,7 +886,7 @@ Not implemented. </p>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a> jeod::PropagatedPlanet::commanded_mode</td>
+          <td class="memname"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a> jeod::PropagatedPlanet::commanded_mode {<a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883ea55374f974cf3dfc13701ec1df5441ee1">TransFromPlanet_RotFromPlanet</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -957,9 +894,9 @@ Not implemented. </p>
 <p>The mode in which the model should operate. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00347">347</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00293">293</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aeb2cb580cd9894b3625c2506e19d6019">set_commanded_mode()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aeb2cb580cd9894b3625c2506e19d6019">set_commanded_mode()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode()</a>.</p>
 
 </div>
 </div>
@@ -973,7 +910,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::PropagatedPlanet::dyn_manager</td>
+          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::PropagatedPlanet::dyn_manager {}</td>
         </tr>
       </table>
   </td>
@@ -986,9 +923,9 @@ Not implemented. </p>
 <p>The dynamics manager. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00398">398</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00341">341</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode()</a>.</p>
 
 </div>
 </div>
@@ -1015,9 +952,9 @@ Not implemented. </p>
 <p>The ephemeris item that couples the rotational states of the body's composite body frame and the planet's planet-fixed frame. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00415">415</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00358">358</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af513a2e422dd76981c4d57bae167a148">PropagatedPlanet()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a91217c920414f0c597e619dad295b2a4">PropagatedPlanet()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode()</a>.</p>
 
 </div>
 </div>
@@ -1044,14 +981,14 @@ Not implemented. </p>
 <p>The ephemeris item that couples the translational states of the body's composite body frame and the planet's inertial frame. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00409">409</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00352">352</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af513a2e422dd76981c4d57bae167a148">PropagatedPlanet()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a91217c920414f0c597e619dad295b2a4">PropagatedPlanet()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode()</a>.</p>
 
 </div>
 </div>
-<a id="a51abc48f06d4b344e1c151f7f3eb4933"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51abc48f06d4b344e1c151f7f3eb4933">&#9670;&nbsp;</a></span>ident</h2>
+<a id="a6f9cd233c463b0f5b5605fe405f5e15a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f9cd233c463b0f5b5605fe405f5e15a">&#9670;&nbsp;</a></span>ident</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1060,7 +997,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char* jeod::PropagatedPlanet::ident</td>
+          <td class="memname">std::string jeod::PropagatedPlanet::ident</td>
         </tr>
       </table>
   </td>
@@ -1073,9 +1010,9 @@ Not implemented. </p>
 <p>Model name; used for reporting errors. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00373">373</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00316">316</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a37c8b7b2c22e274058fef1268209a74b">get_name()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ad1ebb3743f519126597e01c36443b040">shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a317fc60908fc8ccbbf613f1863056bf9">get_name()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
 
 </div>
 </div>
@@ -1089,7 +1026,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::PropagatedPlanet::initialized</td>
+          <td class="memname">bool jeod::PropagatedPlanet::initialized {}</td>
         </tr>
       </table>
   </td>
@@ -1102,9 +1039,9 @@ Not implemented. </p>
 <p>Has the model been initialized? </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00363">363</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00306">306</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>.</p>
 
 </div>
 </div>
@@ -1118,7 +1055,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a> jeod::PropagatedPlanet::mode</td>
+          <td class="memname"><a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883e">Mode</a> jeod::PropagatedPlanet::mode {<a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a24df1ab45a8669c9e090a0170715883ea55374f974cf3dfc13701ec1df5441ee1">TransFromPlanet_RotFromPlanet</a>}</td>
         </tr>
       </table>
   </td>
@@ -1131,9 +1068,9 @@ Not implemented. </p>
 <p>The mode in which the model is operating. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00368">368</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00311">311</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a0602640d7eab6629e2bea57be1e5d698">ephem_activate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a0602640d7eab6629e2bea57be1e5d698">ephem_activate()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">set_mode()</a>.</p>
 
 </div>
 </div>
@@ -1147,7 +1084,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a>* jeod::PropagatedPlanet::parent_frame</td>
+          <td class="memname"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a>* jeod::PropagatedPlanet::parent_frame {}</td>
         </tr>
       </table>
   </td>
@@ -1160,20 +1097,20 @@ Not implemented. </p>
 <p>The parent of the planet. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00393">393</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00336">336</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa083057f4a1725a6727499751e197a62">ephem_build_tree()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
 
 </div>
 </div>
-<a id="a28624940b94531fead46b20449d6cce4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28624940b94531fead46b20449d6cce4">&#9670;&nbsp;</a></span>parent_name</h2>
+<a id="aead6b9ef8cde0a41736931b79e9837c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aead6b9ef8cde0a41736931b79e9837c0">&#9670;&nbsp;</a></span>parent_name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* jeod::PropagatedPlanet::parent_name</td>
+          <td class="memname">std::string jeod::PropagatedPlanet::parent_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1181,7 +1118,7 @@ Not implemented. </p>
 <p>The name of the parent frame. </p>
 <p>This is used at initialization time only.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00337">337</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00283">283</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
 
@@ -1197,7 +1134,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a>* jeod::PropagatedPlanet::planet</td>
+          <td class="memname"><a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a>* jeod::PropagatedPlanet::planet {}</td>
         </tr>
       </table>
   </td>
@@ -1210,20 +1147,20 @@ Not implemented. </p>
 <p>The planet tied to the body. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00388">388</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00331">331</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#aa083057f4a1725a6727499751e197a62">ephem_build_tree()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>.</p>
 
 </div>
 </div>
-<a id="a804babdda189425bd4c7f2212c0644d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a804babdda189425bd4c7f2212c0644d4">&#9670;&nbsp;</a></span>planet_name</h2>
+<a id="a470f4be84ab9962df2fdddb140cb1392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a470f4be84ab9962df2fdddb140cb1392">&#9670;&nbsp;</a></span>planet_name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* jeod::PropagatedPlanet::planet_name</td>
+          <td class="memname">std::string jeod::PropagatedPlanet::planet_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1231,7 +1168,7 @@ Not implemented. </p>
 <p>The name of the planet. </p>
 <p>This is used at initialization time only.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00331">331</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00277">277</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">ephem_initialize()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
 
@@ -1247,7 +1184,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html">TimeDyn</a>* jeod::PropagatedPlanet::time_dyn</td>
+          <td class="memname">const <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html">TimeDyn</a>* jeod::PropagatedPlanet::time_dyn {}</td>
         </tr>
       </table>
   </td>
@@ -1260,9 +1197,9 @@ Not implemented. </p>
 <p>The source of dynamic time information. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00403">403</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00346">346</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">initialize_model()</a>.</p>
 
 </div>
 </div>
@@ -1276,7 +1213,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::PropagatedPlanet::update_time</td>
+          <td class="memname">double jeod::PropagatedPlanet::update_time {-99e99}</td>
         </tr>
       </table>
   </td>
@@ -1289,9 +1226,9 @@ Not implemented. </p>
 <p>Time of last update, dynamic time seconds. </p>
 <p>trick_units(s) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00383">383</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00326">326</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#adfcc51e71056f9fee2e49eecf888e71a">timestamp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">ephem_update()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ab3f3fd09f7226ed5dc8f19eb0d9e9106">timestamp()</a>.</p>
 
 </div>
 </div>

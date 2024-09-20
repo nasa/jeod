@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -61,7 +61,7 @@ Collaboration diagram for jeod::BodyWrenchCollect:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/dcf/classjeod_1_1BodyWrenchCollect__coll__graph.png" border="0" usemap="#jeod_1_1BodyWrenchCollect_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1BodyWrenchCollect_coll__map" id="jeod_1_1BodyWrenchCollect_coll__map">
-<area shape="rect" id="node2" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::Wrench \&gt;" alt="" coords="11,5,171,47"/>
+<area shape="rect" id="node2" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::Wrench \&gt;" alt="" coords="11,5,184,47"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -97,7 +97,7 @@ Data Fields</h2></td></tr>
 <p>This is a simple class that is tightly coupled with the <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html" title="Extends DynBody to integrate an object&#39;s structural reference frame as opposed to its center of mass...">StructureIntegratedDynBody</a> class. This latter class contains (has-a) a <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html" title="Serves as the collection point for wrenches that act on a vehicle. ">BodyWrenchCollect</a> data member.</p>
 <p>The <a class="el" href="../../d7/dcf/namespaceTrick.html" title="Namespace Trick furnishes several standard functions for use in the Trick environment. ">Trick</a> vcollect mechanism (or a similar mechanism in a non-Trick sim) pushes pointers to the individual wrenches onto the various collection member of a <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html" title="Serves as the collection point for wrenches that act on a vehicle. ">BodyWrenchCollect</a>. <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html" title="Extends DynBody to integrate an object&#39;s structural reference frame as opposed to its center of mass...">StructureIntegratedDynBody</a> members cumulate these collected wrenches to form the total wrench acting on the vehicle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00080">80</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00078">78</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af63c8ca1554759a6d9a62b2ff515cd22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af63c8ca1554759a6d9a62b2ff515cd22">&#9670;&nbsp;</a></span>BodyWrenchCollect() <span class="overload">[1/2]</span></h2>
@@ -116,7 +116,7 @@ Data Fields</h2></td></tr>
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html#l00026">26</a> of file <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html">body_wrench_collect.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html#l00025">25</a> of file <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html">body_wrench_collect.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html#a38ff4fc41577179ca1e3bc8bfbe60080">collect_wrench</a>, <a class="el" href="../../d0/d87/group__external.html#ga275078e14936cc1c45a050dbe6caf889">JEOD_REGISTER_CHECKPOINTABLE</a>, and <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>.</p>
 
@@ -139,7 +139,7 @@ Data Fields</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html#l00035">35</a> of file <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html">body_wrench_collect.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html#l00032">32</a> of file <a class="el" href="../../d6/d77/body__wrench__collect_8cc_source.html">body_wrench_collect.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html#a38ff4fc41577179ca1e3bc8bfbe60080">collect_wrench</a>, and <a class="el" href="../../d0/d87/group__external.html#ga33a2613b81ddc6289ddca6a803858078">JEOD_DEREGISTER_CHECKPOINTABLE</a>.</p>
 
@@ -205,7 +205,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the input wrench. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00131">131</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00124">124</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../db/d3b/classjeod_1_1Wrench.html#aa30ee455067b95c6dafa15fcc0174f24">jeod::Wrench::accumulate()</a>, and <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html#a38ff4fc41577179ca1e3bc8bfbe60080">collect_wrench</a>.</p>
 
@@ -257,7 +257,7 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the input wrench. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00143">143</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00136">136</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html#ac6924907bbcd7b12b394f9b2c84f780e">accumulate()</a>, and <a class="el" href="../../db/d3b/classjeod_1_1Wrench.html#ad4c1c5d1237aca6804a4841684d1fb39">jeod::Wrench::set_point()</a>.</p>
 
@@ -308,7 +308,7 @@ Data Fields</h2></td></tr>
 <p>The effector wrenches are collected into the vector at the S_define level via &amp; vcollect containing_body.effector_wrench_collection.collect_wrench { pointer_to_wrench1, ... pointer_to_wrench_n };</p>
 <p>The vector of collected wrenches are processed by the containing body's collect_forces_and_torques member function.trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00100">100</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html#l00097">97</a> of file <a class="el" href="../../de/da6/body__wrench__collect_8hh_source.html">body_wrench_collect.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html#ac6924907bbcd7b12b394f9b2c84f780e">accumulate()</a>, <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html#af63c8ca1554759a6d9a62b2ff515cd22">BodyWrenchCollect()</a>, and <a class="el" href="../../d7/d9e/classjeod_1_1BodyWrenchCollect.html#ae52905b2330c6b7d387cb7868664eb53">~BodyWrenchCollect()</a>.</p>
 

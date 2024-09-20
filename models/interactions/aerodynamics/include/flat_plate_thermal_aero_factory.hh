@@ -65,48 +65,35 @@ Library dependencies:
 #ifndef FLAT_PLATE_THERMAL_AERO_FACTORY_HH
 #define FLAT_PLATE_THERMAL_AERO_FACTORY_HH
 
+#include "flat_plate_aero_factory.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/surface_model/include/facet.hh"
 #include "utils/surface_model/include/interaction_facet.hh"
 #include "utils/surface_model/include/interaction_facet_factory.hh"
-#include "flat_plate_aero_factory.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Creates a FlatPlateAeroFacet from a FlatPlate.
  */
-class FlatPlateThermalAeroFactory : public FlatPlateAeroFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateThermalAeroFactory)
+class FlatPlateThermalAeroFactory : public FlatPlateAeroFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateThermalAeroFactory)
 
 public:
+    FlatPlateThermalAeroFactory();
+    ~FlatPlateThermalAeroFactory() override = default;
+    FlatPlateThermalAeroFactory & operator=(const FlatPlateThermalAeroFactory &) = delete;
+    FlatPlateThermalAeroFactory(const FlatPlateThermalAeroFactory &) = delete;
 
-   // constructor
-   FlatPlateThermalAeroFactory ();
-
-   // destructor
-   ~FlatPlateThermalAeroFactory () override;
-
-
-   // 'true' if this factory is meant to be used on the type of facet
-   // sent in through the 'facet' pointer. 'false' otherwise
-   bool is_correct_factory (Facet* facet) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   FlatPlateThermalAeroFactory& operator = (const FlatPlateThermalAeroFactory& rhs);
-   FlatPlateThermalAeroFactory (const FlatPlateThermalAeroFactory& rhs);
-
+    // 'true' if this factory is meant to be used on the type of facet
+    // sent in through the 'facet' pointer. 'false' otherwise
+    bool is_correct_factory(Facet * facet) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

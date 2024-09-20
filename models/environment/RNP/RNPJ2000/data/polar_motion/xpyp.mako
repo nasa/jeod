@@ -14,10 +14,11 @@ ASSUMPTIONS AND LIMITATIONS:
     ((Interpolation between tabular values is handled by JEOD))
 *******************************************************************************/
 
-
-namespace jeod {
+namespace jeod
+{
 class PolarMotionJ2000Init;
-}
+} // namespace jeod
+
 #define JEOD_FRIEND_CLASS PolarMotionJ2000Init_xpyp_${outType}_default_data
 
 // JEOD includes
@@ -28,34 +29,25 @@ class PolarMotionJ2000Init;
 // Unsupported includes
 #include "../include/xpyp_${outType}.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-
-void
-PolarMotionJ2000Init_xpyp_${outType}_default_data::initialize (
-   PolarMotionJ2000Init * PolarMotionJ2000Init_ptr)
+namespace jeod
 {
-   PolarMotionJ2000Init_ptr->override_table = false;
-   PolarMotionJ2000Init_ptr->last_table_index = ${len(entries)-1};
-   PolarMotionJ2000Init_ptr->polar_mjd =
-      JEOD_ALLOC_PRIM_ARRAY (${len(entries)}, double);
-   PolarMotionJ2000Init_ptr->xp_tbl =
-      JEOD_ALLOC_PRIM_ARRAY (${len(entries)}, double);
-   PolarMotionJ2000Init_ptr->yp_tbl =
-      JEOD_ALLOC_PRIM_ARRAY (${len(entries)}, double);
 
-static const double ARCSECONDS_TO_RADIANS = 4.84813681109536e-06;
+void PolarMotionJ2000Init_xpyp_${outType}_default_data::initialize(PolarMotionJ2000Init * PolarMotionJ2000Init_ptr)
+{
+    PolarMotionJ2000Init_ptr->override_table = false;
+    PolarMotionJ2000Init_ptr->last_table_index = ${len(entries)-1};
+    PolarMotionJ2000Init_ptr->polar_mjd = JEOD_ALLOC_PRIM_ARRAY(${len(entries)}, double);
+    PolarMotionJ2000Init_ptr->xp_tbl = JEOD_ALLOC_PRIM_ARRAY(${len(entries)}, double);
+    PolarMotionJ2000Init_ptr->yp_tbl = JEOD_ALLOC_PRIM_ARRAY(${len(entries)}, double);
+
+    static const double ARCSECONDS_TO_RADIANS = 4.84813681109536e-06;
 
 % for entryIdx in range(len(entries)):
-   PolarMotionJ2000Init_ptr->polar_mjd[${entryIdx}]   = ${entries[entryIdx].mjd}; /* ${entries[entryIdx].year} ${entries[entryIdx].month} ${entries[entryIdx].day} */
-   PolarMotionJ2000Init_ptr->xp_tbl[${entryIdx}] = ARCSECONDS_TO_RADIANS * (${entries[entryIdx].xp});
-   PolarMotionJ2000Init_ptr->yp_tbl[${entryIdx}] = ARCSECONDS_TO_RADIANS * (${entries[entryIdx].yp});
+    PolarMotionJ2000Init_ptr->polar_mjd[${entryIdx}] = ${entries[entryIdx].mjd}; /* ${entries[entryIdx].year} ${entries[entryIdx].month} ${entries[entryIdx].day} */
+    PolarMotionJ2000Init_ptr->xp_tbl[${entryIdx}] = ARCSECONDS_TO_RADIANS * (${entries[entryIdx].xp});
+    PolarMotionJ2000Init_ptr->yp_tbl[${entryIdx}] = ARCSECONDS_TO_RADIANS * (${entries[entryIdx].yp});
 %endfor
 }
 
-
-} // End JEOD namespace
-
+} // namespace jeod

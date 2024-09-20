@@ -50,17 +50,15 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_BASE_ROTATIONAL_CONSTRAINT_HH
 #define JEOD_BASE_ROTATIONAL_CONSTRAINT_HH
-
 
 #include "experimental/math/include/solver_types.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Abstract base class that prescribes behaviors of a constraint related to
@@ -68,29 +66,25 @@ namespace jeod {
  */
 class BaseRotationalConstraint
 {
-
-    JEOD_MAKE_SIM_INTERFACES(BaseRotationalConstraint)
+    JEOD_MAKE_SIM_INTERFACES(jeod, BaseRotationalConstraint)
 
 public:
-
     BaseRotationalConstraint() = default;
 
     virtual ~BaseRotationalConstraint() = default;
 
 #ifndef SWIG
-   /**
+    /**
      * Get the effective inertia tensor for this constraint
      * in constraint frame coordinates.
      */
-    virtual SolverTypes::ConstMatrix3x3RefT get_inertia () const = 0;
+    virtual SolverTypes::ConstMatrix3x3RefT get_inertia() const = 0;
 #endif
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

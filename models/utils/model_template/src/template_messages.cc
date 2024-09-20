@@ -32,10 +32,9 @@ Purpose:
 Library dependencies:
   ((template_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -45,9 +44,9 @@ Library dependencies:
 // Model includes
 #include "../include/template_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  The goal in a model message code implementation file is to create storage for
@@ -77,23 +76,20 @@ namespace jeod {
    @endverbatim
 */
 
-
 /**
  * \def MAKE_TEMPLATE_MESSAGE_CODE(id)
  *   Define TemplateMessages data member @a id.
  * \param id       The name of the data member.
  */
-#define MAKE_TEMPLATE_MESSAGE_CODE(id) \
-   JEOD_MAKE_MESSAGE_CODE(TemplateMessages, "utils/model_template/", id)
-
+#define MAKE_TEMPLATE_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(TemplateMessages, "utils/model_template/", id)
 
 // Define TemplateMessages static member data
 
-MAKE_TEMPLATE_MESSAGE_CODE (big_negnum);
-MAKE_TEMPLATE_MESSAGE_CODE (zero);
-MAKE_TEMPLATE_MESSAGE_CODE (big_posnum);
+MAKE_TEMPLATE_MESSAGE_CODE(big_negnum);
+MAKE_TEMPLATE_MESSAGE_CODE(zero);
+MAKE_TEMPLATE_MESSAGE_CODE(big_posnum);
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

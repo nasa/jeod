@@ -37,14 +37,19 @@
 // This sim is used to verify the JEOD gravity model
 
 // Define job calling intervals
-#define DYNAMICS       1.0
+#define DYNAMICS 1.0
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "environment_sans_de405.sm"
 
@@ -55,31 +60,26 @@ CLASS: EarthSimObject
 ##include "environment/planet/data/include/earth.hh"
 ##include "environment/gravity/data/include/earth_GGM05C.hh"
 
-class EarthSimObject: public PlanetGenericSimObject{
- public:
-  jeod::Planet_earth_default_data  earth_default_data;
-  jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data grav_default_data;
+class EarthSimObject: public PlanetGenericSimObject
+{
+public:
+    jeod::Planet_earth_default_data earth_default_data;
+    jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data grav_default_data;
 
-  EarthSimObject( jeod::DynManager   & dyn_manager_in,
-                  jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            earth_default_data,
-                            grav_default_data)
-  {
-   // Run gravitation again so that the grav accel values are computed from the
-   // current psoition (which is set via trick.add_read)
-   (DYNAMICS,"environment") dyn_manager.gravitation();
-  };
- private:
-  // Unimplemented copy constructor and assignment operator
-  EarthSimObject (const EarthSimObject&);
-  EarthSimObject & operator = (const EarthSimObject&);
+    EarthSimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, earth_default_data, grav_default_data)
+    {
+        // Run gravitation again so that the grav accel values are computed from the
+        // current psoition (which is set via trick.add_read)
+        (DYNAMICS, "environment") dyn_manager.gravitation();
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    EarthSimObject(const EarthSimObject &) = delete;
+    EarthSimObject & operator=(const EarthSimObject &) = delete;
 };
 
-EarthSimObject earth( dynamics.dyn_manager,
-                      env.gravity_manager);
+EarthSimObject earth(dynamics.dyn_manager, env.gravity_manager);
 
 /****************************************************************
 CLASS: VehicleSimObject
@@ -87,22 +87,22 @@ CLASS: VehicleSimObject
 #include "Base/vehicle_baseline.sm"
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
 
-class VehicleSimObject: public VehicleBasicSimObject {
- public:
-  jeod::DynBodyInitLvlhRotState lvlh_init;
+class VehicleSimObject: public VehicleBasicSimObject
+{
+public:
+    jeod::DynBodyInitLvlhRotState lvlh_init;
 
-  //Constructor
-  VehicleSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject(dyn_mngr_in)
-  { }
+    // Constructor
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+    }
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
-
+    // Unimplemented copy constructor and assignment operator
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
-VehicleSimObject vehicle ( dynamics.dyn_manager);
 
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+VehicleSimObject vehicle(dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

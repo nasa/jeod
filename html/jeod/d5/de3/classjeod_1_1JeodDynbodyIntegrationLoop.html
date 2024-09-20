@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,7 +48,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::JeodDynbodyIntegrationLoop Class Reference</div>  </div>
@@ -64,7 +63,7 @@ Inheritance diagram for jeod::JeodDynbodyIntegrationLoop:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d98/classjeod_1_1JeodDynbodyIntegrationLoop__inherit__graph.png" border="0" usemap="#jeod_1_1JeodDynbodyIntegrationLoop_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1JeodDynbodyIntegrationLoop_inherit__map" id="jeod_1_1JeodDynbodyIntegrationLoop_inherit__map">
-<area shape="rect" id="node3" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="203,5,381,47"/>
+<area shape="rect" id="node3" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="217,5,413,47"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -72,32 +71,33 @@ Collaboration diagram for jeod::JeodDynbodyIntegrationLoop:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d01/classjeod_1_1JeodDynbodyIntegrationLoop__coll__graph.png" border="0" usemap="#jeod_1_1JeodDynbodyIntegrationLoop_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1JeodDynbodyIntegrationLoop_coll__map" id="jeod_1_1JeodDynbodyIntegrationLoop_coll__map">
-<area shape="rect" id="node3" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="1656,219,1835,261"/>
-<area shape="rect" id="node9" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="2032,525,2160,552"/>
-<area shape="rect" id="node4" href="../../d5/d3b/classjeod_1_1JeodTrickIntegrator.html" title="A JeodTrickIntegrator specializes the JeodIntegratorInterface for use with Trick as the simulation en..." alt="" coords="2013,359,2179,385"/>
-<area shape="rect" id="node5" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="1651,449,1839,476"/>
-<area shape="rect" id="node7" href="../../db/d7e/classjeod_1_1TrickJeodIntegrator.html" title="A TrickJeodIntegrator specializes the Trick::Integrator to provide the Trick side of the integration ..." alt="" coords="1663,285,1828,312"/>
-<area shape="rect" id="node10" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="357,520,516,547"/>
-<area shape="rect" id="node21" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="714,373,822,400"/>
-<area shape="rect" id="node23" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="982,395,1098,421"/>
-<area shape="rect" id="node11" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="5,625,216,652"/>
-<area shape="rect" id="node12" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="347,812,527,839"/>
-<area shape="rect" id="node13" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="29,812,192,839"/>
-<area shape="rect" id="node14" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="27,863,194,905"/>
-<area shape="rect" id="node15" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="11,929,210,970"/>
-<area shape="rect" id="node16" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="15,681,206,722"/>
-<area shape="rect" id="node17" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="31,746,191,787"/>
-<area shape="rect" id="node18" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="1654,731,1837,757"/>
-<area shape="rect" id="node19" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="1296,781,1463,808"/>
-<area shape="rect" id="node29" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="1319,336,1440,363"/>
-<area shape="rect" id="node22" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="351,172,522,199"/>
-<area shape="rect" id="node31" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="701,83,835,109"/>
-<area shape="rect" id="node24" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="1672,883,1819,909"/>
-<area shape="rect" id="node25" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="1299,883,1460,925"/>
-<area shape="rect" id="node27" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="1292,665,1467,706"/>
-<area shape="rect" id="node33" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="969,55,1111,81"/>
-<area shape="rect" id="node35" href="../../d4/dac/classjeod_1_1TimeDyn.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="1326,93,1433,120"/>
-<area shape="rect" id="node34" href="../../d1/da4/classjeod_1_1TimeConverter.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="41,5,181,32"/>
+<area shape="rect" id="node3" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="1895,131,2091,172"/>
+<area shape="rect" id="node9" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="2309,411,2449,438"/>
+<area shape="rect" id="node4" href="../../d5/d3b/classjeod_1_1JeodTrickIntegrator.html" title="A JeodTrickIntegrator specializes the JeodIntegratorInterface for use with Trick as the simulation en..." alt="" coords="2289,281,2469,307"/>
+<area shape="rect" id="node5" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="1889,298,2097,325"/>
+<area shape="rect" id="node7" href="../../db/d7e/classjeod_1_1TrickJeodIntegrator.html" title="A TrickJeodIntegrator specializes the Trick::Integrator to provide the Trick side of the integration ..." alt="" coords="1903,79,2083,106"/>
+<area shape="rect" id="node10" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="391,318,563,345"/>
+<area shape="rect" id="node22" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="793,441,911,467"/>
+<area shape="rect" id="node24" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1157,351,1281,378"/>
+<area shape="rect" id="node11" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="5,319,236,346"/>
+<area shape="rect" id="node12" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="377,195,576,222"/>
+<area shape="rect" id="node13" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="33,71,208,98"/>
+<area shape="rect" id="node14" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="27,123,214,164"/>
+<area shape="rect" id="node15" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="11,188,230,229"/>
+<area shape="rect" id="node16" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="13,253,228,295"/>
+<area shape="rect" id="node17" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="34,5,207,47"/>
+<area shape="rect" id="node18" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="752,658,952,685"/>
+<area shape="rect" id="node19" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="384,841,569,867"/>
+<area shape="rect" id="node20" title="STL class. " alt="" coords="433,658,520,685"/>
+<area shape="rect" id="node30" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="1523,411,1655,438"/>
+<area shape="rect" id="node34" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="1144,809,1295,835"/>
+<area shape="rect" id="node35" href="../../d1/da4/classjeod_1_1TimeConverter.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="775,718,929,745"/>
+<area shape="rect" id="node23" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="381,525,572,551"/>
+<area shape="rect" id="node32" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="1920,758,2067,785"/>
+<area shape="rect" id="node25" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="1912,823,2075,850"/>
+<area shape="rect" id="node26" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="1499,988,1679,1029"/>
+<area shape="rect" id="node28" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="1492,567,1687,608"/>
+<area shape="rect" id="node36" href="../../d4/dac/classjeod_1_1TimeDyn.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="1531,809,1648,835"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -112,9 +112,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a97aec75a24f49110b28139beae0df218"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a97aec75a24f49110b28139beae0df218">~JeodDynbodyIntegrationLoop</a> () override</td></tr>
 <tr class="memdesc:a97aec75a24f49110b28139beae0df218"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html" title="A Trick::IntegLoopScheduler that provides the ability to integrate a collection of Trick::SimObject i...">JeodDynbodyIntegrationLoop</a> destructor.  <a href="#a97aec75a24f49110b28139beae0df218">More...</a><br /></td></tr>
 <tr class="separator:a97aec75a24f49110b28139beae0df218"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab634326a42cc1bfd5585ed997162450f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop</a> (void)</td></tr>
-<tr class="memdesc:ab634326a42cc1bfd5585ed997162450f"><td class="mdescLeft">&#160;</td><td class="mdescRight">S_define-level function to initialize the integration loop.  <a href="#ab634326a42cc1bfd5585ed997162450f">More...</a><br /></td></tr>
-<tr class="separator:ab634326a42cc1bfd5585ed997162450f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6adb544eab65d5f7b01fc3337af7f768"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a6adb544eab65d5f7b01fc3337af7f768">JeodDynbodyIntegrationLoop</a> (const <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html">JeodDynbodyIntegrationLoop</a> &amp;)=delete</td></tr>
+<tr class="separator:a6adb544eab65d5f7b01fc3337af7f768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d67ae9f7336473b2569d5da191a8b6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html">JeodDynbodyIntegrationLoop</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a7d67ae9f7336473b2569d5da191a8b6e">operator=</a> (const <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html">JeodDynbodyIntegrationLoop</a> &amp;)=delete</td></tr>
+<tr class="separator:a7d67ae9f7336473b2569d5da191a8b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a0a340179fa4818f2ddc12d995bbb0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop</a> ()</td></tr>
+<tr class="memdesc:a2a0a340179fa4818f2ddc12d995bbb0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">S_define-level function to initialize the integration loop.  <a href="#a2a0a340179fa4818f2ddc12d995bbb0b">More...</a><br /></td></tr>
+<tr class="separator:a2a0a340179fa4818f2ddc12d995bbb0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a433a33b27c184d46dd90c5d1a40d6c3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a433a33b27c184d46dd90c5d1a40d6c3e">set_time_to_loop_start</a> ()</td></tr>
 <tr class="memdesc:a433a33b27c184d46dd90c5d1a40d6c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">S_define-level function to reset JEOD time to the time at the start of the current integration loop.  <a href="#a433a33b27c184d46dd90c5d1a40d6c3e">More...</a><br /></td></tr>
 <tr class="separator:a433a33b27c184d46dd90c5d1a40d6c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,19 +137,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acb4da0faab732543c41228b9703bb09c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acb4da0faab732543c41228b9703bb09c">remove_integrable_object</a> (er7_utils::IntegrableObject &amp;integrable_object)</td></tr>
 <tr class="memdesc:acb4da0faab732543c41228b9703bb09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the specified integrable object from the integration group's set of integrable objects.  <a href="#acb4da0faab732543c41228b9703bb09c">More...</a><br /></td></tr>
 <tr class="separator:acb4da0faab732543c41228b9703bb09c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cdc4fb3e349c6db98f4f44d51685946"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a1cdc4fb3e349c6db98f4f44d51685946">gravitation</a> (void)</td></tr>
-<tr class="memdesc:a1cdc4fb3e349c6db98f4f44d51685946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the gravitational accelerations of each dynamic body that is integrated by this integration loop.  <a href="#a1cdc4fb3e349c6db98f4f44d51685946">More...</a><br /></td></tr>
-<tr class="separator:a1cdc4fb3e349c6db98f4f44d51685946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a079fda97009409fce3c7667c930b9bd9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a079fda97009409fce3c7667c930b9bd9">collect_derivatives</a> (void)</td></tr>
-<tr class="memdesc:a079fda97009409fce3c7667c930b9bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the derivatives for each dynamic body that is integrated by this integration loop.  <a href="#a079fda97009409fce3c7667c930b9bd9">More...</a><br /></td></tr>
-<tr class="separator:a079fda97009409fce3c7667c930b9bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e76308d5f93bdef21a338c146424ffe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a3e76308d5f93bdef21a338c146424ffe">gravitation</a> ()</td></tr>
+<tr class="memdesc:a3e76308d5f93bdef21a338c146424ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the gravitational accelerations of each dynamic body that is integrated by this integration loop.  <a href="#a3e76308d5f93bdef21a338c146424ffe">More...</a><br /></td></tr>
+<tr class="separator:a3e76308d5f93bdef21a338c146424ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82b340743734c62c009ddc7a90a2fadb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a82b340743734c62c009ddc7a90a2fadb">collect_derivatives</a> ()</td></tr>
+<tr class="memdesc:a82b340743734c62c009ddc7a90a2fadb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collect the derivatives for each dynamic body that is integrated by this integration loop.  <a href="#a82b340743734c62c009ddc7a90a2fadb">More...</a><br /></td></tr>
+<tr class="separator:a82b340743734c62c009ddc7a90a2fadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98d5690aeace6ec4b3bc673fa66ad240"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a98d5690aeace6ec4b3bc673fa66ad240">set_deriv_ephem_update</a> (bool val)</td></tr>
 <tr class="memdesc:a98d5690aeace6ec4b3bc673fa66ad240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the deriv_ephem_update flag for the integration group.  <a href="#a98d5690aeace6ec4b3bc673fa66ad240">More...</a><br /></td></tr>
 <tr class="separator:a98d5690aeace6ec4b3bc673fa66ad240"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1JeodIntegrationGroupOwner"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1JeodIntegrationGroupOwner')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html">jeod::JeodIntegrationGroupOwner</a></td></tr>
-<tr class="memitem:aec5d38d13540c638557cf0dd6602e8ee inherit pub_methods_classjeod_1_1JeodIntegrationGroupOwner"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html#aec5d38d13540c638557cf0dd6602e8ee">~JeodIntegrationGroupOwner</a> ()</td></tr>
-<tr class="memdesc:aec5d38d13540c638557cf0dd6602e8ee inherit pub_methods_classjeod_1_1JeodIntegrationGroupOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html#aec5d38d13540c638557cf0dd6602e8ee">More...</a><br /></td></tr>
-<tr class="separator:aec5d38d13540c638557cf0dd6602e8ee inherit pub_methods_classjeod_1_1JeodIntegrationGroupOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38784fcd73dfd1d48c13500cadf4a75c inherit pub_methods_classjeod_1_1JeodIntegrationGroupOwner"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html#a38784fcd73dfd1d48c13500cadf4a75c">~JeodIntegrationGroupOwner</a> ()=default</td></tr>
+<tr class="memdesc:a38784fcd73dfd1d48c13500cadf4a75c inherit pub_methods_classjeod_1_1JeodIntegrationGroupOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html#a38784fcd73dfd1d48c13500cadf4a75c">More...</a><br /></td></tr>
+<tr class="separator:a38784fcd73dfd1d48c13500cadf4a75c inherit pub_methods_classjeod_1_1JeodIntegrationGroupOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -155,9 +159,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a0bd11e9e78bc19d163c684fcced7ac20"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0bd11e9e78bc19d163c684fcced7ac20">add_sim_object_bodies</a> (Trick::SimObject &amp;sim_obj)</td></tr>
 <tr class="memdesc:a0bd11e9e78bc19d163c684fcced7ac20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> objects contained in the specified sim object to the set of <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> objects integrated by this integration loop.  <a href="#a0bd11e9e78bc19d163c684fcced7ac20">More...</a><br /></td></tr>
 <tr class="separator:a0bd11e9e78bc19d163c684fcced7ac20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e2fc064304b43713c1b463a9addf472"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0e2fc064304b43713c1b463a9addf472">add_sim_object_bodies</a> (void)</td></tr>
-<tr class="memdesc:a0e2fc064304b43713c1b463a9addf472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the dyn bodies contained in all the sim objects integrated by this integration loop to the loop's integration group.  <a href="#a0e2fc064304b43713c1b463a9addf472">More...</a><br /></td></tr>
-<tr class="separator:a0e2fc064304b43713c1b463a9addf472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbd6714fbb8f2e60d7164c0075d90814"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#adbd6714fbb8f2e60d7164c0075d90814">add_sim_object_bodies</a> ()</td></tr>
+<tr class="memdesc:adbd6714fbb8f2e60d7164c0075d90814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the dyn bodies contained in all the sim objects integrated by this integration loop to the loop's integration group.  <a href="#adbd6714fbb8f2e60d7164c0075d90814">More...</a><br /></td></tr>
+<tr class="separator:adbd6714fbb8f2e60d7164c0075d90814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a679c41a4e60c282650af00f7d245945d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies</a> (Trick::SimObject &amp;sim_obj)</td></tr>
 <tr class="memdesc:a679c41a4e60c282650af00f7d245945d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> objects contained in the specified sim object from the set of <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> objects integrated by this integration loop.  <a href="#a679c41a4e60c282650af00f7d245945d">More...</a><br /></td></tr>
 <tr class="separator:a679c41a4e60c282650af00f7d245945d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,41 +171,33 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a10be23e44c912fc269b0e31207d01e46"><td class="memItemLeft" align="right" valign="top">Trick::SimObject *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a10be23e44c912fc269b0e31207d01e46">loop_sim_object</a></td></tr>
+<tr class="memitem:a10be23e44c912fc269b0e31207d01e46"><td class="memItemLeft" align="right" valign="top">Trick::SimObject *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a10be23e44c912fc269b0e31207d01e46">loop_sim_object</a> {}</td></tr>
 <tr class="memdesc:a10be23e44c912fc269b0e31207d01e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">The simulation object that contains this integration loop object.  <a href="#a10be23e44c912fc269b0e31207d01e46">More...</a><br /></td></tr>
 <tr class="separator:a10be23e44c912fc269b0e31207d01e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05952b499dd4f7916386e82940c5a89e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a></td></tr>
+<tr class="memitem:a05952b499dd4f7916386e82940c5a89e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a> {}</td></tr>
 <tr class="memdesc:a05952b499dd4f7916386e82940c5a89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The JEOD dynamics manager.  <a href="#a05952b499dd4f7916386e82940c5a89e">More...</a><br /></td></tr>
 <tr class="separator:a05952b499dd4f7916386e82940c5a89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9519c48c93458c96f9d9a63819f1987d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html">TimeManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9519c48c93458c96f9d9a63819f1987d">time_manager</a></td></tr>
+<tr class="memitem:a9519c48c93458c96f9d9a63819f1987d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html">TimeManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9519c48c93458c96f9d9a63819f1987d">time_manager</a> {}</td></tr>
 <tr class="memdesc:a9519c48c93458c96f9d9a63819f1987d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The JEOD time manager.  <a href="#a9519c48c93458c96f9d9a63819f1987d">More...</a><br /></td></tr>
 <tr class="separator:a9519c48c93458c96f9d9a63819f1987d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae32735a0a514c7d93bbeebfc4bb61f4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ae32735a0a514c7d93bbeebfc4bb61f4e">gravity_manager</a></td></tr>
+<tr class="memitem:ae32735a0a514c7d93bbeebfc4bb61f4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ae32735a0a514c7d93bbeebfc4bb61f4e">gravity_manager</a> {}</td></tr>
 <tr class="memdesc:ae32735a0a514c7d93bbeebfc4bb61f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The gravity model manager.  <a href="#ae32735a0a514c7d93bbeebfc4bb61f4e">More...</a><br /></td></tr>
 <tr class="separator:ae32735a0a514c7d93bbeebfc4bb61f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0e6fc370381db61adc65b6b4839e73d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d3b/classjeod_1_1JeodTrickIntegrator.html">JeodTrickIntegrator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ad0e6fc370381db61adc65b6b4839e73d">integ_interface</a></td></tr>
 <tr class="memdesc:ad0e6fc370381db61adc65b6b4839e73d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy integration interface; needed by the integ_group.  <a href="#ad0e6fc370381db61adc65b6b4839e73d">More...</a><br /></td></tr>
 <tr class="separator:ad0e6fc370381db61adc65b6b4839e73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24eeb6a2a0fef09a4805ef4a9b334b10"><td class="memItemLeft" align="right" valign="top">er7_utils::IntegratorConstructor **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a24eeb6a2a0fef09a4805ef4a9b334b10">integ_constructor</a></td></tr>
+<tr class="memitem:a24eeb6a2a0fef09a4805ef4a9b334b10"><td class="memItemLeft" align="right" valign="top">er7_utils::IntegratorConstructor **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a24eeb6a2a0fef09a4805ef4a9b334b10">integ_constructor</a> {}</td></tr>
 <tr class="memdesc:a24eeb6a2a0fef09a4805ef4a9b334b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to the integration constructor used to create integrators.  <a href="#a24eeb6a2a0fef09a4805ef4a9b334b10">More...</a><br /></td></tr>
 <tr class="separator:a24eeb6a2a0fef09a4805ef4a9b334b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92ee36907ffc7961fb9364845881f58b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a92ee36907ffc7961fb9364845881f58b">integ_group_factory</a></td></tr>
+<tr class="memitem:a92ee36907ffc7961fb9364845881f58b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a92ee36907ffc7961fb9364845881f58b">integ_group_factory</a> {}</td></tr>
 <tr class="memdesc:a92ee36907ffc7961fb9364845881f58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The externally-supplied integration group used as a template for creating this integration loop's integration group.  <a href="#a92ee36907ffc7961fb9364845881f58b">More...</a><br /></td></tr>
 <tr class="separator:a92ee36907ffc7961fb9364845881f58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2874d77a93af6a2da89fd4ef4fd44d47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a></td></tr>
+<tr class="memitem:a2874d77a93af6a2da89fd4ef4fd44d47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a> {}</td></tr>
 <tr class="memdesc:a2874d77a93af6a2da89fd4ef4fd44d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">The integration group that performs the integration.  <a href="#a2874d77a93af6a2da89fd4ef4fd44d47">More...</a><br /></td></tr>
 <tr class="separator:a2874d77a93af6a2da89fd4ef4fd44d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a562ed210be0888049c19eab4976efb4a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a562ed210be0888049c19eab4976efb4a">deriv_ephem_update</a></td></tr>
+<tr class="memitem:a562ed210be0888049c19eab4976efb4a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a562ed210be0888049c19eab4976efb4a">deriv_ephem_update</a> {}</td></tr>
 <tr class="memdesc:a562ed210be0888049c19eab4976efb4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set, ephemerides will be updated at the derivative rate.  <a href="#a562ed210be0888049c19eab4976efb4a">More...</a><br /></td></tr>
 <tr class="separator:a562ed210be0888049c19eab4976efb4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a45f73da10a5357657774442eaf4e547f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a45f73da10a5357657774442eaf4e547f">JeodDynbodyIntegrationLoop</a> (const <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html">JeodDynbodyIntegrationLoop</a> &amp;)</td></tr>
-<tr class="memdesc:a45f73da10a5357657774442eaf4e547f"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Deleted.  <a href="#a45f73da10a5357657774442eaf4e547f">More...</a><br /></td></tr>
-<tr class="separator:a45f73da10a5357657774442eaf4e547f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaa2e86678d7172e50b8106d18926fc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html">JeodDynbodyIntegrationLoop</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acaa2e86678d7172e50b8106d18926fc7">operator=</a> (const <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html">JeodDynbodyIntegrationLoop</a> &amp;)</td></tr>
-<tr class="separator:acaa2e86678d7172e50b8106d18926fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -221,7 +217,7 @@ Friends</h2></td></tr>
 </ul>
 <p>Users of this class are strongly encouraged to do so via a JeodIntegLoopSimObject. See $JEOD_HOME/lib/jeod/JEOD_S_modules/integ_loop.sm. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00133">133</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00134">134</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9cc4448e8dd7929bdd82083677c7f56d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9cc4448e8dd7929bdd82083677c7f56d">&#9670;&nbsp;</a></span>JeodDynbodyIntegrationLoop() <span class="overload">[1/3]</span></h2>
@@ -242,7 +238,7 @@ Friends</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>This exists only for the purpose of automated checkpoint/restart. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Do not use the default constructor outside of this context. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00055">55</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00054">54</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 </div>
 </div>
@@ -316,7 +312,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00071">71</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00060">60</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a7f13988a229a5d481d58ddfd597e5b2d">add_sim_object()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac8bc2ffd5f6cae8ca73f4b2a6d897ff">jeod::SimInterfaceMessages::integration_error</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a10be23e44c912fc269b0e31207d01e46">loop_sim_object</a>.</p>
 
@@ -334,7 +330,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::JeodDynbodyIntegrationLoop::~JeodDynbodyIntegrationLoop </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -348,14 +343,14 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html" title="A Trick::IntegLoopScheduler that provides the ability to integrate a collection of Trick::SimObject i...">JeodDynbodyIntegrationLoop</a> destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00106">106</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00091">91</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, <a class="el" href="../../d0/d87/group__external.html#ga9683c519d31bc2e94fc7635407c73a58">JEOD_DELETE_OBJECT</a>, and <a class="el" href="../../d0/d87/group__external.html#ga02aad3086af361e5a13552eb2219bd8f">JEOD_IS_ALLOCATED</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, and <a class="el" href="../../d0/d87/group__external.html#ga9683c519d31bc2e94fc7635407c73a58">JEOD_DELETE_OBJECT</a>.</p>
 
 </div>
 </div>
-<a id="a45f73da10a5357657774442eaf4e547f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45f73da10a5357657774442eaf4e547f">&#9670;&nbsp;</a></span>JeodDynbodyIntegrationLoop() <span class="overload">[3/3]</span></h2>
+<a id="a6adb544eab65d5f7b01fc3337af7f768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6adb544eab65d5f7b01fc3337af7f768">&#9670;&nbsp;</a></span>JeodDynbodyIntegrationLoop() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -373,13 +368,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>&lt; Deleted. </p>
-<p>Deleted. </p>
 
 </div>
 </div>
@@ -416,9 +408,9 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00184">184</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00159">159</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a6a8a1ac6b2f449374f5cbd1d07134fb7">jeod::JeodIntegrationGroup::add_integrable_object()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, and <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac8bc2ffd5f6cae8ca73f4b2a6d897ff">jeod::SimInterfaceMessages::integration_error</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a6a8a1ac6b2f449374f5cbd1d07134fb7">jeod::JeodIntegrationGroup::add_integrable_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a7f13988a229a5d481d58ddfd597e5b2d">add_sim_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a472e836dc1203cd005a69de5881b5707">find_containing_sim_object()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
 
 </div>
 </div>
@@ -456,11 +448,11 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Zero =&gt; success, non-zero =&gt; error. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00285">285</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00250">250</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0e2fc064304b43713c1b463a9addf472">add_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, and <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a00fe57b5bdb702a29151a9fe484a0d67">jeod::DynManager::is_initialized()</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#adbd6714fbb8f2e60d7164c0075d90814">add_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, and <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a00fe57b5bdb702a29151a9fe484a0d67">jeod::DynManager::is_initialized()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acfda8dc1a233341144195ddaf78b2fbd">JeodDynbodyIntegrationLoop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9dde188e24838cf86b57ade5466e5f79">add_integrable_object()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acfda8dc1a233341144195ddaf78b2fbd">JeodDynbodyIntegrationLoop()</a>.</p>
 
 </div>
 </div>
@@ -496,14 +488,14 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00329">329</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00292">292</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a7e83cabe541cb835e732da8aae61bf8d">jeod::DynamicsIntegrationGroup::add_dyn_body()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a472e836dc1203cd005a69de5881b5707">find_containing_sim_object()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a51ac0c870539a0cae8721d763efbd52f">jeod::DynManager::get_dyn_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a7e83cabe541cb835e732da8aae61bf8d">jeod::DynamicsIntegrationGroup::add_dyn_body()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a472e836dc1203cd005a69de5881b5707">find_containing_sim_object()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a758fab4a4386f97ec4cf1619828ee96e">jeod::DynManager::get_dyn_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
 
 </div>
 </div>
-<a id="a0e2fc064304b43713c1b463a9addf472"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e2fc064304b43713c1b463a9addf472">&#9670;&nbsp;</a></span>add_sim_object_bodies() <span class="overload">[2/2]</span></h2>
+<a id="adbd6714fbb8f2e60d7164c0075d90814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbd6714fbb8f2e60d7164c0075d90814">&#9670;&nbsp;</a></span>add_sim_object_bodies() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -514,7 +506,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::JeodDynbodyIntegrationLoop::add_sim_object_bodies </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -528,16 +519,16 @@ Friends</h2></td></tr>
 
 <p>Add the dyn bodies contained in all the sim objects integrated by this integration loop to the loop's integration group. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00348">348</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00307">307</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a7e83cabe541cb835e732da8aae61bf8d">jeod::DynamicsIntegrationGroup::add_dyn_body()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a472e836dc1203cd005a69de5881b5707">find_containing_sim_object()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a51ac0c870539a0cae8721d763efbd52f">jeod::DynManager::get_dyn_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a7e83cabe541cb835e732da8aae61bf8d">jeod::DynamicsIntegrationGroup::add_dyn_body()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a472e836dc1203cd005a69de5881b5707">find_containing_sim_object()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a758fab4a4386f97ec4cf1619828ee96e">jeod::DynManager::get_dyn_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a7f13988a229a5d481d58ddfd597e5b2d">add_sim_object()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a1aae51b27a89f203c28b2ba27de93fda">update_integration_group()</a>.</p>
 
 </div>
 </div>
-<a id="a079fda97009409fce3c7667c930b9bd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a079fda97009409fce3c7667c930b9bd9">&#9670;&nbsp;</a></span>collect_derivatives()</h2>
+<a id="a82b340743734c62c009ddc7a90a2fadb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82b340743734c62c009ddc7a90a2fadb">&#9670;&nbsp;</a></span>collect_derivatives()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -548,7 +539,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">virtual void jeod::JeodDynbodyIntegrationLoop::collect_derivatives </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -562,9 +552,9 @@ Friends</h2></td></tr>
 
 <p>Collect the derivatives for each dynamic body that is integrated by this integration loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00284">284</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00268">268</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#acf808407138c17858e4c68636917a31b">jeod::DynamicsIntegrationGroup::collect_derivatives()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#ac892e8a56ed274baa3be4e2249671c57">jeod::DynamicsIntegrationGroup::collect_derivatives()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
 
 </div>
 </div>
@@ -601,16 +591,16 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Sim object that contains the specified object, or null if none. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00146">146</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00126">126</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a17fe3a3dc07b14bebb08bcb83caf5173">jeod::JeodSimulationInterface::get_address_at_name()</a>, <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a2081f9dfe43d56de7d342dfb3978dcf1">jeod::JeodSimulationInterface::get_name_at_address()</a>, and <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#ab1210c60576fb74d9c3cb07b9a2b0e23">jeod::JeodMemoryManager::get_type_descriptor()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0bd11e9e78bc19d163c684fcced7ac20">add_sim_object_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9dde188e24838cf86b57ade5466e5f79">add_integrable_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0bd11e9e78bc19d163c684fcced7ac20">add_sim_object_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies()</a>.</p>
 
 </div>
 </div>
-<a id="a1cdc4fb3e349c6db98f4f44d51685946"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cdc4fb3e349c6db98f4f44d51685946">&#9670;&nbsp;</a></span>gravitation()</h2>
+<a id="a3e76308d5f93bdef21a338c146424ffe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e76308d5f93bdef21a338c146424ffe">&#9670;&nbsp;</a></span>gravitation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,7 +611,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">virtual void jeod::JeodDynbodyIntegrationLoop::gravitation </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -635,14 +624,14 @@ Friends</h2></td></tr>
 
 <p>Compute the gravitational accelerations of each dynamic body that is integrated by this integration loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00274">274</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00259">259</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#ae4b1b082916a0be3ead81fa137d9abe2">jeod::DynamicsIntegrationGroup::gravitation()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ae32735a0a514c7d93bbeebfc4bb61f4e">gravity_manager</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
 
 </div>
 </div>
-<a id="ab634326a42cc1bfd5585ed997162450f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab634326a42cc1bfd5585ed997162450f">&#9670;&nbsp;</a></span>initialize_integ_loop()</h2>
+<a id="a2a0a340179fa4818f2ddc12d995bbb0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a0a340179fa4818f2ddc12d995bbb0b">&#9670;&nbsp;</a></span>initialize_integ_loop()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -650,7 +639,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::JeodDynbodyIntegrationLoop::initialize_integ_loop </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -660,7 +648,7 @@ Friends</h2></td></tr>
 <p>S_define-level function to initialize the integration loop. </p>
 <p>This function should be called as a very low phase integration class job. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00117">117</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00097">97</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a7b46ef29b8a09a5eb3e5f6a31a29d52e">jeod::DynManager::add_integ_group()</a>, <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a83a0b4e3698d1ab1e0e4b9080b39c9b0">jeod::DynamicsIntegrationGroup::create_group()</a>, <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a92835ef025e2bbe497467a4a69860c89">jeod::DynamicsIntegrationGroup::deriv_ephem_update</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a562ed210be0888049c19eab4976efb4a">deriv_ephem_update</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a37f844bdec8b4aa4856f3a867b3375dd">jeod::TimeManager::get_jeod_integration_time()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a24eeb6a2a0fef09a4805ef4a9b334b10">integ_constructor</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a92ee36907ffc7961fb9364845881f58b">integ_group_factory</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ad0e6fc370381db61adc65b6b4839e73d">integ_interface</a>, <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac8bc2ffd5f6cae8ca73f4b2a6d897ff">jeod::SimInterfaceMessages::integration_error</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9519c48c93458c96f9d9a63819f1987d">time_manager</a>.</p>
 
@@ -711,14 +699,14 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00222">222</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00187">187</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac8bc2ffd5f6cae8ca73f4b2a6d897ff">jeod::SimInterfaceMessages::integration_error</a>, and <a class="el" href="../../de/ddd/group__SimInterface.html#ga17911ca3fb0a94af6480a857cd06ba90">trick_curr_integ</a>.</p>
 
 </div>
 </div>
-<a id="acaa2e86678d7172e50b8106d18926fc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acaa2e86678d7172e50b8106d18926fc7">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a7d67ae9f7336473b2569d5da191a8b6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d67ae9f7336473b2569d5da191a8b6e">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -736,7 +724,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -775,7 +763,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00205">205</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00175">175</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a7d7bfa6e14d6cd77016fef3a2a86d4e5">jeod::JeodIntegrationGroup::remove_integrable_object()</a>.</p>
 
@@ -815,7 +803,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Zero =&gt; success, non-zero =&gt; error. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00307">307</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00271">271</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a00fe57b5bdb702a29151a9fe484a0d67">jeod::DynManager::is_initialized()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies()</a>.</p>
 
@@ -853,9 +841,9 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00369">369</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00323">323</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#acb07bd1811e3ba97277dcb8b803b7e53">jeod::DynamicsIntegrationGroup::delete_dyn_body()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a472e836dc1203cd005a69de5881b5707">find_containing_sim_object()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a51ac0c870539a0cae8721d763efbd52f">jeod::DynManager::get_dyn_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#acb07bd1811e3ba97277dcb8b803b7e53">jeod::DynamicsIntegrationGroup::delete_dyn_body()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a05952b499dd4f7916386e82940c5a89e">dyn_manager</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a472e836dc1203cd005a69de5881b5707">find_containing_sim_object()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a758fab4a4386f97ec4cf1619828ee96e">jeod::DynManager::get_dyn_bodies()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a6a5b465f0f97f2ed98cdc1a442df739b">remove_sim_object()</a>.</p>
 
@@ -893,7 +881,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00294">294</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00277">277</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a92835ef025e2bbe497467a4a69860c89">jeod::DynamicsIntegrationGroup::deriv_ephem_update</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a562ed210be0888049c19eab4976efb4a">deriv_ephem_update</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>.</p>
 
@@ -917,7 +905,7 @@ Friends</h2></td></tr>
 <p>S_define-level function to reset JEOD time to the time at the start of the current integration loop. </p>
 <p>This function should be called as a very low phase pre-integration class job in simulations that have multiple integration loops. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00214">214</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00181">181</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9519c48c93458c96f9d9a63819f1987d">time_manager</a>, and <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ad17be548f3eae5f0fa9dd2a370209789">jeod::TimeManager::update()</a>.</p>
 
@@ -948,7 +936,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Update the provided integration group, which must be the integration group contained within this integration loop object. </p>
-<dl class="section note"><dt>Note</dt><dd>This function is public because it is called (indirectly) from <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#afe0bafb18275de4d5476852e6fdb6ef4" title="Complete initialization of the JEOD manager model. ">DynManager::initialize_simulation</a>. It should otherwise be viewed as a protected or private function.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is public because it is called (indirectly) from <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa403ed5cd1e55c20f4d81dd7f5f63fc0" title="Complete initialization of the JEOD manager model. ">DynManager::initialize_simulation</a>. It should otherwise be viewed as a protected or private function.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">group</td><td>The IntegrationGroup to be updated, which must be the integration loop's integration group object. </td></tr>
@@ -958,9 +946,9 @@ Friends</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html#a265646ded02d24e46dd3ec6eef46e047">jeod::JeodIntegrationGroupOwner</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00388">388</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html#l00338">338</a> of file <a class="el" href="../../d4/d1d/trick__dynbody__integ__loop_8cc_source.html">trick_dynbody_integ_loop.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0e2fc064304b43713c1b463a9addf472">add_sim_object_bodies()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, and <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac8bc2ffd5f6cae8ca73f4b2a6d897ff">jeod::SimInterfaceMessages::integration_error</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#adbd6714fbb8f2e60d7164c0075d90814">add_sim_object_bodies()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2874d77a93af6a2da89fd4ef4fd44d47">integ_group</a>, and <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac8bc2ffd5f6cae8ca73f4b2a6d897ff">jeod::SimInterfaceMessages::integration_error</a>.</p>
 
 </div>
 </div>
@@ -1010,7 +998,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00138">138</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00137">137</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
 </div>
 </div>
@@ -1025,7 +1013,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::JeodDynbodyIntegrationLoop::deriv_ephem_update</td>
+          <td class="memname">bool jeod::JeodDynbodyIntegrationLoop::deriv_ephem_update {}</td>
         </tr>
       </table>
   </td>
@@ -1038,9 +1026,9 @@ Friends</h2></td></tr>
 <p>If set, ephemerides will be updated at the derivative rate. </p>
 <p>If clear, ephemerides will not be updated at the derivative rate by the ephemerides manager. Derivative-rate updates can still be attained by explicitly calling the various ephemerides model's update functions as derivative class jobs.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00404">404</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00380">380</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a98d5690aeace6ec4b3bc673fa66ad240">set_deriv_ephem_update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a98d5690aeace6ec4b3bc673fa66ad240">set_deriv_ephem_update()</a>.</p>
 
 </div>
 </div>
@@ -1054,7 +1042,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::JeodDynbodyIntegrationLoop::dyn_manager</td>
+          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::JeodDynbodyIntegrationLoop::dyn_manager {}</td>
         </tr>
       </table>
   </td>
@@ -1067,9 +1055,9 @@ Friends</h2></td></tr>
 <p>The JEOD dynamics manager. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00364">364</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00340">340</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a7f13988a229a5d481d58ddfd597e5b2d">add_sim_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0bd11e9e78bc19d163c684fcced7ac20">add_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a1cdc4fb3e349c6db98f4f44d51685946">gravitation()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a6a5b465f0f97f2ed98cdc1a442df739b">remove_sim_object()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a7f13988a229a5d481d58ddfd597e5b2d">add_sim_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0bd11e9e78bc19d163c684fcced7ac20">add_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a3e76308d5f93bdef21a338c146424ffe">gravitation()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a6a5b465f0f97f2ed98cdc1a442df739b">remove_sim_object()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies()</a>.</p>
 
 </div>
 </div>
@@ -1083,7 +1071,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a>* jeod::JeodDynbodyIntegrationLoop::gravity_manager</td>
+          <td class="memname"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a>* jeod::JeodDynbodyIntegrationLoop::gravity_manager {}</td>
         </tr>
       </table>
   </td>
@@ -1096,9 +1084,9 @@ Friends</h2></td></tr>
 <p>The gravity model manager. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00374">374</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00350">350</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a1cdc4fb3e349c6db98f4f44d51685946">gravitation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a3e76308d5f93bdef21a338c146424ffe">gravitation()</a>.</p>
 
 </div>
 </div>
@@ -1112,7 +1100,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">er7_utils::IntegratorConstructor** jeod::JeodDynbodyIntegrationLoop::integ_constructor</td>
+          <td class="memname">er7_utils::IntegratorConstructor** jeod::JeodDynbodyIntegrationLoop::integ_constructor {}</td>
         </tr>
       </table>
   </td>
@@ -1125,9 +1113,9 @@ Friends</h2></td></tr>
 <p>Handle to the integration constructor used to create integrators. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00384">384</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00360">360</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop()</a>.</p>
 
 </div>
 </div>
@@ -1141,7 +1129,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a>* jeod::JeodDynbodyIntegrationLoop::integ_group</td>
+          <td class="memname"><a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a>* jeod::JeodDynbodyIntegrationLoop::integ_group {}</td>
         </tr>
       </table>
   </td>
@@ -1154,9 +1142,9 @@ Friends</h2></td></tr>
 <p>The integration group that performs the integration. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00395">395</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00371">371</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9dde188e24838cf86b57ade5466e5f79">add_integrable_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0bd11e9e78bc19d163c684fcced7ac20">add_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a079fda97009409fce3c7667c930b9bd9">collect_derivatives()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a1cdc4fb3e349c6db98f4f44d51685946">gravitation()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a4ede7d075e9d73220eb6ca3706a17103">integrate_dt()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acb4da0faab732543c41228b9703bb09c">remove_integrable_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a98d5690aeace6ec4b3bc673fa66ad240">set_deriv_ephem_update()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a1aae51b27a89f203c28b2ba27de93fda">update_integration_group()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a97aec75a24f49110b28139beae0df218">~JeodDynbodyIntegrationLoop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a9dde188e24838cf86b57ade5466e5f79">add_integrable_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a0bd11e9e78bc19d163c684fcced7ac20">add_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a82b340743734c62c009ddc7a90a2fadb">collect_derivatives()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a3e76308d5f93bdef21a338c146424ffe">gravitation()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a4ede7d075e9d73220eb6ca3706a17103">integrate_dt()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acb4da0faab732543c41228b9703bb09c">remove_integrable_object()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a679c41a4e60c282650af00f7d245945d">remove_sim_object_bodies()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a98d5690aeace6ec4b3bc673fa66ad240">set_deriv_ephem_update()</a>, <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a1aae51b27a89f203c28b2ba27de93fda">update_integration_group()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a97aec75a24f49110b28139beae0df218">~JeodDynbodyIntegrationLoop()</a>.</p>
 
 </div>
 </div>
@@ -1170,7 +1158,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a>* jeod::JeodDynbodyIntegrationLoop::integ_group_factory</td>
+          <td class="memname">const <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html">DynamicsIntegrationGroup</a>* jeod::JeodDynbodyIntegrationLoop::integ_group_factory {}</td>
         </tr>
       </table>
   </td>
@@ -1183,9 +1171,9 @@ Friends</h2></td></tr>
 <p>The externally-supplied integration group used as a template for creating this integration loop's integration group. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00390">390</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00366">366</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop()</a>.</p>
 
 </div>
 </div>
@@ -1212,9 +1200,9 @@ Friends</h2></td></tr>
 <p>Dummy integration interface; needed by the integ_group. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00379">379</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00355">355</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop()</a>.</p>
 
 </div>
 </div>
@@ -1228,7 +1216,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Trick::SimObject* jeod::JeodDynbodyIntegrationLoop::loop_sim_object</td>
+          <td class="memname">Trick::SimObject* jeod::JeodDynbodyIntegrationLoop::loop_sim_object {}</td>
         </tr>
       </table>
   </td>
@@ -1241,7 +1229,7 @@ Friends</h2></td></tr>
 <p>The simulation object that contains this integration loop object. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00359">359</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00335">335</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acfda8dc1a233341144195ddaf78b2fbd">JeodDynbodyIntegrationLoop()</a>.</p>
 
@@ -1257,7 +1245,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html">TimeManager</a>* jeod::JeodDynbodyIntegrationLoop::time_manager</td>
+          <td class="memname"><a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html">TimeManager</a>* jeod::JeodDynbodyIntegrationLoop::time_manager {}</td>
         </tr>
       </table>
   </td>
@@ -1270,9 +1258,9 @@ Friends</h2></td></tr>
 <p>The JEOD time manager. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00369">369</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html#l00345">345</a> of file <a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">trick_dynbody_integ_loop.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#ab634326a42cc1bfd5585ed997162450f">initialize_integ_loop()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a433a33b27c184d46dd90c5d1a40d6c3e">set_time_to_loop_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a2a0a340179fa4818f2ddc12d995bbb0b">initialize_integ_loop()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#a433a33b27c184d46dd90c5d1a40d6c3e">set_time_to_loop_start()</a>.</p>
 
 </div>
 </div>

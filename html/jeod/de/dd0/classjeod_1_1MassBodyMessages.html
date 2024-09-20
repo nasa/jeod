@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -45,8 +45,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::MassBodyMessages Class Reference</div>  </div>
@@ -58,41 +58,41 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a971a7299f293b0a6ca6c7a36818b7705"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a971a7299f293b0a6ca6c7a36818b7705">MassBodyMessages</a> ()=delete</td></tr>
+<tr class="separator:a971a7299f293b0a6ca6c7a36818b7705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd64d59c3bd716481a25ab7bfadcda6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#afd64d59c3bd716481a25ab7bfadcda6c">MassBodyMessages</a> (const <a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html">MassBodyMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:afd64d59c3bd716481a25ab7bfadcda6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedaa2b6a592bd3dd8248c9a9e1f03a20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html">MassBodyMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#aedaa2b6a592bd3dd8248c9a9e1f03a20">operator=</a> (const <a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html">MassBodyMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:aedaa2b6a592bd3dd8248c9a9e1f03a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a21ab243054cea2c3708f10fe95a53573"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a21ab243054cea2c3708f10fe95a53573">attach_info</a></td></tr>
-<tr class="memdesc:a21ab243054cea2c3708f10fe95a53573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued to provide information regarding an attachment.  <a href="#a21ab243054cea2c3708f10fe95a53573">More...</a><br /></td></tr>
-<tr class="separator:a21ab243054cea2c3708f10fe95a53573"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4cbd8db4e73f87abfe772392b3515b7"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#ab4cbd8db4e73f87abfe772392b3515b7">invalid_attach</a></td></tr>
-<tr class="memdesc:ab4cbd8db4e73f87abfe772392b3515b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when an attachment cannot be performed as requested.  <a href="#ab4cbd8db4e73f87abfe772392b3515b7">More...</a><br /></td></tr>
-<tr class="separator:ab4cbd8db4e73f87abfe772392b3515b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a467c3243a0b6510198282d6936c54054"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a467c3243a0b6510198282d6936c54054">invalid_detach</a></td></tr>
-<tr class="memdesc:a467c3243a0b6510198282d6936c54054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a detachment cannot be performed as requested.  <a href="#a467c3243a0b6510198282d6936c54054">More...</a><br /></td></tr>
-<tr class="separator:a467c3243a0b6510198282d6936c54054"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a091081f807aa391ff28e09b39c20e7fd"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a091081f807aa391ff28e09b39c20e7fd">invalid_node</a></td></tr>
-<tr class="memdesc:a091081f807aa391ff28e09b39c20e7fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a node does not have expected linkages.  <a href="#a091081f807aa391ff28e09b39c20e7fd">More...</a><br /></td></tr>
-<tr class="separator:a091081f807aa391ff28e09b39c20e7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52b44af0a675f2370d2392debd49691e"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a52b44af0a675f2370d2392debd49691e">invalid_name</a></td></tr>
-<tr class="memdesc:a52b44af0a675f2370d2392debd49691e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a name is invalid &ndash; NULL, empty, a duplicate, ...  <a href="#a52b44af0a675f2370d2392debd49691e">More...</a><br /></td></tr>
-<tr class="separator:a52b44af0a675f2370d2392debd49691e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d5868ed7f44b82716efcce8d502c5af"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a1d5868ed7f44b82716efcce8d502c5af">invalid_enum</a></td></tr>
-<tr class="memdesc:a1d5868ed7f44b82716efcce8d502c5af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a enum value is not one of the enumerated values.  <a href="#a1d5868ed7f44b82716efcce8d502c5af">More...</a><br /></td></tr>
-<tr class="separator:a1d5868ed7f44b82716efcce8d502c5af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebc2ecf3b7b2c58e5d352a890e44caff"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#aebc2ecf3b7b2c58e5d352a890e44caff">io_error</a></td></tr>
-<tr class="memdesc:aebc2ecf3b7b2c58e5d352a890e44caff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when an I/O error occurs.  <a href="#aebc2ecf3b7b2c58e5d352a890e44caff">More...</a><br /></td></tr>
-<tr class="separator:aebc2ecf3b7b2c58e5d352a890e44caff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ad344305be9d05dba2513619e24df58"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a6ad344305be9d05dba2513619e24df58">internal_error</a></td></tr>
-<tr class="memdesc:a6ad344305be9d05dba2513619e24df58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when some internal error occurred.  <a href="#a6ad344305be9d05dba2513619e24df58">More...</a><br /></td></tr>
-<tr class="separator:a6ad344305be9d05dba2513619e24df58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ac623e8c5dcd58c22d3a88cd1791881a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#ac623e8c5dcd58c22d3a88cd1791881a8">MassBodyMessages</a> (void)</td></tr>
-<tr class="separator:ac623e8c5dcd58c22d3a88cd1791881a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee392f78860630f6edc3c3efdae3f2e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#aee392f78860630f6edc3c3efdae3f2e5">MassBodyMessages</a> (const <a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html">MassBodyMessages</a> &amp;)</td></tr>
-<tr class="separator:aee392f78860630f6edc3c3efdae3f2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca478085eec6d52ecdda6837bd9e880b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html">MassBodyMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#aca478085eec6d52ecdda6837bd9e880b">operator=</a> (const <a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html">MassBodyMessages</a> &amp;)</td></tr>
-<tr class="separator:aca478085eec6d52ecdda6837bd9e880b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6683585d08e466d70eebcbabc7398f7"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#af6683585d08e466d70eebcbabc7398f7">attach_info</a> = &quot;dynamics/mass/&quot; &quot;attach_info&quot;</td></tr>
+<tr class="memdesc:af6683585d08e466d70eebcbabc7398f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued to provide information regarding an attachment.  <a href="#af6683585d08e466d70eebcbabc7398f7">More...</a><br /></td></tr>
+<tr class="separator:af6683585d08e466d70eebcbabc7398f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2f4a9193c1403f6560ce0f5328dd56a"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#aa2f4a9193c1403f6560ce0f5328dd56a">invalid_attach</a> = &quot;dynamics/mass/&quot; &quot;invalid_attach&quot;</td></tr>
+<tr class="memdesc:aa2f4a9193c1403f6560ce0f5328dd56a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when an attachment cannot be performed as requested.  <a href="#aa2f4a9193c1403f6560ce0f5328dd56a">More...</a><br /></td></tr>
+<tr class="separator:aa2f4a9193c1403f6560ce0f5328dd56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43a21c65c8f742202af35375c64652b8"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a43a21c65c8f742202af35375c64652b8">invalid_detach</a> = &quot;dynamics/mass/&quot; &quot;invalid_detach&quot;</td></tr>
+<tr class="memdesc:a43a21c65c8f742202af35375c64652b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a detachment cannot be performed as requested.  <a href="#a43a21c65c8f742202af35375c64652b8">More...</a><br /></td></tr>
+<tr class="separator:a43a21c65c8f742202af35375c64652b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f017a86d8aedeea7d2b6a5d013a6c1"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#aa3f017a86d8aedeea7d2b6a5d013a6c1">invalid_node</a> = &quot;dynamics/mass/&quot; &quot;invalid_node&quot;</td></tr>
+<tr class="memdesc:aa3f017a86d8aedeea7d2b6a5d013a6c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a node does not have expected linkages.  <a href="#aa3f017a86d8aedeea7d2b6a5d013a6c1">More...</a><br /></td></tr>
+<tr class="separator:aa3f017a86d8aedeea7d2b6a5d013a6c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4292bafc06936ae8896283392574af47"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a4292bafc06936ae8896283392574af47">invalid_name</a> = &quot;dynamics/mass/&quot; &quot;invalid_name&quot;</td></tr>
+<tr class="memdesc:a4292bafc06936ae8896283392574af47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a name is invalid &ndash; NULL, empty, a duplicate, ...  <a href="#a4292bafc06936ae8896283392574af47">More...</a><br /></td></tr>
+<tr class="separator:a4292bafc06936ae8896283392574af47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a650966e36d3fb3a919b6390fd984b48a"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a650966e36d3fb3a919b6390fd984b48a">invalid_enum</a> = &quot;dynamics/mass/&quot; &quot;invalid_enum&quot;</td></tr>
+<tr class="memdesc:a650966e36d3fb3a919b6390fd984b48a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a enum value is not one of the enumerated values.  <a href="#a650966e36d3fb3a919b6390fd984b48a">More...</a><br /></td></tr>
+<tr class="separator:a650966e36d3fb3a919b6390fd984b48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a38fd1c0bc5c0a59fa46f254cbbade4"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a4a38fd1c0bc5c0a59fa46f254cbbade4">io_error</a> = &quot;dynamics/mass/&quot; &quot;io_error&quot;</td></tr>
+<tr class="memdesc:a4a38fd1c0bc5c0a59fa46f254cbbade4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when an I/O error occurs.  <a href="#a4a38fd1c0bc5c0a59fa46f254cbbade4">More...</a><br /></td></tr>
+<tr class="separator:a4a38fd1c0bc5c0a59fa46f254cbbade4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb00d098be81dfe898968aca676c229"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/classjeod_1_1MassBodyMessages.html#a7bb00d098be81dfe898968aca676c229">internal_error</a> = &quot;dynamics/mass/&quot; &quot;internal_error&quot;</td></tr>
+<tr class="memdesc:a7bb00d098be81dfe898968aca676c229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when some internal error occurred.  <a href="#a7bb00d098be81dfe898968aca676c229">More...</a><br /></td></tr>
+<tr class="separator:a7bb00d098be81dfe898968aca676c229"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -109,10 +109,10 @@ Friends</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00082">82</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00081">81</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac623e8c5dcd58c22d3a88cd1791881a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac623e8c5dcd58c22d3a88cd1791881a8">&#9670;&nbsp;</a></span>MassBodyMessages() <span class="overload">[1/2]</span></h2>
+<a id="a971a7299f293b0a6ca6c7a36818b7705"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a971a7299f293b0a6ca6c7a36818b7705">&#9670;&nbsp;</a></span>MassBodyMessages() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,22 +123,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::MassBodyMessages::MassBodyMessages </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aee392f78860630f6edc3c3efdae3f2e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee392f78860630f6edc3c3efdae3f2e5">&#9670;&nbsp;</a></span>MassBodyMessages() <span class="overload">[2/2]</span></h2>
+<a id="afd64d59c3bd716481a25ab7bfadcda6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd64d59c3bd716481a25ab7bfadcda6c">&#9670;&nbsp;</a></span>MassBodyMessages() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +155,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -164,8 +163,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aca478085eec6d52ecdda6837bd9e880b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca478085eec6d52ecdda6837bd9e880b">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="aedaa2b6a592bd3dd8248c9a9e1f03a20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedaa2b6a592bd3dd8248c9a9e1f03a20">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +182,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -236,13 +235,13 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00085">85</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00083">83</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a id="a21ab243054cea2c3708f10fe95a53573"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21ab243054cea2c3708f10fe95a53573">&#9670;&nbsp;</a></span>attach_info</h2>
+<a id="af6683585d08e466d70eebcbabc7398f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6683585d08e466d70eebcbabc7398f7">&#9670;&nbsp;</a></span>attach_info</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,7 +250,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::attach_info</td>
+          <td class="memname">const char * jeod::MassBodyMessages::attach_info = &quot;dynamics/mass/&quot; &quot;attach_info&quot;</td>
         </tr>
       </table>
   </td>
@@ -260,18 +259,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;attach_info&quot;</span></div></div><!-- fragment -->
+
 <p>Issued to provide information regarding an attachment. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00093">93</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00088">88</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a910d205b999208dd6b1e6e5556c7a9a5">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a2247970e1b8a3d1552f8dc26b782d6f1">jeod::DynBody::attach_child()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a12ecb33b85319432c1f5cbca4cc78085">jeod::MassBody::attach_to()</a>.</p>
 
 </div>
 </div>
-<a id="a6ad344305be9d05dba2513619e24df58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ad344305be9d05dba2513619e24df58">&#9670;&nbsp;</a></span>internal_error</h2>
+<a id="a7bb00d098be81dfe898968aca676c229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb00d098be81dfe898968aca676c229">&#9670;&nbsp;</a></span>internal_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,7 +279,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::internal_error</td>
+          <td class="memname">const char * jeod::MassBodyMessages::internal_error = &quot;dynamics/mass/&quot; &quot;internal_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -289,16 +288,16 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;internal_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when some internal error occurred. </p>
 <p>These errors should never happen.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00129">129</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00124">124</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
 </div>
 </div>
-<a id="ab4cbd8db4e73f87abfe772392b3515b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4cbd8db4e73f87abfe772392b3515b7">&#9670;&nbsp;</a></span>invalid_attach</h2>
+<a id="aa2f4a9193c1403f6560ce0f5328dd56a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2f4a9193c1403f6560ce0f5328dd56a">&#9670;&nbsp;</a></span>invalid_attach</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -307,7 +306,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::invalid_attach</td>
+          <td class="memname">const char * jeod::MassBodyMessages::invalid_attach = &quot;dynamics/mass/&quot; &quot;invalid_attach&quot;</td>
         </tr>
       </table>
   </td>
@@ -316,18 +315,47 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;invalid_attach&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when an attachment cannot be performed as requested. </p>
+<p>trick_units(&ndash;) </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00093">93</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a6259f3ec055450090b694b711d31a4d6">jeod::DynBody::add_mass_body_validate()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a6c3a3e292f5c8b4999e92bef22655eaf">jeod::MassBody::attach_root_body()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a12ecb33b85319432c1f5cbca4cc78085">jeod::MassBody::attach_to()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a7f5d2fb4009d1d2f8c49ae2ca0057181">jeod::MassBody::attach_validate_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#abab96dfc68630cf6bc39ce3978c36387">jeod::MassBody::attach_validate_parent()</a>, and <a class="el" href="../../df/d44/namespacejeod.html#a3e442c1ad2c0a7d06949bbbfcacefec6">jeod::generate_bad_point_message()</a>.</p>
+
+</div>
+</div>
+<a id="a43a21c65c8f742202af35375c64652b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43a21c65c8f742202af35375c64652b8">&#9670;&nbsp;</a></span>invalid_detach</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * jeod::MassBodyMessages::invalid_detach = &quot;dynamics/mass/&quot; &quot;invalid_detach&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Issued when a detachment cannot be performed as requested. </p>
 <p>trick_units(&ndash;) </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00098">98</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a6259f3ec055450090b694b711d31a4d6">jeod::DynBody::add_mass_body_validate()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a6c3a3e292f5c8b4999e92bef22655eaf">jeod::MassBody::attach_root_body()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a12ecb33b85319432c1f5cbca4cc78085">jeod::MassBody::attach_to()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a7f5d2fb4009d1d2f8c49ae2ca0057181">jeod::MassBody::attach_validate_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#abab96dfc68630cf6bc39ce3978c36387">jeod::MassBody::attach_validate_parent()</a>, and <a class="el" href="../../df/d44/namespacejeod.html#a7ab2b037d55e5af3b25ddaefa8c028b7">jeod::generate_bad_point_message()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8c0dbe46e89fd704d8b904ebdc1640fc">jeod::MassBody::detach()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a50817994bcb3fb9e4968e3c1ea44731e">jeod::MassBody::detach_validate_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a7466fa1a974bf9fa920fb80a7b720b31">jeod::MassBody::detach_validate_parent()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad837ddcc221b7541228e40b003bda65f">jeod::MassBody::~MassBody()</a>.</p>
 
 </div>
 </div>
-<a id="a467c3243a0b6510198282d6936c54054"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a467c3243a0b6510198282d6936c54054">&#9670;&nbsp;</a></span>invalid_detach</h2>
+<a id="a650966e36d3fb3a919b6390fd984b48a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a650966e36d3fb3a919b6390fd984b48a">&#9670;&nbsp;</a></span>invalid_enum</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +364,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::invalid_detach</td>
+          <td class="memname">const char * jeod::MassBodyMessages::invalid_enum = &quot;dynamics/mass/&quot; &quot;invalid_enum&quot;</td>
         </tr>
       </table>
   </td>
@@ -345,47 +373,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;invalid_detach&quot;</span></div></div><!-- fragment -->
-<p>Issued when a detachment cannot be performed as requested. </p>
-<p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00103">103</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8c0dbe46e89fd704d8b904ebdc1640fc">jeod::MassBody::detach()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a50817994bcb3fb9e4968e3c1ea44731e">jeod::MassBody::detach_validate_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a7466fa1a974bf9fa920fb80a7b720b31">jeod::MassBody::detach_validate_parent()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a933ba0b83090314baea6f6b49ff4e6fb">jeod::MassBody::~MassBody()</a>.</p>
-
-</div>
-</div>
-<a id="a1d5868ed7f44b82716efcce8d502c5af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d5868ed7f44b82716efcce8d502c5af">&#9670;&nbsp;</a></span>invalid_enum</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::invalid_enum</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;invalid_enum&quot;</span></div></div><!-- fragment -->
 <p>Issued when a enum value is not one of the enumerated values. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00118">118</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00113">113</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d2/d15/classjeod_1_1MassPointInit.html#a6bf3bf2705b3d70c8aa59d17c4ee3f4a">jeod::MassPointInit::initialize_mass_point()</a>, and <a class="el" href="../../d0/da8/classjeod_1_1MassPropertiesInit.html#a9405d8b5805df9059782c98106550578">jeod::MassPropertiesInit::initialize_mass_properties()</a>.</p>
 
 </div>
 </div>
-<a id="a52b44af0a675f2370d2392debd49691e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52b44af0a675f2370d2392debd49691e">&#9670;&nbsp;</a></span>invalid_name</h2>
+<a id="a4292bafc06936ae8896283392574af47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4292bafc06936ae8896283392574af47">&#9670;&nbsp;</a></span>invalid_name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,7 +393,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::invalid_name</td>
+          <td class="memname">const char * jeod::MassBodyMessages::invalid_name = &quot;dynamics/mass/&quot; &quot;invalid_name&quot;</td>
         </tr>
       </table>
   </td>
@@ -403,18 +402,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;invalid_name&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a name is invalid &ndash; NULL, empty, a duplicate, ... </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00113">113</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00108">108</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a0a90e29ffbe5a83c037b0a08a6bd3504">jeod::MassBody::add_mass_point()</a>.</p>
 
 </div>
 </div>
-<a id="a091081f807aa391ff28e09b39c20e7fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a091081f807aa391ff28e09b39c20e7fd">&#9670;&nbsp;</a></span>invalid_node</h2>
+<a id="aa3f017a86d8aedeea7d2b6a5d013a6c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3f017a86d8aedeea7d2b6a5d013a6c1">&#9670;&nbsp;</a></span>invalid_node</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +422,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::invalid_node</td>
+          <td class="memname">const char * jeod::MassBodyMessages::invalid_node = &quot;dynamics/mass/&quot; &quot;invalid_node&quot;</td>
         </tr>
       </table>
   </td>
@@ -432,18 +431,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;invalid_node&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a node does not have expected linkages. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00108">108</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00103">103</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a7d1539d452e61646a1c9682ee16c8492">jeod::MassPoint::compute_pred_rel_state()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a90f52426fa843481b68f7765a09084b3">jeod::MassPoint::compute_relative_state()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#ab8b4abf1121006dbe0a86a5f3210dc6a">jeod::MassPoint::compute_state_wrt_pred()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a13dd9b29d6bb6891774b725be24a7423">jeod::MassBody::reattach()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a7d1539d452e61646a1c9682ee16c8492">jeod::MassPoint::compute_pred_rel_state()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a90f52426fa843481b68f7765a09084b3">jeod::MassPoint::compute_relative_state()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#ab8b4abf1121006dbe0a86a5f3210dc6a">jeod::MassPoint::compute_state_wrt_pred()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a1851ced506595d50d6c002628409b9c7">jeod::MassBody::reattach()</a>.</p>
 
 </div>
 </div>
-<a id="aebc2ecf3b7b2c58e5d352a890e44caff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebc2ecf3b7b2c58e5d352a890e44caff">&#9670;&nbsp;</a></span>io_error</h2>
+<a id="a4a38fd1c0bc5c0a59fa46f254cbbade4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a38fd1c0bc5c0a59fa46f254cbbade4">&#9670;&nbsp;</a></span>io_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,7 +451,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::MassBodyMessages::io_error</td>
+          <td class="memname">const char * jeod::MassBodyMessages::io_error = &quot;dynamics/mass/&quot; &quot;io_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -461,11 +460,11 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/mass/&quot;</span>  <span class="stringliteral">&quot;io_error&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when an I/O error occurs. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00123">123</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d21/mass__messages_8hh_source.html#l00118">118</a> of file <a class="el" href="../../d1/d21/mass__messages_8hh_source.html">mass_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a9a3b7429365b2b60b3ee8acb6991426b">jeod::MassBody::print_tree()</a>.</p>
 

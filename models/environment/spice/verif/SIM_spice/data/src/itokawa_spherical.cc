@@ -15,7 +15,6 @@ Assumptions and Limitations:
 
 *******************************************************************************/
 
-
 class SphericalHarmonicsGravitySource;
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_itokawa_spherical_default_data
 
@@ -27,16 +26,14 @@ class SphericalHarmonicsGravitySource;
 // Unsupported includes
 #include "../include/itokawa_spherical.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-SphericalHarmonicsGravitySource_itokawa_spherical_default_data::initialize (
-   SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+namespace jeod
 {
-   SphericalHarmonicsGravitySource_ptr->name = "Itokawa";
-   SphericalHarmonicsGravitySource_ptr->mu =2.34;
+
+void SphericalHarmonicsGravitySource_itokawa_spherical_default_data::initialize(
+    SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+{
+    SphericalHarmonicsGravitySource_ptr->name = "Itokawa";
+    SphericalHarmonicsGravitySource_ptr->mu = 2.34;
 }
-} // End JEOD namespace
+} // namespace jeod

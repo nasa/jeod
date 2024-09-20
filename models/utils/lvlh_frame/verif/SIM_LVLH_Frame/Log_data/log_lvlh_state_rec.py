@@ -17,7 +17,7 @@ def log_lvlh_state_rec ( log_cycle ) :
   recording_group_name =  "LvlhState"
   global DR_GROUP_ID
   global drg
-  dr_group = trick.sim_services.DRAscii(recording_group_name)
+  dr_group = trick.sim_services.DRBinary(recording_group_name)
   dr_group.thisown = 0
   dr_group.set_cycle(log_cycle)
   dr_group.freq = trick.sim_services.DR_Always

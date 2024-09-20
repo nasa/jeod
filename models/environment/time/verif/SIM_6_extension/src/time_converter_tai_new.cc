@@ -12,7 +12,7 @@ LIBRARY DEPENDENCY:
   ((time_converter_tai_new.cc)
    (time_new.cc))
 
- 
+
 ******************************************************************************/
 
 // System includes
@@ -24,14 +24,13 @@ LIBRARY DEPENDENCY:
 
 // Model includes
 #include "../include/time_converter_tai_new.hh"
-#include "environment/time/include/time_tai.hh"
 #include "../include/time_new.hh"
 #include "environment/time/include/time_messages.hh"
-
-
+#include "environment/time/include/time_tai.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /******************************************************************************
  Function: TimeConverter_TAI_New::TimeConverter_TAI_New
@@ -40,13 +39,10 @@ namespace jeod {
 ******************************************************************************/
 TimeConverter_TAI_New::TimeConverter_TAI_New()
 {
-   tai_ptr = nullptr;
-   new_ptr = nullptr;
-   a_name = "TAI";
-   b_name = "New";
-   valid_directions = A_TO_B;
+    a_name = "TAI";
+    b_name = "New";
+    valid_directions = A_TO_B;
 }
-
 
 /******************************************************************************
  Function: TimeConverter_TAI_New::initialize
@@ -54,36 +50,38 @@ TimeConverter_TAI_New::TimeConverter_TAI_New()
  Assumptions: (None)
  Class: (N/A)
 ******************************************************************************/
-void
-TimeConverter_TAI_New::initialize(  /* Return: -- Void */
-   JeodBaseTime * parent_ptr,       /* In:     -- Time used to initialize the
-                                                  converter */
-   JeodBaseTime * child_ptr,        /* In:     -- Other Time used to initialize
-                                                  the converter */
-   const int int_dir)               /* In:     -- Conversion direction:
-                                                  +1 a=parent; -1 b=parent; 0 error */
+void TimeConverter_TAI_New::initialize(                           /* Return: -- Void */
+                                       JeodBaseTime * parent_ptr, /* In:     -- Time used to initialize the
+                                                                                converter */
+                                       JeodBaseTime * child_ptr,  /* In:     -- Other Time used to initialize
+                                                                                the converter */
+                                       const int int_dir)         /* In:     -- Conversion direction:
+                                                                                +1 a=parent; -1 b=parent; 0 error */
 {
-  verify_setup(parent_ptr,child_ptr,int_dir);
+    verify_setup(parent_ptr, child_ptr, int_dir);
 
-  if (int_dir == 1) {
-    tai_ptr = dynamic_cast<TimeTAI *> (parent_ptr);
-    new_ptr = dynamic_cast<TimeNew *> (child_ptr);
-  }
-  else if (int_dir == -1) {
-    tai_ptr = dynamic_cast<TimeTAI *> (child_ptr);
-    new_ptr = dynamic_cast<TimeNew *> (parent_ptr);
-  }
-  else {
-    MessageHandler::fail (
-      __FILE__, __LINE__, TimeMessages::invalid_setup_error,"\n"
-      "Illegal value of int_dir in TAI->New initializer");
-  }
+    if(int_dir == 1)
+    {
+        tai_ptr = dynamic_cast<TimeTAI *>(parent_ptr);
+        new_ptr = dynamic_cast<TimeNew *>(child_ptr);
+    }
+    else if(int_dir == -1)
+    {
+        tai_ptr = dynamic_cast<TimeTAI *>(child_ptr);
+        new_ptr = dynamic_cast<TimeNew *>(parent_ptr);
+    }
+    else
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             TimeMessages::invalid_setup_error,
+                             "\n"
+                             "Illegal value of int_dir in TAI->New initializer");
+    }
 
-  a_to_b_offset = 0.0;
+    a_to_b_offset = 0.0;
 
-  initialized = true;
-
-  return;
+    initialized = true;
 }
 
 /******************************************************************************
@@ -93,21 +91,9 @@ TimeConverter_TAI_New::initialize(  /* Return: -- Void */
                TAI time only)
  Class: (N/A)
 ******************************************************************************/
-void
-TimeConverter_TAI_New::convert_a_to_b()    // Return:  -- Void
+void TimeConverter_TAI_New::convert_a_to_b() // Return:  -- Void
 {
-  new_ptr->trunc_julian_time = tai_ptr->trunc_julian_time + a_to_b_offset;
-
-  return;
+    new_ptr->trunc_julian_time = tai_ptr->trunc_julian_time + a_to_b_offset;
 }
 
-
-/******************************************************************************
- Function: TimeConverter_TAI_New::~TimeConverter_TAI_New
- Purpose: (Destroy a TimeConverter_TAI_New)
- Class:   (N/A)
-******************************************************************************/
-TimeConverter_TAI_New::~TimeConverter_TAI_New()
-{
-}
-} // End JEOD namespace
+} // namespace jeod

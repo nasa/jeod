@@ -30,9 +30,6 @@ log_planet_verif(LOG_CYCLE  )
 ## Default data file generated in S_define
 #include "S_default.dat"
 
-## Set up simulation executive parameters
-#FIXME:  sys.exec.in.trap_sigfpe = Yes
-
 ## Set up parameters to record
 #include "Log_data/log_planet_verif.d"
 

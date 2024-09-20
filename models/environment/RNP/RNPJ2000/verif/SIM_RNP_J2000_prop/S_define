@@ -35,69 +35,52 @@
 //
 //
 // This simulation is a verification for the RNPJ2000 model
-#define LOW_RATE_ENV   1.0   // Moon/orbital dynamics interval
-#define DYNAMICS       0.01
-
+#define LOW_RATE_ENV 1.0 // Moon/orbital dynamics interval
+#define DYNAMICS 0.01
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics_init_only.sm"
 #include "environment_sans_de405.sm"
 
 #include "Base/earth_GGM05C_baseline.sm"
 ##include "environment/RNP/RNPJ2000/verif/RNP_J2000_ver_source/include/RNP_J2000_log_trans.hh"
 
-class EarthSimObject : public Earth_GGM05C_SimObject {
-
+class EarthSimObject : public Earth_GGM05C_SimObject
+{
 public:
-   jeod::J2000RNPLogging logging;
-   double input_vector[3];  // (--) Used for transformation test
-   double output_vector[3]; // (--) Used for transformation test
+    jeod::J2000RNPLogging logging;
+    double input_vector[3];  // (--) Used for transformation test
+    double output_vector[3]; // (--) Used for transformation test
 
-   EarthSimObject( jeod::DynManager   & dyn_manager_in,
+    EarthSimObject(jeod::DynManager & dyn_manager_in,
                    jeod::GravityManager & grav_in,
-                   jeod::TimeTT       & tt_in,
-                   jeod::TimeUT1      & ut1_in,
-                   jeod::TimeGMST     & gmst_in)
-      :
-      Earth_GGM05C_SimObject( dyn_manager_in,
-                              grav_in,
-                              tt_in,
-                              ut1_in,
-                              gmst_in)
-   {
+                   jeod::TimeTT & tt_in,
+                   jeod::TimeUT1 & ut1_in,
+                   jeod::TimeGMST & gmst_in)
+        : Earth_GGM05C_SimObject(dyn_manager_in, grav_in, tt_in, ut1_in, gmst_in)
+    {
+        P_ENV("initialization") logging.copy_rotation_transposes(rnp.PJ2000, rnp.NJ2000, rnp.RJ2000, rnp.PMJ2000);
 
-      P_ENV ("initialization") logging.copy_rotation_transposes(
-         rnp.PJ2000,
-         rnp.NJ2000,
-         rnp.RJ2000,
-         rnp.PMJ2000);
+        P_ENV("initialization") matrix_multiply(planet.pfix.state.rot.T_parent_this, input_vector, output_vector);
 
-      P_ENV ("initialization") matrix_multiply(
-         planet.pfix.state.rot.T_parent_this,
-         input_vector,
-         output_vector);
+        (DYNAMICS, "environment") logging.copy_rotation_transposes(rnp.PJ2000, rnp.NJ2000, rnp.RJ2000, rnp.PMJ2000);
+    }
 
-      (DYNAMICS, "environment") logging.copy_rotation_transposes(
-         rnp.PJ2000,
-         rnp.NJ2000,
-         rnp.RJ2000,
-         rnp.PMJ2000);
-
-   }
-
-private:
-   EarthSimObject (const EarthSimObject&);
-   EarthSimObject & operator = (const EarthSimObject&);
-
+    EarthSimObject(const EarthSimObject &) = delete;
+    EarthSimObject & operator=(const EarthSimObject &) = delete;
 };
 
-EarthSimObject earth( dynamics.dyn_manager,
-                      env.gravity_manager,
-                      jeod_time.time_tt,
-                      jeod_time.time_ut1,
-                      jeod_time.time_gmst);
+EarthSimObject earth(
+    dynamics.dyn_manager, env.gravity_manager, jeod_time.time_tt, jeod_time.time_ut1, jeod_time.time_gmst);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

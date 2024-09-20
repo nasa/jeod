@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,7 +48,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::LsodeSecondOrderODEIntegrator Class Reference</div>  </div>
@@ -64,8 +63,8 @@ Inheritance diagram for jeod::LsodeSecondOrderODEIntegrator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d58/classjeod_1_1LsodeSecondOrderODEIntegrator__inherit__graph.png" border="0" usemap="#jeod_1_1LsodeSecondOrderODEIntegrator_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1LsodeSecondOrderODEIntegrator_inherit__map" id="jeod_1_1LsodeSecondOrderODEIntegrator_inherit__map">
-<area shape="rect" id="node3" href="../../d6/de3/classjeod_1_1LsodeGeneralizedDerivSecondOrderODEIntegrator.html" title="JEOD&#45;compatible version of the Livermore ODE solver, LSODE, capable of integrating second&#45;order ODEs..." alt="" coords="541,5,731,47"/>
-<area shape="rect" id="node4" href="../../d6/d95/classjeod_1_1LsodeSimpleSecondOrderODEIntegrator.html" title="JEOD&#45;compatible version of the Livermore ODE solver, LSODE, capable of integrating second&#45;order ODEs..." alt="" coords="533,71,739,112"/>
+<area shape="rect" id="node3" href="../../d6/de3/classjeod_1_1LsodeGeneralizedDerivSecondOrderODEIntegrator.html" title="JEOD&#45;compatible version of the Livermore ODE solver, LSODE, capable of integrating second&#45;order ODEs..." alt="" coords="577,5,786,47"/>
+<area shape="rect" id="node4" href="../../d6/d95/classjeod_1_1LsodeSimpleSecondOrderODEIntegrator.html" title="JEOD&#45;compatible version of the Livermore ODE solver, LSODE, capable of integrating second&#45;order ODEs..." alt="" coords="569,71,793,112"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -73,11 +72,11 @@ Collaboration diagram for jeod::LsodeSecondOrderODEIntegrator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/db3/classjeod_1_1LsodeSecondOrderODEIntegrator__coll__graph.png" border="0" usemap="#jeod_1_1LsodeSecondOrderODEIntegrator_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1LsodeSecondOrderODEIntegrator_coll__map" id="jeod_1_1LsodeSecondOrderODEIntegrator_coll__map">
-<area shape="rect" id="node3" href="../../d9/d6e/classjeod_1_1LsodeFirstOrderODEIntegrator.html" title="Jeod&#45;compatible version of the Livermore ODE solver, LSODE. " alt="" coords="660,107,891,133"/>
-<area shape="rect" id="node5" href="../../d4/d0e/classjeod_1_1LsodeControlDataInterface.html" title="Specifies controls for an LSODE integrator. " alt="" coords="320,56,531,83"/>
-<area shape="rect" id="node7" href="../../d5/df4/classjeod_1_1LsodeDataArrays.html" title="The data arrays. " alt="" coords="348,107,503,133"/>
-<area shape="rect" id="node8" href="../../d3/db8/classjeod_1_1LsodeDataJacobianPrep.html" title="Data associated with the method DPREPJ. " alt="" coords="327,157,523,184"/>
-<area shape="rect" id="node9" href="../../db/dfb/classjeod_1_1LsodeDataStode.html" title="The data associated with method Dstode. " alt="" coords="350,208,501,235"/>
+<area shape="rect" id="node3" href="../../d9/d6e/classjeod_1_1LsodeFirstOrderODEIntegrator.html" title="Jeod&#45;compatible version of the Livermore ODE solver, LSODE. " alt="" coords="723,107,973,133"/>
+<area shape="rect" id="node5" href="../../d4/d0e/classjeod_1_1LsodeControlDataInterface.html" title="Specifies controls for an LSODE integrator. " alt="" coords="353,56,585,83"/>
+<area shape="rect" id="node7" href="../../d5/df4/classjeod_1_1LsodeDataArrays.html" title="The data arrays. " alt="" coords="384,107,553,133"/>
+<area shape="rect" id="node8" href="../../d3/db8/classjeod_1_1LsodeDataJacobianPrep.html" title="Data associated with the method DPREPJ. " alt="" coords="363,157,574,184"/>
+<area shape="rect" id="node9" href="../../db/dfb/classjeod_1_1LsodeDataStode.html" title="The data associated with method Dstode. " alt="" coords="387,208,551,235"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -86,32 +85,35 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:gad051b15bfc26945131d23498d69dd480"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db1/group__Lsode.html#gad051b15bfc26945131d23498d69dd480">~LsodeSecondOrderODEIntegrator</a> () override</td></tr>
 <tr class="memdesc:gad051b15bfc26945131d23498d69dd480"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html" title="JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs...">LsodeSecondOrderODEIntegrator</a> destructor.  <a href="../../d3/db1/group__Lsode.html#gad051b15bfc26945131d23498d69dd480">More...</a><br /></td></tr>
 <tr class="separator:gad051b15bfc26945131d23498d69dd480"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0bcabc857e3f965dc21514e793f2073"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html">LsodeSecondOrderODEIntegrator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aa0bcabc857e3f965dc21514e793f2073">operator=</a> (const <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html">LsodeSecondOrderODEIntegrator</a> &amp;)=delete</td></tr>
+<tr class="separator:aa0bcabc857e3f965dc21514e793f2073"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a768eb780a8ef08553fcd9646ddbaec43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a768eb780a8ef08553fcd9646ddbaec43">LsodeSecondOrderODEIntegrator</a> (const <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html">LsodeSecondOrderODEIntegrator</a> &amp;)=delete</td></tr>
+<tr class="separator:a768eb780a8ef08553fcd9646ddbaec43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42ad25a94631635758e96639d6660345"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a42ad25a94631635758e96639d6660345">get_re_entry_point</a> ()</td></tr>
 <tr class="memdesc:a42ad25a94631635758e96639d6660345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the integrator's reentry point.  <a href="#a42ad25a94631635758e96639d6660345">More...</a><br /></td></tr>
 <tr class="separator:a42ad25a94631635758e96639d6660345"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aa1d8ff1529936e1695f161ddd249ef5f"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aa1d8ff1529936e1695f161ddd249ef5f">y</a></td></tr>
+<tr class="memitem:aa1d8ff1529936e1695f161ddd249ef5f"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aa1d8ff1529936e1695f161ddd249ef5f">y</a> {}</td></tr>
 <tr class="memdesc:aa1d8ff1529936e1695f161ddd249ef5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">State vector (zeroth derivative).  <a href="#aa1d8ff1529936e1695f161ddd249ef5f">More...</a><br /></td></tr>
 <tr class="separator:aa1d8ff1529936e1695f161ddd249ef5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa57bd4cba7f1fd2b5cb8fe4e59124f1d"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aa57bd4cba7f1fd2b5cb8fe4e59124f1d">y_dot</a></td></tr>
+<tr class="memitem:aa57bd4cba7f1fd2b5cb8fe4e59124f1d"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aa57bd4cba7f1fd2b5cb8fe4e59124f1d">y_dot</a> {}</td></tr>
 <tr class="memdesc:aa57bd4cba7f1fd2b5cb8fe4e59124f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">State vector (first derivative).  <a href="#aa57bd4cba7f1fd2b5cb8fe4e59124f1d">More...</a><br /></td></tr>
 <tr class="separator:aa57bd4cba7f1fd2b5cb8fe4e59124f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab124d47879b15c4d4de3ebbb2ee66056"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#ab124d47879b15c4d4de3ebbb2ee66056">zeroth_derivative_size</a></td></tr>
+<tr class="memitem:ab124d47879b15c4d4de3ebbb2ee66056"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#ab124d47879b15c4d4de3ebbb2ee66056">zeroth_derivative_size</a> {}</td></tr>
 <tr class="separator:ab124d47879b15c4d4de3ebbb2ee66056"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30020e8142464566171382311d55c8e9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a30020e8142464566171382311d55c8e9">first_derivative_size</a></td></tr>
+<tr class="memitem:a30020e8142464566171382311d55c8e9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a30020e8142464566171382311d55c8e9">first_derivative_size</a> {}</td></tr>
 <tr class="separator:a30020e8142464566171382311d55c8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafe5b27cf3d4fcfaa2f0e7c7c83fa46a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d6e/classjeod_1_1LsodeFirstOrderODEIntegrator.html">LsodeFirstOrderODEIntegrator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aafe5b27cf3d4fcfaa2f0e7c7c83fa46a">first_order_integrator</a></td></tr>
 <tr class="separator:aafe5b27cf3d4fcfaa2f0e7c7c83fa46a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e0fb54bc2bdb8ecc38289189f5fdee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a0e0fb54bc2bdb8ecc38289189f5fdee1">arrays_allocated</a></td></tr>
+<tr class="memitem:a0e0fb54bc2bdb8ecc38289189f5fdee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a0e0fb54bc2bdb8ecc38289189f5fdee1">arrays_allocated</a> {}</td></tr>
 <tr class="separator:a0e0fb54bc2bdb8ecc38289189f5fdee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ga55f0023f84a0e37ec515276b662a04ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db1/group__Lsode.html#ga55f0023f84a0e37ec515276b662a04ee">LsodeSecondOrderODEIntegrator</a> (void)</td></tr>
-<tr class="memdesc:ga55f0023f84a0e37ec515276b662a04ee"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html" title="JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs...">LsodeSecondOrderODEIntegrator</a> default constructor.  <a href="../../d3/db1/group__Lsode.html#ga55f0023f84a0e37ec515276b662a04ee">More...</a><br /></td></tr>
-<tr class="separator:ga55f0023f84a0e37ec515276b662a04ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56c77662c226e647ab7d47aabb5bb998"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a56c77662c226e647ab7d47aabb5bb998">LsodeSecondOrderODEIntegrator</a> ()=default</td></tr>
+<tr class="separator:a56c77662c226e647ab7d47aabb5bb998"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7b2291938fa8fd8b566a860592f6ae90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db1/group__Lsode.html#ga7b2291938fa8fd8b566a860592f6ae90">LsodeSecondOrderODEIntegrator</a> (const <a class="el" href="../../d4/d0e/classjeod_1_1LsodeControlDataInterface.html">LsodeControlDataInterface</a> &amp;data_in, er7_utils::IntegrationControls &amp;controls, unsigned int size)</td></tr>
 <tr class="memdesc:ga7b2291938fa8fd8b566a860592f6ae90"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html" title="JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs...">LsodeSecondOrderODEIntegrator</a> non-default constructor.  <a href="../../d3/db1/group__Lsode.html#ga7b2291938fa8fd8b566a860592f6ae90">More...</a><br /></td></tr>
 <tr class="separator:ga7b2291938fa8fd8b566a860592f6ae90"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,15 +122,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a322535c6ea3090033ec71296488dacad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a322535c6ea3090033ec71296488dacad">reset_integrator</a> () override</td></tr>
 <tr class="memdesc:a322535c6ea3090033ec71296488dacad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the integrator.  <a href="#a322535c6ea3090033ec71296488dacad">More...</a><br /></td></tr>
 <tr class="separator:a322535c6ea3090033ec71296488dacad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a428c13fea032bf8f0eb70868d14e8a22"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html">LsodeSecondOrderODEIntegrator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a428c13fea032bf8f0eb70868d14e8a22">operator=</a> (const <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html">LsodeSecondOrderODEIntegrator</a> &amp;)</td></tr>
-<tr class="memdesc:a428c13fea032bf8f0eb70868d14e8a22"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html" title="JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs...">LsodeSecondOrderODEIntegrator</a> assignment operator.  <a href="#a428c13fea032bf8f0eb70868d14e8a22">More...</a><br /></td></tr>
-<tr class="separator:a428c13fea032bf8f0eb70868d14e8a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4e47f01978038e807b3374d5b2858cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#ae4e47f01978038e807b3374d5b2858cc">LsodeSecondOrderODEIntegrator</a> (const <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html">LsodeSecondOrderODEIntegrator</a> &amp;)</td></tr>
-<tr class="memdesc:ae4e47f01978038e807b3374d5b2858cc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html" title="JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs...">LsodeSecondOrderODEIntegrator</a> copy constructor.  <a href="#ae4e47f01978038e807b3374d5b2858cc">More...</a><br /></td></tr>
-<tr class="separator:ae4e47f01978038e807b3374d5b2858cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -140,10 +133,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00092">92</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae4e47f01978038e807b3374d5b2858cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4e47f01978038e807b3374d5b2858cc">&#9670;&nbsp;</a></span>LsodeSecondOrderODEIntegrator()</h2>
+<a id="a768eb780a8ef08553fcd9646ddbaec43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a768eb780a8ef08553fcd9646ddbaec43">&#9670;&nbsp;</a></span>LsodeSecondOrderODEIntegrator() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,13 +154,35 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html" title="JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs...">LsodeSecondOrderODEIntegrator</a> copy constructor. </p>
-<p>Not implemented. </p>
+</div>
+</div>
+<a id="a56c77662c226e647ab7d47aabb5bb998"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c77662c226e647ab7d47aabb5bb998">&#9670;&nbsp;</a></span>LsodeSecondOrderODEIntegrator() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">jeod::LsodeSecondOrderODEIntegrator::LsodeSecondOrderODEIntegrator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -197,14 +212,14 @@ Friends</h2></td></tr>
 
 <p>Get the integrator's reentry point. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00112">112</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00107">107</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aafe5b27cf3d4fcfaa2f0e7c7c83fa46a">first_order_integrator</a>, and <a class="el" href="../../d9/d6e/classjeod_1_1LsodeFirstOrderODEIntegrator.html#a9e5544ef5ad16cf710ef25b2020198c9">jeod::LsodeFirstOrderODEIntegrator::get_re_entry_point()</a>.</p>
 
 </div>
 </div>
-<a id="a428c13fea032bf8f0eb70868d14e8a22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a428c13fea032bf8f0eb70868d14e8a22">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="aa0bcabc857e3f965dc21514e793f2073"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0bcabc857e3f965dc21514e793f2073">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,13 +237,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p><a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html" title="JEOD-compatible version of the Livermore ODE solver, LSODE, capable of integrating second-order ODEs...">LsodeSecondOrderODEIntegrator</a> assignment operator. </p>
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -257,7 +269,7 @@ Friends</h2></td></tr>
 
 <p>Reset the integrator. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00142">142</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00134">134</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#aafe5b27cf3d4fcfaa2f0e7c7c83fa46a">first_order_integrator</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#ga358df07c4b36fe59aa7cbbc35681893a">jeod::LsodeFirstOrderODEIntegrator::reset_integrator()</a>.</p>
 
@@ -309,7 +321,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00095">95</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00092">92</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
 </div>
 </div>
@@ -321,12 +333,12 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::LsodeSecondOrderODEIntegrator::arrays_allocated</td>
+          <td class="memname">bool jeod::LsodeSecondOrderODEIntegrator::arrays_allocated {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00180">180</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00158">158</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#ga7b2291938fa8fd8b566a860592f6ae90">LsodeSecondOrderODEIntegrator()</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#gad051b15bfc26945131d23498d69dd480">~LsodeSecondOrderODEIntegrator()</a>.</p>
 
@@ -339,14 +351,14 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int jeod::LsodeSecondOrderODEIntegrator::first_derivative_size</td>
+          <td class="memname">unsigned int jeod::LsodeSecondOrderODEIntegrator::first_derivative_size {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00176">176</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00154">154</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#ga1bc85f5e9fc7d7838edd0815b1b44408">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#ga482d4066c688cd251d09146992aa658f">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>.</p>
 
 </div>
 </div>
@@ -362,9 +374,9 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00178">178</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00156">156</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a42ad25a94631635758e96639d6660345">get_re_entry_point()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga1bc85f5e9fc7d7838edd0815b1b44408">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga9cd2bbdc6ac2a6ce8bd5198e7ad00a3b">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>, and <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a322535c6ea3090033ec71296488dacad">reset_integrator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a42ad25a94631635758e96639d6660345">get_re_entry_point()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#gacf8654bcff15d5abf27d2792f32f8870">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga482d4066c688cd251d09146992aa658f">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>, and <a class="el" href="../../d0/d4b/classjeod_1_1LsodeSecondOrderODEIntegrator.html#a322535c6ea3090033ec71296488dacad">reset_integrator()</a>.</p>
 
 </div>
 </div>
@@ -375,7 +387,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double* jeod::LsodeSecondOrderODEIntegrator::y</td>
+          <td class="memname">double* jeod::LsodeSecondOrderODEIntegrator::y {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -383,9 +395,9 @@ Friends</h2></td></tr>
 <p>State vector (zeroth derivative). </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00168">168</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00146">146</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#ga1bc85f5e9fc7d7838edd0815b1b44408">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga9cd2bbdc6ac2a6ce8bd5198e7ad00a3b">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga7b2291938fa8fd8b566a860592f6ae90">LsodeSecondOrderODEIntegrator()</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#gad051b15bfc26945131d23498d69dd480">~LsodeSecondOrderODEIntegrator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#gacf8654bcff15d5abf27d2792f32f8870">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga482d4066c688cd251d09146992aa658f">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga7b2291938fa8fd8b566a860592f6ae90">LsodeSecondOrderODEIntegrator()</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#gad051b15bfc26945131d23498d69dd480">~LsodeSecondOrderODEIntegrator()</a>.</p>
 
 </div>
 </div>
@@ -396,7 +408,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double* jeod::LsodeSecondOrderODEIntegrator::y_dot</td>
+          <td class="memname">double* jeod::LsodeSecondOrderODEIntegrator::y_dot {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -404,9 +416,9 @@ Friends</h2></td></tr>
 <p>State vector (first derivative). </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00173">173</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00151">151</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#ga1bc85f5e9fc7d7838edd0815b1b44408">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga9cd2bbdc6ac2a6ce8bd5198e7ad00a3b">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga7b2291938fa8fd8b566a860592f6ae90">LsodeSecondOrderODEIntegrator()</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#gad051b15bfc26945131d23498d69dd480">~LsodeSecondOrderODEIntegrator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#gacf8654bcff15d5abf27d2792f32f8870">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga482d4066c688cd251d09146992aa658f">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>, <a class="el" href="../../d3/db1/group__Lsode.html#ga7b2291938fa8fd8b566a860592f6ae90">LsodeSecondOrderODEIntegrator()</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#gad051b15bfc26945131d23498d69dd480">~LsodeSecondOrderODEIntegrator()</a>.</p>
 
 </div>
 </div>
@@ -417,14 +429,14 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int jeod::LsodeSecondOrderODEIntegrator::zeroth_derivative_size</td>
+          <td class="memname">unsigned int jeod::LsodeSecondOrderODEIntegrator::zeroth_derivative_size {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00175">175</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html#l00153">153</a> of file <a class="el" href="../../d7/d47/lsode__second__order__ode__integrator_8hh_source.html">lsode_second_order_ode_integrator.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#ga1bc85f5e9fc7d7838edd0815b1b44408">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#ga9cd2bbdc6ac2a6ce8bd5198e7ad00a3b">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/db1/group__Lsode.html#gacf8654bcff15d5abf27d2792f32f8870">jeod::LsodeSimpleSecondOrderODEIntegrator::integrate()</a>, and <a class="el" href="../../d3/db1/group__Lsode.html#ga482d4066c688cd251d09146992aa658f">jeod::LsodeGeneralizedDerivSecondOrderODEIntegrator::integrate()</a>.</p>
 
 </div>
 </div>

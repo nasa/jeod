@@ -54,26 +54,24 @@ Assumptions:
 
 class DynamicsInitSimObject: public Trick::SimObject
 {
- protected:
-  // Reference to the external time manager.
-  jeod::TimeManager & time_manager;
- public:
-  jeod::DynManager             dyn_manager;
-  jeod::DynManagerInit         dyn_manager_init;
+protected:
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 
-  // Constructor
-  DynamicsInitSimObject ( jeod::TimeManager & time_manager_in)
-    :
-    time_manager (time_manager_in)
-  {
-    P_MNGR  ("initialization") dyn_manager.initialize_model ( dyn_manager_init,
-                                                              time_manager);
-    P_MNGR_INIT_SIM ("initialization") dyn_manager.initialize_simulation ( );
-  }
+public:
+    jeod::DynManager dyn_manager;
+    jeod::DynManagerInit dyn_manager_init;
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  DynamicsInitSimObject (const DynamicsInitSimObject&);
-  DynamicsInitSimObject & operator = (const DynamicsInitSimObject&);
+    // Constructor
+    DynamicsInitSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        P_MNGR("initialization") dyn_manager.initialize_model(dyn_manager_init, time_manager);
+        P_MNGR_INIT_SIM("initialization") dyn_manager.initialize_simulation();
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    DynamicsInitSimObject(const DynamicsInitSimObject &) = delete;
+    DynamicsInitSimObject & operator=(const DynamicsInitSimObject &) = delete;
 };
 #endif

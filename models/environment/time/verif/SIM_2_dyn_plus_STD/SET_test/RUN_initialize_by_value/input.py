@@ -18,13 +18,6 @@ log_rec( LOG_CYCLE )
 
 #include "S_default.dat"
 #include "Log_data/rec.d"
-#FIXME:  sys.exec.in.trap_sigfpe          = Yes
-#FIXME:  sys.exec.in.pre_init_checkpoint  = No
-#FIXME:  sys.exec.in.post_init_checkpoint = No
-#FIXME:  sys.exec.in.end_checkpoint       = No
-#FIXME:  sys.exec.in.reduced_checkpoint   = No
-#FIXME:  sys.exec.sim_com.monitor_on      = No
-#FIXME:  sys.exec.rt_log.group[0].record  = No
 
 jeod_time.time_manager_init.initializer = "TAI"
 jeod_time.time_manager_init.sim_start_format = trick.TimeEnum.truncated_julian

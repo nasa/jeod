@@ -25,9 +25,9 @@ trick.stop(120*86400)
 
 # Switch to propagated mode immediately after initialization.
 trick.add_read(0 , """
-sun.switch_to_propagated();
-jupiter.switch_to_propagated();
-saturn.switch_to_propagated();
+sun.switch_to_propagated()
+jupiter.switch_to_propagated()
+saturn.switch_to_propagated()
 """)
 
 # Drop checkpoint at post-initialization time ...

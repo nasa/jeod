@@ -48,23 +48,22 @@ Purpose:( This sim object provides the baseline environment.
 
 class EnvironmentBasicSimObject: public Trick::SimObject
 {
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
 
- public:
-  jeod::GravityManager gravity_manager;
+public:
+    jeod::GravityManager gravity_manager;
 
-  // Constructor
-  EnvironmentBasicSimObject( jeod::DynManager & dyn_manager_in)
-    :
-    dyn_manager(dyn_manager_in)
-  {
-    P_ENV  ("initialization") gravity_manager.initialize_model (dyn_manager);
-  }
- private:
-   // Unimplemented copy constructor and assignment operator
-   EnvironmentBasicSimObject (const EnvironmentBasicSimObject&);
-   EnvironmentBasicSimObject & operator = (const EnvironmentBasicSimObject&);
+    // Constructor
+    EnvironmentBasicSimObject(jeod::DynManager & dyn_manager_in)
+        : dyn_manager(dyn_manager_in)
+    {
+        P_ENV("initialization") gravity_manager.initialize_model(dyn_manager);
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    EnvironmentBasicSimObject(const EnvironmentBasicSimObject &) = delete;
+    EnvironmentBasicSimObject & operator=(const EnvironmentBasicSimObject &) = delete;
 };
 #endif

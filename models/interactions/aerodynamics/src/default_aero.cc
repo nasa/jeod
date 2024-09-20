@@ -37,112 +37,77 @@ Library dependencies:
 #include "utils/math/include/vector3.hh"
 
 // Model includes
-#include "../include/default_aero.hh"
-#include "../include/aerodynamics_messages.hh"
 #include "../include/aero_drag.hh"
-
+#include "../include/aerodynamics_messages.hh"
+#include "../include/default_aero.hh"
 
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Defaul Constructor
- */
-
-DefaultAero::DefaultAero (
-   void)
-: // Return: -- void
-   Cd(0.0),
-   BC(0.0),
-   area(0.0),
-   drag(0.0),
-   option(DRAG_OPT_CONST)
+namespace jeod
 {
-   // empty for now
-}
-
-/**
- * DefaultConstructor
- */
-
-DefaultAero::~DefaultAero (
-   void)
-{
-
-   // empty for now
-
-}
 
 /**
  * The implementation for this aerodynamic drags force and torque
  * calculations. Can be overriden by an inheriting class to create
  * extensibility
- * \param[in] velocity_mag The magnitude of the relative velocity of the vehicle; not used here but some child classes need it\n Units: M/s
- * \param[in] rel_vel_hat The unit vector of the relative velocity of the vehicle, in the structural frame
- * \param[in] aero_drag_param_ptr The aerodynamic drag parameters used to calculate drag
- * \param[in] mass The current mass of the vehicle\n Units: kg
- * \param[out] force The aerodynamic force, in the structural frame\n Units: N
- * \param[out] torque The aerodynamic torque, in the structural frame\n Units: N*M
+ * \param[in] velocity_mag The magnitude of the relative velocity of the vehicle; not used here but some child classes
+ * need it\n Units: M/s \param[in] rel_vel_hat The unit vector of the relative velocity of the vehicle, in the
+ * structural frame \param[in] aero_drag_param_ptr The aerodynamic drag parameters used to calculate drag \param[in]
+ * mass The current mass of the vehicle\n Units: kg \param[out] force The aerodynamic force, in the structural frame\n
+ * Units: N \param[out] torque The aerodynamic torque, in the structural frame\n Units: N*M
  */
 
-void
-DefaultAero::aerodrag_force (
-   const double,
-   const double rel_vel_hat[3],
-   AeroDragParameters* aero_drag_param_ptr,
-   double mass,
-   double force[3],
-   double torque[3])
+void DefaultAero::aerodrag_force(const double,
+                                 const double rel_vel_hat[3],
+                                 AeroDragParameters * aero_drag_param_ptr,
+                                 double mass,
+                                 double force[3],
+                                 double torque[3])
 {
+    switch(option)
+    {
+        case DRAG_OPT_CD:
 
-   switch (option) {
+            drag = -aero_drag_param_ptr->dynamic_pressure * area * Cd;
+            break;
 
-   case DRAG_OPT_CD:
+        case DRAG_OPT_BC:
 
-      drag = -aero_drag_param_ptr->dynamic_pressure * area * Cd;
-      break;
+            if(std::fpclassify(BC) == FP_ZERO)
+            {
+                MessageHandler::fail(__FILE__,
+                                     __LINE__,
+                                     AerodynamicsMessages::runtime_error,
+                                     "The Aerodynamics object was told to use ballistic "
+                                     "coefficient, but no coefficient was set. This is "
+                                     "a fatal error");
+            }
+            drag = -(aero_drag_param_ptr->dynamic_pressure * mass) / BC;
+            break;
 
-   case DRAG_OPT_BC:
+        case DRAG_OPT_CONST:
 
-      if (std::fpclassify(BC) == FP_ZERO) {
+            break; // The drag has been set in the variable "drag" by the user,
+            // so nothing further must be done by this algorithm until after
+            // the case statement
 
-         MessageHandler::fail (
-            __FILE__, __LINE__,
-            AerodynamicsMessages::runtime_error,
-            "The Aerodynamics object was told to use ballistic "
-            "coefficient, but no coefficient was set. This is "
-            "a fatal error");
+        default:
 
-      }
-      drag = -(aero_drag_param_ptr->dynamic_pressure * mass) / BC;
-      break;
+            MessageHandler::warn(__FILE__,
+                                 __LINE__,
+                                 AerodynamicsMessages::runtime_warns,
+                                 "No option was sent to the Aerodynamics object for calculating "
+                                 "drag. Drag has been set to zero.");
 
-   case DRAG_OPT_CONST:
+            drag = 0.0;
 
-      break; // The drag has been set in the variable "drag" by the user,
-   // so nothing further must be done by this algorithm until after
-   // the case statement
+            break;
+    }
 
-   default:
-
-      MessageHandler::warn (
-         __FILE__, __LINE__,
-         AerodynamicsMessages::runtime_warns,
-         "No option was sent to the Aerodynamics object for calculating "
-         "drag. Drag has been set to zero.");
-
-      drag = 0.0;
-
-      break;
-   }
-
-   Vector3::scale (rel_vel_hat, drag, force);
-   Vector3::initialize (torque);
-
-   return;
+    Vector3::scale(rel_vel_hat, drag, force);
+    Vector3::initialize(torque);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

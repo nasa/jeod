@@ -49,21 +49,19 @@
 //
 //==============================================================================
 
-
 // Define job calling intervals
-#define DYNAMICS   1.00  // Environment update interval
+#define DYNAMICS 1.00 // Environment update interval
 
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 // Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
-
-// Include standard JEOD and system classes:
-#include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
 #include "jeod_time.sm"
-
-
 
 //***************************************************************
 // CLASS: (DynamicsSimObject)
@@ -77,43 +75,36 @@
 ##include "dynamics/body_action/include/body_action.hh"
 
 
-class DynamicsSimObject: public Trick::SimObject {
+class DynamicsSimObject: public Trick::SimObject
+{
+protected:
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 
- protected:
-  // Reference to the external time manager.
-  jeod::TimeManager & time_manager;
+public:
+    jeod::DynManager manager;
+    jeod::DynManagerInit manager_init;
 
- public:
+    // Constructor
+    DynamicsSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        // Initialization jobs
+        P_MNGR("initialization") manager.initialize_model(manager_init, time_manager);
+        P_MNGR_INIT_SIM("initialization") manager.initialize_simulation();
 
-  jeod::DynManager      manager;
-  jeod::DynManagerInit  manager_init;
+        // Derivative class jobs
+        ("derivative") manager.compute_derivatives();
 
-  // Constructor
-  DynamicsSimObject ( jeod::TimeManager & time_manager_in)
-   :
-   time_manager (time_manager_in)
-  {
+        // Integration jobs
+        ("integration", &manager.sim_integrator) trick_ret = manager.integrate(exec_get_sim_time(), time_manager);
+    }
 
-    // Initialization jobs
-    P_MNGR ("initialization") manager.initialize_model ( manager_init,
-                                                         time_manager);
-    P_MNGR_INIT_SIM ("initialization") manager.initialize_simulation ();
-
-    // Derivative class jobs
-    ("derivative") manager.compute_derivatives ();
-
-    // Integration jobs
-    ("integration", &manager.sim_integrator)
-             trick_ret = manager.integrate ( exec_get_sim_time(),
-                                             time_manager);
-  }
-
- private:
-  DynamicsSimObject (const DynamicsSimObject&);
-  DynamicsSimObject & operator = (const DynamicsSimObject&);
+    DynamicsSimObject(const DynamicsSimObject &) = delete;
+    DynamicsSimObject & operator=(const DynamicsSimObject &) = delete;
 };
 
-DynamicsSimObject dynamics (jeod_time.time_manager);
+DynamicsSimObject dynamics(jeod_time.time_manager);
 
 //***************************************************************
 // CLASS: (VehicleSimObject)
@@ -130,50 +121,42 @@ DynamicsSimObject dynamics (jeod_time.time_manager);
 ##include "utils/ref_frames/include/ref_frame_state.hh"
 ##include "environment/planet/include/base_planet.hh"
 
-class VehicleSimObject: public Trick::SimObject {
+class VehicleSimObject: public Trick::SimObject
+{
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
 
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
+public:
+    jeod::DynBody body;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
+    jeod::LvlhFrame lvlh_frame;
+    jeod::RefFrameState calcscheck_relstate;
+    jeod::BasePlanet reference_planet;
 
- public:
-  jeod::DynBody      body;
-  jeod::DynBodyInitTransState  trans_init;
-  jeod::DynBodyInitRotState    rot_init;
-  jeod::MassBodyInit           mass_init;
-  jeod::LvlhFrame              lvlh_frame;
-  jeod::RefFrameState          calcscheck_relstate;
-  jeod::BasePlanet             reference_planet;
+    // Constructor
+    VehicleSimObject(jeod::DynManager & dyn_mgr_in)
+        : dyn_manager(dyn_mgr_in)
+    {
+        // Initialization jobs
+        P_ENV("initialization") reference_planet.register_planet(dyn_manager);
+        P_ENV("initialization") body.initialize_model(dyn_manager);
+        P_DYN("initialization") lvlh_frame.initialize(dyn_manager);
+        ("initialization") lvlh_frame.update();
+        ("initialization") lvlh_frame.frame.compute_relative_state(reference_planet.inertial, calcscheck_relstate);
 
-  // Constructor
-  VehicleSimObject ( jeod::DynManager & dyn_mgr_in)
-    :
-    dyn_manager( dyn_mgr_in)
-  {
+        // Environment class jobs
+        (DYNAMICS, "environment") lvlh_frame.update();
+        (DYNAMICS, "environment")
+            lvlh_frame.frame.compute_relative_state(reference_planet.inertial, calcscheck_relstate);
+    }
 
-    // Initialization jobs
-    P_ENV  ("initialization") reference_planet.register_planet ( dyn_manager);
-    P_ENV ("initialization") body.initialize_model (dyn_manager);
-    P_DYN ("initialization") lvlh_frame.initialize (dyn_manager);
-       ("initialization") lvlh_frame.update ();
-       ("initialization") lvlh_frame.frame.compute_relative_state (
-                                                     reference_planet.inertial,
-                                                     calcscheck_relstate);
-
-    // Environment class jobs
-    (DYNAMICS, "environment") lvlh_frame.update ();
-    (DYNAMICS, "environment") lvlh_frame.frame.compute_relative_state (
-                                                     reference_planet.inertial,
-                                                     calcscheck_relstate);
-  }
-
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
 
-VehicleSimObject vehicle (dynamics.manager);
+VehicleSimObject vehicle(dynamics.manager);
 
-
-
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

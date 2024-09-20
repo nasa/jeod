@@ -66,15 +66,15 @@ Library dependencies:
 #define JEOD_RADIATION_BASE_FACET_HH
 
 // JEOD includes
+#include "interactions/thermal_rider/include/thermal_facet_rider.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/surface_model/include/interaction_facet.hh"
-#include "interactions/thermal_rider/include/thermal_facet_rider.hh"
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RadiationParams;
 class Facet;
@@ -83,149 +83,126 @@ class RadiationThirdBody;
 /**
  * Generic type of facet for radiation pressure
  */
-class RadiationBaseFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(RadiationBaseFacet)
+class RadiationBaseFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationBaseFacet)
 
 public:
+    // defined by the parameter list, common to a type of facet material.
 
-// defined by the parameter list, common to a type of facet material.
+    /**
+     * Usable value of albedo, set to either albedo_IR or albedo_vis,
+     * depending on situation.
+     */
+    double albedo{-1.0}; //!< trick_units(--)
 
-   /**
-    * Usable value of albedo, set to either albedo_IR or albedo_vis,
-    * depending on situation.
-    */
-  double albedo;     //!< trick_units(--)
+    /**
+     * Fraction of incident visible radiation that is immediately reflected.
+     */
+    double albedo_vis{-1.0}; //!< trick_units(--)
 
-   /**
-    * Fraction of incident visible radiation that is immediately reflected.
-    */
-  double albedo_vis;     //!< trick_units(--)
+    /**
+     * Fraction of incident IR radiation that is immediately reflected.
+     */
+    double albedo_IR{-1.0}; //!< trick_units(--)
 
-   /**
-    * Fraction of incident IR radiation that is immediately reflected.
-    */
-  double albedo_IR;  //!< trick_units(--)
+    /**
+     * Fraction of reflected radiation that is reflected diffusely (balance
+     * reflected specularly)
+     */
+    double diffuse{-1.0}; //!< trick_units(--)
 
-   /**
-    * Fraction of reflected radiation that is reflected diffusely (balance
-    * reflected specularly)
-    */
-  double diffuse;    //!< trick_units(--)
+    /**
+     * thermal characteristics of the facet.
+     */
+    ThermalFacetRider thermal; //!< trick_units(--)
 
-   /**
-    * thermal characteristics of the facet.
-    */
-  ThermalFacetRider thermal; //!< trick_units(--)
+    /**
+     * cross-sectional area projected perpendicular to the radiation vector.
+     * For facets that have an orientation, this is intended to be a
+     * variable value, dependent upon the orientation.  For spherical
+     * surfaces, this can be set at initialization.
+     */
+    double cx_area{}; //!< trick_units(m2)
 
+    // run-time values, typically not defined prior to simulation.
 
+    /**
+     * product of momentum flux and cross-sectional area (cx_area).
+     * Highly variable.
+     */
+    double areaxflux{}; //!< trick_units(--)
 
-   /**
-    * cross-sectional area projected perpendicular to the radiation vector.
-    * For facets that have an orientation, this is intended to be a
-    * variable value, dependent upon the orientation.  For spherical
-    * surfaces, this can be set at initialization.
-    */
-  double cx_area;  //!< trick_units(m2)
+    /**
+     * product of energy flux and cross-sectional area
+     */
+    double areaxflux_e{}; //!< trick_units(--)
 
+    /**
+     * Force due to photon absorption from ONLY ONE source.
+     */
+    double F_absorption[3]{}; //!< trick_units(--)
 
-// run-time values, typically not defined prior to simulation.
+    /**
+     * Force due to photon specular reflection from ONLY ONE source.
+     */
+    double F_specular[3]{}; //!< trick_units(--)
 
-   /**
-    * product of momentum flux and cross-sectional area (cx_area).
-    * Highly variable.
-    */
-  double areaxflux; //!< trick_units(--)
+    /**
+     * Force due to photon diffuse reflection from ONLY ONE source.
+     */
+    double F_diffuse[3]{}; //!< trick_units(--)
 
-   /**
-    * product of energy flux and cross-sectional area
-    */
-  double areaxflux_e; //!< trick_units(--)
-
-   /**
-    * Force due to photon absorption from ONLY ONE source.
-    */
-  double F_absorption[3];  //!< trick_units(--)
-
-   /**
-    * Force due to photon specular reflection from ONLY ONE source.
-    */
-  double F_specular[3]; //!< trick_units(--)
-
-   /**
-    * Force due to photon diffuse reflection from ONLY ONE source.
-    */
-  double F_diffuse[3]; //!< trick_units(--)
-
-   /**
-    * Force due to photon (thermal) emission.
-    */
-  double F_emission[3]; //!< trick_units(--)
+    /**
+     * Force due to photon (thermal) emission.
+     */
+    double F_emission[3]{}; //!< trick_units(--)
 
 protected:
+    // shared between plates
+    /**
+     * Speed of light in vacuum
+     */
+    static constexpr double speed_of_light{299792458.0}; //!< trick_io(*o) trick_units(m/s)
 
-// shared between plates
-   /**
-    * Speed of light in vacuum
-    */
-  const static double speed_of_light; //!< trick_io(*o) trick_units(m/s)
-
-
-
-
-// Member methods
+    // Member methods
 
 public:
+    RadiationBaseFacet() = default;
+    virtual ~RadiationBaseFacet() = default;
+    RadiationBaseFacet & operator=(const RadiationBaseFacet &) = delete;
+    RadiationBaseFacet(const RadiationBaseFacet &) = delete;
 
-   // constructor
-   RadiationBaseFacet ();
+    /*
+      Purpose:
+        (Initializes the general radiation facet)
+     */
+    virtual void initialize();
 
-   // destructor
-   virtual ~RadiationBaseFacet ();
-
-   /*
-     Purpose:
-       (Initializes the general radiation facet)
+    /*
+       Purpose:( Runs the methods to obtain fluxes from third body objects.)
     */
-   virtual void initialize( void );
+    virtual void interact_with_third_body(RadiationThirdBody * third_body, const bool calc_forces);
 
-
-   /*
-      Purpose:( Runs the methods to obtain fluxes from third body objects.)
-   */
-   virtual void interact_with_third_body(
-      RadiationThirdBody * third_body,
-      const bool calc_forces);
-
-   /*
-      Purpose:( Zeroes elements to allow for incremental calculations.)
-   */
-  virtual void initialize_runtime_values( void);
-
-      /**
-    * Calculates the effect on the facet of the incident radiation
-    * \param[in] flux_mag Magnitude of the incident flux
-    * \param[in] flux_hat unit vector associated with the incident flux vector
-    * \param[in] calc_forc true/false, do forces get calculated
+    /*
+       Purpose:( Zeroes elements to allow for incremental calculations.)
     */
-   virtual void incident_radiation(
-      const double flux_mag,
+    virtual void initialize_runtime_values();
 
-      const double flux_hat[3],
+    /**
+     * Calculates the effect on the facet of the incident radiation
+     * \param[in] flux_mag Magnitude of the incident flux
+     * \param[in] flux_hat unit vector associated with the incident flux vector
+     * \param[in] calc_forc true/false, do forces get calculated
+     */
+    virtual void incident_radiation(const double flux_mag,
 
-      const bool calc_forc)
- = 0;
+                                    const double flux_hat[3],
 
-
-
-
-private:
-   RadiationBaseFacet& operator = (const RadiationBaseFacet& rhs);
-   RadiationBaseFacet (const RadiationBaseFacet& rhs);
-
+                                    const bool calc_forc) = 0;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

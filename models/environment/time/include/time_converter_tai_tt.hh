@@ -72,62 +72,53 @@ Library dependencies:
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeTT;
 class TimeTAI;
 class JeodBaseTime;
 
-
 /**
  * Converts between International Atomic Time and Terrestrial Time.
  */
-class TimeConverter_TAI_TT : public TimeConverter {
+class TimeConverter_TAI_TT : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_TAI_TT)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_TAI_TT)
-
-// Member Data
+    // Member Data
 private:
-   /**
-    * Converter parent time, always a TimeTAI for this converter.
-    */
-  TimeTAI * tai_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeTAI for this converter.
+     */
+    TimeTAI * tai_ptr{}; //!< trick_units(--)
 
-   /**
-    * Converter parent time, always a TimeTT for this converter.
-    */
-  TimeTT * tt_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeTT for this converter.
+     */
+    TimeTT * tt_ptr{}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_TAI_TT ();
-  // Destructor
-   ~TimeConverter_TAI_TT () override;
+    TimeConverter_TAI_TT();
+    ~TimeConverter_TAI_TT() override = default;
+    TimeConverter_TAI_TT(const TimeConverter_TAI_TT &) = delete;
+    TimeConverter_TAI_TT & operator=(const TimeConverter_TAI_TT &) = delete;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void) override;
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 
-  // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeConverter_TAI_TT (const TimeConverter_TAI_TT&);
-   TimeConverter_TAI_TT & operator = (const TimeConverter_TAI_TT&);
+    // convert_b_to_a: Apply the converter in the reverse direction
+    void convert_b_to_a() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

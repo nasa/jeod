@@ -56,7 +56,7 @@ Reference:
 Assumptions and limitations:
   ((Name is TDB))
 
- 
+
 
 Library dependencies:
   ((../src/time_tdb.cc))
@@ -72,37 +72,30 @@ Library dependencies:
 
 #include "time_standard.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents Barycentric Dynamic Time.
  */
-class TimeTDB : public TimeStandard {  // Barycentric Dynamic Time
+class TimeTDB : public TimeStandard
+{ // Barycentric Dynamic Time
 
-  JEOD_MAKE_SIM_INTERFACES(TimeTDB)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeTDB)
 
-// Member Data
-
-// Member functions
+    // Member functions
 public:
-  // Constructor
-   TimeTDB ();
+    TimeTDB();
+    ~TimeTDB() override = default;
+    TimeTDB(const TimeTDB &) = delete;
+    TimeTDB & operator=(const TimeTDB &) = delete;
 
-  // Destructor
-   ~TimeTDB () override;
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeTDB (const TimeTDB&);
-   TimeTDB & operator = (const TimeTDB&);
-   void set_epoch(void) override; //cppcheck-suppress virtualCallInConstructor
+private:
+    void set_epoch() override; // cppcheck-suppress virtualCallInConstructor
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

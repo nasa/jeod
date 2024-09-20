@@ -1,30 +1,31 @@
 <map id="ref_frame_manager.cc" name="ref_frame_manager.cc">
-<area shape="rect" id="node4" href="$da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="637,587,785,628"/>
-<area shape="rect" id="node9" href="$de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="553,304,695,345"/>
-<area shape="rect" id="node29" href="$d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="2249,80,2401,107"/>
-<area shape="rect" id="node33" href="$d7/d8c/ref__frame__messages_8hh.html" title="Define the class RefFrameMessages, the class that specifies the message IDs used in the reference fra..." alt="" coords="2743,229,2905,256"/>
-<area shape="rect" id="node41" href="$d6/d5e/ref__frame__manager_8hh.html" title="Define the RefFrameManager class, which manages the reference frames in a JEOD&#45;based simulation..." alt="" coords="2965,490,3099,531"/>
-<area shape="rect" id="node6" href="$dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2201,676,2351,717"/>
-<area shape="rect" id="node8" href="$d2/d68/utils_2message_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in this module. " alt="" coords="635,683,783,710"/>
-<area shape="rect" id="node7" href="$dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1424,765,1499,792"/>
-<area shape="rect" id="node11" href="$d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="809,587,1007,628"/>
-<area shape="rect" id="node13" href="$db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="397,587,561,628"/>
-<area shape="rect" id="node16" href="$d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="1309,401,1451,427"/>
-<area shape="rect" id="node23" href="$d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1783,490,1931,531"/>
-<area shape="rect" id="node24" href="$d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1215,490,1409,531"/>
-<area shape="rect" id="node25" href="$d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1956,483,2087,539"/>
-<area shape="rect" id="node26" href="$d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1499,594,1618,621"/>
-<area shape="rect" id="node27" href="$d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="1585,497,1708,524"/>
-<area shape="rect" id="node28" href="$d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="970,497,1089,524"/>
-<area shape="rect" id="node30" href="$da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="2415,311,2563,338"/>
-<area shape="rect" id="node31" href="$d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="2587,311,2698,338"/>
-<area shape="rect" id="node32" href="$d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="2311,155,2441,181"/>
-<area shape="rect" id="node36" href="$db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="2929,229,3060,256"/>
-<area shape="rect" id="node39" href="$db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="2005,155,2137,181"/>
-<area shape="rect" id="node40" href="$d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="2567,229,2719,256"/>
-<area shape="rect" id="node34" href="$d2/dfe/tree__links_8hh.html" title="Define the template class TreeLinks, the class that encapsulates the parent/ child links between obje..." alt="" coords="685,229,781,256"/>
-<area shape="rect" id="node35" href="$d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2651,587,2799,628"/>
-<area shape="rect" id="node37" href="$d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="2875,393,3029,435"/>
-<area shape="rect" id="node38" href="$d2/d9d/ref__frame__state__inline_8hh.html" title="Define inline methods for the RefFrameState class and its component. " alt="" coords="2925,311,3093,338"/>
-<area shape="rect" id="node42" href="$d1/d34/base__ref__frame__manager_8hh.html" title="Define the BaseRefFrameManager class, which defines the interfaces but not the implementations of the..." alt="" coords="2976,594,3163,621"/>
+<area shape="rect" id="node4" href="$de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="596,304,756,345"/>
+<area shape="rect" id="node27" href="$da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="2218,557,2382,599"/>
+<area shape="rect" id="node29" href="$d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="2703,80,2873,107"/>
+<area shape="rect" id="node32" href="$d7/d8c/ref__frame__messages_8hh.html" title="Define the class RefFrameMessages, the class that specifies the message IDs used in the reference fra..." alt="" coords="2665,229,2844,256"/>
+<area shape="rect" id="node45" href="$d6/d5e/ref__frame__manager_8hh.html" title="Define the RefFrameManager class, which manages the reference frames in a JEOD&#45;based simulation..." alt="" coords="2044,557,2193,599"/>
+<area shape="rect" id="node6" href="$d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="71,654,294,695"/>
+<area shape="rect" id="node9" href="$db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="421,557,603,599"/>
+<area shape="rect" id="node12" href="$d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="1289,401,1450,427"/>
+<area shape="rect" id="node7" href="$dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="265,840,346,867"/>
+<area shape="rect" id="node19" href="$d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1378,557,1545,599"/>
+<area shape="rect" id="node20" href="$dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2125,751,2291,792"/>
+<area shape="rect" id="node21" href="$d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1034,557,1251,599"/>
+<area shape="rect" id="node22" href="$d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1801,647,1948,703"/>
+<area shape="rect" id="node23" href="$d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1885,565,2019,591"/>
+<area shape="rect" id="node24" href="$d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="1671,565,1809,591"/>
+<area shape="rect" id="node26" href="$d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="572,483,705,509"/>
+<area shape="rect" id="node30" href="$da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="3116,311,3279,338"/>
+<area shape="rect" id="node31" href="$d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="2716,155,2860,181"/>
+<area shape="rect" id="node35" href="$db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="3425,229,3572,256"/>
+<area shape="rect" id="node39" href="$d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="2919,311,3041,338"/>
+<area shape="rect" id="node40" href="$d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="2508,557,2695,599"/>
+<area shape="rect" id="node43" href="$db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="2441,155,2591,181"/>
+<area shape="rect" id="node44" href="$d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="2969,229,3140,256"/>
+<area shape="rect" id="node33" href="$d2/dfe/tree__links_8hh.html" title="Define the template class TreeLinks, the class that encapsulates the parent/ child links between obje..." alt="" coords="2316,229,2423,256"/>
+<area shape="rect" id="node34" href="$d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2125,654,2291,695"/>
+<area shape="rect" id="node36" href="$d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="3392,393,3531,435"/>
+<area shape="rect" id="node37" href="$d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="3669,393,3843,435"/>
+<area shape="rect" id="node38" href="$d2/d9d/ref__frame__state__inline_8hh.html" title="Define inline methods for the RefFrameState class and its component. " alt="" coords="3404,311,3593,338"/>
+<area shape="rect" id="node46" href="$d1/d34/base__ref__frame__manager_8hh.html" title="Define the BaseRefFrameManager class, which defines the interfaces but not the implementations of the..." alt="" coords="1519,661,1727,688"/>
 </map>

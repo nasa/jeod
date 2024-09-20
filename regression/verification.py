@@ -4,7 +4,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -63,7 +63,7 @@ def getArgs():
 
     parser.add_argument( "--analysis_pattern",
                          dest="analysis_pattern",
-                         default="log_.*\..*[kv]",
+                         default=r"log_.*\..*[kv]",
                          help="Regex for which data files to use for data comparisons")
 
     parser.add_argument( "-b",
@@ -151,20 +151,6 @@ def getArgs():
                          default="verif_data",
                          help="path to location of RUN* directories that contain the verification data, relative to top level of sim.")
 
-    parser.add_argument( "-w",
-                         "--coverage-html",
-                         dest="coverage_html",
-                         action="store_true",
-                         default=False,
-                         help="Enable the code coverage analysis and output the result in html format for the given models by option '--model' or for all models. Default is disabled.")
-
-    parser.add_argument( "-x",
-                         "--coverage-xml",
-                         dest="coverage_xml",
-                         action="store_true",
-                         default=False,
-                         help="Enable the code coverage analysis and output the result in xml format for the given models by option '--model' or for all models. Default is disabled.")
-
     parser.add_argument( "--cidiff-file",
                          dest="cidiff_file",
                          default="",
@@ -195,8 +181,10 @@ def main():
     myParser, myArgs = getArgs()
 
     # cd to top level of repo.
-    #FIXME check validity
-    os.chdir(myArgs.repo_path)
+    try:
+        os.chdir(myArgs.repo_path)
+    except:
+        no_path_error(myArgs.repo_path)
 
     # Validate requested output files, ensure we have a full path
     myArgs.config = validateOutputPath(myArgs.config_file, 'isFile')
@@ -206,18 +194,6 @@ def main():
     logging.basicConfig(filename = myArgs.logdir+"/01_top_level.txt",
                         filemode='w',
                         level=logging.DEBUG)
-
-
-    # generate the output format of code coverage
-    # 0: no coverage report
-    # 1: report in xml only
-    # 2: report in html only
-    # 3: report in xml and html
-    code_coverage_format = 0
-    if myArgs.coverage_xml:
-        code_coverage_format += 1
-    if myArgs.coverage_html:
-        code_coverage_format += 2
 
     # Create a package isntance and process the config file.
     verif_package = VerifPackage( sim_binary = myArgs.sim_binary,
@@ -313,6 +289,12 @@ def main():
     # execute them in parallel
     parallel_runs( exec_jobs, myArgs.cpus)
 
+
+    excludedFiles = [
+        "/builds/JEOD/jeod-dev/regression/logs/03_run_info_models__dynamics__dyn_body__verif__SIM_verif_shutdown__RUN_shutdown_without_detach.txt",
+        "/builds/JEOD/jeod-dev/regression/logs/03_run_info_verif__SIM_dyncomp__RUN_checkpoint_create.txt",
+        "/builds/JEOD/jeod-dev/regression/logs/03_run_info_verif__SIM_dyncomp__RUN_checkpoint_restart.txt"]
+
     # assign the status exec_jobs and the corresponding all_exec_runs have
     # matching indices so can use enumerate capability.
     for ii,job in enumerate(exec_jobs):
@@ -323,6 +305,13 @@ def main():
             run.status = run.Status.RUN_FAIL
         elif job.get_status() is job.Status.SUCCESS:
             run.status = run.Status.RUN_SUCCESS
+            if job._log_file_name not in excludedFiles:
+                file = open(job._log_file_name, 'r')
+                fileList = list(file)
+                expectedText = "(External program RAM usage not included!)"
+                if expectedText not in fileList[-7]:
+                    run.status = run.Status.RUN_FAIL
+                    print("Check contents of " + job._log_file_name)
             # perform the data verification on all successful runs
             # note - this will push the status to either COMP_FAIL or SUCCESS
             run.compare_data()
@@ -535,7 +524,7 @@ def main():
                 indent = 1)
 
   ############################################################################
-  # Add optional calls to code-coverage and data analysis
+  # Add optional calls to data analysis
   ############################################################################
     if myArgs.analyze_data_deltas:
         tprint( "ANALYZING DATA",'DARK_CYAN')
@@ -553,13 +542,6 @@ def main():
                                         myArgs.cpus,
                                         myArgs.run_base,
                                         myArgs.verif_base)
-
-
-    #Do the code coverage
-    #FIXME this has not been tested.
-    if 0<code_coverage_format:
-      tprint( "Processing code-coverage",'DARK_CYAN')
-      verif_package.code_coverage( code_coverage_format)
 
   ############################################################################
   # return:

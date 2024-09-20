@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -55,34 +55,46 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;typeinfo&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/deb/flat__plate__thermal_8hh_source.html">utils/surface_model/include/flat_plate_thermal.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../de/d9a/flat__plate__radiation__factory_8hh_source.html">../include/flat_plate_radiation_factory.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/dd0/radiation__params_8hh_source.html">../include/radiation_params.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/deb/flat__plate__thermal_8hh_source.html">utils/surface_model/include/flat_plate_thermal.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d3/d9c/flat__plate__radiation__facet_8hh_source.html">../include/flat_plate_radiation_facet.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/d9a/flat__plate__radiation__factory_8hh_source.html">../include/flat_plate_radiation_factory.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/dd1/radiation__messages_8hh_source.html">../include/radiation_messages.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/dd0/radiation__params_8hh_source.html">../include/radiation_params.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for flat_plate_radiation_factory.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dd9/flat__plate__radiation__factory_8cc__incl.png" border="0" usemap="#flat__plate__radiation__factory_8cc" alt=""/></div>
 <map name="flat__plate__radiation__factory_8cc" id="flat__plate__radiation__factory_8cc">
-<area shape="rect" id="node4" href="../../d8/deb/flat__plate__thermal_8hh.html" title="Flat plates for use in the surface model, including a thermal portion. " alt="" coords="656,273,791,329"/>
-<area shape="rect" id="node12" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="159,95,301,136"/>
-<area shape="rect" id="node13" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="109,184,257,225"/>
-<area shape="rect" id="node14" href="../../de/d9a/flat__plate__radiation__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="377,95,520,136"/>
-<area shape="rect" id="node16" href="../../d3/d9c/flat__plate__radiation__facet_8hh.html" title="Individual facets for use with rad environment interaction models. " alt="" coords="474,184,605,225"/>
-<area shape="rect" id="node18" href="../../d7/dd0/radiation__params_8hh.html" title="A virtual base class for radiation facet parameters, used to create interaction facets for radiation ..." alt="" coords="889,385,1017,426"/>
-<area shape="rect" id="node21" href="../../de/dd1/radiation__messages_8hh.html" title="Define the class RadiationMessages, the class that specifies the message IDs used in the Radiation mo..." alt="" coords="998,184,1126,225"/>
-<area shape="rect" id="node5" href="../../da/df1/thermal__facet__rider_8hh.html" title="Defining the thermal characteristics of surface facets. " alt="" coords="537,377,683,433"/>
-<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="611,585,761,627"/>
-<area shape="rect" id="node8" href="../../da/dfa/flat__plate_8hh.html" title="Flat plates for use in the surface model. " alt="" coords="771,392,865,419"/>
-<area shape="rect" id="node7" href="../../d1/d31/thermal__integrable__object_8hh.html" title="Define an IntegrableObject class adapted to thermal integration. " alt="" coords="571,489,699,530"/>
-<area shape="rect" id="node9" href="../../d6/dff/facet_8hh.html" title="Individual facets for use in the surface model. " alt="" coords="1046,496,1115,523"/>
-<area shape="rect" id="node15" href="../../d0/d79/interaction__facet__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="209,273,344,329"/>
-<area shape="rect" id="node17" href="../../d1/dc6/radiation__facet_8hh.html" title="Individual facets for use with radiation environment interaction models. " alt="" coords="497,288,622,315"/>
-<area shape="rect" id="node19" href="../../d5/d3c/thermal__params_8hh.html" title="A virtual base class for thermal facet parameters, used to add to the parameter lists for specific&#45;mo..." alt="" coords="875,481,1022,537"/>
-<area shape="rect" id="node20" href="../../d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="1190,489,1358,530"/>
+<area shape="rect" id="node4" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="664,184,824,225"/>
+<area shape="rect" id="node25" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1855,489,2019,530"/>
+<area shape="rect" id="node26" href="../../d8/deb/flat__plate__thermal_8hh.html" title="Flat plates for use in the surface model, including a thermal portion. " alt="" coords="2499,377,2650,433"/>
+<area shape="rect" id="node32" href="../../d3/d9c/flat__plate__radiation__facet_8hh.html" title="Individual facets for use with rad environment interaction models. " alt="" coords="2261,184,2408,225"/>
+<area shape="rect" id="node36" href="../../de/d9a/flat__plate__radiation__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="2554,95,2713,136"/>
+<area shape="rect" id="node38" href="../../de/dd1/radiation__messages_8hh.html" title="Define the class RadiationMessages, the class that specifies the message IDs used in the Radiation mo..." alt="" coords="2791,95,2934,136"/>
+<area shape="rect" id="node39" href="../../d7/dd0/radiation__params_8hh.html" title="A virtual base class for radiation facet parameters, used to create interaction facets for radiation ..." alt="" coords="3054,489,3197,530"/>
+<area shape="rect" id="node6" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="1102,489,1325,530"/>
+<area shape="rect" id="node9" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="429,489,611,530"/>
+<area shape="rect" id="node12" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="897,288,1058,315"/>
+<area shape="rect" id="node7" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1675,779,1757,805"/>
+<area shape="rect" id="node18" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1453,385,1619,426"/>
+<area shape="rect" id="node19" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2188,689,2353,731"/>
+<area shape="rect" id="node20" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1159,385,1377,426"/>
+<area shape="rect" id="node21" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1813,585,1960,641"/>
+<area shape="rect" id="node22" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="218,496,353,523"/>
+<area shape="rect" id="node23" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="941,496,1078,523"/>
+<area shape="rect" id="node24" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="732,392,865,419"/>
+<area shape="rect" id="node27" href="../../da/df1/thermal__facet__rider_8hh.html" title="Defining the thermal characteristics of surface facets. " alt="" coords="2372,481,2537,537"/>
+<area shape="rect" id="node29" href="../../da/dfa/flat__plate_8hh.html" title="Flat plates for use in the surface model. " alt="" coords="2613,496,2715,523"/>
+<area shape="rect" id="node28" href="../../d1/d31/thermal__integrable__object_8hh.html" title="Define an IntegrableObject class adapted to thermal integration. " alt="" coords="2340,593,2487,634"/>
+<area shape="rect" id="node30" href="../../d6/dff/facet_8hh.html" title="Individual facets for use in the surface model. " alt="" coords="2663,600,2737,627"/>
+<area shape="rect" id="node33" href="../../d1/dc6/radiation__facet_8hh.html" title="Individual facets for use with radiation environment interaction models. " alt="" coords="2265,288,2405,315"/>
+<area shape="rect" id="node34" href="../../d8/d45/interaction__facet_8hh.html" title="Individual facets for use with specific environment interaction models. " alt="" coords="2146,481,2297,537"/>
+<area shape="rect" id="node35" href="../../d5/d15/radiation__base__facet_8hh.html" title="Individual facets for use with radiation environment interaction models. " alt="" coords="2245,392,2424,419"/>
+<area shape="rect" id="node37" href="../../d0/d79/interaction__facet__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="2717,273,2867,329"/>
+<area shape="rect" id="node40" href="../../d5/d3c/thermal__params_8hh.html" title="A virtual base class for thermal facet parameters, used to add to the parameter lists for specific&#45;mo..." alt="" coords="2943,585,3108,641"/>
+<area shape="rect" id="node41" href="../../d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="3132,593,3319,634"/>
 </map>
 </div>
 </div>

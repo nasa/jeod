@@ -51,21 +51,18 @@ Purpose: ()
 Library dependencies: ((../src/torque_constraint_component.cc))
 */
 
-
 #ifndef JEOD_TORQUE_CONSTRAINT_COMPONENT_HH
 #define JEOD_TORQUE_CONSTRAINT_COMPONENT_HH
-
 
 #include "constraint_component.hh"
 
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class ConstrainedRigidMass;
-
 
 /**
  * Models one component of a constrained object whose constraints dictate
@@ -76,48 +73,40 @@ class ConstrainedRigidMass;
  */
 class TorqueConstraintComponent : public ConstraintComponent
 {
-    JEOD_MAKE_SIM_INTERFACES(TorqueConstraintComponent)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TorqueConstraintComponent)
 
 public:
-
     // Member functions
 
     /**
      * Default constructor.
      */
-    TorqueConstraintComponent (
-        ConstraintFrame* constraint_frame_in = nullptr,
-        ConstrainedRigidMass* constrained_mass_in = nullptr);
+    TorqueConstraintComponent(ConstraintFrame * constraint_frame_in = nullptr,
+                              ConstrainedRigidMass * constrained_mass_in = nullptr);
 
     /**
      * Destructor.
      */
     ~TorqueConstraintComponent() override = default;
 
-
     // The copy constructor and copy assignment operator are deleted
     // to avoid erroneous copies.
-    TorqueConstraintComponent (const TorqueConstraintComponent&) = default;
-    TorqueConstraintComponent (TorqueConstraintComponent&&) = default;
-    TorqueConstraintComponent& operator= (
-        const TorqueConstraintComponent&) = default;
-    TorqueConstraintComponent& operator= (
-        TorqueConstraintComponent&&) = default;
-
+    TorqueConstraintComponent(const TorqueConstraintComponent &) = default;
+    TorqueConstraintComponent(TorqueConstraintComponent &&) = default;
+    TorqueConstraintComponent & operator=(const TorqueConstraintComponent &) = default;
+    TorqueConstraintComponent & operator=(TorqueConstraintComponent &&) = default;
 
     /**
      * Perform actions related to the just-performed addition of this constraint
      * to a constraints solver. In this case, do nothing.
      */
-    void attach_to_solver (DynBodyConstraintsSolver*, DynBody*) override
-    { }
+    void attach_to_solver(DynBodyConstraintsSolver *, DynBody *) override {}
 
     /**
      * Perform actions related to the just-performed removal of this constraint
      * from a constraints solver. In this case, do nothing.
      */
-    void detach_from_solver (DynBodyConstraintsSolver*, DynBody*) override
-    { }
+    void detach_from_solver(DynBodyConstraintsSolver *, DynBody *) override {}
 
     /**
      * Prepare this object for solving a constraint problem.
@@ -134,9 +123,8 @@ public:
      *   root body to non-constraint forces and torques, including
      *   the pre-constraint wrenches.
      */
-    void setup_constraint (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) override;
+    void setup_constraint(const VehicleProperties & vehicle_properties,
+                          const VehicleNonGravState & non_grav_state) override;
 
     /**
      * Computes the coefficient of the solver A matrix that represents the
@@ -145,9 +133,8 @@ public:
      * @param other   The other constrained object.
      * @return  Interaction coefficient.
      */
-    double get_cross_coeff (
-        const VehicleProperties& vehicle_properties,
-        const ConstraintComponent& other) const override;
+    double get_cross_coeff(const VehicleProperties & vehicle_properties,
+                           const ConstraintComponent & other) const override;
 
 #ifndef SWIG
     /**
@@ -161,10 +148,9 @@ public:
      *    due to a unitary value of the specified component of this constraint.
      * @return The response vector.
      */
-    SolverTypes::DecayedVector3T get_translational_response (
-        const VehicleProperties& vehicle_properties,
-        SolverTypes::ConstVector3T point,
-        SolverTypes::Vector3T response) const override;
+    SolverTypes::DecayedVector3T get_translational_response(const VehicleProperties & vehicle_properties,
+                                                            SolverTypes::ConstVector3T point,
+                                                            SolverTypes::Vector3T response) const override;
 #endif
 
     /**
@@ -172,37 +158,31 @@ public:
      * @param constraint_value  The solution to the matrix constraint equation
      *   for this constrained object.
      */
-    void set_constraint_value (double constraint_value) override;
+    void set_constraint_value(double constraint_value) override;
 
     /**
      * Compute the response (if any) of the constrained object to the
      * overall behavior of the vehicle. In this case, do nothing.
      */
-    void compute_constraint_response (
-        const VehicleProperties&, const VehicleNonGravState&) override
-    { }
-
+    void compute_constraint_response(const VehicleProperties &, const VehicleNonGravState &) override {}
 
 protected:
-
     // Member data.
 
     /**
      * The constrained mass, as a rigid body, for this component.
      */
-    ConstrainedRigidMass* constrained_mass; //!< trick_units(--)
+    ConstrainedRigidMass * constrained_mass{}; //!< trick_units(--)
 
     /**
      * The unitless constraint value.
      */
-    double constraint_torque; //!< trick_units(--)
+    double constraint_torque{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

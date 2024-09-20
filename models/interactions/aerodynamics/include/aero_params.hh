@@ -57,10 +57,6 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/aero_params.cc))
-
-
 *******************************************************************************/
 
 #ifndef AERO_PARAMS_HH
@@ -71,37 +67,24 @@ Library dependencies:
 #include "utils/surface_model/include/facet_params.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A base class for all aerodynamic parameters used in the surface model.
  */
-class AeroParams : public FacetParams {
-
-   JEOD_MAKE_SIM_INTERFACES(AeroParams)
+class AeroParams : public FacetParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AeroParams)
 
 public:
-
-   // constructor
-   AeroParams ();
-
-   // destructor
-   ~AeroParams () override;
-
-
-protected:
-
-
-private:
-
-   // The operator = and copy constructor locked away from ue by being private
-
-   AeroParams& operator = (const AeroParams& rhs);
-   AeroParams (const AeroParams& rhs);
-
+    AeroParams() = default;
+    ~AeroParams() override = default;
+    AeroParams & operator=(const AeroParams &) = delete;
+    AeroParams(const AeroParams &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

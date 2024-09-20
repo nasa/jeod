@@ -58,16 +58,10 @@ References:
 Assumptions and limitations:
   ((none))
 
-Library dependencies:
-  ((../src/spherical_harmonics_solid_body_tides_init.cc))
-
-
 *******************************************************************************/
-
 
 #ifndef JEOD_SPHERICAL_HARMONICS_SOLID_BODY_TIDES_INIT_HH
 #define JEOD_SPHERICAL_HARMONICS_SOLID_BODY_TIDES_INIT_HH
-
 
 // System includes
 
@@ -77,33 +71,23 @@ Library dependencies:
 // Model includes
 #include "spherical_harmonics_tidal_effects_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initializes a solid body tides model.
  */
-class SphericalHarmonicsSolidBodyTidesInit :
-         public SphericalHarmonicsTidalEffectsInit {
+class SphericalHarmonicsSolidBodyTidesInit : public SphericalHarmonicsTidalEffectsInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsSolidBodyTidesInit)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsSolidBodyTidesInit)
-
-
- // Member data
- public:
-
- // Member functions
- public:
-
-   // Constructor & Destructor
-   SphericalHarmonicsSolidBodyTidesInit ();
-   ~SphericalHarmonicsSolidBodyTidesInit () override;
-
+public:
+    SphericalHarmonicsSolidBodyTidesInit() = default;
+    ~SphericalHarmonicsSolidBodyTidesInit() override = default;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

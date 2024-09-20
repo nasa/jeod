@@ -51,23 +51,20 @@ Purpose: ()
 Library dependencies: ((../src/constrained_rigid_mass.cc))
 */
 
-
 #ifndef JEOD_CONSTRAINED_RIGID_MASS_HH
 #define JEOD_CONSTRAINED_RIGID_MASS_HH
-
 
 #include "constrained_point_mass.hh"
 
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class ConstraintFrame;
 class VehicleNonGravState;
 class VehicleProperties;
-
 
 /**
  * A constrained rigid mass is a rigid body that is constrained to more or
@@ -75,11 +72,9 @@ class VehicleProperties;
  */
 class ConstrainedRigidMass : public ConstrainedPointMass
 {
-
-    JEOD_MAKE_SIM_INTERFACES(ConstrainedRigidMass)
+    JEOD_MAKE_SIM_INTERFACES(jeod, ConstrainedRigidMass)
 
 public:
-
     // Instances of this class are assumed to be protected members of
     // a DynBodyConstraint-derived object, so all member data are public.
 
@@ -89,24 +84,22 @@ public:
      * The effective inertia tensor of this constrained object about its center
      * of mass, which is assumed to be at the inherited constraint position.
      */
-    double inertia[3][3]; //!< trick_units(kg/m^2)
+    double inertia[3][3]{}; //!< trick_units(kg/m^2)
 
     /**
      * The torque on the associated DynBody, in constraint frame coordinates.
      */
-    double torque_constraint_frame[3]; //!< trick_units(N*m)
-
+    double torque_constraint_frame[3]{}; //!< trick_units(N*m)
 
     /**
      * Default constructor.
      */
-    ConstrainedRigidMass (
-        const ConstraintFrame* constraint_frame_in = nullptr);
+    ConstrainedRigidMass(const ConstraintFrame * constraint_frame_in = nullptr);
 
     /**
      * Destructor.
      */
-    ~ConstrainedRigidMass () override = default;
+    ~ConstrainedRigidMass() override = default;
 
     /**
      * Prepare this object for solving a constraint problem.
@@ -116,10 +109,8 @@ public:
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */
-    void setup_constraint (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) override;
-
+    void setup_constraint(const VehicleProperties & vehicle_properties,
+                          const VehicleNonGravState & non_grav_state) override;
 
     // New functionality.
 
@@ -128,22 +119,20 @@ public:
      * assumed to be symmetric; only the upper right triangle is used.
      * @param inertia_in  New inertia tensor, expressed in the constraint frame.
      */
-    void set_inertia (const double inertia_in[3][3])
+    void set_inertia(const double inertia_in[3][3])
     {
-        inertia[0][0]                 = inertia_in[0][0];
+        inertia[0][0] = inertia_in[0][0];
         inertia[0][1] = inertia[1][0] = inertia_in[0][1];
         inertia[0][2] = inertia[2][0] = inertia_in[0][2];
-        inertia[1][1]                 = inertia_in[1][1];
+        inertia[1][1] = inertia_in[1][1];
         inertia[1][2] = inertia[2][1] = inertia_in[1][2];
-        inertia[2][2]                 = inertia_in[2][2];
+        inertia[2][2] = inertia_in[2][2];
     }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

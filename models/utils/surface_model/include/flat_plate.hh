@@ -59,12 +59,11 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     ((../src/flat_plate.cc))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_FLAT_PLATE_HH
 #define JEOD_FLAT_PLATE_HH
-
 
 // System includes
 
@@ -74,57 +73,46 @@ Library dependencies:
 // Model includes
 #include "facet.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A FlatPlate implementation of Facet.
  */
-class FlatPlate : public Facet {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlate)
+class FlatPlate : public Facet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlate)
 
 public:
+    FlatPlate() = default;
+    ~FlatPlate() override = default;
+    FlatPlate & operator=(const FlatPlate &) = delete;
+    FlatPlate(const FlatPlate &) = delete;
 
-   // constructor
-   FlatPlate ();
+    /**
+     * normal of the plate, pointing outward of the craft, with respect
+     * to the vehicle structural frame. If the mass tying functionality
+     * is turned on, this will be in the structural frame associated
+     * with the mass body named in struct_mass_name. If mass tying
+     * functionaity is not turned on, this parameter should be
+     * set directly. If it is turned on, then the local_normal
+     * should be set and this variable should be automatically
+     * calculated.
+     */
+    double normal[3]{}; //!< trick_units(--)
 
-   // destructor
-   ~FlatPlate () override;
-
-   /**
-    * normal of the plate, pointing outward of the craft, with respect
-    * to the vehicle structural frame. If the mass tying functionality
-    * is turned on, this will be in the structural frame associated
-    * with the mass body named in struct_mass_name. If mass tying
-    * functionaity is not turned on, this parameter should be
-    * set directly. If it is turned on, then the local_normal
-    * should be set and this variable should be automatically
-    * calculated.
-    */
-   double normal[3]; //!< trick_units(--)
-
-   /**
-    * The normal of the plate with respect to the structural frame
-    * associated with the mass body named in mass_body_name.
-    */
-   double local_normal[3]; //!< trick_units(--)
+    /**
+     * The normal of the plate with respect to the structural frame
+     * associated with the mass body named in mass_body_name.
+     */
+    double local_normal[3]{}; //!< trick_units(--)
 
 protected:
-
-   void update_articulation_internal () override;
-
-private:
-
-   // Operator = and copy constructor locked from use by being private
-
-   FlatPlate& operator = (const FlatPlate& rhs);
-   FlatPlate (const FlatPlate& rhs);
-
+    void update_articulation_internal() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

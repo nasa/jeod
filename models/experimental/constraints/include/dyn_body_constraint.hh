@@ -51,25 +51,23 @@ Purpose: ()
 Library dependencies: ((../src/dyn_body_constraint.cc))
 */
 
-
 #ifndef JEOD_DYNBODY_CONSTRAINT_HH
 #define JEOD_DYNBODY_CONSTRAINT_HH
-
 
 #include "constraint_frame.hh"
 
 #include "dynamics/dyn_body/include/vehicle_properties.hh"
 #include "dynamics/dyn_body/include/wrench.hh"
 
-#include "experimental/math/include/solver_types.hh"
 #include "experimental/math/include/forward_view.hh"
+#include "experimental/math/include/solver_types.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 #include <utility>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class ConstraintComponent;
 class DynBody;
@@ -77,25 +75,18 @@ class DynBodyConstraintsSolver;
 class VehicleProperties;
 class VehicleNonGravState;
 
-
 /**
  * Represents a constrained object, which comprises one or more scalar
  * constraints on a vehicle.
  */
 class DynBodyConstraint
 {
-    JEOD_MAKE_SIM_INTERFACES(DynBodyConstraint)
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyConstraint)
     friend class DynBodyConstraintsSolver;
 
 public:
-
-
     // Member functions
-
-    /**
-     * Default constructor.
-     */
-    DynBodyConstraint ();
+    DynBodyConstraint() = default;
 
     /**
      * Destructor.
@@ -103,21 +94,24 @@ public:
      */
     virtual ~DynBodyConstraint();
 
+    DynBodyConstraint(const DynBodyConstraint &) = delete;
+    DynBodyConstraint & operator=(const DynBodyConstraint &) = delete;
+
     /**
      * Activate the constraint.
      */
-    virtual void activate ();
+    virtual void activate();
 
     /**
      * Deactivate the constraint.
      */
-    virtual void deactivate ();
+    virtual void deactivate();
 
     /**
      * Is the constraint active?
      * @return True if the constraint is active.
      */
-    bool is_active () const
+    bool is_active() const
     {
         return !inactive;
     }
@@ -126,7 +120,7 @@ public:
      * Get the solver for this constrained object.
      * @return The solver for this constraint.
      */
-    virtual const DynBodyConstraintsSolver* get_solver () const
+    virtual const DynBodyConstraintsSolver * get_solver() const
     {
         return solver;
     }
@@ -139,24 +133,21 @@ public:
      * @param offset_in  The position of the constraint frame origin, in
      *   structural frame coordinates.
      */
-    virtual void set_struct_to_constraint_frame (
-        SolverTypes::ConstDecayedMatrix3x3T transform_in,
-        SolverTypes::ConstDecayedVector3T offset_in)
+    virtual void set_struct_to_constraint_frame(SolverTypes::ConstDecayedMatrix3x3T transform_in,
+                                                SolverTypes::ConstDecayedVector3T offset_in)
     {
-        constraint_frame.set_struct_to_constraint_frame (transform_in, offset_in);
+        constraint_frame.set_struct_to_constraint_frame(transform_in, offset_in);
     }
 #endif
-
 
     /**
      * Update information about the relation between this constraint
      * and the root DynBody.
      * @param vehicle_properties  Various vehicle properties.
      */
-    virtual void update_attachment (
-        const VehicleProperties& vehicle_properties)
+    virtual void update_attachment(const VehicleProperties & vehicle_properties)
     {
-        constraint_frame.update_attachment (vehicle_properties);
+        constraint_frame.update_attachment(vehicle_properties);
     }
 
     /**
@@ -166,8 +157,7 @@ public:
      * update_attachment methods (in the proper order), and then call
      * this function.
      */
-    void update_component_attachment
-        (const VehicleProperties& vehicle_properties);
+    void update_component_attachment(const VehicleProperties & vehicle_properties);
 
     /**
      * Prepare this object for solving a constraint problem.
@@ -178,9 +168,8 @@ public:
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */
-    virtual void setup_constraint(
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) = 0;
+    virtual void setup_constraint(const VehicleProperties & vehicle_properties,
+                                  const VehicleNonGravState & non_grav_state) = 0;
 
     /**
      * Send setup_constraint to each component.
@@ -189,10 +178,8 @@ public:
      * setup_constraint methods (in the proper order), and then call
      * this function.
      */
-    void setup_component_constraint (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state);
-
+    void setup_component_constraint(const VehicleProperties & vehicle_properties,
+                                    const VehicleNonGravState & non_grav_state);
 
     /**
      * Get the known wrench for this constrained object.
@@ -201,7 +188,7 @@ public:
      *   with the effects of all of the pre-constraint wrenches incorporated
      *   into the non_grav_state argument to that function.
      */
-    virtual const Wrench& get_effector_wrench () const = 0;
+    virtual const Wrench & get_effector_wrench() const = 0;
 
     /**
      * Get the indexed component constraint for this composite constraint.
@@ -209,15 +196,14 @@ public:
      *   This is not bounds-checked.
      * @return The indexed component constraint.
      */
-    virtual ConstraintComponent* get_component(unsigned index) = 0;
+    virtual ConstraintComponent * get_component(unsigned index) = 0;
 
     /**
      * Const version of get_component().
      */
-    virtual const ConstraintComponent* get_component(
-        unsigned index) const
+    virtual const ConstraintComponent * get_component(unsigned index) const
     {
-        return const_cast<DynBodyConstraint&>(*this).get_component(index);
+        return const_cast<DynBodyConstraint &>(*this).get_component(index);
     }
 
     /**
@@ -228,16 +214,16 @@ public:
      *   of the constraint equation, such that rhs_slice[0] corresponds to this
      *   composite constraint's first scalar constraint, etc.
      */
-    virtual void set_r_h_s(jeod::VectorView<double>& rhs_slice) const;
+    virtual void set_r_h_s(jeod::VectorView<double> & rhs_slice) const;
 
     /**
      * So one can use set_r_h_s with a temporary.
      * @param rhs_slice  A temporary view into the overall right hand side
      *   vector of the constraint equation,
      */
-    virtual void set_r_h_s(jeod::VectorView<double>&& rhs_slice) const
+    virtual void set_r_h_s(jeod::VectorView<double> && rhs_slice) const
     {
-        set_r_h_s (rhs_slice);
+        set_r_h_s(rhs_slice);
     }
 
     /**
@@ -249,10 +235,9 @@ public:
      *   equation, such that a_slice(0:n,0:m) represents the NxM submatrix that
      *   pertains to this constraint with respect to the other.
      */
-    virtual void set_cross_coeff (
-        const VehicleProperties& vehicle_properties,
-        const DynBodyConstraint& other,
-        jeod::MatrixView<double>& a_slice) const;
+    virtual void set_cross_coeff(const VehicleProperties & vehicle_properties,
+                                 const DynBodyConstraint & other,
+                                 jeod::MatrixView<double> & a_slice) const;
 
     /**
      * So one can call set_cross_coeff with a temporary.
@@ -260,12 +245,11 @@ public:
      * @param other   The other constrained object.
      * @param a_slice  See the lvalue reference version of this function.
      */
-    virtual void set_cross_coeff (
-        const VehicleProperties& vehicle_properties,
-        const DynBodyConstraint& other,
-        jeod::MatrixView<double>&& a_slice) const
+    virtual void set_cross_coeff(const VehicleProperties & vehicle_properties,
+                                 const DynBodyConstraint & other,
+                                 jeod::MatrixView<double> && a_slice) const
     {
-        set_cross_coeff (vehicle_properties, other, a_slice);
+        set_cross_coeff(vehicle_properties, other, a_slice);
     }
 
     /**
@@ -278,20 +262,16 @@ public:
      *   equation, such that a_slice(0:n,0:n) represents the NxN submatrix that
      *   pertains to this constraint with respect to itself.
      */
-    virtual void set_self_coeff(
-        const VehicleProperties& vehicle_properties,
-        jeod::MatrixView<double>& a_slice) const;
+    virtual void set_self_coeff(const VehicleProperties & vehicle_properties, jeod::MatrixView<double> & a_slice) const;
 
     /**
      * So one can call set_self_coeff with a temporary.
      * @param vehicle_properties  Various vehicle properties.
      * @param a_slice  See the lvalue reference version of this function.
      */
-    virtual void set_self_coeff(
-        const VehicleProperties& vehicle_properties,
-        jeod::MatrixView<double>&& a_slice) const
+    virtual void set_self_coeff(const VehicleProperties & vehicle_properties, jeod::MatrixView<double> && a_slice) const
     {
-        set_self_coeff (vehicle_properties, a_slice);
+        set_self_coeff(vehicle_properties, a_slice);
     }
 
     /**
@@ -302,26 +282,24 @@ public:
      * @note This function is called after the matrix constraint equation has
      *   been formulated and solved.
      */
-    virtual void set_constraint_values (
-        const jeod::VectorView<double, double>& solution_slice);
+    virtual void set_constraint_values(const jeod::VectorView<double, double> & solution_slice);
 
     /**
      * Get the wrench this constrained object exerts on the vehicle.
      * @return A const reference to the constraint wrench for this object.
      * @note This function is called after the constraint values have been set.
      */
-    virtual const Wrench& get_constraint_wrench () const = 0;
+    virtual const Wrench & get_constraint_wrench() const = 0;
 
-   /**
+    /**
      * Compute the response (if any) of the constrained object to the
      * overall behavior of the vehicle.
      * @param vehicle_properties  Various vehicle properties.
      * @param non_grav_state  The non-gravitational response of the
      *   root body to external forces and torques, including the constraints.
      */
-    virtual void compute_constraint_response (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state);
+    virtual void compute_constraint_response(const VehicleProperties & vehicle_properties,
+                                             const VehicleNonGravState & non_grav_state);
 
     /**
      * Get the residual nonlinear wrench for this constrained object.
@@ -330,11 +308,9 @@ public:
      *   The nonlinear aspects are assumed to be small; they are not
      *   taken into account while solving the constraints equation.
      */
-    virtual const Wrench& get_nonlinear_response_wrench () const = 0;
-
+    virtual const Wrench & get_nonlinear_response_wrench() const = 0;
 
 protected:
-
     // Member data.
 
     /**
@@ -345,20 +321,19 @@ protected:
     /**
      * The solver to which this constraint is assigned.
      */
-    DynBodyConstraintsSolver* solver; //!< trick_units(--)
+    DynBodyConstraintsSolver * solver{}; //!< trick_units(--)
 
     /**
      * The number of active components associated with this constraint.
      */
-    unsigned n_dimensions; //!< trick_units(--)
+    unsigned n_dimensions{}; //!< trick_units(--)
 
     /**
      * Is the constraint inactive?
      * Note: This is expressed in the negative sense to support reduced
      * Trick checkpointing.
      */
-    bool inactive; //!< trick_units(--)
-
+    bool inactive{}; //!< trick_units(--)
 
     // Member functions.
 
@@ -367,24 +342,22 @@ protected:
      * to a constraints solver.
      * The default implementation tells each component to perform such actions.
      */
-    virtual void attach_to_solver ();
+    virtual void attach_to_solver();
 
     /**
      * Perform actions related to the just-performed removal of this constraint
      * from a constraints solver.
      * The default implementation tells each component to perform such actions.
      */
-    virtual void detach_from_solver ();
+    virtual void detach_from_solver();
 
     /**
      * Get the dyn_body object associated with this constrained object.
      * @return The dyn_body object for this constraint.
      */
-    virtual DynBody* get_dyn_body ();
-
+    virtual DynBody * get_dyn_body();
 
 private:
-
     // set_solver and reset_solver are private to keep the relation between
     // solvers and constraints correct.
     // These functions are callable by a solver due to friendship.
@@ -393,36 +366,27 @@ private:
      * Set the solver for this constraint.
      * @param solver_in  The solver.
      */
-    void set_solver (DynBodyConstraintsSolver* solver_in)
+    void set_solver(DynBodyConstraintsSolver * solver_in)
     {
         solver = solver_in;
         constraint_frame.solver = solver_in;
-        attach_to_solver ();
+        attach_to_solver();
     }
 
     /**
      * Clear the solver for this constraint.
      */
-    void reset_solver ()
+    void reset_solver()
     {
-        detach_from_solver ();
+        detach_from_solver();
         constraint_frame.solver = nullptr;
         solver = nullptr;
     }
-
-    // Copying a constraint would be handy, but is fraught with issues.
-    // For now, copying and assigning are not implemented.
-    DynBodyConstraint (const DynBodyConstraint&);
-    DynBodyConstraint (DynBodyConstraint&&);
-    DynBodyConstraint& operator= (const DynBodyConstraint&);
-    DynBodyConstraint& operator= (DynBodyConstraint&&);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

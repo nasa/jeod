@@ -56,52 +56,38 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/cylinder.cc))
-
- 
 *******************************************************************************/
 
 #ifndef JEOD_CYLINDER_HH
 #define JEOD_CYLINDER_HH
 
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "flat_plate_circular.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An cylinder implementation of Facet.
  */
-class Cylinder : public FlatPlateCircular {
-
-   JEOD_MAKE_SIM_INTERFACES(Cylinder)
+class Cylinder : public FlatPlateCircular
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, Cylinder)
 
 public:
+    Cylinder() = default;
+    ~Cylinder() override = default;
+    Cylinder & operator=(const Cylinder &) = delete;
+    Cylinder(const Cylinder &) = delete;
 
-   // constructor
-   Cylinder ();
-
-   // destructor
-   ~Cylinder () override;
-
-   /**
-    * Length of the cylinder.
-    */
-   double length; //!< trick_units(m)
-
-protected:
-
-private:
-
-   // Operator = and copy constructor locked from use by being private
-   Cylinder& operator = (const Cylinder& rhs);
-   Cylinder (const Cylinder& rhs);
-
+    /**
+     * Length of the cylinder.
+     */
+    double length{}; //!< trick_units(m)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

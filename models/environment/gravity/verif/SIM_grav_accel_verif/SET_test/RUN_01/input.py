@@ -47,7 +47,8 @@ def new_state( lat, lon, r):
                                     r*cos(lat_rad)*sin(lon_rad), \
                                     r*sin(lat_rad)]
   vehicle.dyn_body.composite_body.state.trans.velocity = [ 1.0, 1.0, 1.0]
-  print("\n\nSIM_TIME %19.16f" % jeod_time.time_manager.dyn_time.seconds)
+  time = jeod_time.time_manager.dyn_time.seconds
+  print("\n\nSIM_TIME {0:19.16f} {1}".format(float(time),time.units))
 
 trick.add_read( 1.0, "new_state( lat =  90, lon =   0, r = 6778000.0)")
 trick.add_read( 2.0, "new_state( lat =  73, lon =   9, r = 6778000.0)")

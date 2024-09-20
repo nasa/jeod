@@ -54,10 +54,9 @@ Purpose:
 Library dependencies:
   ((../src/trick_memory_interface.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_TRICK_MEMORY_INTERFACE_HH
 #define JEOD_TRICK_MEMORY_INTERFACE_HH
@@ -66,11 +65,12 @@ Library dependencies:
 
 // System includes
 #include <cstddef>
+#include <cstdint>
 #include <cstring>
 #include <list>
 #include <map>
-#include <stdint.h>
 #include <string>
+#include <utility>
 
 // JEOD includes
 
@@ -80,9 +80,9 @@ Library dependencies:
 #include "memory_interface.hh"
 #include "simulation_interface.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Forward declarations
 class JeodCheckpointable;
@@ -90,305 +90,259 @@ class JeodMemoryItem;
 class JeodMemoryManager;
 class JeodMemoryTypeDescriptor;
 
-
 /**
  * A TrickMemoryInterface implements the two required methods needed to register
  * and deregister memory with the simulation engine, Trick in this case.
  */
-class JeodTrickMemoryInterface : public JeodMemoryInterface {
-
-JEOD_MAKE_SIM_INTERFACES(JeodTrickMemoryInterface)
+class JeodTrickMemoryInterface : public JeodMemoryInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodTrickMemoryInterface)
 
 public:
+    // Member functions
 
-   // Member functions
+    // Constructor and destructor
+    JeodTrickMemoryInterface();
+    ~JeodTrickMemoryInterface() override;
 
-    // NOTE: This class has no copy constructor or assignment operator.
+    JeodTrickMemoryInterface(const JeodTrickMemoryInterface &) = delete;
+    JeodTrickMemoryInterface & operator=(const JeodTrickMemoryInterface &) = delete;
 
-   // Constructor and destructor
-   JeodTrickMemoryInterface ();
-   ~JeodTrickMemoryInterface () override;
+    // Set the mode
+    void set_mode(JeodSimulationInterface::Mode new_mode);
 
+    // Construct an identifier for a chunk of JEOD-allocated memory
+    std::string construct_identifier(uint32_t unique_id_number);
 
-   // Set the mode
-   void set_mode (JeodSimulationInterface::Mode new_mode);
+    // Find attributes in the symbol table.
+    const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes(const std::string & type_name) const override;
 
-   // Construct an identifier for a chunk of JEOD-allocated memory
-   std::string construct_identifier (uint32_t unique_id_number);
+    const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes(const std::type_info & data_type) const override;
 
+    // Create an attributes structure that represents a primitive type.
+    JEOD_ATTRIBUTES_TYPE primitive_attributes(const std::type_info & data_type) const override;
 
-   // Find attributes in the symbol table.
-   const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
-      const std::string & type_name) const override;
+    // Create an attributes structure that represents a pointer type.
+    JEOD_ATTRIBUTES_TYPE pointer_attributes(const JEOD_ATTRIBUTES_TYPE & target_attr) const override;
 
-   const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
-      const std::type_info & data_type) const override;
+    // Create a simulation engine description of void*.
+    JEOD_ATTRIBUTES_TYPE void_pointer_attributes() const override;
 
-   // Create an attributes structure that represents a primitive type.
-   JEOD_ATTRIBUTES_TYPE primitive_attributes (
-      const std::type_info & data_type) const override;
+    // Create an attributes structure that represents a structured type.
+    JEOD_ATTRIBUTES_TYPE structure_attributes(const JEOD_ATTRIBUTES_POINTER_TYPE target_attr,
+                                              std::size_t target_size) const override;
 
-   // Create an attributes structure that represents a pointer type.
-   JEOD_ATTRIBUTES_TYPE pointer_attributes (
-      const JEOD_ATTRIBUTES_TYPE & target_attr) const override;
+    // Register allocated memory with the simulation engine.
+    bool register_allocation(const void * addr,
+                             const JeodMemoryItem & item,
+                             const JeodMemoryTypeDescriptor & tdesc,
+                             const char * file,
+                             unsigned int line) override;
 
-   // Create a simulation engine description of void*.
-   JEOD_ATTRIBUTES_TYPE void_pointer_attributes () const override;
+    // Revoke registation of memory that is about to be deleted.
+    void deregister_allocation(const void * addr,
+                               const JeodMemoryItem & item,
+                               const JeodMemoryTypeDescriptor & tdesc,
+                               const char * file,
+                               unsigned int line) override;
 
-   // Create an attributes structure that represents a structured type.
-   JEOD_ATTRIBUTES_TYPE structure_attributes (
-      const JEOD_ATTRIBUTES_POINTER_TYPE target_attr,
-      std::size_t target_size) const override;
+    // Register a JeodCheckpointable object with the simulation engine.
+    void register_container(const void * owner,
+                            const JeodMemoryTypeDescriptor & owner_type,
+                            const std::string & elem_name,
+                            JeodCheckpointable & container) override;
 
+    // Revoke registration of a JeodCheckpointable that is about to be deleted.
+    void deregister_container(const void * owner,
+                              const JeodMemoryTypeDescriptor & owner_type,
+                              const std::string & elem_name,
+                              JeodCheckpointable & container) override;
 
-   // Register allocated memory with the simulation engine.
-   bool register_allocation (
-      const void * addr,
-      const JeodMemoryItem & item,
-      const JeodMemoryTypeDescriptor & tdesc,
-      const char * file,
-      unsigned int line) override;
+    // Get the simulation name (if any) of the address.
+    const std::string get_name_at_address(const void * addr, const JeodMemoryTypeDescriptor * tdesc) const override;
 
-   // Revoke registation of memory that is about to be deleted.
-   void deregister_allocation (
-      const void * addr,
-      const JeodMemoryItem & item,
-      const JeodMemoryTypeDescriptor & tdesc,
-      const char * file,
-      unsigned int line) override;
+    // Get the address (if any) corresponding to the given name.
+    void * get_address_at_name(const std::string & name) const override;
 
+    /**
+     * The generic Trick memory interface does not support checkpoint/restart.
+     */
+    bool is_checkpoint_restart_supported() const override
+    {
+        return false;
+    }
 
-   // Register a JeodCheckpointable object with the simulation engine.
-   void register_container (
-      const void * owner,
-      const JeodMemoryTypeDescriptor & owner_type,
-      const char * elem_name,
-      JeodCheckpointable & container) override;
+    /**
+     * Get the name of the current Trick checkpoint file.
+     * \param[in] checkpoint  True for checkpoint, false for restart
+     * \return Current checkpoint file, or the empty string.
+     * \note
+     * The default implementation always returns the empty string;
+     * checkpoint/restart is not supported by default.
+     */
+    virtual const std::string get_trick_checkpoint_file(bool checkpoint JEOD_UNUSED)
+    {
+        return std::string();
+    }
 
-   // Revoke registration of a JeodCheckpointable that is about to be deleted.
-   void deregister_container (
-      const void * owner,
-      const JeodMemoryTypeDescriptor & owner_type,
-      const char * elem_name,
-      JeodCheckpointable & container) override;
+    /**
+     * Dump the container checkpointable objects to the checkpoint file.
+     * \note
+     * The default implementation does nothing;
+     * checkpoint/restart is not supported by default.
+     */
+    virtual void checkpoint_containers() {}
 
+    /**
+     * Restore the container checkpointables objects from the checkpoint file.
+     * \note
+     * The default implementation does nothing;
+     * checkpoint/restart is not supported by default.
+     */
+    virtual void restore_containers() {}
 
-   // Get the simulation name (if any) of the address.
-   const std::string get_name_at_address (
-      const void * addr,
-       const JeodMemoryTypeDescriptor * tdesc) const override;
+    /**
+     * Dump the allocation information to the checkpoint file.
+     * \note
+     * The default implementation does nothing;
+     * checkpoint/restart is not supported by default.
+     */
+    virtual void checkpoint_allocations() {}
 
-   // Get the address (if any) corresponding to the given name.
-   void * get_address_at_name (
-      const std::string & name) const override;
-
-
-   /**
-    * The generic Trick memory interface does not support checkpoint/restart.
-    */
-   bool is_checkpoint_restart_supported () const override { return false; }
-
-   /**
-    * Get the name of the current Trick checkpoint file.
-    * \param[in] checkpoint  True for checkpoint, false for restart
-    * \return Current checkpoint file, or the empty string.
-    * \note
-    * The default implementation always returns the empty string;
-    * checkpoint/restart is not supported by default.
-    */
-   virtual const std::string get_trick_checkpoint_file (
-      bool checkpoint JEOD_UNUSED)
-   {
-      return std::string();
-   }
-
-   /**
-    * Dump the container checkpointable objects to the checkpoint file.
-    * \note
-    * The default implementation does nothing;
-    * checkpoint/restart is not supported by default.
-    */
-   virtual void checkpoint_containers () {}
-
-   /**
-    * Restore the container checkpointables objects from the checkpoint file.
-    * \note
-    * The default implementation does nothing;
-    * checkpoint/restart is not supported by default.
-    */
-   virtual void restore_containers () {}
-
-   /**
-    * Dump the allocation information to the checkpoint file.
-    * \note
-    * The default implementation does nothing;
-    * checkpoint/restart is not supported by default.
-    */
-   virtual void checkpoint_allocations () {}
-
-   /**
-    * Restore the allocated data per the checkpoint file.
-    * @param memory_manager  JEOD memory manager
-    * \note
-    * The default implementation does nothing;
-    * checkpoint/restart is not supported by default.
-    */
-   virtual void restore_allocations (
-      JeodMemoryManager & memory_manager JEOD_UNUSED)
-   {}
-
+    /**
+     * Restore the allocated data per the checkpoint file.
+     * @param memory_manager  JEOD memory manager
+     * \note
+     * The default implementation does nothing;
+     * checkpoint/restart is not supported by default.
+     */
+    virtual void restore_allocations(JeodMemoryManager & memory_manager JEOD_UNUSED) {}
 
 protected:
+    // Data types
 
-   // Data types
+    /**
+     * Describes a Checkpointable object.
+     */
+    struct ContainerListEntry
+    {
+        /**
+         * The object that contains the container.
+         */
+        const void * owner; //!< trick_units(--)
 
-   /**
-    * Describes a Checkpointable object.
-    */
-   struct ContainerListEntry {
+        /**
+         * Type description of the object that contains the container.
+         */
+        const JeodMemoryTypeDescriptor & owner_type; //!< trick_units(--)
 
-      /**
-       * The object that contains the container.
-       */
-      const void * owner; //!< trick_units(--)
+        /**
+         * The name of the element of the container in the owning object.
+         */
+        std::string elem_name; //!< trick_units(--)
 
-      /**
-       * Type description of the object that contains the container.
-       */
-      const JeodMemoryTypeDescriptor & owner_type; //!< trick_units(--)
+        /**
+         * The container itself.
+         */
+        JeodCheckpointable & container; //!< trick_units(--)
 
-      /**
-       * The name of the element of the container in the owning object.
-       */
-      std::string elem_name; //!< trick_units(--)
+        /**
+         * Construct an ContainerListEntry object.
+         * @param parent  Parent object
+         * @param tdesc   Type descriptor
+         * @param sub_id  Parent element
+         * @param obj     Checkpointable itself
+         */
+        ContainerListEntry(const void * parent,
+                           const JeodMemoryTypeDescriptor & tdesc,
+                           std::string sub_id,
+                           JeodCheckpointable & obj)
+            : owner(parent),
+              owner_type(tdesc),
+              elem_name(std::move(sub_id)),
+              container(obj)
+        {
+        }
+    };
 
-      /**
-       * The container itself.
-       */
-      JeodCheckpointable & container; //!< trick_units(--)
+    /**
+     * Describes a chunk of JEOD-allocated memory.
+     */
+    struct AllocationMapEntry
+    {
+        /**
+         * Descriptor of the data type.
+         */
+        const std::type_info & typeid_info; //!< trick_units(--)
 
+        /**
+         * The number of elements in the allocated chunk of memory.
+         */
+        uint32_t nelements; //!< trick_units(--)
 
-      /**
-       * Construct an ContainerListEntry object.
-       * @param parent  Parent object
-       * @param tdesc   Type descriptor
-       * @param sub_id  Parent element
-       * @param obj     Checkpointable itself
-       */
-      ContainerListEntry (
-         const void * parent,
-         const JeodMemoryTypeDescriptor & tdesc,
-         const std::string & sub_id,
-         JeodCheckpointable & obj)
-      :
-         owner(parent),
-         owner_type(tdesc),
-         elem_name(sub_id),
-         container(obj)
-      {}
-   };
+        /**
+         * Is the item an array or a single object?
+         */
+        bool is_array; //!< trick_units(--)
 
+        /**
+         * Construct an AllocationMapEntry object.
+         * @param type_info  Type info
+         * @param nelem      Array size
+         * @param arrayp     Is item an array?
+         */
+        AllocationMapEntry(const std::type_info & type_info, uint32_t nelem, bool arrayp)
+            : typeid_info(type_info),
+              nelements(nelem),
+              is_array(arrayp)
+        {
+        }
+    };
 
-   /**
-    * Describes a chunk of JEOD-allocated memory.
-    */
-   struct AllocationMapEntry {
+    /**
+     * Maps JEOD-allocated data names to (type, size) pairs.
+     */
+    using AllocationMap = std::map<uint32_t, AllocationMapEntry>;
 
-      /**
-       * Descriptor of the data type.
-       */
-      const std::type_info & typeid_info; //!< trick_units(--)
+    /**
+     * Container of a list of ContainerListEntry objects.
+     */
+    using ContainerList = std::list<ContainerListEntry>;
 
-      /**
-       * The number of elements in the allocated chunk of memory.
-       */
-      uint32_t nelements; //!< trick_units(--)
+    // Member data
 
-      /**
-       * Is the item an array or a single object?
-       */
-      bool is_array; //!< trick_units(--)
+    /**
+     * dlhandle, from dlopen.
+     */
+    void * dlhandle{}; //!< trick_io(**)
 
-      /**
-       * Construct an AllocationMapEntry object.
-       * @param type_info  Type info
-       * @param nelem      Array size
-       * @param arrayp     Is item an array?
-       */
-      AllocationMapEntry (
-         const std::type_info & type_info,
-         uint32_t nelem,
-         bool arrayp)
-      :
-         typeid_info(type_info),
-         nelements(nelem),
-         is_array(arrayp)
-      {}
-   };
+    /**
+     * Map of allocated names to type info.
+     */
+    AllocationMap allocation_map; //!< trick_io(**)
 
+    /**
+     * List of container checkpointables.
+     */
+    ContainerList container_list; //!< trick_io(**)
 
-   /**
-    * Maps JEOD-allocated data names to (type, size) pairs.
-    */
-   typedef std::map <uint32_t, AllocationMapEntry> AllocationMap;
+    /**
+     * Prefix used for constructing a unique name for JEOD-allocated memory.
+     */
+    const std::string id_prefix{"jeod_alloc_"}; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * Container of a list of ContainerListEntry objects.
-    */
-   typedef std::list <ContainerListEntry> ContainerList;
+    /**
+     * Number of digits in the numeric part of the unique identifier.
+     */
+    const uint32_t id_length{6}; //!< trick_io(*o) trick_units(--)
 
-
-   // Member data
-
-   /**
-    * dlhandle, from dlopen.
-    */
-   void * dlhandle; //!< trick_io(**)
-
-   /**
-    * Map of allocated names to type info.
-    */
-   AllocationMap allocation_map; //!< trick_io(**)
-
-   /**
-    * List of container checkpointables.
-    */
-   ContainerList container_list; //!< trick_io(**)
-
-   /**
-    * Prefix used for constructing a unique name for JEOD-allocated memory.
-    */
-   const std::string id_prefix; //!< trick_io(*o) trick_units(--)
-
-   /**
-    * Number of digits in the numeric part of the unique identifier.
-    */
-   const uint32_t id_length; //!< trick_io(*o) trick_units(--)
-
-   /**
-    * Simulation interface mode.
-    */
-   JeodSimulationInterface::Mode mode; //!< trick_units(--)
-
-
-private:
-
-   // The parent JeodMemoryInterface hides the copy constructor and
-   // assignment operator. These are hidden here as well.
-
-   /**
-    * Not implemented.
-    */
-   JeodTrickMemoryInterface (const JeodTrickMemoryInterface &);
-
-   /**
-    * Not implemented.
-    */
-   JeodTrickMemoryInterface & operator= (const JeodTrickMemoryInterface &);
+    /**
+     * Simulation interface mode.
+     */
+    JeodSimulationInterface::Mode mode{JeodSimulationInterface::Construction}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

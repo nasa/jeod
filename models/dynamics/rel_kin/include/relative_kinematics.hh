@@ -65,10 +65,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_RELATIVE_KINEMATICS_HH
 #define JEOD_RELATIVE_KINEMATICS_HH
-
 
 // System includes
 
@@ -77,71 +75,57 @@ Library dependencies:
 #include "utils/container/include/pointer_vector.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Encapsulates functionality for computing relative states.
  */
-class RelativeKinematics {
+class RelativeKinematics
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RelativeKinematics)
 
- JEOD_MAKE_SIM_INTERFACES(RelativeKinematics)
+    // Member data
+public:
+    /**
+     * Length of above list of relative states being maintained by this.
+     */
+    unsigned int num_rel_states{}; //!< trick_units(--)
 
+    /**
+     * List of relative states to be computed and maintained by this model. Note
+     * that this list is not restricted to be relative states associated with
+     * only a single DynBody.
+     */
+    JeodPointerVector<RelativeDerivedState>::type relative_states; //!< trick_io(**)
 
- // Member data
- public:
+    // Member functions
+    RelativeKinematics();
+    ~RelativeKinematics();
+    RelativeKinematics(const RelativeKinematics &) = delete;
+    RelativeKinematics & operator=(const RelativeKinematics &) = delete;
 
-   /**
-    * Length of above list of relative states being maintained by this.
-    */
-   unsigned int num_rel_states; //!< trick_units(--)
+    // Add a RelativeDerivedState to the list of ones being maintained
+    void add_relstate(RelativeDerivedState & relstate);
 
-   /**
-    * List of relative states to be computed and maintained by this model. Note
-    * that this list is not restricted to be relative states associated with
-    * only a single DynBody.
-    */
-   JeodPointerVector<RelativeDerivedState>::type relative_states;  //!< trick_io(**)
+    // Remove a RelativeDerivedState from the list ones being maintained
+    void remove_relstate(RelativeDerivedState & relstate);
 
+    // Find a RelativeDerivedState by its given name
+    RelativeDerivedState * find_relstate(const std::string & relstate_name);
 
- // Member functions
+    // Activate or deactivate given relstate to allow RelKin manager to update it
+    void activate_relstate(RelativeDerivedState & relstate, bool raf);
 
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
-   RelativeKinematics (const RelativeKinematics &);
-   RelativeKinematics & operator= (const RelativeKinematics &);
+    // Update a single RelativeDerivedState
+    void update_single(const std::string & relstate_name);
 
-
- public:
-
-   // Default constructor and destructor
-   RelativeKinematics ();
-   ~RelativeKinematics ();
-
-   // Add a RelativeDerivedState to the list of ones being maintained
-   void add_relstate (RelativeDerivedState & relstate);
-
-   // Remove a RelativeDerivedState from the list ones being maintained
-   void remove_relstate (RelativeDerivedState & relstate);
-
-   // Find a RelativeDerivedState by its given name
-   RelativeDerivedState * find_relstate (const char * relstate_name);
-
-   // Activate or deactivate given relstate to allow RelKin manager to update it
-   void activate_relstate (RelativeDerivedState & relstate, bool raf);
-
-   // Update a single RelativeDerivedState
-   void update_single (const char * relstate_name);
-
-   // Update all of the RelativeDerivedStates maintained by this model
-   void update_all (void);
-
+    // Update all of the RelativeDerivedStates maintained by this model
+    void update_all();
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

@@ -51,7 +51,6 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_TREE_LINKS_ITERATOR_HH
 #define JEOD_TREE_LINKS_ITERATOR_HH
 
@@ -64,9 +63,9 @@ Purpose: ()
 // System includes
 #include <vector>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * @file
@@ -82,46 +81,38 @@ namespace jeod {
  *     }
  */
 
-
 /**
  * Class template that defines member types ForwardIterator and ReverseIterator
  * for walking over a std::vector of pointers to Links objects.
  * This primary template definition is for a non-const Links type.
  * @tparam Links  Link object type.
- */ 
-template <class Links>
-struct JeodLinksIterators
+ */
+template<class Links> struct JeodLinksIterators
 {
-   using ForwardIterator = typename std::vector<Links*>::iterator;
-   using ReverseIterator = typename std::vector<Links*>::reverse_iterator;
+    using ForwardIterator = typename std::vector<Links *>::iterator;
+    using ReverseIterator = typename std::vector<Links *>::reverse_iterator;
 };
-
 
 /**
  * Partial specialization of JeodLinksIterators for const Links types.
  * Like the primary definition, this specialization defines member types
  * ForwardIterator and ReverseIterator, but this are now const iterators.
  * @tparam Links  Link object type.
- */ 
-template <class Links>
-struct JeodLinksIterators<const Links>
+ */
+template<class Links> struct JeodLinksIterators<const Links>
 {
-   using ForwardIterator = typename std::vector<Links*>::const_iterator;
-   using ReverseIterator = typename std::vector<Links*>::const_reverse_iterator;
+    using ForwardIterator = typename std::vector<Links *>::const_iterator;
+    using ReverseIterator = typename std::vector<Links *>::const_reverse_iterator;
 };
-
 
 /**
  * Base class template for all tree links range types.
  * @tparam Iterator  The type of iterator stored as the begin_ and end_ data
  * members and returned by the begin and end member functions.
  */
-template <class Iterator>
-class TreeLinksRange
+template<class Iterator> class TreeLinksRange
 {
-
 public:
-
     /**
      * Constructor.
      * @tparam T  The type of argument begin_in.
@@ -129,27 +120,30 @@ public:
      * @param begin_in  Value used to construct the begin_ data member.
      * @param end_in  Value used to construct the end_ data member.
      */
-    template <typename T, typename U>
-    TreeLinksRange (T begin_in, U end_in)
-    :
-        begin_(begin_in),
-        end_(end_in)
-    { }
-
+    template<typename T, typename U>
+    TreeLinksRange(T begin_in, U end_in)
+        : begin_(begin_in),
+          end_(end_in)
+    {
+    }
 
     /**
      * Mutable accessor to the begin_ data member.
      */
-    Iterator& begin() { return begin_; }
+    Iterator & begin()
+    {
+        return begin_;
+    }
 
     /**
      * Mutable accessor to the end_ data member.
      */
-    Iterator& end() { return end_; }
-
+    Iterator & end()
+    {
+        return end_;
+    }
 
 private:
-
     /**
      * Object returned (by reference) by the begin member function.
      */
@@ -161,32 +155,26 @@ private:
     Iterator end_; //!< trick_units(--)
 };
 
-
 /**
  * A TreeLinksAscendRange walks up a Links object's path_to_node_ data
  * member, starting at the start node and ending just before the end node.
  */
-template <class Links>
-class TreeLinksAscendRange :
-   public TreeLinksRange<typename JeodLinksIterators<Links>::ReverseIterator>
+template<class Links>
+class TreeLinksAscendRange : public TreeLinksRange<typename JeodLinksIterators<Links>::ReverseIterator>
 {
-
 public:
-
-   using ReverseIterator = typename JeodLinksIterators<Links>::ReverseIterator;
+    using ReverseIterator = typename JeodLinksIterators<Links>::ReverseIterator;
 
     /**
      * Non-default constructor.
      * Create a TreeLinksAscendRange that walks over the entire path_to_node_
      * from the bottom to the top.
      */
-   explicit TreeLinksAscendRange (
-      Links & links)
-   :
-      TreeLinksRange<ReverseIterator> (
-         ReverseIterator(links.path_to_node_.end()),
-         ReverseIterator(links.path_to_node_.begin()))
-   { }
+    explicit TreeLinksAscendRange(Links & links)
+        : TreeLinksRange<ReverseIterator>(ReverseIterator(links.path_to_node_.end()),
+                                          ReverseIterator(links.path_to_node_.begin()))
+    {
+    }
 
     /**
      * Non-default constructor.
@@ -205,30 +193,22 @@ public:
      *   For example, using zero stops the iteration at the initial element
      *   in the vector.
      */
-   TreeLinksAscendRange (
-      Links & links,
-      unsigned int start_index,
-      unsigned int end_index = 0)
-   :
-      TreeLinksRange<ReverseIterator> (
-         ReverseIterator(links.path_to_node_.begin()+start_index),
-         ReverseIterator(links.path_to_node_.begin()+end_index))
-   { }
+    TreeLinksAscendRange(Links & links, unsigned int start_index, unsigned int end_index = 0)
+        : TreeLinksRange<ReverseIterator>(ReverseIterator(links.path_to_node_.begin() + start_index),
+                                          ReverseIterator(links.path_to_node_.begin() + end_index))
+    {
+    }
 };
-
 
 /**
  * A TreeLinksDescentRange walks down a Links object's path_to_node_ data
  * member, starting at the start node and ending just before the end node.
  */
-template <class Links>
-class TreeLinksDescentRange :
-   public TreeLinksRange<typename JeodLinksIterators<Links>::ForwardIterator>
+template<class Links>
+class TreeLinksDescentRange : public TreeLinksRange<typename JeodLinksIterators<Links>::ForwardIterator>
 {
-
 public:
-
-   using ForwardIterator = typename JeodLinksIterators<Links>::ForwardIterator;
+    using ForwardIterator = typename JeodLinksIterators<Links>::ForwardIterator;
 
     /**
      * Constructor.
@@ -240,42 +220,34 @@ public:
      * @param start_index  Index of the first node the path_to_node_ vector to
      *   be visited.
      */
-   explicit TreeLinksDescentRange (
-      Links & links,
-      unsigned int start_index = 0)
-   :
-      TreeLinksRange<ForwardIterator> (
-         ForwardIterator(links.path_to_node_.begin()+start_index),
-         ForwardIterator(links.path_to_node_.end()))
-   { }
+    explicit TreeLinksDescentRange(Links & links, unsigned int start_index = 0)
+        : TreeLinksRange<ForwardIterator>(ForwardIterator(links.path_to_node_.begin() + start_index),
+                                          ForwardIterator(links.path_to_node_.end()))
+    {
+    }
 };
-
 
 /**
  * A TreeLinksChildrenRange walks over a Links object's children_.
  */
-template <class Links>
-class TreeLinksChildrenRange :
-   public TreeLinksRange<typename JeodLinksIterators<Links>::ForwardIterator>
+template<class Links>
+class TreeLinksChildrenRange : public TreeLinksRange<typename JeodLinksIterators<Links>::ForwardIterator>
 {
-
 public:
-   using ForwardIterator = typename JeodLinksIterators<Links>::ForwardIterator;
+    using ForwardIterator = typename JeodLinksIterators<Links>::ForwardIterator;
 
     /**
      * Default constructor.
      * Creates a range that will visit all children.
      */
-   explicit TreeLinksChildrenRange (Links & links)
-   :
-      TreeLinksRange<ForwardIterator> (
-         ForwardIterator(links.children_.begin()),
-         ForwardIterator(links.children_.end()))
-   { }
+    explicit TreeLinksChildrenRange(Links & links)
+        : TreeLinksRange<ForwardIterator>(ForwardIterator(links.children_.begin()),
+                                          ForwardIterator(links.children_.end()))
+    {
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

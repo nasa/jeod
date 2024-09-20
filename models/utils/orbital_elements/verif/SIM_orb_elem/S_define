@@ -37,10 +37,12 @@
 //===========================TRICK HEADER=====================
 // PURPOSE:
 
-#define TEST_RATE       1.0
+#define TEST_RATE 1.0
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 //***************************************************************
@@ -49,35 +51,31 @@
 //  (/* =======================orbital element test============================ */)
 //***************************************************************
 
-
 // Include headers for classes that this class contains:
 ##include "utils/orbital_elements/include/orbital_elements.hh"
 ##include "utils/orbital_elements/verif/SIM_orb_elem/models/orb_elem_ver/include/orb_elem_ver.hh"
 ##include "utils/orbital_elements/verif/SIM_orb_elem/models/orb_elem_ver/include/orb_elem_multi_ver.hh"
 
-class Orb_elem_testSimObject: public Trick::SimObject {
-
-   public:
+class Orb_elem_testSimObject: public Trick::SimObject
+{
+public:
     jeod::OrbitalElements orb_elem;
     jeod::OrbitalElements orb_elem_multi;
     jeod::OrbElemVer orb_elem_ver;
     jeod::OrbElemMultiVer orb_elem_multi_ver;
 
-
-//Constructor
-    Orb_elem_testSimObject() {
-
-   //
-   //Default data jobs
-   //
-
-      (TEST_RATE, "scheduled") orb_elem_ver.update(&orb_elem);
-      (TEST_RATE, "scheduled") orb_elem_multi_ver.update(&orb_elem_multi);
+    // Constructor
+    Orb_elem_testSimObject()
+    {
+        //
+        // Default data jobs
+        //
+        (TEST_RATE, "scheduled") orb_elem_ver.update(&orb_elem);
+        (TEST_RATE, "scheduled") orb_elem_multi_ver.update(&orb_elem_multi);
     }
 
-  private:
-    Orb_elem_testSimObject (const Orb_elem_testSimObject&);
-    Orb_elem_testSimObject & operator = (const Orb_elem_testSimObject&);
-
+    Orb_elem_testSimObject(const Orb_elem_testSimObject &) = delete;
+    Orb_elem_testSimObject & operator=(const Orb_elem_testSimObject &) = delete;
 };
-Orb_elem_testSimObject orb_elem_test ;
+
+Orb_elem_testSimObject orb_elem_test;

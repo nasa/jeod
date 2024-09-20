@@ -39,14 +39,13 @@ Purpose:
   (This simulation tests container model checkpoint and restart capabilities.)
 *******************************************************************************/
 
-
 ##include "utils/container/verif/SIM_container/include/test_object.hh"
 
-
-// Include the default system classes, one for Trick and one for JEOD.
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
 
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 /**
 Test sim object.
@@ -54,21 +53,21 @@ This object tests that each of the publicly-defined STL replacements
 can be checkpointed and restarted.
 */
 
-class TestSimObject: public Trick::SimObject {
+class TestSimObject: public Trick::SimObject
+{
 public:
+    // Constructor
+    TestSimObject()
+    {
+        (1.0, "scheduled") do_nothing();
+        ("shutdown") container.shutdown();
+    }
 
-   // Constructor
-   TestSimObject () {
-      (1.0, "scheduled") do_nothing ();
-      ("shutdown") container.shutdown ();
-   }
+    void do_nothing() {}
 
-   void do_nothing () {}
+    jeod::TestContainer container; /* -- Test article */
 
-   jeod::TestContainer container;  /* -- Test article */
-
-private:
-   TestSimObject (const TestSimObject &);
-   TestSimObject & operator = (const TestSimObject &);
+    TestSimObject(const TestSimObject &) = delete;
+    TestSimObject & operator=(const TestSimObject &) = delete;
 };
 TestSimObject test_sim_object;

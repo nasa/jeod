@@ -4,8 +4,8 @@
 
 using namespace jeod;
 
-int main ()
+int main()
 {
-   Foo foo;
-   return 0;
+    Foo foo;
+    return 0;
 }

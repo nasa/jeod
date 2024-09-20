@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::PropagatedEphemerisPlanet Class Reference</div>  </div>
@@ -63,9 +62,9 @@ Inheritance diagram for jeod::PropagatedEphemerisPlanet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d27/classjeod_1_1PropagatedEphemerisPlanet__inherit__graph.png" border="0" usemap="#jeod_1_1PropagatedEphemerisPlanet_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1PropagatedEphemerisPlanet_inherit__map" id="jeod_1_1PropagatedEphemerisPlanet_inherit__map">
-<area shape="rect" id="node2" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame..." alt="" coords="23,155,170,181"/>
-<area shape="rect" id="node3" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="25,80,168,107"/>
-<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="21,5,172,32"/>
+<area shape="rect" id="node2" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame..." alt="" coords="26,155,186,181"/>
+<area shape="rect" id="node3" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="27,80,185,107"/>
+<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="25,5,187,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -73,39 +72,40 @@ Collaboration diagram for jeod::PropagatedEphemerisPlanet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d8c/classjeod_1_1PropagatedEphemerisPlanet__coll__graph.png" border="0" usemap="#jeod_1_1PropagatedEphemerisPlanet_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1PropagatedEphemerisPlanet_coll__map" id="jeod_1_1PropagatedEphemerisPlanet_coll__map">
-<area shape="rect" id="node2" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame..." alt="" coords="1835,1208,1981,1235"/>
-<area shape="rect" id="node3" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="1489,1228,1632,1255"/>
-<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="275,895,425,921"/>
-<area shape="rect" id="node6" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="652,895,764,921"/>
-<area shape="rect" id="node17" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1854,756,1962,783"/>
-<area shape="rect" id="node5" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="1026,1052,1201,1079"/>
-<area shape="rect" id="node10" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="1042,933,1185,960"/>
-<area shape="rect" id="node29" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="1018,785,1209,826"/>
-<area shape="rect" id="node7" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="279,628,421,655"/>
-<area shape="rect" id="node8" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="603,1165,813,1192"/>
-<area shape="rect" id="node30" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1481,1279,1640,1305"/>
-<area shape="rect" id="node9" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="1030,1227,1197,1253"/>
-<area shape="rect" id="node11" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="635,611,781,637"/>
-<area shape="rect" id="node12" href="../../da/da4/classjeod_1_1MassPoint.html" title="Adds tree linkages and a name to a MassPointState. " alt="" coords="650,1469,766,1496"/>
-<area shape="rect" id="node36" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="2140,1256,2256,1283"/>
-<area shape="rect" id="node13" href="../../dd/d6e/classjeod_1_1MassPointState.html" title="Defines the state – position and orientation – of a MassPoint. " alt="" coords="277,1447,423,1473"/>
-<area shape="rect" id="node14" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="5,729,123,756"/>
-<area shape="rect" id="node24" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="449,251,579,277"/>
-<area shape="rect" id="node15" href="../../db/ddc/classjeod_1_1MassPointLinks.html" title="Encapsulates the links between mass points. " alt="" coords="277,1504,423,1531"/>
-<area shape="rect" id="node16" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="289,1391,411,1417"/>
-<area shape="rect" id="node21" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="1475,208,1646,235"/>
-<area shape="rect" id="node23" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="1006,201,1221,242"/>
-<area shape="rect" id="node25" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="1465,378,1656,419"/>
-<area shape="rect" id="node26" href="../../d3/d88/classjeod_1_1SimpleCheckpointable.html" title="The SimpleCheckpointable class provides a simple checkpoint/restart interface by which an object can ..." alt="" coords="1021,456,1205,483"/>
-<area shape="rect" id="node39" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="1471,714,1651,755"/>
-<area shape="rect" id="node27" href="../../d2/d30/classjeod_1_1RestartableGeneralizedStepSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lStepSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="976,361,1251,431"/>
-<area shape="rect" id="node28" href="../../dd/d1c/classjeod_1_1RestartableGeneralizedDerivSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lDerivSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="976,266,1251,337"/>
-<area shape="rect" id="node31" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="1481,549,1640,576"/>
-<area shape="rect" id="node32" href="../../d5/d03/classjeod_1_1JPVCollectTorque.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectTorque&gt;::type with an implem..." alt="" coords="1034,608,1193,635"/>
-<area shape="rect" id="node33" href="../../db/d8d/classjeod_1_1JPVCollectForce.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectForce&gt;::type with an impleme..." alt="" coords="1037,668,1189,695"/>
-<area shape="rect" id="node37" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="1482,600,1639,627"/>
-<area shape="rect" id="node38" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravityControls \&gt;" alt="" coords="1029,719,1198,761"/>
-<area shape="rect" id="node40" href="../../d1/dd0/classjeod_1_1RestartableSimpleSecondOrderODEIntegrator.html" title="jeod::RestartableSimpleSecond\lOrderODEIntegrator\&lt; 3 \&gt;" alt="" coords="1011,850,1216,891"/>
+<area shape="rect" id="node2" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame..." alt="" coords="2008,299,2168,325"/>
+<area shape="rect" id="node3" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="1631,195,1788,221"/>
+<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="300,809,461,836"/>
+<area shape="rect" id="node6" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="705,1033,824,1060"/>
+<area shape="rect" id="node18" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="2029,1033,2147,1060"/>
+<area shape="rect" id="node5" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="1119,451,1307,477"/>
+<area shape="rect" id="node11" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="1137,1033,1289,1060"/>
+<area shape="rect" id="node30" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="1109,1150,1316,1191"/>
+<area shape="rect" id="node7" title="STL class. " alt="" coords="27,1037,114,1064"/>
+<area shape="rect" id="node17" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="313,1264,448,1291"/>
+<area shape="rect" id="node8" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="304,1093,457,1120"/>
+<area shape="rect" id="node9" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="649,400,880,427"/>
+<area shape="rect" id="node31" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1623,529,1795,556"/>
+<area shape="rect" id="node10" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="1120,68,1305,95"/>
+<area shape="rect" id="node12" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="687,968,843,995"/>
+<area shape="rect" id="node13" href="../../da/da4/classjeod_1_1MassPoint.html" title="Adds tree linkages and a name to a MassPointState. " alt="" coords="703,1195,827,1221"/>
+<area shape="rect" id="node37" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="2343,1087,2467,1113"/>
+<area shape="rect" id="node14" href="../../dd/d6e/classjeod_1_1MassPointState.html" title="Defines the state – position and orientation – of a MassPoint. " alt="" coords="301,1144,460,1171"/>
+<area shape="rect" id="node15" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="5,973,136,1000"/>
+<area shape="rect" id="node25" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="485,23,625,49"/>
+<area shape="rect" id="node16" href="../../db/ddc/classjeod_1_1MassPointLinks.html" title="Encapsulates the links between mass points. " alt="" coords="301,1195,460,1221"/>
+<area shape="rect" id="node22" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="1614,349,1805,376"/>
+<area shape="rect" id="node24" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="1093,283,1332,325"/>
+<area shape="rect" id="node26" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="1607,710,1812,751"/>
+<area shape="rect" id="node27" href="../../d3/d88/classjeod_1_1SimpleCheckpointable.html" title="The SimpleCheckpointable class provides a simple checkpoint/restart interface by which an object can ..." alt="" coords="1111,568,1315,595"/>
+<area shape="rect" id="node40" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="1612,581,1807,622"/>
+<area shape="rect" id="node28" href="../../d2/d30/classjeod_1_1RestartableGeneralizedStepSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lStepSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="1059,714,1367,785"/>
+<area shape="rect" id="node29" href="../../dd/d1c/classjeod_1_1RestartableGeneralizedDerivSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lDerivSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="1059,619,1367,690"/>
+<area shape="rect" id="node32" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="1624,828,1795,855"/>
+<area shape="rect" id="node33" href="../../d5/d03/classjeod_1_1JPVCollectTorque.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectTorque&gt;::type with an implem..." alt="" coords="1129,911,1296,937"/>
+<area shape="rect" id="node34" href="../../db/d8d/classjeod_1_1JPVCollectForce.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectForce&gt;::type with an impleme..." alt="" coords="1133,860,1292,887"/>
+<area shape="rect" id="node38" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="1621,1224,1797,1251"/>
+<area shape="rect" id="node39" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravityControls \&gt;" alt="" coords="1117,1217,1308,1258"/>
+<area shape="rect" id="node41" href="../../d1/dd0/classjeod_1_1RestartableSimpleSecondOrderODEIntegrator.html" title="jeod::RestartableSimpleSecond\lOrderODEIntegrator\&lt; 3 \&gt;" alt="" coords="1101,502,1325,543"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -114,9 +114,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a342cbb5ba655b666d6277dfe4591496a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a342cbb5ba655b666d6277dfe4591496a">PropagatedEphemerisPlanet</a> (<a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> &amp;dyn_body, <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> &amp;frame)</td></tr>
 <tr class="memdesc:a342cbb5ba655b666d6277dfe4591496a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html" title="A PropagatedEphemerisPlanet is an EphemerisPoint whose state is coupled with the translational state ...">PropagatedEphemerisPlanet</a> non-default constructor.  <a href="#a342cbb5ba655b666d6277dfe4591496a">More...</a><br /></td></tr>
 <tr class="separator:a342cbb5ba655b666d6277dfe4591496a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a925c9fa1d5458c17e45a4db92ea2e989"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a925c9fa1d5458c17e45a4db92ea2e989">~PropagatedEphemerisPlanet</a> (void) override</td></tr>
-<tr class="memdesc:a925c9fa1d5458c17e45a4db92ea2e989"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html" title="A PropagatedEphemerisPlanet is an EphemerisPoint whose state is coupled with the translational state ...">PropagatedEphemerisPlanet</a> destructor.  <a href="#a925c9fa1d5458c17e45a4db92ea2e989">More...</a><br /></td></tr>
-<tr class="separator:a925c9fa1d5458c17e45a4db92ea2e989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0618700b75dad6e77ba8b271b8d3e2a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#ac0618700b75dad6e77ba8b271b8d3e2a">~PropagatedEphemerisPlanet</a> () override=default</td></tr>
+<tr class="separator:ac0618700b75dad6e77ba8b271b8d3e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d6ee7582d29d02004fb401ddd45a26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a44d6ee7582d29d02004fb401ddd45a26">PropagatedEphemerisPlanet</a> (const <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html">PropagatedEphemerisPlanet</a> &amp;)=delete</td></tr>
+<tr class="separator:a44d6ee7582d29d02004fb401ddd45a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9491cc041527d80cbbb9d29751dd534"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html">PropagatedEphemerisPlanet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#ab9491cc041527d80cbbb9d29751dd534">operator=</a> (const <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html">PropagatedEphemerisPlanet</a> &amp;)=delete</td></tr>
+<tr class="separator:ab9491cc041527d80cbbb9d29751dd534"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19934baf362c115de9b2cc9a2fd75211"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a19934baf362c115de9b2cc9a2fd75211">update</a> (double time)</td></tr>
 <tr class="memdesc:a19934baf362c115de9b2cc9a2fd75211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy rotational state from/to the body reference frame.  <a href="#a19934baf362c115de9b2cc9a2fd75211">More...</a><br /></td></tr>
 <tr class="separator:a19934baf362c115de9b2cc9a2fd75211"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,18 +127,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adca114dbc4e11f3fced39eeaa9c444ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the inertial frame's translational state.  <a href="#adca114dbc4e11f3fced39eeaa9c444ef">More...</a><br /></td></tr>
 <tr class="separator:adca114dbc4e11f3fced39eeaa9c444ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1EphemerisPoint"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1EphemerisPoint')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html">jeod::EphemerisPoint</a></td></tr>
-<tr class="memitem:acf1de777228511571e587b73cd6d0acc inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#acf1de777228511571e587b73cd6d0acc">EphemerisPoint</a> ()</td></tr>
-<tr class="memdesc:acf1de777228511571e587b73cd6d0acc inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an ephemeris point.  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#acf1de777228511571e587b73cd6d0acc">More...</a><br /></td></tr>
-<tr class="separator:acf1de777228511571e587b73cd6d0acc inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a320b1b5d618abf3e5c35fa852cba6c49 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a320b1b5d618abf3e5c35fa852cba6c49">~EphemerisPoint</a> () override</td></tr>
-<tr class="memdesc:a320b1b5d618abf3e5c35fa852cba6c49 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy an ephemeris point.  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a320b1b5d618abf3e5c35fa852cba6c49">More...</a><br /></td></tr>
-<tr class="separator:a320b1b5d618abf3e5c35fa852cba6c49 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a58b25af41c8994cffa861fbafc6510 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a9afe22dfef80611356b05ec8bcd7d05b">TargetAspect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a9a58b25af41c8994cffa861fbafc6510">updates_what</a> (void) const override</td></tr>
-<tr class="memdesc:a9a58b25af41c8994cffa861fbafc6510 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the aspect of the target frame updated by the object.  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a9a58b25af41c8994cffa861fbafc6510">More...</a><br /></td></tr>
-<tr class="separator:a9a58b25af41c8994cffa861fbafc6510 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bc2132752c909e12a38d0f106f6e684 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a8bc2132752c909e12a38d0f106f6e684">default_suffix</a> () const override</td></tr>
-<tr class="memdesc:a8bc2132752c909e12a38d0f106f6e684 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the default suffix for this item class, i.e., "inertial".  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a8bc2132752c909e12a38d0f106f6e684">More...</a><br /></td></tr>
-<tr class="separator:a8bc2132752c909e12a38d0f106f6e684 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbd39805bff6b203270af97a8fdc4da8 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#afbd39805bff6b203270af97a8fdc4da8">EphemerisPoint</a> ()=default</td></tr>
+<tr class="separator:afbd39805bff6b203270af97a8fdc4da8 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14e7381d8581f61f2549ced29d3030ca inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a14e7381d8581f61f2549ced29d3030ca">~EphemerisPoint</a> () override=default</td></tr>
+<tr class="separator:a14e7381d8581f61f2549ced29d3030ca inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b62cc865b89d115d265c78317daa8b4 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a6b62cc865b89d115d265c78317daa8b4">EphemerisPoint</a> (const <a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html">EphemerisPoint</a> &amp;)=delete</td></tr>
+<tr class="separator:a6b62cc865b89d115d265c78317daa8b4 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abac16b25403a882ee2ffcafe3f435abb inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html">EphemerisPoint</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#abac16b25403a882ee2ffcafe3f435abb">operator=</a> (const <a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html">EphemerisPoint</a> &amp;)=delete</td></tr>
+<tr class="separator:abac16b25403a882ee2ffcafe3f435abb inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb67b33ec457b0276d0da09282c99a0 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a9afe22dfef80611356b05ec8bcd7d05b">TargetAspect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a7fb67b33ec457b0276d0da09282c99a0">updates_what</a> () const override</td></tr>
+<tr class="memdesc:a7fb67b33ec457b0276d0da09282c99a0 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the aspect of the target frame updated by the object.  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a7fb67b33ec457b0276d0da09282c99a0">More...</a><br /></td></tr>
+<tr class="separator:a7fb67b33ec457b0276d0da09282c99a0 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a135faa9dc76bc1dba393aab841bb71d8 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a135faa9dc76bc1dba393aab841bb71d8">default_suffix</a> () const override</td></tr>
+<tr class="memdesc:a135faa9dc76bc1dba393aab841bb71d8 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the default suffix for this item class, i.e., "inertial".  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a135faa9dc76bc1dba393aab841bb71d8">More...</a><br /></td></tr>
+<tr class="separator:a135faa9dc76bc1dba393aab841bb71d8 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d684d3d9350245dae56b695e86209f3 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a9d684d3d9350245dae56b695e86209f3">disconnect_from_tree</a> () override</td></tr>
 <tr class="memdesc:a9d684d3d9350245dae56b695e86209f3 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect the associated inertial frame from the tree.  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a9d684d3d9350245dae56b695e86209f3">More...</a><br /></td></tr>
 <tr class="separator:a9d684d3d9350245dae56b695e86209f3 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,27 +157,29 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2a7aefb82f49c6a9b0b3b64b1d6313a9 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the inertial frame's translational state.  <a href="../../d1/d42/classjeod_1_1EphemerisPoint.html#a2a7aefb82f49c6a9b0b3b64b1d6313a9">More...</a><br /></td></tr>
 <tr class="separator:a2a7aefb82f49c6a9b0b3b64b1d6313a9 inherit pub_methods_classjeod_1_1EphemerisPoint"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1EphemerisItem"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1EphemerisItem')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">jeod::EphemerisItem</a></td></tr>
-<tr class="memitem:a887316bf1f922ec2dd33dc50b55ba1a4 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a887316bf1f922ec2dd33dc50b55ba1a4">EphemerisItem</a> ()</td></tr>
-<tr class="memdesc:a887316bf1f922ec2dd33dc50b55ba1a4 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a887316bf1f922ec2dd33dc50b55ba1a4">More...</a><br /></td></tr>
-<tr class="separator:a887316bf1f922ec2dd33dc50b55ba1a4 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55e80b305c04d76c03275ebf427b0bbf inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a55e80b305c04d76c03275ebf427b0bbf">~EphemerisItem</a> () override</td></tr>
-<tr class="memdesc:a55e80b305c04d76c03275ebf427b0bbf inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a55e80b305c04d76c03275ebf427b0bbf">More...</a><br /></td></tr>
-<tr class="separator:a55e80b305c04d76c03275ebf427b0bbf inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac54251361516baddf30b1f0c743135f4 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ac54251361516baddf30b1f0c743135f4">set_name</a> (const char *new_name)</td></tr>
-<tr class="memdesc:ac54251361516baddf30b1f0c743135f4 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#ac54251361516baddf30b1f0c743135f4">More...</a><br /></td></tr>
-<tr class="separator:ac54251361516baddf30b1f0c743135f4 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5949869d821899f30dab35add8bfb077 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a5949869d821899f30dab35add8bfb077">set_name</a> (const char *pname, const char *fname)</td></tr>
-<tr class="memdesc:a5949869d821899f30dab35add8bfb077 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a5949869d821899f30dab35add8bfb077">More...</a><br /></td></tr>
-<tr class="separator:a5949869d821899f30dab35add8bfb077 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a580901e24db1eef343efcbdfdfa5a8cb inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a580901e24db1eef343efcbdfdfa5a8cb">get_name</a> () const</td></tr>
-<tr class="memdesc:a580901e24db1eef343efcbdfdfa5a8cb inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a580901e24db1eef343efcbdfdfa5a8cb">More...</a><br /></td></tr>
-<tr class="separator:a580901e24db1eef343efcbdfdfa5a8cb inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bacb18c2a304711972daa894a4e3f22 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a6bacb18c2a304711972daa894a4e3f22">EphemerisItem</a> ()=default</td></tr>
+<tr class="separator:a6bacb18c2a304711972daa894a4e3f22 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06f1c10ecc97d465f9629bcaa8bc1a1c inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a06f1c10ecc97d465f9629bcaa8bc1a1c">~EphemerisItem</a> () override=default</td></tr>
+<tr class="separator:a06f1c10ecc97d465f9629bcaa8bc1a1c inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a60ff5126a3653dbaf707501e8c4708 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a1a60ff5126a3653dbaf707501e8c4708">EphemerisItem</a> (const <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> &amp;)=delete</td></tr>
+<tr class="separator:a1a60ff5126a3653dbaf707501e8c4708 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02b626d59adc97975f098c9831f19ecb inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a02b626d59adc97975f098c9831f19ecb">operator=</a> (const <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> &amp;)=delete</td></tr>
+<tr class="separator:a02b626d59adc97975f098c9831f19ecb inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c3bd481da4749a94b9b3d0bebb6d838 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a4c3bd481da4749a94b9b3d0bebb6d838">set_name</a> (const std::string &amp;new_name)</td></tr>
+<tr class="memdesc:a4c3bd481da4749a94b9b3d0bebb6d838 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a4c3bd481da4749a94b9b3d0bebb6d838">More...</a><br /></td></tr>
+<tr class="separator:a4c3bd481da4749a94b9b3d0bebb6d838 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedd7d877b8fa2fafe0c303fb013ae644 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aedd7d877b8fa2fafe0c303fb013ae644">set_name</a> (const std::string &amp;pname, const std::string &amp;fname)</td></tr>
+<tr class="memdesc:aedd7d877b8fa2fafe0c303fb013ae644 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#aedd7d877b8fa2fafe0c303fb013ae644">More...</a><br /></td></tr>
+<tr class="separator:aedd7d877b8fa2fafe0c303fb013ae644 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66a56e8cae76232555dfac740c674fc6 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a66a56e8cae76232555dfac740c674fc6">get_name</a> () const</td></tr>
+<tr class="memdesc:a66a56e8cae76232555dfac740c674fc6 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a66a56e8cae76232555dfac740c674fc6">More...</a><br /></td></tr>
+<tr class="separator:a66a56e8cae76232555dfac740c674fc6 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa31d564680ab9b3f4df0c77503e97b3a inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa31d564680ab9b3f4df0c77503e97b3a">set_timestamp</a> (double time)</td></tr>
 <tr class="memdesc:aa31d564680ab9b3f4df0c77503e97b3a inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the update time of this item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa31d564680ab9b3f4df0c77503e97b3a">More...</a><br /></td></tr>
 <tr class="separator:aa31d564680ab9b3f4df0c77503e97b3a inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ac517437f2a979955a620101cb37d1d inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a2ac517437f2a979955a620101cb37d1d">timestamp</a> (void) const</td></tr>
-<tr class="memdesc:a2ac517437f2a979955a620101cb37d1d inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the update time of this item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a2ac517437f2a979955a620101cb37d1d">More...</a><br /></td></tr>
-<tr class="separator:a2ac517437f2a979955a620101cb37d1d inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7994f5b1af15cef1b930735e63c18ba inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ae7994f5b1af15cef1b930735e63c18ba">timestamp</a> () const</td></tr>
+<tr class="memdesc:ae7994f5b1af15cef1b930735e63c18ba inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the update time of this item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#ae7994f5b1af15cef1b930735e63c18ba">More...</a><br /></td></tr>
+<tr class="separator:ae7994f5b1af15cef1b930735e63c18ba inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a69b8768fc62ca7ae05dcaf3d38631b inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a5a69b8768fc62ca7ae05dcaf3d38631b">set_owner</a> (<a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html">EphemerisInterface</a> *new_owner)</td></tr>
 <tr class="memdesc:a5a69b8768fc62ca7ae05dcaf3d38631b inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the owner of this item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a5a69b8768fc62ca7ae05dcaf3d38631b">More...</a><br /></td></tr>
 <tr class="separator:a5a69b8768fc62ca7ae05dcaf3d38631b inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,9 +219,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7e0bcee5bceef53022996962aba9d761 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a7e0bcee5bceef53022996962aba9d761">is_enabled</a> () const</td></tr>
 <tr class="memdesc:a7e0bcee5bceef53022996962aba9d761 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return enabled status.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a7e0bcee5bceef53022996962aba9d761">More...</a><br /></td></tr>
 <tr class="separator:a7e0bcee5bceef53022996962aba9d761 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0dde68e0fb00c40cc5469c581d1c464 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ab0dde68e0fb00c40cc5469c581d1c464">get_enabled_item</a> (void) const</td></tr>
-<tr class="memdesc:ab0dde68e0fb00c40cc5469c581d1c464 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the item marked as enabled, if any.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#ab0dde68e0fb00c40cc5469c581d1c464">More...</a><br /></td></tr>
-<tr class="separator:ab0dde68e0fb00c40cc5469c581d1c464 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d6a35df02f5982f53a4761d8ee1ef63 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a3d6a35df02f5982f53a4761d8ee1ef63">get_enabled_item</a> () const</td></tr>
+<tr class="memdesc:a3d6a35df02f5982f53a4761d8ee1ef63 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the item marked as enabled, if any.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a3d6a35df02f5982f53a4761d8ee1ef63">More...</a><br /></td></tr>
+<tr class="separator:a3d6a35df02f5982f53a4761d8ee1ef63 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad7c60d08825f9a9d033bf7dc705407a inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aad7c60d08825f9a9d033bf7dc705407a">activate</a> ()</td></tr>
 <tr class="memdesc:aad7c60d08825f9a9d033bf7dc705407a inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate a <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo...">EphemerisItem</a> object.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#aad7c60d08825f9a9d033bf7dc705407a">More...</a><br /></td></tr>
 <tr class="separator:aad7c60d08825f9a9d033bf7dc705407a inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -227,16 +234,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a551babd172822ecba2f506a860dfe5a9 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a551babd172822ecba2f506a860dfe5a9">is_activatable</a> () const</td></tr>
 <tr class="memdesc:a551babd172822ecba2f506a860dfe5a9 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the item activatable?  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a551babd172822ecba2f506a860dfe5a9">More...</a><br /></td></tr>
 <tr class="separator:a551babd172822ecba2f506a860dfe5a9 inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21db658976b790eecf077a10b5f119ff inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a21db658976b790eecf077a10b5f119ff">validate_name</a> (const char *file, unsigned int line, const char *new_value, const char *old_value, const char *variable_name)</td></tr>
-<tr class="memdesc:a21db658976b790eecf077a10b5f119ff inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a21db658976b790eecf077a10b5f119ff">More...</a><br /></td></tr>
-<tr class="separator:a21db658976b790eecf077a10b5f119ff inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefdcd33e8fa1cd3ad7912ff2f5b33ace inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aefdcd33e8fa1cd3ad7912ff2f5b33ace">validate_name</a> (const char *file, unsigned int line, const std::string &amp;new_value, const std::string &amp;old_value, const std::string &amp;variable_name)</td></tr>
+<tr class="memdesc:aefdcd33e8fa1cd3ad7912ff2f5b33ace inherit pub_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#aefdcd33e8fa1cd3ad7912ff2f5b33ace">More...</a><br /></td></tr>
+<tr class="separator:aefdcd33e8fa1cd3ad7912ff2f5b33ace inherit pub_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1RefFrameOwner"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1RefFrameOwner')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html">jeod::RefFrameOwner</a></td></tr>
-<tr class="memitem:a52d8011ba86952dec33a808a40f8f13b inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a52d8011ba86952dec33a808a40f8f13b">RefFrameOwner</a> ()</td></tr>
-<tr class="memdesc:a52d8011ba86952dec33a808a40f8f13b inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> default constructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a52d8011ba86952dec33a808a40f8f13b">More...</a><br /></td></tr>
-<tr class="separator:a52d8011ba86952dec33a808a40f8f13b inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a343b1fe6efe5ecd88c33398f92ea6257 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a343b1fe6efe5ecd88c33398f92ea6257">~RefFrameOwner</a> ()</td></tr>
-<tr class="memdesc:a343b1fe6efe5ecd88c33398f92ea6257 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> destructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a343b1fe6efe5ecd88c33398f92ea6257">More...</a><br /></td></tr>
-<tr class="separator:a343b1fe6efe5ecd88c33398f92ea6257 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49685b837fce13d51d5844f31c24acf0 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a49685b837fce13d51d5844f31c24acf0">RefFrameOwner</a> ()=default</td></tr>
+<tr class="memdesc:a49685b837fce13d51d5844f31c24acf0 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> default constructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a49685b837fce13d51d5844f31c24acf0">More...</a><br /></td></tr>
+<tr class="separator:a49685b837fce13d51d5844f31c24acf0 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a064221590c8eb9890f212100a1979e34 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a064221590c8eb9890f212100a1979e34">~RefFrameOwner</a> ()=default</td></tr>
+<tr class="memdesc:a064221590c8eb9890f212100a1979e34 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> destructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a064221590c8eb9890f212100a1979e34">More...</a><br /></td></tr>
+<tr class="separator:a064221590c8eb9890f212100a1979e34 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -247,42 +254,33 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:ac2f8cae5037800c10f8d7a06140611bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The body reference frame whose translational state is coupled with that of the planet's inertial frame.  <a href="#ac2f8cae5037800c10f8d7a06140611bc">More...</a><br /></td></tr>
 <tr class="separator:ac2f8cae5037800c10f8d7a06140611bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1EphemerisItem"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1EphemerisItem')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">jeod::EphemerisItem</a></td></tr>
-<tr class="memitem:a593a330381530fa8f199eb598d206f14 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a593a330381530fa8f199eb598d206f14">name</a></td></tr>
-<tr class="memdesc:a593a330381530fa8f199eb598d206f14 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a593a330381530fa8f199eb598d206f14">More...</a><br /></td></tr>
-<tr class="separator:a593a330381530fa8f199eb598d206f14 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99315516a30b4da29118ce70b8724645 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html">EphemerisInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a99315516a30b4da29118ce70b8724645">owner</a></td></tr>
+<tr class="memitem:ac0721ee34f8eefc4d1021b2403371d12 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ac0721ee34f8eefc4d1021b2403371d12">name</a></td></tr>
+<tr class="memdesc:ac0721ee34f8eefc4d1021b2403371d12 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#ac0721ee34f8eefc4d1021b2403371d12">More...</a><br /></td></tr>
+<tr class="separator:ac0721ee34f8eefc4d1021b2403371d12 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99315516a30b4da29118ce70b8724645 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html">EphemerisInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a99315516a30b4da29118ce70b8724645">owner</a> {}</td></tr>
 <tr class="memdesc:a99315516a30b4da29118ce70b8724645 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ephemeris model that owns this object.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a99315516a30b4da29118ce70b8724645">More...</a><br /></td></tr>
 <tr class="separator:a99315516a30b4da29118ce70b8724645 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68554108ba2bb4f7d62ca2f2d97d27c8 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html">BaseEphemeridesManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a68554108ba2bb4f7d62ca2f2d97d27c8">manager</a></td></tr>
+<tr class="memitem:a68554108ba2bb4f7d62ca2f2d97d27c8 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html">BaseEphemeridesManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a68554108ba2bb4f7d62ca2f2d97d27c8">manager</a> {}</td></tr>
 <tr class="memdesc:a68554108ba2bb4f7d62ca2f2d97d27c8 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ephemeris manager that manages this object.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a68554108ba2bb4f7d62ca2f2d97d27c8">More...</a><br /></td></tr>
 <tr class="separator:a68554108ba2bb4f7d62ca2f2d97d27c8 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51273bc4e85ed2b88a83a9ff30dca38b inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a51273bc4e85ed2b88a83a9ff30dca38b">target_frame</a></td></tr>
+<tr class="memitem:a51273bc4e85ed2b88a83a9ff30dca38b inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a51273bc4e85ed2b88a83a9ff30dca38b">target_frame</a> {}</td></tr>
 <tr class="memdesc:a51273bc4e85ed2b88a83a9ff30dca38b inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reference frame whose non-constant state is set by this object.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a51273bc4e85ed2b88a83a9ff30dca38b">More...</a><br /></td></tr>
 <tr class="separator:a51273bc4e85ed2b88a83a9ff30dca38b inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95796d0db129a288144fe46516445224 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a95796d0db129a288144fe46516445224">head</a></td></tr>
+<tr class="memitem:a95796d0db129a288144fe46516445224 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a95796d0db129a288144fe46516445224">head</a> {}</td></tr>
 <tr class="memdesc:a95796d0db129a288144fe46516445224 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">The first ephemeris item with the same name as this item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a95796d0db129a288144fe46516445224">More...</a><br /></td></tr>
 <tr class="separator:a95796d0db129a288144fe46516445224 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30c1135ca81dd9fb6ff9d7ffcc754688 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a30c1135ca81dd9fb6ff9d7ffcc754688">next</a></td></tr>
+<tr class="memitem:a30c1135ca81dd9fb6ff9d7ffcc754688 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a30c1135ca81dd9fb6ff9d7ffcc754688">next</a> {}</td></tr>
 <tr class="memdesc:a30c1135ca81dd9fb6ff9d7ffcc754688 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">The next ephemeris item with the same name as this item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a30c1135ca81dd9fb6ff9d7ffcc754688">More...</a><br /></td></tr>
 <tr class="separator:a30c1135ca81dd9fb6ff9d7ffcc754688 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad353c02670723594b4a89e7cba04a500 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ad353c02670723594b4a89e7cba04a500">update_time</a></td></tr>
+<tr class="memitem:ad353c02670723594b4a89e7cba04a500 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ad353c02670723594b4a89e7cba04a500">update_time</a> {}</td></tr>
 <tr class="memdesc:ad353c02670723594b4a89e7cba04a500 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time of last update, dynamic time seconds.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#ad353c02670723594b4a89e7cba04a500">More...</a><br /></td></tr>
 <tr class="separator:ad353c02670723594b4a89e7cba04a500 inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9902a751af093d208ffa5c5b4e84e1d inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa9902a751af093d208ffa5c5b4e84e1d">enabled</a></td></tr>
+<tr class="memitem:aa9902a751af093d208ffa5c5b4e84e1d inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa9902a751af093d208ffa5c5b4e84e1d">enabled</a> {}</td></tr>
 <tr class="memdesc:aa9902a751af093d208ffa5c5b4e84e1d inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the item enabled?  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa9902a751af093d208ffa5c5b4e84e1d">More...</a><br /></td></tr>
 <tr class="separator:aa9902a751af093d208ffa5c5b4e84e1d inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab002801d533f09707b92f84b2f8767cb inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ab002801d533f09707b92f84b2f8767cb">active</a></td></tr>
+<tr class="memitem:ab002801d533f09707b92f84b2f8767cb inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ab002801d533f09707b92f84b2f8767cb">active</a> {}</td></tr>
 <tr class="memdesc:ab002801d533f09707b92f84b2f8767cb inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the item active?  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#ab002801d533f09707b92f84b2f8767cb">More...</a><br /></td></tr>
 <tr class="separator:ab002801d533f09707b92f84b2f8767cb inherit pro_attribs_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a6ce278aee439ac5e2127d59d58c41812"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a6ce278aee439ac5e2127d59d58c41812">PropagatedEphemerisPlanet</a> (const <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html">PropagatedEphemerisPlanet</a> &amp;)</td></tr>
-<tr class="memdesc:a6ce278aee439ac5e2127d59d58c41812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#a6ce278aee439ac5e2127d59d58c41812">More...</a><br /></td></tr>
-<tr class="separator:a6ce278aee439ac5e2127d59d58c41812"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a139f3edd786e33444a7d8e00fa382d05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html">PropagatedEphemerisPlanet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a139f3edd786e33444a7d8e00fa382d05">operator=</a> (const <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html">PropagatedEphemerisPlanet</a> &amp;)</td></tr>
-<tr class="memdesc:a139f3edd786e33444a7d8e00fa382d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#a139f3edd786e33444a7d8e00fa382d05">More...</a><br /></td></tr>
-<tr class="separator:a139f3edd786e33444a7d8e00fa382d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -300,9 +298,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a9afe22dfef80611356b05ec8bcd7d05b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the aspect of the target frame that will be modified by the <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo...">EphemerisItem</a> object.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a9afe22dfef80611356b05ec8bcd7d05b">More...</a><br /></td></tr>
 <tr class="separator:a9afe22dfef80611356b05ec8bcd7d05b inherit pub_types_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classjeod_1_1EphemerisItem"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjeod_1_1EphemerisItem')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">jeod::EphemerisItem</a></td></tr>
-<tr class="memitem:a90c69b8d4f02b900326c65f052e98710 inherit pro_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a90c69b8d4f02b900326c65f052e98710">set_name_internal</a> (char *new_name)</td></tr>
-<tr class="memdesc:a90c69b8d4f02b900326c65f052e98710 inherit pro_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a90c69b8d4f02b900326c65f052e98710">More...</a><br /></td></tr>
-<tr class="separator:a90c69b8d4f02b900326c65f052e98710 inherit pro_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c075c0bd8e0c1f7506bde4cc0309472 inherit pro_methods_classjeod_1_1EphemerisItem"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a6c075c0bd8e0c1f7506bde4cc0309472">set_name_internal</a> (const std::string &amp;new_name)</td></tr>
+<tr class="memdesc:a6c075c0bd8e0c1f7506bde4cc0309472 inherit pro_methods_classjeod_1_1EphemerisItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name an ephemeris item.  <a href="../../d2/da5/classjeod_1_1EphemerisItem.html#a6c075c0bd8e0c1f7506bde4cc0309472">More...</a><br /></td></tr>
+<tr class="separator:a6c075c0bd8e0c1f7506bde4cc0309472 inherit pro_methods_classjeod_1_1EphemerisItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html" title="A PropagatedEphemerisPlanet is an EphemerisPoint whose state is coupled with the translational state ...">PropagatedEphemerisPlanet</a> is an <a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame...">EphemerisPoint</a> whose state is coupled with the translational state of a <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> reference frame. </p>
@@ -312,7 +310,7 @@ Additional Inherited Members</h2></td></tr>
 <p>This class is intended for use by the <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> class. Use outside of the <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html" title="The PropagatedPlanet ephemeris model provides planetary state via a DynBody object whose state is pro...">PropagatedPlanet</a> is not sanctioned.</p>
 <p>The class acts analogously to the class <a class="el" href="../../d8/d70/classjeod_1_1PropagatedEphemerisOrientation.html" title="A PropagatedEphemerisOrientation is an EphemerisOrientation whose state is coupled with the rotationa...">PropagatedEphemerisOrientation</a>, but for translation rather than rotation. See <a class="el" href="../../d8/d70/classjeod_1_1PropagatedEphemerisOrientation.html" title="A PropagatedEphemerisOrientation is an EphemerisOrientation whose state is coupled with the rotationa...">PropagatedEphemerisOrientation</a> for a description of the behavior of the class. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00119">119</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00117">117</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a342cbb5ba655b666d6277dfe4591496a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a342cbb5ba655b666d6277dfe4591496a">&#9670;&nbsp;</a></span>PropagatedEphemerisPlanet() <span class="overload">[1/2]</span></h2>
@@ -349,12 +347,12 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00188">188</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00155">155</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
 </div>
 </div>
-<a id="a925c9fa1d5458c17e45a4db92ea2e989"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a925c9fa1d5458c17e45a4db92ea2e989">&#9670;&nbsp;</a></span>~PropagatedEphemerisPlanet()</h2>
+<a id="ac0618700b75dad6e77ba8b271b8d3e2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0618700b75dad6e77ba8b271b8d3e2a">&#9670;&nbsp;</a></span>~PropagatedEphemerisPlanet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,26 +363,21 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">jeod::PropagatedEphemerisPlanet::~PropagatedEphemerisPlanet </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html" title="A PropagatedEphemerisPlanet is an EphemerisPoint whose state is coupled with the translational state ...">PropagatedEphemerisPlanet</a> destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00081">81</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
-
 </div>
 </div>
-<a id="a6ce278aee439ac5e2127d59d58c41812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ce278aee439ac5e2127d59d58c41812">&#9670;&nbsp;</a></span>PropagatedEphemerisPlanet() <span class="overload">[2/2]</span></h2>
+<a id="a44d6ee7582d29d02004fb401ddd45a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d6ee7582d29d02004fb401ddd45a26">&#9670;&nbsp;</a></span>PropagatedEphemerisPlanet() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -402,18 +395,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Not implemented. </p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a139f3edd786e33444a7d8e00fa382d05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a139f3edd786e33444a7d8e00fa382d05">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ab9491cc041527d80cbbb9d29751dd534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9491cc041527d80cbbb9d29751dd534">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,12 +422,10 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -465,7 +454,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d16/ephem__point_8cc_source.html#l00154">154</a> of file <a class="el" href="../../d7/d16/ephem__point_8cc_source.html">ephem_point.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d16/ephem__point_8cc_source.html#l00122">122</a> of file <a class="el" href="../../d7/d16/ephem__point_8cc_source.html">ephem_point.cc</a>.</p>
 
 </div>
 </div>
@@ -502,11 +491,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00093">93</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html#l00080">80</a> of file <a class="el" href="../../d5/ddc/propagated__planet_8cc_source.html">propagated_planet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a11e7c48ce14d2ea8aee72f0752585512">body</a>, <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#ac2f8cae5037800c10f8d7a06140611bc">body_ref_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa9902a751af093d208ffa5c5b4e84e1d">jeod::EphemerisItem::enabled</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5508e671597d26defd7e3aa40a804e0c">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8daa882403dbc2f28b050edb73d45c44b266">jeod::RefFrameItems::Pos_Vel</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ad5c5af3b1f79dac9dc3f72421aedea99">jeod::DynBody::set_state()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">jeod::RefFrame::set_timestamp()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a51273bc4e85ed2b88a83a9ff30dca38b">jeod::EphemerisItem::target_frame</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, and <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ad353c02670723594b4a89e7cba04a500">jeod::EphemerisItem::update_time</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a11e7c48ce14d2ea8aee72f0752585512">body</a>, <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#ac2f8cae5037800c10f8d7a06140611bc">body_ref_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa9902a751af093d208ffa5c5b4e84e1d">jeod::EphemerisItem::enabled</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#aa6a2cde84644f457e00ec88de5360033">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8daa882403dbc2f28b050edb73d45c44b266">jeod::RefFrameItems::Pos_Vel</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ad5c5af3b1f79dac9dc3f72421aedea99">jeod::DynBody::set_state()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">jeod::RefFrame::set_timestamp()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a51273bc4e85ed2b88a83a9ff30dca38b">jeod::EphemerisItem::target_frame</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, and <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ad353c02670723594b4a89e7cba04a500">jeod::EphemerisItem::update_time</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#ae18f9933410b7f45581cf4b97c4857ec">jeod::PropagatedPlanet::ephem_update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#af31612adf510b47ff4e8cb72ddbec6b9">jeod::PropagatedPlanet::ephem_update()</a>.</p>
 
 </div>
 </div>
@@ -556,7 +545,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00120">120</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00119">119</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 </div>
 </div>
@@ -584,7 +573,7 @@ Additional Inherited Members</h2></td></tr>
 <p>The dynamic body whose state is tied to that of the planet. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00157">157</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00135">135</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a19934baf362c115de9b2cc9a2fd75211">update()</a>.</p>
 
@@ -613,7 +602,7 @@ Additional Inherited Members</h2></td></tr>
 <p>The body reference frame whose translational state is coupled with that of the planet's inertial frame. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00163">163</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html#l00141">141</a> of file <a class="el" href="../../d5/d64/propagated__planet_8hh_source.html">propagated_planet.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d37/classjeod_1_1PropagatedEphemerisPlanet.html#a19934baf362c115de9b2cc9a2fd75211">update()</a>.</p>
 

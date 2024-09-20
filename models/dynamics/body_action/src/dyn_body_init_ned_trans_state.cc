@@ -30,7 +30,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -42,67 +41,47 @@ Library dependencies:
 #include "../include/body_action_messages.hh"
 #include "../include/dyn_body_init_ned_trans_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * DynBodyInitNedTransState default constructor.
  */
-DynBodyInitNedTransState::DynBodyInitNedTransState (
-   void)
-:
-   DynBodyInitNedState()
+DynBodyInitNedTransState::DynBodyInitNedTransState()
 {
-   set_items = RefFrameItems::Pos_Vel;
-   return;
+    set_items = RefFrameItems::Pos_Vel;
 }
-
-
-/**
- * DynBodyInitNedTransState destructor.
- */
-DynBodyInitNedTransState::~DynBodyInitNedTransState (
-   void)
-{
-   return;
-}
-
 
 /**
  * Initialize the initializer.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitNedTransState::initialize (
-   DynManager & dyn_manager)
+void DynBodyInitNedTransState::initialize(DynManager & dyn_manager)
 {
+    RefFrameItems test_items(set_items);
 
-   RefFrameItems test_items(set_items);
+    // Check for an invalid user-override of the to-be-initialized states.
+    // Warn (but do not die) if this is the case.
+    if(test_items.contains(RefFrameItems::Att) || test_items.contains(RefFrameItems::Rate))
+    {
+        MessageHandler::warn(__FILE__,
+                             __LINE__,
+                             BodyActionMessages::illegal_value,
+                             "%s warning:\n"
+                             "set_items contains rotational aspects. Removing them.",
+                             action_identifier.c_str());
 
-   // Check for an invalid user-override of the to-be-initialized states.
-   // Warn (but do not die) if this is the case.
-   if (test_items.contains (RefFrameItems::Att) ||
-       test_items.contains (RefFrameItems::Rate)) {
+        test_items.remove(RefFrameItems::Att_Rate);
+        set_items = test_items.get();
+    }
 
-      MessageHandler::warn (
-         __FILE__, __LINE__, BodyActionMessages::illegal_value,
-         "%s warning:\n"
-         "set_items contains rotational aspects. Removing them.",
-         action_identifier.c_str());
-
-      test_items.remove (RefFrameItems::Att_Rate);
-      set_items = test_items.get();
-   }
-
-   // Pass the message up the chain. This will initialize the base
-   // characteristics of the instance.
-   DynBodyInitNedState::initialize (dyn_manager);
-
-   return;
+    // Pass the message up the chain. This will initialize the base
+    // characteristics of the instance.
+    DynBodyInitNedState::initialize(dyn_manager);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

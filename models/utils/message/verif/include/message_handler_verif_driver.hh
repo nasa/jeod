@@ -50,10 +50,9 @@ Library dependencies:
   ((../src/message_handler_verif_driver.cc)
   ((../src/message_handler_verif_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MESSAGE_HANDLER_VERIF_DRIVER_HH
 #define JEOD_MESSAGE_HANDLER_VERIF_DRIVER_HH
@@ -72,49 +71,33 @@ Library dependencies:
 
 #define JEOD_TRICK_INTEGRATOR_ALIAS Trick::Integrator
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class MessageHandlerVerifDriver {
+class MessageHandlerVerifDriver
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MessageHandlerVerifDriver)
 
+    // Member data
+public:
+    int message_number{}; /* trick_units(--) @n
+       Error number.
+       If non-zero, the driver generates a message. */
 
- JEOD_MAKE_SIM_INTERFACES(MessageHandlerVerifDriver)
+public:
+    // Default constructor
+    MessageHandlerVerifDriver() = default;
+    MessageHandlerVerifDriver(const MessageHandlerVerifDriver &) = delete;
+    MessageHandlerVerifDriver & operator=(const MessageHandlerVerifDriver &) = delete;
 
+    // integrate(): Always return zero
+    int integrate(JEOD_TRICK_INTEGRATOR_ALIAS * integ); // Inout:  -- Trick integration structure
 
- // Member data
- public:
-   int message_number; /* trick_units(--) @n
-      Error number.
-      If non-zero, the driver generates a message. */
-
- // Member functions
- // The copy constructor and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   MessageHandlerVerifDriver (
-      const MessageHandlerVerifDriver &);
-   MessageHandlerVerifDriver & operator= (
-      const MessageHandlerVerifDriver &);
-
- public:
-
-   // Default constructor
-   MessageHandlerVerifDriver (
-      void);
-
-   // integrate(): Always return zero
-   int integrate (
-      JEOD_TRICK_INTEGRATOR_ALIAS * integ);      // Inout:  -- Trick integration structure
-
-   // generate_messages(): Generate messages
-   void generate_messages (
-      void);
-
+    // generate_messages(): Generate messages
+    void generate_messages();
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

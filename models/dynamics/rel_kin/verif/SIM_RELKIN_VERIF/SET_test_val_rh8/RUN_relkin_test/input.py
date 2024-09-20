@@ -55,17 +55,17 @@ veh1.mass_init.properties.inertia[2]  = [ -5.48e+6,  5.90e+5,  1.64e+8]
 
 # veh1.mass_init.points = trick.MassPointInit()
 # veh1.mass_init.points.thisown = 0
-veh1.mass_init.points = trick.sim_services.alloc_type(1, "jeod::MassPointInit")
-
-veh1.mass_init.num_points = 1
-veh1.mass_init.points[0].set_name("reflector1")
-veh1.mass_init.points[0].position  = [ -10.0, 6.0, 2.5]
-veh1.mass_init.points[0].pt_orientation.data_source =    trick.Orientation.InputEigenRotation
 
 
-veh1.mass_init.points[0].pt_orientation.eigen_angle  = trick.attach_units( "degree",3.0)
-veh1.mass_init.points[0].pt_orientation.eigen_axis  = [ 0, 1, 0]
-veh1.mass_init.points[0].pt_frame_spec = trick.MassPointInit.StructToChild
+veh1.mass_init.allocate_points(1)
+veh1.mass_init.get_mass_point(0).set_name("reflector1")
+veh1.mass_init.get_mass_point(0).position  = [ -10.0, 6.0, 2.5]
+veh1.mass_init.get_mass_point(0).pt_orientation.data_source =    trick.Orientation.InputEigenRotation
+
+
+veh1.mass_init.get_mass_point(0).pt_orientation.eigen_angle  = trick.attach_units( "degree",3.0)
+veh1.mass_init.get_mass_point(0).pt_orientation.eigen_axis  = [ 0, 1, 0]
+veh1.mass_init.get_mass_point(0).pt_frame_spec = trick.MassPointInit.StructToChild
 
 
 #CALL
@@ -88,17 +88,17 @@ veh2.mass_init.properties.inertia[2]  = [ -5.48e+6,  5.90e+5,  1.64e+8]
 
 # veh2.mass_init.points = trick.MassPointInit()
 # veh2.mass_init.points.thisown = 0
-veh2.mass_init.points = trick.sim_services.alloc_type(1, "jeod::MassPointInit")
-
-veh2.mass_init.num_points = 1
-veh2.mass_init.points[0].set_name("lidar1")
-veh2.mass_init.points[0].position  = [ 7.1, 2.3, 1.5]
-veh2.mass_init.points[0].pt_orientation.data_source =    trick.Orientation.InputEigenRotation
 
 
-veh2.mass_init.points[0].pt_orientation.eigen_angle  = trick.attach_units( "degree",8.0)
-veh2.mass_init.points[0].pt_orientation.eigen_axis  = [ 0, 1, 0]
-veh2.mass_init.points[0].pt_frame_spec = trick.MassPointInit.StructToChild
+veh2.mass_init.allocate_points(1)
+veh2.mass_init.get_mass_point(0).set_name("lidar1")
+veh2.mass_init.get_mass_point(0).position  = [ 7.1, 2.3, 1.5]
+veh2.mass_init.get_mass_point(0).pt_orientation.data_source =    trick.Orientation.InputEigenRotation
+
+
+veh2.mass_init.get_mass_point(0).pt_orientation.eigen_angle  = trick.attach_units( "degree",8.0)
+veh2.mass_init.get_mass_point(0).pt_orientation.eigen_axis  = [ 0, 1, 0]
+veh2.mass_init.get_mass_point(0).pt_frame_spec = trick.MassPointInit.StructToChild
 
 
 #CALL

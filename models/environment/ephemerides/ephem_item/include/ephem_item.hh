@@ -60,10 +60,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_ITEM_HH
 #define JEOD_EPHEM_ITEM_HH
-
 
 // System includes
 
@@ -75,9 +73,9 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The EphemerisItem class is the base class for representing an item that is
@@ -103,192 +101,173 @@ namespace jeod {
  * a part of the active reference frame tree and for updating that reference
  * frame's state.
  */
-class EphemerisItem : public RefFrameOwner {
-JEOD_MAKE_SIM_INTERFACES(EphemerisItem)
+class EphemerisItem : public RefFrameOwner
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EphemerisItem)
 
 public:
+    // Types
 
-   // Types
+    /**
+     * Defines the aspect of the target frame that will be modified by the
+     * EphemerisItem object.
+     */
+    enum TargetAspect
+    {
+        Translation = 0, /*
+           The object updates the translational state of the target frame. */
 
-   /**
-    * Defines the aspect of the target frame that will be modified by the
-    * EphemerisItem object.
-    */
-   enum TargetAspect {
-      Translation = 0, /*
-         The object updates the translational state of the target frame. */
+        Rotation = 1 /*
+       The object updates the rotational state of the target frame. */
+    };
 
-      Rotation = 1     /*
-         The object updates the rotational state of the target frame. */
-   };
+    // Member functions
+    EphemerisItem() = default;
+    ~EphemerisItem() override = default;
+    EphemerisItem(const EphemerisItem &) = delete;
+    EphemerisItem & operator=(const EphemerisItem &) = delete;
 
+    // Advertised interfaces
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // Accessors for the item's name.
+    virtual void set_name(const std::string & new_name);
+    virtual void set_name(const std::string & pname, const std::string & fname);
+    std::string get_name() const;
 
-   // Constructor and destructor
-   EphemerisItem ();
-   ~EphemerisItem () override;
+    // Accessors for the timestamp.
+    virtual void set_timestamp(double time);
+    double timestamp() const;
 
-   // Advertised interfaces
+    // Accessors for the owner.
+    // Restrictions: set_owner should only be called by the item's owner.
+    virtual void set_owner(EphemerisInterface * new_owner);
+    EphemerisInterface * get_owner() const;
 
-   // Accessors for the item's name.
-   virtual void set_name (const char * new_name);
-   virtual void set_name (const char * pname, const char * fname);
-   const char * get_name () const;
+    // Accessors for the manager.
+    // Restrictions: set_manager should only be called by the EphemeridesManager.
+    virtual void set_manager(BaseEphemeridesManager * new_manager);
+    BaseEphemeridesManager * get_manager() const;
 
-   // Accessors for the timestamp.
-   virtual void set_timestamp (double time);
-   double timestamp (void) const;
+    // Accessors for the next and head pointers.
+    // Restrictions: These should only be used by the EphemeridesManager.
+    virtual void set_next(EphemerisItem * next_item);
+    EphemerisItem * get_next() const;
 
-   // Accessors for the owner.
-   // Restrictions: set_owner should only be called by the item's owner.
-   virtual void set_owner (EphemerisInterface * new_owner);
-   EphemerisInterface * get_owner () const;
+    virtual void set_head(EphemerisItem * head_item);
+    EphemerisItem * get_head() const;
 
-   // Accessors for the manager.
-   // Restrictions: set_manager should only be called by the EphemeridesManager.
-   virtual void set_manager (BaseEphemeridesManager * new_manager);
-   BaseEphemeridesManager * get_manager () const;
+    // Accessors for the target_frame pointer.
+    // Restrictions: The setter should only be called by the ephemeris model
+    // that owns this item or by the EphemeridesManager.
+    virtual void set_target_frame(EphemerisRefFrame & frame);
+    EphemerisRefFrame * get_target_frame() const;
 
-   // Accessors for the next and head pointers.
-   // Restrictions: These should only be used by the EphemeridesManager.
-   virtual void set_next (EphemerisItem * next_item);
-   EphemerisItem * get_next() const;
+    // Accessors for the enabled flag.
+    virtual void enable();
+    virtual void disable();
+    bool is_enabled() const;
 
-   virtual void set_head (EphemerisItem * head_item);
-   EphemerisItem * get_head() const;
+    // Get the enabled item amongst all like-named items, if any.
+    EphemerisItem * get_enabled_item() const;
 
-   // Accessors for the target_frame pointer.
-   // Restrictions: The setter should only be called by the ephemeris model
-   // that owns this item or by the EphemeridesManager.
-   virtual void set_target_frame (EphemerisRefFrame & frame);
-   EphemerisRefFrame * get_target_frame() const;
+    // Accessors for the active flag.
+    // Restrictions: activate should only be called if the item is activatable.
+    virtual void activate();
+    virtual void deactivate();
+    bool is_active() const;
+    bool is_activatable() const;
 
-   // Accessors for the enabled flag.
-   virtual void enable ();
-   virtual void disable ();
-   bool is_enabled () const;
+    // Validate a name.
+    void validate_name(const char * file,
+                       unsigned int line,
+                       const std::string & new_value,
+                       const std::string & old_value,
+                       const std::string & variable_name);
 
-   // Get the enabled item amongst all like-named items, if any.
-   EphemerisItem * get_enabled_item (void) const;
+    /**
+     * Identifies which part of the target frame does the object updates.
+     */
+    virtual TargetAspect updates_what() const = 0;
 
-   // Accessors for the active flag.
-   // Restrictions: activate should only be called if the item is activatable.
-   virtual void activate ();
-   virtual void deactivate ();
-   bool is_active () const;
-   bool is_activatable () const;
+    /**
+     * The default suffix for the item.
+     */
+    virtual std::string default_suffix() const = 0;
 
-   // Validate a name.
-   void validate_name (
-      const char * file,
-      unsigned int line,
-      const char * new_value,
-      const char * old_value,
-      const char * variable_name);
-
-   /**
-    * Identifies which part of the target frame does the object updates.
-    */
-   virtual TargetAspect updates_what (void) const = 0;
-
-   /**
-    * The default suffix for the item.
-    */
-   virtual const char * default_suffix (void) const = 0;
-
-   /**
-    * Disconnect the item from the reference frame tree.
-    */
-   virtual void disconnect_from_tree (void) = 0;
-
+    /**
+     * Disconnect the item from the reference frame tree.
+     */
+    virtual void disconnect_from_tree() = 0;
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Set the name of the item.
+    virtual void set_name_internal(const std::string & new_name);
 
-   // Set the name of the item.
-   virtual void set_name_internal (char * new_name);
+    // Member data
 
+    /**
+     * The name of the item.
+     */
+    std::string name; //!< trick_units(--)
 
-   // Member data
+    /**
+     * The ephemeris model that owns this object.
+     */
+    EphemerisInterface * owner{}; //!< trick_units(--)
 
-   /**
-    * The name of the item.
-    */
-   char * name; //!< trick_units(--)
+    /**
+     * The ephemeris manager that manages this object.
+     */
+    BaseEphemeridesManager * manager{}; //!< trick_units(--)
 
-   /**
-    * The ephemeris model that owns this object.
-    */
-   EphemerisInterface * owner; //!< trick_units(--)
+    /**
+     * The reference frame whose non-constant state is set by this object.
+     */
+    EphemerisRefFrame * target_frame{}; //!< trick_units(--)
 
-   /**
-    * The ephemeris manager that manages this object.
-    */
-   BaseEphemeridesManager * manager; //!< trick_units(--)
+    /**
+     * The first ephemeris item with the same name as this item.
+     */
+    EphemerisItem * head{}; //!< trick_units(--)
 
-   /**
-    * The reference frame whose non-constant state is set by this object.
-    */
-   EphemerisRefFrame * target_frame; //!< trick_units(--)
+    /**
+     * The next ephemeris item with the same name as this item.
+     */
+    EphemerisItem * next{}; //!< trick_units(--)
 
-   /**
-    * The first ephemeris item with the same name as this item.
-    */
-   EphemerisItem * head; //!< trick_units(--)
+    /**
+     * Time of last update, dynamic time seconds.
+     */
+    double update_time{}; //!< trick_units(s)
 
-   /**
-    * The next ephemeris item with the same name as this item.
-    */
-   EphemerisItem * next; //!< trick_units(--)
+    /**
+     * Is the item enabled?
+     * - An item can be enabled only if the data associated with the item such as
+     * the translational state of a planet exist somewhere in the simulation.
+     * - Only one of a set of ephemeris items that share the same name can be
+     * enabled. The enable method ensures that this is the case.
+     * - Exactly one of a set of ephemeris items that share same name should be
+     * enabled if some other simulation agent depends on the data associated
+     * with an ephemeris item. Ensuring that this is the case is the
+     * responsibility of the ephemeris models and the users of those models.
+     */
+    bool enabled{}; //!< trick_units(--)
 
-   /**
-    * Time of last update, dynamic time seconds.
-    */
-   double update_time; //!< trick_units(s)
-
-   /**
-    * Is the item enabled?
-    * - An item can be enabled only if the data associated with the item such as
-    * the translational state of a planet exist somewhere in the simulation.
-    * - Only one of a set of ephemeris items that share the same name can be
-    * enabled. The enable method ensures that this is the case.
-    * - Exactly one of a set of ephemeris items that share same name should be
-    * enabled if some other simulation agent depends on the data associated
-    * with an ephemeris item. Ensuring that this is the case is the
-    * responsibility of the ephemeris models and the users of those models.
-    */
-   bool enabled; //!< trick_units(--)
-
-   /**
-    * Is the item active?
-    * - An item can be activated only if it is enabled. The enable and activate
-    * methods assure that this is the case.
-    * - Activity is determined by the activity of the target frame, which is
-    * in turn determined by the reference frame subscription model.
-    */
-   bool active; //!< trick_units(--)
-
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   ///
-   /// Not implemented.
-   EphemerisItem (const EphemerisItem &);
-   ///
-   /// Not implemented.
-   EphemerisItem & operator= (const EphemerisItem &);
+    /**
+     * Is the item active?
+     * - An item can be activated only if it is enabled. The enable and activate
+     * methods assure that this is the case.
+     * - Activity is determined by the activity of the target frame, which is
+     * in turn determined by the reference frame subscription model.
+     */
+    bool active{}; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #include "ephem_item_inline.hh"
-
 
 #endif
 

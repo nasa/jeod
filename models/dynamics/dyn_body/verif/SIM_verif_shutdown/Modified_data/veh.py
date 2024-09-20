@@ -18,27 +18,27 @@ veh.mass_init.properties.mass      = 1.0
 veh.mass_init.properties.inertia = [[ 10.0,     0.0,     0.0],
                                     [  0.0,    10.0,     0.0],
                                     [  0.0,     0.0,    10.0]]
-veh.mass_init.num_points = 3
-veh.mass_init.points = trick.sim_services.alloc_type( 3 , "jeod::MassPointInit" )
-veh.mass_init.points[0].set_name ("payload_attach")
-veh.mass_init.points[0].position  = [ 10, 0, 0]
-veh.mass_init.points[0].pt_orientation.data_source = \
+veh.mass_init.allocate_points(3)
+
+veh.mass_init.get_mass_point(0).set_name ("payload_attach")
+veh.mass_init.get_mass_point(0).position  = [ 10, 0, 0]
+veh.mass_init.get_mass_point(0).pt_orientation.data_source = \
                                   trick.Orientation.InputEulerRotation
-veh.mass_init.points[0].pt_orientation.euler_sequence = \
+veh.mass_init.get_mass_point(0).pt_orientation.euler_sequence = \
                                   trick.Orientation.Yaw_Pitch_Roll
-veh.mass_init.points[1].set_name ("other_point")
-veh.mass_init.points[1].position  = [ 5, 0, -5]
-veh.mass_init.points[1].pt_orientation.data_source = \
+veh.mass_init.get_mass_point(1).set_name ("other_point")
+veh.mass_init.get_mass_point(1).position  = [ 5, 0, -5]
+veh.mass_init.get_mass_point(1).pt_orientation.data_source = \
                                trick.Orientation.InputEulerRotation
-veh.mass_init.points[1].pt_orientation.euler_sequence  = \
+veh.mass_init.get_mass_point(1).pt_orientation.euler_sequence  = \
                                trick.Orientation.Yaw_Pitch_Roll
-veh.mass_init.points[1].pt_orientation.euler_angles  = \
+veh.mass_init.get_mass_point(1).pt_orientation.euler_angles  = \
                                 trick.attach_units( "degree",[ 0.0, 90.0, 0.0])
-veh.mass_init.points[2].set_name ("third_point")
-veh.mass_init.points[2].position  = [ 5, 0, -5]
-veh.mass_init.points[2].pt_orientation.data_source = \
+veh.mass_init.get_mass_point(2).set_name ("third_point")
+veh.mass_init.get_mass_point(2).position  = [ 5, 0, -5]
+veh.mass_init.get_mass_point(2).pt_orientation.data_source = \
                                   trick.Orientation.InputEulerRotation
-veh.mass_init.points[2].pt_orientation.euler_sequence = \
+veh.mass_init.get_mass_point(2).pt_orientation.euler_sequence = \
                                   trick.Orientation.Yaw_Pitch_Roll
 dynamics.dyn_manager.add_body_action( veh.mass_init )
 

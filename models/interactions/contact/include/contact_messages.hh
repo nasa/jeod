@@ -72,68 +72,64 @@ Library dependencies:
 #define JEOD_CONTACT_MESSAGES_HH
 
 /* JEOD includes */
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/message/include/message_handler.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Messages associated with use of the contact model.
  */
-class ContactMessages {
+class ContactMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ContactMessages)
 
-
-   JEOD_MAKE_SIM_INTERFACES (ContactMessages)
-
-   // Static member data
+    // Static member data
 
 public:
+    // Errors
 
-   // Errors
+    /**
+     * Associated with errors during initialization of the contact model
+     */
+    static const char * initialization_error; //!< trick_units(--)
+    /**
+     * Associated with errors during the runtime of the contact model
+     */
+    static const char * runtime_error; //!< trick_units(--)
+    /**
+     * Associated with errors during the setup of the system, before runtime
+     */
+    static const char * pre_initialization_error; //!< trick_units(--)
 
-   /**
-    * Associated with errors during initialization of the contact model
-    */
-   static char const * initialization_error; //!< trick_units(--)
-   /**
-    * Associated with errors during the runtime of the contact model
-    */
-   static char const * runtime_error; //!< trick_units(--)
-   /**
-    * Associated with errors during the setup of the system, before runtime
-    */
-   static char const * pre_initialization_error; //!< trick_units(--)
+    // Warnings
 
-   // Warnings
+    /**
+     * Associated with warning during initialization of the contact model
+     */
+    static const char * initialization_warns; //!< trick_units(--)
+    /**
+     * Associated with warnings given at runtime
+     */
+    static const char * runtime_warns; //!< trick_units(--)
 
-   /**
-    * Associated with warning during initialization of the contact model
-    */
-   static char const * initialization_warns; //!< trick_units(--)
-   /**
-    * Associated with warnings given at runtime
-    */
-   static char const * runtime_warns;     //!< trick_units(--)
+    // Information
 
-   // Information
+    /**
+     * Associated with information given at runtime
+     */
+    static const char * runtime_inform; //!< trick_units(--)
 
-   /**
-    * Associated with information given at runtime
-    */
-   static char const * runtime_inform;     //!< trick_units(--)
-
-private:
-
-   // Class is not instantiable, operator = and copy constructor are
-   // hidden from use.
-   ContactMessages (void);
-   ContactMessages (const ContactMessages & rhs);
-   ContactMessages& operator = (const ContactMessages & rhs);
-
+    // Class is not instantiable, operator = and copy constructor are
+    // hidden from use.
+    ContactMessages() = delete;
+    ContactMessages(const ContactMessages & rhs) = delete;
+    ContactMessages & operator=(const ContactMessages & rhs) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

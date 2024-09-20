@@ -65,10 +65,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SPHERICAL_HARMONICS_TIDAL_EFFECTS_HH
 #define JEOD_SPHERICAL_HARMONICS_TIDAL_EFFECTS_HH
-
 
 // System includes
 
@@ -78,89 +76,78 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "spherical_harmonics_delta_coeffs.hh"
 #include "class_declarations.hh"
-
+#include "spherical_harmonics_delta_coeffs.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseDynManager;
-
 
 /**
  * Models tidal effects as a delta on top of a gravity model.
  */
-class SphericalHarmonicsTidalEffects : public SphericalHarmonicsDeltaCoeffs {
+class SphericalHarmonicsTidalEffects : public SphericalHarmonicsDeltaCoeffs
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsTidalEffects)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsTidalEffects)
+    // Member data
+public:
+    /**
+     * Copy of polar motion coefficient xp (from polar motion class).
+     */
+    double xp{}; //!< trick_units(--)
 
+    /**
+     * Copy of polar motion coefficient yp (from polar motion class).
+     */
+    double yp{}; //!< trick_units(--)
 
- // Member data
- public:
+    /**
+     * The love number. Only used for a first order tidal effect model.
+     */
+    double k2{}; //!< trick_units(--)
 
-   /**
-    * Copy of polar motion coefficient xp (from polar motion class).
-    */
-   double xp; //!< trick_units(--)
+    /**
+     * A matrix of love numbers. Used for higher order (not first-order)
+     * tidal effects.
+     */
+    double ** Knm{}; //!< trick_units(--)
 
-   /**
-    * Copy of polar motion coefficient yp (from polar motion class).
-    */
-   double yp; //!< trick_units(--)
-
-   /**
-    * The love number. Only used for a first order tidal effect model.
-    */
-   double k2; //!< trick_units(--)
-
-   /**
-    * A matrix of love numbers. Used for higher order (not first-order)
-    * tidal effects.
-    */
-   double** Knm; //!< trick_units(--)
-
-   /**
-    * The number of tidal bodies named in tidal_bodies.
-    */
-   unsigned int num_tidal_bodies; //!< trick_units(count)
+    /**
+     * The number of tidal bodies named in tidal_bodies.
+     */
+    unsigned int num_tidal_bodies{}; //!< trick_units(count)
 
 protected:
+    /**
+     * The tidal bodies. Filled out at initialization.
+     * Length after init is num_tidal_bodies.
+     */
+    Planet ** tidal_bodies{}; //!< trick_units(--)
 
-   /**
-    * The tidal bodies. Filled out at initialization.
-    * Length after init is num_tidal_bodies.
-    */
-   Planet** tidal_bodies; //!< trick_units(--)
+    /**
+     * Pointers to the tidal_bodies inertial reference frames.
+     */
+    RefFrame ** tidal_bodies_inertial{}; //!< trick_units(--)
 
-   /**
-    * Pointers to the tidal_bodies inertial reference frames.
-    */
-   RefFrame** tidal_bodies_inertial; //!< trick_units(--)
+    /**
+     * The planet fixed reference frame of the subject body.
+     */
+    RefFrame * pfix{}; //!< trick_units(--)
 
-   /**
-    * The planet fixed reference frame of the subject body.
-    */
-   RefFrame* pfix; //!< trick_units(--)
+    // Member functions
+public:
+    SphericalHarmonicsTidalEffects() = default;
+    ~SphericalHarmonicsTidalEffects() override;
 
+    void initialize(SphericalHarmonicsDeltaCoeffsInit & var_init, BaseDynManager & dyn_manager) override;
 
- // Member functions
- public:
-
-   // Constructor & Destructor
-   SphericalHarmonicsTidalEffects ();
-   ~SphericalHarmonicsTidalEffects () override;
-
-   void initialize (
-      SphericalHarmonicsDeltaCoeffsInit & var_init,
-      BaseDynManager& dyn_manager) override;
-
-   void update (SphericalHarmonicsGravityControls & controls) override;
-
+    void update(SphericalHarmonicsGravityControls & controls) override;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

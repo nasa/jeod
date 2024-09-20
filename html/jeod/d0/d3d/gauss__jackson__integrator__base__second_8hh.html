@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -56,8 +56,8 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../da/dac/gauss__jackson__integrator__base_8hh_source.html">gauss_jackson_integrator_base.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d39/gauss__jackson__two__state_8hh_source.html">gauss_jackson_two_state.hh</a>&quot;</code><br />
-<code>#include &quot;er7_utils/integration/core/include/second_order_ode_integrator.hh&quot;</code><br />
 <code>#include &quot;er7_utils/integration/core/include/integrator_constructor.hh&quot;</code><br />
+<code>#include &quot;er7_utils/integration/core/include/second_order_ode_integrator.hh&quot;</code><br />
 <code>#include &quot;er7_utils/interface/include/alloc.hh&quot;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
@@ -66,15 +66,16 @@ Include dependency graph for gauss_jackson_integrator_base_second.hh:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d7b/gauss__jackson__integrator__base__second_8hh__incl.png" border="0" usemap="#gauss__jackson__integrator__base__second_8hh" alt=""/></div>
 <map name="gauss__jackson__integrator__base__second_8hh" id="gauss__jackson__integrator__base__second_8hh">
-<area shape="rect" id="node2" href="../../da/dac/gauss__jackson__integrator__base_8hh.html" title="Defines the template class GaussJacksonIntegratorBase, which provides the basis for Gauss&#45;Jackson int..." alt="" coords="752,102,922,143"/>
-<area shape="rect" id="node13" href="../../de/d39/gauss__jackson__two__state_8hh.html" title="Defines the class GaussJacksonTwoState, which contains a pair of double* pointers. " alt="" coords="894,511,1084,537"/>
-<area shape="rect" id="node3" href="../../d4/df4/utils_2integration_2gauss__jackson_2include_2two__d__array_8hh.html" title="Defines the template class er7_utils::TwoDArray, which implements an RAII rectangular 2D array..." alt="" coords="1214,213,1324,240"/>
-<area shape="rect" id="node11" href="../../d1/dd5/gauss__jackson__coeffs_8hh.html" title="Defines the class GaussJacksonCoeffs, which contains the Gauss&#45;Jackson predictor and corrector coeffi..." alt="" coords="462,317,631,344"/>
-<area shape="rect" id="node14" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="600,585,751,627"/>
-<area shape="rect" id="node16" href="../../d5/d2a/gauss__jackson__config_8hh.html" title="Defines the class GaussJacksonConfig, which specifies Gauss&#45;Jackson configuration data..." alt="" coords="7,317,176,344"/>
-<area shape="rect" id="node18" href="../../d3/dfe/gauss__jackson__integration__controls_8hh.html" title="Defines the class GaussJacksonIntegrationControls, which controls Gauss&#45;Jackson integration process..." alt="" coords="128,206,304,247"/>
-<area shape="rect" id="node19" href="../../df/d8e/gauss__jackson__state__machine_8hh.html" title="Defines the class GaussJacksonStateMachine, which guides the Gauss&#45;Jackson integration process..." alt="" coords="672,310,818,351"/>
-<area shape="rect" id="node12" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh.html" title="Defines the class GaussJacksonCoefficientsPair, which contains summed Adams and Gauss&#45;Jackson coeffic..." alt="" coords="584,414,767,455"/>
+<area shape="rect" id="node2" href="../../da/dac/gauss__jackson__integrator__base_8hh.html" title="Defines the template class GaussJacksonIntegratorBase, which provides the basis for Gauss&#45;Jackson int..." alt="" coords="751,102,939,143"/>
+<area shape="rect" id="node5" href="../../de/d39/gauss__jackson__two__state_8hh.html" title="Defines the class GaussJacksonTwoState, which contains a pair of double* pointers. " alt="" coords="964,511,1172,537"/>
+<area shape="rect" id="node3" href="../../d1/dd5/gauss__jackson__coeffs_8hh.html" title="Defines the class GaussJacksonCoeffs, which contains the Gauss&#45;Jackson predictor and corrector coeffi..." alt="" coords="686,317,869,344"/>
+<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="488,585,653,627"/>
+<area shape="rect" id="node10" href="../../d5/d2a/gauss__jackson__config_8hh.html" title="Defines the class GaussJacksonConfig, which specifies Gauss&#45;Jackson configuration data..." alt="" coords="479,317,662,344"/>
+<area shape="rect" id="node12" href="../../d3/dfe/gauss__jackson__integration__controls_8hh.html" title="Defines the class GaussJacksonIntegrationControls, which controls Gauss&#45;Jackson integration process..." alt="" coords="380,206,575,247"/>
+<area shape="rect" id="node13" href="../../df/d8e/gauss__jackson__state__machine_8hh.html" title="Defines the class GaussJacksonStateMachine, which guides the Gauss&#45;Jackson integration process..." alt="" coords="43,310,200,351"/>
+<area shape="rect" id="node15" href="../../d4/df4/utils_2integration_2gauss__jackson_2include_2two__d__array_8hh.html" title="Defines the template class er7_utils::TwoDArray, which implements an RAII rectangular 2D array..." alt="" coords="1197,213,1317,240"/>
+<area shape="rect" id="node4" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh.html" title="Defines the class GaussJacksonCoefficientsPair, which contains summed Adams and Gauss&#45;Jackson coeffic..." alt="" coords="737,414,935,455"/>
+<area shape="rect" id="node7" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="893,675,974,701"/>
 </map>
 </div>
 </div>
@@ -88,9 +89,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aa4612cc26db02c2c81bc5c9d84a6ef5d"><td class="memItemLeft" align="right" valign="top">typedef GaussJacksonIntegratorBase&lt; GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d44/namespacejeod.html#aa4612cc26db02c2c81bc5c9d84a6ef5d">jeod::GaussJacksonIntegratorBaseSecond</a></td></tr>
-<tr class="memdesc:aa4612cc26db02c2c81bc5c9d84a6ef5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for a second order Gauss Jackson integrator.  <a href="../../df/d44/namespacejeod.html#aa4612cc26db02c2c81bc5c9d84a6ef5d">More...</a><br /></td></tr>
-<tr class="separator:aa4612cc26db02c2c81bc5c9d84a6ef5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01735d158ab6771ea77c82df5b030e76"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d44/namespacejeod.html#a01735d158ab6771ea77c82df5b030e76">jeod::GaussJacksonIntegratorBaseSecond</a> = GaussJacksonIntegratorBase&lt; GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator &gt;</td></tr>
+<tr class="memdesc:a01735d158ab6771ea77c82df5b030e76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for a second order Gauss Jackson integrator.  <a href="../../df/d44/namespacejeod.html#a01735d158ab6771ea77c82df5b030e76">More...</a><br /></td></tr>
+<tr class="separator:a01735d158ab6771ea77c82df5b030e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines the template specializations of GaussJacksonIntegratorBase for a first order ODE. </p>

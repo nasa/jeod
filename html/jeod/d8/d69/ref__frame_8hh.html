@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -55,9 +55,10 @@ $(function() {
 <p>Define the class RefFrame.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh_source.html">class_declarations.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/d2e/subscription_8hh_source.html">subscription.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d4/db4/ref__frame__links_8hh_source.html">ref_frame_links.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d03/ref__frame__state_8hh_source.html">ref_frame_state.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d2e/subscription_8hh_source.html">subscription.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/da4/named__item_8hh_source.html">utils/named_item/include/named_item.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dc/df9/jeod__class_8hh_source.html">utils/sim_interface/include/jeod_class.hh</a>&quot;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d97/ref__frame__inline_8hh_source.html">ref_frame_inline.hh</a>&quot;</code><br />
@@ -67,24 +68,26 @@ Include dependency graph for ref_frame.hh:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/df2/ref__frame_8hh__incl.png" border="0" usemap="#ref__frame_8hh" alt=""/></div>
 <map name="ref__frame_8hh" id="ref__frame_8hh">
-<area shape="rect" id="node2" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="1163,237,1311,263"/>
-<area shape="rect" id="node3" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="1335,237,1445,263"/>
-<area shape="rect" id="node4" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1024,319,1175,360"/>
-<area shape="rect" id="node6" href="../../d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="1056,80,1185,107"/>
-<area shape="rect" id="node16" href="../../db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="1573,155,1703,181"/>
-<area shape="rect" id="node24" href="../../db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="5,80,137,107"/>
-<area shape="rect" id="node25" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1378,155,1530,181"/>
-<area shape="rect" id="node5" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1062,415,1137,442"/>
-<area shape="rect" id="node7" href="../../d7/d8c/ref__frame__messages_8hh.html" title="Define the class RefFrameMessages, the class that specifies the message IDs used in the reference fra..." alt="" coords="1039,155,1202,181"/>
-<area shape="rect" id="node8" href="../../d2/dfe/tree__links_8hh.html" title="Define the template class TreeLinks, the class that encapsulates the parent/ child links between obje..." alt="" coords="623,155,719,181"/>
-<area shape="rect" id="node9" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="665,229,813,271"/>
-<area shape="rect" id="node10" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="837,229,985,271"/>
-<area shape="rect" id="node11" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="180,229,323,271"/>
-<area shape="rect" id="node17" href="../../d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="1763,229,1918,271"/>
-<area shape="rect" id="node21" href="../../d2/d9d/ref__frame__state__inline_8hh.html" title="Define inline methods for the RefFrameState class and its component. " alt="" coords="1571,237,1739,263"/>
-<area shape="rect" id="node19" href="../../dd/d3b/quat__inline_8hh.html" title="Define inline methods for the quaternion class. " alt="" coords="1825,326,1928,353"/>
-<area shape="rect" id="node20" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="1653,408,1777,449"/>
-<area shape="rect" id="node22" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="1593,319,1717,360"/>
+<area shape="rect" id="node2" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="1083,251,1246,278"/>
+<area shape="rect" id="node3" href="../../d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="986,80,1130,107"/>
+<area shape="rect" id="node4" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1249,333,1414,375"/>
+<area shape="rect" id="node16" href="../../db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="2034,162,2181,189"/>
+<area shape="rect" id="node24" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="1271,251,1392,278"/>
+<area shape="rect" id="node25" href="../../d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="1498,155,1685,196"/>
+<area shape="rect" id="node30" href="../../db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="813,80,962,107"/>
+<area shape="rect" id="node31" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1289,162,1459,189"/>
+<area shape="rect" id="node6" href="../../d7/d8c/ref__frame__messages_8hh.html" title="Define the class RefFrameMessages, the class that specifies the message IDs used in the reference fra..." alt="" coords="823,162,1002,189"/>
+<area shape="rect" id="node7" href="../../d2/dfe/tree__links_8hh.html" title="Define the template class TreeLinks, the class that encapsulates the parent/ child links between obje..." alt="" coords="551,162,658,189"/>
+<area shape="rect" id="node5" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1291,430,1372,457"/>
+<area shape="rect" id="node8" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="703,244,869,285"/>
+<area shape="rect" id="node9" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="278,244,438,285"/>
+<area shape="rect" id="node11" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="463,244,627,285"/>
+<area shape="rect" id="node17" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="2299,333,2438,375"/>
+<area shape="rect" id="node19" href="../../d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="2020,244,2195,285"/>
+<area shape="rect" id="node23" href="../../d2/d9d/ref__frame__state__inline_8hh.html" title="Define inline methods for the RefFrameState class and its component. " alt="" coords="2219,251,2409,278"/>
+<area shape="rect" id="node18" href="../../d4/d22/matrix3x3__inline_8hh.html" title="Matrix math inline functions. " alt="" coords="2293,430,2445,457"/>
+<area shape="rect" id="node21" href="../../dd/d3b/quat__inline_8hh.html" title="Define inline methods for the quaternion class. " alt="" coords="2073,341,2187,367"/>
+<area shape="rect" id="node22" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="2106,423,2245,464"/>
 </map>
 </div>
 </div>

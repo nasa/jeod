@@ -36,22 +36,22 @@
 //
 //=============================================================================
 // A two-vehicle simulation in Earth orbit, with the two vehicles attached.
-// 
+//
 //=============================================================================
 
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-// Include the default trick object
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
 // Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
-// Include the most basic time class and object:
+// Include the most basic time and dynamics
 #include "time_dyntime_only.sm"
-
 
 #include "dynamics_init_only.sm"
 
@@ -67,24 +67,23 @@
 ##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
 ##include "dynamics/body_action/include/mass_body_init.hh"
 
-class VehicleSimObject : public Trick::SimObject {
+class VehicleSimObject : public Trick::SimObject
+{
+public:
+    jeod::MassBody body;
+    jeod::MassBody tank;
+    jeod::MassBodyInit mass_init;
 
-  public:
-   jeod::MassBody              body;
-   jeod::MassBody              tank;
-   jeod::MassBodyInit             mass_init;
+    VehicleSimObject(){};
 
-   VehicleSimObject()
-   {};
-  private:
-   VehicleSimObject (const VehicleSimObject&);
-   VehicleSimObject & operator = (const VehicleSimObject&);
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 };
+
 VehicleSimObject vehicleA;
 VehicleSimObject vehicleB;
 
 ##include "dynamics/body_action/include/body_attach_aligned.hh"
 ##include "environment/gravity/include/gravity_manager.hh"
 
-// Set the integration
-//IntegLoop sim_integ_loop (DYNAMICS) dynamics;

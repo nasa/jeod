@@ -48,22 +48,17 @@ Purpose:( This sim object models Sun with a spherical gravity model.)
 #include "planet_generic.sm"
 class SunSphericalSimObject: public PlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_sun_default_data    sun_default_data;
-  jeod::SphericalHarmonicsGravitySource_sun_spherical_default_data sun_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_sun_default_data sun_default_data;
+    jeod::SphericalHarmonicsGravitySource_sun_spherical_default_data sun_grav_default_data;
 
-  SunSphericalSimObject( jeod::DynManager   & dyn_manager_in,
-                         jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            sun_default_data,
-                            sun_grav_default_data)
-  { }
+    SunSphericalSimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, sun_default_data, sun_grav_default_data)
+    {
+    }
 
- private:
-  SunSphericalSimObject (const SunSphericalSimObject&);
-  SunSphericalSimObject & operator = (const SunSphericalSimObject&);
+    SunSphericalSimObject(const SunSphericalSimObject &) = delete;
+    SunSphericalSimObject & operator=(const SunSphericalSimObject &) = delete;
 };
 #endif

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import os, sys
 from datetime import datetime
@@ -36,14 +36,14 @@ Library dependencies:
 
 #include "spherical_harmonics_gravity_source_default_data.hh"
 
-//! Namespace jeod 
+//! Namespace jeod
 namespace jeod {{
 
 class SphericalHarmonicsGravitySource_{0}_default_data :
    public SphericalHarmonicsGravitySource_default_data {{
  public:
-   virtual void initialize (SphericalHarmonicsGravitySource*);
-}};
+   virtual void initialize (SphericalHarmonicsGravitySource*)
+}}
 
 }} // End JEOD namespace
 
@@ -57,7 +57,7 @@ def parseCol(line, size):
   ret = line[startIdx:startIdx+size]
   startIdx = startIdx+size
   return ret
- 
+
 
 ## Read data from file
 dataIn = open(dataFile, 'r')
@@ -118,9 +118,9 @@ srcOut.write(srcHeader)
 
 srcBody = """
 
-//! Namespace jeod 
+//! Namespace jeod
 namespace jeod {{
-class SphericalHarmonicsGravitySource;
+class SphericalHarmonicsGravitySource
 }}
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_{0}_default_data
 
@@ -135,28 +135,28 @@ class SphericalHarmonicsGravitySource;
 
 
 
-//! Namespace jeod 
+//! Namespace jeod
 namespace jeod {{
 
 void
 SphericalHarmonicsGravitySource_{0}_default_data::initialize (
    SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
 {{
-   SphericalHarmonicsGravitySource_ptr->planet_name = "{1}";
+   SphericalHarmonicsGravitySource_ptr->planet_name = "{1}"
 
-   SphericalHarmonicsGravitySource_ptr->degree = {2};
-   SphericalHarmonicsGravitySource_ptr->order = {3};
-   SphericalHarmonicsGravitySource_ptr->mu = {4};
-   SphericalHarmonicsGravitySource_ptr->radius = {5};
+   SphericalHarmonicsGravitySource_ptr->degree = {2}
+   SphericalHarmonicsGravitySource_ptr->order = {3}
+   SphericalHarmonicsGravitySource_ptr->mu = {4}
+   SphericalHarmonicsGravitySource_ptr->radius = {5}
 
-   SphericalHarmonicsGravitySource_ptr->tide_free = false;
+   SphericalHarmonicsGravitySource_ptr->tide_free = false
    // C20 includes the permanent tide
-   SphericalHarmonicsGravitySource_ptr->tide_free_delta = {6};
+   SphericalHarmonicsGravitySource_ptr->tide_free_delta = {6}
 
    SphericalHarmonicsGravitySource_ptr->Cnm =
-      JEOD_ALLOC_PRIM_ARRAY ({2} + 1, double*);
+      JEOD_ALLOC_PRIM_ARRAY ({2} + 1, double*)
    SphericalHarmonicsGravitySource_ptr->Snm =
-      JEOD_ALLOC_PRIM_ARRAY ({3} + 1, double*);
+      JEOD_ALLOC_PRIM_ARRAY ({3} + 1, double*)
 
    /* FULLY NORMALIZED GRAVITY COEFFICIENTS (unitless) */"""
 srcBody = srcBody.format(className, planet, coeffs[-1][0], coeffs[-1][1], mu, radius, tide_free_delta)
@@ -174,7 +174,7 @@ for coeff in coeffs:
 
   srcOut.write("""
    SphericalHarmonicsGravitySource_ptr->Cnm[{0}][{1}] ={2};""".format(coeff[0], coeff[1], coeff[2]))
-  
+
 prevRow = -1
 for coeff in coeffs:
   irow = int(coeff[0])
@@ -187,7 +187,7 @@ for coeff in coeffs:
 
   srcOut.write("""
    SphericalHarmonicsGravitySource_ptr->Snm[{0}][{1}] ={2};""".format(coeff[0], coeff[1], coeff[3]))
- 
+
 srcOut.write("""
 }
 } // End JEOD namespace

@@ -51,17 +51,15 @@ Purpose: ()
 SWIG: (No)
 */
 
-
 #ifndef JEOD_VEHICLE_PROPERTIES_HH
 #define JEOD_VEHICLE_PROPERTIES_HH
-
 
 #include "experimental/math/include/solver_types.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Captures pointers to various vehicle properties that are commonly used
@@ -71,33 +69,19 @@ namespace jeod {
  * This class is not designed for extensibility.
  */
 class VehicleProperties
-#ifndef SWIG            // Grrr.
-                        final
+#ifndef SWIG // Grrr.
+    final
 #endif
 {
-
-    JEOD_MAKE_SIM_INTERFACES(VehicleProperties)
+    JEOD_MAKE_SIM_INTERFACES(jeod, VehicleProperties)
 
 public:
-
-
     // Member functions
 
     /**
      * Default constructor, for use by Trick only.
      */
-    VehicleProperties ()
-    :
-        parent_to_structure_offset(nullptr),
-        parent_to_structure_transform(nullptr),
-        mass(nullptr),
-        structure_to_body_offset(nullptr),
-        inertia(nullptr),
-        structure_to_body_transform(nullptr),
-        inverse_mass(nullptr),
-        inverse_inertia(nullptr)
-    {
-    }
+    VehicleProperties() = default;
 
     /**
      * Non-default constructor that sets all elements.
@@ -118,24 +102,22 @@ public:
      * @param inverse_inertia_in  Reference to the vehicle's
      *   inverse_inertia member.
      */
-    VehicleProperties (
-        SolverTypes::Vector3RefT parent_to_structure_offset_in,
-        SolverTypes::Matrix3x3RefT parent_to_structure_transform_in,
-        double& mass_in,
-        SolverTypes::Vector3RefT structure_to_body_offset_in,
-        SolverTypes::Matrix3x3RefT inertia_in,
-        SolverTypes::Matrix3x3RefT structure_to_body_transform_in,
-        double& inverse_mass_in,
-        SolverTypes::Matrix3x3RefT inverse_inertia_in)
-    :
-        parent_to_structure_offset(&parent_to_structure_offset_in),
-        parent_to_structure_transform(&parent_to_structure_transform_in),
-        mass(&mass_in),
-        structure_to_body_offset(&structure_to_body_offset_in),
-        inertia(&inertia_in),
-        structure_to_body_transform(&structure_to_body_transform_in),
-        inverse_mass(&inverse_mass_in),
-        inverse_inertia(&inverse_inertia_in)
+    VehicleProperties(SolverTypes::Vector3RefT parent_to_structure_offset_in,
+                      SolverTypes::Matrix3x3RefT parent_to_structure_transform_in,
+                      double & mass_in,
+                      SolverTypes::Vector3RefT structure_to_body_offset_in,
+                      SolverTypes::Matrix3x3RefT inertia_in,
+                      SolverTypes::Matrix3x3RefT structure_to_body_transform_in,
+                      double & inverse_mass_in,
+                      SolverTypes::Matrix3x3RefT inverse_inertia_in)
+        : parent_to_structure_offset(&parent_to_structure_offset_in),
+          parent_to_structure_transform(&parent_to_structure_transform_in),
+          mass(&mass_in),
+          structure_to_body_offset(&structure_to_body_offset_in),
+          inertia(&inertia_in),
+          structure_to_body_transform(&structure_to_body_transform_in),
+          inverse_mass(&inverse_mass_in),
+          inverse_inertia(&inverse_inertia_in)
     {
     }
 
@@ -145,22 +127,21 @@ public:
     // move  constructors and assignment operators "for free".
     // Those don't make much sense, but meh.
 
-
     /**
      * @return Const reference to the offset from the parent vehicle's
      * structural frame origin to this vehicle's structural origin,
      * in parent structural coordinates.
      */
-    SolverTypes::ConstDecayedVector3T get_parent_to_structure_offset () const
+    SolverTypes::ConstDecayedVector3T get_parent_to_structure_offset() const
     {
-        return *parent_to_structure_offset;
+        return ((SolverTypes::ConstDecayedVector3T)(*parent_to_structure_offset));
     }
 
     /**
      * @return Const reference to the transformation matrix from the parent
      * vehicle's structural frame to this vehicle's structural frame.
      */
-    SolverTypes::ConstMatrix3x3RefT get_parent_to_structure_transform () const
+    SolverTypes::ConstMatrix3x3RefT get_parent_to_structure_transform() const
     {
         return *parent_to_structure_transform;
     }
@@ -168,7 +149,7 @@ public:
     /**
      * @return The vehicle mass.
      */
-    double get_mass () const
+    double get_mass() const
     {
         return *mass;
     }
@@ -178,16 +159,16 @@ public:
      * structural frame to the vehicle's center of mass,
      * in vehicle structural coordinates.
      */
-    SolverTypes::ConstDecayedVector3T get_structure_to_body_offset () const
+    SolverTypes::ConstDecayedVector3T get_structure_to_body_offset() const
     {
-        return *structure_to_body_offset;
+        return ((SolverTypes::ConstDecayedVector3T)(*structure_to_body_offset));
     }
 
     /**
      * @return Const reference to the vehicle's inertia tensor,
      * in vehicle body frame coordinates.
      */
-    SolverTypes::ConstMatrix3x3RefT get_inertia () const
+    SolverTypes::ConstMatrix3x3RefT get_inertia() const
     {
         return *inertia;
     }
@@ -196,7 +177,7 @@ public:
      * @return Const reference to the transformation matrix from the vehicle's
      * structural frame to its body frame.
      */
-    SolverTypes::Matrix3x3RefT get_structure_to_body_transform () const
+    SolverTypes::Matrix3x3RefT get_structure_to_body_transform() const
     {
         return *structure_to_body_transform;
     }
@@ -204,7 +185,7 @@ public:
     /**
      * @return The multiplicative inverse of the vehicle's mass.
      */
-    double get_inverse_mass () const
+    double get_inverse_mass() const
     {
         return *inverse_mass;
     }
@@ -213,61 +194,56 @@ public:
      * @return Const reference to the inverse of the vehicle's inertia tensor,
      * in vehicle body frame coordinates.
      */
-    SolverTypes::Matrix3x3RefT get_inverse_inertia () const
+    SolverTypes::Matrix3x3RefT get_inverse_inertia() const
     {
         return *inverse_inertia;
     }
 
-
 private:
-
-
     /**
      *  Pointer to the vehicle's structure_point.position vector.
      */
-    SolverTypes::Vector3PointerT parent_to_structure_offset; //!< trick_units(m)
+    SolverTypes::Vector3PointerT parent_to_structure_offset{}; //!< trick_units(m)
 
     /**
      *  Pointer to the vehicle's structure_point.T_parent_this matrix.
      */
-    SolverTypes::Matrix3x3PointerT parent_to_structure_transform; //!< trick_units(--)
+    SolverTypes::Matrix3x3PointerT parent_to_structure_transform{}; //!< trick_units(--)
 
     /**
      *  Pointer to the vehicle's composite_properties.mass member.
      */
-    double* mass; //!< trick_units(kg)
+    double * mass{}; //!< trick_units(kg)
 
     /**
      *  Pointer to the vehicle's composite_properties.position vector.
      */
-    SolverTypes::Vector3PointerT structure_to_body_offset; //!< trick_units(m)
+    SolverTypes::Vector3PointerT structure_to_body_offset{}; //!< trick_units(m)
 
     /**
      *  Pointer to the vehicle's composite_properties.inertia tensor.
      */
-    SolverTypes::Matrix3x3PointerT inertia; //!< trick_units(m^2*kg)
+    SolverTypes::Matrix3x3PointerT inertia{}; //!< trick_units(m^2*kg)
 
     /**
      *  Pointer to the vehicle's composite_properties.T_parent_this matrix.
      */
-    SolverTypes::Matrix3x3PointerT structure_to_body_transform; //!< trick_units(--)
+    SolverTypes::Matrix3x3PointerT structure_to_body_transform{}; //!< trick_units(--)
 
     /**
      *  Pointer to the vehicle's inverse_mass member.
      */
-    double* inverse_mass; //!< trick_units(1/kg)
+    double * inverse_mass{}; //!< trick_units(1/kg)
 
     /**
      *  Pointer to the vehicle's inverse_inertia member.
      */
-    SolverTypes::Matrix3x3PointerT inverse_inertia; //!< trick_units(1/kg/m^2)
+    SolverTypes::Matrix3x3PointerT inverse_inertia{}; //!< trick_units(1/kg/m^2)
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

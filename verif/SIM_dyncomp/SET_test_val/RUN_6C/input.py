@@ -37,4 +37,4 @@ set_mass_cylinder()
 # Begin maneuver.
 trick.add_read(1000.0, "vehicle.force_extern.force  = [ 0.0, -29000.0, 0.0]")
 # End maneuver
-trick.add_read(1048.0, "vehicle.force_extern.force  = [ 0.0, 0.0, 0.0]")
+trick.add_read(1093.0, "vehicle.force_extern.force  = [ 0.0, 0.0, 0.0]")

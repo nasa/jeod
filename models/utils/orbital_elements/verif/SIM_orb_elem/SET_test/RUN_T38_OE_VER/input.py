@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_T38_OE_VER/ 
+#  (To define the input data for simulation SET_test/RUN_T38_OE_VER/
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -25,23 +25,23 @@ trick.sim_services.exec_set_trap_sigfpe(1)
 exec(compile(open( "Modified_data/default_mods.py", "rb").read(), "Modified_data/default_mods.py", 'exec'))
 set_default_mods(orb_elem_test)
 
-orb_elem_test.orb_elem.semiparam     = 8853774 
-orb_elem_test.orb_elem.e_mag         = 0.2000000000000001 
+orb_elem_test.orb_elem.semiparam     = 8853774
+orb_elem_test.orb_elem.e_mag         = 0.2000000000000001
 orb_elem_test.orb_elem.inclination   = 2.356194490192345
-orb_elem_test.orb_elem.mean_anom     = 6.283185307179586 
+orb_elem_test.orb_elem.mean_anom     = 6.283185307179586
 orb_elem_test.orb_elem.arg_periapsis = 3.141592653589793
-orb_elem_test.orb_elem.long_asc_node = 0.7853981633974483 
-orb_elem_test.orb_elem_ver.to_cartesian = 1 
+orb_elem_test.orb_elem.long_asc_node = 0.7853981633974483
+orb_elem_test.orb_elem_ver.to_cartesian = True
 
 read = 1
 trick.add_read(read, """
-orb_elem_test.orb_elem.semiparam     = 8853774 
-orb_elem_test.orb_elem.e_mag         = 0.2000000000000001 
+orb_elem_test.orb_elem.semiparam     = 8853774
+orb_elem_test.orb_elem.e_mag         = 0.2000000000000001
 orb_elem_test.orb_elem.inclination   = 2.356194490192345
-orb_elem_test.orb_elem.mean_anom     = 3.141592653589793 
+orb_elem_test.orb_elem.mean_anom     = 3.141592653589793
 orb_elem_test.orb_elem.arg_periapsis = 3.141592653589793
-orb_elem_test.orb_elem.long_asc_node = 0.78539816339 
-orb_elem_test.orb_elem_ver.to_cartesian = 1 
+orb_elem_test.orb_elem.long_asc_node = 0.78539816339
+orb_elem_test.orb_elem_ver.to_cartesian = True
 """)
 
 trick.sim_services.exec_set_terminate_time(2)

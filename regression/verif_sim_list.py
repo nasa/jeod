@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -87,8 +87,7 @@ verif_sim_list = [
           ["RUN*", ["input.py", "*.csv", "*.trk"]]]],
       ["verif/SIM_SolarBeta", [
           ["RUN_incl*", ["input.py", "*.csv"]],
-          ["RUN_comp*", ["input.py", "*.csv"]],
-          ["RUN_FAIL_bad_reference_name", "input.py",1]]]]
+          ["RUN_comp*", ["input.py", "*.csv"]]]]]
   ],
 
   ["models/dynamics/dyn_body", [

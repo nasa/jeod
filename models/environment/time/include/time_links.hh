@@ -56,8 +56,6 @@ Purpose:
 
 *******************************************************************************/
 
-
-
 #ifndef MODELS_ENVIRONMENT_TIME_INCLUDE_TIME_LINKS_HH_
 #define MODELS_ENVIRONMENT_TIME_INCLUDE_TIME_LINKS_HH_
 
@@ -67,44 +65,42 @@ Purpose:
 #include "class_declarations.hh"
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/ref_frames/include/tree_links.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeLinks;
 
 class TimeLinks : public TreeLinks<TimeLinks, JeodBaseTime, TimeMessages>
 {
-   JEOD_MAKE_SIM_INTERFACES(TimeLinks)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeLinks)
 
-   // Member functions
+    // Member functions
 public:
-   explicit TimeLinks( JeodBaseTime& time_in )
-   : TreeLinks<TimeLinks,JeodBaseTime, TimeMessages>(time_in, default_path_size)
-     { }
+    explicit TimeLinks(JeodBaseTime & time_in)
+        : TreeLinks<TimeLinks, JeodBaseTime, TimeMessages>(time_in, default_path_size)
+    {
+    }
 
-   // The default constructor, copy constructor, and copy assignment
-   // operator don't make sense and are deleted.
-   TimeLinks () = delete;
-   TimeLinks (const TimeLinks&) = delete;
-   void operator= (const TimeLinks&) = delete;
+    // The default constructor, copy constructor, and copy assignment
+    // operator don't make sense and are deleted.
+    TimeLinks() = delete;
+    ~TimeLinks() override = default;
+    TimeLinks(const TimeLinks &) = delete;
+    void operator=(const TimeLinks &) = delete;
 
-   /**
-    * Default destructor
-    */
-   ~TimeLinks() override = default;
-
-   // Member attributes
+    // Member attributes
 private:
-   /**
-    * Default allocated number of entries in linkage container
-    */
-   const static unsigned int default_path_size = 8; //!< trick_units(--)
+    /**
+     * Default allocated number of entries in linkage container
+     */
+    const static unsigned int default_path_size = 8; //!< trick_units(--)
 };
 
-} // End jeod namespace
+} // namespace jeod
 
 #endif /* MODELS_ENVIRONMENT_TIME_INCLUDE_TIME_LINKS_HH_ */
 

@@ -55,10 +55,9 @@ Purpose:
 Library dependencies:
   ((../src/named_item_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_NAMED_ITEM_MESSAGES_HH
 #define JEOD_NAMED_ITEM_MESSAGES_HH
@@ -68,53 +67,45 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the named_item model.
  */
-class NamedItemMessages {
+class NamedItemMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, NamedItemMessages)
 
+    // Static member data
+public:
+    // Errors
 
- JEOD_MAKE_SIM_INTERFACES(NamedItemMessages)
+    /**
+     * Error issued when the arguments to named item are invalid.
+     */
+    static const char * bad_args; //!< trick_units(--)
 
+    /**
+     * Error issued when a name is the null pointer or an empty string.
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
- // Static member data
- public:
-   // Errors
+    /**
+     * Error issued when set_name is called with the name marked as frozen.
+     */
+    static const char * frozen_name; //!< trick_units(--)
 
-   /**
-    * Error issued when the arguments to named item are invalid.
-    */
-   static char const * bad_args; //!< trick_units(--)
-
-   /**
-    * Error issued when a name is the null pointer or an empty string.
-    */
-   static char const * invalid_name; //!< trick_units(--)
-
-   /**
-    * Error issued when set_name is called with the name marked as frozen.
-    */
-   static char const * frozen_name; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   NamedItemMessages (void);
-   NamedItemMessages (const NamedItemMessages &);
-   NamedItemMessages & operator= (const NamedItemMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    NamedItemMessages() = delete;
+    NamedItemMessages(const NamedItemMessages &) = delete;
+    NamedItemMessages & operator=(const NamedItemMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

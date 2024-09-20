@@ -47,11 +47,8 @@ ASSUMPTIONS AND LIMITATIONS:
 LIBRARY DEPENDENCY:
   ((../src/orb_elem_ver.cc))
 
- 
-************************************************************************/
 
-// Trick includes
-#include "sim_services/include/Flag.h"
+************************************************************************/
 
 // JEOD includes
 #include "utils/orbital_elements/include/orbital_elements.hh"
@@ -60,24 +57,24 @@ LIBRARY DEPENDENCY:
 #define ORB_ELEM_VER_H_
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class OrbElemVer{
-
-  public:
-   Flag   to_cartesian; /* trick_units(--) @n
+class OrbElemVer
+{
+public:
+    bool to_cartesian;  /* trick_units(--) @n
       Flag to determine which direction. */
-   double mu;           /* trick_units(m3/s2) @n
+    double mu;          /* trick_units(m3/s2) @n
       Gravity constant for routine. */
-   double position[3];  /* trick_units(m) @n
+    double position[3]; /* trick_units(m) @n
       Pos vector for elem conversion. */
-   double velocity[3];  /* trick_units(m/s) @n
+    double velocity[3]; /* trick_units(m/s) @n
       Vel vector for elem conversion. */
 
-   void update( OrbitalElements * orb_elem );
-
+    void update(OrbitalElements * orb_elem);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

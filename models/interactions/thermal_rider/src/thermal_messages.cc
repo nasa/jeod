@@ -10,7 +10,6 @@
  * Implement the class ThermalMessages.
  */
 
-
 /*******************************************************************************
 
 Purpose:
@@ -28,7 +27,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -36,20 +34,17 @@ Library dependencies:
 
 #define PATH "utils/thermal_rider/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 // Errors and warnings
-char const * ThermalMessages::incomplete_setup_error =
-    PATH "incomplete_setup_error";
+const char * ThermalMessages::incomplete_setup_error = PATH "incomplete_setup_error";
 
-char const * ThermalMessages::invalid_integration_operation =
-    PATH "invalid_integration_operation";
+const char * ThermalMessages::invalid_integration_operation = PATH "invalid_integration_operation";
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

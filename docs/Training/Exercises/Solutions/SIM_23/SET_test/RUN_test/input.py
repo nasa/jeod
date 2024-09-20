@@ -23,4 +23,4 @@ exec(compile(open("Modified_data/vehicle_mass_props.py", "rb").read(), "Modified
 exec(compile(open("Modified_data/vehicle_state_orbelm.py", "rb").read(), "Modified_data/vehicle_state_orbelm.py", 'exec'))
 exec(compile(open("Modified_data/vehicle_grav_controls.py", "rb").read(), "Modified_data/vehicle_grav_controls.py", 'exec'))
 
-trick.sim_services.exec_set_terminate_time(18000.0);
+trick.sim_services.exec_set_terminate_time(18000.0)

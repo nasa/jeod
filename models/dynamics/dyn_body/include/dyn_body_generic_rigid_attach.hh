@@ -50,17 +50,16 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_DYN_BODY_GENERIC_RIGID_ATTACH_HH
 #define JEOD_DYN_BODY_GENERIC_RIGID_ATTACH_HH
 
-#include "utils/sim_interface/include/jeod_class.hh"
-#include "body_ref_frame.hh"
 #include "../../mass/include/mass_point_state.hh"
+#include "body_ref_frame.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * A wrench comprises a torque and a force applied at a point on a DynBody.
@@ -77,25 +76,18 @@ namespace jeod {
  */
 class DynBodyGenericFrameAttachment
 {
-    JEOD_MAKE_SIM_INTERFACES(DynBodyGenericFrameAttachment)
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyGenericFrameAttachment)
 
 public:
-
-
     /**
      * Default constructor.
      */
-    DynBodyGenericFrameAttachment() :
-            active(false),
-            rigid_attach_parent(nullptr)
-    {
-    }
-
+    DynBodyGenericFrameAttachment() = default;
 
     // Member functions
     // Initialize the attachment variables with the parent_frame and the offset from the parent_frame
     // to the structure frame
-    void initialize_attachment(RefFrame &parent_frame, const RefFrameState &attach_state)
+    void initialize_attachment(RefFrame & parent_frame, const RefFrameState & attach_state)
     {
         active = true;
         rigid_attach_parent = &parent_frame;
@@ -114,33 +106,29 @@ public:
         return active;
     }
 
-    RefFrame* get_parent_frame() const
+    RefFrame * get_parent_frame() const
     {
         return rigid_attach_parent;
     }
 
-    const RefFrameState& get_attach_offset() const
+    const RefFrameState & get_attach_offset() const
     {
         return rigid_attach_state;
     }
 
-
 private:
-
     // Member data
 
-    bool active; //!< trick_units(--)
+    bool active{}; //!< trick_units(--)
 
-    RefFrame * rigid_attach_parent; //!< trick_units(--)
+    RefFrame * rigid_attach_parent{}; //!< trick_units(--)
 
     RefFrameState rigid_attach_state; //!< trick_units(--)
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

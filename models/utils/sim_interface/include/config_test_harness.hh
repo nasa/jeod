@@ -55,13 +55,12 @@ Assumptions and Limitations:
   (((Inclusion of this file and use of the JEOD_MAKE_SIM_INTERFACES macro
      in each defined mandatory for all JEOD class definition files.)))
 
- 
+
 
 *******************************************************************************/
 
 #ifndef JEOD_CONFIG_TEST_HARNESS_HH
 #define JEOD_CONFIG_TEST_HARNESS_HH
-
 
 // The following are used by jeod_class.hh.
 // Define JEOD_CLASS_ primitives, but only if the JEOD installation
@@ -69,7 +68,6 @@ Assumptions and Limitations:
 #ifndef JEOD_CLASS_IMPLEMENTATION_HEADER
 
 #endif
-
 
 // The following are used by memory_attributes.hh.
 // Define JEOD_ATTRIBUTES_ primitives, but only if the JEOD installation
@@ -81,7 +79,6 @@ Assumptions and Limitations:
 
 #endif
 
-
 // The following are used by integrator_interface.hh
 // Define JEOD_SIM_INTEGRATOR_ primitives, but only if the JEOD installation
 // is not providing an alternate implementation.
@@ -91,7 +88,6 @@ Assumptions and Limitations:
 
 #endif
 
-
 // Various classes nominally want to make their data members private,
 // but this can get in the way of Trick.
 #ifndef JEOD_NOMINALLY_PRIVATE
@@ -99,7 +95,6 @@ Assumptions and Limitations:
 #define JEOD_NOMINALLY_PRIVATE private
 
 #endif
-
 
 #endif
 

@@ -55,13 +55,12 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_BODY_ACTION_CLASS_DECL_HH
 #define JEOD_BODY_ACTION_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BodyAction;
 class BodyActionMessages;
@@ -85,7 +84,7 @@ class BodyDetachSpecific;
 
 class MassBodyInit;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

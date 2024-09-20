@@ -66,7 +66,7 @@ Class:
 Library dependencies:
   ((../src/RNP_messages.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -76,56 +76,53 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Describes messages used in the RNP model.
  */
-class RNPMessages {
+class RNPMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RNPMessages)
 
-   JEOD_MAKE_SIM_INTERFACES(RNPMessages)
-
-   // Static member data
+    // Static member data
 
 public:
+    // Errors
 
-   // Errors
+    /**
+     * Indicates an error during initialization.
+     */
+    static const char * initialization_error; //!< trick_units(--)
 
-   /**
-    * Indicates an error during initialization.
-    */
-   static char const * initialization_error;   //!< trick_units(--)
+    /**
+     * Indicates a mismatch between the requested fidelity and
+     * what is available to the model.
+     */
+    static const char * fidelity_error; //!< trick_units(--)
 
-   /**
-    * Indicates a mismatch between the requested fidelity and
-    * what is available to the model.
-    */
-   static char const * fidelity_error;   //!< trick_units(--)
+    /**
+     * Indicates an error during setup of the RNP model.
+     */
+    static const char * setup_error; //!< trick_units(--)
 
-   /**
-    * Indicates an error during setup of the RNP model.
-    */
-   static char const * setup_error;   //!< trick_units(--)
+    // Warnings
 
-   // Warnings
+    /**
+     * Indicates a problem with the interpolation table commonly
+     * found in polar motion implementations.
+     */
+    static const char * polar_motion_table_warning; //!< trick_units(--)
 
-   /**
-    * Indicates a problem with the interpolation table commonly
-    * found in polar motion implementations.
-    */
-   static char const * polar_motion_table_warning;   //!< trick_units(--)
-
-private:
-
-   // Class is not instantiable, operator = and copy constructor are
-   // hidden from use.
-   RNPMessages (void);
-   RNPMessages (const RNPMessages& rhs);
-   RNPMessages& operator = (const RNPMessages& rhs);
-
+    // Class is not instantiable, operator = and copy constructor are
+    // hidden from use.
+    RNPMessages() = delete;
+    RNPMessages(const RNPMessages & rhs) = delete;
+    RNPMessages & operator=(const RNPMessages & rhs) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

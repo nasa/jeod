@@ -58,18 +58,14 @@ References:
 Assumptions and limitations:
   ((none))
 
-Library dependencies:
-  ((../src/spherical_harmonics_tidal_effects_init.cc))
-
-
 *******************************************************************************/
-
 
 #ifndef JEOD_SPHERICAL_HARMONICS_TIDAL_EFFECTS_INIT_HH
 #define JEOD_SPHERICAL_HARMONICS_TIDAL_EFFECTS_INIT_HH
 
-
 // System includes
+#include <string>
+#include <vector>
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
@@ -77,64 +73,51 @@ Library dependencies:
 // Model includes
 #include "spherical_harmonics_delta_coeffs_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initializes a tidal gravity model.
  */
-class SphericalHarmonicsTidalEffectsInit :
-         public SphericalHarmonicsDeltaCoeffsInit {
+class SphericalHarmonicsTidalEffectsInit : public SphericalHarmonicsDeltaCoeffsInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsTidalEffectsInit)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsTidalEffectsInit)
+    // Member data
+public:
+    /**
+     * Copy of polar motion coefficient xp (from polar motion class).
+     */
+    double xp{}; //!< trick_units(--)
 
+    /**
+     * Copy of polar motion coefficient yp (from polar motion class).
+     */
+    double yp{}; //!< trick_units(--)
 
- // Member data
- public:
+    /**
+     * The love number. Only used for a first order tidal effect model
+     */
+    double k2{}; //!< trick_units(--)
 
-   /**
-    * Copy of polar motion coefficient xp (from polar motion class).
-    */
-  double xp; //!< trick_units(--)
+    /**
+     * A matrix of love numbers. Used for higher order (not first) tidal effects
+     */
+    double ** Knm{}; //!< trick_units(--)
 
-   /**
-    * Copy of polar motion coefficient yp (from polar motion class).
-    */
-   double yp; //!< trick_units(--)
+    /**
+     * A named list of gravitational bodies contributing to this tidal efffect
+     */
+    std::vector<std::string> tidal_body_names; //!< trick_units(--)
 
-   /**
-    * The love number. Only used for a first order tidal effect model
-    */
-   double k2; //!< trick_units(--)
-
-   /**
-    * A matrix of love numbers. Used for higher order (not first) tidal effects
-    */
-   double** Knm; //!< trick_units(--)
-
-   /**
-    * A named list of gravitational bodies contributing to this tidal efffect
-    */
-   char** tidal_body_names; //!< trick_units(--)
-
-   /**
-    * The number of tidal bodies named in tidal_body_names
-    */
-   unsigned int num_tidal_bodies; //!< trick_units(count)
-
-
- // Member functions
- public:
-
-   // Constructor & Destructor
-   SphericalHarmonicsTidalEffectsInit ();
-   ~SphericalHarmonicsTidalEffectsInit () override;
-
+    // Member functions
+public:
+    SphericalHarmonicsTidalEffectsInit() = default;
+    ~SphericalHarmonicsTidalEffectsInit() override = default;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

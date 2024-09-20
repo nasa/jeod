@@ -48,7 +48,7 @@
  Library dependencies:
  ((../src/point_ground_interaction.cc))
 
- 
+
 
  *****************************************************************************/
 
@@ -62,7 +62,8 @@
 #include "ground_interaction.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Class declarations;
 class PointContactFacet;
@@ -71,36 +72,25 @@ class PointContactFacet;
  Purpose:
  (An base ground interaction class for use in the contact model.)
  */
-class PointGroundInteraction : public GroundInteraction {
-
-   JEOD_MAKE_SIM_INTERFACES(PointGroundInteraction)
+class PointGroundInteraction : public GroundInteraction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PointGroundInteraction)
 
 public:
-   PointContactFacet *subject_point; /* trick_units(--) @n
-      point contact facet that can interact with the ground */
+    PointContactFacet * subject_point{}; /* trick_units(--) @n
+        point contact facet that can interact with the ground */
 
-   // constructor
-   PointGroundInteraction();
+    PointGroundInteraction() = default;
+    ~PointGroundInteraction() override = default;
+    PointGroundInteraction & operator=(const PointGroundInteraction &) = delete;
+    PointGroundInteraction(const PointGroundInteraction &) = delete;
 
-   // destructor
-   ~PointGroundInteraction() override;
-
-   /*
-    Virtual funtion to determine if the contact facet is touching the ground.
-    */
-   void in_contact(void) override;
-
-protected:
-
-private:
-
-   /* Operator = and copy constructor hidden from use by being private */
-   PointGroundInteraction& operator = (const PointGroundInteraction & rhs);
-   PointGroundInteraction (const PointGroundInteraction & rhs);
-
+    /*
+     Virtual funtion to determine if the contact facet is touching the ground.
+     */
+    void in_contact() override;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

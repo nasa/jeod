@@ -20,23 +20,23 @@ set_setup()
 integ_constructor.switch_integ_to_RKF78()
 
 # Run the sim for 400 days.
-trick.stop(86400*400);
+trick.stop(86400*400)
 
-slow_integ_loop.integ_loop.set_integ_cycle (864000.00);
+slow_integ_loop.integ_loop.set_integ_cycle (864000.00)
 
 # Switch to propagated mode immediately after initialization.
 trick.add_read(0 , """
-sun.switch_to_propagated();
-jupiter.switch_to_propagated();
-saturn.switch_to_propagated();
+sun.switch_to_propagated()
+jupiter.switch_to_propagated()
+saturn.switch_to_propagated()
 """)
 
 # Switch Saturn to the slow integration group a bit past one year into the run.
 # Note that 371 days requires one more step at 864000.00 before switching to
 # a 1728000.00 second step size.
 trick.add_read(371*86400 , """
-slow_integ_loop.integ_loop.set_integ_cycle (1728000.00);
-slow_integ_loop.integ_loop.add_sim_object(saturn);
+slow_integ_loop.integ_loop.set_integ_cycle (1728000.00)
+slow_integ_loop.integ_loop.add_sim_object(saturn)
 """)
 
 

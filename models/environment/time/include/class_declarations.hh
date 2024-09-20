@@ -63,7 +63,8 @@ Assumptions and Limitations:
 #define JEOD_TIME_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeConverter_Dyn_UDE;
 class TimeConverter_Dyn_TAI;
@@ -92,7 +93,7 @@ class TimeUDE;
 class TimeUT1;
 class TimeUTC;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

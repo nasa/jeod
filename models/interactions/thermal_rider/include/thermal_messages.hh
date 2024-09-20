@@ -61,7 +61,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_THERMAL_MESSAGES_HH
 #define JEOD_THERMAL_MESSAGES_HH
 
@@ -70,49 +69,38 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifying the message IDs used in the  model.
  */
-class ThermalMessages {
+class ThermalMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ThermalMessages)
 
+    // Static member data
+public:
+    // Errors
+    /**
+     * Generic error; the model was not set up correctly.
+     */
+    static const char * incomplete_setup_error; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(ThermalMessages)
+    /**
+     * The integration is invalid, usually because the integration step is too
+     * large.
+     */
+    static const char * invalid_integration_operation; //!< trick_units(--)
 
-
- // Static member data
- public:
-   // Errors
-   /**
-    * Generic error; the model was not set up correctly.
-    */
-   static char const * incomplete_setup_error; //!< trick_units(--)
-
-
-   /**
-    * The integration is invalid, usually because the integration step is too
-    * large.
-    */
-   static char const * invalid_integration_operation; //!< trick_units(--)
-
-
-
-
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   ThermalMessages (void);
-   ThermalMessages (const ThermalMessages &);
-   ThermalMessages & operator= (const ThermalMessages &);
-
+    // The constructors and assignment operator for this class are deleted.
+    ThermalMessages() = delete;
+    ThermalMessages(const ThermalMessages &) = delete;
+    ThermalMessages & operator=(const ThermalMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -37,33 +37,36 @@
 #ifndef ORIENTATION_HH
 #define ORIENTATION_HH
 
-class Orientation {
-public :
+class Orientation
+{
+public:
+    static void compute_matrix_from_eigen_rotation(double eigen_angle, const double eigen_axis[3], double trans[3][3]);
 
-   static void compute_matrix_from_eigen_rotation (
-      double eigen_angle, const double eigen_axis[3], double trans[3][3]);
+    static void compute_eigen_rotation_from_matrix(const double trans[3][3],
+                                                   double * eigen_angle,
+                                                   double eigen_axis[3]);
 
-   static void compute_eigen_rotation_from_matrix (
-      const double trans[3][3], double * eigen_angle, double eigen_axis[3]);
+    static void mxmt(const double m[3][3], const double mt[3][3], double prod[3][3])
+    {
+        for(int i = 0; i < 3; ++i)
+        {
+            for(int j = 0; j < 3; ++j)
+            {
+                prod[i][j] = 0.0;
+                for(int k = 0; k < 3; ++k)
+                {
+                    prod[i][j] += (m[i][k] * mt[j][k]);
+                }
+            } // end for j
+        }     // end for i
+    }         // end mxmt
 
-   static void mxmt (const double m[3][3], const double mt[3][3],
-     double prod[3][3]) {
-      for (int i = 0; i < 3; ++i) {
-         for (int j = 0; j < 3; ++j) {
-            prod[i][j] = 0.0;
-            for (int k = 0; k < 3; ++k) {
-               prod[i][j]+=(m[i][k]*mt[j][k]);
-            }
-         } // end for j
-      } // end for i
-   } // end mxmt
+    static void matrix_delta(double m1[3][3], double m2[3][3], double * angle, double eigen_axis[3])
+    {
+        double temp[3][3];
 
-   static void matrix_delta (double m1[3][3], double m2[3][3],
-     double *angle, double eigen_axis[3]) {
-      double temp[3][3];
-
-      Orientation::mxmt(m1, m2, temp);
-      Orientation::compute_eigen_rotation_from_matrix (temp, angle, eigen_axis);
-   } // end matrix_delta
+        Orientation::mxmt(m1, m2, temp);
+        Orientation::compute_eigen_rotation_from_matrix(temp, angle, eigen_axis);
+    } // end matrix_delta
 };
 #endif

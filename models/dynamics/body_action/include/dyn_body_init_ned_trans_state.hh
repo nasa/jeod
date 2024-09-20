@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_NED_TRANS_STATE_HH
 #define JEOD_DYN_BODY_INIT_NED_TRANS_STATE_HH
-
 
 // System includes
 
@@ -73,44 +71,32 @@ Library dependencies:
 // Model includes
 #include "dyn_body_init_ned_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize a vehicle's translational state wrt some vehicle's
  * North-East-Down frame.
  */
-class DynBodyInitNedTransState : public DynBodyInitNedState {
+class DynBodyInitNedTransState : public DynBodyInitNedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitNedTransState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitNedTransState)
+    // No member data. This class adds no member data to DynBodyInitNedState.
 
+    // Member functions
+public:
+    DynBodyInitNedTransState();
+    ~DynBodyInitNedTransState() override = default;
+    DynBodyInitNedTransState(const DynBodyInitNedTransState &) = delete;
+    DynBodyInitNedTransState & operator=(const DynBodyInitNedTransState &) = delete;
 
- // No member data. This class adds no member data to DynBodyInitNedState.
-
-
- // Member functions
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DynBodyInitNedTransState (const DynBodyInitNedTransState&);
-   DynBodyInitNedTransState & operator = (const DynBodyInitNedTransState&);
-
-
- public:
-
-   // Default constructor, destructor
-   DynBodyInitNedTransState ();
-   ~DynBodyInitNedTransState () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

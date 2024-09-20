@@ -21,13 +21,11 @@ Library Dependency:
    (trick_memory_interface_alloc.cc)
    (trick_memory_interface_attrib.cc)
    (trick_memory_interface_chkpnt.cc)
-   (trick_memory_interface_xlate.cc)
-   (memory_interface.cc))
+   (trick_memory_interface_xlate.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifdef TRICK_VER
 
@@ -38,7 +36,7 @@ Library Dependency:
 #include <sstream>
 
 // Trick includes
-#include <iosfwd>  // Grrr!
+#include <iosfwd>   // Grrr!
 using std::ostream; // Double grrr!
 #include "sim_services/CheckPointAgent/include/ClassicCheckPointAgent.hh"
 #include "sim_services/MemoryManager/include/MemoryManager.hh"
@@ -48,46 +46,35 @@ extern Trick::MemoryManager * trick_MM;
 #include "utils/message/include/message_handler.hh"
 
 // Model includes
-#include "../include/simulation_interface.hh"
 #include "../include/sim_interface_messages.hh"
+#include "../include/simulation_interface.hh"
 #include "../include/trick10_memory_interface.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Construct a JeodTrick10MemoryInterface object.
  */
-JeodTrick10MemoryInterface::JeodTrick10MemoryInterface (
-   void)
+JeodTrick10MemoryInterface::JeodTrick10MemoryInterface()
 {
+    // UAS.
+    Trick::CheckPointAgent * current_agent = trick_MM->get_CheckPointAgent();
+    trick_MM->reset_CheckPointAgent();
+    trick_checkpoint_agent = dynamic_cast<Trick::ClassicCheckPointAgent *>(trick_MM->get_CheckPointAgent());
+    trick_MM->set_CheckPointAgent(current_agent);
 
-   // UAS.
-   Trick::CheckPointAgent * current_agent = trick_MM->get_CheckPointAgent();
-   trick_MM->reset_CheckPointAgent();
-   trick_checkpoint_agent = dynamic_cast<Trick::ClassicCheckPointAgent*> (
-      trick_MM->get_CheckPointAgent());
-   trick_MM->set_CheckPointAgent(current_agent);
-
-   if (trick_checkpoint_agent == nullptr) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, SimInterfaceMessages::interface_error,
-         "Trick checkpoint agent is not accessible.");
-   }
+    if(trick_checkpoint_agent == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             SimInterfaceMessages::interface_error,
+                             "Trick checkpoint agent is not accessible.");
+    }
 }
 
-
-/**
- * Destruct a JeodTrick10MemoryInterface object.
- */
-JeodTrick10MemoryInterface::~JeodTrick10MemoryInterface (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

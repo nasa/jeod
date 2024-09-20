@@ -59,10 +59,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/quat_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_QUAT_MESSAGES_HH
 #define JEOD_QUAT_MESSAGES_HH
@@ -72,41 +71,38 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the orbital elements model.
  */
-class QuatMessages {
+class QuatMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, QuatMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued an undefined behaviour is encountered.
+     */
+    static const char * undefined; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(QuatMessages)
+    /**
+     * Issued when function input is invalid.
+     */
+    static const char * invalid_entry; //!< trick_units(--)
 
-
- // Static member data
- public:
-
-   /**
-    * Issued an undefined behaviour is encountered.
-    */
-   static char const * undefined; //!< trick_units(--)
-
-   /**
-    * Issued when function input is invalid.
-    */
-   static char const * invalid_entry; //!< trick_units(--)
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   QuatMessages (void);
-   QuatMessages (const QuatMessages &);
-   QuatMessages & operator= (const QuatMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    QuatMessages() = delete;
+    QuatMessages(const QuatMessages &) = delete;
+    QuatMessages & operator=(const QuatMessages &) = delete;
 };
 
+} // namespace jeod
 
 #endif
 

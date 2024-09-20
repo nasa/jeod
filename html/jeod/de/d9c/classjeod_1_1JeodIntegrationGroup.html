@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -49,7 +49,6 @@ $(function() {
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::JeodIntegrationGroup Class Reference</div>  </div>
@@ -65,8 +64,8 @@ Inheritance diagram for jeod::JeodIntegrationGroup:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d8a/classjeod_1_1JeodIntegrationGroup__inherit__graph.png" border="0" usemap="#jeod_1_1JeodIntegrationGroup_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1JeodIntegrationGroup_inherit__map" id="jeod_1_1JeodIntegrationGroup_inherit__map">
-<area shape="rect" id="node4" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="106,169,281,211"/>
-<area shape="rect" id="node3" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html" title="A TimeChangeSubscriber is some object that wants to be notified of changes in the nature of time..." alt="" coords="201,13,391,39"/>
+<area shape="rect" id="node4" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="113,169,308,211"/>
+<area shape="rect" id="node3" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html" title="A TimeChangeSubscriber is some object that wants to be notified of changes in the nature of time..." alt="" coords="219,13,427,39"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -74,12 +73,12 @@ Collaboration diagram for jeod::JeodIntegrationGroup:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d88/classjeod_1_1JeodIntegrationGroup__coll__graph.png" border="0" usemap="#jeod_1_1JeodIntegrationGroup_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1JeodIntegrationGroup_coll__map" id="jeod_1_1JeodIntegrationGroup_coll__map">
-<area shape="rect" id="node3" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html" title="A TimeChangeSubscriber is some object that wants to be notified of changes in the nature of time..." alt="" coords="425,71,616,98"/>
-<area shape="rect" id="node4" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; er7_utils::IntegrableObject \&gt;" alt="" coords="421,123,620,164"/>
-<area shape="rect" id="node5" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="427,189,615,215"/>
-<area shape="rect" id="node7" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="435,239,606,266"/>
-<area shape="rect" id="node9" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="5,291,220,332"/>
-<area shape="rect" id="node10" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="431,291,610,332"/>
+<area shape="rect" id="node3" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html" title="A TimeChangeSubscriber is some object that wants to be notified of changes in the nature of time..." alt="" coords="469,71,677,98"/>
+<area shape="rect" id="node4" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; er7_utils::IntegrableObject \&gt;" alt="" coords="461,123,685,164"/>
+<area shape="rect" id="node5" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="469,189,677,215"/>
+<area shape="rect" id="node7" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="478,239,669,266"/>
+<area shape="rect" id="node9" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="5,291,244,332"/>
+<area shape="rect" id="node10" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="475,291,671,332"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -94,12 +93,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8e4b0d277d1d2c6a1cd2681be5c2d43e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a8e4b0d277d1d2c6a1cd2681be5c2d43e">~JeodIntegrationGroup</a> () override</td></tr>
 <tr class="memdesc:a8e4b0d277d1d2c6a1cd2681be5c2d43e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html" title="A JeodIntegrationGroup integrates the state of a set of objects over time. ">JeodIntegrationGroup</a> destructor.  <a href="#a8e4b0d277d1d2c6a1cd2681be5c2d43e">More...</a><br /></td></tr>
 <tr class="separator:a8e4b0d277d1d2c6a1cd2681be5c2d43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2735d8b8022ac43edc7ef19d163aa5d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a2735d8b8022ac43edc7ef19d163aa5d9">need_first_step_derivatives</a> (void) const</td></tr>
-<tr class="memdesc:a2735d8b8022ac43edc7ef19d163aa5d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether derivatives need to be calculated on the initial step of an integration cycle.  <a href="#a2735d8b8022ac43edc7ef19d163aa5d9">More...</a><br /></td></tr>
-<tr class="separator:a2735d8b8022ac43edc7ef19d163aa5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa91f1731572210c1d1a436074dff4d97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aa91f1731572210c1d1a436074dff4d97">update_from_owner</a> (void)</td></tr>
-<tr class="memdesc:aa91f1731572210c1d1a436074dff4d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the group via its owner.  <a href="#aa91f1731572210c1d1a436074dff4d97">More...</a><br /></td></tr>
-<tr class="separator:aa91f1731572210c1d1a436074dff4d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac7efb446692420a45ebb689a8f865b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aac7efb446692420a45ebb689a8f865b0">JeodIntegrationGroup</a> (const <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html">JeodIntegrationGroup</a> &amp;)=delete</td></tr>
+<tr class="separator:aac7efb446692420a45ebb689a8f865b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06885717d95a541ec027bfcdc8a1a4c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html">JeodIntegrationGroup</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a06885717d95a541ec027bfcdc8a1a4c2">operator=</a> (const <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html">JeodIntegrationGroup</a> &amp;)=delete</td></tr>
+<tr class="separator:a06885717d95a541ec027bfcdc8a1a4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7fc84b02633abdb94d736bcb84949a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ab7fc84b02633abdb94d736bcb84949a9">need_first_step_derivatives</a> () const</td></tr>
+<tr class="memdesc:ab7fc84b02633abdb94d736bcb84949a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether derivatives need to be calculated on the initial step of an integration cycle.  <a href="#ab7fc84b02633abdb94d736bcb84949a9">More...</a><br /></td></tr>
+<tr class="separator:ab7fc84b02633abdb94d736bcb84949a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eeaaf1b7275f3d2b2bc9ee521ceb450"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a5eeaaf1b7275f3d2b2bc9ee521ceb450">update_from_owner</a> ()</td></tr>
+<tr class="memdesc:a5eeaaf1b7275f3d2b2bc9ee521ceb450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the group via its owner.  <a href="#a5eeaaf1b7275f3d2b2bc9ee521ceb450">More...</a><br /></td></tr>
+<tr class="separator:a5eeaaf1b7275f3d2b2bc9ee521ceb450"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a3352d1ee16c9e4f82b8d177ee1d56b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a3a3352d1ee16c9e4f82b8d177ee1d56b">merge_integrator_result</a> (const er7_utils::IntegratorResult &amp;new_result, er7_utils::IntegratorResult &amp;merged_result) const</td></tr>
 <tr class="memdesc:a3a3352d1ee16c9e4f82b8d177ee1d56b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge an IntegratorResult into another.  <a href="#a3a3352d1ee16c9e4f82b8d177ee1d56b">More...</a><br /></td></tr>
 <tr class="separator:a3a3352d1ee16c9e4f82b8d177ee1d56b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,9 +112,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aacfa16927af1970f35c37f6e23074e37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aacfa16927af1970f35c37f6e23074e37">initialize_group</a> () override</td></tr>
 <tr class="memdesc:aacfa16927af1970f35c37f6e23074e37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the integration group.  <a href="#aacfa16927af1970f35c37f6e23074e37">More...</a><br /></td></tr>
 <tr class="separator:aacfa16927af1970f35c37f6e23074e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1fe37055ae5bebeb34e6648a0f7f4d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae1fe37055ae5bebeb34e6648a0f7f4d6">reset_body_integrators</a> (void) override</td></tr>
-<tr class="memdesc:ae1fe37055ae5bebeb34e6648a0f7f4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the integrators for the integrable objects managed by this group.  <a href="#ae1fe37055ae5bebeb34e6648a0f7f4d6">More...</a><br /></td></tr>
-<tr class="separator:ae1fe37055ae5bebeb34e6648a0f7f4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a7e3d9c52021eb547e0ae5b56db2a6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a0a7e3d9c52021eb547e0ae5b56db2a6a">reset_body_integrators</a> () override</td></tr>
+<tr class="memdesc:a0a7e3d9c52021eb547e0ae5b56db2a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the integrators for the integrable objects managed by this group.  <a href="#a0a7e3d9c52021eb547e0ae5b56db2a6a">More...</a><br /></td></tr>
+<tr class="separator:a0a7e3d9c52021eb547e0ae5b56db2a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48bf88d516a25bd28b2f6d419c60323d"><td class="memItemLeft" align="right" valign="top">er7_utils::IntegratorResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a48bf88d516a25bd28b2f6d419c60323d">integrate_bodies</a> (double cycle_dyndt, unsigned int target_stage) override</td></tr>
 <tr class="memdesc:a48bf88d516a25bd28b2f6d419c60323d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate the states of the integrable objects managed by this group.  <a href="#a48bf88d516a25bd28b2f6d419c60323d">More...</a><br /></td></tr>
 <tr class="separator:a48bf88d516a25bd28b2f6d419c60323d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,9 +125,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7d7bfa6e14d6cd77016fef3a2a86d4e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an integrable object from the vector of such.  <a href="#a7d7bfa6e14d6cd77016fef3a2a86d4e5">More...</a><br /></td></tr>
 <tr class="separator:a7d7bfa6e14d6cd77016fef3a2a86d4e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1TimeChangeSubscriber"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1TimeChangeSubscriber')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html">jeod::TimeChangeSubscriber</a></td></tr>
-<tr class="memitem:aaa5e59742ef032b0d4027c298d9c51c9 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html#aaa5e59742ef032b0d4027c298d9c51c9">~TimeChangeSubscriber</a> ()</td></tr>
-<tr class="memdesc:aaa5e59742ef032b0d4027c298d9c51c9 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html#aaa5e59742ef032b0d4027c298d9c51c9">More...</a><br /></td></tr>
-<tr class="separator:aaa5e59742ef032b0d4027c298d9c51c9 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5788a5beaaec7b71f1ef3b219cc01218 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html#a5788a5beaaec7b71f1ef3b219cc01218">TimeChangeSubscriber</a> ()=default</td></tr>
+<tr class="separator:a5788a5beaaec7b71f1ef3b219cc01218 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a407ad413450f02b6ee5bf770358016d9 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html#a407ad413450f02b6ee5bf770358016d9">~TimeChangeSubscriber</a> ()=default</td></tr>
+<tr class="separator:a407ad413450f02b6ee5bf770358016d9 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f82051f00cb5a60490c140a2b6df2e4 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html#a3f82051f00cb5a60490c140a2b6df2e4">TimeChangeSubscriber</a> (const <a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html">TimeChangeSubscriber</a> &amp;)=default</td></tr>
+<tr class="separator:a3f82051f00cb5a60490c140a2b6df2e4 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04a40f553c65da779b9569858b06fc76 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html">TimeChangeSubscriber</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html#a04a40f553c65da779b9569858b06fc76">operator=</a> (const <a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html">TimeChangeSubscriber</a> &amp;)=default</td></tr>
+<tr class="separator:a04a40f553c65da779b9569858b06fc76 inherit pub_methods_classjeod_1_1TimeChangeSubscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -145,30 +153,21 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a0c10d6bb6b676b4a13f42223131c6812"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html">JeodIntegrationGroupOwner</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a0c10d6bb6b676b4a13f42223131c6812">group_owner</a></td></tr>
+<tr class="memitem:a0c10d6bb6b676b4a13f42223131c6812"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html">JeodIntegrationGroupOwner</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a0c10d6bb6b676b4a13f42223131c6812">group_owner</a> {}</td></tr>
 <tr class="memdesc:a0c10d6bb6b676b4a13f42223131c6812"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object that owns this integration group, typically by containment.  <a href="#a0c10d6bb6b676b4a13f42223131c6812">More...</a><br /></td></tr>
 <tr class="separator:a0c10d6bb6b676b4a13f42223131c6812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4b38ec36011c4092fe9fe846b463232"><td class="memItemLeft" align="right" valign="top">er7_utils::IntegratorResultMergerContainer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae4b38ec36011c4092fe9fe846b463232">integ_merger</a></td></tr>
 <tr class="memdesc:ae4b38ec36011c4092fe9fe846b463232"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object that merges results from multiple integrators.  <a href="#ae4b38ec36011c4092fe9fe846b463232">More...</a><br /></td></tr>
 <tr class="separator:ae4b38ec36011c4092fe9fe846b463232"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6117bd3e978faa5fb875ece03ff185c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ab6117bd3e978faa5fb875ece03ff185c">jeod_integ_interface</a></td></tr>
+<tr class="memitem:ab6117bd3e978faa5fb875ece03ff185c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ab6117bd3e978faa5fb875ece03ff185c">jeod_integ_interface</a> {}</td></tr>
 <tr class="memdesc:ab6117bd3e978faa5fb875ece03ff185c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interface between the integration module and the simulation engine's integration structure.  <a href="#ab6117bd3e978faa5fb875ece03ff185c">More...</a><br /></td></tr>
 <tr class="separator:ab6117bd3e978faa5fb875ece03ff185c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a614b2ee267eff2b2e2afc2ac36de7944"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a614b2ee267eff2b2e2afc2ac36de7944">jeod_time_manager</a></td></tr>
+<tr class="memitem:a614b2ee267eff2b2e2afc2ac36de7944"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a614b2ee267eff2b2e2afc2ac36de7944">jeod_time_manager</a> {}</td></tr>
 <tr class="memdesc:a614b2ee267eff2b2e2afc2ac36de7944"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interface between the integration module and the object that represents time.  <a href="#a614b2ee267eff2b2e2afc2ac36de7944">More...</a><br /></td></tr>
 <tr class="separator:a614b2ee267eff2b2e2afc2ac36de7944"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a693fbf4891f9a990c7211128607787d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d08/classjeod_1_1JeodPointerVector.html">JeodPointerVector</a>&lt; er7_utils::IntegrableObject &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a></td></tr>
 <tr class="memdesc:a693fbf4891f9a990c7211128607787d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The objects whose states are integrated by this integration group.  <a href="#a693fbf4891f9a990c7211128607787d3">More...</a><br /></td></tr>
 <tr class="separator:a693fbf4891f9a990c7211128607787d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a037186070220bcd1192ff37f188b815a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a037186070220bcd1192ff37f188b815a">JeodIntegrationGroup</a> (const <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html">JeodIntegrationGroup</a> &amp;)</td></tr>
-<tr class="memdesc:a037186070220bcd1192ff37f188b815a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#a037186070220bcd1192ff37f188b815a">More...</a><br /></td></tr>
-<tr class="separator:a037186070220bcd1192ff37f188b815a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa45b2940340a43d560ccc2e9ca333dda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html">JeodIntegrationGroup</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aa45b2940340a43d560ccc2e9ca333dda">operator=</a> (const <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html">JeodIntegrationGroup</a> &amp;)</td></tr>
-<tr class="memdesc:aa45b2940340a43d560ccc2e9ca333dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#aa45b2940340a43d560ccc2e9ca333dda">More...</a><br /></td></tr>
-<tr class="separator:aa45b2940340a43d560ccc2e9ca333dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -181,7 +180,7 @@ Friends</h2></td></tr>
 <div class="textblock"><p>A <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html" title="A JeodIntegrationGroup integrates the state of a set of objects over time. ">JeodIntegrationGroup</a> integrates the state of a set of objects over time. </p>
 <p>This class is designed for extensibility. Authors of derived classes should follow the extension notes in the source file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00119">119</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00115">115</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae8e2f7fb91e8f5c0e6e5c4a33db45b17"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae8e2f7fb91e8f5c0e6e5c4a33db45b17">&#9670;&nbsp;</a></span>JeodIntegrationGroup() <span class="overload">[1/3]</span></h2>
@@ -200,7 +199,7 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html" title="A JeodIntegrationGroup integrates the state of a set of objects over time. ">JeodIntegrationGroup</a> default constructor, needed for checkpoint/restart, and to support derived classes' default constructors. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00063">63</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00060">60</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>, <a class="el" href="../../d0/d87/group__external.html#ga275078e14936cc1c45a050dbe6caf889">JEOD_REGISTER_CHECKPOINTABLE</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a3e3358d30e7b96d8ff80af6cf20fe14c">register_classes()</a>.</p>
 
@@ -255,7 +254,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00079">79</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00068">68</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a18664600e8d2321d0eb9807685c0dcef">jeod::JeodIntegrationTime::add_time_change_subscriber()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae4b38ec36011c4092fe9fe846b463232">integ_merger</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>, <a class="el" href="../../d0/d87/group__external.html#ga275078e14936cc1c45a050dbe6caf889">JEOD_REGISTER_CHECKPOINTABLE</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a3e3358d30e7b96d8ff80af6cf20fe14c">register_classes()</a>.</p>
 
@@ -286,14 +285,14 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html" title="A JeodIntegrationGroup integrates the state of a set of objects over time. ">JeodIntegrationGroup</a> destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00102">102</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00086">86</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>, <a class="el" href="../../d0/d87/group__external.html#ga33a2613b81ddc6289ddca6a803858078">JEOD_DEREGISTER_CHECKPOINTABLE</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a614b2ee267eff2b2e2afc2ac36de7944">jeod_time_manager</a>, and <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#ab504b96f3278cd08ba3ee0519b169a5d">jeod::JeodIntegrationTime::remove_time_change_subscriber()</a>.</p>
 
 </div>
 </div>
-<a id="a037186070220bcd1192ff37f188b815a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a037186070220bcd1192ff37f188b815a">&#9670;&nbsp;</a></span>JeodIntegrationGroup() <span class="overload">[3/3]</span></h2>
+<a id="aac7efb446692420a45ebb689a8f865b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac7efb446692420a45ebb689a8f865b0">&#9670;&nbsp;</a></span>JeodIntegrationGroup() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,12 +310,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -353,7 +350,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00114">114</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00097">97</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>.</p>
 
@@ -387,7 +384,7 @@ Friends</h2></td></tr>
 <p>Initialize the integration group. </p>
 <p>Some integration techniques are configurable by user input, and thus the creation of the controls and integrators needs to be delayed a bit. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00176">176</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00153">153</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>.</p>
 
@@ -439,7 +436,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The status (time advance, pass/fail status) of the integration. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00245">245</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00234">234</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aca49348d234b84225c9736a11159f8bc">integrate_container()</a>.</p>
 
@@ -503,7 +500,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00300">300</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00277">277</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae4b38ec36011c4092fe9fe846b463232">integ_merger</a>.</p>
 
@@ -555,14 +552,14 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00190">190</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00182">182</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae4b38ec36011c4092fe9fe846b463232">integ_merger</a>.</p>
 
 </div>
 </div>
-<a id="a2735d8b8022ac43edc7ef19d163aa5d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2735d8b8022ac43edc7ef19d163aa5d9">&#9670;&nbsp;</a></span>need_first_step_derivatives()</h2>
+<a id="ab7fc84b02633abdb94d736bcb84949a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7fc84b02633abdb94d736bcb84949a9">&#9670;&nbsp;</a></span>need_first_step_derivatives()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -573,7 +570,6 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">bool jeod::JeodIntegrationGroup::need_first_step_derivatives </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -588,12 +584,12 @@ template&lt;typename T &gt; </div>
 <p>Indicate whether derivatives need to be calculated on the initial step of an integration cycle. </p>
 <dl class="section return"><dt>Returns</dt><dd>Desired flag. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00171">171</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00163">163</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 </div>
 </div>
-<a id="aa45b2940340a43d560ccc2e9ca333dda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa45b2940340a43d560ccc2e9ca333dda">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a06885717d95a541ec027bfcdc8a1a4c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06885717d95a541ec027bfcdc8a1a4c2">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -611,12 +607,10 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -646,7 +640,7 @@ template&lt;typename T &gt; </div>
 <p>Register classes associated with integration. </p>
 <p>This is a static method, and is best called prior to initialization time. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00053">53</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00051">51</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>.</p>
 
@@ -686,16 +680,16 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00145">145</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html#l00125">125</a> of file <a class="el" href="../../db/df3/jeod__integration__group_8cc_source.html">jeod_integration_group.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>, and <a class="el" href="../../d0/da4/classjeod_1_1IntegrationMessages.html#ac6c71e3ebeb9d0be599fef6af14bf974">jeod::IntegrationMessages::invalid_item</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ad438127df3ad9c0bc27e6cb9f28eed6d">jeod::DynBody::migrate_integrable_objects()</a>, and <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acb4da0faab732543c41228b9703bb09c">jeod::JeodDynbodyIntegrationLoop::remove_integrable_object()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/de3/classjeod_1_1JeodDynbodyIntegrationLoop.html#acb4da0faab732543c41228b9703bb09c">jeod::JeodDynbodyIntegrationLoop::remove_integrable_object()</a>.</p>
 
 </div>
 </div>
-<a id="ae1fe37055ae5bebeb34e6648a0f7f4d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1fe37055ae5bebeb34e6648a0f7f4d6">&#9670;&nbsp;</a></span>reset_body_integrators()</h2>
+<a id="a0a7e3d9c52021eb547e0ae5b56db2a6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7e3d9c52021eb547e0ae5b56db2a6a">&#9670;&nbsp;</a></span>reset_body_integrators()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -706,7 +700,6 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void jeod::JeodIntegrationGroup::reset_body_integrators </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -721,11 +714,11 @@ template&lt;typename T &gt; </div>
 <p>Reset the integrators for the integrable objects managed by this group. </p>
 <p>Resets can occur when time changes behavior (call is internal to the integration process) or when some external event would render an integrator's history invalid (call comes from outside). When either happens, integrators that depend on history need to reset their internal state to indicate that the saved data are invalid.) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00227">227</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00216">216</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a693fbf4891f9a990c7211128607787d3">integrable_objects</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ab351239c8d2d65fcc0ec8b3fba734a93">reset_container()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a24b7ea3677a058b03bfcf6c10faf83b7">jeod::DynamicsIntegrationGroup::reset_body_integrators()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a09d5fcb0de91cec03ced48baaedfd4e9">jeod::DynamicsIntegrationGroup::reset_body_integrators()</a>.</p>
 
 </div>
 </div>
@@ -769,9 +762,9 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00279">279</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00259">259</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae1fe37055ae5bebeb34e6648a0f7f4d6">reset_body_integrators()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a0a7e3d9c52021eb547e0ae5b56db2a6a">reset_body_integrators()</a>.</p>
 
 </div>
 </div>
@@ -802,12 +795,12 @@ template&lt;typename T &gt; </div>
 
 <p>Implements <a class="el" href="../../de/d4a/classjeod_1_1TimeChangeSubscriber.html#a6fc57aff24861822f66cc3f69a2b3736">jeod::TimeChangeSubscriber</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00205">205</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00193">193</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 </div>
 </div>
-<a id="aa91f1731572210c1d1a436074dff4d97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa91f1731572210c1d1a436074dff4d97">&#9670;&nbsp;</a></span>update_from_owner()</h2>
+<a id="a5eeaaf1b7275f3d2b2bc9ee521ceb450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eeaaf1b7275f3d2b2bc9ee521ceb450">&#9670;&nbsp;</a></span>update_from_owner()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -818,7 +811,6 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void jeod::JeodIntegrationGroup::update_from_owner </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -832,7 +824,7 @@ template&lt;typename T &gt; </div>
 
 <p>Update the group via its owner. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00179">179</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00171">171</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a0c10d6bb6b676b4a13f42223131c6812">group_owner</a>, and <a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html#a265646ded02d24e46dd3ec6eef46e047">jeod::JeodIntegrationGroupOwner::update_integration_group()</a>.</p>
 
@@ -886,7 +878,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00123">123</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00118">118</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 </div>
 </div>
@@ -901,7 +893,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html">JeodIntegrationGroupOwner</a>* const jeod::JeodIntegrationGroup::group_owner</td>
+          <td class="memname"><a class="el" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html">JeodIntegrationGroupOwner</a>* const jeod::JeodIntegrationGroup::group_owner {}</td>
         </tr>
       </table>
   </td>
@@ -914,9 +906,9 @@ template&lt;typename T &gt; </div>
 <p>The object that owns this integration group, typically by containment. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00328">328</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00298">298</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aa91f1731572210c1d1a436074dff4d97">update_from_owner()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a5eeaaf1b7275f3d2b2bc9ee521ceb450">update_from_owner()</a>.</p>
 
 </div>
 </div>
@@ -943,7 +935,7 @@ template&lt;typename T &gt; </div>
 <p>The object that merges results from multiple integrators. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00334">334</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00303">303</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a31dcb7d8eee1d077c66444c7766495aa">jeod::DynamicsIntegrationGroup::integrate_bodies()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aca49348d234b84225c9736a11159f8bc">integrate_container()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a618be37d5aa059d8aea569ba094c58c5">JeodIntegrationGroup()</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a3a3352d1ee16c9e4f82b8d177ee1d56b">merge_integrator_result()</a>.</p>
 
@@ -972,9 +964,9 @@ template&lt;typename T &gt; </div>
 <p>The objects whose states are integrated by this integration group. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00352">352</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00320">320</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a6a8a1ac6b2f449374f5cbd1d07134fb7">add_integrable_object()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aacfa16927af1970f35c37f6e23074e37">initialize_group()</a>, <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a31dcb7d8eee1d077c66444c7766495aa">jeod::DynamicsIntegrationGroup::integrate_bodies()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a48bf88d516a25bd28b2f6d419c60323d">integrate_bodies()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae8e2f7fb91e8f5c0e6e5c4a33db45b17">JeodIntegrationGroup()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a7d7bfa6e14d6cd77016fef3a2a86d4e5">remove_integrable_object()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae1fe37055ae5bebeb34e6648a0f7f4d6">reset_body_integrators()</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a8e4b0d277d1d2c6a1cd2681be5c2d43e">~JeodIntegrationGroup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a6a8a1ac6b2f449374f5cbd1d07134fb7">add_integrable_object()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#aacfa16927af1970f35c37f6e23074e37">initialize_group()</a>, <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a31dcb7d8eee1d077c66444c7766495aa">jeod::DynamicsIntegrationGroup::integrate_bodies()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a48bf88d516a25bd28b2f6d419c60323d">integrate_bodies()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#ae8e2f7fb91e8f5c0e6e5c4a33db45b17">JeodIntegrationGroup()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a7d7bfa6e14d6cd77016fef3a2a86d4e5">remove_integrable_object()</a>, <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a0a7e3d9c52021eb547e0ae5b56db2a6a">reset_body_integrators()</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a8e4b0d277d1d2c6a1cd2681be5c2d43e">~JeodIntegrationGroup()</a>.</p>
 
 </div>
 </div>
@@ -988,7 +980,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a>* const jeod::JeodIntegrationGroup::jeod_integ_interface</td>
+          <td class="memname"><a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a>* const jeod::JeodIntegrationGroup::jeod_integ_interface {}</td>
         </tr>
       </table>
   </td>
@@ -1001,7 +993,7 @@ template&lt;typename T &gt; </div>
 <p>The interface between the integration module and the simulation engine's integration structure. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00340">340</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00309">309</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 </div>
 </div>
@@ -1015,7 +1007,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a>* const jeod::JeodIntegrationGroup::jeod_time_manager</td>
+          <td class="memname"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a>* const jeod::JeodIntegrationGroup::jeod_time_manager {}</td>
         </tr>
       </table>
   </td>
@@ -1028,7 +1020,7 @@ template&lt;typename T &gt; </div>
 <p>The interface between the integration module and the object that represents time. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00346">346</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html#l00315">315</a> of file <a class="el" href="../../d4/d48/jeod__integration__group_8hh_source.html">jeod_integration_group.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#a7e83cabe541cb835e732da8aae61bf8d">jeod::DynamicsIntegrationGroup::add_dyn_body()</a>, <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#af8b9059d8fbd9f46adad8a6141b26c55">jeod::DynamicsIntegrationGroup::initialize_group()</a>, <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#ab9eb474d49d9a42255bc94f985c561a7">jeod::DynamicsIntegrationGroup::prepare_for_integ_loop()</a>, and <a class="el" href="../../de/d9c/classjeod_1_1JeodIntegrationGroup.html#a8e4b0d277d1d2c6a1cd2681be5c2d43e">~JeodIntegrationGroup()</a>.</p>
 

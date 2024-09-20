@@ -61,7 +61,7 @@
 Library dependencies:
     ((../src/point_contact_facet.cc))
 
- 
+
 
 *****************************************************************************/
 
@@ -69,67 +69,61 @@ Library dependencies:
 #define POINT_CONTACT_FACET_HH
 
 /* JEOD includes */
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "dynamics/derived_state/include/relative_derived_state.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 /* Model includes */
 #include "class_declarations.hh"
 #include "contact_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The contact facet based on the distance to a single point, specifically
  * the vehicle point.  In effect this represents a sphere.
  */
-class PointContactFacet : public ContactFacet {
-
-   JEOD_MAKE_SIM_INTERFACES (PointContactFacet)
+class PointContactFacet : public ContactFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PointContactFacet)
 
 public:
-   /**
-    * radius from the point at which contact takes place.
-    */
-   double radius; //!< trick_units(m)
+    /**
+     * radius from the point at which contact takes place.
+     */
+    double radius{}; //!< trick_units(m)
 
-   /**
-    * Contact point given in facet vehicle point frame, representing point
-    * on the point on the surface of a sphere of radius "radius" where
-    * contact has occured.
-    */
-   double contact_point[3]; //!< trick_units(m)
+    /**
+     * Contact point given in facet vehicle point frame, representing point
+     * on the point on the surface of a sphere of radius "radius" where
+     * contact has occured.
+     */
+    double contact_point[3]{}; //!< trick_units(m)
 
-   // constructor
-   PointContactFacet ();
+    PointContactFacet();
+    ~PointContactFacet() override = default;
+    PointContactFacet & operator=(const PointContactFacet &) = delete;
+    PointContactFacet(const PointContactFacet &) = delete;
 
-   // destructor
-   ~PointContactFacet () override;
+    /*
+     Overloaded functions to create a contact pair of the appropriate type and return
+     a pointer too the pair to the Contact class.
+     */
+    ContactPair * create_pair() override;
+    ContactPair * create_pair(ContactFacet * target, Contact * contact) override;
 
-   /*
-    Overloaded functions to create a contact pair of the appropriate type and return
-    a pointer too the pair to the Contact class.
-    */
-   ContactPair * create_pair() override;
-   ContactPair * create_pair(ContactFacet * target, Contact *contact) override;
+    // calculate the max dimension of the facet for range limit determination
+    void set_max_dimension() override;
 
-   // calculate the max dimension of the facet for range limit determination
-   void set_max_dimension() override;
+    // calculate the contact point based on the relstate and radius.
+    virtual void calculate_contact_point(double nvec[3]);
 
-   // calculate the contact point based on the relstate and radius.
-   virtual void calculate_contact_point (double nvec[3]);
-
-   // calculate the torque acting on the facet in the vehicle structural frame.
-   void calculate_torque(double *tmp_force) override;
-
-private:
-   // Operator = and copy constructor locked from use by being made private
-   PointContactFacet& operator = (const PointContactFacet & rhs);
-   PointContactFacet (const PointContactFacet & rhs);
-
+    // calculate the torque acting on the facet in the vehicle structural frame.
+    void calculate_torque(double * tmp_force) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "point_contact_pair.hh"

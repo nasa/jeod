@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -56,8 +56,8 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d3/da2/trick__dynbody__integ__loop_8hh_source.html">../include/trick_dynbody_integ_loop.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d3/d79/sim__interface__messages_8hh_source.html">../include/sim_interface_messages.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/de2/dyn__manager_8hh_source.html">dynamics/dyn_manager/include/dyn_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/d75/dyn__body_8hh_source.html">dynamics/dyn_body/include/dyn_body.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/de2/dyn__manager_8hh_source.html">dynamics/dyn_manager/include/dyn_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d01/time__manager_8hh_source.html">environment/time/include/time_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
 <code>#include &quot;sim_services/Executive/include/exec_proto.h&quot;</code><br />
@@ -69,42 +69,43 @@ Include dependency graph for trick_dynbody_integ_loop.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d7a/trick__dynbody__integ__loop_8cc__incl.png" border="0" usemap="#trick__dynbody__integ__loop_8cc" alt=""/></div>
 <map name="trick__dynbody__integ__loop_8cc" id="trick__dynbody__integ__loop_8cc">
-<area shape="rect" id="node2" href="../../d3/da2/trick__dynbody__integ__loop_8hh.html" title="Define the class IntegrationGroupIntegLoopScheduler, which replaces the base Trick integration loop f..." alt="" coords="2069,191,2229,233"/>
-<area shape="rect" id="node16" href="../../d3/d79/sim__interface__messages_8hh.html" title="Define the class SimInterfaceMessages, the class that specifies the message IDs used in the sim inter..." alt="" coords="4565,95,4723,136"/>
-<area shape="rect" id="node17" href="../../d3/de2/dyn__manager_8hh.html" title="Define the DynManager class, which manages the planets and vehicles modeled in a JEOD&#45;based simulatio..." alt="" coords="2769,95,2935,136"/>
-<area shape="rect" id="node35" href="../../d0/d75/dyn__body_8hh.html" title="Define the class DynBody. " alt="" coords="1306,295,1489,337"/>
-<area shape="rect" id="node45" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="890,503,1038,545"/>
-<area shape="rect" id="node47" href="../../d8/d01/time__manager_8hh.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="4575,295,4742,337"/>
-<area shape="rect" id="node3" href="../../d8/d12/jeod__trick__integrator_8hh.html" title="Define the interface for accessing / updating elements of a Trick simulation integrator object..." alt="" coords="1553,407,1709,433"/>
-<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2767,615,2870,641"/>
-<area shape="rect" id="node9" href="../../d2/deb/dynamics__integration__group_8hh.html" title="Define the extensible class DynamicsIntegrationGroup, an instance of which is responsible for integra..." alt="" coords="2579,288,2773,344"/>
-<area shape="rect" id="node11" href="../../d4/d48/jeod__integration__group_8hh.html" title="Define the extensible class IntegrationGroup, an instance of which is responsible for integrating the..." alt="" coords="1886,399,2061,441"/>
-<area shape="rect" id="node7" href="../../dc/dde/jeod__integrator__interface_8hh.html" title="Define the interface for accessing / updating elements of a simulation engine&#39;s integrator object..." alt="" coords="1735,511,1918,537"/>
-<area shape="rect" id="node10" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2689,503,2837,545"/>
-<area shape="rect" id="node20" href="../../d9/d6c/ephem__manager_8hh.html" title="Define the EphemManager class, which manages the ephemeris models in a JEOD&#45;based simulation..." alt="" coords="2811,288,2981,344"/>
-<area shape="rect" id="node23" href="../../d8/d32/planet_8hh.html" title="Planetary modeling constant parameter definitions. " alt="" coords="3898,191,4030,233"/>
-<area shape="rect" id="node29" href="../../d7/d0d/base__dyn__manager_8hh.html" title="Define the BaseDynManager class, which defines the interfaces to the class DynManager. " alt="" coords="3005,303,3157,329"/>
-<area shape="rect" id="node30" href="../../d0/dc0/dyn__manager__init_8hh.html" title="Define the DynManagerInit class, which contains the data used to initialize a DynManager object..." alt="" coords="671,511,814,537"/>
-<area shape="rect" id="node31" href="../../d3/d69/simple__ephemerides_8hh.html" title="Define classes that define simple ephemeris models. " alt="" coords="3381,288,3552,344"/>
-<area shape="rect" id="node21" href="../../d6/d5e/ref__frame__manager_8hh.html" title="Define the RefFrameManager class, which manages the reference frames in a JEOD&#45;based simulation..." alt="" coords="2731,399,2888,441"/>
-<area shape="rect" id="node22" href="../../dd/dab/base__ephem__manager_8hh.html" title="Define the BaseEphemManager class, which defines the interfaces to the class EphemManager. " alt="" coords="3259,407,3429,433"/>
-<area shape="rect" id="node24" href="../../de/d39/base__planet_8hh.html" title="Define the class BasePlanet. " alt="" coords="3961,303,4071,329"/>
-<area shape="rect" id="node27" href="../../d6/d72/gravity__source_8hh.html" title="Define the gravity body base (pure virtual) class. " alt="" coords="4163,399,4338,441"/>
-<area shape="rect" id="node25" href="../../d9/dc2/ephem__ref__frame_8hh.html" title="Define the class EphemerisRefFrame. " alt="" coords="3064,392,3235,448"/>
-<area shape="rect" id="node26" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="3039,511,3191,537"/>
-<area shape="rect" id="node32" href="../../de/d91/ephem__point_8hh.html" title="Define class EphemerisPoint. " alt="" coords="3505,392,3690,448"/>
-<area shape="rect" id="node33" href="../../d1/ddf/ephem__interface_8hh.html" title="Define base class for all ephemeris interface models. " alt="" coords="3715,392,3885,448"/>
-<area shape="rect" id="node36" href="../../d6/d75/body__ref__frame_8hh.html" title="Define the class BodyRefFrame. " alt="" coords="415,511,545,537"/>
-<area shape="rect" id="node37" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="2355,407,2504,433"/>
-<area shape="rect" id="node38" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="775,407,889,433"/>
-<area shape="rect" id="node39" href="../../dd/d8a/dyn__body__generic__rigid__attach_8hh.html" title="Define the class Wrench. " alt="" coords="1318,399,1477,441"/>
-<area shape="rect" id="node40" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="490,399,649,441"/>
-<area shape="rect" id="node41" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="2085,399,2280,441"/>
-<area shape="rect" id="node42" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="1164,503,1340,545"/>
-<area shape="rect" id="node43" href="../../d0/d96/generalized__second__order__ode__technique_8hh.html" title="Define the static class GeneralizedSecondOrderODETechnique. " alt="" coords="213,496,390,552"/>
-<area shape="rect" id="node44" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="1093,399,1294,441"/>
-<area shape="rect" id="node48" href="../../dc/dce/jeod__integration__time_8hh.html" title="Define the class JeodIntegrationTime. " alt="" coords="4515,399,4682,441"/>
-<area shape="rect" id="node49" href="../../de/d8d/time__dyn_8hh.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="4775,511,4868,537"/>
+<area shape="rect" id="node2" href="../../d3/da2/trick__dynbody__integ__loop_8hh.html" title="Define the class IntegrationGroupIntegLoopScheduler, which replaces the base Trick integration loop f..." alt="" coords="3147,191,3324,233"/>
+<area shape="rect" id="node15" href="../../d3/d79/sim__interface__messages_8hh.html" title="Define the class SimInterfaceMessages, the class that specifies the message IDs used in the sim inter..." alt="" coords="4352,95,4527,136"/>
+<area shape="rect" id="node16" href="../../d0/d75/dyn__body_8hh.html" title="Define the class DynBody. " alt="" coords="1814,95,2017,136"/>
+<area shape="rect" id="node38" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="641,399,805,441"/>
+<area shape="rect" id="node40" href="../../d3/de2/dyn__manager_8hh.html" title="Define the DynManager class, which manages the planets and vehicles modeled in a JEOD&#45;based simulatio..." alt="" coords="3683,191,3868,233"/>
+<area shape="rect" id="node47" href="../../d8/d01/time__manager_8hh.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="4544,295,4735,337"/>
+<area shape="rect" id="node3" href="../../d8/d12/jeod__trick__integrator_8hh.html" title="Define the interface for accessing / updating elements of a Trick simulation integrator object..." alt="" coords="2890,407,3066,433"/>
+<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2937,600,3048,627"/>
+<area shape="rect" id="node8" href="../../d2/deb/dynamics__integration__group_8hh.html" title="Define the extensible class DynamicsIntegrationGroup, an instance of which is responsible for integra..." alt="" coords="3287,288,3506,344"/>
+<area shape="rect" id="node10" href="../../d4/d48/jeod__integration__group_8hh.html" title="Define the extensible class IntegrationGroup, an instance of which is responsible for integrating the..." alt="" coords="3141,399,3337,441"/>
+<area shape="rect" id="node7" href="../../dc/dde/jeod__integrator__interface_8hh.html" title="Define the interface for accessing / updating elements of a simulation engine&#39;s integrator object..." alt="" coords="2889,511,3096,537"/>
+<area shape="rect" id="node9" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="3403,503,3569,545"/>
+<area shape="rect" id="node19" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="1631,303,1795,329"/>
+<area shape="rect" id="node23" href="../../d6/d75/body__ref__frame_8hh.html" title="Define the class BodyRefFrame. " alt="" coords="1461,303,1607,329"/>
+<area shape="rect" id="node27" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1217,511,1387,537"/>
+<area shape="rect" id="node29" href="../../dd/d8a/dyn__body__generic__rigid__attach_8hh.html" title="Define the class Wrench. " alt="" coords="1827,191,2003,233"/>
+<area shape="rect" id="node32" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="2306,199,2434,225"/>
+<area shape="rect" id="node33" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="2085,295,2260,337"/>
+<area shape="rect" id="node34" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="1927,399,2147,441"/>
+<area shape="rect" id="node35" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="48,399,244,441"/>
+<area shape="rect" id="node36" href="../../d0/d96/generalized__second__order__ode__technique_8hh.html" title="Define the static class GeneralizedSecondOrderODETechnique. " alt="" coords="421,392,617,448"/>
+<area shape="rect" id="node37" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="383,295,610,337"/>
+<area shape="rect" id="node20" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="881,399,1041,441"/>
+<area shape="rect" id="node21" href="../../d4/de1/force_8hh.html" title="Define the JEOD force model. " alt="" coords="1777,407,1851,433"/>
+<area shape="rect" id="node22" href="../../db/d26/torque_8hh.html" title="Define the JEOD torque model. " alt="" coords="1668,407,1752,433"/>
+<area shape="rect" id="node24" href="../../d1/d5a/dynamics_2mass_2include_2class__declarations_8hh.html" title="Forward declarations of mass model classes. " alt="" coords="2171,399,2345,441"/>
+<area shape="rect" id="node25" href="../../d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="1217,399,1393,441"/>
+<area shape="rect" id="node28" href="../../dc/d8d/ref__frame__items_8hh.html" title="Define the class RefFrameItems, which identifies the aspects of a reference frame&#39;s state that have b..." alt="" coords="1467,399,1643,441"/>
+<area shape="rect" id="node30" href="../../d1/d61/mass__point__state_8hh.html" title="Define the class MassPointState, which defines the state – position and orientation – of a MassPoin..." alt="" coords="2288,295,2449,337"/>
+<area shape="rect" id="node31" href="../../d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="2472,399,2647,441"/>
+<area shape="rect" id="node41" href="../../d9/d6c/ephem__manager_8hh.html" title="Define the EphemManager class, which manages the ephemeris models in a JEOD&#45;based simulation..." alt="" coords="3765,392,3959,448"/>
+<area shape="rect" id="node42" href="../../d8/d32/planet_8hh.html" title="Planetary modeling constant parameter definitions. " alt="" coords="4176,503,4327,545"/>
+<area shape="rect" id="node43" href="../../d7/d0d/base__dyn__manager_8hh.html" title="Define the BaseDynManager class, which defines the interfaces to the class DynManager. " alt="" coords="4351,303,4519,329"/>
+<area shape="rect" id="node44" href="../../d0/dc0/dyn__manager__init_8hh.html" title="Define the DynManagerInit class, which contains the data used to initialize a DynManager object..." alt="" coords="3581,407,3740,433"/>
+<area shape="rect" id="node45" href="../../d3/d69/simple__ephemerides_8hh.html" title="Define classes that define simple ephemeris models. " alt="" coords="3981,288,4175,344"/>
+<area shape="rect" id="node48" href="../../dc/dce/jeod__integration__time_8hh.html" title="Define the class JeodIntegrationTime. " alt="" coords="4402,399,4591,441"/>
+<area shape="rect" id="node49" href="../../de/d8d/time__dyn_8hh.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="4632,511,4735,537"/>
 </map>
 </div>
 </div>

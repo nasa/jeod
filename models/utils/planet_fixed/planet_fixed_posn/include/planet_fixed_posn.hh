@@ -65,7 +65,7 @@ Assumptions and Limitations:
 Library Dependency:
    ((../src/planet_fixed_posn.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -81,108 +81,96 @@ Library Dependency:
 // Model includes
 #include "alt_lat_long_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Contains various representations of position with respect to a planet.
  */
-class PlanetFixedPosition {
+class PlanetFixedPosition
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetFixedPosition)
 
- JEOD_MAKE_SIM_INTERFACES(PlanetFixedPosition)
+    // Static data
+public:
+    /**
+     * Limit of ratio of radial distance to planet equatorial radius below
+     * which planetary coordinates are deemed to be invalid.
+     */
+    static constexpr double Small_radius_limit{1e-60}; //!< trick_io(*o) trick_units(--)
 
- // Static data
- public:
+    /**
+     * Limit of number of iterations used to solve elliptic parameters.
+     */
+    static constexpr int Max_iteration_limit{10}; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * Limit of ratio of radial distance to planet equatorial radius below
-    * which planetary coordinates are deemed to be invalid.
-    */
-   const static double Small_radius_limit; //!< trick_io(*o) trick_units(--)
+    // Member Data
+public:
+    /**
+     * An object's current position in elliptical coordinates. Per Vallado
+     * p. 140, elliptical latitude is the angle between the equatorial plane
+     * and the surface normal on the ellipsoid at the point of interest.
+     * Similarly, elliptical longitude is assumed to be the angle between the
+     * reference meridian and the surface normal on the ellipsoid at the
+     * point of interest.
+     */
+    AltLatLongState ellip_coords; //!< trick_units(--)
 
+    /**
+     * The same object's current position in spherical coordinates. Per Vallado
+     * p. 140, spherical latitude is the angle measured at the planet's center
+     * from the equatorial plane to the point of interest. Similarly, spherical
+     * longitude is also assumed to be the angle measured at the planet's center
+     * from the reference meridian to the point of interest.
+     */
+    AltLatLongState sphere_coords; //!< trick_units(--)
 
- // Member Data
- public:
+    /**
+     * The planet-centered, planet-fixed position of the object
+     */
+    double cart_coords[3]{}; //!< trick_units(m)
 
-   /**
-    * An object's current position in elliptical coordinates. Per Vallado
-    * p. 140, elliptical latitude is the angle between the equatorial plane
-    * and the surface normal on the ellipsoid at the point of interest.
-    * Similarly, elliptical longitude is assumed to be the angle between the
-    * reference meridian and the surface normal on the ellipsoid at the
-    * point of interest.
-    */
-   AltLatLongState ellip_coords; //!< trick_units(--)
+    /**
+     * The planet currently associated with this
+     */
+    Planet * planet{}; //!< trick_units(--)
 
-   /**
-    * The same object's current position in spherical coordinates. Per Vallado
-    * p. 140, spherical latitude is the angle measured at the planet's center
-    * from the equatorial plane to the point of interest. Similarly, spherical
-    * longitude is also assumed to be the angle measured at the planet's center
-    * from the reference meridian to the point of interest.
-    */
-   AltLatLongState sphere_coords; //!< trick_units(--)
+    // Member functions
+public:
+    PlanetFixedPosition() = default;
+    virtual ~PlanetFixedPosition() = default;
 
-   /**
-    * The planet-centered, planet-fixed position of the object
-    */
-   double cart_coords[3]; //!< trick_units(m)
+    // Initialize model
+    virtual void initialize(Planet * planet_in);
 
-   /**
-    * The planet currently associated with this
-    */
-   Planet * planet; //!< trick_units(--)
+    // Update from Cartesian position input
+    virtual void update_from_cart(const double cart[3]);
 
+    // Update from spherical position input
+    virtual void update_from_spher(const AltLatLongState & spher);
 
- // Member functions
- public:
+    // Update from elliptical position input
+    virtual void update_from_ellip(const AltLatLongState & ellip);
 
-   // Constructor
-   PlanetFixedPosition();
+protected:
+    // Calculate the spherical representation for the current cartesian coords
+    void cart_to_spher();
 
-      /**
-    * Destructor.
-    */
-   virtual ~PlanetFixedPosition() {}
+    // Calculate the elliptical representation for the current cartesian coords
+    void cart_to_ellip();
 
+    // Calculate the cartesian representation for the current spherical coords
+    void spher_to_cart();
 
-   // Initialize model
-   virtual void initialize (Planet *planet_in);
+    // Calculate the cartesian representation for the current elliptical coords
+    void ellip_to_cart();
 
-   // Update from Cartesian position input
-   virtual void update_from_cart (const double cart[3]);
-
-   // Update from spherical position input
-   virtual void update_from_spher (const AltLatLongState &spher);
-
-   // Update from elliptical position input
-   virtual void update_from_ellip (const AltLatLongState &ellip);
-
-
- protected:
-
-   // Calculate the spherical representation for the current cartesian coords
-   void cart_to_spher();
-
-   // Calculate the elliptical representation for the current cartesian coords
-   void cart_to_ellip();
-
-   // Calculate the cartesian representation for the current spherical coords
-   void spher_to_cart();
-
-   // Calculate the cartesian representation for the current elliptical coords
-   void ellip_to_cart();
-
-// Calculate elliptic latitude and altitude
-// FIXME Magic number 10
-int get_elliptic_parameters(
-double r, double z, double &f, double &h, int maxIters=10);
-
+    // Calculate elliptic latitude and altitude
+    int get_elliptic_parameters(double r, double z, double & f, double & h, int maxIters = Max_iteration_limit);
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "environment/planet/include/planet.hh"

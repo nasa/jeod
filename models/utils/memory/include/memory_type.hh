@@ -52,9 +52,8 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_MEMORY_TYPE_HH
 #define JEOD_MEMORY_TYPE_HH
@@ -81,11 +80,12 @@ Purpose:
 #include <cstring>
 #include <new>
 #include <string>
-#include <typeinfo>
 #include <type_traits>
+#include <typeinfo>
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Abstract class for managing data allocated as some specific type.
@@ -94,478 +94,402 @@ namespace jeod {
  * size of a specific data type. Instantiable subclasses of this class are
  * created by the class templates that derive from this base class.
  */
-class JeodMemoryTypeDescriptor {
-
+class JeodMemoryTypeDescriptor
+{
 public:
+    // Static member functions
 
-   // Static member functions
+    /**
+     * Enable/disable registration error messages
+     * @param[in] val New value for check_for_registration_errors
+     */
+    static void set_check_for_registration_errors(bool val)
+    {
+        check_for_registration_errors = val;
+    }
 
-   /**
-    * Enable/disable registration error messages
-    * @param[in] val New value for check_for_registration_errors
-    */
-   static void set_check_for_registration_errors (
-      bool val)
-   {
-      check_for_registration_errors = val;
-   }
+    // Constructors and destructor.
 
+    // Note well: There is no default constructor for this class.
+    // There is a non-default constructor, the typical mechanism for creating
+    // a new instance, and a copy constructor, which is used for cloning.
+    // There is no assignment operator by design.
+    // The assignment operator doesn't make any more sense than a default cotr.
+    // The assignment operator is declared private and is not defined.
 
-   // Constructors and destructor.
+    // Non-default constructor.
+    JeodMemoryTypeDescriptor(const std::type_info & obj_typeid,
+                             const JEOD_ATTRIBUTES_TYPE & type_attr,
+                             std::size_t type_size,
+                             bool is_exportable = true);
 
-   // Note well: There is no default constructor for this class.
-   // There is a non-default constructor, the typical mechanism for creating
-   // a new instance, and a copy constructor, which is used for cloning.
-   // There is no assignment operator by design.
-   // The assignment operator doesn't make any more sense than a default cotr.
-   // The assignment operator is declared private and is not defined.
+    // The default destructor would suffice were it not for the vtable and
+    // Trick's library dependency capability.
+    // Implementing this in a predictable place places the vtable in that same
+    // predictable place, and that in turn keeps Trick happy.
+    virtual ~JeodMemoryTypeDescriptor() = default;
+    JeodMemoryTypeDescriptor(const JeodMemoryTypeDescriptor &) = default;
+    JeodMemoryTypeDescriptor & operator=(const JeodMemoryTypeDescriptor &) = delete;
 
-   // Non-default constructor.
-   JeodMemoryTypeDescriptor (
-      const std::type_info & obj_typeid,
-      const JEOD_ATTRIBUTES_TYPE & type_attr,
-      std::size_t type_size,
-      bool is_exportable = true);
+    // Accessors. Note that there are no setters; (most) member data are const.
 
-   // Copy constructor.
-   JeodMemoryTypeDescriptor (const JeodMemoryTypeDescriptor & src);
+    /**
+     * Get the type info for the type.
+     * @return Type info
+     */
+    const std::type_info & get_typeid() const
+    {
+        return obj_id;
+    }
 
-   // The default destructor would suffice were it not for the vtable and
-   // Trick's library dependency capability.
-   // Implementing this in a predictable place places the vtable in that same
-   // predictable place, and that in turn keeps Trick happy.
-   virtual ~JeodMemoryTypeDescriptor ();
+    /**
+     * Get the name of the type.
+     * @return Type name
+     */
+    const std::string & get_name() const
+    {
+        return name;
+    }
 
+    /**
+     * Get the size of the type.
+     * @return Type size
+     */
+    std::size_t get_size() const
+    {
+        return size;
+    }
 
-   // Accessors. Note that there are no setters; (most) member data are const.
+    /**
+     * Get the simulation engine attributes for the type.
+     * @return Type attributes
+     */
+    const JEOD_ATTRIBUTES_TYPE & get_attr() const
+    {
+        return attr;
+    }
 
-   /**
-    * Get the type info for the type.
-    * @return Type info
-    */
-   const std::type_info &
-   get_typeid (
-      void)
-   const
-   {
-      return obj_id;
-   }
+    /**
+     * Get the simulation engine attributes for the type.
+     * @return Type attributes
+     */
+    bool get_register_instances() const
+    {
+        return register_instances;
+    }
 
-   /**
-    * Get the name of the type.
-    * @return Type name
-    */
-   const std::string &
-   get_name (
-      void)
-   const
-   {
-      return name;
-   }
+    // Computational methods.
 
-   /**
-    * Get the size of the type.
-    * @return Type size
-    */
-   std::size_t
-   get_size (
-      void)
-   const
-   {
-      return size;
-   }
+    /**
+     * Determine the dimensionality of the type.
+     * @return: Type dimensionality
+     */
+    std::size_t dimensionality() const
+    {
+        return pointer_dimension(name);
+    }
 
-   /**
-    * Get the simulation engine attributes for the type.
-    * @return Type attributes
-    */
-   const JEOD_ATTRIBUTES_TYPE &
-   get_attr (
-      void)
-   const
-   {
-      return attr;
-   }
+    /**
+     * Compute the size of a buffer.
+     * @param[in] nelems Size of the array
+     * @return: Buffer size
+     */
+    std::size_t buffer_size(unsigned int nelems) const
+    {
+        return nelems * size;
+    }
 
-   /**
-    * Get the simulation engine attributes for the type.
-    * @return Type attributes
-    */
-   bool
-   get_register_instances (
-      void)
-   const
-   {
-      return register_instances;
-   }
+    /**
+     * Compute the size of a buffer.
+     * @param[in] item Buffer descriptor
+     * @return: Buffer size
+     */
+    std::size_t buffer_size(const JeodMemoryItem & item) const
+    {
+        return buffer_size(item.get_nelems());
+    }
 
-   // Computational methods.
+    /**
+     * Compute the address of the byte just past the end a buffer.
+     * @param[in] addr   Start of buffer
+     * @param[in] nelems Size of the array
+     */
+    const void * buffer_end(const void * addr, unsigned int nelems) const
+    {
+        return reinterpret_cast<const void *>(reinterpret_cast<const char *>(addr) + buffer_size(nelems));
+    }
 
-   /**
-    * Determine the dimensionality of the type.
-    * @return: Type dimensionality
-    */
-   std::size_t
-   dimensionality (
-      void)
-   const
-   {
-      return pointer_dimension (name);
-   }
+    /**
+     * Compute the address of the byte just past the end a buffer.
+     * @param[in] addr Start of buffer
+     * @param[in] item Buffer descriptor
+     */
+    const void * buffer_end(const void * addr, const JeodMemoryItem & item) const
+    {
+        return buffer_end(addr, item.get_nelems());
+    }
 
-   /**
-    * Compute the size of a buffer.
-    * @param[in] nelems Size of the array
-    * @return: Buffer size
-    */
-   std::size_t
-   buffer_size (
-      unsigned int nelems)
-   const
-   {
-      return nelems*size;
-   }
+    // Construct a type specification string.
+    const std::string type_spec(const JeodMemoryItem & item) const;
 
-   /**
-    * Compute the size of a buffer.
-    * @param[in] item Buffer descriptor
-    * @return: Buffer size
-    */
-   std::size_t
-   buffer_size (
-      const JeodMemoryItem & item)
-   const
-   {
-      return buffer_size (item.get_nelems());
-   }
+    /**
+     * Destroy memory.
+     * @param[in] placement_new  Constructed with placement new?
+     * @param[in] is_array       Allocated as an array?
+     * @param[in] nelem          Number of elements
+     * @param[in,out] addr       Address to destroy
+     */
+    void destroy_memory(bool placement_new, bool is_array, unsigned int nelem, void * addr) const
+    {
+        if(placement_new)
+        {
+            destruct_array(nelem, addr);
+        }
+        else if(is_array)
+        {
+            delete_array(addr);
+        }
+        else
+        {
+            delete_object(addr);
+        }
+    }
 
-   /**
-    * Compute the address of the byte just past the end a buffer.
-    * @param[in] addr   Start of buffer
-    * @param[in] nelems Size of the array
-    */
-   const void *
-   buffer_end (
-      const void * addr,
-      unsigned int nelems)
-   const
-   {
-      return reinterpret_cast<const void *> (
-                reinterpret_cast<const char *>(addr) + buffer_size (nelems));
-   }
+    // Public pure virtual interfaces.
 
-   /**
-    * Compute the address of the byte just past the end a buffer.
-    * @param[in] addr Start of buffer
-    * @param[in] item Buffer descriptor
-    */
-   const void *
-   buffer_end (
-      const void * addr,
-      const JeodMemoryItem & item)
-   const
-   {
-      return buffer_end (addr, item.get_nelems());
-   }
+    /**
+     * Create a copy of the descriptor.
+     * @return Copy.
+     */
+    virtual JeodMemoryTypeDescriptor * clone() const = 0;
 
-   // Construct a type specification string.
-   const std::string type_spec (const JeodMemoryItem & item) const;
+    /**
+     * Indicate whether the type associated with the descriptor is
+     * a structured (non-primitive, non-pointer) type.
+     */
+    virtual bool is_structured() const = 0;
 
-   /**
-    * Destroy memory.
-    * @param[in] placement_new  Constructed with placement new?
-    * @param[in] is_array       Allocated as an array?
-    * @param[in] nelem          Number of elements
-    * @param[in,out] addr       Address to destroy
-    */
-   void
-   destroy_memory (
-      bool placement_new,
-      bool is_array,
-      unsigned int nelem,
-      void * addr)
-   const
-   {
-      if (placement_new) {
-         destruct_array (nelem, addr);
-      }
-      else if (is_array) {
-         delete_array (addr);
-      }
-      else {
-         delete_object (addr);
-      }
-   }
+    /**
+     * Construct an array of objects of the type.
+     * The default implementation does nothing, which is the right thing
+     * to do for primitive types, pointers, and abstract classes.
+     */
+    virtual void * construct_array(std::size_t nelem, void * addr) const = 0;
 
-   // Public pure virtual interfaces.
+    /**
+     * Find the most-derived object corresponding to the input pointer.
+     */
+    virtual const void * most_derived_pointer(const void * addr) const = 0;
 
-   /**
-    * Create a copy of the descriptor.
-    * @return Copy.
-    */
-   virtual JeodMemoryTypeDescriptor * clone() const = 0;
-
-   /**
-    * Indicate whether the type associated with the descriptor is
-    * a structured (non-primitive, non-pointer) type.
-    */
-   virtual bool is_structured (void) const = 0;
-
-   /**
-    * Construct an array of objects of the type.
-    * The default implementation does nothing, which is the right thing
-    * to do for primitive types, pointers, and abstract classes.
-    */
-   virtual void * construct_array (std::size_t nelem, void * addr) const = 0;
-
-   /**
-    * Find the most-derived object corresponding to the input pointer.
-    */
-   virtual const void * most_derived_pointer (const void * addr) const = 0;
-
-   /**
-    * Find the most-derived object corresponding to the input pointer.
-    */
-   virtual void * most_derived_pointer (void * addr) const = 0;
+    /**
+     * Find the most-derived object corresponding to the input pointer.
+     */
+    virtual void * most_derived_pointer(void * addr) const = 0;
 
 protected:
+    // Static member functions.
 
-   // Static member functions.
+    // Standardize the type name
+    static std::string initialize_type_name(const std::string & type_name);
 
-   // Standardize the type name
-   static std::string initialize_type_name (const char * type_name);
+    // Get the dimensionality (number of asterisks) of a type
+    static std::size_t pointer_dimension(const std::string & demangled_name);
 
-   // Get the dimensionality (number of asterisks) of a type
-   static std::size_t pointer_dimension (const std::string & demangled_name);
+    // Get the dimensionality (number of asterisks) of a type
+    static const JeodMemoryTypeDescriptor * base_type(const std::string & demangled_name);
 
-   // Get the dimensionality (number of asterisks) of a type
-   static const JeodMemoryTypeDescriptor * base_type (
-      const std::string & demangled_name);
+    // Internal pure virtual interfaces.
 
+    /**
+     * Delete an array of instances of the type associated with the descriptor.
+     * In other words, delete[] addr.
+     * @param[in,out] addr Address to be deleted
+     */
+    virtual void delete_array(void * addr) const = 0;
 
-   // Internal pure virtual interfaces.
+    /**
+     * Delete a single instance of the type associated with the descriptor.
+     * In other words, delete addr.
+     * @param[in,out] addr Address to be deleted
+     */
+    virtual void delete_object(void * addr) const = 0;
 
-   /**
-    * Delete an array of instances of the type associated with the descriptor.
-    * In other words, delete[] addr.
-    * @param[in,out] addr Address to be deleted
-    */
-   virtual void delete_array (void * addr) const = 0;
+    /**
+     * Destruct (but do not delete) an array of @a nelem instances of
+     * the type associated with the descriptor.
+     * @param[in] nelem    Number of elements in addr
+     * @param[in,out] addr Address to be destructed
+     */
+    virtual void destruct_array(std::size_t nelem, void * addr) const = 0;
 
-   /**
-    * Delete a single instance of the type associated with the descriptor.
-    * In other words, delete addr.
-    * @param[in,out] addr Address to be deleted
-    */
-   virtual void delete_object (void * addr) const = 0;
+    // Static data
+    /**
+     * When set, suspect memory interface results will be reported
+     * as a warnings. No messages are issued when this flag is clear.
+     */
+    static bool check_for_registration_errors; //!< trick_units(--)
 
-   /**
-    * Destruct (but do not delete) an array of @a nelem instances of
-    * the type associated with the descriptor.
-    * @param[in] nelem    Number of elements in addr
-    * @param[in,out] addr Address to be destructed
-    */
-   virtual void destruct_array (std::size_t nelem, void * addr) const = 0;
+    // Member data
 
+    /**
+     * The RTTI descriptor of the type.
+     */
+    const std::type_info & obj_id; //!< trick_io(**)
 
-   // Static data
-   /**
-    * When set, suspect memory interface results will be reported
-    * as a warnings. No messages are issued when this flag is clear.
-    */
-   static bool check_for_registration_errors; //!< trick_units(--)
+    /**
+     * The name of the type in code.
+     */
+    const std::string name; //!< trick_io(**)
 
+    /**
+     * The simulation engine attributes that describe the type.
+     */
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+    const JEOD_ATTRIBUTES_TYPE attr{}; //!< trick_io(**)
 
-   // Member data
+    /**
+     * The size of an instance of the type.
+     */
+    const std::size_t size{}; //!< trick_io(**)
 
-   /**
-    * The RTTI descriptor of the type.
-    */
-   const std::type_info & obj_id; //!< trick_io(**)
-
-   /**
-    * The name of the type in code.
-    */
-   const std::string name;  //!< trick_io(**)
-
-   /**
-    * The simulation engine attributes that describe the type.
-    */
-   const JEOD_ATTRIBUTES_TYPE attr; //!< trick_io(**)
-
-   /**
-    * The size of an instance of the type.
-    */
-   const std::size_t size; //!< trick_io(**)
-
-   /**
-    * Should instances be registered with the simulation engine?
-    * If true (default value), instances of the type will be registered with the
-    * simulation engine; the simulation engine is responsible for checkpointing
-    * and restoring the contents of such instances.
-    *
-    * If false, instances will not be registered with the simulation engine;
-    * the simulation engine is not responsible for checkpointing/restarting
-    * such instances.
-    */
-   bool register_instances; //!< trick_io(**)
-
-private:
-
-   /**
-    * Not implemented.
-    */
-   JeodMemoryTypeDescriptor & operator = (const JeodMemoryTypeDescriptor &);
+    /**
+     * Should instances be registered with the simulation engine?
+     * If true (default value), instances of the type will be registered with the
+     * simulation engine; the simulation engine is responsible for checkpointing
+     * and restoring the contents of such instances.
+     *
+     * If false, instances will not be registered with the simulation engine;
+     * the simulation engine is not responsible for checkpointing/restarting
+     * such instances.
+     */
+    bool register_instances{}; //!< trick_io(**)
 };
-
 
 /**
  * Extends JeodMemoryTypeDescriptor to describe a specific type.
  * tparam Type The type to be described.
  */
-template <typename Type>
-class JeodMemoryTypeDescriptorDerived : public JeodMemoryTypeDescriptor {
+template<typename Type> class JeodMemoryTypeDescriptorDerived : public JeodMemoryTypeDescriptor
+{
 public:
+    // Typedefs
 
-   // Typedefs
+    /**
+     * This class.
+     */
+    using TypeDescriptor = JeodMemoryTypeDescriptorDerived<Type>;
 
-   /**
-    * This class.
-    */
-   typedef JeodMemoryTypeDescriptorDerived<Type> TypeDescriptor;
+    /**
+     * Attributes for the Type.
+     */
+    using Attributes = JeodSimEngineAttributes<Type, std::is_class<Type>::value>;
 
-   /**
-    * Attributes for the Type.
-    */
-   typedef JeodSimEngineAttributes<Type, std::is_class<Type>::value>
-      Attributes;
+    // Constructors and destructor.
 
+    /**
+     * Default constructor.
+     * Invoke the parent class non-default constructor with
+     * type, attributes, and size information.
+     */
+    JeodMemoryTypeDescriptorDerived(bool is_exportable = true)
+        : JeodMemoryTypeDescriptor(typeid(Type), Attributes::attributes(is_exportable), sizeof(Type), is_exportable)
+    {
+    }
 
-   // Constructors and destructor.
+    /**
+     * Copy constructor; pass-through to the parent class equivalent.
+     * @param[in] src  Item to be copied
+     */
+    JeodMemoryTypeDescriptorDerived(const JeodMemoryTypeDescriptorDerived & src)
+        : JeodMemoryTypeDescriptor(src)
+    {
+    }
 
-   /**
-    * Default constructor.
-    * Invoke the parent class non-default constructor with
-    * type, attributes, and size information.
-    */
-   JeodMemoryTypeDescriptorDerived (
-      bool is_exportable = true)
-   : JeodMemoryTypeDescriptor (
-        typeid (Type),
-        Attributes::attributes(is_exportable),
-        sizeof(Type),
-        is_exportable)
-   {}
+    ~JeodMemoryTypeDescriptorDerived() override = default;
+    JeodMemoryTypeDescriptorDerived & operator=(const JeodMemoryTypeDescriptorDerived &) = delete;
 
-   /**
-    * Copy constructor; pass-through to the parent class equivalent.
-    * @param[in] src  Item to be copied
-    */
-   JeodMemoryTypeDescriptorDerived (
-      const JeodMemoryTypeDescriptorDerived & src)
-   : JeodMemoryTypeDescriptor (src)
-   {}
-
-   /**
-    * Destructor.
-    */
-   ~JeodMemoryTypeDescriptorDerived () override {}
-
-
-   // Virtual interfaces, defined.
+    // Virtual interfaces, defined.
 
 public:
-   /**
-    * Create a copy of the descriptor.
-    * @return Copy.
-    */
-   JeodMemoryTypeDescriptor * clone() const override
-   {
-      JeodMemoryTypeDescriptorDerived * dup =
-         new JeodMemoryTypeDescriptorDerived (*this);
-      return static_cast <JeodMemoryTypeDescriptor*> (dup);
-   }
+    /**
+     * Create a copy of the descriptor.
+     * @return Copy.
+     */
+    JeodMemoryTypeDescriptor * clone() const override
+    {
+        auto * dup = new JeodMemoryTypeDescriptorDerived(*this);
+        return static_cast<JeodMemoryTypeDescriptor *>(dup);
+    }
 
-   /**
-    * Indicate whether the type associated with the descriptor is
-    * a structured (non-primitive, non-pointer) type.
-    */
-   bool is_structured (void) const override
-   {
-      return std::is_class<Type>::value;
-   }
+    /**
+     * Indicate whether the type associated with the descriptor is
+     * a structured (non-primitive, non-pointer) type.
+     */
+    bool is_structured() const override
+    {
+        return std::is_class<Type>::value;
+    }
 
-   /**
-    * Construct an array of objects of the type.
-    */
-   void * construct_array (std::size_t nelem, void * addr) const override
-   {
-      return jeod_alloc_construct_array<Type>(nelem, addr);
-   }
+    /**
+     * Construct an array of objects of the type.
+     */
+    void * construct_array(std::size_t nelem, void * addr) const override
+    {
+        return jeod_alloc_construct_array<Type>(nelem, addr);
+    }
 
-   /**
-    * Find the most-derived object corresponding to the input pointer.
-    * @param[in] addr Pointer to be examined
-    * @return Pointer to most-derived object.
-    */
-   const void * most_derived_pointer (const void * addr) const override
-   {
-      return most_derived_pointer (const_cast<void*> (addr));
-   }
+    /**
+     * Find the most-derived object corresponding to the input pointer.
+     * @param[in] addr Pointer to be examined
+     * @return Pointer to most-derived object.
+     */
+    const void * most_derived_pointer(const void * addr) const override
+    {
+        return most_derived_pointer(const_cast<void *>(addr));
+    }
 
-   /**
-    * Find the most-derived object corresponding to the input pointer.
-    * @param[in] addr Pointer to be examined
-    * @return Pointer to most-derived object.
-    */
-   void * most_derived_pointer (void * addr) const override
-   {
-      Type * ptr = static_cast<Type*> (addr);
-      return jeod_alloc_get_allocated_pointer (ptr);
-   }
+    /**
+     * Find the most-derived object corresponding to the input pointer.
+     * @param[in] addr Pointer to be examined
+     * @return Pointer to most-derived object.
+     */
+    void * most_derived_pointer(void * addr) const override
+    {
+        auto * ptr = static_cast<Type *>(addr);
+        return jeod_alloc_get_allocated_pointer(ptr);
+    }
 
 protected:
+    /**
+     * Delete an array of instances of type @a Type.
+     * In other words, delete[] addr.
+     * @param[in,out] addr Address to be deleted
+     */
+    void delete_array(void * addr) const override
+    {
+        auto * array = reinterpret_cast<Type *>(addr);
+        delete[] array;
+    }
 
-   /**
-    * Delete an array of instances of type @a Type.
-    * In other words, delete[] addr.
-    * @param[in,out] addr Address to be deleted
-    */
-   void delete_array (void * addr) const override
-   {
-      Type * array = reinterpret_cast <Type *>(addr);
-      delete [] array;
-   }
+    /**
+     * Delete a single instance of type @a Type.
+     * In other words, delete addr.
+     * @param[in,out] addr Address to be deleted
+     */
+    void delete_object(void * addr) const override
+    {
+        auto * object = reinterpret_cast<Type *>(addr);
+        delete object;
+    }
 
-   /**
-    * Delete a single instance of type @a Type.
-    * In other words, delete addr.
-    * @param[in,out] addr Address to be deleted
-    */
-   void delete_object (void * addr) const override
-   {
-      Type * object = reinterpret_cast<Type *>(addr);
-      delete object;
-   }
-
-   /**
-    * Destroy an array of @a nelem instances of type @a Type.
-    */
-   void destruct_array (std::size_t nelem, void * addr) const override
-   {
-      jeod_alloc_destruct_array<Type>(nelem, addr);
-   }
-
-// The assignment operator is declared private and is not defined.
-private:
-
-   /**
-    * Not implemented.
-    */
-   JeodMemoryTypeDescriptorDerived & operator = (
-      const JeodMemoryTypeDescriptorDerived &);
+    /**
+     * Destroy an array of @a nelem instances of type @a Type.
+     */
+    void destruct_array(std::size_t nelem, void * addr) const override
+    {
+        jeod_alloc_destruct_array<Type>(nelem, addr);
+    }
 };
-
 
 /**
  * Abstract class for describing a type without necessarily needing
@@ -580,129 +504,120 @@ private:
  *  - Never cache a pointer or reference to a JeodMemoryTypeDescriptor obtained
  *    by calling the JeodMemoryTypeDescriptor's get_descriptor method.
  */
-class JeodMemoryTypePreDescriptor {
+class JeodMemoryTypePreDescriptor
+{
 public:
+    virtual ~JeodMemoryTypePreDescriptor() = default;
 
-   /**
-    * Destructor.
-    */
-   virtual ~JeodMemoryTypePreDescriptor() {}
+    /**
+     * Get the type info for the type.
+     * @return Type info
+     */
+    virtual const std::type_info & get_typeid() const = 0;
 
-   /**
-    * Get the type info for the type.
-    * @return Type info
-    */
-   virtual const std::type_info & get_typeid () const = 0;
-
-   /**
-    * Get a type descriptor for the type.
-    * The returned value should not be cached in a permanent store.
-    * The reference has a lifespan limited to that of the
-    * JeodMemoryTypePreDescriptor object.
-    * @return Type descriptor.
-    */
-   virtual const JeodMemoryTypeDescriptor & get_descriptor () = 0;
+    /**
+     * Get a type descriptor for the type.
+     * The returned value should not be cached in a permanent store.
+     * The reference has a lifespan limited to that of the
+     * JeodMemoryTypePreDescriptor object.
+     * @return Type descriptor.
+     */
+    virtual const JeodMemoryTypeDescriptor & get_descriptor() = 0;
 };
 
 /**
  * A JeodMemoryTypePreDescriptorDerived describes a @a Type.
  */
-template <typename Type>
-class JeodMemoryTypePreDescriptorDerived : public JeodMemoryTypePreDescriptor {
+template<typename Type> class JeodMemoryTypePreDescriptorDerived : public JeodMemoryTypePreDescriptor
+{
 public:
+    // Typedefs
 
-   // Typedefs
+    /**
+     * The type descriptor this class describes.
+     */
+    using TypeDescriptor = JeodMemoryTypeDescriptorDerived<Type>;
 
-   /**
-    * The type descriptor this class describes.
-    */
-   typedef JeodMemoryTypeDescriptorDerived<Type> TypeDescriptor;
+    /**
+     * Default constructor.
+     */
+    explicit JeodMemoryTypePreDescriptorDerived(bool exportable = true)
+        : is_exportable(exportable)
+    {
+    }
 
+    /**
+     * Copy constructor.
+     */
+    JeodMemoryTypePreDescriptorDerived(const JeodMemoryTypePreDescriptorDerived & src)
+        : is_exportable(src.exportable)
+    {
+        if(src.descriptor)
+        {
+            descriptor = new TypeDescriptor(*src.descriptor);
+        }
+    }
 
-   /**
-    * Default constructor.
-    */
-   explicit JeodMemoryTypePreDescriptorDerived (bool exportable = true)
-   :
-      descriptor (0),
-      is_exportable (exportable)
-   { }
+    /**
+     * Destructor.
+     */
+    ~JeodMemoryTypePreDescriptorDerived() override
+    {
+        delete descriptor;
+    }
 
-   /**
-    * Copy constructor.
-    */
-   JeodMemoryTypePreDescriptorDerived (
-      const JeodMemoryTypePreDescriptorDerived & src)
-   :
-      descriptor (0),
-      is_exportable (src.exportable)
-   {
-      if (src.descriptor) {
-         descriptor = new TypeDescriptor (*src.descriptor);
-      }
-   }
+    /**
+     * Get a reference to this object.
+     *
+     * This is an utter hack. Because the descriptor is created after the fact,
+     * a function that receives a JeodMemoryTypePreDescriptor must either take
+     * a copy or a non-const reference as input. A reference is preferred.
+     * The problem: Non-const references cannot be bound to rvalues. They can
+     * however be bound to other references, and hence this method.
+     *
+     * Note well: The returned reference has a lifespan limited to that of this
+     * object. Use with great care. This is not intended for general consumption.
+     *
+     * @return Reference to this object.
+     */
+    JeodMemoryTypePreDescriptor & get_ref()
+    {
+        return *this;
+    }
 
-   /**
-    * Destructor.
-    */
-   ~JeodMemoryTypePreDescriptorDerived () override
-   {
-      delete descriptor;
-   }
+    /**
+     * Get the type info for the type.
+     * @return Type info
+     */
+    const std::type_info & get_typeid() const override
+    {
+        return typeid(Type);
+    }
 
-   /**
-    * Get a reference to this object.
-    *
-    * This is an utter hack. Because the descriptor is created after the fact,
-    * a function that receives a JeodMemoryTypePreDescriptor must either take
-    * a copy or a non-const reference as input. A reference is preferred.
-    * The problem: Non-const references cannot be bound to rvalues. They can
-    * however be bound to other references, and hence this method.
-    *
-    * Note well: The returned reference has a lifespan limited to that of this
-    * object. Use with great care. This is not intended for general consumption.
-    *
-    * @return Reference to this object.
-    */
-   JeodMemoryTypePreDescriptor & get_ref ()
-   {
-      return *this;
-   }
-
-   /**
-    * Get the type info for the type.
-    * @return Type info
-    */
-   const std::type_info & get_typeid () const override
-   {
-      return typeid (Type);
-   }
-
-   /**
-    * Get a type descriptor for the type.
-    *
-    * Note well: The referenced value has a lifespan limited to that of this
-    * object. The returned value must not be cached in a permanent store.
-    * Use new in conjunction with the copy constructor instead.
-    *
-    * @return Type descriptor.
-    */
-   const JeodMemoryTypeDescriptor & get_descriptor () override
-   {
-      if (! descriptor) {
-         descriptor = new TypeDescriptor (is_exportable);
-      }
-      return *descriptor;
-   }
+    /**
+     * Get a type descriptor for the type.
+     *
+     * Note well: The referenced value has a lifespan limited to that of this
+     * object. The returned value must not be cached in a permanent store.
+     * Use new in conjunction with the copy constructor instead.
+     *
+     * @return Type descriptor.
+     */
+    const JeodMemoryTypeDescriptor & get_descriptor() override
+    {
+        if(!descriptor)
+        {
+            descriptor = new TypeDescriptor(is_exportable);
+        }
+        return *descriptor;
+    }
 
 private:
-   TypeDescriptor * descriptor; // trick_io(**)
-   bool is_exportable; // trick_io(**)
-
+    TypeDescriptor * descriptor{}; // trick_io(**)
+    bool is_exportable{true};      // trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

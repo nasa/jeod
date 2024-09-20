@@ -63,7 +63,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DERIVED_STATE_MESSAGES_HH
 #define JEOD_DERIVED_STATE_MESSAGES_HH
 
@@ -72,74 +71,67 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class that specifies the message IDs used in the DerivedState model.
  */
-class DerivedStateMessages {
+class DerivedStateMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DerivedStateMessages)
 
+    // Static member data
 
- JEOD_MAKE_SIM_INTERFACES(DerivedStateMessages)
+public:
+    /**
+     * Issued when performing an action results in an error return from the
+     * method performing the action.
+     */
+    static const char * fatal_error; //!< trick_units(--)
 
+    /**
+     * Issued when a simple type (e.g. an enum) has an illegal value.
+     */
+    static const char * illegal_value; //!< trick_units(--)
 
- // Static member data
+    /**
+     * Issued when a name is invalid (NULL, empty, or does not name an object
+     * of the specified type).
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
- public:
-   /**
-    * Issued when performing an action results in an error return from the
-    * method performing the action.
-    */
-   static char const * fatal_error; //!< trick_units(--)
+    /**
+     * Issued when a pointer points to an object of the wrong type.
+     */
+    static const char * invalid_object; //!< trick_units(--)
 
-   /**
-    * Issued when a simple type (e.g. an enum) has an illegal value.
-    */
-   static char const * illegal_value; //!< trick_units(--)
+    /**
+     * Error issued when a pointer is required but was not provided.
+     */
+    static const char * null_pointer; //!< trick_units(--)
 
-   /**
-    * Issued when a name is invalid (NULL, empty, or does not name an object
-    * of the specified type).
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Debug message issued to trace DerivedState actions.
+     */
+    static const char * trace; //!< trick_units(--)
 
-   /**
-    * Issued when a pointer points to an object of the wrong type.
-    */
-   static char const * invalid_object; //!< trick_units(--)
+    /**
+     * Fatal message when a divide by zero is encountered
+     */
+    static const char * divide_by_zero; //!< trick_units(--)
 
-   /**
-    * Error issued when a pointer is required but was not provided.
-    */
-   static char const * null_pointer; //!< trick_units(--)
+    // Member functions
 
-   /**
-    * Debug message issued to trace DerivedState actions.
-    */
-   static char const * trace; //!< trick_units(--)
-
-   /**
-    * Fatal message when a divide by zero is encountered
-    */
-   static char const * divide_by_zero; //!< trick_units(--)
-
-
- // Member functions
-
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   DerivedStateMessages (void);
-   DerivedStateMessages (const DerivedStateMessages &);
-   DerivedStateMessages & operator= (const DerivedStateMessages &);
-
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    DerivedStateMessages() = delete;
+    DerivedStateMessages(const DerivedStateMessages &) = delete;
+    DerivedStateMessages & operator=(const DerivedStateMessages &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

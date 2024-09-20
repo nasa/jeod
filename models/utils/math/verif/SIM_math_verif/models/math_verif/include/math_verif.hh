@@ -44,23 +44,24 @@ REFERENCE:
 LIBRARY DEPENDENCY:
    ((../src/math_verif.cc))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_MATH_VERIF_HH
 #define JEOD_MATH_VERIF_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-int math_verif(     /* RETURN: --             */
-   double A[3][3],     /* IN: -- input matrix */
-   double B[3][3],     /* IN: -- input matrix */
-   double C[3][3],     /* IN: -- input matrix */
-   double f[3],        /* IN: -- input vector */
-   double g[3],        /* IN: -- input vector */
-   double s ) ;        /* IN: -- input scalar */
+int math_verif(                /* RETURN: --             */
+               double A[3][3], /* IN: -- input matrix */
+               double B[3][3], /* IN: -- input matrix */
+               double C[3][3], /* IN: -- input matrix */
+               double f[3],    /* IN: -- input vector */
+               double g[3],    /* IN: -- input vector */
+               double s);      /* IN: -- input scalar */
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

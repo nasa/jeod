@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::Atmosphere Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -63,33 +62,29 @@ Inheritance diagram for jeod::Atmosphere:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/da4/classjeod_1_1Atmosphere__inherit__graph.png" border="0" usemap="#jeod_1_1Atmosphere_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1Atmosphere_inherit__map" id="jeod_1_1Atmosphere_inherit__map">
-<area shape="rect" id="node2" href="../../d4/d1b/classjeod_1_1METAtmosphere.html" title="jeod::METAtmosphere" alt="" coords="5,80,156,107"/>
+<area shape="rect" id="node2" href="../../d4/d1b/classjeod_1_1METAtmosphere.html" title="jeod::METAtmosphere" alt="" coords="5,80,168,107"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4cc6a737d17aeece24aa449715786232"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a4cc6a737d17aeece24aa449715786232">Atmosphere</a> ()</td></tr>
-<tr class="separator:a4cc6a737d17aeece24aa449715786232"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f2d21bc1d9dd6a8654f102d09ceb5b8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a1f2d21bc1d9dd6a8654f102d09ceb5b8">~Atmosphere</a> ()</td></tr>
-<tr class="separator:a1f2d21bc1d9dd6a8654f102d09ceb5b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a495ed3b3c7f4de311c82578e2400a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a71a495ed3b3c7f4de311c82578e2400a">Atmosphere</a> ()=default</td></tr>
+<tr class="separator:a71a495ed3b3c7f4de311c82578e2400a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24586aa261391405dbbb5d2e969b26ff"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a24586aa261391405dbbb5d2e969b26ff">~Atmosphere</a> ()=default</td></tr>
+<tr class="separator:a24586aa261391405dbbb5d2e969b26ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53ec589b9c8dc4b87ee4142816d0e513"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html">Atmosphere</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a53ec589b9c8dc4b87ee4142816d0e513">operator=</a> (const <a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html">Atmosphere</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:a53ec589b9c8dc4b87ee4142816d0e513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5069eadbb3eef171cf7ac36be65e53dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a5069eadbb3eef171cf7ac36be65e53dc">Atmosphere</a> (const <a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html">Atmosphere</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:a5069eadbb3eef171cf7ac36be65e53dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a419a72fc1e9201e739195fd4f226dc29"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a419a72fc1e9201e739195fd4f226dc29">update_atmosphere</a> (const <a class="el" href="../../d7/d3b/classjeod_1_1PlanetFixedPosition.html">PlanetFixedPosition</a> *position, <a class="el" href="../../d5/d14/classjeod_1_1AtmosphereState.html">AtmosphereState</a> *state)=0</td></tr>
-<tr class="memdesc:a419a72fc1e9201e739195fd4f226dc29"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-A pure virtual function for updating the atmosphere, and inserting  <a href="#a419a72fc1e9201e739195fd4f226dc29">More...</a><br /></td></tr>
+<tr class="memdesc:a419a72fc1e9201e739195fd4f226dc29"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pure virtual function for updating the atmosphere, and inserting.  <a href="#a419a72fc1e9201e739195fd4f226dc29">More...</a><br /></td></tr>
 <tr class="separator:a419a72fc1e9201e739195fd4f226dc29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a9f24d9a91fd25b5aa7e4968385061161"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a9f24d9a91fd25b5aa7e4968385061161">active</a></td></tr>
+<tr class="memitem:a9f24d9a91fd25b5aa7e4968385061161"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a9f24d9a91fd25b5aa7e4968385061161">active</a> {true}</td></tr>
 <tr class="memdesc:a9f24d9a91fd25b5aa7e4968385061161"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true the atmosphere state will calculate, if false it will not.  <a href="#a9f24d9a91fd25b5aa7e4968385061161">More...</a><br /></td></tr>
 <tr class="separator:a9f24d9a91fd25b5aa7e4968385061161"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a1af415ca6cd9766cbaed7f5540e24b5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html">Atmosphere</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#a1af415ca6cd9766cbaed7f5540e24b5e">operator=</a> (const <a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html">Atmosphere</a> &amp;rhs)</td></tr>
-<tr class="separator:a1af415ca6cd9766cbaed7f5540e24b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5d6a655ccacf0452c3e7d8e3e073695"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html#ab5d6a655ccacf0452c3e7d8e3e073695">Atmosphere</a> (const <a class="el" href="../../d1/d5f/classjeod_1_1Atmosphere.html">Atmosphere</a> &amp;rhs)</td></tr>
-<tr class="separator:ab5d6a655ccacf0452c3e7d8e3e073695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -103,8 +98,8 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html#l00078">78</a> of file <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html">atmosphere.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4cc6a737d17aeece24aa449715786232"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cc6a737d17aeece24aa449715786232">&#9670;&nbsp;</a></span>Atmosphere() <span class="overload">[1/2]</span></h2>
+<a id="a71a495ed3b3c7f4de311c82578e2400a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a495ed3b3c7f4de311c82578e2400a">&#9670;&nbsp;</a></span>Atmosphere() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -121,17 +116,15 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html">atmosphere.hh</a>.</p>
-
 </div>
 </div>
-<a id="a1f2d21bc1d9dd6a8654f102d09ceb5b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f2d21bc1d9dd6a8654f102d09ceb5b8">&#9670;&nbsp;</a></span>~Atmosphere()</h2>
+<a id="a24586aa261391405dbbb5d2e969b26ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24586aa261391405dbbb5d2e969b26ff">&#9670;&nbsp;</a></span>~Atmosphere()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,17 +141,15 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html#l00095">95</a> of file <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html">atmosphere.hh</a>.</p>
-
 </div>
 </div>
-<a id="ab5d6a655ccacf0452c3e7d8e3e073695"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5d6a655ccacf0452c3e7d8e3e073695">&#9670;&nbsp;</a></span>Atmosphere() <span class="overload">[2/2]</span></h2>
+<a id="a5069eadbb3eef171cf7ac36be65e53dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5069eadbb3eef171cf7ac36be65e53dc">&#9670;&nbsp;</a></span>Atmosphere() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +167,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -184,8 +175,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1af415ca6cd9766cbaed7f5540e24b5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1af415ca6cd9766cbaed7f5540e24b5e">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a53ec589b9c8dc4b87ee4142816d0e513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ec589b9c8dc4b87ee4142816d0e513">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +194,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -244,8 +235,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><br />
-A pure virtual function for updating the atmosphere, and inserting </p>
+<p>A pure virtual function for updating the atmosphere, and inserting. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>planet fixed position </td></tr>
@@ -318,7 +308,7 @@ A pure virtual function for updating the atmosphere, and inserting </p>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::Atmosphere::active</td>
+          <td class="memname">bool jeod::Atmosphere::active {true}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -326,7 +316,7 @@ A pure virtual function for updating the atmosphere, and inserting </p>
 <p>If true the atmosphere state will calculate, if false it will not. </p>
 <p>trick_units(&ndash;) activity-control flag. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html#l00087">87</a> of file <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html">atmosphere.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d7/d0c/atmosphere_8hh_source.html">atmosphere.hh</a>.</p>
 
 </div>
 </div>

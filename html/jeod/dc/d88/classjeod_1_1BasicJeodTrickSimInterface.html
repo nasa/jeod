@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,7 +48,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::BasicJeodTrickSimInterface Class Reference</div>  </div>
@@ -64,8 +63,8 @@ Inheritance diagram for jeod::BasicJeodTrickSimInterface:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/dbf/classjeod_1_1BasicJeodTrickSimInterface__inherit__graph.png" border="0" usemap="#jeod_1_1BasicJeodTrickSimInterface_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1BasicJeodTrickSimInterface_inherit__map" id="jeod_1_1BasicJeodTrickSimInterface_inherit__map">
-<area shape="rect" id="node3" href="../../d7/d52/classjeod_1_1JeodTrickSimInterface.html" title="A JEODTrickSimInterface implements the required capabilities of the generic JeodSimulationInterface i..." alt="" coords="22,155,206,181"/>
-<area shape="rect" id="node2" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine..." alt="" coords="17,5,211,32"/>
+<area shape="rect" id="node3" href="../../d7/d52/classjeod_1_1JeodTrickSimInterface.html" title="A JEODTrickSimInterface implements the required capabilities of the generic JeodSimulationInterface i..." alt="" coords="23,155,222,181"/>
+<area shape="rect" id="node2" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine..." alt="" coords="15,5,230,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -73,31 +72,31 @@ Collaboration diagram for jeod::BasicJeodTrickSimInterface:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d8a/classjeod_1_1BasicJeodTrickSimInterface__coll__graph.png" border="0" usemap="#jeod_1_1BasicJeodTrickSimInterface_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1BasicJeodTrickSimInterface_coll__map" id="jeod_1_1BasicJeodTrickSimInterface_coll__map">
-<area shape="rect" id="node2" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine..." alt="" coords="946,478,1141,505"/>
-<area shape="rect" id="node3" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html" title="A TrickMemoryInterface implements the two required methods needed to register and deregister memory w..." alt="" coords="932,249,1155,275"/>
-<area shape="rect" id="node4" href="../../d1/dac/classjeod_1_1JeodTrickMemoryInterface.html" title="A TrickMemoryInterface implements the two required methods needed to register and deregister memory w..." alt="" coords="548,271,756,298"/>
-<area shape="rect" id="node5" href="../../da/d39/classjeod_1_1JeodMemoryInterface.html" title="Abstract interface between the JEOD memory manager and the simulation engine. " alt="" coords="209,206,389,233"/>
-<area shape="rect" id="node9" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html" title="This class provides the interface between the macros in jeod_alloc.hh and the rest of the JEOD memory..." alt="" coords="954,143,1133,170"/>
-<area shape="rect" id="node8" title="STL class. " alt="" coords="259,574,339,601"/>
-<area shape="rect" id="node16" href="../../d3/d50/classjeod_1_1CheckPointOutputManager.html" title=" A CheckPointOutputManager provides the basic tools for writing a checkpoint file. " alt="" coords="547,515,757,542"/>
-<area shape="rect" id="node19" href="../../d7/d1e/classjeod_1_1SectionedOutputStream.html" title=" A SectionedOutputStream is a std::ostream that writes a section of a checkpoint file. " alt="" coords="947,642,1140,669"/>
-<area shape="rect" id="node22" href="../../d6/d32/classjeod_1_1CheckPointInputManager.html" title=" A CheckPointInputManager provides tools for reading a checkpoint file. " alt="" coords="943,834,1144,861"/>
-<area shape="rect" id="node10" href="../../d2/d6b/classjeod_1_1JeodMemoryReflectiveTable.html" title="A JeodMemoryReflectiveTable maps strings to themselves. " alt="" coords="558,71,746,112"/>
-<area shape="rect" id="node11" href="../../d2/d05/classjeod_1_1JeodMemoryTableCopyable.html" title="jeod::JeodMemoryTableCopyable\l\&lt; std::string \&gt;" alt="" coords="192,71,407,112"/>
-<area shape="rect" id="node13" href="../../d9/d52/classjeod_1_1JeodMemoryItem.html" title="A JeodMemoryItem contains metadata about some chunk of allocated memory. " alt="" coords="222,143,377,170"/>
-<area shape="rect" id="node14" href="../../d0/d6d/classjeod_1_1JeodMemoryTableClonable.html" title="jeod::JeodMemoryTableClonable\l\&lt; JeodMemoryTypeDescriptor \&gt;" alt="" coords="547,5,757,47"/>
-<area shape="rect" id="node15" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html" title="jeod::JeodMemoryTable\l\&lt; JeodMemoryTypeDescriptor \&gt;" alt="" coords="195,5,404,47"/>
-<area shape="rect" id="node17" title="STL class. " alt="" coords="250,437,349,463"/>
-<area shape="rect" id="node18" title="STL class. " alt="" coords="5,429,143,471"/>
-<area shape="rect" id="node20" title="STL class. " alt="" coords="605,658,699,685"/>
-<area shape="rect" id="node21" href="../../d5/d06/classjeod_1_1SectionedOutputBuffer.html" title=" A SectionedOutputBuffer is a std::streambuf that writes a section of a checkpoint file..." alt="" coords="559,709,745,735"/>
-<area shape="rect" id="node27" href="../../d1/d7a/classjeod_1_1SectionedInputStream.html" title=" A SectionedInputStream is a std::istream that reads from a section in a checkpoint file..." alt="" coords="1376,826,1559,853"/>
-<area shape="rect" id="node24" href="../../d4/d03/structjeod_1_1CheckPointInputManager_1_1SectionInfo.html" title=" A SectionInfo contains the start and end positions of a checkpoint file section. ..." alt="" coords="199,897,400,939"/>
-<area shape="rect" id="node25" title="STL class. " alt="" coords="605,949,699,975"/>
-<area shape="rect" id="node26" title="STL class. " alt="" coords="233,963,366,1004"/>
-<area shape="rect" id="node28" title="STL class. " alt="" coords="998,591,1089,618"/>
-<area shape="rect" id="node29" href="../../d8/d17/classjeod_1_1SectionedInputBuffer.html" title=" A SectionedInputBuffer is a std::streambuf that reads from a section in a checkpoint file..." alt="" coords="956,781,1131,807"/>
-<area shape="rect" id="node30" href="../../dc/dd5/classjeod_1_1MessageHandler.html" title="The base class for generating JEOD messages. " alt="" coords="967,389,1119,415"/>
+<area shape="rect" id="node2" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine..." alt="" coords="1029,478,1243,505"/>
+<area shape="rect" id="node3" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html" title="A TrickMemoryInterface implements the two required methods needed to register and deregister memory w..." alt="" coords="1015,249,1257,275"/>
+<area shape="rect" id="node4" href="../../d1/dac/classjeod_1_1JeodTrickMemoryInterface.html" title="A TrickMemoryInterface implements the two required methods needed to register and deregister memory w..." alt="" coords="595,271,822,298"/>
+<area shape="rect" id="node5" href="../../da/d39/classjeod_1_1JeodMemoryInterface.html" title="Abstract interface between the JEOD memory manager and the simulation engine. " alt="" coords="224,206,421,233"/>
+<area shape="rect" id="node9" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html" title="This class provides the interface between the macros in jeod_alloc.hh and the rest of the JEOD memory..." alt="" coords="1039,143,1233,170"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="279,574,366,601"/>
+<area shape="rect" id="node16" href="../../d3/d50/classjeod_1_1CheckPointOutputManager.html" title=" A CheckPointOutputManager provides the basic tools for writing a checkpoint file. " alt="" coords="593,515,824,542"/>
+<area shape="rect" id="node19" href="../../d7/d1e/classjeod_1_1SectionedOutputStream.html" title=" A SectionedOutputStream is a std::ostream that writes a section of a checkpoint file. " alt="" coords="1029,642,1243,669"/>
+<area shape="rect" id="node22" href="../../d6/d32/classjeod_1_1CheckPointInputManager.html" title=" A CheckPointInputManager provides tools for reading a checkpoint file. " alt="" coords="1026,834,1246,861"/>
+<area shape="rect" id="node10" href="../../d2/d6b/classjeod_1_1JeodMemoryReflectiveTable.html" title="A JeodMemoryReflectiveTable maps strings to themselves. " alt="" coords="607,71,810,112"/>
+<area shape="rect" id="node11" href="../../d2/d05/classjeod_1_1JeodMemoryTableCopyable.html" title="jeod::JeodMemoryTableCopyable\l\&lt; std::string \&gt;" alt="" coords="205,71,440,112"/>
+<area shape="rect" id="node13" href="../../d9/d52/classjeod_1_1JeodMemoryItem.html" title="A JeodMemoryItem contains metadata about some chunk of allocated memory. " alt="" coords="238,143,407,170"/>
+<area shape="rect" id="node14" href="../../d0/d6d/classjeod_1_1JeodMemoryTableClonable.html" title="jeod::JeodMemoryTableClonable\l\&lt; JeodMemoryTypeDescriptor \&gt;" alt="" coords="593,5,824,47"/>
+<area shape="rect" id="node15" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html" title="jeod::JeodMemoryTable\l\&lt; JeodMemoryTypeDescriptor \&gt;" alt="" coords="207,5,438,47"/>
+<area shape="rect" id="node17" title="STL class. " alt="" coords="268,437,377,463"/>
+<area shape="rect" id="node18" title="STL class. " alt="" coords="5,429,156,471"/>
+<area shape="rect" id="node20" title="STL class. " alt="" coords="657,658,761,685"/>
+<area shape="rect" id="node21" href="../../d5/d06/classjeod_1_1SectionedOutputBuffer.html" title=" A SectionedOutputBuffer is a std::streambuf that writes a section of a checkpoint file..." alt="" coords="606,709,811,735"/>
+<area shape="rect" id="node27" href="../../d1/d7a/classjeod_1_1SectionedInputStream.html" title=" A SectionedInputStream is a std::istream that reads from a section in a checkpoint file..." alt="" coords="1496,826,1699,853"/>
+<area shape="rect" id="node24" href="../../d4/d03/structjeod_1_1CheckPointInputManager_1_1SectionInfo.html" title=" A SectionInfo contains the start and end positions of a checkpoint file section. ..." alt="" coords="213,897,433,939"/>
+<area shape="rect" id="node25" title="STL class. " alt="" coords="656,949,761,975"/>
+<area shape="rect" id="node26" title="STL class. " alt="" coords="249,963,396,1004"/>
+<area shape="rect" id="node28" title="STL class. " alt="" coords="1086,591,1186,618"/>
+<area shape="rect" id="node29" href="../../d8/d17/classjeod_1_1SectionedInputBuffer.html" title=" A SectionedInputBuffer is a std::streambuf that reads from a section in a checkpoint file..." alt="" coords="1039,781,1233,807"/>
+<area shape="rect" id="node30" href="../../dc/dd5/classjeod_1_1MessageHandler.html" title="The base class for generating JEOD messages. " alt="" coords="1053,389,1219,415"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -118,30 +117,34 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0829cd967dc0f4129e55a5293775aabd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0829cd967dc0f4129e55a5293775aabd">set_mode</a> (<a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">JeodSimulationInterface::Mode</a> new_mode) override</td></tr>
 <tr class="memdesc:a0829cd967dc0f4129e55a5293775aabd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mode.  <a href="#a0829cd967dc0f4129e55a5293775aabd">More...</a><br /></td></tr>
 <tr class="separator:a0829cd967dc0f4129e55a5293775aabd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d7530d0e3c018df5946d263522196b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a5d7530d0e3c018df5946d263522196b3">checkpoint_allocations</a> (void)</td></tr>
-<tr class="memdesc:a5d7530d0e3c018df5946d263522196b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the allocation information to the checkpoint file.  <a href="#a5d7530d0e3c018df5946d263522196b3">More...</a><br /></td></tr>
-<tr class="separator:a5d7530d0e3c018df5946d263522196b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5202c1c99b130dca0ec1568fb3bcc1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5202c1c99b130dca0ec1568fb3bcc1e">restore_allocations</a> (void)</td></tr>
-<tr class="memdesc:af5202c1c99b130dca0ec1568fb3bcc1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restore the allocated data per the checkpoint file.  <a href="#af5202c1c99b130dca0ec1568fb3bcc1e">More...</a><br /></td></tr>
-<tr class="separator:af5202c1c99b130dca0ec1568fb3bcc1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8188aebe116c9b585743e203e58e07c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ad8188aebe116c9b585743e203e58e07c">checkpoint_containers</a> (void)</td></tr>
-<tr class="memdesc:ad8188aebe116c9b585743e203e58e07c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the container objects to the checkpoint file.  <a href="#ad8188aebe116c9b585743e203e58e07c">More...</a><br /></td></tr>
-<tr class="separator:ad8188aebe116c9b585743e203e58e07c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcfca2c21084941e1d9ecb181ce93e0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#adcfca2c21084941e1d9ecb181ce93e0e">restore_containers</a> (void)</td></tr>
-<tr class="memdesc:adcfca2c21084941e1d9ecb181ce93e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restore the container objects from the checkpoint file.  <a href="#adcfca2c21084941e1d9ecb181ce93e0e">More...</a><br /></td></tr>
-<tr class="separator:adcfca2c21084941e1d9ecb181ce93e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b42ab25747b7545bf15d917e006ceb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6b42ab25747b7545bf15d917e006ceb0">open_checkpoint_file</a> (void)</td></tr>
-<tr class="memdesc:a6b42ab25747b7545bf15d917e006ceb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the checkpoint output file.  <a href="#a6b42ab25747b7545bf15d917e006ceb0">More...</a><br /></td></tr>
-<tr class="separator:a6b42ab25747b7545bf15d917e006ceb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c7d2f7dca891725fd1954672d18321c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a3c7d2f7dca891725fd1954672d18321c">close_checkpoint_file</a> (void)</td></tr>
-<tr class="memdesc:a3c7d2f7dca891725fd1954672d18321c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the checkpoint output file.  <a href="#a3c7d2f7dca891725fd1954672d18321c">More...</a><br /></td></tr>
-<tr class="separator:a3c7d2f7dca891725fd1954672d18321c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9287168209af1ab9da7ff0b6ea2956c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9287168209af1ab9da7ff0b6ea2956c1">open_restart_file</a> (void)</td></tr>
-<tr class="memdesc:a9287168209af1ab9da7ff0b6ea2956c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the checkpoint input file.  <a href="#a9287168209af1ab9da7ff0b6ea2956c1">More...</a><br /></td></tr>
-<tr class="separator:a9287168209af1ab9da7ff0b6ea2956c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1456735c79f3adfbbc60be8adf04166"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae1456735c79f3adfbbc60be8adf04166">close_restart_file</a> (void)</td></tr>
-<tr class="memdesc:ae1456735c79f3adfbbc60be8adf04166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the checkpoint input file.  <a href="#ae1456735c79f3adfbbc60be8adf04166">More...</a><br /></td></tr>
-<tr class="separator:ae1456735c79f3adfbbc60be8adf04166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1925a2613e7e29c0e0c384e58f3fb109"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a1925a2613e7e29c0e0c384e58f3fb109">checkpoint_allocations</a> ()</td></tr>
+<tr class="memdesc:a1925a2613e7e29c0e0c384e58f3fb109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the allocation information to the checkpoint file.  <a href="#a1925a2613e7e29c0e0c384e58f3fb109">More...</a><br /></td></tr>
+<tr class="separator:a1925a2613e7e29c0e0c384e58f3fb109"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67e2656cb3d52db71818d56a2dc87916"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a67e2656cb3d52db71818d56a2dc87916">restore_allocations</a> ()</td></tr>
+<tr class="memdesc:a67e2656cb3d52db71818d56a2dc87916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restore the allocated data per the checkpoint file.  <a href="#a67e2656cb3d52db71818d56a2dc87916">More...</a><br /></td></tr>
+<tr class="separator:a67e2656cb3d52db71818d56a2dc87916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e1c98466b79e3ca6e6ac7594da9f434"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a7e1c98466b79e3ca6e6ac7594da9f434">checkpoint_containers</a> ()</td></tr>
+<tr class="memdesc:a7e1c98466b79e3ca6e6ac7594da9f434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the container objects to the checkpoint file.  <a href="#a7e1c98466b79e3ca6e6ac7594da9f434">More...</a><br /></td></tr>
+<tr class="separator:a7e1c98466b79e3ca6e6ac7594da9f434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d1b28aaba82cd0953d6cf357f0690b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9d1b28aaba82cd0953d6cf357f0690b5">restore_containers</a> ()</td></tr>
+<tr class="memdesc:a9d1b28aaba82cd0953d6cf357f0690b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restore the container objects from the checkpoint file.  <a href="#a9d1b28aaba82cd0953d6cf357f0690b5">More...</a><br /></td></tr>
+<tr class="separator:a9d1b28aaba82cd0953d6cf357f0690b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc2deacbdc9294b9dc796a8a6c22660e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#afc2deacbdc9294b9dc796a8a6c22660e">open_checkpoint_file</a> ()</td></tr>
+<tr class="memdesc:afc2deacbdc9294b9dc796a8a6c22660e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the checkpoint output file.  <a href="#afc2deacbdc9294b9dc796a8a6c22660e">More...</a><br /></td></tr>
+<tr class="separator:afc2deacbdc9294b9dc796a8a6c22660e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb51d62d65c4e5a8d0b22537f66c3f75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#adb51d62d65c4e5a8d0b22537f66c3f75">close_checkpoint_file</a> ()</td></tr>
+<tr class="memdesc:adb51d62d65c4e5a8d0b22537f66c3f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the checkpoint output file.  <a href="#adb51d62d65c4e5a8d0b22537f66c3f75">More...</a><br /></td></tr>
+<tr class="separator:adb51d62d65c4e5a8d0b22537f66c3f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0489cbcab3157dcb4a5c7bbfe7c5b7df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0489cbcab3157dcb4a5c7bbfe7c5b7df">open_restart_file</a> ()</td></tr>
+<tr class="memdesc:a0489cbcab3157dcb4a5c7bbfe7c5b7df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the checkpoint input file.  <a href="#a0489cbcab3157dcb4a5c7bbfe7c5b7df">More...</a><br /></td></tr>
+<tr class="separator:a0489cbcab3157dcb4a5c7bbfe7c5b7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9735ac8a7b6abbb2e24944d674019b5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9735ac8a7b6abbb2e24944d674019b5d">close_restart_file</a> ()</td></tr>
+<tr class="memdesc:a9735ac8a7b6abbb2e24944d674019b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the checkpoint input file.  <a href="#a9735ac8a7b6abbb2e24944d674019b5d">More...</a><br /></td></tr>
+<tr class="separator:a9735ac8a7b6abbb2e24944d674019b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a572d32e0bc8505c08d5399b38261916e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a572d32e0bc8505c08d5399b38261916e">BasicJeodTrickSimInterface</a> (const <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html">BasicJeodTrickSimInterface</a> &amp;)=delete</td></tr>
+<tr class="separator:a572d32e0bc8505c08d5399b38261916e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f01e4cdef2aca76b0edfe09878f1a46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html">BasicJeodTrickSimInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8f01e4cdef2aca76b0edfe09878f1a46">operator=</a> (const <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html">BasicJeodTrickSimInterface</a> &amp;)=delete</td></tr>
+<tr class="separator:a8f01e4cdef2aca76b0edfe09878f1a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1JeodSimulationInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1JeodSimulationInterface')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html">jeod::JeodSimulationInterface</a></td></tr>
 <tr class="memitem:a1ea9f9fc9085e5b969a45263e9fb3c80 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a1ea9f9fc9085e5b969a45263e9fb3c80">JeodSimulationInterface</a> ()</td></tr>
 <tr class="memdesc:a1ea9f9fc9085e5b969a45263e9fb3c80 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine...">JeodSimulationInterface</a> object.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a1ea9f9fc9085e5b969a45263e9fb3c80">More...</a><br /></td></tr>
@@ -149,24 +152,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0be7043f24fd5db76a0eaf2470d7ce21 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a0be7043f24fd5db76a0eaf2470d7ce21">~JeodSimulationInterface</a> ()</td></tr>
 <tr class="memdesc:a0be7043f24fd5db76a0eaf2470d7ce21 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine...">JeodSimulationInterface</a> object.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a0be7043f24fd5db76a0eaf2470d7ce21">More...</a><br /></td></tr>
 <tr class="separator:a0be7043f24fd5db76a0eaf2470d7ce21 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6abe56621da1e7a0deec2791941a9f86 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a6abe56621da1e7a0deec2791941a9f86">JeodSimulationInterface</a> (const <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html">JeodSimulationInterface</a> &amp;)=delete</td></tr>
+<tr class="separator:a6abe56621da1e7a0deec2791941a9f86 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a577131821f91b34c797b7393249e5ac7 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html">JeodSimulationInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a577131821f91b34c797b7393249e5ac7">operator=</a> (const <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html">JeodSimulationInterface</a> &amp;)=delete</td></tr>
+<tr class="separator:a577131821f91b34c797b7393249e5ac7 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3684fe94e78e3f5470f9b007e6bfc099 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a3684fe94e78e3f5470f9b007e6bfc099">configure</a> (const <a class="el" href="../../d1/d39/classjeod_1_1JeodSimulationInterfaceInit.html">JeodSimulationInterfaceInit</a> &amp;config)</td></tr>
 <tr class="memdesc:a3684fe94e78e3f5470f9b007e6bfc099 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure a <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine...">JeodSimulationInterface</a> object.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a3684fe94e78e3f5470f9b007e6bfc099">More...</a><br /></td></tr>
 <tr class="separator:a3684fe94e78e3f5470f9b007e6bfc099 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9b715060394c650a7f3137b1cfcabba inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ae9b715060394c650a7f3137b1cfcabba">get_mode</a> (void) const</td></tr>
-<tr class="memdesc:ae9b715060394c650a7f3137b1cfcabba inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current mode.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ae9b715060394c650a7f3137b1cfcabba">More...</a><br /></td></tr>
-<tr class="separator:ae9b715060394c650a7f3137b1cfcabba inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eeef7dbcabe8169779f3b5a4b590b06 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9eeef7dbcabe8169779f3b5a4b590b06">get_mode</a> () const</td></tr>
+<tr class="memdesc:a9eeef7dbcabe8169779f3b5a4b590b06 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current mode.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9eeef7dbcabe8169779f3b5a4b590b06">More...</a><br /></td></tr>
+<tr class="separator:a9eeef7dbcabe8169779f3b5a4b590b06 inherit pub_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ac6bd91335e18a891cc7417171a92a966"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ac6bd91335e18a891cc7417171a92a966">create_integrator_internal</a> (void) override</td></tr>
-<tr class="memdesc:ac6bd91335e18a891cc7417171a92a966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an integration interface object.  <a href="#ac6bd91335e18a891cc7417171a92a966">More...</a><br /></td></tr>
-<tr class="separator:ac6bd91335e18a891cc7417171a92a966"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e53478dbd7e5af5d3d8db96f19f40c5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a5e53478dbd7e5af5d3d8db96f19f40c5">get_job_cycle_internal</a> (void) override</td></tr>
-<tr class="memdesc:a5e53478dbd7e5af5d3d8db96f19f40c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current job's cycle time.  <a href="#a5e53478dbd7e5af5d3d8db96f19f40c5">More...</a><br /></td></tr>
-<tr class="separator:a5e53478dbd7e5af5d3d8db96f19f40c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5df5fd916ebb0703299fb0a0b3c02b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d39/classjeod_1_1JeodMemoryInterface.html">JeodMemoryInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ab5df5fd916ebb0703299fb0a0b3c02b6">get_memory_interface_internal</a> (void) override</td></tr>
-<tr class="memdesc:ab5df5fd916ebb0703299fb0a0b3c02b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the memory interface.  <a href="#ab5df5fd916ebb0703299fb0a0b3c02b6">More...</a><br /></td></tr>
-<tr class="separator:ab5df5fd916ebb0703299fb0a0b3c02b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7b9c5c75293ff5b9c36a0348116d94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a4b7b9c5c75293ff5b9c36a0348116d94">create_integrator_internal</a> () override</td></tr>
+<tr class="memdesc:a4b7b9c5c75293ff5b9c36a0348116d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an integration interface object.  <a href="#a4b7b9c5c75293ff5b9c36a0348116d94">More...</a><br /></td></tr>
+<tr class="separator:a4b7b9c5c75293ff5b9c36a0348116d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab29d04e4163ed0634dbbec8dc90ee4c7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ab29d04e4163ed0634dbbec8dc90ee4c7">get_job_cycle_internal</a> () override</td></tr>
+<tr class="memdesc:ab29d04e4163ed0634dbbec8dc90ee4c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current job's cycle time.  <a href="#ab29d04e4163ed0634dbbec8dc90ee4c7">More...</a><br /></td></tr>
+<tr class="separator:ab29d04e4163ed0634dbbec8dc90ee4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae872d71485685a9bbf4a1b3db6780af6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d39/classjeod_1_1JeodMemoryInterface.html">JeodMemoryInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae872d71485685a9bbf4a1b3db6780af6">get_memory_interface_internal</a> () override</td></tr>
+<tr class="memdesc:ae872d71485685a9bbf4a1b3db6780af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the memory interface.  <a href="#ae872d71485685a9bbf4a1b3db6780af6">More...</a><br /></td></tr>
+<tr class="separator:ae872d71485685a9bbf4a1b3db6780af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ada79818da4542979e259608d0ca064"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7a/classjeod_1_1SectionedInputStream.html">SectionedInputStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a7ada79818da4542979e259608d0ca064">get_checkpoint_reader_internal</a> (const std::string &amp;section_id) override</td></tr>
 <tr class="memdesc:a7ada79818da4542979e259608d0ca064"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a reader to a section of the currently open checkpoint file.  <a href="#a7ada79818da4542979e259608d0ca064">More...</a><br /></td></tr>
 <tr class="separator:a7ada79818da4542979e259608d0ca064"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,28 +201,19 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:af5bde31a271e9dbc0469bc2d7ca4d43b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5bde31a271e9dbc0469bc2d7ca4d43b">section_end</a></td></tr>
 <tr class="memdesc:af5bde31a271e9dbc0469bc2d7ca4d43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">String indicating the end of a checkpoint file section.  <a href="#af5bde31a271e9dbc0469bc2d7ca4d43b">More...</a><br /></td></tr>
 <tr class="separator:af5bde31a271e9dbc0469bc2d7ca4d43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0352d2a4d469b35babe9c7fd44994b02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d32/classjeod_1_1CheckPointInputManager.html">CheckPointInputManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0352d2a4d469b35babe9c7fd44994b02">checkpoint_reader</a></td></tr>
+<tr class="memitem:a0352d2a4d469b35babe9c7fd44994b02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d32/classjeod_1_1CheckPointInputManager.html">CheckPointInputManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0352d2a4d469b35babe9c7fd44994b02">checkpoint_reader</a> {}</td></tr>
 <tr class="memdesc:a0352d2a4d469b35babe9c7fd44994b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object that manages reading from a checkpoint file.  <a href="#a0352d2a4d469b35babe9c7fd44994b02">More...</a><br /></td></tr>
 <tr class="separator:a0352d2a4d469b35babe9c7fd44994b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16d03814d900220e732363f243b6dabb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d50/classjeod_1_1CheckPointOutputManager.html">CheckPointOutputManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a16d03814d900220e732363f243b6dabb">checkpoint_writer</a></td></tr>
+<tr class="memitem:a16d03814d900220e732363f243b6dabb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d50/classjeod_1_1CheckPointOutputManager.html">CheckPointOutputManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a16d03814d900220e732363f243b6dabb">checkpoint_writer</a> {}</td></tr>
 <tr class="memdesc:a16d03814d900220e732363f243b6dabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object that manages writing to a checkpoint file.  <a href="#a16d03814d900220e732363f243b6dabb">More...</a><br /></td></tr>
 <tr class="separator:a16d03814d900220e732363f243b6dabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1JeodSimulationInterface"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1JeodSimulationInterface')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html">jeod::JeodSimulationInterface</a></td></tr>
-<tr class="memitem:ad7d7e5aca9e2069e7ba9711e74fc8586 inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ad7d7e5aca9e2069e7ba9711e74fc8586">mode</a></td></tr>
+<tr class="memitem:ad7d7e5aca9e2069e7ba9711e74fc8586 inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ad7d7e5aca9e2069e7ba9711e74fc8586">mode</a> {<a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0ae087f96ad1c86778f8d538d87a2c30a2">Construction</a>}</td></tr>
 <tr class="memdesc:ad7d7e5aca9e2069e7ba9711e74fc8586 inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode in which the simulation interface is operating.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ad7d7e5aca9e2069e7ba9711e74fc8586">More...</a><br /></td></tr>
 <tr class="separator:ad7d7e5aca9e2069e7ba9711e74fc8586 inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab08d36e67827c6935df68ad9cd1d3cad inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ab08d36e67827c6935df68ad9cd1d3cad">saved_mode</a></td></tr>
+<tr class="memitem:ab08d36e67827c6935df68ad9cd1d3cad inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ab08d36e67827c6935df68ad9cd1d3cad">saved_mode</a> {<a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0ae087f96ad1c86778f8d538d87a2c30a2">Construction</a>}</td></tr>
 <tr class="memdesc:ab08d36e67827c6935df68ad9cd1d3cad inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode prior to a checkpoint or restart process.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ab08d36e67827c6935df68ad9cd1d3cad">More...</a><br /></td></tr>
 <tr class="separator:ab08d36e67827c6935df68ad9cd1d3cad inherit pro_attribs_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a07cf468f7afe441d96d4d36cfcc69f94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a07cf468f7afe441d96d4d36cfcc69f94">BasicJeodTrickSimInterface</a> (const <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html">BasicJeodTrickSimInterface</a> &amp;)</td></tr>
-<tr class="memdesc:a07cf468f7afe441d96d4d36cfcc69f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#a07cf468f7afe441d96d4d36cfcc69f94">More...</a><br /></td></tr>
-<tr class="separator:a07cf468f7afe441d96d4d36cfcc69f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad388e6d0b67e833939c464f97e6a471c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html">BasicJeodTrickSimInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ad388e6d0b67e833939c464f97e6a471c">operator=</a> (const <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html">BasicJeodTrickSimInterface</a> &amp;)</td></tr>
-<tr class="memdesc:ad388e6d0b67e833939c464f97e6a471c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#ad388e6d0b67e833939c464f97e6a471c">More...</a><br /></td></tr>
-<tr class="separator:ad388e6d0b67e833939c464f97e6a471c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -246,21 +244,21 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a9e7bb790e6f97a7927fc5f334b23cdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the states of the <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html" title="This abstract class defines the basis for the interface between JEOD and a simulation engine...">JeodSimulationInterface</a> state machine.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9e7bb790e6f97a7927fc5f334b23cdb0">More...</a><br /></td></tr>
 <tr class="separator:a9e7bb790e6f97a7927fc5f334b23cdb0 inherit pub_types_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classjeod_1_1JeodSimulationInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classjeod_1_1JeodSimulationInterface')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html">jeod::JeodSimulationInterface</a></td></tr>
-<tr class="memitem:a74801130f866ca289729aeba45de452f inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a74801130f866ca289729aeba45de452f">create_integrator_interface</a> (void)</td></tr>
-<tr class="memdesc:a74801130f866ca289729aeba45de452f inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a simulation integrator interface object.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a74801130f866ca289729aeba45de452f">More...</a><br /></td></tr>
-<tr class="separator:a74801130f866ca289729aeba45de452f inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00e59d753b3f6d80f54574f9eb7f21f4 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a00e59d753b3f6d80f54574f9eb7f21f4">get_job_cycle</a> (void)</td></tr>
-<tr class="memdesc:a00e59d753b3f6d80f54574f9eb7f21f4 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cycle time of the currently executing job.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a00e59d753b3f6d80f54574f9eb7f21f4">More...</a><br /></td></tr>
-<tr class="separator:a00e59d753b3f6d80f54574f9eb7f21f4 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1e4eda0d36421a56e8ba9ec1d1bc742 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ae1e4eda0d36421a56e8ba9ec1d1bc742">create_integrator_interface</a> ()</td></tr>
+<tr class="memdesc:ae1e4eda0d36421a56e8ba9ec1d1bc742 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a simulation integrator interface object.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ae1e4eda0d36421a56e8ba9ec1d1bc742">More...</a><br /></td></tr>
+<tr class="separator:ae1e4eda0d36421a56e8ba9ec1d1bc742 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc9ca4e99e60bcf383e0f356bd07c881 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#acc9ca4e99e60bcf383e0f356bd07c881">get_job_cycle</a> ()</td></tr>
+<tr class="memdesc:acc9ca4e99e60bcf383e0f356bd07c881 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cycle time of the currently executing job.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#acc9ca4e99e60bcf383e0f356bd07c881">More...</a><br /></td></tr>
+<tr class="separator:acc9ca4e99e60bcf383e0f356bd07c881 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2081f9dfe43d56de7d342dfb3978dcf1 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a2081f9dfe43d56de7d342dfb3978dcf1">get_name_at_address</a> (const void *addr, const <a class="el" href="../../db/dda/classjeod_1_1JeodMemoryTypeDescriptor.html">JeodMemoryTypeDescriptor</a> *tdesc)</td></tr>
 <tr class="memdesc:a2081f9dfe43d56de7d342dfb3978dcf1 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate the given address to a symbolic name.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a2081f9dfe43d56de7d342dfb3978dcf1">More...</a><br /></td></tr>
 <tr class="separator:a2081f9dfe43d56de7d342dfb3978dcf1 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17fe3a3dc07b14bebb08bcb83caf5173 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a17fe3a3dc07b14bebb08bcb83caf5173">get_address_at_name</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:a17fe3a3dc07b14bebb08bcb83caf5173 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate the given symbolic name to an address.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a17fe3a3dc07b14bebb08bcb83caf5173">More...</a><br /></td></tr>
 <tr class="separator:a17fe3a3dc07b14bebb08bcb83caf5173 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a215c51058139e404d0c37f6cd163342d inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../da/d39/classjeod_1_1JeodMemoryInterface.html">JeodMemoryInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a215c51058139e404d0c37f6cd163342d">get_memory_interface</a> (void)</td></tr>
-<tr class="memdesc:a215c51058139e404d0c37f6cd163342d inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the interface with the simulation memory model.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a215c51058139e404d0c37f6cd163342d">More...</a><br /></td></tr>
-<tr class="separator:a215c51058139e404d0c37f6cd163342d inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af805ead95cf947912827324aff2e67f8 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../da/d39/classjeod_1_1JeodMemoryInterface.html">JeodMemoryInterface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#af805ead95cf947912827324aff2e67f8">get_memory_interface</a> ()</td></tr>
+<tr class="memdesc:af805ead95cf947912827324aff2e67f8 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the interface with the simulation memory model.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#af805ead95cf947912827324aff2e67f8">More...</a><br /></td></tr>
+<tr class="separator:af805ead95cf947912827324aff2e67f8 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd6ea2ed89d7e943872a71ab56b23a71 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d7a/classjeod_1_1SectionedInputStream.html">SectionedInputStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#acd6ea2ed89d7e943872a71ab56b23a71">get_checkpoint_reader</a> (const std::string &amp;section_id)</td></tr>
 <tr class="memdesc:acd6ea2ed89d7e943872a71ab56b23a71 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a reader of a section of the currently open checkpoint file.  <a href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#acd6ea2ed89d7e943872a71ab56b23a71">More...</a><br /></td></tr>
 <tr class="separator:acd6ea2ed89d7e943872a71ab56b23a71 inherit pub_static_methods_classjeod_1_1JeodSimulationInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -311,7 +309,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00062">62</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00061">61</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af8e950d0b158e315687f1ffb9ce8ec1f">generic_message_handler</a>, <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a3a8a64af9f68d9c4b44cc0d4178828b4">jeod::MessageHandler::register_contents()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5bde31a271e9dbc0469bc2d7ca4d43b">section_end</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a61f879749ebadc798d7b9b0b0ed01ee4">section_start</a>.</p>
 
@@ -329,7 +327,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">jeod::BasicJeodTrickSimInterface::~BasicJeodTrickSimInterface </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -343,14 +340,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Destroy a <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html" title="The BasicJeodTrickSimInterface implements the required capabilities of the generic JeodSimulationInte...">BasicJeodTrickSimInterface</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00098">98</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00089">89</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0352d2a4d469b35babe9c7fd44994b02">checkpoint_reader</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a16d03814d900220e732363f243b6dabb">checkpoint_writer</a>.</p>
 
 </div>
 </div>
-<a id="a07cf468f7afe441d96d4d36cfcc69f94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07cf468f7afe441d96d4d36cfcc69f94">&#9670;&nbsp;</a></span>BasicJeodTrickSimInterface() <span class="overload">[2/2]</span></h2>
+<a id="a572d32e0bc8505c08d5399b38261916e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a572d32e0bc8505c08d5399b38261916e">&#9670;&nbsp;</a></span>BasicJeodTrickSimInterface() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,18 +365,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Not implemented. </p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5d7530d0e3c018df5946d263522196b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d7530d0e3c018df5946d263522196b3">&#9670;&nbsp;</a></span>checkpoint_allocations()</h2>
+<a id="a1925a2613e7e29c0e0c384e58f3fb109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1925a2613e7e29c0e0c384e58f3fb109">&#9670;&nbsp;</a></span>checkpoint_allocations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -387,7 +382,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::checkpoint_allocations </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -396,14 +390,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Dump the allocation information to the checkpoint file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00312">312</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00284">284</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#ae301fde5c4cf7b335006cc24f4176329">jeod::JeodTrick10MemoryInterface::checkpoint_allocations()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a6d7b5ec32ba6a91b8d74cd09bb9bae81">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a7084bbf0c764fc8c8e98a9313eac6203">jeod::JeodTrick10MemoryInterface::checkpoint_allocations()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#ae52af6a30faae365836c33dd747a7318">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
-<a id="ad8188aebe116c9b585743e203e58e07c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8188aebe116c9b585743e203e58e07c">&#9670;&nbsp;</a></span>checkpoint_containers()</h2>
+<a id="a7e1c98466b79e3ca6e6ac7594da9f434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e1c98466b79e3ca6e6ac7594da9f434">&#9670;&nbsp;</a></span>checkpoint_containers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,7 +405,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::checkpoint_containers </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -420,14 +413,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Dump the container objects to the checkpoint file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00338">338</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00306">306</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#aad50b23abfbc4e4fc71fb5c4ad5dafb5">jeod::JeodTrick10MemoryInterface::checkpoint_containers()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a6d7b5ec32ba6a91b8d74cd09bb9bae81">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a6c2f61fe04cd59a0a57c6051783ccb49">jeod::JeodTrick10MemoryInterface::checkpoint_containers()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#ae52af6a30faae365836c33dd747a7318">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
-<a id="a3c7d2f7dca891725fd1954672d18321c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c7d2f7dca891725fd1954672d18321c">&#9670;&nbsp;</a></span>close_checkpoint_file()</h2>
+<a id="adb51d62d65c4e5a8d0b22537f66c3f75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb51d62d65c4e5a8d0b22537f66c3f75">&#9670;&nbsp;</a></span>close_checkpoint_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -435,7 +428,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::close_checkpoint_file </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -444,14 +436,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Close the checkpoint output file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00229">229</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00205">205</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a16d03814d900220e732363f243b6dabb">checkpoint_writer</a>.</p>
 
 </div>
 </div>
-<a id="ae1456735c79f3adfbbc60be8adf04166"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1456735c79f3adfbbc60be8adf04166">&#9670;&nbsp;</a></span>close_restart_file()</h2>
+<a id="a9735ac8a7b6abbb2e24944d674019b5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9735ac8a7b6abbb2e24944d674019b5d">&#9670;&nbsp;</a></span>close_restart_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,7 +451,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::close_restart_file </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -468,14 +459,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Close the checkpoint input file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00300">300</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00275">275</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0352d2a4d469b35babe9c7fd44994b02">checkpoint_reader</a>.</p>
 
 </div>
 </div>
-<a id="ac6bd91335e18a891cc7417171a92a966"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6bd91335e18a891cc7417171a92a966">&#9670;&nbsp;</a></span>create_integrator_internal()</h2>
+<a id="a4b7b9c5c75293ff5b9c36a0348116d94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7b9c5c75293ff5b9c36a0348116d94">&#9670;&nbsp;</a></span>create_integrator_internal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -486,7 +477,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html">JeodIntegratorInterface</a> * jeod::BasicJeodTrickSimInterface::create_integrator_internal </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -501,9 +491,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Create an integration interface object. </p>
 <dl class="section return"><dt>Returns</dt><dd>Integrator interface that encapsulates an sim engine integrator. </dd></dl>
 
-<p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a8080c971aba430d868bef5e849a55ae7">jeod::JeodSimulationInterface</a>.</p>
+<p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a5efde9599e35e4f55f33094a23d60972">jeod::JeodSimulationInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00135">135</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00118">118</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/d87/group__external.html#ga5a4b1d6551baa45b061a25be36357735">JEOD_ALLOC_CLASS_OBJECT</a>.</p>
 
@@ -575,7 +565,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9bf8b9b01060453b3d43e4dfb7408448">jeod::JeodSimulationInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00281">281</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00256">256</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0352d2a4d469b35babe9c7fd44994b02">checkpoint_reader</a>, <a class="el" href="../../d6/d32/classjeod_1_1CheckPointInputManager.html#a2d85b80e87e287b33c015c154c8acade">jeod::CheckPointInputManager::create_section_reader()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, and <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac0ef6cccc6001c8285cebb34b03d271">jeod::SimInterfaceMessages::phasing_error</a>.</p>
 
@@ -616,14 +606,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a30464044a4bbdef2b009223c20c01b78">jeod::JeodSimulationInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00210">210</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00186">186</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a16d03814d900220e732363f243b6dabb">checkpoint_writer</a>, <a class="el" href="../../d3/d50/classjeod_1_1CheckPointOutputManager.html#a6772fa981d756f8816c1028ed3a95e8f">jeod::CheckPointOutputManager::create_section_writer()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, and <a class="el" href="../../d7/d65/classjeod_1_1SimInterfaceMessages.html#aac0ef6cccc6001c8285cebb34b03d271">jeod::SimInterfaceMessages::phasing_error</a>.</p>
 
 </div>
 </div>
-<a id="a5e53478dbd7e5af5d3d8db96f19f40c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e53478dbd7e5af5d3d8db96f19f40c5">&#9670;&nbsp;</a></span>get_job_cycle_internal()</h2>
+<a id="ab29d04e4163ed0634dbbec8dc90ee4c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab29d04e4163ed0634dbbec8dc90ee4c7">&#9670;&nbsp;</a></span>get_job_cycle_internal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -634,7 +624,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double jeod::BasicJeodTrickSimInterface::get_job_cycle_internal </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -650,14 +639,14 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Current job's cycle time<br />
  Units: s </dd></dl>
 
-<p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#afb98739882a7be19fd8e1241d2a490f8">jeod::JeodSimulationInterface</a>.</p>
+<p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9c5d595886609354ac0844bea91467b8">jeod::JeodSimulationInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00147">147</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00127">127</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 </div>
 </div>
-<a id="ab5df5fd916ebb0703299fb0a0b3c02b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5df5fd916ebb0703299fb0a0b3c02b6">&#9670;&nbsp;</a></span>get_memory_interface_internal()</h2>
+<a id="ae872d71485685a9bbf4a1b3db6780af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae872d71485685a9bbf4a1b3db6780af6">&#9670;&nbsp;</a></span>get_memory_interface_internal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -668,7 +657,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="../../da/d39/classjeod_1_1JeodMemoryInterface.html">JeodMemoryInterface</a> &amp; jeod::BasicJeodTrickSimInterface::get_memory_interface_internal </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -683,16 +671,16 @@ Additional Inherited Members</h2></td></tr>
 <p>Get the memory interface. </p>
 <dl class="section return"><dt>Returns</dt><dd>Memory interface </dd></dl>
 
-<p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a5ffe2a79ff778a344aadc16546c5c25d">jeod::JeodSimulationInterface</a>.</p>
+<p>Implements <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#afc548a98a4bac2a8f2a146a2483bedd2">jeod::JeodSimulationInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00159">159</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00136">136</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
-<a id="a6b42ab25747b7545bf15d917e006ceb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b42ab25747b7545bf15d917e006ceb0">&#9670;&nbsp;</a></span>open_checkpoint_file()</h2>
+<a id="afc2deacbdc9294b9dc796a8a6c22660e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc2deacbdc9294b9dc796a8a6c22660e">&#9670;&nbsp;</a></span>open_checkpoint_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -700,7 +688,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::open_checkpoint_file </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -709,14 +696,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Open the checkpoint output file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00170">170</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00144">144</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae3d2bdc468e59b239984fb239d4e7433">checkpoint_file_name</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a16d03814d900220e732363f243b6dabb">checkpoint_writer</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a5a701710b6f506437557d027a78bb70a">jeod::JeodTrick10MemoryInterface::get_trick_checkpoint_file()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a6d7b5ec32ba6a91b8d74cd09bb9bae81">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5bde31a271e9dbc0469bc2d7ca4d43b">section_end</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a61f879749ebadc798d7b9b0b0ed01ee4">section_start</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae3d2bdc468e59b239984fb239d4e7433">checkpoint_file_name</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a16d03814d900220e732363f243b6dabb">checkpoint_writer</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a5a701710b6f506437557d027a78bb70a">jeod::JeodTrick10MemoryInterface::get_trick_checkpoint_file()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#ae52af6a30faae365836c33dd747a7318">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5bde31a271e9dbc0469bc2d7ca4d43b">section_end</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a61f879749ebadc798d7b9b0b0ed01ee4">section_start</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
-<a id="a9287168209af1ab9da7ff0b6ea2956c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9287168209af1ab9da7ff0b6ea2956c1">&#9670;&nbsp;</a></span>open_restart_file()</h2>
+<a id="a0489cbcab3157dcb4a5c7bbfe7c5b7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0489cbcab3157dcb4a5c7bbfe7c5b7df">&#9670;&nbsp;</a></span>open_restart_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -724,7 +711,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::open_restart_file </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -733,14 +719,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Open the checkpoint input file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00241">241</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00214">214</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae3d2bdc468e59b239984fb239d4e7433">checkpoint_file_name</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0352d2a4d469b35babe9c7fd44994b02">checkpoint_reader</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a5a701710b6f506437557d027a78bb70a">jeod::JeodTrick10MemoryInterface::get_trick_checkpoint_file()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a6d7b5ec32ba6a91b8d74cd09bb9bae81">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5bde31a271e9dbc0469bc2d7ca4d43b">section_end</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a61f879749ebadc798d7b9b0b0ed01ee4">section_start</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae3d2bdc468e59b239984fb239d4e7433">checkpoint_file_name</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0352d2a4d469b35babe9c7fd44994b02">checkpoint_reader</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a5a701710b6f506437557d027a78bb70a">jeod::JeodTrick10MemoryInterface::get_trick_checkpoint_file()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#ae52af6a30faae365836c33dd747a7318">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5bde31a271e9dbc0469bc2d7ca4d43b">section_end</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a61f879749ebadc798d7b9b0b0ed01ee4">section_start</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
-<a id="ad388e6d0b67e833939c464f97e6a471c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad388e6d0b67e833939c464f97e6a471c">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a8f01e4cdef2aca76b0edfe09878f1a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f01e4cdef2aca76b0edfe09878f1a46">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -758,17 +744,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Not implemented. </p>
-
 </div>
 </div>
-<a id="af5202c1c99b130dca0ec1568fb3bcc1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5202c1c99b130dca0ec1568fb3bcc1e">&#9670;&nbsp;</a></span>restore_allocations()</h2>
+<a id="a67e2656cb3d52db71818d56a2dc87916"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e2656cb3d52db71818d56a2dc87916">&#9670;&nbsp;</a></span>restore_allocations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -776,7 +760,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::restore_allocations </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -785,14 +768,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Restore the allocated data per the checkpoint file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00325">325</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00295">295</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a6d7b5ec32ba6a91b8d74cd09bb9bae81">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9cc2c65adfa938741a2a79ebe39d4bc2">memory_manager</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#abf06b054e72718945e577a5a4f138e0e">jeod::JeodTrick10MemoryInterface::restore_allocations()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#ae52af6a30faae365836c33dd747a7318">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9cc2c65adfa938741a2a79ebe39d4bc2">memory_manager</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#abf06b054e72718945e577a5a4f138e0e">jeod::JeodTrick10MemoryInterface::restore_allocations()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
-<a id="adcfca2c21084941e1d9ecb181ce93e0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcfca2c21084941e1d9ecb181ce93e0e">&#9670;&nbsp;</a></span>restore_containers()</h2>
+<a id="a9d1b28aaba82cd0953d6cf357f0690b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d1b28aaba82cd0953d6cf357f0690b5">&#9670;&nbsp;</a></span>restore_containers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -800,7 +783,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::BasicJeodTrickSimInterface::restore_containers </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -809,9 +791,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Restore the container objects from the checkpoint file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00351">351</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00317">317</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a6d7b5ec32ba6a91b8d74cd09bb9bae81">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a29d3a9fcd8da7307ea3d03ff22ba9e78">jeod::JeodTrick10MemoryInterface::restore_containers()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#ae52af6a30faae365836c33dd747a7318">jeod::JeodTrick10MemoryInterface::is_checkpoint_restart_supported()</a>, <a class="el" href="../../dc/dfe/classjeod_1_1JeodTrick10MemoryInterface.html#a3e0505ef952dccc08ac7a9fc7fba1373">jeod::JeodTrick10MemoryInterface::restore_containers()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
@@ -841,7 +823,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Set the checkpoint file name. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00102">102</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae3d2bdc468e59b239984fb239d4e7433">checkpoint_file_name</a>.</p>
 
@@ -885,9 +867,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a6d9bf717de2a0a7fcdfbe2c1636b23df">jeod::JeodSimulationInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00116">116</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html#l00104">104</a> of file <a class="el" href="../../d1/d44/trick__sim__interface_8cc_source.html">trick_sim_interface.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#ae9b715060394c650a7f3137b1cfcabba">jeod::JeodSimulationInterface::get_mode()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9cc2c65adfa938741a2a79ebe39d4bc2">memory_manager</a>, <a class="el" href="../../d1/dac/classjeod_1_1JeodTrickMemoryInterface.html#ac73779fe36b5c1ec617fd1dc2e17f05e">jeod::JeodTrickMemoryInterface::set_mode()</a>, <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a6d9bf717de2a0a7fcdfbe2c1636b23df">jeod::JeodSimulationInterface::set_mode()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a152dc46279019ec110eefde24726ec2e">jeod::JeodMemoryManager::set_mode()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af8e950d0b158e315687f1ffb9ce8ec1f">generic_message_handler</a>, <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a9eeef7dbcabe8169779f3b5a4b590b06">jeod::JeodSimulationInterface::get_mode()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9cc2c65adfa938741a2a79ebe39d4bc2">memory_manager</a>, <a class="el" href="../../d1/dac/classjeod_1_1JeodTrickMemoryInterface.html#ac73779fe36b5c1ec617fd1dc2e17f05e">jeod::JeodTrickMemoryInterface::set_mode()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a6731833de42adaaac383aea736e38e7c">jeod::MessageHandler::set_mode()</a>, <a class="el" href="../../d2/db5/classjeod_1_1JeodSimulationInterface.html#a6d9bf717de2a0a7fcdfbe2c1636b23df">jeod::JeodSimulationInterface::set_mode()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a152dc46279019ec110eefde24726ec2e">jeod::JeodMemoryManager::set_mode()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a8c139e24983c19c9fc09ac5785b000f2">trick_memory_interface</a>.</p>
 
 </div>
 </div>
@@ -937,7 +919,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00091">91</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
 </div>
 </div>
@@ -965,9 +947,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The name of the segmented checkpoint file used for the next checkpoint / restart action. </p>
 <p>If the name is the empty string (default), the checkpoint / restart mechanisms will attempt to construct a name from the corresponding <a class="el" href="../../d7/dcf/namespaceTrick.html" title="Namespace Trick furnishes several standard functions for use in the Trick environment. ">Trick</a> checkpoint file name.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00200">200</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00197">197</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a1941d9d58b4b52e37c88015b96221770">get_checkpoint_file_name()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6b42ab25747b7545bf15d917e006ceb0">open_checkpoint_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9287168209af1ab9da7ff0b6ea2956c1">open_restart_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ab060d713c219fc339c28e38e3b39ee46">set_checkpoint_file_name()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a1941d9d58b4b52e37c88015b96221770">get_checkpoint_file_name()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#afc2deacbdc9294b9dc796a8a6c22660e">open_checkpoint_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0489cbcab3157dcb4a5c7bbfe7c5b7df">open_restart_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ab060d713c219fc339c28e38e3b39ee46">set_checkpoint_file_name()</a>.</p>
 
 </div>
 </div>
@@ -981,7 +963,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d32/classjeod_1_1CheckPointInputManager.html">CheckPointInputManager</a>* jeod::BasicJeodTrickSimInterface::checkpoint_reader</td>
+          <td class="memname"><a class="el" href="../../d6/d32/classjeod_1_1CheckPointInputManager.html">CheckPointInputManager</a>* jeod::BasicJeodTrickSimInterface::checkpoint_reader {}</td>
         </tr>
       </table>
   </td>
@@ -994,9 +976,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The object that manages reading from a checkpoint file. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00215">215</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00212">212</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae1456735c79f3adfbbc60be8adf04166">close_restart_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a7ada79818da4542979e259608d0ca064">get_checkpoint_reader_internal()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9287168209af1ab9da7ff0b6ea2956c1">open_restart_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6de52f7ac951818759eeaf967c28ec97">~BasicJeodTrickSimInterface()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9735ac8a7b6abbb2e24944d674019b5d">close_restart_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a7ada79818da4542979e259608d0ca064">get_checkpoint_reader_internal()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0489cbcab3157dcb4a5c7bbfe7c5b7df">open_restart_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6de52f7ac951818759eeaf967c28ec97">~BasicJeodTrickSimInterface()</a>.</p>
 
 </div>
 </div>
@@ -1010,7 +992,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d3/d50/classjeod_1_1CheckPointOutputManager.html">CheckPointOutputManager</a>* jeod::BasicJeodTrickSimInterface::checkpoint_writer</td>
+          <td class="memname"><a class="el" href="../../d3/d50/classjeod_1_1CheckPointOutputManager.html">CheckPointOutputManager</a>* jeod::BasicJeodTrickSimInterface::checkpoint_writer {}</td>
         </tr>
       </table>
   </td>
@@ -1023,9 +1005,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The object that manages writing to a checkpoint file. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00220">220</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00217">217</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a3c7d2f7dca891725fd1954672d18321c">close_checkpoint_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a095a558c2db2537ff70a9bc73db8e63e">get_checkpoint_writer_internal()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6b42ab25747b7545bf15d917e006ceb0">open_checkpoint_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6de52f7ac951818759eeaf967c28ec97">~BasicJeodTrickSimInterface()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#adb51d62d65c4e5a8d0b22537f66c3f75">close_checkpoint_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a095a558c2db2537ff70a9bc73db8e63e">get_checkpoint_writer_internal()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#afc2deacbdc9294b9dc796a8a6c22660e">open_checkpoint_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6de52f7ac951818759eeaf967c28ec97">~BasicJeodTrickSimInterface()</a>.</p>
 
 </div>
 </div>
@@ -1052,9 +1034,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The global <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html" title="The base class for generating JEOD messages. ">MessageHandler</a>. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00181">181</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00178">178</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0bc7a15a0c3f672dd3fc5f79dc153670">BasicJeodTrickSimInterface()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0bc7a15a0c3f672dd3fc5f79dc153670">BasicJeodTrickSimInterface()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0829cd967dc0f4129e55a5293775aabd">set_mode()</a>.</p>
 
 </div>
 </div>
@@ -1081,9 +1063,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The global JEOD memory manager. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00191">191</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00188">188</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5202c1c99b130dca0ec1568fb3bcc1e">restore_allocations()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0829cd967dc0f4129e55a5293775aabd">set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a67e2656cb3d52db71818d56a2dc87916">restore_allocations()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0829cd967dc0f4129e55a5293775aabd">set_mode()</a>.</p>
 
 </div>
 </div>
@@ -1110,9 +1092,9 @@ Additional Inherited Members</h2></td></tr>
 <p>String indicating the end of a checkpoint file section. </p>
 <p>trick_io(*o) trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00210">210</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00207">207</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0bc7a15a0c3f672dd3fc5f79dc153670">BasicJeodTrickSimInterface()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6b42ab25747b7545bf15d917e006ceb0">open_checkpoint_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9287168209af1ab9da7ff0b6ea2956c1">open_restart_file()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0bc7a15a0c3f672dd3fc5f79dc153670">BasicJeodTrickSimInterface()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#afc2deacbdc9294b9dc796a8a6c22660e">open_checkpoint_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0489cbcab3157dcb4a5c7bbfe7c5b7df">open_restart_file()</a>.</p>
 
 </div>
 </div>
@@ -1139,9 +1121,9 @@ Additional Inherited Members</h2></td></tr>
 <p>String indicating the start of a checkpoint file section. </p>
 <p>trick_io(*o) trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00205">205</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00202">202</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0bc7a15a0c3f672dd3fc5f79dc153670">BasicJeodTrickSimInterface()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6b42ab25747b7545bf15d917e006ceb0">open_checkpoint_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9287168209af1ab9da7ff0b6ea2956c1">open_restart_file()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0bc7a15a0c3f672dd3fc5f79dc153670">BasicJeodTrickSimInterface()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#afc2deacbdc9294b9dc796a8a6c22660e">open_checkpoint_file()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0489cbcab3157dcb4a5c7bbfe7c5b7df">open_restart_file()</a>.</p>
 
 </div>
 </div>
@@ -1168,9 +1150,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The interface between JEOD and <a class="el" href="../../d7/dcf/namespaceTrick.html" title="Namespace Trick furnishes several standard functions for use in the Trick environment. ">Trick</a>'s memory management schemes. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00186">186</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html#l00183">183</a> of file <a class="el" href="../../d9/dea/trick__sim__interface_8hh_source.html">trick_sim_interface.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a5d7530d0e3c018df5946d263522196b3">checkpoint_allocations()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ad8188aebe116c9b585743e203e58e07c">checkpoint_containers()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ab5df5fd916ebb0703299fb0a0b3c02b6">get_memory_interface_internal()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a6b42ab25747b7545bf15d917e006ceb0">open_checkpoint_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9287168209af1ab9da7ff0b6ea2956c1">open_restart_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#af5202c1c99b130dca0ec1568fb3bcc1e">restore_allocations()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#adcfca2c21084941e1d9ecb181ce93e0e">restore_containers()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0829cd967dc0f4129e55a5293775aabd">set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a1925a2613e7e29c0e0c384e58f3fb109">checkpoint_allocations()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a7e1c98466b79e3ca6e6ac7594da9f434">checkpoint_containers()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#ae872d71485685a9bbf4a1b3db6780af6">get_memory_interface_internal()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#afc2deacbdc9294b9dc796a8a6c22660e">open_checkpoint_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0489cbcab3157dcb4a5c7bbfe7c5b7df">open_restart_file()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a67e2656cb3d52db71818d56a2dc87916">restore_allocations()</a>, <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a9d1b28aaba82cd0953d6cf357f0690b5">restore_containers()</a>, and <a class="el" href="../../dc/d88/classjeod_1_1BasicJeodTrickSimInterface.html#a0829cd967dc0f4129e55a5293775aabd">set_mode()</a>.</p>
 
 </div>
 </div>

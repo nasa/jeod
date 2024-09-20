@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -76,7 +76,7 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>Contains data needed to construct a transformation matrix given a sequence of Euler angles and to extract a sequence of Euler angles from a matrix. </p>
 <p>See <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a8b66b171475dc8738c89c6f2a5531d14" title="Extract an Euler sequence from the transformation matrix. ">Orientation::compute_euler_angles_from_matrix</a> for details. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00051">51</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00050">50</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a5847594422cd6a50dbc8c76167350dd7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5847594422cd6a50dbc8c76167350dd7">&#9670;&nbsp;</a></span>alternate_x</h2>
@@ -93,7 +93,7 @@ Data Fields</h2></td></tr>
 <p>The initial element of the sequence for aerodynamics sequences, but the index of the omitted axis for astronomical sequences. </p>
 <p>For example, the omitted axis in a ZXZ sequence is Y=1.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00065">65</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00064">64</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a8b66b171475dc8738c89c6f2a5531d14">jeod::Orientation::compute_euler_angles_from_matrix()</a>.</p>
 
@@ -114,7 +114,7 @@ Data Fields</h2></td></tr>
 <p>The final element of the sequence for aerodynamics sequences, but the index of the omitted axis for astronomical sequences. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00071">71</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00070">70</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a8b66b171475dc8738c89c6f2a5531d14">jeod::Orientation::compute_euler_angles_from_matrix()</a>.</p>
 
@@ -135,7 +135,7 @@ Data Fields</h2></td></tr>
 <p>The axes about which the rotations are performed in the order in which the rotations are performed, with X=0, Y=1, Z=2. </p>
 <p>For example, an XYZ or roll pitch yaw sequence is {0,1,2} while a ZXZ sequence is {2,0,2}.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00058">58</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00057">57</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a8b66b171475dc8738c89c6f2a5531d14">jeod::Orientation::compute_euler_angles_from_matrix()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#aed495f059a78ca27a13763cf2dbd7544">jeod::Orientation::compute_matrix_from_euler_angles()</a>, and <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a1b45fc4ecb37c822e1544ca6c5487243">jeod::Orientation::compute_quaternion_from_euler_angles()</a>.</p>
 
@@ -156,7 +156,7 @@ Data Fields</h2></td></tr>
 <p>True if the sequence is an aerodynamics sequence such as XYZ; false for an astronomical sequence such as ZXZ. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00089">89</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00088">88</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a8b66b171475dc8738c89c6f2a5531d14">jeod::Orientation::compute_euler_angles_from_matrix()</a>.</p>
 
@@ -177,7 +177,7 @@ Data Fields</h2></td></tr>
 <p>Indicates whether the 3-axis rotation sequence generated by replacing the final element of the sequence with the one axis not specified by the first two elements of the sequence is an even (true) permutation or odd permutation (false) of XYZ. </p>
 <p>The alternative 3-axis sequence is identical to the original sequence in the case of aerodynamics sequences. The astronomical ZXZ sequence becomes ZXY via this replacement rule. Since ZXY is an even permutation of XYZ, the is_even_permutation member for a ZXZ sequence is true.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00083">83</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d37/euler__angles_8cc_source.html#l00082">82</a> of file <a class="el" href="../../d2/d37/euler__angles_8cc_source.html">euler_angles.cc</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a8b66b171475dc8738c89c6f2a5531d14">jeod::Orientation::compute_euler_angles_from_matrix()</a>.</p>
 

@@ -1,27 +1,27 @@
-Instructions are provided for simulation developers working with the Trick13 
+Instructions are provided for simulation developers working with the Trick13
 simulation engine.  \JEODidx is not compatible with versions of Trick older than 13.0.
 
 \subsection{Populating Integration Groups}\label{sec:user_simdev_groups}
-The purpose of integration groups is to 
-allow the simultaneous integration of models of disparate fidelity 
-requirements within a single simulation.  In most applications, this tool is 
-not needed, in which case the default behavior  -- in which there is 
-only one group -- is assumed.  Each group must define its own integrator 
-following the steps in 
+The purpose of integration groups is to
+allow the simultaneous integration of models of disparate fidelity
+requirements within a single simulation.  In most applications, this tool is
+not needed, in which case the default behavior  -- in which there is
+only one group -- is assumed.  Each group must define its own integrator
+following the steps in
 Section~\ref{sec:user_simdev_integrator}.
 
 \subsubsection{Single Group Default Settings}
-Without the need for multiple groups, the integration command is 
+Without the need for multiple groups, the integration command is
 straightforward:
 
 \begin{verbatim}
  IntegLoop sim_integ_loop (DYNAMICS) <simulation object list>;
 \end{verbatim}
 
-This command comes at the end of the S\_define.  The argument (e.g. DYNAMICS) 
-is the integration rate (note - this is based on the simulation time, not the 
-dynamic time; for the difference, see the Time Model 
-documentation~\cite{dynenv:TIME}).  Following the argument is a 
+This command comes at the end of the S\_define.  The argument (e.g. DYNAMICS)
+is the integration rate (note - this is based on the simulation time, not the
+dynamic time; for the difference, see the Time Model
+documentation~\cite{dynenv:TIME}).  Following the argument is a
 comma-separated list of all of the simulation objects that need integrating.
 
 An equivalent command is:
@@ -32,18 +32,18 @@ An equivalent command is:
 
 \subsubsection{Multi-Group Settings}
 
-The prefered method for setting multiple groups is to use the standard module, 
-\textit{JEOD\_S\_modules/integ\_loop.sm}.  In the S\_define file, include this 
+The prefered method for setting multiple groups is to use the standard module,
+\textit{JEOD\_S\_modules/integ\_loop.sm}.  In the S\_define file, include this
 file:
 \begin{verbatim}
  #include "JEOD_S_modules/integ_loop.sm"
 \end{verbatim}
 
-Unlike most of the other sim-modules in the JEOD\_S\_modules directory, this 
-one 
+Unlike most of the other sim-modules in the JEOD\_S\_modules directory, this
+one
 does not create a simulation object, it only defines its contents.
 
-Declare an instance of the DynamicsIntegrationGroup somewhere in the 
+Declare an instance of the DynamicsIntegrationGroup somewhere in the
 S\_define, for example in a simulation object called \textit{integ\_object}.  Note that this instance is not going to be used directly, so one instance will suffice for as many groups as are desired.
 \begin{verbatim}
  ##include "dynamics/dyn_manager/include/dynamics_integration_group.hh"
@@ -53,8 +53,8 @@ S\_define, for example in a simulation object called \textit{integ\_object}.  No
 
 
 
-At the end of the S\_define, create one instance of the loop object defined in 
-the integ\_loop file for each intended group.  
+At the end of the S\_define, create one instance of the loop object defined in
+the integ\_loop file for each intended group.
 
 The structure of this argument is as follows:
 \begin{verbatim}
@@ -63,92 +63,92 @@ JeodIntegLoopSimObject <name of loop-object> (arguments)
 
 The arguments comprise the following list:
 \begin{enumerate}
- \item  The integration-rate.  This is often pre-defined, in which case only 
+ \item  The integration-rate.  This is often pre-defined, in which case only
  the name is needed.
- \item  The instance of the desired IntegratorConstructor.  For example, to 
- use an Euler integration, declare an instance of EulerIntegratorConstructor 
+ \item  The instance of the desired IntegratorConstructor.  For example, to
+ use an Euler integration, declare an instance of EulerIntegratorConstructor
  in integ\_object:
  \begin{verbatim}
  EulerIntegratorConstructor euler_constr;
   \end{verbatim}
   and add the argument \textit{integ\_object.euler\_const}.
-  \item An instance of the IntegrationGroup class (e.g. 
+  \item An instance of the IntegrationGroup class (e.g.
   \textit{integ\_object.group}).
-  
-  \item The TimeManager object for the simulation.  There should be only one, 
-  if using the standard sim-modules, it will be 
+
+  \item The TimeManager object for the simulation.  There should be only one,
+  if using the standard sim-modules, it will be
   \textit{jeod\_time.time\_manager}.
-  \item The Dynamics Manager (DynManager) object.  Again, there should be only 
-  one in the simulation; if using the standard sim-modules, it will be 
+  \item The Dynamics Manager (DynManager) object.  Again, there should be only
+  one in the simulation; if using the standard sim-modules, it will be
   \textit{dynamics.dyn\_manager}.
-  
-  \item The gravity manager (GravityManager) object.  Again, there should be only 
-  one in the simulation; if using the standard sim-modules, it will be 
+
+  \item The gravity manager (GravityManager) object.  Again, there should be only
+  one in the simulation; if using the standard sim-modules, it will be
   \textit{env.gravity\_model}.
-  \item The address of the first simulation object to be integrated in the 
-  group.  For example, with a simulation-object called vehicle\_1, 
+  \item The address of the first simulation object to be integrated in the
+  group.  For example, with a simulation-object called vehicle\_1,
   \textit{\&vehicle\_1}.
-  \item Repeat the previous step to add the addresses of as many simulation 
+  \item Repeat the previous step to add the addresses of as many simulation
   objects as go with this group.
-  \item Finish the argument with NULL to indicate that all objects have been 
+  \item Finish the argument with nullptr to indicate that all objects have been
   entered.
 \end{enumerate}
 
 Note that an empty group may be created by specifying no simulation objects.
 
-These examples are taken from 
+These examples are taken from
 \textit{environment/ephemerides/verif/SIM\_prop\_planet\_T10}.
 \begin{verbatim}
  JeodIntegLoopSimObject fast_integ_loop (
     FAST_DYNAMICS,
     integ_constructor.selected_constr, integ_constructor.group,
     jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager,
-    &sun, &jupiter, &saturn, NULL);
+    &sun, &jupiter, &saturn, nullptr);
 
 
 JeodIntegLoopSimObject slow_integ_loop (
     SLOW_DYNAMICS,
     integ_constructor.selected_constr, integ_constructor.group,
     jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager,
-    NULL);
+    nullptr);
 \end{verbatim}
 
 
 Once created, objects may be moved from one group to another with the command
 \begin{verbatim}
-<loop_name>.integ_loop.add_sim_object(<name of object>) 
+<loop_name>.integ_loop.add_sim_object(<name of object>)
 \end{verbatim}
 
-For example, from one of the SIM\_prop\_planet input files 
+For example, from one of the SIM\_prop\_planet input files
 
 (\textit{environment/ephemerides/verif/SIM\_prop\_planet\_T10/SET\_test/RUN\_switch\_integ/input.py}),
 \begin{verbatim}
   slow_integ_loop.integ_loop.add_sim_object(saturn);
 \end{verbatim}
-It is not necessary to remove an object from its previous integration group.  
+It is not necessary to remove an object from its previous integration group.
 An object can only belong to one group so is removed automatically.
 
 
 \subsubsection{Caution on Groups with Different Rates}
-While having integration groups with different rates is a valuable tool, it 
-can 
-lead to some unfortunate consequences if misused.  The user should be aware 
-that making a direct comparison of logged values from these two groups may 
-result in inconsistencies.  Each group will be integrated through its complete 
-tour before the next group starts.  The objects in the group integrated at 
-lower frequency will sit with the same state while the higher frequency group 
-catches up.  Looking at relative states between such entities may lead to 
-inappropriate conclusions.  When the higher rate is not an integer multiple of 
-the lower rate (e.g. one at 5Hz and one at 7Hz), the times that the two groups 
+While having integration groups with different rates is a valuable tool, it
+can
+lead to some unfortunate consequences if misused.  The user should be aware
+that making a direct comparison of logged values from these two groups may
+result in inconsistencies.  Each group will be integrated through its complete
+tour before the next group starts.  The objects in the group integrated at
+lower frequency will sit with the same state while the higher frequency group
+catches up.  Looking at relative states between such entities may lead to
+inappropriate conclusions.  When the higher rate is not an integer multiple of
+the lower rate (e.g. one at 5Hz and one at 7Hz), the times that the two groups
 are providing time-consistent data can be few and far-between.
 
-This is particularly important when switching an object from one group to 
-another.  When the object switches, its current state is maintained even if it 
-is invalid at the current time.  For example, suppose some vehicle, was 
-coasting with an integration period of 10 seconds.  At t=126s, the vehicle is 
-activated, and now needs integrating at the flight software rate, say 50Hz.  
-Transitioning immediately to the higher rate group would put the vehicle at 
-t=126s with the state it had at t=120s (its last integration).  From here 
+This is particularly important when switching an object from one group to
+another.  When the object switches, its current state is maintained even if it
+is invalid at the current time.  For example, suppose some vehicle, was
+coasting with an integration period of 10 seconds.  At t=126s, the vehicle is
+activated, and now needs integrating at the flight software rate, say 50Hz.
+Transitioning immediately to the higher rate group would put the vehicle at
+t=126s with the state it had at t=120s (its last integration).  From here
 (t=126s), that wrong state will be propagated.
 
 
@@ -159,45 +159,45 @@ t=126s with the state it had at t=120s (its last integration).  From here
 \subsection{Setting the Integration Method}
 \label{sec:user_simdev_integrator}
 
-In order to use an integrator, it must be available to the simulation engine 
+In order to use an integrator, it must be available to the simulation engine
 at compilation time.  There are two ways by which this can be done:
 \begin{enumerate}
- \item inclusion of the integrator from a standard suite, via an enumerated 
+ \item inclusion of the integrator from a standard suite, via an enumerated
  list, or
  \item deliberate declaration of the integrator-constructor in the S\_define.
 \end{enumerate}
 
-Having the integrator available without deliberate inclusion may be easier to 
-implement, but this process has the significant drawback that 
-the code for that integrator must then be compiled as a part of the simulation 
-whether it is desired or not.  This time-consuming model is suboptimal, and 
-while it is supported in the current release, it may be deprecated later.  The 
-recommended practice, therefore, is to instantiate the integrator-constructors 
+Having the integrator available without deliberate inclusion may be easier to
+implement, but this process has the significant drawback that
+the code for that integrator must then be compiled as a part of the simulation
+whether it is desired or not.  This time-consuming model is suboptimal, and
+while it is supported in the current release, it may be deprecated later.  The
+recommended practice, therefore, is to instantiate the integrator-constructors
 directly, in either the S\_define or the input file.
 
-To provide backward compatibility, the enumerated list of integrators is still 
-provided, as is the conversion from the Trick enumerated list.  However, there 
-are no plans to add new integrators to the list.  Consequently, the only way 
-to access the Gauss-Jackson method is through the recommended practice of 
+To provide backward compatibility, the enumerated list of integrators is still
+provided, as is the conversion from the Trick enumerated list.  However, there
+are no plans to add new integrators to the list.  Consequently, the only way
+to access the Gauss-Jackson method is through the recommended practice of
 direct declaration.
 
-Furthermore, when using multiple integration groups, the process for defining 
-which integrator to use with which group requires that the 
-integrator-constructor be 
-available for passing as an argument.  In this case, the 
+Furthermore, when using multiple integration groups, the process for defining
+which integrator to use with which group requires that the
+integrator-constructor be
+available for passing as an argument.  In this case, the
 recommended method is required.
 
-The pre-loaded integrators are available via an enumerated list.  The 
-enumeration value can be accessed from either the JEOD list or specified via 
-the trick simulation interface method using the comparable 
+The pre-loaded integrators are available via an enumerated list.  The
+enumeration value can be accessed from either the JEOD list or specified via
+the trick simulation interface method using the comparable
 Trick list.
 
-There are three methods available for selecting an integrator, as discussed 
+There are three methods available for selecting an integrator, as discussed
 below.
 
 \subsubsection {Recommended Practice}
 
-Setting the Dynamics Manager \textit{integ\_constructor} value is the priority 
+Setting the Dynamics Manager \textit{integ\_constructor} value is the priority
 method for defining the integrator.  It is this value that is tested first.
 
 There are two ways to do this:
@@ -208,7 +208,7 @@ There are two ways to do this:
    \begin{verbatim}
    ##include "utils/integration/include/rk4_integrator_constructor.hh"
    \end{verbatim}
-   \item then instantiate the Integrator Constructor by assignment in the   
+   \item then instantiate the Integrator Constructor by assignment in the
      input file, e.g.
    \begin{verbatim}
     dynamics.manager_init.integ_constructor = trick.RK4IntegratorConstructor()
@@ -220,13 +220,13 @@ There are two ways to do this:
  \item \textbf{The more traditional way:} \newline
  \begin{enumerate}
   \item Instantiate an instance of the integrator-constructor in the S\_define.
-  \item Point the DynManagerInit value integ\_constructor to the instance of 
-  the integrator-constructor 
+  \item Point the DynManagerInit value integ\_constructor to the instance of
+  the integrator-constructor
  \end{enumerate}
- 
+
 \textbf{Example:}
 
-In the S\_define, create a sim-object called \textit{integ\_sim\_object}, that 
+In the S\_define, create a sim-object called \textit{integ\_sim\_object}, that
 includes an instance of a RK4IntegratorConstructor called \textit{rk4}.
 \begin{verbatim}
 ##include "utils/integration/include/rk4_integrator_constructor.hh"
@@ -238,11 +238,11 @@ RK4IntegratorConstructor rk4;
 IntegSimObject integ_sim_object;
 \end{verbatim}
 
-In the input file, declare the \textit{integ\_constructor} to be this new 
-constructor 
-(note - although the \textit{integ\_constructor} is a pointer, Python can 
+In the input file, declare the \textit{integ\_constructor} to be this new
+constructor
+(note - although the \textit{integ\_constructor} is a pointer, Python can
 assign it without having to take the address)
- 
+
 \begin{verbatim}
  dynamics.manager_init.integ_constructor = integ_sim_object.rk4
 \end{verbatim}
@@ -252,10 +252,10 @@ assign it without having to take the address)
 
 \subsubsection{Allowable non-optimal practice}
 
-If the integ\_constructor pointer is NULL (i.e. has not been set), then the 
-next-preferred method is to use the \textit{jeod\_integ\_opt} specification. 
-The allowable targets for this are the enumerated items in 
-Table~\ref{tab:user_simdev_jeod_integ}, each prefaced with 
+If the integ\_constructor pointer is NULL (i.e. has not been set), then the
+next-preferred method is to use the \textit{jeod\_integ\_opt} specification.
+The allowable targets for this are the enumerated items in
+Table~\ref{tab:user_simdev_jeod_integ}, each prefaced with
 \verb+trick.Integration.+~.
 
 \textbf{Example:}
@@ -285,18 +285,18 @@ Gauss-Jackson &N/A&N/A \\
 
 \subsubsection{Deprecated Practice}
 
-It is still possible to declare the method using the Trick enumerated list, 
-and that practice is still widely used, although it is no longer supprted.  
-This 
-method is only followed when both the \textit{integ\_constructor} and 
-\textit{jeod\_integ\_opt} are not set.  It is 
-included here to provide simulation developers with information on how to 
+It is still possible to declare the method using the Trick enumerated list,
+and that practice is still widely used, although it is no longer supprted.
+This
+method is only followed when both the \textit{integ\_constructor} and
+\textit{jeod\_integ\_opt} are not set.  It is
+included here to provide simulation developers with information on how to
 interpret this command if seen in other simulations.
 
-The \textit{sim\_integ\_opt} value in the dynamics manager initializer can be 
-set to an element in the Trick integration list.  Note that only those 
-elements in the Trick integration list that appear in 
-Table~\ref{tab:user_simdev_jeod_integ} are allowable entries for JEOD 
+The \textit{sim\_integ\_opt} value in the dynamics manager initializer can be
+set to an element in the Trick integration list.  Note that only those
+elements in the Trick integration list that appear in
+Table~\ref{tab:user_simdev_jeod_integ} are allowable entries for JEOD
 integration.  Each entry must be prefaced with \verb+trick.sim_services+.
 
 \textbf{Example:}

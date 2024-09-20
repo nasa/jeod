@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -53,17 +53,17 @@ $(function() {
 
 <p>Define member functions for the GravityManager class.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d7/d0d/base__dyn__manager_8hh_source.html">dynamics/dyn_manager/include/base_dyn_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/dae/matrix3x3_8hh_source.html">utils/math/include/matrix3x3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">../include/gravity_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d9/d47/gravity__controls_8hh_source.html">../include/gravity_controls.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/da1/gravity__interaction_8hh_source.html">../include/gravity_interaction.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">../include/gravity_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">../include/gravity_messages.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/d72/gravity__source_8hh_source.html">../include/gravity_source.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -71,38 +71,38 @@ Include dependency graph for gravity_manager.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d18/gravity__manager_8cc__incl.png" border="0" usemap="#gravity__manager_8cc" alt=""/></div>
 <map name="gravity__manager_8cc" id="gravity__manager_8cc">
-<area shape="rect" id="node5" href="../../d7/d0d/base__dyn__manager_8hh.html" title="Define the BaseDynManager class, which defines the interfaces to the class DynManager. " alt="" coords="2705,169,2906,211"/>
-<area shape="rect" id="node11" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="3749,80,3873,121"/>
-<area shape="rect" id="node14" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="3901,80,4025,121"/>
-<area shape="rect" id="node18" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="347,80,490,121"/>
-<area shape="rect" id="node36" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1798,370,1946,411"/>
-<area shape="rect" id="node37" href="../../d1/dd5/gravity__manager_8hh.html" title="Define the Gravity Manager. " alt="" coords="2535,80,2654,121"/>
-<area shape="rect" id="node42" href="../../d9/d47/gravity__controls_8hh.html" title="Define the gravity controls. " alt="" coords="3001,80,3119,121"/>
-<area shape="rect" id="node43" href="../../d6/d72/gravity__source_8hh.html" title="Define the gravity body base (pure virtual) class. " alt="" coords="3217,177,3343,203"/>
-<area shape="rect" id="node46" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="2849,80,2967,121"/>
-<area shape="rect" id="node47" href="../../db/d3c/gravity__messages_8hh.html" title="Define the class GravityMessages, the class that specifies the message IDs used in the gravity model..." alt="" coords="2266,169,2385,211"/>
-<area shape="rect" id="node6" href="../../dd/dab/base__ephem__manager_8hh.html" title="Define the BaseEphemManager class, which defines the interfaces to the class EphemManager. " alt="" coords="2714,259,2889,315"/>
-<area shape="rect" id="node9" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2317,467,2467,508"/>
-<area shape="rect" id="node8" href="../../d1/d34/base__ref__frame__manager_8hh.html" title="Define the BaseRefFrameManager class, which defines the interfaces but not the implementations of the..." alt="" coords="2715,370,2906,411"/>
-<area shape="rect" id="node10" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="856,556,931,583"/>
-<area shape="rect" id="node12" href="../../d4/d22/matrix3x3__inline_8hh.html" title="Matrix math inline functions. " alt="" coords="3743,177,3878,203"/>
-<area shape="rect" id="node15" href="../../da/d11/vector3__inline_8hh.html" title="Vector math inline functions. " alt="" coords="3903,177,4023,203"/>
-<area shape="rect" id="node17" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="3981,273,4077,300"/>
-<area shape="rect" id="node20" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="608,370,805,411"/>
-<area shape="rect" id="node22" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="145,370,309,411"/>
-<area shape="rect" id="node24" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="967,177,1110,203"/>
-<area shape="rect" id="node30" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1426,266,1574,307"/>
-<area shape="rect" id="node31" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1010,266,1203,307"/>
-<area shape="rect" id="node32" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="2021,363,2152,419"/>
-<area shape="rect" id="node33" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1603,377,1722,404"/>
-<area shape="rect" id="node34" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="1279,273,1401,300"/>
-<area shape="rect" id="node35" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="815,273,934,300"/>
-<area shape="rect" id="node38" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2409,169,2557,211"/>
-<area shape="rect" id="node41" href="../../d8/dee/environment_2gravity_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined for the gravity model. " alt="" coords="2982,377,3130,404"/>
-<area shape="rect" id="node39" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="2429,273,2536,300"/>
-<area shape="rect" id="node40" href="../../dc/da5/pointer__container_8hh.html" title="Define class template JeodPointerContainer. " alt="" coords="2165,273,2304,300"/>
-<area shape="rect" id="node44" href="../../d0/d32/environment_2ephemerides_2ephem__interface_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in models/environment/ephemerides/ephem_interface files..." alt="" coords="3268,259,3439,315"/>
-<area shape="rect" id="node45" href="../../d3/ddf/gravity__integ__frame_8hh.html" title="Define the gravity integration frame class. " alt="" coords="3463,273,3617,300"/>
+<area shape="rect" id="node5" href="../../d7/d0d/base__dyn__manager_8hh.html" title="Define the BaseDynManager class, which defines the interfaces to the class DynManager. " alt="" coords="2721,259,2943,300"/>
+<area shape="rect" id="node11" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="3820,80,3959,121"/>
+<area shape="rect" id="node14" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="3988,80,4127,121"/>
+<area shape="rect" id="node18" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="580,80,740,121"/>
+<area shape="rect" id="node36" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1907,355,2071,397"/>
+<area shape="rect" id="node37" href="../../d9/d47/gravity__controls_8hh.html" title="Define the gravity controls. " alt="" coords="3035,169,3165,211"/>
+<area shape="rect" id="node39" href="../../d6/d72/gravity__source_8hh.html" title="Define the gravity body base (pure virtual) class. " alt="" coords="3243,266,3381,293"/>
+<area shape="rect" id="node42" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="2507,169,2637,211"/>
+<area shape="rect" id="node46" href="../../d1/dd5/gravity__manager_8hh.html" title="Define the Gravity Manager. " alt="" coords="2876,169,3007,211"/>
+<area shape="rect" id="node47" href="../../db/d3c/gravity__messages_8hh.html" title="Define the class GravityMessages, the class that specifies the message IDs used in the gravity model..." alt="" coords="3448,80,3579,121"/>
+<area shape="rect" id="node6" href="../../dd/dab/base__ephem__manager_8hh.html" title="Define the BaseEphemManager class, which defines the interfaces to the class EphemManager. " alt="" coords="2669,348,2864,404"/>
+<area shape="rect" id="node9" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2292,556,2457,597"/>
+<area shape="rect" id="node8" href="../../d1/d34/base__ref__frame__manager_8hh.html" title="Define the BaseRefFrameManager class, which defines the interfaces but not the implementations of the..." alt="" coords="2601,459,2813,501"/>
+<area shape="rect" id="node10" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1415,645,1497,672"/>
+<area shape="rect" id="node12" href="../../d4/d22/matrix3x3__inline_8hh.html" title="Matrix math inline functions. " alt="" coords="3813,177,3965,203"/>
+<area shape="rect" id="node15" href="../../da/d11/vector3__inline_8hh.html" title="Vector math inline functions. " alt="" coords="3990,177,4125,203"/>
+<area shape="rect" id="node17" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="3975,266,4081,293"/>
+<area shape="rect" id="node20" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="1198,355,1421,397"/>
+<area shape="rect" id="node22" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="635,355,818,397"/>
+<area shape="rect" id="node24" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="794,177,955,203"/>
+<area shape="rect" id="node30" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1675,259,1842,300"/>
+<area shape="rect" id="node31" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1095,259,1313,300"/>
+<area shape="rect" id="node32" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1916,452,2063,508"/>
+<area shape="rect" id="node33" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1445,363,1579,389"/>
+<area shape="rect" id="node34" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="145,363,282,389"/>
+<area shape="rect" id="node35" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="937,266,1071,293"/>
+<area shape="rect" id="node38" href="../../d8/dee/environment_2gravity_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined for the gravity model. " alt="" coords="3005,467,3168,493"/>
+<area shape="rect" id="node40" href="../../d0/d32/environment_2ephemerides_2ephem__interface_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in models/environment/ephemerides/ephem_interface files..." alt="" coords="3293,348,3488,404"/>
+<area shape="rect" id="node41" href="../../d3/ddf/gravity__integ__frame_8hh.html" title="Define the gravity integration frame class. " alt="" coords="3513,363,3687,389"/>
+<area shape="rect" id="node43" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2427,259,2594,300"/>
+<area shape="rect" id="node44" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="2477,363,2595,389"/>
+<area shape="rect" id="node45" href="../../dc/da5/pointer__container_8hh.html" title="Define class template JeodPointerContainer. " alt="" coords="2096,363,2251,389"/>
 </map>
 </div>
 </div>

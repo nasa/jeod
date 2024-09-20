@@ -54,7 +54,7 @@ Purpose:
 Library dependencies:
   ((../src/memory_item.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -67,14 +67,14 @@ Library dependencies:
  */
 
 // System includes
-#include <stdint.h>
+#include <cstdint>
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A JeodMemoryItem contains metadata about some chunk of allocated memory.
@@ -83,286 +83,235 @@ namespace jeod {
  * the members are essentially constant. The only way to change the values
  * is via a wholesale copy.
  */
-class JeodMemoryItem {
+class JeodMemoryItem
+{
+    // Types
+public:
+    /**
+     * Identifies by name the bit flags the comprise a JeodMemoryItem::flag.
+     */
+    enum Flags
+    {
+        PlacementNew = 1,  /**< Was the item constructed with placement new?
+                              There is no functional placement delete in C++. */
+        IsArray = 2,       /**< Was the item an array constructed via new []?
+                              This addresses the delete[] versus delete issue. */
+        IsGuarded = 4,     /**< Is the allocated buffer surrounded by guard words?
+                              This flag is always false in regular new mode. */
+        IsStructured = 8,  /**< Is the item a class (versus a primitive type)?
+                              Classes add several other twists. */
+        IsRegistered = 16, /**< Has the item been registered with the simulation
+                              engine? */
+        CheckPointed = 32  /**< Reserved for future work,
+                              as are flag bits 6 ando 7 (64 and 128). */
+    };
 
- // Types
- public:
+    // Static methods
+private:
+    // Construct the flags for a new instance of a memory item
+    static uint8_t construct_flags(bool placement_new, bool is_array, bool is_guarded, bool is_structured);
 
-   /**
-    * Identifies by name the bit flags the comprise a JeodMemoryItem::flag.
-    */
-   enum Flags {
-      PlacementNew =  1, /**< Was the item constructed with placement new?
-                            There is no functional placement delete in C++. */
-      IsArray      =  2, /**< Was the item an array constructed via new []?
-                            This addresses the delete[] versus delete issue. */
-      IsGuarded    =  4, /**< Is the allocated buffer surrounded by guard words?
-                            This flag is always false in regular new mode. */
-      IsStructured =  8, /**< Is the item a class (versus a primitive type)?
-                            Classes add several other twists. */
-      IsRegistered = 16, /**< Has the item been registered with the simulation
-                            engine? */
-      CheckPointed = 32  /**< Reserved for future work,
-                            as are flag bits 6 ando 7 (64 and 128). */
-   };
+    // Constructors, destructors, etc.
+public:
+    // Default constructor.
+    JeodMemoryItem() = default;
 
- // Static methods
- private:
-   // Construct the flags for a new instance of a memory item
-   static uint8_t construct_flags (
-      bool placement_new, bool is_array, bool is_guarded, bool is_structured);
+    // Non-default constructor.
+    JeodMemoryItem(bool placement_new,
+                   bool is_array,
+                   bool is_guarded,
+                   bool is_structured,
+                   unsigned int nelems_in,
+                   unsigned int type_idx,
+                   unsigned int alloc_idx);
 
- // Constructors, destructors, etc.
- public:
+    // Destructor.
+    ~JeodMemoryItem() = default;
 
-   // Default constructor.
-   JeodMemoryItem();
+    // NOTE: The copy constructor and assignment operator are not masked out.
+    // The default implementations work just fine here; this is a POD structure.
 
-   // Non-default constructor.
-   JeodMemoryItem(
-      bool placement_new,
-      bool is_array,
-      bool is_guarded,
-      bool is_structured,
-      unsigned int nelems_in,
-      unsigned int type_idx,
-      unsigned int alloc_idx);
+    // Public accessor functions.
+    // Note: Only the unique_id and is_registered flag has a setter; these are
+    // not known at creation time.
+    // All others members do not have setters; the elements are immutable.
+    // Second note: The unique_id can only be set once.
+public:
+    // Set the unique id.
+    void set_unique_id(uint32_t id);
 
-   // Destructor.
-   ~JeodMemoryItem();
+    // Set the is_registered flag.
+    void set_is_registered(bool value);
 
- // NOTE: The copy constructor and assignment operator are not masked out.
- // The default implementations work just fine here; this is a POD structure.
+    // Access the array size.
+    uint32_t get_nelems() const;
 
+    // Access the allocation index.
+    uint32_t get_alloc_index() const;
 
- // Public accessor functions.
- // Note: Only the unique_id and is_registered flag has a setter; these are
- // not known at creation time.
- // All others members do not have setters; the elements are immutable.
- // Second note: The unique_id can only be set once.
- public:
+    // Access the unique id.
+    uint32_t get_unique_id() const;
 
-   // Set the unique id.
-   void set_unique_id (uint32_t id);
+    // Access the descriptor index.
+    uint32_t get_descriptor_index() const;
 
-   // Set the is_registered flag.
-   void set_is_registered (bool value);
+    // Access the is_array flag.
+    bool get_is_array() const;
 
+    // Access the is_guarded flag.
+    bool get_is_guarded() const;
 
-   // Access the array size.
-   uint32_t get_nelems () const;
+    // Access the placement_new flag.
+    bool get_placement_new() const;
 
-   // Access the allocation index.
-   uint32_t get_alloc_index () const;
+    // Access the is_structured flag.
+    bool is_structured_data() const;
 
-   // Access the unique id.
-   uint32_t get_unique_id () const;
+    // Access the is_registered flag.
+    bool get_is_registered() const;
 
-   // Access the descriptor index.
-   uint32_t get_descriptor_index () const;
+    // Access the checkpointed flag.
+    bool get_checkpointed() const;
 
-   // Access the is_array flag.
-   bool get_is_array () const;
+    // Member data.
+    // Only 16 bytes!
+private:
+    /**
+     * Number of elements in the allocated array.
+     */
+    uint32_t nelems{}; //!< trick_units(--)
 
-   // Access the is_guarded flag.
-   bool get_is_guarded () const;
+    /**
+     * Allocation information index, max of 2^32-2 tracked locations.
+     * The allocation information is a string of the form "file.cc:line#" that
+     * indicates where in the code the data was allocated. The underlying string
+     * is maintained in the global memory manager's string table.
+     */
+    uint32_t alloc_info_index{}; //!< trick_units(--)
 
-   // Access the placement_new flag.
-   bool get_placement_new () const;
+    /**
+     * Unique identifier, max of 2^32-2 allocations (zero is not used).
+     * The unique identifier forms the basis of the item name sent to the
+     * simulation engine for this memory item.
+     */
+    uint32_t unique_id{}; //!< trick_units(--)
 
-   // Access the is_structured flag.
-   bool is_structured_data () const;
+    /**
+     * High order bits of the descriptor index.
+     * The descriptor_index specifies the type decriptor that describes the data.
+     * The underlying descriptor is maintained in the global memory manager's
+     * type descriptor table.
+     */
+    uint16_t descriptor_index_hi{}; //!< trick_units(--)
 
-   // Access the is_registered flag.
-   bool get_is_registered () const;
+    /**
+     * Low order bits of the descriptor index.
+     */
+    uint8_t descriptor_index_lo{}; //!< trick_units(--)
 
-   // Access the checkpointed flag.
-   bool get_checkpointed () const;
-
-
-
- // Member data.
- // Only 16 bytes!
- private:
-
-   /**
-    * Number of elements in the allocated array.
-    */
-   uint32_t nelems;  //!< trick_units(--)
-
-   /**
-    * Allocation information index, max of 2^32-2 tracked locations.
-    * The allocation information is a string of the form "file.cc:line#" that
-    * indicates where in the code the data was allocated. The underlying string
-    * is maintained in the global memory manager's string table.
-    */
-   uint32_t alloc_info_index; //!< trick_units(--)
-
-   /**
-    * Unique identifier, max of 2^32-2 allocations (zero is not used).
-    * The unique identifier forms the basis of the item name sent to the
-    * simulation engine for this memory item.
-    */
-   uint32_t unique_id; //!< trick_units(--)
-
-   /**
-    * High order bits of the descriptor index.
-    * The descriptor_index specifies the type decriptor that describes the data.
-    * The underlying descriptor is maintained in the global memory manager's
-    * type descriptor table.
-    */
-   uint16_t descriptor_index_hi; //!< trick_units(--)
-
-   /**
-    * Low order bits of the descriptor index.
-    */
-   uint8_t descriptor_index_lo; //!< trick_units(--)
-
-   /**
-    * Flags indicating whether
-    * - The data was constructed with default new or placement new
-    * - The data was allocated as an array or as a single object
-    * - The allocated are guarded
-    * - The data is a structured or non-structured data type
-    * - The data has been checkpointed (future)
-    * - Plus three more future-use spares.
-    */
-   uint8_t flags; //!< trick_units(--)
+    /**
+     * Flags indicating whether
+     * - The data was constructed with default new or placement new
+     * - The data was allocated as an array or as a single object
+     * - The allocated are guarded
+     * - The data is a structured or non-structured data type
+     * - The data has been checkpointed (future)
+     * - Plus three more future-use spares.
+     */
+    uint8_t flags{}; //!< trick_units(--)
 };
-
 
 /**
  * Access the array size.
  * @return Array size
  */
-inline uint32_t
-JeodMemoryItem::get_nelems (
-   void)
-const
+inline uint32_t JeodMemoryItem::get_nelems() const
 {
-   return nelems;
+    return nelems;
 }
-
 
 /**
  * Access the unique identifier.
  * @return Unique identifier
  */
-inline uint32_t
-JeodMemoryItem::get_unique_id (
-   void)
-const
+inline uint32_t JeodMemoryItem::get_unique_id() const
 {
-   return unique_id;
+    return unique_id;
 }
-
 
 /**
  * Access the allocation information index.
  * @return Allocation information index
  */
-inline uint32_t
-JeodMemoryItem::get_alloc_index (
-   void)
-const
+inline uint32_t JeodMemoryItem::get_alloc_index() const
 {
-   return alloc_info_index;
+    return alloc_info_index;
 }
-
 
 /**
  * Access the type descriptor index.
  * @return Type descriptor index
  */
-inline uint32_t
-JeodMemoryItem::get_descriptor_index (
-   void)
-const
+inline uint32_t JeodMemoryItem::get_descriptor_index() const
 {
-   return ((static_cast<uint32_t> (descriptor_index_hi)) << 8) +
-           (static_cast<uint32_t> (descriptor_index_lo));
+    return ((static_cast<uint32_t>(descriptor_index_hi)) << 8) + (static_cast<uint32_t>(descriptor_index_lo));
 }
-
 
 /**
  * Access the placement_new flag.
  * @return Allocated for placement new?
  */
-inline bool
-JeodMemoryItem::get_placement_new (
-   void)
-const
+inline bool JeodMemoryItem::get_placement_new() const
 {
-   return (flags & PlacementNew) != 0;
+    return (flags & PlacementNew) != 0;
 }
-
 
 /**
  * Access the is_array flag.
  * @return Allocated as an array?
  */
-inline bool
-JeodMemoryItem::get_is_array (
-   void)
-const
+inline bool JeodMemoryItem::get_is_array() const
 {
-   return (flags & IsArray) != 0;
+    return (flags & IsArray) != 0;
 }
-
 
 /**
  * Access the is_guarded flag.
  * @return Is allocated memory guarded?
  */
-inline bool
-JeodMemoryItem::get_is_guarded (
-   void)
-const
+inline bool JeodMemoryItem::get_is_guarded() const
 {
-   return (flags & IsGuarded) != 0;
+    return (flags & IsGuarded) != 0;
 }
-
 
 /**
  * Is the associated data a structure/class?
  * @return True for structured data
  */
-inline bool
-JeodMemoryItem::is_structured_data (
-   void)
-const
+inline bool JeodMemoryItem::is_structured_data() const
 {
-   return (flags & IsStructured) != 0;
+    return (flags & IsStructured) != 0;
 }
-
 
 /**
  * Access the checkpointed flag.
  * @return Registered with sim engine?
  */
-inline bool
-JeodMemoryItem::get_is_registered (
-   void)
-const
+inline bool JeodMemoryItem::get_is_registered() const
 {
-   return (flags & IsRegistered) != 0;
+    return (flags & IsRegistered) != 0;
 }
-
 
 /**
  * Access the checkpointed flag.
  * @return Checkpointed?
  */
-inline bool
-JeodMemoryItem::get_checkpointed (
-   void)
-const
+inline bool JeodMemoryItem::get_checkpointed() const
 {
-   return (flags & CheckPointed) != 0;
+    return (flags & CheckPointed) != 0;
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

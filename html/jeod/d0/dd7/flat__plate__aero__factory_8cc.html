@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -57,47 +57,52 @@ $(function() {
 <code>#include &lt;typeinfo&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../da/dfa/flat__plate_8hh_source.html">utils/surface_model/include/flat_plate.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/dff/facet_8hh_source.html">utils/surface_model/include/facet.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/dfa/flat__plate_8hh_source.html">utils/surface_model/include/flat_plate.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">utils/surface_model/include/interaction_facet.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/de4/aerodynamics__messages_8hh_source.html">../include/aerodynamics_messages.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d62/flat__plate__aero__facet_8hh_source.html">../include/flat_plate_aero_facet.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d7/d56/flat__plate__aero__factory_8hh_source.html">../include/flat_plate_aero_factory.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/dc4/flat__plate__aero__params_8hh_source.html">../include/flat_plate_aero_params.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/d62/flat__plate__aero__facet_8hh_source.html">../include/flat_plate_aero_facet.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/de4/aerodynamics__messages_8hh_source.html">../include/aerodynamics_messages.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for flat_plate_aero_factory.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d97/flat__plate__aero__factory_8cc__incl.png" border="0" usemap="#flat__plate__aero__factory_8cc" alt=""/></div>
 <map name="flat__plate__aero__factory_8cc" id="flat__plate__aero__factory_8cc">
-<area shape="rect" id="node4" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="369,481,493,523"/>
-<area shape="rect" id="node8" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="2251,80,2394,121"/>
-<area shape="rect" id="node30" href="../../da/dfa/flat__plate_8hh.html" title="Flat plates for use in the surface model. " alt="" coords="859,177,1002,218"/>
-<area shape="rect" id="node31" href="../../d6/dff/facet_8hh.html" title="Individual facets for use in the surface model. " alt="" coords="833,288,903,315"/>
-<area shape="rect" id="node34" href="../../d8/d45/interaction__facet_8hh.html" title="Individual facets for use with specific environment interaction models. " alt="" coords="330,377,465,433"/>
-<area shape="rect" id="node35" href="../../d7/d56/flat__plate__aero__factory_8hh.html" title="Creates a flat plate aero facet from a basic flat plate facet. " alt="" coords="231,80,363,121"/>
-<area shape="rect" id="node37" href="../../d8/d62/flat__plate__aero__facet_8hh.html" title="The aerodynamic specific implementation of flat plate. " alt="" coords="253,184,414,211"/>
-<area shape="rect" id="node40" href="../../da/dc4/flat__plate__aero__params_8hh.html" title="The set of parameters used to create an aerodynamic interaction specific flat plate facet from a gene..." alt="" coords="535,80,667,121"/>
-<area shape="rect" id="node43" href="../../d3/de4/aerodynamics__messages_8hh.html" title="Aerodynamics message for message handling. " alt="" coords="977,281,1137,322"/>
-<area shape="rect" id="node5" href="../../da/d11/vector3__inline_8hh.html" title="Vector math inline functions. " alt="" coords="371,571,491,597"/>
-<area shape="rect" id="node7" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="433,645,529,672"/>
-<area shape="rect" id="node10" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="2076,385,2273,426"/>
-<area shape="rect" id="node13" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="2450,385,2614,426"/>
-<area shape="rect" id="node16" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="2030,184,2173,211"/>
-<area shape="rect" id="node11" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1951,571,2025,597"/>
-<area shape="rect" id="node22" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1418,281,1566,322"/>
-<area shape="rect" id="node23" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="917,481,1067,523"/>
-<area shape="rect" id="node24" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1938,281,2131,322"/>
-<area shape="rect" id="node25" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1212,273,1343,329"/>
-<area shape="rect" id="node26" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1781,392,1899,419"/>
-<area shape="rect" id="node27" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="2516,288,2639,315"/>
-<area shape="rect" id="node28" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="2207,288,2326,315"/>
-<area shape="rect" id="node29" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1394,385,1542,426"/>
-<area shape="rect" id="node33" href="../../d1/d61/mass__point__state_8hh.html" title="Define the class MassPointState, which defines the state – position and orientation – of a MassPoin..." alt="" coords="770,385,929,426"/>
-<area shape="rect" id="node36" href="../../d0/d79/interaction__facet__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="94,169,229,225"/>
-<area shape="rect" id="node38" href="../../d0/d7a/aero__facet_8hh.html" title="Individual facets for use with aero environment interaction models. " alt="" coords="241,288,343,315"/>
-<area shape="rect" id="node39" href="../../da/d68/aero__drag_8hh.html" title="Orbital aerodynamics paramter definitions and the main class for calculating aerodynamic drag..." alt="" coords="418,288,515,315"/>
-<area shape="rect" id="node41" href="../../d9/d25/aero__params_8hh.html" title="A virtual base class for aero facet parameters, used to create interaction facets for aero in the Int..." alt="" coords="591,184,705,211"/>
-<area shape="rect" id="node42" href="../../d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="641,281,809,322"/>
+<area shape="rect" id="node4" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="3633,653,3772,694"/>
+<area shape="rect" id="node8" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="1079,266,1239,307"/>
+<area shape="rect" id="node30" href="../../d6/dff/facet_8hh.html" title="Individual facets for use in the surface model. " alt="" coords="2999,452,3150,493"/>
+<area shape="rect" id="node36" href="../../da/dfa/flat__plate_8hh.html" title="Flat plates for use in the surface model. " alt="" coords="3246,363,3405,404"/>
+<area shape="rect" id="node37" href="../../d8/d45/interaction__facet_8hh.html" title="Individual facets for use with specific environment interaction models. " alt="" coords="2402,541,2553,597"/>
+<area shape="rect" id="node38" href="../../d3/de4/aerodynamics__messages_8hh.html" title="Aerodynamics message for message handling. " alt="" coords="1987,452,2165,493"/>
+<area shape="rect" id="node39" href="../../d8/d62/flat__plate__aero__facet_8hh.html" title="The aerodynamic specific implementation of flat plate. " alt="" coords="2864,169,3011,211"/>
+<area shape="rect" id="node44" href="../../d7/d56/flat__plate__aero__factory_8hh.html" title="Creates a flat plate aero facet from a basic flat plate facet. " alt="" coords="2461,80,2608,121"/>
+<area shape="rect" id="node46" href="../../da/dc4/flat__plate__aero__params_8hh.html" title="The set of parameters used to create an aerodynamic interaction specific flat plate facet from a gene..." alt="" coords="2180,169,2327,211"/>
+<area shape="rect" id="node5" href="../../da/d11/vector3__inline_8hh.html" title="Vector math inline functions. " alt="" coords="3635,757,3770,783"/>
+<area shape="rect" id="node7" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="3595,839,3701,865"/>
+<area shape="rect" id="node10" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="459,549,682,590"/>
+<area shape="rect" id="node13" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="1339,549,1522,590"/>
+<area shape="rect" id="node16" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="906,370,1067,397"/>
+<area shape="rect" id="node11" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="383,839,465,865"/>
+<area shape="rect" id="node22" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="753,452,919,493"/>
+<area shape="rect" id="node23" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2311,749,2476,791"/>
+<area shape="rect" id="node24" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="459,452,677,493"/>
+<area shape="rect" id="node25" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1576,645,1723,701"/>
+<area shape="rect" id="node26" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1649,556,1783,583"/>
+<area shape="rect" id="node27" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="195,556,333,583"/>
+<area shape="rect" id="node28" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="1423,459,1556,486"/>
+<area shape="rect" id="node29" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1807,549,1971,590"/>
+<area shape="rect" id="node32" href="../../d1/d61/mass__point__state_8hh.html" title="Define the class MassPointState, which defines the state – position and orientation – of a MassPoin..." alt="" coords="3150,549,3325,590"/>
+<area shape="rect" id="node33" href="../../d1/d5a/dynamics_2mass_2include_2class__declarations_8hh.html" title="Forward declarations of mass model classes. " alt="" coords="2881,660,3044,687"/>
+<area shape="rect" id="node34" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="3068,653,3207,694"/>
+<area shape="rect" id="node35" href="../../d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="3231,653,3406,694"/>
+<area shape="rect" id="node40" href="../../da/d68/aero__drag_8hh.html" title="Orbital aerodynamics paramter definitions and the main class for calculating aerodynamic drag..." alt="" coords="2637,273,2744,300"/>
+<area shape="rect" id="node43" href="../../d0/d7a/aero__facet_8hh.html" title="Individual facets for use with aero environment interaction models. " alt="" coords="2730,459,2841,486"/>
+<area shape="rect" id="node41" href="../../d5/d20/default__aero_8hh.html" title="An implementation of ballistic coefficent and coefficient of drag for use in the AerodynamicDrag obje..." alt="" coords="2569,370,2693,397"/>
+<area shape="rect" id="node42" href="../../dd/d7f/aero__surface_8hh.html" title="Vehicle surface model for aerodynamics. " alt="" coords="2819,370,2946,397"/>
+<area shape="rect" id="node45" href="../../d0/d79/interaction__facet__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="2459,259,2610,315"/>
+<area shape="rect" id="node47" href="../../d9/d25/aero__params_8hh.html" title="A virtual base class for aero facet parameters, used to create interaction facets for aero in the Int..." alt="" coords="2149,556,2275,583"/>
+<area shape="rect" id="node48" href="../../d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="2119,653,2305,694"/>
 </map>
 </div>
 </div>

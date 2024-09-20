@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::InteractionFacet Class Reference</div>  </div>
@@ -63,13 +62,13 @@ Inheritance diagram for jeod::InteractionFacet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d5f/classjeod_1_1InteractionFacet__inherit__graph.png" border="0" usemap="#jeod_1_1InteractionFacet_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1InteractionFacet_inherit__map" id="jeod_1_1InteractionFacet_inherit__map">
-<area shape="rect" id="node2" href="../../dc/d81/classjeod_1_1AeroFacet.html" title="An aerodynamic interaction specific facet for use in the surface model. " alt="" coords="53,80,167,107"/>
-<area shape="rect" id="node4" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="211,80,345,107"/>
-<area shape="rect" id="node7" href="../../d0/d4a/classjeod_1_1RadiationFacet.html" title="Generic type of facet for radiation pressure. " alt="" coords="381,80,524,107"/>
-<area shape="rect" id="node3" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html" title="The aerdynamic specific version of a flat plate. " alt="" coords="5,162,172,189"/>
-<area shape="rect" id="node5" href="../../da/d1d/classjeod_1_1PointContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="197,162,359,189"/>
-<area shape="rect" id="node6" href="../../d9/d7b/classjeod_1_1LineContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="199,244,357,271"/>
-<area shape="rect" id="node8" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html" title="A flat plate facet to be used for radiation interaction. " alt="" coords="384,155,545,196"/>
+<area shape="rect" id="node2" href="../../dc/d81/classjeod_1_1AeroFacet.html" title="An aerodynamic interaction specific facet for use in the surface model. " alt="" coords="56,80,179,107"/>
+<area shape="rect" id="node4" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="225,80,367,107"/>
+<area shape="rect" id="node7" href="../../d0/d4a/classjeod_1_1RadiationFacet.html" title="Generic type of facet for radiation pressure. " alt="" coords="405,80,560,107"/>
+<area shape="rect" id="node3" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html" title="The aerdynamic specific version of a flat plate. " alt="" coords="5,162,184,189"/>
+<area shape="rect" id="node5" href="../../da/d1d/classjeod_1_1PointContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="209,162,383,189"/>
+<area shape="rect" id="node6" href="../../d9/d7b/classjeod_1_1LineContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="211,244,381,271"/>
+<area shape="rect" id="node8" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html" title="A flat plate facet to be used for radiation interaction. " alt="" coords="407,155,585,196"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -77,48 +76,43 @@ Collaboration diagram for jeod::InteractionFacet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d9d/classjeod_1_1InteractionFacet__coll__graph.png" border="0" usemap="#jeod_1_1InteractionFacet_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1InteractionFacet_coll__map" id="jeod_1_1InteractionFacet_coll__map">
-<area shape="rect" id="node2" href="../../d1/d0a/classjeod_1_1Facet.html" title="A general base class for all surface model facets. " alt="" coords="1519,444,1605,471"/>
-<area shape="rect" id="node3" title="STL class. " alt="" coords="200,431,280,457"/>
-<area shape="rect" id="node10" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="444,185,567,212"/>
-<area shape="rect" id="node4" title="STL class. " alt="" coords="5,423,132,465"/>
-<area shape="rect" id="node5" href="../../dd/d6e/classjeod_1_1MassPointState.html" title="Defines the state – position and orientation – of a MassPoint. " alt="" coords="432,503,579,529"/>
-<area shape="rect" id="node9" href="../../da/da4/classjeod_1_1MassPoint.html" title="Adds tree linkages and a name to a MassPointState. " alt="" coords="664,236,780,263"/>
-<area shape="rect" id="node6" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="181,503,299,529"/>
-<area shape="rect" id="node7" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1251,187,1367,213"/>
-<area shape="rect" id="node14" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1508,69,1616,96"/>
-<area shape="rect" id="node13" href="../../d4/de8/classjeod_1_1MassProperties.html" title="Defines mass properties – mass and inertia tensor. " alt="" coords="907,185,1052,212"/>
-<area shape="rect" id="node11" href="../../d4/d5b/classjeod_1_1MassBodyLinks.html" title="Encapsulates the links between mass bodies. " alt="" coords="906,393,1053,420"/>
-<area shape="rect" id="node12" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="900,73,1059,100"/>
+<area shape="rect" id="node2" href="../../d1/d0a/classjeod_1_1Facet.html" title="A general base class for all surface model facets. " alt="" coords="1706,483,1798,509"/>
+<area shape="rect" id="node3" title="STL class. " alt="" coords="215,172,302,199"/>
+<area shape="rect" id="node10" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="479,172,613,199"/>
+<area shape="rect" id="node14" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1693,111,1811,137"/>
+<area shape="rect" id="node4" title="STL class. " alt="" coords="5,165,144,206"/>
+<area shape="rect" id="node5" href="../../dd/d6e/classjeod_1_1MassPointState.html" title="Defines the state – position and orientation – of a MassPoint. " alt="" coords="467,533,625,560"/>
+<area shape="rect" id="node9" href="../../da/da4/classjeod_1_1MassPoint.html" title="Adds tree linkages and a name to a MassPointState. " alt="" coords="715,324,839,351"/>
+<area shape="rect" id="node6" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="193,533,324,560"/>
+<area shape="rect" id="node7" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1417,223,1541,249"/>
+<area shape="rect" id="node13" href="../../d4/de8/classjeod_1_1MassProperties.html" title="Defines mass properties – mass and inertia tensor. " alt="" coords="1041,324,1198,351"/>
+<area shape="rect" id="node11" href="../../d4/d5b/classjeod_1_1MassBodyLinks.html" title="Encapsulates the links between mass bodies. " alt="" coords="1040,223,1199,249"/>
+<area shape="rect" id="node12" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1033,120,1205,147"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a20b80991a55a9774f04270b159b9e614"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a20b80991a55a9774f04270b159b9e614">InteractionFacet</a> ()</td></tr>
-<tr class="memdesc:a20b80991a55a9774f04270b159b9e614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a20b80991a55a9774f04270b159b9e614">More...</a><br /></td></tr>
-<tr class="separator:a20b80991a55a9774f04270b159b9e614"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2092214f477dbe5ebe440aa05938b3e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#aa2092214f477dbe5ebe440aa05938b3e">~InteractionFacet</a> ()</td></tr>
-<tr class="memdesc:aa2092214f477dbe5ebe440aa05938b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#aa2092214f477dbe5ebe440aa05938b3e">More...</a><br /></td></tr>
-<tr class="separator:aa2092214f477dbe5ebe440aa05938b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962466f511d54a7b17664fe446e268b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a962466f511d54a7b17664fe446e268b1">InteractionFacet</a> ()=default</td></tr>
+<tr class="separator:a962466f511d54a7b17664fe446e268b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200f3515fe608706a84e7756e839a3c4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a200f3515fe608706a84e7756e839a3c4">~InteractionFacet</a> ()=default</td></tr>
+<tr class="separator:a200f3515fe608706a84e7756e839a3c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc2808437ad12047a2940d29c2a05f99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#abc2808437ad12047a2940d29c2a05f99">operator=</a> (const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:abc2808437ad12047a2940d29c2a05f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a425b0b4a348fd803af7d4c736fa5d9e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a425b0b4a348fd803af7d4c736fa5d9e0">InteractionFacet</a> (const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:a425b0b4a348fd803af7d4c736fa5d9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ad3a756f0b3722a3be3ee2f2c79fdf407"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#ad3a756f0b3722a3be3ee2f2c79fdf407">force</a> [3]</td></tr>
+<tr class="memitem:ad3a756f0b3722a3be3ee2f2c79fdf407"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#ad3a756f0b3722a3be3ee2f2c79fdf407">force</a> [3] {}</td></tr>
 <tr class="memdesc:ad3a756f0b3722a3be3ee2f2c79fdf407"><td class="mdescLeft">&#160;</td><td class="mdescRight">The force on the facet caused by the environment interaction.  <a href="#ad3a756f0b3722a3be3ee2f2c79fdf407">More...</a><br /></td></tr>
 <tr class="separator:ad3a756f0b3722a3be3ee2f2c79fdf407"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eef4ededf5e333e8f88d87219089288"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">torque</a> [3]</td></tr>
+<tr class="memitem:a0eef4ededf5e333e8f88d87219089288"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">torque</a> [3] {}</td></tr>
 <tr class="memdesc:a0eef4ededf5e333e8f88d87219089288"><td class="mdescLeft">&#160;</td><td class="mdescRight">The torque on the facet caused by the environment interaction.  <a href="#a0eef4ededf5e333e8f88d87219089288">More...</a><br /></td></tr>
 <tr class="separator:a0eef4ededf5e333e8f88d87219089288"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a91a749c099fb81dc1b5b5008e0ede7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d0a/classjeod_1_1Facet.html">Facet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8a91a749c099fb81dc1b5b5008e0ede7">base_facet</a></td></tr>
+<tr class="memitem:a8a91a749c099fb81dc1b5b5008e0ede7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d0a/classjeod_1_1Facet.html">Facet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8a91a749c099fb81dc1b5b5008e0ede7">base_facet</a> {}</td></tr>
 <tr class="memdesc:a8a91a749c099fb81dc1b5b5008e0ede7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The original facet from which this interaction facet was created.  <a href="#a8a91a749c099fb81dc1b5b5008e0ede7">More...</a><br /></td></tr>
 <tr class="separator:a8a91a749c099fb81dc1b5b5008e0ede7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a97548bc760535ec166ade4a16214a0f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a97548bc760535ec166ade4a16214a0f0">operator=</a> (const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;rhs)</td></tr>
-<tr class="separator:a97548bc760535ec166ade4a16214a0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b8c17fae8090faa0925668afea63328"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8b8c17fae8090faa0925668afea63328">InteractionFacet</a> (const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;rhs)</td></tr>
-<tr class="separator:a8b8c17fae8090faa0925668afea63328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -130,34 +124,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A base class for an interaction specific facet. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00085">85</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00080">80</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a20b80991a55a9774f04270b159b9e614"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20b80991a55a9774f04270b159b9e614">&#9670;&nbsp;</a></span>InteractionFacet() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::InteractionFacet::InteractionFacet </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/d8c/interaction__facet_8cc_source.html#l00048">48</a> of file <a class="el" href="../../d5/d8c/interaction__facet_8cc_source.html">interaction_facet.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#ad3a756f0b3722a3be3ee2f2c79fdf407">force</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, and <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">torque</a>.</p>
-
-</div>
-</div>
-<a id="aa2092214f477dbe5ebe440aa05938b3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2092214f477dbe5ebe440aa05938b3e">&#9670;&nbsp;</a></span>~InteractionFacet()</h2>
+<a id="a962466f511d54a7b17664fe446e268b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962466f511d54a7b17664fe446e268b1">&#9670;&nbsp;</a></span>InteractionFacet() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,28 +136,48 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">jeod::InteractionFacet::~InteractionFacet </td>
+          <td class="memname">jeod::InteractionFacet::InteractionFacet </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destructor. </p>
+</div>
+</div>
+<a id="a200f3515fe608706a84e7756e839a3c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200f3515fe608706a84e7756e839a3c4">&#9670;&nbsp;</a></span>~InteractionFacet()</h2>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d8c/interaction__facet_8cc_source.html#l00063">63</a> of file <a class="el" href="../../d5/d8c/interaction__facet_8cc_source.html">interaction_facet.cc</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual jeod::InteractionFacet::~InteractionFacet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8b8c17fae8090faa0925668afea63328"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b8c17fae8090faa0925668afea63328">&#9670;&nbsp;</a></span>InteractionFacet() <span class="overload">[2/2]</span></h2>
+<a id="a425b0b4a348fd803af7d4c736fa5d9e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a425b0b4a348fd803af7d4c736fa5d9e0">&#9670;&nbsp;</a></span>InteractionFacet() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,13 +189,13 @@ Friends</h2></td></tr>
           <td class="memname">jeod::InteractionFacet::InteractionFacet </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -213,8 +203,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a97548bc760535ec166ade4a16214a0f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97548bc760535ec166ade4a16214a0f0">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="abc2808437ad12047a2940d29c2a05f99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc2808437ad12047a2940d29c2a05f99">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,13 +216,13 @@ Friends</h2></td></tr>
           <td class="memname"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a>&amp; jeod::InteractionFacet::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -285,7 +275,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00087">87</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00082">82</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
 
 </div>
 </div>
@@ -297,7 +287,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d0a/classjeod_1_1Facet.html">Facet</a>* jeod::InteractionFacet::base_facet</td>
+          <td class="memname"><a class="el" href="../../d1/d0a/classjeod_1_1Facet.html">Facet</a>* jeod::InteractionFacet::base_facet {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -305,9 +295,9 @@ Friends</h2></td></tr>
 <p>The original facet from which this interaction facet was created. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00110">110</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00101">101</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html#aa3cb7b0c6ad11cb2314f5d7abcdbbcba">jeod::FlatPlateAeroFacet::aerodrag_force()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8eebeb8b621f23d884e53c287c4e921c">jeod::ContactPair::check_tree()</a>, <a class="el" href="../../de/dcf/classjeod_1_1FlatPlateAeroFactory.html#a833881bbc60033889b3bee602ff00336">jeod::FlatPlateAeroFactory::create_facet()</a>, <a class="el" href="../../d1/d7b/classjeod_1_1FlatPlateRadiationFactory.html#a4390c3b1ac8fec1bb37280f44786007a">jeod::FlatPlateRadiationFactory::create_facet()</a>, <a class="el" href="../../d1/dce/classjeod_1_1LineContactFacetFactory.html#a644d1fcac1a71beae64cfc064bf5d417">jeod::LineContactFacetFactory::create_facet()</a>, <a class="el" href="../../df/d43/classjeod_1_1PointContactFacetFactory.html#a8cf32df1e43b2cb6f9cf73a4ca64807d">jeod::PointContactFacetFactory::create_facet()</a>, <a class="el" href="../../d0/d4a/classjeod_1_1RadiationFacet.html#a00c43d0246e4cc157c7b35122d7b5828">jeod::RadiationFacet::define_facet_core()</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#abb48005d8d42446ceac3faad42ee8c5b">jeod::ContactFacet::get_name()</a>, <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#ac14b3a483508279b7c04a36ec1a7221c">jeod::FlatPlateRadiationFacet::incident_radiation()</a>, <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#a2aa5d60e500976d5cfb52bf258bae266">jeod::FlatPlateRadiationFacet::initialize_geom()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#ae2ff46e70cf707385523691ee02f9ad2">jeod::FlatPlateRadiationFacet::radiation_pressure()</a>, and <a class="el" href="../../d0/d8b/classjeod_1_1RadiationSurface.html#a9217487be1cb812a04c8d630483f8765">jeod::RadiationSurface::thermal_integrator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html#aa3cb7b0c6ad11cb2314f5d7abcdbbcba">jeod::FlatPlateAeroFacet::aerodrag_force()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8eebeb8b621f23d884e53c287c4e921c">jeod::ContactPair::check_tree()</a>, <a class="el" href="../../de/dcf/classjeod_1_1FlatPlateAeroFactory.html#a833881bbc60033889b3bee602ff00336">jeod::FlatPlateAeroFactory::create_facet()</a>, <a class="el" href="../../d1/d7b/classjeod_1_1FlatPlateRadiationFactory.html#a4390c3b1ac8fec1bb37280f44786007a">jeod::FlatPlateRadiationFactory::create_facet()</a>, <a class="el" href="../../d1/dce/classjeod_1_1LineContactFacetFactory.html#a644d1fcac1a71beae64cfc064bf5d417">jeod::LineContactFacetFactory::create_facet()</a>, <a class="el" href="../../df/d43/classjeod_1_1PointContactFacetFactory.html#a8cf32df1e43b2cb6f9cf73a4ca64807d">jeod::PointContactFacetFactory::create_facet()</a>, <a class="el" href="../../d0/d4a/classjeod_1_1RadiationFacet.html#a00c43d0246e4cc157c7b35122d7b5828">jeod::RadiationFacet::define_facet_core()</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a675dfa34a1fef5f7d310f27ad0f28690">jeod::ContactFacet::get_name()</a>, <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#ac14b3a483508279b7c04a36ec1a7221c">jeod::FlatPlateRadiationFacet::incident_radiation()</a>, <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#a2aa5d60e500976d5cfb52bf258bae266">jeod::FlatPlateRadiationFacet::initialize_geom()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#a42a48939b89bb206ca3a5aa112af481e">jeod::FlatPlateRadiationFacet::radiation_pressure()</a>, and <a class="el" href="../../d0/d8b/classjeod_1_1RadiationSurface.html#a1a5d24562608b2ee9190c814a4f3d71c">jeod::RadiationSurface::thermal_integrator()</a>.</p>
 
 </div>
 </div>
@@ -318,7 +308,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::InteractionFacet::force[3]</td>
+          <td class="memname">double jeod::InteractionFacet::force[3] {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -326,9 +316,9 @@ Friends</h2></td></tr>
 <p>The force on the facet caused by the environment interaction. </p>
 <p>trick_units(N) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00100">100</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00091">91</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d22/classjeod_1_1AerodynamicDrag.html#a860a06e3ae5febe31f4426a9bd1a58ff">jeod::AerodynamicDrag::aero_drag()</a>, <a class="el" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html#aa3cb7b0c6ad11cb2314f5d7abcdbbcba">jeod::FlatPlateAeroFacet::aerodrag_force()</a>, <a class="el" href="../../dc/d9f/classjeod_1_1SpringPairInteraction.html#ab95d2b54ac3f9b1ebdb8e3a6dbac7218">jeod::SpringPairInteraction::calculate_forces()</a>, <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a20b80991a55a9774f04270b159b9e614">InteractionFacet()</a>, and <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#ae2ff46e70cf707385523691ee02f9ad2">jeod::FlatPlateRadiationFacet::radiation_pressure()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d22/classjeod_1_1AerodynamicDrag.html#a860a06e3ae5febe31f4426a9bd1a58ff">jeod::AerodynamicDrag::aero_drag()</a>, <a class="el" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html#aa3cb7b0c6ad11cb2314f5d7abcdbbcba">jeod::FlatPlateAeroFacet::aerodrag_force()</a>, <a class="el" href="../../dc/d9f/classjeod_1_1SpringPairInteraction.html#ab95d2b54ac3f9b1ebdb8e3a6dbac7218">jeod::SpringPairInteraction::calculate_forces()</a>, and <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#a42a48939b89bb206ca3a5aa112af481e">jeod::FlatPlateRadiationFacet::radiation_pressure()</a>.</p>
 
 </div>
 </div>
@@ -339,7 +329,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::InteractionFacet::torque[3]</td>
+          <td class="memname">double jeod::InteractionFacet::torque[3] {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -347,15 +337,14 @@ Friends</h2></td></tr>
 <p>The torque on the facet caused by the environment interaction. </p>
 <p>trick_units(N*m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00105">105</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html#l00096">96</a> of file <a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d22/classjeod_1_1AerodynamicDrag.html#a860a06e3ae5febe31f4426a9bd1a58ff">jeod::AerodynamicDrag::aero_drag()</a>, <a class="el" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html#aa3cb7b0c6ad11cb2314f5d7abcdbbcba">jeod::FlatPlateAeroFacet::aerodrag_force()</a>, <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6cf776a58f9db0c7515768c645d3b2d8">jeod::LineContactFacet::calculate_torque()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a2fe505c2b698aaa1294cf9421d906162">jeod::PointContactFacet::calculate_torque()</a>, <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a20b80991a55a9774f04270b159b9e614">InteractionFacet()</a>, and <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#ae2ff46e70cf707385523691ee02f9ad2">jeod::FlatPlateRadiationFacet::radiation_pressure()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d22/classjeod_1_1AerodynamicDrag.html#a860a06e3ae5febe31f4426a9bd1a58ff">jeod::AerodynamicDrag::aero_drag()</a>, <a class="el" href="../../de/ddb/classjeod_1_1FlatPlateAeroFacet.html#aa3cb7b0c6ad11cb2314f5d7abcdbbcba">jeod::FlatPlateAeroFacet::aerodrag_force()</a>, <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6cf776a58f9db0c7515768c645d3b2d8">jeod::LineContactFacet::calculate_torque()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a2fe505c2b698aaa1294cf9421d906162">jeod::PointContactFacet::calculate_torque()</a>, and <a class="el" href="../../d7/da7/classjeod_1_1FlatPlateRadiationFacet.html#a42a48939b89bb206ca3a5aa112af481e">jeod::FlatPlateRadiationFacet::radiation_pressure()</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="../../d8/d45/interaction__facet_8hh_source.html">interaction_facet.hh</a></li>
-<li><a class="el" href="../../d5/d8c/interaction__facet_8cc_source.html">interaction_facet.cc</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

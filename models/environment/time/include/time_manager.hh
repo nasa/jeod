@@ -72,128 +72,113 @@ Library dependencies:
 #include <vector>
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/integration/include/jeod_integration_time.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "time_dyn.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeManagerInit;
 class JeodBaseTime;
 class TimeConverter;
 
-
 /**
  * To manage the various time representations and the converters
  * between them throughout the simulation.
  */
-class TimeManager : private JeodIntegrationTime {
+class TimeManager : private JeodIntegrationTime
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeManager)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeManager)
+    friend class TimeManagerInit;
 
-  friend class TimeManagerInit;
-
-
-  // Member data
+    // Member data
 public:
+    /**
+     * Simulation time (sys.exec.out.time).
+     */
+    double simtime{-1.0}; //!< trick_units(--)
 
-   /**
-    * Simulation time (sys.exec.out.time).
-    */
-  double simtime;                 //!< trick_units(--)
+    /**
+     * The instance of TimeDyn, the dynamic time that is used as the integration
+     * time.
+     */
+    TimeDyn dyn_time; //!< trick_units(--)
 
-   /**
-    * The instance of TimeDyn, the dynamic time that is used as the integration
-    * time.
-    */
-  TimeDyn dyn_time;    //!< trick_units(--)
-
-   /**
-    * Size of time_types_ptrs vector.
-    */
-  int num_types; //!< trick_units(--)
-
+    /**
+     * Size of time_types_ptrs vector.
+     */
+    int num_types{}; //!< trick_units(--)
 
 private:
+    /**
+     * Indicates that the dynamic scale factor changed.
+     */
+    bool time_change_flag{}; //!< trick_units(--)
 
-   /**
-    * Indicates that the dynamic scale factor changed.
-    */
-  bool time_change_flag; //!< trick_units(--)
+    /**
+     * List of pointers to time-types
+     */
+    std::vector<JeodBaseTime *> time_vector;
 
-   /**
-    * List of pointers to time-types
-    */
-  std::vector<JeodBaseTime*> time_vector;
+    /**
+     * List of pointers to time-converters
+     */
+    std::vector<TimeConverter *> converter_vector;
 
-   /**
-    * List of pointers to time-converters
-    */
-  std::vector<TimeConverter*> converter_vector;
-
-// Member functions:
+    // Member functions:
 public:
-  //Constructor
-   TimeManager ();
-  // Destructor
-   ~TimeManager () override;
+    TimeManager();
+    ~TimeManager() override;
+    TimeManager(const TimeManager &) = delete;
+    TimeManager & operator=(const TimeManager &) = delete;
 
-   void initialize (TimeManagerInit * time_manager_init);
+    void initialize(TimeManagerInit * time_manager_init);
 
-   int time_lookup ( const std::string& name ) const;
+    int time_lookup(const std::string & name) const;
 
-   bool get_time_change_flag () const;
-   JeodBaseTime * get_time_ptr (const std::string& name) const;
-   JeodBaseTime * get_time_ptr (const int index) const;
-   TimeConverter * get_converter_ptr (const int index) const;
+    bool get_time_change_flag() const;
+    JeodBaseTime * get_time_ptr(const std::string & name) const;
+    JeodBaseTime * get_time_ptr(const int index) const;
+    TimeConverter * get_converter_ptr(const int index) const;
 
-   bool time_standards_exist (void);
+    bool time_standards_exist();
 
-   virtual void update (double time);
-   void verify_table_lookup_ends (void);
+    virtual void update(double time);
+    void verify_table_lookup_ends();
 
-   void register_time (JeodBaseTime & time_ref);
-   void register_time_named (JeodBaseTime & time_ref, const std::string& name);
+    void register_time(JeodBaseTime & time_ref);
+    void register_time_named(JeodBaseTime & time_ref, const std::string & name);
 
-   void register_converter ( TimeConverter & converter_ref,
-                                     const std::string & name_a = "",
-                                     const std::string & name_b = "");
+    void register_converter(TimeConverter & converter_ref,
+                            const std::string & name_a = "",
+                            const std::string & name_b = "");
 
-   // Expose the private inheritance.
-   // This is implemented as a function rather than as a conversion operator
-   // so as to make finding the use of this function searchable.
-   JeodIntegrationTime& get_jeod_integration_time ();
+    // Expose the private inheritance.
+    // This is implemented as a function rather than as a conversion operator
+    // so as to make finding the use of this function searchable.
+    JeodIntegrationTime & get_jeod_integration_time();
 
-   // Implement the pure virtual getters inherited from JeodIntegrationTime.
-   // Note that this class exposes these functions as public methods.
-   double get_time_scale_factor () const override;
-   double get_timestamp_time () const override;
+    // Implement the pure virtual getters inherited from JeodIntegrationTime.
+    // Note that this class exposes these functions as public methods.
+    double get_time_scale_factor() const override;
+    double get_timestamp_time() const override;
 
-   // Make the already-implemented time change subscriber methods inherited
-   // from JeodIntegrationTime public.
-   using JeodIntegrationTime::add_time_change_subscriber;
-   using JeodIntegrationTime::remove_time_change_subscriber;
-
+    // Make the already-implemented time change subscriber methods inherited
+    // from JeodIntegrationTime public.
+    using JeodIntegrationTime::add_time_change_subscriber;
+    using JeodIntegrationTime::remove_time_change_subscriber;
 
 private:
-
-   // Implement the pure virtual update_time inherited from JeodIntegrationTime.
-   void update_time (double time) override;
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeManager (const TimeManager&);
-   TimeManager & operator = (const TimeManager&);
+    // Implement the pure virtual update_time inherited from JeodIntegrationTime.
+    void update_time(double time) override;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

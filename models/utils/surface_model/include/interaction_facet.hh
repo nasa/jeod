@@ -56,15 +56,10 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/interaction_facet.cc))
-
- 
 *******************************************************************************/
 
 #ifndef JEOD_INTERACTION_FACET_HH
 #define JEOD_INTERACTION_FACET_HH
-
 
 // System includes
 
@@ -73,56 +68,42 @@ Library dependencies:
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Facet;
 
 /**
  * A base class for an interaction specific facet.
  */
-class InteractionFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(InteractionFacet)
+class InteractionFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, InteractionFacet)
 
 public:
+    InteractionFacet() = default;
+    virtual ~InteractionFacet() = default;
+    InteractionFacet & operator=(const InteractionFacet &) = delete;
+    InteractionFacet(const InteractionFacet &) = delete;
 
-   // constructor
-   InteractionFacet ();
+    /**
+     * The force on the facet caused by the environment interaction
+     */
+    double force[3]{}; //!< trick_units(N)
 
-   // destructor
-   virtual ~InteractionFacet ();
+    /**
+     * The torque on the facet caused by the environment interaction
+     */
+    double torque[3]{}; //!< trick_units(N*m)
 
-   /**
-    * The force on the facet caused by the environment interaction
-    */
-   double force[3]; //!< trick_units(N)
-
-   /**
-    * The torque on the facet caused by the environment interaction
-    */
-   double torque[3]; //!< trick_units(N*m)
-
-   /**
-    * The original facet from which this interaction facet was created
-    */
-   Facet* base_facet; //!< trick_units(--)
-
-
-protected:
-
-private:
-
-   // Operator = and copy constructor locked from use by being private
-
-   InteractionFacet& operator = (const InteractionFacet& rhs);
-   InteractionFacet (const InteractionFacet& rhs);
-
+    /**
+     * The original facet from which this interaction facet was created
+     */
+    Facet * base_facet{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

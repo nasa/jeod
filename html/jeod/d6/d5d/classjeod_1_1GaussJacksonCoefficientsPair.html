@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::GaussJacksonCoefficientsPair Class Reference</div>  </div>
@@ -61,9 +60,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a223ec7e52cef89183ccb82b69690776f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a223ec7e52cef89183ccb82b69690776f">GaussJacksonCoefficientsPair</a> ()</td></tr>
-<tr class="memdesc:a223ec7e52cef89183ccb82b69690776f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a223ec7e52cef89183ccb82b69690776f">More...</a><br /></td></tr>
-<tr class="separator:a223ec7e52cef89183ccb82b69690776f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a1dbdd245677350e1b87ff30a65a94f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a7a1dbdd245677350e1b87ff30a65a94f">GaussJacksonCoefficientsPair</a> ()=default</td></tr>
+<tr class="memdesc:a7a1dbdd245677350e1b87ff30a65a94f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a7a1dbdd245677350e1b87ff30a65a94f">More...</a><br /></td></tr>
+<tr class="separator:a7a1dbdd245677350e1b87ff30a65a94f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaca23089e794ab238a765021c3b276b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#aaca23089e794ab238a765021c3b276b6">~GaussJacksonCoefficientsPair</a> ()</td></tr>
 <tr class="memdesc:aaca23089e794ab238a765021c3b276b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#aaca23089e794ab238a765021c3b276b6">More...</a><br /></td></tr>
 <tr class="separator:aaca23089e794ab238a765021c3b276b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -80,33 +79,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a462665fabbc62e866e83a4089b7bc899"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a462665fabbc62e866e83a4089b7bc899">deallocate_arrays</a> ()</td></tr>
 <tr class="memdesc:a462665fabbc62e866e83a4089b7bc899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release allocated memory.  <a href="#a462665fabbc62e866e83a4089b7bc899">More...</a><br /></td></tr>
 <tr class="separator:a462665fabbc62e866e83a4089b7bc899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab23ee0a2b89b563f85d8a0fc79d9224"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#aab23ee0a2b89b563f85d8a0fc79d9224">apply</a> (int nelem, int ncoeff, double const *const *acc_hist, const <a class="el" href="../../d8/d0f/classjeod_1_1GaussJacksonTwoState.html">GaussJacksonTwoState</a> &amp;state_sum) const</td></tr>
-<tr class="memdesc:aab23ee0a2b89b563f85d8a0fc79d9224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply both sets of coefficients to the supplied history data.  <a href="#aab23ee0a2b89b563f85d8a0fc79d9224">More...</a><br /></td></tr>
-<tr class="separator:aab23ee0a2b89b563f85d8a0fc79d9224"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21b3705b98631b5356f3bb24504ff037"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a21b3705b98631b5356f3bb24504ff037">apply</a> (int nelem, int ncoeff, double const *const *acc_hist, const <a class="el" href="../../dd/dcb/classjeod_1_1GaussJacksonOneState.html">GaussJacksonOneState</a> &amp;state_sum) const</td></tr>
-<tr class="memdesc:a21b3705b98631b5356f3bb24504ff037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply just the Adams coefficients to the supplied history data.  <a href="#a21b3705b98631b5356f3bb24504ff037">More...</a><br /></td></tr>
-<tr class="separator:a21b3705b98631b5356f3bb24504ff037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6948066db0888fe8d85f35e48bb6a5f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a6948066db0888fe8d85f35e48bb6a5f8">apply</a> (int nelem, int ncoeff, const double *const *acc_hist, const <a class="el" href="../../d8/d0f/classjeod_1_1GaussJacksonTwoState.html">GaussJacksonTwoState</a> &amp;state_sum) const</td></tr>
+<tr class="memdesc:a6948066db0888fe8d85f35e48bb6a5f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply both sets of coefficients to the supplied history data.  <a href="#a6948066db0888fe8d85f35e48bb6a5f8">More...</a><br /></td></tr>
+<tr class="separator:a6948066db0888fe8d85f35e48bb6a5f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6283273df127fa9c528f890414ca46f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a6283273df127fa9c528f890414ca46f0">apply</a> (int nelem, int ncoeff, const double *const *acc_hist, const <a class="el" href="../../dd/dcb/classjeod_1_1GaussJacksonOneState.html">GaussJacksonOneState</a> &amp;state_sum) const</td></tr>
+<tr class="memdesc:a6283273df127fa9c528f890414ca46f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply just the Adams coefficients to the supplied history data.  <a href="#a6283273df127fa9c528f890414ca46f0">More...</a><br /></td></tr>
+<tr class="separator:a6283273df127fa9c528f890414ca46f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe4aad897bdb29dd2564c35010618bd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#abe4aad897bdb29dd2564c35010618bd4">print</a> (int order, std::ostream &amp;stream) const</td></tr>
 <tr class="memdesc:abe4aad897bdb29dd2564c35010618bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the coefficients.  <a href="#abe4aad897bdb29dd2564c35010618bd4">More...</a><br /></td></tr>
 <tr class="separator:abe4aad897bdb29dd2564c35010618bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d364a01d4031bb56591558ea931fdc4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a4d364a01d4031bb56591558ea931fdc4">GaussJacksonCoefficientsPair</a> (const <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html">GaussJacksonCoefficientsPair</a> &amp;)=delete</td></tr>
+<tr class="separator:a4d364a01d4031bb56591558ea931fdc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07caa066bba4dc2f10d7140883504b72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html">GaussJacksonCoefficientsPair</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a07caa066bba4dc2f10d7140883504b72">operator=</a> (const <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html">GaussJacksonCoefficientsPair</a> &amp;)=delete</td></tr>
+<tr class="separator:a07caa066bba4dc2f10d7140883504b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a48916e867a7d22ab4849762c6f7a292a"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a48916e867a7d22ab4849762c6f7a292a">sa_coefs</a></td></tr>
+<tr class="memitem:a48916e867a7d22ab4849762c6f7a292a"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a48916e867a7d22ab4849762c6f7a292a">sa_coefs</a> {}</td></tr>
 <tr class="memdesc:a48916e867a7d22ab4849762c6f7a292a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Summed Adams coefficients, in ordinate form.  <a href="#a48916e867a7d22ab4849762c6f7a292a">More...</a><br /></td></tr>
 <tr class="separator:a48916e867a7d22ab4849762c6f7a292a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b874a1a1c3e8f3dffd5347b9982af68"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a2b874a1a1c3e8f3dffd5347b9982af68">gj_coefs</a></td></tr>
+<tr class="memitem:a2b874a1a1c3e8f3dffd5347b9982af68"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a2b874a1a1c3e8f3dffd5347b9982af68">gj_coefs</a> {}</td></tr>
 <tr class="memdesc:a2b874a1a1c3e8f3dffd5347b9982af68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gauss Jackson coefficients, in ordinate form.  <a href="#a2b874a1a1c3e8f3dffd5347b9982af68">More...</a><br /></td></tr>
 <tr class="separator:a2b874a1a1c3e8f3dffd5347b9982af68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a33b4b0f520f02a3366ecdebca2f316ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a33b4b0f520f02a3366ecdebca2f316ef">GaussJacksonCoefficientsPair</a> (const <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html">GaussJacksonCoefficientsPair</a> &amp;)</td></tr>
-<tr class="memdesc:a33b4b0f520f02a3366ecdebca2f316ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#a33b4b0f520f02a3366ecdebca2f316ef">More...</a><br /></td></tr>
-<tr class="separator:a33b4b0f520f02a3366ecdebca2f316ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06d15a6f43651b3779585ff37c8ac14c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html">GaussJacksonCoefficientsPair</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a06d15a6f43651b3779585ff37c8ac14c">operator=</a> (const <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html">GaussJacksonCoefficientsPair</a> &amp;)</td></tr>
-<tr class="memdesc:a06d15a6f43651b3779585ff37c8ac14c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#a06d15a6f43651b3779585ff37c8ac14c">More...</a><br /></td></tr>
-<tr class="separator:a06d15a6f43651b3779585ff37c8ac14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -118,10 +112,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains a summed Adams and Gauss-Jackson coefficient pair. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00085">85</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00082">82</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a223ec7e52cef89183ccb82b69690776f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a223ec7e52cef89183ccb82b69690776f">&#9670;&nbsp;</a></span>GaussJacksonCoefficientsPair() <span class="overload">[1/2]</span></h2>
+<a id="a7a1dbdd245677350e1b87ff30a65a94f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1dbdd245677350e1b87ff30a65a94f">&#9670;&nbsp;</a></span>GaussJacksonCoefficientsPair() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,14 +132,12 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Default constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00109">109</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
 
 </div>
 </div>
@@ -174,14 +166,14 @@ Friends</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00118">118</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00107">107</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a462665fabbc62e866e83a4089b7bc899">deallocate_arrays()</a>.</p>
 
 </div>
 </div>
-<a id="a33b4b0f520f02a3366ecdebca2f316ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33b4b0f520f02a3366ecdebca2f316ef">&#9670;&nbsp;</a></span>GaussJacksonCoefficientsPair() <span class="overload">[2/2]</span></h2>
+<a id="a4d364a01d4031bb56591558ea931fdc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d364a01d4031bb56591558ea931fdc4">&#9670;&nbsp;</a></span>GaussJacksonCoefficientsPair() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,12 +191,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -233,7 +223,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00037">37</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00034">34</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a2b874a1a1c3e8f3dffd5347b9982af68">gj_coefs</a>, and <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a48916e867a7d22ab4849762c6f7a292a">sa_coefs</a>.</p>
 
@@ -241,8 +231,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="aab23ee0a2b89b563f85d8a0fc79d9224"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab23ee0a2b89b563f85d8a0fc79d9224">&#9670;&nbsp;</a></span>apply() <span class="overload">[1/2]</span></h2>
+<a id="a6948066db0888fe8d85f35e48bb6a5f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6948066db0888fe8d85f35e48bb6a5f8">&#9670;&nbsp;</a></span>apply() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -262,7 +252,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const *const *&#160;</td>
+          <td class="paramtype">const double *const *&#160;</td>
           <td class="paramname"><em>acc_hist</em>, </td>
         </tr>
         <tr>
@@ -290,7 +280,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00063">63</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00052">52</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/ddd/group__SimInterface.html#ga657def56ccad46a9248c937c7cefae6a">ER7_UTILS_RESTRICT</a>.</p>
 
@@ -298,8 +288,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a21b3705b98631b5356f3bb24504ff037"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21b3705b98631b5356f3bb24504ff037">&#9670;&nbsp;</a></span>apply() <span class="overload">[2/2]</span></h2>
+<a id="a6283273df127fa9c528f890414ca46f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6283273df127fa9c528f890414ca46f0">&#9670;&nbsp;</a></span>apply() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +309,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const *const *&#160;</td>
+          <td class="paramtype">const double *const *&#160;</td>
           <td class="paramname"><em>acc_hist</em>, </td>
         </tr>
         <tr>
@@ -347,7 +337,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00096">96</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00084">84</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/ddd/group__SimInterface.html#ga657def56ccad46a9248c937c7cefae6a">ER7_UTILS_RESTRICT</a>.</p>
 
@@ -386,7 +376,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00128">128</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00117">117</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a63154857dd49dbf606dc7c8cefd8da8b">allocate_arrays()</a>, and <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a462665fabbc62e866e83a4089b7bc899">deallocate_arrays()</a>.</p>
 
@@ -411,7 +401,7 @@ Friends</h2></td></tr>
 
 <p>Release allocated memory. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00046">46</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00040">40</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a2b874a1a1c3e8f3dffd5347b9982af68">gj_coefs</a>, and <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a48916e867a7d22ab4849762c6f7a292a">sa_coefs</a>.</p>
 
@@ -419,8 +409,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a06d15a6f43651b3779585ff37c8ac14c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06d15a6f43651b3779585ff37c8ac14c">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a07caa066bba4dc2f10d7140883504b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07caa066bba4dc2f10d7140883504b72">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -438,12 +428,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -482,7 +470,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00123">123</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00110">110</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a2b874a1a1c3e8f3dffd5347b9982af68">gj_coefs</a>, and <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a48916e867a7d22ab4849762c6f7a292a">sa_coefs</a>.</p>
 
@@ -514,7 +502,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00054">54</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html#l00046">46</a> of file <a class="el" href="../../d8/d5a/gauss__jackson__coefficients__pair_8cc_source.html">gauss_jackson_coefficients_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a2b874a1a1c3e8f3dffd5347b9982af68">gj_coefs</a>, and <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a48916e867a7d22ab4849762c6f7a292a">sa_coefs</a>.</p>
 
@@ -568,7 +556,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00087">87</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
 
 </div>
 </div>
@@ -580,7 +568,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double* jeod::GaussJacksonCoefficientsPair::gj_coefs</td>
+          <td class="memname">double* jeod::GaussJacksonCoefficientsPair::gj_coefs {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -588,7 +576,7 @@ Friends</h2></td></tr>
 <p>Gauss Jackson coefficients, in ordinate form. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00101">101</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00095">95</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a63154857dd49dbf606dc7c8cefd8da8b">allocate_arrays()</a>, <a class="el" href="../../d4/d75/classjeod_1_1GaussJacksonCoeffs.html#aa939b7201f8acd148e43c8f05251f506">jeod::GaussJacksonCoeffs::compute_coeffs()</a>, <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a462665fabbc62e866e83a4089b7bc899">deallocate_arrays()</a>, <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#abe4aad897bdb29dd2564c35010618bd4">print()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a26c1df7a0f8a2492fd3c6dbe241f39bc">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::start_cycle()</a>, and <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a32ee3e7587758ac65d313f8bf6ac179a">swap()</a>.</p>
 
@@ -601,7 +589,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double* jeod::GaussJacksonCoefficientsPair::sa_coefs</td>
+          <td class="memname">double* jeod::GaussJacksonCoefficientsPair::sa_coefs {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -609,7 +597,7 @@ Friends</h2></td></tr>
 <p>Summed Adams coefficients, in ordinate form. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00096">96</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d5/d9c/gauss__jackson__coefficients__pair_8hh_source.html">gauss_jackson_coefficients_pair.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a63154857dd49dbf606dc7c8cefd8da8b">allocate_arrays()</a>, <a class="el" href="../../d4/d75/classjeod_1_1GaussJacksonCoeffs.html#aa939b7201f8acd148e43c8f05251f506">jeod::GaussJacksonCoeffs::compute_coeffs()</a>, <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a462665fabbc62e866e83a4089b7bc899">deallocate_arrays()</a>, <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#abe4aad897bdb29dd2564c35010618bd4">print()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a26c1df7a0f8a2492fd3c6dbe241f39bc">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::start_cycle()</a>, and <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a32ee3e7587758ac65d313f8bf6ac179a">swap()</a>.</p>
 

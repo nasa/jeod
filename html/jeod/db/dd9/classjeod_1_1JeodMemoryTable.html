@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,7 +48,6 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::JeodMemoryTable&lt; ValueType &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -64,8 +63,8 @@ Inheritance diagram for jeod::JeodMemoryTable&lt; ValueType &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d83/classjeod_1_1JeodMemoryTable__inherit__graph.png" border="0" usemap="#jeod_1_1JeodMemoryTable_3_01ValueType_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1JeodMemoryTable_3_01ValueType_01_4_inherit__map" id="jeod_1_1JeodMemoryTable_3_01ValueType_01_4_inherit__map">
-<area shape="rect" id="node2" href="../../d0/d6d/classjeod_1_1JeodMemoryTableClonable.html" title="A JeodMemoryTableClonable is a JeodMemoryTable that implements the required clone() functionality by ..." alt="" coords="215,5,426,47"/>
-<area shape="rect" id="node3" href="../../d2/d05/classjeod_1_1JeodMemoryTableCopyable.html" title="A JeodMemoryTableCopyable is a JeodMemoryTable that implements the required clone() functionality by ..." alt="" coords="213,71,428,112"/>
+<area shape="rect" id="node2" href="../../d0/d6d/classjeod_1_1JeodMemoryTableClonable.html" title="A JeodMemoryTableClonable is a JeodMemoryTable that implements the required clone() functionality by ..." alt="" coords="229,5,459,47"/>
+<area shape="rect" id="node3" href="../../d2/d05/classjeod_1_1JeodMemoryTableCopyable.html" title="A JeodMemoryTableCopyable is a JeodMemoryTable that implements the required clone() functionality by ..." alt="" coords="227,71,461,112"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -73,22 +72,22 @@ Collaboration diagram for jeod::JeodMemoryTable&lt; ValueType &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dbb/classjeod_1_1JeodMemoryTable__coll__graph.png" border="0" usemap="#jeod_1_1JeodMemoryTable_3_01ValueType_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1JeodMemoryTable_3_01ValueType_01_4_coll__map" id="jeod_1_1JeodMemoryTable_3_01ValueType_01_4_coll__map">
-<area shape="rect" id="node4" title="STL class. " alt="" coords="193,96,273,123"/>
-<area shape="rect" id="node5" title="STL class. " alt="" coords="170,5,297,47"/>
+<area shape="rect" id="node4" title="STL class. " alt="" coords="213,96,299,123"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="187,5,325,47"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a4e7109e670f61893e74ef04dbc0757b8"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; const std::string, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4e7109e670f61893e74ef04dbc0757b8">NameIndex</a></td></tr>
-<tr class="memdesc:a4e7109e670f61893e74ef04dbc0757b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps strings to an index number.  <a href="#a4e7109e670f61893e74ef04dbc0757b8">More...</a><br /></td></tr>
-<tr class="separator:a4e7109e670f61893e74ef04dbc0757b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45080dc813bc01e5b6629e0d52a38925"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; const ValueType * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a45080dc813bc01e5b6629e0d52a38925">ValueList</a></td></tr>
-<tr class="memdesc:a45080dc813bc01e5b6629e0d52a38925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps index numbers to key values.  <a href="#a45080dc813bc01e5b6629e0d52a38925">More...</a><br /></td></tr>
-<tr class="separator:a45080dc813bc01e5b6629e0d52a38925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5f00cf03d06258f1a8429a22b842a19"><td class="memItemLeft" align="right" valign="top">typedef ValueList::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5f00cf03d06258f1a8429a22b842a19">const_value_iterator</a></td></tr>
-<tr class="memdesc:aa5f00cf03d06258f1a8429a22b842a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over values.  <a href="#aa5f00cf03d06258f1a8429a22b842a19">More...</a><br /></td></tr>
-<tr class="separator:aa5f00cf03d06258f1a8429a22b842a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10abdaf4c3bdd7caa822af06523a1957"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a10abdaf4c3bdd7caa822af06523a1957">NameIndex</a> = std::map&lt; const std::string, unsigned int &gt;</td></tr>
+<tr class="memdesc:a10abdaf4c3bdd7caa822af06523a1957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps strings to an index number.  <a href="#a10abdaf4c3bdd7caa822af06523a1957">More...</a><br /></td></tr>
+<tr class="separator:a10abdaf4c3bdd7caa822af06523a1957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5d7e19345ba965ce609bc20f2199b80"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5d7e19345ba965ce609bc20f2199b80">ValueList</a> = std::vector&lt; const ValueType * &gt;</td></tr>
+<tr class="memdesc:aa5d7e19345ba965ce609bc20f2199b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps index numbers to key values.  <a href="#aa5d7e19345ba965ce609bc20f2199b80">More...</a><br /></td></tr>
+<tr class="separator:aa5d7e19345ba965ce609bc20f2199b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9b571ae97cec87801bceead90850454"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ae9b571ae97cec87801bceead90850454">const_value_iterator</a> = typename ValueList::const_iterator</td></tr>
+<tr class="memdesc:ae9b571ae97cec87801bceead90850454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over values.  <a href="#ae9b571ae97cec87801bceead90850454">More...</a><br /></td></tr>
+<tr class="separator:ae9b571ae97cec87801bceead90850454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -98,15 +97,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1e829677d7df9e5135e2f8d10b52cd97"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a1e829677d7df9e5135e2f8d10b52cd97">~JeodMemoryTable</a> ()</td></tr>
 <tr class="memdesc:a1e829677d7df9e5135e2f8d10b52cd97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a1e829677d7df9e5135e2f8d10b52cd97">More...</a><br /></td></tr>
 <tr class="separator:a1e829677d7df9e5135e2f8d10b52cd97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77709e383a9644ed2d1da72ab3181fd7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a77709e383a9644ed2d1da72ab3181fd7">JeodMemoryTable</a> (const <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">JeodMemoryTable</a> &amp;)=delete</td></tr>
+<tr class="separator:a77709e383a9644ed2d1da72ab3181fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af70428daf5aa20d6007a4ce8aa9691a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">JeodMemoryTable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#af70428daf5aa20d6007a4ce8aa9691a6">operator=</a> (const <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">JeodMemoryTable</a> &amp;)=delete</td></tr>
+<tr class="separator:af70428daf5aa20d6007a4ce8aa9691a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af91651d51026f614b6ef1b28b98631c0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#af91651d51026f614b6ef1b28b98631c0">find</a> (const std::string &amp;key) const</td></tr>
 <tr class="memdesc:af91651d51026f614b6ef1b28b98631c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the index number at which key/value pair is stored in the table.  <a href="#af91651d51026f614b6ef1b28b98631c0">More...</a><br /></td></tr>
 <tr class="separator:af91651d51026f614b6ef1b28b98631c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6612bc2a4f1c6f9618fcffca8e973ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5f00cf03d06258f1a8429a22b842a19">const_value_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ac6612bc2a4f1c6f9618fcffca8e973ad">begin</a> (void) const</td></tr>
-<tr class="memdesc:ac6612bc2a4f1c6f9618fcffca8e973ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator that points to the first element of the list.  <a href="#ac6612bc2a4f1c6f9618fcffca8e973ad">More...</a><br /></td></tr>
-<tr class="separator:ac6612bc2a4f1c6f9618fcffca8e973ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecba50d46265c43342f4281a926f00d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5f00cf03d06258f1a8429a22b842a19">const_value_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aecba50d46265c43342f4281a926f00d1">end</a> (void) const</td></tr>
-<tr class="memdesc:aecba50d46265c43342f4281a926f00d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator that points past the last element of the list.  <a href="#aecba50d46265c43342f4281a926f00d1">More...</a><br /></td></tr>
-<tr class="separator:aecba50d46265c43342f4281a926f00d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a904849221c300fa98d3dcbba0b1f178f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ae9b571ae97cec87801bceead90850454">const_value_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a904849221c300fa98d3dcbba0b1f178f">begin</a> () const</td></tr>
+<tr class="memdesc:a904849221c300fa98d3dcbba0b1f178f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator that points to the first element of the list.  <a href="#a904849221c300fa98d3dcbba0b1f178f">More...</a><br /></td></tr>
+<tr class="separator:a904849221c300fa98d3dcbba0b1f178f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51ebfc6faa7a462998061bb91056a4d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ae9b571ae97cec87801bceead90850454">const_value_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a51ebfc6faa7a462998061bb91056a4d2">end</a> () const</td></tr>
+<tr class="memdesc:a51ebfc6faa7a462998061bb91056a4d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator that points past the last element of the list.  <a href="#a51ebfc6faa7a462998061bb91056a4d2">More...</a><br /></td></tr>
+<tr class="separator:a51ebfc6faa7a462998061bb91056a4d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4586ad993d4fe2f0362dd155fdc0a221"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4586ad993d4fe2f0362dd155fdc0a221">add</a> (const std::string &amp;key, const ValueType &amp;val)</td></tr>
 <tr class="memdesc:a4586ad993d4fe2f0362dd155fdc0a221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a key/value pair to the table.  <a href="#a4586ad993d4fe2f0362dd155fdc0a221">More...</a><br /></td></tr>
 <tr class="separator:a4586ad993d4fe2f0362dd155fdc0a221"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,21 +126,12 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a7656514b1d9902f69d7e82e94c2f30a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Somehow) clone the input value.  <a href="#a7656514b1d9902f69d7e82e94c2f30a6">More...</a><br /></td></tr>
 <tr class="separator:a7656514b1d9902f69d7e82e94c2f30a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ab52f64740de4cb9947bb567a434eeba6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ab52f64740de4cb9947bb567a434eeba6">JeodMemoryTable</a> (const <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">JeodMemoryTable</a> &amp;)</td></tr>
-<tr class="memdesc:ab52f64740de4cb9947bb567a434eeba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#ab52f64740de4cb9947bb567a434eeba6">More...</a><br /></td></tr>
-<tr class="separator:ab52f64740de4cb9947bb567a434eeba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a306ac65506ca42d047292cde2a16f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">JeodMemoryTable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ad4a306ac65506ca42d047292cde2a16f">operator=</a> (const <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">JeodMemoryTable</a> &amp;)</td></tr>
-<tr class="memdesc:ad4a306ac65506ca42d047292cde2a16f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#ad4a306ac65506ca42d047292cde2a16f">More...</a><br /></td></tr>
-<tr class="separator:ad4a306ac65506ca42d047292cde2a16f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a29e591152578d1d5b7197b64f3678b9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4e7109e670f61893e74ef04dbc0757b8">NameIndex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a29e591152578d1d5b7197b64f3678b9f">string_to_index</a></td></tr>
+<tr class="memitem:a29e591152578d1d5b7197b64f3678b9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a10abdaf4c3bdd7caa822af06523a1957">NameIndex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a29e591152578d1d5b7197b64f3678b9f">string_to_index</a></td></tr>
 <tr class="memdesc:a29e591152578d1d5b7197b64f3678b9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps keys to indices in the value_list.  <a href="#a29e591152578d1d5b7197b64f3678b9f">More...</a><br /></td></tr>
 <tr class="separator:a29e591152578d1d5b7197b64f3678b9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c3e7d8bf0c937c77d919f7e47de0a85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a45080dc813bc01e5b6629e0d52a38925">ValueList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a3c3e7d8bf0c937c77d919f7e47de0a85">value_list</a></td></tr>
+<tr class="memitem:a3c3e7d8bf0c937c77d919f7e47de0a85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5d7e19345ba965ce609bc20f2199b80">ValueList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a3c3e7d8bf0c937c77d919f7e47de0a85">value_list</a></td></tr>
 <tr class="memdesc:a3c3e7d8bf0c937c77d919f7e47de0a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of values.  <a href="#a3c3e7d8bf0c937c77d919f7e47de0a85">More...</a><br /></td></tr>
 <tr class="separator:a3c3e7d8bf0c937c77d919f7e47de0a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -171,10 +165,10 @@ class jeod::JeodMemoryTable&lt; ValueType &gt;</h3>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00124">124</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00123">123</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aa5f00cf03d06258f1a8429a22b842a19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5f00cf03d06258f1a8429a22b842a19">&#9670;&nbsp;</a></span>const_value_iterator</h2>
+<a id="ae9b571ae97cec87801bceead90850454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9b571ae97cec87801bceead90850454">&#9670;&nbsp;</a></span>const_value_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,19 +176,19 @@ class jeod::JeodMemoryTable&lt; ValueType &gt;</h3>
 template&lt;typename ValueType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef ValueList::const_iterator <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::<a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5f00cf03d06258f1a8429a22b842a19">const_value_iterator</a></td>
+          <td class="memname">using <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::<a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ae9b571ae97cec87801bceead90850454">const_value_iterator</a> =  typename ValueList::const_iterator</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Const iterator over values. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00142">142</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00140">140</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 </div>
 </div>
-<a id="a4e7109e670f61893e74ef04dbc0757b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e7109e670f61893e74ef04dbc0757b8">&#9670;&nbsp;</a></span>NameIndex</h2>
+<a id="a10abdaf4c3bdd7caa822af06523a1957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10abdaf4c3bdd7caa822af06523a1957">&#9670;&nbsp;</a></span>NameIndex</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,19 +196,19 @@ template&lt;typename ValueType&gt; </div>
 template&lt;typename ValueType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::map&lt;const std::string, unsigned int&gt; <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::<a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4e7109e670f61893e74ef04dbc0757b8">NameIndex</a></td>
+          <td class="memname">using <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::<a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a10abdaf4c3bdd7caa822af06523a1957">NameIndex</a> =  std::map&lt;const std::string, unsigned int&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Maps strings to an index number. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00132">132</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00130">130</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 </div>
 </div>
-<a id="a45080dc813bc01e5b6629e0d52a38925"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45080dc813bc01e5b6629e0d52a38925">&#9670;&nbsp;</a></span>ValueList</h2>
+<a id="aa5d7e19345ba965ce609bc20f2199b80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5d7e19345ba965ce609bc20f2199b80">&#9670;&nbsp;</a></span>ValueList</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,14 +216,14 @@ template&lt;typename ValueType&gt; </div>
 template&lt;typename ValueType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::vector&lt;const ValueType *&gt; <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::<a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a45080dc813bc01e5b6629e0d52a38925">ValueList</a></td>
+          <td class="memname">using <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::<a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5d7e19345ba965ce609bc20f2199b80">ValueList</a> =  std::vector&lt;const ValueType *&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Maps index numbers to key values. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00137">137</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00135">135</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 </div>
 </div>
@@ -262,7 +256,7 @@ template&lt;typename ValueType&gt; </div>
 <p>Default constructor. </p>
 <p>Note that JEOD reserves table index 0 as meaning nothing. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00153">153</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00148">148</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 </div>
 </div>
@@ -294,12 +288,12 @@ template&lt;typename ValueType&gt; </div>
 <p>Destructor. </p>
 <p>The contents of the vector are clones created by <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4586ad993d4fe2f0362dd155fdc0a221" title="Add a key/value pair to the table. ">add()</a> and hence must be deleted to avoid a leak. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00167">167</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00161">161</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 </div>
 </div>
-<a id="ab52f64740de4cb9947bb567a434eeba6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab52f64740de4cb9947bb567a434eeba6">&#9670;&nbsp;</a></span>JeodMemoryTable() <span class="overload">[2/2]</span></h2>
+<a id="a77709e383a9644ed2d1da72ab3181fd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77709e383a9644ed2d1da72ab3181fd7">&#9670;&nbsp;</a></span>JeodMemoryTable() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,12 +313,10 @@ template&lt;typename ValueType&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -375,14 +367,14 @@ template&lt;typename ValueType&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00248">248</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00231">231</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d2/d6b/classjeod_1_1JeodMemoryReflectiveTable.html#a8ea06f8f532efe39fb0d8eec043c32d0">jeod::JeodMemoryReflectiveTable::add()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a5baef97bc9e156cbc8f26ffc64976b45">jeod::JeodMemoryManager::get_type_entry_atomic()</a>, and <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a60a47a1a335c159109b4c18c0b4ee0ad">jeod::JeodMemoryManager::get_type_index_nolock()</a>.</p>
 
 </div>
 </div>
-<a id="ac6612bc2a4f1c6f9618fcffca8e973ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6612bc2a4f1c6f9618fcffca8e973ad">&#9670;&nbsp;</a></span>begin()</h2>
+<a id="a904849221c300fa98d3dcbba0b1f178f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a904849221c300fa98d3dcbba0b1f178f">&#9670;&nbsp;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -393,9 +385,8 @@ template&lt;typename ValueType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5f00cf03d06258f1a8429a22b842a19">const_value_iterator</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::begin </td>
+          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ae9b571ae97cec87801bceead90850454">const_value_iterator</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::begin </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -409,7 +400,7 @@ template&lt;typename ValueType&gt; </div>
 
 <p>Returns a const iterator that points to the first element of the list. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00227">227</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00212">212</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a8650eb114204dba84bf3e969fd278d35">jeod::JeodMemoryManager::get_type_entry_atomic()</a>.</p>
 
@@ -496,12 +487,12 @@ template&lt;typename ValueType&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00277">277</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00262">262</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 </div>
 </div>
-<a id="aecba50d46265c43342f4281a926f00d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecba50d46265c43342f4281a926f00d1">&#9670;&nbsp;</a></span>end()</h2>
+<a id="a51ebfc6faa7a462998061bb91056a4d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51ebfc6faa7a462998061bb91056a4d2">&#9670;&nbsp;</a></span>end()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -512,9 +503,8 @@ template&lt;typename ValueType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5f00cf03d06258f1a8429a22b842a19">const_value_iterator</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::end </td>
+          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ae9b571ae97cec87801bceead90850454">const_value_iterator</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::end </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -528,7 +518,7 @@ template&lt;typename ValueType&gt; </div>
 
 <p>Returns a const iterator that points past the last element of the list. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00236">236</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00220">220</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a8650eb114204dba84bf3e969fd278d35">jeod::JeodMemoryManager::get_type_entry_atomic()</a>.</p>
 
@@ -569,7 +559,7 @@ template&lt;typename ValueType&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00202">202</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00186">186</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a6a34400a18caca3fb13346dd94d1d0b9">jeod::JeodMemoryManager::get_type_descriptor_atomic()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a5baef97bc9e156cbc8f26ffc64976b45">jeod::JeodMemoryManager::get_type_entry_atomic()</a>, and <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a60a47a1a335c159109b4c18c0b4ee0ad">jeod::JeodMemoryManager::get_type_index_nolock()</a>.</p>
 
@@ -617,14 +607,14 @@ template&lt;typename ValueType&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00313">313</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00301">301</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a9d7c5b07b76c1f5eccb3a71be064e86e">jeod::JeodMemoryManager::generate_shutdown_report()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#aaa6a87ab98ae62057be08ba2a1d181a9">jeod::JeodMemoryManager::get_string_atomic()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a6a34400a18caca3fb13346dd94d1d0b9">jeod::JeodMemoryManager::get_type_descriptor_atomic()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a605b276ba9476f64fe5b2ddb83e5ee72">jeod::JeodMemoryManager::get_type_descriptor_nolock()</a>, and <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a5baef97bc9e156cbc8f26ffc64976b45">jeod::JeodMemoryManager::get_type_entry_atomic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a9a10914e21494449d6cb6e57584f5d4c">jeod::JeodMemoryManager::generate_shutdown_report()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#aaa6a87ab98ae62057be08ba2a1d181a9">jeod::JeodMemoryManager::get_string_atomic()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a6a34400a18caca3fb13346dd94d1d0b9">jeod::JeodMemoryManager::get_type_descriptor_atomic()</a>, <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a605b276ba9476f64fe5b2ddb83e5ee72">jeod::JeodMemoryManager::get_type_descriptor_nolock()</a>, and <a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a5baef97bc9e156cbc8f26ffc64976b45">jeod::JeodMemoryManager::get_type_entry_atomic()</a>.</p>
 
 </div>
 </div>
-<a id="ad4a306ac65506ca42d047292cde2a16f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4a306ac65506ca42d047292cde2a16f">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="af70428daf5aa20d6007a4ce8aa9691a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af70428daf5aa20d6007a4ce8aa9691a6">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -644,12 +634,10 @@ template&lt;typename ValueType&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -666,7 +654,7 @@ template&lt;typename ValueType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4e7109e670f61893e74ef04dbc0757b8">NameIndex</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::string_to_index</td>
+          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a10abdaf4c3bdd7caa822af06523a1957">NameIndex</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::string_to_index</td>
         </tr>
       </table>
   </td>
@@ -679,7 +667,7 @@ template&lt;typename ValueType&gt; </div>
 <p>Maps keys to indices in the value_list. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00348">348</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00334">334</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4586ad993d4fe2f0362dd155fdc0a221">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::add()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a2e280fba21a143a2e8e0943517b0ddf3">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::del()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#af91651d51026f614b6ef1b28b98631c0">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::find()</a>, and <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a1e829677d7df9e5135e2f8d10b52cd97">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::~JeodMemoryTable()</a>.</p>
 
@@ -697,7 +685,7 @@ template&lt;typename ValueType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a45080dc813bc01e5b6629e0d52a38925">ValueList</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::value_list</td>
+          <td class="memname"><a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aa5d7e19345ba965ce609bc20f2199b80">ValueList</a> <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html">jeod::JeodMemoryTable</a>&lt; ValueType &gt;::value_list</td>
         </tr>
       </table>
   </td>
@@ -710,9 +698,9 @@ template&lt;typename ValueType&gt; </div>
 <p>Vector of values. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00353">353</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d29/memory__table_8hh_source.html#l00339">339</a> of file <a class="el" href="../../d7/d29/memory__table_8hh_source.html">memory_table.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4586ad993d4fe2f0362dd155fdc0a221">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::add()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#ac6612bc2a4f1c6f9618fcffca8e973ad">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::begin()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a2e280fba21a143a2e8e0943517b0ddf3">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::del()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#aecba50d46265c43342f4281a926f00d1">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::end()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a732064dc2cf98193a68bb60c1a49196d">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::get()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a3063668fc1398ad1c5e46b9aeaa1f0b9">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::JeodMemoryTable()</a>, and <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a1e829677d7df9e5135e2f8d10b52cd97">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::~JeodMemoryTable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a4586ad993d4fe2f0362dd155fdc0a221">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::add()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a904849221c300fa98d3dcbba0b1f178f">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::begin()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a2e280fba21a143a2e8e0943517b0ddf3">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::del()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a51ebfc6faa7a462998061bb91056a4d2">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::end()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a732064dc2cf98193a68bb60c1a49196d">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::get()</a>, <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a3063668fc1398ad1c5e46b9aeaa1f0b9">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::JeodMemoryTable()</a>, and <a class="el" href="../../db/dd9/classjeod_1_1JeodMemoryTable.html#a1e829677d7df9e5135e2f8d10b52cd97">jeod::JeodMemoryTable&lt; JeodMemoryTypeDescriptor &gt;::~JeodMemoryTable()</a>.</p>
 
 </div>
 </div>

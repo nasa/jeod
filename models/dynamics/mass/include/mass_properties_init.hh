@@ -58,99 +58,89 @@ Library Dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_PROPERTIES_INIT_HH
 #define JEOD_MASS_PROPERTIES_INIT_HH
-
 
 // Model includes
 #include "class_declarations.hh"
 #include "mass_point_init.hh"
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/orientation/include/orientation.hh"
-
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Contains data used to initialize a mass model object.
  */
-class MassPropertiesInit : public MassPointInit {
+class MassPropertiesInit : public MassPointInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MassPropertiesInit)
 
-   JEOD_MAKE_SIM_INTERFACES(MassPropertiesInit)
+    // Enumerations
 
- // Enumerations
+public:
+    /**
+     * Specifies the origin and axes of the input inertia tensor.
+     */
+    enum InertiaSpec
+    {
+        NoSpec = 0,   ///< Inertia matrix is specified directly.
+        Body = 1,     ///< Initial inertia frame is body frame.
+        StructCG = 2, ///< Initial inertia frame is struct at CG.
+        Struct = 3,   ///< Initial inertia frame is structural frame.
+        SpecCG = 4,   ///< Initial inertia frame is in frame at CG.
+        Spec = 5      ///< Initial inertia frame is specified frame.
+    };
 
- public:
+    // Member data
+public:
+    /**
+     * Mass of the core body.
+     */
+    double mass{}; //!< trick_units(kg)
 
-   /**
-    * Specifies the origin and axes of the input inertia tensor.
-    */
-   enum InertiaSpec {
-      NoSpec    = 0, ///< Inertia matrix is specified directly.
-      Body      = 1, ///< Initial inertia frame is body frame.
-      StructCG  = 2, ///< Initial inertia frame is struct at CG.
-      Struct    = 3, ///< Initial inertia frame is structural frame.
-      SpecCG    = 4, ///< Initial inertia frame is in frame at CG.
-      Spec      = 5  ///< Initial inertia frame is specified frame.
-   };
+    /**
+     * Location of the core body center of mass in the structural frame.
+     * This is just an alias for the generic position member.
+     */
+    double * cm; //!< trick_units(m)
 
+    /**
+     * Inertia tensor of the core body in an arbitrary reference frame.
+     */
+    double inertia[3][3]{}; //!< trick_units(kg*m2)
 
- // Member data
- public:
+    /**
+     * Indicates how the user has specified the core inertia matrix.
+     */
+    InertiaSpec inertia_spec{Body}; //!< trick_units(--)
 
-   /**
-    * Mass of the core body.
-    */
-   double mass; //!< trick_units(kg)
+    /**
+     * Offset from inertia reference frame to the core center of mass,
+     * expressed in inertia reference frame coordinates.
+     */
+    double inertia_offset[3]{}; //!< trick_units(m)
 
-   /**
-    * Location of the core body center of mass in the structural frame.
-    * This is just an alias for the generic position member.
-    */
-   double * cm; //!< trick_units(m)
+    /**
+     * Orientation of body frame wrt inertia reference frame, i.e. the process by
+     * which the frame in which the inertia tensor is specified may be
+     * transformed to the body frame, e.g. T_{spec->body}.
+     */
+    Orientation inertia_orientation; //!< trick_units(--)
 
-   /**
-    * Inertia tensor of the core body in an arbitrary reference frame.
-    */
-   double inertia[3][3]; //!< trick_units(kg*m2)
+    // Member functions
+public:
+    MassPropertiesInit();
 
-   /**
-    * Indicates how the user has specified the core inertia matrix.
-    */
-   InertiaSpec inertia_spec; //!< trick_units(--)
-
-   /**
-    * Offset from inertia reference frame to the core center of mass,
-    * expressed in inertia reference frame coordinates.
-    */
-   double inertia_offset[3]; //!< trick_units(m)
-
-   /**
-    * Orientation of body frame wrt inertia reference frame, i.e. the process by
-    * which the frame in which the inertia tensor is specified may be
-    * transformed to the body frame, e.g. T_{spec->body}.
-    */
-   Orientation inertia_orientation; //!< trick_units(--)
-
-
- // Member functions
- public:
-
-   // Constructor.
-   MassPropertiesInit (void);
-
-   // Initialize a mass body.
-   void initialize_mass_properties (MassProperties & mass_properties) const;
-
+    // Initialize a mass body.
+    void initialize_mass_properties(MassProperties & mass_properties) const;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

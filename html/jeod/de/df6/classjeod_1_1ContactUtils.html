@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -61,9 +61,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac3d073fe3241390f026fc9f9c71d7efd"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/classjeod_1_1ContactUtils.html#ac3d073fe3241390f026fc9f9c71d7efd">create_relstate_name</a> (char *name1, char *name2, char **out_str)</td></tr>
 <tr class="memdesc:ac3d073fe3241390f026fc9f9c71d7efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a name for a relstate out of two facet names  <a href="#ac3d073fe3241390f026fc9f9c71d7efd">More...</a><br /></td></tr>
 <tr class="separator:ac3d073fe3241390f026fc9f9c71d7efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49026b95f2d9c61ba3b623f2a7480401"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/classjeod_1_1ContactUtils.html#a49026b95f2d9c61ba3b623f2a7480401">copy_const_char_to_char</a> (const char *in_str, char **out_str)</td></tr>
-<tr class="memdesc:a49026b95f2d9c61ba3b623f2a7480401"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a name for a relstate out of two facet names  <a href="#a49026b95f2d9c61ba3b623f2a7480401">More...</a><br /></td></tr>
-<tr class="separator:a49026b95f2d9c61ba3b623f2a7480401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac706fae8c884955d00910d7c205efcb2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df6/classjeod_1_1ContactUtils.html#ac706fae8c884955d00910d7c205efcb2">dist_line_segments</a> (double p1[3], double p2[3], double p3[3], double p4[3], double *pa, double *pb)</td></tr>
 <tr class="memdesc:ac706fae8c884955d00910d7c205efcb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate the closest points between two line segments  <a href="#ac706fae8c884955d00910d7c205efcb2">More...</a><br /></td></tr>
 <tr class="separator:ac706fae8c884955d00910d7c205efcb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -71,58 +68,8 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Utility string and math functions for the contact model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d13/contact__utils_8hh_source.html#l00071">71</a> of file <a class="el" href="../../d8/d13/contact__utils_8hh_source.html">contact_utils.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d13/contact__utils_8hh_source.html#l00072">72</a> of file <a class="el" href="../../d8/d13/contact__utils_8hh_source.html">contact_utils.hh</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a49026b95f2d9c61ba3b623f2a7480401"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49026b95f2d9c61ba3b623f2a7480401">&#9670;&nbsp;</a></span>copy_const_char_to_char()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int jeod::ContactUtils::copy_const_char_to_char </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>in_str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>out_str</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>create a name for a relstate out of two facet names </p>
-<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in_str</td><td>const char input </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">out_str</td><td>char output </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/db0/contact__utils__inline_8hh_source.html#l00121">121</a> of file <a class="el" href="../../d9/db0/contact__utils__inline_8hh_source.html">contact_utils_inline.hh</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, and <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>.</p>
-
-</div>
-</div>
 <a id="ac3d073fe3241390f026fc9f9c71d7efd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3d073fe3241390f026fc9f9c71d7efd">&#9670;&nbsp;</a></span>create_relstate_name()</h2>
 
@@ -256,9 +203,9 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db0/contact__utils__inline_8hh_source.html#l00156">156</a> of file <a class="el" href="../../d9/db0/contact__utils__inline_8hh_source.html">contact_utils_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db0/contact__utils__inline_8hh_source.html#l00122">122</a> of file <a class="el" href="../../d9/db0/contact__utils__inline_8hh_source.html">contact_utils_inline.hh</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ab3e8f5d91005e0bf9ac9f1d414c6dec1">jeod::Vector3::copy()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a6aabe3422daba5c3f8e539966a500236">jeod::Vector3::diff()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ad82a4484b09aba336c3671d78675f757">jeod::Vector3::dot()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a8680359696f5ac931cd7043698ff8b84">jeod::Vector3::scale()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#adccedc200098d836a71c0d75ab780fda">jeod::Vector3::sum()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a9765082d5eda2ce5c0aa388b9d58b5c1">jeod::Vector3::vmag()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a500096235fb480dfd5c65f272c619db5">jeod::Vector3::copy()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1928ccf4c957aaa25ca81801c495d19a">jeod::Vector3::diff()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#aacb3e4bb3165298484a59c7a6478fb22">jeod::Vector3::dot()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a8680359696f5ac931cd7043698ff8b84">jeod::Vector3::scale()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a9fc06cc256c356ae775126d9fcbff40c">jeod::Vector3::sum()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ad610f3ddf2a1c89c7f21158eb8e7c39d">jeod::Vector3::vmag()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair::in_contact()</a>, and <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair::in_contact()</a>.</p>
 

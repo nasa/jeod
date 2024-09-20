@@ -28,8 +28,8 @@ log_contact_data( LOG_CYCLE )
 #/*---------------------------------------------
 # * Set up the simulation executive parameters.
 # *---------------------------------------------*/
-exec(compile(open( "Contact_Modified_data/trick/exec_setup.py", "rb").read(), "Contact_Modified_data/trick/exec_setup.py", 'exec'))
-set_trick_exec_setup()
+
+
 
 #/*---------------------------------------------
 # * Set up the dynamics manager.

@@ -53,45 +53,42 @@ Purpose:( This sim object models a planet without a gravity model.
 
 class PlanetGenericSimObject: public Trick::SimObject
 {
- protected:
-  // External references
-  jeod::DynManager   & dyn_manager;
-  jeod::GravityManager & grav_manager;
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
+    jeod::GravityManager & grav_manager;
 
-  // Internal references from sub-classes
-  jeod::Planet_default_data                        & planet_default_data;
-  jeod::SphericalHarmonicsGravitySource_default_data & gravity_default_data;
+    // Internal references from sub-classes
+    jeod::Planet_default_data & planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_default_data & gravity_default_data;
 
- public:
-  jeod::Planet planet;
-  jeod::SphericalHarmonicsGravitySource gravity_source;
+public:
+    jeod::Planet planet;
+    jeod::SphericalHarmonicsGravitySource gravity_source;
 
-  //Constructor
-  PlanetGenericSimObject( jeod::DynManager   & dyn_manager_in,
-                          jeod::GravityManager & grav_in,
-                          jeod::Planet_default_data & planet_dd,
-                          jeod::SphericalHarmonicsGravitySource_default_data & gravity_dd)
-    :
-    dyn_manager(dyn_manager_in),
-    grav_manager(grav_in),
-    planet_default_data( planet_dd),
-    gravity_default_data( gravity_dd)
-  {
-    ("default_data") planet_default_data.initialize ( &planet );
-    ("default_data") gravity_default_data.initialize ( &gravity_source );
-    //
-    // Initialization jobs
-    //
-    P_ENV  ("initialization") gravity_source.initialize_body ( );
-    P_ENV  ("initialization") grav_manager.add_grav_source ( gravity_source);
-    P_ENV  ("initialization") planet.register_model ( gravity_source,
-                                                      dyn_manager);
-    P_EPH  ("initialization") planet.initialize ( );
-  }
+    // Constructor
+    PlanetGenericSimObject(jeod::DynManager & dyn_manager_in,
+                           jeod::GravityManager & grav_in,
+                           jeod::Planet_default_data & planet_dd,
+                           jeod::SphericalHarmonicsGravitySource_default_data & gravity_dd)
+        : dyn_manager(dyn_manager_in),
+          grav_manager(grav_in),
+          planet_default_data(planet_dd),
+          gravity_default_data(gravity_dd)
+    {
+        ("default_data") planet_default_data.initialize(&planet);
+        ("default_data") gravity_default_data.initialize(&gravity_source);
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") gravity_source.initialize_body();
+        P_ENV("initialization") grav_manager.add_grav_source(gravity_source);
+        P_ENV("initialization") planet.register_model(gravity_source, dyn_manager);
+        P_EPH("initialization") planet.initialize();
+    }
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  PlanetGenericSimObject (const PlanetGenericSimObject&);
-  PlanetGenericSimObject & operator = (const PlanetGenericSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    PlanetGenericSimObject(const PlanetGenericSimObject &) = delete;
+    PlanetGenericSimObject & operator=(const PlanetGenericSimObject &) = delete;
 };
 #endif

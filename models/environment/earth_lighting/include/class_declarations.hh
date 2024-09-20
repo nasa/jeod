@@ -56,14 +56,15 @@ Purpose:
 #define JEOD_EARTH_LIGHTING_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class LightingBody;
 class LightingParams;
 class EarthLighting;
 class EarthLightingMessages;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -62,41 +62,42 @@ $(function() {
 <code>#include &quot;<a class="el" href="../../d6/de2/numerical_8hh_source.html">utils/math/include/numerical.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/d12/spherical__harmonics__delta__coeffs_8hh_source.html">../include/spherical_harmonics_delta_coeffs.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../da/d66/spherical__harmonics__delta__coeffs__init_8hh_source.html">../include/spherical_harmonics_delta_coeffs_init.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">../include/gravity_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">../include/gravity_messages.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/d12/spherical__harmonics__delta__coeffs_8hh_source.html">../include/spherical_harmonics_delta_coeffs.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d66/spherical__harmonics__delta__coeffs__init_8hh_source.html">../include/spherical_harmonics_delta_coeffs_init.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/dc0/spherical__harmonics__gravity__source_8hh_source.html">../include/spherical_harmonics_gravity_source.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for spherical_harmonics_gravity_source.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d49/spherical__harmonics__gravity__source_8cc__incl.png" border="0" usemap="#spherical__harmonics__gravity__source_8cc" alt=""/></div>
 <map name="spherical__harmonics__gravity__source_8cc" id="spherical__harmonics__gravity__source_8cc">
-<area shape="rect" id="node6" href="../../d7/d0d/base__dyn__manager_8hh.html" title="Define the BaseDynManager class, which defines the interfaces to the class DynManager. " alt="" coords="1151,206,1352,247"/>
-<area shape="rect" id="node11" href="../../d9/dc2/ephem__ref__frame_8hh.html" title="Define the class EphemerisRefFrame. " alt="" coords="564,95,734,151"/>
-<area shape="rect" id="node20" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="2041,109,2137,136"/>
-<area shape="rect" id="node21" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="984,102,1127,143"/>
-<area shape="rect" id="node22" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="979,206,1127,247"/>
-<area shape="rect" id="node23" href="../../dc/d12/spherical__harmonics__delta__coeffs_8hh.html" title="Define the class SphericalHarmonicsDeltaCoeffs, the base class for tidal effects and temporal gravity..." alt="" coords="1718,310,1902,351"/>
-<area shape="rect" id="node25" href="../../da/d66/spherical__harmonics__delta__coeffs__init_8hh.html" title="Define the class SphericalHarmonicsDeltaCoeffsInit, the base initialization class for tidal effects a..." alt="" coords="1519,199,1686,255"/>
-<area shape="rect" id="node26" href="../../d1/dd5/gravity__manager_8hh.html" title="Define the Gravity Manager. " alt="" coords="1524,310,1643,351"/>
-<area shape="rect" id="node28" href="../../db/d3c/gravity__messages_8hh.html" title="Define the class GravityMessages, the class that specifies the message IDs used in the gravity model..." alt="" coords="1376,206,1495,247"/>
-<area shape="rect" id="node29" href="../../de/dc0/spherical__harmonics__gravity__source_8hh.html" title="Define the spherical harmonics implementation of a gravity body. " alt="" coords="1840,206,2039,247"/>
-<area shape="rect" id="node7" href="../../dd/dab/base__ephem__manager_8hh.html" title="Define the BaseEphemManager class, which defines the interfaces to the class EphemManager. " alt="" coords="1200,303,1375,359"/>
-<area shape="rect" id="node10" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1204,511,1355,552"/>
-<area shape="rect" id="node9" href="../../d1/d34/base__ref__frame__manager_8hh.html" title="Define the BaseRefFrameManager class, which defines the interfaces but not the implementations of the..." alt="" coords="1078,414,1268,455"/>
-<area shape="rect" id="node12" href="../../d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="501,206,658,247"/>
-<area shape="rect" id="node19" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="32,317,184,344"/>
-<area shape="rect" id="node13" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="300,421,448,448"/>
-<area shape="rect" id="node14" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="166,421,276,448"/>
-<area shape="rect" id="node15" href="../../d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="310,317,439,344"/>
-<area shape="rect" id="node16" href="../../db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="464,317,594,344"/>
-<area shape="rect" id="node18" href="../../db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="670,317,802,344"/>
-<area shape="rect" id="node24" href="../../d8/dee/environment_2gravity_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined for the gravity model. " alt="" coords="2087,518,2235,545"/>
-<area shape="rect" id="node27" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1575,414,1723,455"/>
-<area shape="rect" id="node30" href="../../d6/d72/gravity__source_8hh.html" title="Define the gravity body base (pure virtual) class. " alt="" coords="2028,317,2153,344"/>
-<area shape="rect" id="node31" href="../../d0/d32/environment_2ephemerides_2ephem__interface_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in models/environment/ephemerides/ephem_interface files..." alt="" coords="2313,407,2484,463"/>
-<area shape="rect" id="node32" href="../../d3/ddf/gravity__integ__frame_8hh.html" title="Define the gravity integration frame class. " alt="" coords="2084,421,2238,448"/>
+<area shape="rect" id="node6" href="../../d7/d0d/base__dyn__manager_8hh.html" title="Define the BaseDynManager class, which defines the interfaces to the class DynManager. " alt="" coords="1782,102,2005,143"/>
+<area shape="rect" id="node12" href="../../d9/dc2/ephem__ref__frame_8hh.html" title="Define the class EphemerisRefFrame. " alt="" coords="732,95,927,151"/>
+<area shape="rect" id="node21" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="2705,109,2812,136"/>
+<area shape="rect" id="node22" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="296,102,456,143"/>
+<area shape="rect" id="node23" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="2131,206,2295,247"/>
+<area shape="rect" id="node24" href="../../d1/dd5/gravity__manager_8hh.html" title="Define the Gravity Manager. " alt="" coords="2131,303,2261,344"/>
+<area shape="rect" id="node27" href="../../db/d3c/gravity__messages_8hh.html" title="Define the class GravityMessages, the class that specifies the message IDs used in the gravity model..." alt="" coords="5,206,136,247"/>
+<area shape="rect" id="node28" href="../../dc/d12/spherical__harmonics__delta__coeffs_8hh.html" title="Define the class SphericalHarmonicsDeltaCoeffs, the base class for tidal effects and temporal gravity..." alt="" coords="2980,303,3183,344"/>
+<area shape="rect" id="node29" href="../../da/d66/spherical__harmonics__delta__coeffs__init_8hh.html" title="Define the class SphericalHarmonicsDeltaCoeffsInit, the base initialization class for tidal effects a..." alt="" coords="161,199,343,255"/>
+<area shape="rect" id="node30" href="../../de/dc0/spherical__harmonics__gravity__source_8hh.html" title="Define the spherical harmonics implementation of a gravity body. " alt="" coords="2319,206,2539,247"/>
+<area shape="rect" id="node7" href="../../dd/dab/base__ephem__manager_8hh.html" title="Define the BaseEphemManager class, which defines the interfaces to the class EphemManager. " alt="" coords="1804,199,1999,255"/>
+<area shape="rect" id="node11" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1521,496,1687,537"/>
+<area shape="rect" id="node9" href="../../d1/d34/base__ref__frame__manager_8hh.html" title="Define the BaseRefFrameManager class, which defines the interfaces but not the implementations of the..." alt="" coords="1742,303,1954,344"/>
+<area shape="rect" id="node13" href="../../d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="915,206,1091,247"/>
+<area shape="rect" id="node20" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="744,310,915,337"/>
+<area shape="rect" id="node14" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="1145,407,1308,433"/>
+<area shape="rect" id="node15" href="../../d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="1040,310,1184,337"/>
+<area shape="rect" id="node16" href="../../db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="1259,310,1405,337"/>
+<area shape="rect" id="node17" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="855,407,977,433"/>
+<area shape="rect" id="node18" href="../../d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="1531,303,1717,344"/>
+<area shape="rect" id="node19" href="../../db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="571,310,720,337"/>
+<area shape="rect" id="node25" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2167,399,2334,441"/>
+<area shape="rect" id="node26" href="../../d8/dee/environment_2gravity_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined for the gravity model. " alt="" coords="2685,503,2848,530"/>
+<area shape="rect" id="node31" href="../../d6/d72/gravity__source_8hh.html" title="Define the gravity body base (pure virtual) class. " alt="" coords="2437,310,2576,337"/>
+<area shape="rect" id="node32" href="../../d0/d32/environment_2ephemerides_2ephem__interface_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in models/environment/ephemerides/ephem_interface files..." alt="" coords="2409,392,2604,448"/>
+<area shape="rect" id="node33" href="../../d3/ddf/gravity__integ__frame_8hh.html" title="Define the gravity integration frame class. " alt="" coords="2679,407,2854,433"/>
 </map>
 </div>
 </div>

@@ -3,7 +3,7 @@
 # Purpose:
 #   (Run the simulation per the options dictionary.)
 #
-#   
+#
 #
 ################################################################################
 
@@ -157,7 +157,7 @@ def set_run_common(options) :
    test.spring_damper.lambda_value = 0.01
 
    # Enable all messages.
-   jeod_sys.interface_init.message_suppression_level = 9999
+   jeod_sys.interface_init.message_suppression_level = trick.MessageHandler.Debug
 
    # Finally, set the simulation end time.
    trick.exec_set_terminate_time (tstop)

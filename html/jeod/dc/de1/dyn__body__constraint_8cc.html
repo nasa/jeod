@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -57,40 +57,40 @@ $(function() {
 <code>#include &quot;<a class="el" href="../../dd/d7a/constraint__component_8hh_source.html">../include/constraint_component.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d70/dyn__body__constraints__solver_8hh_source.html">../include/dyn_body_constraints_solver.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d76/vehicle__properties_8hh_source.html">dynamics/dyn_body/include/vehicle_properties.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/dae/matrix3x3_8hh_source.html">utils/math/include/matrix3x3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d4/dfd/matrix__view_8hh_source.html">experimental/math/include/matrix_view.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d51/vector__view_8hh_source.html">experimental/math/include/vector_view.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/dae/matrix3x3_8hh_source.html">utils/math/include/matrix3x3.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for dyn_body_constraint.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d0e/dyn__body__constraint_8cc__incl.png" border="0" usemap="#dyn__body__constraint_8cc" alt=""/></div>
 <map name="dyn__body__constraint_8cc" id="dyn__body__constraint_8cc">
-<area shape="rect" id="node2" href="../../db/d9c/dyn__body__constraint_8hh.html" title="Defines the class DynBodyConstraint. " alt="" coords="718,169,853,211"/>
-<area shape="rect" id="node4" href="../../d5/d76/vehicle__properties_8hh.html" title="Define the class VehicleProperties. " alt="" coords="614,348,797,389"/>
-<area shape="rect" id="node9" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="1134,437,1258,479"/>
-<area shape="rect" id="node11" href="../../dd/d7a/constraint__component_8hh.html" title="Defines the class ConstraintComponent. " alt="" coords="1057,259,1193,300"/>
-<area shape="rect" id="node12" href="../../d8/d70/dyn__body__constraints__solver_8hh.html" title="Defines the class DynBodyConstraintsSolver. " alt="" coords="1461,80,1613,121"/>
-<area shape="rect" id="node23" href="../../d8/d51/vector__view_8hh.html" title="Define the class template VectorView. " alt="" coords="379,355,488,382"/>
-<area shape="rect" id="node26" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="1638,80,1762,121"/>
-<area shape="rect" id="node27" href="../../d4/dfd/matrix__view_8hh.html" title="Defines the class template MatrixView. " alt="" coords="245,355,355,382"/>
-<area shape="rect" id="node3" href="../../d2/db5/constraint__frame_8hh.html" title="Defines the class ConstraintFrame. " alt="" coords="743,266,881,293"/>
-<area shape="rect" id="node5" href="../../dc/dca/solver__types_8hh.html" title="Defines various type definitions used in the constraints concept. " alt="" coords="489,437,663,479"/>
-<area shape="rect" id="node7" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1521,527,1671,568"/>
-<area shape="rect" id="node8" href="../../d4/dd8/wrench_8hh.html" title="Define the class Wrench. " alt="" coords="1025,348,1207,389"/>
-<area shape="rect" id="node10" href="../../d4/d5e/forward__view_8hh.html" title="Provides forward declarations of various view types. " alt="" coords="179,437,354,479"/>
-<area shape="rect" id="node13" href="../../d7/d73/object__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1739,169,1887,211"/>
-<area shape="rect" id="node17" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1927,348,2075,389"/>
-<area shape="rect" id="node19" href="../../d7/deb/primitive__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1435,348,1583,389"/>
-<area shape="rect" id="node21" href="../../d4/d78/linear__system__solver_8hh.html" title="Defines the class LinearSystemSolver. " alt="" coords="1306,169,1481,211"/>
-<area shape="rect" id="node14" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="1745,445,1852,471"/>
-<area shape="rect" id="node15" href="../../d6/d9c/object__container_8hh.html" title="Define class template JeodObjectContainer. " alt="" coords="1666,266,1801,293"/>
-<area shape="rect" id="node16" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="1607,348,1750,389"/>
-<area shape="rect" id="node18" href="../../dc/da5/pointer__container_8hh.html" title="Define class template JeodPointerContainer. " alt="" coords="1977,445,2116,471"/>
-<area shape="rect" id="node20" href="../../de/daa/primitive__container_8hh.html" title="Define class template JeodPrimitiveContainer. " alt="" coords="1522,445,1670,471"/>
-<area shape="rect" id="node22" href="../../d1/d03/sub__vector__view_8hh.html" title="Defines the class template SubVectorView. " alt="" coords="401,266,538,293"/>
-<area shape="rect" id="node24" href="../../d9/d35/experimental_2math_2include_2two__d__array_8hh.html" title="Defines the class TwoDArray. " alt="" coords="1338,266,1449,293"/>
+<area shape="rect" id="node2" href="../../db/d9c/dyn__body__constraint_8hh.html" title="Defines the class DynBodyConstraint. " alt="" coords="1676,169,1824,211"/>
+<area shape="rect" id="node4" href="../../d5/d76/vehicle__properties_8hh.html" title="Define the class VehicleProperties. " alt="" coords="1881,348,2083,389"/>
+<area shape="rect" id="node9" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="1995,437,2134,479"/>
+<area shape="rect" id="node10" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="2259,348,2398,389"/>
+<area shape="rect" id="node12" href="../../dd/d7a/constraint__component_8hh.html" title="Defines the class ConstraintComponent. " alt="" coords="1555,259,1705,300"/>
+<area shape="rect" id="node13" href="../../d8/d70/dyn__body__constraints__solver_8hh.html" title="Defines the class DynBodyConstraintsSolver. " alt="" coords="739,80,905,121"/>
+<area shape="rect" id="node24" href="../../d8/d51/vector__view_8hh.html" title="Define the class template VectorView. " alt="" coords="1110,355,1230,382"/>
+<area shape="rect" id="node27" href="../../d4/dfd/matrix__view_8hh.html" title="Defines the class template MatrixView. " alt="" coords="1305,355,1427,382"/>
+<area shape="rect" id="node3" href="../../d2/db5/constraint__frame_8hh.html" title="Defines the class ConstraintFrame. " alt="" coords="2025,266,2179,293"/>
+<area shape="rect" id="node5" href="../../dc/dca/solver__types_8hh.html" title="Defines various type definitions used in the constraints concept. " alt="" coords="1365,437,1564,479"/>
+<area shape="rect" id="node7" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="686,527,851,568"/>
+<area shape="rect" id="node8" href="../../d4/dd8/wrench_8hh.html" title="Define the class Wrench. " alt="" coords="1654,348,1857,389"/>
+<area shape="rect" id="node11" href="../../d4/d5e/forward__view_8hh.html" title="Provides forward declarations of various view types. " alt="" coords="1040,437,1239,479"/>
+<area shape="rect" id="node14" href="../../d7/d73/object__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="315,169,481,211"/>
+<area shape="rect" id="node18" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="13,348,180,389"/>
+<area shape="rect" id="node20" href="../../d7/deb/primitive__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="615,348,781,389"/>
+<area shape="rect" id="node22" href="../../d4/d78/linear__system__solver_8hh.html" title="Defines the class LinearSystemSolver. " alt="" coords="723,169,921,211"/>
+<area shape="rect" id="node15" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="255,445,373,471"/>
+<area shape="rect" id="node16" href="../../d6/d9c/object__container_8hh.html" title="Define class template JeodObjectContainer. " alt="" coords="379,266,529,293"/>
+<area shape="rect" id="node17" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="430,348,590,389"/>
+<area shape="rect" id="node19" href="../../dc/da5/pointer__container_8hh.html" title="Define class template JeodPointerContainer. " alt="" coords="26,445,181,471"/>
+<area shape="rect" id="node21" href="../../de/daa/primitive__container_8hh.html" title="Define class template JeodPrimitiveContainer. " alt="" coords="563,445,731,471"/>
+<area shape="rect" id="node23" href="../../d1/d03/sub__vector__view_8hh.html" title="Defines the class template SubVectorView. " alt="" coords="1095,266,1245,293"/>
+<area shape="rect" id="node25" href="../../d9/d35/experimental_2math_2include_2two__d__array_8hh.html" title="Defines the class TwoDArray. " alt="" coords="762,266,882,293"/>
 </map>
 </div>
 </div>

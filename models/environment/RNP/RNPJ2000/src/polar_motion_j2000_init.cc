@@ -27,13 +27,11 @@ Assumptions and limitations:
     put into the initialization file))
 
 Library dependencies:
-  ((polar_motion_j2000_init.cc)
-   (environment/RNP/GenericRNP/src/planet_rotation_init.cc))
+  ((polar_motion_j2000_init.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 #include <cstddef>
@@ -44,45 +42,21 @@ Library dependencies:
 // Model includes
 #include "../include/polar_motion_j2000_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * constructor. Initializes all data.
- */
-PolarMotionJ2000Init::PolarMotionJ2000Init (
-   void)
-:
-   xp(0.0),
-   yp(0.0),
-   xp_tbl(nullptr),
-   yp_tbl(nullptr),
-   polar_mjd(nullptr),
-   override_table(false),
-   last_table_index(0)
+namespace jeod
 {
-// empty for now
-}
 
 /**
  * Destructor
  */
-PolarMotionJ2000Init::~PolarMotionJ2000Init (
-   void)
+PolarMotionJ2000Init::~PolarMotionJ2000Init()
 {
-   if (JEOD_IS_ALLOCATED (polar_mjd)) {
-      JEOD_DELETE_ARRAY (polar_mjd);
-   }
-   if (JEOD_IS_ALLOCATED (xp_tbl)) {
-      JEOD_DELETE_ARRAY (xp_tbl);
-   }
-   if (JEOD_IS_ALLOCATED (yp_tbl)) {
-      JEOD_DELETE_ARRAY (yp_tbl);
-   }
+    JEOD_DELETE_ARRAY(polar_mjd);
+    JEOD_DELETE_ARRAY(xp_tbl);
+    JEOD_DELETE_ARRAY(yp_tbl);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

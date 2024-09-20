@@ -17,12 +17,10 @@ PURPOSE:
 
 Library dependencies:
    ((flat_plate_thermal_aero_factory.cc)
-    (flat_plate_aero_factory.cc)
-    (utils/surface_model/src/flat_plate_thermal.cc))
+    (flat_plate_aero_factory.cc))
 
 
 *******************************************************************************/
-
 
 // System includes
 #include <typeinfo>
@@ -32,40 +30,25 @@ Library dependencies:
 #include "utils/surface_model/include/flat_plate_thermal.hh"
 
 // Model includes
-#include "../include/flat_plate_thermal_aero_factory.hh"
-#include "../include/flat_plate_aero_params.hh"
-#include "../include/flat_plate_aero_facet.hh"
 #include "../include/aerodynamics_messages.hh"
+#include "../include/flat_plate_aero_facet.hh"
+#include "../include/flat_plate_aero_params.hh"
+#include "../include/flat_plate_thermal_aero_factory.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Attributes used in allocations
-JEOD_DECLARE_ATTRIBUTES (FlatPlateAeroFacet)
-
+JEOD_DECLARE_ATTRIBUTES(FlatPlateAeroFacet)
 
 /**
  * Default Constructor
  */
-FlatPlateThermalAeroFactory::FlatPlateThermalAeroFactory (
-   void)
+FlatPlateThermalAeroFactory::FlatPlateThermalAeroFactory()
 {
-   JEOD_REGISTER_CLASS(FlatPlateThermalAeroFactory);
-   JEOD_REGISTER_CLASS(FlatPlateAeroFacet);
-
-
-}
-
-/**
- * Destructor
- */
-
-FlatPlateThermalAeroFactory::~FlatPlateThermalAeroFactory (
-   void)
-{
-
-   // empty for now
-
+    JEOD_REGISTER_CLASS(FlatPlateThermalAeroFactory);
+    JEOD_REGISTER_CLASS(FlatPlateAeroFacet);
 }
 
 /**
@@ -75,21 +58,19 @@ FlatPlateThermalAeroFactory::~FlatPlateThermalAeroFactory (
  * \param[in] facet The facet to check
  */
 
-bool
-FlatPlateThermalAeroFactory::is_correct_factory (
-   Facet* facet)
+bool FlatPlateThermalAeroFactory::is_correct_factory(Facet * facet)
 {
-
-   if (typeid(*facet) == typeid(FlatPlateThermal)) {
-      return true;
-   }
-   else {
-      return false;
-   }
-
+    if(typeid(*facet) == typeid(FlatPlateThermal))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

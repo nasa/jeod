@@ -41,8 +41,13 @@ Purpose:(Testing the switching capability of multiple groups and
 *****************************************************************************/
 #define DYNAMICS 0.1
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
@@ -53,70 +58,65 @@ Purpose:(Testing the switching capability of multiple groups and
 ##include "er7_utils/integration/rk4/include/rk4_integrator_constructor.hh"
 class DynamicsSimObject : public DynamicsNoIntegSimObject
 {
- public:
-  jeod::DynamicsIntegrationGroup group;
-  er7_utils::RK4IntegratorConstructor rk4_integrator_constructor;
-  er7_utils::IntegratorConstructor* rk4_integ_constructor_ptr;
+public:
+    jeod::DynamicsIntegrationGroup group;
+    er7_utils::RK4IntegratorConstructor rk4_integrator_constructor;
+    er7_utils::IntegratorConstructor * rk4_integ_constructor_ptr;
 
-  DynamicsSimObject(jeod::TimeManager & time_manager)
-    :
-    DynamicsNoIntegSimObject( time_manager),
-    rk4_integ_constructor_ptr(&rk4_integrator_constructor)
-  {};
- private:
-  // Unimplemented copy constructor and assignment operator
-  DynamicsSimObject (const DynamicsSimObject&);
-  DynamicsSimObject & operator = (const DynamicsSimObject&);
-}
-DynamicsSimObject dynamics (jeod_time.time_manager);
+    DynamicsSimObject(jeod::TimeManager & time_manager)
+        : DynamicsNoIntegSimObject(time_manager),
+          rk4_integ_constructor_ptr(&rk4_integrator_constructor){};
+
+    // Unimplemented copy constructor and assignment operator
+    DynamicsSimObject(const DynamicsSimObject &) = delete;
+    DynamicsSimObject & operator=(const DynamicsSimObject &) = delete;
+} DynamicsSimObject dynamics(jeod_time.time_manager);
 
 //*******************************************************************
 #include "environment_sans_de405.sm"
 
 //*******************************************************************
 #include "Base/vehicle_baseline.sm"
+
 class VehicleSimObject : public VehicleBasicSimObject
 {
- public:
-  double shm_force[3];
-  double spring_k;
-  VehicleSimObject( jeod::DynManager & dyn_mngr)
-    :
-    VehicleBasicSimObject(dyn_mngr),
-    spring_k(1.0)
-  {
-    ("derivative") compute_force();
-  }
- protected:
-  void compute_force() {
-    shm_force[0] = -spring_k * dyn_body.composite_body.state.trans.position[0];
-  }
- private:
-   // Unimplemented copy constructor and assignment operator
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+public:
+    double shm_force[3];
+    double spring_k;
+
+    VehicleSimObject(jeod::DynManager & dyn_mngr)
+        : VehicleBasicSimObject(dyn_mngr),
+          spring_k(1.0)
+    {
+        ("derivative") compute_force();
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
+
+protected:
+    void compute_force()
+    {
+        shm_force[0] = -spring_k * dyn_body.composite_body.state.trans.position[0];
+    }
 };
 
-VehicleSimObject veh_hi_rate(     dynamics.dyn_manager);
-VehicleSimObject veh_hi_med_rate( dynamics.dyn_manager);
-VehicleSimObject veh_med_rate(    dynamics.dyn_manager);
-VehicleSimObject veh_med_lo_rate( dynamics.dyn_manager);
-VehicleSimObject veh_lo_rate(     dynamics.dyn_manager);
+VehicleSimObject veh_hi_rate(dynamics.dyn_manager);
+VehicleSimObject veh_hi_med_rate(dynamics.dyn_manager);
+VehicleSimObject veh_med_rate(dynamics.dyn_manager);
+VehicleSimObject veh_med_lo_rate(dynamics.dyn_manager);
+VehicleSimObject veh_lo_rate(dynamics.dyn_manager);
 
-vcollect veh_hi_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-    veh_hi_rate.shm_force};
-vcollect veh_hi_med_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-    veh_hi_med_rate.shm_force};
-vcollect veh_med_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-    veh_med_rate.shm_force};
-vcollect veh_med_lo_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-    veh_med_lo_rate.shm_force};
-vcollect veh_lo_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-    veh_lo_rate.shm_force};
+vcollect veh_hi_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh_hi_rate.shm_force};
+vcollect veh_hi_med_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh_hi_med_rate.shm_force};
+vcollect veh_med_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh_med_rate.shm_force};
+vcollect veh_med_lo_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh_med_lo_rate.shm_force};
+vcollect veh_lo_rate.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh_lo_rate.shm_force};
 //*******************************************************************
 
 #include "integ_loop.sm"
-JeodIntegLoopSimObject high_rate_loop (0.1,
+JeodIntegLoopSimObject high_rate_loop(0.1,
                                       dynamics.rk4_integ_constructor_ptr,
                                       dynamics.group,
                                       jeod_time.time_manager,
@@ -125,23 +125,23 @@ JeodIntegLoopSimObject high_rate_loop (0.1,
                                       &dynamics,
                                       &veh_hi_rate,
                                       &veh_hi_med_rate,
-                                      NULL);
-JeodIntegLoopSimObject med_rate_loop (0.3,
-                                      dynamics.rk4_integ_constructor_ptr,
-                                      dynamics.group,
-                                      jeod_time.time_manager,
-                                      dynamics.dyn_manager,
-                                      env.gravity_manager,
-                                      &dynamics,
-                                      &veh_med_rate,
-                                      &veh_med_lo_rate,
-                                      NULL);
-JeodIntegLoopSimObject low_rate_loop (1,
-                                      dynamics.rk4_integ_constructor_ptr,
-                                      dynamics.group,
-                                      jeod_time.time_manager,
-                                      dynamics.dyn_manager,
-                                      env.gravity_manager,
-                                      &dynamics,
-                                      &veh_lo_rate,
-                                      NULL);
+                                      nullptr);
+JeodIntegLoopSimObject med_rate_loop(0.3,
+                                     dynamics.rk4_integ_constructor_ptr,
+                                     dynamics.group,
+                                     jeod_time.time_manager,
+                                     dynamics.dyn_manager,
+                                     env.gravity_manager,
+                                     &dynamics,
+                                     &veh_med_rate,
+                                     &veh_med_lo_rate,
+                                     nullptr);
+JeodIntegLoopSimObject low_rate_loop(1,
+                                     dynamics.rk4_integ_constructor_ptr,
+                                     dynamics.group,
+                                     jeod_time.time_manager,
+                                     dynamics.dyn_manager,
+                                     env.gravity_manager,
+                                     &dynamics,
+                                     &veh_lo_rate,
+                                     nullptr);

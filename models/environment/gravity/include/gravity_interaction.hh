@@ -70,7 +70,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_GRAVITY_INTERACTION_HH
 #define JEOD_GRAVITY_INTERACTION_HH
 
@@ -83,9 +82,9 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseDynManager;
 class DynBody;
@@ -94,103 +93,80 @@ class EphemerisRefFrame;
 /**
  * Specifies interactions between a vehicle and a set of gravitational bodies.
  */
-class GravityInteraction {
+class GravityInteraction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GravityInteraction)
 
- JEOD_MAKE_SIM_INTERFACES(GravityInteraction)
+    // Member data
+public:
+    /**
+     * The integration frame index number of the DynBody's integration frame.
+     * This data member must be kept in strict synchronization with the DynBody's
+     * integration frame.
+     */
+    unsigned int integ_frame_index{9999}; //!< trick_units(--)
 
+    /**
+     * The total gravitational acceleration of the DynBody toward all planetary
+     * with which the vehicle interacts gravitationally. The acceleration is
+     * expressed in the DynBody's integration frame. The gravitational
+     * acceleration of the integration frame itself toward the planetary bodies
+     * is excluded from this total acceleration. For example, for a vehicle
+     * integrated in Earth-centered inertial, the Sun component of the total
+     * gravitational acceleration is the Newtonian gravitation acceleration of
+     * the vehicle toward the Sun less the Newtonian gravitational acceleration
+     * of the Earth toward the Sun.
+     */
+    double grav_accel[3]{}; //!< trick_units(m/s2)
 
-  // Member data
- public:
+    /**
+     * The gradient of the gravitational acceleration vector evaluated at the
+     * DynBody's position, expressed in the vehicle's integration frame.
+     */
+    double grav_grad[3][3]{}; //!< trick_units(1/s2)
 
-   /**
-    * The integration frame index number of the DynBody's integration frame.
-    * This data member must be kept in strict synchronization with the DynBody's
-    * integration frame.
-    */
-   unsigned int integ_frame_index; //!< trick_units(--)
+    /**
+     * The total gravitational potential at the location of the DynBody due
+     * to the gravity fields of all "active" gravitational bodies
+     * (i.e., planets).
+     */
+    double grav_pot{}; //!< trick_units(m2/s2)
 
-   /**
-    * The total gravitational acceleration of the DynBody toward all planetary
-    * with which the vehicle interacts gravitationally. The acceleration is
-    * expressed in the DynBody's integration frame. The gravitational
-    * acceleration of the integration frame itself toward the planetary bodies
-    * is excluded from this total acceleration. For example, for a vehicle
-    * integrated in Earth-centered inertial, the Sun component of the total
-    * gravitational acceleration is the Newtonian gravitation acceleration of
-    * the vehicle toward the Sun less the Newtonian gravitational acceleration
-    * of the Earth toward the Sun.
-    */
-   double grav_accel[3]; //!< trick_units(m/s2)
+    /**
+     * The gravity controls list for a DynBody specifies the planetary bodies
+     * with which the DynBody interacts and specifies the nature of those
+     * interactions.
+     */
+    JeodPointerVector<GravityControls>::type grav_controls; //!< trick_io(**)
 
-   /**
-    * The gradient of the gravitational acceleration vector evaluated at the
-    * DynBody's position, expressed in the vehicle's integration frame.
-    */
-   double grav_grad[3][3]; //!< trick_units(1/s2)
+public:
+    GravityInteraction();
+    virtual ~GravityInteraction();
+    GravityInteraction(const GravityInteraction & frame) = delete;
+    GravityInteraction & operator=(const GravityInteraction & frame) = delete;
 
-   /**
-    * The total gravitational potential at the location of the DynBody due
-    * to the gravity fields of all "active" gravitational bodies
-    * (i.e., planets).
-    */
-   double grav_pot; //!< trick_units(m2/s2)
+    // Set the integration frame
+    virtual void set_integ_frame(               // Return: -- Void
+        const EphemerisRefFrame & ref_frame_in, // In:     -- Integration frame
+        const BaseDynManager & dyn_manager);    // In:     -- Dynamics manager
 
-   /**
-    * The gravity controls list for a DynBody specifies the planetary bodies
-    * with which the DynBody interacts and specifies the nature of those
-    * interactions.
-    */
-   JeodPointerVector<GravityControls>::type grav_controls;  //!< trick_io(**)
+    // Add a new control to grav_controls list
+    virtual void add_control(GravityControls * control);
 
+    // Remove a control from the grav_controls list
+    virtual void remove_control(GravityControls * control);
 
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
+    // Initialize all controls in grav_controls list
+    virtual void initialize_controls(BaseDynManager & dyn_manager, GravityManager & grav_manager);
 
-   /**
-    * Not implemented.
-    */
-   GravityInteraction (const GravityInteraction & frame);
+    // Reset all controls in grav_controls list
+    virtual void reset_controls(BaseDynManager & dyn_manager);
 
-   /**
-    * Not implemented.
-    */
-   GravityInteraction & operator= (const GravityInteraction & frame);
-
-
- public:
-
-   // Default constructor
-   GravityInteraction ();
-
-   // Destructor
-   virtual ~GravityInteraction ();
-
-   // Set the integration frame
-   virtual void set_integ_frame (             // Return: -- Void
-      const EphemerisRefFrame & ref_frame_in, // In:     -- Integration frame
-      const BaseDynManager & dyn_manager);    // In:     -- Dynamics manager
-
-
-   // Add a new control to grav_controls list
-   virtual void add_control (GravityControls * control);
-
-   // Remove a control from the grav_controls list
-   virtual void remove_control (GravityControls * control);
-
-   // Initialize all controls in grav_controls list
-   virtual void initialize_controls (BaseDynManager& dyn_manager, GravityManager & grav_manager);
-
-   // Reset all controls in grav_controls list
-   virtual void reset_controls (BaseDynManager& dyn_manager);
-
-   // Sort the controls in increasing accel magnitude order
-   virtual void sort_controls ();
-
+    // Sort the controls in increasing accel magnitude order
+    virtual void sort_controls();
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.14)
 
 project(DE4XX_EPHEM CXX C)
 
-include($ENV{JEOD_HOME}/bin/jeod/common_config.cmake)
+get_filename_component(JEOD_HOME "${CMAKE_CURRENT_LIST_DIR}/../../../../.." ABSOLUTE)
+include(${JEOD_HOME}/bin/jeod/common_config.cmake)
 
 set(SRCGEN_DEPS ${JEOD_HOME}/models/environment/ephemerides/de4xx_ephem/data/generate_ephemeris.py
                 ${JEOD_HOME}/models/environment/ephemerides/de4xx_ephem/data/eph_meta.cc.mako)
@@ -21,7 +22,6 @@ foreach(DE_DATA_ASCII_HEADER ${DE_DATA_ASCII_HEADERS})
      list(APPEND DEDATASRCS ${JEOD_HOME}/models/environment/ephemerides/de4xx_ephem/data/data_src/de${DEID}_${DEDATASRCCOUNT}.cc)
      MATH(EXPR DEDATASRCCOUNT "${DEDATASRCCOUNT}+1")
   endforeach()
-  #set(DEDATASRC ${JEOD_HOME}/models/environment/ephemerides/de4xx_ephem/data/data_src/de${DEID}_0.cc)
   set(DENAME de${DEID})
   message(STATUS "Found DE header = ${DE_DATA_ASCII_HEADER} DEID = ${DEID}")
   message(STATUS "\tGenerated source targeted for ${DEDATASRCS}")

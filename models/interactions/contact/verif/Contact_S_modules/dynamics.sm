@@ -62,55 +62,48 @@
 ##include "dynamics/body_action/include/body_action.hh"
 
 
-class DynamicsSimObject: public Trick::SimObject {
-
+class DynamicsSimObject: public Trick::SimObject
+{
 public:
-   jeod::DynManager             dyn_manager;
-   jeod::DynManagerInit         dyn_manager_init;
+    jeod::DynManager dyn_manager;
+    jeod::DynManagerInit dyn_manager_init;
 
-   // Constructor
-   DynamicsSimObject (
-      jeod::TimeManager & time_manager_in)
-   :
-      time_manager (time_manager_in)
-   {
+    // Constructor
+    DynamicsSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization")
+        dyn_manager.initialize_model(dyn_manager_init, time_manager);
 
-      //
-      // Initialization jobs
-      //
-      P_ENV  ("initialization")
-      dyn_manager.initialize_model (dyn_manager_init, time_manager);
+        P_BODY("initialization") dyn_manager.initialize_simulation();
 
-      P_BODY ("initialization") dyn_manager.initialize_simulation ( );
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") dyn_manager.perform_actions();
 
+        //
+        // Derivative class jobs
+        //
+        ("derivative") dyn_manager.compute_derivatives();
 
-      //
-      // Environment class jobs
-      //
-      (DYNAMICS, "environment") dyn_manager.perform_actions ( );
+        //
+        // Integration jobs
+        //
+        ("integration", &dyn_manager.sim_integrator)
+            trick_ret = dyn_manager.integrate(exec_get_sim_time(), time_manager);
+    }
 
-      //
-      // Derivative class jobs
-      //
-      ("derivative") dyn_manager.compute_derivatives ( );
-
-      //
-      // Integration jobs
-      //
-      ("integration", &dyn_manager.sim_integrator) trick_ret =
-      dyn_manager.integrate (
-         exec_get_sim_time(),
-         time_manager);
-   }
+    // Unimplemented copy constructor and assignment operator
+    DynamicsSimObject(const DynamicsSimObject &) = delete;
+    DynamicsSimObject & operator=(const DynamicsSimObject &) = delete;
 
 private:
-   // Reference to the external time manager.
-   jeod::TimeManager & time_manager;
-
-   // Unimplemented copy constructor and assignment operator
-   DynamicsSimObject (const DynamicsSimObject&);
-   DynamicsSimObject & operator = (const DynamicsSimObject&);
-
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 };
 
-DynamicsSimObject dynamics (jeod_time.time_manager);
+DynamicsSimObject dynamics(jeod_time.time_manager);

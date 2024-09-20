@@ -50,11 +50,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/angular_variance.cc))
 
- 
+
 
 *******************************************************************************/
-
-
 
 #ifndef JEOD_RANDOM_ORIENTATION_HH
 #define JEOD_RANDOM_ORIENTATION_HH
@@ -70,128 +68,106 @@ Library dependencies:
 #include "new_orientation.hh"
 #include "random.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
 Purpose:
   (Specify an orientation in terms of three numbers between 0 and 1.
    This specification makes it quite easy to generate orientations randomly.)
 */
-class VectorOrientation : public NewOrientation {
+class VectorOrientation : public NewOrientation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, VectorOrientation)
 
-JEOD_MAKE_SIM_INTERFACES(VectorOrientation)
+public:
+    // Constructor
+    VectorOrientation(bool init_from_vector = true);
 
- public:
-   // Constructor
-   VectorOrientation (bool init_from_vector=true);
+    // Initializer
+    void initialize() override;
 
-   // Initializer
-   void initialize (void) override;
-
-   // Setters; no getters (yet)
-   virtual void set_initialize_from_vector (bool value);
-   virtual void set_vector (const double value[3]);
-   virtual void set_vector (double value0, double value1, double value2);
-
+    // Setters; no getters (yet)
+    virtual void set_initialize_from_vector(bool value);
+    virtual void set_vector(const double value[3]);
+    virtual void set_vector(double value0, double value1, double value2);
 
 protected:
-   bool initialize_from_vector; /* trick_units(--) @n
-      If set, the orientation will be generated from the vector orientation
-      specification. If clear, the orientation will be set based on the
-      base orientation specifications. */
+    bool initialize_from_vector; /* trick_units(--) @n
+       If set, the orientation will be generated from the vector orientation
+       specification. If clear, the orientation will be set based on the
+       base orientation specifications. */
 
-   double vector[3]; /* trick_units(--) @n
-      Orientation specification. All must be elements of [0,1). Elements are
-       - 0: Specifies the rotation angle about the eigenaxis.
-            The input value is converted to angle by multiplying by 2*pi.
-       - 1: Specifies the rotation eigenaxis inclination.
-            The input value is converted to angle via
-              cosine(inclination) = 2*vector[1] - 1
-       - 2: Specifies the rotation eigenaxis declination.
-            The input value is converted to angle by multiplying by 2*pi.
-      Note that (0,0,0) specifies the null rotation -- as does any setting with
-      vector[0] equal to zero. */
+    double vector[3]{}; /* trick_units(--) @n
+       Orientation specification. All must be elements of [0,1). Elements are
+        - 0: Specifies the rotation angle about the eigenaxis.
+             The input value is converted to angle by multiplying by 2*pi.
+        - 1: Specifies the rotation eigenaxis inclination.
+             The input value is converted to angle via
+               cosine(inclination) = 2*vector[1] - 1
+        - 2: Specifies the rotation eigenaxis declination.
+             The input value is converted to angle by multiplying by 2*pi.
+       Note that (0,0,0) specifies the null rotation -- as does any setting with
+       vector[0] equal to zero. */
 };
 
-
-inline void
-VectorOrientation::set_initialize_from_vector (
-   bool value)
+inline void VectorOrientation::set_initialize_from_vector(bool value)
 {
-   initialize_from_vector = value;
+    initialize_from_vector = value;
 }
 
-
-inline void
-VectorOrientation::set_vector (
-   const double value[3])
+inline void VectorOrientation::set_vector(const double value[3])
 {
-   vector[0] = value[0];
-   vector[1] = value[1];
-   vector[2] = value[2];
+    vector[0] = value[0];
+    vector[1] = value[1];
+    vector[2] = value[2];
 }
 
-
-inline void
-VectorOrientation::set_vector (
-   double value0,
-   double value1,
-   double value2)
+inline void VectorOrientation::set_vector(double value0, double value1, double value2)
 {
-   vector[0] = value0;
-   vector[1] = value1;
-   vector[2] = value2;
+    vector[0] = value0;
+    vector[1] = value1;
+    vector[2] = value2;
 }
-
 
 /*
 Purpose:
   (Randomly generate the vector used to specify an orientation.)
 */
-class RandomOrientation : public VectorOrientation {
+class RandomOrientation : public VectorOrientation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RandomOrientation)
 
-JEOD_MAKE_SIM_INTERFACES(RandomOrientation)
+public:
+    // Constructor
+    RandomOrientation(RandomSeedGenerator & seed_gen, bool random_orientation = false);
 
- public:
-   // Constructor
-   RandomOrientation (RandomSeedGenerator & seed_gen,
-                      bool random_orientation=false);
+    // Initializer
+    void initialize() override;
 
-   // Initializer
-   void initialize (void) override;
+    // Set skip count (only used prior to initialize)
+    void set_skip_count(unsigned int value);
 
-   // Set skip count (only used prior to initialize)
-   void set_skip_count (unsigned int value);
+    // Set skip count (only used prior to initialize)
+    void set_generate_random_vector(bool value);
 
-   // Set skip count (only used prior to initialize)
-   void set_generate_random_vector (bool value);
-
- protected:
-   bool generate_random_vector;
-   unsigned int skip_count;
-   RandomVectorUniform01 rvec;
-
+protected:
+    bool generate_random_vector;
+    unsigned int skip_count{};
+    RandomVectorUniform01 rvec;
 };
 
-
-inline void
-RandomOrientation::set_skip_count (
-   unsigned int value)
+inline void RandomOrientation::set_skip_count(unsigned int value)
 {
-   skip_count = value;
+    skip_count = value;
 }
 
-
-inline void
-RandomOrientation::set_generate_random_vector (
-   bool value)
+inline void RandomOrientation::set_generate_random_vector(bool value)
 {
-   generate_random_vector = value;
+    generate_random_vector = value;
 }
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

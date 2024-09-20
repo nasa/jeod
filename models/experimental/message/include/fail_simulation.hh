@@ -47,26 +47,23 @@
  * terminate, and utility macros that use this.
  */
 
-
 /*
 Purpose: ()
 */
 
-
 #ifndef JEOD_FAIL_SIMULATION_HH
 #define JEOD_FAIL_SIMULATION_HH
-
 
 #include "utils/message/include/message_handler.hh"
 
 #include <cstdlib>
-#include <string>
 #include <sstream>
+#include <string>
 #include <utility>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // This file defines:
 // - Four non-template overloads of fail_simulation, which serve as base cases.
@@ -75,107 +72,63 @@ namespace jeod {
 // The basic idea is to support everything from fail_simulation(__FILE__, __LINE__)
 // to fail_simulation(__FILE__, __LINE__, just, about, anything, that, prints)
 
-
-inline void
-fail_simulation (
-    const char * file,
-    int lineno,
-    const char* msg)
+inline void fail_simulation(const char * file, int lineno, const std::string & msg)
 {
-    MessageHandler::fail (
-        file, lineno, "experimental/message/fail_simulation", msg);
-    exit (-1);
+    MessageHandler::fail(file, lineno, "experimental/message/fail_simulation", msg.c_str());
+    exit(-1);
 }
 
-
-inline void
-fail_simulation (
-    const char * file,
-    int lineno)
+inline void fail_simulation(const char * file, int lineno)
 {
-    fail_simulation (file, lineno, "");
+    fail_simulation(file, lineno, "");
 }
 
-
-inline void
-fail_simulation (
-    const char * file,
-    int lineno,
-    const std::string& msg)
+inline void fail_simulation(const char * file, int lineno, const std::stringstream & msgbuf)
 {
-    fail_simulation (file, lineno, msg.c_str());
+    fail_simulation(file, lineno, msgbuf.str());
 }
 
-
-inline void
-fail_simulation (
-    const char * file,
-    int lineno,
-    const std::stringstream& msgbuf)
+inline void fail_simulation_helper_(const char * file, int lineno, const std::stringstream & msgbuf)
 {
-    fail_simulation (file, lineno, msgbuf.str());
+    fail_simulation(file, lineno, msgbuf);
 }
-
-
-inline void
-fail_simulation_helper_ (
-    const char * file,
-    int lineno,
-    const std::stringstream& msgbuf)
-{
-    fail_simulation (file, lineno, msgbuf);
-}
-
 
 template<typename T>
-inline void
-fail_simulation_helper_(
-    const char * file,
-    int lineno,
-    std::stringstream& msgbuf,
-    T&& arg)
+inline void fail_simulation_helper_(const char * file, int lineno, std::stringstream & msgbuf, T && arg)
 {
     msgbuf << arg;
-    fail_simulation (file, lineno, msgbuf);
+    fail_simulation(file, lineno, msgbuf);
 }
-
 
 template<typename T, typename... Args>
-inline void
-fail_simulation_helper_(
-    const char * file,
-    int lineno,
-    std::stringstream& msgbuf,
-    T&& arg,
-    Args&&... rest)
+inline void fail_simulation_helper_(
+    const char * file, int lineno, std::stringstream & msgbuf, T && arg, Args &&... rest)
 {
     msgbuf << arg << ' ';
-    fail_simulation_helper_ (file, lineno, msgbuf, std::forward<Args>(rest)...);
+    fail_simulation_helper_(file, lineno, msgbuf, std::forward<Args>(rest)...);
 }
 
-
-template<typename... Args>
-inline void
-fail_simulation (
-    const char * file,
-    int lineno,
-    Args&&... args)
+template<typename... Args> inline void fail_simulation(const char * file, int lineno, Args &&... args)
 {
     std::stringstream msgbuf;
-    fail_simulation_helper_ (file, lineno, msgbuf, std::forward<Args>(args)...);
+    fail_simulation_helper_(file, lineno, msgbuf, std::forward<Args>(args)...);
 }
 
+#define FAIL_SIMULATION(...) fail_simulation(__FILE__, __LINE__, __VA_ARGS__)
 
-#define FAIL_SIMULATION(...) fail_simulation (__FILE__, __LINE__, __VA_ARGS__)
+#define SIM_ASSERT(expr)                                                                                               \
+    if(expr)                                                                                                           \
+    {                                                                                                                  \
+        static_cast<void>(0);                                                                                          \
+    }                                                                                                                  \
+    else                                                                                                               \
+    {                                                                                                                  \
+        FAIL_SIMULATION(#expr);                                                                                        \
+    }
 
-#define SIM_ASSERT(expr) \
-    ((expr) ? static_cast<void>(0) : FAIL_SIMULATION(#expr))
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

@@ -46,16 +46,18 @@ Library dependencies:
 #ifndef JEOD_TIMECONVERTER_TAI_UTC_TAI_TO_UTC_DEFAULT_DATA_H
 #define JEOD_TIMECONVERTER_TAI_UTC_TAI_TO_UTC_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class TimeConverter_TAI_UTC;
 
-class TimeConverter_TAI_UTC_tai_to_utc_default_data {
- public:
-   void initialize (TimeConverter_TAI_UTC*);
+class TimeConverter_TAI_UTC_tai_to_utc_default_data
+{
+public:
+    void initialize(TimeConverter_TAI_UTC *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -54,10 +54,9 @@ Purpose:
 Library dependencies:
   ((../src/generalized_second_order_ode_technique.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_GENERALIZED_SECOND_ORDER_ODE_TECHNIQUE_HH
 #define JEOD_GENERALIZED_SECOND_ORDER_ODE_TECHNIQUE_HH
@@ -67,111 +66,88 @@ Library dependencies:
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/integration_technique.hh"
 
-
 /**
  * Namespace er7_utils contains the state integration models used by JEOD.
  */
-namespace er7_utils {
-   class IntegratorConstructor;
-}
-
+namespace er7_utils
+{
+class IntegratorConstructor;
+} // namespace er7_utils
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Enumerates the integration schemes, generalized Cartesian or Lie group
  * integration, and provides simple utilities that work with this.
  */
-class GeneralizedSecondOrderODETechnique {
-
-   // This is a static class. It has no constructors, no destructor,
-   // and no assignment operator.
-
+class GeneralizedSecondOrderODETechnique
+{
+    // This is a static class. It has no constructors, no destructor,
+    // and no assignment operator.
 public:
+    GeneralizedSecondOrderODETechnique() = delete;
+    GeneralizedSecondOrderODETechnique(const GeneralizedSecondOrderODETechnique &) = delete;
+    GeneralizedSecondOrderODETechnique & operator=(const GeneralizedSecondOrderODETechnique &) = delete;
 
-   /**
-    * Enumerates the types of second order ODE solvers that can be used
-    * to integrate a generalized second order ODE.
-    */
-   enum TechniqueType {
-      Unspecified, /**< No technique specified (an error). */
-      Cartesian,   /**< Integrate using a generalized derivative scheme.
-                        The integrator treats generalized position as if it
-                        lives in some Cartesian space. */
-      LieGroup     /**< Integrate using a generalized step scheme.
-                        The integrator treats generalized position as if it
-                        lives in some Lie group. */
-   };
+    /**
+     * Enumerates the types of second order ODE solvers that can be used
+     * to integrate a generalized second order ODE.
+     */
+    enum TechniqueType
+    {
+        Unspecified, /**< No technique specified (an error). */
+        Cartesian,   /**< Integrate using a generalized derivative scheme.
+                          The integrator treats generalized position as if it
+                          lives in some Cartesian space. */
+        LieGroup     /**< Integrate using a generalized step scheme.
+                          The integrator treats generalized position as if it
+                          lives in some Lie group. */
+    };
 
-   /**
-    * Test whether an integration method provides an integrator for the
-    * specified technique.
-    * @param[in]  generator  Integrator constructor for the integration technique.
-    * @param[in]  technique  Technique to be queried.
-    * @return True if the constructor can create an integrator for the
-    *    specified technique, false otherwise.
-    */
-   static bool is_provided_by (
-      const er7_utils::IntegratorConstructor & generator,
-      TechniqueType technique);
+    /**
+     * Test whether an integration method provides an integrator for the
+     * specified technique.
+     * @param[in]  generator  Integrator constructor for the integration technique.
+     * @param[in]  technique  Technique to be queried.
+     * @return True if the constructor can create an integrator for the
+     *    specified technique, false otherwise.
+     */
+    static bool is_provided_by(const er7_utils::IntegratorConstructor & generator, TechniqueType technique);
 
-   /**
-    * Validate the specified technique with respect to the integration
-    * method. Possible outcomes are:
-    * - Failure if the generator doesn't provide either of the generalized
-    *   second order ODE integrators.
-    * - Switch to plan B if the generator doesn't provide the requested
-    *   integrator but does provide the alternate technique.
-    * - Nothing happens if the generator does provide the requested integrator.
-    *
-    * @param[in]  generator  Integrator constructor for the integration technique.
-    * @param[in]  technique  Technique to be queried.
-    * @param[in]  file       Typically __FILE__
-    * @param[in]  line       Typically __LINE__
-    * @param[in]  requester  Something to identify the caller.
-    * @param[in]  name       The name of the object associated with the caller.
-    *
-    * @return Input technique if supported, alternate if not.
-    *    The function does not return is neither of the options is supported.
-    */
-   static TechniqueType validate_technique (
-      const er7_utils::IntegratorConstructor & generator,
-      TechniqueType technique,
-      const char * file,
-      unsigned int line,
-      const char * requester,
-      const char * name);
+    /**
+     * Validate the specified technique with respect to the integration
+     * method. Possible outcomes are:
+     * - Failure if the generator doesn't provide either of the generalized
+     *   second order ODE integrators.
+     * - Switch to plan B if the generator doesn't provide the requested
+     *   integrator but does provide the alternate technique.
+     * - Nothing happens if the generator does provide the requested integrator.
+     *
+     * @param[in]  generator  Integrator constructor for the integration technique.
+     * @param[in]  technique  Technique to be queried.
+     * @param[in]  file       Typically __FILE__
+     * @param[in]  line       Typically __LINE__
+     * @param[in]  requester  Something to identify the caller.
+     * @param[in]  name       The name of the object associated with the caller.
+     *
+     * @return Input technique if supported, alternate if not.
+     *    The function does not return is neither of the options is supported.
+     */
+    static TechniqueType validate_technique(const er7_utils::IntegratorConstructor & generator,
+                                            TechniqueType technique,
+                                            const char * file,
+                                            unsigned int line,
+                                            const char * requester,
+                                            const char * name);
 
-
+    // This is unimplemented, but using = delete causes problems for some OS.
 private:
-
-   /**
-    * Not implemented.
-    */
-   GeneralizedSecondOrderODETechnique ();
-
-   /**
-    * Not implemented.
-    */
-   GeneralizedSecondOrderODETechnique (
-      const GeneralizedSecondOrderODETechnique &);
-
-   /**
-    * Not implemented.
-    */
-   ~GeneralizedSecondOrderODETechnique ();
-
-   /**
-    * Not implemented.
-    */
-   GeneralizedSecondOrderODETechnique & operator= (
-      const GeneralizedSecondOrderODETechnique &);
-
+    ~GeneralizedSecondOrderODETechnique();
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

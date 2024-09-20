@@ -63,33 +63,23 @@ ASSUMPTIONS AND LIMITATIONS:
 #define CONTACT_UTILS_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Utility string and math functions for the contact model
  */
-class ContactUtils {
-
-
+class ContactUtils
+{
 public:
-   // creates a dot seperated name of a rel_state from the names of two facets
-   static int create_relstate_name (char * name1, char * name2, char** out_str);
+    // creates a dot seperated name of a rel_state from the names of two facets
+    static int create_relstate_name(char * name1, char * name2, char ** out_str);
 
-   // copy a const char * to a char *
-   static int copy_const_char_to_char (const char * in_str, char** out_str);
-
-   // calculate the closest point between two line segments
-   static int dist_line_segments (
-      double p1[3],
-      double p2[3],
-      double p3[3],
-      double p4[3],
-      double *pa,
-      double *pb);
-
+    // calculate the closest point between two line segments
+    static int dist_line_segments(double p1[3], double p2[3], double p3[3], double p4[3], double * pa, double * pb);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #include "contact_utils_inline.hh"
 

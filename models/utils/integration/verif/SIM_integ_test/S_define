@@ -47,29 +47,28 @@
 //
 //==============================================================================
 
-
 // Define job calling intervals
-#define DYNAMICS        1.00  // Dynamics interval
-
+#define DYNAMICS 1.00 // Dynamics interval
 
 // Define the phase initialization priorities.
 // NOTE: Initialization jobs lacking an assigned phase initialization priority
 // run after all initialization jobs that have assigned phase init priorities.
-#define P_TIME  P20   // Highest priority; these jobs only depend on time
-#define P_TEST  P30   // Test object initializations
+#define P_TIME P20 // Highest priority; these jobs only depend on time
+#define P_TEST P30 // Test object initializations
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
-#include "time_dyntime_only.sm"
 
+// Include the default jeod object
+#include "jeod_sys.sm"
+
+#include "time_dyntime_only.sm"
 
 //***************************************************************
 // CLASS: (TestSimObject)
 // PURPOSE:
 //  ( Items under test and the state integrators.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "utils/integration/verif/include/integration_test_manager.hh"
@@ -79,100 +78,107 @@
 ##include "utils/integration/gauss_jackson/include/gauss_jackson_integrator_constructor.hh"
 ##include "utils/integration/lsode/include/lsode_integrator_constructor.hh"
 
-class TestSimObject: public Trick::SimObject {
-
+class TestSimObject: public Trick::SimObject
+{
 public:
+    // Member functions
 
-   // Member functions
+    // Constructor
+    TestSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_TEST("initialization") test_manager.initialize(time_manager, DYNAMICS);
 
-   // Constructor
-   TestSimObject (
-      jeod::TimeManager & time_manager_in)
-   :
-      time_manager (time_manager_in)
-   {
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") test_manager.propagate(time_manager.dyn_time.seconds);
 
-      //
-      // Initialization jobs
-      //
-      P_TEST  ("initialization") test_manager.initialize (
-          time_manager, DYNAMICS);
+        //
+        // Shutdown jobs
+        //
+        ("shutdown") test_manager.shutdown(exec_get_sim_time(), time_manager.dyn_time.seconds);
 
-      //
-      // Environment class jobs
-      //
-      (DYNAMICS, "environment") test_manager.propagate (
-         time_manager.dyn_time.seconds);
+        //
+        // Derivative class jobs
+        //
+        ("derivative") test_manager.compute_derivatives();
 
-      //
-      // Shutdown jobs
-      //
-      ("shutdown") test_manager.shutdown (
-         exec_get_sim_time(),
-         time_manager.dyn_time.seconds);
+        //
+        // Integration jobs
+        //
+        ("integration", &test_manager.sim_integrator)
+            trick_ret = test_manager.integrate(test_manager.sim_integrator->time_0, time_manager);
+    }
 
-      //
-      // Derivative class jobs
-      //
-      ("derivative") test_manager.compute_derivatives ( );
+    // Member data
 
-      //
-      // Integration jobs
-      //
-      ("integration", &test_manager.sim_integrator) trick_ret =
-      test_manager.integrate (
-         test_manager.sim_integrator->time_0,
-         time_manager);
-   }
+    jeod::IntegrationTestManager test_manager;
 
-   // Member data
+    jeod::RotationTestTorqueFreeSphere torque_free_sphere;
+    jeod::RotationTestTorqueFreeSymTop torque_free_symtop;
+    jeod::RotationTestTorqueFreeSymTopB torque_free_symtop_b;
+    jeod::RotationTestSHOSphere sho_sphere;
+    jeod::TranslationTestOrbit orbit;
+    jeod::TranslationTestSpringDamper spring_damper;
 
-   jeod::IntegrationTestManager        test_manager;
+    // NOTE Turner Jan 2019
+    //      There are SWIG issues limiting visibility of the integration
+    //      techniques in er7-utils, resulting in difficulties setting "technique"
+    //      directly from the input file.
+    //      Consequently, creating switch_integ_to_* methods to allow switching
+    //      between integration techniques from the input file.
+    //      These methods can be removed if the issue of visibility to
+    //      er7-utils integration techniques is resolved.
+    //      These are not needed for JEOD integrators like Gauss-Jackson and
+    //      LSODE.
+    void switch_integ_to_abm4()
+    {
+        test_manager.integ_option = er7_utils::Integration::AdamsBashforthMoulton4;
+    }
 
-   jeod::RotationTestTorqueFreeSphere  torque_free_sphere;
-   jeod::RotationTestTorqueFreeSymTop  torque_free_symtop;
-   jeod::RotationTestTorqueFreeSymTopB torque_free_symtop_b;
-   jeod::RotationTestSHOSphere         sho_sphere;
-   jeod::TranslationTestOrbit          orbit;
-   jeod::TranslationTestSpringDamper   spring_damper;
+    void switch_integ_to_beeman()
+    {
+        test_manager.integ_option = er7_utils::Integration::Beeman;
+    }
 
-  // NOTE Turner Jan 2019
-  //      There are SWIG issues limiting visibility of the integration
-  //      techniques in er7-utils, resulting in difficulties setting "technique"
-  //      directly from the input file.
-  //      Consequently, creating switch_integ_to_* methods to allow switching
-  //      between integration techniques from the input file.
-  //      These methods can be removed if the issue of visibility to
-  //      er7-utils integration techniques is resolved.
-  //      These are not needed for JEOD integrators like Gauss-Jackson and
-  //      LSODE.
-  void switch_integ_to_abm4()
-  { test_manager.integ_option = er7_utils::Integration::AdamsBashforthMoulton4;}
-  void switch_integ_to_beeman()
-  { test_manager.integ_option = er7_utils::Integration::Beeman;}
-  void switch_integ_to_euler()
-  { test_manager.integ_option = er7_utils::Integration::Euler;}
-  void switch_integ_to_rk2Heun()
-  { test_manager.integ_option = er7_utils::Integration::RK2Heun;}
-  void switch_integ_to_rk4()
-  { test_manager.integ_option = er7_utils::Integration::RungeKutta4;}
-  void switch_integ_to_symplecticEuler()
-  { test_manager.integ_option = er7_utils::Integration::SymplecticEuler;}
+    void switch_integ_to_euler()
+    {
+        test_manager.integ_option = er7_utils::Integration::Euler;
+    }
 
-//  void switch_integ_to_RKF78()
-//  { technique = er7_utils::Integration::RKFehlberg78; }
-//  void switch_integ_to_Euler()
-//  { technique = er7_utils::Integration::Euler; }
+    void switch_integ_to_rk2Heun()
+    {
+        test_manager.integ_option = er7_utils::Integration::RK2Heun;
+    }
 
+    void switch_integ_to_rk4()
+    {
+        test_manager.integ_option = er7_utils::Integration::RungeKutta4;
+    }
+
+    void switch_integ_to_symplecticEuler()
+    {
+        test_manager.integ_option = er7_utils::Integration::SymplecticEuler;
+    }
+
+    //  void switch_integ_to_RKF78()
+    //  { technique = er7_utils::Integration::RKFehlberg78; }
+    //  void switch_integ_to_Euler()
+    //  { technique = er7_utils::Integration::Euler; }
+
+    // Unimplemented copy constructor and assignment operator
+    TestSimObject(const TestSimObject &) = delete;
+    TestSimObject & operator=(const TestSimObject &) = delete;
 
 private:
-   // Reference to the external time manager.
-   jeod::TimeManager & time_manager;
-
-   // Unimplemented copy constructor and assignment operator
-   TestSimObject (const TestSimObject&);
-   TestSimObject & operator = (const TestSimObject&);
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 };
-TestSimObject test (jeod_time.time_manager);
 
-IntegLoop sim_integ_loop (DYNAMICS) test;
+TestSimObject test(jeod_time.time_manager);
+
+IntegLoop sim_integ_loop(DYNAMICS) test;

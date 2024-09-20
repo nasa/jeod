@@ -52,9 +52,8 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_REF_FRAME_INTERFACE_HH
 #define JEOD_REF_FRAME_INTERFACE_HH
@@ -63,12 +62,12 @@ Purpose:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "subscription.hh"
 #include "class_declarations.hh"
-
+#include "subscription.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Identify an object as an "owner" of a reference frame.
@@ -78,35 +77,31 @@ namespace jeod {
  * This interface class is one of the very few classes that JEOD uses in
  * the form of multiple inheritance.
  */
-class RefFrameOwner {
+class RefFrameOwner
+{
+    // Member data -- None.
 
- // Member data -- None.
+    // Member functions
+public:
+    /**
+     * RefFrameOwner default constructor.
+     */
+    RefFrameOwner() = default;
 
- // Member functions
- public:
+    /**
+     * RefFrameOwner destructor.
+     */
+    virtual ~RefFrameOwner() = default;
 
-   /**
-    * RefFrameOwner default constructor.
-    */
-   RefFrameOwner () {}
-
-   /**
-    * RefFrameOwner destructor.
-    */
-   virtual ~RefFrameOwner () {}
-
-
-   /**
-    * Note that a reference frame has changed its active/inactive status.
-    * This default implementation does nothing.
-    * @param frame  Frame whose status has changed
-    */
-   virtual void note_frame_status_change (RefFrame * frame JEOD_UNUSED) {}
-
+    /**
+     * Note that a reference frame has changed its active/inactive status.
+     * This default implementation does nothing.
+     * @param frame  Frame whose status has changed
+     */
+    virtual void note_frame_status_change(RefFrame * frame JEOD_UNUSED) {}
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

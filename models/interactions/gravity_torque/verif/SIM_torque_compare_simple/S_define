@@ -38,22 +38,23 @@
 // PURPOSE:
 
 // Define job calling intervals
-#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
-#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
-
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
+#define DYNAMICS 0.03125   // Vehicle and plantary dynamics interval (32Hz)
 
 // Define the phase initialization priorities.
 // NOTE: Initialization jobs lacking an assigned phase initialization priority
 // run after all initialization jobs that have assigned phase init priorities.
-#define P_TIME  P10   // Highest priority; these jobs only depend on time
-#define P_MNGR  P20   // Dynamics manager initializations
-#define P_ENV   P30   // Environment initializations
-#define P_BODY  P40   // Orbital body initializations
-#define P_DYN   P50   // State-dependent initializations
-#define P_GRAV  P100  // Gravitation derivatives
+#define P_TIME P10  // Highest priority; these jobs only depend on time
+#define P_MNGR P20  // Dynamics manager initializations
+#define P_ENV P30   // Environment initializations
+#define P_BODY P40  // Orbital body initializations
+#define P_DYN P50   // State-dependent initializations
+#define P_GRAV P100 // Gravitation derivatives
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 //***************************************************************
@@ -61,7 +62,6 @@
 // PURPOSE:
 //  ( This sim object relates simulation time to time on the Earth.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "environment/time/include/time_manager.hh"
@@ -81,97 +81,79 @@
 ##include "environment/time/data/include/tai_to_ut1.hh"
 ##include "environment/time/data/include/tai_to_utc.hh"
 
-class Jeod_timeSimObject: public Trick::SimObject {
-
-   public:
-    jeod::TimeManager     manager;
+class Jeod_timeSimObject: public Trick::SimObject
+{
+public:
+    jeod::TimeManager manager;
     jeod::TimeManagerInit manager_init;
     jeod::TimeTAI tai;
-    jeod::TimeTT  tt;
+    jeod::TimeTT tt;
     jeod::TimeUTC utc;
     jeod::TimeUT1 ut1;
     jeod::TimeGMST gmst;
-    jeod::TimeConverter_Dyn_TAI  conv_dyn_tai;
-    jeod::TimeConverter_UT1_GMST  conv_ut1_gmst;
-    jeod::TimeConverter_TAI_TT   conv_tai_tt;
-    jeod::TimeConverter_TAI_UT1  conv_tai_ut1;
-    jeod::TimeConverter_TAI_UTC  conv_tai_utc;
+    jeod::TimeConverter_Dyn_TAI conv_dyn_tai;
+    jeod::TimeConverter_UT1_GMST conv_ut1_gmst;
+    jeod::TimeConverter_TAI_TT conv_tai_tt;
+    jeod::TimeConverter_TAI_UT1 conv_tai_ut1;
+    jeod::TimeConverter_TAI_UTC conv_tai_utc;
 
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
 
-// Instances for default data:
-    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data    conv_tai_ut1_default_data;
-    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data    conv_tai_utc_default_data;
+    // Instances for default data:
+    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data conv_tai_ut1_default_data;
+    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data conv_tai_utc_default_data;
 
-//Constructor
-    Jeod_timeSimObject() {
+    // Constructor
+    Jeod_timeSimObject()
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") conv_tai_ut1_default_data.initialize(&conv_tai_ut1);
+        ("default_data") conv_tai_utc_default_data.initialize(&conv_tai_utc);
 
-   //
-   //Default data jobs
-   //
-      ("default_data") conv_tai_ut1_default_data.initialize ( &conv_tai_ut1 );
-      ("default_data") conv_tai_utc_default_data.initialize ( &conv_tai_utc );
-
-   //
-   //
-   // Time scales of interest.
-   // Time converters
-   //
-   // Initialization jobs
-   //
-   // Register the basic time scales with the time manager.
-   // TAI
-      P_TIME  ("initialization") manager.register_time(
-          tai );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_dyn_tai );
-   // TT
-      P_TIME  ("initialization") manager.register_time(
-          utc );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_tai_tt );
-   // UT1
-      P_TIME  ("initialization") manager.register_time(
-          ut1 );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_tai_ut1 );
-   // UTC
-      P_TIME  ("initialization") manager.register_time(
-          tt );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_tai_utc );
-      P_TIME  ("initialization") manager.register_time(
-          gmst );
-      P_TIME  ("initialization") manager.register_converter(
-          conv_ut1_gmst );
-   // Initialize the time manager.
-      P_TIME  ("initialization") manager.initialize(
-          &manager_init );
-   // Compute appropriate calendar dates are initialization.
-      P_TIME  ("initialization") ut1.calendar_update(
-          exec_get_sim_time() );
-      P_TIME  ("initialization") utc.calendar_update(
-          exec_get_sim_time() );
-   //
-   // Scheduled jobs
-   //
-   // Update the base time scales.
-      (DYNAMICS, "environment") manager.update(
-          exec_get_sim_time() );
-   // Update the calendar times of interest.
-      (DYNAMICS, "environment") ut1.calendar_update(
-          exec_get_sim_time() );
-      (DYNAMICS, "environment") utc.calendar_update(
-          exec_get_sim_time() );
+        //
+        //
+        // Time scales of interest.
+        // Time converters
+        //
+        // Initialization jobs
+        //
+        // Register the basic time scales with the time manager.
+        // TAI
+        P_TIME("initialization") manager.register_time(tai);
+        P_TIME("initialization") manager.register_converter(conv_dyn_tai);
+        // TT
+        P_TIME("initialization") manager.register_time(utc);
+        P_TIME("initialization") manager.register_converter(conv_tai_tt);
+        // UT1
+        P_TIME("initialization") manager.register_time(ut1);
+        P_TIME("initialization") manager.register_converter(conv_tai_ut1);
+        // UTC
+        P_TIME("initialization") manager.register_time(tt);
+        P_TIME("initialization") manager.register_converter(conv_tai_utc);
+        P_TIME("initialization") manager.register_time(gmst);
+        P_TIME("initialization") manager.register_converter(conv_ut1_gmst);
+        // Initialize the time manager.
+        P_TIME("initialization") manager.initialize(&manager_init);
+        // Compute appropriate calendar dates are initialization.
+        P_TIME("initialization") ut1.calendar_update(exec_get_sim_time());
+        P_TIME("initialization") utc.calendar_update(exec_get_sim_time());
+        //
+        // Scheduled jobs
+        //
+        // Update the base time scales.
+        (DYNAMICS, "environment") manager.update(exec_get_sim_time());
+        // Update the calendar times of interest.
+        (DYNAMICS, "environment") ut1.calendar_update(exec_get_sim_time());
+        (DYNAMICS, "environment") utc.calendar_update(exec_get_sim_time());
     }
 
-  private:
-    Jeod_timeSimObject (const Jeod_timeSimObject&);
-    Jeod_timeSimObject & operator = (const Jeod_timeSimObject&);
-
+    Jeod_timeSimObject(const Jeod_timeSimObject &) = delete;
+    Jeod_timeSimObject & operator=(const Jeod_timeSimObject &) = delete;
 };
-Jeod_timeSimObject jeod_time ;
 
+Jeod_timeSimObject jeod_time;
 
 //***************************************************************
 // CLASS: (DynamicsSimObject)
@@ -179,53 +161,47 @@ Jeod_timeSimObject jeod_time ;
 //  ( * COLLECT: Vehicle force and torque collection statements for dynamics)
 //***************************************************************
 
-
 // Include headers for classes that this class contains:
 ##include "dynamics/dyn_manager/include/dyn_manager.hh"
 ##include "dynamics/dyn_manager/include/dyn_manager_init.hh"
 ##include "dynamics/body_action/include/body_action.hh"
 
+class DynamicsSimObject: public Trick::SimObject
+{
+public:
+    jeod::DynManager manager;
+    jeod::DynManagerInit manager_init;
 
-class DynamicsSimObject: public Trick::SimObject {
-
-   public:
-    jeod::DynManager          manager;
-    jeod::DynManagerInit      manager_init;
-
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     Jeod_timeSimObject * internal_jeod_time;
 
-//Constructor
-    DynamicsSimObject(
-           Jeod_timeSimObject & ext_jeod_time) {
+    // Constructor
+    DynamicsSimObject(Jeod_timeSimObject & ext_jeod_time)
+    {
+        internal_jeod_time = &ext_jeod_time;
 
-    internal_jeod_time = & ext_jeod_time;
-
-   //
-   // Initialization jobs
-   //
-      P_MNGR  ("initialization") manager.initialize_model(
-          manager_init, internal_jeod_time->manager);
-      P_BODY  ("initialization") manager.initialize_simulation( );
-   //
-   // Derivative class jobs
-   //
-      P_GRAV   ("derivative") manager.gravitation( );
-      ("derivative") manager.compute_derivatives( );
-   //
-   // Integration jobs
-   //
-      ("integration", &manager.sim_integrator) trick_ret = manager.integrate (
-          exec_get_sim_time(), internal_jeod_time->manager);
+        //
+        // Initialization jobs
+        //
+        P_MNGR("initialization") manager.initialize_model(manager_init, internal_jeod_time->manager);
+        P_BODY("initialization") manager.initialize_simulation();
+        //
+        // Derivative class jobs
+        //
+        P_GRAV("derivative") manager.gravitation();
+        ("derivative") manager.compute_derivatives();
+        //
+        // Integration jobs
+        //
+        ("integration", &manager.sim_integrator)
+            trick_ret = manager.integrate(exec_get_sim_time(), internal_jeod_time->manager);
     }
 
-  private:
-    DynamicsSimObject (const DynamicsSimObject&);
-    DynamicsSimObject & operator = (const DynamicsSimObject&);
-
+    DynamicsSimObject(const DynamicsSimObject &) = delete;
+    DynamicsSimObject & operator=(const DynamicsSimObject &) = delete;
 };
-DynamicsSimObject dynamics ( jeod_time);
 
+DynamicsSimObject dynamics(jeod_time);
 
 //***************************************************************
 // CLASS: (EnvSimObject)
@@ -233,64 +209,55 @@ DynamicsSimObject dynamics ( jeod_time);
 //  ( This sim object models the space environment.)
 //***************************************************************
 
-
 // Include headers for classes that this class contains:
 ##include "environment/ephemerides/de4xx_ephem/include/de4xx_ephem.hh"
 ##include "environment/gravity/include/gravity_manager.hh"
 
 // Include default data classes:
-class EnvSimObject: public Trick::SimObject {
-
-   public:
+class EnvSimObject: public Trick::SimObject
+{
+public:
     jeod::De4xxEphemeris de4xx;
     jeod::GravityManager gravity;
 
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     Jeod_timeSimObject * internal_jeod_time;
     DynamicsSimObject * internal_dynamics;
 
-//Constructor
-    EnvSimObject(
-           Jeod_timeSimObject & ext_jeod_time,
-           DynamicsSimObject & ext_dynamics) {
+    // Constructor
+    EnvSimObject(Jeod_timeSimObject & ext_jeod_time, DynamicsSimObject & ext_dynamics)
+    {
+        internal_jeod_time = &ext_jeod_time;
+        internal_dynamics = &ext_dynamics;
+        //
+        // Default data jobs
+        //
 
-    internal_jeod_time = & ext_jeod_time;
-    internal_dynamics = & ext_dynamics;
-   //
-   //Default data jobs
-   //
-
-   //
-   //
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") de4xx.initialize_model (
-           internal_jeod_time->manager,
-           internal_dynamics->manager);
-      P_ENV  ("initialization") gravity.initialize_model (
-           internal_dynamics->manager );
-   //
-   // Scheduled jobs
-   //
-   // Supports the update of multiple ephmeris models.
-      (DYNAMICS, "environment") internal_dynamics->manager.update_ephemerides( );
+        //
+        //
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") de4xx.initialize_model(internal_jeod_time->manager, internal_dynamics->manager);
+        P_ENV("initialization") gravity.initialize_model(internal_dynamics->manager);
+        //
+        // Scheduled jobs
+        //
+        // Supports the update of multiple ephmeris models.
+        (DYNAMICS, "environment") internal_dynamics->manager.update_ephemerides();
     }
 
-  private:
-    EnvSimObject (const EnvSimObject&);
-    EnvSimObject & operator = (const EnvSimObject&);
-
+    EnvSimObject(const EnvSimObject &) = delete;
+    EnvSimObject & operator=(const EnvSimObject &) = delete;
 };
-EnvSimObject env ( jeod_time, dynamics);
 
+EnvSimObject env(jeod_time, dynamics);
 
 //***************************************************************
 // CLASS: (SunSimObject)
 // PURPOSE:
 //  ( This sim object models the Sun.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "environment/planet/include/planet.hh"
@@ -300,61 +267,53 @@ EnvSimObject env ( jeod_time, dynamics);
 ##include "environment/planet/data/include/sun.hh"
 ##include "environment/gravity/data/include/sun_spherical.hh"
 
-class SunSimObject: public Trick::SimObject {
+class SunSimObject: public Trick::SimObject
+{
+public:
+    jeod::Planet planet;
+    jeod::SphericalHarmonicsGravitySource gravity_source;
 
-   public:
-    jeod::Planet        planet;
-    jeod::SphericalHarmonicsGravitySource   gravity_source;
-
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     EnvSimObject * internal_env;
     DynamicsSimObject * internal_dynamics;
 
-// Instances for default data:
-    jeod::Planet_sun_default_data    planet_default_data;
-    jeod::SphericalHarmonicsGravitySource_sun_spherical_default_data    gravity_default_data;
+    // Instances for default data:
+    jeod::Planet_sun_default_data planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_sun_spherical_default_data gravity_default_data;
 
-//Constructor
-    SunSimObject(
-           EnvSimObject & ext_env,
-           DynamicsSimObject & ext_dynamics) {
+    // Constructor
+    SunSimObject(EnvSimObject & ext_env, DynamicsSimObject & ext_dynamics)
+    {
+        internal_env = &ext_env;
+        internal_dynamics = &ext_dynamics;
+        //
+        // Default data jobs
+        //
+        ("default_data") planet_default_data.initialize(&planet);
+        ("default_data") gravity_default_data.initialize(&gravity_source);
 
-    internal_env = & ext_env;
-    internal_dynamics = & ext_dynamics;
-   //
-   //Default data jobs
-   //
-      ("default_data") planet_default_data.initialize ( &planet );
-      ("default_data") gravity_default_data.initialize ( &gravity_source );
-
-   //
-   //
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") gravity_source.initialize_body( );
-      P_ENV  ("initialization") internal_env->gravity.add_grav_source(
-          gravity_source );
-      P_ENV  ("initialization") planet.register_model(
-          gravity_source,
-           internal_dynamics->manager );
-      P_BODY  ("initialization") planet.initialize ( );
+        //
+        //
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") gravity_source.initialize_body();
+        P_ENV("initialization") internal_env->gravity.add_grav_source(gravity_source);
+        P_ENV("initialization") planet.register_model(gravity_source, internal_dynamics->manager);
+        P_BODY("initialization") planet.initialize();
     }
 
-  private:
-    SunSimObject (const SunSimObject&);
-    SunSimObject & operator = (const SunSimObject&);
-
+    SunSimObject(const SunSimObject &) = delete;
+    SunSimObject & operator=(const SunSimObject &) = delete;
 };
-SunSimObject sun ( env, dynamics);
 
+SunSimObject sun(env, dynamics);
 
 //***************************************************************
 // CLASS: (EarthSimObject)
 // PURPOSE:
 //  ( This sim object models the space environment.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "environment/planet/include/planet.hh"
@@ -370,95 +329,78 @@ SunSimObject sun ( env, dynamics);
 ##include "environment/RNP/RNPJ2000/data/include/nutation_j2000.hh"
 ##include "environment/RNP/RNPJ2000/data/polar_motion/include/xpyp_daily.hh"
 
-class EarthSimObject: public Trick::SimObject {
-
-   public:
-    jeod::Planet               planet;
-    jeod::SphericalHarmonicsGravitySource  gravity_source;
-    jeod::RNPJ2000             rnp;
-    jeod::NutationJ2000Init    nut_init;
+class EarthSimObject: public Trick::SimObject
+{
+public:
+    jeod::Planet planet;
+    jeod::SphericalHarmonicsGravitySource gravity_source;
+    jeod::RNPJ2000 rnp;
+    jeod::NutationJ2000Init nut_init;
     jeod::PolarMotionJ2000Init pm_init;
 
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     EnvSimObject * internal_env;
     DynamicsSimObject * internal_dynamics;
     Jeod_timeSimObject * internal_jeod_time;
 
-// Instances for default data:
-    jeod::Planet_earth_default_data    planet_default_data;
-    jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data    gravity_default_data;
-    jeod::RNPJ2000_rnp_j2000_default_data    rnp_default_data;
-    jeod::NutationJ2000Init_nutation_j2000_default_data    nut_init_default_data;
-    jeod::PolarMotionJ2000Init_xpyp_daily_default_data    pm_init_default_data;
+    // Instances for default data:
+    jeod::Planet_earth_default_data planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data gravity_default_data;
+    jeod::RNPJ2000_rnp_j2000_default_data rnp_default_data;
+    jeod::NutationJ2000Init_nutation_j2000_default_data nut_init_default_data;
+    jeod::PolarMotionJ2000Init_xpyp_daily_default_data pm_init_default_data;
 
-//Constructor
-    EarthSimObject(
-           EnvSimObject & ext_env,
-           DynamicsSimObject & ext_dynamics,
-           Jeod_timeSimObject & ext_jeod_time) {
+    // Constructor
+    EarthSimObject(EnvSimObject & ext_env, DynamicsSimObject & ext_dynamics, Jeod_timeSimObject & ext_jeod_time)
+    {
+        internal_env = &ext_env;
+        internal_dynamics = &ext_dynamics;
+        internal_jeod_time = &ext_jeod_time;
+        //
+        // Default data jobs
+        //
+        ("default_data") planet_default_data.initialize(&planet);
+        ("default_data") gravity_default_data.initialize(&gravity_source);
+        ("default_data") rnp_default_data.initialize(&rnp);
+        ("default_data") nut_init_default_data.initialize(&nut_init);
+        ("default_data") pm_init_default_data.initialize(&pm_init);
 
-    internal_env = & ext_env;
-    internal_dynamics = & ext_dynamics;
-    internal_jeod_time = & ext_jeod_time;
-   //
-   //Default data jobs
-   //
-      ("default_data") planet_default_data.initialize ( &planet );
-      ("default_data") gravity_default_data.initialize ( &gravity_source );
-      ("default_data") rnp_default_data.initialize ( &rnp );
-      ("default_data") nut_init_default_data.initialize ( &nut_init );
-      ("default_data") pm_init_default_data.initialize ( &pm_init );
-
-   //
-   //
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") gravity_source.initialize_body( );
-      P_ENV  ("initialization") internal_env->gravity.add_grav_source(
-          gravity_source );
-      P_ENV  ("initialization") planet.register_model(
-          gravity_source,
-           internal_dynamics->manager );
-      P_ENV  ("initialization") rnp.initialize(
-           internal_dynamics->manager );
-      P_ENV  ("initialization") rnp.nutation->initialize(
-          &nut_init );
-      P_ENV  ("initialization") rnp.polar_motion->initialize(
-          &pm_init );
-      P_ENV  ("initialization") rnp.update_rnp (
-           internal_jeod_time->tt,
-           internal_jeod_time->gmst,
-           internal_jeod_time->ut1 );
-      P_BODY  ("initialization") planet.initialize( );
-   //
-   // Environment class jobs
-   //
-      (LOW_RATE_ENV, "environment") rnp.update_rnp (
-           internal_jeod_time->tt,
-           internal_jeod_time->gmst,
-           internal_jeod_time->ut1 );
-   //
-   // Derivative class jobs
-   //
-      P_ENV   ("derivative") rnp.update_axial_rotation(
-           internal_jeod_time->gmst );
+        //
+        //
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") gravity_source.initialize_body();
+        P_ENV("initialization") internal_env->gravity.add_grav_source(gravity_source);
+        P_ENV("initialization") planet.register_model(gravity_source, internal_dynamics->manager);
+        P_ENV("initialization") rnp.initialize(internal_dynamics->manager);
+        P_ENV("initialization") rnp.nutation->initialize(&nut_init);
+        P_ENV("initialization") rnp.polar_motion->initialize(&pm_init);
+        P_ENV("initialization")
+        rnp.update_rnp(internal_jeod_time->tt, internal_jeod_time->gmst, internal_jeod_time->ut1);
+        P_BODY("initialization") planet.initialize();
+        //
+        // Environment class jobs
+        //
+        (LOW_RATE_ENV, "environment")
+            rnp.update_rnp(internal_jeod_time->tt, internal_jeod_time->gmst, internal_jeod_time->ut1);
+        //
+        // Derivative class jobs
+        //
+        P_ENV("derivative") rnp.update_axial_rotation(internal_jeod_time->gmst);
     }
 
-  private:
-    EarthSimObject (const EarthSimObject&);
-    EarthSimObject & operator = (const EarthSimObject&);
-
+    EarthSimObject(const EarthSimObject &) = delete;
+    EarthSimObject & operator=(const EarthSimObject &) = delete;
 };
-EarthSimObject earth ( env, dynamics, jeod_time);
 
+EarthSimObject earth(env, dynamics, jeod_time);
 
 //***************************************************************
 // CLASS: (MoonSimObject)
 // PURPOSE:
 //  ( This sim object models the Moon.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "environment/planet/include/planet.hh"
@@ -468,61 +410,53 @@ EarthSimObject earth ( env, dynamics, jeod_time);
 ##include "environment/planet/data/include/moon.hh"
 ##include "environment/gravity/data/include/moon_spherical.hh"
 
-class MoonSimObject: public Trick::SimObject {
+class MoonSimObject: public Trick::SimObject
+{
+public:
+    jeod::Planet planet;
+    jeod::SphericalHarmonicsGravitySource gravity_source;
 
-   public:
-    jeod::Planet        planet;
-    jeod::SphericalHarmonicsGravitySource   gravity_source;
-
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     EnvSimObject * internal_env;
     DynamicsSimObject * internal_dynamics;
 
-// Instances for default data:
-    jeod::Planet_moon_default_data    planet_default_data;
-    jeod::SphericalHarmonicsGravitySource_moon_spherical_default_data    gravity_default_data;
+    // Instances for default data:
+    jeod::Planet_moon_default_data planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_moon_spherical_default_data gravity_default_data;
 
-//Constructor
-    MoonSimObject(
-           EnvSimObject & ext_env,
-           DynamicsSimObject & ext_dynamics) {
+    // Constructor
+    MoonSimObject(EnvSimObject & ext_env, DynamicsSimObject & ext_dynamics)
+    {
+        internal_env = &ext_env;
+        internal_dynamics = &ext_dynamics;
+        //
+        // Default data jobs
+        //
+        ("default_data") planet_default_data.initialize(&planet);
+        ("default_data") gravity_default_data.initialize(&gravity_source);
 
-    internal_env = & ext_env;
-    internal_dynamics = & ext_dynamics;
-   //
-   //Default data jobs
-   //
-      ("default_data") planet_default_data.initialize ( &planet );
-      ("default_data") gravity_default_data.initialize ( &gravity_source );
-
-   //
-   //
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") gravity_source.initialize_body( );
-      P_ENV  ("initialization") internal_env->gravity.add_grav_source(
-          gravity_source );
-      P_ENV  ("initialization") planet.register_model(
-          gravity_source,
-           internal_dynamics->manager  );
-      P_BODY  ("initialization") planet.initialize( );
+        //
+        //
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") gravity_source.initialize_body();
+        P_ENV("initialization") internal_env->gravity.add_grav_source(gravity_source);
+        P_ENV("initialization") planet.register_model(gravity_source, internal_dynamics->manager);
+        P_BODY("initialization") planet.initialize();
     }
 
-  private:
-    MoonSimObject (const MoonSimObject&);
-    MoonSimObject & operator = (const MoonSimObject&);
-
+    MoonSimObject(const MoonSimObject &) = delete;
+    MoonSimObject & operator=(const MoonSimObject &) = delete;
 };
-MoonSimObject moon ( env, dynamics);
 
+MoonSimObject moon(env, dynamics);
 
 //***************************************************************
 // CLASS: (Sv_dynSimObject)
 // PURPOSE:
 //  ( This sim object models a vehicle in space.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "dynamics/dyn_body/include/dyn_body.hh"
@@ -539,126 +473,100 @@ MoonSimObject moon ( env, dynamics);
 ##include "dynamics/dyn_body/include/torque.hh"
 ##include "interactions/gravity_torque/include/gravity_torque.hh"
 ##include "environment/gravity/include/spherical_harmonics_gravity_controls.hh"
-
 ##include "interactions/gravity_torque/verif/SIM_torque_compare_simple/models/gravity_gradient/include/gravity_gradient.hh"
 
-class Sv_dynSimObject: public Trick::SimObject {
-
-   public:
-    jeod::DynBody       body;
-    jeod::DynBodyInitTransState   trans_init;
-    jeod::DynBodyInitRotState     rot_init;
+class Sv_dynSimObject: public Trick::SimObject
+{
+public:
+    jeod::DynBody body;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
     jeod::DynBodyInitLvlhRotState lvlh_init;
     jeod::MassBodyInit mass_init;
-    jeod::EulerDerivedState     euler;
+    jeod::EulerDerivedState euler;
     jeod::PlanetaryDerivedState pfix;
-    jeod::LvlhDerivedState      lvlh;
-    jeod::EulerDerivedState     lvlh_euler;
-    jeod::OrbElemDerivedState   orb_elem;
-    jeod::Force  force_extern;
+    jeod::LvlhDerivedState lvlh;
+    jeod::EulerDerivedState lvlh_euler;
+    jeod::OrbElemDerivedState orb_elem;
+    jeod::Force force_extern;
     jeod::Torque torque_extern;
     jeod::Torque gg_torq_bdy;
     jeod::Torque gg_torq;
     jeod::SphericalHarmonicsGravityControls * grav_ctrl_ptr;
-    jeod::SphericalHarmonicsGravityControls  earth_grav_ctrl;
-    jeod::SphericalHarmonicsGravityControls  sun_grav_ctrl;
-    jeod::SphericalHarmonicsGravityControls  moon_grav_ctrl;
+    jeod::SphericalHarmonicsGravityControls earth_grav_ctrl;
+    jeod::SphericalHarmonicsGravityControls sun_grav_ctrl;
+    jeod::SphericalHarmonicsGravityControls moon_grav_ctrl;
     jeod::GravityTorque grav_torque;
 
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
     DynamicsSimObject * internal_dynamics;
     EarthSimObject * internal_earth;
 
-//Constructor
-    Sv_dynSimObject(
-           DynamicsSimObject & ext_dynamics,
-           EarthSimObject & ext_earth) {
+    // Constructor
+    Sv_dynSimObject(DynamicsSimObject & ext_dynamics, EarthSimObject & ext_earth)
+    {
+        internal_dynamics = &ext_dynamics;
+        internal_earth = &ext_earth;
+        //
+        //
+        // Dynamical propagation and initial state.
+        // Vehicle mass initialization parameters.
+        // Vehicle derived reference frames.
+        // Vehicle perturbation forces and torques.
+        // Vehicle environmental forces and torques.
+        //
+        // Job declarations for input processor.
+        //
 
-    internal_dynamics = & ext_dynamics;
-    internal_earth = & ext_earth;
-   //
-   //
-   // Dynamical propagation and initial state.
-   // Vehicle mass initialization parameters.
-   // Vehicle derived reference frames.
-   // Vehicle perturbation forces and torques.
-   // Vehicle environmental forces and torques.
-   //
-   // Job declarations for input processor.
-   //
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") body.initialize_model(internal_dynamics->manager);
+        P_DYN("initialization") euler.initialize(body, internal_dynamics->manager);
+        P_DYN("initialization") pfix.initialize(body, internal_dynamics->manager);
+        P_DYN("initialization") lvlh.initialize(body, internal_dynamics->manager);
+        P_DYN("initialization") lvlh_euler.initialize(lvlh.lvlh_frame, body, internal_dynamics->manager);
+        P_DYN("initialization") orb_elem.initialize(body, internal_dynamics->manager);
+        ("initialization") euler.update();
+        ("initialization") pfix.update();
+        ("initialization") lvlh.update();
+        ("initialization") lvlh_euler.update();
+        ("initialization") orb_elem.update();
+        ("initialization") grav_torque.initialize(body);
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") euler.update();
+        (DYNAMICS, "environment") pfix.update();
+        (DYNAMICS, "environment") lvlh.update();
+        (DYNAMICS, "environment") lvlh_euler.update();
+        (DYNAMICS, "environment") orb_elem.update();
+        //
+        // Derivative class jobs
+        //
 
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") body.initialize_model(
-           internal_dynamics->manager );
-      P_DYN  ("initialization") euler.initialize(
-          body,
-           internal_dynamics->manager );
-      P_DYN  ("initialization") pfix.initialize(
-          body,
-           internal_dynamics->manager );
-      P_DYN  ("initialization") lvlh.initialize(
-          body,
-           internal_dynamics->manager );
-      P_DYN  ("initialization") lvlh_euler.initialize(
-          lvlh.lvlh_frame,
-          body,
-           internal_dynamics->manager );
-      P_DYN  ("initialization") orb_elem.initialize(
-          body,
-           internal_dynamics->manager );
-      ("initialization") euler.update( );
-      ("initialization") pfix.update( );
-      ("initialization") lvlh.update( );
-      ("initialization") lvlh_euler.update( );
-      ("initialization") orb_elem.update( );
-      ("initialization") grav_torque.initialize(
-          body );
-   //
-   // Environment class jobs
-   //
-      (DYNAMICS, "environment") euler.update( );
-      (DYNAMICS, "environment") pfix.update( );
-      (DYNAMICS, "environment") lvlh.update( );
-      (DYNAMICS, "environment") lvlh_euler.update( );
-      (DYNAMICS, "environment") orb_elem.update( );
-   //
-   // Derivative class jobs
-   //
-
-     P_BODY ("derivative") jeod::gravity_gradient(
-          gg_torq.active,
-           internal_earth->gravity_source.mu,
-          body.composite_body.state.trans.position,
-          body.composite_body.state.rot.T_parent_this,
-          body.mass.composite_properties.T_parent_this,
-          body.mass.composite_properties.inertia,
-          gg_torq_bdy.torque,
-          gg_torq.torque       );
-      P_BODY   ("derivative") grav_torque.update();
+        P_BODY("derivative")
+        jeod::gravity_gradient(gg_torq.active,
+                               internal_earth->gravity_source.mu,
+                               body.composite_body.state.trans.position,
+                               body.composite_body.state.rot.T_parent_this,
+                               body.mass.composite_properties.T_parent_this,
+                               body.mass.composite_properties.inertia,
+                               gg_torq_bdy.torque,
+                               gg_torq.torque);
+        P_BODY("derivative") grav_torque.update();
     }
 
-  private:
-    Sv_dynSimObject (const Sv_dynSimObject&);
-    Sv_dynSimObject & operator = (const Sv_dynSimObject&);
-
-};
-Sv_dynSimObject sv_dyn ( dynamics, earth);
-
-
-vcollect sv_dyn.body.collect.collect_effector_forc jeod::CollectForce::create {
-   sv_dyn.force_extern
-};
-vcollect sv_dyn.body.collect.collect_environ_forc jeod::CollectForce::create {
-};
-vcollect sv_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create {
-   sv_dyn.torque_extern
-};
-vcollect sv_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create {
-};
-vcollect sv_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   sv_dyn.gg_torq.torque
+    Sv_dynSimObject(const Sv_dynSimObject &) = delete;
+    Sv_dynSimObject & operator=(const Sv_dynSimObject &) = delete;
 };
 
- IntegLoop sim_integ_loop  (DYNAMICS) earth, sv_dyn, dynamics;
+Sv_dynSimObject sv_dyn(dynamics, earth);
+
+vcollect sv_dyn.body.collect.collect_effector_forc jeod::CollectForce::create{sv_dyn.force_extern};
+vcollect sv_dyn.body.collect.collect_environ_forc jeod::CollectForce::create{};
+vcollect sv_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create{sv_dyn.torque_extern};
+vcollect sv_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create{};
+vcollect sv_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create{sv_dyn.gg_torq.torque};
+
+IntegLoop sim_integ_loop(DYNAMICS) earth, sv_dyn, dynamics;

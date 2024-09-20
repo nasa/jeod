@@ -49,21 +49,21 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  600.00 // Low-rate environment update interval
-#define DYNAMICS       0.01  // Vehicle and plantary dynamics interval (50Hz)
-
-
-// Define the phase initialization priorities.
-#include "default_priority_settings.sm"
+#define LOW_RATE_ENV 600.00 // Low-rate environment update interval
+#define DYNAMICS 0.01       // Vehicle and plantary dynamics interval (50Hz)
 
 // Global S_define name definitions.
 #define DYN_MNGR_NAME dynamics.manager
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
 
 //=============================================================================
 // SIM_OBJECT: time
@@ -101,17 +101,14 @@
 // SIM_OBJECT: veh1_dyn
 //=============================================================================
 // Define the vehicle instance name.
-SvDynSimObject veh1_dyn ( contact,
-                          dynamics);
+SvDynSimObject veh1_dyn(contact, dynamics);
 
 //=============================================================================
 // SIM_OBJECT: veh2_dyn
 //=============================================================================
 // Define the vehicle instance name.
-SvDynSimObject veh2_dyn ( contact,
-                          dynamics);
+SvDynSimObject veh2_dyn(contact, dynamics);
 
 #include "Contact_S_modules/sv_collect_veh.sm"
 
-
- IntegLoop sim_integ_loop  (DYNAMICS) dynamics, contact, veh1_dyn, veh2_dyn;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, contact, veh1_dyn, veh2_dyn;

@@ -50,32 +50,30 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_RESTARTABLE_2D_SECOND_ORDER_INTEGRATOR_HH
 #define JEOD_RESTARTABLE_2D_SECOND_ORDER_INTEGRATOR_HH
 
-
 // JEOD includes
-#include "restartable_state_integrator_templates.hh"
 #include "generalized_second_order_ode_technique.hh"
 #include "integration_messages.hh"
+#include "restartable_state_integrator_templates.hh"
 
 #include "utils/container/include/simple_checkpointable.hh"
-#include "utils/message/include/message_handler.hh"
 #include "utils/memory/include/jeod_alloc.hh"
+#include "utils/message/include/message_handler.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/first_order_ode_integrator.hh"
-#include "er7_utils/integration/core/include/second_order_ode_integrator.hh"
 #include "er7_utils/integration/core/include/left_quaternion_functions.hh"
+#include "er7_utils/integration/core/include/second_order_ode_integrator.hh"
 
 // System includes
 #include <cstddef>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Integrates a second order ODE in two dimensional space,
@@ -83,136 +81,111 @@ namespace jeod {
  */
 class Restartable2DSecondOrderIntegrator : public SimpleCheckpointable
 {
-   JEOD_MAKE_SIM_INTERFACES(Restartable2DSecondOrderIntegrator)
+    JEOD_MAKE_SIM_INTERFACES(jeod, Restartable2DSecondOrderIntegrator)
 
 public:
+    /**
+     * Default constructor.
+     */
+    Restartable2DSecondOrderIntegrator()
+        : integrator_manager(integrator)
+    {
+        JEOD_REGISTER_CLASS(Restartable2DSecondOrderIntegrator);
+    }
 
-   /**
-    * Default constructor.
-    */
-   Restartable2DSecondOrderIntegrator()
-   :
-      SimpleCheckpointable(),
-      integrator(nullptr),
-      integrator_manager(integrator)
-   {
-      JEOD_REGISTER_CLASS (Restartable2DSecondOrderIntegrator);
-   }
+    /**
+     * Destructor.
+     */
+    ~Restartable2DSecondOrderIntegrator() override
+    {
+        destroy_integrator();
+    }
 
-   /**
-    * Destructor.
-    */
-   ~Restartable2DSecondOrderIntegrator() override
-   {
-      destroy_integrator();
-   }
+    /**
+     * Create the integrator to be managed.
+     * @param[in] generator  Generator used to create the integrator.
+     * @param[in,out] controls  Controls to be passed to the generator.
+     */
+    void create_integrator(const er7_utils::IntegratorConstructor & generator,
+                           er7_utils::IntegrationControls & controls)
+    {
+        integrator_manager.create_integrator(generator, controls);
+    }
 
+    /**
+     * Destroy the integrator.
+     */
+    void destroy_integrator()
+    {
+        integrator_manager.destroy_integrator();
+        integrator_manager.set_integrator_reference(integrator);
+    }
 
-   /**
-    * Create the integrator to be managed.
-    * @param[in] generator  Generator used to create the integrator.
-    * @param[in,out] controls  Controls to be passed to the generator.
-    */
-   void create_integrator(
-      const er7_utils::IntegratorConstructor & generator,
-      er7_utils::IntegrationControls & controls)
-   {
-      integrator_manager.create_integrator (generator, controls);
-   }
+    /**
+     * Propagate state to the specified stage of the integration
+     * process for an overall integration time interval of dyn_dt.
+     *
+     * Note that this is a pass-through to the encapsulated integrator object.
+     * See er7_utils::SecondOrderODEIntegrator::integrate for details.
+     *
+     * @param[in]     dyn_dt        Dynamic time step, in dynamic time seconds.
+     * @param[in]     target_stage  The stage of the integration process
+     *                              that the integrator should try to attain.
+     * @param[in]     accel         Time derivative of the generalized velocity.
+     * @param[in,out] velocity      Generalized velocity vector.
+     * @param[in,out] position      Generalized position vector.
+     *
+     * @return The status (time advance, pass/fail status) of the integration.
+     */
+    er7_utils::IntegratorResult integrate(double dyn_dt,
+                                          unsigned int target_stage,
+                                          const double * ER7_UTILS_RESTRICT accel,
+                                          double * ER7_UTILS_RESTRICT velocity,
+                                          double * ER7_UTILS_RESTRICT position) ER7_UTILS_ALWAYS_INLINE
+    {
+        return integrator->integrate(dyn_dt, target_stage, accel, velocity, position);
+    }
 
-   /**
-    * Destroy the integrator.
-    */
-   void destroy_integrator()
-   {
-      integrator_manager.destroy_integrator();
-      integrator_manager.set_integrator_reference (integrator);
-   }
+    /**
+     * Tell the integrator to reset itself. This should be called when the time
+     * step or time direction changes or upon a discrete change in state such
+     * docking/undocking. Such events invalidate saved state (if any).
+     * The integrator needs to restart from scratch when such events occur.
+     */
+    void reset_integrator()
+    {
+        integrator->reset_integrator();
+    }
 
-   /**
-    * Propagate state to the specified stage of the integration
-    * process for an overall integration time interval of dyn_dt.
-    *
-    * Note that this is a pass-through to the encapsulated integrator object.
-    * See er7_utils::SecondOrderODEIntegrator::integrate for details.
-    *
-    * @param[in]     dyn_dt        Dynamic time step, in dynamic time seconds.
-    * @param[in]     target_stage  The stage of the integration process
-    *                              that the integrator should try to attain.
-    * @param[in]     accel         Time derivative of the generalized velocity.
-    * @param[in,out] velocity      Generalized velocity vector.
-    * @param[in,out] position      Generalized position vector.
-    *
-    * @return The status (time advance, pass/fail status) of the integration.
-    */
-   er7_utils::IntegratorResult integrate(
-      double dyn_dt,
-      unsigned int target_stage,
-      double const * ER7_UTILS_RESTRICT accel,
-      double * ER7_UTILS_RESTRICT velocity,
-      double * ER7_UTILS_RESTRICT position)
-   ER7_UTILS_ALWAYS_INLINE
-   {
-      return integrator->integrate(dyn_dt, target_stage, accel,
-                                   velocity, position);
-   }
+    /**
+     * Restore the integrator on restart.
+     */
+    void simple_restore() override
+    {
+        integrator_manager.set_integrator_reference(integrator);
+        integrator_manager.simple_restore();
+    }
 
-   /**
-    * Tell the integrator to reset itself. This should be called when the time
-    * step or time direction changes or upon a discrete change in state such
-    * docking/undocking. Such events invalidate saved state (if any).
-    * The integrator needs to restart from scratch when such events occur.
-    */
-   void reset_integrator()
-   {
-      integrator->reset_integrator();
-   }
-
-   /**
-    * Restore the integrator on restart.
-    */
-   void simple_restore() override
-   {
-      integrator_manager.set_integrator_reference(integrator);
-      integrator_manager.simple_restore();
-   }
-
+    // Unimplemented member functions
+    Restartable2DSecondOrderIntegrator(const Restartable2DSecondOrderIntegrator &) = delete;
+    Restartable2DSecondOrderIntegrator & operator=(const Restartable2DSecondOrderIntegrator &) = delete;
 
 private:
+    /**
+     * The pointer to the object that performs integration.
+     * This object is created managed by the integrator manager.
+     */
+    er7_utils::SecondOrderODEIntegrator * integrator{}; //!< trick_units(--)
 
-   /**
-    * The pointer to the object that performs integration.
-    * This object is created managed by the integrator manager.
-    */
-   er7_utils::SecondOrderODEIntegrator * integrator; //!< trick_units(--)
-
-   /**
-    * The object that creates and manages the integrator object.
-    */
-   RestartableSimpleSecondOrderODEIntegrator<2>
-      integrator_manager; //!< trick_io(**)
-
-
-   // Unimplemented member functions
-
-   /**
-    * Not implemented.
-    */
-   Restartable2DSecondOrderIntegrator(
-      const Restartable2DSecondOrderIntegrator &);
-
-   /**
-    * Not implemented.
-    */
-   Restartable2DSecondOrderIntegrator & operator=(
-      const Restartable2DSecondOrderIntegrator &);
+    /**
+     * The object that creates and manages the integrator object.
+     */
+    RestartableSimpleSecondOrderODEIntegrator<2> integrator_manager; //!< trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

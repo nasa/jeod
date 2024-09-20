@@ -29,7 +29,7 @@ def log_log_states (planets) :
    logger.log_scalar (["jeod_time.time_manager.simtime",
                        "jeod_time.time_manager.dyn_time.seconds",
                        "jeod_time.time_tai.seconds",
-                       "jeod_time.time_tt.seconds"]);
+                       "jeod_time.time_tt.seconds"])
    # Log the translational states for the Sun and Jupiter
    for planet in planets :
       logger.log_ref_frame_trans_state (
@@ -41,4 +41,4 @@ def log_log_states (planets) :
           planet + ".prop_planet.body.grav_interaction.grav_accel")
 
    # Close the logger.
-   logger.close_group ();
+   logger.close_group ()

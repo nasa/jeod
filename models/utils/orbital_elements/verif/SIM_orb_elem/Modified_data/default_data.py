@@ -29,9 +29,9 @@ def set_default_data(orb_elem_test) :
   orb_elem_test.orb_elem_ver.mu                 = 0.0
   orb_elem_test.orb_elem_ver.position         = [ 0.0, 0.0, 0.0]
   orb_elem_test.orb_elem_ver.velocity         = [ 0.0, 0.0, 0.0]
-  orb_elem_test.orb_elem_ver.to_cartesian       = 0
+  orb_elem_test.orb_elem_ver.to_cartesian       = False
 
-  orb_elem_test.orb_elem_multi_ver.multi_use    = 0
+  orb_elem_test.orb_elem_multi_ver.multi_use    = False
   orb_elem_test.orb_elem_multi_ver.mu           = 0.0
   orb_elem_test.orb_elem_multi_ver.data_row     = 0
   orb_elem_test.orb_elem_multi_ver.data_vals_in[0] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

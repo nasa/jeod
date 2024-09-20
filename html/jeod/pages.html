@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -81,16 +81,17 @@ $(function() {
 
 ==============================================================================
 
-July 2023
+September 2024
 
 Contents
 
 1. Overview
-2. Usage
-3. Key changes since the last release
-4. Known issues
-5. Regression testing
-6. Change history
+2. Acknowledgment
+3. Usage
+4. Key changes since the last release
+5. Known issues
+6. Regression testing
+7. Change history
 
 ================================================================================
 1. Overview
@@ -99,25 +100,21 @@ Contents
 This section provides overview information about the Johnson Space Center
 Engineering Orbital Dynamics (JEOD) software package.
 
-This note describes the most recent release of JEOD, JEOD 5.1. The primary
-objectives for 5.1 release of JEOD were to:
+This note describes the most recent release of JEOD, JEOD 5.2. The primary
+objectives for 5.2 release of JEOD were to:
 
-* Added support for Moon Mean Earth body fixed frame as alternative pfix frame.
-* Added kinematic attachment capability that allow DynBody to be attached to a
-  reference frame, which includes planet.
-* Improved documentation on integration frame override after detach from parent
-  body.
-* Improved ease of use for calculating derivative states for a child body.
-* Enhanced checkpoint-restart for standard STL containers in JEOD.
-* Improved ephemeris data generation using mako template.
-* Fix bugs.
-* Improved code security.
-* Improved verification sims.
+* Resolved FIXME and TODO items in the code (see section 4 for detail)
+* Implemented GoogleTest stub and mock classes for unit tests
+* Modernization of code using clang-tidy
+* Improved code formatting using auto formatting tool.
+* Added test cases for alt_pfix and alt_inertial
+* API improvements
+* Fixed bugs
 
-The key features of this release are highlighted in section 3 below.
+The key features of this release are highlighted in section 4 below.
 
 
-The JEOD 5.1 Release
+The JEOD 5.2 Release
 ****************************
 
 The release comprises
@@ -128,16 +125,15 @@ The release comprises
   JEOD models directory. The immediate subdirectory of each model group
   directory contains exactly one JEOD model. Models are accompanied with
   test artifacts to verify that a model satisfies its requirements. For JEOD
-  5.1, there is also an experimental directory containing experimental
+  5.2, there is also an experimental directory containing experimental
   models that are not yet rigorously verified and documented up to typical JEOD
   standards. Users planning to these experimental models should understand the
   risk associated with them and there are currently no plan for documentation
   and verification of these models.
 
 * Test and Analysis Tools. Trick simulations have long been used to test the
-  JEOD models. JEOD 5.1 contains Trick-compatible versions of all
-  previously existing simulations, as well as some new simulations for
-  testing new capabilities.
+  JEOD models. JEOD 5.2 contains Trick-compatible versions of all
+  previously existing simulations.
 
 * Training Materials. Getting a picture of how JEOD works by reading the
   overview and model documentation can be tough. The JEOD training materials
@@ -147,11 +143,11 @@ The release comprises
   and experimental models) and tutorial exercises of increasing complexity.
 
 * Verification and Validation Simulations. In addition to the model-level
-  verification testing, JEOD 5.1 has been tested against best estimate of
+  verification testing, JEOD 5.2 has been tested against best estimate of
   trajectory (BET) data from various orbiting vehicles. These documented
   integrated tests not only demonstrate that JEOD properly models the space
   environment, they also serve as additional examples of how to use JEOD in a
-  realistic simulation. For JEOD 5.1, some BET data were removed from the
+  realistic simulation. Since JEOD 5.0, some BET data were removed from the
   release so that JEOD can be host on Github.com. However, validation result
   are still presented in the top-level JEOD documentation.
 
@@ -171,16 +167,32 @@ The release comprises
 
 
 ================================================================================
-2. Usage
+2. Acknowledgment
 ================================================================================
+JEOD v5.2 release accepted the following pull requests submitted by GitHub users:
+
+* Title: Change Logging Python Utility to Log "parent/this" Varaibles
+  - GitHub User: miwr0
+  - URL: https://github.com/nasa/jeod/pull/10
+
+
+================================================================================
+3. Usage
+================================================================================
+
+Important Note
+*******************************************
+According to https://endoflife.date/centos, Centos 7's support cycle is ended
+on 2024-06-30. The ended of life impacted the ability to perform CI on CentOS 7.
+Therefore, CentOS 7 is no longer actively supported starting JEOD 5.2
+
 
 Instructions for use in a Trick environment
 *******************************************
-
 The JEOD package is first and foremost a package designed for use in simulations
-developed with the Trick simulation environment. This release of JEOD 5.1
-was tested with Trick 19.6.0, using compiler gcc 4.8.5 on CentOS 7.6, 7.5.0 on
-Ubuntu 18.04, 8.5.0 on Oracle Linux 8, and LLVM version 13.1.6 on Mac.
+developed with the Trick simulation environment. This release of JEOD 5.2
+was tested with Trick 19.7.2, using compiler gcc 4.8.5 on CentOS 7.6, 7.5.0 on
+Ubuntu 18.04, 8.5.0 on Oracle Linux 8, and LLVM version 18.1.8 on Mac.
 
 Required environment variables
 ------------------------------
@@ -218,101 +230,135 @@ compiler via an include path that begins with "er7_utils/integration".
 
 Required Package
 ---------
-JEOD 5.1 requires installation of swig3 and cmake3
+JEOD 5.2 requires installation of swig3 and cmake3
 
 
 ================================================================================
-3. Key changes since the last production release (JEOD 5.1)
+4. Key changes since the last production release (JEOD 5.2)
 ================================================================================
 
-Support for Moon Mean Earth (ME) body fixed frame
+Resolved FIXME and TODO items in the code
 -------------------------
-JEOD v5.1 added support for an alternate planet-centered, planet-fixed
-coordinate frame, the Mean Earth/Polar Axis frame (Moon_ME). It is defined such
-that the z-axis is defined as the Moon's mean rotational pole and the prime
-meridian is defined by the mean direction of Earth. Moon_ME frame is the
-alternative body fixed frame that is often used in data collected by LRO
-instrumentation.
+Resolved total of 34 FIXME/TODO items in the code. These include:
+- Improved failure messages in DynManager::initialize_model and
+  JEODTrick10MemoryInterface::get_name_at_address
+- Changed JeodDynBodyIntegrationLoop::add_integrable_object to allow DynBody
+  objects without failure
+- Added JeodSimulationInterface::Mode to MessageHandler
+- Added check for duplicates in DynBodyContraintsSolver::add_attached_constraints
+- Added an inheritance diagram to DynBodyInit documentation
 
 
-Kinematic Attachment
+Implemented GoogleTest stub and mock classes
 -------------------------
-A kinematic attachment capability was added for MassBody and DynBody in
-JEOD v5.1. This capability allow users to attach/detach MassBody/DynBody to/from
-another Body object or RefFrame object. This attachment will not have any
-dynamics effect on the parent object when attach/detach. The capability would be
-ideal to attach a dynamic vehicle to a planet before launch or after landing.
+Started the implementation of stub and mock classes of some of the models to
+work with GoogleTest. These stub and mock classes can also be use for unit
+testing of models developed based on the JEOD classes. Stub and mock classes for
+the following models are implemented for JEOD v5.2 release. Additional stub and
+mock will be implemented in future releases.
+* Added partial or complete mock classes for:
+  - class MassBody
+  - class BodyRefFrame
+  - class DynBody
+  - class BodyAction
+  - class DynManager
+  - class DynamicsIntegrationGroup
+  - class RefFrame
+  - class JeodIntegrationGroup
+  - class JeodIntegrationTime
+  - class er7_utils::IntegrableObject
+  - class er7_utils::IntegrationControls
+  - class er7_utils::IntegratorConstructor
+  - class MessageHandler
+  - class JeodIntegratorInterface
+  - class JeodMemoryInterface
+  - class JeodSimulationInterface
+  - class GravityControls
+  - class EphemerisRefFrame
+  - class SinglePointEphemeris
+* Added ER7 Utils stubs required to compile jeod unit tests:
+  - class BaseIntegrationGroup
+  - static method Er7UtilsDeletable::delete_instance_internal
+  - class IntegrationControls
+  - static method IntegratorConstructorFactory::create
+  - class IntegratorConstructor
+  - class IntegratorResultMergerContainer
+  - class LeftQuaternionGeneralizedPositionDerivativeFunctions
 
 
-Integration Frame override after detach
+Modernization of code using clang-tidy and improved code formatting using ClangFormat
 -------------------------
-Updated the model documentation to explain the expected behavior of child body's
-integration frame when it was detached from the parent body.
-  - "When two bodies attach, the child body takes on the integration frame of
-     the parent body. When the bodies detach, the child body retains the
-     integration frame of the parent body, rather than reverting to its original
-     integration frame. This is because JEOD cannot safely assume that the
-     original integration frame of the child body is still the most appropriate
-     frame. On the contrary, two vehicles that were just attached are in close
-     enough proximity that they would probably be best served by continuing to
-     share the same integration frame."
+Used clang-tidy to modernize code from older C concepts to more modern C++11
+concepts. The main families of options used included bugprone, cppcoreguidelines,
+llvm, modernize, performance, and readability.
+Improved code formatting using ClangFormat to provide consistent code format.
+Implemented formatting check in development CI to enforce formatting standards
+in the code
 
 
-Enhanced checkpoint-restart for standard STL containers
+API Improvements
 -------------------------
-Checkpoint-restart for standard STL containers were updated for newer version
-of Trick, which now recognizes some standard STLs. This allow users to create a
-checkpoint of the variables that are type of standard STL, and then load the
-checkpoints during a restart. Verification sim for checkpoint-restart was also
-updated for JEOD v5.1 to test dynamically allocated objects.
+* Improvement in JEOD_MAKE_SIM_INTERFACE
+  - Updated to the JEOD_MAKE_SIM_INTERFACE macro that enable the function to be
+    used for models that are based on JEOD classes but outside the "jeod" namespace.
+* MassBodyInit::allocate_points replaces setting MassBodyInit::num_points and
+  MassBodyInit::points using trick.TMM_declare_var_s in input files. Items in
+  MassBodyInit::points are now accessed with MassBodyInit::get_mass_point
+* All char * have now been converted to std::string
+* MET_atmosphere constructor now takes in a reference to time_utc.trunc_julian_time
+  and the MET_atmosphere::update_time method has been eliminated.
+* Complete conversion from Python 2 to Python 3.
 
 
-Improved code security
+Critical Bug Fixes
 -------------------------
-A number of code security improvements were made based on result from the
-static analysis tools.
-
-
-Improve verification sims
--------------------------
-A number of verification sims were improved for JEOD v5.1 release. These
-include the verification sim for SPICE and checkpoint-restart, and training sims
-for the JEOD tutorial
+- TreeLinks::child_head() and TreeLinks::child_tail() were previously commented
+  saying that they returned iterators, when they actually return references.
+  This caused a bug that has now been resolved in JEOD v5.1.1 and documented in
+  this release.
 
 
 ================================================================================
-4. Known issues
+5. Known issues
 ================================================================================
 
-The issues known to exist with the JEOD 5.1 release are:
+The issues known to exist with the JEOD 5.2 release are:
 
 * Non-Trick demonstration.
   The demonstration of the usability of JEOD outside the Trick environment is
   not currently maintained and may not work with this release.
 
 * Trick support.
-  JEOD 5.1 is officially tested with Trick 19.6.0 or newer. Backward
+  JEOD 5.2 is officially tested with Trick 19.7.2 or newer. Backward
   compatibility with older versions of Trick are not guarantee, but most models
   should still work with Trick 19.0 or newer. Users are strongly encouraged to
   upgrade to a newer version of Trick if their project allows.
 
 * Trickified build works for all the regression test sims on CentOS 7,
-  Ubuntu 18 and Oracle Linux 8. However, some sims did not build with
-  Trickified on M1 MacOS during the regression test. All the sims build 
-  using standard Trick compilation on M1 MacOS. This issue will be 
-  investigated in later release
+  Ubuntu 18, Oracle Linux 8, and MacOS with Apple silicon.
+  - However, Observed on Mac but could be a cmake version issue (cmake v3.30.3)
+    building sims in parallel using TRICKIFIED=1 may cause problems due to cmake
+    updating a file despite nothing to update. This does not rebuild any objects
+    or libraries but can trigger a re-install of the libraries. A sim starting
+    to link in the libjeod.a will end up working with the partially written
+    library file and fail to build.
+  - The workaround that retains parallel sim build is to set the
+    $JEOD_HOME/trickified (ie. chmod -w trickified) directory to read-only after
+    the building the jeod library and trickified builds. The make rules will
+    recognize the read-only state and only link in the libraries without
+    attempting to rebuild.
 
 * Experimental models.
   For this release, there is a directory named $JEOD_HOME/models/experimental.
   It contains new models that have NOT been rigorously verified or
-  documented up to typical JEOD standards. Users planning to utilize these 
-  experimental models should understand the risks associated with them and 
-  that there are currently NO plans for documentation and verification of 
+  documented up to typical JEOD standards. Users planning to utilize these
+  experimental models should understand the risks associated with them and
+  that there are currently NO plans for documentation and verification of
   these models.
 
 
 ================================================================================
-5. Regression testing
+6. Regression testing
 ================================================================================
 
 Several regression tests are provided with this release. These regression tests
@@ -349,7 +395,7 @@ Caveats:
   results for this case exhibit chaotic system-dependent behavior. Note that
   use of the Euler integration method is generally not recommended.
 
-* Regression test scripts are provided in JEOD v5.1. These scripts are used
+* Regression test scripts are provided in JEOD v5.2. These scripts are used
   internally to verify the release behaves as expected. Users planning to use
   these scripts for their own regression test are free to modify the script
   to fit their needs. However, no support will be provided for these regression
@@ -358,8 +404,39 @@ Caveats:
 
 
 ================================================================================
-6. Change history
+7. Change history
 ================================================================================
+
+****************************
+JEOD 5.2, September 2024
+****************************
+* Changes to models.
+  - Total of 34 FIXME/TODO items in the code were resolved in this release. These
+    include changes in:
+    # Improved failure messages in DynManager::initialize_model and
+      JEODTrick10MemoryInterface::get_name_at_address
+    # Changed JeodDynBodyIntegrationLoop::add_integrable_object to allow DynBody
+      objects without failure
+    # Added JeodSimulationInterface::Mode to MessageHandler
+    # Added check for duplicates in DynBodyContraintsSolver::add_attached_constraints
+    # Added an inheritance diagram to DynBodyInit documentation
+  - Fixed bug in TreeLinks. The issue was resolved in JEOD v5.1.1 release.
+    Documenting in JEOD v5.2 release note.
+
+* Changes to sims and unit tests.
+  - Added test cases for alt_pfix and alt_inertial frames
+  - Implemented stub and mock classes that work with GoogleTest for unit test
+
+* Changes to Documentation
+  - Fixed metrics table in some model documentations
+  - JEOD documentations were updated for the JEOD 5.2 release.
+
+* Changes to tools.
+  - Modernization of code using clang-tidy
+  - Formatting of the code using ClangFormat to provide consistent formatting
+  - Implemented formatting check in CI to enforce formatting standard
+
+
 ****************************
 JEOD 5.1, July 2023
 ****************************
@@ -474,35 +551,33 @@ JEOD 5.0, August 2022
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
-#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
+#define DYNAMICS 0.03125   // Vehicle and plantary dynamics interval (32Hz)
 
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 // Define the phase initialization priorities.
 #include "default_priority_settings.sm"
-
-
- // Include the default system classes:
-#include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
-
 
 // Set up desired time types and include the JEOD time S_module
 #define TIME_MODEL_UT1
 #define TIME_MODEL_UTC
 #define TIME_MODEL_TT
 #define TIME_MODEL_GMST
-#define TIME_CALENDAR_UPDATE_INTERVAL  DYNAMICS
+#define TIME_CALENDAR_UPDATE_INTERVAL DYNAMICS
 #include "jeod_time.sm"
+
 #include "dynamics.sm"
 #include "environment.sm"
-#include "sun_basic.sm"
 #include "moon_basic.sm"
+#include "sun_basic.sm"
 #define JEOD_OVERRIDE_GGM02C_WITH_GEMT1
 #include "earth_GGM05C_MET_RNP.sm"
-
 
 /*****************************************************************************
 Vehicle Sim Object
@@ -526,158 +601,134 @@ Purpose:(Provides the vehicle object)
 #include "Base/vehicle_atmosphere.sm"
 class VehicleSimObject : public VehicleAtmSimObject
 {
- public:
-  jeod::DynBodyInitLvlhRotState lvlh_init;
-  jeod::EulerDerivedState     euler;
-  jeod::LvlhDerivedState      lvlh;
-  jeod::EulerDerivedState     lvlh_euler;
-  jeod::OrbElemDerivedState   orb_elem;
-  jeod::Force  force_extern;
-  jeod::Torque torque_extern;
-  jeod::GravityTorque grav_torque;
-  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
-  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
-  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
-  jeod::AerodynamicDrag  aero_drag;
+public:
+    jeod::DynBodyInitLvlhRotState lvlh_init;
+    jeod::EulerDerivedState euler;
+    jeod::LvlhDerivedState lvlh;
+    jeod::EulerDerivedState lvlh_euler;
+    jeod::OrbElemDerivedState orb_elem;
+    jeod::Force force_extern;
+    jeod::Torque torque_extern;
+    jeod::GravityTorque grav_torque;
+    jeod::SphericalHarmonicsGravityControls earth_grav_control;
+    jeod::SphericalHarmonicsGravityControls moon_grav_control;
+    jeod::SphericalHarmonicsGravityControls sun_grav_control;
+    jeod::AerodynamicDrag aero_drag;
 
-  // Instances for default data:
-  jeod::AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+    // Instances for default data:
+    jeod::AerodynamicDrag_aero_model_default_data aero_drag_default_data;
 
-  //Constructor
-  VehicleSimObject( jeod::DynManager    &amp; dyn_manager_,
-                    jeod::METAtmosphere &amp; atmos_,
-                    jeod::WindVelocity  &amp; wind_)
-     :
-     VehicleAtmSimObject( dyn_manager_, atmos_, wind_)
+    // Constructor
+    VehicleSimObject(jeod::DynManager &amp; dyn_manager_, jeod::METAtmosphere &amp; atmos_, jeod::WindVelocity &amp; wind_)
+        : VehicleAtmSimObject(dyn_manager_, atmos_, wind_)
 
-  {
-    //
-    //Default data jobs
-    //
-    ("default_data") aero_drag_default_data.initialize ( &amp;aero_drag );
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") aero_drag_default_data.initialize(&amp;aero_drag);
 
-    //
-    // Initialization jobs
-    //
-    P_DYN  ("initialization") euler.initialize( dyn_body,
-                                                dyn_manager );
-    P_DYN  ("initialization") lvlh.initialize( dyn_body,
-                                               dyn_manager );
-    P_DYN  ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
-                                                     dyn_body,
-                                                     dyn_manager );
-    P_DYN  ("initialization") orb_elem.initialize( dyn_body,
-                                                   dyn_manager );
-    ("initialization") euler.update( );
-    ("initialization") pfix.update( );
-    ("initialization") lvlh.update( );
-    ("initialization") lvlh_euler.update( );
-    ("initialization") orb_elem.update( );
-    ("initialization") grav_torque.initialize( dyn_body );
-    //
-    // Environment class jobs
-    //
-    (DYNAMICS, "environment") euler.update( );
-    (DYNAMICS, "environment") lvlh.update( );
-    (DYNAMICS, "environment") lvlh_euler.update( );
-    (DYNAMICS, "environment") orb_elem.update( );
-    //
-    // Derivative class jobs
-    //
-    P_BODY   ("derivative") aero_drag.aero_drag(
-          dyn_body.composite_body.state.trans.velocity,
-          &amp;atmos_state,
-          dyn_body.structure.state.rot.T_parent_this,
-          dyn_body.mass.composite_properties.mass,
-          dyn_body.mass.composite_properties.position);
-    P_PGRAV   ("derivative") grav_torque.update();
-  }
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") euler.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh_euler.initialize(lvlh.lvlh_frame, dyn_body, dyn_manager);
+        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
+        ("initialization") euler.update();
+        ("initialization") pfix.update();
+        ("initialization") lvlh.update();
+        ("initialization") lvlh_euler.update();
+        ("initialization") orb_elem.update();
+        ("initialization") grav_torque.initialize(dyn_body);
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") euler.update();
+        (DYNAMICS, "environment") lvlh.update();
+        (DYNAMICS, "environment") lvlh_euler.update();
+        (DYNAMICS, "environment") orb_elem.update();
+        //
+        // Derivative class jobs
+        //
+        P_BODY("derivative")
+        aero_drag.aero_drag(dyn_body.composite_body.state.trans.velocity,
+                            &amp;atmos_state,
+                            dyn_body.structure.state.rot.T_parent_this,
+                            dyn_body.mass.composite_properties.mass,
+                            dyn_body.mass.composite_properties.position);
+        P_PGRAV("derivative") grav_torque.update();
+    }
 
- private:
-  VehicleSimObject (const VehicleSimObject&amp;);
-  VehicleSimObject &amp; operator = (const VehicleSimObject&amp;);
-
+    VehicleSimObject(const VehicleSimObject &amp;) = delete;
+    VehicleSimObject &amp; operator=(const VehicleSimObject &amp;) = delete;
 };
-VehicleSimObject vehicle ( dynamics.dyn_manager,
-                           earth.atmos,
-                           earth.wind_velocity);
+VehicleSimObject vehicle(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
 
 ##include "dynamics/body_action/include/body_attach_aligned.hh"
 
 class DynBodySimObject : public Trick::SimObject
 {
 public:
-  jeod::DynBody dyn_body;
-  jeod::DynManager * dyn_manager_ptr;
-  double external_force[3]; //!&lt; trick_units(N)
+    jeod::DynBody dyn_body;
+    jeod::DynManager * dyn_manager_ptr;
+    double external_force[3]; //!&lt; trick_units(N)
 
-  DynBodySimObject() :
-    dyn_manager_ptr(nullptr)
-  {
-     dyn_body.collect.collect_effector_forc.push_back(
-                       jeod::CollectForce::create(external_force) );
-     P_ENV ("initialization") dyn_body.initialize_model( *dyn_manager_ptr );
-  }
-
+    DynBodySimObject()
+        : dyn_manager_ptr(nullptr)
+    {
+        dyn_body.collect.collect_effector_forc.push_back(jeod::CollectForce::create(external_force));
+        P_ENV("initialization") dyn_body.initialize_model(*dyn_manager_ptr);
+    }
 };
 
 class AttachToFrameHelper : public Trick::SimObject
 {
 public:
-   AttachToFrameHelper(jeod::DynBody &amp; bodyIn) :
-       body(bodyIn)
-   {}
+    AttachToFrameHelper(jeod::DynBody &amp; bodyIn)
+        : body(bodyIn)
+    {
+    }
 
-   double position[3];
-   double rotation[3][3];
+    double position[3];
+    double rotation[3][3];
 
-   void attach_wrap_child_parent_pos_rot(const std::string &amp; child_frame, const std::string &amp; parent_frame)
-   {
-      body.attach_to_frame(child_frame.c_str(), parent_frame.c_str(), position, rotation);
-   }
+    void attach_wrap_child_parent_pos_rot(const std::string &amp; child_frame, const std::string &amp; parent_frame)
+    {
+        body.attach_to_frame(child_frame.c_str(), parent_frame.c_str(), position, rotation);
+    }
 
-   void attach_wrap_pos_rot_parent(jeod::RefFrame &amp; parentIn)
-   {
-      body.attach_to_frame(position, rotation, parentIn);
-   }
+    void attach_wrap_pos_rot_parent(jeod::RefFrame &amp; parentIn)
+    {
+        body.attach_to_frame(position, rotation, parentIn);
+    }
 
+    AttachToFrameHelper(const AttachToFrameHelper &amp;) = delete;
+    AttachToFrameHelper &amp; operator=(const AttachToFrameHelper &amp;) = delete;
 
 private:
-   jeod::DynBody &amp; body;
-
-   AttachToFrameHelper (const AttachToFrameHelper&amp;);
-   AttachToFrameHelper &amp; operator = (const AttachToFrameHelper&amp;);
+    jeod::DynBody &amp; body;
 };
 
 AttachToFrameHelper attach_to_frame_helper(vehicle.dyn_body);
 
-
 // Note: Moved to create_connections for restart testing
-//vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+// vcollect vehicle.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
 //   vehicle.force_extern
 //};
-vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
-};
-vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   vehicle.aero_drag.aero_force
-};
-vcollect vehicle.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   vehicle.torque_extern
-};
-vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create {
-};
-vcollect vehicle.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   vehicle.aero_drag.aero_torque,
-   vehicle.grav_torque.torque
-};
+vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create{};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{vehicle.aero_drag.aero_force};
+vcollect vehicle.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{vehicle.torque_extern};
+vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create{};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{vehicle.aero_drag.aero_torque,
+                                                                                   vehicle.grav_torque.torque};
 
 void create_connections()
 {
-   vehicle.dyn_body.collect.collect_effector_forc.push_back(
-                       jeod::CollectForce::create(vehicle.force_extern) );
+    vehicle.dyn_body.collect.collect_effector_forc.push_back(jeod::CollectForce::create(vehicle.force_extern));
 }
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth, vehicle;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth, vehicle;
 </pre> </td></tr>
 <tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="d7/d19/initialization_dotfile.html" target="_self">initialization.dot</a></td><td class="desc"><pre class="fragment">digraph G {
    label = "Trick Initialization Job Dependencies";

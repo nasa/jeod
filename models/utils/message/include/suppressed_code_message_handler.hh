@@ -57,10 +57,9 @@ Purpose:
 Library dependencies:
   ((../src/suppressed_code_message_handler.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_SUPPRESSED_CODE_MESSAGE_HANDLER_HH
 #define JEOD_SUPPRESSED_CODE_MESSAGE_HANDLER_HH
@@ -72,128 +71,81 @@ Library dependencies:
 // Model includes
 #include "message_handler.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Adds the capability to suppress messages by their message code to the
    base MessageHandler class.
  */
-class SuppressedCodeMessageHandler : public MessageHandler {
-JEOD_MAKE_SIM_INTERFACES(SuppressedCodeMessageHandler)
+class SuppressedCodeMessageHandler : public MessageHandler
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SuppressedCodeMessageHandler)
 
 public:
-
-   // Member functions
-
-   // Default constructor and destructor
-
-      /**
-    * Default constructor.
-    */
-
-   // Default constructor and destructor
-
-   /*
-      Purpose:
-        (Default constructor.)
-    */
-   SuppressedCodeMessageHandler (void) {}
-
-      /**
-    * Destructor.
-    */
-   ~SuppressedCodeMessageHandler(void) override {}
-
+    // Member functions
+    SuppressedCodeMessageHandler() = default;
+    ~SuppressedCodeMessageHandler() override = default;
+    SuppressedCodeMessageHandler(const SuppressedCodeMessageHandler &) = delete;
+    SuppressedCodeMessageHandler & operator=(const SuppressedCodeMessageHandler &) = delete;
 
 protected:
+    // Member functions
 
-   // Member functions
+    // register_contents() registers the checkpointable contents.
+    void register_contents() override;
 
-   // register_contents() registers the checkpointable contents.
-   void register_contents (void) override;
+    // deregister_contents() deregisters the checkpointable contents.
+    void deregister_contents() override;
 
-   // deregister_contents() deregisters the checkpointable contents.
-   void deregister_contents (void) override;
+    /**
+     * Add a message code to the set of messages that are to be suppressed.
+     * \param[in] msg_code Message code to be suppressed
+     */
+    void process_add_suppressed_code(const char * msg_code) override
+    {
+        suppressed_codes.insert(msg_code);
+    }
 
+    /**
+     * Delete a message code from the set of suppressed message codes.
+     * \param[in] msg_code Message code to be unsuppressed
+     */
+    void process_delete_suppressed_code(const char * msg_code) override
+    {
+        suppressed_codes.erase(msg_code);
+    }
 
-      /**
-    * Add a message code to the set of messages that are to be suppressed.
-    * \param[in] msg_code Message code to be suppressed
-    */
-   void process_add_suppressed_code (
-      const char * msg_code) override
-   {
-      suppressed_codes.insert (msg_code);
-   }
+    /**
+     * Clear the set of messages that are to be suppressed.
+     */
+    virtual void process_clear_suppressed_code()
+    {
+        suppressed_codes.clear();
+    }
 
+    /**
+     * Determine whether output for a message is to be printed.
+     * @return True => print message
+     * \param[in] severity Severity level
+     * \param[in] msg_code Message code
+     */
+    bool message_is_to_be_printed(int severity, const char * msg_code) const
+    {
+        return (severity <= 0) || ((static_cast<unsigned int>(severity) <= suppression_level) &&
+                                   (suppressed_codes.find(msg_code) == suppressed_codes.end()));
+    }
 
-      /**
-    * Delete a message code from the set of suppressed message codes.
-    * \param[in] msg_code Message code to be unsuppressed
-    */
-   void process_delete_suppressed_code (
-      const char * msg_code) override
-   {
-      suppressed_codes.erase (msg_code);
-   }
+    // Member data
 
-
-      /**
-    * Clear the set of messages that are to be suppressed.
-    */
-   virtual void process_clear_suppressed_code (
-      void)
-   {
-      suppressed_codes.clear ();
-   }
-
-
-      /**
-    * Determine whether output for a message is to be printed.
-    * @return True => print message
-    * \param[in] severity Severity level
-    * \param[in] msg_code Message code
-    */
-   bool message_is_to_be_printed (
-      int severity,
-      const char * msg_code)
-   const
-   {
-      return (severity <= 0) ||
-             ((static_cast<unsigned int>(severity) <= suppression_level) &&
-              (suppressed_codes.find (msg_code) == suppressed_codes.end()));
-   }
-
-
-   // Member data
-
-   /**
-    * The set of message code that are to be suppressed.
-    */
-   JeodPrimitiveSet<std::string>::type suppressed_codes; //!< trick_io(**)
-
-
-
- private:
-   // The copy constructor and assignment operator for this class are declared
-   // private and are not implemented.
-
-   /**
-    * Not implemented.
-    */
-   SuppressedCodeMessageHandler (const SuppressedCodeMessageHandler &);
-
-   /**
-    * Not implemented.
-    */
-   SuppressedCodeMessageHandler & operator= (
-      const SuppressedCodeMessageHandler &);
+    /**
+     * The set of message code that are to be suppressed.
+     */
+    JeodPrimitiveSet<std::string>::type suppressed_codes; //!< trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

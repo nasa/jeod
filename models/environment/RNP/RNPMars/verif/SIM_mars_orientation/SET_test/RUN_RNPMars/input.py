@@ -19,8 +19,8 @@ log_RNPMars( LOG_CYCLE)
 
 # * Set up the simulation executive parameters.
 # *---------------------------------------------*/
-exec(compile(open( "Modified_data/exec_setup.py", "rb").read(), "Modified_data/exec_setup.py", 'exec'))
-set_trick_exec_setup()
+
+
 
 # You have to have an integrator, whether you need one or not
 dynamics.manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4
@@ -37,7 +37,7 @@ env.de4xx.set_model_number(421)
 #dynamics.manager.deriv_ephem_update = True
 
 #/* Turn off Mars RNP polar motion. */
-mars.rnp.enable_polar = False;
+mars.rnp.enable_polar = False
 
 #/* Set up time structure */
 exec(compile(open( "Modified_data/epoch.py", "rb").read(), "Modified_data/epoch.py", 'exec'))

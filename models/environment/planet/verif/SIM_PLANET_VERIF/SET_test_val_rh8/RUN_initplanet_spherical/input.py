@@ -11,7 +11,7 @@
 #              is desired to be perfectly spherical (no data supplied) and r_eq
 #              is also initially set to zero (tests copy from GravBody)
 #
-#   
+#
 #*******************************************************************************/
 
 
@@ -31,9 +31,6 @@ log_planet_verif(LOG_CYCLE  )
 ## Default data file generated in S_define
 #include "S_default.dat"
 
-## Set up simulation executive parameters
-#FIXME:  sys.exec.in.trap_sigfpe = Yes
-
 ## Set up parameters to record
 #include "Log_data/log_planet_verif.d"
 
@@ -44,7 +41,7 @@ mngr.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4
 mngr.dyn_manager_init.central_point_name = "Earth"
 
 
-## Test initialization with only equatorial radius supplied;
+## Test initialization with only equatorial radius supplied
 ## result should be spherical
 earth.planet.flat_inv = 0.0  # Zero out default value
 earth.planet.r_eq = 10000.0

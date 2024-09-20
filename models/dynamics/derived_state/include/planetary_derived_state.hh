@@ -59,15 +59,14 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_PLANETARY_DERIVED_STATE_HH
 #define JEOD_PLANETARY_DERIVED_STATE_HH
 
 // System includes
 
 // JEOD includes
-#include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "dynamics/dyn_body/include/class_declarations.hh"
+#include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "environment/planet/include/class_declarations.hh"
 #include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
@@ -75,81 +74,71 @@ Library dependencies:
 // Model includes
 #include "derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used for deriving the planet-fixed representations
  * of a subject DynBody's position.
  */
-class PlanetaryDerivedState : public DerivedState {
+class PlanetaryDerivedState : public DerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetaryDerivedState)
 
- JEOD_MAKE_SIM_INTERFACES(PlanetaryDerivedState)
+    // Member data
 
+public:
+    /**
+     * The planet-fixed state of the subject body's composite CoM.
+     */
+    PlanetFixedPosition state; //!< trick_units(--)
 
- // Member data
+    /**
+     * The planet, the name of which is specified by the inherited
+     * reference_name data member.
+     */
+    Planet * planet{}; //!< trick_units(--)
 
- public:
+protected:
+    /**
+     * Use pfix or alt_pfix flag
+     */
+    bool use_alt_pfix{};
 
-   /**
-    * The planet-fixed state of the subject body's composite CoM.
-    */
-   PlanetFixedPosition state; //!< trick_units(--)
+    /**
+     * Pointer to planet fixed frame to be used, either
+     * pfix or alt_pfix
+     */
+    EphemerisRefFrame * pfix_ptr{};
 
-   /**
-    * The planet, the name of which is specified by the inherited
-    * reference_name data member.
-    */
-   Planet * planet; //!< trick_units(--)
+    // Methods
 
- protected:
+public:
+    // Default constructor
+    PlanetaryDerivedState() = default;
+    ~PlanetaryDerivedState() override;
+    PlanetaryDerivedState(const PlanetaryDerivedState &) = delete;
+    PlanetaryDerivedState & operator=(const PlanetaryDerivedState &) = delete;
 
-   /**
-    * Use pfix or alt_pfix flag
-    */
-   bool use_alt_pfix;
-   
-   /**
-    * Pointer to planet fixed frame to be used, either 
-    * pfix or alt_pfix
-    */
-   EphemerisRefFrame * pfix_ptr;
+    // Setter for use_alt_pfix
+    void set_use_alt_pfix(const bool use_alt_pfix_in);
 
- // Methods
+    // initialize(): Initialize the DerivedState (but not necessarily the
+    // state itself.)
+    // Rules for derived classes:
+    // All derived classes must forward the initialize() call to the immediate
+    // parent class and then perform class-dependent object initializations.
+    void initialize(DynBody & subject_body, DynManager & dyn_manager) override;
 
- public:
-
-   // Default constructor
-   PlanetaryDerivedState ();
-   ~PlanetaryDerivedState () override;
-
-   // Setter for use_alt_pfix
-   void set_use_alt_pfix (const bool use_alt_pfix_in);
-
-   // initialize(): Initialize the DerivedState (but not necessarily the
-   // state itself.)
-   // Rules for derived classes:
-   // All derived classes must forward the initialize() call to the immediate
-   // parent class and then perform class-dependent object initializations.
-   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
-
-   // update(): Update the DerivedState representation of the subject DynBody.
-   // Rules for derived classes:
-   // All derived classes must perform class-dependent actions and then
-   // must forward the update() call to the immediate parent class.
-   void update (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   PlanetaryDerivedState (const PlanetaryDerivedState&);
-   PlanetaryDerivedState & operator = (const PlanetaryDerivedState&);
-
+    // update(): Update the DerivedState representation of the subject DynBody.
+    // Rules for derived classes:
+    // All derived classes must perform class-dependent actions and then
+    // must forward the update() call to the immediate parent class.
+    void update() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

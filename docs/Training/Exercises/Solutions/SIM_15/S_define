@@ -36,25 +36,26 @@
 //
 //=============================================================================
 // A single vehicle in Earth orbit with gravity gradient.
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-
-// Include the default trick object
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
 // Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
-#include "environment_sans_de405.sm"
 #include "earth_basic.sm"
+#include "environment_sans_de405.sm"
 
 //***************************************************************
 // CLASS: (VehicleSimObject)
@@ -66,25 +67,24 @@
 #include "Base/vehicle_baseline.sm"
 class VehicleSimObject : public VehicleBasicSimObject
 {
- public:
-  jeod::GravityTorque                      grav_torque;
+public:
+    jeod::GravityTorque grav_torque;
 
-  VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {
-    P_GRAV ("initialization") grav_torque.initialize(dyn_body);
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+        P_GRAV("initialization") grav_torque.initialize(dyn_body);
 
-    P_PGRAV ("derivative") grav_torque.update();
-  }
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+        P_PGRAV("derivative") grav_torque.update();
+    }
+
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 };
 VehicleSimObject vehicle(dynamics.dyn_manager);
 
-vcollect vehicle.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   vehicle.grav_torque.torque};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{vehicle.grav_torque.torque};
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, vehicle;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, vehicle;

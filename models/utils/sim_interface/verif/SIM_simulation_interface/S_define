@@ -41,36 +41,32 @@
 Purpose:
   (This simple simulation tests the JEOD message handling system.)
 
- 
+
 
 *******************************************************************************/
 
-
 #define TEST_RATE 0.7
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 ##include "utils/sim_interface/verif/include/test_job_cycle.hh"
 
-class InterfaceSimObject : public Trick::SimObject {
-
+class InterfaceSimObject : public Trick::SimObject
+{
 public:
+    jeod::JobCycleDriver jcd;
 
-   jeod::JobCycleDriver jcd;
+    InterfaceSimObject()
+    {
+        (TEST_RATE, "scheduled") jcd.update();
+    }
 
-   InterfaceSimObject() {
-
-      (TEST_RATE, "scheduled") jcd.update();
-
-   }
-
-private:
-
-   InterfaceSimObject& operator = (const InterfaceSimObject&);
-   InterfaceSimObject(const InterfaceSimObject&);
-
+    InterfaceSimObject & operator=(const InterfaceSimObject &) = delete;
+    InterfaceSimObject(const InterfaceSimObject &) = delete;
 };
 
 InterfaceSimObject sim_interface_test;

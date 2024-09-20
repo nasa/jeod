@@ -49,7 +49,6 @@
  * pointers.
  */
 
-
 /*
 Purpose: ()
 */
@@ -63,54 +62,46 @@ Purpose: ()
 // System includes
 #include <cstddef>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Essentially just std::pair<double*>.
  */
-class GaussJacksonTwoState {
-
-  JEOD_MAKE_SIM_INTERFACES(GaussJacksonTwoState)
+class GaussJacksonTwoState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GaussJacksonTwoState)
 
 public:
+    /**
+     * The first element of the pair.
+     */
+    double * first{}; //!< trick_units(--)
 
-   /**
-    * The first element of the pair.
-    */
-   double* first; //!< trick_units(--)
+    /**
+     * The second element of the pair.
+     */
+    double * second{}; //!< trick_units(--)
 
-   /**
-    * The second element of the pair.
-    */
-   double* second; //!< trick_units(--)
+    /**
+     * Default constructor.
+     */
+    GaussJacksonTwoState() = default;
 
-
-   /**
-    * Default constructor.
-    */
-   GaussJacksonTwoState ()
-   :
-      first (nullptr),
-      second (nullptr)
-   {}
-
-   /**
-    * Non-default constructor.
-    * @param  first_in   The first element of the pair.
-    * @param  second_in  The second element of the pair.
-    */
-   GaussJacksonTwoState (
-      double* first_in,
-      double* second_in)
-   :
-      first (first_in),
-      second (second_in)
-   {}
+    /**
+     * Non-default constructor.
+     * @param  first_in   The first element of the pair.
+     * @param  second_in  The second element of the pair.
+     */
+    GaussJacksonTwoState(double * first_in, double * second_in)
+        : first(first_in),
+          second(second_in)
+    {
+    }
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

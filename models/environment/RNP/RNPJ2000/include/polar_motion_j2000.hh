@@ -67,7 +67,7 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/polar_motion_j2000.cc))
 
- 
+
 
 *******************************************************************************/
 #ifndef J2000_POLAR_MOTION_HH
@@ -79,80 +79,76 @@ Library dependencies:
 #include "environment/RNP/GenericRNP/include/planet_rotation.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Implements the polar motion portion of the J2000 RNP.
  */
-class PolarMotionJ2000 : public PlanetRotation {
-
-   JEOD_MAKE_SIM_INTERFACES(PolarMotionJ2000)
+class PolarMotionJ2000 : public PlanetRotation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PolarMotionJ2000)
 
 public: // public data members
+    /**
+     * Current X Polar coordinate
+     */
+    double xp{}; //!< trick_units(rad)
 
-   /**
-    * Current X Polar coordinate
-    */
-   double xp; //!< trick_units(rad)
-   /**
-    * Current Y Polar coordinate
-    */
-   double yp; //!< trick_units(rad)
-   /**
-    * X Polar coordinate table
-    */
-   double* xp_tbl; //!< trick_units(rad)
-   /**
-    * Y Polar coordinate table
-    */
-   double* yp_tbl; //!< trick_units(rad)
-   /**
-    * Independent variable for the XY coordinate table
-    */
-   double* polar_mjd; //!< trick_units(--)
-   /**
-    * If true, do no table lookup and use the
-    * currently set xp and yp
-    */
-   bool override_table; //!< trick_units(--)
-   /**
-    * Size - 1 of xp_tbl, yp_tbl and polar_mjd (last index)
-    */
-   unsigned int last_table_index; //!< trick_units(count)
-   /**
-    * Have we warned about being off the table end?
-    */
-   bool warn_table; //!< trick_units(--)
+    /**
+     * Current Y Polar coordinate
+     */
+    double yp{}; //!< trick_units(rad)
 
+    /**
+     * X Polar coordinate table
+     */
+    double * xp_tbl{}; //!< trick_units(rad)
+
+    /**
+     * Y Polar coordinate table
+     */
+    double * yp_tbl{}; //!< trick_units(rad)
+
+    /**
+     * Independent variable for the XY coordinate table
+     */
+    double * polar_mjd{}; //!< trick_units(--)
+
+    /**
+     * If true, do no table lookup and use the
+     * currently set xp and yp
+     */
+    bool override_table{}; //!< trick_units(--)
+
+    /**
+     * Size - 1 of xp_tbl, yp_tbl and polar_mjd (last index)
+     */
+    unsigned int last_table_index{}; //!< trick_units(count)
+
+    /**
+     * Have we warned about being off the table end?
+     */
+    bool warn_table{}; //!< trick_units(--)
 
 private: // private data members
+public:  // public member functions
+    PolarMotionJ2000() = default;
+    ~PolarMotionJ2000() override;
+    PolarMotionJ2000 & operator=(const PolarMotionJ2000 &) = delete;
+    PolarMotionJ2000(const PolarMotionJ2000 &) = delete;
 
-public: // public member functions
+    // Before update_rotation is called, the "current_time" variable
+    // MUST be set to the modified julian date in the UT1 time standard
+    void update_rotation() override;
 
-   PolarMotionJ2000 ();
-
-   ~PolarMotionJ2000 () override;
-
-   // Before update_rotation is called, the "current_time" variable
-   // MUST be set to the modified julian date in the UT1 time standard
-   void update_rotation () override;
-
-   // How to initialize the PolarMotionJ2000 module with the table information.
-   // init must be pointing to a PolarMotionJ2000Init object
-   void initialize (PlanetRotationInit* init) override;
-
-
-private: // private member functions
-
-   // lock away the copy constructor and operator = by making them private
-   PolarMotionJ2000& operator = (const PolarMotionJ2000& rhs);
-   PolarMotionJ2000 (const PolarMotionJ2000& rhs);
+    // How to initialize the PolarMotionJ2000 module with the table information.
+    // init must be pointing to a PolarMotionJ2000Init object
+    void initialize(PlanetRotationInit * init) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

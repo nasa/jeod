@@ -42,20 +42,23 @@
  -        planet - An earth-like planet including a METAtmosphere object
  -       vehicle - Test vehicle including recommended implementation of
  -                  AtmosphereState and METAtmosphereState
- -     atmos_met - for regression testing only.
  - ========================================================================= */
 
 #define DYNAMICS 1.0
 
 #define P_TIME P10
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #define TIME_MODEL_UTC
 #include "jeod_time.sm"
-
 
 /*****************************************************************************
 EarthSimObject
@@ -68,34 +71,31 @@ Purpose: provide the METAtmosphere without the overhead of a planetary body
 ##include "environment/atmosphere/MET/data/include/solar_mean.hh"
 ##include "environment/atmosphere/MET/data/include/met_data_wind_velocity.hh"
 
-class EarthSimObject : public Trick::SimObject {
+class EarthSimObject : public Trick::SimObject
+{
+public:
+    jeod::WindVelocity wind_velocity;
+    jeod::METAtmosphere atmos;
 
-   public:
+    // The default data objects
+    jeod::METAtmosphere_solar_mean_default_data solar_mean_data;
+    jeod::WindVelocity_wind_velocity_default_data wind_data;
 
-   jeod::WindVelocity wind_velocity;
-   jeod::METAtmosphere atmos;
+    EarthSimObject(const jeod::TimeUTC & utc)
+        : atmos(utc.trunc_julian_time),
+          time_utc(utc)
+    {
+        ("default_data") solar_mean_data.initialize(&atmos);
+        ("default_data") wind_data.initialize(&wind_velocity);
+    }
 
-   // The default data objects
-   jeod::METAtmosphere_solar_mean_default_data solar_mean_data;
-   jeod::WindVelocity_wind_velocity_default_data wind_data;
+    EarthSimObject operator=(const EarthSimObject &) = delete;
+    EarthSimObject(const EarthSimObject &) = delete;
 
-   EarthSimObject( const jeod::TimeUTC& utc)
-      :
-      time_utc( utc)
-   {
-      ("default_data") solar_mean_data.initialize( &atmos);
-      ("default_data") wind_data.initialize( &wind_velocity);
-
-      ("initialization") atmos.update_time( time_utc);
-      (DYNAMICS, "environment") atmos.update_time( time_utc);
-   }
-
-   private:
-   const jeod::TimeUTC & time_utc;
-   // This object not copyable
-   EarthSimObject operator =(const EarthSimObject &);
-   EarthSimObject(const EarthSimObject &);
+private:
+    const jeod::TimeUTC & time_utc;
 };
+
 EarthSimObject planet(jeod_time.time_utc);
 
 /*****************************************************************************
@@ -109,86 +109,40 @@ Purpose:(Representative of what would be needed in a typical vehicle
 ##include "environment/atmosphere/base_atmos/include/atmosphere_state.hh"
 ##include "environment/atmosphere/MET/include/MET_atmosphere_state.hh"
 
-class VehicleSimObject : public Trick::SimObject {
+class VehicleSimObject : public Trick::SimObject
+{
+private:
+    // external references:
+    jeod::METAtmosphere & atmos_deprecate;
 
-   private:
-   // external references:
-   jeod::METAtmosphere& atmos_deprecate;
+public:
+    jeod::PlanetFixedPosition pos;
+    jeod::AtmosphereState atmos_state;
+    jeod::AtmosphereState atmos_state_deprecate;
+    jeod::METAtmosphereState met_atmos_state;
+    jeod::METAtmosphereState met_atmos_state_deprecate;
 
-   public:
-   jeod::PlanetFixedPosition  pos;
-   jeod::AtmosphereState      atmos_state;
-   jeod::AtmosphereState      atmos_state_deprecate;
-   jeod::METAtmosphereState   met_atmos_state;
-   jeod::METAtmosphereState   met_atmos_state_deprecate;
+    // Constructor
+    VehicleSimObject(jeod::METAtmosphere & atmos_model_)
+        : atmos_deprecate(atmos_model_),
+          pos(),
+          atmos_state(atmos_model_, pos),
+          atmos_state_deprecate(),
+          met_atmos_state(atmos_model_, pos),
+          met_atmos_state_deprecate()
+    {
+        ("initialization") atmos_state.update_state();
+        ("initialization") atmos_state_deprecate.update_state(&atmos_deprecate, &pos);
+        ("initialization") met_atmos_state.update_state();
+        ("initialization") met_atmos_state_deprecate.update_state(&atmos_deprecate, &pos);
+        (DYNAMICS, "environment") atmos_state.update_state();
+        (DYNAMICS, "environment") atmos_state_deprecate.update_state(&atmos_deprecate, &pos);
+        (DYNAMICS, "environment") met_atmos_state.update_state();
+        (DYNAMICS, "environment") met_atmos_state_deprecate.update_state(&atmos_deprecate, &pos);
+    }
 
-   // Constructor
-   VehicleSimObject( jeod::METAtmosphere& atmos_model_)
-     :
-     atmos_deprecate(atmos_model_),
-     pos(),
-     atmos_state(atmos_model_,
-                 pos),
-     atmos_state_deprecate(),
-     met_atmos_state( atmos_model_,
-                      pos),
-     met_atmos_state_deprecate()
-   {
-      ("initialization") atmos_state.update_state();
-      ("initialization") atmos_state_deprecate.update_state( &atmos_deprecate,
-                                                             &pos);
-      ("initialization") met_atmos_state.update_state();
-      ("initialization") met_atmos_state_deprecate.update_state( &atmos_deprecate,
-                                                                 &pos);
-      (DYNAMICS, "environment") atmos_state.update_state();
-      (DYNAMICS, "environment") atmos_state_deprecate.update_state( &atmos_deprecate,
-                                                                    &pos);
-      (DYNAMICS, "environment") met_atmos_state.update_state();
-      (DYNAMICS, "environment") met_atmos_state_deprecate.update_state( &atmos_deprecate,
-                                                                        &pos);
-   }
-
-   private:
-   // This object not copyable
-   VehicleSimObject& operator =(const VehicleSimObject &);
-   VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
+    VehicleSimObject(const VehicleSimObject &) = delete;
 };
+
 VehicleSimObject vehicle(planet.atmos);
-
-
-// FIXME DELETE THIS and adjust the logging
-/*****************************************************************************
-MetAtmosSimObject
-Purpose:(for regression testing.  This should produce exactly the same data
-         that was generated in vehicle, but this is how the old sim was set
-         up.  Don't do this!)
-*****************************************************************************/
-class MetAtmosSimObject : public Trick::SimObject {
-
-   public:
-   jeod::AtmosphereState      atmos_state;
-   jeod::METAtmosphereState   met_atmos_state;
-
-   // MetAtmosSimObject is just a container for a pos, so nothing is to be
-   // done in the constructor
-   MetAtmosSimObject( jeod::METAtmosphere             & atmos_model_,
-                      const jeod::PlanetFixedPosition & pos_)
-     :
-     atmos_state(     atmos_model_,
-                      pos_),
-     met_atmos_state( atmos_model_,
-                      pos_)
-   {
-      ("initialization") atmos_state.update_state();
-      ("initialization") met_atmos_state.update_state();
-      (DYNAMICS, "environment") atmos_state.update_state();
-      (DYNAMICS, "environment") met_atmos_state.update_state();
-   }
-
-   private:
-   // This object not copyable
-   MetAtmosSimObject& operator =(const MetAtmosSimObject &);
-   MetAtmosSimObject(const MetAtmosSimObject &);
-};
-MetAtmosSimObject atmos_met( planet.atmos,
-                             vehicle.pos);

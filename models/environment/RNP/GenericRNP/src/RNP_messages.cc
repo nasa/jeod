@@ -29,7 +29,7 @@ Class:
 Library dependencies:
   ((RNP_messages.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -38,24 +38,21 @@ Library dependencies:
 #define PATH "environment/RNP/"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Errors
-char const * RNPMessages::initialization_error =
-   PATH "initialization_error";
+const char * RNPMessages::initialization_error = PATH "initialization_error";
 
-char const * RNPMessages::fidelity_error =
-   PATH "fidelity_error";
+const char * RNPMessages::fidelity_error = PATH "fidelity_error";
 
-char const * RNPMessages::setup_error =
-   PATH "setup_error";
+const char * RNPMessages::setup_error = PATH "setup_error";
 
-   // Warnings
+// Warnings
 
-char const * RNPMessages::polar_motion_table_warning =
-   PATH "polar_motion_table_warning";
+const char * RNPMessages::polar_motion_table_warning = PATH "polar_motion_table_warning";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

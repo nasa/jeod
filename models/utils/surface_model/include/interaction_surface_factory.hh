@@ -60,22 +60,21 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     ((../src/interaction_surface_factory.cc))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_INTERACTION_SURFACE_FACTORY_HH
 #define JEOD_INTERACTION_SURFACE_FACTORY_HH
 
-
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/container/include/pointer_vector.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class InteractionFacetFactory;
 class FacetParams;
@@ -86,67 +85,51 @@ class InteractionSurface;
  * A base class for creating specific interaction surfaces from
  * general surfaces.
  */
-class InteractionSurfaceFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(InteractionSurfaceFactory)
+class InteractionSurfaceFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, InteractionSurfaceFactory)
 
 public:
+    InteractionSurfaceFactory();
+    virtual ~InteractionSurfaceFactory();
+    InteractionSurfaceFactory & operator=(const InteractionSurfaceFactory &) = delete;
+    InteractionSurfaceFactory(const InteractionSurfaceFactory &) = delete;
 
-   // constructor
-   InteractionSurfaceFactory ();
+    // Creates the interaction surface from a base surface model
+    virtual void create_surface(SurfaceModel * surface, InteractionSurface * inter_surface);
 
-   // destructor
-   virtual ~InteractionSurfaceFactory ();
+    /**
+     * Convenience version of create_surface which can be called from the
+     * input file.
+     * @param surface       Surface model.
+     * @param inter_surface Reference to the interaction surface.
+     */
+    void create_surface(SurfaceModel & surface, InteractionSurface & inter_surface)
+    {
+        create_surface(&surface, &inter_surface);
+    }
 
-   // Creates the interaction surface from a base surface model
-   virtual void create_surface (
-      SurfaceModel* surface, InteractionSurface* inter_surface);
+    /**
+     * A vector of interaction facet factories to be used.
+     * Matched to facets by type
+     */
+    JeodPointerVector<InteractionFacetFactory>::type factories; //!< trick_io(**)
 
-   /**
-    * Convenience version of create_surface which can be called from the
-    * input file.
-    * @param surface       Surface model.
-    * @param inter_surface Reference to the interaction surface.
-    */
-   void create_surface (
-      SurfaceModel & surface, InteractionSurface & inter_surface) {
-         create_surface (&surface, &inter_surface);
-      }
+    /**
+     * A vector of FacetParams to be used
+     */
+    JeodPointerVector<FacetParams>::type params; //!< trick_io(**)
 
-   /**
-    * A vector of interaction facet factories to be used.
-    * Matched to facets by type
-    */
-   JeodPointerVector<InteractionFacetFactory>::type factories; //!< trick_io(**)
+    /* Allows for a new InteractionFacetFactory to be added to the
+       InteractionSurfaceFactory */
+    virtual void add_facet_factory(InteractionFacetFactory * to_add);
 
-   /**
-    * A vector of FacetParams to be used
-    */
-   JeodPointerVector<FacetParams>::type params; //!< trick_io(**)
-
-   /* Allows for a new InteractionFacetFactory to be added to the
-      InteractionSurfaceFactory */
-   virtual void add_facet_factory (InteractionFacetFactory* to_add);
-
-   /* Allows for new facet parameters to be added to the
-      InteractionSurfaceFactory for use when creating the InteractionSurface */
-   virtual void add_facet_params (FacetParams* to_add);
-
-
-protected:
-
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   InteractionSurfaceFactory& operator = (const InteractionSurfaceFactory& rhs);
-   InteractionSurfaceFactory (const InteractionSurfaceFactory& rhs);
-
+    /* Allows for new facet parameters to be added to the
+       InteractionSurfaceFactory for use when creating the InteractionSurface */
+    virtual void add_facet_params(FacetParams * to_add);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -50,16 +50,14 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_BASE_PENDULUM_MODEL_HH
 #define JEOD_BASE_PENDULUM_MODEL_HH
 
-
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Abstract base class that defines interfaces needed to model a spherical
@@ -67,12 +65,9 @@ namespace jeod {
  */
 class BasePendulumModel
 {
-
-    JEOD_MAKE_SIM_INTERFACES(BasePendulumModel)
+    JEOD_MAKE_SIM_INTERFACES(jeod, BasePendulumModel)
 
 public:
-
-
     /**
      * Default constructor.
      */
@@ -82,7 +77,6 @@ public:
      * Destructor.
      */
     virtual ~BasePendulumModel() = default;
-
 
     // Interfaces needed by PendulumConstraintComponent.
 
@@ -96,7 +90,7 @@ public:
      * @param hinge_point  Vector to be populated with hinge point location,
      * in meters relative to the origin of the constraint frame.
      */
-    virtual void get_hinge_point (double hinge_point[3]) const = 0;
+    virtual void get_hinge_point(double hinge_point[3]) const = 0;
 
     /**
      * Get the mass of the pendulum bob.
@@ -119,11 +113,9 @@ public:
     virtual double compute_damping_factor(double accel_mag) = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

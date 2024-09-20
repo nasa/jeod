@@ -56,29 +56,29 @@
 //
 //==============================================================================
 
-
 // This is an initialization-only sim, but the time model doesn't know that ...
-#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
 #define DYNAMICS 1.0
 
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 // Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
-
-// Include standard JEOD and system classes:
-#include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
 #define TIME_MODEL_UT1
 #define TIME_MODEL_UTC
 #define TIME_MODEL_TT
 #define TIME_MODEL_GMST
-#define TIME_CALENDAR_UPDATE_INTERVAL  DYNAMICS
+#define TIME_CALENDAR_UPDATE_INTERVAL DYNAMICS
 #include "jeod_time.sm"
-#include "dynamics.sm"
-#include "environment_sans_de405.sm"
-#include "earth_GGM05C_MET_RNP.sm"
 
+#include "dynamics.sm"
+#include "earth_GGM05C_MET_RNP.sm"
+#include "environment_sans_de405.sm"
 
 //***************************************************************
 // CLASS: (VehicleSimObject)
@@ -94,31 +94,28 @@
 
 class VehicleSimObject: public VehicleBasicSimObject
 {
- public:
-  jeod::LvlhFrame lvlh;
-  jeod::RefFrameState expected_state;
+public:
+    jeod::LvlhFrame lvlh;
+    jeod::RefFrameState expected_state;
 
-  jeod::DynBodyInitLvlhState lvlh_init;
+    jeod::DynBodyInitLvlhState lvlh_init;
 
-  //Constructor
-  VehicleSimObject ( jeod::DynManager & dyn_manager_in)
-    :
-    VehicleBasicSimObject(dyn_manager_in)
-  {
-    P_ENV  ("initialization") lvlh.initialize ( dyn_manager);
-    P_DYN  ("initialization") lvlh.update ();
-    (DYNAMICS, "environment") lvlh.update ();
-  }
+    // Constructor
+    VehicleSimObject(jeod::DynManager & dyn_manager_in)
+        : VehicleBasicSimObject(dyn_manager_in)
+    {
+        P_ENV("initialization") lvlh.initialize(dyn_manager);
+        P_DYN("initialization") lvlh.update();
+        (DYNAMICS, "environment") lvlh.update();
+    }
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
 
 // Define target and chaser vehicles using the generic sim object
-VehicleSimObject target (dynamics.dyn_manager);
-
+VehicleSimObject target(dynamics.dyn_manager);
 
 //***************************************************************
 // CLASS: (RelstateSimObject)
@@ -131,38 +128,33 @@ VehicleSimObject target (dynamics.dyn_manager);
 
 class RelstateSimObject: public Trick::SimObject
 {
- protected:
-  // References to other sim objects:
-  jeod::DynManager        & dyn_manager;
-  jeod::DynBody & target;
+protected:
+    // References to other sim objects:
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & target;
 
- public:
-  jeod::RelativeDerivedState  target_in_pfix;
+public:
+    jeod::RelativeDerivedState target_in_pfix;
 
-  // Constructor
-  RelstateSimObject ( jeod::DynManager        & dyn_manager_in,
-                      jeod::DynBody & target_in)
-    :
-    dyn_manager( dyn_manager_in),
-    target( target_in)
-  {
-    // Initialization jobs
-    P_DYN ("initialization") target_in_pfix.initialize ( target,
-                                                                 dyn_manager);
+    // Constructor
+    RelstateSimObject(jeod::DynManager & dyn_manager_in, jeod::DynBody & target_in)
+        : dyn_manager(dyn_manager_in),
+          target(target_in)
+    {
+        // Initialization jobs
+        P_DYN("initialization") target_in_pfix.initialize(target, dyn_manager);
 
-    // Environment class jobs
-    (DYNAMICS, "environment") target_in_pfix.update ();
-  }
+        // Environment class jobs
+        (DYNAMICS, "environment") target_in_pfix.update();
+    }
 
- private:
-  RelstateSimObject (const RelstateSimObject&);
-  RelstateSimObject & operator = (const RelstateSimObject&);
+    RelstateSimObject(const RelstateSimObject &) = delete;
+    RelstateSimObject & operator=(const RelstateSimObject &) = delete;
 };
 
-RelstateSimObject rel_state (dynamics.dyn_manager,
-                             target.dyn_body);
+RelstateSimObject rel_state(dynamics.dyn_manager, target.dyn_body);
 
 ##include "dynamics/body_action/include/body_attach_aligned.hh"
 ##include "dynamics/body_action/include/body_attach_matrix.hh"
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth, target;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth, target;

@@ -21,7 +21,6 @@ Library dependencies:
 
 ******************************************************************************/
 
-
 // System includes
 #include <cstdio>
 #include <cstring>
@@ -32,43 +31,39 @@ Library dependencies:
 // Model includes
 #include "../include/dyn_manager.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Perform dynamic body actions that are ready to be applied.
  */
-void
-DynManager::perform_actions (
-   void)
+void DynManager::perform_actions()
 {
+    // Walk over all of the queued actions, performing any actions that are
+    // ready to be performed.
+    for(auto it = body_actions.begin(); it != body_actions.end();
+        /* No increment -- increment is in loop body */)
+    {
+        BodyAction * action = *it;
 
-   // Walk over all of the queued actions, performing any actions that are
-   // ready to be performed.
-   for (std::list<BodyAction *>::iterator it = body_actions.begin();
-        it != body_actions.end();
-        /* No increment -- increment is in loop body */ ) {
-      BodyAction * action = *it;
+        // Action is ready:
+        // Apply the action and delete it from the queue.
+        if(action->is_ready())
+        {
+            action->apply(*this);
+            body_actions.erase(it++);
+        }
 
-      // Action is ready:
-      // Apply the action and delete it from the queue.
-      if (action->is_ready()) {
-         action->apply (*this);
-         body_actions.erase (it++);
-      }
-
-      // Action is not ready: Advance to next, leaving this action in the queue.
-      else {
-         ++it;
-      }
-   }
-
-   return;
+        // Action is not ready: Advance to next, leaving this action in the queue.
+        else
+        {
+            ++it;
+        }
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

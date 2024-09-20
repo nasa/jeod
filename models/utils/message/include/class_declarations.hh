@@ -57,21 +57,20 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MESSAGE_CLASS_DECL_HH
 #define JEOD_MESSAGE_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class MessageHandler;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

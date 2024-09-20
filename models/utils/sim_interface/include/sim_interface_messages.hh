@@ -55,10 +55,9 @@ Purpose:
 Library dependencies:
   ((../src/sim_interface_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_SIM_INTERFACE_MESSAGES_HH
 #define JEOD_SIM_INTERFACE_MESSAGES_HH
@@ -68,60 +67,54 @@ Library dependencies:
 // Model includes
 #include "jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the sim_interface model.
  */
-class SimInterfaceMessages {
+class SimInterfaceMessages
+{
+    // Static member data
+public:
+    // Errors
 
- // Static member data
- public:
-   // Errors
+    /**
+     * Message issued when multiple instance of a class that should be a
+     * singleton are created or when no such instance exists (but should).
+     */
+    static const char * singleton_error; //!< trick_units(--)
 
-   /**
-    * Message issued when multiple instance of a class that should be a
-    * singleton are created or when no such instance exists (but should).
-    */
-   static char const * singleton_error; //!< trick_units(--)
+    /**
+     * Message issued when issues arise from interacting with the sim engine.
+     */
+    static const char * interface_error; //!< trick_units(--)
 
-   /**
-    * Message issued when issues arise from interacting with the sim engine.
-    */
-   static char const * interface_error; //!< trick_units(--)
+    /**
+     * Message issued when things happen out of order.
+     */
+    static const char * phasing_error; //!< trick_units(--)
 
-   /**
-    * Message issued when things happen out of order.
-    */
-   static char const * phasing_error; //!< trick_units(--)
+    /**
+     * Message issued when something goes awry with integration.
+     */
+    static const char * integration_error; //!< trick_units(--)
 
-   /**
-    * Message issued when something goes awry with integration.
-    */
-   static char const * integration_error; //!< trick_units(--)
+    /**
+     * Message issued when something went wrong with the implementation.
+     */
+    static const char * implementation_error; //!< trick_units(--)
 
-   /**
-    * Message issued when something went wrong with the implementation.
-    */
-   static char const * implementation_error; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   SimInterfaceMessages (void);
-   SimInterfaceMessages (const SimInterfaceMessages &);
-   SimInterfaceMessages & operator= (const SimInterfaceMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    SimInterfaceMessages() = delete;
+    SimInterfaceMessages(const SimInterfaceMessages &) = delete;
+    SimInterfaceMessages & operator=(const SimInterfaceMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_NED_DERIVED_STATE_HH
 #define JEOD_NED_DERIVED_STATE_HH
 
@@ -68,109 +67,97 @@ Library dependencies:
 // JEOD includes
 #include "dynamics/dyn_body/include/class_declarations.hh"
 #include "dynamics/dyn_manager/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/planet_fixed/north_east_down/include/north_east_down.hh"
 #include "utils/ref_frames/include/class_declarations.hh"
 #include "utils/ref_frames/include/ref_frame_state.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // JEOD includes
 #include "derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used for deriving the North-East-Down representations
  * of a subject DynBody's state.
  */
-class NedDerivedState : public DerivedState {
+class NedDerivedState : public DerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, NedDerivedState)
 
-   JEOD_MAKE_SIM_INTERFACES(NedDerivedState)
+    // Member data
 
+public:
+    /**
+     * If set (default), the NED frame will be registered with the dynamics
+     * manager at initialization time. This will make the frame accessible
+     * through the dynamic manager via its find_ref_frame method.
+     */
+    bool register_frame{true}; //!< trick_units(--)
 
- // Member data
+    /**
+     * The NorthEastDown frame plus spherical/elliptical selector.
+     */
+    NorthEastDown ned_state; //!< trick_units(--)
 
- public:
+    /**
+     * The planet, the name of which is specified by the inherited
+     * reference_name data member.
+     */
+    Planet * planet{}; //!< trick_units(--)
 
-   /**
-    * If set (default), the NED frame will be registered with the dynamics
-    * manager at initialization time. This will make the frame accessible
-    * through the dynamic manager via its find_ref_frame method.
-    */
-  bool register_frame; //!< trick_units(--)
+protected:
+    /**
+     * Use pfix or alt_pfix flag
+     */
+    bool use_alt_pfix{};
 
-   /**
-    * The NorthEastDown frame plus spherical/elliptical selector.
-    */
-   NorthEastDown ned_state; //!< trick_units(--)
-   
-   /**
-    * The planet, the name of which is specified by the inherited
-    * reference_name data member.
-    */
-   Planet * planet; //!< trick_units(--)
+    /**
+     * Pointer to planet fixed frame to be used, either
+     * pfix or alt_pfix
+     */
+    EphemerisRefFrame * pfix_ptr{};
 
+    /**
+     * Vehicle state relative to the planet-center, planet-fixed frame.
+     */
+    RefFrameState pfix_rel_state; //!< trick_units(--)
 
- protected:
+private:
+    DynManager * local_dm{};
 
-   /**
-    * Use pfix or alt_pfix flag
-    */
-   bool use_alt_pfix;
-   
-   /**
-    * Pointer to planet fixed frame to be used, either 
-    * pfix or alt_pfix
-    */
-   EphemerisRefFrame * pfix_ptr;
+    // Methods
 
-   /**
-    * Vehicle state relative to the planet-center, planet-fixed frame.
-    */
-   RefFrameState pfix_rel_state; //!< trick_units(--)
+public:
+    // Default constructor and destructor
+    NedDerivedState() = default;
+    ~NedDerivedState() override;
+    NedDerivedState(const NedDerivedState &) = delete;
+    NedDerivedState & operator=(const NedDerivedState &) = delete;
 
+    // Setter for use_alt_pfix
+    void set_use_alt_pfix(const bool use_alt_pfix_in);
 
- // Methods
+    // initialize(): Initialize the DerivedState (but not necessarily the
+    // state itself.)
+    // Rules for derived classes:
+    // All derived classes must forward the initialize() call to the immediate
+    // parent class and then perform class-dependent object initializations.
+    void initialize(DynBody & subject_body, DynManager & dyn_manager) override;
 
- public:
+    // update(): Update the DerivedState representation of the subject DynBody.
+    // Rules for derived classes:
+    // All derived classes must perform class-dependent actions and then
+    // must forward the update() call to the immediate parent class.
+    void update() override;
 
-   // Default constructor and destructor
-   NedDerivedState ();
-   ~NedDerivedState () override;
-
-   // Setter for use_alt_pfix
-   void set_use_alt_pfix (const bool use_alt_pfix_in);
-
-   // initialize(): Initialize the DerivedState (but not necessarily the
-   // state itself.)
-   // Rules for derived classes:
-   // All derived classes must forward the initialize() call to the immediate
-   // parent class and then perform class-dependent object initializations.
-   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
-
-   // update(): Update the DerivedState representation of the subject DynBody.
-   // Rules for derived classes:
-   // All derived classes must perform class-dependent actions and then
-   // must forward the update() call to the immediate parent class.
-   void update (void) override;
-
-
- protected:
-
-   void compute_ned_frame (const RefFrameTrans & rel_trans);
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   NedDerivedState (const NedDerivedState&);
-   NedDerivedState & operator = (const NedDerivedState&);
-
+protected:
+    void compute_ned_frame(const RefFrameTrans & rel_trans);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

@@ -59,10 +59,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/orbital_elements_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_ORBITAL_ELEMENTS_MESSAGES_HH
 #define JEOD_ORBITAL_ELEMENTS_MESSAGES_HH
@@ -72,47 +71,38 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the orbital elements model.
  */
-class OrbitalElementsMessages {
+class OrbitalElementsMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, OrbitalElementsMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued when a value / set of values is invalid.
+     */
+    static const char * domain_error; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(OrbitalElementsMessages)
+    /**
+     * Issued when a numeric search fails to converge.
+     */
+    static const char * convergence_error; //!< trick_units(--)
 
-
- // Static member data
- public:
-
-   /**
-    * Issued when a value / set of values is invalid.
-    */
-   static char const * domain_error; //!< trick_units(--)
-
-   /**
-    * Issued when a numeric search fails to converge.
-    */
-   static char const * convergence_error; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   OrbitalElementsMessages (void);
-   OrbitalElementsMessages (const OrbitalElementsMessages &);
-   OrbitalElementsMessages & operator= (const OrbitalElementsMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    OrbitalElementsMessages() = delete;
+    OrbitalElementsMessages(const OrbitalElementsMessages &) = delete;
+    OrbitalElementsMessages & operator=(const OrbitalElementsMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

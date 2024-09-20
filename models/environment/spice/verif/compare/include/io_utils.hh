@@ -37,9 +37,12 @@
 #ifndef IO_UTILS_HH
 #define IO_UTILS_HH
 #include <iostream>
-#define DEG2RAD(x) ((x)*M_PI/180.0)
-#define RAD2DEG(x) (180.0*(x)/M_PI)
-#define PRINT_VECF(v,F) F<<v[0]<<" "<<v[1]<<" "<<v[2]<<endl
+#define DEG2RAD(x) ((x) * M_PI / 180.0)
+#define RAD2DEG(x) (180.0 * (x) / M_PI)
+#define PRINT_VECF(v, F) F << v[0] << " " << v[1] << " " << v[2] << endl
 #define PRINT_VEC(v) PRINT_VECF(v, cout)
-#define PRINT_MAT(m) PRINT_VEC(m[0]); PRINT_VEC(m[1]); PRINT_VEC(m[2])
+#define PRINT_MAT(m)                                                                                                   \
+    PRINT_VEC(m[0]);                                                                                                   \
+    PRINT_VEC(m[1]);                                                                                                   \
+    PRINT_VEC(m[2])
 #endif

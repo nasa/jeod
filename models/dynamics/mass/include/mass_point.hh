@@ -60,7 +60,6 @@ Library Dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_POINT_HH
 #define JEOD_MASS_POINT_HH
 
@@ -70,134 +69,119 @@ Library Dependencies:
 #include "mass_point_state.hh"
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/named_item/include/named_item.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // System includes
 #include <string>
 #include <utility>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Adds tree linkages and a name to a MassPointState.
  */
-class MassPoint : public MassPointState {
+class MassPoint : public MassPointState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MassPoint)
 
-   JEOD_MAKE_SIM_INTERFACES(MassPoint)
+    friend class MassPointLinks;
+    friend class MassBody;
 
-   friend class MassPointLinks;
-   friend class MassBody;
-
-
- // Member data
- protected:
-
+    // Member data
+protected:
     /**
      * The name of the mass point.
      */
     NamedItem name; //!< trick_units(--)
 
-   /**
-    * Linkage to rest of mass tree.
-    * Programmatic interfaces:
-    * - MassPointLinks provides accessors to the parent and root and
-    * provides methods to attach, detach links (and hence bodies).
-    * - This class provides accessors to the same.
-    * - Various iterators provide the ability to iterate over child bodies
-    * and up the parent chain.
-    */
-   MassPointLinks links; //!< trick_units(--)
+    /**
+     * Linkage to rest of mass tree.
+     * Programmatic interfaces:
+     * - MassPointLinks provides accessors to the parent and root and
+     * provides methods to attach, detach links (and hence bodies).
+     * - This class provides accessors to the same.
+     * - Various iterators provide the ability to iterate over child bodies
+     * and up the parent chain.
+     */
+    MassPointLinks links; //!< trick_units(--)
 
+    // Member functions
+public:
+    /**
+     * Default constructor.
+     */
+    MassPoint()
+        : links(*this)
+    {
+    }
 
- // Member functions
- public:
+    // Destructor.
+    ~MassPoint() override;
 
-   /**
-    * Default constructor.
-    */
-   MassPoint ()
-   :
-      name(),
-      links(*this)
-    { }
+    MassPoint(const MassPoint &) = delete;
+    MassPoint & operator=(const MassPoint &) = delete;
 
-   // Destructor.
-   ~MassPoint () override;
+    // Initialize a MassPoint.
+    void initialize_mass_point() override;
 
-   // Initialize a MassPoint.
-   void initialize_mass_point () override;
+    // Set the name.
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 
-   // Set the name.
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
+    // Get the name.
+    std::string get_name() const
+    {
+        return name.get_name();
+    }
 
-   // Get the name.
-   const char* get_name () const
-   {
-      return name.c_str();
-   }
+    // compute_relative_state: Compute the relative state between points
+    // This and the ref_point can be any points in the same tree
+    // The relative state is in terms of the ref_point's frame.
+    virtual void compute_relative_state(const MassPoint & ref_point, MassPointState & rel_state) const;
 
-   // compute_relative_state: Compute the relative state between points
-   // This and the ref_point can be any points in the same tree
-   // The relative state is in terms of the ref_point's frame.
-   virtual void compute_relative_state (
-      const MassPoint & ref_point, MassPointState & rel_state) const;
+    // compute_state_wrt_pred: Compute the relative state of this point
+    // with respect to some reference point, which must be at or above
+    // this point via the parent links.
+    // The relative state is in terms of the ref_point's frame.
+    virtual void compute_state_wrt_pred(const MassPoint & ref_point, MassPointState & rel_state) const;
 
-   // compute_state_wrt_pred: Compute the relative state of this point
-   // with respect to some reference point, which must be at or above
-   // this point via the parent links.
-   // The relative state is in terms of the ref_point's frame.
-   virtual void compute_state_wrt_pred (
-      const MassPoint & ref_point, MassPointState & rel_state) const;
+    // compute_state_wrt_pred: Compute the relative state of this point
+    // with respect to some reference point, which must be at or above
+    // this point via the parent links.
+    // The relative state is in terms of the ref_point's frame.
+    virtual void compute_state_wrt_pred(unsigned int ref_point_index, MassPointState & rel_state) const;
 
-   // compute_state_wrt_pred: Compute the relative state of this point
-   // with respect to some reference point, which must be at or above
-   // this point via the parent links.
-   // The relative state is in terms of the ref_point's frame.
-   virtual void compute_state_wrt_pred (
-      unsigned int ref_point_index, MassPointState & rel_state) const;
+    // compute_pred_rel_state: Compute the relative state of some
+    // reference point respect to this point. The reference point must
+    // be at or above this point via the parent links.
+    // The relative state is in terms of the this' frame.
+    virtual void compute_pred_rel_state(const MassPoint & ref_point, MassPointState & rel_state) const;
 
-   // compute_pred_rel_state: Compute the relative state of some
-   // reference point respect to this point. The reference point must
-   // be at or above this point via the parent links.
-   // The relative state is in terms of the this' frame.
-   virtual void compute_pred_rel_state (
-      const MassPoint & ref_point, MassPointState & rel_state) const;
+    // compute_pred_rel_state: Compute the relative state of some
+    // reference point respect to this point. The reference point must
+    // be at or above this point via the parent links.
+    // The relative state is in terms of the this' frame.
+    virtual void compute_pred_rel_state(unsigned int ref_point_index, MassPointState & rel_state) const;
 
-   // compute_pred_rel_state: Compute the relative state of some
-   // reference point respect to this point. The reference point must
-   // be at or above this point via the parent links.
-   // The relative state is in terms of the this' frame.
-   virtual void compute_pred_rel_state (
-      unsigned int ref_point_index, MassPointState & rel_state) const;
+    // find_last_common_node: Find the point of departure between nodes
+    const MassPoint * find_last_common_node(const MassPoint & ref_point) const;
 
-   // find_last_common_node: Find the point of departure between nodes
-   const MassPoint * find_last_common_node (
-      const MassPoint & ref_point) const;
+protected:
+    // find_last_common_index: Find the point of departure between nodes
+    int find_last_common_index(const MassPoint & ref_point) const;
 
- protected:
+private:
+    // attach: Attach to another point
+    void attach(MassPoint & parent);
 
-   // find_last_common_index: Find the point of departure between nodes
-   int find_last_common_index (const MassPoint & ref_point) const;
-
- private:
-
-   // attach: Attach to another point
-   void attach (MassPoint & parent);
-
-   // detach: Detach point from its parent
-   void detach ();
-
-   MassPoint (const MassPoint &);
-   MassPoint & operator =(const MassPoint &);
-
+    // detach: Detach point from its parent
+    void detach();
 };
-
 
 /**
  * Each mass point has a path from the root of the mass point tree
@@ -207,14 +191,10 @@ class MassPoint : public MassPointState {
  * @return Last common node
  * \param[in] ref_point Other point
  */
-inline int
-MassPoint::find_last_common_index (
-   const MassPoint & ref_point)
-const
+inline int MassPoint::find_last_common_index(const MassPoint & ref_point) const
 {
-   return links.find_last_common_index(ref_point.links);
+    return links.find_last_common_index(ref_point.links);
 }
-
 
 /**
  * Each mass point has a path from the root of the mass point tree
@@ -224,21 +204,18 @@ const
  * @return Last common node
  * \param[in] frame Other point
  */
-inline const MassPoint *
-MassPoint::find_last_common_node (
-   const MassPoint & frame)
-const
+inline const MassPoint * MassPoint::find_last_common_node(const MassPoint & frame) const
 {
-   const MassPointLinks * common_link =
-      links.find_last_common_node(frame.links);
-   if (common_link != nullptr) {
-      return (&(common_link->container()));
-   }
-   else {
-      return nullptr;
-   }
+    const MassPointLinks * common_link = links.find_last_common_node(frame.links);
+    if(common_link != nullptr)
+    {
+        return (&(common_link->container()));
+    }
+    else
+    {
+        return nullptr;
+    }
 }
-
 
 /**
  * Attach a mass point to another.
@@ -248,13 +225,10 @@ const
  *                  Some external agent must address the physical relation.
  * \param[in,out] parent parent node
  */
-inline void
-MassPoint::attach (
-   MassPoint & parent)
+inline void MassPoint::attach(MassPoint & parent)
 {
-   links.attach (parent.links);
+    links.attach(parent.links);
 }
-
 
 /**
  * Detach a mass point from its parent.
@@ -263,14 +237,12 @@ MassPoint::attach (
  *  - This method only addresses the linkages.
  *                  Some external agent must address the physical relation.
  */
-inline void
-MassPoint::detach ()
+inline void MassPoint::detach()
 {
-   links.detach ();
+    links.detach();
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

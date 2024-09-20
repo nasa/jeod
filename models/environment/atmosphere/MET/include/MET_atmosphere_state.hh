@@ -70,11 +70,12 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "MET_atmosphere_state_vars.hh"
 #include "MET_atmosphere.hh"
+#include "MET_atmosphere_state_vars.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The MET specific implementation of AtmosphereState.
@@ -82,46 +83,33 @@ namespace jeod {
 
 class METAtmosphereState : public METAtmosphereStateVars
 {
-
-   JEOD_MAKE_SIM_INTERFACES(METAtmosphereState)
+    JEOD_MAKE_SIM_INTERFACES(jeod, METAtmosphereState)
 
 private:
-   METAtmosphere             * met_atmos; /* !<trick_units(--)
-      Pointer to the METAtmosphere relative to which this class will
-      provide a state.*/
+    METAtmosphere * met_atmos{}; /* !<trick_units(--) Pointer to the METAtmosphere relative to which this class will
+                                    provide a state.*/
 
 public: // public member functions
+    // non-default constructor, in preparation for shift to references over
+    // pointers:
+    METAtmosphereState(METAtmosphere & atmos_model, const PlanetFixedPosition & pfix_pos);
 
-   // default constructor
-   METAtmosphereState ();
-   // non-default constructor, in preparation for shift to references over
-   // pointers:
-   METAtmosphereState( METAtmosphere             & atmos_model,
-                       const PlanetFixedPosition & pfix_pos);
-   // destructor
-   ~METAtmosphereState () override{};
+    METAtmosphereState() = default;
+    ~METAtmosphereState() override = default;
+    METAtmosphereState & operator=(const METAtmosphereState &) = delete;
+    METAtmosphereState(const METAtmosphereState &) = delete;
 
-
-   // Updates this particular atmosphere state from an METAtmosphere
-   // atmosphere model.
-   //  - version 1 (deprecated) brings in pointers to the external models,
-   //  - version 2 uses internal pointers set in the constructor; this is
-   //    provided for an eventual path toward using references instead of
-   //    pointers.
-   void update_state ( METAtmosphere * atmos_model,
-                       const PlanetFixedPosition * pfix_pos);
-   void update_state () override;
-
-private:
-   // unimplemented operator = for METAtmosphereState
-   METAtmosphereState& operator = (const METAtmosphereState& rhs);
-
-   // unimplemented copy constructor for METAtmospherestate
-   METAtmosphereState (const METAtmosphereState& rhs);
-
+    // Updates this particular atmosphere state from an METAtmosphere
+    // atmosphere model.
+    //  - version 1 (deprecated) brings in pointers to the external models,
+    //  - version 2 uses internal pointers set in the constructor; this is
+    //    provided for an eventual path toward using references instead of
+    //    pointers.
+    void update_state(METAtmosphere * atmos_model, const PlanetFixedPosition * pfix_pos);
+    void update_state() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

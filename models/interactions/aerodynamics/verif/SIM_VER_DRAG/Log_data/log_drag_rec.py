@@ -2,7 +2,7 @@ def add_3vec(drg, var):
   for ii in range(3):
      drg.add_variable(var + "[" + str(ii) + "]")
 
-drg = trick.DRAscii("drag")
+drg = trick.DRBinary("drag")
 drg.set_freq(trick.DR_Always)
 drg.enable()
 drg.set_cycle(1.0)

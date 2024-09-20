@@ -74,89 +74,88 @@ Library dependencies:
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeTDB;
 class TimeTAI;
 class JeodBaseTime;
 
-
 /**
  * Define class TimeConverter_TAI_TDB, which converts from International Atomic
  * Time to Barycentric Dynamic Time.
  */
-class TimeConverter_TAI_TDB : public TimeConverter {
+class TimeConverter_TAI_TDB : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_TAI_TDB)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_TAI_TDB)
-
-// Member Data
+    // Member Data
 private:
-   /**
-    * The offset from TAI to TT
-    */
-  double TAI_to_TT_offset;    //!< trick_units(s)
-   /**
-    * The epoch value of a_to_b_offset.
-    */
-  double a_to_b_offset_epoch; //!< trick_units(s)
+    /**
+     * The offset from TAI to TT. This is needed because first TAI must convert
+     * to TT before applying the periodic corrections.
+     */
+    double TAI_to_TT_offset{32.184}; //!< trick_units(s)
+
+    /**
+     * The epoch value of a_to_b_offset.
+     */
+    double a_to_b_offset_epoch{}; //!< trick_units(s)
+
     /**
      * TAI seconds from previous loop iteration
      */
-  double prev_tai_seconds;    //!< trick_units(s)
+    double prev_tai_seconds{}; //!< trick_units(s)
+
     /**
      * TDB seconds from previous loop iteration
      */
-  double prev_tdb_seconds;    //!< trick_units(s)
+    double prev_tdb_seconds{}; //!< trick_units(s)
+
     /**
      * Counter for number of steps in iteration
      */
-  int nSteps;                 //!< trick_units(--)
+    int nSteps{}; //!< trick_units(--)
+
     /**
      * Counter for number of iterations
      */
-  int nIter;                  //!< trick_units(--)
-   /**
-    * Converter parent time, always a TimeTAI for this converter.
-    */
-  TimeTAI * tai_ptr;          //!< trick_units(--)
-   /**
-    * Converter parent time, always a TimeTDB for this converter.
-    */
-  TimeTDB * tdb_ptr;          //!< trick_units(--)
+    int nIter{}; //!< trick_units(--)
 
-// Member functions:
+    /**
+     * Converter parent time, always a TimeTAI for this converter.
+     */
+    TimeTAI * tai_ptr{}; //!< trick_units(--)
+
+    /**
+     * Converter parent time, always a TimeTDB for this converter.
+     */
+    TimeTDB * tdb_ptr{}; //!< trick_units(--)
+
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_TAI_TDB ();
-  // Destructor
-   ~TimeConverter_TAI_TDB () override;
+    TimeConverter_TAI_TDB();
+    ~TimeConverter_TAI_TDB() override = default;
+    TimeConverter_TAI_TDB(const TimeConverter_TAI_TDB &) = delete;
+    TimeConverter_TAI_TDB & operator=(const TimeConverter_TAI_TDB &) = delete;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // set_a_to_b_offset: Calculate and set the offset to be used in convert_a_to_b and _b_to_a
-  void set_a_to_b_offset (void);
+    // set_a_to_b_offset: Calculate and set the offset to be used in convert_a_to_b and _b_to_a
+    void set_a_to_b_offset();
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void) override;
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 
-  // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
-private:
-   TimeConverter_TAI_TDB (const TimeConverter_TAI_TDB&);
-   TimeConverter_TAI_TDB & operator = (const TimeConverter_TAI_TDB&);
+    // convert_b_to_a: Apply the converter in the reverse direction
+    void convert_b_to_a() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

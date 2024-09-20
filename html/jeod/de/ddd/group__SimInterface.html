@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -82,6 +82,9 @@ Files</h2></td></tr>
 <tr class="memitem:d8/d12/jeod__trick__integrator_8hh"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d12/jeod__trick__integrator_8hh.html">jeod_trick_integrator.hh</a></td></tr>
 <tr class="memdesc:d8/d12/jeod__trick__integrator_8hh"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define the interface for accessing / updating elements of a <a class="el" href="../../d7/dcf/namespaceTrick.html" title="Namespace Trick furnishes several standard functions for use in the Trick environment. ">Trick</a> simulation integrator object. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:dd/d3e/jeod__va__macro__utility_8hh"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh.html">jeod_va_macro_utility.hh</a></td></tr>
+<tr class="memdesc:dd/d3e/jeod__va__macro__utility_8hh"><td class="mdescLeft">&#160;</td><td class="mdescRight">Support header for variable argument macro functions. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d7/d63/memory__attributes_8hh"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d63/memory__attributes_8hh.html">memory_attributes.hh</a></td></tr>
 <tr class="memdesc:d7/d63/memory__attributes_8hh"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define JEOD memory interface macros. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,9 +117,6 @@ Files</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d0/db2/checkpoint__output__manager_8cc"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/db2/checkpoint__output__manager_8cc.html">checkpoint_output_manager.cc</a></td></tr>
 <tr class="memdesc:d0/db2/checkpoint__output__manager_8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define CheckPointOutputManager member functions and of related classes. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:d5/deb/memory__interface_8cc"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/deb/memory__interface_8cc.html">memory_interface.cc</a></td></tr>
-<tr class="memdesc:d5/deb/memory__interface_8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement the MemoryInterface class. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:da/d41/sim__interface__messages_8cc"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d41/sim__interface__messages_8cc.html">sim_interface_messages.cc</a></td></tr>
 <tr class="memdesc:da/d41/sim__interface__messages_8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement the class SimInterfaceMessages. <br /></td></tr>
@@ -188,8 +188,14 @@ Macros</h2></td></tr>
 <tr class="separator:ga752da0362381e2bdae16bc6671dfb9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaeeb3f1939d67fffa338b157372ca17a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gaeeb3f1939d67fffa338b157372ca17a0">JEOD_UINTPTR_T</a>&#160;&#160;&#160;unsigned long int</td></tr>
 <tr class="separator:gaeeb3f1939d67fffa338b157372ca17a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7ece2c8cdd2becbbd37240b743aa3e09"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga7ece2c8cdd2becbbd37240b743aa3e09">JEOD_CLASS_ESTABLISH_FRIENDS</a>(class_name)</td></tr>
-<tr class="separator:ga7ece2c8cdd2becbbd37240b743aa3e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa212cdb47f3a523faacb73f2bfc2f1fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gaa212cdb47f3a523faacb73f2bfc2f1fb">JEOD_CLASS_ESTABLISH_FRIENDS3</a>(ns1,  ns2,  class_name)</td></tr>
+<tr class="separator:gaa212cdb47f3a523faacb73f2bfc2f1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74f9a988cdc06e74fe67702a7e834c5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga74f9a988cdc06e74fe67702a7e834c5b">JEOD_CLASS_ESTABLISH_FRIENDS2</a>(ns,  class_name)</td></tr>
+<tr class="separator:ga74f9a988cdc06e74fe67702a7e834c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac44fe94684af9f93fc456005fe69df18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gac44fe94684af9f93fc456005fe69df18">JEOD_CLASS_ESTABLISH_FRIENDS1</a>(class_name)</td></tr>
+<tr class="separator:gac44fe94684af9f93fc456005fe69df18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9208ae4713a35c78c4901fc4c28017f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gab9208ae4713a35c78c4901fc4c28017f">JEOD_CLASS_ESTABLISH_FRIENDS</a>(...)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#gabc394c637da4240eb4758fb0bb424cfd">JEODVMACRO</a>(JEOD_CLASS_ESTABLISH_FRIENDS, __VA_ARGS__)</td></tr>
+<tr class="separator:gab9208ae4713a35c78c4901fc4c28017f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3906908f497537ef6fc9dd768259cba3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga3906908f497537ef6fc9dd768259cba3">JEOD_ATTRIBUTES_SIM_ENGINE_HEADER</a>&#160;&#160;&#160;&quot;sim_services/MemoryManager/include/attributes.h&quot;</td></tr>
 <tr class="separator:ga3906908f497537ef6fc9dd768259cba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ed4b8089ce824fa494239ee5de57044"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga6ed4b8089ce824fa494239ee5de57044">JEOD_ATTRIBUTES_TYPE</a>&#160;&#160;&#160;struct ATTRIBUTES_tag</td></tr>
@@ -198,18 +204,32 @@ Macros</h2></td></tr>
 <tr class="separator:ga0ecaf697fe18fa5824a7f04b80f1f93a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab0f00dbf6334d12e02f6e958a30f9245"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gab0f00dbf6334d12e02f6e958a30f9245">JEOD_SIM_INTEGRATOR_SIM_ENGINE_HEADER</a>&#160;&#160;&#160;&quot;sim_services/Integrator/include/Integrator.hh&quot;</td></tr>
 <tr class="separator:gab0f00dbf6334d12e02f6e958a30f9245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga518a134e83fdb50e4f61f03f231bf7df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga518a134e83fdb50e4f61f03f231bf7df">JEOD_SIM_INTEGRATOR_FORWARD</a>&#160;&#160;&#160;namespace Trick { class Integrator; }</td></tr>
+<tr class="memitem:ga518a134e83fdb50e4f61f03f231bf7df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga518a134e83fdb50e4f61f03f231bf7df">JEOD_SIM_INTEGRATOR_FORWARD</a></td></tr>
 <tr class="separator:ga518a134e83fdb50e4f61f03f231bf7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf9a6b4e23fe57f56eaf73d263ce2a40e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gaf9a6b4e23fe57f56eaf73d263ce2a40e">JEOD_SIM_INTEGRATOR_POINTER_TYPE</a>&#160;&#160;&#160;Trick::Integrator *</td></tr>
 <tr class="separator:gaf9a6b4e23fe57f56eaf73d263ce2a40e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga63581f6588b5b10c447596532fd33ac0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga63581f6588b5b10c447596532fd33ac0">JEOD_SIM_INTEGRATOR_ENUM</a>&#160;&#160;&#160;Integrator_type</td></tr>
 <tr class="separator:ga63581f6588b5b10c447596532fd33ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad4f4303e180b2feea10d56a3d919a943"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gad4f4303e180b2feea10d56a3d919a943">JEOD_MAKE_SIM_INTERFACES</a>(class_name)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga7ece2c8cdd2becbbd37240b743aa3e09">JEOD_CLASS_ESTABLISH_FRIENDS</a>(class_name)</td></tr>
-<tr class="memdesc:gad4f4303e180b2feea10d56a3d919a943"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/ddd/group__SimInterface.html#gad4f4303e180b2feea10d56a3d919a943" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> Defines friends of the given class.  <a href="#gad4f4303e180b2feea10d56a3d919a943">More...</a><br /></td></tr>
-<tr class="separator:gad4f4303e180b2feea10d56a3d919a943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6dab2363d323390f0cced4527de76fc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga6dab2363d323390f0cced4527de76fc0">JEOD_MAKE_SIM_INTERFACES</a>(...)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#gab9208ae4713a35c78c4901fc4c28017f">JEOD_CLASS_ESTABLISH_FRIENDS</a>(__VA_ARGS__);</td></tr>
+<tr class="memdesc:ga6dab2363d323390f0cced4527de76fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/ddd/group__SimInterface.html#ga6dab2363d323390f0cced4527de76fc0" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> Defines friends of the given class.  <a href="#ga6dab2363d323390f0cced4527de76fc0">More...</a><br /></td></tr>
+<tr class="separator:ga6dab2363d323390f0cced4527de76fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga18df3327206ee6bc58974d56770cbef7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga18df3327206ee6bc58974d56770cbef7">JEOD_DECLARE_SIM_INTERFACES</a>(class_name)</td></tr>
-<tr class="memdesc:ga18df3327206ee6bc58974d56770cbef7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/ddd/group__SimInterface.html#ga18df3327206ee6bc58974d56770cbef7" title="JEOD_DECLARE_SIM_INTERFACES(class_name) Forward declare classes and external functions needed to make...">JEOD_DECLARE_SIM_INTERFACES(class_name)</a> Forward declare classes and external functions needed to make the <a class="el" href="../../de/ddd/group__SimInterface.html#gad4f4303e180b2feea10d56a3d919a943" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> expansion compilable.  <a href="#ga18df3327206ee6bc58974d56770cbef7">More...</a><br /></td></tr>
+<tr class="memdesc:ga18df3327206ee6bc58974d56770cbef7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/ddd/group__SimInterface.html#ga18df3327206ee6bc58974d56770cbef7" title="JEOD_DECLARE_SIM_INTERFACES(class_name) Forward declare classes and external functions needed to make...">JEOD_DECLARE_SIM_INTERFACES(class_name)</a> Forward declare classes and external functions needed to make the <a class="el" href="../../de/ddd/group__SimInterface.html#ga6dab2363d323390f0cced4527de76fc0" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> expansion compilable.  <a href="#ga18df3327206ee6bc58974d56770cbef7">More...</a><br /></td></tr>
 <tr class="separator:ga18df3327206ee6bc58974d56770cbef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5afddebdeb796bca68a162cea7793a5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga5afddebdeb796bca68a162cea7793a5d">JEODVMACRO_VA_SIZE</a>(...)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga78f61779ffba07842c45e7c16309b674">JEODVMACRO_GET_COUNT</a>(__VA_ARGS__, <a class="el" href="../../de/ddd/group__SimInterface.html#ga270b0a7853574e116c491626ba9b65f1">JEODVMACRO_REVSEQ_COUNT</a>())</td></tr>
+<tr class="separator:ga5afddebdeb796bca68a162cea7793a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga78f61779ffba07842c45e7c16309b674"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga78f61779ffba07842c45e7c16309b674">JEODVMACRO_GET_COUNT</a>(...)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga325361373fada876c7267e759bb582a0">JEODVAMCRO_SEQ_COUNT</a>(__VA_ARGS__)</td></tr>
+<tr class="separator:ga78f61779ffba07842c45e7c16309b674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga325361373fada876c7267e759bb582a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga325361373fada876c7267e759bb582a0">JEODVAMCRO_SEQ_COUNT</a>( _1,  _2,  _3,  _4,  _5,  _6,  _7,  _8,  _9,  _10,  _11,  _12,  _13,  _14,  _15,  _16,  _17,  _18,  _19,  _20,  _21,  _22,  _23,  _24,  _25,  _26,  _27,  _28,  _29,  _30,  _31,  _32,  _33,  _34,  _35,  _36,  _37,  _38,  _39,  _40,  _41,  _42,  _43,  _44,  _45,  _46,  _47,  _48,  _49,  _50,  _51,  _52,  _53,  _54,  _55,  _56,  _57,  _58,  _59,  _60,  _61,  _62,  _63,  N, ...)&#160;&#160;&#160;N</td></tr>
+<tr class="separator:ga325361373fada876c7267e759bb582a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga270b0a7853574e116c491626ba9b65f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga270b0a7853574e116c491626ba9b65f1">JEODVMACRO_REVSEQ_COUNT</a>()</td></tr>
+<tr class="separator:ga270b0a7853574e116c491626ba9b65f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbbc1375e32ef4ad917f8c9d4613c74f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gabbbc1375e32ef4ad917f8c9d4613c74f">JEODVMACRO_SELECT_FUNC_CAT</a>(name,  n)&#160;&#160;&#160;name##n</td></tr>
+<tr class="separator:gabbbc1375e32ef4ad917f8c9d4613c74f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1149bc6ad6d2aed33c79409467560cc9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga1149bc6ad6d2aed33c79409467560cc9">JEODVMACRO_SELECT_FUNC</a>(name,  n)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#gabbbc1375e32ef4ad917f8c9d4613c74f">JEODVMACRO_SELECT_FUNC_CAT</a>(name, n)</td></tr>
+<tr class="separator:ga1149bc6ad6d2aed33c79409467560cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc394c637da4240eb4758fb0bb424cfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gabc394c637da4240eb4758fb0bb424cfd">JEODVMACRO</a>(func, ...)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga1149bc6ad6d2aed33c79409467560cc9">JEODVMACRO_SELECT_FUNC</a>(func, <a class="el" href="../../de/ddd/group__SimInterface.html#ga5afddebdeb796bca68a162cea7793a5d">JEODVMACRO_VA_SIZE</a>(__VA_ARGS__))(__VA_ARGS__)</td></tr>
+<tr class="separator:gabc394c637da4240eb4758fb0bb424cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab0139008fdda107456f13f837872b410"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gab0139008fdda107456f13f837872b410">PATH</a>&#160;&#160;&#160;&quot;utils/sim_interface/&quot;</td></tr>
 <tr class="separator:gab0139008fdda107456f13f837872b410"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaeb04f2e0012cb07d68538599161c9693"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gaeb04f2e0012cb07d68538599161c9693">CLASS</a>&#160;&#160;&#160;SimInterfaceMessages</td></tr>
@@ -247,7 +267,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html#l00038">38</a> of file <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html">sim_interface_messages.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html#l00037">37</a> of file <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html">sim_interface_messages.cc</a>.</p>
 
 </div>
 </div>
@@ -263,7 +283,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00113">113</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00137">137</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
 
 </div>
 </div>
@@ -279,9 +299,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00108">108</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00132">132</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a289cce374e070e7ef60c8d692ec68b77">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::advance_edit_integration_constants()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a02874902a902acb04054f0dfd5c57f9a">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::advance_predictor_integration_constants()</a>, <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#aab23ee0a2b89b563f85d8a0fc79d9224">jeod::GaussJacksonCoefficientsPair::apply()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a9fd8aeb665196505fe3060fb3572e389">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::correct()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a457baa77d52e9c45562ee8a0f645430c">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::mid_correct()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a13a57a0d6c8f330b28e42d3835341069">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::predict()</a>, and <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a08f654f3fea9cdb4e5cd761c53d6e26f">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::test_for_convergence()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a289cce374e070e7ef60c8d692ec68b77">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::advance_edit_integration_constants()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a02874902a902acb04054f0dfd5c57f9a">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::advance_predictor_integration_constants()</a>, <a class="el" href="../../d6/d5d/classjeod_1_1GaussJacksonCoefficientsPair.html#a6948066db0888fe8d85f35e48bb6a5f8">jeod::GaussJacksonCoefficientsPair::apply()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a9fd8aeb665196505fe3060fb3572e389">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::correct()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a457baa77d52e9c45562ee8a0f645430c">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::mid_correct()</a>, <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#aed16562dce259ca8166a425b14f386ee">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::predict()</a>, and <a class="el" href="../../d0/d78/classjeod_1_1GaussJacksonIntegratorBase.html#a08f654f3fea9cdb4e5cd761c53d6e26f">jeod::GaussJacksonIntegratorBase&lt; State, Primer &gt;::test_for_convergence()</a>.</p>
 
 </div>
 </div>
@@ -297,7 +317,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00103">103</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00127">127</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
 
 </div>
 </div>
@@ -313,7 +333,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html#l00080">80</a> of file <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html">config_test_harness.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html#l00078">78</a> of file <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html">config_test_harness.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/d89/classjeod_1_1JeodSimEngineAttributes_3_01Type_00_01true_01_4.html#a804cbaeda4e4e1395da4279b95d332f4">jeod::JeodSimEngineAttributes&lt; Type, true &gt;::attributes()</a>.</p>
 
@@ -331,7 +351,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00093">93</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00102">102</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -347,7 +367,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00100">100</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -363,7 +383,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html#l00079">79</a> of file <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html">config_test_harness.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html#l00077">77</a> of file <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html">config_test_harness.hh</a>.</p>
 
 </div>
 </div>
@@ -379,12 +399,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00092">92</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00101">101</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
-<a id="ga7ece2c8cdd2becbbd37240b743aa3e09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7ece2c8cdd2becbbd37240b743aa3e09">&#9670;&nbsp;</a></span>JEOD_CLASS_ESTABLISH_FRIENDS</h2>
+<a id="gab9208ae4713a35c78c4901fc4c28017f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab9208ae4713a35c78c4901fc4c28017f">&#9670;&nbsp;</a></span>JEOD_CLASS_ESTABLISH_FRIENDS</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -393,13 +413,99 @@ Variables</h2></td></tr>
           <td class="memname">#define JEOD_CLASS_ESTABLISH_FRIENDS</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#gabc394c637da4240eb4758fb0bb424cfd">JEODVMACRO</a>(JEOD_CLASS_ESTABLISH_FRIENDS, __VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+
+</div>
+</div>
+<a id="gac44fe94684af9f93fc456005fe69df18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac44fe94684af9f93fc456005fe69df18">&#9670;&nbsp;</a></span>JEOD_CLASS_ESTABLISH_FRIENDS1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEOD_CLASS_ESTABLISH_FRIENDS1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
           <td class="paramname">class_name</td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">friend</span> <span class="keyword">class </span>InputProcessor; \</div><div class="line">   friend <span class="keywordtype">void</span> init_attrjeod__ ## class_name();</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00077">77</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">friend</span> <span class="keyword">class </span>InputProcessor;                                                                                       \</div><div class="line">    friend <span class="keywordtype">void</span> init_attr##class_name();</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00086">86</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga74f9a988cdc06e74fe67702a7e834c5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74f9a988cdc06e74fe67702a7e834c5b">&#9670;&nbsp;</a></span>JEOD_CLASS_ESTABLISH_FRIENDS2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEOD_CLASS_ESTABLISH_FRIENDS2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">ns, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">class_name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">friend</span> <span class="keyword">class </span>InputProcessor;                                                                                       \</div><div class="line">    friend <span class="keywordtype">void</span> init_attr##ns##__##class_name()</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00082">82</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+
+</div>
+</div>
+<a id="gaa212cdb47f3a523faacb73f2bfc2f1fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa212cdb47f3a523faacb73f2bfc2f1fb">&#9670;&nbsp;</a></span>JEOD_CLASS_ESTABLISH_FRIENDS3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEOD_CLASS_ESTABLISH_FRIENDS3</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">ns1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">ns2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">class_name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">friend</span> <span class="keyword">class </span>InputProcessor;                                                                                       \</div><div class="line">    friend <span class="keywordtype">void</span> init_attr##ns1##__##ns2##__##class_name()</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00078">78</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -419,7 +525,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../de/ddd/group__SimInterface.html#ga18df3327206ee6bc58974d56770cbef7" title="JEOD_DECLARE_SIM_INTERFACES(class_name) Forward declare classes and external functions needed to make...">JEOD_DECLARE_SIM_INTERFACES(class_name)</a> Forward declare classes and external functions needed to make the <a class="el" href="../../de/ddd/group__SimInterface.html#gad4f4303e180b2feea10d56a3d919a943" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> expansion compilable. </p>
+<p><a class="el" href="../../de/ddd/group__SimInterface.html#ga18df3327206ee6bc58974d56770cbef7" title="JEOD_DECLARE_SIM_INTERFACES(class_name) Forward declare classes and external functions needed to make...">JEOD_DECLARE_SIM_INTERFACES(class_name)</a> Forward declare classes and external functions needed to make the <a class="el" href="../../de/ddd/group__SimInterface.html#ga6dab2363d323390f0cced4527de76fc0" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> expansion compilable. </p>
 <p>All JEOD files that use JEOD_MAKE_SIM_INTERFACES within classes (will) make a parallel call to this macro at file scope in the global namespace. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">class_name</td><td>Name of the class defined later in the header in question. </td></tr>
@@ -427,7 +533,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/df9/jeod__class_8hh_source.html#l00138">138</a> of file <a class="el" href="../../dc/df9/jeod__class_8hh_source.html">jeod_class.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/df9/jeod__class_8hh_source.html#l00132">132</a> of file <a class="el" href="../../dc/df9/jeod__class_8hh_source.html">jeod_class.hh</a>.</p>
 
 </div>
 </div>
@@ -443,12 +549,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00068">68</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00070">70</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
-<a id="gad4f4303e180b2feea10d56a3d919a943"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad4f4303e180b2feea10d56a3d919a943">&#9670;&nbsp;</a></span>JEOD_MAKE_SIM_INTERFACES</h2>
+<a id="ga6dab2363d323390f0cced4527de76fc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6dab2363d323390f0cced4527de76fc0">&#9670;&nbsp;</a></span>JEOD_MAKE_SIM_INTERFACES</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -457,13 +563,13 @@ Variables</h2></td></tr>
           <td class="memname">#define JEOD_MAKE_SIM_INTERFACES</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">class_name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga7ece2c8cdd2becbbd37240b743aa3e09">JEOD_CLASS_ESTABLISH_FRIENDS</a>(class_name)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#gab9208ae4713a35c78c4901fc4c28017f">JEOD_CLASS_ESTABLISH_FRIENDS</a>(__VA_ARGS__);</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../de/ddd/group__SimInterface.html#gad4f4303e180b2feea10d56a3d919a943" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> Defines friends of the given class. </p>
+<p><a class="el" href="../../de/ddd/group__SimInterface.html#ga6dab2363d323390f0cced4527de76fc0" title="JEOD_MAKE_SIM_INTERFACES(class_name) Defines friends of the given class. ">JEOD_MAKE_SIM_INTERFACES(class_name)</a> Defines friends of the given class. </p>
 <p>This macro is to be invoked in the body of all JEOD classes. The intent is to make all parts of the class visible to the designated simulation engine classes and functions.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -472,7 +578,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/df9/jeod__class_8hh_source.html#l00102">102</a> of file <a class="el" href="../../dc/df9/jeod__class_8hh_source.html">jeod_class.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/df9/jeod__class_8hh_source.html#l00101">101</a> of file <a class="el" href="../../dc/df9/jeod__class_8hh_source.html">jeod_class.hh</a>.</p>
 
 </div>
 </div>
@@ -488,7 +594,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00067">67</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00069">69</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -504,7 +610,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00108">108</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00118">118</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -515,12 +621,13 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define JEOD_SIM_INTEGRATOR_FORWARD&#160;&#160;&#160;namespace Trick { class Integrator; }</td>
+          <td class="memname">#define JEOD_SIM_INTEGRATOR_FORWARD</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00105">105</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">namespace </span><a class="code" href="../../d7/dcf/namespaceTrick.html">Trick</a>                                                                                                    \</div><div class="line">    {                                                                                                                  \</div><div class="line">    class Integrator;                                                                                                  \</div><div class="line">    }</div><div class="ttc" id="namespaceTrick_html"><div class="ttname"><a href="../../d7/dcf/namespaceTrick.html">Trick</a></div><div class="ttdoc">Namespace Trick furnishes several standard functions for use in the Trick environment. </div><div class="ttdef"><b>Definition:</b> <a href="../../dc/dde/jeod__integrator__interface_8hh_source.html#l00073">jeod_integrator_interface.hh:73</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00112">112</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -536,7 +643,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html">config_test_harness.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html#l00087">87</a> of file <a class="el" href="../../d1/d76/config__test__harness_8hh_source.html">config_test_harness.hh</a>.</p>
 
 </div>
 </div>
@@ -552,7 +659,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00107">107</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00117">117</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -568,7 +675,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00103">103</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00111">111</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -584,7 +691,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00066">66</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00068">68</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -600,7 +707,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00069">69</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d33/config__trick10_8hh_source.html#l00071">71</a> of file <a class="el" href="../../d5/d33/config__trick10_8hh_source.html">config_trick10.hh</a>.</p>
 
 </div>
 </div>
@@ -616,7 +723,564 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00098">98</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d53/config_8hh_source.html#l00122">122</a> of file <a class="el" href="../../dc/d53/config_8hh_source.html">config.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga325361373fada876c7267e759bb582a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga325361373fada876c7267e759bb582a0">&#9670;&nbsp;</a></span>JEODVAMCRO_SEQ_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEODVAMCRO_SEQ_COUNT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_3, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_4, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_5, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_6, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_7, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_8, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_9, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_10, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_11, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_12, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_13, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_14, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_15, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_16, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_17, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_18, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_19, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_20, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_21, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_22, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_23, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_24, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_25, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_26, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_27, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_28, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_29, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_30, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_31, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_32, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_33, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_34, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_35, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_36, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_37, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_38, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_39, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_40, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_41, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_42, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_43, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_44, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_45, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_46, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_47, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_48, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_49, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_50, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_51, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_52, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_53, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_54, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_55, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_56, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_57, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_58, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_59, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_60, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_61, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_62, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">_63, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">N, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;N</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html#l00066">66</a> of file <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>.</p>
+
+</div>
+</div>
+<a id="gabc394c637da4240eb4758fb0bb424cfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc394c637da4240eb4758fb0bb424cfd">&#9670;&nbsp;</a></span>JEODVMACRO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEODVMACRO</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">func, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga1149bc6ad6d2aed33c79409467560cc9">JEODVMACRO_SELECT_FUNC</a>(func, <a class="el" href="../../de/ddd/group__SimInterface.html#ga5afddebdeb796bca68a162cea7793a5d">JEODVMACRO_VA_SIZE</a>(__VA_ARGS__))(__VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html#l00087">87</a> of file <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga78f61779ffba07842c45e7c16309b674"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga78f61779ffba07842c45e7c16309b674">&#9670;&nbsp;</a></span>JEODVMACRO_GET_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEODVMACRO_GET_COUNT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga325361373fada876c7267e759bb582a0">JEODVAMCRO_SEQ_COUNT</a>(__VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html#l00064">64</a> of file <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga270b0a7853574e116c491626ba9b65f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga270b0a7853574e116c491626ba9b65f1">&#9670;&nbsp;</a></span>JEODVMACRO_REVSEQ_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEODVMACRO_REVSEQ_COUNT</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">63,62,61,60,                   \</div><div class="line">     59,58,57,56,55,54,53,52,51,50, \</div><div class="line">     49,48,47,46,45,44,43,42,41,40, \</div><div class="line">     39,38,37,36,35,34,33,32,31,30, \</div><div class="line">     29,28,27,26,25,24,23,22,21,20, \</div><div class="line">     19,18,17,16,15,14,13,12,11,10, \</div><div class="line">     9,8,7,6,5,4,3,2,1,0</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html#l00074">74</a> of file <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga1149bc6ad6d2aed33c79409467560cc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1149bc6ad6d2aed33c79409467560cc9">&#9670;&nbsp;</a></span>JEODVMACRO_SELECT_FUNC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEODVMACRO_SELECT_FUNC</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">n&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#gabbbc1375e32ef4ad917f8c9d4613c74f">JEODVMACRO_SELECT_FUNC_CAT</a>(name, n)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html#l00086">86</a> of file <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>.</p>
+
+</div>
+</div>
+<a id="gabbbc1375e32ef4ad917f8c9d4613c74f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbbc1375e32ef4ad917f8c9d4613c74f">&#9670;&nbsp;</a></span>JEODVMACRO_SELECT_FUNC_CAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEODVMACRO_SELECT_FUNC_CAT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">n&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;name##n</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html#l00085">85</a> of file <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga5afddebdeb796bca68a162cea7793a5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5afddebdeb796bca68a162cea7793a5d">&#9670;&nbsp;</a></span>JEODVMACRO_VA_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JEODVMACRO_VA_SIZE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#ga78f61779ffba07842c45e7c16309b674">JEODVMACRO_GET_COUNT</a>(__VA_ARGS__, <a class="el" href="../../de/ddd/group__SimInterface.html#ga270b0a7853574e116c491626ba9b65f1">JEODVMACRO_REVSEQ_COUNT</a>())</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html#l00063">63</a> of file <a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>.</p>
 
 </div>
 </div>
@@ -636,7 +1300,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html#l00039">39</a> of file <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html">sim_interface_messages.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html#l00038">38</a> of file <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html">sim_interface_messages.cc</a>.</p>
 
 </div>
 </div>
@@ -652,7 +1316,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/da0/trick__message__handler_8cc_source.html#l00045">45</a> of file <a class="el" href="../../d8/da0/trick__message__handler_8cc_source.html">trick_message_handler.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/da0/trick__message__handler_8cc_source.html#l00044">44</a> of file <a class="el" href="../../d8/da0/trick__message__handler_8cc_source.html">trick_message_handler.cc</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d3d/classjeod_1_1TrickMessageHandler.html#acc7524cad148059ed6e435b35983a4f3">jeod::TrickMessageHandler::process_message()</a>.</p>
 
@@ -670,7 +1334,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html#l00037">37</a> of file <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html">sim_interface_messages.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html#l00036">36</a> of file <a class="el" href="../../da/d41/sim__interface__messages_8cc_source.html">sim_interface_messages.cc</a>.</p>
 
 </div>
 </div>

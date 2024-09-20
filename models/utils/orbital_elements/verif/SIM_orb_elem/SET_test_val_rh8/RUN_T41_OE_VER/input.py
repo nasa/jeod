@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_T41_OE_VER/ 
+#  (To define the input data for simulation SET_test/RUN_T41_OE_VER/
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -28,7 +28,7 @@ set_default_mods_multi(orb_elem_test)
 exec(compile(open( "Modified_data/orb_cir_in.py", "rb").read(), "Modified_data/orb_cir_in.py", 'exec'))
 set_orb_cir_in(orb_elem_test)
 
-orb_elem_test.orb_elem_multi_ver.multi_use = 1 
+orb_elem_test.orb_elem_multi_ver.multi_use = True
 
 
 trick.sim_services.exec_set_terminate_time(5000)

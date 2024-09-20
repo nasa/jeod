@@ -26,7 +26,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -38,42 +37,20 @@ Library dependencies:
 // Model includes
 #include "../include/euler_derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct a EulerDerivedState object.
- */
-EulerDerivedState::EulerDerivedState (
-   void)
-:
-   sequence (Orientation::Roll_Pitch_Yaw),
-   rel_frame (nullptr)
+namespace jeod
 {
-   ref_body_angles[0] = 0.0;
-   ref_body_angles[1] = 0.0;
-   ref_body_angles[2] = 0.0;
-   body_ref_angles[0] = 0.0;
-   body_ref_angles[1] = 0.0;
-   body_ref_angles[2] = 0.0;
-}
-
-
-
 /**
  * Destruct a EulerDerivedState object.
  */
-EulerDerivedState::~EulerDerivedState (
-   void)
+EulerDerivedState::~EulerDerivedState()
 {
-   // Remove the initialization-time subscription to the target frame.
-   if (rel_frame != nullptr) {
-      rel_frame->unsubscribe();
-   }
+    // Remove the initialization-time subscription to the target frame.
+    if(rel_frame != nullptr)
+    {
+        rel_frame->unsubscribe();
+    }
 }
-
-
 
 /**
  * Begin initialization of a EulerDerivedState.
@@ -83,16 +60,11 @@ EulerDerivedState::~EulerDerivedState (
  * \param[in,out] subject_body Subject body.
  * \param[in,out] dyn_manager Dynamics manager.
  */
-void
-EulerDerivedState::initialize (
-   DynBody    & subject_body,
-   DynManager & dyn_manager)
+void EulerDerivedState::initialize(DynBody & subject_body, DynManager & dyn_manager)
 {
-   // Call the parent class initialization method.
-   DerivedState::initialize (subject_body, dyn_manager);
+    // Call the parent class initialization method.
+    DerivedState::initialize(subject_body, dyn_manager);
 }
-
-
 
 /**
  * Begin initialization of a EulerDerivedState.
@@ -103,22 +75,17 @@ EulerDerivedState::initialize (
  * \param[in,out] subject_body Subject body.
  * \param[in,out] dyn_manager Dynamics manager.
  */
-void
-EulerDerivedState::initialize (
-   RefFrame   & ref_frame,
-   DynBody    & subject_body,
-   DynManager & dyn_manager)
+void EulerDerivedState::initialize(RefFrame & ref_frame, DynBody & subject_body, DynManager & dyn_manager)
 {
-   // Call the parent class initialization method.
-   DerivedState::initialize (subject_body, dyn_manager);
+    // Call the parent class initialization method.
+    DerivedState::initialize(subject_body, dyn_manager);
 
-   // Set the reference frame for the relative angles.
-   rel_frame = &ref_frame;
+    // Set the reference frame for the relative angles.
+    rel_frame = &ref_frame;
 
-   // Subscribe to the frame to ensure that relative state can be computed.
-   rel_frame->subscribe();
+    // Subscribe to the frame to ensure that relative state can be computed.
+    rel_frame->subscribe();
 }
-
 
 /**
  * Compute the Euler angles.
@@ -126,42 +93,35 @@ EulerDerivedState::initialize (
  * \par Assumptions and Limitations
  *  - Depends upon the Trick Euler angle math macros and routines.
  */
-void
-EulerDerivedState::update (
-   void)
+void EulerDerivedState::update()
 {
-   double T_this_parent[3][3];
+    double T_this_parent[3][3];
 
-   // Invoke the parent class update method.
-   DerivedState::update(); // This really doesn't do anything!
+    // Invoke the parent class update method.
+    DerivedState::update(); // This really doesn't do anything!
 
-   // Check to see if Euler angles are relative to another frame.
-   if ((rel_frame == nullptr) ||
-       (subject->composite_body.get_parent() == rel_frame)) {
+    // Check to see if Euler angles are relative to another frame.
+    if((rel_frame == nullptr) || (subject->composite_body.get_parent() == rel_frame))
+    {
+        // Copy the body's state information for convenience.
+        rel_state.copy(subject->composite_body.state);
+    }
+    else
+    {
+        // Compute the relative state from the specified relative frame and expressed in
+        // the relative frame
+        subject->composite_body.compute_relative_state(*rel_frame, rel_state);
+    }
 
-      // Copy the body's state information for convenience.
-      rel_state.copy (subject->composite_body.state);
+    // Compute the Euler angles from the parent frame to the body.
+    Orientation::compute_euler_angles_from_matrix(rel_state.rot.T_parent_this, sequence, ref_body_angles);
 
-   }
-   else {
-
-      // Compute the relative state from the specified relative frame and expressed in
-      // the relative frame
-      subject->composite_body.compute_relative_state (*rel_frame, rel_state);
-
-   }
-
-   // Compute the Euler angles from the parent frame to the body.
-   Orientation::compute_euler_angles_from_matrix (
-      rel_state.rot.T_parent_this, sequence, ref_body_angles);
-
-   // Compute the Euler angles from the body to the parent frame.
-   Matrix3x3::transpose (rel_state.rot.T_parent_this, T_this_parent);
-   Orientation::compute_euler_angles_from_matrix (
-      T_this_parent, sequence, body_ref_angles);
+    // Compute the Euler angles from the body to the parent frame.
+    Matrix3x3::transpose(rel_state.rot.T_parent_this, T_this_parent);
+    Orientation::compute_euler_angles_from_matrix(T_this_parent, sequence, body_ref_angles);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -26,21 +26,18 @@ class Planet;
 // Unsupported includes
 #include "../include/sun.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-Planet_sun_default_data::initialize (
-   Planet * Planet_ptr)
+namespace jeod
 {
-   Planet_ptr->name = "Sun";
 
-   /* Seidelmann pages 697, 700 */
-   Planet_ptr->r_eq = 1000 * (696000.0);
+void Planet_sun_default_data::initialize(Planet * Planet_ptr)
+{
+    Planet_ptr->name = "Sun";
 
-   /* GSFC Sun fact sheet */
-   Planet_ptr->flat_coeff = 5e-5;
+    /* Seidelmann pages 697, 700 */
+    Planet_ptr->r_eq = 1000 * (696000.0);
+
+    /* GSFC Sun fact sheet */
+    Planet_ptr->flat_coeff = 5e-5;
 }
-} // End JEOD namespace
+} // namespace jeod

@@ -29,18 +29,17 @@ LIBRARY DEPENDENCY:
    (time_manager_init.cc)
    (time_messages.cc)
    (time_standard.cc)
-   (utils/sim_interface/src/memory_interface.cc)
    (utils/message/src/message_handler.cc)
    (utils/named_item/src/named_item.cc))
 
- 
+
 ******************************************************************************/
 
 // System includes
 
 // JEOD includes
-#include "utils/message/include/message_handler.hh"
 #include "utils/memory/include/jeod_alloc.hh"
+#include "utils/message/include/message_handler.hh"
 #include "utils/named_item/include/named_item.hh"
 
 // Model includes
@@ -48,39 +47,34 @@ LIBRARY DEPENDENCY:
 #include "../include/time_manager.hh"
 #include "../include/time_manager_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Attributes used in allocations
-JEOD_DECLARE_ATTRIBUTES (JeodBaseTime)
-
+JEOD_DECLARE_ATTRIBUTES(JeodBaseTime)
 
 /**
  * initializes the time manager
  * \param[in] time_manager_init Initialization parameters
  */
-void
-TimeManager::initialize (
-   TimeManagerInit * time_manager_init)
+void TimeManager::initialize(TimeManagerInit * time_manager_init)
 {
-   JEOD_REGISTER_INCOMPLETE_CLASS (JeodBaseTime);
+    JEOD_REGISTER_INCOMPLETE_CLASS(JeodBaseTime);
 
-   register_time (dyn_time);
-   num_types              = time_vector.size();
+    register_time(dyn_time);
+    num_types = time_vector.size();
 
-   // Initialize from the time_manager_init object.
-   time_manager_init->initialize_manager (this);
+    // Initialize from the time_manager_init object.
+    time_manager_init->initialize_manager(this);
 
-   // Deliberate redundancy here.  While each initial time value has already
-   // been calculated as part of the initialization process, the update function
-   // ensures that the dependency seen in the update tree is carried through.
-   update (0.0);
-
-   return;
+    // Deliberate redundancy here.  While each initial time value has already
+    // been calculated as part of the initialization process, the update function
+    // ensures that the dependency seen in the update tree is carried through.
+    update(0.0);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -46,7 +46,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
@@ -63,7 +62,7 @@ Collaboration diagram for jeod::GravityManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d95/classjeod_1_1GravityManager__coll__graph.png" border="0" usemap="#jeod_1_1GravityManager_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1GravityManager_coll__map" id="jeod_1_1GravityManager_coll__map">
-<area shape="rect" id="node2" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="5,5,167,47"/>
+<area shape="rect" id="node2" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="5,5,185,47"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -75,6 +74,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a61fb458a17782abd4591569b7d1e7119"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a61fb458a17782abd4591569b7d1e7119">~GravityManager</a> ()</td></tr>
 <tr class="memdesc:a61fb458a17782abd4591569b7d1e7119"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. ">GravityManager</a> destructor.  <a href="#a61fb458a17782abd4591569b7d1e7119">More...</a><br /></td></tr>
 <tr class="separator:a61fb458a17782abd4591569b7d1e7119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4a6db4ba3e0ccfb0c0f1599ab48fb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a9a4a6db4ba3e0ccfb0c0f1599ab48fb0">GravityManager</a> (const <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> &amp;)=delete</td></tr>
+<tr class="separator:a9a4a6db4ba3e0ccfb0c0f1599ab48fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e5d5b45ddbd53439b99d6b37d3b1da3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a7e5d5b45ddbd53439b99d6b37d3b1da3">operator=</a> (const <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> &amp;)=delete</td></tr>
+<tr class="separator:a7e5d5b45ddbd53439b99d6b37d3b1da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafcd6c07ce28c54801821439ab4460e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html">GravitySource</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#aafcd6c07ce28c54801821439ab4460e5">find_grav_source</a> (const std::string &amp;source_name) const</td></tr>
 <tr class="memdesc:aafcd6c07ce28c54801821439ab4460e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the gravitational body with the given name.  <a href="#aafcd6c07ce28c54801821439ab4460e5">More...</a><br /></td></tr>
 <tr class="separator:aafcd6c07ce28c54801821439ab4460e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -85,7 +88,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0966c598e0d53da0f777e17f719e0cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform base initialization.  <a href="#a0966c598e0d53da0f777e17f719e0cf5">More...</a><br /></td></tr>
 <tr class="separator:a0966c598e0d53da0f777e17f719e0cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06d65ef631d4852c7326fcb92921fc57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a06d65ef631d4852c7326fcb92921fc57">initialize_state</a> (const <a class="el" href="../../d9/d15/classjeod_1_1BaseDynManager.html">BaseDynManager</a> &amp;manager)</td></tr>
-<tr class="memdesc:a06d65ef631d4852c7326fcb92921fc57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pass the initialize_state method to each <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet; pure virtual. ">GravitySource</a> object registered with the gravity manager.  <a href="#a06d65ef631d4852c7326fcb92921fc57">More...</a><br /></td></tr>
+<tr class="memdesc:a06d65ef631d4852c7326fcb92921fc57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pass the initialize_state method to each <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet;. ">GravitySource</a> object registered with the gravity manager.  <a href="#a06d65ef631d4852c7326fcb92921fc57">More...</a><br /></td></tr>
 <tr class="separator:a06d65ef631d4852c7326fcb92921fc57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc7b01e2705682409a26aba9a7401330"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#adc7b01e2705682409a26aba9a7401330">gravitation</a> (const double integ_pos[3], <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html">GravityInteraction</a> &amp;grav)</td></tr>
 <tr class="memdesc:adc7b01e2705682409a26aba9a7401330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the gravitational attraction of gravitational bodies on the provided dynamic body.  <a href="#adc7b01e2705682409a26aba9a7401330">More...</a><br /></td></tr>
@@ -93,16 +96,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5ec09a468344090ca1b02b0897d6f84b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a5ec09a468344090ca1b02b0897d6f84b">gravitation</a> (const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;point, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html">GravityInteraction</a> &amp;grav)</td></tr>
 <tr class="memdesc:a5ec09a468344090ca1b02b0897d6f84b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the gravitational attraction of gravitational bodies on the provided dynamic body.  <a href="#a5ec09a468344090ca1b02b0897d6f84b">More...</a><br /></td></tr>
 <tr class="separator:a5ec09a468344090ca1b02b0897d6f84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2b0cca230e505202893a7e2feb3d093"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html">GravitySource</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#ad2b0cca230e505202893a7e2feb3d093">get_bodies</a> () const</td></tr>
-<tr class="memdesc:ad2b0cca230e505202893a7e2feb3d093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the vector of gravitational bodies.  <a href="#ad2b0cca230e505202893a7e2feb3d093">More...</a><br /></td></tr>
-<tr class="separator:ad2b0cca230e505202893a7e2feb3d093"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a3ffc06e5ad4afa12a7db533d3f5e35ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a3ffc06e5ad4afa12a7db533d3f5e35ec">GravityManager</a> (const <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> &amp;)</td></tr>
-<tr class="separator:a3ffc06e5ad4afa12a7db533d3f5e35ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3174db7b5e0de6bf9d4894b769a42876"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a3174db7b5e0de6bf9d4894b769a42876">operator=</a> (const <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html">GravityManager</a> &amp;)</td></tr>
-<tr class="separator:a3174db7b5e0de6bf9d4894b769a42876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d2f40b19c9141dcee47f5fefb2074c7"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html">GravitySource</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a0d2f40b19c9141dcee47f5fefb2074c7">get_bodies</a> () const</td></tr>
+<tr class="memdesc:a0d2f40b19c9141dcee47f5fefb2074c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the vector of gravitational bodies.  <a href="#a0d2f40b19c9141dcee47f5fefb2074c7">More...</a><br /></td></tr>
+<tr class="separator:a0d2f40b19c9141dcee47f5fefb2074c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -120,10 +116,56 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The master gravitational model for a simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00091">91</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00088">88</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3ffc06e5ad4afa12a7db533d3f5e35ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ffc06e5ad4afa12a7db533d3f5e35ec">&#9670;&nbsp;</a></span>GravityManager() <span class="overload">[1/2]</span></h2>
+<a id="a29dd02562fe761108d956d9bfaff48e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29dd02562fe761108d956d9bfaff48e8">&#9670;&nbsp;</a></span>GravityManager() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">jeod::GravityManager::GravityManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. ">GravityManager</a> constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00057">57</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+
+<p class="reference">References <a class="el" href="../../d0/d87/group__external.html#ga275078e14936cc1c45a050dbe6caf889">JEOD_REGISTER_CHECKPOINTABLE</a>, <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>, and <a class="el" href="../../d0/d87/group__external.html#gab997ee5e1458fbebaa411e862ef9d052">JEOD_REGISTER_INCOMPLETE_CLASS</a>.</p>
+
+</div>
+</div>
+<a id="a61fb458a17782abd4591569b7d1e7119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61fb458a17782abd4591569b7d1e7119">&#9670;&nbsp;</a></span>~GravityManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">jeod::GravityManager::~GravityManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. ">GravityManager</a> destructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00067">67</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+
+<p class="reference">References <a class="el" href="../../d0/d87/group__external.html#ga33a2613b81ddc6289ddca6a803858078">JEOD_DEREGISTER_CHECKPOINTABLE</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
+
+</div>
+</div>
+<a id="a9a4a6db4ba3e0ccfb0c0f1599ab48fb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a4a6db4ba3e0ccfb0c0f1599ab48fb0">&#9670;&nbsp;</a></span>GravityManager() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,58 +183,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a29dd02562fe761108d956d9bfaff48e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29dd02562fe761108d956d9bfaff48e8">&#9670;&nbsp;</a></span>GravityManager() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::GravityManager::GravityManager </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. ">GravityManager</a> constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00059">59</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../d0/d87/group__external.html#ga275078e14936cc1c45a050dbe6caf889">JEOD_REGISTER_CHECKPOINTABLE</a>, <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>, and <a class="el" href="../../d0/d87/group__external.html#gab997ee5e1458fbebaa411e862ef9d052">JEOD_REGISTER_INCOMPLETE_CLASS</a>.</p>
-
-</div>
-</div>
-<a id="a61fb458a17782abd4591569b7d1e7119"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61fb458a17782abd4591569b7d1e7119">&#9670;&nbsp;</a></span>~GravityManager()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::GravityManager::~GravityManager </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. ">GravityManager</a> destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00071">71</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../d0/d87/group__external.html#ga33a2613b81ddc6289ddca6a803858078">JEOD_DEREGISTER_CHECKPOINTABLE</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
 
 </div>
 </div>
@@ -221,9 +215,9 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00118">118</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00109">109</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a581240cfca3c2d32fe497ca554c78946">jeod::GravityMessages::duplicate_entry</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#aafcd6c07ce28c54801821439ab4460e5">find_grav_source()</a>, <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a89d40c734a3fdc9f0cd7dd9aea217df2">jeod::GravityMessages::invalid_name</a>, <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html#ab2a9b7472f51854323cc13d81f17eeaa">jeod::GravitySource::name</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
+<p class="reference">References <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a52a31edb78f0b794f84581c7a6751401">jeod::GravityMessages::duplicate_entry</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#aafcd6c07ce28c54801821439ab4460e5">find_grav_source()</a>, <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a4acc7c743dea73eaaa8b1e6baac2fd72">jeod::GravityMessages::invalid_name</a>, <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html#ab2a9b7472f51854323cc13d81f17eeaa">jeod::GravitySource::name</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
 
 </div>
 </div>
@@ -252,16 +246,16 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00085">85</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00078">78</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a89d40c734a3fdc9f0cd7dd9aea217df2">jeod::GravityMessages::invalid_name</a>, <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html#ab2a9b7472f51854323cc13d81f17eeaa">jeod::GravitySource::name</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a4acc7c743dea73eaaa8b1e6baac2fd72">jeod::GravityMessages::invalid_name</a>, <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html#ab2a9b7472f51854323cc13d81f17eeaa">jeod::GravitySource::name</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a8f798f4f80d6bd4514a155af5f654852">add_grav_source()</a>, and <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#ad0a52dd87d14e981c23eab5b4c050430">jeod::GravityControls::initialize_control()</a>.</p>
 
 </div>
 </div>
-<a id="ad2b0cca230e505202893a7e2feb3d093"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2b0cca230e505202893a7e2feb3d093">&#9670;&nbsp;</a></span>get_bodies()</h2>
+<a id="a0d2f40b19c9141dcee47f5fefb2074c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d2f40b19c9141dcee47f5fefb2074c7">&#9670;&nbsp;</a></span>get_bodies()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,7 +264,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt;<a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html">GravitySource</a>*&gt;&amp; jeod::GravityManager::get_bodies </td>
+          <td class="memname">const std::vector&lt;<a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html">GravitySource</a> *&gt;&amp; jeod::GravityManager::get_bodies </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -286,7 +280,7 @@ Friends</h2></td></tr>
 <p>Get the vector of gravitational bodies. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Do not modify the vector, or elements of it. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00163">163</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00148">148</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
 
@@ -335,9 +329,9 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00193">193</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00177">177</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a855789df91f37cc06ed141fe20866a9c">jeod::GravityControls::active</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ab3e8f5d91005e0bf9ac9f1d414c6dec1">jeod::Vector3::copy()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8583cc7909b7039e66c4ac5ea192f6d4">jeod::Matrix3x3::copy()</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a064f35108e3d77ca0d84510425a141c6">jeod::GravityInteraction::grav_accel</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aedf2960fadb7d0e87aceaea83a68fc47">jeod::GravityControls::grav_accel</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#aa77a505a718a2826c0320273ffcaec30">jeod::GravityInteraction::grav_controls</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a77949c3f3fe37d35413f2ff33dbf5a99">jeod::GravityInteraction::grav_grad</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a699a2ac65f255d14a3d4b64aea864d71">jeod::GravityControls::grav_grad</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#ad666acaf0108cbd51b41d91aa272d644">jeod::GravityInteraction::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aa8834b64e5cd9f20ecd17c892eadbe40">jeod::GravityControls::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a64de09a193c0ed165e34ce0678833ec5">jeod::GravityControls::gravitation()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a3394ab6ad96b4cf3272207cd01369266">jeod::Matrix3x3::incr()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#aa0b3bd0728e8852d81084bf05ce7bd27">jeod::Vector3::incr()</a>, and <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a4626a394b9fcf3328d03815225b7cac8">jeod::GravityInteraction::integ_frame_index</a>.</p>
+<p class="reference">References <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a855789df91f37cc06ed141fe20866a9c">jeod::GravityControls::active</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a500096235fb480dfd5c65f272c619db5">jeod::Vector3::copy()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae92a5fb1c7bc8ad224425e2bdf6101b8">jeod::Matrix3x3::copy()</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a064f35108e3d77ca0d84510425a141c6">jeod::GravityInteraction::grav_accel</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aedf2960fadb7d0e87aceaea83a68fc47">jeod::GravityControls::grav_accel</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#aa77a505a718a2826c0320273ffcaec30">jeod::GravityInteraction::grav_controls</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a77949c3f3fe37d35413f2ff33dbf5a99">jeod::GravityInteraction::grav_grad</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a699a2ac65f255d14a3d4b64aea864d71">jeod::GravityControls::grav_grad</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#ad666acaf0108cbd51b41d91aa272d644">jeod::GravityInteraction::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aa8834b64e5cd9f20ecd17c892eadbe40">jeod::GravityControls::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a64de09a193c0ed165e34ce0678833ec5">jeod::GravityControls::gravitation()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a81e9ee9f937c32671b54aff406893bc9">jeod::Matrix3x3::incr()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1e973a3165451da1a430062894f3c3a4">jeod::Vector3::incr()</a>, and <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a4626a394b9fcf3328d03815225b7cac8">jeod::GravityInteraction::integ_frame_index</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#ae4b1b082916a0be3ead81fa137d9abe2">jeod::DynamicsIntegrationGroup::gravitation()</a>.</p>
 
@@ -383,9 +377,9 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00240">240</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00222">222</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a855789df91f37cc06ed141fe20866a9c">jeod::GravityControls::active</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ab3e8f5d91005e0bf9ac9f1d414c6dec1">jeod::Vector3::copy()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8583cc7909b7039e66c4ac5ea192f6d4">jeod::Matrix3x3::copy()</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a064f35108e3d77ca0d84510425a141c6">jeod::GravityInteraction::grav_accel</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aedf2960fadb7d0e87aceaea83a68fc47">jeod::GravityControls::grav_accel</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#aa77a505a718a2826c0320273ffcaec30">jeod::GravityInteraction::grav_controls</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a77949c3f3fe37d35413f2ff33dbf5a99">jeod::GravityInteraction::grav_grad</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a699a2ac65f255d14a3d4b64aea864d71">jeod::GravityControls::grav_grad</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#ad666acaf0108cbd51b41d91aa272d644">jeod::GravityInteraction::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aa8834b64e5cd9f20ecd17c892eadbe40">jeod::GravityControls::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a64de09a193c0ed165e34ce0678833ec5">jeod::GravityControls::gravitation()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a3394ab6ad96b4cf3272207cd01369266">jeod::Matrix3x3::incr()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#aa0b3bd0728e8852d81084bf05ce7bd27">jeod::Vector3::incr()</a>, and <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a4626a394b9fcf3328d03815225b7cac8">jeod::GravityInteraction::integ_frame_index</a>.</p>
+<p class="reference">References <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a855789df91f37cc06ed141fe20866a9c">jeod::GravityControls::active</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a500096235fb480dfd5c65f272c619db5">jeod::Vector3::copy()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae92a5fb1c7bc8ad224425e2bdf6101b8">jeod::Matrix3x3::copy()</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a064f35108e3d77ca0d84510425a141c6">jeod::GravityInteraction::grav_accel</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aedf2960fadb7d0e87aceaea83a68fc47">jeod::GravityControls::grav_accel</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#aa77a505a718a2826c0320273ffcaec30">jeod::GravityInteraction::grav_controls</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a77949c3f3fe37d35413f2ff33dbf5a99">jeod::GravityInteraction::grav_grad</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a699a2ac65f255d14a3d4b64aea864d71">jeod::GravityControls::grav_grad</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#ad666acaf0108cbd51b41d91aa272d644">jeod::GravityInteraction::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aa8834b64e5cd9f20ecd17c892eadbe40">jeod::GravityControls::grav_pot</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a64de09a193c0ed165e34ce0678833ec5">jeod::GravityControls::gravitation()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a81e9ee9f937c32671b54aff406893bc9">jeod::Matrix3x3::incr()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1e973a3165451da1a430062894f3c3a4">jeod::Vector3::incr()</a>, and <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a4626a394b9fcf3328d03815225b7cac8">jeod::GravityInteraction::integ_frame_index</a>.</p>
 
 </div>
 </div>
@@ -414,7 +408,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00154">154</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00144">144</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d9/d15/classjeod_1_1BaseDynManager.html#ab2f83fc34aa3ff90a05fac3d39da1970">jeod::BaseDynManager::set_gravity_manager()</a>.</p>
 
@@ -436,12 +430,12 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pass the initialize_state method to each <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet; pure virtual. ">GravitySource</a> object registered with the gravity manager. </p>
+<p>Pass the initialize_state method to each <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet;. ">GravitySource</a> object registered with the gravity manager. </p>
 <dl class="section user"><dt>Assumptions and Limitations</dt><dd><ul>
 <li>Initialization phasing: The following must have been called prior to calling this method:<ul>
 <li><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a0966c598e0d53da0f777e17f719e0cf5" title="Perform base initialization. ">GravityManager::initialize_model</a> to register the <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. ">GravityManager</a> object with the dynamics manager</li>
-<li><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a8f798f4f80d6bd4514a155af5f654852" title="Create a gravitational body, initialize it with the supplied gravity coefficients, and add it to the vector of bodies. ">GravityManager::add_grav_source</a> to register all <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet; pure virtual. ">GravitySource</a> objects in the simulation with the gravity manager.</li>
-<li><a class="el" href="../../d3/d76/classjeod_1_1Planet.html#aeac3561968bee0249221384d0e71a2c5" title="Register a Planet object with the Dynamics Manager. ">Planet::register_model</a> to associate the planet with a <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet; pure virtual. ">GravitySource</a>.</li>
+<li><a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a8f798f4f80d6bd4514a155af5f654852" title="Create a gravitational body, initialize it with the supplied gravity coefficients, and add it to the vector of bodies. ">GravityManager::add_grav_source</a> to register all <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet;. ">GravitySource</a> objects in the simulation with the gravity manager.</li>
+<li><a class="el" href="../../d3/d76/classjeod_1_1Planet.html#aeac3561968bee0249221384d0e71a2c5" title="Register a Planet object with the Dynamics Manager. ">Planet::register_model</a> to associate the planet with a <a class="el" href="../../d8/d2a/classjeod_1_1GravitySource.html" title="Models the gravity for a specific planet;. ">GravitySource</a>.</li>
 <li>DynamicsManager::activate_ephemerides to identify which reference frames can serve as integration frames. </li>
 </ul>
 </li>
@@ -454,16 +448,16 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00178">178</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html#l00165">165</a> of file <a class="el" href="../../d0/d74/gravity__manager_8cc_source.html">gravity_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aca25efe9798dfe7fb1dcda0a3d929179">jeod::BaseEphemeridesManager::get_integ_frames()</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a5b234a39fa8a310c2ddd7ae8eaa74975">jeod::BaseEphemeridesManager::get_integ_frames()</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a6d90e5e933e84a273f50781031871dc1">sources</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#afe0bafb18275de4d5476852e6fdb6ef4">jeod::DynManager::initialize_simulation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa403ed5cd1e55c20f4d81dd7f5f63fc0">jeod::DynManager::initialize_simulation()</a>.</p>
 
 </div>
 </div>
-<a id="a3174db7b5e0de6bf9d4894b769a42876"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3174db7b5e0de6bf9d4894b769a42876">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a7e5d5b45ddbd53439b99d6b37d3b1da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e5d5b45ddbd53439b99d6b37d3b1da3">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -481,7 +475,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -534,7 +528,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00093">93</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
 
 </div>
 </div>
@@ -562,9 +556,9 @@ Friends</h2></td></tr>
 <p>The gravitational bodies. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00105">105</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html#l00097">97</a> of file <a class="el" href="../../d1/dd5/gravity__manager_8hh_source.html">gravity_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a8f798f4f80d6bd4514a155af5f654852">add_grav_source()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#aafcd6c07ce28c54801821439ab4460e5">find_grav_source()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#ad2b0cca230e505202893a7e2feb3d093">get_bodies()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a06d65ef631d4852c7326fcb92921fc57">initialize_state()</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a61fb458a17782abd4591569b7d1e7119">~GravityManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a8f798f4f80d6bd4514a155af5f654852">add_grav_source()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#aafcd6c07ce28c54801821439ab4460e5">find_grav_source()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a0d2f40b19c9141dcee47f5fefb2074c7">get_bodies()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a06d65ef631d4852c7326fcb92921fc57">initialize_state()</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a61fb458a17782abd4591569b7d1e7119">~GravityManager()</a>.</p>
 
 </div>
 </div>

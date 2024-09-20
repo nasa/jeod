@@ -36,21 +36,18 @@ Library dependencies:
 #define PATH "interactions/aerodynamics/"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-char const * AerodynamicsMessages::initialization_error =
-   PATH "initialization_error";
+const char * AerodynamicsMessages::initialization_error = PATH "initialization_error";
 
-char const * AerodynamicsMessages::runtime_error =
-   PATH "runtime_error";
+const char * AerodynamicsMessages::runtime_error = PATH "runtime_error";
 
-char const * AerodynamicsMessages::pre_initialization_error =
-   PATH "pre_initialization_error";
+const char * AerodynamicsMessages::pre_initialization_error = PATH "pre_initialization_error";
 
-char const * AerodynamicsMessages::runtime_warns =
-   PATH "runtime_warns";
+const char * AerodynamicsMessages::runtime_warns = PATH "runtime_warns";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

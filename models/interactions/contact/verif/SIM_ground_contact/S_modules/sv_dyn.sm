@@ -86,65 +86,57 @@
 ##include "interactions/contact/include/spring_pair_interaction.hh"
 ##include "environment/gravity/include/spherical_harmonics_gravity_controls.hh"
 
-class SvDynSimObject: public Trick::SimObject {
-
-   public:
-    jeod::DynBody       body;
-    jeod::DynBodyInitTransState   trans_init;
-    jeod::DynBodyInitRotState     rot_init;
-    jeod::MassBodyInit            mass_init;
-    jeod::Force                   force_extern;
-    jeod::Torque                  torque_extern;
+class SvDynSimObject: public Trick::SimObject
+{
+public:
+    jeod::DynBody body;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
+    jeod::Force force_extern;
+    jeod::Torque torque_extern;
     jeod::SphericalHarmonicsGravityControls * grav_ctrl_ptr;
-    jeod::SphericalHarmonicsGravityControls  earth_grav_control;
-    jeod::SurfaceModel            surface_model;
-    jeod::FacetParams           * facet_params;
-    jeod::ContactSurface          contact_surface;
-    jeod::ContactSurfaceFactory   contact_surface_factory;
-    jeod::FlatPlateCircular     * flat_plate_circular;
-    jeod::Cylinder              * cylinder;
-    jeod::ContactParams         * contact_params;
+    jeod::SphericalHarmonicsGravityControls earth_grav_control;
+    jeod::SurfaceModel surface_model;
+    jeod::FacetParams * facet_params;
+    jeod::ContactSurface contact_surface;
+    jeod::ContactSurfaceFactory contact_surface_factory;
+    jeod::FlatPlateCircular * flat_plate_circular;
+    jeod::Cylinder * cylinder;
+    jeod::ContactParams * contact_params;
     jeod::SpringPairInteraction * spring_pair_interaction;
-    jeod::Facet                 * facet_ptr;
-    unsigned int            integer;
+    jeod::Facet * facet_ptr;
+    unsigned int integer;
 
-// Instances for matching to other sim objects:
-    ContactSimObject      * internal_contact;
-    DynamicsSimObject     * internal_dynamics;
+    // Instances for matching to other sim objects:
+    ContactSimObject * internal_contact;
+    DynamicsSimObject * internal_dynamics;
 
-//Constructor
-    SvDynSimObject(
-      ContactSimObject  & ext_contact,
-      DynamicsSimObject & ext_dynamics) {
+    // Constructor
+    SvDynSimObject(ContactSimObject & ext_contact, DynamicsSimObject & ext_dynamics)
+    {
+        internal_contact = &ext_contact;
+        internal_dynamics = &ext_dynamics;
 
-      internal_contact =     & ext_contact;
-      internal_dynamics =    & ext_dynamics;
-
-      //
-      //
-      // Dynamical propagation and initial state.
-      // Vehicle mass initialization parameters.
-      // Vehicle perturbation forces and torques.
-      //
-      // Initialization jobs
-      //
-      P_ENV ("initialization") body.initialize_model( internal_dynamics->dyn_manager );
-      P_BODY ("initialization") surface_model.initialize_mass_connections(
-                                                   internal_dynamics->dyn_manager );
-      P_BODY ("initialization") contact_surface_factory.create_surface(
-                                                   & surface_model,
-                                                   & contact_surface);
-      P_BODY  ("initialization") internal_contact->contact.register_contact(
-          contact_surface.contact_facets,
-          contact_surface.facets_size);
-      //
-      // Derivative class jobs
-      //
-      P_DYN ("derivative") contact_surface.collect_forces_torques();
+        //
+        //
+        // Dynamical propagation and initial state.
+        // Vehicle mass initialization parameters.
+        // Vehicle perturbation forces and torques.
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") body.initialize_model(internal_dynamics->dyn_manager);
+        P_BODY("initialization") surface_model.initialize_mass_connections(internal_dynamics->dyn_manager);
+        P_BODY("initialization") contact_surface_factory.create_surface(&surface_model, &contact_surface);
+        P_BODY("initialization")
+        internal_contact->contact.register_contact(contact_surface.contact_facets, contact_surface.facets_size);
+        //
+        // Derivative class jobs
+        //
+        P_DYN("derivative") contact_surface.collect_forces_torques();
     }
 
-  private:
-    SvDynSimObject (const SvDynSimObject&);
-    SvDynSimObject & operator = (const SvDynSimObject&);
-
+    SvDynSimObject(const SvDynSimObject &) = delete;
+    SvDynSimObject & operator=(const SvDynSimObject &) = delete;
 };

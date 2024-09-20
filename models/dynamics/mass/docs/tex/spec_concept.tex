@@ -1,212 +1,208 @@
 \subsection{The Basic MassBody}
-The \ModelDesc\ must maintain an up-to-date record of the mass and inertia 
-tensor (the mass properties) of massive objects.  The inertia tensor 
-is referenced to a coordinate system with origin at 
-the center of mass and set of axes, the \textit{body-axes}, oriented as 
+The \ModelDesc\ must maintain an up-to-date record of the mass and inertia
+tensor (the mass properties) of massive objects.  The inertia tensor
+is referenced to a coordinate system with origin at
+the center of mass and set of axes, the \textit{body-axes}, oriented as
 desired.
 Because a stand-alone massive block
-is neither very interesting nor useful, additional characteristics are 
+is neither very interesting nor useful, additional characteristics are
 incorporated to enhance the Mass Body, while maintaining its fundamental
 purpose.
 
 \subsection{Adding Dynamic State Information}
-First, it is often desirable, though not essential, to monitor and propagate 
+First, it is often desirable, though not essential, to monitor and propagate
 the
 dynamic state of a massive object.  This feature is provided through
-inheritance,
-whereby a MassBody object can also be a DynBody object~\cite{dynenv:DYNBODY},
-with the dynamic state features incorporated through the sub-class additions.
-Once again though, having a dynamically active massive object that just moves 
+composition,
+whereby a MassBody object can be contained in a DynBody object~\cite{dynenv:DYNBODY},
+with the dynamic state features.
+Once again though, having a dynamically active massive object that just moves
 subject to central forces is not particularly interesting or useful.
 
-JEOD must be able to realistically propagate the response of a vehicle to 
-external forces and torques. The rotational response to an applied torque, and 
-the translational response to an applied force are both easy, but the 
-rotational response to an applied force requires knowledge of the relative 
-position vector between the center of mass of the object and the point at 
-which 
-the force is applied.  Conventionally, locations of objects within a vehicle 
-are defined in the \textit{structural} reference frame.  Consequently, a 
+JEOD must be able to realistically propagate the response of a vehicle to
+external forces and torques. The rotational response to an applied torque, and
+the translational response to an applied force are both easy, but the
+rotational response to an applied force requires knowledge of the relative
+position vector between the center of mass of the object and the point at
+which
+the force is applied.  Conventionally, locations of objects within a vehicle
+are defined in the \textit{structural} reference frame.  Consequently, a
 MassBody also defines a point
-(a MassBasicPoint, see \textref{Points of Interest}{sec:MassPoint}) called the 
-\textit{structure\_point}, relative to which all 
-positions can be defined or determined.  A new coordinate system, with origin 
-at the structure-point and with a set of axes called the 
-\textit{structural-axes}, is used 
-for enumeration of the position vectors.  The structural-axes and body-axes 
+(a MassBasicPoint, see \textref{Points of Interest}{sec:MassPoint}) called the
+\textit{structure\_point}, relative to which all
+positions can be defined or determined.  A new coordinate system, with origin
+at the structure-point and with a set of axes called the
+\textit{structural-axes}, is used
+for enumeration of the position vectors.  The structural-axes and body-axes
 are oriented and positioned relative to one another.
 
 \paragraph {Aside on Structure-Body Orientation}
-Typically, this relative orientation is straightforward, such as by 
-having the axes aligned, or with a 180-degree yaw, or 90-degree pitch, or 
-similar. See \textref{Composite and Core Properties}{sec:core_comp_prop} for 
+Typically, this relative orientation is straightforward, such as by
+having the axes aligned, or with a 180-degree yaw, or 90-degree pitch, or
+similar. See \textref{Composite and Core Properties}{sec:core_comp_prop} for
 more details.
 
 \paragraph {Aside on Axes and Reference Frames}
-The two coordinate systems now defined are both further developed into 
-full-up reference frames -- with states all of their own -- in the 
+The two coordinate systems now defined are both further developed into
+full-up reference frames -- with states all of their own -- in the
 DynBody~\cite{dynenv:DYNBODY} class.
-There, the structure-axes and body-axes become known as the structural and 
-body reference frames (respectively), and retain their orientations and their 
+There, the structure-axes and body-axes become known as the structural and
+body reference frames (respectively), and retain their orientations and their
 origins at the structure-point and center of mass (respectively).
 
 \subsection{Mass-Mass Attachments}
-Even with a dynamic state, the object is still very limited in its 
-versatility. 
-A very significant additional feature, which by itself adds sufficient 
-complexity to justify the need for a separate model just to maintain the mass 
-properties, is the ability to connect 
-two (or more) massive objects to make compound objects.  When each of these 
-massive objects can be attaching or detaching to/from the compound object, or 
-changing its mass properties, or 
-moving with respect to the other mass entities in the compound object, then 
-the 
-maintenance of the compound mass properties becomes non-trivial and 
+Even with a dynamic state, the object is still very limited in its
+versatility.
+A very significant additional feature, which by itself adds sufficient
+complexity to justify the need for a separate model just to maintain the mass
+properties, is the ability to connect
+two (or more) massive objects to make compound objects.  When each of these
+massive objects can be attaching or detaching to/from the compound object, or
+changing its mass properties, or
+moving with respect to the other mass entities in the compound object, then
+the
+maintenance of the compound mass properties becomes non-trivial and
 necessitates a dedicated model for proper treatment.
 
-To handle multiple massive objects connected together, we use a tree 
+To handle multiple massive objects connected together, we use a tree
 structure, refered to as the \textit{mass-tree}.
-Every MassBody is in one -- and only one -- tree; some trees are ``atomic'', 
-having only one member, 
-and some are more complex.  Each tree represents the elemental massive objects 
-that are physically connected together to make a compound massive object.  
-There may be more than one tree in any simulation, it is not necessary that 
+Every MassBody is in one -- and only one -- tree; some trees are ``atomic'',
+having only one member,
+and some are more complex.  Each tree represents the elemental massive objects
+that are physically connected together to make a compound massive object.
+There may be more than one tree in any simulation, it is not necessary that
 all MassBody objects be connected.
- 
-At the base (or top, depending on how it is visualized) of the tree is the 
-\textit{root} body, 
-which (unless it is atomic) has one or more \textit{children}.  Each child has 
-one (exactly one) \textit{parent}, and possibly one or more children of its 
-own.  There are two important restrictions on how these objects are positioned 
+
+At the base (or top, depending on how it is visualized) of the tree is the
+\textit{root} body,
+which (unless it is atomic) has one or more \textit{children}.  Each child has
+one (exactly one) \textit{parent}, and possibly one or more children of its
+own.  There are two important restrictions on how these objects are positioned
 in the tree:
 \begin{itemize}
- \item Because the dynamic state is propagated from parent to child, a dynamic 
- MassBody (i.e. a DynBody) can never be a child of a non-dynamic MassBody 
- (i.e. 
- a base-class MassBody).
- \item There can be no circular attachments (e.g. a situation in which A is a 
+ \item Because the dynamic state is propagated from parent to child, a DynBody
+ can never be a child of a non-dynamic MassBody.
+ \item There can be no circular attachments (e.g. a situation in which A is a
  child of B, which is a child of C, which is a child of A, is forbidden.)
 \end{itemize}
-An important consequence is that the mass tree cannot always 
-reflect reality.  It is entirely feasible that two objects directly connected 
-on the mass tree have no physical connection; the mass tree is purely a 
-mathematical construct and should never be relied upon as an illustration of 
+An important consequence is that the mass tree cannot always
+reflect reality.  It is entirely feasible that two objects directly connected
+on the mass tree have no physical connection; the mass tree is purely a
+mathematical construct and should never be relied upon as an illustration of
 physical connectivity.
 
-Recall that each MassBody has a coordinate system associated with its 
-structure-point; when two MassBody objects are joined, those coordinate 
-systems should be linked.  Therefore, each 
-structure-point is given an orientation and position 
-specification that identifies its relative state with respect to its parent's 
-structure-point axes.  The orientation is represented as a quaternion and as a 
+Recall that each MassBody has a coordinate system associated with its
+structure-point; when two MassBody objects are joined, those coordinate
+systems should be linked.  Therefore, each
+structure-point is given an orientation and position
+specification that identifies its relative state with respect to its parent's
+structure-point axes.  The orientation is represented as a quaternion and as a
 transformation matrix.
 
-Note that the root MassBody objects have no parent, thus it would correctly be 
-inferred that they have no defined orientation or position.  However, realize 
-that if a base-class 
-MassBody (as opposed to a DynBody) were at the root of the tree, then the 
-entire tree 
-must comprise base-class MassBody objects 
-(as opposed to DynBody objects) since DynBody 
-objects cannot be children of MassBody objects.  Thus, the entire tree has 
-no state, thus absolute orientation and position are not defined, and all that 
-is necessary 
-is relative orientation and position of the elemental MassBody objects with 
-respect to one 
-another.  When (as is typical) the root is actually a DynBody, the structural 
-reference frame that is developed from the structure-point is given a parent, 
-thus the orientation and position of the structural reference frame, and thus 
+Note that the root MassBody objects have no parent, thus it would correctly be
+inferred that they have no defined orientation or position.  However, realize
+that if a base-class
+MassBody were at the root of the tree, then the entire tree
+must comprise MassBody objects (as opposed to DynBody objects) since DynBody
+objects cannot be children of MassBody objects.  Thus, the entire tree has
+no state, thus absolute orientation and position are not defined, and all that
+is necessary
+is relative orientation and position of the elemental MassBody objects with
+respect to one
+another.  When (as is typical) the root is actually a DynBody, the structural
+reference frame that is developed from the structure-point is given a parent,
+thus the orientation and position of the structural reference frame, and thus
 of the structure-point, are defined.
 
 \subsection{Core and Composite Properties}\label{sec:core_comp_prop}
-Consider a compound object, comprising multiple MassBody objects.  The 
-\ModelDesc must provide the mass properties of this single entity, but it must 
-also retain the mass properties of the individual components, and the mass 
+Consider a compound object, comprising multiple MassBody objects.  The
+\ModelDesc must provide the mass properties of this single entity, but it must
+also retain the mass properties of the individual components, and the mass
 properties of all sub-trees:
 \begin{itemize}
- \item Mass-loss would be applied to elemental components, and then 
- incorporated 
- into the compound object, so elemental properties must be retained so that 
+ \item Mass-loss would be applied to elemental components, and then
+ incorporated
+ into the compound object, so elemental properties must be retained so that
  they can be manipulated.
- \item Motion or detachment of elemental components -- or of a section of the 
- mass tree -- 
- requires that the mass properties of that moving entity be known so that 
- the mass and inertia can be subtracted out (and added back in the case of 
+ \item Motion or detachment of elemental components -- or of a section of the
+ mass tree --
+ requires that the mass properties of that moving entity be known so that
+ the mass and inertia can be subtracted out (and added back in the case of
  motion).
 \end{itemize}
-Thus, every parent object in the tree must, at all times, keep information on 
-itself, and on that part of the tree of which it is the head (i.e. itself, and 
-all of its children, children of children, etc.).  Thus, we keep two sets of 
+Thus, every parent object in the tree must, at all times, keep information on
+itself, and on that part of the tree of which it is the head (i.e. itself, and
+all of its children, children of children, etc.).  Thus, we keep two sets of
 mass properties associated with each MassBody:
 \begin{enumerate}
- \item \textbf{Core Properties} are those properties associated with the 
+ \item \textbf{Core Properties} are those properties associated with the
  center of mass of the elemental body.
- \item \textbf{Composite Properties} are those properties associated with the 
+ \item \textbf{Composite Properties} are those properties associated with the
  center of mass of that part of the mass tree of which it is the head.
 \end{enumerate}
 
-To simplify the determination of whether a MassBody needs a set of composite 
-properties, we just provide this capacity to all MassBody objects; in the case 
-of a body without children, the core properties and composite properties are 
+To simplify the determination of whether a MassBody needs a set of composite
+properties, we just provide this capacity to all MassBody objects; in the case
+of a body without children, the core properties and composite properties are
 equivalent.
 
-With each set of properties comes a different center of mass, and consequently 
-a different set of body-axes.  A Mass Point is automatically created for each 
-center of mass, thereby setting 
-the relative position of each set of body-axes relative to the structural 
-axes, and the relative orientation of each of 
-the body-axes sets with respect to the structural-axes.  Note that both sets 
+With each set of properties comes a different center of mass, and consequently
+a different set of body-axes.  A Mass Point is automatically created for each
+center of mass, thereby setting
+the relative position of each set of body-axes relative to the structural
+axes, and the relative orientation of each of
+the body-axes sets with respect to the structural-axes.  Note that both sets
 of body-axes have the same orientation.
 
  \paragraph{Aside on locations of variables}
-The relative position is stored as the respective properties' position (e.g. 
-\textit{composite\_properties.position}). The relative orientation of each of 
-the body-axes sets with respect to the structural-axes is specified as a 
-transformation matrix or quaternion-set (e.g. 
-\textit{core\_properties.T\_parent\_this}).  The rationale for this choice is 
+The relative position is stored as the respective properties' position (e.g.
+\textit{composite\_properties.position}). The relative orientation of each of
+the body-axes sets with respect to the structural-axes is specified as a
+transformation matrix or quaternion-set (e.g.
+\textit{core\_properties.T\_parent\_this}).  The rationale for this choice is
 expounded in \textref{Detailed Design}{sec:detailed_design}.
 
-\paragraph{Aside for DynBody extension}
+\paragraph{Aside for DynBody use}
 
-In the DynBody extension, there are three distinct reference frames - the 
-core-body frame, the composite-body frame, and the structural frame.  The 
-structural frame has its origin at the structure-point, while the body frames 
-have their origin at the respective centers of mass.  Therefore, the position 
-of a body frame with respect to the structural frame in a DynBody is equal to 
-the respective properties' position value (e.g. 
-\textit{core\_properties.position}).  By analogy, the orientation of the body 
-frames with respect to the structural frame is the same as that of the 
-body-axes with respect to the structural-axes. For example, the transformation 
-from the structural frame to the composite-body frame is 
+In a DynBody, there are three distinct reference frames - the
+core-body frame, the composite-body frame, and the structural frame.  The
+structural frame has its origin at the structure-point, while the body frames
+have their origin at the respective centers of mass.  Therefore, the position
+of a body frame with respect to the structural frame in a DynBody is equal to
+the respective properties' position value (e.g.
+\textit{core\_properties.position}).  By analogy, the orientation of the body
+frames with respect to the structural frame is the same as that of the
+body-axes with respect to the structural-axes. For example, the transformation
+from the structural frame to the composite-body frame is
 \textit{composite\_properties.T\_parent\_this}.
 
 \subsection{Points of Interest}\label{sec:MassPoint}
-There are numerous instances where some point on a body is of particular 
-interest, and its position needs to be well defined - the location of an 
-antenna, or a sensor, the point at which another object is attached, etc.  In 
-many applications, it is also desirable to specify an axes-set at the point so 
-that other positions can be defined with respect to the point.  Consequently, 
+There are numerous instances where some point on a body is of particular
+interest, and its position needs to be well defined - the location of an
+antenna, or a sensor, the point at which another object is attached, etc.  In
+many applications, it is also desirable to specify an axes-set at the point so
+that other positions can be defined with respect to the point.  Consequently,
 we include an orientation in the defining data of each point.
 
-We have two types of points - the basic \textit{MassBasicPoint}, and the more 
-commonly used \textit{MassPoint} (which is, essentially, a MassBasicPoint with 
+We have two types of points - the basic \textit{MassBasicPoint}, and the more
+commonly used \textit{MassPoint} (which is, essentially, a MassBasicPoint with
 a name; the name provides the user with a way to identify the mass point).
 
-Every MassBody starts with three MassBasicPoints, and we have already 
+Every MassBody starts with three MassBasicPoints, and we have already
 considered them:
 \begin{enumerate}
   \item The structure-point; axes are the structure-axes.
-  \item The composite-properties point; axes are the body-axes with origin at 
+  \item The composite-properties point; axes are the body-axes with origin at
   the composite center of mass.
-  \item The core-properties point; axes are the body-axes with origin at the 
+  \item The core-properties point; axes are the body-axes with origin at the
   core center of mass.
 \end{enumerate}
 
-Any MassBody can then be given any number of additional, user-specified, 
-MassPoint instances.  Every MassPoint gets added to the mass-tree as a child 
-of the structure-point of the same MassBody (obviously, excepting the 
-structure-point itself, which is a child of the structure-point of the parent 
-MassBody, and thereby a sibling to other MassPoint instances of the parent 
+Any MassBody can then be given any number of additional, user-specified,
+MassPoint instances.  Every MassPoint gets added to the mass-tree as a child
+of the structure-point of the same MassBody (obviously, excepting the
+structure-point itself, which is a child of the structure-point of the parent
+MassBody, and thereby a sibling to other MassPoint instances of the parent
 MassBody).
 
 
@@ -216,24 +212,24 @@ A MassBody comprises three components:
  \item A MassBasicPoint, called the \textit{structure\_point} that provides:
  \begin{enumerate}
   \item A position and orientation relative to the parent body (if it exists)
-  \item A reference point and axes (\textit{structural-axes}), from which 
-  further measurements may be made (such as to define the location of the 
+  \item A reference point and axes (\textit{structural-axes}), from which
+  further measurements may be made (such as to define the location of the
   center of mass).
  \end{enumerate}
  \item A MassProperties object, \textit{core\_properties}, that provides:
    \begin{enumerate}
    \item Mass
-   \item Inertia tensor, referenced to a specified axes-set, the 
+   \item Inertia tensor, referenced to a specified axes-set, the
    \textit{body-axes}.
-   \item Position of the center of mass with respect to its structure-point, 
+   \item Position of the center of mass with respect to its structure-point,
    expressed in the structural-axes.
-   \item The orientation of the body-axes with respect to the 
+   \item The orientation of the body-axes with respect to the
    structural-axes.
    \end{enumerate}
    for the stand-alone MassBody.
-  \item An additional MassProperties object, \textit{composite\_properties}, 
-  that provides the same set of properties for the compound object comprising 
-  the MassBody and everything attached \textbf{to} it in the mass tree (not 
-  including objects that it is attached to, the hierarchy in the mass tree is 
+  \item An additional MassProperties object, \textit{composite\_properties},
+  that provides the same set of properties for the compound object comprising
+  the MassBody and everything attached \textbf{to} it in the mass tree (not
+  including objects that it is attached to, the hierarchy in the mass tree is
   very important).
 \end{enumerate}

@@ -8,9 +8,9 @@ parent_mass_points_3()
 child1_mass_default()
 child1_mass_inertia_optionC()
 child1_mass_points_1A()
-components.child1_init.points[0].set_name("back_to_front")
-components.child1_init.points[0].position  = [ 0.5, 0.0, 0.0]
-components.child1_init.points[0].pt_orientation.trans = [[ 1.0, 0.0, 0.0],
+components.child1_init.get_mass_point(0).set_name("back_to_front")
+components.child1_init.get_mass_point(0).position  = [ 0.5, 0.0, 0.0]
+components.child1_init.get_mass_point(0).pt_orientation.trans = [[ 1.0, 0.0, 0.0],
                                                          [ 0.0, 1.0, 0.0],
                                                          [ 0.0, 0.0, 1.0]]
 
@@ -18,9 +18,9 @@ child2_mass_default()
 components.child2_init.properties.position = [ 0.5, 0, 1.0]
 child2_mass_inertia_optionB()
 child2_mass_points_1A()
-components.child2_init.points[0].set_name("child2_to_parent")
-components.child2_init.points[0].position = [ 0.0, 0.0, 0.0]
-components.child2_init.points[0].pt_orientation.trans = [[ 1.0, 0.0,  0.0],
+components.child2_init.get_mass_point(0).set_name("child2_to_parent")
+components.child2_init.get_mass_point(0).position = [ 0.0, 0.0, 0.0]
+components.child2_init.get_mass_point(0).pt_orientation.trans = [[ 1.0, 0.0,  0.0],
                                                          [ 0.0, 0.0, -1.0],
                                                          [ 0.0, 1.0,  0.0]]
 

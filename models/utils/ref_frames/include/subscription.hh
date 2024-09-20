@@ -54,93 +54,69 @@ Purpose:
 Library dependencies:
   ((../src/subscription.cc))
 
- 
+
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SUBSCRIPTION_HH
 #define JEOD_SUBSCRIPTION_HH
-
 
 // System includes
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A class that inherits from the ActivateInterface class must provide
  * activate and deactivate methods.
  */
-class ActivateInterface {
+class ActivateInterface
+{
+    // Data types
 
- // Data types
+    // Member functions
+public:
+    ActivateInterface() = default;
+    virtual ~ActivateInterface() = default;
 
- // Member functions
- public:
+    /**
+     * Mark the object as active.
+     */
+    virtual void activate() = 0;
 
-      /**
-    * Default constructor.
-    */
-   ActivateInterface() {}
-
-      /**
-    * Destructor.
-    */
-   virtual ~ActivateInterface() {}
-
-
-      /**
-    * Mark the object as active.
-    */
-   virtual void activate (void) = 0;
-
-      /**
-    * Mark the object as inactive.
-    */
-   virtual void deactivate (void) = 0;
-
+    /**
+     * Mark the object as inactive.
+     */
+    virtual void deactivate() = 0;
 };
-
 
 /**
  * A class that inherits from the SubscribeInterface class must provide
  * subscribe and unsubscribe methods.
  */
-class SubscribeInterface {
+class SubscribeInterface
+{
+    // Data types
 
- // Data types
+    // Member functions
+public:
+    SubscribeInterface() = default;
+    virtual ~SubscribeInterface() = default;
 
- // Member functions
- public:
+    /**
+     * Add a subscription to the object.
+     */
+    virtual void subscribe() = 0;
 
-      /**
-    * Default constructor.
-    */
-   SubscribeInterface() {}
-
-      /**
-    * Destructor.
-    */
-   virtual ~SubscribeInterface() {}
-
-
-      /**
-    * Add a subscription to the object.
-    */
-   virtual void subscribe (void) = 0;
-
-      /**
-    * Remove a subscription from the object.
-    */
-   virtual void desubscribe (void) = 0;
-
+    /**
+     * Remove a subscription from the object.
+     */
+    virtual void desubscribe() = 0;
 };
-
 
 /**
  * A Subscription object provides two approaches of marking something as
@@ -152,205 +128,137 @@ class SubscribeInterface {
  * should not override the non-virtual public interfaces. They should instead
  * override the private set_active_state method.
  */
-class Subscription {
+class Subscription
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, Subscription)
 
- JEOD_MAKE_SIM_INTERFACES(Subscription)
-
- // Data types
- public:
-
+    // Data types
+public:
     /**
      * The Subscription::Mode enum specifies the mode in which a Subscription
      * object is operating.
      */
-    enum Mode {
-       Detect    = 0,  ///< First scheme used wins.
-       Subscribe = 1,  ///< Activation is via subscribe/unsubscribe only.
-       Activate  = 2,  ///< Activation is via activate/deactivate only.
-       Freeform  = 3   ///< Users can use either scheme; conflicts may arise.
+    enum Mode
+    {
+        Detect = 0,    ///< First scheme used wins.
+        Subscribe = 1, ///< Activation is via subscribe/unsubscribe only.
+        Activate = 2,  ///< Activation is via activate/deactivate only.
+        Freeform = 3   ///< Users can use either scheme; conflicts may arise.
     };
 
+    // Member functions
+public:
+    Subscription() = default;
+    explicit Subscription(Mode);
+    virtual ~Subscription() = default;
 
- // Member functions
- public:
+    // Note well: The public interfaces are not virtual methods.
+    // These should not be be overridden.
 
-   // Constructors and destructor
+    // Getters
 
-   // The default constructor sets the mode to Detect.
-   Subscription();
+    // is_active: Is the object active?
+    bool is_active() const;
 
-   // The non-default constructor sets the mode as indicated.
-   explicit Subscription(Mode);
+    // subscriptions: Return the subscription count
+    unsigned int subscriptions() const;
 
-   // Destructor. Note that there are no resources to destruct.
-   virtual ~Subscription();
+    // get_subscription_mode: Return the object's mode.
+    Mode get_subscription_mode() const;
 
+    // Setters
 
-   // Note well: The public interfaces are not virtual methods.
-   // These should not be be overridden.
+    // activate: Mark the object as active
+    void activate();
 
+    // deactivate: Mark the object as inactive
+    void deactivate();
 
-   // Getters
+    // subscribe: Increment the subscription count and activate
+    void subscribe();
 
-   // is_active: Is the object active?
-   bool is_active (void) const;
+    // unsubscribe: Decrement the subscription count and deactivate when zero
+    void unsubscribe();
 
-   // subscriptions: Return the subscription count
-   unsigned int subscriptions (void) const;
+protected:
+    // set_subscription_mode: Set the subscription mode.
+    virtual void set_subscription_mode(Mode value);
 
-   // get_subscription_mode: Return the object's mode.
-   Mode get_subscription_mode (void) const;
+    // set_active_status: This is the low-level method that derived classes can
+    // override. The default implementation simply sets the value of the
+    // active flag. Compliant derived classes must forward a call to this
+    // method to either the parent class or to this class.
+    virtual void set_active_status(bool value);
 
+    // Member data
+    // Note well: These data are protected; they should but cannot be private.
+    // Derived classes should use the getters to examine these data members.
+    // Simulation users should not set these members in normal simulation input
+    // files.
+    // They are marked as visible to Trick for the purpose of checkpoint/restart.
+protected:
+    /**
+     * The mode in which the object is operating.
+     */
+    Mode mode{Detect}; //!< trick_units(--)
 
-   // Setters
+    /**
+     * Number of subscribers for this object.
+     */
+    unsigned int subscribers{}; //!< trick_units(--)
 
-   // activate: Mark the object as active
-   void activate (void);
-
-   // deactivate: Mark the object as inactive
-   void deactivate (void);
-
-
-   // subscribe: Increment the subscription count and activate
-   void subscribe (void);
-
-   // unsubscribe: Decrement the subscription count and deactivate when zero
-   void unsubscribe (void);
-
-
- protected:
-
-   // set_subscription_mode: Set the subscription mode.
-   virtual void set_subscription_mode (Mode value);
-
-  // set_active_status: This is the low-level method that derived classes can
-  // override. The default implementation simply sets the value of the
-  // active flag. Compliant derived classes must forward a call to this
-  // method to either the parent class or to this class.
-  virtual void set_active_status (bool value);
-
-
- // Member data
- // Note well: These data are protected; they should but cannot be private.
- // Derived classes should use the getters to examine these data members.
- // Simulation users should not set these members in normal simulation input
- // files.
- // They are marked as visible to Trick for the purpose of checkpoint/restart.
- protected:
-
-   /**
-    * The mode in which the object is operating.
-    */
-   Mode mode; //!< trick_units(--)
-
-   /**
-    * Number of subscribers for this object.
-    */
-   unsigned int subscribers; //!< trick_units(--)
-
-   /**
-    * Flag indicating whether the object is active.
-    */
-   bool active; //!< trick_units(--)
-
+    /**
+     * Flag indicating whether the object is active.
+     */
+    bool active{}; //!< trick_units(--)
 };
-
-
-/**
- * Subscription class default constructor.
- */
-inline
-Subscription::Subscription (
-   void)
-:
-   mode(Detect),
-   subscribers(0),
-   active(false)
-{
-   // Empty
-}
-
 
 /**
  * Subscription class non-default constructor.
  * \param[in] init_mode Initial mode
  */
-inline
-Subscription::Subscription (
-   Mode init_mode)
-:
-   mode(init_mode),
-   subscribers(0),
-   active(false)
+inline Subscription::Subscription(Mode init_mode)
+    : mode(init_mode)
 {
-   // Empty
 }
-
-
-/**
- * Subscription class destructor. There are no resources to destruct.
- */
-inline
-Subscription::~Subscription (
-   void)
-{
-   // Empty
-}
-
 
 /**
  * Return the value of the active data member.
  * @return Is the object active?
  */
-inline bool
-Subscription::is_active (
-   void)
-const
+inline bool Subscription::is_active() const
 {
-   return active;
+    return active;
 }
-
-
 
 /**
  * Return the value of the subscribers data member.
  * @return Number of subscriptions.
  */
-inline unsigned int
-Subscription::subscriptions (
-   void)
-const
+inline unsigned int Subscription::subscriptions() const
 {
-   return subscribers;
+    return subscribers;
 }
-
 
 /**
  * Set the value of the mode data member.
  * \param[in] value Subscription mode
  */
-inline void
-Subscription::set_subscription_mode (
-   Mode value)
+inline void Subscription::set_subscription_mode(Mode value)
 {
-   mode = value;
+    mode = value;
 }
-
 
 /**
  * Return the value of the mode data member.
  * @return Operating mode.
  */
-inline Subscription::Mode
-Subscription::get_subscription_mode (
-   void)
-const
+inline Subscription::Mode Subscription::get_subscription_mode() const
 {
-   return mode;
+    return mode;
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

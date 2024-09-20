@@ -18,10 +18,9 @@ Purpose:
 Library dependencies:
   ((orientation_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -31,24 +30,21 @@ Library dependencies:
 // Model includes
 #include "../include/orientation_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-#define MAKE_ORIENTATION_MESSAGE_CODE(id) \
-   JEOD_MAKE_MESSAGE_CODE(OrientationMessages, "utils/orientation/", id)
-
+#define MAKE_ORIENTATION_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(OrientationMessages, "utils/orientation/", id)
 
 // Define OrientationMessages static member data
 
-MAKE_ORIENTATION_MESSAGE_CODE (invalid_enum);
-MAKE_ORIENTATION_MESSAGE_CODE (invalid_data);
-MAKE_ORIENTATION_MESSAGE_CODE (invalid_request);
+MAKE_ORIENTATION_MESSAGE_CODE(invalid_enum);
+MAKE_ORIENTATION_MESSAGE_CODE(invalid_data);
+MAKE_ORIENTATION_MESSAGE_CODE(invalid_request);
 
 #undef MAKE_ORIENTATION_MESSAGE_CODE
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 /**
  * @}

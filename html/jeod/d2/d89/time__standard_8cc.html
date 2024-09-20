@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -54,48 +54,46 @@ $(function() {
 <p>An abstract class, this defines the basic structure of member functions for all Standard Times.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/de2/numerical_8hh_source.html">utils/math/include/numerical.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/da4/named__item_8hh_source.html">utils/named_item/include/named_item.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/de2/numerical_8hh_source.html">utils/math/include/numerical.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/dfd/time__standard_8hh_source.html">../include/time_standard.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d79/time__converter_8hh_source.html">../include/time_converter.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d01/time__manager_8hh_source.html">../include/time_manager.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d4/d66/time__manager__init_8hh_source.html">../include/time_manager_init.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/dd2/time__messages_8hh_source.html">../include/time_messages.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/dfd/time__standard_8hh_source.html">../include/time_standard.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for time_standard.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d06/time__standard_8cc__incl.png" border="0" usemap="#time__standard_8cc" alt=""/></div>
 <map name="time__standard_8cc" id="time__standard_8cc">
-<area shape="rect" id="node3" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1269,341,1417,382"/>
-<area shape="rect" id="node8" href="../../d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="74,341,241,382"/>
-<area shape="rect" id="node13" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="3135,80,3278,121"/>
-<area shape="rect" id="node32" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="3606,80,3730,121"/>
-<area shape="rect" id="node34" href="../../dc/dfd/time__standard_8hh.html" title="A class that serves as the base for all time representations that are well defined outside the simula..." alt="" coords="245,169,424,196"/>
-<area shape="rect" id="node36" href="../../d8/d79/time__converter_8hh.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="1492,348,1617,375"/>
-<area shape="rect" id="node38" href="../../d8/d01/time__manager_8hh.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="521,87,700,114"/>
-<area shape="rect" id="node43" href="../../d4/d66/time__manager__init_8hh.html" title="To initialize the Time Manager. " alt="" coords="1015,244,1177,285"/>
-<area shape="rect" id="node45" href="../../d8/dd2/time__messages_8hh.html" title="Define the class TimeMessages, the class that specifies the message IDs used in the Time model..." alt="" coords="1124,169,1313,196"/>
-<area shape="rect" id="node5" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1125,437,1275,479"/>
-<area shape="rect" id="node7" href="../../d2/d68/utils_2message_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in this module. " alt="" coords="1299,445,1447,471"/>
-<area shape="rect" id="node6" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="2540,534,2615,561"/>
-<area shape="rect" id="node16" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="3340,437,3537,479"/>
-<area shape="rect" id="node18" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="3189,341,3353,382"/>
-<area shape="rect" id="node21" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="2567,169,2710,196"/>
-<area shape="rect" id="node26" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="2194,341,2342,382"/>
-<area shape="rect" id="node27" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="2666,341,2859,382"/>
-<area shape="rect" id="node28" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1937,333,2068,389"/>
-<area shape="rect" id="node29" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1794,348,1913,375"/>
-<area shape="rect" id="node30" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="2367,348,2489,375"/>
-<area shape="rect" id="node31" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="3025,251,3143,278"/>
-<area shape="rect" id="node33" href="../../de/d85/numerical__inline_8hh.html" title="Vector math inline functions. " alt="" coords="3601,169,3735,196"/>
-<area shape="rect" id="node35" href="../../d3/d76/time_8hh.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="366,251,431,278"/>
-<area shape="rect" id="node37" href="../../d5/d57/time__links_8hh.html" title="Define the class TimeLinks, which defines the hierarchy of JEOD time conversions. ..." alt="" coords="316,348,415,375"/>
-<area shape="rect" id="node39" href="../../dc/dce/jeod__integration__time_8hh.html" title="Define the class JeodIntegrationTime. " alt="" coords="646,244,813,285"/>
-<area shape="rect" id="node42" href="../../de/d8d/time__dyn_8hh.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="448,169,541,196"/>
-<area shape="rect" id="node41" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="591,341,739,382"/>
-<area shape="rect" id="node44" href="../../d4/dd5/time__enum_8hh.html" title="Contains an enumeration of the formats in which time can be represented. " alt="" coords="1089,348,1193,375"/>
+<area shape="rect" id="node3" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="203,80,342,121"/>
+<area shape="rect" id="node5" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="706,80,866,121"/>
+<area shape="rect" id="node29" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="2061,319,2225,360"/>
+<area shape="rect" id="node31" href="../../d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="3325,415,3511,457"/>
+<area shape="rect" id="node34" href="../../d8/d79/time__converter_8hh.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="1959,423,2162,449"/>
+<area shape="rect" id="node35" href="../../d8/d01/time__manager_8hh.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="2761,169,2960,196"/>
+<area shape="rect" id="node41" href="../../d4/d66/time__manager__init_8hh.html" title="To initialize the Time Manager. " alt="" coords="2249,319,2429,360"/>
+<area shape="rect" id="node43" href="../../d8/dd2/time__messages_8hh.html" title="Define the class TimeMessages, the class that specifies the message IDs used in the Time model..." alt="" coords="2989,169,3197,196"/>
+<area shape="rect" id="node44" href="../../dc/dfd/time__standard_8hh.html" title="A class that serves as the base for all time representations that are well defined outside the simula..." alt="" coords="3224,244,3423,271"/>
+<area shape="rect" id="node4" href="../../de/d85/numerical__inline_8hh.html" title="Vector math inline functions. " alt="" coords="5,169,156,196"/>
+<area shape="rect" id="node8" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="21,415,244,457"/>
+<area shape="rect" id="node11" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="509,319,692,360"/>
+<area shape="rect" id="node14" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="1177,169,1339,196"/>
+<area shape="rect" id="node9" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="329,601,411,628"/>
+<area shape="rect" id="node21" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1067,415,1233,457"/>
+<area shape="rect" id="node22" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2177,512,2342,553"/>
+<area shape="rect" id="node23" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1021,319,1239,360"/>
+<area shape="rect" id="node24" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1637,408,1783,464"/>
+<area shape="rect" id="node25" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1713,326,1848,353"/>
+<area shape="rect" id="node26" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="1449,326,1587,353"/>
+<area shape="rect" id="node28" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="738,244,871,271"/>
+<area shape="rect" id="node36" href="../../dc/dce/jeod__integration__time_8hh.html" title="Define the class JeodIntegrationTime. " alt="" coords="2743,319,2933,360"/>
+<area shape="rect" id="node39" href="../../de/d8d/time__dyn_8hh.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="3045,244,3148,271"/>
+<area shape="rect" id="node38" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2531,415,2697,457"/>
+<area shape="rect" id="node40" href="../../d3/d76/time_8hh.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="3223,326,3295,353"/>
+<area shape="rect" id="node42" href="../../d4/dd5/time__enum_8hh.html" title="Contains an enumeration of the formats in which time can be represented. " alt="" coords="2237,423,2353,449"/>
 </map>
 </div>
 </div>

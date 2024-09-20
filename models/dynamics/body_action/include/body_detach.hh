@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_BODY_DETACH_HH
 #define JEOD_MASS_BODY_DETACH_HH
 
@@ -70,12 +69,12 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "class_declarations.hh"
 #include "body_action.hh"
-
+#include "class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides the basic ability to detach one MassBody from another.
@@ -87,46 +86,30 @@ namespace jeod {
  * The basic detachment action is to cause a body to detach from its
  * immediate parent body. Subclasses can cause bodies to detach elsewhere.
  */
-class BodyDetach : public BodyAction {
+class BodyDetach : public BodyAction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyDetach)
 
- JEOD_MAKE_SIM_INTERFACES(BodyDetach)
+    // Member data
 
+    // All requisite data for a direct detachment are in the parent classes.
 
- // Member data
+    // Member functions
 
- // All requisite data for a direct detachment are in the parent classes.
+public:
+    BodyDetach();
+    ~BodyDetach() override = default;
+    BodyDetach(const BodyDetach &) = delete;
+    BodyDetach & operator=(const BodyDetach &) = delete;
 
+    // apply: Detach the body from its parent body.
+    void apply(DynManager & dyn_manager) override;
 
- // Member functions
-
- public:
-
-   // Default constructor.
-   BodyDetach ();
-
-   // Destructor.
-   ~BodyDetach () override;
-
-   // apply: Detach the body from its parent body.
-   void apply (DynManager & dyn_manager) override;
-
-   // is_ready: Is the action ready? (In this case, is the active flag set?)
-   bool is_ready (void) override;
-
+    // is_ready: Is the action ready? (In this case, is the active flag set?)
+    bool is_ready() override;
 };
 
-
-/**
- * Destructor.
- */
-inline
-BodyDetach::~BodyDetach (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

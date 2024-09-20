@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -45,8 +45,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::BodyActionMessages Class Reference</div>  </div>
@@ -58,38 +58,38 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aaccc3a3ebdb6efe097f87059deb23d48"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#aaccc3a3ebdb6efe097f87059deb23d48">BodyActionMessages</a> ()=delete</td></tr>
+<tr class="separator:aaccc3a3ebdb6efe097f87059deb23d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115fb1f9fec413acbb85fc50c09283e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a115fb1f9fec413acbb85fc50c09283e8">BodyActionMessages</a> (const <a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html">BodyActionMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:a115fb1f9fec413acbb85fc50c09283e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3253145af5207a3aeda16e12e8a5bf78"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html">BodyActionMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a3253145af5207a3aeda16e12e8a5bf78">operator=</a> (const <a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html">BodyActionMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:a3253145af5207a3aeda16e12e8a5bf78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a31a24ab406f92c213194e620e9e4fa43"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a31a24ab406f92c213194e620e9e4fa43">fatal_error</a></td></tr>
-<tr class="memdesc:a31a24ab406f92c213194e620e9e4fa43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when performing an action results in an error return from the method performing the action.  <a href="#a31a24ab406f92c213194e620e9e4fa43">More...</a><br /></td></tr>
-<tr class="separator:a31a24ab406f92c213194e620e9e4fa43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab324e068c76ac5a395152a1423da379e"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#ab324e068c76ac5a395152a1423da379e">illegal_value</a></td></tr>
-<tr class="memdesc:ab324e068c76ac5a395152a1423da379e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a simple type (e.g.  <a href="#ab324e068c76ac5a395152a1423da379e">More...</a><br /></td></tr>
-<tr class="separator:ab324e068c76ac5a395152a1423da379e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a324876ad2c2d5ee5ac188dd5a692903c"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a324876ad2c2d5ee5ac188dd5a692903c">invalid_name</a></td></tr>
-<tr class="memdesc:a324876ad2c2d5ee5ac188dd5a692903c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a name is invalid (NULL, empty, or does not name an object of the specified type).  <a href="#a324876ad2c2d5ee5ac188dd5a692903c">More...</a><br /></td></tr>
-<tr class="separator:a324876ad2c2d5ee5ac188dd5a692903c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7096e842723ce6e287e031bd2e6dbba"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#ae7096e842723ce6e287e031bd2e6dbba">invalid_object</a></td></tr>
-<tr class="memdesc:ae7096e842723ce6e287e031bd2e6dbba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a pointer points to an object of the wrong type.  <a href="#ae7096e842723ce6e287e031bd2e6dbba">More...</a><br /></td></tr>
-<tr class="separator:ae7096e842723ce6e287e031bd2e6dbba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d462d1220ce875a59604926f1fcc524"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a1d462d1220ce875a59604926f1fcc524">null_pointer</a></td></tr>
-<tr class="memdesc:a1d462d1220ce875a59604926f1fcc524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a pointer is required but was not provided.  <a href="#a1d462d1220ce875a59604926f1fcc524">More...</a><br /></td></tr>
-<tr class="separator:a1d462d1220ce875a59604926f1fcc524"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae27d8d2eb74c45f82af91b178e63b3dd"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#ae27d8d2eb74c45f82af91b178e63b3dd">not_performed</a></td></tr>
-<tr class="memdesc:ae27d8d2eb74c45f82af91b178e63b3dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a> cannot be run.  <a href="#ae27d8d2eb74c45f82af91b178e63b3dd">More...</a><br /></td></tr>
-<tr class="separator:ae27d8d2eb74c45f82af91b178e63b3dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa53f0045dabb6f6247bc5bf8d608db8"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#aaa53f0045dabb6f6247bc5bf8d608db8">trace</a></td></tr>
-<tr class="memdesc:aaa53f0045dabb6f6247bc5bf8d608db8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug message issued to trace <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a> actions.  <a href="#aaa53f0045dabb6f6247bc5bf8d608db8">More...</a><br /></td></tr>
-<tr class="separator:aaa53f0045dabb6f6247bc5bf8d608db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a5930b4f340308e1b37aec84a8159e2a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a5930b4f340308e1b37aec84a8159e2a0">BodyActionMessages</a> (void)</td></tr>
-<tr class="separator:a5930b4f340308e1b37aec84a8159e2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4288c1e5f9b5aa28901dc41280f2c451"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a4288c1e5f9b5aa28901dc41280f2c451">BodyActionMessages</a> (const <a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html">BodyActionMessages</a> &amp;)</td></tr>
-<tr class="separator:a4288c1e5f9b5aa28901dc41280f2c451"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a945abf5d2d18d06ca6bf5f8380e2f9e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html">BodyActionMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a945abf5d2d18d06ca6bf5f8380e2f9e6">operator=</a> (const <a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html">BodyActionMessages</a> &amp;)</td></tr>
-<tr class="separator:a945abf5d2d18d06ca6bf5f8380e2f9e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c608da0ee25ea0bbf35921bd0af36b"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a74c608da0ee25ea0bbf35921bd0af36b">fatal_error</a> = &quot;dynamics/body_action/&quot; &quot;fatal_error&quot;</td></tr>
+<tr class="memdesc:a74c608da0ee25ea0bbf35921bd0af36b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when performing an action results in an error return from the method performing the action.  <a href="#a74c608da0ee25ea0bbf35921bd0af36b">More...</a><br /></td></tr>
+<tr class="separator:a74c608da0ee25ea0bbf35921bd0af36b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0700f817c8f98af6d4e3286262dd64e6"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a0700f817c8f98af6d4e3286262dd64e6">illegal_value</a> = &quot;dynamics/body_action/&quot; &quot;illegal_value&quot;</td></tr>
+<tr class="memdesc:a0700f817c8f98af6d4e3286262dd64e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a simple type (e.g.  <a href="#a0700f817c8f98af6d4e3286262dd64e6">More...</a><br /></td></tr>
+<tr class="separator:a0700f817c8f98af6d4e3286262dd64e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a490bf53ab5e6b5af86f0ad2e27e6e1f3"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a490bf53ab5e6b5af86f0ad2e27e6e1f3">invalid_name</a> = &quot;dynamics/body_action/&quot; &quot;invalid_name&quot;</td></tr>
+<tr class="memdesc:a490bf53ab5e6b5af86f0ad2e27e6e1f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a name is invalid (NULL, empty, or does not name an object of the specified type).  <a href="#a490bf53ab5e6b5af86f0ad2e27e6e1f3">More...</a><br /></td></tr>
+<tr class="separator:a490bf53ab5e6b5af86f0ad2e27e6e1f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a286f0af01f0e7a751ffee1a0521a3b4a"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a286f0af01f0e7a751ffee1a0521a3b4a">invalid_object</a> = &quot;dynamics/body_action/&quot; &quot;invalid_object&quot;</td></tr>
+<tr class="memdesc:a286f0af01f0e7a751ffee1a0521a3b4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a pointer points to an object of the wrong type.  <a href="#a286f0af01f0e7a751ffee1a0521a3b4a">More...</a><br /></td></tr>
+<tr class="separator:a286f0af01f0e7a751ffee1a0521a3b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83c16204ac10993bdac6edcbec3abcc0"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a83c16204ac10993bdac6edcbec3abcc0">null_pointer</a> = &quot;dynamics/body_action/&quot; &quot;null_pointer&quot;</td></tr>
+<tr class="memdesc:a83c16204ac10993bdac6edcbec3abcc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a pointer is required but was not provided.  <a href="#a83c16204ac10993bdac6edcbec3abcc0">More...</a><br /></td></tr>
+<tr class="separator:a83c16204ac10993bdac6edcbec3abcc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdca09e56f66648320dd3b81493f1fc8"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#afdca09e56f66648320dd3b81493f1fc8">not_performed</a> = &quot;dynamics/body_action/&quot; &quot;not_performed&quot;</td></tr>
+<tr class="memdesc:afdca09e56f66648320dd3b81493f1fc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a> cannot be run.  <a href="#afdca09e56f66648320dd3b81493f1fc8">More...</a><br /></td></tr>
+<tr class="separator:afdca09e56f66648320dd3b81493f1fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ffbdd3981f5d4b7a0facf42f6add6ce"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a3ffbdd3981f5d4b7a0facf42f6add6ce">trace</a> = &quot;dynamics/body_action/&quot; &quot;trace&quot;</td></tr>
+<tr class="memdesc:a3ffbdd3981f5d4b7a0facf42f6add6ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug message issued to trace <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a> actions.  <a href="#a3ffbdd3981f5d4b7a0facf42f6add6ce">More...</a><br /></td></tr>
+<tr class="separator:a3ffbdd3981f5d4b7a0facf42f6add6ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -108,8 +108,8 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00081">81</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5930b4f340308e1b37aec84a8159e2a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5930b4f340308e1b37aec84a8159e2a0">&#9670;&nbsp;</a></span>BodyActionMessages() <span class="overload">[1/2]</span></h2>
+<a id="aaccc3a3ebdb6efe097f87059deb23d48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaccc3a3ebdb6efe097f87059deb23d48">&#9670;&nbsp;</a></span>BodyActionMessages() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -120,22 +120,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::BodyActionMessages::BodyActionMessages </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4288c1e5f9b5aa28901dc41280f2c451"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4288c1e5f9b5aa28901dc41280f2c451">&#9670;&nbsp;</a></span>BodyActionMessages() <span class="overload">[2/2]</span></h2>
+<a id="a115fb1f9fec413acbb85fc50c09283e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115fb1f9fec413acbb85fc50c09283e8">&#9670;&nbsp;</a></span>BodyActionMessages() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,7 +152,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -161,8 +160,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a945abf5d2d18d06ca6bf5f8380e2f9e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a945abf5d2d18d06ca6bf5f8380e2f9e6">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a3253145af5207a3aeda16e12e8a5bf78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3253145af5207a3aeda16e12e8a5bf78">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +179,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -233,13 +232,13 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00084">84</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00083">83</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a id="a31a24ab406f92c213194e620e9e4fa43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31a24ab406f92c213194e620e9e4fa43">&#9670;&nbsp;</a></span>fatal_error</h2>
+<a id="a74c608da0ee25ea0bbf35921bd0af36b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74c608da0ee25ea0bbf35921bd0af36b">&#9670;&nbsp;</a></span>fatal_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,7 +247,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::BodyActionMessages::fatal_error</td>
+          <td class="memname">const char * jeod::BodyActionMessages::fatal_error = &quot;dynamics/body_action/&quot; &quot;fatal_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -257,18 +256,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/body_action/&quot;</span>  <span class="stringliteral">&quot;fatal_error&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when performing an action results in an error return from the method performing the action. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00095">95</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00090">90</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/dd0/classjeod_1_1BodyDetach.html#ad3e61fe2f28b83d21318078c59ce7e2a">jeod::BodyDetach::apply()</a>, <a class="el" href="../../df/de9/classjeod_1_1BodyReattach.html#a297ffae7bb288841fab8881368f68b5e">jeod::BodyReattach::apply()</a>, <a class="el" href="../../dd/d65/classjeod_1_1BodyDetachSpecific.html#aa1c9cc69f729a9816a135537e65c0183">jeod::BodyDetachSpecific::apply()</a>, <a class="el" href="../../d8/db1/classjeod_1_1BodyAttach.html#a32256a8202ed431c971c6af69bdb205b">jeod::BodyAttach::apply()</a>, and <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a316629e983ff59b3cae5a82a3861d533">jeod::BodyAction::validate_body_inputs()</a>.</p>
 
 </div>
 </div>
-<a id="ab324e068c76ac5a395152a1423da379e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab324e068c76ac5a395152a1423da379e">&#9670;&nbsp;</a></span>illegal_value</h2>
+<a id="a0700f817c8f98af6d4e3286262dd64e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0700f817c8f98af6d4e3286262dd64e6">&#9670;&nbsp;</a></span>illegal_value</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,7 +276,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::BodyActionMessages::illegal_value</td>
+          <td class="memname">const char * jeod::BodyActionMessages::illegal_value = &quot;dynamics/body_action/&quot; &quot;illegal_value&quot;</td>
         </tr>
       </table>
   </td>
@@ -286,18 +285,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/body_action/&quot;</span>  <span class="stringliteral">&quot;illegal_value&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a simple type (e.g. </p>
 <p>an enum) has an illegal value.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00100">100</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00095">95</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad96df4a3654080c983f24ec773dd22c4">jeod::DynBodyInitNedState::apply()</a>, <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#ad1181810468d7418a46685a79a643305">jeod::DynBodyInitOrbit::apply()</a>, <a class="el" href="../../de/de6/classjeod_1_1DynBodyInitNedRotState.html#a1d7ea8f12231096a94a43d5ae4b2b241">jeod::DynBodyInitNedRotState::initialize()</a>, <a class="el" href="../../d9/d31/classjeod_1_1DynBodyInitLvlhTransState.html#a8bd350f8ae906df4906b4fca3fca1c81">jeod::DynBodyInitLvlhTransState::initialize()</a>, <a class="el" href="../../d6/de9/classjeod_1_1DynBodyInitNedTransState.html#ac61ecf72ff7104d187562197c5b02645">jeod::DynBodyInitNedTransState::initialize()</a>, <a class="el" href="../../db/d49/classjeod_1_1DynBodyInitLvlhRotState.html#a617d3c959094020fa0c5dcfd4433e8d1">jeod::DynBodyInitLvlhRotState::initialize()</a>, <a class="el" href="../../db/d77/classjeod_1_1DynBodyInitTransState.html#ac62fbe0cc78a5c66f3bf9cf7b290c358">jeod::DynBodyInitTransState::initialize()</a>, <a class="el" href="../../d6/dda/classjeod_1_1DynBodyInitRotState.html#a300802b2188c46bd03a54010ac3420c7">jeod::DynBodyInitRotState::initialize()</a>, and <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#a7a4e0b499182cfc37e43ac893f94b2d2">jeod::DynBodyInitOrbit::initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad96df4a3654080c983f24ec773dd22c4">jeod::DynBodyInitNedState::apply()</a>, <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#ad1181810468d7418a46685a79a643305">jeod::DynBodyInitOrbit::apply()</a>, <a class="el" href="../../de/de6/classjeod_1_1DynBodyInitNedRotState.html#a1d7ea8f12231096a94a43d5ae4b2b241">jeod::DynBodyInitNedRotState::initialize()</a>, <a class="el" href="../../db/d49/classjeod_1_1DynBodyInitLvlhRotState.html#a617d3c959094020fa0c5dcfd4433e8d1">jeod::DynBodyInitLvlhRotState::initialize()</a>, <a class="el" href="../../d6/de9/classjeod_1_1DynBodyInitNedTransState.html#ac61ecf72ff7104d187562197c5b02645">jeod::DynBodyInitNedTransState::initialize()</a>, <a class="el" href="../../d9/d31/classjeod_1_1DynBodyInitLvlhTransState.html#a8bd350f8ae906df4906b4fca3fca1c81">jeod::DynBodyInitLvlhTransState::initialize()</a>, <a class="el" href="../../d6/dda/classjeod_1_1DynBodyInitRotState.html#a300802b2188c46bd03a54010ac3420c7">jeod::DynBodyInitRotState::initialize()</a>, <a class="el" href="../../db/d77/classjeod_1_1DynBodyInitTransState.html#ac62fbe0cc78a5c66f3bf9cf7b290c358">jeod::DynBodyInitTransState::initialize()</a>, and <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#a7a4e0b499182cfc37e43ac893f94b2d2">jeod::DynBodyInitOrbit::initialize()</a>.</p>
 
 </div>
 </div>
-<a id="a324876ad2c2d5ee5ac188dd5a692903c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a324876ad2c2d5ee5ac188dd5a692903c">&#9670;&nbsp;</a></span>invalid_name</h2>
+<a id="a490bf53ab5e6b5af86f0ad2e27e6e1f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a490bf53ab5e6b5af86f0ad2e27e6e1f3">&#9670;&nbsp;</a></span>invalid_name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +305,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::BodyActionMessages::invalid_name</td>
+          <td class="memname">const char * jeod::BodyActionMessages::invalid_name = &quot;dynamics/body_action/&quot; &quot;invalid_name&quot;</td>
         </tr>
       </table>
   </td>
@@ -315,18 +314,47 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/body_action/&quot;</span>  <span class="stringliteral">&quot;invalid_name&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a name is invalid (NULL, empty, or does not name an object of the specified type). </p>
+<p>trick_units(&ndash;) </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00101">101</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ac8304e13d8ecd0a8ca8c57164c3e4354">jeod::DynBodyInit::compute_rotational_state()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a115cb94863a984480c7afb26e752ff42">jeod::DynBodyInit::compute_translational_state()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4e864546afb2cd28e9c63ae7cf65692d">jeod::DynBodyInit::find_body_frame()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af977c8b660e08c434e64fbfc61faf9ee">jeod::DynBodyInit::find_dyn_body()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af15590fb1eefe71766712c01c82982cd">jeod::DynBodyInit::find_planet()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a30394b542236faca169ddf16d463a9fd">jeod::DynBodyInit::find_ref_frame()</a>, <a class="el" href="../../d7/d67/classjeod_1_1BodyAttachAligned.html#ab521466063e2074addc583b5b4b4c5a9">jeod::BodyAttachAligned::initialize()</a>, <a class="el" href="../../d8/dda/classjeod_1_1DynBodyFrameSwitch.html#afb3d5bfdae07c5da9bee34a7c35af82a">jeod::DynBodyFrameSwitch::initialize()</a>, <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#a7a4e0b499182cfc37e43ac893f94b2d2">jeod::DynBodyInitOrbit::initialize()</a>, and <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a0ae1125e9cc05674fad07e6de3191e09">jeod::BodyAction::validate_name()</a>.</p>
+
+</div>
+</div>
+<a id="a286f0af01f0e7a751ffee1a0521a3b4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a286f0af01f0e7a751ffee1a0521a3b4a">&#9670;&nbsp;</a></span>invalid_object</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * jeod::BodyActionMessages::invalid_object = &quot;dynamics/body_action/&quot; &quot;invalid_object&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Issued when a pointer points to an object of the wrong type. </p>
 <p>trick_units(&ndash;) </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00106">106</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4b05c67dc7f1ab8b70dc730a19925682">jeod::DynBodyInit::compute_rotational_state()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a842125dd751469940882fae57ec4edfa">jeod::DynBodyInit::compute_translational_state()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4e864546afb2cd28e9c63ae7cf65692d">jeod::DynBodyInit::find_body_frame()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af977c8b660e08c434e64fbfc61faf9ee">jeod::DynBodyInit::find_dyn_body()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af15590fb1eefe71766712c01c82982cd">jeod::DynBodyInit::find_planet()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a30394b542236faca169ddf16d463a9fd">jeod::DynBodyInit::find_ref_frame()</a>, <a class="el" href="../../d7/d67/classjeod_1_1BodyAttachAligned.html#ab521466063e2074addc583b5b4b4c5a9">jeod::BodyAttachAligned::initialize()</a>, <a class="el" href="../../d8/dda/classjeod_1_1DynBodyFrameSwitch.html#afb3d5bfdae07c5da9bee34a7c35af82a">jeod::DynBodyFrameSwitch::initialize()</a>, <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#a7a4e0b499182cfc37e43ac893f94b2d2">jeod::DynBodyInitOrbit::initialize()</a>, and <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a0ae1125e9cc05674fad07e6de3191e09">jeod::BodyAction::validate_name()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/de9/classjeod_1_1BodyReattach.html#a297ffae7bb288841fab8881368f68b5e">jeod::BodyReattach::apply()</a>, <a class="el" href="../../d8/dda/classjeod_1_1DynBodyFrameSwitch.html#afb3d5bfdae07c5da9bee34a7c35af82a">jeod::DynBodyFrameSwitch::initialize()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a905cd262bfa8fa424131e3d4ca1eaf5a">jeod::DynBodyInit::initialize()</a>, <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#a7a4e0b499182cfc37e43ac893f94b2d2">jeod::DynBodyInitOrbit::initialize()</a>, <a class="el" href="../../d6/dda/classjeod_1_1DynBodyInitRotState.html#a3a6c7b62d6829f8d1bd11394e793aedf">jeod::DynBodyInitRotState::is_ready()</a>, and <a class="el" href="../../db/d77/classjeod_1_1DynBodyInitTransState.html#a554ac21f71168b7ee0e563953c7f57e6">jeod::DynBodyInitTransState::is_ready()</a>.</p>
 
 </div>
 </div>
-<a id="ae7096e842723ce6e287e031bd2e6dbba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7096e842723ce6e287e031bd2e6dbba">&#9670;&nbsp;</a></span>invalid_object</h2>
+<a id="afdca09e56f66648320dd3b81493f1fc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdca09e56f66648320dd3b81493f1fc8">&#9670;&nbsp;</a></span>not_performed</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,7 +363,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::BodyActionMessages::invalid_object</td>
+          <td class="memname">const char * jeod::BodyActionMessages::not_performed = &quot;dynamics/body_action/&quot; &quot;not_performed&quot;</td>
         </tr>
       </table>
   </td>
@@ -344,47 +372,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/body_action/&quot;</span>  <span class="stringliteral">&quot;invalid_object&quot;</span></div></div><!-- fragment -->
-<p>Issued when a pointer points to an object of the wrong type. </p>
-<p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00111">111</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d8/dda/classjeod_1_1DynBodyFrameSwitch.html#afb3d5bfdae07c5da9bee34a7c35af82a">jeod::DynBodyFrameSwitch::initialize()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a905cd262bfa8fa424131e3d4ca1eaf5a">jeod::DynBodyInit::initialize()</a>, <a class="el" href="../../d6/d9b/classjeod_1_1DynBodyInitOrbit.html#a7a4e0b499182cfc37e43ac893f94b2d2">jeod::DynBodyInitOrbit::initialize()</a>, <a class="el" href="../../db/d77/classjeod_1_1DynBodyInitTransState.html#a71ddf0862d43c290566b5f4554383848">jeod::DynBodyInitTransState::is_ready()</a>, and <a class="el" href="../../d6/dda/classjeod_1_1DynBodyInitRotState.html#a15358a702e485290c9a9ad4eea552cd7">jeod::DynBodyInitRotState::is_ready()</a>.</p>
-
-</div>
-</div>
-<a id="ae27d8d2eb74c45f82af91b178e63b3dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae27d8d2eb74c45f82af91b178e63b3dd">&#9670;&nbsp;</a></span>not_performed</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char const  * jeod::BodyActionMessages::not_performed</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/body_action/&quot;</span>  <span class="stringliteral">&quot;not_performed&quot;</span></div></div><!-- fragment -->
 <p>Issued when a <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a> cannot be run. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00121">121</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00116">116</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd0/classjeod_1_1BodyDetach.html#ad3e61fe2f28b83d21318078c59ce7e2a">jeod::BodyDetach::apply()</a>, <a class="el" href="../../dd/d65/classjeod_1_1BodyDetachSpecific.html#aa1c9cc69f729a9816a135537e65c0183">jeod::BodyDetachSpecific::apply()</a>, <a class="el" href="../../d8/db1/classjeod_1_1BodyAttach.html#a32256a8202ed431c971c6af69bdb205b">jeod::BodyAttach::apply()</a>, and <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ae85e5d7f1968b371f5894087a0d67ccc">jeod::DynBodyInit::report_failure()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd0/classjeod_1_1BodyDetach.html#ad3e61fe2f28b83d21318078c59ce7e2a">jeod::BodyDetach::apply()</a>, <a class="el" href="../../dd/d65/classjeod_1_1BodyDetachSpecific.html#aa1c9cc69f729a9816a135537e65c0183">jeod::BodyDetachSpecific::apply()</a>, <a class="el" href="../../d8/db1/classjeod_1_1BodyAttach.html#a32256a8202ed431c971c6af69bdb205b">jeod::BodyAttach::apply()</a>, and <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a8c5dc6af90a75fdd572cd112e61171d3">jeod::DynBodyInit::report_failure()</a>.</p>
 
 </div>
 </div>
-<a id="a1d462d1220ce875a59604926f1fcc524"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d462d1220ce875a59604926f1fcc524">&#9670;&nbsp;</a></span>null_pointer</h2>
+<a id="a83c16204ac10993bdac6edcbec3abcc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83c16204ac10993bdac6edcbec3abcc0">&#9670;&nbsp;</a></span>null_pointer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -393,7 +392,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::BodyActionMessages::null_pointer</td>
+          <td class="memname">const char * jeod::BodyActionMessages::null_pointer = &quot;dynamics/body_action/&quot; &quot;null_pointer&quot;</td>
         </tr>
       </table>
   </td>
@@ -402,18 +401,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/body_action/&quot;</span>  <span class="stringliteral">&quot;null_pointer&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when a pointer is required but was not provided. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00116">116</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00111">111</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/d49/classjeod_1_1DynBodyInitLvlhRotState.html#a617d3c959094020fa0c5dcfd4433e8d1">jeod::DynBodyInitLvlhRotState::initialize()</a>, <a class="el" href="../../d8/db1/classjeod_1_1BodyAttach.html#adfda69ca0bbc891dbc5acc35ddd95f8d">jeod::BodyAttach::initialize()</a>, and <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a316629e983ff59b3cae5a82a3861d533">jeod::BodyAction::validate_body_inputs()</a>.</p>
 
 </div>
 </div>
-<a id="aaa53f0045dabb6f6247bc5bf8d608db8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa53f0045dabb6f6247bc5bf8d608db8">&#9670;&nbsp;</a></span>trace</h2>
+<a id="a3ffbdd3981f5d4b7a0facf42f6add6ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ffbdd3981f5d4b7a0facf42f6add6ce">&#9670;&nbsp;</a></span>trace</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -422,7 +421,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::BodyActionMessages::trace</td>
+          <td class="memname">const char * jeod::BodyActionMessages::trace = &quot;dynamics/body_action/&quot; &quot;trace&quot;</td>
         </tr>
       </table>
   </td>
@@ -431,13 +430,13 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/body_action/&quot;</span>  <span class="stringliteral">&quot;trace&quot;</span></div></div><!-- fragment -->
+
 <p>Debug message issued to trace <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a> actions. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00126">126</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html#l00121">121</a> of file <a class="el" href="../../df/d4f/body__action__messages_8hh_source.html">body_action_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd0/classjeod_1_1BodyDetach.html#ad3e61fe2f28b83d21318078c59ce7e2a">jeod::BodyDetach::apply()</a>, <a class="el" href="../../df/de9/classjeod_1_1BodyReattach.html#a297ffae7bb288841fab8881368f68b5e">jeod::BodyReattach::apply()</a>, <a class="el" href="../../d9/d68/classjeod_1_1MassBodyInit.html#a579e6588460ce91c273abbe101e32a40">jeod::MassBodyInit::apply()</a>, <a class="el" href="../../dd/d65/classjeod_1_1BodyDetachSpecific.html#aa1c9cc69f729a9816a135537e65c0183">jeod::BodyDetachSpecific::apply()</a>, <a class="el" href="../../d8/dda/classjeod_1_1DynBodyFrameSwitch.html#a1e815920c13af6f784aa95639d188b14">jeod::DynBodyFrameSwitch::apply()</a>, <a class="el" href="../../d8/db1/classjeod_1_1BodyAttach.html#a32256a8202ed431c971c6af69bdb205b">jeod::BodyAttach::apply()</a>, and <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a97e967210bca2621294735e79173d980">jeod::DynBodyInit::apply()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd0/classjeod_1_1BodyDetach.html#ad3e61fe2f28b83d21318078c59ce7e2a">jeod::BodyDetach::apply()</a>, <a class="el" href="../../d9/d68/classjeod_1_1MassBodyInit.html#a579e6588460ce91c273abbe101e32a40">jeod::MassBodyInit::apply()</a>, <a class="el" href="../../df/de9/classjeod_1_1BodyReattach.html#a297ffae7bb288841fab8881368f68b5e">jeod::BodyReattach::apply()</a>, <a class="el" href="../../dd/d65/classjeod_1_1BodyDetachSpecific.html#aa1c9cc69f729a9816a135537e65c0183">jeod::BodyDetachSpecific::apply()</a>, <a class="el" href="../../d8/db1/classjeod_1_1BodyAttach.html#a32256a8202ed431c971c6af69bdb205b">jeod::BodyAttach::apply()</a>, <a class="el" href="../../d8/dda/classjeod_1_1DynBodyFrameSwitch.html#a1e815920c13af6f784aa95639d188b14">jeod::DynBodyFrameSwitch::apply()</a>, and <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a97e967210bca2621294735e79173d980">jeod::DynBodyInit::apply()</a>.</p>
 
 </div>
 </div>

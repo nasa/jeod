@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -59,9 +59,9 @@ $(function() {
 <code>#include &quot;<a class="el" href="../../d0/d75/dyn__body_8hh_source.html">dynamics/dyn_body/include/dyn_body.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/d1a/vehicle__non__grav__state_8hh_source.html">dynamics/dyn_body/include/vehicle_non_grav_state.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d76/vehicle__properties_8hh_source.html">dynamics/dyn_body/include/vehicle_properties.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d07/fail__simulation_8hh_source.html">experimental/message/include/fail_simulation.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/dae/matrix3x3_8hh_source.html">utils/math/include/matrix3x3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d6/d07/fail__simulation_8hh_source.html">experimental/message/include/fail_simulation.hh</a>&quot;</code><br />
 <code>#include &quot;er7_utils/integration/core/include/base_integration_group.hh&quot;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -69,41 +69,41 @@ Include dependency graph for pendulum_constraint_component.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/de4/pendulum__constraint__component_8cc__incl.png" border="0" usemap="#pendulum__constraint__component_8cc" alt=""/></div>
 <map name="pendulum__constraint__component_8cc" id="pendulum__constraint__component_8cc">
-<area shape="rect" id="node2" href="../../d9/de8/pendulum__constraint__component_8hh.html" title="Defines the class PendulumConstraintComponent. " alt="" coords="2454,102,2629,143"/>
-<area shape="rect" id="node23" href="../../d6/d52/base__pendulum__model_8hh.html" title="Defines the class BasePendulumModel. " alt="" coords="1065,102,1236,143"/>
-<area shape="rect" id="node24" href="../../d8/d70/dyn__body__constraints__solver_8hh.html" title="Defines the class DynBodyConstraintsSolver. " alt="" coords="583,206,735,247"/>
-<area shape="rect" id="node26" href="../../d5/d76/vehicle__properties_8hh.html" title="Define the class VehicleProperties. " alt="" coords="123,399,306,441"/>
-<area shape="rect" id="node32" href="../../d0/d75/dyn__body_8hh.html" title="Define the class DynBody. " alt="" coords="1678,102,1861,143"/>
-<area shape="rect" id="node43" href="../../df/d1a/vehicle__non__grav__state_8hh.html" title="Define the class VehicleNonGravState. " alt="" coords="369,102,551,143"/>
-<area shape="rect" id="node44" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="2653,102,2777,143"/>
-<area shape="rect" id="node45" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="2801,102,2925,143"/>
-<area shape="rect" id="node46" href="../../d6/d07/fail__simulation_8hh.html" title="Define various versions fail_simulation, which causes the simulation to terminate, and utility macros that use this. " alt="" coords="3509,303,3681,344"/>
-<area shape="rect" id="node3" href="../../d0/de3/force__constraint__component_8hh.html" title="Defines the class ForceConstraintComponent. " alt="" coords="1967,310,2171,337"/>
-<area shape="rect" id="node7" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1342,496,1493,537"/>
-<area shape="rect" id="node8" href="../../d4/d5c/constrained__point__mass_8hh.html" title="Defines the class ConstrainedPointMass. " alt="" coords="3252,310,3433,337"/>
-<area shape="rect" id="node9" href="../../d7/d8f/pendulum__constraint__mode_8hh.html" title="Define enum class PendulumConstraintMode. " alt="" coords="2805,206,2947,247"/>
-<area shape="rect" id="node10" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="2579,206,2781,247"/>
-<area shape="rect" id="node19" href="../../d1/d55/restartable__2d__second__order__integrator_8hh.html" title="Defines the class Restartable2DSecondOrderODEIntegrator. " alt="" coords="2972,199,3129,255"/>
-<area shape="rect" id="node4" href="../../dd/d7a/constraint__component_8hh.html" title="Defines the class ConstraintComponent. " alt="" coords="1739,407,1907,433"/>
-<area shape="rect" id="node5" href="../../dc/dca/solver__types_8hh.html" title="Defines various type definitions used in the constraints concept. " alt="" coords="257,496,431,537"/>
-<area shape="rect" id="node11" href="../../d0/d2d/restartable__state__integrator__templates_8hh.html" title="Define template classes that encapsulate the construction, destruction, checkpointing, and restarting of state integrators. " alt="" coords="2743,303,2923,344"/>
-<area shape="rect" id="node14" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="2260,399,2436,441"/>
-<area shape="rect" id="node15" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="3074,399,3222,441"/>
-<area shape="rect" id="node16" href="../../d6/d22/integration__messages_8hh.html" title="Define the class IntegrationMessages, the class that specifies the message IDs used in the integratio..." alt="" coords="2883,407,3050,433"/>
-<area shape="rect" id="node17" href="../../d0/d96/generalized__second__order__ode__technique_8hh.html" title="Define the static class GeneralizedSecondOrderODETechnique. " alt="" coords="2298,303,2465,344"/>
-<area shape="rect" id="node18" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="1087,399,1230,441"/>
-<area shape="rect" id="node25" href="../../db/d9c/dyn__body__constraint_8hh.html" title="Defines the class DynBodyConstraint. " alt="" coords="5,310,165,337"/>
-<area shape="rect" id="node27" href="../../d7/d73/object__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="347,303,495,344"/>
-<area shape="rect" id="node28" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="975,303,1123,344"/>
-<area shape="rect" id="node29" href="../../d7/deb/primitive__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="650,399,798,441"/>
-<area shape="rect" id="node30" href="../../d4/d78/linear__system__solver_8hh.html" title="Defines the class LinearSystemSolver. " alt="" coords="674,303,849,344"/>
-<area shape="rect" id="node35" href="../../d6/d75/body__ref__frame_8hh.html" title="Define the class BodyRefFrame. " alt="" coords="1249,310,1380,337"/>
-<area shape="rect" id="node36" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="1025,213,1175,240"/>
-<area shape="rect" id="node37" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="1567,213,1681,240"/>
-<area shape="rect" id="node38" href="../../dd/d8a/dyn__body__generic__rigid__attach_8hh.html" title="Define the class Wrench. " alt="" coords="1301,206,1459,247"/>
-<area shape="rect" id="node39" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="1607,303,1766,344"/>
-<area shape="rect" id="node41" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="807,206,1001,247"/>
-<area shape="rect" id="node42" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1791,310,1943,337"/>
+<area shape="rect" id="node2" href="../../d9/de8/pendulum__constraint__component_8hh.html" title="Defines the class PendulumConstraintComponent. " alt="" coords="1714,102,1909,143"/>
+<area shape="rect" id="node20" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="1025,206,1163,247"/>
+<area shape="rect" id="node24" href="../../d6/d52/base__pendulum__model_8hh.html" title="Defines the class BasePendulumModel. " alt="" coords="3557,102,3745,143"/>
+<area shape="rect" id="node25" href="../../d8/d70/dyn__body__constraints__solver_8hh.html" title="Defines the class DynBodyConstraintsSolver. " alt="" coords="823,102,989,143"/>
+<area shape="rect" id="node27" href="../../d5/d76/vehicle__properties_8hh.html" title="Define the class VehicleProperties. " alt="" coords="403,310,606,351"/>
+<area shape="rect" id="node33" href="../../d0/d75/dyn__body_8hh.html" title="Define the class DynBody. " alt="" coords="3103,102,3306,143"/>
+<area shape="rect" id="node44" href="../../df/d1a/vehicle__non__grav__state_8hh.html" title="Define the class VehicleNonGravState. " alt="" coords="3330,102,3533,143"/>
+<area shape="rect" id="node45" href="../../d6/d07/fail__simulation_8hh.html" title="Define various versions fail_simulation, which causes the simulation to terminate, and utility macros that use this. " alt="" coords="33,310,227,351"/>
+<area shape="rect" id="node48" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="3770,102,3909,143"/>
+<area shape="rect" id="node3" href="../../d0/de3/force__constraint__component_8hh.html" title="Defines the class ForceConstraintComponent. " alt="" coords="1187,213,1414,240"/>
+<area shape="rect" id="node7" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2382,511,2547,552"/>
+<area shape="rect" id="node8" href="../../d4/d5c/constrained__point__mass_8hh.html" title="Defines the class ConstrainedPointMass. " alt="" coords="1422,421,1622,448"/>
+<area shape="rect" id="node9" href="../../d7/d8f/pendulum__constraint__mode_8hh.html" title="Define enum class PendulumConstraintMode. " alt="" coords="1439,206,1597,247"/>
+<area shape="rect" id="node10" href="../../d1/d55/restartable__2d__second__order__integrator_8hh.html" title="Defines the class Restartable2DSecondOrderODEIntegrator. " alt="" coords="1723,199,1899,255"/>
+<area shape="rect" id="node19" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="2123,206,2350,247"/>
+<area shape="rect" id="node4" href="../../dd/d7a/constraint__component_8hh.html" title="Defines the class ConstraintComponent. " alt="" coords="1161,317,1347,344"/>
+<area shape="rect" id="node5" href="../../dc/dca/solver__types_8hh.html" title="Defines various type definitions used in the constraints concept. " alt="" coords="405,414,604,455"/>
+<area shape="rect" id="node11" href="../../d0/d96/generalized__second__order__ode__technique_8hh.html" title="Define the static class GeneralizedSecondOrderODETechnique. " alt="" coords="2748,310,2933,351"/>
+<area shape="rect" id="node12" href="../../d6/d22/integration__messages_8hh.html" title="Define the class IntegrationMessages, the class that specifies the message IDs used in the integratio..." alt="" coords="2502,421,2689,448"/>
+<area shape="rect" id="node13" href="../../d0/d2d/restartable__state__integrator__templates_8hh.html" title="Define template classes that encapsulate the construction, destruction, checkpointing, and restarting of state integrators. " alt="" coords="2367,310,2571,351"/>
+<area shape="rect" id="node15" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="2713,414,2909,455"/>
+<area shape="rect" id="node16" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="2057,414,2221,455"/>
+<area shape="rect" id="node17" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="2081,310,2241,351"/>
+<area shape="rect" id="node26" href="../../db/d9c/dyn__body__constraint_8hh.html" title="Defines the class DynBodyConstraint. " alt="" coords="277,213,455,240"/>
+<area shape="rect" id="node28" href="../../d7/d73/object__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1013,414,1180,455"/>
+<area shape="rect" id="node29" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="3067,310,3233,351"/>
+<area shape="rect" id="node30" href="../../d7/deb/primitive__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="732,310,899,351"/>
+<area shape="rect" id="node31" href="../../d4/d78/linear__system__solver_8hh.html" title="Defines the class LinearSystemSolver. " alt="" coords="537,206,736,247"/>
+<area shape="rect" id="node36" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="2855,213,3019,240"/>
+<area shape="rect" id="node37" href="../../d6/d75/body__ref__frame_8hh.html" title="Define the class BodyRefFrame. " alt="" coords="3723,317,3868,344"/>
+<area shape="rect" id="node38" href="../../dd/d8a/dyn__body__generic__rigid__attach_8hh.html" title="Define the class Wrench. " alt="" coords="3833,206,4009,247"/>
+<area shape="rect" id="node39" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="3529,213,3657,240"/>
+<area shape="rect" id="node40" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="3343,310,3517,351"/>
+<area shape="rect" id="node42" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="3095,206,3315,247"/>
+<area shape="rect" id="node43" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="3943,317,4114,344"/>
 </map>
 </div>
 </div>

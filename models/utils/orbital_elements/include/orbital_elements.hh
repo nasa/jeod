@@ -59,12 +59,11 @@ ASSUMPTIONS AND LIMITATIONS:
  Library dependencies:
   ((../src/orbital_elements.cc))
 
- 
+
 ******************************************************************************/
 
 #ifndef ORBITAL_ELEMENTS_HH
 #define ORBITAL_ELEMENTS_HH
-
 
 // System includes
 #include <string>
@@ -73,138 +72,128 @@ ASSUMPTIONS AND LIMITATIONS:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents state in terms of Keplerian orbital elements.
  */
-class OrbitalElements {
+class OrbitalElements
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, OrbitalElements)
 
- JEOD_MAKE_SIM_INTERFACES(OrbitalElements)
+    // Member data
+public:
+    // Orbit definition parameters
+    /**
+     * Semi-major-axis (a)
+     */
+    double semi_major_axis{}; //!< trick_units(m)
+    /**
+     * Semiparameter (p)
+     */
+    double semiparam{}; //!< trick_units(m)
+    /**
+     * Magnitude of eccentricity (e)
+     */
+    double e_mag{}; //!< trick_units(--)
+    /**
+     * Orbit inclination (i)
+     */
+    double inclination{}; //!< trick_units(rad)
+    /**
+     * Argument of periapsis (w)
+     */
+    double arg_periapsis{}; //!< trick_units(rad)
+    /**
+     * Longitude of ascending node (Omega)
+     */
+    double long_asc_node{}; //!< trick_units(rad)
 
+    // Orbital position parameters
+    /**
+     * Magnitude of orbital radius
+     */
+    double r_mag{}; //!< trick_units(m)
+    /**
+     * Magnitude of orbital velocity
+     */
+    double vel_mag{}; //!< trick_units(m/s)
+    /**
+     * True Anomaly (v)
+     */
+    double true_anom{}; //!< trick_units(rad)
+    /**
+     * Mean Anomaly (M)
+     */
+    double mean_anom{}; //!< trick_units(rad)
+    /**
+     * Mean motion of orbit (n)
+     */
+    double mean_motion{}; //!< trick_units(rad/s)
+    /**
+     * Eccentric (E), Hyperbolic (H), or Parabolic (B) anomaly
+     */
+    double orbital_anom{}; //!< trick_units(rad)
+    // "Global" working parameters
+    /**
+     * Sine of the true anomaly
+     */
+    double sin_v{}; //!< trick_units(--)
+    /**
+     * Cosine of the true anomaly
+     */
+    double cos_v{1.0}; //!< trick_units(--)
+    /**
+     * Specific orbital energy
+     */
+    double orb_energy{}; //!< trick_units(m2/s2)
+    /**
+     * Specific orbital angular momentum
+     */
+    double orb_ang_momentum{}; //!< trick_units(m2/s)
 
-  // Member data
-  public:
-   // Orbit definition parameters
-   /**
-    * Semi-major-axis (a)
-    */
-   double semi_major_axis; //!< trick_units(m)
-   /**
-    * Semiparameter (p)
-    */
-   double semiparam; //!< trick_units(m)
-   /**
-    * Magnitude of eccentricity (e)
-    */
-   double e_mag; //!< trick_units(--)
-   /**
-    * Orbit inclination (i)
-    */
-   double inclination; //!< trick_units(rad)
-   /**
-    * Argument of periapsis (w)
-    */
-   double arg_periapsis; //!< trick_units(rad)
-   /**
-    * Longitude of ascending node (Omega)
-    */
-   double long_asc_node; //!< trick_units(rad)
+protected:
+    /**
+     * Name of orbital object
+     */
+    std::string object_name; //!< trick_units(--)
+    /**
+     * Name of planet about which the object orbits
+     */
+    std::string planet_name; //!< trick_units(--)
 
-   // Orbital position parameters
-   /**
-    * Magnitude of orbital radius
-    */
-   double r_mag; //!< trick_units(m)
-   /**
-    * Magnitude of orbital velocity
-    */
-   double vel_mag; //!< trick_units(m/s)
-   /**
-    * True Anomaly (v)
-    */
-   double true_anom; //!< trick_units(rad)
-   /**
-    * Mean Anomaly (M)
-    */
-   double mean_anom; //!< trick_units(rad)
-   /**
-    * Mean motion of orbit (n)
-    */
-   double mean_motion; //!< trick_units(rad/s)
-   /**
-    * Eccentric (E), Hyperbolic (H), or Parabolic (B) anomaly
-    */
-   double orbital_anom; //!< trick_units(rad)
-   // "Global" working parameters
-   /**
-    * Sine of the true anomaly
-    */
-   double sin_v; //!< trick_units(--)
-   /**
-    * Cosine of the true anomaly
-    */
-   double cos_v; //!< trick_units(--)
-   /**
-    * Specific orbital energy
-    */
-   double orb_energy; //!< trick_units(m2/s2)
-   /**
-    * Specific orbital angular momentum
-    */
-   double orb_ang_momentum; //!< trick_units(m2/s)
+public:
+    OrbitalElements() = default;
+    virtual ~OrbitalElements() = default;
+    OrbitalElements(const OrbitalElements &) = delete;
+    OrbitalElements & operator=(const OrbitalElements &) = delete;
 
-  protected:
-   /**
-    * Name of orbital object
-    */
-   std::string object_name; //!< trick_units(--)
-   /**
-    * Name of planet about which the object orbits
-    */
-   std::string planet_name; //!< trick_units(--)
+    // Get the names
+    const std::string & get_object_name() const;
+    const std::string & get_planet_name() const;
 
+    // Set the names
+    void set_object_name(const std::string & name);
+    void set_planet_name(const std::string & name);
 
-  // Member functions
-  // Make the copy constructor and assignment operator private
-  // (and unimplemented) to avoid erroneous copies
-  private:
-   OrbitalElements (const OrbitalElements &);
-   OrbitalElements & operator= (const OrbitalElements &);
+    // Transformation routines
+    int from_cartesian(double mu, const double pos[3], const double vel[3]);
+    int to_cartesian(double mu, double pos[3], double vel[3]);
 
-  public:
+    // Utility routines
+    int nu_to_anomalies();
+    int mean_anom_to_nu();
 
-   // Constructor & Destructor
-   OrbitalElements();
-   virtual ~OrbitalElements();
+protected:
+    int KepEqtnE(double M, double e, double * E);
 
-   // Get the names
-   const char * get_object_name ( void ) const;
-   const char * get_planet_name ( void ) const;
+    int KepEqtnH(double M, double e, double * H);
 
-   // Set the names
-   void set_object_name (const char * name);
-   void set_planet_name (const char * name);
-
-   // Transformation routines
-   int from_cartesian (double mu, const double pos[3], const double vel[3]);
-   int to_cartesian (double mu, double pos[3], double vel[3]);
-
-   // Utility routines
-   int nu_to_anomalies();
-   int mean_anom_to_nu();
-
-  protected:
-
-   int KepEqtnE (double M, double e, double * E);
-
-   int KepEqtnH (double M, double e, double * H);
-
-   int KepEqtnB (double M, double * B);
-
+    int KepEqtnB(double M, double * B);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

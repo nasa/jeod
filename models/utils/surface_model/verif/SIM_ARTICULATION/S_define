@@ -44,10 +44,14 @@
 //
 //==============================================================================
 
-// The default object for all trick sims, nicely wrapped by Trick 10.x
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
 
 ##include "dynamics/dyn_manager/include/dyn_manager.hh"
 ##include "utils/surface_model/include/surface_model.hh"
@@ -55,103 +59,89 @@
 ##include "dynamics/mass/include/mass.hh"
 ##include "dynamics/body_action/include/mass_body_init.hh"
 
-class ArticulationSimObject : public Trick::SimObject {
+class ArticulationSimObject : public Trick::SimObject
+{
+public:
+    jeod::DynManager dyn_manager;
 
-  public:
-   jeod::DynManager dyn_manager;
+    jeod::SurfaceModel surface;
 
-   jeod::SurfaceModel surface;
+    // Allocating the flat plates in the S_define
+    // so that we have easier access for logging
+    jeod::FlatPlate flat_plate_1;
+    jeod::FlatPlate flat_plate_2;
+    jeod::FlatPlate flat_plate_3;
+    jeod::FlatPlate flat_plate_4;
+    jeod::FlatPlate flat_plate_5;
+    jeod::FlatPlate flat_plate_6;
+    jeod::FlatPlate flat_plate_7;
+    jeod::FlatPlate flat_plate_8;
 
-   // Allocating the flat plates in the S_define
-   // so that we have easier access for logging
-   jeod::FlatPlate flat_plate_1;
-   jeod::FlatPlate flat_plate_2;
-   jeod::FlatPlate flat_plate_3;
-   jeod::FlatPlate flat_plate_4;
-   jeod::FlatPlate flat_plate_5;
-   jeod::FlatPlate flat_plate_6;
-   jeod::FlatPlate flat_plate_7;
-   jeod::FlatPlate flat_plate_8;
+    jeod::MassBody mass_bodya;
+    jeod::MassBody mass_bodyb;
+    jeod::MassBody mass_bodyc;
+    jeod::MassBody mass_bodyd;
 
-   jeod::MassBody mass_bodya;
-   jeod::MassBody mass_bodyb;
-   jeod::MassBody mass_bodyc;
-   jeod::MassBody mass_bodyd;
+    jeod::MassBodyInit mass_bodya_init;
+    jeod::MassBodyInit mass_bodyb_init;
+    jeod::MassBodyInit mass_bodyc_init;
+    jeod::MassBodyInit mass_bodyd_init;
 
-   jeod::MassBodyInit mass_bodya_init;
-   jeod::MassBodyInit mass_bodyb_init;
-   jeod::MassBodyInit mass_bodyc_init;
-   jeod::MassBodyInit mass_bodyd_init;
+    double offset_b[3];
+    double T_pstr_cstr_b[3][3];
+    double offset_c[3];
+    double T_pstr_cstr_c[3][3];
+    double offset_d[3];
+    double T_pstr_cstr_d[3][3];
 
-   double offset_b[3];
-   double T_pstr_cstr_b[3][3];
-   double offset_c[3];
-   double T_pstr_cstr_c[3][3];
-   double offset_d[3];
-   double T_pstr_cstr_d[3][3];
+    bool rotate_in_time;
 
-   bool rotate_in_time;
+    ArticulationSimObject()
+        : rotate_in_time(false)
+    {
+        ("initialization") mass_bodyb.attach_to(offset_b, T_pstr_cstr_b, mass_bodya);
 
-   ArticulationSimObject ()
-     :
-     rotate_in_time(false)
-   {
+        ("initialization") mass_bodyc.attach_to(offset_c, T_pstr_cstr_c, mass_bodyb);
 
-     ("initialization") mass_bodyb.attach_to(offset_b,
-                                          T_pstr_cstr_b,
-                                          mass_bodya);
+        ("initialization") mass_bodyd.attach_to(offset_d, T_pstr_cstr_d, mass_bodya);
 
-     ("initialization") mass_bodyc.attach_to(offset_c,
-                                          T_pstr_cstr_c,
-                                          mass_bodyb);
+        ("initialization") dyn_manager.add_mass_body(mass_bodya);
+        ("initialization") dyn_manager.add_mass_body(mass_bodyb);
+        ("initialization") dyn_manager.add_mass_body(mass_bodyc);
+        ("initialization") dyn_manager.add_mass_body(mass_bodyd);
 
-     ("initialization") mass_bodyd.attach_to(offset_d,
-                                          T_pstr_cstr_d,
-                                          mass_bodya);
+        ("initialization") surface.initialize_mass_connections(dyn_manager);
 
-     ("initialization") dyn_manager.add_mass_body(mass_bodya);
-     ("initialization") dyn_manager.add_mass_body(mass_bodyb);
-     ("initialization") dyn_manager.add_mass_body(mass_bodyc);
-     ("initialization") dyn_manager.add_mass_body(mass_bodyd);
+        (1.0, "environment") reposition();
 
-     ("initialization") surface.initialize_mass_connections(dyn_manager);
+        // reposition the masses.
+        (1.0, "environment") mass_bodyb.reattach(offset_b, T_pstr_cstr_b);
 
-     (1.0, "environment") reposition();
+        (1.0, "environment") mass_bodyd.reattach(offset_d, T_pstr_cstr_d);
 
-     // reposition the masses.
-     (1.0, "environment") mass_bodyb.reattach(offset_b,
-                                              T_pstr_cstr_b);
+        // update the surface orientations
+        (1.0, "environment") surface.update_articulation();
+    }
 
-     (1.0, "environment") mass_bodyd.reattach(offset_d,
-                                              T_pstr_cstr_d);
-
-     // update the surface orientations
-     (1.0, "environment") surface.update_articulation();
-
-   }
+    ArticulationSimObject operator=(const ArticulationSimObject &) = delete;
+    ArticulationSimObject(const ArticulationSimObject &) = delete;
 
 private:
-   void reposition()
-   {
-     if (!rotate_in_time) return;
-     T_pstr_cstr_b[0][0] =
-     T_pstr_cstr_b[1][1] = std::cos( exec_get_sim_time() * M_PI / 180.0);
-     T_pstr_cstr_b[0][1] = std::sin( exec_get_sim_time() * M_PI / 180.0);
-     T_pstr_cstr_b[1][0] = -T_pstr_cstr_b[0][1];
+    void reposition()
+    {
+        if(!rotate_in_time)
+        {
+            return;
+        }
+        T_pstr_cstr_b[0][0] = T_pstr_cstr_b[1][1] = std::cos(exec_get_sim_time() * M_PI / 180.0);
+        T_pstr_cstr_b[0][1] = std::sin(exec_get_sim_time() * M_PI / 180.0);
+        T_pstr_cstr_b[1][0] = -T_pstr_cstr_b[0][1];
 
-     offset_d[0] += 1.0;
-     offset_d[1] -= 1.0;
-     offset_d[2] += 2.0;
-   }
-
-
-
-   // This object not copyable
-   ArticulationSimObject operator =(const ArticulationSimObject &);
-   ArticulationSimObject(const ArticulationSimObject &);
-
+        offset_d[0] += 1.0;
+        offset_d[1] -= 1.0;
+        offset_d[2] += 2.0;
+    }
 };
-
 
 // declare the sim objects
 

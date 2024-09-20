@@ -58,21 +58,22 @@ References:
 Assumptions and Limitations:
    ((None))
 
- 
+
 *****************************************************************************/
 
 #ifndef JEOD_GENERIC_RNP_CLASS_DECL_HH
 #define JEOD_GENERIC_RNP_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RNPMessages;
 class PlanetRNP;
 class PlanetRotation;
 class PlanetrotationInit;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -67,7 +67,7 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/nutation_j2000_init.cc))
 
- 
+
 
 
 *******************************************************************************/
@@ -81,86 +81,84 @@ Library dependencies:
 #include "environment/RNP/GenericRNP/include/planet_rotation_init.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The NutationJ2000Init contains coefficients and other data used to
  * initalize a NutationJ2000 object.
  */
-class NutationJ2000Init : public PlanetRotationInit {
-
-   JEOD_MAKE_SIM_INTERFACES(NutationJ2000Init)
+class NutationJ2000Init : public PlanetRotationInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, NutationJ2000Init)
 
 public: // public data members
+    /**
+     * The number of coefficients in the 9 arrays
+     * directly following this decleration
+     */
+    int num_coeffs{}; //!< trick_units(count)
 
-   /**
-    * The number of coefficients in the 9 arrays
-    * directly following this decleration
-    */
-   int num_coeffs; //!< trick_units(count)
+    /**
+     * The coefficients to calculate mean anomaly of the moon
+     */
+    double * L_coeffs{}; //!< trick_units(--)
 
-   /**
-    * The coefficients to calculate mean anomaly of the moon
-    */
-   double* L_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate mean anomaly of the sun
-    */
-   double* M_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate mean argument of lattitude of the moon
-    */
-   double* F_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate mean elongation from the sun
-    */
-   double* D_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate the right
-    * ascension of the ascending node of the mean
-    * mean lunar orbit
-    */
-   double* omega_coeffs; //!< trick_units(--)
+    /**
+     * The coefficients to calculate mean anomaly of the sun
+     */
+    double * M_coeffs{}; //!< trick_units(--)
 
-   /**
-    * Zero order (in time) coefficients for
-    * calculating the nutation in longitude
-    */
-   double* long_coeffs; //!< trick_units(--)
-   /**
-    * The first order (in time) coefficients for
-    * calculating the nutation in longitude
-    */
-   double* long_t_coeffs; //!< trick_units(--)
-   /**
-    * Zero order coefficients for calculating the
-    * nutation in obliquity
-    */
-   double* obliq_coeffs; //!< trick_units(--)
-   /**
-    * First order coefficnets for calculating the
-    * nutation in obliquity
-    */
-   double* obliq_t_coeffs; //!< trick_units(--)
+    /**
+     * The coefficients to calculate mean argument of lattitude of the moon
+     */
+    double * F_coeffs{}; //!< trick_units(--)
+
+    /**
+     * The coefficients to calculate mean elongation from the sun
+     */
+    double * D_coeffs{}; //!< trick_units(--)
+
+    /**
+     * The coefficients to calculate the right
+     * ascension of the ascending node of the mean
+     * mean lunar orbit
+     */
+    double * omega_coeffs{}; //!< trick_units(--)
+
+    /**
+     * Zero order (in time) coefficients for
+     * calculating the nutation in longitude
+     */
+    double * long_coeffs{}; //!< trick_units(--)
+
+    /**
+     * The first order (in time) coefficients for
+     * calculating the nutation in longitude
+     */
+    double * long_t_coeffs{}; //!< trick_units(--)
+
+    /**
+     * Zero order coefficients for calculating the
+     * nutation in obliquity
+     */
+    double * obliq_coeffs{}; //!< trick_units(--)
+
+    /**
+     * First order coefficnets for calculating the
+     * nutation in obliquity
+     */
+    double * obliq_t_coeffs{}; //!< trick_units(--)
 
 public: // public member functions
-
-   NutationJ2000Init ();
-
-   ~NutationJ2000Init () override;
-
-private: // private member functions
-
-   // operator = and copy constructor locked from use by making them private
-
-   NutationJ2000Init& operator = (const NutationJ2000Init& rhs);
-   NutationJ2000Init (const NutationJ2000Init& rhs);
-
+    NutationJ2000Init() = default;
+    ~NutationJ2000Init() override;
+    NutationJ2000Init & operator=(const NutationJ2000Init &) = delete;
+    NutationJ2000Init(const NutationJ2000Init &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

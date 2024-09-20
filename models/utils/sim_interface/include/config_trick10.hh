@@ -55,12 +55,14 @@ Assumptions and Limitations:
   (((Inclusion of this file and use of the JEOD_MAKE_SIM_INTERFACES macro
      in each defined mandatory for all JEOD class definition files.)))
 
- 
+
 
 *******************************************************************************/
 
 #ifndef JEOD_CONFIG_TRICK10_HH
 #define JEOD_CONFIG_TRICK10_HH
+
+#include "jeod_va_macro_utility.hh"
 
 // Define standard integral types
 #define JEOD_SIZE_T size_t
@@ -68,47 +70,54 @@ Assumptions and Limitations:
 #define JEOD_INTPTR_T long int
 #define JEOD_UINTPTR_T unsigned long int
 
-
 // The following are used by jeod_class.hh.
 // Define JEOD_CLASS_ primitives, but only if the JEOD installation
 // is not providing an alternate implementation.
 #ifndef JEOD_CLASS_IMPLEMENTATION_HEADER
 
-#define JEOD_CLASS_ESTABLISH_FRIENDS(class_name) \
-   friend class InputProcessor; \
-   friend void init_attrjeod__ ## class_name();
+#define JEOD_CLASS_ESTABLISH_FRIENDS3(ns1, ns2, class_name)                                                            \
+    friend class InputProcessor;                                                                                       \
+    friend void init_attr##ns1##__##ns2##__##class_name()
+
+#define JEOD_CLASS_ESTABLISH_FRIENDS2(ns, class_name)                                                                  \
+    friend class InputProcessor;                                                                                       \
+    friend void init_attr##ns##__##class_name()
+
+#define JEOD_CLASS_ESTABLISH_FRIENDS1(class_name)                                                                      \
+    friend class InputProcessor;                                                                                       \
+    friend void init_attr##class_name();
+
+#define JEOD_CLASS_ESTABLISH_FRIENDS(...) JEODVMACRO(JEOD_CLASS_ESTABLISH_FRIENDS, __VA_ARGS__)
 
 // FUTURE: Add JEOD_CLASS_DECLARE_FRIENDS
 #endif
-
 
 // The following are used by memory_attributes.hh.
 // Define JEOD_ATTRIBUTES_ primitives, but only if the JEOD installation
 // is not providing an alternate implementation.
 #ifndef JEOD_ATTRIBUTES_IMPLEMENTATION_HEADER
 
-#define JEOD_ATTRIBUTES_SIM_ENGINE_HEADER \
-   "sim_services/MemoryManager/include/attributes.h"
+#define JEOD_ATTRIBUTES_SIM_ENGINE_HEADER "sim_services/MemoryManager/include/attributes.h"
 #define JEOD_ATTRIBUTES_TYPE struct ATTRIBUTES_tag
 #define JEOD_ATTRIBUTES_POINTER_TYPE JEOD_ATTRIBUTES_TYPE *
 
 #endif
-
 
 // The following are used by jeod_integrator_interface.hh
 // Define JEOD_SIM_INTEGRATOR_ primitives, but only if the JEOD installation
 // is not providing an alternate implementation.
 #ifndef JEOD_SIM_INTEGRATOR_IMPLEMENTATION_HEADER
 
-#define JEOD_SIM_INTEGRATOR_SIM_ENGINE_HEADER \
-   "sim_services/Integrator/include/Integrator.hh"
-#define JEOD_SIM_INTEGRATOR_FORWARD \
-   namespace Trick { class Integrator; }
+#define JEOD_SIM_INTEGRATOR_SIM_ENGINE_HEADER "sim_services/Integrator/include/Integrator.hh"
+#define JEOD_SIM_INTEGRATOR_FORWARD                                                                                    \
+    namespace Trick                                                                                                    \
+    {                                                                                                                  \
+    class Integrator;                                                                                                  \
+    }
 #define JEOD_SIM_INTEGRATOR_POINTER_TYPE Trick::Integrator *
 #define JEOD_SIM_INTEGRATOR_ENUM Integrator_type
 
 #endif
-
 
 // Various classes nominally want to make their data members private.
 // This can be problematic for Trick checkpoint/restart for classes that
@@ -118,7 +127,6 @@ Assumptions and Limitations:
 #define JEOD_NOMINALLY_PRIVATE protected
 
 #endif
-
 
 #endif
 

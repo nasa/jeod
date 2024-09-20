@@ -63,14 +63,12 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_GRAVITY_BODY_HH
 #define JEOD_GRAVITY_BODY_HH
 
-
 // System includes
-#include <vector>
 #include <string>
+#include <vector>
 
 // JEOD includes
 #include "environment/ephemerides/ephem_interface/include/class_declarations.hh"
@@ -79,93 +77,70 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class EphemerisRefFrame;
 
 /**
- * Models the gravity for a specific planet; pure virtual.
+ * Models the gravity for a specific planet;
  */
-class GravitySource {
+class GravitySource
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GravitySource)
 
- JEOD_MAKE_SIM_INTERFACES(GravitySource)
+    // Member data
+public:
+    /**
+     * The name of the source (i.e. associated planet or planetoid)
+     * The GravitySource object, the BasePlanet derived object that points to the
+     * GravitySource object, and the EphemerisPlanet that enables populating the
+     * planetoid's inertial RefFrame object must all have the exact same name.
+     */
+    std::string name{""}; //!< trick_units(--)
 
- // Member data
- public:
-   /**
-    * The name of the source (i.e. associated planet or planetoid)
-    * The GravitySource object, the BasePlanet derived object that points to the
-    * GravitySource object, and the EphemerisPlanet that enables populating the
-    * planetoid's inertial RefFrame object must all have the exact same name.
-    */
-   std::string name; //!< trick_units(--)
+    /**
+     * The pseudo-inertial frame associated with this gravity source. Used for
+     * most basic gravity calculations
+     * planet represented by this
+     */
+    EphemerisRefFrame * inertial{}; //!< trick_units(--)
 
-   /**
-    * The pseudo-inertial frame associated with this gravity source. Used for
-    * most basic gravity calculations
-    * planet represented by this
-    */
-   EphemerisRefFrame* inertial; //!< trick_units(--)
+    /**
+     * Planetoid fixed frame. The Cartesian reference frame centered and fixed
+     * on the associated gravity source. Used for advanced (e.g. nonspherical
+     * gravity effects.
+     */
+    EphemerisRefFrame * pfix{}; //!< trick_units(--)
 
-   /**
-    * Planetoid fixed frame. The Cartesian reference frame centered and fixed
-    * on the associated gravity source. Used for advanced (e.g. nonspherical
-    * gravity effects.
-    */
-   EphemerisRefFrame* pfix; //!< trick_units(--)
+    /**
+     * The planet's standard gravitational parameter, G times planet mass.
+     */
+    double mu{}; //!< trick_units(m3/s2)
 
-   /**
-    * The planet's standard gravitational parameter, G times planet mass.
-    */
-   double mu; //!< trick_units(m3/s2)
+    /**
+     * Relative states with respect to this body, for each integration frame
+     */
+    GravityIntegFrame * frames{}; //!< trick_units(--)
 
-   /**
-    * Relative states with respect to this body, for each integration frame
-    */
-   GravityIntegFrame * frames;   //!< trick_units(--)
+public:
+    GravitySource();
+    virtual ~GravitySource();
+    GravitySource(const GravitySource &) = delete;
+    GravitySource & operator=(const GravitySource &) = delete;
 
-
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
-
-   /**
-    * Not implemented.
-    */
-   GravitySource (const GravitySource &);
-
-   /**
-    * Not implemented.
-    */
-   GravitySource & operator= (const GravitySource &);
-
-
- public:
-
-   // Default constructor
-   GravitySource ();
-
-   // Destructor
-   virtual ~GravitySource ();
-
-
-   // State initializer function
-   virtual void initialize_state (
-         const std::vector<EphemerisRefFrame *> & integ_frames,  /* In: --
-            All possible integration frames */
-         const GravityManager & gravity_manager);    /* In: -- Gravity Manager */
-
+    // State initializer function
+    virtual void initialize_state(const std::vector<EphemerisRefFrame *> & integ_frames, /* In: --
+                                    All possible integration frames */
+                                  const GravityManager & gravity_manager);               /* In: -- Gravity Manager */
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "gravity_integ_frame.hh"
 #endif
-
 
 #endif
 

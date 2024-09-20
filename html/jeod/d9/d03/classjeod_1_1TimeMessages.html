@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -45,8 +45,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::TimeMessages Class Reference</div>  </div>
@@ -58,44 +58,44 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3f2da9c1a1040a86b0a4cca3d0af95af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a3f2da9c1a1040a86b0a4cca3d0af95af">TimeMessages</a> ()=delete</td></tr>
+<tr class="separator:a3f2da9c1a1040a86b0a4cca3d0af95af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c5a41ffd0a39e8c26914803e550696b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a1c5a41ffd0a39e8c26914803e550696b">TimeMessages</a> (const <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html">TimeMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:a1c5a41ffd0a39e8c26914803e550696b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1151dcb929b0b44cc7bcc036a5c8661e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html">TimeMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a1151dcb929b0b44cc7bcc036a5c8661e">operator=</a> (const <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html">TimeMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:a1151dcb929b0b44cc7bcc036a5c8661e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a25e65d2ad0b4503c3450c434272172bf"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a25e65d2ad0b4503c3450c434272172bf">initialization_error</a></td></tr>
-<tr class="memdesc:a25e65d2ad0b4503c3450c434272172bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when intialization fails due to some non-obvious cause.  <a href="#a25e65d2ad0b4503c3450c434272172bf">More...</a><br /></td></tr>
-<tr class="separator:a25e65d2ad0b4503c3450c434272172bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6682deb6b3a6525c7129161571f7f840"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a6682deb6b3a6525c7129161571f7f840">memory_error</a></td></tr>
-<tr class="memdesc:a6682deb6b3a6525c7129161571f7f840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when system fails because something is not where it should be, or has a value other than its assumed value.  <a href="#a6682deb6b3a6525c7129161571f7f840">More...</a><br /></td></tr>
-<tr class="separator:a6682deb6b3a6525c7129161571f7f840"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38e9f646309a113f34b29007d9cbac67"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a38e9f646309a113f34b29007d9cbac67">invalid_setup_error</a></td></tr>
-<tr class="memdesc:a38e9f646309a113f34b29007d9cbac67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when user tries to use something that doesn't exist in the model.  <a href="#a38e9f646309a113f34b29007d9cbac67">More...</a><br /></td></tr>
-<tr class="separator:a38e9f646309a113f34b29007d9cbac67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85b0a821e0e3a4b3cc4dfee1a7ec3f81"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a85b0a821e0e3a4b3cc4dfee1a7ec3f81">invalid_data_error</a></td></tr>
-<tr class="memdesc:a85b0a821e0e3a4b3cc4dfee1a7ec3f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a variable is found with an illegal value.  <a href="#a85b0a821e0e3a4b3cc4dfee1a7ec3f81">More...</a><br /></td></tr>
-<tr class="separator:a85b0a821e0e3a4b3cc4dfee1a7ec3f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a307c5608eebc240dee00923595fb3fce"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a307c5608eebc240dee00923595fb3fce">invalid_node</a></td></tr>
-<tr class="memdesc:a307c5608eebc240dee00923595fb3fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a <a class="el" href="../../d6/d9a/classjeod_1_1TimeLinks.html">TimeLinks</a> node is improperly linked.  <a href="#a307c5608eebc240dee00923595fb3fce">More...</a><br /></td></tr>
-<tr class="separator:a307c5608eebc240dee00923595fb3fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52af5d7be890e8931d41edd3703aeeb9"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a52af5d7be890e8931d41edd3703aeeb9">incomplete_setup_error</a></td></tr>
-<tr class="memdesc:a52af5d7be890e8931d41edd3703aeeb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when user tries to use something that doesn't exist.n the simulation This is usually a user error, brought about by not having registered something that is later needed (e.g.  <a href="#a52af5d7be890e8931d41edd3703aeeb9">More...</a><br /></td></tr>
-<tr class="separator:a52af5d7be890e8931d41edd3703aeeb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c133576bf8da944def872b4ab22a152"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a1c133576bf8da944def872b4ab22a152">redundancy_error</a></td></tr>
-<tr class="memdesc:a1c133576bf8da944def872b4ab22a152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when some value is multiply defined, and the code cannot determine which value to use.  <a href="#a1c133576bf8da944def872b4ab22a152">More...</a><br /></td></tr>
-<tr class="separator:a1c133576bf8da944def872b4ab22a152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d9c43fdc4a663776183190217ca16ea"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a0d9c43fdc4a663776183190217ca16ea">duplicate_methods</a></td></tr>
-<tr class="memdesc:a0d9c43fdc4a663776183190217ca16ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Informational only.  <a href="#a0d9c43fdc4a663776183190217ca16ea">More...</a><br /></td></tr>
-<tr class="separator:a0d9c43fdc4a663776183190217ca16ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9d96562d2d2016bd9e17ee38a33483d"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#ac9d96562d2d2016bd9e17ee38a33483d">extension_error</a></td></tr>
-<tr class="memdesc:ac9d96562d2d2016bd9e17ee38a33483d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when some functionality relies heavily on the release architecture, and is likely to break with inconsistent extensions.  <a href="#ac9d96562d2d2016bd9e17ee38a33483d">More...</a><br /></td></tr>
-<tr class="separator:ac9d96562d2d2016bd9e17ee38a33483d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a6f667484272834603dd789d2bcce9d87"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a6f667484272834603dd789d2bcce9d87">TimeMessages</a> (void)</td></tr>
-<tr class="separator:a6f667484272834603dd789d2bcce9d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1dc73078bd8931ded3e398d6ff6a4d57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a1dc73078bd8931ded3e398d6ff6a4d57">TimeMessages</a> (const <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html">TimeMessages</a> &amp;)</td></tr>
-<tr class="separator:a1dc73078bd8931ded3e398d6ff6a4d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af74fd1ce2da87e88fca39ee4badeec68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html">TimeMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#af74fd1ce2da87e88fca39ee4badeec68">operator=</a> (const <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html">TimeMessages</a> &amp;)</td></tr>
-<tr class="separator:af74fd1ce2da87e88fca39ee4badeec68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2fe3606e1f447e7cc1b84473aeab573"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#ac2fe3606e1f447e7cc1b84473aeab573">initialization_error</a> = &quot;environment/time/&quot; &quot;initialization_error&quot;</td></tr>
+<tr class="memdesc:ac2fe3606e1f447e7cc1b84473aeab573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when intialization fails due to some non-obvious cause.  <a href="#ac2fe3606e1f447e7cc1b84473aeab573">More...</a><br /></td></tr>
+<tr class="separator:ac2fe3606e1f447e7cc1b84473aeab573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62bd05540b33e7283a5e54ac5d5c4c65"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a62bd05540b33e7283a5e54ac5d5c4c65">memory_error</a> = &quot;environment/time/&quot; &quot;memory_error&quot;</td></tr>
+<tr class="memdesc:a62bd05540b33e7283a5e54ac5d5c4c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when system fails because something is not where it should be, or has a value other than its assumed value.  <a href="#a62bd05540b33e7283a5e54ac5d5c4c65">More...</a><br /></td></tr>
+<tr class="separator:a62bd05540b33e7283a5e54ac5d5c4c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a2b83480fc4ad3d07836f3b57f2825b"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a3a2b83480fc4ad3d07836f3b57f2825b">invalid_setup_error</a> = &quot;environment/time/&quot; &quot;invalid_setup_error&quot;</td></tr>
+<tr class="memdesc:a3a2b83480fc4ad3d07836f3b57f2825b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when user tries to use something that doesn't exist in the model.  <a href="#a3a2b83480fc4ad3d07836f3b57f2825b">More...</a><br /></td></tr>
+<tr class="separator:a3a2b83480fc4ad3d07836f3b57f2825b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6c981a23dd591d90f004388690bf823"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#aa6c981a23dd591d90f004388690bf823">invalid_data_error</a> = &quot;environment/time/&quot; &quot;invalid_data_error&quot;</td></tr>
+<tr class="memdesc:aa6c981a23dd591d90f004388690bf823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a variable is found with an illegal value.  <a href="#aa6c981a23dd591d90f004388690bf823">More...</a><br /></td></tr>
+<tr class="separator:aa6c981a23dd591d90f004388690bf823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a0d109dc99e46d8a426cb045c85e1a9"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a1a0d109dc99e46d8a426cb045c85e1a9">invalid_node</a> = &quot;environment/time/&quot; &quot;invalid_node&quot;</td></tr>
+<tr class="memdesc:a1a0d109dc99e46d8a426cb045c85e1a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a <a class="el" href="../../d6/d9a/classjeod_1_1TimeLinks.html">TimeLinks</a> node is improperly linked.  <a href="#a1a0d109dc99e46d8a426cb045c85e1a9">More...</a><br /></td></tr>
+<tr class="separator:a1a0d109dc99e46d8a426cb045c85e1a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add6975907f8950adc46d6d9299b21af6"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#add6975907f8950adc46d6d9299b21af6">incomplete_setup_error</a> = &quot;environment/time/&quot; &quot;incomplete_setup_error&quot;</td></tr>
+<tr class="memdesc:add6975907f8950adc46d6d9299b21af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when user tries to use something that doesn't exist.n the simulation This is usually a user error, brought about by not having registered something that is later needed (e.g.  <a href="#add6975907f8950adc46d6d9299b21af6">More...</a><br /></td></tr>
+<tr class="separator:add6975907f8950adc46d6d9299b21af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab767dc618ff62e9b9552459b3c3580c4"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#ab767dc618ff62e9b9552459b3c3580c4">redundancy_error</a> = &quot;environment/time/&quot; &quot;redundancy_error&quot;</td></tr>
+<tr class="memdesc:ab767dc618ff62e9b9552459b3c3580c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when some value is multiply defined, and the code cannot determine which value to use.  <a href="#ab767dc618ff62e9b9552459b3c3580c4">More...</a><br /></td></tr>
+<tr class="separator:ab767dc618ff62e9b9552459b3c3580c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dca69a921961b0a58ff35d60d49d0f1"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a9dca69a921961b0a58ff35d60d49d0f1">duplicate_methods</a> = &quot;environment/time/&quot; &quot;duplicate_methods&quot;</td></tr>
+<tr class="memdesc:a9dca69a921961b0a58ff35d60d49d0f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Informational only.  <a href="#a9dca69a921961b0a58ff35d60d49d0f1">More...</a><br /></td></tr>
+<tr class="separator:a9dca69a921961b0a58ff35d60d49d0f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10d6a9989d21cfc7db3e183807018a47"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a10d6a9989d21cfc7db3e183807018a47">extension_error</a> = &quot;environment/time/&quot; &quot;extension_error&quot;</td></tr>
+<tr class="memdesc:a10d6a9989d21cfc7db3e183807018a47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when some functionality relies heavily on the release architecture, and is likely to break with inconsistent extensions.  <a href="#a10d6a9989d21cfc7db3e183807018a47">More...</a><br /></td></tr>
+<tr class="separator:a10d6a9989d21cfc7db3e183807018a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -107,10 +107,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Specify the message IDs used in the Time model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00082">82</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6f667484272834603dd789d2bcce9d87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f667484272834603dd789d2bcce9d87">&#9670;&nbsp;</a></span>TimeMessages() <span class="overload">[1/2]</span></h2>
+<a id="a3f2da9c1a1040a86b0a4cca3d0af95af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2da9c1a1040a86b0a4cca3d0af95af">&#9670;&nbsp;</a></span>TimeMessages() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -121,22 +121,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::TimeMessages::TimeMessages </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1dc73078bd8931ded3e398d6ff6a4d57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dc73078bd8931ded3e398d6ff6a4d57">&#9670;&nbsp;</a></span>TimeMessages() <span class="overload">[2/2]</span></h2>
+<a id="a1c5a41ffd0a39e8c26914803e550696b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c5a41ffd0a39e8c26914803e550696b">&#9670;&nbsp;</a></span>TimeMessages() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +153,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -162,8 +161,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af74fd1ce2da87e88fca39ee4badeec68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af74fd1ce2da87e88fca39ee4badeec68">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a1151dcb929b0b44cc7bcc036a5c8661e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1151dcb929b0b44cc7bcc036a5c8661e">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +180,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -234,13 +233,13 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00087">87</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a id="a0d9c43fdc4a663776183190217ca16ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d9c43fdc4a663776183190217ca16ea">&#9670;&nbsp;</a></span>duplicate_methods</h2>
+<a id="a9dca69a921961b0a58ff35d60d49d0f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dca69a921961b0a58ff35d60d49d0f1">&#9670;&nbsp;</a></span>duplicate_methods</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +248,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::duplicate_methods</td>
+          <td class="memname">const char * jeod::TimeMessages::duplicate_methods = &quot;environment/time/&quot; &quot;duplicate_methods&quot;</td>
         </tr>
       </table>
   </td>
@@ -258,18 +257,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;duplicate_methods&quot;</span></div></div><!-- fragment -->
+
 <p>Informational only. </p>
 <p>Issued when there are multiple equivalent methods for doing something, and one method is chosen over another. Wherever the code fills in data to accommodate, it sends this informational broadcast.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00146">146</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00140">140</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a34979e786aad1a0e10574ab3cc5e6b18">jeod::TimeUDE::initialize_initializer_time()</a>.</p>
 
 </div>
 </div>
-<a id="ac9d96562d2d2016bd9e17ee38a33483d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9d96562d2d2016bd9e17ee38a33483d">&#9670;&nbsp;</a></span>extension_error</h2>
+<a id="a10d6a9989d21cfc7db3e183807018a47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10d6a9989d21cfc7db3e183807018a47">&#9670;&nbsp;</a></span>extension_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +277,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::extension_error</td>
+          <td class="memname">const char * jeod::TimeMessages::extension_error = &quot;environment/time/&quot; &quot;extension_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -287,16 +286,16 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;extension_error&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when some functionality relies heavily on the release architecture, and is likely to break with inconsistent extensions. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00152">152</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00146">146</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
 </div>
 </div>
-<a id="a52af5d7be890e8931d41edd3703aeeb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52af5d7be890e8931d41edd3703aeeb9">&#9670;&nbsp;</a></span>incomplete_setup_error</h2>
+<a id="add6975907f8950adc46d6d9299b21af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add6975907f8950adc46d6d9299b21af6">&#9670;&nbsp;</a></span>incomplete_setup_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -305,7 +304,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::incomplete_setup_error</td>
+          <td class="memname">const char * jeod::TimeMessages::incomplete_setup_error = &quot;environment/time/&quot; &quot;incomplete_setup_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -314,18 +313,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;incomplete_setup_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when user tries to use something that doesn't exist.n the simulation This is usually a user error, brought about by not having registered something that is later needed (e.g. </p>
 <p>not registering a TAI-UTC converter, but specifying that UTC updates from TAI). Note the distinction between invalid (typically, cannot exist) and incomplete (typically, did not define)trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00132">132</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00126">126</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a51952e7803bb37a628faa58273e9c95f">jeod::TimeStandard::add_type_initialize()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a6533176127bb1646a12649a2ef993c8a">jeod::TimeUDE::add_type_initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a60d03fddc7214a3c69621572e3950092">jeod::TimeUDE::convert_epoch_to_update()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#af2e74033928b3832a58832555df3e9db">jeod::TimeManagerInit::create_update_tree()</a>, <a class="el" href="../../d6/d1f/classjeod_1_1TimeConverter__Dyn__UDE.html#aec4ff7f06af9413ef994f7be494cb377">jeod::TimeConverter_Dyn_UDE::initialize()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a980ccc987fc3e0eba0241dea79baeda4">jeod::TimeStandard::initialize_from_parent()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#af51fed277ccfaae4f3e0a40826016413">jeod::TimeUDE::initialize_from_parent()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a34979e786aad1a0e10574ab3cc5e6b18">jeod::TimeUDE::initialize_initializer_time()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ae45646d00d6600e498cab87203fd58b6">jeod::TimeManager::register_converter()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a39008143445e21cd19dcebf90d0bfec8">jeod::TimeUDE::set_epoch_dyn()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#acb550d9ea816459a2f870bfefa63f023">jeod::TimeUDE::set_epoch_ude()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ad57da7ebc9b75422a52cd6ce207a955a">jeod::TimeUDE::set_initial_times()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ab482f5000bb64b1970e11b56110a9141">jeod::TimeUDE::verify_epoch()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a0b2f92fe50e827e5d1ba539eaffd8957">jeod::TimeManagerInit::verify_times_setup()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#abd214a829ab19f36761d58e0cfdf5c4b">jeod::TimeUDE::verify_update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a51952e7803bb37a628faa58273e9c95f">jeod::TimeStandard::add_type_initialize()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a6533176127bb1646a12649a2ef993c8a">jeod::TimeUDE::add_type_initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a60d03fddc7214a3c69621572e3950092">jeod::TimeUDE::convert_epoch_to_update()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#aa882c0577598578e7627854f6275e70d">jeod::TimeManagerInit::create_update_tree()</a>, <a class="el" href="../../d6/d1f/classjeod_1_1TimeConverter__Dyn__UDE.html#aec4ff7f06af9413ef994f7be494cb377">jeod::TimeConverter_Dyn_UDE::initialize()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a980ccc987fc3e0eba0241dea79baeda4">jeod::TimeStandard::initialize_from_parent()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#af51fed277ccfaae4f3e0a40826016413">jeod::TimeUDE::initialize_from_parent()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a34979e786aad1a0e10574ab3cc5e6b18">jeod::TimeUDE::initialize_initializer_time()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ae45646d00d6600e498cab87203fd58b6">jeod::TimeManager::register_converter()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a39008143445e21cd19dcebf90d0bfec8">jeod::TimeUDE::set_epoch_dyn()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#acb550d9ea816459a2f870bfefa63f023">jeod::TimeUDE::set_epoch_ude()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a0178528e30a73c23e8cf5a4546cba807">jeod::TimeUDE::set_initial_times()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#abf93857e2689e39bb8521127e29dd93d">jeod::TimeUDE::verify_epoch()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a4234b9a4c533f7c6be8f2dc76a592899">jeod::TimeManagerInit::verify_times_setup()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a9d8c699e588e1582f0311868b4e793da">jeod::TimeUDE::verify_update()</a>.</p>
 
 </div>
 </div>
-<a id="a25e65d2ad0b4503c3450c434272172bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25e65d2ad0b4503c3450c434272172bf">&#9670;&nbsp;</a></span>initialization_error</h2>
+<a id="ac2fe3606e1f447e7cc1b84473aeab573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2fe3606e1f447e7cc1b84473aeab573">&#9670;&nbsp;</a></span>initialization_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,7 +333,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::initialization_error</td>
+          <td class="memname">const char * jeod::TimeMessages::initialization_error = &quot;environment/time/&quot; &quot;initialization_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -343,18 +342,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;initialization_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when intialization fails due to some non-obvious cause. </p>
 <p>This error is likely due to an algorithm flaw.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00097">97</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00091">91</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a572556546e9aad10961154127d43f50b">jeod::TimeManagerInit::create_init_tree()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#af2e74033928b3832a58832555df3e9db">jeod::TimeManagerInit::create_update_tree()</a>, <a class="el" href="../../d0/de3/classjeod_1_1TimeConverter__Dyn__TAI.html#a5a82b0b2a90caaaddd491f2cd855822e">jeod::TimeConverter_Dyn_TAI::initialize()</a>, <a class="el" href="../../d2/d52/classjeod_1_1TimeConverter__Dyn__TDB.html#a50299091c592ca50f659221d35e9e81d">jeod::TimeConverter_Dyn_TDB::initialize()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a1fdea53e13e9edacd7837df9e90259f9">jeod::TimeConverter_TAI_UTC::initialize()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#ab1c05f2e2bd24401f12ad606e42a0536">jeod::TimeConverter_TAI_UT1::initialize()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a980ccc987fc3e0eba0241dea79baeda4">jeod::TimeStandard::initialize_from_parent()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#af51fed277ccfaae4f3e0a40826016413">jeod::TimeUDE::initialize_from_parent()</a>, and <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#af41ed0522bb2b7e63ce396c144dcd1a8">jeod::TimeConverter::verify_setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a78e26c4be99e74a126485d9dd98c3f4b">jeod::TimeManagerInit::create_init_tree()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#aa882c0577598578e7627854f6275e70d">jeod::TimeManagerInit::create_update_tree()</a>, <a class="el" href="../../d0/de3/classjeod_1_1TimeConverter__Dyn__TAI.html#a5a82b0b2a90caaaddd491f2cd855822e">jeod::TimeConverter_Dyn_TAI::initialize()</a>, <a class="el" href="../../d2/d52/classjeod_1_1TimeConverter__Dyn__TDB.html#a50299091c592ca50f659221d35e9e81d">jeod::TimeConverter_Dyn_TDB::initialize()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a1fdea53e13e9edacd7837df9e90259f9">jeod::TimeConverter_TAI_UTC::initialize()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#ab1c05f2e2bd24401f12ad606e42a0536">jeod::TimeConverter_TAI_UT1::initialize()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a980ccc987fc3e0eba0241dea79baeda4">jeod::TimeStandard::initialize_from_parent()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#af51fed277ccfaae4f3e0a40826016413">jeod::TimeUDE::initialize_from_parent()</a>, and <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#af41ed0522bb2b7e63ce396c144dcd1a8">jeod::TimeConverter::verify_setup()</a>.</p>
 
 </div>
 </div>
-<a id="a85b0a821e0e3a4b3cc4dfee1a7ec3f81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85b0a821e0e3a4b3cc4dfee1a7ec3f81">&#9670;&nbsp;</a></span>invalid_data_error</h2>
+<a id="aa6c981a23dd591d90f004388690bf823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6c981a23dd591d90f004388690bf823">&#9670;&nbsp;</a></span>invalid_data_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,7 +362,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::invalid_data_error</td>
+          <td class="memname">const char * jeod::TimeMessages::invalid_data_error = &quot;environment/time/&quot; &quot;invalid_data_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -372,18 +371,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;invalid_data_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when a variable is found with an illegal value. </p>
 <p>This is usually a user error, having set some value externally to some unrecognizable value.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00117">117</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00111">111</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#a923ab4613aa362e45c7181739809d9bd">jeod::TimeGMST::calculate_calendar_values()</a>, <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#af51ec7683441a14467a6f6355a37bcd3">jeod::TimeGPS::calculate_calendar_values()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a889d8d992b3aae0eae3b1eee14e1988b">jeod::TimeConverter_TAI_UTC::convert_a_to_b()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a4a6abafd30a21a9f1ee8b55fc3f6e416">jeod::TimeConverter_TAI_UT1::convert_a_to_b()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a1b67b964ae4bc743c0d0a6053af51e9c">jeod::TimeConverter_TAI_UTC::convert_b_to_a()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a326b6ffd4e52f77eb7aec7ff9b85003a">jeod::TimeConverter_TAI_UT1::convert_b_to_a()</a>, <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a2b93ffd0506bf0950222a09501c8d1ef">jeod::TimeGPS::convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a81e0e5f7231f1212ec749449f210f4d3">jeod::TimeConverter_TAI_UTC::initialize_leap_second()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a931b21126c22aad4610dc54d20bbbeb6">jeod::TimeConverter_TAI_UT1::initialize_tai_to_ut1()</a>, and <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#a85e4051cbd822ae52048a35059bde7d0">jeod::TimeGMST::set_time_by_trunc_julian()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#a8f88892da561dc28be3e73198a00e218">jeod::TimeGMST::calculate_calendar_values()</a>, <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a661d19744d8b6c0f8a6a9886c3f7845f">jeod::TimeGPS::calculate_calendar_values()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a8ba03a844394bb00bf4bc5b1dbc2518a">jeod::TimeConverter_TAI_UTC::convert_a_to_b()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a3f1c7d91e3f5c70f37ad1ca7fd620406">jeod::TimeConverter_TAI_UT1::convert_a_to_b()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a23f870b7b406f5b26ef993f8a43587fe">jeod::TimeConverter_TAI_UTC::convert_b_to_a()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a2a3b430335d3213a7e8bbd42d6592489">jeod::TimeConverter_TAI_UT1::convert_b_to_a()</a>, <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a703feeff5a359d48fa635c736a069974">jeod::TimeGPS::convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a0d3d8cc03d603297122bc3622e1a6e3a">jeod::TimeConverter_TAI_UTC::initialize_leap_second()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a0cbd510fe422b6d3a45e29e4fbe0781d">jeod::TimeConverter_TAI_UT1::initialize_tai_to_ut1()</a>, and <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#a85e4051cbd822ae52048a35059bde7d0">jeod::TimeGMST::set_time_by_trunc_julian()</a>.</p>
 
 </div>
 </div>
-<a id="a307c5608eebc240dee00923595fb3fce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a307c5608eebc240dee00923595fb3fce">&#9670;&nbsp;</a></span>invalid_node</h2>
+<a id="a1a0d109dc99e46d8a426cb045c85e1a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a0d109dc99e46d8a426cb045c85e1a9">&#9670;&nbsp;</a></span>invalid_node</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -392,7 +391,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::invalid_node</td>
+          <td class="memname">const char * jeod::TimeMessages::invalid_node = &quot;environment/time/&quot; &quot;invalid_node&quot;</td>
         </tr>
       </table>
   </td>
@@ -401,18 +400,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;invalid_node&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a <a class="el" href="../../d6/d9a/classjeod_1_1TimeLinks.html">TimeLinks</a> node is improperly linked. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00122">122</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00116">116</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>.</p>
 
 </div>
 </div>
-<a id="a38e9f646309a113f34b29007d9cbac67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38e9f646309a113f34b29007d9cbac67">&#9670;&nbsp;</a></span>invalid_setup_error</h2>
+<a id="a3a2b83480fc4ad3d07836f3b57f2825b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a2b83480fc4ad3d07836f3b57f2825b">&#9670;&nbsp;</a></span>invalid_setup_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -421,7 +420,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::invalid_setup_error</td>
+          <td class="memname">const char * jeod::TimeMessages::invalid_setup_error = &quot;environment/time/&quot; &quot;invalid_setup_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -430,18 +429,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;invalid_setup_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when user tries to use something that doesn't exist in the model. </p>
 <p>This is usually a user error. Note the distinction between invalid and incompletetrick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00110">110</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a51952e7803bb37a628faa58273e9c95f">jeod::TimeStandard::add_type_initialize()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a6533176127bb1646a12649a2ef993c8a">jeod::TimeUDE::add_type_initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ade68697f1641cb50a801bd4d141d2c74">jeod::JeodBaseTime::add_type_initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#a9b8c51be89c2e5c262569067a7adc6a2">jeod::TimeConverter::convert_a_to_b()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#abdf992868197a3c3d1afb8055b6b9b2b">jeod::TimeConverter::convert_b_to_a()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a572556546e9aad10961154127d43f50b">jeod::TimeManagerInit::create_init_tree()</a>, <a class="el" href="../../d7/d63/classjeod_1_1TimeConverter__TAI__TT.html#ab54d8ddb384ccb4a8baa73c6917c9446">jeod::TimeConverter_TAI_TT::initialize()</a>, <a class="el" href="../../d5/da5/classjeod_1_1TimeConverter__UT1__GMST.html#ae1fe133b52ba51827743aa2aaff71d4c">jeod::TimeConverter_UT1_GMST::initialize()</a>, <a class="el" href="../../d1/d73/classjeod_1_1TimeConverter__TAI__GPS.html#ae7a0901a0a8ae44eb29686da538b9d25">jeod::TimeConverter_TAI_GPS::initialize()</a>, <a class="el" href="../../d0/de3/classjeod_1_1TimeConverter__Dyn__TAI.html#a5a82b0b2a90caaaddd491f2cd855822e">jeod::TimeConverter_Dyn_TAI::initialize()</a>, <a class="el" href="../../d2/d52/classjeod_1_1TimeConverter__Dyn__TDB.html#a50299091c592ca50f659221d35e9e81d">jeod::TimeConverter_Dyn_TDB::initialize()</a>, <a class="el" href="../../d6/d1f/classjeod_1_1TimeConverter__Dyn__UDE.html#aec4ff7f06af9413ef994f7be494cb377">jeod::TimeConverter_Dyn_UDE::initialize()</a>, <a class="el" href="../../d4/d26/classjeod_1_1TimeConverter__STD__UDE.html#a3737d89de6ea0e7d028481b57484e90b">jeod::TimeConverter_STD_UDE::initialize()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a37674aef46341cb89d18cd49a72a3833">jeod::TimeConverter_TAI_TDB::initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3fbf7deabb24f2c0a4e45237c9a5e913">jeod::JeodBaseTime::initialize_from_parent()</a>, <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html#afe830194ce729d5b6fc2781d63bc77aa">jeod::TimeDyn::initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a34979e786aad1a0e10574ab3cc5e6b18">jeod::TimeUDE::initialize_initializer_time()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a81e0e5f7231f1212ec749449f210f4d3">jeod::TimeConverter_TAI_UTC::initialize_leap_second()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a39008143445e21cd19dcebf90d0bfec8">jeod::TimeUDE::set_epoch_dyn()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ade8d62ae526d7e535f39126b09a63707">jeod::TimeUDE::set_epoch_initializing_value()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ae9f339ddc14133ec2da4c28294a59700">jeod::TimeUDE::set_epoch_times()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#acb550d9ea816459a2f870bfefa63f023">jeod::TimeUDE::set_epoch_ude()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ad57da7ebc9b75422a52cd6ce207a955a">jeod::TimeUDE::set_initial_times()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#af09c4f2f988b494a8eae5ee87663a87d">jeod::TimeManager::time_lookup()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a9acb49a1e37f25a9bd398137107bbcac">jeod::TimeManagerInit::verify_converter_setup()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ab482f5000bb64b1970e11b56110a9141">jeod::TimeUDE::verify_epoch()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#af41ed0522bb2b7e63ce396c144dcd1a8">jeod::TimeConverter::verify_setup()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a0b2f92fe50e827e5d1ba539eaffd8957">jeod::TimeManagerInit::verify_times_setup()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#abd214a829ab19f36761d58e0cfdf5c4b">jeod::TimeUDE::verify_update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a51952e7803bb37a628faa58273e9c95f">jeod::TimeStandard::add_type_initialize()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a6533176127bb1646a12649a2ef993c8a">jeod::TimeUDE::add_type_initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ade68697f1641cb50a801bd4d141d2c74">jeod::JeodBaseTime::add_type_initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#a91e7bac121d779831d92345a4ef4a58c">jeod::TimeConverter::convert_a_to_b()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#aa32883c839ba3638e3f0555378ea94a4">jeod::TimeConverter::convert_b_to_a()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a78e26c4be99e74a126485d9dd98c3f4b">jeod::TimeManagerInit::create_init_tree()</a>, <a class="el" href="../../d7/d63/classjeod_1_1TimeConverter__TAI__TT.html#ab54d8ddb384ccb4a8baa73c6917c9446">jeod::TimeConverter_TAI_TT::initialize()</a>, <a class="el" href="../../d5/da5/classjeod_1_1TimeConverter__UT1__GMST.html#ae1fe133b52ba51827743aa2aaff71d4c">jeod::TimeConverter_UT1_GMST::initialize()</a>, <a class="el" href="../../d1/d73/classjeod_1_1TimeConverter__TAI__GPS.html#ae7a0901a0a8ae44eb29686da538b9d25">jeod::TimeConverter_TAI_GPS::initialize()</a>, <a class="el" href="../../d0/de3/classjeod_1_1TimeConverter__Dyn__TAI.html#a5a82b0b2a90caaaddd491f2cd855822e">jeod::TimeConverter_Dyn_TAI::initialize()</a>, <a class="el" href="../../d2/d52/classjeod_1_1TimeConverter__Dyn__TDB.html#a50299091c592ca50f659221d35e9e81d">jeod::TimeConverter_Dyn_TDB::initialize()</a>, <a class="el" href="../../d6/d1f/classjeod_1_1TimeConverter__Dyn__UDE.html#aec4ff7f06af9413ef994f7be494cb377">jeod::TimeConverter_Dyn_UDE::initialize()</a>, <a class="el" href="../../d4/d26/classjeod_1_1TimeConverter__STD__UDE.html#a3737d89de6ea0e7d028481b57484e90b">jeod::TimeConverter_STD_UDE::initialize()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a37674aef46341cb89d18cd49a72a3833">jeod::TimeConverter_TAI_TDB::initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3fbf7deabb24f2c0a4e45237c9a5e913">jeod::JeodBaseTime::initialize_from_parent()</a>, <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html#afe830194ce729d5b6fc2781d63bc77aa">jeod::TimeDyn::initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a34979e786aad1a0e10574ab3cc5e6b18">jeod::TimeUDE::initialize_initializer_time()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a0d3d8cc03d603297122bc3622e1a6e3a">jeod::TimeConverter_TAI_UTC::initialize_leap_second()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a39008143445e21cd19dcebf90d0bfec8">jeod::TimeUDE::set_epoch_dyn()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ade8d62ae526d7e535f39126b09a63707">jeod::TimeUDE::set_epoch_initializing_value()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ae9f339ddc14133ec2da4c28294a59700">jeod::TimeUDE::set_epoch_times()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#acb550d9ea816459a2f870bfefa63f023">jeod::TimeUDE::set_epoch_ude()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a0178528e30a73c23e8cf5a4546cba807">jeod::TimeUDE::set_initial_times()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#af09c4f2f988b494a8eae5ee87663a87d">jeod::TimeManager::time_lookup()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#aa89b3111192b8e465f8aaf7d07c0eeab">jeod::TimeManagerInit::verify_converter_setup()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#abf93857e2689e39bb8521127e29dd93d">jeod::TimeUDE::verify_epoch()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#af41ed0522bb2b7e63ce396c144dcd1a8">jeod::TimeConverter::verify_setup()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a4234b9a4c533f7c6be8f2dc76a592899">jeod::TimeManagerInit::verify_times_setup()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a9d8c699e588e1582f0311868b4e793da">jeod::TimeUDE::verify_update()</a>.</p>
 
 </div>
 </div>
-<a id="a6682deb6b3a6525c7129161571f7f840"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6682deb6b3a6525c7129161571f7f840">&#9670;&nbsp;</a></span>memory_error</h2>
+<a id="a62bd05540b33e7283a5e54ac5d5c4c65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62bd05540b33e7283a5e54ac5d5c4c65">&#9670;&nbsp;</a></span>memory_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -450,7 +449,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::memory_error</td>
+          <td class="memname">const char * jeod::TimeMessages::memory_error = &quot;environment/time/&quot; &quot;memory_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -459,18 +458,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;memory_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when system fails because something is not where it should be, or has a value other than its assumed value. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00103">103</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00097">97</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a980ccc987fc3e0eba0241dea79baeda4">jeod::TimeStandard::initialize_from_parent()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ad57da7ebc9b75422a52cd6ce207a955a">jeod::TimeUDE::set_initial_times()</a>, and <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a595573fc0956e57c4dd293a75261ea1c">jeod::JeodBaseTime::update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a980ccc987fc3e0eba0241dea79baeda4">jeod::TimeStandard::initialize_from_parent()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a0178528e30a73c23e8cf5a4546cba807">jeod::TimeUDE::set_initial_times()</a>, and <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ab18d6616f2d9e6b02e21559bec0d15ff">jeod::JeodBaseTime::update()</a>.</p>
 
 </div>
 </div>
-<a id="a1c133576bf8da944def872b4ab22a152"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c133576bf8da944def872b4ab22a152">&#9670;&nbsp;</a></span>redundancy_error</h2>
+<a id="ab767dc618ff62e9b9552459b3c3580c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab767dc618ff62e9b9552459b3c3580c4">&#9670;&nbsp;</a></span>redundancy_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -479,7 +478,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::TimeMessages::redundancy_error</td>
+          <td class="memname">const char * jeod::TimeMessages::redundancy_error = &quot;environment/time/&quot; &quot;redundancy_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -488,13 +487,13 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;environment/time/&quot;</span>  <span class="stringliteral">&quot;redundancy_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when some value is multiply defined, and the code cannot determine which value to use. </p>
 <p>Usually a user-error, from attempting to use too many of the initialization options simultaneously.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00139">139</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/time__messages_8hh_source.html#l00133">133</a> of file <a class="el" href="../../d8/dd2/time__messages_8hh_source.html">time_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#af51fed277ccfaae4f3e0a40826016413">jeod::TimeUDE::initialize_from_parent()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a94c1541eb9a9f80f706ade347505d1ce">jeod::TimeManagerInit::populate_converter_registry()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ae45646d00d6600e498cab87203fd58b6">jeod::TimeManager::register_converter()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ab4377b2b6bb49d86a7065fb6442fdae9">jeod::TimeManager::register_time()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a39008143445e21cd19dcebf90d0bfec8">jeod::TimeUDE::set_epoch_dyn()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ad57da7ebc9b75422a52cd6ce207a955a">jeod::TimeUDE::set_initial_times()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#ab482f5000bb64b1970e11b56110a9141">jeod::TimeUDE::verify_epoch()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a8e459bfb5adc53779b6df0c0e9f1f18c">jeod::TimeUDE::verify_init()</a>, and <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a0b2f92fe50e827e5d1ba539eaffd8957">jeod::TimeManagerInit::verify_times_setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#af51fed277ccfaae4f3e0a40826016413">jeod::TimeUDE::initialize_from_parent()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">jeod::TimeStandard::initialize_initializer_time()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a60c3c7a70694226411f77f040831b332">jeod::TimeManagerInit::populate_converter_registry()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ae45646d00d6600e498cab87203fd58b6">jeod::TimeManager::register_converter()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ab4377b2b6bb49d86a7065fb6442fdae9">jeod::TimeManager::register_time()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a39008143445e21cd19dcebf90d0bfec8">jeod::TimeUDE::set_epoch_dyn()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a0178528e30a73c23e8cf5a4546cba807">jeod::TimeUDE::set_initial_times()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#abf93857e2689e39bb8521127e29dd93d">jeod::TimeUDE::verify_epoch()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a0dfcc94e2c3292c2021819864d69e47d">jeod::TimeUDE::verify_init()</a>, and <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a4234b9a4c533f7c6be8f2dc76a592899">jeod::TimeManagerInit::verify_times_setup()</a>.</p>
 
 </div>
 </div>

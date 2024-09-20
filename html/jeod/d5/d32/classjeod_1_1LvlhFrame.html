@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -49,7 +49,6 @@ $(function() {
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
@@ -66,38 +65,41 @@ Collaboration diagram for jeod::LvlhFrame:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d19/classjeod_1_1LvlhFrame__coll__graph.png" border="0" usemap="#jeod_1_1LvlhFrame_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1LvlhFrame_coll__map" id="jeod_1_1LvlhFrame_coll__map">
-<area shape="rect" id="node2" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="1797,693,1925,720"/>
-<area shape="rect" id="node3" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="1453,770,1632,811"/>
-<area shape="rect" id="node4" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="265,735,424,761"/>
-<area shape="rect" id="node19" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="555,804,663,831"/>
-<area shape="rect" id="node20" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="779,901,895,928"/>
-<area shape="rect" id="node5" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="5,611,216,637"/>
-<area shape="rect" id="node6" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="1453,519,1633,545"/>
-<area shape="rect" id="node7" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="1089,336,1251,363"/>
-<area shape="rect" id="node8" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="781,229,893,256"/>
-<area shape="rect" id="node9" title="STL class. " alt="" coords="569,229,649,256"/>
-<area shape="rect" id="node26" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="1109,901,1231,928"/>
-<area shape="rect" id="node10" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="1087,635,1253,677"/>
-<area shape="rect" id="node11" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="1071,387,1269,429"/>
-<area shape="rect" id="node12" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="1075,453,1265,494"/>
-<area shape="rect" id="node13" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="1090,570,1250,611"/>
-<area shape="rect" id="node14" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="1451,203,1634,229"/>
-<area shape="rect" id="node15" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="1087,168,1253,195"/>
-<area shape="rect" id="node16" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="1449,376,1637,403"/>
-<area shape="rect" id="node21" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="1469,301,1616,328"/>
-<area shape="rect" id="node22" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="1089,219,1251,261"/>
-<area shape="rect" id="node24" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="1083,835,1257,877"/>
+<area shape="rect" id="node2" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="2191,464,2331,491"/>
+<area shape="rect" id="node3" href="../../d2/de4/classjeod_1_1JeodIntegrationGroupOwner.html" title="The abstract class IntegrationGroupOwner contains an IntegrationGroup. " alt="" coords="1819,427,2015,469"/>
+<area shape="rect" id="node4" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="292,576,464,603"/>
+<area shape="rect" id="node19" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="688,659,805,685"/>
+<area shape="rect" id="node20" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1047,620,1171,647"/>
+<area shape="rect" id="node5" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="5,389,236,416"/>
+<area shape="rect" id="node6" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. " alt="" coords="1414,275,1613,301"/>
+<area shape="rect" id="node7" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="1022,519,1197,545"/>
+<area shape="rect" id="node8" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="687,157,806,184"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="335,157,421,184"/>
+<area shape="rect" id="node14" href="../../d1/d79/classjeod_1_1SinglePointEphemeris.html" title="A SinglePointEphemeris has one ephemeris point. " alt="" coords="647,101,847,128"/>
+<area shape="rect" id="node26" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. " alt="" coords="1447,599,1579,625"/>
+<area shape="rect" id="node10" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="1016,322,1203,363"/>
+<area shape="rect" id="node11" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="1000,387,1219,429"/>
+<area shape="rect" id="node12" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="1002,453,1217,494"/>
+<area shape="rect" id="node13" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="1023,257,1196,298"/>
+<area shape="rect" id="node15" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="285,5,471,32"/>
+<area shape="rect" id="node16" href="../../d6/dbe/classjeod_1_1JeodIntegratorInterface.html" title="A JeodIntegratorInterface extends the ER7 IntegratorInterface with the concept of a pointer to the si..." alt="" coords="1813,325,2021,352"/>
+<area shape="rect" id="node21" href="../../de/d78/classjeod_1_1GravityManager.html" title="The master gravitational model for a simulation. " alt="" coords="1836,376,1999,403"/>
+<area shape="rect" id="node22" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravitySource \&gt;" alt="" coords="1423,377,1603,418"/>
+<area shape="rect" id="node24" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html" title=" A DynamicsIntegrationGroup integrates the state of a set of DynBoby objects over time..." alt="" coords="1416,519,1611,561"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a69f02a4e498ccfe93070adf94d215fc3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a69f02a4e498ccfe93070adf94d215fc3">LvlhFrame</a> ()</td></tr>
-<tr class="memdesc:a69f02a4e498ccfe93070adf94d215fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. ">LvlhFrame</a> object.  <a href="#a69f02a4e498ccfe93070adf94d215fc3">More...</a><br /></td></tr>
-<tr class="separator:a69f02a4e498ccfe93070adf94d215fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23933aa87ff239e4857f8a676145b290"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a23933aa87ff239e4857f8a676145b290">LvlhFrame</a> ()=default</td></tr>
+<tr class="separator:a23933aa87ff239e4857f8a676145b290"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8d3f680f782d5853fe6d91439196058"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae8d3f680f782d5853fe6d91439196058">~LvlhFrame</a> ()</td></tr>
 <tr class="memdesc:ae8d3f680f782d5853fe6d91439196058"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. ">LvlhFrame</a> object.  <a href="#ae8d3f680f782d5853fe6d91439196058">More...</a><br /></td></tr>
 <tr class="separator:ae8d3f680f782d5853fe6d91439196058"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9795a4310633c387100bd0c35e06155a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a9795a4310633c387100bd0c35e06155a">LvlhFrame</a> (const <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html">LvlhFrame</a> &amp;)=delete</td></tr>
+<tr class="separator:a9795a4310633c387100bd0c35e06155a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca31a1f2fa624f740f3acba371a79483"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html">LvlhFrame</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#aca31a1f2fa624f740f3acba371a79483">operator=</a> (const <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html">LvlhFrame</a> &amp;)=delete</td></tr>
+<tr class="separator:aca31a1f2fa624f740f3acba371a79483"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe5beea96ef51f68c47b9f5f6c46174a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager)</td></tr>
 <tr class="memdesc:abe5beea96ef51f68c47b9f5f6c46174a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin initialization of an <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. ">LvlhFrame</a>.  <a href="#abe5beea96ef51f68c47b9f5f6c46174a">More...</a><br /></td></tr>
 <tr class="separator:abe5beea96ef51f68c47b9f5f6c46174a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,10 +124,10 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a1e802fa6a431f41aa5f4edaf6c10efe0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a></td></tr>
 <tr class="memdesc:a1e802fa6a431f41aa5f4edaf6c10efe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The LVLH frame defined by the subject frame's motion with respect to the reference planet.  <a href="#a1e802fa6a431f41aa5f4edaf6c10efe0">More...</a><br /></td></tr>
 <tr class="separator:a1e802fa6a431f41aa5f4edaf6c10efe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ebbfe11f3c91b6cbd44f85464d440d3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a8ebbfe11f3c91b6cbd44f85464d440d3">subject_name</a></td></tr>
+<tr class="memitem:a8ebbfe11f3c91b6cbd44f85464d440d3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a8ebbfe11f3c91b6cbd44f85464d440d3">subject_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a8ebbfe11f3c91b6cbd44f85464d440d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The frame whose motion defines LVLH.  <a href="#a8ebbfe11f3c91b6cbd44f85464d440d3">More...</a><br /></td></tr>
 <tr class="separator:a8ebbfe11f3c91b6cbd44f85464d440d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afde497c08b6fc62ed8f05e2b8fc2daf2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#afde497c08b6fc62ed8f05e2b8fc2daf2">planet_name</a></td></tr>
+<tr class="memitem:afde497c08b6fc62ed8f05e2b8fc2daf2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#afde497c08b6fc62ed8f05e2b8fc2daf2">planet_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:afde497c08b6fc62ed8f05e2b8fc2daf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planet used as reference for the LVLH frame.  <a href="#afde497c08b6fc62ed8f05e2b8fc2daf2">More...</a><br /></td></tr>
 <tr class="separator:afde497c08b6fc62ed8f05e2b8fc2daf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -137,23 +139,16 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a523d8a8ac2c51ab6a3efb12121781feb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a></td></tr>
+<tr class="memitem:a523d8a8ac2c51ab6a3efb12121781feb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a> {}</td></tr>
 <tr class="memdesc:a523d8a8ac2c51ab6a3efb12121781feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The (moving) frame specified with subject_name.  <a href="#a523d8a8ac2c51ab6a3efb12121781feb">More...</a><br /></td></tr>
 <tr class="separator:a523d8a8ac2c51ab6a3efb12121781feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae292c89f1c2203b9e5223f5ff283c266"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a></td></tr>
+<tr class="memitem:ae292c89f1c2203b9e5223f5ff283c266"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a> {}</td></tr>
 <tr class="memdesc:ae292c89f1c2203b9e5223f5ff283c266"><td class="mdescLeft">&#160;</td><td class="mdescRight">The inertial frame with origin at the center of the specified planet.  <a href="#ae292c89f1c2203b9e5223f5ff283c266">More...</a><br /></td></tr>
 <tr class="separator:ae292c89f1c2203b9e5223f5ff283c266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:af2149d83d6704b18018c31b9b8236b43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#af2149d83d6704b18018c31b9b8236b43">LvlhFrame</a> (const <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html">LvlhFrame</a> &amp;)</td></tr>
-<tr class="separator:af2149d83d6704b18018c31b9b8236b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf74906aa6af0aa48cc47b6f0cd956ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html">LvlhFrame</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#adf74906aa6af0aa48cc47b6f0cd956ee">operator=</a> (const <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html">LvlhFrame</a> &amp;)</td></tr>
-<tr class="separator:adf74906aa6af0aa48cc47b6f0cd956ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:ae9ebffe987c98a4d20cb8f8b6871d74f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae9ebffe987c98a4d20cb8f8b6871d74f">local_dm</a></td></tr>
+<tr class="memitem:ae9ebffe987c98a4d20cb8f8b6871d74f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae9ebffe987c98a4d20cb8f8b6871d74f">local_dm</a> {}</td></tr>
 <tr class="memdesc:ae9ebffe987c98a4d20cb8f8b6871d74f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A local pointer to the dynamics manager needed for clean-up.  <a href="#ae9ebffe987c98a4d20cb8f8b6871d74f">More...</a><br /></td></tr>
 <tr class="separator:ae9ebffe987c98a4d20cb8f8b6871d74f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -167,27 +162,30 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class used to represent an LVLH reference frame associated with a subject <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00084">84</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00082">82</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a69f02a4e498ccfe93070adf94d215fc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69f02a4e498ccfe93070adf94d215fc3">&#9670;&nbsp;</a></span>LvlhFrame() <span class="overload">[1/2]</span></h2>
+<a id="a23933aa87ff239e4857f8a676145b290"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23933aa87ff239e4857f8a676145b290">&#9670;&nbsp;</a></span>LvlhFrame() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">jeod::LvlhFrame::LvlhFrame </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>Construct an <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. ">LvlhFrame</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00051">51</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
 </div>
 </div>
@@ -200,7 +198,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::LvlhFrame::~LvlhFrame </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -209,14 +206,14 @@ Friends</h2></td></tr>
 
 <p>Destruct an <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html" title="The class used to represent an LVLH reference frame associated with a subject DynBody. ">LvlhFrame</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00069">69</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00049">49</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae9ebffe987c98a4d20cb8f8b6871d74f">local_dm</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#adb06115d8e0542a79bdc8d389e978b4c">jeod::RefFrame::remove_from_parent()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3d2dc6a2c40760f1c29ac13a9166a717">jeod::RefFrameManager::remove_ref_frame()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#af77f964dd55bc4f49a0ae20fe0528553">jeod::Subscription::unsubscribe()</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae9ebffe987c98a4d20cb8f8b6871d74f">local_dm</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a668dc81a01e719afe7fc2441f003282f">jeod::RefFrame::remove_from_parent()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3d2dc6a2c40760f1c29ac13a9166a717">jeod::RefFrameManager::remove_ref_frame()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a0fbc9b2834841c3787b6e9e1b6291f37">jeod::Subscription::unsubscribe()</a>.</p>
 
 </div>
 </div>
-<a id="af2149d83d6704b18018c31b9b8236b43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2149d83d6704b18018c31b9b8236b43">&#9670;&nbsp;</a></span>LvlhFrame() <span class="overload">[2/2]</span></h2>
+<a id="a9795a4310633c387100bd0c35e06155a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9795a4310633c387100bd0c35e06155a">&#9670;&nbsp;</a></span>LvlhFrame() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +231,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -274,9 +271,9 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00267">267</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00240">240</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#aa74953bae640a66e1bbcea408b69b22c">jeod::RefFrameRot::ang_vel_mag</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a6c4eb8c28e647698c11aacdab2c11e5d">jeod::RefFrameRot::ang_vel_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a950a9bbdf057a3fe644f0f0c28505d6f">jeod::RefFrameRot::compute_quaternion()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ab3e8f5d91005e0bf9ac9f1d414c6dec1">jeod::Vector3::copy()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ab33c6ac52c1f384ec0a2e7402f44ea06">jeod::Vector3::cross()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a5f08e5bc7250ed40e8e7dbab9a70d0e5">jeod::Vector3::normalize()</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a2dc636bff4d1f58a641dafdc96d7e22a">jeod::RefFrameTrans::position</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a8680359696f5ac931cd7043698ff8b84">jeod::Vector3::scale()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a64aa43f30826a08e43c1fa50d096e872">jeod::RefFrameTrans::velocity</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a9765082d5eda2ce5c0aa388b9d58b5c1">jeod::Vector3::vmag()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#adb09f7444f97d20059129abe1a9a97dd">jeod::Vector3::vmagsq()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#aa74953bae640a66e1bbcea408b69b22c">jeod::RefFrameRot::ang_vel_mag</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a6c4eb8c28e647698c11aacdab2c11e5d">jeod::RefFrameRot::ang_vel_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a950a9bbdf057a3fe644f0f0c28505d6f">jeod::RefFrameRot::compute_quaternion()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a500096235fb480dfd5c65f272c619db5">jeod::Vector3::copy()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a2f38a013ea8e87235b6d8618b32ef2f4">jeod::Vector3::cross()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a5f08e5bc7250ed40e8e7dbab9a70d0e5">jeod::Vector3::normalize()</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a2dc636bff4d1f58a641dafdc96d7e22a">jeod::RefFrameTrans::position</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a8680359696f5ac931cd7043698ff8b84">jeod::Vector3::scale()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a64aa43f30826a08e43c1fa50d096e872">jeod::RefFrameTrans::velocity</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ad610f3ddf2a1c89c7f21158eb8e7c39d">jeod::Vector3::vmag()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#aa6016c55e9b1a578b4f7cabe2f73e461">jeod::Vector3::vmagsq()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a682400bd327357e9ce10bde9970d2720">update()</a>.</p>
 
@@ -306,16 +303,16 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00096">96</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00075">75</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a931cdbd471c81ce318d00ab45c361a51">jeod::RefFrame::add_child()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a71aa9c3db5903ce878baad9edc2bd21a">jeod::EphemeridesManager::add_ref_frame()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a6c4eb8c28e647698c11aacdab2c11e5d">jeod::RefFrameRot::ang_vel_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#afcb8bb448856446f772154e6b395a839">jeod::RefFrameRot::ang_vel_unit</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7ce58e26795e84c53c74a00235eddcc8">jeod::EphemeridesManager::find_base_planet()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#af3ca54c2217964b9e1708b4053bfea28">jeod::RefFrameManager::find_ref_frame()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9d5bdb56bb46d594c2f1843b404c591c">jeod::RefFrame::get_name()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a8a8f8c2a977b00da8139032e2c282b12">jeod::BasePlanet::inertial</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, <a class="el" href="../../dc/da7/classjeod_1_1LvlhFrameMessages.html#a84061f7432a776bd81d1991abf974a68">jeod::LvlhFrameMessages::invalid_configuration</a>, <a class="el" href="../../dc/da7/classjeod_1_1LvlhFrameMessages.html#adf91859aba650990104ce301cd99709c">jeod::LvlhFrameMessages::invalid_name</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae9ebffe987c98a4d20cb8f8b6871d74f">local_dm</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#afde497c08b6fc62ed8f05e2b8fc2daf2">planet_name</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5fa985a007f8db031efd480f24c796e5">jeod::RefFrame::set_name()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a8ebbfe11f3c91b6cbd44f85464d440d3">subject_name</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a4590bb6b39afe751a56a8575b6e5e4a1">jeod::Subscription::subscribe()</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a931cdbd471c81ce318d00ab45c361a51">jeod::RefFrame::add_child()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a71aa9c3db5903ce878baad9edc2bd21a">jeod::EphemeridesManager::add_ref_frame()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a6c4eb8c28e647698c11aacdab2c11e5d">jeod::RefFrameRot::ang_vel_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#afcb8bb448856446f772154e6b395a839">jeod::RefFrameRot::ang_vel_unit</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa626fc6ec3f08c65ab4a31751a746cde">jeod::EphemeridesManager::find_base_planet()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3f0f9f6c0ca6607c0b8a92dcccfdab4d">jeod::RefFrameManager::find_ref_frame()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0da5d50aa8e348a10d6d7fe16adc1ab3">jeod::RefFrame::get_name()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a8a8f8c2a977b00da8139032e2c282b12">jeod::BasePlanet::inertial</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, <a class="el" href="../../dc/da7/classjeod_1_1LvlhFrameMessages.html#a43ed6f1f37c26505eba3d30ed6cb46d9">jeod::LvlhFrameMessages::invalid_configuration</a>, <a class="el" href="../../dc/da7/classjeod_1_1LvlhFrameMessages.html#a97ffe27a8f83c5e3ac2eb14b50218cc2">jeod::LvlhFrameMessages::invalid_name</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae9ebffe987c98a4d20cb8f8b6871d74f">local_dm</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#afde497c08b6fc62ed8f05e2b8fc2daf2">planet_name</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a92214d7d317f8020b96ec38ddaa770cb">jeod::RefFrame::set_name()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a8ebbfe11f3c91b6cbd44f85464d440d3">subject_name</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#ad60c693071cde2785924c8539c6fe723">jeod::Subscription::subscribe()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">jeod::LvlhDerivedState::initialize()</a>.</p>
 
 </div>
 </div>
-<a id="adf74906aa6af0aa48cc47b6f0cd956ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf74906aa6af0aa48cc47b6f0cd956ee">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="aca31a1f2fa624f740f3acba371a79483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca31a1f2fa624f740f3acba371a79483">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,7 +330,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -364,7 +361,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00255">255</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00231">231</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a8a8f8c2a977b00da8139032e2c282b12">jeod::BasePlanet::inertial</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a>.</p>
 
@@ -396,7 +393,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00243">243</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00222">222</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#afde497c08b6fc62ed8f05e2b8fc2daf2">planet_name</a>.</p>
 
@@ -428,7 +425,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00231">231</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00213">213</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a>.</p>
 
@@ -460,7 +457,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00220">220</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00204">204</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a8ebbfe11f3c91b6cbd44f85464d440d3">subject_name</a>.</p>
 
@@ -475,7 +472,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::LvlhFrame::update </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -484,11 +480,11 @@ Friends</h2></td></tr>
 
 <p>Update the state. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00190">190</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html#l00177">177</a> of file <a class="el" href="../../d4/d3c/lvlh__frame_8cc_source.html">lvlh_frame.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#aca4fe07dbb1cc109542a8a7ed444b836">compute_lvlh_frame()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5508e671597d26defd7e3aa40a804e0c">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">jeod::RefFrame::set_timestamp()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a1a6d3aedd2e24947d9ee2257e62debb7">jeod::RefFrame::timestamp()</a>, and <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#aca4fe07dbb1cc109542a8a7ed444b836">compute_lvlh_frame()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a1e802fa6a431f41aa5f4edaf6c10efe0">frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#aa6a2cde84644f457e00ec88de5360033">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae292c89f1c2203b9e5223f5ff283c266">planet_centered_inertial</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">jeod::RefFrame::set_timestamp()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523d8a8ac2c51ab6a3efb12121781feb">subject_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a903f6616fe8f7d3b37795396321a19ad">jeod::RefFrame::timestamp()</a>, and <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a361f461bae09fbde8b665328ba28250b">jeod::LvlhDerivedState::update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, and <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#afe7b7f3e039814b667dc674a62df1f38">jeod::LvlhDerivedState::update()</a>.</p>
 
 </div>
 </div>
@@ -538,7 +534,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00086">86</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00084">84</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 
 </div>
 </div>
@@ -558,9 +554,9 @@ Friends</h2></td></tr>
 <p>The LVLH frame defined by the subject frame's motion with respect to the reference planet. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00095">95</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00090">90</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#aca4fe07dbb1cc109542a8a7ed444b836">compute_lvlh_frame()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">jeod::LvlhDerivedState::initialize()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a682400bd327357e9ce10bde9970d2720">update()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#a361f461bae09fbde8b665328ba28250b">jeod::LvlhDerivedState::update()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae8d3f680f782d5853fe6d91439196058">~LvlhFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#aca4fe07dbb1cc109542a8a7ed444b836">compute_lvlh_frame()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">jeod::LvlhDerivedState::initialize()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a682400bd327357e9ce10bde9970d2720">update()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#afe7b7f3e039814b667dc674a62df1f38">jeod::LvlhDerivedState::update()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae8d3f680f782d5853fe6d91439196058">~LvlhFrame()</a>.</p>
 
 </div>
 </div>
@@ -574,7 +570,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::LvlhFrame::local_dm</td>
+          <td class="memname"><a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a>* jeod::LvlhFrame::local_dm {}</td>
         </tr>
       </table>
   </td>
@@ -587,7 +583,7 @@ Friends</h2></td></tr>
 <p>A local pointer to the dynamics manager needed for clean-up. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00124">124</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00117">117</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae8d3f680f782d5853fe6d91439196058">~LvlhFrame()</a>.</p>
 
@@ -603,7 +599,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::LvlhFrame::planet_centered_inertial</td>
+          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::LvlhFrame::planet_centered_inertial {}</td>
         </tr>
       </table>
   </td>
@@ -616,7 +612,7 @@ Friends</h2></td></tr>
 <p>The inertial frame with origin at the center of the specified planet. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00117">117</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00111">111</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a066b3e6d01254d1f9f116ea0c53fe3bd">set_planet()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a682400bd327357e9ce10bde9970d2720">update()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae8d3f680f782d5853fe6d91439196058">~LvlhFrame()</a>.</p>
 
@@ -629,7 +625,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string jeod::LvlhFrame::planet_name</td>
+          <td class="memname">std::string jeod::LvlhFrame::planet_name {&quot;&quot;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -637,7 +633,7 @@ Friends</h2></td></tr>
 <p>The planet used as reference for the LVLH frame. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00105">105</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00100">100</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a523f8fcdbc367f4e728f40a8e630030a">set_planet_name()</a>.</p>
 
@@ -653,7 +649,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::LvlhFrame::subject_frame</td>
+          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::LvlhFrame::subject_frame {}</td>
         </tr>
       </table>
   </td>
@@ -666,7 +662,7 @@ Friends</h2></td></tr>
 <p>The (moving) frame specified with subject_name. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00112">112</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00106">106</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a968f464b328567e084b353d23c5086a0">set_subject_frame()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a682400bd327357e9ce10bde9970d2720">update()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#ae8d3f680f782d5853fe6d91439196058">~LvlhFrame()</a>.</p>
 
@@ -679,7 +675,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string jeod::LvlhFrame::subject_name</td>
+          <td class="memname">std::string jeod::LvlhFrame::subject_name {&quot;&quot;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -687,7 +683,7 @@ Friends</h2></td></tr>
 <p>The frame whose motion defines LVLH. </p>
 <p>Can be on a vehicle or not.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00100">100</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html#l00095">95</a> of file <a class="el" href="../../df/d56/lvlh__frame_8hh_source.html">lvlh_frame.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">initialize()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#a6a0531b7b4e9b11e2a44f003e006bcfa">set_subject_name()</a>.</p>
 

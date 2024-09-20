@@ -57,24 +57,23 @@
  Assumptions and Limitations:
      ((N/A))
 
- 
+
 
 *****************************************************************************/
-
-
 
 #ifndef JEOD_THERMAL_PRESSURE_FORWARD_HH
 #define JEOD_THERMAL_PRESSURE_FORWARD_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class ThermalFacetRider;
 class ThermalModelRider;
 class ThermalMessages;
 class ThermalParams;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

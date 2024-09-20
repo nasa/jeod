@@ -56,10 +56,6 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/aero_facet.cc))
-
-
 *******************************************************************************/
 
 #ifndef AERO_FACET_HH
@@ -70,57 +66,41 @@ Library dependencies:
 #include "utils/surface_model/include/interaction_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class AeroDragParameters;
 
 /**
  * An aerodynamic interaction specific facet for use in the surface model.
  */
-class AeroFacet : public InteractionFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(AeroFacet)
+class AeroFacet : public InteractionFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AeroFacet)
 
 public:
+    AeroFacet() = default;
+    ~AeroFacet() override = default;
+    AeroFacet & operator=(const AeroFacet &) = delete;
+    AeroFacet(const AeroFacet &) = delete;
 
-   // constructor
-   AeroFacet ();
+    /**
+     * A pure virtual function defining the interface for all
+     * aerodynamic interaction facets. All aerodynamic interaction
+     * facets inherited from AeroFacet must implement this function
+     * \param[in] velocity_mag The magnitude of the relative inertial velocity, including wind, of the vehicle\n Units:
+     * m/s \param[in] rel_vel_hat The Unit vector of the relative inertial velocity \param[in] aero_drag_param_ptr The
+     * parameters used to calculate aerodynamic drag \param[in] center_grav The position of the center of graviy of the
+     * vehicle, in the structural frame\n Units: m
+     */
 
-   // destructor
-   ~AeroFacet () override;
-
-
-   /**
-    * A pure virtual function defining the interface for all
-    * aerodynamic interaction facets. All aerodynamic interaction
-    * facets inherited from AeroFacet must implement this function
-    * \param[in] velocity_mag The magnitude of the relative inertial velocity, including wind, of the vehicle\n Units: m/s
-    * \param[in] rel_vel_hat The Unit vector of the relative inertial velocity
-    * \param[in] aero_drag_param_ptr The parameters used to calculate aerodynamic drag
-    * \param[in] center_grav The position of the center of graviy of the vehicle, in the structural frame\n Units: m
-    */
-
-   virtual void aerodrag_force(
-      const double velocity_mag,
-      const double rel_vel_hat[3],
-      AeroDragParameters* aero_drag_param_ptr,
-      double center_grav[3])
- = 0;
-
-
-protected:
-
-private:
-
-   /* Operator = and copy constructor hidden from use by being private */
-
-   AeroFacet& operator = (const AeroFacet& rhs);
-   AeroFacet (const AeroFacet& rhs);
-
+    virtual void aerodrag_force(const double velocity_mag,
+                                const double rel_vel_hat[3],
+                                AeroDragParameters * aero_drag_param_ptr,
+                                double center_grav[3]) = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

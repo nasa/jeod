@@ -62,24 +62,25 @@ LIBRARY DEPENDENCY:
 #ifndef JEOD_VERIF_GRAV_TORQUE_H
 #define JEOD_VERIF_GRAV_TORQUE_H
 
-#include "environment/gravity/verif/include/point_mass.hh"
+#include "environment/gravity/verif/data/include/mass_data.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-    /* ENTRY POINT: */
-void verif_grav_torque(     /* RETURN: --  Always return zero.               */
-   const PointMass & ptmass   , /* IN: -- grav accel */
-   const double sc_mass[3][4],  /* IN: -- s/c point mass model */
-   const double sc_att[3],  /* IN: -- s/c attitude euler angles */
-   const double pos[3]   , /* IN: -- grav accel */
-   const double RNP[3][3],  /* IN: kgM2  Inertia tensor about c.g., Body Ref.*/
-   const double T_pf_bdy[3][3],  /* IN: --  Inertia tensor about c.g., Body Ref.*/
-   const double sim_time      , /* OUT: NM   Gravity gradient torque, Struct Ref.*/
-   const double grav_accel[3]   , /* IN: -- grav accel */
-   const double grav_torque[3]   , /* IN: -- grav accel */
-   const double grav_pot    );   /* IN: -- grav potential */
+/* ENTRY POINT: */
+void verif_grav_torque(                             /* RETURN: --  Always return zero.               */
+                       const PointMass & ptmass,    /* IN: -- grav accel */
+                       const double sc_mass[3][4],  /* IN: -- s/c point mass model */
+                       const double sc_att[3],      /* IN: -- s/c attitude euler angles */
+                       const double pos[3],         /* IN: -- grav accel */
+                       const double RNP[3][3],      /* IN: kgM2  Inertia tensor about c.g., Body Ref.*/
+                       const double T_pf_bdy[3][3], /* IN: --  Inertia tensor about c.g., Body Ref.*/
+                       const double sim_time,       /* OUT: NM   Gravity gradient torque, Struct Ref.*/
+                       const double grav_accel[3],  /* IN: -- grav accel */
+                       const double grav_torque[3], /* IN: -- grav accel */
+                       const double grav_pot);      /* IN: -- grav potential */
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

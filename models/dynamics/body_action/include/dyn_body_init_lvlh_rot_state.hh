@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_LVLH_ROT_STATE_HH
 #define JEOD_DYN_BODY_INIT_LVLH_ROT_STATE_HH
-
 
 // System includes
 
@@ -73,45 +71,32 @@ Library dependencies:
 // Model includes
 #include "dyn_body_init_lvlh_state.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize a vehicle's rotational state with respect to some vehicle's
  *  LVLH frame. That some vehicle can be this vehicle itself.
  */
-class DynBodyInitLvlhRotState : public DynBodyInitLvlhState {
+class DynBodyInitLvlhRotState : public DynBodyInitLvlhState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitLvlhRotState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitLvlhRotState)
+    // No member data. This class adds no member data to DynBodyInitLvlhState.
 
+    // Member functions
+public:
+    DynBodyInitLvlhRotState();
+    ~DynBodyInitLvlhRotState() override = default;
+    DynBodyInitLvlhRotState(const DynBodyInitLvlhRotState &) = delete;
+    DynBodyInitLvlhRotState & operator=(const DynBodyInitLvlhRotState &) = delete;
 
- // No member data. This class adds no member data to DynBodyInitLvlhState.
-
-
- // Member functions
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DynBodyInitLvlhRotState (const DynBodyInitLvlhRotState&);
-   DynBodyInitLvlhRotState & operator = (const DynBodyInitLvlhRotState&);
-
-
- public:
-
-   DynBodyInitLvlhRotState ();
-
-   ~DynBodyInitLvlhRotState () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

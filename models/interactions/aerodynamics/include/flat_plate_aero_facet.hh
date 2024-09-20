@@ -71,112 +71,112 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "aero_facet.hh"
 #include "aero_drag.hh"
+#include "aero_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The aerdynamic specific version of a flat plate.
  */
-class FlatPlateAeroFacet : public AeroFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateAeroFacet)
+class FlatPlateAeroFacet : public AeroFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateAeroFacet)
 
 public:
+    FlatPlateAeroFacet() = default;
+    ~FlatPlateAeroFacet() override = default;
+    FlatPlateAeroFacet & operator=(const FlatPlateAeroFacet &) = delete;
+    FlatPlateAeroFacet(const FlatPlateAeroFacet &) = delete;
 
-   // constructor
-   FlatPlateAeroFacet ();
+    // The flat plate specific implementation of aerodrag_force
+    void aerodrag_force(const double velocity_mag,
+                        const double rel_vel_hat[3],
+                        AeroDragParameters * aero_drag_param_ptr,
+                        double center_grav[3]) override;
 
-   // destructor
-   ~FlatPlateAeroFacet () override;
+    /**
+     * Flat plate center of pressure (in structural frame). Once the
+     * aero surface is initialized, it points to the position
+     * found in FlatPlate
+     */
+    double * center_pressure{}; //!< trick_units(m)
 
-   // The flat plate specific implementation of aerodrag_force
-   void aerodrag_force (
-      const double velocity_mag,
-      const double rel_vel_hat[3],
-      AeroDragParameters* aero_drag_param_ptr,
-      double center_grav[3]) override;
+    /**
+     * Unit vector normal to the plate surface, pointing
+     * outward (structural frame). Once the aero surface is initialized,
+     * it points to the normal found in FlatPlate
+     */
+    double * normal{}; //!< trick_units(--)
 
-   /**
-    * Flat plate center of pressure (in structural frame). Once the
-    * aero surface is initialized, it points to the position
-    * found in FlatPlate
-    */
-   double* center_pressure; //!< trick_units(m)
+    /**
+     * Magnitude of the force normal to the plate
+     */
+    double force_n{}; //!< trick_units(N)
 
-   /**
-    * Unit vector normal to the plate surface, pointing
-    * outward (structural frame). Once the aero surface is initialized,
-    * it points to the normal found in FlatPlate
-    */
-   double* normal; //!< trick_units(--)
+    /**
+     * Magnitude of the force tangential to the plate, or
+     * parallel to the velocity vector, depending on application
+     */
+    double force_t{}; //!< trick_units(N)
 
-   /**
-    * Magnitude of the force normal to the plate
-    */
-   double force_n; //!< trick_units(N)
-   /**
-    * Magnitude of the force tangential to the plate, or
-    * parallel to the velocity vector, depending on application
-    */
-   double force_t; //!< trick_units(N)
+    /**
+     * Enum indicating which method of coef calculation to use:
+     * specular, diffuse, calculated, mixed
+     */
+    AeroDragEnum::CoefCalcMethod coef_method{AeroDragEnum::Specular}; //!< trick_units(--)
 
-   /**
-    * Enum indicating which method of coef calculation to use:
-    * specular, diffuse, calculated, mixed
-    */
-  AeroDragEnum::CoefCalcMethod coef_method; //!< trick_units(--)
-   /**
-    * whether to calculate the drag coefficient
-    */
-  bool calculate_drag_coef;  //!< trick_units(--)
-   /**
-    * fraction of molecules that "bounce"
-    */
-  double epsilon;            //!< trick_units(--)
-   /**
-    * temperature of reflected molecules
-    */
-  double temp_reflect;       //!< trick_units(K)
-   /**
-    * The coefficient for calculating drag normal to the plate
-    */
-  double drag_coef_norm; //!< trick_units(--)
-   /**
-    * The coefficient for calculating drag tangential to the plate
-    */
-  double drag_coef_tang; //!< trick_units(--)
-   /**
-    * The coefficient for calculating drag resulting only from molecules bouncing
-    * off the surface
-    */
-  double drag_coef_spec; //!< trick_units(--)
-   /**
-    * The coefficient for calculating drag resulting only from molecules sticking
-    * to the surface
-    */
-  double drag_coef_diff; //!< trick_units(--)
-   /**
-    * Temperature of the plate
-    */
-   double temperature; //!< trick_units(K)
-   /**
-    * area of the plate
-    */
-   double area; //!< trick_units(m2)
-protected:
+    /**
+     * whether to calculate the drag coefficient
+     */
+    bool calculate_drag_coef{}; //!< trick_units(--)
 
-private:
+    /**
+     * fraction of molecules that "bounce"
+     */
+    double epsilon{}; //!< trick_units(--)
 
-   // Operator = and copy constructor locked from use by being made private
-   FlatPlateAeroFacet& operator = (const FlatPlateAeroFacet& rhs);
-   FlatPlateAeroFacet (const FlatPlateAeroFacet& rhs);
+    /**
+     * temperature of reflected molecules
+     */
+    double temp_reflect{}; //!< trick_units(K)
 
+    /**
+     * The coefficient for calculating drag normal to the plate
+     */
+    double drag_coef_norm{}; //!< trick_units(--)
+
+    /**
+     * The coefficient for calculating drag tangential to the plate
+     */
+    double drag_coef_tang{}; //!< trick_units(--)
+
+    /**
+     * The coefficient for calculating drag resulting only from molecules bouncing
+     * off the surface
+     */
+    double drag_coef_spec{}; //!< trick_units(--)
+
+    /**
+     * The coefficient for calculating drag resulting only from molecules sticking
+     * to the surface
+     */
+    double drag_coef_diff{}; //!< trick_units(--)
+
+    /**
+     * Temperature of the plate
+     */
+    double temperature{}; //!< trick_units(K)
+
+    /**
+     * area of the plate
+     */
+    double area{}; //!< trick_units(m2)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

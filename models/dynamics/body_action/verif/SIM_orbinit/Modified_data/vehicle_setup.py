@@ -16,6 +16,6 @@ def set_vehicle_setup(vehicle_reference, options) :
   vehicle_reference.earth_grav_ctrl.spherical     = True
 
   vehicle_reference.dyn_body.grav_interaction.add_control(
-                                               vehicle_reference.earth_grav_ctrl);
+                                               vehicle_reference.earth_grav_ctrl)
 
   return

@@ -51,10 +51,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_PRIMITIVE_SERIALIZER_H
 #define JEOD_MEMORY_PRIMITIVE_SERIALIZER_H
@@ -68,191 +67,144 @@ Purpose:
 #include <sstream>
 #include <string>
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Base class for serializing / deserializing primitive data.
  */
-class JeodPrimitiveSerializerBase {
+class JeodPrimitiveSerializerBase
+{
 public:
+    /**
+     * Construct a JeodPrimitiveSerializerBase.
+     */
+    JeodPrimitiveSerializerBase() = default;
 
-   /**
-    * Construct a JeodPrimitiveSerializerBase.
-    */
-   JeodPrimitiveSerializerBase (void) {}
-
-   /**
-    * Destruct a JeodPrimitiveSerializerBase.
-    */
-   virtual ~JeodPrimitiveSerializerBase (void) {}
-
+    /**
+     * Destruct a JeodPrimitiveSerializerBase.
+     */
+    virtual ~JeodPrimitiveSerializerBase() = default;
 
 protected:
-   static const std::string serialize_string (const std::string & val);
-   static const std::string deserialize_string (const std::string & val);
-   static const std::string serialize_float (const float & val);
-   static float deserialize_float (const std::string & val);
-   static const std::string serialize_double (const double & val);
-   static double deserialize_double (const std::string & val);
-   static const std::string serialize_long_double (const long double & val);
-   static long double deserialize_long_double (const std::string & val);
+    static const std::string serialize_string(const std::string & val);
+    static const std::string deserialize_string(const std::string & val);
+    static const std::string serialize_float(const float & val);
+    static float deserialize_float(const std::string & val);
+    static const std::string serialize_double(const double & val);
+    static double deserialize_double(const std::string & val);
+    static const std::string serialize_long_double(const long double & val);
+    static long double deserialize_long_double(const std::string & val);
 };
 
 /**
  * Serializer / deserializer for primitive data.
  */
-template <typename Type>
-class JeodPrimitiveSerializer : public JeodPrimitiveSerializerBase {
-
+template<typename Type> class JeodPrimitiveSerializer : public JeodPrimitiveSerializerBase
+{
 public:
+    /**
+     * Construct a JeodPrimitiveSerializer.
+     */
+    JeodPrimitiveSerializer() = default;
 
-   /**
-    * Construct a JeodPrimitiveSerializer.
-    */
-   JeodPrimitiveSerializer (void) {}
+    /**
+     * Destruct a JeodPrimitiveSerializer.
+     */
+    ~JeodPrimitiveSerializer() override = default;
 
-   /**
-    * Destruct a JeodPrimitiveSerializer.
-    */
-   ~JeodPrimitiveSerializer (void) override {}
+    /**
+     * Convert a primitive value to its string-equivalent.
+     */
+    const std::string to_string(const Type & val)
+    {
+        std::ostringstream obuf;
+        obuf << val;
+        return obuf.str();
+    }
 
-   /**
-    * Convert a primitive value to its string-equivalent.
-    */
-   const std::string to_string (const Type & val)
-   {
-      std::ostringstream obuf;
-      obuf << val;
-      return obuf.str();
-   }
+    /**
+     * Convert a string to its corresponding primitive value.
+     */
+    Type from_string(const std::string & val)
+    {
+        Type result;
+        std::istringstream ibuf(val);
+        ibuf >> result;
+        return result;
+    }
 
-   /**
-    * Convert a string to its corresponding primitive value.
-    */
-   Type from_string (const std::string & val)
-   {
-      Type result;
-      std::istringstream ibuf(val);
-      ibuf >> result;
-      return result;
-   }
-
-private:
-
-   /**
-    * Not implemented.
-    */
-   JeodPrimitiveSerializer (const JeodPrimitiveSerializer &);
-
-   /**
-    * Not implemented.
-    */
-   JeodPrimitiveSerializer & operator= (const JeodPrimitiveSerializer &);
-
+    JeodPrimitiveSerializer(const JeodPrimitiveSerializer &) = delete;
+    JeodPrimitiveSerializer & operator=(const JeodPrimitiveSerializer &) = delete;
 };
-
 
 /**
  * Convert a string to a string suitable for output:
  * Backslash-escape backslashes and double quotes.
  */
-template<>
-inline const std::string
-JeodPrimitiveSerializer<std::string>::to_string (
-   const std::string & val)
+template<> inline const std::string JeodPrimitiveSerializer<std::string>::to_string(const std::string & val)
 {
-   return serialize_string(val);
+    return serialize_string(val);
 }
-
 
 /**
  * Convert a string as recorded in the checkpoint file to its original form.
  */
-template<>
-inline std::string
-JeodPrimitiveSerializer<std::string>::from_string (
-   const std::string & val)
+template<> inline std::string JeodPrimitiveSerializer<std::string>::from_string(const std::string & val)
 {
-   return deserialize_string (val);
+    return deserialize_string(val);
 }
-
 
 /**
  * Convert a float to a string.
  */
-template<>
-inline const std::string
-JeodPrimitiveSerializer<float>::to_string (
-   const float & val)
+template<> inline const std::string JeodPrimitiveSerializer<float>::to_string(const float & val)
 {
-   return serialize_float(val);
+    return serialize_float(val);
 }
-
 
 /**
  * Convert a string to a float.
  */
-template<>
-inline float
-JeodPrimitiveSerializer<float>::from_string (
-   const std::string & val)
+template<> inline float JeodPrimitiveSerializer<float>::from_string(const std::string & val)
 {
-   return deserialize_float(val);
+    return deserialize_float(val);
 }
-
 
 /**
  * Convert a double to a string.
  */
-template<>
-inline const std::string
-JeodPrimitiveSerializer<double>::to_string (
-   const double & val)
+template<> inline const std::string JeodPrimitiveSerializer<double>::to_string(const double & val)
 {
-   return serialize_double(val);
+    return serialize_double(val);
 }
-
 
 /**
  * Convert a string to a double.
  */
-template<>
-inline double
-JeodPrimitiveSerializer<double>::from_string (
-   const std::string & val)
+template<> inline double JeodPrimitiveSerializer<double>::from_string(const std::string & val)
 {
-   return deserialize_double(val);
+    return deserialize_double(val);
 }
-
 
 /**
  * Convert a long double to a string.
  */
-template<>
-inline const std::string
-JeodPrimitiveSerializer<long double>::to_string (
-   const long double & val)
+template<> inline const std::string JeodPrimitiveSerializer<long double>::to_string(const long double & val)
 {
-   return serialize_long_double(val);
+    return serialize_long_double(val);
 }
-
 
 /**
  * Convert a string to a long double.
  */
-template<>
-inline long double
-JeodPrimitiveSerializer<long double>::from_string (
-   const std::string & val)
+template<> inline long double JeodPrimitiveSerializer<long double>::from_string(const std::string & val)
 {
-   return deserialize_long_double(val);
+    return deserialize_long_double(val);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

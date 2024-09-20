@@ -56,7 +56,7 @@ Reference:
 Assumptions and limitations:
   ((Name is TT))
 
- 
+
 
 Library dependencies:
   ((../src/time_tt.cc))
@@ -72,37 +72,30 @@ Library dependencies:
 
 #include "time_standard.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents Terrestrial Time.
  */
-class TimeTT : public TimeStandard { //Terrestrial Time
+class TimeTT : public TimeStandard
+{ // Terrestrial Time
 
-  JEOD_MAKE_SIM_INTERFACES(TimeTT)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeTT)
 
-// Member Data:
-
-// Member functions:
+    // Member functions:
 public:
-  //Constructor
-   TimeTT ();
+    TimeTT();
+    ~TimeTT() override = default;
+    TimeTT(const TimeTT &) = delete;
+    TimeTT & operator=(const TimeTT &) = delete;
 
-  // Destructor
-   ~TimeTT () override;
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeTT (const TimeTT&);
-   TimeTT & operator = (const TimeTT&);
-   void set_epoch(void) override;  //cppcheck-suppress virtualCallInConstructor
+private:
+    void set_epoch() override; // cppcheck-suppress virtualCallInConstructor
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -36,21 +36,27 @@
 //
 //=============================================================================
 // Single vehicle in Earth orbit with aerodynamic drag
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
-#define LOW_RATE_ENV  100.0
+#define DYNAMICS 1.0
+#define LOW_RATE_ENV 100.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics.sm"
-#include "environment_sans_de405.sm"
 #include "earth_GGM05C_MET_RNP.sm"
+#include "environment_sans_de405.sm"
 #include "vehicle_atmosphere.sm"
 
 ///*****************************************************************************
@@ -64,42 +70,35 @@
 ##include "interactions/aerodynamics/include/flat_plate_aero_params.hh"
 class InteractionSimObject : public Trick::SimObject
 {
-  public:
-  jeod::SurfaceModel       surface;
-  jeod::AerodynamicDrag    aero_drag;
-  jeod::AeroSurface        aero_surface;
-  jeod::AeroSurfaceFactory aero_surface_factory;
+public:
+    jeod::SurfaceModel surface;
+    jeod::AerodynamicDrag aero_drag;
+    jeod::AeroSurface aero_surface;
+    jeod::AeroSurfaceFactory aero_surface_factory;
 
-  InteractionSimObject( VehicleAtmSimObject  & veh_in)
-     :
-       vehicle(veh_in)
-  {
-      P_BODY ("initialization") aero_surface_factory.create_surface(
-                                                          &surface,
-                                                          &aero_surface);
+    InteractionSimObject(VehicleAtmSimObject & veh_in)
+        : vehicle(veh_in)
+    {
+        P_BODY("initialization") aero_surface_factory.create_surface(&surface, &aero_surface);
 
-      (DYNAMICS, "scheduled")  aero_drag.aero_drag(
-                          vehicle.dyn_body.composite_body.state.trans.velocity,
-                         &vehicle.atmos_state,
-                          vehicle.dyn_body.structure.state.rot.T_parent_this,
-                          vehicle.dyn_body.mass.composite_properties.mass,
-                          vehicle.dyn_body.mass.composite_properties.position);
-  };
-  private:
-  InteractionSimObject (const InteractionSimObject&);
-  InteractionSimObject & operator = (const InteractionSimObject&);
+        (DYNAMICS, "scheduled") aero_drag.aero_drag(vehicle.dyn_body.composite_body.state.trans.velocity,
+                                                    &vehicle.atmos_state,
+                                                    vehicle.dyn_body.structure.state.rot.T_parent_this,
+                                                    vehicle.dyn_body.mass.composite_properties.mass,
+                                                    vehicle.dyn_body.mass.composite_properties.position);
+    }
 
-  VehicleAtmSimObject & vehicle;
+private:
+    InteractionSimObject(const InteractionSimObject &);
+    InteractionSimObject & operator=(const InteractionSimObject &);
+
+    VehicleAtmSimObject & vehicle;
 };
+
 InteractionSimObject interactions(vehicle);
 
-vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
-           interactions.aero_drag.aero_force
-};
-vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create {
-           interactions.aero_drag.aero_torque
-};
-
+vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create{interactions.aero_drag.aero_force};
+vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create{interactions.aero_drag.aero_torque};
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

@@ -53,7 +53,7 @@ Purpose:
 Library Dependency:
   (../src/gauss_quadrature.cc)
 
- 
+
 *******************************************************************************/
 #ifndef JEOD_GAUSS_QUADRATURE_HH
 #define JEOD_GAUSS_QUADRATURE_HH
@@ -63,17 +63,18 @@ Library Dependency:
 // JEOD includes
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class GaussQuadrature {
-
- public:
-   static const int max_order = 8;
-   static const double gauss_weights[max_order+1][max_order];
-   static const double gauss_xvalues[max_order+1][max_order];
+class GaussQuadrature
+{
+public:
+    static const int max_order = 8;
+    static const double gauss_weights[max_order + 1][max_order];
+    static const double gauss_xvalues[max_order + 1][max_order];
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

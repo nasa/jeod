@@ -43,20 +43,21 @@ Library dependencies:
   ((../src/xpyp_monthly.cc))
 ******************************************************************************/
 
-
 #ifndef JEOD_POLARMOTIONJ2000INIT_XPYP_MONTHLY_DEFAULT_DATA_H
 #define JEOD_POLARMOTIONJ2000INIT_XPYP_MONTHLY_DEFAULT_DATA_H
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class PolarMotionJ2000Init;
 
-class PolarMotionJ2000Init_xpyp_monthly_default_data {
- public:
-   void initialize (PolarMotionJ2000Init*);
+class PolarMotionJ2000Init_xpyp_monthly_default_data
+{
+public:
+    void initialize(PolarMotionJ2000Init *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

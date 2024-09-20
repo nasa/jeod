@@ -17,4 +17,6 @@ veh.init_orbit.alt_periapsis  = trick.attach_units( "km",8000.0)
 
 veh.orb_elem.reference_name = "Earth"
 
+earth.rnp.enable_polar = False 
+
 trick.stop(86400)

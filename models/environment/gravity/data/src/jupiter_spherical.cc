@@ -14,11 +14,12 @@ ASSUMPTIONS AND LIMITATIONS:
 
 *******************************************************************************/
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 class SphericalHarmonicsGravitySource;
-}
+} // namespace jeod
+
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_jupiter_spherical_default_data
 
 // JEOD includes
@@ -28,17 +29,15 @@ class SphericalHarmonicsGravitySource;
 // Unsupported includes
 #include "../include/jupiter_spherical.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-SphericalHarmonicsGravitySource_jupiter_spherical_default_data::initialize (
-   SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+namespace jeod
 {
-   SphericalHarmonicsGravitySource_ptr->name = "Jupiter";
-   SphericalHarmonicsGravitySource_ptr->mu = 1.26731229E+17;
-   SphericalHarmonicsGravitySource_ptr->radius = 1000 * (71492.0);
+
+void SphericalHarmonicsGravitySource_jupiter_spherical_default_data::initialize(
+    SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+{
+    SphericalHarmonicsGravitySource_ptr->name = "Jupiter";
+    SphericalHarmonicsGravitySource_ptr->mu = 1.26731229E+17;
+    SphericalHarmonicsGravitySource_ptr->radius = 1000 * (71492.0);
 }
-} // End JEOD namespace
+} // namespace jeod

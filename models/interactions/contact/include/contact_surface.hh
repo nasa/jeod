@@ -68,81 +68,66 @@ Library dependencies:
 
 /* JEOD includes */
 #include "utils/sim_interface/include/jeod_class.hh"
-#include "utils/surface_model/include/interaction_surface.hh"
 #include "utils/surface_model/include/class_declarations.hh"
+#include "utils/surface_model/include/interaction_surface.hh"
 
 /* Model includes */
 #include "contact_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The contact specific interaction surface, for use with the surface model.
  */
-class ContactSurface : public InteractionSurface {
-
-
-   JEOD_MAKE_SIM_INTERFACES (ContactSurface)
+class ContactSurface : public InteractionSurface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ContactSurface)
 
 public:
+    ContactSurface();
+    ~ContactSurface() override;
+    ContactSurface & operator=(const ContactSurface &) = delete;
+    ContactSurface(const ContactSurface &) = delete;
 
-   // constructor
-   ContactSurface ();
+    /**
+     * An array of pointers to contact interaction facets.
+     */
+    ContactFacet ** contact_facets{}; //!< trick_units(--)
 
-   // destructor
-   ~ContactSurface () override;
+    /**
+     * Size of the contact_facets array
+     */
+    unsigned int facets_size{}; //!< trick_units(count)
 
-   /**
-    * An array of pointers to contact interaction facets.
-    */
-   ContactFacet** contact_facets; //!< trick_units(--)
+    /**
+     * Total Force due to contact, resulting from all plates combined.
+     */
+    double contact_force[3]{}; //!< trick_units(N)
 
-   /**
-    * Size of the contact_facets array
-    */
-   unsigned int facets_size; //!< trick_units(count)
+    /**
+     * Total Torque due to contact, resulting from all plates combined.
+     */
+    double contact_torque[3]{}; //!< trick_units(N/m)
 
-   /**
-    * Total Force due to contact, resulting from all plates combined.
-    */
-   double contact_force[3];    //!< trick_units(N)
+    // Allocates the contact_facets array from the given size
+    void allocate_array(unsigned int size) override;
 
-   /**
-    * Total Torque due to contact, resulting from all plates combined.
-    */
-   double contact_torque[3];    //!< trick_units(N/m)
+    // Allocates the facet at the "index" value in contact_facets, using
+    // the base Facet given by the pointer facet, and using the parameter
+    // object pointed to by params pointer and using the
+    // InteractionFacetFactory pointed to by factory.
+    void allocate_interaction_facet(Facet * facet,
+                                    InteractionFacetFactory * factory,
+                                    FacetParams * params,
+                                    unsigned int index) override;
 
-   // Allocates the contact_facets array from the given size
-   void allocate_array (unsigned int size) override;
-
-   // Allocates the facet at the "index" value in contact_facets, using
-   // the base Facet given by the pointer facet, and using the parameter
-   // object pointed to by params pointer and using the
-   // InteractionFacetFactory pointed to by factory.
-   void allocate_interaction_facet (
-      Facet* facet,
-      InteractionFacetFactory* factory,
-      FacetParams* params,
-      unsigned int index) override;
-
-   // collect the forces and torques from all the facets in this contact surface.
-   virtual void collect_forces_torques (void);
-
-protected:
-
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   ContactSurface& operator = (const ContactSurface & rhs);
-   ContactSurface (const ContactSurface & rhs);
-
+    // collect the forces and torques from all the facets in this contact surface.
+    virtual void collect_forces_torques();
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

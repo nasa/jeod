@@ -56,50 +56,47 @@ Assumptions:
 
 class DynamicsSimObject: public Trick::SimObject
 {
- protected:
-  // Reference to the external time manager.
-  jeod::TimeManager & time_manager;
- public:
-  jeod::DynManager             dyn_manager;
-  jeod::DynManagerInit         dyn_manager_init;
+protected:
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 
-  // Constructor
-  DynamicsSimObject ( jeod::TimeManager & time_manager_in)
-    :
-    time_manager (time_manager_in)
-  {
-    //
-    // Initialization jobs
-    //
-    P_MNGR  ("initialization") dyn_manager.initialize_model ( dyn_manager_init,
-                                                              time_manager);
-    P_MNGR_INIT_SIM ("initialization") dyn_manager.initialize_simulation ( );
+public:
+    jeod::DynManager dyn_manager;
+    jeod::DynManagerInit dyn_manager_init;
 
-    //
-    // Environment class jobs
-    //
-    (DYNAMICS, "environment") dyn_manager.update_ephemerides ( );
-    (DYNAMICS, "environment") dyn_manager.perform_actions ( );
+    // Constructor
+    DynamicsSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_MNGR("initialization") dyn_manager.initialize_model(dyn_manager_init, time_manager);
+        P_MNGR_INIT_SIM("initialization") dyn_manager.initialize_simulation();
+
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") dyn_manager.update_ephemerides();
+        (DYNAMICS, "environment") dyn_manager.perform_actions();
 
 #ifndef JEOD_DYNMANAGER_OMIT_INTEGRATION
-    //
-    // Derivative class jobs
-    //
-    P_GRAV ("derivative") dyn_manager.gravitation ( );
-    ("derivative") dyn_manager.compute_derivatives ( );
+        //
+        // Derivative class jobs
+        //
+        P_GRAV("derivative") dyn_manager.gravitation();
+        ("derivative") dyn_manager.compute_derivatives();
 
-    //
-    // Integration jobs
-    //
-    ("integration", &dyn_manager.sim_integrator) trick_ret =
-                          dyn_manager.integrate ( exec_get_sim_time(),
-                                                  time_manager);
+        //
+        // Integration jobs
+        //
+        ("integration", &dyn_manager.sim_integrator)
+            trick_ret = dyn_manager.integrate(exec_get_sim_time(), time_manager);
 #endif
-  }
+    }
 
-private:
-   // Unimplemented copy constructor and assignment operator
-   DynamicsSimObject (const DynamicsSimObject&);
-   DynamicsSimObject & operator = (const DynamicsSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    DynamicsSimObject(const DynamicsSimObject &) = delete;
+    DynamicsSimObject & operator=(const DynamicsSimObject &) = delete;
 };
 #endif

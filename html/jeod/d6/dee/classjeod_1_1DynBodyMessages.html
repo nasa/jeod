@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -45,8 +45,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::DynBodyMessages Class Reference</div>  </div>
@@ -58,41 +58,41 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:add8420abc42e1ed737114c763bcb14e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#add8420abc42e1ed737114c763bcb14e0">DynBodyMessages</a> ()=delete</td></tr>
+<tr class="separator:add8420abc42e1ed737114c763bcb14e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50ebac4e52d6603bbb10b88ce61eae7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a50ebac4e52d6603bbb10b88ce61eae7e">DynBodyMessages</a> (const <a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html">DynBodyMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:a50ebac4e52d6603bbb10b88ce61eae7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8940ee7da48c58ec87e1b3fa34af707"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html">DynBodyMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#ac8940ee7da48c58ec87e1b3fa34af707">operator=</a> (const <a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html">DynBodyMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:ac8940ee7da48c58ec87e1b3fa34af707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a8a421372f99ff7d2dd32e1dd0a33ab8f"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a8a421372f99ff7d2dd32e1dd0a33ab8f">invalid_body</a></td></tr>
-<tr class="memdesc:a8a421372f99ff7d2dd32e1dd0a33ab8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a body is invalid such as not being initialized.  <a href="#a8a421372f99ff7d2dd32e1dd0a33ab8f">More...</a><br /></td></tr>
-<tr class="separator:a8a421372f99ff7d2dd32e1dd0a33ab8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0ecbacb4aa0092b9487b370bbbe7e91"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#ad0ecbacb4aa0092b9487b370bbbe7e91">invalid_group</a></td></tr>
-<tr class="memdesc:ad0ecbacb4aa0092b9487b370bbbe7e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a group is invalid such as not initialized or NULL.  <a href="#ad0ecbacb4aa0092b9487b370bbbe7e91">More...</a><br /></td></tr>
-<tr class="separator:ad0ecbacb4aa0092b9487b370bbbe7e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ab92eba71d6ee8dc473388a1830aaf5"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a1ab92eba71d6ee8dc473388a1830aaf5">invalid_name</a></td></tr>
-<tr class="memdesc:a1ab92eba71d6ee8dc473388a1830aaf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a name is invalid &ndash; NULL, empty, a duplicate, ...  <a href="#a1ab92eba71d6ee8dc473388a1830aaf5">More...</a><br /></td></tr>
-<tr class="separator:a1ab92eba71d6ee8dc473388a1830aaf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf748bf7ca298caedb9cbebb6f070cfa"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#adf748bf7ca298caedb9cbebb6f070cfa">invalid_frame</a></td></tr>
-<tr class="memdesc:adf748bf7ca298caedb9cbebb6f070cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a frame is invalid &ndash; not an integ frame, ...  <a href="#adf748bf7ca298caedb9cbebb6f070cfa">More...</a><br /></td></tr>
-<tr class="separator:adf748bf7ca298caedb9cbebb6f070cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51e8352bc82e631242c153d879e8a302"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a51e8352bc82e631242c153d879e8a302">invalid_attachment</a></td></tr>
-<tr class="memdesc:a51e8352bc82e631242c153d879e8a302"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a attachment is invalid from a state point of view.  <a href="#a51e8352bc82e631242c153d879e8a302">More...</a><br /></td></tr>
-<tr class="separator:a51e8352bc82e631242c153d879e8a302"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a893a22360d4e92e240dcf8b121c519f4"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a893a22360d4e92e240dcf8b121c519f4">invalid_technique</a></td></tr>
-<tr class="memdesc:a893a22360d4e92e240dcf8b121c519f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when an integration technique is invalid.  <a href="#a893a22360d4e92e240dcf8b121c519f4">More...</a><br /></td></tr>
-<tr class="separator:a893a22360d4e92e240dcf8b121c519f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3713bae789fb0c6e2fce58abb5654db"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#aa3713bae789fb0c6e2fce58abb5654db">not_dyn_body</a></td></tr>
-<tr class="memdesc:aa3713bae789fb0c6e2fce58abb5654db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a <a class="el" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. ">MassBody</a> is expected to be a <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> but that is not the case.  <a href="#aa3713bae789fb0c6e2fce58abb5654db">More...</a><br /></td></tr>
-<tr class="separator:aa3713bae789fb0c6e2fce58abb5654db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a742cc9df4d40e63527720b3e9fcdee78"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a742cc9df4d40e63527720b3e9fcdee78">internal_error</a></td></tr>
-<tr class="memdesc:a742cc9df4d40e63527720b3e9fcdee78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when some internal error occurred.  <a href="#a742cc9df4d40e63527720b3e9fcdee78">More...</a><br /></td></tr>
-<tr class="separator:a742cc9df4d40e63527720b3e9fcdee78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ac188e692e81b3f7da732bfdde130b5c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#ac188e692e81b3f7da732bfdde130b5c8">DynBodyMessages</a> (void)</td></tr>
-<tr class="separator:ac188e692e81b3f7da732bfdde130b5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0693f7f3f687236374351919b5ba728d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a0693f7f3f687236374351919b5ba728d">DynBodyMessages</a> (const <a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html">DynBodyMessages</a> &amp;)</td></tr>
-<tr class="separator:a0693f7f3f687236374351919b5ba728d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a301a35adc388be2996c492c500a76f08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html">DynBodyMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a301a35adc388be2996c492c500a76f08">operator=</a> (const <a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html">DynBodyMessages</a> &amp;)</td></tr>
-<tr class="separator:a301a35adc388be2996c492c500a76f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c85dc53e066ab01e2fe63f298abb61d"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a3c85dc53e066ab01e2fe63f298abb61d">invalid_body</a> = &quot;dynamics/dyn_body/&quot; &quot;invalid_body&quot;</td></tr>
+<tr class="memdesc:a3c85dc53e066ab01e2fe63f298abb61d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a body is invalid such as not being initialized.  <a href="#a3c85dc53e066ab01e2fe63f298abb61d">More...</a><br /></td></tr>
+<tr class="separator:a3c85dc53e066ab01e2fe63f298abb61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84d8f5bb20271ae970c8279ebc6968cf"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a84d8f5bb20271ae970c8279ebc6968cf">invalid_group</a> = &quot;dynamics/dyn_body/&quot; &quot;invalid_group&quot;</td></tr>
+<tr class="memdesc:a84d8f5bb20271ae970c8279ebc6968cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a group is invalid such as not initialized or NULL.  <a href="#a84d8f5bb20271ae970c8279ebc6968cf">More...</a><br /></td></tr>
+<tr class="separator:a84d8f5bb20271ae970c8279ebc6968cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d9d7aa322366f91f62de627feaaf470"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a9d9d7aa322366f91f62de627feaaf470">invalid_name</a> = &quot;dynamics/dyn_body/&quot; &quot;invalid_name&quot;</td></tr>
+<tr class="memdesc:a9d9d7aa322366f91f62de627feaaf470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a name is invalid &ndash; NULL, empty, a duplicate, ...  <a href="#a9d9d7aa322366f91f62de627feaaf470">More...</a><br /></td></tr>
+<tr class="separator:a9d9d7aa322366f91f62de627feaaf470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05b7b1828c847041393e750e24d6283e"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a05b7b1828c847041393e750e24d6283e">invalid_frame</a> = &quot;dynamics/dyn_body/&quot; &quot;invalid_frame&quot;</td></tr>
+<tr class="memdesc:a05b7b1828c847041393e750e24d6283e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a frame is invalid &ndash; not an integ frame, ...  <a href="#a05b7b1828c847041393e750e24d6283e">More...</a><br /></td></tr>
+<tr class="separator:a05b7b1828c847041393e750e24d6283e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93ae877f5458408780b0ab042d2ab3f5"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a93ae877f5458408780b0ab042d2ab3f5">invalid_attachment</a> = &quot;dynamics/dyn_body/&quot; &quot;invalid_attachment&quot;</td></tr>
+<tr class="memdesc:a93ae877f5458408780b0ab042d2ab3f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a attachment is invalid from a state point of view.  <a href="#a93ae877f5458408780b0ab042d2ab3f5">More...</a><br /></td></tr>
+<tr class="separator:a93ae877f5458408780b0ab042d2ab3f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad1c0f696960e30d2b2476e4abfe35f"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a8ad1c0f696960e30d2b2476e4abfe35f">invalid_technique</a> = &quot;dynamics/dyn_body/&quot; &quot;invalid_technique&quot;</td></tr>
+<tr class="memdesc:a8ad1c0f696960e30d2b2476e4abfe35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when an integration technique is invalid.  <a href="#a8ad1c0f696960e30d2b2476e4abfe35f">More...</a><br /></td></tr>
+<tr class="separator:a8ad1c0f696960e30d2b2476e4abfe35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69bf3ccd02cc965d2729e2d8b055be1f"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#a69bf3ccd02cc965d2729e2d8b055be1f">not_dyn_body</a> = &quot;dynamics/dyn_body/&quot; &quot;not_dyn_body&quot;</td></tr>
+<tr class="memdesc:a69bf3ccd02cc965d2729e2d8b055be1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a <a class="el" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. ">MassBody</a> is expected to be a <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> but that is not the case.  <a href="#a69bf3ccd02cc965d2729e2d8b055be1f">More...</a><br /></td></tr>
+<tr class="separator:a69bf3ccd02cc965d2729e2d8b055be1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf21e984a7f48e58324dedaf600bd33e"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dee/classjeod_1_1DynBodyMessages.html#adf21e984a7f48e58324dedaf600bd33e">internal_error</a> = &quot;dynamics/dyn_body/&quot; &quot;internal_error&quot;</td></tr>
+<tr class="memdesc:adf21e984a7f48e58324dedaf600bd33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when some internal error occurred.  <a href="#adf21e984a7f48e58324dedaf600bd33e">More...</a><br /></td></tr>
+<tr class="separator:adf21e984a7f48e58324dedaf600bd33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -109,10 +109,10 @@ Friends</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00081">81</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00080">80</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac188e692e81b3f7da732bfdde130b5c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac188e692e81b3f7da732bfdde130b5c8">&#9670;&nbsp;</a></span>DynBodyMessages() <span class="overload">[1/2]</span></h2>
+<a id="add8420abc42e1ed737114c763bcb14e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add8420abc42e1ed737114c763bcb14e0">&#9670;&nbsp;</a></span>DynBodyMessages() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,22 +123,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::DynBodyMessages::DynBodyMessages </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0693f7f3f687236374351919b5ba728d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0693f7f3f687236374351919b5ba728d">&#9670;&nbsp;</a></span>DynBodyMessages() <span class="overload">[2/2]</span></h2>
+<a id="a50ebac4e52d6603bbb10b88ce61eae7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50ebac4e52d6603bbb10b88ce61eae7e">&#9670;&nbsp;</a></span>DynBodyMessages() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +155,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -164,8 +163,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a301a35adc388be2996c492c500a76f08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a301a35adc388be2996c492c500a76f08">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ac8940ee7da48c58ec87e1b3fa34af707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8940ee7da48c58ec87e1b3fa34af707">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +182,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -236,13 +235,13 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00083">83</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00082">82</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a id="a742cc9df4d40e63527720b3e9fcdee78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a742cc9df4d40e63527720b3e9fcdee78">&#9670;&nbsp;</a></span>internal_error</h2>
+<a id="adf21e984a7f48e58324dedaf600bd33e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf21e984a7f48e58324dedaf600bd33e">&#9670;&nbsp;</a></span>internal_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,7 +250,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::internal_error</td>
+          <td class="memname">const char * jeod::DynBodyMessages::internal_error = &quot;dynamics/dyn_body/&quot; &quot;internal_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -260,18 +259,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;internal_error&quot;</span></div></div><!-- fragment -->
+
 <p>Error issued when some internal error occurred. </p>
 <p>These errors should never happen.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00130">130</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00125">125</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aeda4ae120415248947c967d0468d9d40">jeod::DynBody::create_integrators()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a6206a7545d49df8fdb7bd9d0baf66a9a">jeod::DynBody::get_dynamics_integration_group()</a>.</p>
 
 </div>
 </div>
-<a id="a51e8352bc82e631242c153d879e8a302"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51e8352bc82e631242c153d879e8a302">&#9670;&nbsp;</a></span>invalid_attachment</h2>
+<a id="a93ae877f5458408780b0ab042d2ab3f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93ae877f5458408780b0ab042d2ab3f5">&#9670;&nbsp;</a></span>invalid_attachment</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,7 +279,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::invalid_attachment</td>
+          <td class="memname">const char * jeod::DynBodyMessages::invalid_attachment = &quot;dynamics/dyn_body/&quot; &quot;invalid_attachment&quot;</td>
         </tr>
       </table>
   </td>
@@ -289,18 +288,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;invalid_attachment&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a attachment is invalid from a state point of view. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00113">113</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00108">108</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a418b88c1a703d144afbf6632e017e841">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1f442f80d7bf36ccf377ba5aff8a69b1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ab3adc5f1cb8549f6af77a2085f91ff68">jeod::DynBody::attach_to_frame()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a706076f292e3903289a4926513dccc19">jeod::StructureIntegratedDynBody::attach_update_properties()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#af71aa75ec8ecfb5898c1d509f0de2797">jeod::DynBody::attach_validate_child()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1c373296b244f1857c05a294a76af753">jeod::DynBody::attach_validate_parent()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#ac09086d7f4cca1b4126199a5e56d8787">jeod::StructureIntegratedDynBody::detach()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#af18a3b538239b343502836ca813f35eb">jeod::DynBody::detach()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aaacee3ff8d7cc2569e7eb896e60d8320">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aca611be05781da171880d8d3b99777d5">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a76878f62472e94393c3475bee6a7ad0c">jeod::DynBody::attach_to_frame()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a706076f292e3903289a4926513dccc19">jeod::StructureIntegratedDynBody::attach_update_properties()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#af71aa75ec8ecfb5898c1d509f0de2797">jeod::DynBody::attach_validate_child()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1c373296b244f1857c05a294a76af753">jeod::DynBody::attach_validate_parent()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#ac09086d7f4cca1b4126199a5e56d8787">jeod::StructureIntegratedDynBody::detach()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#af18a3b538239b343502836ca813f35eb">jeod::DynBody::detach()</a>.</p>
 
 </div>
 </div>
-<a id="a8a421372f99ff7d2dd32e1dd0a33ab8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a421372f99ff7d2dd32e1dd0a33ab8f">&#9670;&nbsp;</a></span>invalid_body</h2>
+<a id="a3c85dc53e066ab01e2fe63f298abb61d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c85dc53e066ab01e2fe63f298abb61d">&#9670;&nbsp;</a></span>invalid_body</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -309,7 +308,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::invalid_body</td>
+          <td class="memname">const char * jeod::DynBodyMessages::invalid_body = &quot;dynamics/dyn_body/&quot; &quot;invalid_body&quot;</td>
         </tr>
       </table>
   </td>
@@ -318,18 +317,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;invalid_body&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a body is invalid such as not being initialized. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00093">93</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00088">88</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a1f461518fb2830f4f6abad9ed453e501">jeod::StructureIntegratedDynBody::add_constraint()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1774e1644785aee5977a91c0ac6830dd">jeod::DynBody::add_mass_point()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1c373296b244f1857c05a294a76af753">jeod::DynBody::attach_validate_parent()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a77c28083a5a30d49f0334918bc12041a">jeod::StructureIntegratedDynBody::set_solver()</a>, and <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a6ce83b65ea42f9163cb56af3b8b6ff96">jeod::StructureIntegratedDynBody::solve_constraints()</a>.</p>
 
 </div>
 </div>
-<a id="adf748bf7ca298caedb9cbebb6f070cfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf748bf7ca298caedb9cbebb6f070cfa">&#9670;&nbsp;</a></span>invalid_frame</h2>
+<a id="a05b7b1828c847041393e750e24d6283e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05b7b1828c847041393e750e24d6283e">&#9670;&nbsp;</a></span>invalid_frame</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,7 +337,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::invalid_frame</td>
+          <td class="memname">const char * jeod::DynBodyMessages::invalid_frame = &quot;dynamics/dyn_body/&quot; &quot;invalid_frame&quot;</td>
         </tr>
       </table>
   </td>
@@ -347,18 +346,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;invalid_frame&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a frame is invalid &ndash; not an integ frame, ... </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00108">108</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00103">103</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/d44/namespacejeod.html#a494058569538d175224f3e6f417f89aa">jeod::check_frame_ownership()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aab8e1051f32ce7c8a6bf0c86ad9cfc87">jeod::DynBody::compute_ref_point_transform()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a10ee6681e3eb82f1335ee5e6e33f6fed">jeod::StructureIntegratedDynBody::compute_vehicle_point_derivatives()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a876acbdd16b9c6b66e54631841697dba">jeod::DynBody::compute_vehicle_point_derivatives()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ab1d9b4e3b4977c23cb3f3c5c7284c724">jeod::DynBody::initialize_model()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae14a1c05e6871a20bcfe039bc4633cb0">jeod::DynBody::propagate_state()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a90e5f32c86daf00bc9ed3239ab2ca32f">jeod::DynBody::set_state_source()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#afca3f17f89623e8676a1debcc77e7299">jeod::DynBody::switch_integration_frames()</a>.</p>
 
 </div>
 </div>
-<a id="ad0ecbacb4aa0092b9487b370bbbe7e91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0ecbacb4aa0092b9487b370bbbe7e91">&#9670;&nbsp;</a></span>invalid_group</h2>
+<a id="a84d8f5bb20271ae970c8279ebc6968cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84d8f5bb20271ae970c8279ebc6968cf">&#9670;&nbsp;</a></span>invalid_group</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,7 +366,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::invalid_group</td>
+          <td class="memname">const char * jeod::DynBodyMessages::invalid_group = &quot;dynamics/dyn_body/&quot; &quot;invalid_group&quot;</td>
         </tr>
       </table>
   </td>
@@ -376,18 +375,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;invalid_group&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a group is invalid such as not initialized or NULL. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00098">98</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00093">93</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ad438127df3ad9c0bc27e6cb9f28eed6d">jeod::DynBody::migrate_integrable_objects()</a>.</p>
 
 </div>
 </div>
-<a id="a1ab92eba71d6ee8dc473388a1830aaf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ab92eba71d6ee8dc473388a1830aaf5">&#9670;&nbsp;</a></span>invalid_name</h2>
+<a id="a9d9d7aa322366f91f62de627feaaf470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d9d7aa322366f91f62de627feaaf470">&#9670;&nbsp;</a></span>invalid_name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,7 +395,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::invalid_name</td>
+          <td class="memname">const char * jeod::DynBodyMessages::invalid_name = &quot;dynamics/dyn_body/&quot; &quot;invalid_name&quot;</td>
         </tr>
       </table>
   </td>
@@ -405,18 +404,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;invalid_name&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a name is invalid &ndash; NULL, empty, a duplicate, ... </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00103">103</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00098">98</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aa171563a6305a14500929ca4e7fa6bda">jeod::DynBody::find_body_frame()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ab1d9b4e3b4977c23cb3f3c5c7284c724">jeod::DynBody::initialize_model()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a9e66979ae882c716afd07a833cba57f8">jeod::DynBody::set_integ_frame()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a2e13ddfba67ed917a61c8dd5db199bcd">jeod::DynBody::switch_integration_frames()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a829879b4455b8eed7dc27c8443813995">jeod::DynBody::find_body_frame()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ab1d9b4e3b4977c23cb3f3c5c7284c724">jeod::DynBody::initialize_model()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1cbf6933048bacb8bcca07e93ac9c931">jeod::DynBody::set_integ_frame()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a5005e61bf4d5844d1bd01cf93a4ce464">jeod::DynBody::switch_integration_frames()</a>.</p>
 
 </div>
 </div>
-<a id="a893a22360d4e92e240dcf8b121c519f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a893a22360d4e92e240dcf8b121c519f4">&#9670;&nbsp;</a></span>invalid_technique</h2>
+<a id="a8ad1c0f696960e30d2b2476e4abfe35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad1c0f696960e30d2b2476e4abfe35f">&#9670;&nbsp;</a></span>invalid_technique</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -425,7 +424,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::invalid_technique</td>
+          <td class="memname">const char * jeod::DynBodyMessages::invalid_technique = &quot;dynamics/dyn_body/&quot; &quot;invalid_technique&quot;</td>
         </tr>
       </table>
   </td>
@@ -434,18 +433,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;invalid_technique&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when an integration technique is invalid. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00118">118</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00113">113</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a914e974d84bad943860864c5acbbf121">jeod::DynBody::detach()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ac47aa6ce5cf0b6123cb87e8a446c9051">jeod::DynBody::remove_mass_body()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#adc988f5b34e8add4ea25b89f4056cfb9">jeod::DynBody::detach()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ac47aa6ce5cf0b6123cb87e8a446c9051">jeod::DynBody::remove_mass_body()</a>.</p>
 
 </div>
 </div>
-<a id="aa3713bae789fb0c6e2fce58abb5654db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3713bae789fb0c6e2fce58abb5654db">&#9670;&nbsp;</a></span>not_dyn_body</h2>
+<a id="a69bf3ccd02cc965d2729e2d8b055be1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69bf3ccd02cc965d2729e2d8b055be1f">&#9670;&nbsp;</a></span>not_dyn_body</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -454,7 +453,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::DynBodyMessages::not_dyn_body</td>
+          <td class="memname">const char * jeod::DynBodyMessages::not_dyn_body = &quot;dynamics/dyn_body/&quot; &quot;not_dyn_body&quot;</td>
         </tr>
       </table>
   </td>
@@ -463,11 +462,11 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">     <span class="stringliteral">&quot;dynamics/dyn_body/&quot;</span>  <span class="stringliteral">&quot;not_dyn_body&quot;</span></div></div><!-- fragment -->
+
 <p>Issued when a <a class="el" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. ">MassBody</a> is expected to be a <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> but that is not the case. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00124">124</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html#l00119">119</a> of file <a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dyn_body_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1c373296b244f1857c05a294a76af753">jeod::DynBody::attach_validate_parent()</a>.</p>
 

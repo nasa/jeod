@@ -22,7 +22,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -30,33 +29,26 @@ Library dependencies:
 
 #define PATH "dynamics/derived_state/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
-char const * DerivedStateMessages::fatal_error =
-    PATH "fatal_error";
+const char * DerivedStateMessages::fatal_error = PATH "fatal_error";
 
-char const * DerivedStateMessages::illegal_value =
-    PATH "illegal_value";
+const char * DerivedStateMessages::illegal_value = PATH "illegal_value";
 
-char const * DerivedStateMessages::invalid_name =
-    PATH "invalid_name";
+const char * DerivedStateMessages::invalid_name = PATH "invalid_name";
 
-char const * DerivedStateMessages::invalid_object =
-    PATH "invalid_object";
+const char * DerivedStateMessages::invalid_object = PATH "invalid_object";
 
-char const * DerivedStateMessages::null_pointer =
-    PATH "null_pointer";
+const char * DerivedStateMessages::null_pointer = PATH "null_pointer";
 
-char const * DerivedStateMessages::trace =
-    PATH "trace";
+const char * DerivedStateMessages::trace = PATH "trace";
 
-char const * DerivedStateMessages::divide_by_zero =
-   PATH "divide_by_zero";
+const char * DerivedStateMessages::divide_by_zero = PATH "divide_by_zero";
 
- } // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

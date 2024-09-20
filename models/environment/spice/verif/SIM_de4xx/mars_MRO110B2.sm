@@ -51,73 +51,62 @@
 ##include "environment/gravity/data/include/mars_MRO110B2.hh"
 ##include "environment/RNP/RNPMars/data/include/rnp_mars.hh"
 
-class MarsSimObject: public Trick::SimObject {
-
-   public:
-    jeod::Planet        planet;
+class MarsSimObject: public Trick::SimObject
+{
+public:
+    jeod::Planet planet;
     jeod::SphericalHarmonicsGravitySource gravity_source;
-    jeod::RNPMars       rnp;
+    jeod::RNPMars rnp;
 
-// Instances for matching to other sim objects:
-    jeod::DynamicsSimObject * internal_dynamics;
-    jeod::EnvSimObject * internal_env;
+    // Instances for matching to other sim objects:
+    DynamicsSimObject * internal_dynamics;
+    EnvSimObject * internal_env;
     JeodTimeSimObject * internal_jeod_time;
 
-// Instances for default data:
-    jeod::Planet_mars_default_data    planet_default_data;
-    jeod::SphericalHarmonicsGravitySource_mars_MRO110B2_default_data    gravity_default_data;
-    jeod::RNPMars_rnp_mars_default_data    rnp_mars_default_data;
+    // Instances for default data:
+    jeod::Planet_mars_default_data planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_mars_MRO110B2_default_data gravity_default_data;
+    jeod::RNPMars_rnp_mars_default_data rnp_mars_default_data;
 
-//Constructor
-    MarsSimObject(
-           jeod::EnvSimObject & ext_env,
-           jeod::DynamicsSimObject & ext_dynamics,
-           jeod::JeodTimeSimObject & ext_jeod_time) {
+    // Constructor
+    MarsSimObject(EnvSimObject & ext_env, DynamicsSimObject & ext_dynamics, JeodTimeSimObject & ext_jeod_time)
+    {
+        internal_env = &ext_env;
+        internal_dynamics = &ext_dynamics;
+        internal_jeod_time = &ext_jeod_time;
 
-    internal_env = & ext_env;
-    internal_dynamics = & ext_dynamics;
-    internal_jeod_time = & ext_jeod_time;
+        //
+        // Default data jobs
+        //
+        ("default_data") planet_default_data.initialize(&planet);
+        ("default_data") gravity_default_data.initialize(&gravity_source);
+        ("default_data") rnp_mars_default_data.initialize(&rnp);
 
-   //
-   //Default data jobs
-   //
-      ("default_data") planet_default_data.initialize ( &planet );
-      ("default_data") gravity_default_data.initialize ( &gravity_source );
-      ("default_data") rnp_mars_default_data.initialize ( &rnp );
+        //
+        //
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") gravity_source.initialize_body();
+        P_ENV("initialization") internal_env->gravity_manager.add_grav_source(gravity_source);
+        P_ENV("initialization") planet.register_model(gravity_source, internal_dynamics->dyn_manager);
+        P_ENV("initialization") rnp.initialize(internal_dynamics->dyn_manager);
+        P_ENV("initialization") rnp.update_rnp(internal_jeod_time->time_tt);
+        P_EPH("initialization") planet.initialize();
 
-   //
-   //
-   //
-   // Initialization jobs
-   //
-      P_ENV  ("initialization") gravity_source.initialize_body( );
-      P_ENV  ("initialization") internal_env->gravity_manager.add_grav_source(
-          gravity_source );
-      P_ENV  ("initialization") planet.register_model(
-          gravity_source,
-          internal_dynamics->dyn_manager );
-      P_ENV  ("initialization") rnp.initialize(
-          internal_dynamics->dyn_manager );
-      P_ENV  ("initialization") rnp.update_rnp(
-          internal_jeod_time->time_tt );
-      P_EPH  ("initialization") planet.initialize( );
+        //
+        // Environment class jobs
+        //
+        (LOW_RATE_ENV, "environment") rnp.update_rnp(internal_jeod_time->time_tt);
 
-   //
-   // Environment class jobs
-   //
-      (LOW_RATE_ENV, "environment") rnp.update_rnp(
-          internal_jeod_time->time_tt );
-
-   //
-   // Derivative class jobs
-   //
-      P_ENV  ("derivative") rnp.update_axial_rotation(
-          internal_jeod_time->time_tt );
+        //
+        // Derivative class jobs
+        //
+        P_ENV("derivative") rnp.update_axial_rotation(internal_jeod_time->time_tt);
     }
 
-  private:
-    MarsSimObject (const MarsSimObject&);
-    MarsSimObject & operator = (const MarsSimObject&);
-
+    MarsSimObject(const MarsSimObject &) = delete;
+    MarsSimObject & operator=(const MarsSimObject &) = delete;
 };
-MarsSimObject mars ( env, dynamics, jeod_time);
+
+MarsSimObject mars(env, dynamics, jeod_time);

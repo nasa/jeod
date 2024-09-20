@@ -52,13 +52,11 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_INTEGRATOR_INTERFACE_HH
 #define JEOD_INTEGRATOR_INTERFACE_HH
-
 
 // JEOD includes
 #include "utils/sim_interface/include/config.hh"
@@ -75,47 +73,43 @@ Purpose:
 JEOD_SIM_INTEGRATOR_FORWARD
 #endif
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A JeodIntegratorInterface extends the ER7 IntegratorInterface with
  * the concept of a pointer to the simulation engine's integration object.
  */
-class JeodIntegratorInterface : public er7_utils::IntegratorInterface {
-JEOD_MAKE_SIM_INTERFACES(JeodIntegratorInterface)
+class JeodIntegratorInterface : public er7_utils::IntegratorInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodIntegratorInterface)
 
 public:
+    // Note: The default constructor, copy constructor and assignment operator
+    // for this class are not declared. The C++ defaults for these are in
+    // effect.
 
-   // Note: The default constructor, copy constructor and assignment operator
-   // for this class are not declared. The C++ defaults for these are in
-   // effect.
+    /**
+     * Destructor.
+     */
+    ~JeodIntegratorInterface() override = default;
 
-   /**
-    * Destructor.
-    */
-   ~JeodIntegratorInterface () override {}
+    // Methods
 
+    /**
+     * Interpret the integration technique
+     */
+    virtual er7_utils::Integration::Technique interpret_integration_type(int) const = 0;
 
-   // Methods
-
-   /**
-    * Interpret the integration technique
-    */
-   virtual er7_utils::Integration::Technique interpret_integration_type (int)
-   const = 0;
-
-   /**
-    * Get the simulation engine's integrator.
-    * @return Pointer to the simulation engine's integrator.
-    */
-   virtual JEOD_SIM_INTEGRATOR_POINTER_TYPE get_integrator () = 0;
-
+    /**
+     * Get the simulation engine's integrator.
+     * @return Pointer to the simulation engine's integrator.
+     */
+    virtual JEOD_SIM_INTEGRATOR_POINTER_TYPE get_integrator() = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

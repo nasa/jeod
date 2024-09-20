@@ -61,7 +61,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEMERIDES_MESSAGES_HH
 #define JEOD_EPHEMERIDES_MESSAGES_HH
 
@@ -70,10 +69,9 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the Ephemerides model.
@@ -82,107 +80,95 @@ namespace jeod {
  *  - This is a complete catalog of the messages sent by the ephemerides model.
  *  - This is not an exhaustive list of all the things that can go awry.
  */
-class EphemeridesMessages {
-JEOD_MAKE_SIM_INTERFACES(EphemeridesMessages)
+class EphemeridesMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EphemeridesMessages)
 
 public:
+    // Static member data
 
-   // Static member data
+    /**
+     * Error issued when the ephemeris model configuration is inconsistent.
+     */
+    static const char * inconsistent_setup; //!< trick_units(--)
 
-   /**
-    * Error issued when the ephemeris model configuration is inconsistent.
-    */
-   static char const * inconsistent_setup; //!< trick_units(--)
+    /**
+     * Error issued when the ephemeris file cannot be opened for input.
+     */
+    static const char * file_error; //!< trick_units(--)
 
-   /**
-    * Error issued when the ephemeris file cannot be opened for input.
-    */
-   static char const * file_error; //!< trick_units(--)
+    /**
+     * Error issued for machine architectures that do not conform to
+     * the architecture assumptions:
+     * - char    = 8 bits
+     * - int32_t = 4 bytes (32 bits)
+     * - double  = 8 bytes (64 bits)
+     */
+    static const char * unsupported_architecture; //!< trick_units(--)
 
-   /**
-    * Error issued for machine architectures that do not conform to
-    * the architecture assumptions:
-    * - char    = 8 bits
-    * - int32_t = 4 bytes (32 bits)
-    * - double  = 8 bytes (64 bits)
-    */
-   static char const * unsupported_architecture; //!< trick_units(--)
+    /**
+     * Error issued when the ephemeris file appears to be garbage.
+     */
+    static const char * garbage_file; //!< trick_units(--)
 
-   /**
-    * Error issued when the ephemeris file appears to be garbage.
-    */
-   static char const * garbage_file; //!< trick_units(--)
+    /**
+     * Error issued when the ephemeris file does not contain data for
+     * the requested time.
+     */
+    static const char * time_not_in_range; //!< trick_units(--)
 
-   /**
-    * Error issued when the ephemeris file does not contain data for
-    * the requested time.
-    */
-   static char const * time_not_in_range; //!< trick_units(--)
+    /**
+     * Error issued when the ephemeris file does not contain data for
+     * the requested item.
+     */
+    static const char * item_not_in_file; //!< trick_units(--)
 
-   /**
-    * Error issued when the ephemeris file does not contain data for
-    * the requested item.
-    */
-   static char const * item_not_in_file; //!< trick_units(--)
+    /**
+     * Issued when a pointer should be non-NULL but isn't.
+     */
+    static const char * null_pointer; //!< trick_units(--)
 
-   /**
-    * Issued when a pointer should be non-NULL but isn't.
-    */
-   static char const * null_pointer; //!< trick_units(--)
+    /**
+     * Issued on request to add a pointer to a list a second time.
+     */
+    static const char * duplicate_entry; //!< trick_units(--)
 
-   /**
-    * Issued on request to add a pointer to a list a second time.
-    */
-   static char const * duplicate_entry; //!< trick_units(--)
+    /**
+     * Issued when a name is invalid -- empty, a duplicate, ...
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
-   /**
-    * Issued when a name is invalid -- empty, a duplicate, ...
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Issued when something other than a name is invalid.
+     */
+    static const char * invalid_item; //!< trick_units(--)
 
-   /**
-    * Issued when something other than a name is invalid.
-    */
-   static char const * invalid_item; //!< trick_units(--)
+    /**
+     * Issued when the ephemeris manager is rejecting add_ephemeris calls.
+     */
+    static const char * single_ephem_mode; //!< trick_units(--)
 
-   /**
-    * Issued when the ephemeris manager is rejecting add_ephemeris calls.
-    */
-   static char const * single_ephem_mode; //!< trick_units(--)
+    /**
+     * Issued when some internal error occurred.
+     * These errors should never happen.
+     */
+    static const char * internal_error; //!< trick_units(--)
 
-   /**
-    * Issued when some internal error occurred.
-    * These errors should never happen.
-    */
-   static char const * internal_error; //!< trick_units(--)
+    /**
+     * Used to send a message about a non-error condition.
+     */
+    static const char * debug; //!< trick_units(--)
 
+    // Member functions
 
-   /**
-    * Used to send a message about a non-error condition.
-    */
-   static char const * debug; //!< trick_units(--)
-
-
-private:
-   // Member functions
-
-   // This class is not instantiable.
-   // The constructors and assignment operator for this class are declared
-   // private and are not implemented.
-
-   ///
-   /// Not implemented.
-   EphemeridesMessages (void);
-   ///
-   /// Not implemented.
-   EphemeridesMessages (const EphemeridesMessages &);
-   ///
-   /// Not implemented.
-   EphemeridesMessages & operator= (const EphemeridesMessages &);
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    EphemeridesMessages() = delete;
+    EphemeridesMessages(const EphemeridesMessages &) = delete;
+    EphemeridesMessages & operator=(const EphemeridesMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

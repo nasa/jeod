@@ -74,48 +74,33 @@ Library dependencies:
 
 // Model includes
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The factory for building flat plate radiation facets
  */
-class FlatPlateRadiationFactory : public InteractionFacetFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateRadiationFactory)
+class FlatPlateRadiationFactory : public InteractionFacetFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateRadiationFactory)
 
 public:
+    FlatPlateRadiationFactory();
+    ~FlatPlateRadiationFactory() override = default;
+    FlatPlateRadiationFactory & operator=(const FlatPlateRadiationFactory &) = delete;
+    FlatPlateRadiationFactory(const FlatPlateRadiationFactory &) = delete;
 
-   // constructor
-   FlatPlateRadiationFactory ();
+    InteractionFacet * create_facet(Facet * facet, FacetParams * params) override;
 
-   // destructor
-   ~FlatPlateRadiationFactory () override;
-
-   InteractionFacet* create_facet (Facet* facet, FacetParams* params) override;
-
-   bool is_correct_factory (Facet* facet) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   FlatPlateRadiationFactory& operator = (const FlatPlateRadiationFactory& rhs);
-   FlatPlateRadiationFactory (const FlatPlateRadiationFactory& rhs);
-
+    bool is_correct_factory(Facet * facet) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "flat_plate_radiation_facet.hh"
 #endif
-
 
 #endif
 

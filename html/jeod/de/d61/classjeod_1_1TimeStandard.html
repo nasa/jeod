@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,7 +48,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::TimeStandard Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -64,14 +63,14 @@ Inheritance diagram for jeod::TimeStandard:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/dfb/classjeod_1_1TimeStandard__inherit__graph.png" border="0" usemap="#jeod_1_1TimeStandard_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1TimeStandard_inherit__map" id="jeod_1_1TimeStandard_inherit__map">
-<area shape="rect" id="node3" href="../../d3/de2/classjeod_1_1TimeGMST.html" title="To represent the clock known as Greenwich Mean Sidereal Time. " alt="" coords="377,5,499,32"/>
-<area shape="rect" id="node4" href="../../da/d5a/classjeod_1_1TimeGPS.html" title="To represent the time associated with the Global Positioning System. " alt="" coords="383,56,493,83"/>
-<area shape="rect" id="node5" href="../../de/d93/classjeod_1_1TimeTAI.html" title="Represents International Atomic Time. " alt="" coords="387,107,489,133"/>
-<area shape="rect" id="node6" href="../../de/dab/classjeod_1_1TimeTDB.html" title="Represents Barycentric Dynamic Time. " alt="" coords="383,157,493,184"/>
-<area shape="rect" id="node7" href="../../d7/db3/classjeod_1_1TimeTT.html" title="Represents Terrestrial Time. " alt="" coords="389,208,487,235"/>
-<area shape="rect" id="node8" href="../../d3/d64/classjeod_1_1TimeUT1.html" title="Represents Universal Time. " alt="" coords="384,259,492,285"/>
-<area shape="rect" id="node9" href="../../d3/da6/classjeod_1_1TimeUTC.html" title="Represents Coordinated Universal Time. " alt="" coords="383,309,493,336"/>
-<area shape="rect" id="node2" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="5,157,147,184"/>
+<area shape="rect" id="node3" href="../../d3/de2/classjeod_1_1TimeGMST.html" title="To represent the clock known as Greenwich Mean Sidereal Time. " alt="" coords="401,5,529,32"/>
+<area shape="rect" id="node4" href="../../da/d5a/classjeod_1_1TimeGPS.html" title="To represent the time associated with the Global Positioning System. " alt="" coords="407,56,524,83"/>
+<area shape="rect" id="node5" href="../../de/d93/classjeod_1_1TimeTAI.html" title="Represents International Atomic Time. " alt="" coords="410,107,521,133"/>
+<area shape="rect" id="node6" href="../../de/dab/classjeod_1_1TimeTDB.html" title="Represents Barycentric Dynamic Time. " alt="" coords="406,157,525,184"/>
+<area shape="rect" id="node7" href="../../d7/db3/classjeod_1_1TimeTT.html" title="Represents Terrestrial Time. " alt="" coords="412,208,519,235"/>
+<area shape="rect" id="node8" href="../../d3/d64/classjeod_1_1TimeUT1.html" title="Represents Universal Time. " alt="" coords="407,259,524,285"/>
+<area shape="rect" id="node9" href="../../d3/da6/classjeod_1_1TimeUTC.html" title="Represents Coordinated Universal Time. " alt="" coords="407,309,524,336"/>
+<area shape="rect" id="node2" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="5,157,156,184"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -79,26 +78,28 @@ Collaboration diagram for jeod::TimeStandard:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/dda/classjeod_1_1TimeStandard__coll__graph.png" border="0" usemap="#jeod_1_1TimeStandard_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1TimeStandard_coll__map" id="jeod_1_1TimeStandard_coll__map">
-<area shape="rect" id="node2" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="499,243,640,270"/>
-<area shape="rect" id="node6" href="../../d4/dac/classjeod_1_1TimeDyn.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="874,302,981,329"/>
-<area shape="rect" id="node11" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="jeod::TreeLinks\&lt; TimeLinks,\l JeodBaseTime, TimeMessages \&gt;" alt="" coords="816,5,1039,47"/>
-<area shape="rect" id="node3" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="1160,302,1293,329"/>
-<area shape="rect" id="node4" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="842,185,1013,211"/>
-<area shape="rect" id="node8" href="../../d1/da4/classjeod_1_1TimeConverter.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="184,318,324,345"/>
-<area shape="rect" id="node9" title="STL class. " alt="" coords="5,257,85,283"/>
-<area shape="rect" id="node12" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="193,190,315,217"/>
-<area shape="rect" id="node10" href="../../d6/d9a/classjeod_1_1TimeLinks.html" title="jeod::TimeLinks" alt="" coords="1169,39,1284,66"/>
+<area shape="rect" id="node2" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="544,243,695,270"/>
+<area shape="rect" id="node6" href="../../d4/dac/classjeod_1_1TimeDyn.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="946,302,1063,329"/>
+<area shape="rect" id="node11" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="jeod::TreeLinks\&lt; TimeLinks,\l JeodBaseTime, TimeMessages \&gt;" alt="" coords="885,5,1124,47"/>
+<area shape="rect" id="node3" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="1255,302,1401,329"/>
+<area shape="rect" id="node4" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="909,185,1100,211"/>
+<area shape="rect" id="node8" href="../../d1/da4/classjeod_1_1TimeConverter.html" title="The Time Converter is an abstract class that defines the basic structure of all the methods used by t..." alt="" coords="197,318,352,345"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="5,257,92,283"/>
+<area shape="rect" id="node12" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="207,190,342,217"/>
+<area shape="rect" id="node10" href="../../d6/d9a/classjeod_1_1TimeLinks.html" title="jeod::TimeLinks" alt="" coords="1265,39,1391,66"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:affaa3277d5468ff0bd3a8a7e8df49902"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#affaa3277d5468ff0bd3a8a7e8df49902">TimeStandard</a> ()</td></tr>
-<tr class="memdesc:affaa3277d5468ff0bd3a8a7e8df49902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html" title="A class that serves as the base for all time representations that are well defined outside the simula...">TimeStandard</a>.  <a href="#affaa3277d5468ff0bd3a8a7e8df49902">More...</a><br /></td></tr>
-<tr class="separator:affaa3277d5468ff0bd3a8a7e8df49902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a852ec17172b7037692960e4f381b0f03"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a852ec17172b7037692960e4f381b0f03">~TimeStandard</a> () override</td></tr>
-<tr class="memdesc:a852ec17172b7037692960e4f381b0f03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html" title="A class that serves as the base for all time representations that are well defined outside the simula...">TimeStandard</a>.  <a href="#a852ec17172b7037692960e4f381b0f03">More...</a><br /></td></tr>
-<tr class="separator:a852ec17172b7037692960e4f381b0f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eb6121ffbd810d97cfe89470b03f9a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4eb6121ffbd810d97cfe89470b03f9a3">TimeStandard</a> ()=default</td></tr>
+<tr class="separator:a4eb6121ffbd810d97cfe89470b03f9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90bd12e3fe0a06b76357a98714f58718"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a90bd12e3fe0a06b76357a98714f58718">~TimeStandard</a> () override=default</td></tr>
+<tr class="separator:a90bd12e3fe0a06b76357a98714f58718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a959c4d125ed143425eb061f38729dc23"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a959c4d125ed143425eb061f38729dc23">TimeStandard</a> (const <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html">TimeStandard</a> &amp;)=delete</td></tr>
+<tr class="separator:a959c4d125ed143425eb061f38729dc23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58751470a95578cf05b0e1fc29ccf04e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html">TimeStandard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a58751470a95578cf05b0e1fc29ccf04e">operator=</a> (const <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html">TimeStandard</a> &amp;)=delete</td></tr>
+<tr class="separator:a58751470a95578cf05b0e1fc29ccf04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba72669d5cea1f2380b1484fa34ea056"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba72669d5cea1f2380b1484fa34ea056">calendar_update</a> (double simtime)</td></tr>
 <tr class="memdesc:aba72669d5cea1f2380b1484fa34ea056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the function that converts the Julian-type representation of time (dd.xxxx days) to a calendar representation.  <a href="#aba72669d5cea1f2380b1484fa34ea056">More...</a><br /></td></tr>
 <tr class="separator:aba72669d5cea1f2380b1484fa34ea056"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,12 +121,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae0d677b46dd90cc0b373ecf4900e9375"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian</a> (const double new_tjt)</td></tr>
 <tr class="memdesc:ae0d677b46dd90cc0b373ecf4900e9375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a value of tjt, propagate to seconds and days.  <a href="#ae0d677b46dd90cc0b373ecf4900e9375">More...</a><br /></td></tr>
 <tr class="separator:ae0d677b46dd90cc0b373ecf4900e9375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4c6bc420762f88d65a52546f633536a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ad4c6bc420762f88d65a52546f633536a">julian_date_at_epoch</a> (void)</td></tr>
-<tr class="memdesc:ad4c6bc420762f88d65a52546f633536a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full Julian date at epoch, rather than the Truncated Julian Time.  <a href="#ad4c6bc420762f88d65a52546f633536a">More...</a><br /></td></tr>
-<tr class="separator:ad4c6bc420762f88d65a52546f633536a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cd79136bf0b657ea66615b06d595488"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year</a> (void)</td></tr>
-<tr class="memdesc:a4cd79136bf0b657ea66615b06d595488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the number of seconds elapsed this year.  <a href="#a4cd79136bf0b657ea66615b06d595488">More...</a><br /></td></tr>
-<tr class="separator:a4cd79136bf0b657ea66615b06d595488"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a0db1cbd17d8ff02a0e110fe655f85b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4a0db1cbd17d8ff02a0e110fe655f85b">julian_date_at_epoch</a> ()</td></tr>
+<tr class="memdesc:a4a0db1cbd17d8ff02a0e110fe655f85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full Julian date at epoch, rather than the Truncated Julian Time.  <a href="#a4a0db1cbd17d8ff02a0e110fe655f85b">More...</a><br /></td></tr>
+<tr class="separator:a4a0db1cbd17d8ff02a0e110fe655f85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6420aadd94497f0ba621dfc39b4dafd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year</a> ()</td></tr>
+<tr class="memdesc:af6420aadd94497f0ba621dfc39b4dafd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the number of seconds elapsed this year.  <a href="#af6420aadd94497f0ba621dfc39b4dafd">More...</a><br /></td></tr>
+<tr class="separator:af6420aadd94497f0ba621dfc39b4dafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1JeodBaseTime"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1JeodBaseTime')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">jeod::JeodBaseTime</a></td></tr>
 <tr class="memitem:ae4001b51900b0ce946a282d774880a53 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae4001b51900b0ce946a282d774880a53">JeodBaseTime</a> ()</td></tr>
 <tr class="memdesc:ae4001b51900b0ce946a282d774880a53 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD...">JeodBaseTime</a>.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae4001b51900b0ce946a282d774880a53">More...</a><br /></td></tr>
@@ -133,9 +134,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9e06150acd5f2d52cc91e96220289599 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">~JeodBaseTime</a> ()</td></tr>
 <tr class="memdesc:a9e06150acd5f2d52cc91e96220289599 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD...">JeodBaseTime</a>.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">More...</a><br /></td></tr>
 <tr class="separator:a9e06150acd5f2d52cc91e96220289599 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84b4a569aaf647cbfb2aad798446638c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a84b4a569aaf647cbfb2aad798446638c">must_be_singleton</a> (void)</td></tr>
-<tr class="memdesc:a84b4a569aaf647cbfb2aad798446638c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual function that indicates if class must be a singleton Defaults to yes.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a84b4a569aaf647cbfb2aad798446638c">More...</a><br /></td></tr>
-<tr class="separator:a84b4a569aaf647cbfb2aad798446638c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d1c17d85274e36840986508c8bc393c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9d1c17d85274e36840986508c8bc393c">JeodBaseTime</a> (const <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">JeodBaseTime</a> &amp;)=delete</td></tr>
+<tr class="separator:a9d1c17d85274e36840986508c8bc393c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a808f10086de2edc6b7032437a19aca63 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">JeodBaseTime</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a808f10086de2edc6b7032437a19aca63">operator=</a> (const <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">JeodBaseTime</a> &amp;)=delete</td></tr>
+<tr class="separator:a808f10086de2edc6b7032437a19aca63 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7797e8b35419a3c6d984916d1773134e inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a7797e8b35419a3c6d984916d1773134e">must_be_singleton</a> ()</td></tr>
+<tr class="memdesc:a7797e8b35419a3c6d984916d1773134e inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual function that indicates if class must be a singleton Defaults to yes.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a7797e8b35419a3c6d984916d1773134e">More...</a><br /></td></tr>
+<tr class="separator:a7797e8b35419a3c6d984916d1773134e inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05b1c1e565d22009d8d2c57d20faf30f inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">add_type_update</a> (const int seeking_status, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html">TimeManagerInit</a> *tm_init)</td></tr>
 <tr class="memdesc:a05b1c1e565d22009d8d2c57d20faf30f inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively adds elements to the update tree.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">More...</a><br /></td></tr>
 <tr class="separator:a05b1c1e565d22009d8d2c57d20faf30f inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,108 +159,101 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aebbc3cef9f30152e3c636f1e1d2f37f0 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#aebbc3cef9f30152e3c636f1e1d2f37f0">is_initialized</a> ()</td></tr>
 <tr class="memdesc:aebbc3cef9f30152e3c636f1e1d2f37f0 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the initialization status.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#aebbc3cef9f30152e3c636f1e1d2f37f0">More...</a><br /></td></tr>
 <tr class="separator:aebbc3cef9f30152e3c636f1e1d2f37f0 inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a595573fc0956e57c4dd293a75261ea1c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a595573fc0956e57c4dd293a75261ea1c">update</a> (void)</td></tr>
-<tr class="memdesc:a595573fc0956e57c4dd293a75261ea1c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates each of the derived times from its parent time.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a595573fc0956e57c4dd293a75261ea1c">More...</a><br /></td></tr>
-<tr class="separator:a595573fc0956e57c4dd293a75261ea1c inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18d6616f2d9e6b02e21559bec0d15ff inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ab18d6616f2d9e6b02e21559bec0d15ff">update</a> ()</td></tr>
+<tr class="memdesc:ab18d6616f2d9e6b02e21559bec0d15ff inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates each of the derived times from its parent time.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ab18d6616f2d9e6b02e21559bec0d15ff">More...</a><br /></td></tr>
+<tr class="separator:ab18d6616f2d9e6b02e21559bec0d15ff inherit pub_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aca9c8b5aa47d974cbe2a0a09cb851939"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aca9c8b5aa47d974cbe2a0a09cb851939">last_calendar_update</a></td></tr>
+<tr class="memitem:aca9c8b5aa47d974cbe2a0a09cb851939"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aca9c8b5aa47d974cbe2a0a09cb851939">last_calendar_update</a> {-100000.0}</td></tr>
 <tr class="memdesc:aca9c8b5aa47d974cbe2a0a09cb851939"><td class="mdescLeft">&#160;</td><td class="mdescRight">The simtime when the calendar update was last run.  <a href="#aca9c8b5aa47d974cbe2a0a09cb851939">More...</a><br /></td></tr>
 <tr class="separator:aca9c8b5aa47d974cbe2a0a09cb851939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3b8f0effc342012023262d731f5ecbc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae3b8f0effc342012023262d731f5ecbc">prev_julian_day</a></td></tr>
+<tr class="memitem:ae3b8f0effc342012023262d731f5ecbc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae3b8f0effc342012023262d731f5ecbc">prev_julian_day</a> {-1000000000}</td></tr>
 <tr class="memdesc:ae3b8f0effc342012023262d731f5ecbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for determining whether to update the date in the calendar function.  <a href="#ae3b8f0effc342012023262d731f5ecbc">More...</a><br /></td></tr>
 <tr class="separator:ae3b8f0effc342012023262d731f5ecbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace19c582f1f68ab02e12e22677a85027"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace19c582f1f68ab02e12e22677a85027">seconds_at_year_start</a></td></tr>
+<tr class="memitem:ace19c582f1f68ab02e12e22677a85027"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace19c582f1f68ab02e12e22677a85027">seconds_at_year_start</a> {}</td></tr>
 <tr class="memdesc:ace19c582f1f68ab02e12e22677a85027"><td class="mdescLeft">&#160;</td><td class="mdescRight">The value of "seconds" at the start of the year in which the last seconds_of_year calculation was made.  <a href="#ace19c582f1f68ab02e12e22677a85027">More...</a><br /></td></tr>
 <tr class="separator:ace19c582f1f68ab02e12e22677a85027"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc048fcbe6c8b0e4da93cd0ada892872"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#adc048fcbe6c8b0e4da93cd0ada892872">year_of_last_soy</a></td></tr>
+<tr class="memitem:adc048fcbe6c8b0e4da93cd0ada892872"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#adc048fcbe6c8b0e4da93cd0ada892872">year_of_last_soy</a> {-1000000}</td></tr>
 <tr class="memdesc:adc048fcbe6c8b0e4da93cd0ada892872"><td class="mdescLeft">&#160;</td><td class="mdescRight">The year in which the last seconds_of_year calculation was made.  <a href="#adc048fcbe6c8b0e4da93cd0ada892872">More...</a><br /></td></tr>
 <tr class="separator:adc048fcbe6c8b0e4da93cd0ada892872"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e1ae5aa77198d1024faddff2bdc297f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a3e1ae5aa77198d1024faddff2bdc297f">send_warning_pre_1968</a></td></tr>
+<tr class="memitem:a3e1ae5aa77198d1024faddff2bdc297f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a3e1ae5aa77198d1024faddff2bdc297f">send_warning_pre_1968</a> {true}</td></tr>
 <tr class="memdesc:a3e1ae5aa77198d1024faddff2bdc297f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This flag can be turned off by developers wanting to avoid warnings about a simulation being initialized pre-1968.  <a href="#a3e1ae5aa77198d1024faddff2bdc297f">More...</a><br /></td></tr>
 <tr class="separator:a3e1ae5aa77198d1024faddff2bdc297f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acabb4ae5f5463893bef3ff2ae5bb58e6"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acabb4ae5f5463893bef3ff2ae5bb58e6">tjt_mjt_offset</a></td></tr>
+<tr class="memitem:acabb4ae5f5463893bef3ff2ae5bb58e6"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acabb4ae5f5463893bef3ff2ae5bb58e6">tjt_mjt_offset</a> {40000.0}</td></tr>
 <tr class="memdesc:acabb4ae5f5463893bef3ff2ae5bb58e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Difference between Truncated Julian and Modified Julian.  <a href="#acabb4ae5f5463893bef3ff2ae5bb58e6">More...</a><br /></td></tr>
 <tr class="separator:acabb4ae5f5463893bef3ff2ae5bb58e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b29dc9ba90d1e78270d4a4550d4de1a"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a7b29dc9ba90d1e78270d4a4550d4de1a">tjt_jd_offset</a></td></tr>
+<tr class="memitem:a7b29dc9ba90d1e78270d4a4550d4de1a"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a7b29dc9ba90d1e78270d4a4550d4de1a">tjt_jd_offset</a> {2440000.5}</td></tr>
 <tr class="memdesc:a7b29dc9ba90d1e78270d4a4550d4de1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Difference between Julian and Truncated Julian.  <a href="#a7b29dc9ba90d1e78270d4a4550d4de1a">More...</a><br /></td></tr>
 <tr class="separator:a7b29dc9ba90d1e78270d4a4550d4de1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a63ab4e1423ca8d3f0e70da6e9ea87a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a></td></tr>
+<tr class="memitem:a1a63ab4e1423ca8d3f0e70da6e9ea87a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a> {}</td></tr>
 <tr class="memdesc:a1a63ab4e1423ca8d3f0e70da6e9ea87a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Truncated Julian time for this time-type.  <a href="#a1a63ab4e1423ca8d3f0e70da6e9ea87a">More...</a><br /></td></tr>
 <tr class="separator:a1a63ab4e1423ca8d3f0e70da6e9ea87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e6884df7d8971733e05b630726e9fed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a0e6884df7d8971733e05b630726e9fed">julian_date</a></td></tr>
+<tr class="memitem:a0e6884df7d8971733e05b630726e9fed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a0e6884df7d8971733e05b630726e9fed">julian_date</a> {}</td></tr>
 <tr class="memdesc:a0e6884df7d8971733e05b630726e9fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conventional Julian Date.  <a href="#a0e6884df7d8971733e05b630726e9fed">More...</a><br /></td></tr>
 <tr class="separator:a0e6884df7d8971733e05b630726e9fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fe7f4b5632b47a71307ea9a4be9da28"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a></td></tr>
+<tr class="memitem:a4fe7f4b5632b47a71307ea9a4be9da28"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a> {}</td></tr>
 <tr class="memdesc:a4fe7f4b5632b47a71307ea9a4be9da28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Truncated Julian Date at epoch.  <a href="#a4fe7f4b5632b47a71307ea9a4be9da28">More...</a><br /></td></tr>
 <tr class="separator:a4fe7f4b5632b47a71307ea9a4be9da28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a927c0917eeb330884de0683e26c04d0b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a></td></tr>
+<tr class="memitem:a927c0917eeb330884de0683e26c04d0b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a> {}</td></tr>
 <tr class="memdesc:a927c0917eeb330884de0683e26c04d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gregorian calendar date day number.  <a href="#a927c0917eeb330884de0683e26c04d0b">More...</a><br /></td></tr>
 <tr class="separator:a927c0917eeb330884de0683e26c04d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a294a86c18aadc304e601a860a8190b6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a></td></tr>
+<tr class="memitem:a294a86c18aadc304e601a860a8190b6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a> {}</td></tr>
 <tr class="memdesc:a294a86c18aadc304e601a860a8190b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">24-hour clock hour number.  <a href="#a294a86c18aadc304e601a860a8190b6d">More...</a><br /></td></tr>
 <tr class="separator:a294a86c18aadc304e601a860a8190b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5abd558d3980484e5fd32c493716631d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a></td></tr>
+<tr class="memitem:a5abd558d3980484e5fd32c493716631d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a> {}</td></tr>
 <tr class="memdesc:a5abd558d3980484e5fd32c493716631d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock minute number.  <a href="#a5abd558d3980484e5fd32c493716631d">More...</a><br /></td></tr>
 <tr class="separator:a5abd558d3980484e5fd32c493716631d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43252dd6f6e084cbc5e9935af990a506"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a></td></tr>
+<tr class="memitem:a43252dd6f6e084cbc5e9935af990a506"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a> {}</td></tr>
 <tr class="memdesc:a43252dd6f6e084cbc5e9935af990a506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock second number.  <a href="#a43252dd6f6e084cbc5e9935af990a506">More...</a><br /></td></tr>
 <tr class="separator:a43252dd6f6e084cbc5e9935af990a506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba084b006bcf7fa56738aca9df63c387"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a></td></tr>
+<tr class="memitem:aba084b006bcf7fa56738aca9df63c387"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a> {}</td></tr>
 <tr class="memdesc:aba084b006bcf7fa56738aca9df63c387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gregorian calendar year.  <a href="#aba084b006bcf7fa56738aca9df63c387">More...</a><br /></td></tr>
 <tr class="separator:aba084b006bcf7fa56738aca9df63c387"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5397152e3862e971575f4beed3157b5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a></td></tr>
+<tr class="memitem:ab5397152e3862e971575f4beed3157b5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a> {}</td></tr>
 <tr class="memdesc:ab5397152e3862e971575f4beed3157b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gregorian calendar month.  <a href="#ab5397152e3862e971575f4beed3157b5">More...</a><br /></td></tr>
 <tr class="separator:ab5397152e3862e971575f4beed3157b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1JeodBaseTime"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1JeodBaseTime')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">jeod::JeodBaseTime</a></td></tr>
-<tr class="memitem:a6ff016d729131c3378e1d0f416ced64c inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a6ff016d729131c3378e1d0f416ced64c">initializing_value</a></td></tr>
+<tr class="memitem:a6ff016d729131c3378e1d0f416ced64c inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a6ff016d729131c3378e1d0f416ced64c">initializing_value</a> {}</td></tr>
 <tr class="memdesc:a6ff016d729131c3378e1d0f416ced64c inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value used to define sim start time.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a6ff016d729131c3378e1d0f416ced64c">More...</a><br /></td></tr>
 <tr class="separator:a6ff016d729131c3378e1d0f416ced64c inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43eb609e57a591428ce48a2469731b54 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a43eb609e57a591428ce48a2469731b54">update_converter_direction</a></td></tr>
+<tr class="memitem:a43eb609e57a591428ce48a2469731b54 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a43eb609e57a591428ce48a2469731b54">update_converter_direction</a> {}</td></tr>
 <tr class="memdesc:a43eb609e57a591428ce48a2469731b54 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines which converter function (a_to_b (+1) or b_to_a (-1)) to use.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a43eb609e57a591428ce48a2469731b54">More...</a><br /></td></tr>
 <tr class="separator:a43eb609e57a591428ce48a2469731b54 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc057250f0103fab080220c309af6904 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">seconds</a></td></tr>
+<tr class="memitem:acc057250f0103fab080220c309af6904 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">seconds</a> {}</td></tr>
 <tr class="memdesc:acc057250f0103fab080220c309af6904 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elapsed time from epoch.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">More...</a><br /></td></tr>
 <tr class="separator:acc057250f0103fab080220c309af6904 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcd7e72ce87f1a1c43dd85b264b0d229 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html">NamedItem</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">name</a></td></tr>
 <tr class="memdesc:adcd7e72ce87f1a1c43dd85b264b0d229 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of time-type.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">More...</a><br /></td></tr>
 <tr class="separator:adcd7e72ce87f1a1c43dd85b264b0d229 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3680e45c55d996144f47acb88729c00f inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">initialize_from_name</a></td></tr>
+<tr class="memitem:a3680e45c55d996144f47acb88729c00f inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">initialize_from_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a3680e45c55d996144f47acb88729c00f inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of time-type from which initial value is derived.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">More...</a><br /></td></tr>
 <tr class="separator:a3680e45c55d996144f47acb88729c00f inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69c71f311ac25c9e7a25ae920c187dad inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a69c71f311ac25c9e7a25ae920c187dad">update_from_name</a></td></tr>
+<tr class="memitem:a69c71f311ac25c9e7a25ae920c187dad inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a69c71f311ac25c9e7a25ae920c187dad">update_from_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a69c71f311ac25c9e7a25ae920c187dad inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of time-type from which update values are derived.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a69c71f311ac25c9e7a25ae920c187dad">More...</a><br /></td></tr>
 <tr class="separator:a69c71f311ac25c9e7a25ae920c187dad inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58e4950ce6f73197a426ca479d0c9626 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html">TimeManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">time_manager</a></td></tr>
+<tr class="memitem:a58e4950ce6f73197a426ca479d0c9626 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html">TimeManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">time_manager</a> {}</td></tr>
 <tr class="memdesc:a58e4950ce6f73197a426ca479d0c9626 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation...">TimeManager</a>.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">More...</a><br /></td></tr>
 <tr class="separator:a58e4950ce6f73197a426ca479d0c9626 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96869c860e2819a89a1f4b96f3d1f515 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html">TimeConverter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a96869c860e2819a89a1f4b96f3d1f515">update_converter_ptr</a></td></tr>
+<tr class="memitem:a96869c860e2819a89a1f4b96f3d1f515 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html">TimeConverter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a96869c860e2819a89a1f4b96f3d1f515">update_converter_ptr</a> {}</td></tr>
 <tr class="memdesc:a96869c860e2819a89a1f4b96f3d1f515 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the converter class needed to update the time.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a96869c860e2819a89a1f4b96f3d1f515">More...</a><br /></td></tr>
 <tr class="separator:a96869c860e2819a89a1f4b96f3d1f515 inherit pub_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ac04c73b5b5574ed306c3171d30baacb4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar</a> (void)</td></tr>
-<tr class="memdesc:ac04c73b5b5574ed306c3171d30baacb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Truncated Julian date/time from Gregorian calendar date and 24-hour clock representation.  <a href="#ac04c73b5b5574ed306c3171d30baacb4">More...</a><br /></td></tr>
-<tr class="separator:ac04c73b5b5574ed306c3171d30baacb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab37487ef9b6456d58e38549ce90a4d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values</a> (void)</td></tr>
-<tr class="memdesc:acab37487ef9b6456d58e38549ce90a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Gregorian calendar date and 24-hour clock representation from Truncated Julian date/time.  <a href="#acab37487ef9b6456d58e38549ce90a4d">More...</a><br /></td></tr>
-<tr class="separator:acab37487ef9b6456d58e38549ce90a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a9cf170b36370b9496402dee9ff0211"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5a9cf170b36370b9496402dee9ff0211">set_epoch</a> (void)=0</td></tr>
-<tr class="memdesc:a5a9cf170b36370b9496402dee9ff0211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the epoch time.  <a href="#a5a9cf170b36370b9496402dee9ff0211">More...</a><br /></td></tr>
-<tr class="separator:a5a9cf170b36370b9496402dee9ff0211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d16353c576bdd186542719bf9aafacc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar</a> ()</td></tr>
+<tr class="memdesc:a1d16353c576bdd186542719bf9aafacc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Truncated Julian date/time from Gregorian calendar date and 24-hour clock representation.  <a href="#a1d16353c576bdd186542719bf9aafacc">More...</a><br /></td></tr>
+<tr class="separator:a1d16353c576bdd186542719bf9aafacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1a64e256a533cac9f6b2bb6698b5887"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values</a> ()</td></tr>
+<tr class="memdesc:ae1a64e256a533cac9f6b2bb6698b5887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Gregorian calendar date and 24-hour clock representation from Truncated Julian date/time.  <a href="#ae1a64e256a533cac9f6b2bb6698b5887">More...</a><br /></td></tr>
+<tr class="separator:ae1a64e256a533cac9f6b2bb6698b5887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c1f1e7a2f3d798d7efe1c802c617090"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a0c1f1e7a2f3d798d7efe1c802c617090">set_epoch</a> ()=0</td></tr>
+<tr class="memdesc:a0c1f1e7a2f3d798d7efe1c802c617090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the epoch time.  <a href="#a0c1f1e7a2f3d798d7efe1c802c617090">More...</a><br /></td></tr>
+<tr class="separator:a0c1f1e7a2f3d798d7efe1c802c617090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classjeod_1_1JeodBaseTime"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjeod_1_1JeodBaseTime')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">jeod::JeodBaseTime</a></td></tr>
 <tr class="memitem:a961e820481261b553b26b2876b91d67e inherit pro_methods_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a961e820481261b553b26b2876b91d67e">add_parent</a> (<a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">JeodBaseTime</a> &amp;parent)</td></tr>
 <tr class="memdesc:a961e820481261b553b26b2876b91d67e inherit pro_methods_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the argument time as the update source for this time.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a961e820481261b553b26b2876b91d67e">More...</a><br /></td></tr>
 <tr class="separator:a961e820481261b553b26b2876b91d67e inherit pro_methods_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a236a7428ae6b8de81c449e02dcf5ba1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a236a7428ae6b8de81c449e02dcf5ba1a">TimeStandard</a> (const <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html">TimeStandard</a> &amp;)</td></tr>
-<tr class="separator:a236a7428ae6b8de81c449e02dcf5ba1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af443bce5f42d12dbda0ea9dc71a7daa3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html">TimeStandard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af443bce5f42d12dbda0ea9dc71a7daa3">operator=</a> (const <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html">TimeStandard</a> &amp;)</td></tr>
-<tr class="separator:af443bce5f42d12dbda0ea9dc71a7daa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -269,19 +267,19 @@ Friends</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1JeodBaseTime"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1JeodBaseTime')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html">jeod::JeodBaseTime</a></td></tr>
-<tr class="memitem:ae45c49b40076161515cfc062bb57f4f2 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae45c49b40076161515cfc062bb57f4f2">index</a></td></tr>
+<tr class="memitem:ae45c49b40076161515cfc062bb57f4f2 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae45c49b40076161515cfc062bb57f4f2">index</a> {}</td></tr>
 <tr class="memdesc:ae45c49b40076161515cfc062bb57f4f2 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index-value of time-type in the registry.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae45c49b40076161515cfc062bb57f4f2">More...</a><br /></td></tr>
 <tr class="separator:ae45c49b40076161515cfc062bb57f4f2 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8649f86435a32290a68d8af45ab170ca inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a8649f86435a32290a68d8af45ab170ca">initialized</a></td></tr>
+<tr class="memitem:a8649f86435a32290a68d8af45ab170ca inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a8649f86435a32290a68d8af45ab170ca">initialized</a> {}</td></tr>
 <tr class="memdesc:a8649f86435a32290a68d8af45ab170ca inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether time has been initialized to a real time.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a8649f86435a32290a68d8af45ab170ca">More...</a><br /></td></tr>
 <tr class="separator:a8649f86435a32290a68d8af45ab170ca inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80b8ac549eb62df581765597207f4f77 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">days</a></td></tr>
+<tr class="memitem:a80b8ac549eb62df581765597207f4f77 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">days</a> {}</td></tr>
 <tr class="memdesc:a80b8ac549eb62df581765597207f4f77 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elapsed time from epoch.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">More...</a><br /></td></tr>
 <tr class="separator:a80b8ac549eb62df581765597207f4f77 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a883caed516322ea8a7b289c76407670d inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a883caed516322ea8a7b289c76407670d">initial_value</a></td></tr>
+<tr class="memitem:a883caed516322ea8a7b289c76407670d inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a883caed516322ea8a7b289c76407670d">initial_value</a> {}</td></tr>
 <tr class="memdesc:a883caed516322ea8a7b289c76407670d inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value of "seconds" at the start of the sim.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a883caed516322ea8a7b289c76407670d">More...</a><br /></td></tr>
 <tr class="separator:a883caed516322ea8a7b289c76407670d inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84bb35b18bd8154afbcd942ca2e32a3b inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a84bb35b18bd8154afbcd942ca2e32a3b">clock_resolution</a></td></tr>
+<tr class="memitem:a84bb35b18bd8154afbcd942ca2e32a3b inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a84bb35b18bd8154afbcd942ca2e32a3b">clock_resolution</a> {0.0001}</td></tr>
 <tr class="memdesc:a84bb35b18bd8154afbcd942ca2e32a3b inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="mdescLeft">&#160;</td><td class="mdescRight">The resolution limit when generating clock and calendar-clock values.  <a href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a84bb35b18bd8154afbcd942ca2e32a3b">More...</a><br /></td></tr>
 <tr class="separator:a84bb35b18bd8154afbcd942ca2e32a3b inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ebb41d1dbc5eab2f24c7802922dedf3 inherit pro_attribs_classjeod_1_1JeodBaseTime"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d9a/classjeod_1_1TimeLinks.html">TimeLinks</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a6ebb41d1dbc5eab2f24c7802922dedf3">links</a></td></tr>
@@ -291,32 +289,35 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class that serves as the base for all time representations that are well defined outside the simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00089">89</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00088">88</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="affaa3277d5468ff0bd3a8a7e8df49902"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affaa3277d5468ff0bd3a8a7e8df49902">&#9670;&nbsp;</a></span>TimeStandard() <span class="overload">[1/2]</span></h2>
+<a id="a4eb6121ffbd810d97cfe89470b03f9a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eb6121ffbd810d97cfe89470b03f9a3">&#9670;&nbsp;</a></span>TimeStandard() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">jeod::TimeStandard::TimeStandard </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Construct a <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html" title="A class that serves as the base for all time representations that are well defined outside the simula...">TimeStandard</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00060">60</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
-
 </div>
 </div>
-<a id="a852ec17172b7037692960e4f381b0f03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a852ec17172b7037692960e4f381b0f03">&#9670;&nbsp;</a></span>~TimeStandard()</h2>
+<a id="a90bd12e3fe0a06b76357a98714f58718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90bd12e3fe0a06b76357a98714f58718">&#9670;&nbsp;</a></span>~TimeStandard()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,26 +328,21 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">jeod::TimeStandard::~TimeStandard </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy a <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html" title="A class that serves as the base for all time representations that are well defined outside the simula...">TimeStandard</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00760">760</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
-
 </div>
 </div>
-<a id="a236a7428ae6b8de81c449e02dcf5ba1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a236a7428ae6b8de81c449e02dcf5ba1a">&#9670;&nbsp;</a></span>TimeStandard() <span class="overload">[2/2]</span></h2>
+<a id="a959c4d125ed143425eb061f38729dc23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a959c4d125ed143425eb061f38729dc23">&#9670;&nbsp;</a></span>TimeStandard() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -364,7 +360,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -423,14 +419,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ade68697f1641cb50a801bd4d141d2c74">jeod::JeodBaseTime</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00176">176</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00128">128</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a5537b1b7d5a23384022773bcb8ca86c2">jeod::TimeManagerInit::get_conv_dir_init()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#aa958e92e4fe2a71b288e9ce775a379e3">jeod::NamedItem::get_name()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#ae1f181027df94b5f71aebeae4cd37f63">jeod::TimeManagerInit::get_status()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a56679d019052211ee4ce7e5d3ed3010d">jeod::TimeManager::get_time_ptr()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a52af5d7be890e8931d41edd3703aeeb9">jeod::TimeMessages::incomplete_setup_error</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a9529a29a02c4a022c55cd5266dcaf839">jeod::TimeManagerInit::increment_status()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae45c49b40076161515cfc062bb57f4f2">jeod::JeodBaseTime::index</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5305253089de72f25b676f263a381531">jeod::MessageHandler::inform()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">jeod::JeodBaseTime::initialize_from_name</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a38e9f646309a113f34b29007d9cbac67">jeod::TimeMessages::invalid_setup_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">jeod::JeodBaseTime::name</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a74e32598af177ff86d277d92d420dbb8">jeod::TimeManager::num_types</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a1f9d72eb1eb0db3abf6e69fb1a4894fe">jeod::TimeManagerInit::set_status()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#af09c4f2f988b494a8eae5ee87663a87d">jeod::TimeManager::time_lookup()</a>, and <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ade68697f1641cb50a801bd4d141d2c74">jeod::JeodBaseTime::add_type_initialize()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a5537b1b7d5a23384022773bcb8ca86c2">jeod::TimeManagerInit::get_conv_dir_init()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#acc0ae701362b5c2072992d5bf538b07e">jeod::NamedItem::get_name()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#ae1f181027df94b5f71aebeae4cd37f63">jeod::TimeManagerInit::get_status()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a56679d019052211ee4ce7e5d3ed3010d">jeod::TimeManager::get_time_ptr()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#add6975907f8950adc46d6d9299b21af6">jeod::TimeMessages::incomplete_setup_error</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a9529a29a02c4a022c55cd5266dcaf839">jeod::TimeManagerInit::increment_status()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae45c49b40076161515cfc062bb57f4f2">jeod::JeodBaseTime::index</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5305253089de72f25b676f263a381531">jeod::MessageHandler::inform()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">jeod::JeodBaseTime::initialize_from_name</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a3a2b83480fc4ad3d07836f3b57f2825b">jeod::TimeMessages::invalid_setup_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">jeod::JeodBaseTime::name</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a74e32598af177ff86d277d92d420dbb8">jeod::TimeManager::num_types</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a1f9d72eb1eb0db3abf6e69fb1a4894fe">jeod::TimeManagerInit::set_status()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#af09c4f2f988b494a8eae5ee87663a87d">jeod::TimeManager::time_lookup()</a>, and <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>.</p>
 
 </div>
 </div>
-<a id="acab37487ef9b6456d58e38549ce90a4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acab37487ef9b6456d58e38549ce90a4d">&#9670;&nbsp;</a></span>calculate_calendar_values()</h2>
+<a id="ae1a64e256a533cac9f6b2bb6698b5887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1a64e256a533cac9f6b2bb6698b5887">&#9670;&nbsp;</a></span>calculate_calendar_values()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -441,7 +437,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::TimeStandard::calculate_calendar_values </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -461,13 +456,13 @@ Additional Inherited Members</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Reimplemented in <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#af51ec7683441a14467a6f6355a37bcd3">jeod::TimeGPS</a>, and <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#a923ab4613aa362e45c7181739809d9bd">jeod::TimeGMST</a>.</p>
+<p>Reimplemented in <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a661d19744d8b6c0f8a6a9886c3f7845f">jeod::TimeGPS</a>, and <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#a8f88892da561dc28be3e73198a00e218">jeod::TimeGMST</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00294">294</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00255">255</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a84bb35b18bd8154afbcd942ca2e32a3b">jeod::JeodBaseTime::clock_resolution</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae3b8f0effc342012023262d731f5ecbc">prev_julian_day</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba72669d5cea1f2380b1484fa34ea056">calendar_update()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba72669d5cea1f2380b1484fa34ea056">calendar_update()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>.</p>
 
 </div>
 </div>
@@ -501,14 +496,14 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00384">384</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00343">343</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aca9c8b5aa47d974cbe2a0a09cb851939">last_calendar_update</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a03f83742c442c0aec074469ecb31b05d">jeod::TimeManager::simtime</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>, and <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ad17be548f3eae5f0fa9dd2a370209789">jeod::TimeManager::update()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aca9c8b5aa47d974cbe2a0a09cb851939">last_calendar_update</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a03f83742c442c0aec074469ecb31b05d">jeod::TimeManager::simtime</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>, and <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ad17be548f3eae5f0fa9dd2a370209789">jeod::TimeManager::update()</a>.</p>
 
 </div>
 </div>
-<a id="ac04c73b5b5574ed306c3171d30baacb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac04c73b5b5574ed306c3171d30baacb4">&#9670;&nbsp;</a></span>convert_from_calendar()</h2>
+<a id="a1d16353c576bdd186542719bf9aafacc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d16353c576bdd186542719bf9aafacc">&#9670;&nbsp;</a></span>convert_from_calendar()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,7 +514,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::TimeStandard::convert_from_calendar </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -539,13 +533,13 @@ Additional Inherited Members</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Reimplemented in <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a2b93ffd0506bf0950222a09501c8d1ef">jeod::TimeGPS</a>.</p>
+<p>Reimplemented in <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a703feeff5a359d48fa635c736a069974">jeod::TimeGPS</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00414">414</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00370">370</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -587,9 +581,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3fbf7deabb24f2c0a4e45237c9a5e913">jeod::JeodBaseTime</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00616">616</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00593">593</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#a9b8c51be89c2e5c262569067a7adc6a2">jeod::TimeConverter::convert_a_to_b()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#abdf992868197a3c3d1afb8055b6b9b2b">jeod::TimeConverter::convert_b_to_a()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a5537b1b7d5a23384022773bcb8ca86c2">jeod::TimeManagerInit::get_conv_dir_init()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a6542793432905cc34a38630261e8bf92">jeod::TimeManagerInit::get_conv_ptr_index()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ac6fab457d6e9b4b2ee0495f8157fdb80">jeod::TimeManager::get_converter_ptr()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a56679d019052211ee4ce7e5d3ed3010d">jeod::TimeManager::get_time_ptr()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a52af5d7be890e8931d41edd3703aeeb9">jeod::TimeMessages::incomplete_setup_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae45c49b40076161515cfc062bb57f4f2">jeod::JeodBaseTime::index</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a883caed516322ea8a7b289c76407670d">jeod::JeodBaseTime::initial_value</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a25e65d2ad0b4503c3450c434272172bf">jeod::TimeMessages::initialization_error</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#aaa552d38770059ae2016d82ae1796007">jeod::TimeConverter::initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">jeod::JeodBaseTime::initialize_from_name</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3fbf7deabb24f2c0a4e45237c9a5e913">jeod::JeodBaseTime::initialize_from_parent()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a8649f86435a32290a68d8af45ab170ca">jeod::JeodBaseTime::initialized</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#ac6ceb1e6146587098a1a265b78758205">jeod::TimeConverter::is_initialized()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#aebbc3cef9f30152e3c636f1e1d2f37f0">jeod::JeodBaseTime::is_initialized()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a6682deb6b3a6525c7129161571f7f840">jeod::TimeMessages::memory_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">jeod::JeodBaseTime::name</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a74e32598af177ff86d277d92d420dbb8">jeod::TimeManager::num_types</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#af09c4f2f988b494a8eae5ee87663a87d">jeod::TimeManager::time_lookup()</a>, and <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>.</p>
+<p class="reference">References <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#a91e7bac121d779831d92345a4ef4a58c">jeod::TimeConverter::convert_a_to_b()</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#aa32883c839ba3638e3f0555378ea94a4">jeod::TimeConverter::convert_b_to_a()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a5537b1b7d5a23384022773bcb8ca86c2">jeod::TimeManagerInit::get_conv_dir_init()</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#a6542793432905cc34a38630261e8bf92">jeod::TimeManagerInit::get_conv_ptr_index()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#ac6fab457d6e9b4b2ee0495f8157fdb80">jeod::TimeManager::get_converter_ptr()</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a56679d019052211ee4ce7e5d3ed3010d">jeod::TimeManager::get_time_ptr()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#add6975907f8950adc46d6d9299b21af6">jeod::TimeMessages::incomplete_setup_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#ae45c49b40076161515cfc062bb57f4f2">jeod::JeodBaseTime::index</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a883caed516322ea8a7b289c76407670d">jeod::JeodBaseTime::initial_value</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#ac2fe3606e1f447e7cc1b84473aeab573">jeod::TimeMessages::initialization_error</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#aaa552d38770059ae2016d82ae1796007">jeod::TimeConverter::initialize()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">jeod::JeodBaseTime::initialize_from_name</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3fbf7deabb24f2c0a4e45237c9a5e913">jeod::JeodBaseTime::initialize_from_parent()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a8649f86435a32290a68d8af45ab170ca">jeod::JeodBaseTime::initialized</a>, <a class="el" href="../../d1/da4/classjeod_1_1TimeConverter.html#ad9402585a5ca1417e59b10dda2906f2f">jeod::TimeConverter::is_initialized()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#aebbc3cef9f30152e3c636f1e1d2f37f0">jeod::JeodBaseTime::is_initialized()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a62bd05540b33e7283a5e54ac5d5c4c65">jeod::TimeMessages::memory_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">jeod::JeodBaseTime::name</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a74e32598af177ff86d277d92d420dbb8">jeod::TimeManager::num_types</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#af09c4f2f988b494a8eae5ee87663a87d">jeod::TimeManager::time_lookup()</a>, and <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>.</p>
 
 </div>
 </div>
@@ -633,14 +627,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a544f851caae5e3b91b4219a31d49c055">jeod::JeodBaseTime</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00473">473</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00422">422</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a4bd7c64fe48bbd3cce89309a783912bd">jeod::TimeEnum::calendar</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a195c47755ad7e6848beaf646b08a5cce">jeod::TimeEnum::clock</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a4bf8abd558bf2fd708037a6627b6a72e">jeod::TimeEnum::days_since_epoch</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a52af5d7be890e8931d41edd3703aeeb9">jeod::TimeMessages::incomplete_setup_error</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5305253089de72f25b676f263a381531">jeod::MessageHandler::inform()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a883caed516322ea8a7b289c76407670d">jeod::JeodBaseTime::initial_value</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">jeod::JeodBaseTime::initialize_from_name</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a8649f86435a32290a68d8af45ab170ca">jeod::JeodBaseTime::initialized</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a6ff016d729131c3378e1d0f416ced64c">jeod::JeodBaseTime::initializing_value</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a85b0a821e0e3a4b3cc4dfee1a7ec3f81">jeod::TimeMessages::invalid_data_error</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a38e9f646309a113f34b29007d9cbac67">jeod::TimeMessages::invalid_setup_error</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a8e19d257241dc24f7ed75a1fe8ffa667">jeod::TimeEnum::Julian</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a8e560fc60c3b9dab06be588c566ccc84">jeod::TimeEnum::julian</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a0b0d2a74441ac07d6dae3698d1d06b18">jeod::TimeEnum::modified_julian</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">jeod::JeodBaseTime::name</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a1c133576bf8da944def872b4ab22a152">jeod::TimeMessages::redundancy_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762aaaad22c48b7c2a3d109d2d7ec065d6bf">jeod::TimeEnum::seconds_since_epoch</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a3e1ae5aa77198d1024faddff2bdc297f">send_warning_pre_1968</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#ab704d1048b911523ed789cd5072514f9">jeod::TimeManagerInit::sim_start_format</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762ad158a273e3bd11546a19cd889ebe922b">jeod::TimeEnum::truncated_julian</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762af22089701d20bbbbe261ea35ab4ab104">jeod::TimeEnum::undefined</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
+<p class="reference">References <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a4bd7c64fe48bbd3cce89309a783912bd">jeod::TimeEnum::calendar</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a195c47755ad7e6848beaf646b08a5cce">jeod::TimeEnum::clock</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a4bf8abd558bf2fd708037a6627b6a72e">jeod::TimeEnum::days_since_epoch</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#add6975907f8950adc46d6d9299b21af6">jeod::TimeMessages::incomplete_setup_error</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5305253089de72f25b676f263a381531">jeod::MessageHandler::inform()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a883caed516322ea8a7b289c76407670d">jeod::JeodBaseTime::initial_value</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3680e45c55d996144f47acb88729c00f">jeod::JeodBaseTime::initialize_from_name</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a8649f86435a32290a68d8af45ab170ca">jeod::JeodBaseTime::initialized</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a6ff016d729131c3378e1d0f416ced64c">jeod::JeodBaseTime::initializing_value</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#aa6c981a23dd591d90f004388690bf823">jeod::TimeMessages::invalid_data_error</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#a3a2b83480fc4ad3d07836f3b57f2825b">jeod::TimeMessages::invalid_setup_error</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a8e19d257241dc24f7ed75a1fe8ffa667">jeod::TimeEnum::Julian</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a8e560fc60c3b9dab06be588c566ccc84">jeod::TimeEnum::julian</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762a0b0d2a74441ac07d6dae3698d1d06b18">jeod::TimeEnum::modified_julian</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#adcd7e72ce87f1a1c43dd85b264b0d229">jeod::JeodBaseTime::name</a>, <a class="el" href="../../d9/d03/classjeod_1_1TimeMessages.html#ab767dc618ff62e9b9552459b3c3580c4">jeod::TimeMessages::redundancy_error</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762aaaad22c48b7c2a3d109d2d7ec065d6bf">jeod::TimeEnum::seconds_since_epoch</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a3e1ae5aa77198d1024faddff2bdc297f">send_warning_pre_1968</a>, <a class="el" href="../../db/d8d/classjeod_1_1TimeManagerInit.html#ab704d1048b911523ed789cd5072514f9">jeod::TimeManagerInit::sim_start_format</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762ad158a273e3bd11546a19cd889ebe922b">jeod::TimeEnum::truncated_julian</a>, <a class="el" href="../../d1/d3f/classjeod_1_1TimeEnum.html#aa80af95e99dae345f36edda9c1e69762af22089701d20bbbbe261ea35ab4ab104">jeod::TimeEnum::undefined</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
 
 </div>
 </div>
-<a id="ad4c6bc420762f88d65a52546f633536a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4c6bc420762f88d65a52546f633536a">&#9670;&nbsp;</a></span>julian_date_at_epoch()</h2>
+<a id="a4a0db1cbd17d8ff02a0e110fe655f85b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a0db1cbd17d8ff02a0e110fe655f85b">&#9670;&nbsp;</a></span>julian_date_at_epoch()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -648,7 +642,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double jeod::TimeStandard::julian_date_at_epoch </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -659,14 +652,14 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Truncated Julian Time at the epoch of the time-type.<br />
  Units: day </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00148">148</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00105">105</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a7b29dc9ba90d1e78270d4a4550d4de1a">tjt_jd_offset</a>.</p>
 
 </div>
 </div>
-<a id="af443bce5f42d12dbda0ea9dc71a7daa3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af443bce5f42d12dbda0ea9dc71a7daa3">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a58751470a95578cf05b0e1fc29ccf04e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58751470a95578cf05b0e1fc29ccf04e">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -684,15 +677,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4cd79136bf0b657ea66615b06d595488"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cd79136bf0b657ea66615b06d595488">&#9670;&nbsp;</a></span>seconds_of_year()</h2>
+<a id="af6420aadd94497f0ba621dfc39b4dafd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6420aadd94497f0ba621dfc39b4dafd">&#9670;&nbsp;</a></span>seconds_of_year()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -700,7 +693,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">double jeod::TimeStandard::seconds_of_year </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -714,14 +706,14 @@ Additional Inherited Members</h2></td></tr>
 </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Current second of year. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00698">698</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00679">679</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aca9c8b5aa47d974cbe2a0a09cb851939">last_calendar_update</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace19c582f1f68ab02e12e22677a85027">seconds_at_year_start</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a03f83742c442c0aec074469ecb31b05d">jeod::TimeManager::simtime</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#adc048fcbe6c8b0e4da93cd0ada892872">year_of_last_soy</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a927c0917eeb330884de0683e26c04d0b">calendar_day</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a294a86c18aadc304e601a860a8190b6d">calendar_hour</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a5abd558d3980484e5fd32c493716631d">calendar_minute</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ab5397152e3862e971575f4beed3157b5">calendar_month</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a43252dd6f6e084cbc5e9935af990a506">calendar_second</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba084b006bcf7fa56738aca9df63c387">calendar_year</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aca9c8b5aa47d974cbe2a0a09cb851939">last_calendar_update</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace19c582f1f68ab02e12e22677a85027">seconds_at_year_start</a>, <a class="el" href="../../d6/dcf/classjeod_1_1TimeManager.html#a03f83742c442c0aec074469ecb31b05d">jeod::TimeManager::simtime</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a58e4950ce6f73197a426ca479d0c9626">jeod::JeodBaseTime::time_manager</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#adc048fcbe6c8b0e4da93cd0ada892872">year_of_last_soy</a>.</p>
 
 </div>
 </div>
-<a id="a5a9cf170b36370b9496402dee9ff0211"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a9cf170b36370b9496402dee9ff0211">&#9670;&nbsp;</a></span>set_epoch()</h2>
+<a id="a0c1f1e7a2f3d798d7efe1c802c617090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c1f1e7a2f3d798d7efe1c802c617090">&#9670;&nbsp;</a></span>set_epoch()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -732,7 +724,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">virtual void jeod::TimeStandard::set_epoch </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -746,7 +737,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Set the epoch time. </p>
 
-<p>Implemented in <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#aae2658a765c2edd74f0181c36c810076">jeod::TimeGPS</a>, <a class="el" href="../../d3/d64/classjeod_1_1TimeUT1.html#adb3c27484b8c7fbb59c90d6471c25587">jeod::TimeUT1</a>, <a class="el" href="../../d3/da6/classjeod_1_1TimeUTC.html#a30bf5de5c14ab6adbbee94387fce9bb5">jeod::TimeUTC</a>, <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#ad11524836bc0174ad61fb25213a0ded7">jeod::TimeGMST</a>, <a class="el" href="../../de/dab/classjeod_1_1TimeTDB.html#a84851f3e352bd1724f3c54870c8a8c73">jeod::TimeTDB</a>, <a class="el" href="../../d7/db3/classjeod_1_1TimeTT.html#ae0081f24a99d7e896f1466d96affb303">jeod::TimeTT</a>, and <a class="el" href="../../de/d93/classjeod_1_1TimeTAI.html#a7f9a97f7b538ad51cc5dae2eded70e91">jeod::TimeTAI</a>.</p>
+<p>Implemented in <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#abd131a173ec22fd40d527497aa465614">jeod::TimeGPS</a>, <a class="el" href="../../d3/d64/classjeod_1_1TimeUT1.html#a434073fec1eccc6d326c5e135e1727b6">jeod::TimeUT1</a>, <a class="el" href="../../d3/da6/classjeod_1_1TimeUTC.html#ad65a3c492f5fec1f3821a4afb11bb15b">jeod::TimeUTC</a>, <a class="el" href="../../d3/de2/classjeod_1_1TimeGMST.html#a41d4bbb2742707b9245c0bfaab733fd0">jeod::TimeGMST</a>, <a class="el" href="../../de/dab/classjeod_1_1TimeTDB.html#a27efc78076a1ed5aabe62a7c9bab33e6">jeod::TimeTDB</a>, <a class="el" href="../../d7/db3/classjeod_1_1TimeTT.html#a07e56a90f6a87e7b4793a56d9e8bb2dd">jeod::TimeTT</a>, and <a class="el" href="../../de/d93/classjeod_1_1TimeTAI.html#a68683abe40ee60c279f66c72eaa2569f">jeod::TimeTAI</a>.</p>
 
 </div>
 </div>
@@ -789,11 +780,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a45f7bf537cc5a896fce8f8910f2b43ce">jeod::JeodBaseTime</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00112">112</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00077">77</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a0e6884df7d8971733e05b630726e9fed">julian_date</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a45f7bf537cc5a896fce8f8910f2b43ce">jeod::JeodBaseTime::set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a7b29dc9ba90d1e78270d4a4550d4de1a">tjt_jd_offset</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/da5/classjeod_1_1TimeConverter__UT1__GMST.html#acf7f825fc8004bd8eceb389467851400">jeod::TimeConverter_UT1_GMST::convert_a_to_b()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/da5/classjeod_1_1TimeConverter__UT1__GMST.html#a114bbeb371b95e3f9744a4fda79d21b6">jeod::TimeConverter_UT1_GMST::convert_a_to_b()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -836,11 +827,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3d094cb472e5aa7945f9a15d3b6878ab">jeod::JeodBaseTime</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00093">93</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00063">63</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a0e6884df7d8971733e05b630726e9fed">julian_date</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a3d094cb472e5aa7945f9a15d3b6878ab">jeod::JeodBaseTime::set_time_by_seconds()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a7b29dc9ba90d1e78270d4a4550d4de1a">tjt_jd_offset</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d7/d63/classjeod_1_1TimeConverter__TAI__TT.html#acc03a46bce2215459677acfb9f66e7d1">jeod::TimeConverter_TAI_TT::convert_a_to_b()</a>, <a class="el" href="../../d0/de3/classjeod_1_1TimeConverter__Dyn__TAI.html#a7a8c58c4137d47069a8b2e6aec00c5b1">jeod::TimeConverter_Dyn_TAI::convert_a_to_b()</a>, <a class="el" href="../../d2/d52/classjeod_1_1TimeConverter__Dyn__TDB.html#aaa03797df3fd9d92fb70158e3a7e5ba1">jeod::TimeConverter_Dyn_TDB::convert_a_to_b()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a5cb375a7eda4fb224831f655824e00f0">jeod::TimeConverter_TAI_TDB::convert_a_to_b()</a>, <a class="el" href="../../d7/d63/classjeod_1_1TimeConverter__TAI__TT.html#a6e6591182cd0a166632c3b7ef03560e9">jeod::TimeConverter_TAI_TT::convert_b_to_a()</a>, <a class="el" href="../../d1/d73/classjeod_1_1TimeConverter__TAI__GPS.html#adb1af4cf0015e3e6d1bd8c9606d8ac1a">jeod::TimeConverter_TAI_GPS::convert_b_to_a()</a>, <a class="el" href="../../d4/d26/classjeod_1_1TimeConverter__STD__UDE.html#a2397411836fcc4976ddc30b3a6a635fc">jeod::TimeConverter_STD_UDE::convert_b_to_a()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a63c48af8d26f7b9856f8b47482bda98a">jeod::TimeConverter_TAI_TDB::convert_b_to_a()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, and <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a3054a7fbd5c56d3eb5138a336fcba707">jeod::TimeGPS::set_time_by_seconds()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d7/d63/classjeod_1_1TimeConverter__TAI__TT.html#a09d4c84fd52aeb115001700a0f07d964">jeod::TimeConverter_TAI_TT::convert_a_to_b()</a>, <a class="el" href="../../d0/de3/classjeod_1_1TimeConverter__Dyn__TAI.html#a690aed7b5f5022fa7bd1c28e883a4f06">jeod::TimeConverter_Dyn_TAI::convert_a_to_b()</a>, <a class="el" href="../../d2/d52/classjeod_1_1TimeConverter__Dyn__TDB.html#a9d0be398de64f3d2a7990be1f516cd9f">jeod::TimeConverter_Dyn_TDB::convert_a_to_b()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#afb8d823b5a4c267ff787e7a3af79de0a">jeod::TimeConverter_TAI_TDB::convert_a_to_b()</a>, <a class="el" href="../../d7/d63/classjeod_1_1TimeConverter__TAI__TT.html#a4844131437b3c08fbe80a164ffd457da">jeod::TimeConverter_TAI_TT::convert_b_to_a()</a>, <a class="el" href="../../d1/d73/classjeod_1_1TimeConverter__TAI__GPS.html#aafdcf0279d22f8000f1d4914ed8f0640">jeod::TimeConverter_TAI_GPS::convert_b_to_a()</a>, <a class="el" href="../../d4/d26/classjeod_1_1TimeConverter__STD__UDE.html#aefaa101cd90939e181fdc7e505bb5a2c">jeod::TimeConverter_STD_UDE::convert_b_to_a()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a42b6488930fcbbb6eded8779776c9153">jeod::TimeConverter_TAI_TDB::convert_b_to_a()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, and <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a3054a7fbd5c56d3eb5138a336fcba707">jeod::TimeGPS::set_time_by_seconds()</a>.</p>
 
 </div>
 </div>
@@ -873,11 +864,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00131">131</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d89/time__standard_8cc_source.html#l00092">92</a> of file <a class="el" href="../../d2/d89/time__standard_8cc_source.html">time_standard.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a80b8ac549eb62df581765597207f4f77">jeod::JeodBaseTime::days</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a0e6884df7d8971733e05b630726e9fed">julian_date</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#acc057250f0103fab080220c309af6904">jeod::JeodBaseTime::seconds</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4fe7f4b5632b47a71307ea9a4be9da28">tjt_at_epoch</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a7b29dc9ba90d1e78270d4a4550d4de1a">tjt_jd_offset</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1a63ab4e1423ca8d3f0e70da6e9ea87a">trunc_julian_time</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a889d8d992b3aae0eae3b1eee14e1988b">jeod::TimeConverter_TAI_UTC::convert_a_to_b()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a4a6abafd30a21a9f1ee8b55fc3f6e416">jeod::TimeConverter_TAI_UT1::convert_a_to_b()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a1b67b964ae4bc743c0d0a6053af51e9c">jeod::TimeConverter_TAI_UTC::convert_b_to_a()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a326b6ffd4e52f77eb7aec7ff9b85003a">jeod::TimeConverter_TAI_UT1::convert_b_to_a()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, and <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a08e9f385115336dae98bf8b7fa5bae50">jeod::TimeGPS::set_time_by_trunc_julian()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a8ba03a844394bb00bf4bc5b1dbc2518a">jeod::TimeConverter_TAI_UTC::convert_a_to_b()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a3f1c7d91e3f5c70f37ad1ca7fd620406">jeod::TimeConverter_TAI_UT1::convert_a_to_b()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a23f870b7b406f5b26ef993f8a43587fe">jeod::TimeConverter_TAI_UTC::convert_b_to_a()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a2a3b430335d3213a7e8bbd42d6592489">jeod::TimeConverter_TAI_UT1::convert_b_to_a()</a>, <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>, and <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#a08e9f385115336dae98bf8b7fa5bae50">jeod::TimeGPS::set_time_by_trunc_julian()</a>.</p>
 
 </div>
 </div>
@@ -927,7 +918,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00091">91</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00090">90</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
 </div>
 </div>
@@ -951,7 +942,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00093">93</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00090">90</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
 </div>
 </div>
@@ -963,7 +954,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int jeod::TimeStandard::calendar_day</td>
+          <td class="memname">int jeod::TimeStandard::calendar_day {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -971,9 +962,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Gregorian calendar date day number. </p>
 <p>trick_units(day) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00161">161</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00157">157</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -984,7 +975,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int jeod::TimeStandard::calendar_hour</td>
+          <td class="memname">int jeod::TimeStandard::calendar_hour {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -992,9 +983,9 @@ Additional Inherited Members</h2></td></tr>
 <p>24-hour clock hour number. </p>
 <p>trick_units(hr) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00166">166</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00162">162</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -1005,7 +996,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int jeod::TimeStandard::calendar_minute</td>
+          <td class="memname">int jeod::TimeStandard::calendar_minute {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1013,9 +1004,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Clock minute number. </p>
 <p>trick_units(min) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00171">171</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00167">167</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -1026,7 +1017,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int jeod::TimeStandard::calendar_month</td>
+          <td class="memname">int jeod::TimeStandard::calendar_month {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1034,9 +1025,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Gregorian calendar month. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00186">186</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00182">182</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -1047,7 +1038,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::TimeStandard::calendar_second</td>
+          <td class="memname">double jeod::TimeStandard::calendar_second {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1055,9 +1046,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Clock second number. </p>
 <p>trick_units(s) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00176">176</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00172">172</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1059,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int jeod::TimeStandard::calendar_year</td>
+          <td class="memname">int jeod::TimeStandard::calendar_year {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1076,9 +1067,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Gregorian calendar year. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00181">181</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00177">177</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, and <a class="el" href="../../db/d8c/classjeod_1_1TimeUDE.html#a3a1b8550963ee3d4a0d4c02f12b88748">jeod::TimeUDE::set_epoch_std()</a>.</p>
 
 </div>
 </div>
@@ -1089,7 +1080,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::TimeStandard::julian_date</td>
+          <td class="memname">double jeod::TimeStandard::julian_date {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1097,7 +1088,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Conventional Julian Date. </p>
 <p>NOTE - because this value is typically so large, it has very little room for fine-detail precision. It should only ever be used as an output for the likes of terminal displays and for input to legacy code. Never use for newly developed code.trick_units(day) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00151">151</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00147">147</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a6138f5625cd3a4ecb2e3c6aced2adb81">set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a8d5f6bfb77056940ffe55673c8146023">set_time_by_seconds()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian()</a>.</p>
 
@@ -1110,7 +1101,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::TimeStandard::last_calendar_update</td>
+          <td class="memname">double jeod::TimeStandard::last_calendar_update {-100000.0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1118,9 +1109,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The simtime when the calendar update was last run. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00101">101</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00097">97</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba72669d5cea1f2380b1484fa34ea056">calendar_update()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#aba72669d5cea1f2380b1484fa34ea056">calendar_update()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>.</p>
 
 </div>
 </div>
@@ -1131,7 +1122,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int jeod::TimeStandard::prev_julian_day</td>
+          <td class="memname">int jeod::TimeStandard::prev_julian_day {-1000000000}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1139,9 +1130,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Used for determining whether to update the date in the calendar function. </p>
 <p>trick_units(day) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00107">107</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00103">103</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>.</p>
 
 </div>
 </div>
@@ -1152,7 +1143,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::TimeStandard::seconds_at_year_start</td>
+          <td class="memname">double jeod::TimeStandard::seconds_at_year_start {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1160,9 +1151,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The value of "seconds" at the start of the year in which the last seconds_of_year calculation was made. </p>
 <p>Used for seconds_of_year calculations only.trick_units(s) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00114">114</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00110">110</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>.</p>
 
 </div>
 </div>
@@ -1173,7 +1164,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::TimeStandard::send_warning_pre_1968</td>
+          <td class="memname">bool jeod::TimeStandard::send_warning_pre_1968 {true}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1181,7 +1172,7 @@ Additional Inherited Members</h2></td></tr>
 <p>This flag can be turned off by developers wanting to avoid warnings about a simulation being initialized pre-1968. </p>
 <p>The flag defaults to true - warning will be sent.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00128">128</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00124">124</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>.</p>
 
@@ -1194,7 +1185,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::TimeStandard::tjt_at_epoch</td>
+          <td class="memname">double jeod::TimeStandard::tjt_at_epoch {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1202,9 +1193,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Truncated Julian Date at epoch. </p>
 <p>trick_units(day) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00156">156</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00152">152</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../d1/d73/classjeod_1_1TimeConverter__TAI__GPS.html#ae7a0901a0a8ae44eb29686da538b9d25">jeod::TimeConverter_TAI_GPS::initialize()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a37674aef46341cb89d18cd49a72a3833">jeod::TimeConverter_TAI_TDB::initialize()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ad4c6bc420762f88d65a52546f633536a">julian_date_at_epoch()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a3e5f499e032de3f8ff89b3063c532b24">jeod::TimeConverter_TAI_TDB::set_a_to_b_offset()</a>, <a class="el" href="../../de/d93/classjeod_1_1TimeTAI.html#a7f9a97f7b538ad51cc5dae2eded70e91">jeod::TimeTAI::set_epoch()</a>, <a class="el" href="../../d7/db3/classjeod_1_1TimeTT.html#ae0081f24a99d7e896f1466d96affb303">jeod::TimeTT::set_epoch()</a>, <a class="el" href="../../de/dab/classjeod_1_1TimeTDB.html#a84851f3e352bd1724f3c54870c8a8c73">jeod::TimeTDB::set_epoch()</a>, <a class="el" href="../../d3/da6/classjeod_1_1TimeUTC.html#a30bf5de5c14ab6adbbee94387fce9bb5">jeod::TimeUTC::set_epoch()</a>, <a class="el" href="../../d3/d64/classjeod_1_1TimeUT1.html#adb3c27484b8c7fbb59c90d6471c25587">jeod::TimeUT1::set_epoch()</a>, <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#aae2658a765c2edd74f0181c36c810076">jeod::TimeGPS::set_epoch()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a6138f5625cd3a4ecb2e3c6aced2adb81">set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a8d5f6bfb77056940ffe55673c8146023">set_time_by_seconds()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../d1/d73/classjeod_1_1TimeConverter__TAI__GPS.html#ae7a0901a0a8ae44eb29686da538b9d25">jeod::TimeConverter_TAI_GPS::initialize()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a37674aef46341cb89d18cd49a72a3833">jeod::TimeConverter_TAI_TDB::initialize()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4a0db1cbd17d8ff02a0e110fe655f85b">julian_date_at_epoch()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a52348dcfa1fc508951a5b80a290fb16d">jeod::TimeConverter_TAI_TDB::set_a_to_b_offset()</a>, <a class="el" href="../../de/d93/classjeod_1_1TimeTAI.html#a68683abe40ee60c279f66c72eaa2569f">jeod::TimeTAI::set_epoch()</a>, <a class="el" href="../../d7/db3/classjeod_1_1TimeTT.html#a07e56a90f6a87e7b4793a56d9e8bb2dd">jeod::TimeTT::set_epoch()</a>, <a class="el" href="../../de/dab/classjeod_1_1TimeTDB.html#a27efc78076a1ed5aabe62a7c9bab33e6">jeod::TimeTDB::set_epoch()</a>, <a class="el" href="../../d3/da6/classjeod_1_1TimeUTC.html#ad65a3c492f5fec1f3821a4afb11bb15b">jeod::TimeUTC::set_epoch()</a>, <a class="el" href="../../d3/d64/classjeod_1_1TimeUT1.html#a434073fec1eccc6d326c5e135e1727b6">jeod::TimeUT1::set_epoch()</a>, <a class="el" href="../../da/d5a/classjeod_1_1TimeGPS.html#abd131a173ec22fd40d527497aa465614">jeod::TimeGPS::set_epoch()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a6138f5625cd3a4ecb2e3c6aced2adb81">set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a8d5f6bfb77056940ffe55673c8146023">set_time_by_seconds()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian()</a>.</p>
 
 </div>
 </div>
@@ -1215,7 +1206,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double jeod::TimeStandard::tjt_jd_offset</td>
+          <td class="memname">const double jeod::TimeStandard::tjt_jd_offset {2440000.5}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1223,9 +1214,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Difference between Julian and Truncated Julian. </p>
 <p>trick_units(day) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00138">138</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00134">134</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#a1c56c13282410b42f2a34072ab846300">jeod::De4xxEphemeris::initialize_file()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ad4c6bc420762f88d65a52546f633536a">julian_date_at_epoch()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a6138f5625cd3a4ecb2e3c6aced2adb81">set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a8d5f6bfb77056940ffe55673c8146023">set_time_by_seconds()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#afb154c8eb402ebccd9fd4b36c8f50c00">jeod::De4xxEphemeris::initialize_file()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4a0db1cbd17d8ff02a0e110fe655f85b">julian_date_at_epoch()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a6138f5625cd3a4ecb2e3c6aced2adb81">set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a8d5f6bfb77056940ffe55673c8146023">set_time_by_seconds()</a>, and <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian()</a>.</p>
 
 </div>
 </div>
@@ -1236,7 +1227,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double jeod::TimeStandard::tjt_mjt_offset</td>
+          <td class="memname">const double jeod::TimeStandard::tjt_mjt_offset {40000.0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1244,7 +1235,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Difference between Truncated Julian and Modified Julian. </p>
 <p>trick_units(day) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00133">133</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00129">129</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
 </div>
 </div>
@@ -1255,7 +1246,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::TimeStandard::trunc_julian_time</td>
+          <td class="memname">double jeod::TimeStandard::trunc_julian_time {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1263,9 +1254,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Truncated Julian time for this time-type. </p>
 <p>trick_units(day) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00143">143</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00139">139</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#acab37487ef9b6456d58e38549ce90a4d">calculate_calendar_values()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a889d8d992b3aae0eae3b1eee14e1988b">jeod::TimeConverter_TAI_UTC::convert_a_to_b()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a4a6abafd30a21a9f1ee8b55fc3f6e416">jeod::TimeConverter_TAI_UT1::convert_a_to_b()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a1b67b964ae4bc743c0d0a6053af51e9c">jeod::TimeConverter_TAI_UTC::convert_b_to_a()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a326b6ffd4e52f77eb7aec7ff9b85003a">jeod::TimeConverter_TAI_UT1::convert_b_to_a()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ac04c73b5b5574ed306c3171d30baacb4">convert_from_calendar()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#adc39a3c90c881328ebcb6ca92dc07eef">jeod::De4xxEphemeris::ephem_update()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a1fdea53e13e9edacd7837df9e90259f9">jeod::TimeConverter_TAI_UTC::initialize()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#ab1c05f2e2bd24401f12ad606e42a0536">jeod::TimeConverter_TAI_UT1::initialize()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#a1c56c13282410b42f2a34072ab846300">jeod::De4xxEphemeris::initialize_file()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a81e0e5f7231f1212ec749449f210f4d3">jeod::TimeConverter_TAI_UTC::initialize_leap_second()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a931b21126c22aad4610dc54d20bbbeb6">jeod::TimeConverter_TAI_UT1::initialize_tai_to_ut1()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a3e5f499e032de3f8ff89b3063c532b24">jeod::TimeConverter_TAI_TDB::set_a_to_b_offset()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a6138f5625cd3a4ecb2e3c6aced2adb81">set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a8d5f6bfb77056940ffe55673c8146023">set_time_by_seconds()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#a1dd9563cbc293f104029b11cd8666cfa">jeod::De4xxEphemeris::time_is_in_range()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, <a class="el" href="../../d4/d1b/classjeod_1_1METAtmosphere.html#af7ca2f3a6b7aa9a02b711034ad440480">jeod::METAtmosphere::update_time()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a0e36d77344e162c70aacd7e2d9069eab">jeod::TimeConverter_TAI_UTC::verify_table_lookup_ends()</a>, and <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#ad32f1d0838cfb8924f448ad6fb6db6a1">jeod::TimeConverter_TAI_UT1::verify_table_lookup_ends()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae1a64e256a533cac9f6b2bb6698b5887">calculate_calendar_values()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a8ba03a844394bb00bf4bc5b1dbc2518a">jeod::TimeConverter_TAI_UTC::convert_a_to_b()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a3f1c7d91e3f5c70f37ad1ca7fd620406">jeod::TimeConverter_TAI_UT1::convert_a_to_b()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a23f870b7b406f5b26ef993f8a43587fe">jeod::TimeConverter_TAI_UTC::convert_b_to_a()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a2a3b430335d3213a7e8bbd42d6592489">jeod::TimeConverter_TAI_UT1::convert_b_to_a()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a1d16353c576bdd186542719bf9aafacc">convert_from_calendar()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#a525ba7cc64294bd7f9d370a06f660613">jeod::De4xxEphemeris::ephem_update()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a1fdea53e13e9edacd7837df9e90259f9">jeod::TimeConverter_TAI_UTC::initialize()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#ab1c05f2e2bd24401f12ad606e42a0536">jeod::TimeConverter_TAI_UT1::initialize()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#afb154c8eb402ebccd9fd4b36c8f50c00">jeod::De4xxEphemeris::initialize_file()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ace0e97decbef4e28a4895b86646046bf">initialize_initializer_time()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#a0d3d8cc03d603297122bc3622e1a6e3a">jeod::TimeConverter_TAI_UTC::initialize_leap_second()</a>, <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#a0cbd510fe422b6d3a45e29e4fbe0781d">jeod::TimeConverter_TAI_UT1::initialize_tai_to_ut1()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>, <a class="el" href="../../db/d4c/classjeod_1_1TimeConverter__TAI__TDB.html#a52348dcfa1fc508951a5b80a290fb16d">jeod::TimeConverter_TAI_TDB::set_a_to_b_offset()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a6138f5625cd3a4ecb2e3c6aced2adb81">set_time_by_days()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a8d5f6bfb77056940ffe55673c8146023">set_time_by_seconds()</a>, <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#ae0d677b46dd90cc0b373ecf4900e9375">set_time_by_trunc_julian()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#a9e7cc87df101fd0b7e0d511b1c097d51">jeod::De4xxEphemeris::time_is_in_range()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, <a class="el" href="../../de/d16/classjeod_1_1TimeConverter__TAI__UTC.html#afe8218bc9b437edd158a26b0444df265">jeod::TimeConverter_TAI_UTC::verify_table_lookup_ends()</a>, and <a class="el" href="../../d3/d19/classjeod_1_1TimeConverter__TAI__UT1.html#ab0e8b9cfd31081cd7531d07d558ec161">jeod::TimeConverter_TAI_UT1::verify_table_lookup_ends()</a>.</p>
 
 </div>
 </div>
@@ -1276,7 +1267,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int jeod::TimeStandard::year_of_last_soy</td>
+          <td class="memname">int jeod::TimeStandard::year_of_last_soy {-1000000}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1284,9 +1275,9 @@ Additional Inherited Members</h2></td></tr>
 <p>The year in which the last seconds_of_year calculation was made. </p>
 <p>At the start of this year, seconds had value seconds_at_year_start. Used for seconds_of_year calculations only.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00121">121</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfd/time__standard_8hh_source.html#l00117">117</a> of file <a class="el" href="../../dc/dfd/time__standard_8hh_source.html">time_standard.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#a4cd79136bf0b657ea66615b06d595488">seconds_of_year()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d61/classjeod_1_1TimeStandard.html#af6420aadd94497f0ba621dfc39b4dafd">seconds_of_year()</a>.</p>
 
 </div>
 </div>

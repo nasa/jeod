@@ -37,29 +37,34 @@
 #define DYNAMICS 1.0
 #define LOW_RATE_ENV 100
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "JEOD_S_modules/jeod_sys.sm"
-#include "JEOD_S_modules/default_priority_settings.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
 
 #define TIME_MODEL_UTC
 #define TIME_MODEL_TDB
 #define TIME_MODEL_TT
 #define TIME_MODEL_GMST
 #define TIME_CALENDAR_UPDATE_INTERVAL 1.0
-#include "JEOD_S_modules/jeod_time.sm"
+#include "jeod_time.sm"
 
-#include "JEOD_S_modules/dynamics.sm"
-#include "JEOD_S_modules/environment_de421.sm"
-#include "JEOD_S_modules/earth_GGM05C.sm"
-#include "JEOD_S_modules/moon_basic.sm"
-#include "JEOD_S_modules/sun_basic.sm"
-#include "JEOD_S_modules/mars_MRO110B2.sm"
+#include "dynamics.sm"
+#include "earth_GGM05C.sm"
+#include "environment_de421.sm"
+#include "mars_MRO110B2.sm"
+#include "moon_basic.sm"
+#include "sun_basic.sm"
 #include "env_subscriptions.sm" // local
-#include "in_ssb.sm" // in ../SIM_spice
+#include "in_ssb.sm"            // in ../SIM_spice
 
-InSSBSimObject earth_in_ssb (dynamics.dyn_manager, earth.planet.inertial);
-InSSBSimObject mars_in_ssb (dynamics.dyn_manager, mars.planet.inertial);
-InSSBSimObject moon_in_ssb (dynamics.dyn_manager, moon.planet.inertial);
-InSSBSimObject sun_in_ssb (dynamics.dyn_manager, sun.planet.inertial);
+InSSBSimObject earth_in_ssb(dynamics.dyn_manager, earth.planet.inertial);
+InSSBSimObject mars_in_ssb(dynamics.dyn_manager, mars.planet.inertial);
+InSSBSimObject moon_in_ssb(dynamics.dyn_manager, moon.planet.inertial);
+InSSBSimObject sun_in_ssb(dynamics.dyn_manager, sun.planet.inertial);
 
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth, mars;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth, mars;

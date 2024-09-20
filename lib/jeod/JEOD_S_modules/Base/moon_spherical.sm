@@ -48,28 +48,22 @@ Purpose:( This sim object models Moon with a spherical gravity model.)
 #include "planet_generic.sm"
 class MoonSphericalSimObject: public PlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_moon_default_data    moon_default_data;
-  jeod::SphericalHarmonicsGravitySource_moon_spherical_default_data moon_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_moon_default_data moon_default_data;
+    jeod::SphericalHarmonicsGravitySource_moon_spherical_default_data moon_grav_default_data;
 
-  MoonSphericalSimObject( jeod::DynManager   & dyn_manager_in,
-                          jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            moon_default_data,
-                            moon_grav_default_data)
-  {  
-    //
-    // Environment class jobs
-    //
-    //Must be called after update_ephemerides
-    P60001("environment") planet.calculate_alt_pfix();
-  }
+    MoonSphericalSimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, moon_default_data, moon_grav_default_data)
+    {
+        //
+        // Environment class jobs
+        //
+        // Must be called after update_ephemerides
+        (DYNAMICS, "environment") planet.calculate_alt_pfix();
+    }
 
- private:
-  MoonSphericalSimObject (const MoonSphericalSimObject&);
-  MoonSphericalSimObject & operator = (const MoonSphericalSimObject&);
+    MoonSphericalSimObject(const MoonSphericalSimObject &) = delete;
+    MoonSphericalSimObject & operator=(const MoonSphericalSimObject &) = delete;
 };
 #endif

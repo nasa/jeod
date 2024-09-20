@@ -2,7 +2,7 @@ def log_3_vec( drg, var):
   for ii in range(3):
     drg.add_variable(var+"["+str(ii)+"]")
 
-drg1 = trick.sim_services.DRAscii("RelState")
+drg1 = trick.sim_services.DRBinary("RelState")
 drg1.set_cycle(1)
 drg1.freq = trick.sim_services.DR_Always
 log_3_vec( drg1, "rel_state.vehA_wrt_vehB_in_B.rel_state.trans.position")
@@ -22,7 +22,7 @@ trick.add_data_record_group(drg1)
 
 
 
-drg2 = trick.sim_services.DRAscii("VehState")
+drg2 = trick.sim_services.DRBinary("VehState")
 drg2.set_cycle(1)
 drg2.freq = trick.sim_services.DR_Always
 

@@ -63,52 +63,43 @@ Library dependencies:
 
 #include "utils/quaternion/include/quat.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Contains translational and rotational second derivatives.
  */
-class FrameDerivs {
+class FrameDerivs
+{
+    // Member data
 
+public:
+    /**
+     * Non-gravitational acceleration
+     */
+    double non_grav_accel[3]{}; //!< trick_units(m/s2)
 
- // Member data
+    /**
+     * Total acceleration
+     */
+    double trans_accel[3]{}; //!< trick_units(m/s2)
 
- public:
+    /**
+     * Time derivative of Q_parent_this, 0.0 is NOT the same as the default constructor.
+     */
+    Quaternion Qdot_parent_this{0.0}; //!< trick_units(1/s)
 
-   /**
-    * Non-gravitational acceleration
-    */
-   double non_grav_accel[3]; //!< trick_units(m/s2)
+    /**
+     * Total rotational acceleration (expressed in body frame)
+     */
+    double rot_accel[3]{}; //!< trick_units(rad/s2)
 
-   /**
-    * Total acceleration
-    */
-   double trans_accel[3]; //!< trick_units(m/s2)
-
-   /**
-    * Time derivative of Q_parent_this
-    */
-   Quaternion Qdot_parent_this; //!< trick_units(1/s)
-
-   /**
-    * Total rotational acceleration (expressed in body frame)
-    */
-   double rot_accel[3]; //!< trick_units(rad/s2)
-
-
- // Member functions
-
- public:
-
-   // Constructor
-   FrameDerivs ();
-
+    // Member functions
+    FrameDerivs() = default;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

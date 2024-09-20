@@ -62,7 +62,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_GRAVITY_MESSAGES_HH
 #define JEOD_GRAVITY_MESSAGES_HH
 
@@ -73,73 +72,64 @@ Library dependencies:
 
 // Model includes
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the gravity model.
  */
-class GravityMessages {
+class GravityMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GravityMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued when a duplicate entry is detected.
+     */
+    static const char * duplicate_entry; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(GravityMessages)
+    /**
+     * Issued when a missing entry is detected.
+     */
+    static const char * missing_entry; //!< trick_units(--)
 
+    /**
+     * Error issued when a name is invalid (null or empty).
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
- // Static member data
- public:
+    /**
+     * Error issued when an object is invalid (wrong type).
+     */
+    static const char * invalid_object; //!< trick_units(--)
 
-   /**
-    * Issued when a duplicate entry is detected.
-    */
-   static char const * duplicate_entry; //!< trick_units(--)
+    /**
+     * Issued when a limit is out of range.
+     */
+    static const char * invalid_limit; //!< trick_units(--)
 
-   /**
-    * Issued when a missing entry is detected.
-    */
-   static char const * missing_entry; //!< trick_units(--)
+    /**
+     * Issued when a value is outside the known-to-be-valid range,
+     * e.g., a radial distance less than the planet's equatorial radius.
+     */
+    static const char * domain_error; //!< trick_units(--)
 
-   /**
-    * Error issued when a name is invalid (null or empty).
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Error issued when a pointer is invalid (null or empty).
+     */
+    static const char * null_pointer; //!< trick_units(--)
 
-   /**
-    * Error issued when an object is invalid (wrong type).
-    */
-   static char const * invalid_object; //!< trick_units(--)
-
-   /**
-    * Issued when a limit is out of range.
-    */
-   static char const * invalid_limit; //!< trick_units(--)
-
-   /**
-    * Issued when a value is outside the known-to-be-valid range,
-    * e.g., a radial distance less than the planet's equatorial radius.
-    */
-   static char const * domain_error; //!< trick_units(--)
-
-   /**
-    * Error issued when a pointer is invalid (null or empty).
-    */
-   static char const * null_pointer; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   GravityMessages (void);
-   GravityMessages (const GravityMessages &);
-   GravityMessages & operator= (const GravityMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    GravityMessages() = delete;
+    GravityMessages(const GravityMessages &) = delete;
+    GravityMessages & operator=(const GravityMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

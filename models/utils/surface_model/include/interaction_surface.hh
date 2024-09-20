@@ -58,10 +58,6 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/interaction_surface.cc))
-
- 
 *******************************************************************************/
 
 #ifndef JEOD_INTERACTION_SURFACE_HH
@@ -74,9 +70,9 @@ Library dependencies:
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Facet;
 class InteractionFacetFactory;
@@ -85,90 +81,63 @@ class FacetParams;
 /**
  * A base class for interaction specific surfaces.
  */
-class InteractionSurface {
-
-   JEOD_MAKE_SIM_INTERFACES(InteractionSurface)
+class InteractionSurface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, InteractionSurface)
 
 public:
+    InteractionSurface() = default;
+    virtual ~InteractionSurface() = default;
+    InteractionSurface & operator=(const InteractionSurface &) = delete;
+    InteractionSurface(const InteractionSurface &) = delete;
 
-   // constructor
-   InteractionSurface ();
+    // Used when thermal sources are spread among many different interactions
+    /**
+     * Adds all thermal sources together.
+     */
+    /*
+      Purpose:
+        (Adds all thermal sources together.)
+     */
+    virtual void accumulate_thermal_sources(){};
+    // Used to integrate thermal sources over time to get temperature
+    /**
+     * Integrates thermal sources to get temperature.
+     */
+    /*
+      Purpose:
+        (Integrates thermal sources to get temperature.)
+     */
+    virtual void thermal_integrator(){};
 
-   // destructor
-   virtual ~InteractionSurface ();
+    /**
+     * A pure virtual function that will allocate the array of
+     * pointers to the correct interaction facet type, of the given
+     * size
+     * \param[in] size Size of the array to be allocated\n Units: cnt
+     */
 
-   // Used when thermal sources are spread among many different interactions
-      /**
-    * Adds all thermal sources together.
-    */
-   /*
-     Purpose:
-       (Adds all thermal sources together.)
-    */
-   virtual void
-   accumulate_thermal_sources (
-      void)
-   {};
-   // Used to integrate thermal sources over time to get temperature
-      /**
-    * Integrates thermal sources to get temperature.
-    */
-   /*
-     Purpose:
-       (Integrates thermal sources to get temperature.)
-    */
-   virtual void
-   thermal_integrator (
-      void)
-   {};
+    virtual void allocate_array(unsigned int size) = 0; /* In: cnt Size of the array to be allocated */
 
-   /**
-    * A pure virtual function that will allocate the array of
-    * pointers to the correct interaction facet type, of the given
-    * size
-    * \param[in] size Size of the array to be allocated\n Units: cnt
-    */
-
-   virtual void allocate_array(
-      unsigned int size)
- = 0; /* In: cnt Size of the array to be allocated */
-
-   /**
-    * A pure virtual function that will allocate the interaction
-    * facet, from the given facet, using the given facet parameters,
-    * and place it in the allocated array of interaction facets
-    * at the given index
-    * \param[in] facet The facet used to create the interaction facet
-    * \param[in] factory The factory used to create the interaction facet
-    * \param[in] params The parameters used to create the interaction facet
-    * \param[in] index Where in the interaction facet array the interaction facet will be placed\n Units: cnt
-    */
-   virtual void allocate_interaction_facet(
-      Facet* facet,
-      InteractionFacetFactory* factory,
-      FacetParams* params,
-      unsigned int index)
- = 0; /* In: cnt Where ine the interaction facet
-                                      array the interaction facet will be
-                                      placed */
-
-
-
-protected:
-
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   InteractionSurface& operator = (const InteractionSurface& rhs);
-   InteractionSurface (const InteractionSurface& rhs);
-
+    /**
+     * A pure virtual function that will allocate the interaction
+     * facet, from the given facet, using the given facet parameters,
+     * and place it in the allocated array of interaction facets
+     * at the given index
+     * \param[in] facet The facet used to create the interaction facet
+     * \param[in] factory The factory used to create the interaction facet
+     * \param[in] params The parameters used to create the interaction facet
+     * \param[in] index Where in the interaction facet array the interaction facet will be placed\n Units: cnt
+     */
+    virtual void allocate_interaction_facet(Facet * facet,
+                                            InteractionFacetFactory * factory,
+                                            FacetParams * params,
+                                            unsigned int index) = 0; /* In: cnt Where ine the interaction facet
+                                                                                                     array the
+                                                                        interaction facet will be placed */
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

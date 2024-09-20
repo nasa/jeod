@@ -63,12 +63,12 @@ Assumptions and limitations:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DE4xx_CLASS_DECL_HH
 #define JEOD_DE4xx_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class De4xxEphemeris;
 class De4xxEphemItem;
@@ -80,11 +80,9 @@ class De4xxFileItem;
 class De4xxFileRefTime;
 class De4xxFileSpec;
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

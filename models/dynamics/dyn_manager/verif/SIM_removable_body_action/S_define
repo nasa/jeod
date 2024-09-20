@@ -57,35 +57,33 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
-#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
+#define DYNAMICS 0.03125   // Vehicle and plantary dynamics interval (32Hz)
 
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 // Define the phase initialization priorities.
 #include "default_priority_settings.sm"
-
-
- // Include the default system classes:
-#include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
-
 
 // Set up desired time types and include the JEOD time S_module
 #define TIME_MODEL_UT1
 #define TIME_MODEL_UTC
 #define TIME_MODEL_TT
 #define TIME_MODEL_GMST
-#define TIME_CALENDAR_UPDATE_INTERVAL  DYNAMICS
+#define TIME_CALENDAR_UPDATE_INTERVAL DYNAMICS
 #include "jeod_time.sm"
+
 #include "dynamics.sm"
 #include "environment.sm"
-#include "sun_basic.sm"
 #include "moon_basic.sm"
+#include "sun_basic.sm"
 #define JEOD_OVERRIDE_GGM02C_WITH_GEMT1
 #include "earth_GGM05C_MET_RNP.sm"
-
 
 /*****************************************************************************
 Vehicle Sim Object
@@ -109,99 +107,76 @@ Purpose:(Provides the vehicle object)
 #include "Base/vehicle_atmosphere.sm"
 class VehicleSimObject : public VehicleAtmSimObject
 {
- public:
-  DynBodyInitLvlhRotState lvlh_init;
-  EulerDerivedState     euler;
-  LvlhDerivedState      lvlh;
-  EulerDerivedState     lvlh_euler;
-  OrbElemDerivedState   orb_elem;
-  Force  force_extern;
-  Torque torque_extern;
-  GravityTorque grav_torque;
-  SphericalHarmonicsGravityControls  earth_grav_control;
-  SphericalHarmonicsGravityControls  moon_grav_control;
-  SphericalHarmonicsGravityControls  sun_grav_control;
-  AerodynamicDrag  aero_drag;
+public:
+    DynBodyInitLvlhRotState lvlh_init;
+    EulerDerivedState euler;
+    LvlhDerivedState lvlh;
+    EulerDerivedState lvlh_euler;
+    OrbElemDerivedState orb_elem;
+    Force force_extern;
+    Torque torque_extern;
+    GravityTorque grav_torque;
+    SphericalHarmonicsGravityControls earth_grav_control;
+    SphericalHarmonicsGravityControls moon_grav_control;
+    SphericalHarmonicsGravityControls sun_grav_control;
+    AerodynamicDrag aero_drag;
 
-  // Instances for default data:
-  AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+    // Instances for default data:
+    AerodynamicDrag_aero_model_default_data aero_drag_default_data;
 
-  //Constructor
-  VehicleSimObject( DynManager    & dyn_manager_,
-                    METAtmosphere & atmos_,
-                    WindVelocity  & wind_)
-     :
-     VehicleAtmSimObject( dyn_manager_, atmos_, wind_)
+    // Constructor
+    VehicleSimObject(DynManager & dyn_manager_, METAtmosphere & atmos_, WindVelocity & wind_)
+        : VehicleAtmSimObject(dyn_manager_, atmos_, wind_)
 
-  {
-    //
-    //Default data jobs
-    //
-    ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") aero_drag_default_data.initialize(&aero_drag);
 
-    //
-    // Initialization jobs
-    //
-    P_DYN  ("initialization") euler.initialize( dyn_body,
-                                                dyn_manager );
-    P_DYN  ("initialization") lvlh.initialize( dyn_body,
-                                               dyn_manager );
-    P_DYN  ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
-                                                     dyn_body,
-                                                     dyn_manager );
-    P_DYN  ("initialization") orb_elem.initialize( dyn_body,
-                                                   dyn_manager );
-    ("initialization") euler.update( );
-    ("initialization") pfix.update( );
-    ("initialization") lvlh.update( );
-    ("initialization") lvlh_euler.update( );
-    ("initialization") orb_elem.update( );
-    ("initialization") grav_torque.initialize( dyn_body );
-    //
-    // Environment class jobs
-    //
-    (DYNAMICS, "environment") euler.update( );
-    (DYNAMICS, "environment") lvlh.update( );
-    (DYNAMICS, "environment") lvlh_euler.update( );
-    (DYNAMICS, "environment") orb_elem.update( );
-    //
-    // Derivative class jobs
-    //
-    P_BODY   ("derivative") aero_drag.aero_drag(
-          dyn_body.composite_body.state.trans.velocity,
-          &atmos_state,
-          dyn_body.structure.state.rot.T_parent_this,
-          dyn_body.composite_properties.mass,
-          dyn_body.composite_properties.position);
-    P_PGRAV   ("derivative") grav_torque.update();
-  }
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") euler.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh_euler.initialize(lvlh.lvlh_frame, dyn_body, dyn_manager);
+        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
+        ("initialization") euler.update();
+        ("initialization") pfix.update();
+        ("initialization") lvlh.update();
+        ("initialization") lvlh_euler.update();
+        ("initialization") orb_elem.update();
+        ("initialization") grav_torque.initialize(dyn_body);
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") euler.update();
+        (DYNAMICS, "environment") lvlh.update();
+        (DYNAMICS, "environment") lvlh_euler.update();
+        (DYNAMICS, "environment") orb_elem.update();
+        //
+        // Derivative class jobs
+        //
+        P_BODY("derivative")
+        aero_drag.aero_drag(dyn_body.composite_body.state.trans.velocity,
+                            &atmos_state,
+                            dyn_body.structure.state.rot.T_parent_this,
+                            dyn_body.composite_properties.mass,
+                            dyn_body.composite_properties.position);
+        P_PGRAV("derivative") grav_torque.update();
+    }
 
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
-
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
-VehicleSimObject vehicle ( dynamics.dyn_manager,
-                           earth.atmos,
-                           earth.wind_velocity);
+VehicleSimObject vehicle(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
 
+vcollect vehicle.dyn_body.collect.collect_effector_forc CollectForce::create{vehicle.force_extern};
+vcollect vehicle.dyn_body.collect.collect_environ_forc CollectForce::create{};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_forc CollectForce::create{vehicle.aero_drag.aero_force};
+vcollect vehicle.dyn_body.collect.collect_effector_torq CollectTorque::create{vehicle.torque_extern};
+vcollect vehicle.dyn_body.collect.collect_environ_torq CollectTorque::create{};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_torq CollectTorque::create{vehicle.aero_drag.aero_torque,
+                                                                             vehicle.grav_torque.torque};
 
-vcollect vehicle.dyn_body.collect.collect_effector_forc CollectForce::create {
-   vehicle.force_extern
-};
-vcollect vehicle.dyn_body.collect.collect_environ_forc CollectForce::create {
-};
-vcollect vehicle.dyn_body.collect.collect_no_xmit_forc CollectForce::create {
-   vehicle.aero_drag.aero_force
-};
-vcollect vehicle.dyn_body.collect.collect_effector_torq CollectTorque::create {
-   vehicle.torque_extern
-};
-vcollect vehicle.dyn_body.collect.collect_environ_torq CollectTorque::create {
-};
-vcollect vehicle.dyn_body.collect.collect_no_xmit_torq CollectTorque::create {
-   vehicle.aero_drag.aero_torque,
-   vehicle.grav_torque.torque
-};
-
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth, vehicle;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth, vehicle;

@@ -48,62 +48,57 @@
 ##include "interactions/contact/verif/SIM_ground_contact/models/terrain/include/terrain_radius.hh"
 ##include "interactions/contact/verif/SIM_ground_contact/models/contact_ground/include/ground_facet.hh"
 
-class PlanetSimObject : public Trick::SimObject {
+class PlanetSimObject : public Trick::SimObject
+{
+public:
+    //
+    // Data structures
+    //
+    jeod::Planet planet;
+    jeod::SphericalHarmonicsGravitySource gravity_source;
+    jeod::TerrainRadius terrain;
+    jeod::GroundFacet * ground;
 
-  public:
+    // These variables are used as externally dependant arguments to the
+    // jobs called by the Trick executive.  They either need to be connected
+    // in an initialization constructor or a connection job.  In this case,
+    // we use an initialization constructor.
+    jeod::GravityManager * env_gravity;
+    jeod::DynManager * dyn_manager;
 
-   //
-   // Data structures
-   //
-   jeod::Planet                          planet;
-   jeod::SphericalHarmonicsGravitySource   gravity_source;
-   jeod::TerrainRadius                   terrain;
-   jeod::GroundFacet                   * ground;
+    jeod::Planet_earth_default_data earth_planet_init;
+    jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data earth_gravity_init;
 
-   // These variables are used as externally dependant arguments to the
-   // jobs called by the Trick executive.  They either need to be connected
-   // in an initialization constructor or a connection job.  In this case,
-   // we use an initialization constructor.
-   jeod::GravityManager * env_gravity;
-   jeod::DynManager   * dyn_manager;
+    PlanetSimObject(jeod::GravityManager & env_grav, jeod::DynManager & dyn_mngr)
+    {
+        // Connect the externally dependent calling parameters.
+        env_gravity = &env_grav;
+        dyn_manager = &dyn_mngr;
 
-   jeod::Planet_earth_default_data earth_planet_init;
-   jeod::SphericalHarmonicsGravitySource_earth_GGM05C_default_data  earth_gravity_init;
+        //
+        // Default data jobs
+        //
 
-   PlanetSimObject( jeod::GravityManager & env_grav,
-      jeod::DynManager   & dyn_mngr) {
+        // We now call default data class jobs to load in default data.
+        // For now, these are simple functions.  These should really be
+        // part of the classes/objects they are initializing.  We're still
+        // working on that.
+        ("default_data") earth_planet_init.initialize(&planet);
+        ("default_data") earth_gravity_init.initialize(&gravity_source);
 
-      // Connect the externally dependent calling parameters.
-      env_gravity = &env_grav;
-      dyn_manager = &dyn_mngr;
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") gravity_source.initialize_body();
+        P_ENV("initialization") env_gravity->add_grav_source(gravity_source);
+        P_ENV("initialization") planet.register_model(gravity_source, *dyn_manager);
 
-      //
-      // Default data jobs
-      //
+        P_BODY("initialization") planet.initialize();
+        P_BODY("initialization") terrain.initialize(&planet);
+    }
 
-      // We now call default data class jobs to load in default data.
-      // For now, these are simple functions.  These should really be
-      // part of the classes/objects they are initializing.  We're still
-      // working on that.
-      ("default_data") earth_planet_init.initialize( &planet );
-      ("default_data") earth_gravity_init.initialize( &gravity_source );
-
-      //
-      // Initialization jobs
-      //
-      P_ENV ("initialization") gravity_source.initialize_body( );
-      P_ENV ("initialization") env_gravity->add_grav_source( gravity_source );
-      P_ENV ("initialization") planet.register_model( gravity_source, *dyn_manager );
-
-      P_BODY ("initialization") planet.initialize( );
-      P_BODY ("initialization") terrain.initialize(&planet);
-
-   }
-
-  private:
-   // This object is not copyable
-   PlanetSimObject & operator =(const PlanetSimObject &);
-
+    // This object is not copyable
+    PlanetSimObject & operator=(const PlanetSimObject &) = delete;
 };
 
-PlanetSimObject planet (env.gravity_manager, dynamics.dyn_manager);
+PlanetSimObject planet(env.gravity_manager, dynamics.dyn_manager);

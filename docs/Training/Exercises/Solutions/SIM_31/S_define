@@ -37,16 +37,23 @@
 //=============================================================================
 // Single vehicle in Earth orbit with smoothly articulating arrays and
 //  radiation pressure
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
+
 #include "time_dyntime_only.sm"
+
 #include "dynamics_init_only.sm"
 #include "environment_sans_de405.sm"
 #include "sun_basic.sm"
@@ -61,79 +68,68 @@
 ##include "dynamics/body_action/include/dyn_body_init_trans_state.hh"
 ##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
 ##include "dynamics/body_action/include/mass_body_init.hh"
-
 ##include "dynamics/mass/include/mass.hh"
 ##include "dynamics/body_action/include/body_attach_matrix.hh"
-
 ##include "utils/surface_model/include/surface_model.hh"
 ##include "utils/surface_model/include/flat_plate_thermal.hh"
 
+class VehicleSimObject : public Trick::SimObject
+{
+public:
+    //
+    // Data structures
+    //
+    jeod::DynBody dyn_body;
 
-class VehicleSimObject : public Trick::SimObject {
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
 
-  public:
+    jeod::MassBody array;
+    jeod::BodyAttachMatrix mass_attach;
 
-   //
-   // Data structures
-   //
-   jeod::DynBody       dyn_body;
+    jeod::SurfaceModel surface;
+    jeod::FlatPlateThermal array_plate;
+    jeod::FlatPlateThermal vehicle_plate;
 
-   jeod::DynBodyInitTransState   trans_init;
-   jeod::DynBodyInitRotState     rot_init;
-   jeod::MassBodyInit            mass_init;
+    double T_for_rotation[3][3];
+    double facet_pos[3];
 
-   jeod::MassBody                array;
-   jeod::BodyAttachMatrix    mass_attach;
+    void compute_T_rot(double time_in)
+    {
+        T_for_rotation[0][0] = std::cos(time_in * 3.14 / 100.0);
+        T_for_rotation[0][2] = std::sin(time_in * 3.14 / 100.0);
+        T_for_rotation[2][0] = -std::sin(time_in * 3.14 / 100.0);
+        T_for_rotation[2][2] = std::cos(time_in * 3.14 / 100.0);
+    }
 
-   jeod::SurfaceModel            surface;
-   jeod::FlatPlateThermal        array_plate;
-   jeod::FlatPlateThermal        vehicle_plate;
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in, double & dyn_time_in)
+        : dyn_manager(dyn_mngr_in),
+          dyn_time(dyn_time_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
 
-   double T_for_rotation[3][3];
-   double facet_pos[3];
-   void compute_T_rot( double time_in)
-   {
-      T_for_rotation[0][0] = std::cos(time_in * 3.14 / 100.0);
-      T_for_rotation[0][2] = std::sin(time_in * 3.14 / 100.0);
-      T_for_rotation[2][0] = -std::sin(time_in * 3.14 / 100.0);
-      T_for_rotation[2][2] = std::cos(time_in * 3.14 / 100.0);
-   }
+        P_ENV("initialization") dyn_manager.add_mass_body(array);
 
+        P_BODY("initialization") surface.initialize_mass_connections(dyn_manager);
 
+        (DYNAMICS, "environment") compute_T_rot(dyn_time);
+        (DYNAMICS, "environment") array.reattach(facet_pos, T_for_rotation);
+        (DYNAMICS, "environment") surface.update_articulation();
+    }
 
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 
-   VehicleSimObject( jeod::DynManager   &dyn_mngr_in,
-                     double      &dyn_time_in)
-     :
-       dyn_manager(dyn_mngr_in),
-       dyn_time(dyn_time_in)
-   {
-
-      //
-      // Initialization jobs
-      //
-      P_ENV ("initialization") dyn_body.initialize_model(dyn_manager );
-
-      P_ENV ("initialization") dyn_manager.add_mass_body(array);
-
-      P_BODY ("initialization") surface.initialize_mass_connections( dyn_manager);
-
-      (DYNAMICS, "environment") compute_T_rot(dyn_time);
-      (DYNAMICS, "environment") array.reattach(facet_pos,T_for_rotation);
-      (DYNAMICS, "environment") surface.update_articulation();
-   };
-
-  private:
-
-   VehicleSimObject (const VehicleSimObject&);
-   VehicleSimObject & operator = (const VehicleSimObject&);
-
-   jeod::DynManager & dyn_manager;
-   double & dyn_time;
-
+    jeod::DynManager & dyn_manager;
+    double & dyn_time;
 };
-VehicleSimObject vehicle(dynamics.dyn_manager,
-                         jeod_time.time_manager.dyn_time.seconds);
+
+VehicleSimObject vehicle(dynamics.dyn_manager, jeod_time.time_manager.dyn_time.seconds);
 
 /*****************************************************************************
 Purpose:(Radiation Pressure)
@@ -149,48 +145,37 @@ Purpose:(Radiation Pressure)
 
 class InteractionSimObject : public Trick::SimObject
 {
+public:
+    jeod::RadiationPressure rad_pressure;
+    jeod::RadiationSurface rad_surface;
+    jeod::RadiationSurfaceFactory rad_surface_factory;
 
-  public:
-  jeod::RadiationPressure rad_pressure;
-  jeod::RadiationSurface rad_surface;
-  jeod::RadiationSurfaceFactory rad_surface_factory;
+    InteractionSimObject(VehicleSimObject & veh_in, jeod::TimeDyn & dyn_time_in, jeod::DynManager & dyn_mngr_in)
+        : vehicle(veh_in),
+          dyn_time(dyn_time_in),
+          dyn_mngr(dyn_mngr_in)
+    {
+        P_ENV("initialization") rad_surface_factory.create_surface(&vehicle.surface, &rad_surface);
 
-  InteractionSimObject( VehicleSimObject  & veh_in,
-                        jeod::TimeDyn           & dyn_time_in,
-                        jeod::DynManager      & dyn_mngr_in)
-     :
-       vehicle(veh_in),
-       dyn_time(dyn_time_in),
-       dyn_mngr(dyn_mngr_in)
-  {
-      P_ENV  ("initialization") rad_surface_factory.create_surface(
-                                                          &vehicle.surface,
-                                                          &rad_surface);
+        P_ENV("initialization")
+        rad_pressure.initialize(dyn_mngr, &rad_surface, vehicle.dyn_body.mass.composite_properties.position);
 
-      P_ENV  ("initialization") rad_pressure.initialize(
-                            dyn_mngr,
-                           &rad_surface,
-                            vehicle.dyn_body.mass.composite_properties.position);
+        (DYNAMICS, "scheduled") rad_pressure.update(vehicle.dyn_body.structure,
+                                                    vehicle.dyn_body.mass.composite_properties.position,
+                                                    dyn_time.scale_factor,
+                                                    dyn_time.seconds);
+    }
 
-      (DYNAMICS, "scheduled")  rad_pressure.update(
-                          vehicle.dyn_body.structure,
-                          vehicle.dyn_body.mass.composite_properties.position,
-                          dyn_time.scale_factor,
-                          dyn_time.seconds);
+private:
+    InteractionSimObject(const InteractionSimObject &);
+    InteractionSimObject & operator=(const InteractionSimObject &);
 
-  };
-  private:
-  InteractionSimObject (const InteractionSimObject&);
-  InteractionSimObject & operator = (const InteractionSimObject&);
-
-  VehicleSimObject & vehicle;
-  jeod::TimeDyn          & dyn_time;
-  jeod::DynManager       & dyn_mngr;
+    VehicleSimObject & vehicle;
+    jeod::TimeDyn & dyn_time;
+    jeod::DynManager & dyn_mngr;
 };
-InteractionSimObject interactions(vehicle,
-                                  jeod_time.time_manager.dyn_time,
-                                  dynamics.dyn_manager);
 
+InteractionSimObject interactions(vehicle, jeod_time.time_manager.dyn_time, dynamics.dyn_manager);
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

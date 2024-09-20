@@ -57,233 +57,167 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_ITEM_INLINE_HH
 #define JEOD_EPHEM_ITEM_INLINE_HH
-
 
 // JEOD includes
 #ifndef JEOD_EPHEM_ITEM_HH
 #include "ephem_item.hh"
 #endif
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Return the name.
  * @return Void
  */
-inline const char *
-EphemerisItem::get_name (
-   void)
-const
+inline std::string EphemerisItem::get_name() const
 {
-   return name;
+    return name;
 }
-
 
 /**
  * Set the update time of this item.
  * \param[in] time Time\n Units: s
  */
-inline void
-EphemerisItem::set_timestamp (
-   double time)
+inline void EphemerisItem::set_timestamp(double time)
 {
-   update_time = time;
-   return;
+    update_time = time;
 }
-
 
 /**
  * Return the update time of this item.
  * @return Time of last update\n Units: s
  */
-inline double
-EphemerisItem::timestamp (
-   void)
-const
+inline double EphemerisItem::timestamp() const
 {
-   return update_time;
+    return update_time;
 }
-
 
 /**
  * Return enabled status.
  * @return Is item enabled?
  */
-inline bool
-EphemerisItem::is_enabled (
-   void)
-const
+inline bool EphemerisItem::is_enabled() const
 {
-   return enabled;
+    return enabled;
 }
-
 
 /**
  * Deactivate a EphemerisItem object.
  */
-inline void
-EphemerisItem::deactivate (
-   void)
+inline void EphemerisItem::deactivate()
 {
-   active = false;
-   return;
+    active = false;
 }
-
 
 /**
  * Return activity status.
  * @return Is item active?
  */
-inline bool
-EphemerisItem::is_active (
-   void)
-const
+inline bool EphemerisItem::is_active() const
 {
-   return active;
+    return active;
 }
-
 
 /**
  * Set the owner of this item.
  * \param[in] new_owner New owner
  */
-inline void
-EphemerisItem::set_owner (
-   EphemerisInterface * new_owner)
+inline void EphemerisItem::set_owner(EphemerisInterface * new_owner)
 {
-   owner = new_owner;
+    owner = new_owner;
 }
-
 
 /**
  * Return the owner of this item.
  * @return Frame owner
  */
-inline EphemerisInterface *
-EphemerisItem::get_owner (
-   void)
-const
+inline EphemerisInterface * EphemerisItem::get_owner() const
 {
-   return owner;
+    return owner;
 }
-
 
 /**
  * Set the manager of this item.
  * \param[in] new_manager New owner
  */
-inline void
-EphemerisItem::set_manager (
-   BaseEphemeridesManager * new_manager)
+inline void EphemerisItem::set_manager(BaseEphemeridesManager * new_manager)
 {
-   manager = new_manager;
-   return;
+    manager = new_manager;
 }
-
 
 /**
  * Return the manager of this item.
  * @return Object manager
  */
-inline BaseEphemeridesManager *
-EphemerisItem::get_manager (
-   void)
-const
+inline BaseEphemeridesManager * EphemerisItem::get_manager() const
 {
-   return manager;
+    return manager;
 }
-
 
 /**
  * Set the head item.
  * \param[in,out] head_item Root item
  */
-inline void
-EphemerisItem::set_head (
-   EphemerisItem * head_item)
+inline void EphemerisItem::set_head(EphemerisItem * head_item)
 {
-   head = head_item;
-   return;
+    head = head_item;
 }
-
 
 /**
  * Get the head item.
  * @return Root item
  */
-inline EphemerisItem *
-EphemerisItem::get_head (
-   void)
-const
+inline EphemerisItem * EphemerisItem::get_head() const
 {
-   return head;
+    return head;
 }
-
 
 /**
  * Set the next item.
  * \param[in,out] next_item Next item
  */
-inline void
-EphemerisItem::set_next (
-   EphemerisItem * next_item)
+inline void EphemerisItem::set_next(EphemerisItem * next_item)
 {
-   next = next_item;
-   return;
+    next = next_item;
 }
-
 
 /**
  * Get the next item.
  * @return Next item
  */
-inline EphemerisItem *
-EphemerisItem::get_next (
-   void)
-const
+inline EphemerisItem * EphemerisItem::get_next() const
 {
-   return next;
+    return next;
 }
-
 
 /**
  * Get the target frame.
  * @return Target frame
  */
-inline EphemerisRefFrame *
-EphemerisItem::get_target_frame (
-   void)
-const
+inline EphemerisRefFrame * EphemerisItem::get_target_frame() const
 {
-   return target_frame;
+    return target_frame;
 }
-
 
 /**
  * Get the item marked as enabled, if any.
  * @return Enabled item
  */
-inline EphemerisItem *
-EphemerisItem::get_enabled_item (
-   void)
-const
+inline EphemerisItem * EphemerisItem::get_enabled_item() const
 {
-   EphemerisItem * enabled_item;
-   for (enabled_item = head;
-        (enabled_item != nullptr) && (! enabled_item->enabled);
-        enabled_item = enabled_item->next) {
-      ; // Null body
-   }
-   return enabled_item;
+    EphemerisItem * enabled_item;
+    for(enabled_item = head; (enabled_item != nullptr) && (!enabled_item->enabled); enabled_item = enabled_item->next)
+    {
+        ; // Null body
+    }
+    return enabled_item;
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

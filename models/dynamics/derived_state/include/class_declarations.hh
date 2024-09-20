@@ -55,13 +55,12 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DERIVED_STATE_CLASS_DECL_HH
 #define JEOD_DERIVED_STATE_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class DerivedState;
 class DerivedStateMessages;
@@ -72,7 +71,7 @@ class OrbElemDerivedState;
 class PlanetaryDerivedState;
 class RelativeDerivedState;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

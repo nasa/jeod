@@ -58,7 +58,8 @@ Purpose:
 #define JEOD_ATMOSPHERE_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Atmosphere;
 class AtmosphereMessages;
@@ -69,7 +70,7 @@ class METAtmosphere;
 class METAtmosphereState;
 class METAtmosphereStateVars;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

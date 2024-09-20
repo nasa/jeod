@@ -57,14 +57,15 @@ References:
 Assumptions and Limitations:
    ((None))
 
- 
+
 *****************************************************************************/
 
 #ifndef JEOD_J2000_RNP_CLASS_DECL_HH
 #define JEOD_J2000_RNP_CLASS_DECL_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class NutationJ2000;
 class NutationJ2000Init;
@@ -74,7 +75,7 @@ class PrecessionJ2000;
 class RNPJ2000;
 class RotationJ2000;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

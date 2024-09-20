@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_T29_OE_VER/ 
+#  (To define the input data for simulation SET_test/RUN_T29_OE_VER/
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -25,13 +25,13 @@ trick.sim_services.exec_set_trap_sigfpe(1)
 exec(compile(open( "Modified_data/default_mods.py", "rb").read(), "Modified_data/default_mods.py", 'exec'))
 set_default_mods(orb_elem_test)
 
-orb_elem_test.orb_elem.semiparam     = 7378145.000000001 
-orb_elem_test.orb_elem.e_mag         = 8.748051513069581e-16 
+orb_elem_test.orb_elem.semiparam     = 7378145.000000001
+orb_elem_test.orb_elem.e_mag         = 8.748051513069581e-16
 orb_elem_test.orb_elem.inclination   = 0.5235987755982989
 orb_elem_test.orb_elem.mean_anom     = 0.0
-orb_elem_test.orb_elem.arg_periapsis = 0.0 
-orb_elem_test.orb_elem.long_asc_node = 0.7853981633974483 
-orb_elem_test.orb_elem_ver.to_cartesian = 1 
+orb_elem_test.orb_elem.arg_periapsis = 0.0
+orb_elem_test.orb_elem.long_asc_node = 0.7853981633974483
+orb_elem_test.orb_elem_ver.to_cartesian = True
 
 
 trick.sim_services.exec_set_terminate_time(1)

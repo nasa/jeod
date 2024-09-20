@@ -49,29 +49,27 @@ Purpose:( This sim object models a very basic vehicle.)
 
 class VehicleBasicSimObject : public Trick::SimObject
 {
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
 
- public:
-  jeod::DynBody                  dyn_body;
-  jeod::SphericalHarmonicsGravityControls  grav_control;
+public:
+    jeod::DynBody dyn_body;
+    jeod::SphericalHarmonicsGravityControls grav_control;
 
-  jeod::DynBodyInitTransState   trans_init;
-  jeod::DynBodyInitRotState     rot_init;
-  jeod::MassBodyInit            mass_init;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
 
-  VehicleBasicSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    dyn_manager(dyn_mngr_in)
-  {
-     P_ENV ("initialization") dyn_body.initialize_model(dyn_manager );
-  };
+    VehicleBasicSimObject(jeod::DynManager & dyn_mngr_in)
+        : dyn_manager(dyn_mngr_in)
+    {
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
+    }
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  VehicleBasicSimObject (const VehicleBasicSimObject&);
-  VehicleBasicSimObject & operator = (const VehicleBasicSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    VehicleBasicSimObject(const VehicleBasicSimObject &) = delete;
+    VehicleBasicSimObject & operator=(const VehicleBasicSimObject &) = delete;
 };
 
 ##include "environment/gravity/include/gravity_manager.hh"

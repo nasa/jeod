@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
@@ -64,7 +63,7 @@ Inheritance diagram for jeod::JeodIntegrationTime:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d47/classjeod_1_1JeodIntegrationTime__inherit__graph.png" border="0" usemap="#jeod_1_1JeodIntegrationTime_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1JeodIntegrationTime_inherit__map" id="jeod_1_1JeodIntegrationTime_inherit__map">
-<area shape="rect" id="node3" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="24,155,157,181"/>
+<area shape="rect" id="node3" href="../../d6/dcf/classjeod_1_1TimeManager.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="27,155,174,181"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -72,7 +71,7 @@ Collaboration diagram for jeod::JeodIntegrationTime:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/dad/classjeod_1_1JeodIntegrationTime__coll__graph.png" border="0" usemap="#jeod_1_1JeodIntegrationTime_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1JeodIntegrationTime_coll__map" id="jeod_1_1JeodIntegrationTime_coll__map">
-<area shape="rect" id="node3" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="188,5,403,47"/>
+<area shape="rect" id="node3" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="207,5,445,47"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -84,6 +83,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abac904e9b812220b0af25b061748075f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#abac904e9b812220b0af25b061748075f">~JeodIntegrationTime</a> () override</td></tr>
 <tr class="memdesc:abac904e9b812220b0af25b061748075f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na...">JeodIntegrationTime</a> destructor.  <a href="#abac904e9b812220b0af25b061748075f">More...</a><br /></td></tr>
 <tr class="separator:abac904e9b812220b0af25b061748075f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabeefe9c5a9ba3099b6337f1fea5a682"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#aabeefe9c5a9ba3099b6337f1fea5a682">JeodIntegrationTime</a> (const <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> &amp;)=delete</td></tr>
+<tr class="separator:aabeefe9c5a9ba3099b6337f1fea5a682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab45c63e990ec4559f333a126224e3562"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#ab45c63e990ec4559f333a126224e3562">operator=</a> (const <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> &amp;)=delete</td></tr>
+<tr class="separator:ab45c63e990ec4559f333a126224e3562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab20214ef6f7cccfed9c1d675a3a5a962"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#ab20214ef6f7cccfed9c1d675a3a5a962">get_timestamp_time</a> () const =0</td></tr>
 <tr class="memdesc:ab20214ef6f7cccfed9c1d675a3a5a962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the time used to timestamp some object.  <a href="#ab20214ef6f7cccfed9c1d675a3a5a962">More...</a><br /></td></tr>
 <tr class="separator:ab20214ef6f7cccfed9c1d675a3a5a962"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,15 +102,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ab3c8bafe5725d8656e8b8b7f9f09ff2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#ab3c8bafe5725d8656e8b8b7f9f09ff2d">notify_time_change_subscribers</a> ()</td></tr>
 <tr class="memdesc:ab3c8bafe5725d8656e8b8b7f9f09ff2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify subscribers that the nature of time has changed.  <a href="#ab3c8bafe5725d8656e8b8b7f9f09ff2d">More...</a><br /></td></tr>
 <tr class="separator:ab3c8bafe5725d8656e8b8b7f9f09ff2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:af5bf5f4349c27449530043fe4e05f0c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#af5bf5f4349c27449530043fe4e05f0c1">JeodIntegrationTime</a> (const <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> &amp;)</td></tr>
-<tr class="memdesc:af5bf5f4349c27449530043fe4e05f0c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#af5bf5f4349c27449530043fe4e05f0c1">More...</a><br /></td></tr>
-<tr class="separator:af5bf5f4349c27449530043fe4e05f0c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe641087ea5a04eacde06d6d521c20f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#abe641087ea5a04eacde06d6d521c20f8">operator=</a> (const <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html">JeodIntegrationTime</a> &amp;)</td></tr>
-<tr class="memdesc:abe641087ea5a04eacde06d6d521c20f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#abe641087ea5a04eacde06d6d521c20f8">More...</a><br /></td></tr>
-<tr class="separator:abe641087ea5a04eacde06d6d521c20f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -144,7 +138,7 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na...">JeodIntegrationTime</a> constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00046">46</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00045">45</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/d87/group__external.html#ga275078e14936cc1c45a050dbe6caf889">JEOD_REGISTER_CHECKPOINTABLE</a>, <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>, and <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a41e486283b48dcad97e9abf7a77f7794">time_change_subscribers</a>.</p>
 
@@ -175,14 +169,14 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na...">JeodIntegrationTime</a> destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00061">61</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00057">57</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/d87/group__external.html#ga33a2613b81ddc6289ddca6a803858078">JEOD_DEREGISTER_CHECKPOINTABLE</a>, and <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a41e486283b48dcad97e9abf7a77f7794">time_change_subscribers</a>.</p>
 
 </div>
 </div>
-<a id="af5bf5f4349c27449530043fe4e05f0c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5bf5f4349c27449530043fe4e05f0c1">&#9670;&nbsp;</a></span>JeodIntegrationTime() <span class="overload">[2/2]</span></h2>
+<a id="aabeefe9c5a9ba3099b6337f1fea5a682"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabeefe9c5a9ba3099b6337f1fea5a682">&#9670;&nbsp;</a></span>JeodIntegrationTime() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,12 +194,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -234,7 +226,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00074">74</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00068">68</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../d0/da4/classjeod_1_1IntegrationMessages.html#a60d72734c3aad52347e6e20c0891f65c">jeod::IntegrationMessages::invalid_request</a>, and <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a41e486283b48dcad97e9abf7a77f7794">time_change_subscribers</a>.</p>
 
@@ -298,7 +290,7 @@ Friends</h2></td></tr>
 
 <p>Notify subscribers that the nature of time has changed. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00122">122</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00108">108</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a41e486283b48dcad97e9abf7a77f7794">time_change_subscribers</a>.</p>
 
@@ -306,8 +298,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="abe641087ea5a04eacde06d6d521c20f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe641087ea5a04eacde06d6d521c20f8">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ab45c63e990ec4559f333a126224e3562"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab45c63e990ec4559f333a126224e3562">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -325,12 +317,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -358,7 +348,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00098">98</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html#l00088">88</a> of file <a class="el" href="../../d0/dd6/jeod__integration__time_8cc_source.html">jeod_integration_time.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/da4/classjeod_1_1IntegrationMessages.html#a60d72734c3aad52347e6e20c0891f65c">jeod::IntegrationMessages::invalid_request</a>, <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a41e486283b48dcad97e9abf7a77f7794">time_change_subscribers</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
 
@@ -440,7 +430,7 @@ Friends</h2></td></tr>
 <p>List of pointers to objects that wish to be notified of a change in the nature of time. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dce/jeod__integration__time_8hh_source.html#l00131">131</a> of file <a class="el" href="../../dc/dce/jeod__integration__time_8hh_source.html">jeod_integration_time.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dce/jeod__integration__time_8hh_source.html#l00116">116</a> of file <a class="el" href="../../dc/dce/jeod__integration__time_8hh_source.html">jeod_integration_time.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a18664600e8d2321d0eb9807685c0dcef">add_time_change_subscriber()</a>, <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#a3ca87105d331704eda6b1a93f9614aff">JeodIntegrationTime()</a>, <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#ab3c8bafe5725d8656e8b8b7f9f09ff2d">notify_time_change_subscribers()</a>, <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#ab504b96f3278cd08ba3ee0519b169a5d">remove_time_change_subscriber()</a>, and <a class="el" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html#abac904e9b812220b0af25b061748075f">~JeodIntegrationTime()</a>.</p>
 

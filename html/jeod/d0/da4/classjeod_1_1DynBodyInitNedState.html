@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,14 +48,13 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::DynBodyInitNedState Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Initialize selected aspects of a vehicle's state with respect to eithers some vehicle's North-East-Down frame or the North-East-Down frame for a specified location on the planet.  
+<p>Initialize selected aspects of a vehicle's state with respect to either some vehicle's North-East-Down frame or the North-East-Down frame for a specified location on the planet.  
  <a href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>&gt;</code></p>
@@ -64,11 +63,11 @@ Inheritance diagram for jeod::DynBodyInitNedState:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d6d/classjeod_1_1DynBodyInitNedState__inherit__graph.png" border="0" usemap="#jeod_1_1DynBodyInitNedState_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1DynBodyInitNedState_inherit__map" id="jeod_1_1DynBodyInitNedState_inherit__map">
-<area shape="rect" id="node5" href="../../de/de6/classjeod_1_1DynBodyInitNedRotState.html" title="Initialize a vehicle&#39;s rotational state wrt some vehicle&#39;s North&#45;East&#45;Down frame. ..." alt="" coords="5,311,208,338"/>
-<area shape="rect" id="node6" href="../../d6/de9/classjeod_1_1DynBodyInitNedTransState.html" title="Initialize a vehicle&#39;s translational state wrt some vehicle&#39;s North&#45;East&#45;Down frame. " alt="" coords="233,304,415,345"/>
-<area shape="rect" id="node2" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html" title="(Initialize selected aspects of a vehicle&#39;s state with respect to some state that is derived from som..." alt="" coords="111,155,319,181"/>
-<area shape="rect" id="node3" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to some frame based on the planet..." alt="" coords="123,80,307,107"/>
-<area shape="rect" id="node4" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. " alt="" coords="151,5,278,32"/>
+<area shape="rect" id="node5" href="../../de/de6/classjeod_1_1DynBodyInitNedRotState.html" title="Initialize a vehicle&#39;s rotational state wrt some vehicle&#39;s North&#45;East&#45;Down frame. ..." alt="" coords="5,311,224,338"/>
+<area shape="rect" id="node6" href="../../d6/de9/classjeod_1_1DynBodyInitNedTransState.html" title="Initialize a vehicle&#39;s translational state wrt some vehicle&#39;s North&#45;East&#45;Down frame. " alt="" coords="249,304,447,345"/>
+<area shape="rect" id="node2" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html" title="(Initialize selected aspects of a vehicle&#39;s state with respect to some state that is derived from som..." alt="" coords="115,155,346,181"/>
+<area shape="rect" id="node3" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to some frame based on the planet..." alt="" coords="130,80,331,107"/>
+<area shape="rect" id="node4" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. " alt="" coords="161,5,300,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -76,25 +75,28 @@ Collaboration diagram for jeod::DynBodyInitNedState:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d8d/classjeod_1_1DynBodyInitNedState__coll__graph.png" border="0" usemap="#jeod_1_1DynBodyInitNedState_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1DynBodyInitNedState_coll__map" id="jeod_1_1DynBodyInitNedState_coll__map">
-<area shape="rect" id="node2" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html" title="(Initialize selected aspects of a vehicle&#39;s state with respect to some state that is derived from som..." alt="" coords="332,288,540,315"/>
-<area shape="rect" id="node3" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to some frame based on the planet..." alt="" coords="121,199,305,225"/>
-<area shape="rect" id="node4" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. " alt="" coords="247,109,374,136"/>
-<area shape="rect" id="node5" title="STL class. " alt="" coords="196,5,276,32"/>
-<area shape="rect" id="node6" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. " alt="" coords="5,109,96,136"/>
-<area shape="rect" id="node7" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="450,199,558,225"/>
-<area shape="rect" id="node8" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="541,109,715,136"/>
-<area shape="rect" id="node9" href="../../de/de3/classjeod_1_1AltLatLongState.html" title="Specifies positional state in planetary altitude, latitude, and longitude. " alt="" coords="727,288,873,315"/>
+<area shape="rect" id="node2" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html" title="(Initialize selected aspects of a vehicle&#39;s state with respect to some state that is derived from som..." alt="" coords="398,288,629,315"/>
+<area shape="rect" id="node3" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to some frame based on the planet..." alt="" coords="187,199,389,225"/>
+<area shape="rect" id="node4" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. " alt="" coords="5,109,144,136"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="313,5,399,32"/>
+<area shape="rect" id="node7" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="548,199,665,225"/>
+<area shape="rect" id="node6" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. " alt="" coords="345,109,444,136"/>
+<area shape="rect" id="node8" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="759,109,947,136"/>
+<area shape="rect" id="node9" href="../../de/de3/classjeod_1_1AltLatLongState.html" title="Specifies positional state in planetary altitude, latitude, and longitude. " alt="" coords="866,288,1027,315"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa72ecd681857da398b3a5287ecfa02e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#aa72ecd681857da398b3a5287ecfa02e5">DynBodyInitNedState</a> ()</td></tr>
-<tr class="memdesc:aa72ecd681857da398b3a5287ecfa02e5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to eithers some vehicle&#39;s North-East-Do...">DynBodyInitNedState</a> default constructor.  <a href="#aa72ecd681857da398b3a5287ecfa02e5">More...</a><br /></td></tr>
+<tr class="memdesc:aa72ecd681857da398b3a5287ecfa02e5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to either some vehicle&#39;s North-East-Dow...">DynBodyInitNedState</a> default constructor.  <a href="#aa72ecd681857da398b3a5287ecfa02e5">More...</a><br /></td></tr>
 <tr class="separator:aa72ecd681857da398b3a5287ecfa02e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a421ab864a51e11ec5ba6b51b3672612c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a421ab864a51e11ec5ba6b51b3672612c">~DynBodyInitNedState</a> () override</td></tr>
-<tr class="memdesc:a421ab864a51e11ec5ba6b51b3672612c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to eithers some vehicle&#39;s North-East-Do...">DynBodyInitNedState</a> destructor.  <a href="#a421ab864a51e11ec5ba6b51b3672612c">More...</a><br /></td></tr>
-<tr class="separator:a421ab864a51e11ec5ba6b51b3672612c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abca89011b045fd6c7bcccd72410ae4a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#abca89011b045fd6c7bcccd72410ae4a3">~DynBodyInitNedState</a> () override=default</td></tr>
+<tr class="separator:abca89011b045fd6c7bcccd72410ae4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83bc94d750c696b285650c1e2e8e6c4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a83bc94d750c696b285650c1e2e8e6c4e">DynBodyInitNedState</a> (const <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html">DynBodyInitNedState</a> &amp;)=delete</td></tr>
+<tr class="separator:a83bc94d750c696b285650c1e2e8e6c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd8f75dcedc8aec09ee8a05a451fd98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html">DynBodyInitNedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a0dd8f75dcedc8aec09ee8a05a451fd98">operator=</a> (const <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html">DynBodyInitNedState</a> &amp;)=delete</td></tr>
+<tr class="separator:a0dd8f75dcedc8aec09ee8a05a451fd98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78dcccf805f6648c692c04edf42dbd85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a78dcccf805f6648c692c04edf42dbd85">initialize</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager) override</td></tr>
 <tr class="memdesc:a78dcccf805f6648c692c04edf42dbd85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the initializer.  <a href="#a78dcccf805f6648c692c04edf42dbd85">More...</a><br /></td></tr>
 <tr class="separator:a78dcccf805f6648c692c04edf42dbd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,50 +107,56 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1f2cf5619b5e3c75922108693d7948b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for use_alt_pfix.  <a href="#a1f2cf5619b5e3c75922108693d7948b0">More...</a><br /></td></tr>
 <tr class="separator:a1f2cf5619b5e3c75922108693d7948b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1DynBodyInitPlanetDerived')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html">jeod::DynBodyInitPlanetDerived</a></td></tr>
-<tr class="memitem:a12da0f894fee5c1dd3e31d6143a50f6f inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a12da0f894fee5c1dd3e31d6143a50f6f">DynBodyInitPlanetDerived</a> ()</td></tr>
-<tr class="memdesc:a12da0f894fee5c1dd3e31d6143a50f6f inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html" title="(Initialize selected aspects of a vehicle&#39;s state with respect to some state that is derived from som...">DynBodyInitPlanetDerived</a> default constructor.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a12da0f894fee5c1dd3e31d6143a50f6f">More...</a><br /></td></tr>
-<tr class="separator:a12da0f894fee5c1dd3e31d6143a50f6f inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4dfb21bf779d1e1e6748fa23f04fc9ff inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a4dfb21bf779d1e1e6748fa23f04fc9ff">~DynBodyInitPlanetDerived</a> () override</td></tr>
-<tr class="memdesc:a4dfb21bf779d1e1e6748fa23f04fc9ff inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html" title="(Initialize selected aspects of a vehicle&#39;s state with respect to some state that is derived from som...">DynBodyInitPlanetDerived</a> destructor.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a4dfb21bf779d1e1e6748fa23f04fc9ff">More...</a><br /></td></tr>
-<tr class="separator:a4dfb21bf779d1e1e6748fa23f04fc9ff inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14224afb7d58503a53debe7f527268e1 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a14224afb7d58503a53debe7f527268e1">DynBodyInitPlanetDerived</a> ()=default</td></tr>
+<tr class="separator:a14224afb7d58503a53debe7f527268e1 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6c73fce13b0ef020bc57c5ee55d9a7b inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ac6c73fce13b0ef020bc57c5ee55d9a7b">~DynBodyInitPlanetDerived</a> () override=default</td></tr>
+<tr class="separator:ac6c73fce13b0ef020bc57c5ee55d9a7b inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2da4471008744b0e734fa7a335f564a9 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a2da4471008744b0e734fa7a335f564a9">DynBodyInitPlanetDerived</a> (const <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html">DynBodyInitPlanetDerived</a> &amp;)=delete</td></tr>
+<tr class="separator:a2da4471008744b0e734fa7a335f564a9 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dbcbfe765ec67a78e500a221359ad67 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html">DynBodyInitPlanetDerived</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a6dbcbfe765ec67a78e500a221359ad67">operator=</a> (const <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html">DynBodyInitPlanetDerived</a> &amp;)=delete</td></tr>
+<tr class="separator:a6dbcbfe765ec67a78e500a221359ad67 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8671ccc4a191a27da44be7a15dd359f inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ac8671ccc4a191a27da44be7a15dd359f">initialize</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager) override</td></tr>
 <tr class="memdesc:ac8671ccc4a191a27da44be7a15dd359f inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the initializer.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ac8671ccc4a191a27da44be7a15dd359f">More...</a><br /></td></tr>
 <tr class="separator:ac8671ccc4a191a27da44be7a15dd359f inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21596127f1cf7bfd092640944ea6d2b5 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a21596127f1cf7bfd092640944ea6d2b5">is_ready</a> (void) override</td></tr>
-<tr class="memdesc:a21596127f1cf7bfd092640944ea6d2b5 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether the initializer is ready to run.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a21596127f1cf7bfd092640944ea6d2b5">More...</a><br /></td></tr>
-<tr class="separator:a21596127f1cf7bfd092640944ea6d2b5 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43bb60d30fde87c4305b2f5971023306 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a43bb60d30fde87c4305b2f5971023306">is_ready</a> () override</td></tr>
+<tr class="memdesc:a43bb60d30fde87c4305b2f5971023306 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether the initializer is ready to run.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a43bb60d30fde87c4305b2f5971023306">More...</a><br /></td></tr>
+<tr class="separator:a43bb60d30fde87c4305b2f5971023306 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73b028001a94c709ae37728bbcca0d83 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a73b028001a94c709ae37728bbcca0d83">apply</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager) override</td></tr>
 <tr class="memdesc:a73b028001a94c709ae37728bbcca0d83 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the initializer: This is just a pass through.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a73b028001a94c709ae37728bbcca0d83">More...</a><br /></td></tr>
 <tr class="separator:a73b028001a94c709ae37728bbcca0d83 inherit pub_methods_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1DynBodyInitWrtPlanet')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html">jeod::DynBodyInitWrtPlanet</a></td></tr>
-<tr class="memitem:a1880b0b916b11e8e92cfc6d0b049bbce inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a1880b0b916b11e8e92cfc6d0b049bbce">DynBodyInitWrtPlanet</a> ()</td></tr>
-<tr class="memdesc:a1880b0b916b11e8e92cfc6d0b049bbce inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to some frame based on the planet...">DynBodyInitWrtPlanet</a> default constructor.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a1880b0b916b11e8e92cfc6d0b049bbce">More...</a><br /></td></tr>
-<tr class="separator:a1880b0b916b11e8e92cfc6d0b049bbce inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26dcb43537bf7a4db09ec2cae0df90a4 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a26dcb43537bf7a4db09ec2cae0df90a4">~DynBodyInitWrtPlanet</a> () override</td></tr>
-<tr class="memdesc:a26dcb43537bf7a4db09ec2cae0df90a4 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to some frame based on the planet...">DynBodyInitWrtPlanet</a> destructor.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a26dcb43537bf7a4db09ec2cae0df90a4">More...</a><br /></td></tr>
-<tr class="separator:a26dcb43537bf7a4db09ec2cae0df90a4 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad736b7783d36cbc6afc52da699b88b96 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#ad736b7783d36cbc6afc52da699b88b96">DynBodyInitWrtPlanet</a> ()=default</td></tr>
+<tr class="separator:ad736b7783d36cbc6afc52da699b88b96 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d6f7a3251c90439e15cf480aa93f4d3 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a6d6f7a3251c90439e15cf480aa93f4d3">~DynBodyInitWrtPlanet</a> () override=default</td></tr>
+<tr class="separator:a6d6f7a3251c90439e15cf480aa93f4d3 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8079e8f2377a68287b4aaeadda0eaed1 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a8079e8f2377a68287b4aaeadda0eaed1">DynBodyInitWrtPlanet</a> (const <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html">DynBodyInitWrtPlanet</a> &amp;)=delete</td></tr>
+<tr class="separator:a8079e8f2377a68287b4aaeadda0eaed1 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ee9f11e9fbc41b3e1955a1205ed6b7 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html">DynBodyInitWrtPlanet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a40ee9f11e9fbc41b3e1955a1205ed6b7">operator=</a> (const <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html">DynBodyInitWrtPlanet</a> &amp;)=delete</td></tr>
+<tr class="separator:a40ee9f11e9fbc41b3e1955a1205ed6b7 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad67119bc66d7c890efaa4d2a2f9c066f inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#ad67119bc66d7c890efaa4d2a2f9c066f">initialize</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager) override</td></tr>
 <tr class="memdesc:ad67119bc66d7c890efaa4d2a2f9c066f inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the initializer.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#ad67119bc66d7c890efaa4d2a2f9c066f">More...</a><br /></td></tr>
 <tr class="separator:ad67119bc66d7c890efaa4d2a2f9c066f inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa16c4be8d87af42b7946df41a052bceb inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8da">RefFrameItems::Items</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#aa16c4be8d87af42b7946df41a052bceb">initializes_what</a> (void) override</td></tr>
-<tr class="memdesc:aa16c4be8d87af42b7946df41a052bceb inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate what parts of the vehicle state this object initializes.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#aa16c4be8d87af42b7946df41a052bceb">More...</a><br /></td></tr>
-<tr class="separator:aa16c4be8d87af42b7946df41a052bceb inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25f76d1b0a3dbc174c2ae324a2f56bc3 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a25f76d1b0a3dbc174c2ae324a2f56bc3">is_ready</a> (void) override</td></tr>
-<tr class="memdesc:a25f76d1b0a3dbc174c2ae324a2f56bc3 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether the initializer is ready to run.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a25f76d1b0a3dbc174c2ae324a2f56bc3">More...</a><br /></td></tr>
-<tr class="separator:a25f76d1b0a3dbc174c2ae324a2f56bc3 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e58fbd0d26477680c4029321d942973 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8da">RefFrameItems::Items</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a8e58fbd0d26477680c4029321d942973">initializes_what</a> () override</td></tr>
+<tr class="memdesc:a8e58fbd0d26477680c4029321d942973 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate what parts of the vehicle state this object initializes.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a8e58fbd0d26477680c4029321d942973">More...</a><br /></td></tr>
+<tr class="separator:a8e58fbd0d26477680c4029321d942973 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ab0e38aaf0cf8547358c1184f780146 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a0ab0e38aaf0cf8547358c1184f780146">is_ready</a> () override</td></tr>
+<tr class="memdesc:a0ab0e38aaf0cf8547358c1184f780146 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether the initializer is ready to run.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a0ab0e38aaf0cf8547358c1184f780146">More...</a><br /></td></tr>
+<tr class="separator:a0ab0e38aaf0cf8547358c1184f780146 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa47039e0c8663a20f65a3d843265dbc2 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#aa47039e0c8663a20f65a3d843265dbc2">apply</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager) override</td></tr>
 <tr class="memdesc:aa47039e0c8663a20f65a3d843265dbc2 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the initializer.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#aa47039e0c8663a20f65a3d843265dbc2">More...</a><br /></td></tr>
 <tr class="separator:aa47039e0c8663a20f65a3d843265dbc2 inherit pub_methods_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1DynBodyInit"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1DynBodyInit')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html">jeod::DynBodyInit</a></td></tr>
-<tr class="memitem:ada710da864688c14fbcaa34fea4684ca inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ada710da864688c14fbcaa34fea4684ca">DynBodyInit</a> ()</td></tr>
-<tr class="memdesc:ada710da864688c14fbcaa34fea4684ca inherit pub_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. ">DynBodyInit</a>.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ada710da864688c14fbcaa34fea4684ca">More...</a><br /></td></tr>
-<tr class="separator:ada710da864688c14fbcaa34fea4684ca inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0898a91390c7ecf6c0ff49ec2951509a inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a0898a91390c7ecf6c0ff49ec2951509a">~DynBodyInit</a> () override</td></tr>
-<tr class="memdesc:a0898a91390c7ecf6c0ff49ec2951509a inherit pub_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. ">DynBodyInit</a>.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a0898a91390c7ecf6c0ff49ec2951509a">More...</a><br /></td></tr>
-<tr class="separator:a0898a91390c7ecf6c0ff49ec2951509a inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae85e5d7f1968b371f5894087a0d67ccc inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ae85e5d7f1968b371f5894087a0d67ccc">report_failure</a> (void)</td></tr>
-<tr class="memdesc:ae85e5d7f1968b371f5894087a0d67ccc inherit pub_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Report on an initializer that could not be processed.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ae85e5d7f1968b371f5894087a0d67ccc">More...</a><br /></td></tr>
-<tr class="separator:ae85e5d7f1968b371f5894087a0d67ccc inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34d193a3c64b7cae9a0c22723d55302f inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a34d193a3c64b7cae9a0c22723d55302f">DynBodyInit</a> ()=default</td></tr>
+<tr class="separator:a34d193a3c64b7cae9a0c22723d55302f inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2b29abd6f28814f01d879f69685f1f8 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#aa2b29abd6f28814f01d879f69685f1f8">~DynBodyInit</a> () override=default</td></tr>
+<tr class="separator:aa2b29abd6f28814f01d879f69685f1f8 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a393856a9bd104b63eebdc90f67c81cb4 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a393856a9bd104b63eebdc90f67c81cb4">DynBodyInit</a> (const <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html">DynBodyInit</a> &amp;)=delete</td></tr>
+<tr class="separator:a393856a9bd104b63eebdc90f67c81cb4 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a102672559941c31393696789fe552537 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html">DynBodyInit</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a102672559941c31393696789fe552537">operator=</a> (const <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html">DynBodyInit</a> &amp;)=delete</td></tr>
+<tr class="separator:a102672559941c31393696789fe552537 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c5dc6af90a75fdd572cd112e61171d3 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a8c5dc6af90a75fdd572cd112e61171d3">report_failure</a> ()</td></tr>
+<tr class="memdesc:a8c5dc6af90a75fdd572cd112e61171d3 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Report on an initializer that could not be processed.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a8c5dc6af90a75fdd572cd112e61171d3">More...</a><br /></td></tr>
+<tr class="separator:a8c5dc6af90a75fdd572cd112e61171d3 inherit pub_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1BodyAction"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1BodyAction')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html">jeod::BodyAction</a></td></tr>
 <tr class="memitem:ae982c181df4b672c8603331a62111b9b inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#ae982c181df4b672c8603331a62111b9b">set_subject_body</a> (<a class="el" href="../../de/de6/classjeod_1_1MassBody.html">MassBody</a> &amp;mass_body_in)</td></tr>
 <tr class="memdesc:ae982c181df4b672c8603331a62111b9b inherit pub_methods_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the subject mass body of this action.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#ae982c181df4b672c8603331a62111b9b">More...</a><br /></td></tr>
@@ -164,123 +172,118 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a42009ab13e7a1bb0c9790bdefd134559 inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c68793b2d5aaaf4275b9a0055af9b14 inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a1c68793b2d5aaaf4275b9a0055af9b14">get_subject_dyn_body</a> ()</td></tr>
 <tr class="separator:a1c68793b2d5aaaf4275b9a0055af9b14 inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6699cd46551cf5fb08277afebf1033ae inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a6699cd46551cf5fb08277afebf1033ae">BodyAction</a> ()</td></tr>
-<tr class="memdesc:a6699cd46551cf5fb08277afebf1033ae inherit pub_methods_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a>.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#a6699cd46551cf5fb08277afebf1033ae">More...</a><br /></td></tr>
-<tr class="separator:a6699cd46551cf5fb08277afebf1033ae inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbf5ad56f288bbb5d4e2bb626f479022 inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#afbf5ad56f288bbb5d4e2bb626f479022">~BodyAction</a> ()</td></tr>
-<tr class="memdesc:afbf5ad56f288bbb5d4e2bb626f479022 inherit pub_methods_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a>.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#afbf5ad56f288bbb5d4e2bb626f479022">More...</a><br /></td></tr>
-<tr class="separator:afbf5ad56f288bbb5d4e2bb626f479022 inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51af219fa7f23369ef96eb4bd03c8349 inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a51af219fa7f23369ef96eb4bd03c8349">BodyAction</a> ()=default</td></tr>
+<tr class="separator:a51af219fa7f23369ef96eb4bd03c8349 inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f1abda43dc09aa04a9216ac508eafea inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a3f1abda43dc09aa04a9216ac508eafea">~BodyAction</a> ()=default</td></tr>
+<tr class="separator:a3f1abda43dc09aa04a9216ac508eafea inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adefdbb5858d06e9caf8561b57b984d41 inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#adefdbb5858d06e9caf8561b57b984d41">BodyAction</a> (const <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html">BodyAction</a> &amp;)=delete</td></tr>
+<tr class="separator:adefdbb5858d06e9caf8561b57b984d41 inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad158f5c4c7ef7f054863f83d68fabc0c inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html">BodyAction</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#ad158f5c4c7ef7f054863f83d68fabc0c">operator=</a> (const <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html">BodyAction</a> &amp;)=delete</td></tr>
+<tr class="separator:ad158f5c4c7ef7f054863f83d68fabc0c inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea7aadaa7995a22bfa22571dffdb6111 inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#aea7aadaa7995a22bfa22571dffdb6111">shutdown</a> ()</td></tr>
 <tr class="memdesc:aea7aadaa7995a22bfa22571dffdb6111 inherit pub_methods_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release resources allocated by a <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html" title="BodyAction is the base class for the BodyAction model. ">BodyAction</a> object.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#aea7aadaa7995a22bfa22571dffdb6111">More...</a><br /></td></tr>
 <tr class="separator:aea7aadaa7995a22bfa22571dffdb6111 inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc63556dff9033fb7a5aab7bcbd00fc inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#afdc63556dff9033fb7a5aab7bcbd00fc">get_identifier</a> (void) const</td></tr>
-<tr class="memdesc:afdc63556dff9033fb7a5aab7bcbd00fc inherit pub_methods_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accessor for action_identifier.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#afdc63556dff9033fb7a5aab7bcbd00fc">More...</a><br /></td></tr>
-<tr class="separator:afdc63556dff9033fb7a5aab7bcbd00fc inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84ee02c592e20da55171edd63d823b67 inherit pub_methods_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a84ee02c592e20da55171edd63d823b67">get_identifier</a> () const</td></tr>
+<tr class="memdesc:a84ee02c592e20da55171edd63d823b67 inherit pub_methods_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accessor for action_identifier.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#a84ee02c592e20da55171edd63d823b67">More...</a><br /></td></tr>
+<tr class="separator:a84ee02c592e20da55171edd63d823b67 inherit pub_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a0525c2c49670dde16dc2dec0e942e26c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/de3/classjeod_1_1AltLatLongState.html">AltLatLongState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a0525c2c49670dde16dc2dec0e942e26c">ref_point</a></td></tr>
 <tr class="memdesc:a0525c2c49670dde16dc2dec0e942e26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference point for the local geodetic/geocentric, used only if the reference body is NULL.  <a href="#a0525c2c49670dde16dc2dec0e942e26c">More...</a><br /></td></tr>
 <tr class="separator:a0525c2c49670dde16dc2dec0e942e26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad033d5322d6790ee656ce0c3fef2a3ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4d">NorthEastDown::AltLatLongType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad033d5322d6790ee656ce0c3fef2a3ea">altlatlong_type</a></td></tr>
+<tr class="memitem:ad033d5322d6790ee656ce0c3fef2a3ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4d">NorthEastDown::AltLatLongType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad033d5322d6790ee656ce0c3fef2a3ea">altlatlong_type</a> {<a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4da6562a1708878bb09d55e67805e04d232">NorthEastDown::undefined</a>}</td></tr>
 <tr class="memdesc:ad033d5322d6790ee656ce0c3fef2a3ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use spherical or elliptical coordinates?  <a href="#ad033d5322d6790ee656ce0c3fef2a3ea">More...</a><br /></td></tr>
 <tr class="separator:ad033d5322d6790ee656ce0c3fef2a3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1DynBodyInitPlanetDerived')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html">jeod::DynBodyInitPlanetDerived</a></td></tr>
-<tr class="memitem:a3804996cf6fa739c644f924e21ac0eaf inherit pub_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a3804996cf6fa739c644f924e21ac0eaf">ref_body_name</a></td></tr>
+<tr class="memitem:a3804996cf6fa739c644f924e21ac0eaf inherit pub_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a3804996cf6fa739c644f924e21ac0eaf">ref_body_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a3804996cf6fa739c644f924e21ac0eaf inherit pub_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the vehicle whose composite body frame is used to build the derived state with respect to which the vehicle initialization data are referenced.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a3804996cf6fa739c644f924e21ac0eaf">More...</a><br /></td></tr>
 <tr class="separator:a3804996cf6fa739c644f924e21ac0eaf inherit pub_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1DynBodyInitWrtPlanet')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html">jeod::DynBodyInitWrtPlanet</a></td></tr>
-<tr class="memitem:a97b2b7c6ab8a3285991f8f7b39c9eae8 inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a97b2b7c6ab8a3285991f8f7b39c9eae8">planet_name</a></td></tr>
+<tr class="memitem:a97b2b7c6ab8a3285991f8f7b39c9eae8 inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a97b2b7c6ab8a3285991f8f7b39c9eae8">planet_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a97b2b7c6ab8a3285991f8f7b39c9eae8 inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the planet about which the reference body's LVLH frame is to be computed.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a97b2b7c6ab8a3285991f8f7b39c9eae8">More...</a><br /></td></tr>
 <tr class="separator:a97b2b7c6ab8a3285991f8f7b39c9eae8 inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05f0be77621f2edaf5cc7d9f98b6f79f inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8da">RefFrameItems::Items</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a05f0be77621f2edaf5cc7d9f98b6f79f">set_items</a></td></tr>
+<tr class="memitem:a05f0be77621f2edaf5cc7d9f98b6f79f inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8da">RefFrameItems::Items</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a05f0be77621f2edaf5cc7d9f98b6f79f">set_items</a> {<a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8daa6d8aa4f9184632a5a568663591e55d6d">RefFrameItems::Pos_Vel_Att_Rate</a>}</td></tr>
 <tr class="memdesc:a05f0be77621f2edaf5cc7d9f98b6f79f inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state elements to be set by this initializer.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a05f0be77621f2edaf5cc7d9f98b6f79f">More...</a><br /></td></tr>
 <tr class="separator:a05f0be77621f2edaf5cc7d9f98b6f79f inherit pub_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1DynBodyInit"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1DynBodyInit')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html">jeod::DynBodyInit</a></td></tr>
-<tr class="memitem:ac6458fec07063551a4117eedcce51633 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ac6458fec07063551a4117eedcce51633">body_frame_id</a></td></tr>
+<tr class="memitem:ac6458fec07063551a4117eedcce51633 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ac6458fec07063551a4117eedcce51633">body_frame_id</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:ac6458fec07063551a4117eedcce51633 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">The suffix of the frame name (i.e., the part of the name after the vehicle identifier) to which this initializer pertains.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ac6458fec07063551a4117eedcce51633">More...</a><br /></td></tr>
 <tr class="separator:ac6458fec07063551a4117eedcce51633 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d480f345dfd1a7ae63572d0e7ec5d53 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a1d480f345dfd1a7ae63572d0e7ec5d53">reference_ref_frame_name</a></td></tr>
+<tr class="memitem:a1d480f345dfd1a7ae63572d0e7ec5d53 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a1d480f345dfd1a7ae63572d0e7ec5d53">reference_ref_frame_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a1d480f345dfd1a7ae63572d0e7ec5d53 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the reference frame against which state data specified in a <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. ">DynBodyInit</a> subclass are referenced.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a1d480f345dfd1a7ae63572d0e7ec5d53">More...</a><br /></td></tr>
 <tr class="separator:a1d480f345dfd1a7ae63572d0e7ec5d53 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d453683fbd12ebef9cd9566b0bb5b17 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html">RefFrameState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4d453683fbd12ebef9cd9566b0bb5b17">state</a></td></tr>
 <tr class="memdesc:a4d453683fbd12ebef9cd9566b0bb5b17 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains state information set by the initializer, which is always a subclass of <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html" title="Base class for initialize the state of a DynBody. ">DynBodyInit</a>.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4d453683fbd12ebef9cd9566b0bb5b17">More...</a><br /></td></tr>
 <tr class="separator:a4d453683fbd12ebef9cd9566b0bb5b17 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ba04863d58aee81a2964f5ae1c22078 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4ba04863d58aee81a2964f5ae1c22078">position</a> [3]</td></tr>
+<tr class="memitem:a4ba04863d58aee81a2964f5ae1c22078 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4ba04863d58aee81a2964f5ae1c22078">position</a> [3] {}</td></tr>
 <tr class="memdesc:a4ba04863d58aee81a2964f5ae1c22078 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relative position between the subject and reference reference frame origins.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4ba04863d58aee81a2964f5ae1c22078">More...</a><br /></td></tr>
 <tr class="separator:a4ba04863d58aee81a2964f5ae1c22078 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e557d874413af91ded5c842eb8db6e5 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4e557d874413af91ded5c842eb8db6e5">velocity</a> [3]</td></tr>
+<tr class="memitem:a4e557d874413af91ded5c842eb8db6e5 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4e557d874413af91ded5c842eb8db6e5">velocity</a> [3] {}</td></tr>
 <tr class="memdesc:a4e557d874413af91ded5c842eb8db6e5 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relative velocity between the subject and reference reference frame origins.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4e557d874413af91ded5c842eb8db6e5">More...</a><br /></td></tr>
 <tr class="separator:a4e557d874413af91ded5c842eb8db6e5 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc90d02549ae7d2739576532aba1eaaf inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/de5/classjeod_1_1Orientation.html">Orientation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#adc90d02549ae7d2739576532aba1eaaf">orientation</a></td></tr>
 <tr class="memdesc:adc90d02549ae7d2739576532aba1eaaf inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relative orientation between the subject and reference reference frame axes.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#adc90d02549ae7d2739576532aba1eaaf">More...</a><br /></td></tr>
 <tr class="separator:adc90d02549ae7d2739576532aba1eaaf inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93193dabcb6c6053b4001fe1344ef2b4 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a93193dabcb6c6053b4001fe1344ef2b4">ang_velocity</a> [3]</td></tr>
+<tr class="memitem:a93193dabcb6c6053b4001fe1344ef2b4 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a93193dabcb6c6053b4001fe1344ef2b4">ang_velocity</a> [3] {}</td></tr>
 <tr class="memdesc:a93193dabcb6c6053b4001fe1344ef2b4 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relative angular velocity between the subject and reference axes.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a93193dabcb6c6053b4001fe1344ef2b4">More...</a><br /></td></tr>
 <tr class="separator:a93193dabcb6c6053b4001fe1344ef2b4 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adccd8f4a824ef04c29a6756743fcf1f9 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#adccd8f4a824ef04c29a6756743fcf1f9">reverse_sense</a></td></tr>
+<tr class="memitem:adccd8f4a824ef04c29a6756743fcf1f9 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#adccd8f4a824ef04c29a6756743fcf1f9">reverse_sense</a> {}</td></tr>
 <tr class="memdesc:adccd8f4a824ef04c29a6756743fcf1f9 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates how the user input state items are to be interpreted.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#adccd8f4a824ef04c29a6756743fcf1f9">More...</a><br /></td></tr>
 <tr class="separator:adccd8f4a824ef04c29a6756743fcf1f9 inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a799233b68e9c161559b4c1c20960ff2c inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a799233b68e9c161559b4c1c20960ff2c">rate_in_parent</a></td></tr>
+<tr class="memitem:a799233b68e9c161559b4c1c20960ff2c inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a799233b68e9c161559b4c1c20960ff2c">rate_in_parent</a> {}</td></tr>
 <tr class="memdesc:a799233b68e9c161559b4c1c20960ff2c inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates how the user input angular velocity is to be interpreted.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a799233b68e9c161559b4c1c20960ff2c">More...</a><br /></td></tr>
 <tr class="separator:a799233b68e9c161559b4c1c20960ff2c inherit pub_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1BodyAction"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1BodyAction')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html">jeod::BodyAction</a></td></tr>
-<tr class="memitem:a9fb66339cf7a9053f61e78551447f331 inherit pub_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a9fb66339cf7a9053f61e78551447f331">active</a></td></tr>
+<tr class="memitem:a9fb66339cf7a9053f61e78551447f331 inherit pub_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a9fb66339cf7a9053f61e78551447f331">active</a> {true}</td></tr>
 <tr class="memdesc:a9fb66339cf7a9053f61e78551447f331 inherit pub_attribs_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls when the action is performed.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#a9fb66339cf7a9053f61e78551447f331">More...</a><br /></td></tr>
 <tr class="separator:a9fb66339cf7a9053f61e78551447f331 inherit pub_attribs_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dcee13c6f9fa208577acf6b011c6c7b inherit pub_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a9dcee13c6f9fa208577acf6b011c6c7b">terminate_on_error</a></td></tr>
+<tr class="memitem:a9dcee13c6f9fa208577acf6b011c6c7b inherit pub_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a9dcee13c6f9fa208577acf6b011c6c7b">terminate_on_error</a> {true}</td></tr>
 <tr class="memdesc:a9dcee13c6f9fa208577acf6b011c6c7b inherit pub_attribs_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether errors encountered while performing the action are to terminate the simulation.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#a9dcee13c6f9fa208577acf6b011c6c7b">More...</a><br /></td></tr>
 <tr class="separator:a9dcee13c6f9fa208577acf6b011c6c7b inherit pub_attribs_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf29ecbfb2821695d0293b99c2d02d98 inherit pub_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#aaf29ecbfb2821695d0293b99c2d02d98">action_name</a></td></tr>
+<tr class="memitem:aaf29ecbfb2821695d0293b99c2d02d98 inherit pub_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#aaf29ecbfb2821695d0293b99c2d02d98">action_name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:aaf29ecbfb2821695d0293b99c2d02d98 inherit pub_attribs_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">An identifier for this action.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#aaf29ecbfb2821695d0293b99c2d02d98">More...</a><br /></td></tr>
 <tr class="separator:aaf29ecbfb2821695d0293b99c2d02d98 inherit pub_attribs_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ad2e251c8e6fc92ed1f7820e7ea49890f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad2e251c8e6fc92ed1f7820e7ea49890f">use_alt_pfix</a></td></tr>
+<tr class="memitem:ad2e251c8e6fc92ed1f7820e7ea49890f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad2e251c8e6fc92ed1f7820e7ea49890f">use_alt_pfix</a> {}</td></tr>
 <tr class="memdesc:ad2e251c8e6fc92ed1f7820e7ea49890f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use pfix or alt_pfix flag.  <a href="#ad2e251c8e6fc92ed1f7820e7ea49890f">More...</a><br /></td></tr>
 <tr class="separator:ad2e251c8e6fc92ed1f7820e7ea49890f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c5161dbcd6a90bef2565ea5e94df35f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a5c5161dbcd6a90bef2565ea5e94df35f">pfix_ptr</a></td></tr>
+<tr class="memitem:a5c5161dbcd6a90bef2565ea5e94df35f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a5c5161dbcd6a90bef2565ea5e94df35f">pfix_ptr</a> {}</td></tr>
 <tr class="memdesc:a5c5161dbcd6a90bef2565ea5e94df35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to planet fixed frame to be used, either pfix or alt_pfix.  <a href="#a5c5161dbcd6a90bef2565ea5e94df35f">More...</a><br /></td></tr>
 <tr class="separator:a5c5161dbcd6a90bef2565ea5e94df35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1DynBodyInitPlanetDerived')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html">jeod::DynBodyInitPlanetDerived</a></td></tr>
-<tr class="memitem:a9aff695454ffcf69d2a67440d6f9175e inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a9aff695454ffcf69d2a67440d6f9175e">ref_body</a></td></tr>
+<tr class="memitem:a9aff695454ffcf69d2a67440d6f9175e inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a9aff695454ffcf69d2a67440d6f9175e">ref_body</a> {}</td></tr>
 <tr class="memdesc:a9aff695454ffcf69d2a67440d6f9175e inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">The vehicle corresponding to the ref_body_name.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a9aff695454ffcf69d2a67440d6f9175e">More...</a><br /></td></tr>
 <tr class="separator:a9aff695454ffcf69d2a67440d6f9175e inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1904fc33edc34db791abd2ced4fe1ee inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8da">RefFrameItems::Items</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ae1904fc33edc34db791abd2ced4fe1ee">required_items</a></td></tr>
+<tr class="memitem:ae1904fc33edc34db791abd2ced4fe1ee inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8da">RefFrameItems::Items</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ae1904fc33edc34db791abd2ced4fe1ee">required_items</a> {<a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8daa6d8aa4f9184632a5a568663591e55d6d">RefFrameItems::Pos_Vel_Att_Rate</a>}</td></tr>
 <tr class="memdesc:ae1904fc33edc34db791abd2ced4fe1ee inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state elements in the reference body's composite body frame that must be set before this initializer can proceed.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ae1904fc33edc34db791abd2ced4fe1ee">More...</a><br /></td></tr>
 <tr class="separator:ae1904fc33edc34db791abd2ced4fe1ee inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa66768489dbdda7f8bffd66f8f0a57c0 inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#aa66768489dbdda7f8bffd66f8f0a57c0">body_is_required</a></td></tr>
+<tr class="memitem:aa66768489dbdda7f8bffd66f8f0a57c0 inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#aa66768489dbdda7f8bffd66f8f0a57c0">body_is_required</a> {true}</td></tr>
 <tr class="memdesc:aa66768489dbdda7f8bffd66f8f0a57c0 inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true (default), the ref_body cannot be NULL.  <a href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#aa66768489dbdda7f8bffd66f8f0a57c0">More...</a><br /></td></tr>
 <tr class="separator:aa66768489dbdda7f8bffd66f8f0a57c0 inherit pro_attribs_classjeod_1_1DynBodyInitPlanetDerived"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1DynBodyInitWrtPlanet')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html">jeod::DynBodyInitWrtPlanet</a></td></tr>
-<tr class="memitem:a3ce94acdf510cada90d72bdf8e89863e inherit pro_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a3ce94acdf510cada90d72bdf8e89863e">planet</a></td></tr>
+<tr class="memitem:a3ce94acdf510cada90d72bdf8e89863e inherit pro_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a3ce94acdf510cada90d72bdf8e89863e">planet</a> {}</td></tr>
 <tr class="memdesc:a3ce94acdf510cada90d72bdf8e89863e inherit pro_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planet corresponding to the planet_name.  <a href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a3ce94acdf510cada90d72bdf8e89863e">More...</a><br /></td></tr>
 <tr class="separator:a3ce94acdf510cada90d72bdf8e89863e inherit pro_attribs_classjeod_1_1DynBodyInitWrtPlanet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1DynBodyInit"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1DynBodyInit')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html">jeod::DynBodyInit</a></td></tr>
-<tr class="memitem:a3cb71fcaeb137d2eebef06f23f1fd5ba inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a3cb71fcaeb137d2eebef06f23f1fd5ba">body_ref_frame</a></td></tr>
+<tr class="memitem:a3cb71fcaeb137d2eebef06f23f1fd5ba inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a3cb71fcaeb137d2eebef06f23f1fd5ba">body_ref_frame</a> {}</td></tr>
 <tr class="memdesc:a3cb71fcaeb137d2eebef06f23f1fd5ba inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reference frame whose name is vehicle_name.body_frame_id.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a3cb71fcaeb137d2eebef06f23f1fd5ba">More...</a><br /></td></tr>
 <tr class="separator:a3cb71fcaeb137d2eebef06f23f1fd5ba inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81d77493208951ccaa68c85a7b4f9f67 inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a81d77493208951ccaa68c85a7b4f9f67">reference_ref_frame</a></td></tr>
+<tr class="memitem:a81d77493208951ccaa68c85a7b4f9f67 inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a81d77493208951ccaa68c85a7b4f9f67">reference_ref_frame</a> {}</td></tr>
 <tr class="memdesc:a81d77493208951ccaa68c85a7b4f9f67 inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reference frame whose name is reference_ref_frame_name.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a81d77493208951ccaa68c85a7b4f9f67">More...</a><br /></td></tr>
 <tr class="separator:a81d77493208951ccaa68c85a7b4f9f67 inherit pro_attribs_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1BodyAction"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1BodyAction')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html">jeod::BodyAction</a></td></tr>
-<tr class="memitem:a562a1ddff4867a0bf3ff180d9bd4aa6b inherit pro_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/de6/classjeod_1_1MassBody.html">MassBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a562a1ddff4867a0bf3ff180d9bd4aa6b">mass_subject</a></td></tr>
+<tr class="memitem:a562a1ddff4867a0bf3ff180d9bd4aa6b inherit pro_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/de6/classjeod_1_1MassBody.html">MassBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a562a1ddff4867a0bf3ff180d9bd4aa6b">mass_subject</a> {}</td></tr>
 <tr class="memdesc:a562a1ddff4867a0bf3ff180d9bd4aa6b inherit pro_attribs_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. ">MassBody</a> of the body that is the subject of this action.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#a562a1ddff4867a0bf3ff180d9bd4aa6b">More...</a><br /></td></tr>
 <tr class="separator:a562a1ddff4867a0bf3ff180d9bd4aa6b inherit pro_attribs_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71ccf16cd5af2b07b1ca69c022cb9728 inherit pro_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a71ccf16cd5af2b07b1ca69c022cb9728">dyn_subject</a></td></tr>
+<tr class="memitem:a71ccf16cd5af2b07b1ca69c022cb9728 inherit pro_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a71ccf16cd5af2b07b1ca69c022cb9728">dyn_subject</a> {}</td></tr>
 <tr class="memdesc:a71ccf16cd5af2b07b1ca69c022cb9728 inherit pro_attribs_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> of the body that is the subject of this action.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#a71ccf16cd5af2b07b1ca69c022cb9728">More...</a><br /></td></tr>
 <tr class="separator:a71ccf16cd5af2b07b1ca69c022cb9728 inherit pro_attribs_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b5a9d695c20b490ac32c1edd2226a8a inherit pro_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a4b5a9d695c20b490ac32c1edd2226a8a">action_identifier</a></td></tr>
+<tr class="memitem:a4b5a9d695c20b490ac32c1edd2226a8a inherit pro_attribs_classjeod_1_1BodyAction"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a4b5a9d695c20b490ac32c1edd2226a8a">action_identifier</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a4b5a9d695c20b490ac32c1edd2226a8a inherit pro_attribs_classjeod_1_1BodyAction"><td class="mdescLeft">&#160;</td><td class="mdescRight">An identifier for this action, constructed from the class name and the action name at initialization time.  <a href="../../db/dc0/classjeod_1_1BodyAction.html#a4b5a9d695c20b490ac32c1edd2226a8a">More...</a><br /></td></tr>
 <tr class="separator:a4b5a9d695c20b490ac32c1edd2226a8a inherit pro_attribs_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:afa52ea3f0af07d935a0be337845ed891"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#afa52ea3f0af07d935a0be337845ed891">DynBodyInitNedState</a> (const <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html">DynBodyInitNedState</a> &amp;)</td></tr>
-<tr class="separator:afa52ea3f0af07d935a0be337845ed891"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bb3d5e8cd6e8b18224445ca2713e889"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html">DynBodyInitNedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a7bb3d5e8cd6e8b18224445ca2713e889">operator=</a> (const <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html">DynBodyInitNedState</a> &amp;)</td></tr>
-<tr class="separator:a7bb3d5e8cd6e8b18224445ca2713e889"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -292,15 +295,15 @@ Friends</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classjeod_1_1DynBodyInit"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjeod_1_1DynBodyInit')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html">jeod::DynBodyInit</a></td></tr>
-<tr class="memitem:a6fc436abf50454f01e0b644bcb77f273 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6fc436abf50454f01e0b644bcb77f273">apply_user_inputs</a> (void)</td></tr>
-<tr class="memdesc:a6fc436abf50454f01e0b644bcb77f273 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the state wrt the reference reference frame, incorporate the user-input items to this relative state, and compute the state relative to the target frame's parent.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6fc436abf50454f01e0b644bcb77f273">More...</a><br /></td></tr>
-<tr class="separator:a6fc436abf50454f01e0b644bcb77f273 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b05c67dc7f1ab8b70dc730a19925682 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4b05c67dc7f1ab8b70dc730a19925682">compute_rotational_state</a> (void)</td></tr>
-<tr class="memdesc:a4b05c67dc7f1ab8b70dc730a19925682 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is obsolete.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a4b05c67dc7f1ab8b70dc730a19925682">More...</a><br /></td></tr>
-<tr class="separator:a4b05c67dc7f1ab8b70dc730a19925682 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a842125dd751469940882fae57ec4edfa inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a842125dd751469940882fae57ec4edfa">compute_translational_state</a> (void)</td></tr>
-<tr class="memdesc:a842125dd751469940882fae57ec4edfa inherit pro_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is obsolete.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a842125dd751469940882fae57ec4edfa">More...</a><br /></td></tr>
-<tr class="separator:a842125dd751469940882fae57ec4edfa inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d04bf2a80ff96095b83dde8642c0a91 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6d04bf2a80ff96095b83dde8642c0a91">apply_user_inputs</a> ()</td></tr>
+<tr class="memdesc:a6d04bf2a80ff96095b83dde8642c0a91 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the state wrt the reference reference frame, incorporate the user-input items to this relative state, and compute the state relative to the target frame's parent.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6d04bf2a80ff96095b83dde8642c0a91">More...</a><br /></td></tr>
+<tr class="separator:a6d04bf2a80ff96095b83dde8642c0a91 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8304e13d8ecd0a8ca8c57164c3e4354 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ac8304e13d8ecd0a8ca8c57164c3e4354">compute_rotational_state</a> ()</td></tr>
+<tr class="memdesc:ac8304e13d8ecd0a8ca8c57164c3e4354 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is obsolete.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#ac8304e13d8ecd0a8ca8c57164c3e4354">More...</a><br /></td></tr>
+<tr class="separator:ac8304e13d8ecd0a8ca8c57164c3e4354 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115cb94863a984480c7afb26e752ff42 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a115cb94863a984480c7afb26e752ff42">compute_translational_state</a> ()</td></tr>
+<tr class="memdesc:a115cb94863a984480c7afb26e752ff42 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is obsolete.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a115cb94863a984480c7afb26e752ff42">More...</a><br /></td></tr>
+<tr class="separator:a115cb94863a984480c7afb26e752ff42 inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af15590fb1eefe71766712c01c82982cd inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af15590fb1eefe71766712c01c82982cd">find_planet</a> (const <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager, const std::string &amp;planet_name, const std::string &amp;variable_name)</td></tr>
 <tr class="memdesc:af15590fb1eefe71766712c01c82982cd inherit pro_methods_classjeod_1_1DynBodyInit"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. ">Planet</a> with the given name, failing if not found.  <a href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af15590fb1eefe71766712c01c82982cd">More...</a><br /></td></tr>
 <tr class="separator:af15590fb1eefe71766712c01c82982cd inherit pro_methods_classjeod_1_1DynBodyInit"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -321,12 +324,60 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a0ae1125e9cc05674fad07e6de3191e09 inherit pro_methods_classjeod_1_1BodyAction"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Initialize selected aspects of a vehicle's state with respect to eithers some vehicle's North-East-Down frame or the North-East-Down frame for a specified location on the planet. </p>
+<div class="textblock"><p>Initialize selected aspects of a vehicle's state with respect to either some vehicle's North-East-Down frame or the North-East-Down frame for a specified location on the planet. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00087">87</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afa52ea3f0af07d935a0be337845ed891"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa52ea3f0af07d935a0be337845ed891">&#9670;&nbsp;</a></span>DynBodyInitNedState() <span class="overload">[1/2]</span></h2>
+<a id="aa72ecd681857da398b3a5287ecfa02e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa72ecd681857da398b3a5287ecfa02e5">&#9670;&nbsp;</a></span>DynBodyInitNedState() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">jeod::DynBodyInitNedState::DynBodyInitNedState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to either some vehicle&#39;s North-East-Dow...">DynBodyInitNedState</a> default constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00059">59</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
+
+<p class="reference">References <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#aa66768489dbdda7f8bffd66f8f0a57c0">jeod::DynBodyInitPlanetDerived::body_is_required</a>, <a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8daa2d8a0bf253352d5d871699a4fcbcc607">jeod::RefFrameItems::Pos</a>, and <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ae1904fc33edc34db791abd2ced4fe1ee">jeod::DynBodyInitPlanetDerived::required_items</a>.</p>
+
+</div>
+</div>
+<a id="abca89011b045fd6c7bcccd72410ae4a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abca89011b045fd6c7bcccd72410ae4a3">&#9670;&nbsp;</a></span>~DynBodyInitNedState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">jeod::DynBodyInitNedState::~DynBodyInitNedState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83bc94d750c696b285650c1e2e8e6c4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83bc94d750c696b285650c1e2e8e6c4e">&#9670;&nbsp;</a></span>DynBodyInitNedState() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,64 +395,10 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa72ecd681857da398b3a5287ecfa02e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa72ecd681857da398b3a5287ecfa02e5">&#9670;&nbsp;</a></span>DynBodyInitNedState() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::DynBodyInitNedState::DynBodyInitNedState </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to eithers some vehicle&#39;s North-East-Do...">DynBodyInitNedState</a> default constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00060">60</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#aa66768489dbdda7f8bffd66f8f0a57c0">jeod::DynBodyInitPlanetDerived::body_is_required</a>, <a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html#a6cc4b769f9147499d2c0396e9e02b8daa2d8a0bf253352d5d871699a4fcbcc607">jeod::RefFrameItems::Pos</a>, and <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ae1904fc33edc34db791abd2ced4fe1ee">jeod::DynBodyInitPlanetDerived::required_items</a>.</p>
-
-</div>
-</div>
-<a id="a421ab864a51e11ec5ba6b51b3672612c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a421ab864a51e11ec5ba6b51b3672612c">&#9670;&nbsp;</a></span>~DynBodyInitNedState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::DynBodyInitNedState::~DynBodyInitNedState </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html" title="Initialize selected aspects of a vehicle&#39;s state with respect to eithers some vehicle&#39;s North-East-Do...">DynBodyInitNedState</a> destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00079">79</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
 
 </div>
 </div>
@@ -440,9 +437,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a97e967210bca2621294735e79173d980">jeod::DynBodyInit</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00128">128</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00104">104</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a4b5a9d695c20b490ac32c1edd2226a8a">jeod::BodyAction::action_identifier</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a931cdbd471c81ce318d00ab45c361a51">jeod::RefFrame::add_child()</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad033d5322d6790ee656ce0c3fef2a3ea">altlatlong_type</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#a87f5a978ae76a8991bd533fe8b0387ba">jeod::NorthEastDown::altlatlong_type</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a73b028001a94c709ae37728bbcca0d83">jeod::DynBodyInitPlanetDerived::apply()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6fc436abf50454f01e0b644bcb77f273">jeod::DynBodyInit::apply_user_inputs()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#a13ae6cb4001321c0a74536b967e9a513">jeod::NorthEastDown::build_ned_orientation()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#a3e7be0b1608655463afd3d373e764491">jeod::NamedItem::c_str()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a3fb1af0a1367dc9cb2201ae57e7b3469">jeod::DynBody::composite_body</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4dac1c4bca0c5e4247592a6d4e1bb32699a">jeod::NorthEastDown::elliptical</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#ab324e068c76ac5a395152a1423da379e">jeod::BodyActionMessages::illegal_value</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, <a class="el" href="../../d7/d3b/classjeod_1_1PlanetFixedPosition.html#a3248519747a8da6d9217d9a1432ab02d">jeod::PlanetFixedPosition::initialize()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a581e95ac83c6243dff1550b851692caf">jeod::DynBody::name</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#a4f5b672027db196c77fcf9879a04b33f">jeod::NorthEastDown::ned_frame</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a5c5161dbcd6a90bef2565ea5e94df35f">pfix_ptr</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a3ce94acdf510cada90d72bdf8e89863e">jeod::DynBodyInitWrtPlanet::planet</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a97b2b7c6ab8a3285991f8f7b39c9eae8">jeod::DynBodyInitWrtPlanet::planet_name</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a2dc636bff4d1f58a641dafdc96d7e22a">jeod::RefFrameTrans::position</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a9aff695454ffcf69d2a67440d6f9175e">jeod::DynBodyInitPlanetDerived::ref_body</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a0525c2c49670dde16dc2dec0e942e26c">ref_point</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a81d77493208951ccaa68c85a7b4f9f67">jeod::DynBodyInit::reference_ref_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#adb06115d8e0542a79bdc8d389e978b4c">jeod::RefFrame::remove_from_parent()</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a05f0be77621f2edaf5cc7d9f98b6f79f">jeod::DynBodyInitWrtPlanet::set_items</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5fa985a007f8db031efd480f24c796e5">jeod::RefFrame::set_name()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ae6a36d2baa680101bcc5b95fbf217717">jeod::NorthEastDown::set_ned_trans_states()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4da6bef453a9df4c00e1f87c308fc9f84dc">jeod::NorthEastDown::spherical</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4da6562a1708878bb09d55e67805e04d232">jeod::NorthEastDown::undefined</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#aaf4b090a21cc06c59f8be9afef333f74">jeod::NorthEastDown::update_from_ellip()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#af23d3b3732203bb04eba7c3e05ee08bc">jeod::NorthEastDown::update_from_spher()</a>, and <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a64aa43f30826a08e43c1fa50d096e872">jeod::RefFrameTrans::velocity</a>.</p>
+<p class="reference">References <a class="el" href="../../db/dc0/classjeod_1_1BodyAction.html#a4b5a9d695c20b490ac32c1edd2226a8a">jeod::BodyAction::action_identifier</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a931cdbd471c81ce318d00ab45c361a51">jeod::RefFrame::add_child()</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad033d5322d6790ee656ce0c3fef2a3ea">altlatlong_type</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#a87f5a978ae76a8991bd533fe8b0387ba">jeod::NorthEastDown::altlatlong_type</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a73b028001a94c709ae37728bbcca0d83">jeod::DynBodyInitPlanetDerived::apply()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6d04bf2a80ff96095b83dde8642c0a91">jeod::DynBodyInit::apply_user_inputs()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#a13ae6cb4001321c0a74536b967e9a513">jeod::NorthEastDown::build_ned_orientation()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a3fb1af0a1367dc9cb2201ae57e7b3469">jeod::DynBody::composite_body</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4dac1c4bca0c5e4247592a6d4e1bb32699a">jeod::NorthEastDown::elliptical</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d3/d2d/classjeod_1_1NamedItem.html#acc0ae701362b5c2072992d5bf538b07e">jeod::NamedItem::get_name()</a>, <a class="el" href="../../d1/d83/classjeod_1_1BodyActionMessages.html#a0700f817c8f98af6d4e3286262dd64e6">jeod::BodyActionMessages::illegal_value</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, <a class="el" href="../../d7/d3b/classjeod_1_1PlanetFixedPosition.html#a3248519747a8da6d9217d9a1432ab02d">jeod::PlanetFixedPosition::initialize()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a581e95ac83c6243dff1550b851692caf">jeod::DynBody::name</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#a4f5b672027db196c77fcf9879a04b33f">jeod::NorthEastDown::ned_frame</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a5c5161dbcd6a90bef2565ea5e94df35f">pfix_ptr</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a3ce94acdf510cada90d72bdf8e89863e">jeod::DynBodyInitWrtPlanet::planet</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a97b2b7c6ab8a3285991f8f7b39c9eae8">jeod::DynBodyInitWrtPlanet::planet_name</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a2dc636bff4d1f58a641dafdc96d7e22a">jeod::RefFrameTrans::position</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a9aff695454ffcf69d2a67440d6f9175e">jeod::DynBodyInitPlanetDerived::ref_body</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a0525c2c49670dde16dc2dec0e942e26c">ref_point</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a81d77493208951ccaa68c85a7b4f9f67">jeod::DynBodyInit::reference_ref_frame</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a668dc81a01e719afe7fc2441f003282f">jeod::RefFrame::remove_from_parent()</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a05f0be77621f2edaf5cc7d9f98b6f79f">jeod::DynBodyInitWrtPlanet::set_items</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a92214d7d317f8020b96ec38ddaa770cb">jeod::RefFrame::set_name()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ae6a36d2baa680101bcc5b95fbf217717">jeod::NorthEastDown::set_ned_trans_states()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4da6bef453a9df4c00e1f87c308fc9f84dc">jeod::NorthEastDown::spherical</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4da6562a1708878bb09d55e67805e04d232">jeod::NorthEastDown::undefined</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#aaf4b090a21cc06c59f8be9afef333f74">jeod::NorthEastDown::update_from_ellip()</a>, <a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#af23d3b3732203bb04eba7c3e05ee08bc">jeod::NorthEastDown::update_from_spher()</a>, and <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a64aa43f30826a08e43c1fa50d096e872">jeod::RefFrameTrans::velocity</a>.</p>
 
 </div>
 </div>
@@ -482,16 +479,16 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="../../d6/de9/classjeod_1_1DynBodyInitNedTransState.html#ac61ecf72ff7104d187562197c5b02645">jeod::DynBodyInitNedTransState</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00101">101</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00077">77</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a1e2c96f212ec46a79de4c41c1f66b424">jeod::BasePlanet::alt_pfix</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#aa66768489dbdda7f8bffd66f8f0a57c0">jeod::DynBodyInitPlanetDerived::body_is_required</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#af907eaca8dcab5816dd36195b60beb26">jeod::BasePlanet::calculate_alt_pfix()</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ac8671ccc4a191a27da44be7a15dd359f">jeod::DynBodyInitPlanetDerived::initialize()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#ac7ff26edf139b3a04afc8b3959918759">jeod::BasePlanet::pfix</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a5c5161dbcd6a90bef2565ea5e94df35f">pfix_ptr</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a3ce94acdf510cada90d72bdf8e89863e">jeod::DynBodyInitWrtPlanet::planet</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a3804996cf6fa739c644f924e21ac0eaf">jeod::DynBodyInitPlanetDerived::ref_body_name</a>, and <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad2e251c8e6fc92ed1f7820e7ea49890f">use_alt_pfix</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a1e2c96f212ec46a79de4c41c1f66b424">jeod::BasePlanet::alt_pfix</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#aa66768489dbdda7f8bffd66f8f0a57c0">jeod::DynBodyInitPlanetDerived::body_is_required</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#ad1ef1e4467d01c51f30e8d4c7d597fe6">jeod::BasePlanet::calculate_alt_pfix()</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#ac8671ccc4a191a27da44be7a15dd359f">jeod::DynBodyInitPlanetDerived::initialize()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#ac7ff26edf139b3a04afc8b3959918759">jeod::BasePlanet::pfix</a>, <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a5c5161dbcd6a90bef2565ea5e94df35f">pfix_ptr</a>, <a class="el" href="../../d3/d25/classjeod_1_1DynBodyInitWrtPlanet.html#a3ce94acdf510cada90d72bdf8e89863e">jeod::DynBodyInitWrtPlanet::planet</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a3804996cf6fa739c644f924e21ac0eaf">jeod::DynBodyInitPlanetDerived::ref_body_name</a>, and <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad2e251c8e6fc92ed1f7820e7ea49890f">use_alt_pfix</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1DynBodyInitNedRotState.html#a1d7ea8f12231096a94a43d5ae4b2b241">jeod::DynBodyInitNedRotState::initialize()</a>, and <a class="el" href="../../d6/de9/classjeod_1_1DynBodyInitNedTransState.html#ac61ecf72ff7104d187562197c5b02645">jeod::DynBodyInitNedTransState::initialize()</a>.</p>
 
 </div>
 </div>
-<a id="a7bb3d5e8cd6e8b18224445ca2713e889"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bb3d5e8cd6e8b18224445ca2713e889">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a0dd8f75dcedc8aec09ee8a05a451fd98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dd8f75dcedc8aec09ee8a05a451fd98">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -509,7 +506,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -534,7 +531,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Setter for use_alt_pfix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00090">90</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html#l00068">68</a> of file <a class="el" href="../../d2/d57/dyn__body__init__ned__state_8cc_source.html">dyn_body_init_ned_state.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad2e251c8e6fc92ed1f7820e7ea49890f">use_alt_pfix</a>.</p>
 
@@ -586,7 +583,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00092">92</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00089">89</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
 
 </div>
 </div>
@@ -598,7 +595,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4d">NorthEastDown::AltLatLongType</a> jeod::DynBodyInitNedState::altlatlong_type</td>
+          <td class="memname"><a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4d">NorthEastDown::AltLatLongType</a> jeod::DynBodyInitNedState::altlatlong_type {<a class="el" href="../../df/d0f/classjeod_1_1NorthEastDown.html#ac06a2a11da7bb893c320bf8236c97f4da6562a1708878bb09d55e67805e04d232">NorthEastDown::undefined</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -606,7 +603,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Use spherical or elliptical coordinates? </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00108">108</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00101">101</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad96df4a3654080c983f24ec773dd22c4">apply()</a>.</p>
 
@@ -622,7 +619,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a>* jeod::DynBodyInitNedState::pfix_ptr</td>
+          <td class="memname"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a>* jeod::DynBodyInitNedState::pfix_ptr {}</td>
         </tr>
       </table>
   </td>
@@ -635,7 +632,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Pointer to planet fixed frame to be used, either pfix or alt_pfix. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00121">121</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00113">113</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad96df4a3654080c983f24ec773dd22c4">apply()</a>, and <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a78dcccf805f6648c692c04edf42dbd85">initialize()</a>.</p>
 
@@ -656,7 +653,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Reference point for the local geodetic/geocentric, used only if the reference body is NULL. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00103">103</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00096">96</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#ad96df4a3654080c983f24ec773dd22c4">apply()</a>.</p>
 
@@ -672,7 +669,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::DynBodyInitNedState::use_alt_pfix</td>
+          <td class="memname">bool jeod::DynBodyInitNedState::use_alt_pfix {}</td>
         </tr>
       </table>
   </td>
@@ -685,7 +682,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Use pfix or alt_pfix flag. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00115">115</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html#l00107">107</a> of file <a class="el" href="../../d0/d88/dyn__body__init__ned__state_8hh_source.html">dyn_body_init_ned_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a78dcccf805f6648c692c04edf42dbd85">initialize()</a>, and <a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#a1f2cf5619b5e3c75922108693d7948b0">set_use_alt_pfix()</a>.</p>
 

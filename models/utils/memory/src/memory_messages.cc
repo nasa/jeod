@@ -18,10 +18,9 @@ Purpose:
 Library dependencies:
   ((memory_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 /**
  * \addtogroup classes
@@ -37,27 +36,26 @@ Library dependencies:
 // Model includes
 #include "../include/memory_messages.hh"
 
-#define MAKE_MEMORY_MESSAGE_CODE(id) \
-   JEOD_MAKE_MESSAGE_CODE(MemoryMessages, "utils/memory/", id)
-
+#define MAKE_MEMORY_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MemoryMessages, "utils/memory/", id)
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 
-MAKE_MEMORY_MESSAGE_CODE (singleton_error);
-MAKE_MEMORY_MESSAGE_CODE (out_of_memory);
-MAKE_MEMORY_MESSAGE_CODE (lock_error);
-MAKE_MEMORY_MESSAGE_CODE (null_pointer);
-MAKE_MEMORY_MESSAGE_CODE (suspect_pointer);
-MAKE_MEMORY_MESSAGE_CODE (invalid_size);
-MAKE_MEMORY_MESSAGE_CODE (corrupted_memory);
-MAKE_MEMORY_MESSAGE_CODE (registration_error);
-MAKE_MEMORY_MESSAGE_CODE (internal_error);
-MAKE_MEMORY_MESSAGE_CODE (debug);
+MAKE_MEMORY_MESSAGE_CODE(singleton_error);
+MAKE_MEMORY_MESSAGE_CODE(out_of_memory);
+MAKE_MEMORY_MESSAGE_CODE(lock_error);
+MAKE_MEMORY_MESSAGE_CODE(null_pointer);
+MAKE_MEMORY_MESSAGE_CODE(suspect_pointer);
+MAKE_MEMORY_MESSAGE_CODE(invalid_size);
+MAKE_MEMORY_MESSAGE_CODE(corrupted_memory);
+MAKE_MEMORY_MESSAGE_CODE(registration_error);
+MAKE_MEMORY_MESSAGE_CODE(internal_error);
+MAKE_MEMORY_MESSAGE_CODE(debug);
 
-} // End JEOD namespace
+} // namespace jeod
 
 #undef MAKE_MEMORY_MESSAGE_CODE
 #undef CLASS

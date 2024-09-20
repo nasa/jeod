@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -54,33 +54,33 @@ $(function() {
 
 <p>Define the class MassBodyAttach, the base class used for attaching a pair of MassBody objects to one another.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh_source.html">utils/ref_frames/include/class_declarations.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh_source.html">dynamics/dyn_body/include/class_declarations.hh</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh_source.html">dynamics/dyn_body/include/class_declarations.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh_source.html">dynamics/dyn_manager/include/class_declarations.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/d5a/dynamics_2mass_2include_2class__declarations_8hh_source.html">dynamics/mass/include/class_declarations.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh_source.html">utils/ref_frames/include/class_declarations.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dc/df9/jeod__class_8hh_source.html">utils/sim_interface/include/jeod_class.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh_source.html">class_declarations.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/d85/body__action_8hh_source.html">body_action.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh_source.html">class_declarations.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for body_attach.hh:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd2/body__attach_8hh__incl.png" border="0" usemap="#body__attach_8hh" alt=""/></div>
 <map name="body__attach_8hh" id="body__attach_8hh">
-<area shape="rect" id="node2" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="5,80,163,121"/>
-<area shape="rect" id="node3" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body.hh. " alt="" coords="353,259,535,300"/>
-<area shape="rect" id="node4" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="288,169,485,211"/>
-<area shape="rect" id="node5" href="../../d1/d5a/dynamics_2mass_2include_2class__declarations_8hh.html" title="Forward declarations of mass model classes. " alt="" coords="754,437,913,479"/>
-<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1295,437,1446,479"/>
-<area shape="rect" id="node9" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body_init_XXX.hh files. " alt="" coords="1467,177,1615,203"/>
-<area shape="rect" id="node10" href="../../d0/d85/body__action_8hh.html" title="Define the class BodyAction, the base class used for performing actions on a MassBody or DynBody obje..." alt="" coords="543,87,654,114"/>
-<area shape="rect" id="node7" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1333,527,1408,553"/>
-<area shape="rect" id="node8" href="../../d5/d33/config__trick10_8hh.html" title="Configure JEOD for use in a Trick10 environment. " alt="" coords="1310,601,1431,628"/>
-<area shape="rect" id="node12" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="867,169,1026,211"/>
-<area shape="rect" id="node14" href="../../d3/de4/mass__properties_8hh.html" title="Define the class MassProperties. " alt="" coords="1009,266,1145,293"/>
-<area shape="rect" id="node15" href="../../d1/d00/mass__point_8hh.html" title="Define the class MassPoint, which defines the base features of a point related to a MassBody..." alt="" coords="979,355,1085,382"/>
-<area shape="rect" id="node17" href="../../d1/df1/mass__body__links_8hh.html" title="Define the class MassBodyLinks, the class that encapsulates the links between mass bodies..." alt="" coords="763,355,904,382"/>
-<area shape="rect" id="node18" href="../../d3/d71/mass__point__init_8hh.html" title="Define the class MassPointInit, which initializes a MassPoint object. " alt="" coords="1109,355,1240,382"/>
-<area shape="rect" id="node19" href="../../d6/d17/pointer__list_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1366,348,1514,389"/>
+<area shape="rect" id="node2" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body.hh. " alt="" coords="36,259,238,300"/>
+<area shape="rect" id="node3" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="175,169,392,211"/>
+<area shape="rect" id="node4" href="../../d1/d5a/dynamics_2mass_2include_2class__declarations_8hh.html" title="Forward declarations of mass model classes. " alt="" coords="690,437,864,479"/>
+<area shape="rect" id="node5" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="1489,80,1665,121"/>
+<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1000,437,1165,479"/>
+<area shape="rect" id="node9" href="../../d0/d85/body__action_8hh.html" title="Define the class BodyAction, the base class used for performing actions on a MassBody or DynBody obje..." alt="" coords="702,87,823,114"/>
+<area shape="rect" id="node11" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body_init_XXX.hh files. " alt="" coords="1041,177,1204,203"/>
+<area shape="rect" id="node7" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1042,527,1123,553"/>
+<area shape="rect" id="node8" href="../../d5/d33/config__trick10_8hh.html" title="Configure JEOD for use in a Trick10 environment. " alt="" coords="1016,601,1149,628"/>
+<area shape="rect" id="node12" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="563,169,738,211"/>
+<area shape="rect" id="node14" href="../../d1/df1/mass__body__links_8hh.html" title="Define the class MassBodyLinks, the class that encapsulates the links between mass bodies..." alt="" coords="814,355,969,382"/>
+<area shape="rect" id="node15" href="../../d1/d00/mass__point_8hh.html" title="Define the class MassPoint, which defines the base features of a point related to a MassBody..." alt="" coords="572,355,689,382"/>
+<area shape="rect" id="node17" href="../../d3/d71/mass__point__init_8hh.html" title="Define the class MassPointInit, which initializes a MassPoint object. " alt="" coords="402,355,547,382"/>
+<area shape="rect" id="node18" href="../../d3/de4/mass__properties_8hh.html" title="Define the class MassProperties. " alt="" coords="764,266,915,293"/>
+<area shape="rect" id="node19" href="../../d6/d17/pointer__list_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1196,348,1363,389"/>
 </map>
 </div>
 </div>

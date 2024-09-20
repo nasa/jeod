@@ -36,19 +36,23 @@
 //
 //=============================================================================
 // A two-vehicle simulation in Earth orbit, with relative states.
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-
-// Include the default objects
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "vehicle_basic.sm"
 VehicleSimObject vehicle2(dynamics.dyn_manager);
@@ -57,26 +61,25 @@ VehicleSimObject vehicle2(dynamics.dyn_manager);
 ##include "utils/ref_frames/include/ref_frame_state.hh"
 class StatesSimObject  : public Trick::SimObject
 {
-  public:
-  jeod::MassPointState point_state;
-  jeod::RefFrameState  body_body_frame_state;
-  jeod::RefFrameState  body_point_frame_state;
-  jeod::RefFrameState  point_point_frame_state;
-  jeod::RefFrameState  reflector_state;
-  jeod::RefFrameState  sun_state;
-  jeod::RefFrameState  imu_body_state;
-  jeod::RefFrameState  imu_inrtl_state;
+public:
+    jeod::MassPointState point_state;
+    jeod::RefFrameState body_body_frame_state;
+    jeod::RefFrameState body_point_frame_state;
+    jeod::RefFrameState point_point_frame_state;
+    jeod::RefFrameState reflector_state;
+    jeod::RefFrameState sun_state;
+    jeod::RefFrameState imu_body_state;
+    jeod::RefFrameState imu_inrtl_state;
 
-  StatesSimObject()
-  { }
+    StatesSimObject() {}
 
-  private:
-  // This object is not copyable
-  StatesSimObject (const StatesSimObject&);
-  StatesSimObject & operator = (const StatesSimObject&);
+private:
+    // This object is not copyable
+    StatesSimObject(const StatesSimObject &);
+    StatesSimObject & operator=(const StatesSimObject &);
 };
 
 StatesSimObject states;
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

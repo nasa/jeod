@@ -63,7 +63,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_GRAVITY_TORQUE_MESSAGES_HH
 #define JEOD_GRAVITY_TORQUE_MESSAGES_HH
 
@@ -72,39 +71,33 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the gravity torque model.
  */
-class GravityTorqueMessages {
+class GravityTorqueMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GravityTorqueMessages)
 
- JEOD_MAKE_SIM_INTERFACES(GravityTorqueMessages)
+    // Static member data
+public:
+    /**
+     * Issued when the model has not been properly initialized.
+     */
+    static const char * initialization_error; //!< trick_units(--)
 
- // Static member data
- public:
-
-   /**
-    * Issued when the model has not been properly initialized.
-    */
-   static char const * initialization_error; //!< trick_units(--)
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   GravityTorqueMessages (void);
-   GravityTorqueMessages (const GravityTorqueMessages &);
-   GravityTorqueMessages & operator= (const GravityTorqueMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    GravityTorqueMessages() = delete;
+    GravityTorqueMessages(const GravityTorqueMessages &) = delete;
+    GravityTorqueMessages & operator=(const GravityTorqueMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

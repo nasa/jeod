@@ -33,15 +33,15 @@ def veh_mass_alt( veh):
 
 
 def veh_mass_point( veh):
-  veh.mass_init.num_points = 1
-  veh.mass_init.points = trick.sim_services.alloc_type( 1 , "jeod::MassPointInit" )
-  veh.mass_init.points[0].set_name("RefPoint")
-  veh.mass_init.points[0].position  = [1, 0, 0]
-  veh.mass_init.points[0].pt_orientation.data_source = \
+  veh.mass_init.allocate_points(1)
+
+  veh.mass_init.get_mass_point(0).set_name("RefPoint")
+  veh.mass_init.get_mass_point(0).position  = [1, 0, 0]
+  veh.mass_init.get_mass_point(0).pt_orientation.data_source = \
                                             trick.Orientation.InputEulerRotation
-  veh.mass_init.points[0].pt_orientation.euler_sequence  = \
+  veh.mass_init.get_mass_point(0).pt_orientation.euler_sequence  = \
                                                 trick.Orientation.Yaw_Pitch_Roll
-  veh.mass_init.points[0].pt_orientation.euler_angles  = \
+  veh.mass_init.get_mass_point(0).pt_orientation.euler_angles  = \
                                      trick.attach_units( "degree",[  90.0, 0.0, 0.0])
 
   dynamics.dyn_manager.add_body_action(veh.mass_init)

@@ -51,21 +51,20 @@ Purpose: ()
 SWIG: (No)
 */
 
-
 #ifndef JEOD_VECTOR_VIEW_HH
 #define JEOD_VECTOR_VIEW_HH
 
-
 #include "forward_view.hh"
 #include "solver_types.hh"
+#include "utils/sim_interface/include/config.hh"
 
 #include <cstddef>
 #include <stdexcept>
 #include <type_traits>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Provides a view into an object that can conceptually be indexed by a single
@@ -91,35 +90,29 @@ namespace jeod {
  * @tparam ElemType The type of the elements held by the underlying object.
  *   This is assumed to be a primitive type.
  */
-template<typename ElemType, typename RefType>
-class VectorView
+template<typename ElemType, typename RefType> class VectorView
 {
 public:
-
-
     /**
      * Non-default constructor.
      * @param n_elems_in  The number of elements in the view.
      */
-    VectorView (
-        unsigned n_elems_in)
-    :
-        n_elems(n_elems_in)
-    { }
+    VectorView(unsigned n_elems_in)
+        : n_elems(n_elems_in)
+    {
+    }
 
     /**
      * Destructor. There's nothing to destruct here.
      */
     virtual ~VectorView() = default;
 
-
     /**
      * Non-const index operator.
      * @param i_elem Element to be indexed.
      * @return Reference to the indexed value.
      */
-    virtual RefType operator[] (unsigned i_elem) = 0;
-
+    virtual RefType operator[](unsigned i_elem) = 0;
 
     /**
      * Copy assignment from an object that implements size().
@@ -130,22 +123,20 @@ public:
      * incompatibly sized.
      */
     template<typename SourceType, typename T = VectorView>
-    typename std::enable_if<! std::is_reference<RefType>::value, T&>::type
-    operator= (const SourceType& src)
+    typename std::enable_if<!std::is_reference<RefType>::value, T &>::type operator=(const SourceType & src)
     {
-        if (src.size() != n_elems)
+        if(src.size() != n_elems)
         {
-            throw std::length_error ("Incompatible sizes");
+            JEOD_THROW(std::length_error("Incompatible sizes"));
         }
 
-        for (unsigned ii = 0; ii < n_elems; ++ii)
+        for(unsigned ii = 0; ii < n_elems; ++ii)
         {
             (*this)[ii] = src[ii];
         }
 
         return *this;
     }
-
 
     /**
      * Copy assignment from a primitive array.
@@ -156,15 +147,14 @@ public:
      * incompatibly sized.
      */
     template<std::size_t N, typename T = VectorView>
-    typename std::enable_if<! std::is_reference<RefType>::value, T&>::type
-    operator= (const ElemType src[N])
+    typename std::enable_if<!std::is_reference<RefType>::value, T &>::type operator=(const ElemType src[N])
     {
-        if (N != n_elems)
+        if(N != n_elems)
         {
-            throw std::length_error ("Incompatible sizes");
+            JEOD_THROW(std::length_error("Incompatible sizes"));
         }
 
-        for (unsigned ii = 0; ii < n_elems; ++ii)
+        for(unsigned ii = 0; ii < n_elems; ++ii)
         {
             (*this)[ii] = src[ii];
         }
@@ -172,15 +162,14 @@ public:
         return *this;
     }
 
-
     /**
      * Const index operator.
      * @param i_elem Element to be indexed.
      * @return The indexed value.
      */
-    virtual ElemType operator[] (unsigned i_elem) const
+    virtual ElemType operator[](unsigned i_elem) const
     {
-        return const_cast<VectorView&>(*this)[i_elem];
+        return const_cast<VectorView &>(*this)[i_elem];
     }
 
     /**
@@ -189,11 +178,11 @@ public:
      * @return Reference to the indexed value.
      * @throw std::out_of_range if index is outside the range of the view.
      */
-    virtual RefType at (unsigned i_elem)
+    virtual RefType at(unsigned i_elem)
     {
-        if (i_elem >= n_elems)
+        if(i_elem >= n_elems)
         {
-            throw std::out_of_range ("Illegal element access");
+            JEOD_THROW(std::out_of_range("Illegal element access"));
         }
 
         return (*this)[i_elem];
@@ -205,9 +194,9 @@ public:
      * @return The indexed value.
      * @throw std::out_of_range if index is outside the range of the view.
      */
-    virtual ElemType at (unsigned i_elem) const
+    virtual ElemType at(unsigned i_elem) const
     {
-        return const_cast<VectorView&>(*this).at(i_elem);
+        return const_cast<VectorView &>(*this).at(i_elem);
     }
 
     /**
@@ -226,12 +215,8 @@ public:
      * item plus one.
      * @return The created view, as a sub vector.
      */
-    SubVectorView<
-        VectorView<ElemType, RefType>,
-        ElemType,
-        RefType,
-        RefType>
-    make_view (const SolverTypes::IndexPairT& range);
+    SubVectorView<VectorView<ElemType, RefType>, ElemType, RefType, RefType> make_view(
+        const SolverTypes::IndexPairT & range);
 
     /**
      * Create a view into this view.
@@ -240,71 +225,41 @@ public:
      * item plus one.
      * @return The created view, as a sub vector.
      */
-    SubVectorView<
-        const VectorView<ElemType, RefType>,
-        ElemType,
-        ElemType,
-        RefType>
-    make_view (const SolverTypes::IndexPairT& range) const;
-
-
+    SubVectorView<const VectorView<ElemType, RefType>, ElemType, ElemType, RefType> make_view(
+        const SolverTypes::IndexPairT & range) const;
 
 protected:
-
     /**
      * The number of elements in the view.
      */
     const unsigned n_elems; //!< trick_units(--)
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #include "sub_vector_view.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 template<typename ElemType, typename RefType>
-inline
-SubVectorView<
-    VectorView<ElemType, RefType>,
-    ElemType,
-    RefType,
-    RefType>
-VectorView<ElemType,RefType>::make_view (
-    const SolverTypes::IndexPairT& range)
+inline SubVectorView<VectorView<ElemType, RefType>, ElemType, RefType, RefType>
+VectorView<ElemType, RefType>::make_view(const SolverTypes::IndexPairT & range)
 {
-    return SubVectorView<
-        VectorView<ElemType, RefType>,
-        ElemType,
-        RefType,
-        RefType> (*this, range);
+    return SubVectorView<VectorView<ElemType, RefType>, ElemType, RefType, RefType>(*this, range);
 }
 
 template<typename ElemType, typename RefType>
-inline
-SubVectorView<
-    const VectorView<ElemType, RefType>,
-    ElemType,
-    ElemType,
-    RefType>
-VectorView<ElemType, RefType>::make_view (
-    const SolverTypes::IndexPairT& range) const
+inline SubVectorView<const VectorView<ElemType, RefType>, ElemType, ElemType, RefType>
+VectorView<ElemType, RefType>::make_view(const SolverTypes::IndexPairT & range) const
 {
-    return SubVectorView<
-        const VectorView<ElemType, RefType>,
-        ElemType,
-        ElemType,
-        RefType> (*this, range);
+    return SubVectorView<const VectorView<ElemType, RefType>, ElemType, ElemType, RefType>(*this, range);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

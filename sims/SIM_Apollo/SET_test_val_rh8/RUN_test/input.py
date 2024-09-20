@@ -19,10 +19,10 @@ trick.sim_services.exec_set_trap_sigfpe(1)
 #/*---------------------------------------------
 # * Set up the simulation executive parameters.
 # *---------------------------------------------*/
-exec(compile(open( "Modified_data/trick/no_debug.py", "rb").read(), "Modified_data/trick/no_debug.py", 'exec'))
-set_trick_no_debug()
-exec(compile(open( "Modified_data/trick/exec_setup.py", "rb").read(), "Modified_data/trick/exec_setup.py", 'exec'))
-set_trick_exec_setup()
+
+
+
+
 
 #/*---------------------------------------------
 # * Set up the dynamics manager.
@@ -143,7 +143,7 @@ set_mass_ascent_module(lm_dyn)
 exec(compile(open( "Modified_data/attach/ascent_module.py", "rb").read(), "Modified_data/attach/ascent_module.py", 'exec'))
 set_ascent_module(lm_dyn)
 
-dynamics.dyn_manager.add_body_action(lm_dyn.mass_init);
+dynamics.dyn_manager.add_body_action(lm_dyn.mass_init)
 
 #/* Apollo Lunar Module Descent Module mass configuration properties. */
 dm_mass.body.set_name("dm")
@@ -347,4 +347,4 @@ cm_dyn.dyn_body.mass.print_tree ( "SET_test/RUN_test/Entry.out", 100 )
 cm_dyn.dyn_body.mass.print_tree ( "SET_test/RUN_test/Final.out", 100 )
 """)
 
-trick.sim_services.exec_set_terminate_time(12.0);
+trick.sim_services.exec_set_terminate_time(12.0)

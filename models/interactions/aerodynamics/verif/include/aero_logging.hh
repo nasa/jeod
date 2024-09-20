@@ -57,59 +57,55 @@ ASSUMPTIONS:
 #include "interactions/aerodynamics/include/flat_plate_aero_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class Plate {
+class Plate
+{
 public:
-   double force_n; /* trick_units(N) @n
-      Normal force */
-   double force_t; /* trick_units(N) @n
-      Tangent force */
-   double angle_attack; /* trick_units(rad) @n
-      Angle of attack */
-   double cos_alpha; /* trick_units(--) @n
-      Cosine of angle of attack */
-   double sin_alpha; /* trick_units(--) @n
-      Sine of angle of attack */
-   double force[3]; /* trick_units(N) @n
-      Force on plate */
-   double torque[3]; /* trick_units(N) @n
-      Torque on plate */
-   FlatPlateAeroFacet* plate;
+    double force_n;      /* trick_units(N) @n
+            Normal force */
+    double force_t;      /* trick_units(N) @n
+            Tangent force */
+    double angle_attack; /* trick_units(rad) @n
+       Angle of attack */
+    double cos_alpha;    /* trick_units(--) @n
+          Cosine of angle of attack */
+    double sin_alpha;    /* trick_units(--) @n
+          Sine of angle of attack */
+    double force[3];     /* trick_units(N) @n
+           Force on plate */
+    double torque[3];    /* trick_units(N) @n
+          Torque on plate */
+    FlatPlateAeroFacet * plate;
 };
 
 class AeroSurface;
 
-class AeroLogging {
-
+class AeroLogging
+{
 public:
-   double accel[3]; /* trick_units(m/s2) @n
-      Acceleration in structural frame */
-   double accel_x_total; /* trick_units(m/s2) @n
-      Total acceleration in struct X */
-   double accel_y_total; /* trick_units(m/s2) @n
-      Total acceleration in struct Y */
-   double accel_mag; /* trick_units(m/s2) @n
-      Total acceleration magnitude */
-   double accel_ratio; /* trick_units(--) @n
-      accel_x_total/accel_y_total ratio */
+    double accel[3];      /* trick_units(m/s2) @n
+            Acceleration in structural frame */
+    double accel_x_total; /* trick_units(m/s2) @n
+       Total acceleration in struct X */
+    double accel_y_total; /* trick_units(m/s2) @n
+       Total acceleration in struct Y */
+    double accel_mag;     /* trick_units(m/s2) @n
+           Total acceleration magnitude */
+    double accel_ratio;   /* trick_units(--) @n
+         accel_x_total/accel_y_total ratio */
 
-   Plate plates[6]; /* trick_units(--) @n
-      The plates for parameters */
-   unsigned int size_of_plates; /* trick_units(count) @n
-      Size of plates */
+    Plate plates[6];             /* trick_units(--) @n
+                   The plates for parameters */
+    unsigned int size_of_plates; /* trick_units(count) @n
+       Size of plates */
 
-   void aero_logging_initialize(
-      AeroSurface& surface);
+    void aero_logging_initialize(AeroSurface & surface);
 
-   void aero_logging(
-      double inert_vel[3],
-      double mass,
-      double force[3]);
-
+    void aero_logging(double inert_vel[3], double mass, double force[3]);
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

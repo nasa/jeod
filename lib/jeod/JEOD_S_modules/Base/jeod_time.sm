@@ -102,130 +102,113 @@
 
 class JeodTimeSimObject: public Trick::SimObject
 {
- public:
-  // The time manager and its initializer
-  jeod::TimeManager time_manager;
-  jeod::TimeManagerInit time_manager_init;
-  // TAI by default; everything dpeends on it
-  // TAI and dynamic time to TAI converter
-  jeod::TimeTAI time_tai;
-  jeod::TimeConverter_Dyn_TAI time_converter_dyn_tai;
+public:
+    // The time manager and its initializer
+    jeod::TimeManager time_manager;
+    jeod::TimeManagerInit time_manager_init;
+    // TAI by default; everything dpeends on it
+    // TAI and dynamic time to TAI converter
+    jeod::TimeTAI time_tai;
+    jeod::TimeConverter_Dyn_TAI time_converter_dyn_tai;
 
- #ifdef TIME_MODEL_UTC
-  // UTC, TAI to UTC converter, and UTC default data
-  jeod::TimeUTC time_utc;
-  jeod::TimeConverter_TAI_UTC time_converter_tai_utc;
-  jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data
-     time_converter_tai_utc_default_data;
- #endif
+#ifdef TIME_MODEL_UTC
+    // UTC, TAI to UTC converter, and UTC default data
+    jeod::TimeUTC time_utc;
+    jeod::TimeConverter_TAI_UTC time_converter_tai_utc;
+    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data time_converter_tai_utc_default_data;
+#endif
 
- #ifdef TIME_MODEL_UT1
-  // UT1, TAI to UT1 converter, and UT1 default data
-  jeod::TimeUT1 time_ut1;
-  jeod::TimeConverter_TAI_UT1 time_converter_tai_ut1;
-  jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data
-     time_converter_tai_ut1_default_data;
- #endif
+#ifdef TIME_MODEL_UT1
+    // UT1, TAI to UT1 converter, and UT1 default data
+    jeod::TimeUT1 time_ut1;
+    jeod::TimeConverter_TAI_UT1 time_converter_tai_ut1;
+    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data time_converter_tai_ut1_default_data;
+#endif
 
- #ifdef TIME_MODEL_TDB
-  // TDB and Dyn to TDB converter, and TAI to TDB converter
-  jeod::TimeTDB time_tdb;
-  jeod::TimeConverter_Dyn_TDB time_converter_dyn_tdb;
-  jeod::TimeConverter_TAI_TDB time_converter_tai_tdb;
- #endif
+#ifdef TIME_MODEL_TDB
+    // TDB and Dyn to TDB converter, and TAI to TDB converter
+    jeod::TimeTDB time_tdb;
+    jeod::TimeConverter_Dyn_TDB time_converter_dyn_tdb;
+    jeod::TimeConverter_TAI_TDB time_converter_tai_tdb;
+#endif
 
- #ifdef TIME_MODEL_TT
-  // TT and TAI to TT converter
-  jeod::TimeTT time_tt;
-  jeod::TimeConverter_TAI_TT time_converter_tai_tt;
- #endif
+#ifdef TIME_MODEL_TT
+    // TT and TAI to TT converter
+    jeod::TimeTT time_tt;
+    jeod::TimeConverter_TAI_TT time_converter_tai_tt;
+#endif
 
- #ifdef TIME_MODEL_GMST
-  // GMST and UT1 to GMST converter
-  jeod::TimeGMST time_gmst;
-  jeod::TimeConverter_UT1_GMST time_converter_ut1_gmst;
- #endif
+#ifdef TIME_MODEL_GMST
+    // GMST and UT1 to GMST converter
+    jeod::TimeGMST time_gmst;
+    jeod::TimeConverter_UT1_GMST time_converter_ut1_gmst;
+#endif
 
- #ifdef TIME_MODEL_GPS
-  // TT and TAI to GPS converter
-  jeod::TimeGPS time_gps;
-  jeod::TimeConverter_TAI_GPS time_converter_tai_gps;
- #endif
+#ifdef TIME_MODEL_GPS
+    // TT and TAI to GPS converter
+    jeod::TimeGPS time_gps;
+    jeod::TimeConverter_TAI_GPS time_converter_tai_gps;
+#endif
 
-  // Constructor
-  JeodTimeSimObject ()
-  {
-     P_TIME  ("initialization") time_manager.register_time ( time_tai);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_dyn_tai);
+    // Constructor
+    JeodTimeSimObject()
+    {
+        P_TIME("initialization") time_manager.register_time(time_tai);
+        P_TIME("initialization") time_manager.register_converter(time_converter_dyn_tai);
 
-    #ifdef TIME_MODEL_UTC
-     ("default_data") time_converter_tai_utc_default_data.initialize (
-                                                     &time_converter_tai_utc);
-     P_TIME  ("initialization") time_manager.register_time ( time_utc);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_tai_utc);
-    #endif
+#ifdef TIME_MODEL_UTC
+        ("default_data") time_converter_tai_utc_default_data.initialize(&time_converter_tai_utc);
+        P_TIME("initialization") time_manager.register_time(time_utc);
+        P_TIME("initialization") time_manager.register_converter(time_converter_tai_utc);
+#endif
 
-    #ifdef TIME_MODEL_UT1
-     ("default_data") time_converter_tai_ut1_default_data.initialize (
-                                                     &time_converter_tai_ut1);
-     P_TIME  ("initialization") time_manager.register_time ( time_ut1);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_tai_ut1);
-    #endif
+#ifdef TIME_MODEL_UT1
+        ("default_data") time_converter_tai_ut1_default_data.initialize(&time_converter_tai_ut1);
+        P_TIME("initialization") time_manager.register_time(time_ut1);
+        P_TIME("initialization") time_manager.register_converter(time_converter_tai_ut1);
+#endif
 
-    #ifdef TIME_MODEL_TDB
-     P_TIME  ("initialization") time_manager.register_time ( time_tdb);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_dyn_tdb);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_tai_tdb);
-    #endif
+#ifdef TIME_MODEL_TDB
+        P_TIME("initialization") time_manager.register_time(time_tdb);
+        P_TIME("initialization") time_manager.register_converter(time_converter_dyn_tdb);
+        P_TIME("initialization") time_manager.register_converter(time_converter_tai_tdb);
+#endif
 
-    #ifdef TIME_MODEL_TT
-     P_TIME  ("initialization") time_manager.register_time ( time_tt);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_tai_tt);
-    #endif
+#ifdef TIME_MODEL_TT
+        P_TIME("initialization") time_manager.register_time(time_tt);
+        P_TIME("initialization") time_manager.register_converter(time_converter_tai_tt);
+#endif
 
-    #ifdef TIME_MODEL_GMST
-     P_TIME  ("initialization") time_manager.register_time ( time_gmst);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_ut1_gmst);
-    #endif
+#ifdef TIME_MODEL_GMST
+        P_TIME("initialization") time_manager.register_time(time_gmst);
+        P_TIME("initialization") time_manager.register_converter(time_converter_ut1_gmst);
+#endif
 
-    #ifdef TIME_MODEL_GPS
-     P_TIME  ("initialization") time_manager.register_time ( time_gps);
-     P_TIME  ("initialization") time_manager.register_converter (
-                                                      time_converter_tai_gps);
-    #endif
+#ifdef TIME_MODEL_GPS
+        P_TIME("initialization") time_manager.register_time(time_gps);
+        P_TIME("initialization") time_manager.register_converter(time_converter_tai_gps);
+#endif
 
+        P_TIME("initialization") time_manager.initialize(&time_manager_init);
 
-    P_TIME  ("initialization") time_manager.initialize ( &time_manager_init);
+#ifdef TIME_CALENDAR_UPDATE_INTERVAL
+// Initialization and scheduled jobs re calendar updates
+// The UT1 and UTC calendar representations are initialized and updated
+// at the TIME_CALENDAR_UPDATE_INTERVAL.
+#ifdef TIME_MODEL_UTC
+        P_TIME("initialization") time_utc.calendar_update(exec_get_sim_time());
+        (TIME_CALENDAR_UPDATE_INTERVAL, "environment") time_utc.calendar_update(exec_get_sim_time());
+#endif
+#ifdef TIME_MODEL_UT1
+        P_TIME("initialization") time_ut1.calendar_update(exec_get_sim_time());
+        (TIME_CALENDAR_UPDATE_INTERVAL, "environment") time_ut1.calendar_update(exec_get_sim_time());
+#endif
+#endif
 
-    #ifdef TIME_CALENDAR_UPDATE_INTERVAL
-     // Initialization and scheduled jobs re calendar updates
-     // The UT1 and UTC calendar representations are initialized and updated
-     // at the TIME_CALENDAR_UPDATE_INTERVAL.
-     #ifdef TIME_MODEL_UTC
-      P_TIME ("initialization") time_utc.calendar_update (exec_get_sim_time());
-      (TIME_CALENDAR_UPDATE_INTERVAL, "environment") time_utc.calendar_update (
-                                                          exec_get_sim_time());
-     #endif
-     #ifdef TIME_MODEL_UT1
-      P_TIME ("initialization") time_ut1.calendar_update (exec_get_sim_time());
-      (TIME_CALENDAR_UPDATE_INTERVAL, "environment") time_ut1.calendar_update (
-                                                           exec_get_sim_time());
-     #endif
-    #endif
+        (DYNAMICS, "environment") time_manager.update(exec_get_sim_time());
+    }
 
-
-    (DYNAMICS, "environment") time_manager.update ( exec_get_sim_time());
-  }
-
- private:
-   JeodTimeSimObject (const JeodTimeSimObject&);
-   JeodTimeSimObject & operator = (const JeodTimeSimObject&);
+    JeodTimeSimObject(const JeodTimeSimObject &) = delete;
+    JeodTimeSimObject & operator=(const JeodTimeSimObject &) = delete;
 };
 #endif

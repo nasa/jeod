@@ -48,10 +48,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/integration_test_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_INTEGRATION_TEST_MESSAGES_HH
 #define JEOD_INTEGRATION_TEST_MESSAGES_HH
@@ -61,45 +60,37 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
   Purpose:
     (Declares messages associated with the integration test model.)
  */
-class IntegrationTestMessages {
+class IntegrationTestMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, IntegrationTestMessages)
 
+    // Static member data
+public:
+    static const char * invalid_data; /* trick_units(--) @n
+       Issued when some user input is invalid. */
 
- JEOD_MAKE_SIM_INTERFACES(IntegrationTestMessages)
+    static const char * internal_error; /* trick_units(--) @n
+       Issued when the programmer messed up. */
 
+    static const char * debug; /* trick_units(--) @n
+       Debugging messages. */
 
- // Static member data
- public:
-
-   static char const * invalid_data; /* trick_units(--) @n
-      Issued when some user input is invalid. */
-
-   static char const * internal_error; /* trick_units(--) @n
-      Issued when the programmer messed up. */
-
-   static char const * debug; /* trick_units(--) @n
-      Debugging messages. */
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   IntegrationTestMessages (void);
-   IntegrationTestMessages (const IntegrationTestMessages &);
-   IntegrationTestMessages & operator= (const IntegrationTestMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    IntegrationTestMessages() = delete;
+    IntegrationTestMessages(const IntegrationTestMessages &) = delete;
+    IntegrationTestMessages & operator=(const IntegrationTestMessages &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

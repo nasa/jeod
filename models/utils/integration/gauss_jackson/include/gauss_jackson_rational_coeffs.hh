@@ -49,13 +49,11 @@
  * a set of Adams or Stormer-Cowell coefficients.
  */
 
-
 /*
 Purpose: ()
 Library dependencies:
   ((../src/gauss_jackson_rational_coeffs.cc))
 */
-
 
 #ifndef JEOD_GAUSS_JACKSON_RATIONAL_COEFFICIENTS_HH
 #define JEOD_GAUSS_JACKSON_RATIONAL_COEFFICIENTS_HH
@@ -69,99 +67,90 @@ Library dependencies:
 // System includes
 #include <vector>
 
-
 // Forward declarations
 
 /**
  * Namespace er7_utils contains the state integration models used by JEOD.
  */
-namespace er7_utils {
-   class NChooseM;
-}
+namespace er7_utils
+{
+class NChooseM;
+} // namespace er7_utils
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Contains a set of Adams or Stormer-Cowell coefficients.
  */
-class GaussJacksonRationalCoefficients {
-
-  JEOD_MAKE_SIM_INTERFACES(GaussJacksonRationalCoefficients)
+class GaussJacksonRationalCoefficients
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GaussJacksonRationalCoefficients)
 
 public:
+    /**
+     * The coefficients.
+     */
+    std::vector<er7_utils::Ratio128> coefficients; //!< trick_units(--)
 
-   /**
-    * The coefficients.
-    */
-   std::vector<er7_utils::Ratio128> coefficients; //!< trick_units(--)
+    /**
+     * Default constructor.
+     */
+    GaussJacksonRationalCoefficients() = default;
 
+    /**
+     * Configure the coefficients as an Adams corrector in difference form.
+     * @param  nelem  The number of elements in the coefficients vector.
+     */
+    void configure_adams_corrector(unsigned int nelem);
 
-   /**
-    * Default constructor.
-    */
-   GaussJacksonRationalCoefficients () {}
+    /**
+     * Construct a GaussJacksonRationalCoefficients that contains the
+     * Stormer-Cowell corrector coefficients. The coefficients are assumed
+     * to be configured as Adams coefficients in difference form.
+     *
+     * @return
+     * A GaussJacksonRationalCoefficients object with the coefficients
+     * configured as Stormer-Cowell corrector coefficients.
+     */
+    GaussJacksonRationalCoefficients construct_stormer_cowell_corrector() const;
 
+    /**
+     * Construct a GaussJacksonRationalCoefficients that contains a set of
+     * predictor coefficients. The coefficients are assumed to be configured
+     * as either Adams or Stormer-Cowell corrector coefficients.
+     *
+     * @return
+     * A GaussJacksonRationalCoefficients object with the coefficients
+     * configured as Adams or Stormer-Cowell predictor coefficients.
+     */
+    GaussJacksonRationalCoefficients construct_predictor() const;
 
-   /**
-    * Configure the coefficients as an Adams corrector in difference form.
-    * @param  nelem  The number of elements in the coefficients vector.
-    */
-   void configure_adams_corrector (
-      unsigned int nelem);
+    /**
+     * Convert the coefficients to ordinate form.
+     * @param  n_choose_m  An NChooseM object that computes N choose M.
+     * @param  result      The output ordinate form coefficients.
+     */
+    void convert_to_ordinate_form(er7_utils::NChooseM & n_choose_m, double * result) const;
 
-   /**
-    * Construct a GaussJacksonRationalCoefficients that contains the
-    * Stormer-Cowell corrector coefficients. The coefficients are assumed
-    * to be configured as Adams coefficients in difference form.
-    *
-    * @return
-    * A GaussJacksonRationalCoefficients object with the coefficients
-    * configured as Stormer-Cowell corrector coefficients.
-    */
-   GaussJacksonRationalCoefficients construct_stormer_cowell_corrector ()
-   const;
+    /**
+     * Discard the specified number of terms from the front and back
+     * of the coefficients array.
+     * @param  nfront  The number of terms to be discarded from the front of
+     *                 the coefficients vector.
+     * @param  nback   The number of terms to be discarded from the back of
+     *                 the coefficients vector.
+     */
+    void discard_extra_terms(unsigned int nfront, unsigned int nback);
 
-   /**
-    * Construct a GaussJacksonRationalCoefficients that contains a set of
-    * predictor coefficients. The coefficients are assumed to be configured
-    * as either Adams or Stormer-Cowell corrector coefficients.
-    *
-    * @return
-    * A GaussJacksonRationalCoefficients object with the coefficients
-    * configured as Adams or Stormer-Cowell predictor coefficients.
-    */
-   GaussJacksonRationalCoefficients construct_predictor ()
-   const;
-
-   /**
-    * Convert the coefficients to ordinate form.
-    * @param  n_choose_m  An NChooseM object that computes N choose M.
-    * @param  result      The output ordinate form coefficients.
-    */
-   void convert_to_ordinate_form (
-      er7_utils::NChooseM & n_choose_m, double * result)
-   const;
-
-   /**
-    * Discard the specified number of terms from the front and back
-    * of the coefficients array.
-    * @param  nfront  The number of terms to be discarded from the front of
-    *                 the coefficients vector.
-    * @param  nback   The number of terms to be discarded from the back of
-    *                 the coefficients vector.
-    */
-   void discard_extra_terms (unsigned int nfront, unsigned int nback);
-
-   /**
-    * Displace the corrector coefficients back one time step.
-    */
-   void displace_back ();
+    /**
+     * Displace the corrector coefficients back one time step.
+     */
+    void displace_back();
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

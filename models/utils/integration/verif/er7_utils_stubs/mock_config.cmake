@@ -1,0 +1,9 @@
+set(ER7_STUB_SRCS
+$ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/integrator_result_merger_container_stubs.cc
+$ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/base_integration_group_stubs.cc
+$ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/left_quaternion_functions_stubs.cc
+$ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/deletable_stubs.cc
+$ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/integrator_constructor_factory_stubs.cc
+$ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/integrator_constructor_stubs.cc
+$ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/integration_controls_stubs.cc
+)

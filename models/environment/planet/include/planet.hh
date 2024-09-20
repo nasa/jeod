@@ -78,83 +78,67 @@ Library Dependency:
 // Model includes
 #include "base_planet.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseDynManager;
-
 
 /**
  * Describes a planet with mass and shape.
  */
-class Planet : public BasePlanet {
+class Planet : public BasePlanet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, Planet)
 
- JEOD_MAKE_SIM_INTERFACES(Planet)
+    // Member Data
+public:
+    /**
+     * Mean planet equatorial radius
+     */
+    double r_eq{}; //!< trick_units(m)
 
+    /**
+     * Mean planet polar radius
+     */
+    double r_pol{}; //!< trick_units(m)
 
- // Member Data
- public:
+    /**
+     * Planet ellipsoid eccentricity, a value between 0 and 1.
+     * NOTE: This parameter relates to the planet's shape, not its orbit.
+     */
+    double e_ellipsoid{}; //!< trick_units(--)
 
-   /**
-    * Mean planet equatorial radius
-    */
-   double r_eq; //!< trick_units(m)
+    /**
+     * The square of the planet ellipsoid eccentricity.
+     */
+    double e_ellip_sq{}; //!< trick_units(--)
 
-   /**
-    * Mean planet polar radius
-    */
-   double r_pol; //!< trick_units(m)
+    /**
+     * Planet ellipsoid flattening coefficient, a value between 0 and 1.
+     * The Earth's flattening, for example, is about 1/298.3.
+     */
+    double flat_coeff{}; //!< trick_units(--)
 
-   /**
-    * Planet ellipsoid eccentricity, a value between 0 and 1.
-    * NOTE: This parameter relates to the planet's shape, not its orbit.
-    */
-   double e_ellipsoid; //!< trick_units(--)
+    /**
+     * Inverse of the planet ellipsoid flattening constant above.
+     */
+    double flat_inv{}; //!< trick_units(--)
 
-   /**
-    * The square of the planet ellipsoid eccentricity.
-    */
-   double e_ellip_sq; //!< trick_units(--)
+    // Member functions
+public:
+    Planet() = default;
+    ~Planet() override = default;
+    Planet(const Planet & frame) = delete;
+    Planet & operator=(const Planet & frame) = delete;
 
-   /**
-    * Planet ellipsoid flattening coefficient, a value between 0 and 1.
-    * The Earth's flattening, for example, is about 1/298.3.
-    */
-   double flat_coeff; //!< trick_units(--)
+    // Initialization
+    void register_model(GravitySource & grav_source, BaseDynManager & dyn_manager);
 
-   /**
-    * Inverse of the planet ellipsoid flattening constant above.
-    */
-   double flat_inv; //!< trick_units(--)
-
-
- // Member functions
- public:
-
-   // Constructor
-   Planet();
-
-   // Destructor
-   ~Planet() override;
-
-   // Initialization
-   void register_model (GravitySource & grav_source, BaseDynManager & dyn_manager);
-
-   void initialize();
-
-
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
-   Planet (const Planet & frame);
-
-   Planet & operator= (const Planet & frame);
-
+    void initialize();
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "environment/gravity/include/gravity_source.hh"

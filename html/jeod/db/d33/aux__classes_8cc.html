@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -53,33 +53,29 @@ $(function() {
 
 <p>Define base methods for various small JEOD DynBody classes.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/df2/body__force__collect_8hh_source.html">../include/body_force_collect.hh</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d7/df2/body__force__collect_8hh_source.html">../include/body_force_collect.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d33/frame__derivs_8hh_source.html">../include/frame_derivs.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for aux_classes.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/dc7/aux__classes_8cc__incl.png" border="0" usemap="#aux__classes_8cc" alt=""/></div>
 <map name="aux__classes_8cc" id="aux__classes_8cc">
-<area shape="rect" id="node2" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="5,348,129,389"/>
-<area shape="rect" id="node6" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="937,80,1080,121"/>
-<area shape="rect" id="node21" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="133,87,305,114"/>
-<area shape="rect" id="node3" href="../../da/d11/vector3__inline_8hh.html" title="Vector math inline functions. " alt="" coords="7,437,127,464"/>
-<area shape="rect" id="node5" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="18,512,114,539"/>
-<area shape="rect" id="node7" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="488,169,636,211"/>
-<area shape="rect" id="node12" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="937,169,1080,211"/>
-<area shape="rect" id="node17" href="../../d4/de1/force_8hh.html" title="Define the JEOD force model. " alt="" coords="1385,177,1454,203"/>
-<area shape="rect" id="node19" href="../../db/d26/torque_8hh.html" title="Define the JEOD torque model. " alt="" coords="1516,177,1592,203"/>
-<area shape="rect" id="node8" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="582,266,689,293"/>
-<area shape="rect" id="node9" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="413,348,564,389"/>
-<area shape="rect" id="node11" href="../../dc/da5/pointer__container_8hh.html" title="Define class template JeodPointerContainer. " alt="" coords="419,266,558,293"/>
-<area shape="rect" id="node14" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="935,266,1083,293"/>
-<area shape="rect" id="node15" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="1107,259,1271,300"/>
-<area shape="rect" id="node16" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="713,259,859,300"/>
-<area shape="rect" id="node18" href="../../da/dde/force__inline_8hh.html" title="Inline functions for the JEOD force model. " alt="" coords="1366,266,1473,293"/>
-<area shape="rect" id="node20" href="../../d2/d65/torque__inline_8hh.html" title="Define the JEOD torque model. " alt="" coords="1497,266,1611,293"/>
-<area shape="rect" id="node22" href="../../d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="142,169,297,211"/>
-<area shape="rect" id="node24" href="../../dd/d3b/quat__inline_8hh.html" title="Define inline methods for the quaternion class. " alt="" coords="105,266,208,293"/>
+<area shape="rect" id="node2" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="561,80,718,121"/>
+<area shape="rect" id="node17" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="1056,87,1247,114"/>
+<area shape="rect" id="node3" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="1067,169,1233,211"/>
+<area shape="rect" id="node8" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="559,169,719,211"/>
+<area shape="rect" id="node13" href="../../d4/de1/force_8hh.html" title="Define the JEOD force model. " alt="" coords="27,177,102,203"/>
+<area shape="rect" id="node15" href="../../db/d26/torque_8hh.html" title="Define the JEOD torque model. " alt="" coords="169,177,253,203"/>
+<area shape="rect" id="node4" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="1011,266,1129,293"/>
+<area shape="rect" id="node5" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1147,348,1313,389"/>
+<area shape="rect" id="node7" href="../../dc/da5/pointer__container_8hh.html" title="Define class template JeodPointerContainer. " alt="" coords="1153,266,1307,293"/>
+<area shape="rect" id="node10" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="747,266,913,293"/>
+<area shape="rect" id="node11" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="299,259,481,300"/>
+<area shape="rect" id="node12" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="557,259,722,300"/>
+<area shape="rect" id="node14" href="../../da/dde/force__inline_8hh.html" title="Inline functions for the JEOD force model. " alt="" coords="5,266,124,293"/>
+<area shape="rect" id="node16" href="../../d2/d65/torque__inline_8hh.html" title="Define the JEOD torque model. " alt="" coords="148,266,275,293"/>
+<area shape="rect" id="node18" href="../../d3/dab/quat_8hh.html" title="Define the quaternion class. " alt="" coords="1379,169,1553,211"/>
+<area shape="rect" id="node20" href="../../dd/d3b/quat__inline_8hh.html" title="Define inline methods for the quaternion class. " alt="" coords="1523,266,1638,293"/>
 </map>
 </div>
 </div>

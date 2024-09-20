@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -49,7 +49,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::RelativeDerivedState Class Reference</div>  </div>
@@ -65,8 +64,8 @@ Inheritance diagram for jeod::RelativeDerivedState:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d1a/classjeod_1_1RelativeDerivedState__inherit__graph.png" border="0" usemap="#jeod_1_1RelativeDerivedState_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1RelativeDerivedState_inherit__map" id="jeod_1_1RelativeDerivedState_inherit__map">
-<area shape="rect" id="node3" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html" title="The class used for calculating the LVLH state of a subject DynBody relative to some LVLH reference fr..." alt="" coords="9,155,180,196"/>
-<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="29,5,160,32"/>
+<area shape="rect" id="node3" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html" title="The class used for calculating the LVLH state of a subject DynBody relative to some LVLH reference fr..." alt="" coords="9,155,198,196"/>
+<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="32,5,175,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -74,25 +73,26 @@ Collaboration diagram for jeod::RelativeDerivedState:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d27/classjeod_1_1RelativeDerivedState__coll__graph.png" border="0" usemap="#jeod_1_1RelativeDerivedState_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1RelativeDerivedState_coll__map" id="jeod_1_1RelativeDerivedState_coll__map">
-<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="1593,796,1723,823"/>
-<area shape="rect" id="node3" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1335,457,1443,484"/>
-<area shape="rect" id="node23" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1600,333,1716,360"/>
-<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="5,400,156,427"/>
-<area shape="rect" id="node7" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="261,632,373,659"/>
-<area shape="rect" id="node6" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="767,471,941,497"/>
-<area shape="rect" id="node12" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="576,632,719,659"/>
-<area shape="rect" id="node17" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="552,967,743,1009"/>
-<area shape="rect" id="node8" title="STL class. " alt="" coords="41,76,121,103"/>
-<area shape="rect" id="node21" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="999,76,1122,103"/>
-<area shape="rect" id="node9" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="9,975,152,1001"/>
-<area shape="rect" id="node13" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="244,468,389,495"/>
-<area shape="rect" id="node14" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="975,817,1146,844"/>
-<area shape="rect" id="node15" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="996,868,1125,895"/>
-<area shape="rect" id="node16" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="965,919,1156,961"/>
-<area shape="rect" id="node18" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="981,136,1140,163"/>
-<area shape="rect" id="node19" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="981,985,1140,1012"/>
-<area shape="rect" id="node24" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="982,187,1139,213"/>
-<area shape="rect" id="node25" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="971,289,1151,330"/>
+<area shape="rect" id="node2" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="1910,200,2053,227"/>
+<area shape="rect" id="node3" title="STL class. " alt="" coords="231,200,317,227"/>
+<area shape="rect" id="node5" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1627,723,1744,749"/>
+<area shape="rect" id="node9" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="467,593,585,620"/>
+<area shape="rect" id="node22" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="1261,353,1395,380"/>
+<area shape="rect" id="node4" title="STL class. " alt="" coords="5,193,144,234"/>
+<area shape="rect" id="node24" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1919,587,2043,613"/>
+<area shape="rect" id="node6" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="193,659,355,685"/>
+<area shape="rect" id="node8" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="1013,633,1201,660"/>
+<area shape="rect" id="node13" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="810,969,962,996"/>
+<area shape="rect" id="node18" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="783,565,989,606"/>
+<area shape="rect" id="node10" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="197,532,351,559"/>
+<area shape="rect" id="node14" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="448,1217,604,1244"/>
+<area shape="rect" id="node15" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="1233,1265,1423,1292"/>
+<area shape="rect" id="node16" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="1258,1367,1398,1393"/>
+<area shape="rect" id="node17" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="1225,506,1431,547"/>
+<area shape="rect" id="node19" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1242,455,1414,481"/>
+<area shape="rect" id="node20" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="1243,1148,1413,1175"/>
+<area shape="rect" id="node25" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="1240,748,1416,775"/>
+<area shape="rect" id="node26" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="1231,799,1425,841"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -107,12 +107,15 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0e7a164104240070190eed78fd10d135"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a0e7a164104240070190eed78fd10d135">RelativeDerivedState</a> ()</td></tr>
-<tr class="memdesc:a0e7a164104240070190eed78fd10d135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s...">RelativeDerivedState</a> object.  <a href="#a0e7a164104240070190eed78fd10d135">More...</a><br /></td></tr>
-<tr class="separator:a0e7a164104240070190eed78fd10d135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48d48717223a3927a3169e54b83c9aad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a48d48717223a3927a3169e54b83c9aad">RelativeDerivedState</a> ()=default</td></tr>
+<tr class="separator:a48d48717223a3927a3169e54b83c9aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2501cf7f92b1699d4ec757b8c55d454f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a2501cf7f92b1699d4ec757b8c55d454f">~RelativeDerivedState</a> () override</td></tr>
 <tr class="memdesc:a2501cf7f92b1699d4ec757b8c55d454f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s...">RelativeDerivedState</a> object.  <a href="#a2501cf7f92b1699d4ec757b8c55d454f">More...</a><br /></td></tr>
 <tr class="separator:a2501cf7f92b1699d4ec757b8c55d454f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13be94ae0c90db35371ea00082a9ff0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a13be94ae0c90db35371ea00082a9ff0a">RelativeDerivedState</a> (const <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html">RelativeDerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:a13be94ae0c90db35371ea00082a9ff0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad04a55571196d431055fe3a6df5973a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html">RelativeDerivedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ad04a55571196d431055fe3a6df5973a2">operator=</a> (const <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html">RelativeDerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:ad04a55571196d431055fe3a6df5973a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf9deec636d22304797393ba64773e33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#adf9deec636d22304797393ba64773e33">set_name</a> (std::string name_in)</td></tr>
 <tr class="memdesc:adf9deec636d22304797393ba64773e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the name.  <a href="#adf9deec636d22304797393ba64773e33">More...</a><br /></td></tr>
 <tr class="separator:adf9deec636d22304797393ba64773e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,70 +131,65 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af99890b0a721451478159e79e689d6c2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af99890b0a721451478159e79e689d6c2">initialize</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager)</td></tr>
 <tr class="memdesc:af99890b0a721451478159e79e689d6c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s...">RelativeDerivedState</a>, without a <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a>.  <a href="#af99890b0a721451478159e79e689d6c2">More...</a><br /></td></tr>
 <tr class="separator:af99890b0a721451478159e79e689d6c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a306b7d86a4f3af35bfa784ae484c1bd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a306b7d86a4f3af35bfa784ae484c1bd5">update</a> (void) override</td></tr>
-<tr class="memdesc:a306b7d86a4f3af35bfa784ae484c1bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state.  <a href="#a306b7d86a4f3af35bfa784ae484c1bd5">More...</a><br /></td></tr>
-<tr class="separator:a306b7d86a4f3af35bfa784ae484c1bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17ed756298fb247baefcd7384f2e9315"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a17ed756298fb247baefcd7384f2e9315">update</a> () override</td></tr>
+<tr class="memdesc:a17ed756298fb247baefcd7384f2e9315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the state.  <a href="#a17ed756298fb247baefcd7384f2e9315">More...</a><br /></td></tr>
+<tr class="separator:a17ed756298fb247baefcd7384f2e9315"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0776b280770103399e95136a48d68990"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a0776b280770103399e95136a48d68990">set_activation_flag</a> (bool raf)</td></tr>
 <tr class="memdesc:a0776b280770103399e95136a48d68990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the activation flag to on or off and If off, unsubscribes subject and target frames /param raf <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s...">RelativeDerivedState</a> activation flag for RelKin manager.  <a href="#a0776b280770103399e95136a48d68990">More...</a><br /></td></tr>
 <tr class="separator:a0776b280770103399e95136a48d68990"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:ab898fec30f04e03728838a833893141e inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab898fec30f04e03728838a833893141e">DerivedState</a> ()</td></tr>
-<tr class="memdesc:ab898fec30f04e03728838a833893141e inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. ">DerivedState</a>.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#ab898fec30f04e03728838a833893141e">More...</a><br /></td></tr>
-<tr class="separator:ab898fec30f04e03728838a833893141e inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67be4fea306898b2cc3f8daa72b6dd11 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a67be4fea306898b2cc3f8daa72b6dd11">~DerivedState</a> ()</td></tr>
-<tr class="memdesc:a67be4fea306898b2cc3f8daa72b6dd11 inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. ">DerivedState</a>.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a67be4fea306898b2cc3f8daa72b6dd11">More...</a><br /></td></tr>
-<tr class="separator:a67be4fea306898b2cc3f8daa72b6dd11 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1180e25ce1e6c5d7e522eb079a58e740 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a1180e25ce1e6c5d7e522eb079a58e740">set_reference_name</a> (const char *new_name)</td></tr>
-<tr class="memdesc:a1180e25ce1e6c5d7e522eb079a58e740 inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the reference_name to a copy of the supplied value.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a1180e25ce1e6c5d7e522eb079a58e740">More...</a><br /></td></tr>
-<tr class="separator:a1180e25ce1e6c5d7e522eb079a58e740 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b73f8812a44941f96090def15a67d58 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a9b73f8812a44941f96090def15a67d58">DerivedState</a> ()=default</td></tr>
+<tr class="separator:a9b73f8812a44941f96090def15a67d58 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab51168300e18ef17fda3a151d7db0693 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab51168300e18ef17fda3a151d7db0693">~DerivedState</a> ()=default</td></tr>
+<tr class="separator:ab51168300e18ef17fda3a151d7db0693 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeea31bec0b4534d5fd57034bda2aaa1 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#adeea31bec0b4534d5fd57034bda2aaa1">DerivedState</a> (const <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">DerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:adeea31bec0b4534d5fd57034bda2aaa1 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa1db9f16c30e75cc61fa583d237ad88 inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">DerivedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#afa1db9f16c30e75cc61fa583d237ad88">operator=</a> (const <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">DerivedState</a> &amp;)=delete</td></tr>
+<tr class="separator:afa1db9f16c30e75cc61fa583d237ad88 inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a561371c2f134ebc46a826eaa12083fbd inherit pub_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a561371c2f134ebc46a826eaa12083fbd">set_reference_name</a> (const std::string &amp;new_name)</td></tr>
+<tr class="memdesc:a561371c2f134ebc46a826eaa12083fbd inherit pub_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the reference_name to a copy of the supplied value.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a561371c2f134ebc46a826eaa12083fbd">More...</a><br /></td></tr>
+<tr class="separator:a561371c2f134ebc46a826eaa12083fbd inherit pub_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ab20b5cc1c92f872fbd3bb9f55a26f6cf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ab20b5cc1c92f872fbd3bb9f55a26f6cf">name</a></td></tr>
+<tr class="memitem:ab20b5cc1c92f872fbd3bb9f55a26f6cf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ab20b5cc1c92f872fbd3bb9f55a26f6cf">name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:ab20b5cc1c92f872fbd3bb9f55a26f6cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of this relative derived state.  <a href="#ab20b5cc1c92f872fbd3bb9f55a26f6cf">More...</a><br /></td></tr>
 <tr class="separator:ab20b5cc1c92f872fbd3bb9f55a26f6cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ea6a4371d0a151bb020b3504f9be49f"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a8ea6a4371d0a151bb020b3504f9be49f">subject_frame_name</a></td></tr>
-<tr class="memdesc:a8ea6a4371d0a151bb020b3504f9be49f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the frame on the subject vehicle.  <a href="#a8ea6a4371d0a151bb020b3504f9be49f">More...</a><br /></td></tr>
-<tr class="separator:a8ea6a4371d0a151bb020b3504f9be49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0c503ea49b97abfef4c8ae73d02c44a"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ae0c503ea49b97abfef4c8ae73d02c44a">target_frame_name</a></td></tr>
-<tr class="memdesc:ae0c503ea49b97abfef4c8ae73d02c44a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the target reference frame.  <a href="#ae0c503ea49b97abfef4c8ae73d02c44a">More...</a><br /></td></tr>
-<tr class="separator:ae0c503ea49b97abfef4c8ae73d02c44a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ff0c46c082d60a8a415b520bc4b02d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11">DirectionSense</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a7ff0c46c082d60a8a415b520bc4b02d9">direction_sense</a></td></tr>
+<tr class="memitem:a5ca264f35b6a09b5bf20ae2bbaf189f8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a5ca264f35b6a09b5bf20ae2bbaf189f8">subject_frame_name</a></td></tr>
+<tr class="memdesc:a5ca264f35b6a09b5bf20ae2bbaf189f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the frame on the subject vehicle.  <a href="#a5ca264f35b6a09b5bf20ae2bbaf189f8">More...</a><br /></td></tr>
+<tr class="separator:a5ca264f35b6a09b5bf20ae2bbaf189f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90052ba382c99b7bbb5fa732fdd9068d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a90052ba382c99b7bbb5fa732fdd9068d">target_frame_name</a></td></tr>
+<tr class="memdesc:a90052ba382c99b7bbb5fa732fdd9068d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the target reference frame.  <a href="#a90052ba382c99b7bbb5fa732fdd9068d">More...</a><br /></td></tr>
+<tr class="separator:a90052ba382c99b7bbb5fa732fdd9068d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ff0c46c082d60a8a415b520bc4b02d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11">DirectionSense</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a7ff0c46c082d60a8a415b520bc4b02d9">direction_sense</a> {<a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11a40a76e9ec533dcf2bf2145bc4d4ac0ff">undefined</a>}</td></tr>
 <tr class="memdesc:a7ff0c46c082d60a8a415b520bc4b02d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates direction in which relative state is to be computed.  <a href="#a7ff0c46c082d60a8a415b520bc4b02d9">More...</a><br /></td></tr>
 <tr class="separator:a7ff0c46c082d60a8a415b520bc4b02d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f38669c19f7f17f699644f6ed86453a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html">RefFrameState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a5f38669c19f7f17f699644f6ed86453a">rel_state</a></td></tr>
 <tr class="memdesc:a5f38669c19f7f17f699644f6ed86453a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computed relative state.  <a href="#a5f38669c19f7f17f699644f6ed86453a">More...</a><br /></td></tr>
 <tr class="separator:a5f38669c19f7f17f699644f6ed86453a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d94f612e4b001e3e30df4d46c657edd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a3d94f612e4b001e3e30df4d46c657edd">active</a></td></tr>
+<tr class="memitem:a3d94f612e4b001e3e30df4d46c657edd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a3d94f612e4b001e3e30df4d46c657edd">active</a> {true}</td></tr>
 <tr class="memdesc:a3d94f612e4b001e3e30df4d46c657edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bool flag used by the RelKin model to turn on/off which Relative Derived State needs to be managed.  <a href="#a3d94f612e4b001e3e30df4d46c657edd">More...</a><br /></td></tr>
 <tr class="separator:a3d94f612e4b001e3e30df4d46c657edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">subject</a></td></tr>
+<tr class="memitem:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">subject</a> {}</td></tr>
 <tr class="memdesc:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">The body that is the subject of the derived state.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">More...</a><br /></td></tr>
 <tr class="separator:a15684dc9a4665becec6c0d7ebb372e7e inherit pub_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc012061fdfa849cdb2c6c4391bd85d0 inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#adc012061fdfa849cdb2c6c4391bd85d0">reference_name</a></td></tr>
-<tr class="memdesc:adc012061fdfa849cdb2c6c4391bd85d0 inherit pub_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the object with respect to which the subject state is assessed.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#adc012061fdfa849cdb2c6c4391bd85d0">More...</a><br /></td></tr>
-<tr class="separator:adc012061fdfa849cdb2c6c4391bd85d0 inherit pub_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae80dc716624e7a481e75c9b52ac3093c inherit pub_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ae80dc716624e7a481e75c9b52ac3093c">reference_name</a></td></tr>
+<tr class="memdesc:ae80dc716624e7a481e75c9b52ac3093c inherit pub_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the object with respect to which the subject state is assessed.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#ae80dc716624e7a481e75c9b52ac3093c">More...</a><br /></td></tr>
+<tr class="separator:ae80dc716624e7a481e75c9b52ac3093c inherit pub_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ac86655a744dfa70f2c5a40a17fa0837c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a></td></tr>
+<tr class="memitem:ac86655a744dfa70f2c5a40a17fa0837c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a> {}</td></tr>
 <tr class="memdesc:ac86655a744dfa70f2c5a40a17fa0837c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reference frame corresponding to the user-input subject_frame_name.  <a href="#ac86655a744dfa70f2c5a40a17fa0837c">More...</a><br /></td></tr>
 <tr class="separator:ac86655a744dfa70f2c5a40a17fa0837c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadaa32162bb0f5fa2195a37e17cf3822"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a></td></tr>
+<tr class="memitem:aadaa32162bb0f5fa2195a37e17cf3822"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a> {}</td></tr>
 <tr class="memdesc:aadaa32162bb0f5fa2195a37e17cf3822"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reference frame corresponding to the user-input target_frame_name.  <a href="#aadaa32162bb0f5fa2195a37e17cf3822">More...</a><br /></td></tr>
 <tr class="separator:aadaa32162bb0f5fa2195a37e17cf3822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:acb9bf530a6188bea9c43b2b562981c9f inherit pro_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#acb9bf530a6188bea9c43b2b562981c9f">state_identifier</a></td></tr>
-<tr class="memdesc:acb9bf530a6188bea9c43b2b562981c9f inherit pro_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">An identifier for this derived state, constructed at initialization time from the class name, the subject body name, and the reference name.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#acb9bf530a6188bea9c43b2b562981c9f">More...</a><br /></td></tr>
-<tr class="separator:acb9bf530a6188bea9c43b2b562981c9f inherit pro_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a96be7a342f6c430e07f8827a9f022cfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a96be7a342f6c430e07f8827a9f022cfc">RelativeDerivedState</a> (const <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html">RelativeDerivedState</a> &amp;)</td></tr>
-<tr class="separator:a96be7a342f6c430e07f8827a9f022cfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5ac60cfd626867e60e21ac6f84d53a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html">RelativeDerivedState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac5ac60cfd626867e60e21ac6f84d53a3">operator=</a> (const <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html">RelativeDerivedState</a> &amp;)</td></tr>
-<tr class="separator:ac5ac60cfd626867e60e21ac6f84d53a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23cc970e37c57f75a968975e58633890 inherit pro_attribs_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a23cc970e37c57f75a968975e58633890">state_identifier</a></td></tr>
+<tr class="memdesc:a23cc970e37c57f75a968975e58633890 inherit pro_attribs_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">An identifier for this derived state, constructed at initialization time from the class name, the subject body name, and the reference name.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a23cc970e37c57f75a968975e58633890">More...</a><br /></td></tr>
+<tr class="separator:a23cc970e37c57f75a968975e58633890 inherit pro_attribs_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -203,14 +201,14 @@ Friends</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classjeod_1_1DerivedState"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjeod_1_1DerivedState')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html">jeod::DerivedState</a></td></tr>
-<tr class="memitem:a799a3bb2627ceedd6258b9d5da35123d inherit pro_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a799a3bb2627ceedd6258b9d5da35123d">find_planet</a> (const <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager, const char *planet_name, const char *variable_name)</td></tr>
-<tr class="memdesc:a799a3bb2627ceedd6258b9d5da35123d inherit pro_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. ">Planet</a> with the given name, failing if not found.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a799a3bb2627ceedd6258b9d5da35123d">More...</a><br /></td></tr>
-<tr class="separator:a799a3bb2627ceedd6258b9d5da35123d inherit pro_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a301f1650f1f0b4e94c6ea647219c1fad inherit pro_methods_classjeod_1_1DerivedState"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a301f1650f1f0b4e94c6ea647219c1fad">find_planet</a> (const <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager, const std::string &amp;planet_name, const std::string &amp;variable_name)</td></tr>
+<tr class="memdesc:a301f1650f1f0b4e94c6ea647219c1fad inherit pro_methods_classjeod_1_1DerivedState"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. ">Planet</a> with the given name, failing if not found.  <a href="../../dd/d63/classjeod_1_1DerivedState.html#a301f1650f1f0b4e94c6ea647219c1fad">More...</a><br /></td></tr>
+<tr class="separator:a301f1650f1f0b4e94c6ea647219c1fad inherit pro_methods_classjeod_1_1DerivedState"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class used for deriving the state of some frame associated with the subject <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> relative to some other target frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00088">88</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="aa8cf460573a932ec7384148084d2ed11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8cf460573a932ec7384148084d2ed11">&#9670;&nbsp;</a></span>DirectionSense</h2>
@@ -231,30 +229,33 @@ Additional Inherited Members</h2></td></tr>
 <tr><td class="fieldname"><a id="aa8cf460573a932ec7384148084d2ed11a49d267773757b8346dd1d766941f6f61"></a>ComputeTargetStateinSubject&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00098">98</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0e7a164104240070190eed78fd10d135"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e7a164104240070190eed78fd10d135">&#9670;&nbsp;</a></span>RelativeDerivedState() <span class="overload">[1/2]</span></h2>
+<a id="a48d48717223a3927a3169e54b83c9aad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48d48717223a3927a3169e54b83c9aad">&#9670;&nbsp;</a></span>RelativeDerivedState() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">jeod::RelativeDerivedState::RelativeDerivedState </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>Construct a <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s...">RelativeDerivedState</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00052">52</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
 
 </div>
 </div>
@@ -270,7 +271,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">jeod::RelativeDerivedState::~RelativeDerivedState </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -284,14 +284,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Destruct a <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s...">RelativeDerivedState</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00070">70</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00050">50</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#aeb152ff775a289cb89382e3540cb02d0">jeod::Subscription::subscriptions()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#af77f964dd55bc4f49a0ae20fe0528553">jeod::Subscription::unsubscribe()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a69e2f0c87b4e68990b5b345c515697ec">jeod::Subscription::subscriptions()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a0fbc9b2834841c3787b6e9e1b6291f37">jeod::Subscription::unsubscribe()</a>.</p>
 
 </div>
 </div>
-<a id="a96be7a342f6c430e07f8827a9f022cfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96be7a342f6c430e07f8827a9f022cfc">&#9670;&nbsp;</a></span>RelativeDerivedState() <span class="overload">[2/2]</span></h2>
+<a id="a13be94ae0c90db35371ea00082a9ff0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13be94ae0c90db35371ea00082a9ff0a">&#9670;&nbsp;</a></span>RelativeDerivedState() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -309,7 +309,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -362,7 +362,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab71fbf3bbd91bae3b125d9770ec37ada">jeod::DerivedState</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00093">93</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00071">71</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#ab71fbf3bbd91bae3b125d9770ec37ada">jeod::DerivedState::initialize()</a>.</p>
 
@@ -402,14 +402,14 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00114">114</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00086">86</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aa171563a6305a14500929ca4e7fa6bda">jeod::DynBody::find_body_frame()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#af3ca54c2217964b9e1708b4053bfea28">jeod::RefFrameManager::find_ref_frame()</a>, <a class="el" href="../../d3/da6/classjeod_1_1DerivedStateMessages.html#ac74f597c2c71938cf286e0aaf7fb085d">jeod::DerivedStateMessages::invalid_name</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#acb9bf530a6188bea9c43b2b562981c9f">jeod::DerivedState::state_identifier</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">jeod::DerivedState::subject</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a8ea6a4371d0a151bb020b3504f9be49f">subject_frame_name</a>, <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a4590bb6b39afe751a56a8575b6e5e4a1">jeod::Subscription::subscribe()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ae0c503ea49b97abfef4c8ae73d02c44a">target_frame_name</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a829879b4455b8eed7dc27c8443813995">jeod::DynBody::find_body_frame()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3f0f9f6c0ca6607c0b8a92dcccfdab4d">jeod::RefFrameManager::find_ref_frame()</a>, <a class="el" href="../../d3/da6/classjeod_1_1DerivedStateMessages.html#a320d4510b7d3ddbe0f6679f092701316">jeod::DerivedStateMessages::invalid_name</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a23cc970e37c57f75a968975e58633890">jeod::DerivedState::state_identifier</a>, <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a15684dc9a4665becec6c0d7ebb372e7e">jeod::DerivedState::subject</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a5ca264f35b6a09b5bf20ae2bbaf189f8">subject_frame_name</a>, <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#ad60c693071cde2785924c8539c6fe723">jeod::Subscription::subscribe()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a90052ba382c99b7bbb5fa732fdd9068d">target_frame_name</a>.</p>
 
 </div>
 </div>
-<a id="ac5ac60cfd626867e60e21ac6f84d53a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5ac60cfd626867e60e21ac6f84d53a3">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ad04a55571196d431055fe3a6df5973a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04a55571196d431055fe3a6df5973a2">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -427,7 +427,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -452,9 +452,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Setter for the activation flag to on or off and If off, unsubscribes subject and target frames /param raf <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s...">RelativeDerivedState</a> activation flag for RelKin manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00227">227</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00201">201</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a3d94f612e4b001e3e30df4d46c657edd">active</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a4590bb6b39afe751a56a8575b6e5e4a1">jeod::Subscription::subscribe()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#af77f964dd55bc4f49a0ae20fe0528553">jeod::Subscription::unsubscribe()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a3d94f612e4b001e3e30df4d46c657edd">active</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#ad60c693071cde2785924c8539c6fe723">jeod::Subscription::subscribe()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>, and <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a0fbc9b2834841c3787b6e9e1b6291f37">jeod::Subscription::unsubscribe()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d4/d58/classjeod_1_1RelativeKinematics.html#afa5e19c7a8252e981777d51a8c49bc33">jeod::RelativeKinematics::activate_relstate()</a>.</p>
 
@@ -486,7 +486,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Setter for the name. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00181">181</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00172">172</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ab20b5cc1c92f872fbd3bb9f55a26f6cf">name</a>.</p>
 
@@ -524,7 +524,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00198">198</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00192">192</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>.</p>
 
@@ -562,7 +562,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00191">191</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00182">182</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>.</p>
 
@@ -570,8 +570,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a306b7d86a4f3af35bfa784ae484c1bd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a306b7d86a4f3af35bfa784ae484c1bd5">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a17ed756298fb247baefcd7384f2e9315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17ed756298fb247baefcd7384f2e9315">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -582,7 +582,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void jeod::RelativeDerivedState::update </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -596,13 +595,13 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Update the state. </p>
 
-<p>Reimplemented from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a4f6d1f5ddf274d52a989cad44d5016bb">jeod::DerivedState</a>.</p>
+<p>Reimplemented from <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a6b7a9834bb8e6ae5acf6bd5a0729ac63">jeod::DerivedState</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00199">199</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html#l00174">174</a> of file <a class="el" href="../../dc/dc0/relative__derived__state_8cc_source.html">relative_derived_state.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11aaaed896d10b0cd031a4ef156649c15ba">ComputeSubjectStateinTarget</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11a49d267773757b8346dd1d766941f6f61">ComputeTargetStateinSubject</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a7ff0c46c082d60a8a415b520bc4b02d9">direction_sense</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d3/da6/classjeod_1_1DerivedStateMessages.html#a6de4f2213807fb7a03fbe19c0ff89a69">jeod::DerivedStateMessages::illegal_value</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a5f38669c19f7f17f699644f6ed86453a">rel_state</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11aaaed896d10b0cd031a4ef156649c15ba">ComputeSubjectStateinTarget</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11a49d267773757b8346dd1d766941f6f61">ComputeTargetStateinSubject</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a7ff0c46c082d60a8a415b520bc4b02d9">direction_sense</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d3/da6/classjeod_1_1DerivedStateMessages.html#a1c13ddb68cf0b0d9282b19911435948f">jeod::DerivedStateMessages::illegal_value</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a5f38669c19f7f17f699644f6ed86453a">rel_state</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#ac86655a744dfa70f2c5a40a17fa0837c">subject_frame</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aadaa32162bb0f5fa2195a37e17cf3822">target_frame</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a0cb91fe8178709360a2d4e78783d1bd8">jeod::ContactPair::in_range()</a>, and <a class="el" href="../../d4/d58/classjeod_1_1RelativeKinematics.html#ad8a3b178defd9947f01ad3f9e4345501">jeod::RelativeKinematics::update_single()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a0cb91fe8178709360a2d4e78783d1bd8">jeod::ContactPair::in_range()</a>, and <a class="el" href="../../d4/d58/classjeod_1_1RelativeKinematics.html#a91ab090efecc2e82f33d53f77bfdc31e">jeod::RelativeKinematics::update_single()</a>.</p>
 
 </div>
 </div>
@@ -652,7 +651,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00092">92</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 </div>
 </div>
@@ -664,7 +663,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::RelativeDerivedState::active</td>
+          <td class="memname">bool jeod::RelativeDerivedState::active {true}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -672,7 +671,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Bool flag used by the RelKin model to turn on/off which Relative Derived State needs to be managed. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00154">154</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00147">147</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a0776b280770103399e95136a48d68990">set_activation_flag()</a>.</p>
 
@@ -685,7 +684,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11">DirectionSense</a> jeod::RelativeDerivedState::direction_sense</td>
+          <td class="memname"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11">DirectionSense</a> jeod::RelativeDerivedState::direction_sense {<a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aa8cf460573a932ec7384148084d2ed11a40a76e9ec533dcf2bf2145bc4d4ac0ff">undefined</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -693,9 +692,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Indicates direction in which relative state is to be computed. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00143">143</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00136">136</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a3867be18f19e233f67b3794a061f1ae0">jeod::LvlhRelativeDerivedState::LvlhRelativeDerivedState()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a306b7d86a4f3af35bfa784ae484c1bd5">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a2f5181dd2ff0f454667c4a248f18a352">jeod::LvlhRelativeDerivedState::LvlhRelativeDerivedState()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a17ed756298fb247baefcd7384f2e9315">update()</a>.</p>
 
 </div>
 </div>
@@ -706,7 +705,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string jeod::RelativeDerivedState::name</td>
+          <td class="memname">std::string jeod::RelativeDerivedState::name {&quot;&quot;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -714,7 +713,7 @@ Additional Inherited Members</h2></td></tr>
 <p>The name of this relative derived state. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00123">123</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00116">116</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d4/d58/classjeod_1_1RelativeKinematics.html#afa5e19c7a8252e981777d51a8c49bc33">jeod::RelativeKinematics::activate_relstate()</a>, <a class="el" href="../../d4/d58/classjeod_1_1RelativeKinematics.html#ad63f535a4ed12a8512d38ebef7ebb01b">jeod::RelativeKinematics::add_relstate()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../d4/d58/classjeod_1_1RelativeKinematics.html#aa749c42357ee71c295dd6cbc6c72f450">jeod::RelativeKinematics::remove_relstate()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#adf9deec636d22304797393ba64773e33">set_name()</a>.</p>
 
@@ -735,9 +734,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Computed relative state. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00148">148</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00141">141</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../dc/d9f/classjeod_1_1SpringPairInteraction.html#ab95d2b54ac3f9b1ebdb8e3a6dbac7218">jeod::SpringPairInteraction::calculate_forces()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#adf8c2aa2e13a0b3a6a309ba1d5e7bbe2">jeod::PointContactPair::in_contact()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair::in_contact()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair::in_contact()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a0cb91fe8178709360a2d4e78783d1bd8">jeod::ContactPair::in_range()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a9b50d08b1381267a30f4c10b59d51d35">jeod::LvlhRelativeDerivedState::update()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a306b7d86a4f3af35bfa784ae484c1bd5">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../dc/d9f/classjeod_1_1SpringPairInteraction.html#ab95d2b54ac3f9b1ebdb8e3a6dbac7218">jeod::SpringPairInteraction::calculate_forces()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#adf8c2aa2e13a0b3a6a309ba1d5e7bbe2">jeod::PointContactPair::in_contact()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair::in_contact()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair::in_contact()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a0cb91fe8178709360a2d4e78783d1bd8">jeod::ContactPair::in_range()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#af42364b6b32065c3931a0043f62e91ca">jeod::LvlhRelativeDerivedState::update()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a17ed756298fb247baefcd7384f2e9315">update()</a>.</p>
 
 </div>
 </div>
@@ -751,7 +750,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a>* jeod::RelativeDerivedState::subject_frame</td>
+          <td class="memname"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a>* jeod::RelativeDerivedState::subject_frame {}</td>
         </tr>
       </table>
   </td>
@@ -764,20 +763,20 @@ Additional Inherited Members</h2></td></tr>
 <p>The reference frame corresponding to the user-input subject_frame_name. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00162">162</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00153">153</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af99890b0a721451478159e79e689d6c2">initialize()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a0776b280770103399e95136a48d68990">set_activation_flag()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af316de551f0cea86a150b7cc32a589bc">set_subject_frame()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a9b50d08b1381267a30f4c10b59d51d35">jeod::LvlhRelativeDerivedState::update()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a306b7d86a4f3af35bfa784ae484c1bd5">update()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a2501cf7f92b1699d4ec757b8c55d454f">~RelativeDerivedState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af99890b0a721451478159e79e689d6c2">initialize()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a0776b280770103399e95136a48d68990">set_activation_flag()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af316de551f0cea86a150b7cc32a589bc">set_subject_frame()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#af42364b6b32065c3931a0043f62e91ca">jeod::LvlhRelativeDerivedState::update()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a17ed756298fb247baefcd7384f2e9315">update()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a2501cf7f92b1699d4ec757b8c55d454f">~RelativeDerivedState()</a>.</p>
 
 </div>
 </div>
-<a id="a8ea6a4371d0a151bb020b3504f9be49f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ea6a4371d0a151bb020b3504f9be49f">&#9670;&nbsp;</a></span>subject_frame_name</h2>
+<a id="a5ca264f35b6a09b5bf20ae2bbaf189f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ca264f35b6a09b5bf20ae2bbaf189f8">&#9670;&nbsp;</a></span>subject_frame_name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* jeod::RelativeDerivedState::subject_frame_name</td>
+          <td class="memname">std::string jeod::RelativeDerivedState::subject_frame_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -785,7 +784,7 @@ Additional Inherited Members</h2></td></tr>
 <p>The name of the frame on the subject vehicle. </p>
 <p>This can specify one of the vehicle's three primary reference frames (core body, composite body, or structure) or one of the vehicle's vehicle point frames. The vehicle name can be included in or omitted from the subject frame name. A vehicle name prefix is assumed if it is omitted.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00133">133</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00126">126</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af99890b0a721451478159e79e689d6c2">initialize()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, and <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>.</p>
 
@@ -801,7 +800,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::RelativeDerivedState::target_frame</td>
+          <td class="memname"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a>* jeod::RelativeDerivedState::target_frame {}</td>
         </tr>
       </table>
   </td>
@@ -814,20 +813,20 @@ Additional Inherited Members</h2></td></tr>
 <p>The reference frame corresponding to the user-input target_frame_name. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00167">167</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00158">158</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a408228777eead56620074e8104768858">jeod::LvlhRelativeDerivedState::do_theta_dot_correction()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af99890b0a721451478159e79e689d6c2">initialize()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a0776b280770103399e95136a48d68990">set_activation_flag()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a1b7a9292b73094b79aaca1be9949dcd1">set_target_frame()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a9b50d08b1381267a30f4c10b59d51d35">jeod::LvlhRelativeDerivedState::update()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a306b7d86a4f3af35bfa784ae484c1bd5">update()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a2501cf7f92b1699d4ec757b8c55d454f">~RelativeDerivedState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a408228777eead56620074e8104768858">jeod::LvlhRelativeDerivedState::do_theta_dot_correction()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af99890b0a721451478159e79e689d6c2">initialize()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a0776b280770103399e95136a48d68990">set_activation_flag()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a1b7a9292b73094b79aaca1be9949dcd1">set_target_frame()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#af42364b6b32065c3931a0043f62e91ca">jeod::LvlhRelativeDerivedState::update()</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a17ed756298fb247baefcd7384f2e9315">update()</a>, and <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a2501cf7f92b1699d4ec757b8c55d454f">~RelativeDerivedState()</a>.</p>
 
 </div>
 </div>
-<a id="ae0c503ea49b97abfef4c8ae73d02c44a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0c503ea49b97abfef4c8ae73d02c44a">&#9670;&nbsp;</a></span>target_frame_name</h2>
+<a id="a90052ba382c99b7bbb5fa732fdd9068d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90052ba382c99b7bbb5fa732fdd9068d">&#9670;&nbsp;</a></span>target_frame_name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* jeod::RelativeDerivedState::target_frame_name</td>
+          <td class="memname">std::string jeod::RelativeDerivedState::target_frame_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -835,7 +834,7 @@ Additional Inherited Members</h2></td></tr>
 <p>The name of the target reference frame. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00138">138</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html#l00131">131</a> of file <a class="el" href="../../d5/d70/relative__derived__state_8hh_source.html">relative_derived_state.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#af99890b0a721451478159e79e689d6c2">initialize()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, and <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>.</p>
 

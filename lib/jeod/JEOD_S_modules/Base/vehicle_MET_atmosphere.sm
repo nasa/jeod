@@ -49,47 +49,42 @@ Purpose:( This sim object models a vehicle operating within an atmosphere.)
 #include "vehicle_baseline.sm"
 class VehicleAtmSimObject : public VehicleBasicSimObject
 {
- protected:
-  // External references
-  jeod::METAtmosphere & atmos;
-  jeod::WindVelocity  & wind;
- public:
-  jeod::AtmosphereState       atmos_state;
-  jeod::PlanetaryDerivedState pfix;
+protected:
+    // External references
+    jeod::METAtmosphere & atmos;
+    jeod::WindVelocity & wind;
 
+public:
+    jeod::AtmosphereState atmos_state;
+    jeod::PlanetaryDerivedState pfix;
 
-  VehicleAtmSimObject( jeod::DynManager       & dyn_mngr_in,
-                       jeod::METAtmosphere    & atmos_in,
-                       jeod::WindVelocity     & wind_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in),
-    atmos(atmos_in),
-    wind(wind_in)
-  {
-     //
-     // Initialization jobs
-     //
-     P_BODY ("initialization") pfix.initialize( dyn_body, dyn_manager);
-     P_BODY ("initialization") pfix.update();
+    VehicleAtmSimObject(jeod::DynManager & dyn_mngr_in, jeod::METAtmosphere & atmos_in, jeod::WindVelocity & wind_in)
+        : VehicleBasicSimObject(dyn_mngr_in),
+          atmos(atmos_in),
+          wind(wind_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_BODY("initialization") pfix.initialize(dyn_body, dyn_manager);
+        P_BODY("initialization") pfix.update();
 
-     P_DYN  ("initialization") atmos_state.update_state( &atmos, &pfix.state);
-     P_DYN  ("initialization") atmos_state.update_wind( &wind,
-                                     dyn_body.composite_body.state.trans.position,
-                                     pfix.state.ellip_coords.altitude);
+        P_DYN("initialization") atmos_state.update_state(&atmos, &pfix.state);
+        P_DYN("initialization")
+        atmos_state.update_wind(&wind, dyn_body.composite_body.state.trans.position, pfix.state.ellip_coords.altitude);
 
-     //
-     // Environment class jobs
-     //
-     (DYNAMICS,"environment") pfix.update();
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") pfix.update();
 
-     (DYNAMICS, "environment") atmos_state.update_state( &atmos, &pfix.state);
-     (DYNAMICS, "environment") atmos_state.update_wind( &wind,
-                                     dyn_body.composite_body.state.trans.position,
-                                     pfix.state.ellip_coords.altitude);
-  };
+        (DYNAMICS, "environment") atmos_state.update_state(&atmos, &pfix.state);
+        (DYNAMICS, "environment") atmos_state.update_wind(&wind,
+                                                          dyn_body.composite_body.state.trans.position,
+                                                          pfix.state.ellip_coords.altitude);
+    }
 
- private:
-  VehicleAtmSimObject (const VehicleAtmSimObject&);
-  VehicleAtmSimObject & operator = (const VehicleAtmSimObject&);
+    VehicleAtmSimObject(const VehicleAtmSimObject &) = delete;
+    VehicleAtmSimObject & operator=(const VehicleAtmSimObject &) = delete;
 };
 #endif

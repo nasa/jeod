@@ -20,11 +20,11 @@ def log_add_met_atmos_state( atmos_state,
   dr_group.add_variable( atmos_state+".Hyd")
 
 def log_add_met( dr_group):
-  log_add_met_atmos_state( "atmos_met.met_atmos_state", dr_group)
+  log_add_met_atmos_state( "vehicle.met_atmos_state", dr_group)
 
 def log_atmos_verif() :
    # Build a data recording group name.
-   dr_group = trick.sim_services.DRAscii("atmos_verif")
+   dr_group = trick.sim_services.DRBinary("atmos_verif")
    dr_group.thisown = 0
    dr_group.set_cycle(1.0)
    dr_group.freq = trick.sim_services.DR_Always
@@ -32,7 +32,7 @@ def log_atmos_verif() :
    dr_group.add_variable("vehicle.pos.ellip_coords.altitude")
    dr_group.add_variable("vehicle.pos.ellip_coords.latitude")
    dr_group.add_variable("vehicle.pos.ellip_coords.longitude")
-   log_add_atmos_state( "atmos_met.atmos_state", dr_group)
+   log_add_atmos_state( "vehicle.atmos_state", dr_group)
 
    # Add the data recording group to Trick's data recording.
    trick.add_data_record_group(dr_group)

@@ -127,15 +127,15 @@ body1.mass_init.properties.pt_orientation.euler_angles  = \
 # Define the point on body1 at which body2 will attach to body1.
 # The body1 attach point is diagonally opposed to the structural origin,
 # with the docking x-axis along the outward normal.
-body1.mass_init.num_points = 1
-body1.mass_init.points = trick.sim_services.alloc_type( 1 , "jeod::MassPointInit" )
-body1.mass_init.points[0].set_name("port")
-body1.mass_init.points[0].position  = [ 0.0, 0.0, 2*radius_1]
-body1.mass_init.points[0].pt_orientation.data_source =  \
+body1.mass_init.allocate_points(1)
+
+body1.mass_init.get_mass_point(0).set_name("port")
+body1.mass_init.get_mass_point(0).position  = [ 0.0, 0.0, 2*radius_1]
+body1.mass_init.get_mass_point(0).pt_orientation.data_source =  \
                                                 trick.Orientation.InputMatrix
-body1.mass_init.points[0].pt_orientation.trans[0]  = [ 0.0, 0.0, 1.0]
-body1.mass_init.points[0].pt_orientation.trans[1]  = [ 1.0, 0.0, 0.0]
-body1.mass_init.points[0].pt_orientation.trans[2]  = [ 0.0, 1.0, 0.0]
+body1.mass_init.get_mass_point(0).pt_orientation.trans[0]  = [ 0.0, 0.0, 1.0]
+body1.mass_init.get_mass_point(0).pt_orientation.trans[1]  = [ 1.0, 0.0, 0.0]
+body1.mass_init.get_mass_point(0).pt_orientation.trans[2]  = [ 0.0, 1.0, 0.0]
 
 dynamics.dyn_manager.add_body_action (body1.mass_init)
 
@@ -199,15 +199,15 @@ body2.mass_init.properties.pt_orientation.euler_angles  = \
 # Define the point on body2 at which body2 will attach to body1.
 # The body2 attach point is diagonally opposed to the structural origin,
 # with the docking x-axis along the outward normal.
-body2.mass_init.num_points = 1
-body2.mass_init.points = trick.sim_services.alloc_type( 1 , "jeod::MassPointInit" )
-body2.mass_init.points[0].set_name("port")
-body2.mass_init.points[0].position  = [ 0.0, 0.0, 2*radius_2]
-body2.mass_init.points[0].pt_orientation.data_source = \
+body2.mass_init.allocate_points(1)
+
+body2.mass_init.get_mass_point(0).set_name("port")
+body2.mass_init.get_mass_point(0).position  = [ 0.0, 0.0, 2*radius_2]
+body2.mass_init.get_mass_point(0).pt_orientation.data_source = \
                                                trick.Orientation.InputMatrix
-body2.mass_init.points[0].pt_orientation.trans[0]  = [ 0.0, 0.0, 1.0]
-body2.mass_init.points[0].pt_orientation.trans[1]  = [ 1.0, 0.0, 0.0]
-body2.mass_init.points[0].pt_orientation.trans[2]  = [ 0.0, 1.0, 0.0]
+body2.mass_init.get_mass_point(0).pt_orientation.trans[0]  = [ 0.0, 0.0, 1.0]
+body2.mass_init.get_mass_point(0).pt_orientation.trans[1]  = [ 1.0, 0.0, 0.0]
+body2.mass_init.get_mass_point(0).pt_orientation.trans[2]  = [ 0.0, 1.0, 0.0]
 
 dynamics.dyn_manager.add_body_action (body2.mass_init)
 

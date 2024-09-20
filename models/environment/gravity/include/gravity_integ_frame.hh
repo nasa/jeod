@@ -57,16 +57,10 @@ References:
 Assumptions and limitations:
   ((none))
 
-Library dependencies:
-  ((../src/gravity_integ_frame.cc))
-
-
 *******************************************************************************/
-
 
 #ifndef JEOD_GRAVITY_INTEG_FRAME_HH
 #define JEOD_GRAVITY_INTEG_FRAME_HH
-
 
 // System includes
 
@@ -76,9 +70,9 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class EphemerisRefFrame;
 
@@ -86,42 +80,41 @@ class EphemerisRefFrame;
  * Class that aids in determining whether gravity should be applied as a
  * direct effect or a third body effect.
  */
-class GravityIntegFrame {
+class GravityIntegFrame
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GravityIntegFrame)
 
- JEOD_MAKE_SIM_INTERFACES (GravityIntegFrame)
+public:
+    /**
+     * Reference frame
+     */
+    const EphemerisRefFrame * ref_frame{}; //!< trick_units(--)
 
- public:
-   /**
-    * Reference frame
-    */
-   const EphemerisRefFrame * ref_frame; //!< trick_units(--)
+    /**
+     * Is it a third body effect in this frame?
+     */
+    bool is_third_body{}; //!< trick_units(--)
 
-   /**
-    * Is it a third body effect in this frame?
-    */
-   bool is_third_body; //!< trick_units(--)
+    /**
+     * Position of the integration frame origin with respect to a body
+     */
+    double pos[3]{}; //!< trick_units(m)
 
-   /**
-    * Position of the integration frame origin with respect to a body
-    */
-   double pos[3]; //!< trick_units(m)
+    /**
+     * Acceleration of the frame origin with respect to the body
+     */
+    double accel[3]{}; //!< trick_units(m/s2)
 
-   /**
-    * Acceleration of the frame origin with respect to the body
-    */
-   double accel[3]; //!< trick_units(m/s2)
+    /**
+     * Timestamp of last update to this class
+     */
+    double time{9e99}; //!< trick_units(s)
 
-   /**
-    * Timestamp of last update to this class
-    */
-   double time; //!< trick_units(s)
-
-   GravityIntegFrame ();
-   ~GravityIntegFrame ();
+    GravityIntegFrame() = default;
+    ~GravityIntegFrame() = default;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

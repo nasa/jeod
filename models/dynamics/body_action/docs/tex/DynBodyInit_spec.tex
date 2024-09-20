@@ -16,35 +16,11 @@ a single base class. The base class for initializing the state of a DynBody
 object is the DynBodyInit class. The class inheritance for the sub-model
 is depicted below.
 
-% FIXME! Turn this into a drawing!
-\begin{verbatim}
-BodyAction
-|
-+-DynBodyInit
-  |
-  +-DynBodyInitRotState
-  |
-  +-DynBodyInitTransState
-  | |
-  | +-DynBodyInitOrbit
-  |
-  +-DynBodyInitWrtPlanet
-    |
-    +-DynBodyInitPlanetDerived
-      |
-      +-DynBodyInitLvlhState
-      | |
-      | +-DynBodyInitLvlhRotState
-      | |
-      | +-DynBodyInitLvlhTransState
-      |
-      +-DynBodyInitNedState
-        |
-        +-DynBodyInitNedRotState
-        |
-        +-DynBodyInitNedTransState
-\end{verbatim}
-
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=\textwidth] {fig/fig1.png}
+\end{center}
+\end{figure}
 
 \section{Mathematical Formulations}
 Most of the classes defined in the DynBody State Initialization Sub-Model

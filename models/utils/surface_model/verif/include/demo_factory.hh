@@ -47,7 +47,7 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     (../src/demo_factory.cc)
 
- 
+
 *******************************************************************************/
 
 #ifndef DEMO_FACTORY_HH
@@ -59,129 +59,70 @@ Library dependencies:
 #include "utils/surface_model/include/interaction_facet_factory.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class FlatPlateDemoFactory1 : public InteractionFacetFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateDemoFactory1)
-
-public:
-
-   // constructor
-   FlatPlateDemoFactory1();
-
-   // destructor
-   ~FlatPlateDemoFactory1() override;
-
-   InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params) override;
-
-   bool is_correct_factory(Facet* facet) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   FlatPlateDemoFactory1& operator = (const FlatPlateDemoFactory1& rhs);
-   FlatPlateDemoFactory1(const FlatPlateDemoFactory1& rhs);
-
-
-};
-
-class FlatPlateDemoFactory2 : public InteractionFacetFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateDemoFactory2)
+class FlatPlateDemoFactory1 : public InteractionFacetFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateDemoFactory1)
 
 public:
+    FlatPlateDemoFactory1();
+    ~FlatPlateDemoFactory1() override = default;
+    FlatPlateDemoFactory1 & operator=(const FlatPlateDemoFactory1 &) = delete;
+    FlatPlateDemoFactory1(const FlatPlateDemoFactory1 &) = delete;
 
-   // constructor
-   FlatPlateDemoFactory2();
+    InteractionFacet * create_facet(Facet * facet, FacetParams * params) override;
 
-   // destructor
-   ~FlatPlateDemoFactory2() override;
-
-   InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params) override;
-
-   bool is_correct_factory(Facet* facet) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   FlatPlateDemoFactory2& operator = (const FlatPlateDemoFactory2& rhs);
-   FlatPlateDemoFactory2(const FlatPlateDemoFactory2& rhs);
-
-
+    bool is_correct_factory(Facet * facet) override;
 };
 
- class DemoFacetFactory1 : public InteractionFacetFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoFacetFactory1)
+class FlatPlateDemoFactory2 : public InteractionFacetFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateDemoFactory2)
 
 public:
+    FlatPlateDemoFactory2();
+    ~FlatPlateDemoFactory2() override = default;
+    FlatPlateDemoFactory2 & operator=(const FlatPlateDemoFactory2 &) = delete;
+    FlatPlateDemoFactory2(const FlatPlateDemoFactory2 &) = delete;
 
-   // constructor
-   DemoFacetFactory1();
+    InteractionFacet * create_facet(Facet * facet, FacetParams * params) override;
 
-   // destructor
-   ~DemoFacetFactory1() override;
-
-   InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params) override;
-
-   bool is_correct_factory(Facet* facet) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   DemoFacetFactory1& operator = (const FlatPlateDemoFactory2& rhs);
-   DemoFacetFactory1(const FlatPlateDemoFactory2& rhs);
-
-
+    bool is_correct_factory(Facet * facet) override;
 };
 
-class DemoFacetFactory2 : public InteractionFacetFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoFacetFactory2)
+class DemoFacetFactory1 : public InteractionFacetFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoFacetFactory1)
 
 public:
+    DemoFacetFactory1();
+    ~DemoFacetFactory1() override = default;
+    DemoFacetFactory1 & operator=(const FlatPlateDemoFactory2 &) = delete;
+    DemoFacetFactory1(const FlatPlateDemoFactory2 &) = delete;
 
-   // constructor
-   DemoFacetFactory2();
+    InteractionFacet * create_facet(Facet * facet, FacetParams * params) override;
 
-   // destructor
-   ~DemoFacetFactory2() override;
-
-   InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params) override;
-
-   bool is_correct_factory(Facet* facet) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   DemoFacetFactory2& operator = (const FlatPlateDemoFactory2& rhs);
-   DemoFacetFactory2(const FlatPlateDemoFactory2& rhs);
-
-
+    bool is_correct_factory(Facet * facet) override;
 };
 
-} // End JEOD namespace
+class DemoFacetFactory2 : public InteractionFacetFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoFacetFactory2)
+
+public:
+    DemoFacetFactory2();
+    ~DemoFacetFactory2() override = default;
+    DemoFacetFactory2 & operator=(const FlatPlateDemoFactory2 &) = delete;
+    DemoFacetFactory2(const FlatPlateDemoFactory2 &) = delete;
+
+    InteractionFacet * create_facet(Facet * facet, FacetParams * params) override;
+
+    bool is_correct_factory(Facet * facet) override;
+};
+
+} // namespace jeod
 
 #include "demo_interaction_facet.hh"
 

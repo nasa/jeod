@@ -60,10 +60,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_RELATIVE_DERIVED_STATE_HH
 #define JEOD_RELATIVE_DERIVED_STATE_HH
-
 
 // Model includes
 #include "derived_state.hh"
@@ -79,147 +77,141 @@ Library dependencies:
 #include <string>
 #include <utility>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used for deriving the state of some frame associated
  * with the subject DynBody relative to some other target frame.
  */
-class RelativeDerivedState : public DerivedState {
+class RelativeDerivedState : public DerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RelativeDerivedState)
 
- JEOD_MAKE_SIM_INTERFACES(RelativeDerivedState)
+    // Enumerations
 
+public:
+    /**
+     * an enumeration to specify the direction and sense, and frame
+     * representation intended for output from the RelativeDerivedState
+     * calculations.
+     */
+    enum DirectionSense
+    {
+        undefined = -1, /*
+           Default value; model does not assume a setting for the user. */
 
- // Enumerations
+        ComputeSubjectStateinTarget = 0, /*
+           Compute relative state as subject frame w.r.t. target in target. */
 
- public:
+        ComputeTargetStateinSubject = 2 /*
+           Compute relative state as target frame w.r.t. subject in subject. */
+    };
 
-   /**
-    * an enumeration to specify the direction and sense, and frame
-    * representation intended for output from the RelativeDerivedState
-    * calculations.
-    */
-   enum DirectionSense {
-      undefined = -1, /*
-         Default value; model does not assume a setting for the user. */
+    // Member data
 
-      ComputeSubjectStateinTarget = 0, /*
-         Compute relative state as subject frame w.r.t. target in target. */
+public:
+    /**
+     * The name of this relative derived state
+     */
+    std::string name{""}; //!< trick_units(--)
 
-      ComputeTargetStateinSubject = 2 /*
-         Compute relative state as target frame w.r.t. subject in subject. */
-   };
+    /**
+     * The name of the frame on the subject vehicle.
+     * This can specify one of the vehicle's three primary reference frames (core
+     * body, composite body, or structure) or one of the vehicle's vehicle point
+     * frames.
+     * The vehicle name can be included in or omitted from the subject frame
+     * name. A vehicle name prefix is assumed if it is omitted.
+     */
+    std::string subject_frame_name; //!< trick_units(--)
 
+    /**
+     * The name of the target reference frame.
+     */
+    std::string target_frame_name; //!< trick_units(--)
 
- // Member data
+    /**
+     * Indicates direction in which relative state is to be computed.
+     */
+    DirectionSense direction_sense{undefined}; //!< trick_units(--)
 
- public:
+    /**
+     * Computed relative state.
+     */
+    RefFrameState rel_state; //!< trick_units(--)
 
-   /**
-    * The name of this relative derived state
-    */
-   std::string name; //!< trick_units(--)
+    /**
+     * Bool flag used by the RelKin model to turn on/off which
+     * Relative Derived State needs to be managed
+     */
+    bool active{true}; //!< trick_units(--)
 
-   /**
-    * The name of the frame on the subject vehicle.
-    * This can specify one of the vehicle's three primary reference frames (core
-    * body, composite body, or structure) or one of the vehicle's vehicle point
-    * frames.
-    * The vehicle name can be included in or omitted from the subject frame
-    * name. A vehicle name prefix is assumed if it is omitted.
-    */
-   char * subject_frame_name; //!< trick_units(--)
+protected:
+    /**
+     * The reference frame corresponding to the user-input subject_frame_name.
+     */
+    BodyRefFrame * subject_frame{}; //!< trick_units(--)
 
-   /**
-    * The name of the target reference frame.
-    */
-   char * target_frame_name; //!< trick_units(--)
+    /**
+     * The reference frame corresponding to the user-input target_frame_name.
+     */
+    RefFrame * target_frame{}; //!< trick_units(--)
 
-   /**
-    * Indicates direction in which relative state is to be computed.
-    */
-   DirectionSense direction_sense; //!< trick_units(--)
+    // Methods
 
-   /**
-    * Computed relative state.
-    */
-   RefFrameState rel_state; //!< trick_units(--)
+public:
+    // Default constructor and destructor
+    RelativeDerivedState() = default;
+    ~RelativeDerivedState() override;
+    RelativeDerivedState(const RelativeDerivedState &) = delete;
+    RelativeDerivedState & operator=(const RelativeDerivedState &) = delete;
 
-   /**
-    * Bool flag used by the RelKin model to turn on/off which
-    * Relative Derived State needs to be managed
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * Setter for the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 
+    /**
+     * Quick shortcut allowing use of conversion routines without requiring
+     * initialization.
+     * \param tf  New target frame.
+     */
+    void set_target_frame(RefFrame & tf)
+    {
+        target_frame = &tf;
+    }
 
- protected:
+    /**
+     * Quick shortcut allowing use of conversion routines without requiring
+     * initialization.
+     * \param sf  New subject frame.
+     */
+    void set_subject_frame(BodyRefFrame & sf)
+    {
+        subject_frame = &sf;
+    }
 
-   /**
-    * The reference frame corresponding to the user-input subject_frame_name.
-    */
-   BodyRefFrame * subject_frame; //!< trick_units(--)
+    // initialize(): Initialize the RelativeDerivedState instance
+    void initialize(DynBody & subject_body, DynManager & dyn_manager) override;
 
-   /**
-    * The reference frame corresponding to the user-input target_frame_name.
-    */
-   RefFrame * target_frame; //!< trick_units(--)
+    // initialize(): Initialize the RelativeDerivedState instance
+    virtual void initialize(DynManager & dyn_manager);
 
+    // update(): Compute the relative state
+    void update() override;
 
- // Methods
-
- public:
-
-   // Default constructor and destructor
-   RelativeDerivedState ();
-   ~RelativeDerivedState () override;
-
-   /**
-    * Setter for the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
-
-   /**
-    * Quick shortcut allowing use of conversion routines without requiring
-    * initialization.
-    * \param tf  New target frame.
-    */
-   void set_target_frame (RefFrame &tf) {target_frame = &tf; }
-
-   /**
-    * Quick shortcut allowing use of conversion routines without requiring
-    * initialization.
-    * \param sf  New subject frame.
-    */
-   void set_subject_frame (BodyRefFrame &sf) {subject_frame = &sf; }
-
-   // initialize(): Initialize the RelativeDerivedState instance
-   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
-
-   // initialize(): Initialize the RelativeDerivedState instance
-   virtual void initialize (DynManager & dyn_manager);
-
-   // update(): Compute the relative state
-   void update (void) override;
-
-   /* set_activation_flag(): Set the activation_flag to true or false
-    * /param raf  RelativeDerivedState activation flag for RelKin manager
-    */
-   void set_activation_flag (bool raf);
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   RelativeDerivedState (const RelativeDerivedState&);
-   RelativeDerivedState & operator = (const RelativeDerivedState&);
+    /* set_activation_flag(): Set the activation_flag to true or false
+     * /param raf  RelativeDerivedState activation flag for RelKin manager
+     */
+    void set_activation_flag(bool raf);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

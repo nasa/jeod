@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -55,39 +55,38 @@ $(function() {
 <p>Define the class DynBodyInitNedState, the base class for initializing selected aspects of a vehicle's state with respect to either some vehicle's North-East-Down frame or the North-East-Down frame for a specified location on the planet.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d0/d32/environment_2ephemerides_2ephem__interface_2include_2class__declarations_8hh_source.html">environment/ephemerides/ephem_interface/include/class_declarations.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/df9/jeod__class_8hh_source.html">utils/sim_interface/include/jeod_class.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../dc/df2/alt__lat__long__state_8hh_source.html">utils/planet_fixed/planet_fixed_posn/include/alt_lat_long_state.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d9/d5c/north__east__down_8hh_source.html">utils/planet_fixed/north_east_down/include/north_east_down.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/df2/alt__lat__long__state_8hh_source.html">utils/planet_fixed/planet_fixed_posn/include/alt_lat_long_state.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dc/df9/jeod__class_8hh_source.html">utils/sim_interface/include/jeod_class.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d2/ddc/dyn__body__init__planet__derived_8hh_source.html">dyn_body_init_planet_derived.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for dyn_body_init_ned_state.hh:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d7c/dyn__body__init__ned__state_8hh__incl.png" border="0" usemap="#dyn__body__init__ned__state_8hh" alt=""/></div>
 <map name="dyn__body__init__ned__state_8hh" id="dyn__body__init__ned__state_8hh">
-<area shape="rect" id="node2" href="../../d0/d32/environment_2ephemerides_2ephem__interface_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in models/environment/ephemerides/ephem_interface files..." alt="" coords="5,80,176,136"/>
-<area shape="rect" id="node3" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="745,496,895,537"/>
-<area shape="rect" id="node6" href="../../dc/df2/alt__lat__long__state_8hh.html" title="Basic orthogonal Altitude&#45;Latitude&#45;Longitude state definition. " alt="" coords="251,392,427,448"/>
-<area shape="rect" id="node7" href="../../d9/d5c/north__east__down_8hh.html" title="Implementation of the North&#45;East&#45;Down reference frame. " alt="" coords="507,80,677,136"/>
-<area shape="rect" id="node20" href="../../d2/ddc/dyn__body__init__planet__derived_8hh.html" title="Define the class DynBodyInitPlanetDerived, the base class for initializing selected aspects of a vehi..." alt="" coords="1756,87,1900,129"/>
-<area shape="rect" id="node4" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="783,585,857,612"/>
-<area shape="rect" id="node5" href="../../d5/d33/config__trick10_8hh.html" title="Configure JEOD for use in a Trick10 environment. " alt="" coords="759,660,881,687"/>
-<area shape="rect" id="node8" href="../../d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="924,191,1081,233"/>
-<area shape="rect" id="node16" href="../../d3/d59/planet__fixed__posn_8hh.html" title="Planet centered fixed position model: alternate coordinate system definitions and transformations to ..." alt="" coords="379,288,555,344"/>
-<area shape="rect" id="node19" href="../../d3/dd3/utils_2planet__fixed_2planet__fixed__posn_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in planet&#45;fixed position model header files. " alt="" coords="629,184,805,240"/>
-<area shape="rect" id="node9" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="1517,503,1665,530"/>
-<area shape="rect" id="node10" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="811,407,922,433"/>
-<area shape="rect" id="node11" href="../../d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="1099,407,1229,433"/>
-<area shape="rect" id="node12" href="../../db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="1475,407,1605,433"/>
-<area shape="rect" id="node14" href="../../db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="937,303,1069,329"/>
-<area shape="rect" id="node15" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="760,303,912,329"/>
-<area shape="rect" id="node17" href="../../d1/d31/environment_2planet_2include_2class__declarations_8hh.html" title="Forward declaration of classes defined in the planet model. " alt="" coords="1253,399,1451,441"/>
-<area shape="rect" id="node18" href="../../d8/d32/planet_8hh.html" title="Planetary modeling constant parameter definitions. " alt="" coords="502,399,634,441"/>
-<area shape="rect" id="node21" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body.hh. " alt="" coords="1681,399,1863,441"/>
-<area shape="rect" id="node22" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="1989,399,2187,441"/>
-<area shape="rect" id="node23" href="../../dc/d8d/ref__frame__items_8hh.html" title="Define the class RefFrameItems, which identifies the aspects of a reference frame&#39;s state that have b..." alt="" coords="2211,399,2368,441"/>
-<area shape="rect" id="node25" href="../../d5/d4d/dyn__body__init__wrt__planet_8hh.html" title="Define the class DynBodyInitWrtPlanet, the base class for initializing selected aspects of a vehicle&#39;..." alt="" coords="1805,199,1992,225"/>
-<area shape="rect" id="node24" href="../../d1/d9b/ref__frame__items__inline_8hh.html" title="Define inline functions for the RefFrameItems::Items. " alt="" coords="2204,503,2375,530"/>
-<area shape="rect" id="node26" href="../../da/d26/dyn__body__init_8hh.html" title="Define the class DynBodyInit, the base class used for initializing the state of a DynBody object..." alt="" coords="1847,303,1967,329"/>
+<area shape="rect" id="node2" href="../../d0/d32/environment_2ephemerides_2ephem__interface_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in models/environment/ephemerides/ephem_interface files..." alt="" coords="5,80,200,136"/>
+<area shape="rect" id="node3" href="../../d9/d5c/north__east__down_8hh.html" title="Implementation of the North&#45;East&#45;Down reference frame. " alt="" coords="379,80,567,136"/>
+<area shape="rect" id="node7" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="875,481,1040,523"/>
+<area shape="rect" id="node17" href="../../dc/df2/alt__lat__long__state_8hh.html" title="Basic orthogonal Altitude&#45;Latitude&#45;Longitude state definition. " alt="" coords="338,399,497,426"/>
+<area shape="rect" id="node19" href="../../d2/ddc/dyn__body__init__planet__derived_8hh.html" title="Define the class DynBodyInitPlanetDerived, the base class for initializing selected aspects of a vehi..." alt="" coords="2089,87,2250,129"/>
+<area shape="rect" id="node4" href="../../d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="1019,191,1195,233"/>
+<area shape="rect" id="node14" href="../../d3/dd3/utils_2planet__fixed_2planet__fixed__posn_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in planet&#45;fixed position model header files. " alt="" coords="376,184,571,240"/>
+<area shape="rect" id="node15" href="../../d3/d59/planet__fixed__posn_8hh.html" title="Planet centered fixed position model: alternate coordinate system definitions and transformations to ..." alt="" coords="511,288,705,344"/>
+<area shape="rect" id="node5" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="1727,489,1889,515"/>
+<area shape="rect" id="node6" href="../../d4/db4/ref__frame__links_8hh.html" title="Define the class RefFrameLinks, the class that encapsulates the links between reference frames..." alt="" coords="1307,399,1451,426"/>
+<area shape="rect" id="node8" href="../../db/d03/ref__frame__state_8hh.html" title="JEOD 2.0 reference frame tree class definitions. " alt="" coords="1869,399,2016,426"/>
+<area shape="rect" id="node9" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="798,399,919,426"/>
+<area shape="rect" id="node10" href="../../d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="1045,392,1232,433"/>
+<area shape="rect" id="node12" href="../../db/d97/ref__frame__inline_8hh.html" title="Define inline methods for the RefFrame class. " alt="" coords="797,303,947,329"/>
+<area shape="rect" id="node13" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1021,303,1192,329"/>
+<area shape="rect" id="node16" href="../../d1/d31/environment_2planet_2include_2class__declarations_8hh.html" title="Forward declaration of classes defined in the planet model. " alt="" coords="1627,392,1845,433"/>
+<area shape="rect" id="node18" href="../../d8/d32/planet_8hh.html" title="Planetary modeling constant parameter definitions. " alt="" coords="521,392,671,433"/>
+<area shape="rect" id="node20" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body.hh. " alt="" coords="2584,392,2787,433"/>
+<area shape="rect" id="node21" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="2342,392,2559,433"/>
+<area shape="rect" id="node22" href="../../dc/d8d/ref__frame__items_8hh.html" title="Define the class RefFrameItems, which identifies the aspects of a reference frame&#39;s state that have b..." alt="" coords="2141,392,2317,433"/>
+<area shape="rect" id="node24" href="../../d5/d4d/dyn__body__init__wrt__planet_8hh.html" title="Define the class DynBodyInitWrtPlanet, the base class for initializing selected aspects of a vehicle&#39;..." alt="" coords="1990,199,2199,225"/>
+<area shape="rect" id="node23" href="../../d1/d9b/ref__frame__items__inline_8hh.html" title="Define inline functions for the RefFrameItems::Items. " alt="" coords="2133,489,2326,515"/>
+<area shape="rect" id="node25" href="../../da/d26/dyn__body__init_8hh.html" title="Define the class DynBodyInit, the base class used for initializing the state of a DynBody object..." alt="" coords="2023,303,2156,329"/>
 </map>
 </div>
 </div>
@@ -96,7 +95,7 @@ Include dependency graph for dyn_body_init_ned_state.hh:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html">jeod::DynBodyInitNedState</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize selected aspects of a vehicle's state with respect to eithers some vehicle's North-East-Down frame or the North-East-Down frame for a specified location on the planet.  <a href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize selected aspects of a vehicle's state with respect to either some vehicle's North-East-Down frame or the North-East-Down frame for a specified location on the planet.  <a href="../../d0/da4/classjeod_1_1DynBodyInitNedState.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>

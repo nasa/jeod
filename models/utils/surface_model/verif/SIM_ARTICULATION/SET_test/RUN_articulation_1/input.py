@@ -34,44 +34,44 @@ articulation.T_pstr_cstr_d = [
 [-0.3345558386869913, -0.2200457687990501, 0.9163254064108879]]
 
 articulation.flat_plate_1.local_position = [0.00575529,   -2.31225,    2.12175]
-articulation.flat_plate_1.area = 1.0;
+articulation.flat_plate_1.area = 1.0
 articulation.flat_plate_1.local_normal = [-0.760258,   0.282587,  -0.584938]
-articulation.flat_plate_1.mass_body_name = "mass_bodya";
+articulation.flat_plate_1.mass_body_name = "mass_bodya"
 
 articulation.flat_plate_2.local_position = [-1.70562,    3.03695,  -0.958726]
-articulation.flat_plate_2.area = 1.0;
+articulation.flat_plate_2.area = 1.0
 articulation.flat_plate_2.local_normal = [ 0.69449,  -0.396341,   0.600498]
-articulation.flat_plate_2.mass_body_name = "mass_bodya";
+articulation.flat_plate_2.mass_body_name = "mass_bodya"
 
 articulation.flat_plate_3.local_position = [-2.73297,   -2.12864,   -3.22221]
-articulation.flat_plate_3.area = 1.0;
+articulation.flat_plate_3.area = 1.0
 articulation.flat_plate_3.local_normal = [-0.273795,   0.820658,   0.501555]
-articulation.flat_plate_3.mass_body_name = "mass_bodyb";
+articulation.flat_plate_3.mass_body_name = "mass_bodyb"
 
 articulation.flat_plate_4.local_position = [ 2.29363,   -3.30972,    3.85143]
-articulation.flat_plate_4.area = 1.0;
+articulation.flat_plate_4.area = 1.0
 articulation.flat_plate_4.local_normal = [ 0.046571,   -0.84212,   0.537275]
-articulation.flat_plate_4.mass_body_name = "mass_bodyb";
+articulation.flat_plate_4.mass_body_name = "mass_bodyb"
 
 articulation.flat_plate_5.local_position = [ -1.3239,   -1.59037,   0.596073]
-articulation.flat_plate_5.area = 1.0;
+articulation.flat_plate_5.area = 1.0
 articulation.flat_plate_5.local_normal = [ 0.2905,    0.71079,   0.640615]
-articulation.flat_plate_5.mass_body_name = "mass_bodyc";
+articulation.flat_plate_5.mass_body_name = "mass_bodyc"
 
 articulation.flat_plate_6.local_position = [ 1.09338,   0.528991,   0.548487]
-articulation.flat_plate_6.area = 1.0;
+articulation.flat_plate_6.area = 1.0
 articulation.flat_plate_6.local_normal = [-0.0100222,  -0.542243,   0.840162]
-articulation.flat_plate_6.mass_body_name = "mass_bodyc";
+articulation.flat_plate_6.mass_body_name = "mass_bodyc"
 
 articulation.flat_plate_7.local_position = [-0.694371,   -3.48133,    -0.4691]
-articulation.flat_plate_7.area = 1.0;
+articulation.flat_plate_7.area = 1.0
 articulation.flat_plate_7.local_normal = [ 0.959905,   0.192204,    0.20406]
-articulation.flat_plate_7.mass_body_name = "mass_bodyd";
+articulation.flat_plate_7.mass_body_name = "mass_bodyd"
 
 articulation.flat_plate_8.local_position = [ -2.93046,    1.31073,    0.22227]
-articulation.flat_plate_8.area = 1.0;
+articulation.flat_plate_8.area = 1.0
 articulation.flat_plate_8.local_normal = [ 0.401064,   0.648818,   -0.64667]
-articulation.flat_plate_8.mass_body_name = "mass_bodyd";
+articulation.flat_plate_8.mass_body_name = "mass_bodyd"
 
 articulation.surface.struct_body_name = "mass_bodya"
 articulation.surface.articulation_active = True

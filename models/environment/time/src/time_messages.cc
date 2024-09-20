@@ -24,10 +24,9 @@ Assumptions and limitations:
 Library dependencies:
   ((time_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -36,43 +35,33 @@ Library dependencies:
 
 #define PATH "environment/time/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // ENTRY POINT //
 
 // Static member data
 // Errors and warnings
-char const * TimeMessages::initialization_error =
-    PATH "initialization_error";
+const char * TimeMessages::initialization_error = PATH "initialization_error";
 
-char const * TimeMessages::memory_error =
-    PATH "memory_error";
+const char * TimeMessages::memory_error = PATH "memory_error";
 
-char const * TimeMessages::invalid_setup_error =
-    PATH "invalid_setup_error";
+const char * TimeMessages::invalid_setup_error = PATH "invalid_setup_error";
 
-char const * TimeMessages::invalid_data_error =
-    PATH "invalid_data_error";
+const char * TimeMessages::invalid_data_error = PATH "invalid_data_error";
 
-char const * TimeMessages::incomplete_setup_error =
-    PATH "incomplete_setup_error";
+const char * TimeMessages::incomplete_setup_error = PATH "incomplete_setup_error";
 
-char const * TimeMessages::redundancy_error =
-    PATH "redundancy_error";
+const char * TimeMessages::redundancy_error = PATH "redundancy_error";
 
-char const * TimeMessages::duplicate_methods =
-    PATH "duplicate_methods";
+const char * TimeMessages::duplicate_methods = PATH "duplicate_methods";
 
-char const * TimeMessages::extension_error =
-    PATH "extension_error";
+const char * TimeMessages::extension_error = PATH "extension_error";
 
-char const * TimeMessages::invalid_node =
-    PATH "invalid_node";
+const char * TimeMessages::invalid_node = PATH "invalid_node";
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -72,36 +72,24 @@ Library dependencies:
 #include "utils/surface_model/include/facet_params.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A base class for all contact parameters used in the surface model.
  */
-class ContactParams : public FacetParams {
-
-
-   JEOD_MAKE_SIM_INTERFACES(ContactParams)
+class ContactParams : public FacetParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ContactParams)
 
 public:
-
-   // constructor
-   ContactParams ();
-
-   // destructor
-   ~ContactParams () override;
-
-protected:
-
-private:
-
-   // The operator = and copy constructor locked away from use by being private
-
-   ContactParams& operator = (const ContactParams& rhs);
-   ContactParams (const ContactParams& rhs);
-
+    ContactParams();
+    ~ContactParams() override = default;
+    ContactParams & operator=(const ContactParams &) = delete;
+    ContactParams(const ContactParams &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

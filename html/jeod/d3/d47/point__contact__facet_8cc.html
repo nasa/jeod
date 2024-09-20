@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -53,58 +53,59 @@ $(function() {
 
 <p>Define PointContactFacet functions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/dae/matrix3x3_8hh_source.html">utils/math/include/matrix3x3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/de2/numerical_8hh_source.html">utils/math/include/numerical.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d4a/contact_8hh_source.html">../include/contact.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">../include/contact_messages.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d4/d55/contact__params_8hh_source.html">../include/contact_params.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d13/contact__utils_8hh_source.html">../include/contact_utils.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d2/d43/point__contact__facet_8hh_source.html">../include/point_contact_facet.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/d1d/point__contact__pair_8hh_source.html">../include/point_contact_pair.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/d13/contact__utils_8hh_source.html">../include/contact_utils.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d7/d4a/contact_8hh_source.html">../include/contact.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for point_contact_facet.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/dca/point__contact__facet_8cc__incl.png" border="0" usemap="#point__contact__facet_8cc" alt=""/></div>
 <map name="point__contact__facet_8cc" id="point__contact__facet_8cc">
-<area shape="rect" id="node4" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="2076,259,2200,300"/>
-<area shape="rect" id="node6" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="2140,459,2236,486"/>
-<area shape="rect" id="node7" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="160,80,284,121"/>
-<area shape="rect" id="node10" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="366,169,509,211"/>
-<area shape="rect" id="node33" href="../../d8/d5a/contact__messages_8hh.html" title="Contact message for message handling. " alt="" coords="1819,259,1942,300"/>
-<area shape="rect" id="node34" href="../../d4/d55/contact__params_8hh.html" title="A class for contact facet parameters, used to create interaction facets for contact in the Interactio..." alt="" coords="2295,259,2418,300"/>
-<area shape="rect" id="node37" href="../../d2/d43/point__contact__facet_8hh.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="2874,80,3031,121"/>
-<area shape="rect" id="node44" href="../../da/d1d/point__contact__pair_8hh.html" title="Class for a pair of point contact facets for use with contact interaction model. " alt="" coords="3030,177,3176,203"/>
-<area shape="rect" id="node46" href="../../d8/d13/contact__utils_8hh.html" title="This Model is used for utility rotines. " alt="" coords="1812,80,1935,121"/>
-<area shape="rect" id="node48" href="../../d7/d4a/contact_8hh.html" title="(Base class to for the contact manager for use with contact interaction model) " alt="" coords="2720,177,2860,203"/>
-<area shape="rect" id="node5" href="../../da/d11/vector3__inline_8hh.html" title="Vector math inline functions. " alt="" coords="2078,363,2198,389"/>
-<area shape="rect" id="node8" href="../../d4/d22/matrix3x3__inline_8hh.html" title="Matrix math inline functions. " alt="" coords="154,177,289,203"/>
-<area shape="rect" id="node13" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="732,452,930,493"/>
-<area shape="rect" id="node16" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="218,452,382,493"/>
-<area shape="rect" id="node18" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="1029,266,1172,293"/>
-<area shape="rect" id="node14" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1031,631,1106,657"/>
-<area shape="rect" id="node25" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1484,355,1632,397"/>
-<area shape="rect" id="node26" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2274,541,2425,583"/>
-<area shape="rect" id="node27" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1214,355,1408,397"/>
-<area shape="rect" id="node28" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1707,348,1838,404"/>
-<area shape="rect" id="node29" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1106,459,1225,486"/>
-<area shape="rect" id="node30" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="720,363,843,389"/>
-<area shape="rect" id="node31" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="577,363,696,389"/>
-<area shape="rect" id="node32" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1444,452,1592,493"/>
-<area shape="rect" id="node35" href="../../d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="2272,355,2440,397"/>
-<area shape="rect" id="node38" href="../../d5/d70/relative__derived__state_8hh.html" title="Define the class RelativeDerivedState, the class used for deriving the state of some frame associated..." alt="" coords="3267,348,3430,404"/>
-<area shape="rect" id="node42" href="../../d0/d5c/interactions_2contact_2include_2class__declarations_8hh.html" title="Forward declaration of classes defined in the contact model. " alt="" coords="2904,459,3052,486"/>
-<area shape="rect" id="node43" href="../../df/d43/contact__facet_8hh.html" title="Individual facets for use with contact interaction models. " alt="" coords="2870,363,2989,389"/>
-<area shape="rect" id="node39" href="../../d1/d32/derived__state_8hh.html" title="Define the class DerivedState, the base class used for deriving a state representation of some subjec..." alt="" coords="3318,459,3437,486"/>
-<area shape="rect" id="node40" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body.hh. " alt="" coords="3501,541,3684,583"/>
-<area shape="rect" id="node41" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="3279,541,3476,583"/>
-<area shape="rect" id="node45" href="../../d8/d7b/contact__pair_8hh.html" title="Base class for pair of contact facets for use with contact interaction model. " alt="" coords="3030,266,3141,293"/>
-<area shape="rect" id="node47" href="../../d9/db0/contact__utils__inline_8hh.html" title="Define ContactUtils::create_relstate_name, ContactUtils::copy_const_char_to_char. ..." alt="" coords="1798,177,1949,203"/>
-<area shape="rect" id="node49" href="../../d6/d17/pointer__list_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2604,259,2752,300"/>
-<area shape="rect" id="node50" href="../../d6/d5d/pair__interaction_8hh.html" title="A class to define the interaction type for a pair of contact facets. " alt="" coords="2667,363,2795,389"/>
+<area shape="rect" id="node4" href="../../d0/dae/matrix3x3_8hh.html" title="Matrix math inline functions. " alt="" coords="4023,80,4162,121"/>
+<area shape="rect" id="node7" href="../../d6/de2/numerical_8hh.html" title="Miscellaneous math inline functions. " alt="" coords="137,445,275,486"/>
+<area shape="rect" id="node9" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="51,244,190,285"/>
+<area shape="rect" id="node11" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="966,80,1126,121"/>
+<area shape="rect" id="node34" href="../../d7/d4a/contact_8hh.html" title="(Base class to for the contact manager for use with contact interaction model) " alt="" coords="3076,169,3229,196"/>
+<area shape="rect" id="node44" href="../../d8/d5a/contact__messages_8hh.html" title="Contact message for message handling. " alt="" coords="2186,244,2319,285"/>
+<area shape="rect" id="node45" href="../../d4/d55/contact__params_8hh.html" title="A class for contact facet parameters, used to create interaction facets for contact in the Interactio..." alt="" coords="2598,341,2731,382"/>
+<area shape="rect" id="node47" href="../../d8/d13/contact__utils_8hh.html" title="This Model is used for utility rotines. " alt="" coords="333,80,466,121"/>
+<area shape="rect" id="node49" href="../../d2/d43/point__contact__facet_8hh.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="3379,80,3553,121"/>
+<area shape="rect" id="node50" href="../../da/d1d/point__contact__pair_8hh.html" title="Class for a pair of point contact facets for use with contact interaction model. " alt="" coords="3509,169,3671,196"/>
+<area shape="rect" id="node5" href="../../d4/d22/matrix3x3__inline_8hh.html" title="Matrix math inline functions. " alt="" coords="4017,169,4169,196"/>
+<area shape="rect" id="node8" href="../../de/d85/numerical__inline_8hh.html" title="Vector math inline functions. " alt="" coords="131,549,281,575"/>
+<area shape="rect" id="node10" href="../../da/d11/vector3__inline_8hh.html" title="Vector math inline functions. " alt="" coords="53,348,188,375"/>
+<area shape="rect" id="node14" href="../../d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="1040,341,1263,382"/>
+<area shape="rect" id="node17" href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="519,341,701,382"/>
+<area shape="rect" id="node19" href="../../d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="1347,169,1508,196"/>
+<area shape="rect" id="node15" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1716,631,1797,657"/>
+<area shape="rect" id="node26" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1539,244,1705,285"/>
+<area shape="rect" id="node27" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2510,541,2675,583"/>
+<area shape="rect" id="node28" href="../../d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="1245,244,1463,285"/>
+<area shape="rect" id="node29" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1845,437,1991,493"/>
+<area shape="rect" id="node30" href="../../d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="2085,348,2220,375"/>
+<area shape="rect" id="node31" href="../../d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="725,348,863,375"/>
+<area shape="rect" id="node32" href="../../d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="1087,251,1221,278"/>
+<area shape="rect" id="node33" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1845,341,2009,382"/>
+<area shape="rect" id="node35" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="3373,445,3591,486"/>
+<area shape="rect" id="node36" href="../../d6/d17/pointer__list_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2928,244,3095,285"/>
+<area shape="rect" id="node39" href="../../d0/d5c/interactions_2contact_2include_2class__declarations_8hh.html" title="Forward declaration of classes defined in the contact model. " alt="" coords="3186,452,3349,479"/>
+<area shape="rect" id="node40" href="../../df/d43/contact__facet_8hh.html" title="Individual facets for use with contact interaction models. " alt="" coords="3401,348,3531,375"/>
+<area shape="rect" id="node41" href="../../d8/d7b/contact__pair_8hh.html" title="Base class for pair of contact facets for use with contact interaction model. " alt="" coords="3607,251,3728,278"/>
+<area shape="rect" id="node43" href="../../d6/d5d/pair__interaction_8hh.html" title="A class to define the interaction type for a pair of contact facets. " alt="" coords="3081,348,3225,375"/>
+<area shape="rect" id="node37" href="../../d4/df5/jeod__list_8hh.html" title="Define the class template JeodList. " alt="" coords="2908,348,3005,375"/>
+<area shape="rect" id="node38" href="../../dc/da5/pointer__container_8hh.html" title="Define class template JeodPointerContainer. " alt="" coords="2318,348,2473,375"/>
+<area shape="rect" id="node42" href="../../d5/d70/relative__derived__state_8hh.html" title="Define the class RelativeDerivedState, the class used for deriving the state of some frame associated..." alt="" coords="3657,333,3840,389"/>
+<area shape="rect" id="node46" href="../../d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="2565,445,2751,486"/>
+<area shape="rect" id="node48" href="../../d9/db0/contact__utils__inline_8hh.html" title="Define ContactUtils::create_relstate_name, ContactUtils::copy_const_char_to_char. ..." alt="" coords="315,169,483,196"/>
 </map>
 </div>
 </div>

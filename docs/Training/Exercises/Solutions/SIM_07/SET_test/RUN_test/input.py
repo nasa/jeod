@@ -7,7 +7,7 @@
 exec(compile(open("Log_data/log_state.py", "rb").read(), "Log_data/log_state.py", 'exec'))
 log_state(1.0)
 
-# Configure the dynamics manager to operate in empty space mode 
+# Configure the dynamics manager to operate in empty space mode
 dynamics.dyn_manager_init.mode = trick.DynManagerInit.EphemerisMode_EmptySpace
 dynamics.dyn_manager_init.central_point_name = "Space"
 
@@ -39,4 +39,4 @@ dynamics.dyn_manager.add_body_action( vehicle2.mass_init )
 dynamics.dyn_manager.add_body_action( vehicle2.trans_init )
 dynamics.dyn_manager.add_body_action( vehicle2.rot_init )
 
-trick.sim_services.exec_set_terminate_time(10.0);
+trick.sim_services.exec_set_terminate_time(10.0)

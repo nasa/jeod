@@ -44,24 +44,25 @@ Reference:
 Assumptions and Limitations:
   (N/A)
 
- 
+
 ******************************************************************************/
 
 #ifndef JEOD_TIME_CLASS_DECL1_HH
 #define JEOD_TIME_CLASS_DECL1_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-//class Time;
-//class TimeConverter;
-//class TimeConverter_Dyn_TAI;
+// class Time;
+// class TimeConverter;
+// class TimeConverter_Dyn_TAI;
 class TimeConverter_TAI_New;
-//class TimeDerived;
-//class TimeDyn;
+// class TimeDerived;
+// class TimeDyn;
 class TimeNew;
-//class TimeTAI;
+// class TimeTAI;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -66,13 +66,12 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/polar_motion_j2000_init.cc))
 
- 
+
 
 *******************************************************************************/
 
 #ifndef POLAR_MOTION_J2000_INIT_HH
 #define POLAR_MOTION_J2000_INIT_HH
-
 
 // System includes
 
@@ -80,67 +79,64 @@ Library dependencies:
 #include "environment/RNP/GenericRNP/include/planet_rotation_init.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initializes the PolarMotionJ2000 object.
  */
-class PolarMotionJ2000Init : public PlanetRotationInit {
+class PolarMotionJ2000Init : public PlanetRotationInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PolarMotionJ2000Init)
 
-   JEOD_MAKE_SIM_INTERFACES(PolarMotionJ2000Init)
-
-// class for initialization (loading of the coefficients and related data)
-// of the PolarMotionJ2000 model
+    // class for initialization (loading of the coefficients and related data)
+    // of the PolarMotionJ2000 model
 public: // public data members
+    /**
+     * Current X Polar coordinate
+     */
+    double xp{}; //!< trick_units(rad)
 
-   /**
-    * Current X Polar coordinate
-    */
-   double xp; //!< trick_units(rad)
-   /**
-    * Current Y Polar coordinate
-    */
-   double yp; //!< trick_units(rad)
-   /**
-    * X Polar coordinate table
-    */
-   double* xp_tbl; //!< trick_units(rad)
-   /**
-    * Y Polar coordinate table
-    */
-   double* yp_tbl; //!< trick_units(rad)
-   /**
-    * Independent variable for the XY coordinate table
-    */
-   double* polar_mjd; //!< trick_units(--)
-   /**
-    * If true, do no table lookup and use the
-    * currently set xp and yp
-    */
-   bool override_table; //!< trick_units(--)
-   /**
-    * Size - 1 of xp_tbl, yp_tbl and polar_mjd (last index)
-    */
-   unsigned int last_table_index; //!< trick_units(count)
+    /**
+     * Current Y Polar coordinate
+     */
+    double yp{}; //!< trick_units(rad)
+
+    /**
+     * X Polar coordinate table
+     */
+    double * xp_tbl{}; //!< trick_units(rad)
+
+    /**
+     * Y Polar coordinate table
+     */
+    double * yp_tbl{}; //!< trick_units(rad)
+
+    /**
+     * Independent variable for the XY coordinate table
+     */
+    double * polar_mjd{}; //!< trick_units(--)
+
+    /**
+     * If true, do no table lookup and use the
+     * currently set xp and yp
+     */
+    bool override_table{}; //!< trick_units(--)
+
+    /**
+     * Size - 1 of xp_tbl, yp_tbl and polar_mjd (last index)
+     */
+    unsigned int last_table_index{}; //!< trick_units(count)
 
 public: // public member functions
-
-   PolarMotionJ2000Init ();
-
-   ~PolarMotionJ2000Init () override;
-
-private: // private member functions
-
-   // operator = and copy constructor lcoked from use by being private
-
-   PolarMotionJ2000Init& operator = (const PolarMotionJ2000Init& rhs);
-   PolarMotionJ2000Init (const PolarMotionJ2000Init& rhs);
-
+    PolarMotionJ2000Init() = default;
+    ~PolarMotionJ2000Init() override;
+    PolarMotionJ2000Init & operator=(const PolarMotionJ2000Init &) = delete;
+    PolarMotionJ2000Init(const PolarMotionJ2000Init &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

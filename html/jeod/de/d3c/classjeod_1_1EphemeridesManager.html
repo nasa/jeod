@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::EphemeridesManager Class Reference</div>  </div>
@@ -63,10 +62,10 @@ Inheritance diagram for jeod::EphemeridesManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d44/classjeod_1_1EphemeridesManager__inherit__graph.png" border="0" usemap="#jeod_1_1EphemeridesManager_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1EphemeridesManager_inherit__map" id="jeod_1_1EphemeridesManager_inherit__map">
-<area shape="rect" id="node5" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="152,229,280,256"/>
-<area shape="rect" id="node2" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="5,80,216,107"/>
-<area shape="rect" id="node3" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="120,5,312,32"/>
-<area shape="rect" id="node4" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="240,80,403,107"/>
+<area shape="rect" id="node5" href="../../d6/d9a/classjeod_1_1DynManager.html" title="The DynManager class manages the dynamic elements of a simulation. " alt="" coords="164,229,304,256"/>
+<area shape="rect" id="node2" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="5,80,236,107"/>
+<area shape="rect" id="node3" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="131,5,337,32"/>
+<area shape="rect" id="node4" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="260,80,435,107"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -74,20 +73,20 @@ Collaboration diagram for jeod::EphemeridesManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/classjeod_1_1EphemeridesManager__coll__graph.png" border="0" usemap="#jeod_1_1EphemeridesManager_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1EphemeridesManager_coll__map" id="jeod_1_1EphemeridesManager_coll__map">
-<area shape="rect" id="node2" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="551,49,761,76"/>
-<area shape="rect" id="node3" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="244,55,436,81"/>
-<area shape="rect" id="node4" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="575,108,737,135"/>
-<area shape="rect" id="node5" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="284,107,396,133"/>
-<area shape="rect" id="node6" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="17,5,144,32"/>
-<area shape="rect" id="node7" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="5,56,156,83"/>
-<area shape="rect" id="node8" href="../../d8/d46/classjeod_1_1RefFrameLinks.html" title="Encapsulates the links between reference frames. " alt="" coords="9,107,152,133"/>
-<area shape="rect" id="node9" title="STL class. " alt="" coords="41,157,121,184"/>
-<area shape="rect" id="node10" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="9,208,152,235"/>
-<area shape="rect" id="node11" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::RefFrame \&gt;" alt="" coords="260,158,420,199"/>
-<area shape="rect" id="node12" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="573,159,739,201"/>
-<area shape="rect" id="node13" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="557,225,755,266"/>
-<area shape="rect" id="node14" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="561,290,751,331"/>
-<area shape="rect" id="node15" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="576,355,736,397"/>
+<area shape="rect" id="node2" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="591,49,821,76"/>
+<area shape="rect" id="node3" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="260,55,467,81"/>
+<area shape="rect" id="node4" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. " alt="" coords="619,108,793,135"/>
+<area shape="rect" id="node5" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="304,107,423,133"/>
+<area shape="rect" id="node6" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="17,5,155,32"/>
+<area shape="rect" id="node7" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="5,56,167,83"/>
+<area shape="rect" id="node8" href="../../d8/d46/classjeod_1_1RefFrameLinks.html" title="Encapsulates the links between reference frames. " alt="" coords="9,107,163,133"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="43,157,129,184"/>
+<area shape="rect" id="node10" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="9,208,163,235"/>
+<area shape="rect" id="node11" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::RefFrame \&gt;" alt="" coords="277,158,450,199"/>
+<area shape="rect" id="node12" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisItem \&gt;" alt="" coords="613,159,799,201"/>
+<area shape="rect" id="node13" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisRefFrame \&gt;" alt="" coords="597,225,815,266"/>
+<area shape="rect" id="node14" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::EphemerisInterface \&gt;" alt="" coords="599,290,813,331"/>
+<area shape="rect" id="node15" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::BasePlanet \&gt;" alt="" coords="619,355,793,397"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -99,6 +98,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af452bf6bce6d0d4232ef3e0abf7266eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager</a> () override</td></tr>
 <tr class="memdesc:af452bf6bce6d0d4232ef3e0abf7266eb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. ">EphemeridesManager</a> destructor.  <a href="#af452bf6bce6d0d4232ef3e0abf7266eb">More...</a><br /></td></tr>
 <tr class="separator:af452bf6bce6d0d4232ef3e0abf7266eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa07ff317c419088d9eb04e7cdd71b41a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa07ff317c419088d9eb04e7cdd71b41a">EphemeridesManager</a> (const <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;)=delete</td></tr>
+<tr class="separator:aa07ff317c419088d9eb04e7cdd71b41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad4eae1b5ac69a6b6cda2f81d64e8dcc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aad4eae1b5ac69a6b6cda2f81d64e8dcc">operator=</a> (const <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;)=delete</td></tr>
+<tr class="separator:aad4eae1b5ac69a6b6cda2f81d64e8dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7980da248a118bc3dfee5f931243403a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7980da248a118bc3dfee5f931243403a">ref_frame_tree_needs_rebuild</a> () const</td></tr>
 <tr class="memdesc:a7980da248a118bc3dfee5f931243403a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query if the reference frame tree needs to be rebuilt.  <a href="#a7980da248a118bc3dfee5f931243403a">More...</a><br /></td></tr>
 <tr class="separator:a7980da248a118bc3dfee5f931243403a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,74 +114,74 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a10d955447c8e57321474097da7ed2058"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10d955447c8e57321474097da7ed2058">add_planet</a> (<a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> &amp;planet) override</td></tr>
 <tr class="memdesc:a10d955447c8e57321474097da7ed2058"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a planet to the registry.  <a href="#a10d955447c8e57321474097da7ed2058">More...</a><br /></td></tr>
 <tr class="separator:a10d955447c8e57321474097da7ed2058"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ce58e26795e84c53c74a00235eddcc8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7ce58e26795e84c53c74a00235eddcc8">find_base_planet</a> (const char *name) const override</td></tr>
-<tr class="memdesc:a7ce58e26795e84c53c74a00235eddcc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the planet with the given name.  <a href="#a7ce58e26795e84c53c74a00235eddcc8">More...</a><br /></td></tr>
-<tr class="separator:a7ce58e26795e84c53c74a00235eddcc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fd89ab9a89396fa15275c9513e96e92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6fd89ab9a89396fa15275c9513e96e92">find_planet</a> (const char *name) const override</td></tr>
-<tr class="memdesc:a6fd89ab9a89396fa15275c9513e96e92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the planet with the given name.  <a href="#a6fd89ab9a89396fa15275c9513e96e92">More...</a><br /></td></tr>
-<tr class="separator:a6fd89ab9a89396fa15275c9513e96e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf81fed68e9e2432819676c6f090994f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aaf81fed68e9e2432819676c6f090994f">get_num_planets</a> (void) const override</td></tr>
-<tr class="memdesc:aaf81fed68e9e2432819676c6f090994f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return number of registered planets.  <a href="#aaf81fed68e9e2432819676c6f090994f">More...</a><br /></td></tr>
-<tr class="separator:aaf81fed68e9e2432819676c6f090994f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa626fc6ec3f08c65ab4a31751a746cde"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa626fc6ec3f08c65ab4a31751a746cde">find_base_planet</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:aa626fc6ec3f08c65ab4a31751a746cde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the planet with the given name.  <a href="#aa626fc6ec3f08c65ab4a31751a746cde">More...</a><br /></td></tr>
+<tr class="separator:aa626fc6ec3f08c65ab4a31751a746cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab08258ab6e3622acce63c8daa3da5b1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ab08258ab6e3622acce63c8daa3da5b1b">find_planet</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:ab08258ab6e3622acce63c8daa3da5b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the planet with the given name.  <a href="#ab08258ab6e3622acce63c8daa3da5b1b">More...</a><br /></td></tr>
+<tr class="separator:ab08258ab6e3622acce63c8daa3da5b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16ccaa9678c4b233a0626c0471b36b93"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a16ccaa9678c4b233a0626c0471b36b93">get_num_planets</a> () const override</td></tr>
+<tr class="memdesc:a16ccaa9678c4b233a0626c0471b36b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return number of registered planets.  <a href="#a16ccaa9678c4b233a0626c0471b36b93">More...</a><br /></td></tr>
+<tr class="separator:a16ccaa9678c4b233a0626c0471b36b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10e4c3d2d9fc956006069ca48eb5b154"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10e4c3d2d9fc956006069ca48eb5b154">add_ephemeris</a> (<a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html">EphemerisInterface</a> &amp;ephem_if) override</td></tr>
 <tr class="memdesc:a10e4c3d2d9fc956006069ca48eb5b154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an ephemeris model to the list of managed models.  <a href="#a10e4c3d2d9fc956006069ca48eb5b154">More...</a><br /></td></tr>
 <tr class="separator:a10e4c3d2d9fc956006069ca48eb5b154"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08ef155f2fceec558e453b490447c944"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a08ef155f2fceec558e453b490447c944">clear_added_ephemerides</a> (void) override</td></tr>
-<tr class="memdesc:a08ef155f2fceec558e453b490447c944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivate any registered ephemeris items and remove them from the list.  <a href="#a08ef155f2fceec558e453b490447c944">More...</a><br /></td></tr>
-<tr class="separator:a08ef155f2fceec558e453b490447c944"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8a8947c882343e906d95a270b17ca24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ae8a8947c882343e906d95a270b17ca24">disable_add_ephemeris</a> (void) override</td></tr>
-<tr class="memdesc:ae8a8947c882343e906d95a270b17ca24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make subsequent calls to add_ephemeris deactivate the specified ephemeris model instead of adding it to the list of managed models.  <a href="#ae8a8947c882343e906d95a270b17ca24">More...</a><br /></td></tr>
-<tr class="separator:ae8a8947c882343e906d95a270b17ca24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad65b8bd492f636dca634c99cdbca02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ad65b8bd492f636dca634c99cdbca02">clear_added_ephemerides</a> () override</td></tr>
+<tr class="memdesc:a8ad65b8bd492f636dca634c99cdbca02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivate any registered ephemeris items and remove them from the list.  <a href="#a8ad65b8bd492f636dca634c99cdbca02">More...</a><br /></td></tr>
+<tr class="separator:a8ad65b8bd492f636dca634c99cdbca02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6402393e59d9707999c9fe4654507c1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6402393e59d9707999c9fe4654507c1c">disable_add_ephemeris</a> () override</td></tr>
+<tr class="memdesc:a6402393e59d9707999c9fe4654507c1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make subsequent calls to add_ephemeris deactivate the specified ephemeris model instead of adding it to the list of managed models.  <a href="#a6402393e59d9707999c9fe4654507c1c">More...</a><br /></td></tr>
+<tr class="separator:a6402393e59d9707999c9fe4654507c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca461b465ca09b45536d8912515fa097"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">add_ephem_item</a> (<a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> &amp;ephem_item) override</td></tr>
 <tr class="memdesc:aca461b465ca09b45536d8912515fa097"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an ephemeris item to the set of ephemeris items known to the ephemerides manager.  <a href="#aca461b465ca09b45536d8912515fa097">More...</a><br /></td></tr>
 <tr class="separator:aca461b465ca09b45536d8912515fa097"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a977a52f6b9f146e7030ecc067dd698e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a977a52f6b9f146e7030ecc067dd698e3">find_ephem_item</a> (const char *name) const override</td></tr>
-<tr class="memdesc:a977a52f6b9f146e7030ecc067dd698e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the first registered <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo...">EphemerisItem</a> with the given name.  <a href="#a977a52f6b9f146e7030ecc067dd698e3">More...</a><br /></td></tr>
-<tr class="separator:a977a52f6b9f146e7030ecc067dd698e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a278792c2f595456352705ec167eff015"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html">EphemerisOrientation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a278792c2f595456352705ec167eff015">find_ephem_angle</a> (const char *name) const override</td></tr>
-<tr class="memdesc:a278792c2f595456352705ec167eff015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html" title="An EphemerisOrientation object updates the rotational state of an ephemeris reference frame...">EphemerisOrientation</a> with the given name.  <a href="#a278792c2f595456352705ec167eff015">More...</a><br /></td></tr>
-<tr class="separator:a278792c2f595456352705ec167eff015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a103e2c4707d0bd982a1dc0bfecd444d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html">EphemerisPoint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a103e2c4707d0bd982a1dc0bfecd444d8">find_ephem_point</a> (const char *name) const override</td></tr>
-<tr class="memdesc:a103e2c4707d0bd982a1dc0bfecd444d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame...">EphemerisPoint</a> with the given name.  <a href="#a103e2c4707d0bd982a1dc0bfecd444d8">More...</a><br /></td></tr>
-<tr class="separator:a103e2c4707d0bd982a1dc0bfecd444d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a841121fc529fdc26cf042b978294005a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a841121fc529fdc26cf042b978294005a">find_ephem_item</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a841121fc529fdc26cf042b978294005a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the first registered <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo...">EphemerisItem</a> with the given name.  <a href="#a841121fc529fdc26cf042b978294005a">More...</a><br /></td></tr>
+<tr class="separator:a841121fc529fdc26cf042b978294005a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e7be77794628a62e31782086db56e3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html">EphemerisOrientation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a5e7be77794628a62e31782086db56e3a">find_ephem_angle</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a5e7be77794628a62e31782086db56e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html" title="An EphemerisOrientation object updates the rotational state of an ephemeris reference frame...">EphemerisOrientation</a> with the given name.  <a href="#a5e7be77794628a62e31782086db56e3a">More...</a><br /></td></tr>
+<tr class="separator:a5e7be77794628a62e31782086db56e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f84afce6708a676bfed7aeaf52de81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html">EphemerisPoint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a38f84afce6708a676bfed7aeaf52de81">find_ephem_point</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a38f84afce6708a676bfed7aeaf52de81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the <a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html" title="An EphemerisPoint object updates the translational state of an ephemeris reference frame...">EphemerisPoint</a> with the given name.  <a href="#a38f84afce6708a676bfed7aeaf52de81">More...</a><br /></td></tr>
+<tr class="separator:a38f84afce6708a676bfed7aeaf52de81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5c204fe7b1a9591cfd215a51a09e3bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad5c204fe7b1a9591cfd215a51a09e3bb">add_integ_frame</a> (<a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> &amp;ref_frame) override</td></tr>
 <tr class="memdesc:ad5c204fe7b1a9591cfd215a51a09e3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a frame to the reference frame and integration frame lists.  <a href="#ad5c204fe7b1a9591cfd215a51a09e3bb">More...</a><br /></td></tr>
 <tr class="separator:ad5c204fe7b1a9591cfd215a51a09e3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a226f16d26dba4a6e90194a5c2906c472"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a226f16d26dba4a6e90194a5c2906c472">find_integ_frame</a> (const char *name) const override</td></tr>
-<tr class="memdesc:a226f16d26dba4a6e90194a5c2906c472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the integration frame with the given name.  <a href="#a226f16d26dba4a6e90194a5c2906c472">More...</a><br /></td></tr>
-<tr class="separator:a226f16d26dba4a6e90194a5c2906c472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05139b0f6dee46c5c057b1a31aa46c04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a05139b0f6dee46c5c057b1a31aa46c04">find_integ_frame</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a05139b0f6dee46c5c057b1a31aa46c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the integration frame with the given name.  <a href="#a05139b0f6dee46c5c057b1a31aa46c04">More...</a><br /></td></tr>
+<tr class="separator:a05139b0f6dee46c5c057b1a31aa46c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c8c14a16c2fbd08637167c7ce0a01aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6c8c14a16c2fbd08637167c7ce0a01aa">is_integ_frame</a> (const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;ref_frame) const override</td></tr>
 <tr class="memdesc:a6c8c14a16c2fbd08637167c7ce0a01aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if supplied frame is an integration frame.  <a href="#a6c8c14a16c2fbd08637167c7ce0a01aa">More...</a><br /></td></tr>
 <tr class="separator:a6c8c14a16c2fbd08637167c7ce0a01aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3620627bb1d1baccc7a5c94006cbf4b1"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a3620627bb1d1baccc7a5c94006cbf4b1">find_integ_frame_index</a> (const <a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> &amp;ref_frame) const override</td></tr>
 <tr class="memdesc:a3620627bb1d1baccc7a5c94006cbf4b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the index of provided frame in the integration frames vector.  <a href="#a3620627bb1d1baccc7a5c94006cbf4b1">More...</a><br /></td></tr>
 <tr class="separator:a3620627bb1d1baccc7a5c94006cbf4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0236cfeb9ed179f09929c0932a82c91"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ae0236cfeb9ed179f09929c0932a82c91">get_integ_frames</a> (void) const override</td></tr>
-<tr class="memdesc:ae0236cfeb9ed179f09929c0932a82c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a copy of the vector of integration frames.  <a href="#ae0236cfeb9ed179f09929c0932a82c91">More...</a><br /></td></tr>
-<tr class="separator:ae0236cfeb9ed179f09929c0932a82c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7daf3161728e93c81deb2df22a965664"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7daf3161728e93c81deb2df22a965664">get_integ_frames</a> () const override</td></tr>
+<tr class="memdesc:a7daf3161728e93c81deb2df22a965664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a copy of the vector of integration frames.  <a href="#a7daf3161728e93c81deb2df22a965664">More...</a><br /></td></tr>
+<tr class="separator:a7daf3161728e93c81deb2df22a965664"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71aa9c3db5903ce878baad9edc2bd21a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a71aa9c3db5903ce878baad9edc2bd21a">add_ref_frame</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;ref_frame) override</td></tr>
 <tr class="memdesc:a71aa9c3db5903ce878baad9edc2bd21a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a reference frame to the reference frame registry.  <a href="#a71aa9c3db5903ce878baad9edc2bd21a">More...</a><br /></td></tr>
 <tr class="separator:a71aa9c3db5903ce878baad9edc2bd21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f60af362587ec2cf30cd55294fe3f24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8f60af362587ec2cf30cd55294fe3f24">set_target_frame</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;ref_frame)</td></tr>
 <tr class="memdesc:a8f60af362587ec2cf30cd55294fe3f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the target-frame reference for the ref-frame and all known EphemItems with similar target-frame names.  <a href="#a8f60af362587ec2cf30cd55294fe3f24">More...</a><br /></td></tr>
 <tr class="separator:a8f60af362587ec2cf30cd55294fe3f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9939f8c740181745fdcd9a896e53f760"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a9939f8c740181745fdcd9a896e53f760">initialize_ephemerides</a> (void)</td></tr>
-<tr class="memdesc:a9939f8c740181745fdcd9a896e53f760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the ephemeris models.  <a href="#a9939f8c740181745fdcd9a896e53f760">More...</a><br /></td></tr>
-<tr class="separator:a9939f8c740181745fdcd9a896e53f760"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5bf9c90d3cd14247787f114b031861a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa5bf9c90d3cd14247787f114b031861a">activate_ephemerides</a> (void)</td></tr>
-<tr class="memdesc:aa5bf9c90d3cd14247787f114b031861a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate ephemeris items based on frame subscription status, activate ephemeris models, and build the reference frame tree.  <a href="#aa5bf9c90d3cd14247787f114b031861a">More...</a><br /></td></tr>
-<tr class="separator:aa5bf9c90d3cd14247787f114b031861a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adafbde112f848f73669972821d5f9d5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#adafbde112f848f73669972821d5f9d5d">update_ephemerides</a> (void)</td></tr>
-<tr class="memdesc:adafbde112f848f73669972821d5f9d5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update each ephemeris model.  <a href="#adafbde112f848f73669972821d5f9d5d">More...</a><br /></td></tr>
-<tr class="separator:adafbde112f848f73669972821d5f9d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a629fa1e5f91cdb7028748fa351e9884b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a629fa1e5f91cdb7028748fa351e9884b">initialize_ephemerides</a> ()</td></tr>
+<tr class="memdesc:a629fa1e5f91cdb7028748fa351e9884b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the ephemeris models.  <a href="#a629fa1e5f91cdb7028748fa351e9884b">More...</a><br /></td></tr>
+<tr class="separator:a629fa1e5f91cdb7028748fa351e9884b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a92531de129b4672bc76b172c8d374f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7a92531de129b4672bc76b172c8d374f">activate_ephemerides</a> ()</td></tr>
+<tr class="memdesc:a7a92531de129b4672bc76b172c8d374f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate ephemeris items based on frame subscription status, activate ephemeris models, and build the reference frame tree.  <a href="#a7a92531de129b4672bc76b172c8d374f">More...</a><br /></td></tr>
+<tr class="separator:a7a92531de129b4672bc76b172c8d374f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d25a3a59564154578a8663cdc2ad6ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a2d25a3a59564154578a8663cdc2ad6ba">update_ephemerides</a> ()</td></tr>
+<tr class="memdesc:a2d25a3a59564154578a8663cdc2ad6ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update each ephemeris model.  <a href="#a2d25a3a59564154578a8663cdc2ad6ba">More...</a><br /></td></tr>
+<tr class="separator:a2d25a3a59564154578a8663cdc2ad6ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1BaseEphemeridesManager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1BaseEphemeridesManager')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html">jeod::BaseEphemeridesManager</a></td></tr>
-<tr class="memitem:a12b89e934093980ddbd9eec02b95a2cf inherit pub_methods_classjeod_1_1BaseEphemeridesManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a12b89e934093980ddbd9eec02b95a2cf">~BaseEphemeridesManager</a> () override</td></tr>
-<tr class="memdesc:a12b89e934093980ddbd9eec02b95a2cf inherit pub_methods_classjeod_1_1BaseEphemeridesManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a12b89e934093980ddbd9eec02b95a2cf">More...</a><br /></td></tr>
-<tr class="separator:a12b89e934093980ddbd9eec02b95a2cf inherit pub_methods_classjeod_1_1BaseEphemeridesManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef72876f24d3cd0926a5367b054a4283 inherit pub_methods_classjeod_1_1BaseEphemeridesManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aef72876f24d3cd0926a5367b054a4283">~BaseEphemeridesManager</a> () override=default</td></tr>
+<tr class="memdesc:aef72876f24d3cd0926a5367b054a4283 inherit pub_methods_classjeod_1_1BaseEphemeridesManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aef72876f24d3cd0926a5367b054a4283">More...</a><br /></td></tr>
+<tr class="separator:aef72876f24d3cd0926a5367b054a4283 inherit pub_methods_classjeod_1_1BaseEphemeridesManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1BaseRefFrameManager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1BaseRefFrameManager')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html">jeod::BaseRefFrameManager</a></td></tr>
-<tr class="memitem:a49cb1cf734465dc9355ce5d883a16064 inherit pub_methods_classjeod_1_1BaseRefFrameManager"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html#a49cb1cf734465dc9355ce5d883a16064">~BaseRefFrameManager</a> ()</td></tr>
-<tr class="memdesc:a49cb1cf734465dc9355ce5d883a16064 inherit pub_methods_classjeod_1_1BaseRefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html#a49cb1cf734465dc9355ce5d883a16064">More...</a><br /></td></tr>
-<tr class="separator:a49cb1cf734465dc9355ce5d883a16064 inherit pub_methods_classjeod_1_1BaseRefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1735674f95939894ed2519cd182514af inherit pub_methods_classjeod_1_1BaseRefFrameManager"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html#a1735674f95939894ed2519cd182514af">~BaseRefFrameManager</a> ()=default</td></tr>
+<tr class="memdesc:a1735674f95939894ed2519cd182514af inherit pub_methods_classjeod_1_1BaseRefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html#a1735674f95939894ed2519cd182514af">More...</a><br /></td></tr>
+<tr class="separator:a1735674f95939894ed2519cd182514af inherit pub_methods_classjeod_1_1BaseRefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1RefFrameManager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1RefFrameManager')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html">jeod::RefFrameManager</a></td></tr>
 <tr class="memitem:a6c0a0eff0abbad24cf72952d099874de inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a6c0a0eff0abbad24cf72952d099874de">RefFrameManager</a> ()</td></tr>
 <tr class="memdesc:a6c0a0eff0abbad24cf72952d099874de inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. ">RefFrameManager</a> default constructor.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a6c0a0eff0abbad24cf72952d099874de">More...</a><br /></td></tr>
@@ -186,55 +189,59 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af820fa43fe089125175e0e52f3297ad0 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#af820fa43fe089125175e0e52f3297ad0">~RefFrameManager</a> () override</td></tr>
 <tr class="memdesc:af820fa43fe089125175e0e52f3297ad0 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html" title="The RefFrameManager class manages the reference frames in a simulation. ">RefFrameManager</a> destructor.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#af820fa43fe089125175e0e52f3297ad0">More...</a><br /></td></tr>
 <tr class="separator:af820fa43fe089125175e0e52f3297ad0 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a153dd4d38f8882c66007f45a4b446e74 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a153dd4d38f8882c66007f45a4b446e74">RefFrameManager</a> (const <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html">RefFrameManager</a> &amp;)=delete</td></tr>
+<tr class="separator:a153dd4d38f8882c66007f45a4b446e74 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5691415afc5ff17f8fb7f8c50c647c40 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html">RefFrameManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a5691415afc5ff17f8fb7f8c50c647c40">operator=</a> (const <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html">RefFrameManager</a> &amp;)=delete</td></tr>
+<tr class="separator:a5691415afc5ff17f8fb7f8c50c647c40 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affb92264fc0e948af5c72a175b3a48a2 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#affb92264fc0e948af5c72a175b3a48a2">add_ref_frame</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;ref_frame) override</td></tr>
 <tr class="memdesc:affb92264fc0e948af5c72a175b3a48a2 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a reference frame to the reference frame registry.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#affb92264fc0e948af5c72a175b3a48a2">More...</a><br /></td></tr>
 <tr class="separator:affb92264fc0e948af5c72a175b3a48a2 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d2dc6a2c40760f1c29ac13a9166a717 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3d2dc6a2c40760f1c29ac13a9166a717">remove_ref_frame</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;ref_frame) override</td></tr>
 <tr class="memdesc:a3d2dc6a2c40760f1c29ac13a9166a717 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a reference frame from the reference frame registry.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3d2dc6a2c40760f1c29ac13a9166a717">More...</a><br /></td></tr>
 <tr class="separator:a3d2dc6a2c40760f1c29ac13a9166a717 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3ca54c2217964b9e1708b4053bfea28 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#af3ca54c2217964b9e1708b4053bfea28">find_ref_frame</a> (const char *name) const override</td></tr>
-<tr class="memdesc:af3ca54c2217964b9e1708b4053bfea28 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the reference frame with the given name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#af3ca54c2217964b9e1708b4053bfea28">More...</a><br /></td></tr>
-<tr class="separator:af3ca54c2217964b9e1708b4053bfea28 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac8571ed75ed0bfd401859a4117d1180 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aac8571ed75ed0bfd401859a4117d1180">find_ref_frame</a> (const char *prefix, const char *suffix) const override</td></tr>
-<tr class="memdesc:aac8571ed75ed0bfd401859a4117d1180 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the reference frame with the dot-conjoined name "${prefix}.${suffix}".  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aac8571ed75ed0bfd401859a4117d1180">More...</a><br /></td></tr>
-<tr class="separator:aac8571ed75ed0bfd401859a4117d1180 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0fa461c479a5cf279b3673edb75d5df inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ad0fa461c479a5cf279b3673edb75d5df">check_ref_frame_ownership</a> (void) const override</td></tr>
-<tr class="memdesc:ad0fa461c479a5cf279b3673edb75d5df inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check that each active reference frame has an owner.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ad0fa461c479a5cf279b3673edb75d5df">More...</a><br /></td></tr>
-<tr class="separator:ad0fa461c479a5cf279b3673edb75d5df inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f0f9f6c0ca6607c0b8a92dcccfdab4d inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3f0f9f6c0ca6607c0b8a92dcccfdab4d">find_ref_frame</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a3f0f9f6c0ca6607c0b8a92dcccfdab4d inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the reference frame with the given name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3f0f9f6c0ca6607c0b8a92dcccfdab4d">More...</a><br /></td></tr>
+<tr class="separator:a3f0f9f6c0ca6607c0b8a92dcccfdab4d inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a155bf93cb8b9b131c5ff26e517f0d8ea inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a155bf93cb8b9b131c5ff26e517f0d8ea">find_ref_frame</a> (const std::string &amp;prefix, const std::string &amp;suffix) const override</td></tr>
+<tr class="memdesc:a155bf93cb8b9b131c5ff26e517f0d8ea inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the reference frame with the dot-conjoined name "${prefix}.${suffix}".  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a155bf93cb8b9b131c5ff26e517f0d8ea">More...</a><br /></td></tr>
+<tr class="separator:a155bf93cb8b9b131c5ff26e517f0d8ea inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a083f7b9a43deb6cf0264d2808e7d43cd inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a083f7b9a43deb6cf0264d2808e7d43cd">check_ref_frame_ownership</a> () const override</td></tr>
+<tr class="memdesc:a083f7b9a43deb6cf0264d2808e7d43cd inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check that each active reference frame has an owner.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a083f7b9a43deb6cf0264d2808e7d43cd">More...</a><br /></td></tr>
+<tr class="separator:a083f7b9a43deb6cf0264d2808e7d43cd inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d8127726336089110adb7725cc6dd9c inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a6d8127726336089110adb7725cc6dd9c">reset_tree_root_node</a> () override</td></tr>
 <tr class="memdesc:a6d8127726336089110adb7725cc6dd9c inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the root node in anticipation of rebuilding the entire tree.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a6d8127726336089110adb7725cc6dd9c">More...</a><br /></td></tr>
 <tr class="separator:a6d8127726336089110adb7725cc6dd9c inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a525cc09b73ff0e09515ab25792cf97de inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a525cc09b73ff0e09515ab25792cf97de">add_frame_to_tree</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;ref_frame, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *parent) override</td></tr>
 <tr class="memdesc:a525cc09b73ff0e09515ab25792cf97de inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a reference frame in the reference frame tree.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a525cc09b73ff0e09515ab25792cf97de">More...</a><br /></td></tr>
 <tr class="separator:a525cc09b73ff0e09515ab25792cf97de inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e44bac69e14cf681cbe1d4bfde82b7e inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3e44bac69e14cf681cbe1d4bfde82b7e">subscribe_to_frame</a> (const char *frame_name) override</td></tr>
-<tr class="memdesc:a3e44bac69e14cf681cbe1d4bfde82b7e inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a reference frame, with the frame specified by name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3e44bac69e14cf681cbe1d4bfde82b7e">More...</a><br /></td></tr>
-<tr class="separator:a3e44bac69e14cf681cbe1d4bfde82b7e inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa10db7678bdb889fec38cabb3098ea2f inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aa10db7678bdb889fec38cabb3098ea2f">subscribe_to_frame</a> (const std::string &amp;frame_name) override</td></tr>
+<tr class="memdesc:aa10db7678bdb889fec38cabb3098ea2f inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a reference frame, with the frame specified by name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aa10db7678bdb889fec38cabb3098ea2f">More...</a><br /></td></tr>
+<tr class="separator:aa10db7678bdb889fec38cabb3098ea2f inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2fe3de703a86e81ab8980064a396dc4 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ad2fe3de703a86e81ab8980064a396dc4">subscribe_to_frame</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;frame) override</td></tr>
 <tr class="memdesc:ad2fe3de703a86e81ab8980064a396dc4 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a reference frame, with the frame specified as an argument.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ad2fe3de703a86e81ab8980064a396dc4">More...</a><br /></td></tr>
 <tr class="separator:ad2fe3de703a86e81ab8980064a396dc4 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6b8c1cbb22ad69204fc9a7affa6834f inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ae6b8c1cbb22ad69204fc9a7affa6834f">unsubscribe_to_frame</a> (const char *frame_name) override</td></tr>
-<tr class="memdesc:ae6b8c1cbb22ad69204fc9a7affa6834f inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove subscription to a reference frame, with the frame specified by name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ae6b8c1cbb22ad69204fc9a7affa6834f">More...</a><br /></td></tr>
-<tr class="separator:ae6b8c1cbb22ad69204fc9a7affa6834f inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac1876cf2f0080baf58697a3314c8d0e inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aac1876cf2f0080baf58697a3314c8d0e">unsubscribe_to_frame</a> (const std::string &amp;frame_name) override</td></tr>
+<tr class="memdesc:aac1876cf2f0080baf58697a3314c8d0e inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove subscription to a reference frame, with the frame specified by name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aac1876cf2f0080baf58697a3314c8d0e">More...</a><br /></td></tr>
+<tr class="separator:aac1876cf2f0080baf58697a3314c8d0e inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab99fbeaef85de761671f1099d6fe952a inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ab99fbeaef85de761671f1099d6fe952a">unsubscribe_to_frame</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;frame) override</td></tr>
 <tr class="memdesc:ab99fbeaef85de761671f1099d6fe952a inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove subscription to a reference frame, with the frame specified as an argument.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ab99fbeaef85de761671f1099d6fe952a">More...</a><br /></td></tr>
 <tr class="separator:ab99fbeaef85de761671f1099d6fe952a inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fd1e27bcbb32f953a5717674a72a005 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a2fd1e27bcbb32f953a5717674a72a005">frame_is_subscribed</a> (const char *frame_name) override</td></tr>
-<tr class="memdesc:a2fd1e27bcbb32f953a5717674a72a005 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether frame has subscribers; frame specified by name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a2fd1e27bcbb32f953a5717674a72a005">More...</a><br /></td></tr>
-<tr class="separator:a2fd1e27bcbb32f953a5717674a72a005 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab939b7c47269c1bbea36d4984cad1704 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ab939b7c47269c1bbea36d4984cad1704">frame_is_subscribed</a> (const std::string &amp;frame_name) override</td></tr>
+<tr class="memdesc:ab939b7c47269c1bbea36d4984cad1704 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether frame has subscribers; frame specified by name.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ab939b7c47269c1bbea36d4984cad1704">More...</a><br /></td></tr>
+<tr class="separator:ab939b7c47269c1bbea36d4984cad1704 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a785155c65f31cfc6f57443c56fe61575 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a785155c65f31cfc6f57443c56fe61575">frame_is_subscribed</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;frame) override</td></tr>
 <tr class="memdesc:a785155c65f31cfc6f57443c56fe61575 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether frame has subscribers; frame provided as an argument.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a785155c65f31cfc6f57443c56fe61575">More...</a><br /></td></tr>
 <tr class="separator:a785155c65f31cfc6f57443c56fe61575 inherit pub_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a8ac50ead23e67f05f5918f1c6d337a82"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ac50ead23e67f05f5918f1c6d337a82">single_ephem_mode</a></td></tr>
+<tr class="memitem:a8ac50ead23e67f05f5918f1c6d337a82"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ac50ead23e67f05f5918f1c6d337a82">single_ephem_mode</a> {}</td></tr>
 <tr class="memdesc:a8ac50ead23e67f05f5918f1c6d337a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set via a call to disable_add_ephemeris, typically to allow a simple ephemeris model to be active with all other models made inactive.  <a href="#a8ac50ead23e67f05f5918f1c6d337a82">More...</a><br /></td></tr>
 <tr class="separator:a8ac50ead23e67f05f5918f1c6d337a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51f9f144b89a147aecb838a2333b6a82"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a></td></tr>
+<tr class="memitem:a51f9f144b89a147aecb838a2333b6a82"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a> {}</td></tr>
 <tr class="memdesc:a51f9f144b89a147aecb838a2333b6a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set when the reference frame tree needs to be regenerated.  <a href="#a51f9f144b89a147aecb838a2333b6a82">More...</a><br /></td></tr>
 <tr class="separator:a51f9f144b89a147aecb838a2333b6a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfcd948f40f95218775305a63de6f96c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#adfcd948f40f95218775305a63de6f96c">update_time</a></td></tr>
+<tr class="memitem:adfcd948f40f95218775305a63de6f96c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#adfcd948f40f95218775305a63de6f96c">update_time</a> {}</td></tr>
 <tr class="memdesc:adfcd948f40f95218775305a63de6f96c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time of last update.  <a href="#adfcd948f40f95218775305a63de6f96c">More...</a><br /></td></tr>
 <tr class="separator:adfcd948f40f95218775305a63de6f96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affaee74dfde3fe6e96cd8abb56dc1bbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d08/classjeod_1_1JeodPointerVector.html">JeodPointerVector</a>&lt; <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a> &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#affaee74dfde3fe6e96cd8abb56dc1bbf">planets</a></td></tr>
@@ -250,23 +257,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:ad731c09ffd086d363c60e33e69413340"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of reference frames that are not rotating with respect to the root node of the reference frame tree.  <a href="#ad731c09ffd086d363c60e33e69413340">More...</a><br /></td></tr>
 <tr class="separator:ad731c09ffd086d363c60e33e69413340"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1RefFrameManager"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1RefFrameManager')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html">jeod::RefFrameManager</a></td></tr>
-<tr class="memitem:ad30cb78b38462b003452b7a8c5eb4c3d inherit pro_attribs_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ad30cb78b38462b003452b7a8c5eb4c3d">root_node</a></td></tr>
+<tr class="memitem:ad30cb78b38462b003452b7a8c5eb4c3d inherit pro_attribs_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ad30cb78b38462b003452b7a8c5eb4c3d">root_node</a> {}</td></tr>
 <tr class="memdesc:ad30cb78b38462b003452b7a8c5eb4c3d inherit pro_attribs_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">The root node of the reference frame tree.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#ad30cb78b38462b003452b7a8c5eb4c3d">More...</a><br /></td></tr>
 <tr class="separator:ad30cb78b38462b003452b7a8c5eb4c3d inherit pro_attribs_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72a4e88724262a4e2971aabd1b8ad12d inherit pro_attribs_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d08/classjeod_1_1JeodPointerVector.html">JeodPointerVector</a>&lt; <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a72a4e88724262a4e2971aabd1b8ad12d">ref_frames</a></td></tr>
 <tr class="memdesc:a72a4e88724262a4e2971aabd1b8ad12d inherit pro_attribs_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of reference frames.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a72a4e88724262a4e2971aabd1b8ad12d">More...</a><br /></td></tr>
 <tr class="separator:a72a4e88724262a4e2971aabd1b8ad12d inherit pro_attribs_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:aed1f1d49207c5697372e7e3f8506dd05"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aed1f1d49207c5697372e7e3f8506dd05">EphemeridesManager</a> (const <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;)</td></tr>
-<tr class="memdesc:aed1f1d49207c5697372e7e3f8506dd05"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Not implemented.  <a href="#aed1f1d49207c5697372e7e3f8506dd05">More...</a><br /></td></tr>
-<tr class="separator:aed1f1d49207c5697372e7e3f8506dd05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91eed3773b3ffbc580f2b40a25471297"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a91eed3773b3ffbc580f2b40a25471297">operator=</a> (const <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html">EphemeridesManager</a> &amp;)</td></tr>
-<tr class="memdesc:a91eed3773b3ffbc580f2b40a25471297"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Not implemented.  <a href="#a91eed3773b3ffbc580f2b40a25471297">More...</a><br /></td></tr>
-<tr class="separator:a91eed3773b3ffbc580f2b40a25471297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -278,9 +274,9 @@ Friends</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classjeod_1_1RefFrameManager"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjeod_1_1RefFrameManager')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html">jeod::RefFrameManager</a></td></tr>
-<tr class="memitem:aa2a497e17d447683a3f66850a164c243 inherit pro_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aa2a497e17d447683a3f66850a164c243">validate_name</a> (const char *file, unsigned int line, const char *variable_value, const char *variable_type, const char *variable_name) const</td></tr>
-<tr class="memdesc:aa2a497e17d447683a3f66850a164c243 inherit pro_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a name is trivially valid/invalid.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aa2a497e17d447683a3f66850a164c243">More...</a><br /></td></tr>
-<tr class="separator:aa2a497e17d447683a3f66850a164c243 inherit pro_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfeb745911f818659313a21d013a4600 inherit pro_methods_classjeod_1_1RefFrameManager"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#abfeb745911f818659313a21d013a4600">validate_name</a> (const char *file, unsigned int line, const std::string &amp;variable_value, const std::string &amp;variable_type, const std::string &amp;variable_name) const</td></tr>
+<tr class="memdesc:abfeb745911f818659313a21d013a4600 inherit pro_methods_classjeod_1_1RefFrameManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a name is trivially valid/invalid.  <a href="../../d9/d8a/classjeod_1_1RefFrameManager.html#abfeb745911f818659313a21d013a4600">More...</a><br /></td></tr>
+<tr class="separator:abfeb745911f818659313a21d013a4600 inherit pro_methods_classjeod_1_1RefFrameManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. ">EphemeridesManager</a> class manages the ephemeris models in a simulation. </p>
@@ -290,7 +286,7 @@ Additional Inherited Members</h2></td></tr>
 <li>Initialize ephemeris models and keep them in sync with the rest of the simulation. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00091">91</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00089">89</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8bf1aad011db53dd0964395a26d9c0f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bf1aad011db53dd0964395a26d9c0f3">&#9670;&nbsp;</a></span>EphemeridesManager() <span class="overload">[1/2]</span></h2>
@@ -301,7 +297,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">jeod::EphemeridesManager::EphemeridesManager </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -310,7 +305,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. ">EphemeridesManager</a> default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00059">59</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00058">58</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>, <a class="el" href="../../d0/d87/group__external.html#ga275078e14936cc1c45a050dbe6caf889">JEOD_REGISTER_CHECKPOINTABLE</a>, <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#affaee74dfde3fe6e96cd8abb56dc1bbf">planets</a>.</p>
 
@@ -328,7 +323,6 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">jeod::EphemeridesManager::~EphemeridesManager </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -342,14 +336,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p><a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. ">EphemeridesManager</a> destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00083">83</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00076">76</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>, <a class="el" href="../../d0/d87/group__external.html#ga33a2613b81ddc6289ddca6a803858078">JEOD_DEREGISTER_CHECKPOINTABLE</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#affaee74dfde3fe6e96cd8abb56dc1bbf">planets</a>.</p>
 
 </div>
 </div>
-<a id="aed1f1d49207c5697372e7e3f8506dd05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed1f1d49207c5697372e7e3f8506dd05">&#9670;&nbsp;</a></span>EphemeridesManager() <span class="overload">[2/2]</span></h2>
+<a id="aa07ff317c419088d9eb04e7cdd71b41a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa07ff317c419088d9eb04e7cdd71b41a">&#9670;&nbsp;</a></span>EphemeridesManager() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,19 +361,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p><br />
-Not implemented. </p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa5bf9c90d3cd14247787f114b031861a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5bf9c90d3cd14247787f114b031861a">&#9670;&nbsp;</a></span>activate_ephemerides()</h2>
+<a id="a7a92531de129b4672bc76b172c8d374f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a92531de129b4672bc76b172c8d374f">&#9670;&nbsp;</a></span>activate_ephemerides()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -387,7 +378,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::EphemeridesManager::activate_ephemerides </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -396,11 +386,11 @@ Not implemented. </p>
 
 <p>Activate ephemeris items based on frame subscription status, activate ephemeris models, and build the reference frame tree. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00707">707</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00635">635</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a370dfca84df9935dc96f178b7715f862">jeod::EphemerisItem::disconnect_from_tree()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a3a02bef9e0e6e7b8c31cf84ddfd3e671">jeod::EphemerisInterface::ephem_activate()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a104a5880bb7a2798b8e0c0de006a750c">jeod::EphemerisInterface::ephem_build_tree()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>, and <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a6d8127726336089110adb7725cc6dd9c">jeod::RefFrameManager::reset_tree_root_node()</a>.</p>
+<p class="reference">References <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ae21b2417cc5b45ac94a1fdf2775eadf2">jeod::EphemerisItem::disconnect_from_tree()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a3a02bef9e0e6e7b8c31cf84ddfd3e671">jeod::EphemerisInterface::ephem_activate()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a104a5880bb7a2798b8e0c0de006a750c">jeod::EphemerisInterface::ephem_build_tree()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>, and <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a6d8127726336089110adb7725cc6dd9c">jeod::RefFrameManager::reset_tree_root_node()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#afe0bafb18275de4d5476852e6fdb6ef4">jeod::DynManager::initialize_simulation()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#adafbde112f848f73669972821d5f9d5d">update_ephemerides()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa403ed5cd1e55c20f4d81dd7f5f63fc0">jeod::DynManager::initialize_simulation()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a2d25a3a59564154578a8663cdc2ad6ba">update_ephemerides()</a>.</p>
 
 </div>
 </div>
@@ -448,9 +438,9 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a323ce0923d1f8a171b45fae061962d56">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00296">296</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00263">263</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a85e668b414e06c895fc34d9b99013305">jeod::EphemerisItem::disable()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab0231e39e3c96e46f022229058241b7a">jeod::EphemeridesMessages::duplicate_entry</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a977a52f6b9f146e7030ecc067dd698e3">find_ephem_item()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#af3ca54c2217964b9e1708b4053bfea28">jeod::RefFrameManager::find_ref_frame()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ab0dde68e0fb00c40cc5469c581d1c464">jeod::EphemerisItem::get_enabled_item()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a6930d080e9a4dfb9be76361eeff57f99">jeod::EphemerisInterface::get_name()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a580901e24db1eef343efcbdfdfa5a8cb">jeod::EphemerisItem::get_name()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9d5bdb56bb46d594c2f1843b404c591c">jeod::RefFrame::get_name()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa7c9d4956a8bdc6cafdab34a8e2a150e">jeod::EphemerisItem::get_next()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a6fc309587e2127a16883bcfce7bdb329">jeod::EphemerisItem::get_owner()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5305253089de72f25b676f263a381531">jeod::MessageHandler::inform()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a875ea3181d1383490945e9433c54b00b">jeod::EphemeridesMessages::internal_error</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a7e0bcee5bceef53022996962aba9d761">jeod::EphemerisItem::is_enabled()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a24ffc4be92e2811e83aebe54a9b98fb2">jeod::EphemerisItem::set_head()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a784c5af731d63b443c008ff4bf7b13f8">jeod::EphemerisItem::set_manager()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a183580864f44288d334995114c9519e1">jeod::EphemerisItem::set_next()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a82145fa4c339df9ef10598073b275833">jeod::EphemerisItem::set_target_frame()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a56c128ca32e76fa8349ad96205265d9c">jeod::EphemeridesMessages::single_ephem_mode</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ac50ead23e67f05f5918f1c6d337a82">single_ephem_mode</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a9afe22dfef80611356b05ec8bcd7d05ba64538c117ff38fdd844f886a0b62ae79">jeod::EphemerisItem::Translation</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a60b417fe2617130eeb022a75c46dc808">jeod::EphemerisItem::updates_what()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aa2a497e17d447683a3f66850a164c243">jeod::RefFrameManager::validate_name()</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
+<p class="reference">References <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a85e668b414e06c895fc34d9b99013305">jeod::EphemerisItem::disable()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab0231e39e3c96e46f022229058241b7a">jeod::EphemeridesMessages::duplicate_entry</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a841121fc529fdc26cf042b978294005a">find_ephem_item()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#a3f0f9f6c0ca6607c0b8a92dcccfdab4d">jeod::RefFrameManager::find_ref_frame()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a3d6a35df02f5982f53a4761d8ee1ef63">jeod::EphemerisItem::get_enabled_item()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a216909fb3aee33ef81b333c24f278492">jeod::EphemerisInterface::get_name()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a66a56e8cae76232555dfac740c674fc6">jeod::EphemerisItem::get_name()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0da5d50aa8e348a10d6d7fe16adc1ab3">jeod::RefFrame::get_name()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#aa7c9d4956a8bdc6cafdab34a8e2a150e">jeod::EphemerisItem::get_next()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a6fc309587e2127a16883bcfce7bdb329">jeod::EphemerisItem::get_owner()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5305253089de72f25b676f263a381531">jeod::MessageHandler::inform()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a875ea3181d1383490945e9433c54b00b">jeod::EphemeridesMessages::internal_error</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a7e0bcee5bceef53022996962aba9d761">jeod::EphemerisItem::is_enabled()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a24ffc4be92e2811e83aebe54a9b98fb2">jeod::EphemerisItem::set_head()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a784c5af731d63b443c008ff4bf7b13f8">jeod::EphemerisItem::set_manager()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a183580864f44288d334995114c9519e1">jeod::EphemerisItem::set_next()</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a82145fa4c339df9ef10598073b275833">jeod::EphemerisItem::set_target_frame()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a56c128ca32e76fa8349ad96205265d9c">jeod::EphemeridesMessages::single_ephem_mode</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ac50ead23e67f05f5918f1c6d337a82">single_ephem_mode</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a9afe22dfef80611356b05ec8bcd7d05ba64538c117ff38fdd844f886a0b62ae79">jeod::EphemerisItem::Translation</a>, <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#ad6421eac053f19400cb772b4779b00c9">jeod::EphemerisItem::updates_what()</a>, <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#abfeb745911f818659313a21d013a4600">jeod::RefFrameManager::validate_name()</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af6c6eb9b18705af9020ff5b97dccd3c3">jeod::PlanetOrientation::initialize()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#adc0f54375a4e39e11b232852930f14ce">jeod::De4xxEphemeris::initialize_items()</a>, <a class="el" href="../../da/dde/classjeod_1_1EmptySpaceEphemeris.html#a8c3447390fe302d5a14aa6bfaa78e7c6">jeod::EmptySpaceEphemeris::initialize_model()</a>, <a class="el" href="../../d8/d56/classjeod_1_1SinglePlanetEphemeris.html#a54412d1a70ef77018c0c7eff9bd4760f">jeod::SinglePlanetEphemeris::initialize_model()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">jeod::PropagatedPlanet::initialize_model()</a>, and <a class="el" href="../../d7/d1a/classjeod_1_1SpiceEphemeris.html#af78ed3ba504e9345b6c86511fe3f7f19">jeod::SpiceEphemeris::introduce_item()</a>.</p>
 
@@ -494,11 +484,11 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a96fb3aeae46c6d7e0a24be79845c35fd">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00232">232</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00207">207</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af6c6eb9b18705af9020ff5b97dccd3c3">jeod::PlanetOrientation::initialize()</a>, <a class="el" href="../../d7/d1a/classjeod_1_1SpiceEphemeris.html#ac6e8aff1854c1b02071852f4a8cfe3c3">jeod::SpiceEphemeris::initialize_model()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#ad59788bf3d8dfdc78fda3b1f5d37d466">jeod::De4xxEphemeris::initialize_model()</a>, <a class="el" href="../../da/dde/classjeod_1_1EmptySpaceEphemeris.html#a8c3447390fe302d5a14aa6bfaa78e7c6">jeod::EmptySpaceEphemeris::initialize_model()</a>, <a class="el" href="../../d8/d56/classjeod_1_1SinglePlanetEphemeris.html#a54412d1a70ef77018c0c7eff9bd4760f">jeod::SinglePlanetEphemeris::initialize_model()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">jeod::PropagatedPlanet::initialize_model()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af6c6eb9b18705af9020ff5b97dccd3c3">jeod::PlanetOrientation::initialize()</a>, <a class="el" href="../../d7/d1a/classjeod_1_1SpiceEphemeris.html#ac6e8aff1854c1b02071852f4a8cfe3c3">jeod::SpiceEphemeris::initialize_model()</a>, <a class="el" href="../../da/dde/classjeod_1_1EmptySpaceEphemeris.html#a8c3447390fe302d5a14aa6bfaa78e7c6">jeod::EmptySpaceEphemeris::initialize_model()</a>, <a class="el" href="../../d2/d27/classjeod_1_1De4xxEphemeris.html#ad59788bf3d8dfdc78fda3b1f5d37d466">jeod::De4xxEphemeris::initialize_model()</a>, <a class="el" href="../../d8/d56/classjeod_1_1SinglePlanetEphemeris.html#a54412d1a70ef77018c0c7eff9bd4760f">jeod::SinglePlanetEphemeris::initialize_model()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">jeod::PropagatedPlanet::initialize_model()</a>.</p>
 
 </div>
 </div>
@@ -536,7 +526,7 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a99f7ef000e010b446e0a38b0842f5c95">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00467">467</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00434">434</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a71aa9c3db5903ce878baad9edc2bd21a">add_ref_frame()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>.</p>
 
@@ -578,9 +568,9 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aa5b5788b494bbe20b27938358b2d4640">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00120">120</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00104">104</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab0231e39e3c96e46f022229058241b7a">jeod::EphemeridesMessages::duplicate_entry</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7ce58e26795e84c53c74a00235eddcc8">find_base_planet()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a5a43556db48656439ba8b08efb8c2d98">jeod::BasePlanet::name</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#affaee74dfde3fe6e96cd8abb56dc1bbf">planets</a>, and <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#aa2a497e17d447683a3f66850a164c243">jeod::RefFrameManager::validate_name()</a>.</p>
+<p class="reference">References <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab0231e39e3c96e46f022229058241b7a">jeod::EphemeridesMessages::duplicate_entry</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa626fc6ec3f08c65ab4a31751a746cde">find_base_planet()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a5a43556db48656439ba8b08efb8c2d98">jeod::BasePlanet::name</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#affaee74dfde3fe6e96cd8abb56dc1bbf">planets</a>, and <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#abfeb745911f818659313a21d013a4600">jeod::RefFrameManager::validate_name()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10d955447c8e57321474097da7ed2058">add_planet()</a>.</p>
 
@@ -620,7 +610,7 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a9694452993769cef692dd93209bcb5d0">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d45/find__planet_8cc_source.html#l00087">87</a> of file <a class="el" href="../../d6/d45/find__planet_8cc_source.html">find_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d45/find__planet_8cc_source.html#l00085">85</a> of file <a class="el" href="../../d6/d45/find__planet_8cc_source.html">find_planet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ab5f3435c3d78146cffc0353cd97615a9">add_planet()</a>.</p>
 
@@ -660,16 +650,16 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../d5/d60/classjeod_1_1BaseRefFrameManager.html#ae607f0681730b6016cda2d0bb02f8315">jeod::BaseRefFrameManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00594">594</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00539">539</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d9/d8a/classjeod_1_1RefFrameManager.html#affb92264fc0e948af5c72a175b3a48a2">jeod::RefFrameManager::add_ref_frame()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8f60af362587ec2cf30cd55294fe3f24">set_target_frame()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad5c204fe7b1a9591cfd215a51a09e3bb">add_integ_frame()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">jeod::LvlhFrame::initialize()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">jeod::LvlhDerivedState::initialize()</a>, and <a class="el" href="../../d3/dda/classjeod_1_1NedDerivedState.html#a47717bfb6c6742d640ccfa346bb000c0">jeod::NedDerivedState::initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad5c204fe7b1a9591cfd215a51a09e3bb">add_integ_frame()</a>, <a class="el" href="../../df/d0d/classjeod_1_1LvlhDerivedState.html#ae483f0cb9ffe1c3f1b7acf7cc06b5269">jeod::LvlhDerivedState::initialize()</a>, <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">jeod::LvlhFrame::initialize()</a>, and <a class="el" href="../../d3/dda/classjeod_1_1NedDerivedState.html#a47717bfb6c6742d640ccfa346bb000c0">jeod::NedDerivedState::initialize()</a>.</p>
 
 </div>
 </div>
-<a id="a08ef155f2fceec558e453b490447c944"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08ef155f2fceec558e453b490447c944">&#9670;&nbsp;</a></span>clear_added_ephemerides()</h2>
+<a id="a8ad65b8bd492f636dca634c99cdbca02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad65b8bd492f636dca634c99cdbca02">&#9670;&nbsp;</a></span>clear_added_ephemerides()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -680,7 +670,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::EphemeridesManager::clear_added_ephemerides </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -694,18 +683,18 @@ Not implemented. </p>
 
 <p>Deactivate any registered ephemeris items and remove them from the list. </p>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a6d30ba7b39abac696b922dcc3ad8085c">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#ab02d284efef57d4213d49068f12ca6a6">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00245">245</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00216">216</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a85e668b414e06c895fc34d9b99013305">jeod::EphemerisItem::disable()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a56c128ca32e76fa8349ad96205265d9c">jeod::EphemeridesMessages::single_ephem_mode</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a56c128ca32e76fa8349ad96205265d9c">jeod::EphemeridesMessages::single_ephem_mode</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a8687af81be693f2b1716a263369dbeee">jeod::DynManager::initialize_model_internal()</a>.</p>
 
 </div>
 </div>
-<a id="ae8a8947c882343e906d95a270b17ca24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8a8947c882343e906d95a270b17ca24">&#9670;&nbsp;</a></span>disable_add_ephemeris()</h2>
+<a id="a6402393e59d9707999c9fe4654507c1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6402393e59d9707999c9fe4654507c1c">&#9670;&nbsp;</a></span>disable_add_ephemeris()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -716,7 +705,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::EphemeridesManager::disable_add_ephemeris </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -732,12 +720,12 @@ Not implemented. </p>
 <dl class="section note"><dt>Note</dt><dd>This is an irrevocable act.</dd></dl>
 <h2>Assumptions and limitations:</h2>
 <ul>
-<li>This method is typically used after clearing the ephemerides model list and then adding the one allowed ephermides model:<div class="fragment"><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a08ef155f2fceec558e453b490447c944">EphemeridesManager::clear_added_ephemerides</a>();</div><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10e4c3d2d9fc956006069ca48eb5b154">EphemeridesManager::add_ephemeris</a> (model);</div><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">EphemeridesManager::add_ephem_item</a> (item);</div><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ae8a8947c882343e906d95a270b17ca24">EphemeridesManager::disable_add_ephemeris</a> ();</div></div><!-- fragment --> </li>
+<li>This method is typically used after clearing the ephemerides model list and then adding the one allowed ephermides model:<div class="fragment"><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ad65b8bd492f636dca634c99cdbca02">EphemeridesManager::clear_added_ephemerides</a>();</div><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10e4c3d2d9fc956006069ca48eb5b154">EphemeridesManager::add_ephemeris</a> (model);</div><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">EphemeridesManager::add_ephem_item</a> (item);</div><div class="line"><a class="code" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6402393e59d9707999c9fe4654507c1c">EphemeridesManager::disable_add_ephemeris</a> ();</div></div><!-- fragment --> </li>
 </ul>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#ad17cd92a22cbb5c95135c112d4dbf16c">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aab677f5697cf7d429f8907e1d5725ec6">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00214">214</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00192">192</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ac50ead23e67f05f5918f1c6d337a82">single_ephem_mode</a>.</p>
 
@@ -757,7 +745,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::EphemeridesManager::ephem_note_tree_status_change </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -773,16 +760,16 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a0e257d8578d5696611bb938f61d4f91b">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00102">102</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00091">91</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a7cfc7216ccded4c974d70c726977548c">jeod::PropagatedPlanet::set_mode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a94796e9361066e23347cb9bc9e2669f8">jeod::PropagatedPlanet::set_mode()</a>.</p>
 
 </div>
 </div>
-<a id="a7ce58e26795e84c53c74a00235eddcc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ce58e26795e84c53c74a00235eddcc8">&#9670;&nbsp;</a></span>find_base_planet()</h2>
+<a id="aa626fc6ec3f08c65ab4a31751a746cde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa626fc6ec3f08c65ab4a31751a746cde">&#9670;&nbsp;</a></span>find_base_planet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -793,7 +780,7 @@ Not implemented. </p>
         <tr>
           <td class="memname"><a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html">BasePlanet</a> * jeod::EphemeridesManager::find_base_planet </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -814,18 +801,18 @@ Not implemented. </p>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Found planet; NULL if not found. </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a66374656cc0bdcd85174a4feeb25c7ea">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a122a53d4c15655660d3366af5d55c60e">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00159">159</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00144">144</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a5a43556db48656439ba8b08efb8c2d98">jeod::BasePlanet::name</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#affaee74dfde3fe6e96cd8abb56dc1bbf">planets</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ab5f3435c3d78146cffc0353cd97615a9">add_planet()</a>, <a class="el" href="../../d8/d56/classjeod_1_1SinglePlanetEphemeris.html#aa719b74408b6ab59400f62f431a05f6d">jeod::SinglePlanetEphemeris::ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">jeod::PropagatedPlanet::ephem_initialize()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6fd89ab9a89396fa15275c9513e96e92">find_planet()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">jeod::LvlhFrame::initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ab5f3435c3d78146cffc0353cd97615a9">add_planet()</a>, <a class="el" href="../../d8/d56/classjeod_1_1SinglePlanetEphemeris.html#aa719b74408b6ab59400f62f431a05f6d">jeod::SinglePlanetEphemeris::ephem_initialize()</a>, <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">jeod::PropagatedPlanet::ephem_initialize()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ab08258ab6e3622acce63c8daa3da5b1b">find_planet()</a>, and <a class="el" href="../../d5/d32/classjeod_1_1LvlhFrame.html#abe5beea96ef51f68c47b9f5f6c46174a">jeod::LvlhFrame::initialize()</a>.</p>
 
 </div>
 </div>
-<a id="a278792c2f595456352705ec167eff015"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a278792c2f595456352705ec167eff015">&#9670;&nbsp;</a></span>find_ephem_angle()</h2>
+<a id="a5e7be77794628a62e31782086db56e3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e7be77794628a62e31782086db56e3a">&#9670;&nbsp;</a></span>find_ephem_angle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -836,7 +823,7 @@ Not implemented. </p>
         <tr>
           <td class="memname"><a class="el" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html">EphemerisOrientation</a> * jeod::EphemeridesManager::find_ephem_angle </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -857,16 +844,16 @@ Not implemented. </p>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Found ephemeris angle </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#ab0ee273e7bff8e4c9d69bb2a82d41794">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aa5fd6995d70dc9f140ae670862606050">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00413">413</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00381">381</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a977a52f6b9f146e7030ecc067dd698e3">find_ephem_item()</a>, and <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a841121fc529fdc26cf042b978294005a">find_ephem_item()</a>, and <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>.</p>
 
 </div>
 </div>
-<a id="a977a52f6b9f146e7030ecc067dd698e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a977a52f6b9f146e7030ecc067dd698e3">&#9670;&nbsp;</a></span>find_ephem_item()</h2>
+<a id="a841121fc529fdc26cf042b978294005a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a841121fc529fdc26cf042b978294005a">&#9670;&nbsp;</a></span>find_ephem_item()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -877,7 +864,7 @@ Not implemented. </p>
         <tr>
           <td class="memname"><a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html">EphemerisItem</a> * jeod::EphemeridesManager::find_ephem_item </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -898,18 +885,18 @@ Not implemented. </p>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Found ephemeris item </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a5e7e7db673707da474ffad25e10830ff">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a5dae195302bf5d208a07f39e6aacb598">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00388">388</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00361">361</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>, and <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a580901e24db1eef343efcbdfdfa5a8cb">jeod::EphemerisItem::get_name()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8191187dfd8d370fa5d3f798d4c9b9ab">ephem_items</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">add_ephem_item()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a278792c2f595456352705ec167eff015">find_ephem_angle()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a103e2c4707d0bd982a1dc0bfecd444d8">find_ephem_point()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8f60af362587ec2cf30cd55294fe3f24">set_target_frame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">add_ephem_item()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a5e7be77794628a62e31782086db56e3a">find_ephem_angle()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a38f84afce6708a676bfed7aeaf52de81">find_ephem_point()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8f60af362587ec2cf30cd55294fe3f24">set_target_frame()</a>.</p>
 
 </div>
 </div>
-<a id="a103e2c4707d0bd982a1dc0bfecd444d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a103e2c4707d0bd982a1dc0bfecd444d8">&#9670;&nbsp;</a></span>find_ephem_point()</h2>
+<a id="a38f84afce6708a676bfed7aeaf52de81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38f84afce6708a676bfed7aeaf52de81">&#9670;&nbsp;</a></span>find_ephem_point()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -920,7 +907,7 @@ Not implemented. </p>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d42/classjeod_1_1EphemerisPoint.html">EphemerisPoint</a> * jeod::EphemeridesManager::find_ephem_point </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -941,16 +928,16 @@ Not implemented. </p>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Found ephemeris point </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aaed4ebef992118a98e703c0f92e85717">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aa4231f61e7ed4286c4d8961cab627e87">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00438">438</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00406">406</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a977a52f6b9f146e7030ecc067dd698e3">find_ephem_item()</a>, and <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a841121fc529fdc26cf042b978294005a">find_ephem_item()</a>, and <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>.</p>
 
 </div>
 </div>
-<a id="a226f16d26dba4a6e90194a5c2906c472"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a226f16d26dba4a6e90194a5c2906c472">&#9670;&nbsp;</a></span>find_integ_frame()</h2>
+<a id="a05139b0f6dee46c5c057b1a31aa46c04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05139b0f6dee46c5c057b1a31aa46c04">&#9670;&nbsp;</a></span>find_integ_frame()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -961,7 +948,7 @@ Not implemented. </p>
         <tr>
           <td class="memname"><a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> * jeod::EphemeridesManager::find_integ_frame </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -982,11 +969,11 @@ Not implemented. </p>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Found integration frame </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#ae8dd76a4722c1a441d0f405e63421f92">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#ac57c8032cd2e162319f7bf00111fa466">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00486">486</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00449">449</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9d5bdb56bb46d594c2f1843b404c591c">jeod::RefFrame::get_name()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d8/dda/classjeod_1_1DynBodyFrameSwitch.html#afb3d5bfdae07c5da9bee34a7c35af82a">jeod::DynBodyFrameSwitch::initialize()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5595ba048a013815d85b8b0f05e10357">jeod::PropagatedPlanet::initialize_model()</a>.</p>
 
@@ -1027,14 +1014,14 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a87e2f9227ec7d13bde7c842380ca8fba">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00551">551</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00500">500</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9d5bdb56bb46d594c2f1843b404c591c">jeod::RefFrame::get_name()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>, and <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0da5d50aa8e348a10d6d7fe16adc1ab3">jeod::RefFrame::get_name()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>, and <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>.</p>
 
 </div>
 </div>
-<a id="a6fd89ab9a89396fa15275c9513e96e92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fd89ab9a89396fa15275c9513e96e92">&#9670;&nbsp;</a></span>find_planet()</h2>
+<a id="ab08258ab6e3622acce63c8daa3da5b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab08258ab6e3622acce63c8daa3da5b1b">&#9670;&nbsp;</a></span>find_planet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1045,7 +1032,7 @@ Not implemented. </p>
         <tr>
           <td class="memname"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> * jeod::EphemeridesManager::find_planet </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1066,18 +1053,18 @@ Not implemented. </p>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Found planet, as a <a class="el" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. ">Planet</a> rather than a <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html" title="A BasePlanet contains the base data needed to model a planet in JEOD. ">BasePlanet</a> </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a1732a9a0fbc4b00894341fcbbf50d98b">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a9812c096194107026baa5d8d265f7b58">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d45/find__planet_8cc_source.html#l00051">51</a> of file <a class="el" href="../../d6/d45/find__planet_8cc_source.html">find_planet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d45/find__planet_8cc_source.html#l00049">49</a> of file <a class="el" href="../../d6/d45/find__planet_8cc_source.html">find_planet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7ce58e26795e84c53c74a00235eddcc8">find_base_planet()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa626fc6ec3f08c65ab4a31751a746cde">find_base_planet()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#a0e61e03072e9116a0c0a78530b9ada23">jeod::EphemeridesMessages::invalid_item</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a799a3bb2627ceedd6258b9d5da35123d">jeod::DerivedState::find_planet()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af15590fb1eefe71766712c01c82982cd">jeod::DynBodyInit::find_planet()</a>, <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af6c6eb9b18705af9020ff5b97dccd3c3">jeod::PlanetOrientation::initialize()</a>, <a class="el" href="../../da/de9/classjeod_1_1EarthLighting.html#a19ffa99bf2f817e6eb3624369f4fef31">jeod::EarthLighting::initialize()</a>, <a class="el" href="../../d7/dfa/classjeod_1_1RadiationSource.html#a8cca0a87f6a58a979ca24aa9c492e896">jeod::RadiationSource::initialize()</a>, and <a class="el" href="../../d5/d0d/classjeod_1_1RadiationThirdBody.html#ad551ed98cd27c6a24a64d8c18866c14e">jeod::RadiationThirdBody::initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dd/d63/classjeod_1_1DerivedState.html#a301f1650f1f0b4e94c6ea647219c1fad">jeod::DerivedState::find_planet()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#af15590fb1eefe71766712c01c82982cd">jeod::DynBodyInit::find_planet()</a>, <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af6c6eb9b18705af9020ff5b97dccd3c3">jeod::PlanetOrientation::initialize()</a>, <a class="el" href="../../da/de9/classjeod_1_1EarthLighting.html#a19ffa99bf2f817e6eb3624369f4fef31">jeod::EarthLighting::initialize()</a>, <a class="el" href="../../d7/dfa/classjeod_1_1RadiationSource.html#a8cca0a87f6a58a979ca24aa9c492e896">jeod::RadiationSource::initialize()</a>, and <a class="el" href="../../d5/d0d/classjeod_1_1RadiationThirdBody.html#ad551ed98cd27c6a24a64d8c18866c14e">jeod::RadiationThirdBody::initialize()</a>.</p>
 
 </div>
 </div>
-<a id="ae0236cfeb9ed179f09929c0932a82c91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0236cfeb9ed179f09929c0932a82c91">&#9670;&nbsp;</a></span>get_integ_frames()</h2>
+<a id="a7daf3161728e93c81deb2df22a965664"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7daf3161728e93c81deb2df22a965664">&#9670;&nbsp;</a></span>get_integ_frames()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1088,7 +1075,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">const std::vector&lt; <a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html">EphemerisRefFrame</a> * &gt; &amp; jeod::EphemeridesManager::get_integ_frames </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1103,16 +1089,16 @@ Not implemented. </p>
 <p>Get a copy of the vector of integration frames. </p>
 <dl class="section return"><dt>Returns</dt><dd>Copy of integration frames vector </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#aca25efe9798dfe7fb1dcda0a3d929179">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a5b234a39fa8a310c2ddd7ae8eaa74975">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00511">511</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00468">468</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>.</p>
 
 </div>
 </div>
-<a id="aaf81fed68e9e2432819676c6f090994f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf81fed68e9e2432819676c6f090994f">&#9670;&nbsp;</a></span>get_num_planets()</h2>
+<a id="a16ccaa9678c4b233a0626c0471b36b93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16ccaa9678c4b233a0626c0471b36b93">&#9670;&nbsp;</a></span>get_num_planets()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1123,7 +1109,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">unsigned int jeod::EphemeridesManager::get_num_planets </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1138,9 +1123,9 @@ Not implemented. </p>
 <p>Return number of registered planets. </p>
 <dl class="section return"><dt>Returns</dt><dd>: Number of registered planets. </dd></dl>
 
-<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a82b85e152dc067e461a005ed02c0c3f2">jeod::BaseEphemeridesManager</a>.</p>
+<p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a080b06e692f423709497923da89c2953">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00186">186</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00169">169</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#affaee74dfde3fe6e96cd8abb56dc1bbf">planets</a>.</p>
 
@@ -1148,8 +1133,8 @@ Not implemented. </p>
 
 </div>
 </div>
-<a id="a9939f8c740181745fdcd9a896e53f760"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9939f8c740181745fdcd9a896e53f760">&#9670;&nbsp;</a></span>initialize_ephemerides()</h2>
+<a id="a629fa1e5f91cdb7028748fa351e9884b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a629fa1e5f91cdb7028748fa351e9884b">&#9670;&nbsp;</a></span>initialize_ephemerides()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1157,7 +1142,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::EphemeridesManager::initialize_ephemerides </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -1166,11 +1150,11 @@ Not implemented. </p>
 
 <p>Initialize the ephemeris models. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00660">660</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00599">599</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a713a73c011fd703b16d7d414fa314059">jeod::EphemerisInterface::ephem_initialize()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#afe0bafb18275de4d5476852e6fdb6ef4">jeod::DynManager::initialize_simulation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa403ed5cd1e55c20f4d81dd7f5f63fc0">jeod::DynManager::initialize_simulation()</a>.</p>
 
 </div>
 </div>
@@ -1209,14 +1193,14 @@ Not implemented. </p>
 
 <p>Implements <a class="el" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html#a3ace45fc9ad70d8b838ee7ee412c75fc">jeod::BaseEphemeridesManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00525">525</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00478">478</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad731c09ffd086d363c60e33e69413340">integ_frames</a>.</p>
 
 </div>
 </div>
-<a id="a91eed3773b3ffbc580f2b40a25471297"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91eed3773b3ffbc580f2b40a25471297">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="aad4eae1b5ac69a6b6cda2f81d64e8dcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad4eae1b5ac69a6b6cda2f81d64e8dcc">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1234,13 +1218,10 @@ Not implemented. </p>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p><br />
-Not implemented. </p>
 
 </div>
 </div>
@@ -1270,7 +1251,7 @@ Not implemented. </p>
 <p>Query if the reference frame tree needs to be rebuilt. </p>
 <dl class="section return"><dt>Returns</dt><dd>regenerate_ref_frame_tree data member. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00116">116</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00110">110</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
 <p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>.</p>
 
@@ -1302,16 +1283,16 @@ Not implemented. </p>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00609">609</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00551">551</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a977a52f6b9f146e7030ecc067dd698e3">find_ephem_item()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9d5bdb56bb46d594c2f1843b404c591c">jeod::RefFrame::get_name()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, <a class="el" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html#a29ba9eb8afdfe1866825b2b64600e76b">jeod::EphemerisRefFrame::set_ephem_manager()</a>, and <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a82145fa4c339df9ef10598073b275833">jeod::EphemerisItem::set_target_frame()</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a841121fc529fdc26cf042b978294005a">find_ephem_item()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0da5d50aa8e348a10d6d7fe16adc1ab3">jeod::RefFrame::get_name()</a>, <a class="el" href="../../d2/dfe/classjeod_1_1EphemeridesMessages.html#ab4eb9a3b6d1443ee67cd7dd5fc5ecb20">jeod::EphemeridesMessages::inconsistent_setup</a>, and <a class="el" href="../../d2/da5/classjeod_1_1EphemerisItem.html#a82145fa4c339df9ef10598073b275833">jeod::EphemerisItem::set_target_frame()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a71aa9c3db5903ce878baad9edc2bd21a">add_ref_frame()</a>, and <a class="el" href="../../d5/d0c/classjeod_1_1PropagatedPlanet.html#a5140518541ab5e60e3aeb50a788df3ec">jeod::PropagatedPlanet::ephem_initialize()</a>.</p>
 
 </div>
 </div>
-<a id="adafbde112f848f73669972821d5f9d5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adafbde112f848f73669972821d5f9d5d">&#9670;&nbsp;</a></span>update_ephemerides()</h2>
+<a id="a2d25a3a59564154578a8663cdc2ad6ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d25a3a59564154578a8663cdc2ad6ba">&#9670;&nbsp;</a></span>update_ephemerides()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1319,7 +1300,6 @@ Not implemented. </p>
         <tr>
           <td class="memname">void jeod::EphemeridesManager::update_ephemerides </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -1328,11 +1308,11 @@ Not implemented. </p>
 
 <p>Update each ephemeris model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00681">681</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de5/ephem__manager_8cc_source.html#l00614">614</a> of file <a class="el" href="../../da/de5/ephem__manager_8cc_source.html">ephem_manager.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa5bf9c90d3cd14247787f114b031861a">activate_ephemerides()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a12c7d16c8ea0bbde5d27ba1e4fa5af95">jeod::EphemerisInterface::ephem_update()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>.</p>
+<p class="reference">References <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7a92531de129b4672bc76b172c8d374f">activate_ephemerides()</a>, <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#aae149a706a846a5758a228f2e29398d6">jeod::EphemerisInterface::ephem_update()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a0bcdc449d328515af246dbbd2bf06c77">ephemerides</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a51f9f144b89a147aecb838a2333b6a82">regenerate_ref_frame_tree</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#ae4b1b082916a0be3ead81fa137d9abe2">jeod::DynamicsIntegrationGroup::gravitation()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#afe0bafb18275de4d5476852e6fdb6ef4">jeod::DynManager::initialize_simulation()</a>, and <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa139d593faf0c50d3bfa28a9ed0292f9">jeod::DynManager::perform_dyn_body_initializations()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d71/classjeod_1_1DynamicsIntegrationGroup.html#ae4b1b082916a0be3ead81fa137d9abe2">jeod::DynamicsIntegrationGroup::gravitation()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa403ed5cd1e55c20f4d81dd7f5f63fc0">jeod::DynManager::initialize_simulation()</a>, and <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa139d593faf0c50d3bfa28a9ed0292f9">jeod::DynManager::perform_dyn_body_initializations()</a>.</p>
 
 </div>
 </div>
@@ -1382,7 +1362,7 @@ Not implemented. </p>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00095">95</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00092">92</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
 </div>
 </div>
@@ -1410,9 +1390,9 @@ Not implemented. </p>
 <p>The heads of the ephemeris item lists. </p>
 <p>All items in one of these sublists share the same name. The members of the ephem_items list have distinct names.trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00246">246</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00229">229</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa5bf9c90d3cd14247787f114b031861a">activate_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">add_ephem_item()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a08ef155f2fceec558e453b490447c944">clear_added_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a977a52f6b9f146e7030ecc067dd698e3">find_ephem_item()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7a92531de129b4672bc76b172c8d374f">activate_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">add_ephem_item()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ad65b8bd492f636dca634c99cdbca02">clear_added_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a841121fc529fdc26cf042b978294005a">find_ephem_item()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
 
 </div>
 </div>
@@ -1439,9 +1419,9 @@ Not implemented. </p>
 <p>The ephemerides models managed by this <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html" title="The EphemeridesManager class manages the ephemeris models in a simulation. ">EphemeridesManager</a>. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00239">239</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00222">222</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa5bf9c90d3cd14247787f114b031861a">activate_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10e4c3d2d9fc956006069ca48eb5b154">add_ephemeris()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a08ef155f2fceec558e453b490447c944">clear_added_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a9939f8c740181745fdcd9a896e53f760">initialize_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#adafbde112f848f73669972821d5f9d5d">update_ephemerides()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7a92531de129b4672bc76b172c8d374f">activate_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a10e4c3d2d9fc956006069ca48eb5b154">add_ephemeris()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8ad65b8bd492f636dca634c99cdbca02">clear_added_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a629fa1e5f91cdb7028748fa351e9884b">initialize_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a2d25a3a59564154578a8663cdc2ad6ba">update_ephemerides()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
 
 </div>
 </div>
@@ -1468,9 +1448,9 @@ Not implemented. </p>
 <p>List of reference frames that are not rotating with respect to the root node of the reference frame tree. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00252">252</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00235">235</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad5c204fe7b1a9591cfd215a51a09e3bb">add_integ_frame()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a226f16d26dba4a6e90194a5c2906c472">find_integ_frame()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a3620627bb1d1baccc7a5c94006cbf4b1">find_integ_frame_index()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ae0236cfeb9ed179f09929c0932a82c91">get_integ_frames()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6c8c14a16c2fbd08637167c7ce0a01aa">is_integ_frame()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ad5c204fe7b1a9591cfd215a51a09e3bb">add_integ_frame()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a05139b0f6dee46c5c057b1a31aa46c04">find_integ_frame()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a3620627bb1d1baccc7a5c94006cbf4b1">find_integ_frame_index()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7daf3161728e93c81deb2df22a965664">get_integ_frames()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6c8c14a16c2fbd08637167c7ce0a01aa">is_integ_frame()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
 
 </div>
 </div>
@@ -1497,9 +1477,9 @@ Not implemented. </p>
 <p>The planets in a simulation, typically defined at the S_define level. </p>
 <p>trick_io(**) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00234">234</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00217">217</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ab5f3435c3d78146cffc0353cd97615a9">add_planet()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7ce58e26795e84c53c74a00235eddcc8">find_base_planet()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aaf81fed68e9e2432819676c6f090994f">get_num_planets()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ab5f3435c3d78146cffc0353cd97615a9">add_planet()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a8bf1aad011db53dd0964395a26d9c0f3">EphemeridesManager()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa626fc6ec3f08c65ab4a31751a746cde">find_base_planet()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a16ccaa9678c4b233a0626c0471b36b93">get_num_planets()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#af452bf6bce6d0d4232ef3e0abf7266eb">~EphemeridesManager()</a>.</p>
 
 </div>
 </div>
@@ -1513,7 +1493,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::EphemeridesManager::regenerate_ref_frame_tree</td>
+          <td class="memname">bool jeod::EphemeridesManager::regenerate_ref_frame_tree {}</td>
         </tr>
       </table>
   </td>
@@ -1526,9 +1506,9 @@ Not implemented. </p>
 <p>Set when the reference frame tree needs to be regenerated. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00224">224</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00207">207</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aa5bf9c90d3cd14247787f114b031861a">activate_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#afed24aec87f7f41d203ed9370f6db702">ephem_note_tree_status_change()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a9939f8c740181745fdcd9a896e53f760">initialize_ephemerides()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa139d593faf0c50d3bfa28a9ed0292f9">jeod::DynManager::perform_dyn_body_initializations()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7980da248a118bc3dfee5f931243403a">ref_frame_tree_needs_rebuild()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#adafbde112f848f73669972821d5f9d5d">update_ephemerides()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7a92531de129b4672bc76b172c8d374f">activate_ephemerides()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#afed24aec87f7f41d203ed9370f6db702">ephem_note_tree_status_change()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a629fa1e5f91cdb7028748fa351e9884b">initialize_ephemerides()</a>, <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#aa139d593faf0c50d3bfa28a9ed0292f9">jeod::DynManager::perform_dyn_body_initializations()</a>, <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a7980da248a118bc3dfee5f931243403a">ref_frame_tree_needs_rebuild()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a2d25a3a59564154578a8663cdc2ad6ba">update_ephemerides()</a>.</p>
 
 </div>
 </div>
@@ -1542,7 +1522,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::EphemeridesManager::single_ephem_mode</td>
+          <td class="memname">bool jeod::EphemeridesManager::single_ephem_mode {}</td>
         </tr>
       </table>
   </td>
@@ -1555,9 +1535,9 @@ Not implemented. </p>
 <p>Set via a call to disable_add_ephemeris, typically to allow a simple ephemeris model to be active with all other models made inactive. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00219">219</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00202">202</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">add_ephem_item()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#ae8a8947c882343e906d95a270b17ca24">disable_add_ephemeris()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#aca461b465ca09b45536d8912515fa097">add_ephem_item()</a>, and <a class="el" href="../../de/d3c/classjeod_1_1EphemeridesManager.html#a6402393e59d9707999c9fe4654507c1c">disable_add_ephemeris()</a>.</p>
 
 </div>
 </div>
@@ -1571,7 +1551,7 @@ Not implemented. </p>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::EphemeridesManager::update_time</td>
+          <td class="memname">double jeod::EphemeridesManager::update_time {}</td>
         </tr>
       </table>
   </td>
@@ -1584,9 +1564,9 @@ Not implemented. </p>
 <p>Time of last update. </p>
 <p>trick_units(s) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00229">229</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html#l00212">212</a> of file <a class="el" href="../../d9/d6c/ephem__manager_8hh_source.html">ephem_manager.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a26dae1a07e31660f8274b988a3931294">jeod::DynManager::timestamp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html#a06c698d52ff7d80db9eb5d23639c456e">jeod::DynManager::timestamp()</a>.</p>
 
 </div>
 </div>

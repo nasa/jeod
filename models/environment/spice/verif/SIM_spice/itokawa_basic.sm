@@ -48,30 +48,25 @@
 
 #include "Base/planet_generic.sm"
 
-class ItokawaSimObject: public PlanetGenericSimObject{
+class ItokawaSimObject: public PlanetGenericSimObject
+{
+public:
+    // default data
+    jeod::Planet_itokawa_default_data planet_default_data;
+    jeod::SphericalHarmonicsGravitySource_itokawa_spherical_default_data gravity_default_data;
 
-   public:
-// default data
-    jeod::Planet_itokawa_default_data    planet_default_data;
-    jeod::SphericalHarmonicsGravitySource_itokawa_spherical_default_data
-    gravity_default_data;
+    // Constructor
+    ItokawaSimObject(jeod::GravityManager & grav_in, jeod::DynManager & dyn_manager_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, planet_default_data, gravity_default_data)
+    {
+    }
 
-//Constructor
-    ItokawaSimObject(
-       jeod::GravityManager & grav_in,
-       jeod::DynManager   & dyn_manager_in)
-    :
-PlanetGenericSimObject (dyn_manager_in, grav_in,
-                        planet_default_data, gravity_default_data)
-    {}
+    ItokawaSimObject(const ItokawaSimObject &) = delete;
+    ItokawaSimObject & operator=(const ItokawaSimObject &) = delete;
 
-  private:
-    ItokawaSimObject (const ItokawaSimObject&);
-    ItokawaSimObject & operator = (const ItokawaSimObject&);
-
-// Instances for matching to other sim objects:
+    // Instances for matching to other sim objects:
 };
 
-ItokawaSimObject itokawa ( env.gravity_manager, dynamics.dyn_manager);
+ItokawaSimObject itokawa(env.gravity_manager, dynamics.dyn_manager);
 
 #endif

@@ -67,14 +67,17 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  60.00 // Low-rate environment update interval
-#define DYNAMICS       0.02 // Vehicle and plantary dynamics interval (50Hz)
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
+#define DYNAMICS 0.02      // Vehicle and plantary dynamics interval (50Hz)
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "Base/time_TAI_UTC_UT1_TT_GMST.sm"
@@ -86,48 +89,43 @@
 ##include "environment/time/include/time_met.hh"
 ##include "environment/time/include/time_converter_std_ude.hh"
 
-class ApolloTimeSimObject: public JeodTimeSimObject {
+class ApolloTimeSimObject: public JeodTimeSimObject
+{
+public:
+    jeod::TimeMET time_met;
+    jeod::TimeConverter_STD_UDE conv_tai_met;
 
- public:
-  jeod::TimeMET time_met;
-  jeod::TimeConverter_STD_UDE  conv_tai_met;
+    // Constructor
+    ApolloTimeSimObject()
+    {
+        // MET
+        P_TIME("initialization") time_manager.register_time_named(time_met, "MET");
+        P_TIME("initialization") time_manager.register_converter(conv_tai_met, "TAI", "MET");
 
-  //Constructor
-  ApolloTimeSimObject() {
+        P_TIME("initialization") time_utc.calendar_update(exec_get_sim_time());
+        P_TIME("initialization") time_ut1.calendar_update(exec_get_sim_time());
 
-    // MET
-    P_TIME  ("initialization") time_manager.register_time_named( time_met, "MET" );
-    P_TIME  ("initialization") time_manager.register_converter(
-                                                               conv_tai_met,
-                                                               "TAI",
-                                                               "MET");
+        (DYNAMICS, "environment") time_utc.calendar_update(exec_get_sim_time());
+        (DYNAMICS, "environment") time_ut1.calendar_update(exec_get_sim_time());
+    }
 
-    P_TIME ("initialization") time_utc.calendar_update (exec_get_sim_time());
-    P_TIME ("initialization") time_ut1.calendar_update (exec_get_sim_time());
-
-    (DYNAMICS, "environment") time_utc.calendar_update ( exec_get_sim_time());
-    (DYNAMICS, "environment") time_ut1.calendar_update ( exec_get_sim_time());
-  }
-
- private:
-  ApolloTimeSimObject (const ApolloTimeSimObject&);
-  ApolloTimeSimObject & operator = (const ApolloTimeSimObject&);
-
+    ApolloTimeSimObject(const ApolloTimeSimObject &) = delete;
+    ApolloTimeSimObject & operator=(const ApolloTimeSimObject &) = delete;
 };
-ApolloTimeSimObject jeod_time ;
+
+ApolloTimeSimObject jeod_time;
 
 #include "dynamics.sm"
-#include "environment.sm"
-#include "sun_basic.sm"
 #include "earth_GGM05C_MET_RNP.sm"
+#include "environment.sm"
 #include "moon_lp150Q.sm"
+#include "sun_basic.sm"
 
 //***************************************************************
 // CLASS: (SV_DYN_Object)
 // PURPOSE:
 //  ( This section defines the sim_objects for the Saturn V stages.)
 //***************************************************************
-
 
 // Include headers for classes that this class contains:
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
@@ -148,108 +146,84 @@ ApolloTimeSimObject jeod_time ;
 #include "Base/vehicle_atmosphere.sm"
 class SVDynObject: public VehicleAtmSimObject
 {
- public:
-  jeod::DynBodyInitLvlhRotState lvlh_init;
-  jeod::Force  force_extern;
-  jeod::Torque torque_extern;
-  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
-  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
-  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
-  jeod::AerodynamicDrag   aero_drag;
+public:
+    jeod::DynBodyInitLvlhRotState lvlh_init;
+    jeod::Force force_extern;
+    jeod::Torque torque_extern;
+    jeod::SphericalHarmonicsGravityControls earth_grav_control;
+    jeod::SphericalHarmonicsGravityControls moon_grav_control;
+    jeod::SphericalHarmonicsGravityControls sun_grav_control;
+    jeod::AerodynamicDrag aero_drag;
 
-  jeod::EulerDerivedState   euler;
-  jeod::LvlhDerivedState    lvlh;
-  jeod::EulerDerivedState   lvlh_euler;
-  jeod::OrbElemDerivedState orb_elem;
+    jeod::EulerDerivedState euler;
+    jeod::LvlhDerivedState lvlh;
+    jeod::EulerDerivedState lvlh_euler;
+    jeod::OrbElemDerivedState orb_elem;
 
-  jeod::BodyAttachAligned  mass_attach;
-  // Instances for default data:
-  jeod::AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+    jeod::BodyAttachAligned mass_attach;
+    // Instances for default data:
+    jeod::AerodynamicDrag_aero_model_default_data aero_drag_default_data;
 
-  //Constructor
-  SVDynObject(jeod::DynManager    &dyn_mngr,
-              jeod::METAtmosphere &atmos,
-              jeod::WindVelocity  &wind)
-    :
-    VehicleAtmSimObject( dyn_mngr, atmos, wind)
-  {
-    //
-    //Default data jobs
-    //
-    ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+    // Constructor
+    SVDynObject(jeod::DynManager & dyn_mngr, jeod::METAtmosphere & atmos, jeod::WindVelocity & wind)
+        : VehicleAtmSimObject(dyn_mngr, atmos, wind)
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") aero_drag_default_data.initialize(&aero_drag);
 
+        //
+        // initialization jobs
+        //
+        P_DYN("initialization") euler.initialize(dyn_body, dyn_manager);
 
-    //
-    // initialization jobs
-    //
-    P_DYN ("initialization") euler.initialize( dyn_body, dyn_manager );
+        P_DYN("initialization") lvlh.initialize(dyn_body, dyn_manager);
 
-    P_DYN ("initialization") lvlh.initialize( dyn_body, dyn_manager );
+        P_DYN("initialization") lvlh_euler.initialize(lvlh.lvlh_frame, dyn_body, dyn_manager);
 
-    P_DYN ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
-                                                    dyn_body,
-                                                    dyn_manager );
+        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
 
-    P_DYN ("initialization") orb_elem.initialize( dyn_body, dyn_manager);
+        ("initialization") euler.update();
 
-    ("initialization") euler.update( );
+        ("initialization") lvlh.update();
 
-    ("initialization") lvlh.update( );
+        ("initialization") lvlh_euler.update();
 
-    ("initialization") lvlh_euler.update( );
+        ("initialization") orb_elem.update();
 
-    ("initialization") orb_elem.update( );
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") euler.update();
 
-     //
-     // Environment class jobs
-     //
-     (DYNAMICS, "environment") euler.update( );
+        (DYNAMICS, "environment") lvlh.update();
 
-     (DYNAMICS, "environment") lvlh.update( );
+        (DYNAMICS, "environment") lvlh_euler.update();
 
-     (DYNAMICS, "environment") lvlh_euler.update( );
+        (DYNAMICS, "environment") orb_elem.update();
 
-     (DYNAMICS, "environment") orb_elem.update( );
-
-    //
-    // Derivative class jobs
-    //
-    P_BODY ("derivative") aero_drag.aero_drag(
-                            dyn_body.composite_body.state.trans.velocity,
+        //
+        // Derivative class jobs
+        //
+        P_BODY("derivative")
+        aero_drag.aero_drag(dyn_body.composite_body.state.trans.velocity,
                             &atmos_state,
                             dyn_body.structure.state.rot.T_parent_this,
                             dyn_body.mass.composite_properties.mass,
-                            dyn_body.mass.composite_properties.position );
-  }
+                            dyn_body.mass.composite_properties.position);
+    }
 
- private:
-  SVDynObject (const SVDynObject&);
-  SVDynObject & operator = (const SVDynObject&);
+    SVDynObject(const SVDynObject &) = delete;
+    SVDynObject & operator=(const SVDynObject &) = delete;
 };
-SVDynObject s1_dyn(dynamics.dyn_manager,
-                   earth.atmos,
-                   earth.wind_velocity);
-SVDynObject s2_dyn(dynamics.dyn_manager,
-                   earth.atmos,
-                   earth.wind_velocity);
-SVDynObject s3_dyn(dynamics.dyn_manager,
-                   earth.atmos,
-                   earth.wind_velocity);
-SVDynObject les_dyn(dynamics.dyn_manager,
-                   earth.atmos,
-                   earth.wind_velocity);
-SVDynObject cm_dyn(dynamics.dyn_manager,
-                   earth.atmos,
-                   earth.wind_velocity);
-SVDynObject sm_dyn(dynamics.dyn_manager,
-                   earth.atmos,
-                   earth.wind_velocity);
-SVDynObject lm_dyn(dynamics.dyn_manager,
-                   earth.atmos,
-                   earth.wind_velocity);
-
-
-
+SVDynObject s1_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+SVDynObject s2_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+SVDynObject s3_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+SVDynObject les_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+SVDynObject cm_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+SVDynObject sm_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+SVDynObject lm_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
 
 //=============================================================================
 // CLASS: SVMassBody
@@ -259,125 +233,56 @@ SVDynObject lm_dyn(dynamics.dyn_manager,
 ##include "dynamics/mass/include/mass.hh"
 ##include "dynamics/body_action/include/mass_body_init.hh"
 
-class SVMassBody: public Trick::SimObject {
-  public:
-   // Declare the Descent Module mass body.
-   jeod::MassBody body;
+class SVMassBody: public Trick::SimObject
+{
+public:
+    // Declare the Descent Module mass body.
+    jeod::MassBody body;
 
-   // Vehicle mass initialization parameters.
-   jeod::MassBodyInit mass_init;
-   jeod::BodyAttachAligned  mass_attach;
+    // Vehicle mass initialization parameters.
+    jeod::MassBodyInit mass_init;
+    jeod::BodyAttachAligned mass_attach;
 
-   SVMassBody(){
-      // empty constructor
-   }
-
-  private:
-   SVMassBody (const SVMassBody&);
-   SVMassBody & operator = (const SVMassBody&);
+    SVMassBody() = default;
+    SVMassBody(const SVMassBody &) = delete;
+    SVMassBody & operator=(const SVMassBody &) = delete;
 };
+
 SVMassBody dm_mass;
 
+vcollect s1_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{s1_dyn.force_extern};
+vcollect s1_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{s1_dyn.aero_drag.aero_force};
+vcollect s1_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{s1_dyn.torque_extern};
+vcollect s1_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{s1_dyn.aero_drag.aero_torque};
 
+vcollect s2_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{s2_dyn.force_extern};
+vcollect s2_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{s2_dyn.aero_drag.aero_force};
+vcollect s2_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{s2_dyn.torque_extern};
+vcollect s2_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{s2_dyn.aero_drag.aero_torque};
 
+vcollect s3_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{s3_dyn.force_extern};
+vcollect s3_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{s3_dyn.aero_drag.aero_force};
+vcollect s3_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{s3_dyn.torque_extern};
+vcollect s3_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{s3_dyn.aero_drag.aero_torque};
 
-vcollect s1_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   s1_dyn.force_extern
-};
-vcollect s1_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   s1_dyn.aero_drag.aero_force
-};
-vcollect s1_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   s1_dyn.torque_extern
-};
-vcollect s1_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   s1_dyn.aero_drag.aero_torque
-};
+vcollect les_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{les_dyn.force_extern};
+vcollect les_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{les_dyn.aero_drag.aero_force};
+vcollect les_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{les_dyn.torque_extern};
+vcollect les_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{les_dyn.aero_drag.aero_torque};
 
-vcollect s2_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   s2_dyn.force_extern
-};
-vcollect s2_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   s2_dyn.aero_drag.aero_force
-};
-vcollect s2_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   s2_dyn.torque_extern
-};
-vcollect s2_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   s2_dyn.aero_drag.aero_torque
-};
+vcollect cm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{cm_dyn.force_extern};
+vcollect cm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{cm_dyn.aero_drag.aero_force};
+vcollect cm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{cm_dyn.torque_extern};
+vcollect cm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{cm_dyn.aero_drag.aero_torque};
 
-vcollect s3_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   s3_dyn.force_extern
-};
-vcollect s3_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   s3_dyn.aero_drag.aero_force
-};
-vcollect s3_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   s3_dyn.torque_extern
-};
-vcollect s3_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   s3_dyn.aero_drag.aero_torque
-};
+vcollect sm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{sm_dyn.force_extern};
+vcollect sm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{sm_dyn.aero_drag.aero_force};
+vcollect sm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{sm_dyn.torque_extern};
+vcollect sm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{sm_dyn.aero_drag.aero_torque};
 
-vcollect les_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   les_dyn.force_extern
-};
-vcollect les_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   les_dyn.aero_drag.aero_force
-};
-vcollect les_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   les_dyn.torque_extern
-};
-vcollect les_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   les_dyn.aero_drag.aero_torque
-};
+vcollect lm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{lm_dyn.force_extern};
+vcollect lm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{lm_dyn.aero_drag.aero_force};
+vcollect lm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{lm_dyn.torque_extern};
+vcollect lm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{lm_dyn.aero_drag.aero_torque};
 
-vcollect cm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   cm_dyn.force_extern
-};
-vcollect cm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   cm_dyn.aero_drag.aero_force
-};
-vcollect cm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   cm_dyn.torque_extern
-};
-vcollect cm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   cm_dyn.aero_drag.aero_torque
-};
-
-vcollect sm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   sm_dyn.force_extern
-};
-vcollect sm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   sm_dyn.aero_drag.aero_force
-};
-vcollect sm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   sm_dyn.torque_extern
-};
-vcollect sm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   sm_dyn.aero_drag.aero_torque
-};
-
-vcollect lm_dyn.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   lm_dyn.force_extern
-};
-vcollect lm_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   lm_dyn.aero_drag.aero_force
-};
-vcollect lm_dyn.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   lm_dyn.torque_extern
-};
-vcollect lm_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-   lm_dyn.aero_drag.aero_torque
-};
-
-IntegLoop sim_integ_loop  (DYNAMICS) earth,
-                                     s1_dyn,
-                                     s2_dyn,
-                                     s3_dyn,
-                                     les_dyn,
-                                     cm_dyn,
-                                     sm_dyn,
-                                     lm_dyn,
-                                     dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) earth, s1_dyn, s2_dyn, s3_dyn, les_dyn, cm_dyn, sm_dyn, lm_dyn, dynamics;

@@ -64,7 +64,7 @@ Assumptions and Limitations:
   (((Inclusion of this file and use of the JEOD_MAKE_SIM_INTERFACES macro
      in each defined mandatory for all JEOD class definition files.)))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_CLASS_HH
@@ -72,7 +72,6 @@ Assumptions and Limitations:
 
 // JEOD includes
 #include "config.hh"
-
 
 // Some installations may not be able to fit within the confines of the main
 // body of this header. Include the alternate implementation if defined.
@@ -98,19 +97,16 @@ Assumptions and Limitations:
  *
  * @param class_name Name of the class being defined.
  */
-#if (defined JEOD_CLASS_ESTABLISH_FRIENDS)
-#define JEOD_MAKE_SIM_INTERFACES(class_name) \
-   JEOD_CLASS_ESTABLISH_FRIENDS(class_name)
+#if(defined JEOD_CLASS_ESTABLISH_FRIENDS)
+#define JEOD_MAKE_SIM_INTERFACES(...) JEOD_CLASS_ESTABLISH_FRIENDS(__VA_ARGS__);
 
 #elif defined(JEOD_CLASS_FRIEND_CLASS)
-#define JEOD_MAKE_SIM_INTERFACES(class_name) \
-   friend class JEOD_CLASS_FRIEND_CLASS;
+#define JEOD_MAKE_SIM_INTERFACES(...) friend class JEOD_CLASS_FRIEND_CLASS;
 
 #else
-#define JEOD_MAKE_SIM_INTERFACES(class_name)
+#define JEOD_MAKE_SIM_INTERFACES(...)
 
-#endif  // JEOD_MAKE_SIM_INTERFACES
-
+#endif // JEOD_MAKE_SIM_INTERFACES
 
 // JEOD_DECLARE_SIM_INTERFACES(class_name)
 // Three alternate definition mechanisms are provided below:
@@ -126,22 +122,20 @@ Assumptions and Limitations:
  * parallel call to this macro at file scope in the global namespace.
  * @param class_name Name of the class defined later in the header in question.
  */
-#if (defined JEOD_CLASS_DECLARE_FRIENDS)
-#define JEOD_DECLARE_SIM_INTERFACES(class_name) \
-   JEOD_CLASS_DECLARE_FRIENDS(class_name)
+#if(defined JEOD_CLASS_DECLARE_FRIENDS)
+#define JEOD_DECLARE_SIM_INTERFACES(class_name) JEOD_CLASS_DECLARE_FRIENDS(class_name)
 
 #elif defined(JEOD_CLASS_FRIEND_CLASS_FORWARD)
-#define JEOD_DECLARE_SIM_INTERFACES(class_name) \
-   class JEOD_CLASS_FRIEND_CLASS_FORWARD;
+#define JEOD_DECLARE_SIM_INTERFACES(class_name) class JEOD_CLASS_FRIEND_CLASS_FORWARD;
 
 #else
 #define JEOD_DECLARE_SIM_INTERFACES(class_name)
 
-#endif  // JEOD_DECLARE_SIM_INTERFACES
+#endif // JEOD_DECLARE_SIM_INTERFACES
 
-#endif  // JEOD_CLASS_IMPLEMENTATION_HEADER
+#endif // JEOD_CLASS_IMPLEMENTATION_HEADER
 
-#endif  // One-time include
+#endif // One-time include
 
 /**
  * @}

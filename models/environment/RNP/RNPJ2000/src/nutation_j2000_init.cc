@@ -30,10 +30,9 @@ Class:
   (NutationJ2000Init)
 
 Library dependencies:
-  ((nutation_j2000_init.cc)
-   (environment/RNP/GenericRNP/src/planet_rotation_init.cc))
+  ((nutation_j2000_init.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -46,66 +45,27 @@ Library dependencies:
 // Model includes
 #include "../include/nutation_j2000_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * constructor. initialize low level data
- */
-NutationJ2000Init::NutationJ2000Init (
-   void)
-:
-   num_coeffs(0),
-   L_coeffs(nullptr),
-   M_coeffs(nullptr),
-   F_coeffs(nullptr),
-   D_coeffs(nullptr),
-   omega_coeffs(nullptr),
-   long_coeffs(nullptr),
-   long_t_coeffs(nullptr),
-   obliq_coeffs(nullptr),
-   obliq_t_coeffs(nullptr)
+namespace jeod
 {
-// empty for now
-}
 
 /**
  * Destructor
  */
-NutationJ2000Init::~NutationJ2000Init (
-   void)
+NutationJ2000Init::~NutationJ2000Init()
 {
-   if (JEOD_IS_ALLOCATED (L_coeffs)) {
-      JEOD_DELETE_ARRAY (L_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (M_coeffs)) {
-      JEOD_DELETE_ARRAY (M_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (F_coeffs)) {
-      JEOD_DELETE_ARRAY (F_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (D_coeffs)) {
-      JEOD_DELETE_ARRAY (D_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (omega_coeffs)) {
-      JEOD_DELETE_ARRAY (omega_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (long_coeffs)) {
-      JEOD_DELETE_ARRAY (long_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (long_t_coeffs)) {
-      JEOD_DELETE_ARRAY (long_t_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (obliq_coeffs)) {
-      JEOD_DELETE_ARRAY (obliq_coeffs);
-   }
-   if (JEOD_IS_ALLOCATED (obliq_t_coeffs)) {
-      JEOD_DELETE_ARRAY (obliq_t_coeffs);
-   }
+    JEOD_DELETE_ARRAY(L_coeffs);
+    JEOD_DELETE_ARRAY(M_coeffs);
+    JEOD_DELETE_ARRAY(F_coeffs);
+    JEOD_DELETE_ARRAY(D_coeffs);
+    JEOD_DELETE_ARRAY(omega_coeffs);
+    JEOD_DELETE_ARRAY(long_coeffs);
+    JEOD_DELETE_ARRAY(long_t_coeffs);
+    JEOD_DELETE_ARRAY(obliq_coeffs);
+    JEOD_DELETE_ARRAY(obliq_t_coeffs);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

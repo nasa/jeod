@@ -49,10 +49,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/message_handler_verif_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MESSAGE_HANDLER_VERIF_MESSAGES_HH
 #define JEOD_MESSAGE_HANDLER_VERIF_MESSAGES_HH
@@ -62,46 +61,35 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class MessageHandlerVerifMessages {
+class MessageHandlerVerifMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MessageHandlerVerifMessages)
 
+    // Static member data
+public:
+    static const char * error;   /* trick_units(--) @n
+         utils/message/verif/error */
+    static const char * warning; /* trick_units(--) @n
+       utils/message/verif/warning */
+    static const char * inform;  /* trick_units(--) @n
+        utils/message/verif/information */
+    static const char * debug;   /* trick_units(--) @n
+         utils/message/verif/debug */
+    static const char * message; /* trick_units(--) @n
+       utils/message/verif/message */
 
- JEOD_MAKE_SIM_INTERFACES(MessageHandlerVerifMessages)
-
-
- // Static member data
- public:
-   static char const * error; /* trick_units(--) @n
-      utils/message/verif/error */
-   static char const * warning; /* trick_units(--) @n
-      utils/message/verif/warning */
-   static char const * inform; /* trick_units(--) @n
-      utils/message/verif/information */
-   static char const * debug; /* trick_units(--) @n
-      utils/message/verif/debug */
-   static char const * message; /* trick_units(--) @n
-      utils/message/verif/message */
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   MessageHandlerVerifMessages (
-      void);
-   MessageHandlerVerifMessages (
-      const MessageHandlerVerifMessages &);
-   MessageHandlerVerifMessages & operator= (
-      const MessageHandlerVerifMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    MessageHandlerVerifMessages() = delete;
+    MessageHandlerVerifMessages(const MessageHandlerVerifMessages &) = delete;
+    MessageHandlerVerifMessages & operator=(const MessageHandlerVerifMessages &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

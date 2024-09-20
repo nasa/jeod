@@ -37,7 +37,7 @@
 //=============================================================================
 // A single vehicle around Earth with a general gravity model operating in
 // spherical mode
-//   
+//
 //
 // NOTE - THIS S_DEFINE FILE WILL NOT BUILD.  iT IS HERE AS AN EXAMPLE OF
 //        MISSING DEPENDENCIES.
@@ -45,27 +45,29 @@
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
-#define LOW_RATE_ENV  1.0 // included here to get the sim to build,
-                          // see Exercise 11 for details
+#define DYNAMICS 1.0
+#define LOW_RATE_ENV                                                                                                   \
+    1.0 // included here to get the sim to build,
+        // see Exercise 11 for details
 
-
-// Include the default trick object
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
 // Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 // Have to switch out the time object for a more advanced time object to get
 // the sim to build.  See Exercise 11 for details.
-//#include "time_dyntime_only.sm"
+// #include "time_dyntime_only.sm"
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics.sm"
-#include "environment_sans_de405.sm"
 #include "earth_GGM05C.sm" // DON'T DO THIS!!! IT WILL NOT WORK!!!
+#include "environment_sans_de405.sm"
 #include "vehicle_basic.sm"
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

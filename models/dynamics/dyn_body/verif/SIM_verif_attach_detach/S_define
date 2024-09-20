@@ -52,16 +52,20 @@
 //  ((Gary Turner) (Odyssey SR) (JEOD2.0 Alpha Release))
 //==============================================================================
 
-
 // Define job calling intervals
-#define DYNAMICS        0.01   // dynamics interval
+#define DYNAMICS 0.01 // dynamics interval
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 
 /*****************************************************************************
@@ -75,34 +79,30 @@ Purpose:(Baseline vehicle, suitable for veh2 and veh3)
 ##include "dynamics/dyn_body/include/force.hh"
 ##include "dynamics/dyn_body/include/torque.hh"
 
-class VehSimObject: public Trick::SimObject {
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
+class VehSimObject: public Trick::SimObject
+{
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
 
+public:
+    jeod::DynBody dyn_body;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
+    jeod::Force force;
+    jeod::Torque torque;
 
- public:
-  jeod::DynBody                 dyn_body;
-  jeod::DynBodyInitTransState   trans_init;
-  jeod::DynBodyInitRotState     rot_init;
-  jeod::MassBodyInit            mass_init;
-  jeod::Force  force;
-  jeod::Torque torque;
+    VehSimObject(jeod::DynManager & dyn_mngr_in)
+        : dyn_manager(dyn_mngr_in)
 
-  VehSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    dyn_manager(dyn_mngr_in)
+    {
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
+        (DYNAMICS, "scheduled") dyn_body.mass.update_mass_properties();
+    }
 
-  {
-
-    P_ENV ("initialization") dyn_body.initialize_model(dyn_manager);
-    (DYNAMICS, "scheduled")  dyn_body.mass.update_mass_properties();
-  };
-
- private:
-  VehSimObject (const VehSimObject&);
-  VehSimObject & operator = (const VehSimObject&);
-
+    VehSimObject(const VehSimObject &) = delete;
+    VehSimObject & operator=(const VehSimObject &) = delete;
 };
 
 /*****************************************************************************
@@ -112,78 +112,62 @@ Purpose:(definition for veh1 which includes all the attach/detach information)
 ##include "dynamics/body_action/include/body_attach_aligned.hh"
 ##include "dynamics/body_action/include/body_detach.hh"
 ##include "dynamics/body_action/include/body_detach_specific.hh"
-class Veh1SimObject: public VehSimObject {
- public:
-  jeod::BodyAttachAligned   attach_to_2;
-  jeod::BodyAttachAligned   attach_to_2b;
-  jeod::BodyAttachAligned   attach_to_3;
-  jeod::BodyDetach          detach_from_2;
-  jeod::BodyDetachSpecific  detach_from_3;
+class Veh1SimObject: public VehSimObject
+{
+public:
+    jeod::BodyAttachAligned attach_to_2;
+    jeod::BodyAttachAligned attach_to_2b;
+    jeod::BodyAttachAligned attach_to_3;
+    jeod::BodyDetach detach_from_2;
+    jeod::BodyDetachSpecific detach_from_3;
 
-  Veh1SimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehSimObject( dyn_mngr_in)
-  { };
+    Veh1SimObject(jeod::DynManager & dyn_mngr_in)
+        : VehSimObject(dyn_mngr_in){};
 
- private:
-  Veh1SimObject (const Veh1SimObject&);
-  Veh1SimObject & operator = (const Veh1SimObject&);
-
+    Veh1SimObject(const Veh1SimObject &) = delete;
+    Veh1SimObject & operator=(const Veh1SimObject &) = delete;
 };
 
 class AttachToFrameHelper : public Trick::SimObject
 {
 public:
-   AttachToFrameHelper(jeod::DynBody & bodyIn) :
-       body(bodyIn)
-   {
-      jeod::Vector3::initialize(position);
-      jeod::Matrix3x3::identity(rotation);
-   }
+    AttachToFrameHelper(jeod::DynBody & bodyIn)
+        : body(bodyIn)
+    {
+        jeod::Vector3::initialize(position);
+        jeod::Matrix3x3::identity(rotation);
+    }
 
-   double position[3];
-   double rotation[3][3];
+    double position[3];
+    double rotation[3][3];
 
-   void attach_wrap_child_parent_pos_rot(const std::string & child_frame, const std::string & parent_frame)
-   {
-      body.attach_to_frame(child_frame.c_str(), parent_frame.c_str(), position, rotation);
-   }
+    void attach_wrap_child_parent_pos_rot(const std::string & child_frame, const std::string & parent_frame)
+    {
+        body.attach_to_frame(child_frame.c_str(), parent_frame.c_str(), position, rotation);
+    }
 
-   void attach_wrap_pos_rot_parent(jeod::RefFrame & parentIn)
-   {
-      body.attach_to_frame(position, rotation, parentIn);
-   }
+    void attach_wrap_pos_rot_parent(jeod::RefFrame & parentIn)
+    {
+        body.attach_to_frame(position, rotation, parentIn);
+    }
 
+    AttachToFrameHelper(const AttachToFrameHelper &) = delete;
+    AttachToFrameHelper & operator=(const AttachToFrameHelper &) = delete;
 
 private:
-   jeod::DynBody & body;
-
-   AttachToFrameHelper (const AttachToFrameHelper&);
-   AttachToFrameHelper & operator = (const AttachToFrameHelper&);
+    jeod::DynBody & body;
 };
 
-Veh1SimObject veh1  ( dynamics.dyn_manager);
-VehSimObject  veh2  ( dynamics.dyn_manager);
-VehSimObject  veh3  ( dynamics.dyn_manager);
+Veh1SimObject veh1(dynamics.dyn_manager);
+VehSimObject veh2(dynamics.dyn_manager);
+VehSimObject veh3(dynamics.dyn_manager);
 AttachToFrameHelper attach_to_frame_helper(veh1.dyn_body);
 
-vcollect veh1.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   veh1.force
-};
-vcollect veh1.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   veh1.torque
-};
-vcollect veh2.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   veh2.force
-};
-vcollect veh2.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   veh2.torque
-};
-vcollect veh3.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
-   veh3.force
-};
-vcollect veh3.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
-   veh3.torque
-};
+vcollect veh1.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh1.force};
+vcollect veh1.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{veh1.torque};
+vcollect veh2.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh2.force};
+vcollect veh2.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{veh2.torque};
+vcollect veh3.dyn_body.collect.collect_effector_forc jeod::CollectForce::create{veh3.force};
+vcollect veh3.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create{veh3.torque};
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

@@ -16,95 +16,88 @@ ASSUMPTIONS AND LIMITATIONS:
     ((DUT1 is interpolated linearly between tabular values wrt date))
 */
 
-
-namespace jeod {
+namespace jeod
+{
 class TimeConverter_TAI_UTC;
-}
+} // namespace jeod
+
 #define JEOD_FRIEND_CLASS TimeConverter_TAI_UTC_tai_to_utc_default_data
 
 // JEOD includes
-//#include "environment/time/include/time_converter.hh"
+// #include "environment/time/include/time_converter.hh"
 #include "environment/time/include/time_converter_tai_utc.hh"
 #include "utils/memory/include/jeod_alloc.hh"
 
 // Unsupported includes
 #include "../include/tai_to_utc.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-
-void
-TimeConverter_TAI_UTC_tai_to_utc_default_data::initialize (
-   TimeConverter_TAI_UTC * TimeConverter_TAI_UTC_ptr)
+namespace jeod
 {
-   TimeConverter_TAI_UTC_ptr->override_data_table = false;
-   TimeConverter_TAI_UTC_ptr->last_index = 27;
-   TimeConverter_TAI_UTC_ptr->when_vec =
-      JEOD_ALLOC_PRIM_ARRAY (28, double);
-   TimeConverter_TAI_UTC_ptr->val_vec =
-      JEOD_ALLOC_PRIM_ARRAY (28, int);
 
-   TimeConverter_TAI_UTC_ptr->when_vec[0] = 1317.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[0] = 10;
-   TimeConverter_TAI_UTC_ptr->when_vec[1] = 1499.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[1] = 11;
-   TimeConverter_TAI_UTC_ptr->when_vec[2] = 1683.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[2] = 12;
-   TimeConverter_TAI_UTC_ptr->when_vec[3] = 2048.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[3] = 13;
-   TimeConverter_TAI_UTC_ptr->when_vec[4] = 2413.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[4] = 14;
-   TimeConverter_TAI_UTC_ptr->when_vec[5] = 2778.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[5] = 15;
-   TimeConverter_TAI_UTC_ptr->when_vec[6] = 3144.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[6] = 16;
-   TimeConverter_TAI_UTC_ptr->when_vec[7] = 3509.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[7] = 17;
-   TimeConverter_TAI_UTC_ptr->when_vec[8] = 3874.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[8] = 18;
-   TimeConverter_TAI_UTC_ptr->when_vec[9] = 4239.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[9] = 19;
-   TimeConverter_TAI_UTC_ptr->when_vec[10] = 4786.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[10] = 20;
-   TimeConverter_TAI_UTC_ptr->when_vec[11] = 5151.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[11] = 21;
-   TimeConverter_TAI_UTC_ptr->when_vec[12] = 5516.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[12] = 22;
-   TimeConverter_TAI_UTC_ptr->when_vec[13] = 6247.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[13] = 23;
-   TimeConverter_TAI_UTC_ptr->when_vec[14] = 7161.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[14] = 24;
-   TimeConverter_TAI_UTC_ptr->when_vec[15] = 7892.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[15] = 25;
-   TimeConverter_TAI_UTC_ptr->when_vec[16] = 8257.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[16] = 26;
-   TimeConverter_TAI_UTC_ptr->when_vec[17] = 8804.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[17] = 27;
-   TimeConverter_TAI_UTC_ptr->when_vec[18] = 9169.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[18] = 28;
-   TimeConverter_TAI_UTC_ptr->when_vec[19] = 9534.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[19] = 29;
-   TimeConverter_TAI_UTC_ptr->when_vec[20] = 10083.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[20] = 30;
-   TimeConverter_TAI_UTC_ptr->when_vec[21] = 10630.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[21] = 31;
-   TimeConverter_TAI_UTC_ptr->when_vec[22] = 11179.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[22] = 32;
-   TimeConverter_TAI_UTC_ptr->when_vec[23] = 13736.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[23] = 33;
-   TimeConverter_TAI_UTC_ptr->when_vec[24] = 14832.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[24] = 34;
-   TimeConverter_TAI_UTC_ptr->when_vec[25] = 16109.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[25] = 35;
-   TimeConverter_TAI_UTC_ptr->when_vec[26] = 17204.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[26] = 36;
-   TimeConverter_TAI_UTC_ptr->when_vec[27] = 17754.0;
-   TimeConverter_TAI_UTC_ptr->val_vec[27] = 37;
+void TimeConverter_TAI_UTC_tai_to_utc_default_data::initialize(TimeConverter_TAI_UTC * TimeConverter_TAI_UTC_ptr)
+{
+    TimeConverter_TAI_UTC_ptr->override_data_table = false;
+    TimeConverter_TAI_UTC_ptr->last_index = 27;
+    TimeConverter_TAI_UTC_ptr->when_vec = JEOD_ALLOC_PRIM_ARRAY(28, double);
+    TimeConverter_TAI_UTC_ptr->val_vec = JEOD_ALLOC_PRIM_ARRAY(28, int);
+
+    TimeConverter_TAI_UTC_ptr->when_vec[0] = 1317.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[0] = 10;
+    TimeConverter_TAI_UTC_ptr->when_vec[1] = 1499.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[1] = 11;
+    TimeConverter_TAI_UTC_ptr->when_vec[2] = 1683.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[2] = 12;
+    TimeConverter_TAI_UTC_ptr->when_vec[3] = 2048.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[3] = 13;
+    TimeConverter_TAI_UTC_ptr->when_vec[4] = 2413.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[4] = 14;
+    TimeConverter_TAI_UTC_ptr->when_vec[5] = 2778.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[5] = 15;
+    TimeConverter_TAI_UTC_ptr->when_vec[6] = 3144.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[6] = 16;
+    TimeConverter_TAI_UTC_ptr->when_vec[7] = 3509.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[7] = 17;
+    TimeConverter_TAI_UTC_ptr->when_vec[8] = 3874.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[8] = 18;
+    TimeConverter_TAI_UTC_ptr->when_vec[9] = 4239.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[9] = 19;
+    TimeConverter_TAI_UTC_ptr->when_vec[10] = 4786.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[10] = 20;
+    TimeConverter_TAI_UTC_ptr->when_vec[11] = 5151.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[11] = 21;
+    TimeConverter_TAI_UTC_ptr->when_vec[12] = 5516.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[12] = 22;
+    TimeConverter_TAI_UTC_ptr->when_vec[13] = 6247.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[13] = 23;
+    TimeConverter_TAI_UTC_ptr->when_vec[14] = 7161.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[14] = 24;
+    TimeConverter_TAI_UTC_ptr->when_vec[15] = 7892.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[15] = 25;
+    TimeConverter_TAI_UTC_ptr->when_vec[16] = 8257.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[16] = 26;
+    TimeConverter_TAI_UTC_ptr->when_vec[17] = 8804.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[17] = 27;
+    TimeConverter_TAI_UTC_ptr->when_vec[18] = 9169.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[18] = 28;
+    TimeConverter_TAI_UTC_ptr->when_vec[19] = 9534.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[19] = 29;
+    TimeConverter_TAI_UTC_ptr->when_vec[20] = 10083.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[20] = 30;
+    TimeConverter_TAI_UTC_ptr->when_vec[21] = 10630.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[21] = 31;
+    TimeConverter_TAI_UTC_ptr->when_vec[22] = 11179.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[22] = 32;
+    TimeConverter_TAI_UTC_ptr->when_vec[23] = 13736.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[23] = 33;
+    TimeConverter_TAI_UTC_ptr->when_vec[24] = 14832.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[24] = 34;
+    TimeConverter_TAI_UTC_ptr->when_vec[25] = 16109.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[25] = 35;
+    TimeConverter_TAI_UTC_ptr->when_vec[26] = 17204.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[26] = 36;
+    TimeConverter_TAI_UTC_ptr->when_vec[27] = 17754.0;
+    TimeConverter_TAI_UTC_ptr->val_vec[27] = 37;
 }
 
-
-} // End JEOD namespace
-
+} // namespace jeod

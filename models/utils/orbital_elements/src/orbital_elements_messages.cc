@@ -24,10 +24,9 @@ Assumptions and limitations:
 Library dependencies:
   ((orbital_elements_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -36,18 +35,16 @@ Library dependencies:
 
 #define PATH "utils/orbital_elements/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 
-char const * OrbitalElementsMessages::domain_error =
-   PATH "domain_error";
-char const * OrbitalElementsMessages::convergence_error =
-   PATH "convergence_error";
+const char * OrbitalElementsMessages::domain_error = PATH "domain_error";
+const char * OrbitalElementsMessages::convergence_error = PATH "convergence_error";
 
- } // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

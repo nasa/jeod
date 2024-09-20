@@ -57,71 +57,54 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/radiation_params.cc))
-
-
 *******************************************************************************/
 
 #ifndef JEOD_RADIATION_PARAMS_HH
 #define JEOD_RADIATION_PARAMS_HH
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "interactions/thermal_rider/include/thermal_params.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "utils/surface_model/include/facet_params.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides a parameter list to each facet, based on the facet material properties.
  */
-class RadiationParams : public FacetParams {
-
-   JEOD_MAKE_SIM_INTERFACES(RadiationParams)
-
-
-public:
-
-   /**
-    * Fraction of incident radiation that is immediately reflected.
-    */
-  double albedo;     //!< trick_units(--)
-
-   /**
-    * Fraction of reflected radiation that is reflected diffusely (balance
-    * reflected specularly)
-    */
-  double diffuse;    //!< trick_units(--)
-
-   /**
-    * Additional thermal parameters.
-    */
-  ThermalParams thermal; //!< trick_units(--)
+class RadiationParams : public FacetParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationParams)
 
 public:
+    /**
+     * Fraction of incident radiation that is immediately reflected.
+     */
+    double albedo{}; //!< trick_units(--)
 
-   // constructor
-   RadiationParams ();
+    /**
+     * Fraction of reflected radiation that is reflected diffusely (balance
+     * reflected specularly)
+     */
+    double diffuse{}; //!< trick_units(--)
 
-   // destructor
-   ~RadiationParams () override;
+    /**
+     * Additional thermal parameters.
+     */
+    ThermalParams thermal; //!< trick_units(--)
 
-protected:
-
-private:
-
-   RadiationParams& operator = (const RadiationParams& rhs);
-   RadiationParams (const RadiationParams& rhs);
-
+public:
+    RadiationParams() = default;
+    ~RadiationParams() override = default;
+    RadiationParams & operator=(const RadiationParams &) = delete;
+    RadiationParams(const RadiationParams &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

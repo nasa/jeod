@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -54,8 +54,8 @@ $(function() {
 
 <p>ThermalFacetRider interaction model.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/df1/thermal__facet__rider_8hh_source.html">../include/thermal_facet_rider.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d38/thermal__messages_8hh_source.html">../include/thermal_messages.hh</a>&quot;</code><br />
@@ -64,14 +64,19 @@ Include dependency graph for thermal_facet_rider.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d80/thermal__facet__rider_8cc__incl.png" border="0" usemap="#thermal__facet__rider_8cc" alt=""/></div>
 <map name="thermal__facet__rider_8cc" id="thermal__facet__rider_8cc">
-<area shape="rect" id="node4" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="248,363,396,404"/>
-<area shape="rect" id="node9" href="../../da/df1/thermal__facet__rider_8hh.html" title="Defining the thermal characteristics of surface facets. " alt="" coords="362,80,485,121"/>
-<area shape="rect" id="node14" href="../../d8/d38/thermal__messages_8hh.html" title="Define the class ThermalMessages, the class that specifies the message IDs used in the model..." alt="" coords="729,169,851,211"/>
-<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="565,452,716,493"/>
-<area shape="rect" id="node8" href="../../d2/d68/utils_2message_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in this module. " alt="" coords="183,459,331,486"/>
-<area shape="rect" id="node7" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="603,541,678,568"/>
-<area shape="rect" id="node10" href="../../d1/d31/thermal__integrable__object_8hh.html" title="Define an IntegrableObject class adapted to thermal integration. " alt="" coords="359,169,487,211"/>
-<area shape="rect" id="node13" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="221,266,423,307"/>
+<area shape="rect" id="node4" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="517,363,681,404"/>
+<area shape="rect" id="node15" href="../../da/df1/thermal__facet__rider_8hh.html" title="Defining the thermal characteristics of surface facets. " alt="" coords="459,80,595,121"/>
+<area shape="rect" id="node20" href="../../d8/d38/thermal__messages_8hh.html" title="Define the class ThermalMessages, the class that specifies the message IDs used in the model..." alt="" coords="792,169,928,211"/>
+<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="448,631,613,672"/>
+<area shape="rect" id="node8" href="../../d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="825,452,972,508"/>
+<area shape="rect" id="node14" href="../../d2/d68/utils_2message_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in this module. " alt="" coords="588,467,751,493"/>
+<area shape="rect" id="node7" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="843,720,925,747"/>
+<area shape="rect" id="node10" href="../../d7/da4/checkpoint__input__manager_8hh.html" title="Define class CheckPointInputManager and related classes. " alt="" coords="1314,556,1531,583"/>
+<area shape="rect" id="node11" href="../../de/dbd/checkpoint__output__manager_8hh.html" title="Define class CheckPointOutputManager and related classes. " alt="" coords="1012,556,1239,583"/>
+<area shape="rect" id="node12" href="../../d4/d26/utils_2sim__interface_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in the utils/sim_interface model. " alt="" coords="593,556,756,583"/>
+<area shape="rect" id="node13" href="../../dc/dde/jeod__integrator__interface_8hh.html" title="Define the interface for accessing / updating elements of a simulation engine&#39;s integrator object..." alt="" coords="781,556,987,583"/>
+<area shape="rect" id="node16" href="../../d1/d31/thermal__integrable__object_8hh.html" title="Define an IntegrableObject class adapted to thermal integration. " alt="" coords="331,169,477,211"/>
+<area shape="rect" id="node19" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="291,266,517,307"/>
 </map>
 </div>
 </div>
@@ -109,7 +114,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="../../de/dfc/classjeod_1_1ThermalFacetRider.html#aef27954bef4745f6612525dde1ae5ae1">jeod::ThermalFacetRider::integrate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/dfc/classjeod_1_1ThermalFacetRider.html#af559cabb13ed9a55b076f7523c207a3a">jeod::ThermalFacetRider::integrate()</a>.</p>
 
 </div>
 </div>

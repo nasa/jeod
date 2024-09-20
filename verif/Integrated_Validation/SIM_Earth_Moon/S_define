@@ -57,50 +57,52 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
-#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
+#define LOW_RATE_ENV 60.00 // Low-rate environment update interval
+#define DYNAMICS 0.03125   // Vehicle and plantary dynamics interval (32Hz)
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #define TIME_CALENDAR_UPDATE_INTERVAL DYNAMICS
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
 
 #include "dynamics.sm"
-#include "environment.sm"
 #include "earth_GGM05C_MET_RNP.sm"
+#include "environment.sm"
 #include "sun_basic.sm"
-
 
 /*****************************************************************************
 Moon is a copy of the default Moon-with-LP150Q gravity field sim object, but
 this also has a derivative class job to update the lunar orientation.
 *****************************************************************************/
 #include "Base/moon_LP150Q.sm"
+
 class MoonSimObject : public Moon_LP150Q_SimObject
 {
- protected:
-  jeod::De4xxEphemeris & de4xx;
- public:
-  MoonSimObject( jeod::DynManager     & dyn_manager_,
-                 jeod::GravityManager   & grav_manager_,
-                 jeod::De4xxEphemeris & de4xx_)
-    :
-    Moon_LP150Q_SimObject( dyn_manager_, grav_manager_),
-    de4xx( de4xx_)
-  {
-    P_ENV ("derivative") de4xx.propagate_lunar_rnp ( );
-  }
- private:
-  // Unimplemented copy constructor and assignment operator
-  MoonSimObject (const MoonSimObject&);
-  MoonSimObject & operator = (const MoonSimObject&);
+protected:
+    jeod::De4xxEphemeris & de4xx;
+
+public:
+    MoonSimObject(jeod::DynManager & dyn_manager_, jeod::GravityManager & grav_manager_, jeod::De4xxEphemeris & de4xx_)
+        : Moon_LP150Q_SimObject(dyn_manager_, grav_manager_),
+          de4xx(de4xx_)
+    {
+        P_ENV("derivative") de4xx.propagate_lunar_rnp();
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    MoonSimObject(const MoonSimObject &) = delete;
+    MoonSimObject & operator=(const MoonSimObject &) = delete;
 };
-MoonSimObject moon (dynamics.dyn_manager, env.gravity_manager, env.de4xx);
+
+MoonSimObject moon(dynamics.dyn_manager, env.gravity_manager, env.de4xx);
 
 //***************************************************************
 // CLASS: (VehicleSimObject)
@@ -125,99 +127,82 @@ MoonSimObject moon (dynamics.dyn_manager, env.gravity_manager, env.de4xx);
 #include "Base/vehicle_atmosphere.sm"
 class VehicleSimObject: public VehicleAtmSimObject
 {
- protected:
-  const jeod::TimeDyn & dyn_time;
- public:
-  jeod::DynBodyInitLvlhRotState lvlh_init;
-  jeod::EulerDerivedState     euler;
-  jeod::LvlhDerivedState      lvlh;
-  jeod::EulerDerivedState     lvlh_euler;
-  jeod::OrbElemDerivedState   orb_elem;
-  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
-  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
-  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
-  jeod::AerodynamicDrag  aero_drag;
-  jeod::RadiationPressure        rad_pressure;
-  jeod::RadiationDefaultSurface  rad_surface;
+protected:
+    const jeod::TimeDyn & dyn_time;
 
-// Instances for default data:
-    jeod::AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+public:
+    jeod::DynBodyInitLvlhRotState lvlh_init;
+    jeod::EulerDerivedState euler;
+    jeod::LvlhDerivedState lvlh;
+    jeod::EulerDerivedState lvlh_euler;
+    jeod::OrbElemDerivedState orb_elem;
+    jeod::SphericalHarmonicsGravityControls earth_grav_control;
+    jeod::SphericalHarmonicsGravityControls moon_grav_control;
+    jeod::SphericalHarmonicsGravityControls sun_grav_control;
+    jeod::AerodynamicDrag aero_drag;
+    jeod::RadiationPressure rad_pressure;
+    jeod::RadiationDefaultSurface rad_surface;
 
-//Constructor
-    VehicleSimObject( jeod::DynManager     & dyn_mngr_,
-                     jeod::METAtmosphere  & atmos_,
-                     jeod::WindVelocity   & wind_,
-                     const jeod::TimeDyn  & dyn_time_)
-        :
-        VehicleAtmSimObject( dyn_mngr_, atmos_, wind_),
-        dyn_time( dyn_time_)
-   {
-   //
-   //Default data jobs
-   //
-      ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+    // Instances for default data:
+    jeod::AerodynamicDrag_aero_model_default_data aero_drag_default_data;
 
-   //
-   // Initialization jobs
-   //
-      P_DYN  ("initialization") euler.initialize( dyn_body,
-                                                  dyn_manager );
-      P_DYN  ("initialization") lvlh.initialize( dyn_body,
-                                                 dyn_manager );
-      P_DYN  ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
-                                                       dyn_body,
-                                                       dyn_manager );
-      P_DYN  ("initialization") orb_elem.initialize( dyn_body,
-                                                     dyn_manager );
-      ("initialization") euler.update( );
-      ("initialization") pfix.update( );
-      ("initialization") lvlh.update( );
-      ("initialization") lvlh_euler.update( );
-      ("initialization") orb_elem.update( );
-      ("initialization") rad_pressure.initialize( dyn_manager,
-                                                  &rad_surface);
-   //
-   // Environment class jobs
-   //
-      (DYNAMICS, "environment") euler.update( );
-      (DYNAMICS, "environment") pfix.update( );
-      (DYNAMICS, "environment") lvlh.update( );
-      (DYNAMICS, "environment") lvlh_euler.update( );
-      (DYNAMICS, "environment") orb_elem.update( );
-      (DYNAMICS, "environment") rad_pressure.update(
-          dyn_body.structure,
-          dyn_body.mass.composite_properties.position,
-          dyn_time.scale_factor,
-          dyn_time.seconds);
-   //
-   // Derivative class jobs
-   //
-      P_BODY   ("derivative") aero_drag.aero_drag(
-          dyn_body.composite_body.state.trans.velocity,
-          &atmos_state,
-          dyn_body.structure.state.rot.T_parent_this,
-          dyn_body.mass.composite_properties.mass,
-          dyn_body.mass.composite_properties.position);
+    // Constructor
+    VehicleSimObject(jeod::DynManager & dyn_mngr_,
+                     jeod::METAtmosphere & atmos_,
+                     jeod::WindVelocity & wind_,
+                     const jeod::TimeDyn & dyn_time_)
+        : VehicleAtmSimObject(dyn_mngr_, atmos_, wind_),
+          dyn_time(dyn_time_)
+    {
+        //
+        // Default data jobs
+        //
+        ("default_data") aero_drag_default_data.initialize(&aero_drag);
+
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") euler.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh_euler.initialize(lvlh.lvlh_frame, dyn_body, dyn_manager);
+        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
+        ("initialization") euler.update();
+        ("initialization") pfix.update();
+        ("initialization") lvlh.update();
+        ("initialization") lvlh_euler.update();
+        ("initialization") orb_elem.update();
+        ("initialization") rad_pressure.initialize(dyn_manager, &rad_surface);
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") euler.update();
+        (DYNAMICS, "environment") pfix.update();
+        (DYNAMICS, "environment") lvlh.update();
+        (DYNAMICS, "environment") lvlh_euler.update();
+        (DYNAMICS, "environment") orb_elem.update();
+        (DYNAMICS, "environment") rad_pressure.update(dyn_body.structure,
+                                                      dyn_body.mass.composite_properties.position,
+                                                      dyn_time.scale_factor,
+                                                      dyn_time.seconds);
+        //
+        // Derivative class jobs
+        //
+        P_BODY("derivative")
+        aero_drag.aero_drag(dyn_body.composite_body.state.trans.velocity,
+                            &atmos_state,
+                            dyn_body.structure.state.rot.T_parent_this,
+                            dyn_body.mass.composite_properties.mass,
+                            dyn_body.mass.composite_properties.position);
     }
 
-  private:
-    VehicleSimObject (const VehicleSimObject&);
-    VehicleSimObject & operator = (const VehicleSimObject&);
-
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
-VehicleSimObject vehicle ( dynamics.dyn_manager,
-                         earth.atmos,
-                         earth.wind_velocity,
-                         jeod_time.time_manager.dyn_time);
+VehicleSimObject vehicle(dynamics.dyn_manager, earth.atmos, earth.wind_velocity, jeod_time.time_manager.dyn_time);
 
-
-vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-   vehicle.aero_drag.aero_force,
-   vehicle.rad_pressure.force
+vcollect vehicle.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{vehicle.aero_drag.aero_force,
+                                                                                  vehicle.rad_pressure.force
 
 };
 
-
-
-
-IntegLoop sim_integ_loop  (DYNAMICS) earth, moon, vehicle, dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) earth, moon, vehicle, dynamics;

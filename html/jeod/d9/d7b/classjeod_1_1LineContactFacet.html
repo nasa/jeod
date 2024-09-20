@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::LineContactFacet Class Reference</div>  </div>
@@ -63,9 +62,9 @@ Inheritance diagram for jeod::LineContactFacet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d17/classjeod_1_1LineContactFacet__inherit__graph.png" border="0" usemap="#jeod_1_1LineContactFacet_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1LineContactFacet_inherit__map" id="jeod_1_1LineContactFacet_inherit__map">
-<area shape="rect" id="node2" href="../../da/d1d/classjeod_1_1PointContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="5,155,168,181"/>
-<area shape="rect" id="node3" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="20,80,153,107"/>
-<area shape="rect" id="node4" href="../../d3/de9/classjeod_1_1InteractionFacet.html" title="A base class for an interaction specific facet. " alt="" coords="13,5,161,32"/>
+<area shape="rect" id="node2" href="../../da/d1d/classjeod_1_1PointContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="5,155,180,181"/>
+<area shape="rect" id="node3" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="21,80,164,107"/>
+<area shape="rect" id="node4" href="../../d3/de9/classjeod_1_1InteractionFacet.html" title="A base class for an interaction specific facet. " alt="" coords="11,5,174,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -73,12 +72,12 @@ Collaboration diagram for jeod::LineContactFacet:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/ddc/classjeod_1_1LineContactFacet__coll__graph.png" border="0" usemap="#jeod_1_1LineContactFacet_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1LineContactFacet_coll__map" id="jeod_1_1LineContactFacet_coll__map">
-<area shape="rect" id="node2" href="../../da/d1d/classjeod_1_1PointContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="229,363,391,389"/>
-<area shape="rect" id="node3" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="243,287,377,313"/>
-<area shape="rect" id="node4" href="../../d3/de9/classjeod_1_1InteractionFacet.html" title="A base class for an interaction specific facet. " alt="" coords="5,197,153,224"/>
-<area shape="rect" id="node5" href="../../d2/dee/classjeod_1_1ContactParams.html" title="A base class for all contact parameters used in the surface model. " alt="" coords="177,197,323,224"/>
-<area shape="rect" id="node6" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="321,5,464,32"/>
-<area shape="rect" id="node7" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="477,197,585,224"/>
+<area shape="rect" id="node2" href="../../da/d1d/classjeod_1_1PointContactFacet.html" title="The contact facet based on the distance to a single point, specifically the vehicle point..." alt="" coords="246,363,421,389"/>
+<area shape="rect" id="node3" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="262,287,405,313"/>
+<area shape="rect" id="node4" href="../../d3/de9/classjeod_1_1InteractionFacet.html" title="A base class for an interaction specific facet. " alt="" coords="5,197,168,224"/>
+<area shape="rect" id="node5" href="../../d2/dee/classjeod_1_1ContactParams.html" title="A base class for all contact parameters used in the surface model. " alt="" coords="193,197,349,224"/>
+<area shape="rect" id="node6" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="343,5,495,32"/>
+<area shape="rect" id="node7" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="513,197,631,224"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -87,9 +86,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2e5dc87c5142b72a884804975a471bc6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a2e5dc87c5142b72a884804975a471bc6">LineContactFacet</a> ()</td></tr>
 <tr class="memdesc:a2e5dc87c5142b72a884804975a471bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a2e5dc87c5142b72a884804975a471bc6">More...</a><br /></td></tr>
 <tr class="separator:a2e5dc87c5142b72a884804975a471bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af98c3bdfe843511ddad5cba6bf95ff11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#af98c3bdfe843511ddad5cba6bf95ff11">~LineContactFacet</a> () override</td></tr>
-<tr class="memdesc:af98c3bdfe843511ddad5cba6bf95ff11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#af98c3bdfe843511ddad5cba6bf95ff11">More...</a><br /></td></tr>
-<tr class="separator:af98c3bdfe843511ddad5cba6bf95ff11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51581dd13a4e7a34291eb92d741d0b4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a51581dd13a4e7a34291eb92d741d0b4b">~LineContactFacet</a> () override=default</td></tr>
+<tr class="separator:a51581dd13a4e7a34291eb92d741d0b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae94f8247190959f9f38e6dac583e7b80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#ae94f8247190959f9f38e6dac583e7b80">operator=</a> (const <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:ae94f8247190959f9f38e6dac583e7b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b463a2a511b652fd8b36bd259dbfb16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a3b463a2a511b652fd8b36bd259dbfb16">LineContactFacet</a> (const <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:a3b463a2a511b652fd8b36bd259dbfb16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8aff04692dc3e85838d14091386502a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a8aff04692dc3e85838d14091386502a9">create_pair</a> () override</td></tr>
 <tr class="memdesc:a8aff04692dc3e85838d14091386502a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloaded functions that create a <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html" title="An base contact pair class for use in the contact model. ">ContactPair</a> and pass the address of it to the <a class="el" href="../../d9/d55/classjeod_1_1Contact.html" title="An base contact class for use in the surface model. ">Contact</a> class for addition to the list of pairs.  <a href="#a8aff04692dc3e85838d14091386502a9">More...</a><br /></td></tr>
 <tr class="separator:a8aff04692dc3e85838d14091386502a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,9 +111,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af8ba4777619df6812f8f54711c5497ca inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#af8ba4777619df6812f8f54711c5497ca">PointContactFacet</a> ()</td></tr>
 <tr class="memdesc:af8ba4777619df6812f8f54711c5497ca inherit pub_methods_classjeod_1_1PointContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="../../da/d1d/classjeod_1_1PointContactFacet.html#af8ba4777619df6812f8f54711c5497ca">More...</a><br /></td></tr>
 <tr class="separator:af8ba4777619df6812f8f54711c5497ca inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e5dd767c7a49702d23af8ca8c385e5e inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6e5dd767c7a49702d23af8ca8c385e5e">~PointContactFacet</a> () override</td></tr>
-<tr class="memdesc:a6e5dd767c7a49702d23af8ca8c385e5e inherit pub_methods_classjeod_1_1PointContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6e5dd767c7a49702d23af8ca8c385e5e">More...</a><br /></td></tr>
-<tr class="separator:a6e5dd767c7a49702d23af8ca8c385e5e inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb7913de4056f14b41f2110ecada597 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a7bb7913de4056f14b41f2110ecada597">~PointContactFacet</a> () override=default</td></tr>
+<tr class="separator:a7bb7913de4056f14b41f2110ecada597 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35ced1715d94cd727ab9ecf07cf03997 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html">PointContactFacet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a35ced1715d94cd727ab9ecf07cf03997">operator=</a> (const <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html">PointContactFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:a35ced1715d94cd727ab9ecf07cf03997 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41a3e780e4566d5ad4ae149fc0c5264b inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a41a3e780e4566d5ad4ae149fc0c5264b">PointContactFacet</a> (const <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html">PointContactFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:a41a3e780e4566d5ad4ae149fc0c5264b inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af94fa011df0e62ae0d1b02c8a66244f5 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#af94fa011df0e62ae0d1b02c8a66244f5">create_pair</a> () override</td></tr>
 <tr class="memdesc:af94fa011df0e62ae0d1b02c8a66244f5 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloaded functions that create a <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html" title="An base contact pair class for use in the contact model. ">ContactPair</a> and pass the address of it to the <a class="el" href="../../d9/d55/classjeod_1_1Contact.html" title="An base contact class for use in the surface model. ">Contact</a> class for addition to the list of pairs.  <a href="../../da/d1d/classjeod_1_1PointContactFacet.html#af94fa011df0e62ae0d1b02c8a66244f5">More...</a><br /></td></tr>
 <tr class="separator:af94fa011df0e62ae0d1b02c8a66244f5 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,78 +130,75 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2fe505c2b698aaa1294cf9421d906162 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the torque generated on the vehicle by the facet.  <a href="../../da/d1d/classjeod_1_1PointContactFacet.html#a2fe505c2b698aaa1294cf9421d906162">More...</a><br /></td></tr>
 <tr class="separator:a2fe505c2b698aaa1294cf9421d906162 inherit pub_methods_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1ContactFacet"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1ContactFacet')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">jeod::ContactFacet</a></td></tr>
-<tr class="memitem:af8546ebd509b71bcb5482ed663ed2d1b inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#af8546ebd509b71bcb5482ed663ed2d1b">ContactFacet</a> ()</td></tr>
-<tr class="memdesc:af8546ebd509b71bcb5482ed663ed2d1b inherit pub_methods_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#af8546ebd509b71bcb5482ed663ed2d1b">More...</a><br /></td></tr>
-<tr class="separator:af8546ebd509b71bcb5482ed663ed2d1b inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0294d00e316b1a987f864c26b4cbdf9e inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a0294d00e316b1a987f864c26b4cbdf9e">~ContactFacet</a> () override</td></tr>
-<tr class="memdesc:a0294d00e316b1a987f864c26b4cbdf9e inherit pub_methods_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a0294d00e316b1a987f864c26b4cbdf9e">More...</a><br /></td></tr>
-<tr class="separator:a0294d00e316b1a987f864c26b4cbdf9e inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb2337a5f57358ffe09246360cca7630 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#aeb2337a5f57358ffe09246360cca7630">create_vehicle_point</a> (void)</td></tr>
-<tr class="memdesc:aeb2337a5f57358ffe09246360cca7630 inherit pub_methods_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Create a vehicle point to track the state information of the contact facet.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#aeb2337a5f57358ffe09246360cca7630">More...</a><br /></td></tr>
-<tr class="separator:aeb2337a5f57358ffe09246360cca7630 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb48005d8d42446ceac3faad42ee8c5b inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#abb48005d8d42446ceac3faad42ee8c5b">get_name</a> (void) const</td></tr>
-<tr class="memdesc:abb48005d8d42446ceac3faad42ee8c5b inherit pub_methods_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accessor for name.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#abb48005d8d42446ceac3faad42ee8c5b">More...</a><br /></td></tr>
-<tr class="separator:abb48005d8d42446ceac3faad42ee8c5b inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaee1041c67c93e7ed901c143bcc07d4a inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#aaee1041c67c93e7ed901c143bcc07d4a">ContactFacet</a> ()=default</td></tr>
+<tr class="separator:aaee1041c67c93e7ed901c143bcc07d4a inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a562e956fcb334022bb19301c9032697c inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a562e956fcb334022bb19301c9032697c">~ContactFacet</a> () override=default</td></tr>
+<tr class="separator:a562e956fcb334022bb19301c9032697c inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fcc07b993365f8e3d1672a4b8376f30 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a5fcc07b993365f8e3d1672a4b8376f30">operator=</a> (const <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:a5fcc07b993365f8e3d1672a4b8376f30 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0f17ba31f231f394a92227e08993a0 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a8f0f17ba31f231f394a92227e08993a0">ContactFacet</a> (const <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:a8f0f17ba31f231f394a92227e08993a0 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4757c10e7cb85ba2f21f823337a414e3 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a4757c10e7cb85ba2f21f823337a414e3">create_vehicle_point</a> ()</td></tr>
+<tr class="memdesc:a4757c10e7cb85ba2f21f823337a414e3 inherit pub_methods_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
+Create a vehicle point to track the state information of the contact facet.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a4757c10e7cb85ba2f21f823337a414e3">More...</a><br /></td></tr>
+<tr class="separator:a4757c10e7cb85ba2f21f823337a414e3 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675dfa34a1fef5f7d310f27ad0f28690 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a675dfa34a1fef5f7d310f27ad0f28690">get_name</a> () const</td></tr>
+<tr class="memdesc:a675dfa34a1fef5f7d310f27ad0f28690 inherit pub_methods_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accessor for name.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a675dfa34a1fef5f7d310f27ad0f28690">More...</a><br /></td></tr>
+<tr class="separator:a675dfa34a1fef5f7d310f27ad0f28690 inherit pub_methods_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1InteractionFacet"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1InteractionFacet')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">jeod::InteractionFacet</a></td></tr>
-<tr class="memitem:a20b80991a55a9774f04270b159b9e614 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a20b80991a55a9774f04270b159b9e614">InteractionFacet</a> ()</td></tr>
-<tr class="memdesc:a20b80991a55a9774f04270b159b9e614 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="../../d3/de9/classjeod_1_1InteractionFacet.html#a20b80991a55a9774f04270b159b9e614">More...</a><br /></td></tr>
-<tr class="separator:a20b80991a55a9774f04270b159b9e614 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2092214f477dbe5ebe440aa05938b3e inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#aa2092214f477dbe5ebe440aa05938b3e">~InteractionFacet</a> ()</td></tr>
-<tr class="memdesc:aa2092214f477dbe5ebe440aa05938b3e inherit pub_methods_classjeod_1_1InteractionFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="../../d3/de9/classjeod_1_1InteractionFacet.html#aa2092214f477dbe5ebe440aa05938b3e">More...</a><br /></td></tr>
-<tr class="separator:aa2092214f477dbe5ebe440aa05938b3e inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962466f511d54a7b17664fe446e268b1 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a962466f511d54a7b17664fe446e268b1">InteractionFacet</a> ()=default</td></tr>
+<tr class="separator:a962466f511d54a7b17664fe446e268b1 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200f3515fe608706a84e7756e839a3c4 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a200f3515fe608706a84e7756e839a3c4">~InteractionFacet</a> ()=default</td></tr>
+<tr class="separator:a200f3515fe608706a84e7756e839a3c4 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc2808437ad12047a2940d29c2a05f99 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#abc2808437ad12047a2940d29c2a05f99">operator=</a> (const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:abc2808437ad12047a2940d29c2a05f99 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a425b0b4a348fd803af7d4c736fa5d9e0 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a425b0b4a348fd803af7d4c736fa5d9e0">InteractionFacet</a> (const <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">InteractionFacet</a> &amp;)=delete</td></tr>
+<tr class="separator:a425b0b4a348fd803af7d4c736fa5d9e0 inherit pub_methods_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a6c51403fcdcda2a738a32d7e932f408d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6c51403fcdcda2a738a32d7e932f408d">length</a></td></tr>
+<tr class="memitem:a6c51403fcdcda2a738a32d7e932f408d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6c51403fcdcda2a738a32d7e932f408d">length</a> {}</td></tr>
 <tr class="memdesc:a6c51403fcdcda2a738a32d7e932f408d"><td class="mdescLeft">&#160;</td><td class="mdescRight">length of the line along the vehicle point x axis.  <a href="#a6c51403fcdcda2a738a32d7e932f408d">More...</a><br /></td></tr>
 <tr class="separator:a6c51403fcdcda2a738a32d7e932f408d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1PointContactFacet"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1PointContactFacet')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html">jeod::PointContactFacet</a></td></tr>
-<tr class="memitem:a083634ddda52f58afc7d5fdcbc0953bb inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a083634ddda52f58afc7d5fdcbc0953bb">radius</a></td></tr>
+<tr class="memitem:a083634ddda52f58afc7d5fdcbc0953bb inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a083634ddda52f58afc7d5fdcbc0953bb">radius</a> {}</td></tr>
 <tr class="memdesc:a083634ddda52f58afc7d5fdcbc0953bb inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">radius from the point at which contact takes place.  <a href="../../da/d1d/classjeod_1_1PointContactFacet.html#a083634ddda52f58afc7d5fdcbc0953bb">More...</a><br /></td></tr>
 <tr class="separator:a083634ddda52f58afc7d5fdcbc0953bb inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f496652ab839d13bc9ef4f988304504 inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">contact_point</a> [3]</td></tr>
+<tr class="memitem:a6f496652ab839d13bc9ef4f988304504 inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">contact_point</a> [3] {}</td></tr>
 <tr class="memdesc:a6f496652ab839d13bc9ef4f988304504 inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d55/classjeod_1_1Contact.html" title="An base contact class for use in the surface model. ">Contact</a> point given in facet vehicle point frame, representing point on the point on the surface of a sphere of radius "radius" where contact has occured.  <a href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">More...</a><br /></td></tr>
 <tr class="separator:a6f496652ab839d13bc9ef4f988304504 inherit pub_attribs_classjeod_1_1PointContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1ContactFacet"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1ContactFacet')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">jeod::ContactFacet</a></td></tr>
-<tr class="memitem:a9eb8121060e8cc0ac0981826eec344ed inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a9eb8121060e8cc0ac0981826eec344ed">active</a></td></tr>
+<tr class="memitem:a9eb8121060e8cc0ac0981826eec344ed inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a9eb8121060e8cc0ac0981826eec344ed">active</a> {true}</td></tr>
 <tr class="memdesc:a9eb8121060e8cc0ac0981826eec344ed inherit pub_attribs_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">toggles this contact facet on and off, true=on false=off  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a9eb8121060e8cc0ac0981826eec344ed">More...</a><br /></td></tr>
 <tr class="separator:a9eb8121060e8cc0ac0981826eec344ed inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5950d7ac29eb9184159ddf6e338019d9 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dee/classjeod_1_1ContactParams.html">ContactParams</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a5950d7ac29eb9184159ddf6e338019d9">surface_type</a></td></tr>
+<tr class="memitem:a5950d7ac29eb9184159ddf6e338019d9 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dee/classjeod_1_1ContactParams.html">ContactParams</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a5950d7ac29eb9184159ddf6e338019d9">surface_type</a> {}</td></tr>
 <tr class="memdesc:a5950d7ac29eb9184159ddf6e338019d9 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the name of surface material that the facet is constructed of.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a5950d7ac29eb9184159ddf6e338019d9">More...</a><br /></td></tr>
 <tr class="separator:a5950d7ac29eb9184159ddf6e338019d9 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5350c4e30d2cca737931e74fc49d4f8 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#ad5350c4e30d2cca737931e74fc49d4f8">vehicle_body</a></td></tr>
+<tr class="memitem:ad5350c4e30d2cca737931e74fc49d4f8 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#ad5350c4e30d2cca737931e74fc49d4f8">vehicle_body</a> {}</td></tr>
 <tr class="memdesc:ad5350c4e30d2cca737931e74fc49d4f8 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. ">DynBody</a> associated with this facet for structural frame information.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#ad5350c4e30d2cca737931e74fc49d4f8">More...</a><br /></td></tr>
 <tr class="separator:ad5350c4e30d2cca737931e74fc49d4f8 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68b944352e204fdb1a064dc9b60ba2a3 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a68b944352e204fdb1a064dc9b60ba2a3">max_dimension</a></td></tr>
+<tr class="memitem:a68b944352e204fdb1a064dc9b60ba2a3 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a68b944352e204fdb1a064dc9b60ba2a3">max_dimension</a> {}</td></tr>
 <tr class="memdesc:a68b944352e204fdb1a064dc9b60ba2a3 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum dimension of the contact facet for use in limiting pair in_contact calls  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a68b944352e204fdb1a064dc9b60ba2a3">More...</a><br /></td></tr>
 <tr class="separator:a68b944352e204fdb1a064dc9b60ba2a3 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b4a6eef356635146a251f512024f03f inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a2b4a6eef356635146a251f512024f03f">position</a> [3]</td></tr>
+<tr class="memitem:a2b4a6eef356635146a251f512024f03f inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a2b4a6eef356635146a251f512024f03f">position</a> [3] {}</td></tr>
 <tr class="memdesc:a2b4a6eef356635146a251f512024f03f inherit pub_attribs_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">position of the facet in vehicle structural frame.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a2b4a6eef356635146a251f512024f03f">More...</a><br /></td></tr>
 <tr class="separator:a2b4a6eef356635146a251f512024f03f inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92f786b04655d82f8969f7bba4777586 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a92f786b04655d82f8969f7bba4777586">normal</a> [3]</td></tr>
+<tr class="memitem:a92f786b04655d82f8969f7bba4777586 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a92f786b04655d82f8969f7bba4777586">normal</a> [3] {}</td></tr>
 <tr class="memdesc:a92f786b04655d82f8969f7bba4777586 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">normal of the facet relative to the vehicle structural frame.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#a92f786b04655d82f8969f7bba4777586">More...</a><br /></td></tr>
 <tr class="separator:a92f786b04655d82f8969f7bba4777586 inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb3dbbab721010753f2f72bc6fa9aeec inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#adb3dbbab721010753f2f72bc6fa9aeec">vehicle_point</a></td></tr>
+<tr class="memitem:adb3dbbab721010753f2f72bc6fa9aeec inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#adb3dbbab721010753f2f72bc6fa9aeec">vehicle_point</a> {}</td></tr>
 <tr class="memdesc:adb3dbbab721010753f2f72bc6fa9aeec inherit pub_attribs_classjeod_1_1ContactFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vehicle point for relstate calculations.  <a href="../../d2/ddc/classjeod_1_1ContactFacet.html#adb3dbbab721010753f2f72bc6fa9aeec">More...</a><br /></td></tr>
 <tr class="separator:adb3dbbab721010753f2f72bc6fa9aeec inherit pub_attribs_classjeod_1_1ContactFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1InteractionFacet"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1InteractionFacet')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html">jeod::InteractionFacet</a></td></tr>
-<tr class="memitem:ad3a756f0b3722a3be3ee2f2c79fdf407 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#ad3a756f0b3722a3be3ee2f2c79fdf407">force</a> [3]</td></tr>
+<tr class="memitem:ad3a756f0b3722a3be3ee2f2c79fdf407 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#ad3a756f0b3722a3be3ee2f2c79fdf407">force</a> [3] {}</td></tr>
 <tr class="memdesc:ad3a756f0b3722a3be3ee2f2c79fdf407 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">The force on the facet caused by the environment interaction.  <a href="../../d3/de9/classjeod_1_1InteractionFacet.html#ad3a756f0b3722a3be3ee2f2c79fdf407">More...</a><br /></td></tr>
 <tr class="separator:ad3a756f0b3722a3be3ee2f2c79fdf407 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eef4ededf5e333e8f88d87219089288 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">torque</a> [3]</td></tr>
+<tr class="memitem:a0eef4ededf5e333e8f88d87219089288 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">torque</a> [3] {}</td></tr>
 <tr class="memdesc:a0eef4ededf5e333e8f88d87219089288 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">The torque on the facet caused by the environment interaction.  <a href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">More...</a><br /></td></tr>
 <tr class="separator:a0eef4ededf5e333e8f88d87219089288 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a91a749c099fb81dc1b5b5008e0ede7 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d0a/classjeod_1_1Facet.html">Facet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8a91a749c099fb81dc1b5b5008e0ede7">base_facet</a></td></tr>
+<tr class="memitem:a8a91a749c099fb81dc1b5b5008e0ede7 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d0a/classjeod_1_1Facet.html">Facet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8a91a749c099fb81dc1b5b5008e0ede7">base_facet</a> {}</td></tr>
 <tr class="memdesc:a8a91a749c099fb81dc1b5b5008e0ede7 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="mdescLeft">&#160;</td><td class="mdescRight">The original facet from which this interaction facet was created.  <a href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8a91a749c099fb81dc1b5b5008e0ede7">More...</a><br /></td></tr>
 <tr class="separator:a8a91a749c099fb81dc1b5b5008e0ede7 inherit pub_attribs_classjeod_1_1InteractionFacet"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a264d263f9ca313a4606838f0933a1729"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a264d263f9ca313a4606838f0933a1729">operator=</a> (const <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;rhs)</td></tr>
-<tr class="separator:a264d263f9ca313a4606838f0933a1729"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52e306794d394f742e380a225b15eef8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a52e306794d394f742e380a225b15eef8">LineContactFacet</a> (const <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;rhs)</td></tr>
-<tr class="separator:a52e306794d394f742e380a225b15eef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -209,7 +211,7 @@ Friends</h2></td></tr>
 <div class="textblock"><p>The contact facet based on the distance to a single point, specifically the vehicle point. </p>
 <p>In effect this represents a sphere. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html#l00086">86</a> of file <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html">line_contact_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html#l00087">87</a> of file <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html">line_contact_facet.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2e5dc87c5142b72a884804975a471bc6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e5dc87c5142b72a884804975a471bc6">&#9670;&nbsp;</a></span>LineContactFacet() <span class="overload">[1/2]</span></h2>
@@ -220,7 +222,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::LineContactFacet::LineContactFacet </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -231,12 +232,12 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00052">52</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">jeod::PointContactFacet::contact_point</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, and <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>.</p>
+<p class="reference">References <a class="el" href="../../d0/d87/group__external.html#gac2ca3fda766a47f844c270ff0069eb0d">JEOD_REGISTER_CLASS</a>.</p>
 
 </div>
 </div>
-<a id="af98c3bdfe843511ddad5cba6bf95ff11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af98c3bdfe843511ddad5cba6bf95ff11">&#9670;&nbsp;</a></span>~LineContactFacet()</h2>
+<a id="a51581dd13a4e7a34291eb92d741d0b4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51581dd13a4e7a34291eb92d741d0b4b">&#9670;&nbsp;</a></span>~LineContactFacet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -247,26 +248,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::LineContactFacet::~LineContactFacet </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00066">66</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
-
 </div>
 </div>
-<a id="a52e306794d394f742e380a225b15eef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52e306794d394f742e380a225b15eef8">&#9670;&nbsp;</a></span>LineContactFacet() <span class="overload">[2/2]</span></h2>
+<a id="a3b463a2a511b652fd8b36bd259dbfb16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b463a2a511b652fd8b36bd259dbfb16">&#9670;&nbsp;</a></span>LineContactFacet() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,13 +274,13 @@ Friends</h2></td></tr>
           <td class="memname">jeod::LineContactFacet::LineContactFacet </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -326,9 +322,9 @@ Friends</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#ab4a6e91d87e18fccf8f1020f518b87c2">jeod::PointContactFacet</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00172">172</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00159">159</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">jeod::PointContactFacet::contact_point</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a6aabe3422daba5c3f8e539966a500236">jeod::Vector3::diff()</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#ae06414daaa37b3db91e0fc6566c36397">jeod::Numerical::fabs()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6c51403fcdcda2a738a32d7e932f408d">length</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a5f08e5bc7250ed40e8e7dbab9a70d0e5">jeod::Vector3::normalize()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a083634ddda52f58afc7d5fdcbc0953bb">jeod::PointContactFacet::radius</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a8680359696f5ac931cd7043698ff8b84">jeod::Vector3::scale()</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#afac4da820ee4e2e80ead9c27b4aa72bd">jeod::Numerical::square()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#adccedc200098d836a71c0d75ab780fda">jeod::Vector3::sum()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a9765082d5eda2ce5c0aa388b9d58b5c1">jeod::Vector3::vmag()</a>.</p>
+<p class="reference">References <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#abeb562bc20e4ec12e94eae1bafb27a65">jeod::Numerical::compare_exact()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">jeod::PointContactFacet::contact_point</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1928ccf4c957aaa25ca81801c495d19a">jeod::Vector3::diff()</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#ae06414daaa37b3db91e0fc6566c36397">jeod::Numerical::fabs()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6c51403fcdcda2a738a32d7e932f408d">length</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a5f08e5bc7250ed40e8e7dbab9a70d0e5">jeod::Vector3::normalize()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a083634ddda52f58afc7d5fdcbc0953bb">jeod::PointContactFacet::radius</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a8680359696f5ac931cd7043698ff8b84">jeod::Vector3::scale()</a>, <a class="el" href="../../d2/d8d/classjeod_1_1Numerical.html#afac4da820ee4e2e80ead9c27b4aa72bd">jeod::Numerical::square()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a9fc06cc256c356ae775126d9fcbff40c">jeod::Vector3::sum()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ad610f3ddf2a1c89c7f21158eb8e7c39d">jeod::Vector3::vmag()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair::in_contact()</a>, and <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair::in_contact()</a>.</p>
 
@@ -369,9 +365,9 @@ Friends</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#ae0f7fc5e2703e9f051011d478985073e">jeod::ContactFacet</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00230">230</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00212">212</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a9a8f4fcc344a5ec845d4352b56846296">jeod::MassBody::composite_properties</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">jeod::PointContactFacet::contact_point</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ab33c6ac52c1f384ec0a2e7402f44ea06">jeod::Vector3::cross()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a6aabe3422daba5c3f8e539966a500236">jeod::Vector3::diff()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a9890b8ca17959b7d08a1d6782a204cd3">jeod::DynBody::mass</a>, <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a21f943f97f0fdd4b12f383582c5ae4c7">jeod::BodyRefFrame::mass_point</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a1084579a27049da936ec5c9d2e459c32">jeod::MassPointState::position</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1c06ceff1c3801c566c9be10e73f74f8">jeod::DynBody::structure</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#adccedc200098d836a71c0d75ab780fda">jeod::Vector3::sum()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">jeod::InteractionFacet::torque</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ab93ec941de02d44915621366b0c14f6e">jeod::Vector3::transform()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#addfb4aaa94e819647dafa0113a83cd1e">jeod::Vector3::transform_transpose()</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#ad5350c4e30d2cca737931e74fc49d4f8">jeod::ContactFacet::vehicle_body</a>, and <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#adb3dbbab721010753f2f72bc6fa9aeec">jeod::ContactFacet::vehicle_point</a>.</p>
+<p class="reference">References <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a9a8f4fcc344a5ec845d4352b56846296">jeod::MassBody::composite_properties</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a6f496652ab839d13bc9ef4f988304504">jeod::PointContactFacet::contact_point</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a2f38a013ea8e87235b6d8618b32ef2f4">jeod::Vector3::cross()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1928ccf4c957aaa25ca81801c495d19a">jeod::Vector3::diff()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a9890b8ca17959b7d08a1d6782a204cd3">jeod::DynBody::mass</a>, <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a21f943f97f0fdd4b12f383582c5ae4c7">jeod::BodyRefFrame::mass_point</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a1084579a27049da936ec5c9d2e459c32">jeod::MassPointState::position</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1c06ceff1c3801c566c9be10e73f74f8">jeod::DynBody::structure</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a9fc06cc256c356ae775126d9fcbff40c">jeod::Vector3::sum()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a0eef4ededf5e333e8f88d87219089288">jeod::InteractionFacet::torque</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a18267af9331a99a21f1488af03164cc4">jeod::Vector3::transform()</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a094163f78eabeb8fed12fdbc06b615ad">jeod::Vector3::transform_transpose()</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#ad5350c4e30d2cca737931e74fc49d4f8">jeod::ContactFacet::vehicle_body</a>, and <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#adb3dbbab721010753f2f72bc6fa9aeec">jeod::ContactFacet::vehicle_point</a>.</p>
 
 </div>
 </div>
@@ -387,7 +383,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> * jeod::LineContactFacet::create_pair </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -402,9 +397,9 @@ Friends</h2></td></tr>
 <p>Overloaded functions that create a <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html" title="An base contact pair class for use in the contact model. ">ContactPair</a> and pass the address of it to the <a class="el" href="../../d9/d55/classjeod_1_1Contact.html" title="An base contact class for use in the surface model. ">Contact</a> class for addition to the list of pairs. </p>
 <p>This function is called to create a pair that only contains a subject. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html" title="An base contact pair class for use in the contact model. ">ContactPair</a> that was created </dd></dl>
 
-<p>Implements <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a4396a07a5c65d923be59a8b62ef756b5">jeod::ContactFacet</a>.</p>
+<p>Implements <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a6beac4237745b6c7af3e8c0e33b44ad8">jeod::ContactFacet</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00082">82</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00064">64</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, and <a class="el" href="../../d0/d87/group__external.html#ga5a4b1d6551baa45b061a25be36357735">JEOD_ALLOC_CLASS_OBJECT</a>.</p>
 
@@ -456,14 +451,14 @@ Friends</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a02c8365b9221832bf35962af572648d6">jeod::ContactFacet</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00103">103</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00083">83</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d9/d55/classjeod_1_1Contact.html#a9b1fff67ac3dcc445b0707d104bedeeb">jeod::Contact::contact_limit_factor</a>, <a class="el" href="../../d9/d55/classjeod_1_1Contact.html#a05fda76fcafeb891680ae22689c04195">jeod::Contact::find_interaction()</a>, <a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a983d21c17a9b24d7ed7ed0d036e9ad06">jeod::ContactMessages::initialization_warns</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a53f2c9f5050d9e3a3a1b154096776412">jeod::ContactPair::interaction</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2f0ae0284935b35b55af859dc7c2af82">jeod::ContactPair::interaction_distance</a>, <a class="el" href="../../d0/d87/group__external.html#ga5a4b1d6551baa45b061a25be36357735">JEOD_ALLOC_CLASS_OBJECT</a>, <a class="el" href="../../d0/d87/group__external.html#ga9683c519d31bc2e94fc7635407c73a58">JEOD_DELETE_OBJECT</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a68b944352e204fdb1a064dc9b60ba2a3">jeod::ContactFacet::max_dimension</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a5950d7ac29eb9184159ddf6e338019d9">jeod::ContactFacet::surface_type</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
+<p class="reference">References <a class="el" href="../../d9/d55/classjeod_1_1Contact.html#a9b1fff67ac3dcc445b0707d104bedeeb">jeod::Contact::contact_limit_factor</a>, <a class="el" href="../../d9/d55/classjeod_1_1Contact.html#a05fda76fcafeb891680ae22689c04195">jeod::Contact::find_interaction()</a>, <a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a328c93fdeb29121e0cef34127b0343dc">jeod::ContactMessages::initialization_warns</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a53f2c9f5050d9e3a3a1b154096776412">jeod::ContactPair::interaction</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2f0ae0284935b35b55af859dc7c2af82">jeod::ContactPair::interaction_distance</a>, <a class="el" href="../../d0/d87/group__external.html#ga5a4b1d6551baa45b061a25be36357735">JEOD_ALLOC_CLASS_OBJECT</a>, <a class="el" href="../../d0/d87/group__external.html#ga9683c519d31bc2e94fc7635407c73a58">JEOD_DELETE_OBJECT</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a68b944352e204fdb1a064dc9b60ba2a3">jeod::ContactFacet::max_dimension</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a5950d7ac29eb9184159ddf6e338019d9">jeod::ContactFacet::surface_type</a>, and <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a5d868a291a413c6ebf6b8060443e1659">jeod::MessageHandler::warn()</a>.</p>
 
 </div>
 </div>
-<a id="a264d263f9ca313a4606838f0933a1729"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a264d263f9ca313a4606838f0933a1729">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ae94f8247190959f9f38e6dac583e7b80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae94f8247190959f9f38e6dac583e7b80">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -475,13 +470,13 @@ Friends</h2></td></tr>
           <td class="memname"><a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a>&amp; jeod::LineContactFacet::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html">LineContactFacet</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -500,7 +495,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::LineContactFacet::set_max_dimension </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -514,9 +508,9 @@ Friends</h2></td></tr>
 
 <p>calculate the max dimension of the facet for range limit determination. </p>
 
-<p>Implements <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a2a774db4bbfc19b70406291c4751b68d">jeod::ContactFacet</a>.</p>
+<p>Implements <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#ac49be4bba7abdd098badfbeb607ae02b">jeod::ContactFacet</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00217">217</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html#l00202">202</a> of file <a class="el" href="../../d0/d52/line__contact__facet_8cc_source.html">line_contact_facet.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6c51403fcdcda2a738a32d7e932f408d">length</a>, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a68b944352e204fdb1a064dc9b60ba2a3">jeod::ContactFacet::max_dimension</a>, and <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a083634ddda52f58afc7d5fdcbc0953bb">jeod::PointContactFacet::radius</a>.</p>
 
@@ -570,7 +564,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html#l00088">88</a> of file <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html">line_contact_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html#l00089">89</a> of file <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html">line_contact_facet.hh</a>.</p>
 
 </div>
 </div>
@@ -582,7 +576,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::LineContactFacet::length</td>
+          <td class="memname">double jeod::LineContactFacet::length {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -590,7 +584,7 @@ Friends</h2></td></tr>
 <p>length of the line along the vehicle point x axis. </p>
 <p>trick_units(m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html#l00094">94</a> of file <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html">line_contact_facet.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html#l00093">93</a> of file <a class="el" href="../../db/dd8/line__contact__facet_8hh_source.html">line_contact_facet.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a4bc033ee4031ae1ca915fb955a245a12">calculate_contact_point()</a>, <a class="el" href="../../d1/dce/classjeod_1_1LineContactFacetFactory.html#a644d1fcac1a71beae64cfc064bf5d417">jeod::LineContactFacetFactory::create_facet()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair::in_contact()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair::in_contact()</a>, and <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a3ded0597eddfd9394790c5515f8b6c0b">set_max_dimension()</a>.</p>
 

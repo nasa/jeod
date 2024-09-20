@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -82,10 +82,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acecf2f1e6ac2f17199c8556811f7e394"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">TreeLinks</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#acecf2f1e6ac2f17199c8556811f7e394">operator=</a> (const <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">TreeLinks</a> &amp;)=delete</td></tr>
 <tr class="separator:acecf2f1e6ac2f17199c8556811f7e394"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f862c8ba23dbf65d323bdfe24f9ecce"><td class="memItemLeft" align="right" valign="top">Links *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a8f862c8ba23dbf65d323bdfe24f9ecce">child_head</a> ()</td></tr>
-<tr class="memdesc:a8f862c8ba23dbf65d323bdfe24f9ecce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator that points to the first child.  <a href="#a8f862c8ba23dbf65d323bdfe24f9ecce">More...</a><br /></td></tr>
+<tr class="memdesc:a8f862c8ba23dbf65d323bdfe24f9ecce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the first child.  <a href="#a8f862c8ba23dbf65d323bdfe24f9ecce">More...</a><br /></td></tr>
 <tr class="separator:a8f862c8ba23dbf65d323bdfe24f9ecce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13b221c4b78a0f14d315a9713a92b1ab"><td class="memItemLeft" align="right" valign="top">Links *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a13b221c4b78a0f14d315a9713a92b1ab">child_tail</a> ()</td></tr>
-<tr class="memdesc:a13b221c4b78a0f14d315a9713a92b1ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator that points to the last child.  <a href="#a13b221c4b78a0f14d315a9713a92b1ab">More...</a><br /></td></tr>
+<tr class="memdesc:a13b221c4b78a0f14d315a9713a92b1ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the last child.  <a href="#a13b221c4b78a0f14d315a9713a92b1ab">More...</a><br /></td></tr>
 <tr class="separator:a13b221c4b78a0f14d315a9713a92b1ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a797e5f7ff55b25598a285bc80d030123"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a797e5f7ff55b25598a285bc80d030123">is_atomic</a> ()</td></tr>
 <tr class="memdesc:a797e5f7ff55b25598a285bc80d030123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the body atomic &ndash; in other words, is it a leaf node?  <a href="#a797e5f7ff55b25598a285bc80d030123">More...</a><br /></td></tr>
@@ -186,12 +186,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa2d67de823febdc194b2433fd29d7bd4"><td class="memItemLeft" align="right" valign="top">Links *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#aa2d67de823febdc194b2433fd29d7bd4">parent_</a></td></tr>
 <tr class="memdesc:aa2d67de823febdc194b2433fd29d7bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object that is the immediate parent of this <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object in the directed tree that contains this <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object.  <a href="#aa2d67de823febdc194b2433fd29d7bd4">More...</a><br /></td></tr>
 <tr class="separator:aa2d67de823febdc194b2433fd29d7bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85ec1bcc439fcd7362fae97f6826fa55"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Links * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a85ec1bcc439fcd7362fae97f6826fa55">children_</a></td></tr>
-<tr class="memdesc:a85ec1bcc439fcd7362fae97f6826fa55"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object's children.  <a href="#a85ec1bcc439fcd7362fae97f6826fa55">More...</a><br /></td></tr>
-<tr class="separator:a85ec1bcc439fcd7362fae97f6826fa55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a155b1de0aa31015fbcd63226e5fff74e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Links * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a155b1de0aa31015fbcd63226e5fff74e">path_to_node_</a></td></tr>
-<tr class="memdesc:a155b1de0aa31015fbcd63226e5fff74e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of pointers to <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> nodes containing the sequence of links from the root node of the tree to this <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object.  <a href="#a155b1de0aa31015fbcd63226e5fff74e">More...</a><br /></td></tr>
-<tr class="separator:a155b1de0aa31015fbcd63226e5fff74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8abf90de123db052c57d3f3746f13d1d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Links * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a8abf90de123db052c57d3f3746f13d1d">children_</a></td></tr>
+<tr class="memdesc:a8abf90de123db052c57d3f3746f13d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object's children.  <a href="#a8abf90de123db052c57d3f3746f13d1d">More...</a><br /></td></tr>
+<tr class="separator:a8abf90de123db052c57d3f3746f13d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dc4d30b69e0e13e6e99a9d437e43a1d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Links * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a8dc4d30b69e0e13e6e99a9d437e43a1d">path_to_node_</a></td></tr>
+<tr class="memdesc:a8dc4d30b69e0e13e6e99a9d437e43a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of pointers to <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> nodes containing the sequence of links from the root node of the tree to this <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object.  <a href="#a8dc4d30b69e0e13e6e99a9d437e43a1d">More...</a><br /></td></tr>
+<tr class="separator:a8dc4d30b69e0e13e6e99a9d437e43a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -226,7 +226,7 @@ class jeod::TreeLinks&lt; Links, Container, Messages &gt;</h3>
 <p>This template class is designed for use with the "curiously recurring
 template pattern". The template parameter Links must be a class that derives from <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a>: class DerivedClass : public TreeLinks&lt;DerivedClass, Container, Messages&gt; </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00100">100</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00098">98</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af90cb8e449c3ce459c26ecb7d9d17787"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af90cb8e449c3ce459c26ecb7d9d17787">&#9670;&nbsp;</a></span>TreeLinks() <span class="overload">[1/3]</span></h2>
@@ -273,7 +273,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00119">119</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00112">112</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -436,7 +436,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00524">524</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00527">527</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a674082d9f62e3a8fe95bde1c2d58cdec">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::attach()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a2d7059f34559eb45a8fa3b495acfcf7f">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::reattach()</a>.</p>
 
@@ -467,11 +467,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Iterator that points to the first child. </p>
+<p>Reference to the first child. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00149">149</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae86035f84748bb371c0fe6194e286394">jeod::DynBody::add_mass_body_frames()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aed161240b4b21a4c48d3c854f8dc327a">jeod::DynBody::detach_mass_body_frames()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00137">137</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -500,11 +498,11 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Iterator that points to the last child. </p>
+<p>Reference to the last child. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00157">157</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00145">145</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae86035f84748bb371c0fe6194e286394">jeod::DynBody::add_mass_body_frames()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aed161240b4b21a4c48d3c854f8dc327a">jeod::DynBody::detach_mass_body_frames()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">jeod::JeodBaseTime::~JeodBaseTime()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a933ba0b83090314baea6f6b49ff4e6fb">jeod::MassBody::~MassBody()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a4087cf7fccb1413bf04191456e7a73ab">jeod::MassPoint::~MassPoint()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a86a59fdec03efc085c9efc7d277f6926">jeod::RefFrame::~RefFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">jeod::JeodBaseTime::~JeodBaseTime()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad837ddcc221b7541228e40b003bda65f">jeod::MassBody::~MassBody()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a4087cf7fccb1413bf04191456e7a73ab">jeod::MassPoint::~MassPoint()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9df7ffabcd6964406091172e80c1e9e4">jeod::RefFrame::~RefFrame()</a>.</p>
 
 </div>
 </div>
@@ -535,7 +533,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 
 <p>Recursively construct the path_to_node. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00492">492</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00496">496</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a674082d9f62e3a8fe95bde1c2d58cdec">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::attach()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a57b169d8407ea971bc9616d33eb6356f">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::detach()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ab55b0f82fa0d195fb5598a4bbc48e060">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::make_root()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a2d7059f34559eb45a8fa3b495acfcf7f">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::reattach()</a>.</p>
 
@@ -569,9 +567,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the container, non-const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Object that contains this object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00196">196</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00181">181</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae86035f84748bb371c0fe6194e286394">jeod::DynBody::add_mass_body_frames()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aed161240b4b21a4c48d3c854f8dc327a">jeod::DynBody::detach_mass_body_frames()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a0c526e912ab7e670b36be9cdb89788ad">jeod::MassPoint::find_last_common_node()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#af84cc31797d818c6ee89974781f659cd">jeod::RefFrame::find_last_common_node()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a933ba0b83090314baea6f6b49ff4e6fb">jeod::MassBody::~MassBody()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a0c526e912ab7e670b36be9cdb89788ad">jeod::MassPoint::find_last_common_node()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#af84cc31797d818c6ee89974781f659cd">jeod::RefFrame::find_last_common_node()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad837ddcc221b7541228e40b003bda65f">jeod::MassBody::~MassBody()</a>.</p>
 
 </div>
 </div>
@@ -603,7 +601,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the container, const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Object that contains this object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00205">205</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00190">190</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -621,7 +619,6 @@ template&lt;class Links, class Container, class Messages&gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">jeod::TreeLinks</a>&lt; Links, Container, Messages &gt;::detach </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -637,7 +634,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00383">383</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a689b20275027869c174ad63fdb211b5d">jeod::MassPoint::detach()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a6cffedbab3e811bb17d033a9506da1ac">jeod::MassBody::detach_sever_links()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#adb06115d8e0542a79bdc8d389e978b4c">jeod::RefFrame::remove_from_parent()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">jeod::JeodBaseTime::~JeodBaseTime()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a4087cf7fccb1413bf04191456e7a73ab">jeod::MassPoint::~MassPoint()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a86a59fdec03efc085c9efc7d277f6926">jeod::RefFrame::~RefFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a689b20275027869c174ad63fdb211b5d">jeod::MassPoint::detach()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a6cffedbab3e811bb17d033a9506da1ac">jeod::MassBody::detach_sever_links()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a668dc81a01e719afe7fc2441f003282f">jeod::RefFrame::remove_from_parent()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">jeod::JeodBaseTime::~JeodBaseTime()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a4087cf7fccb1413bf04191456e7a73ab">jeod::MassPoint::~MassPoint()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9df7ffabcd6964406091172e80c1e9e4">jeod::RefFrame::~RefFrame()</a>.</p>
 
 </div>
 </div>
@@ -668,7 +665,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 
 <p>Detach a node from its parent. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00537">537</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00539">539</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a57b169d8407ea971bc9616d33eb6356f">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::detach()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a2d7059f34559eb45a8fa3b495acfcf7f">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::reattach()</a>.</p>
 
@@ -709,7 +706,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the last common node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00435">435</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00436">436</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a1ead8403c1fba021b40d659e57ac7376">jeod::MassPoint::find_last_common_index()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a901e81c262da2c9e3955a173f30477ec">jeod::RefFrame::find_last_common_index()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ad95dadd40c26c2a8a5df19d95eae48f1">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::find_last_common_node()</a>.</p>
 
@@ -750,7 +747,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to last common node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00478">478</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00479">479</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a0c526e912ab7e670b36be9cdb89788ad">jeod::MassPoint::find_last_common_node()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#af84cc31797d818c6ee89974781f659cd">jeod::RefFrame::find_last_common_node()</a>.</p>
 
@@ -784,7 +781,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 
 <p>Find the index of the specified link in the path_to_node_. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00299">299</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00292">292</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a7d1539d452e61646a1c9682ee16c8492">jeod::MassPoint::compute_pred_rel_state()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a7731632a74808339f5582e866bb38f94">jeod::RefFrame::compute_pred_rel_state()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#ab8b4abf1121006dbe0a86a5f3210dc6a">jeod::MassPoint::compute_state_wrt_pred()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a745df687b554e015a3d9c5febf465971">jeod::RefFrame::compute_state_wrt_pred()</a>.</p>
 
@@ -818,9 +815,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Is the body non-atomic &ndash; in other words, does it have children? </p>
 <dl class="section return"><dt>Returns</dt><dd>True if the body has children, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00176">176</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00163">163</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae86035f84748bb371c0fe6194e286394">jeod::DynBody::add_mass_body_frames()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aed161240b4b21a4c48d3c854f8dc327a">jeod::DynBody::detach_mass_body_frames()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">jeod::JeodBaseTime::~JeodBaseTime()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a933ba0b83090314baea6f6b49ff4e6fb">jeod::MassBody::~MassBody()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a4087cf7fccb1413bf04191456e7a73ab">jeod::MassPoint::~MassPoint()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a86a59fdec03efc085c9efc7d277f6926">jeod::RefFrame::~RefFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a9e06150acd5f2d52cc91e96220289599">jeod::JeodBaseTime::~JeodBaseTime()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad837ddcc221b7541228e40b003bda65f">jeod::MassBody::~MassBody()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a4087cf7fccb1413bf04191456e7a73ab">jeod::MassPoint::~MassPoint()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9df7ffabcd6964406091172e80c1e9e4">jeod::RefFrame::~RefFrame()</a>.</p>
 
 </div>
 </div>
@@ -852,9 +849,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Is the body atomic &ndash; in other words, is it a leaf node? </p>
 <dl class="section return"><dt>Returns</dt><dd>True if the body has no children, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00167">167</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00154">154</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ab912e6815fda82a73f70b0307d557c2e">jeod::MassBody::update_mass_properties()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8e8a8dd47cb63f2ac8803a9c4134a4ff">jeod::MassBody::update_mass_properties()</a>.</p>
 
 </div>
 </div>
@@ -893,7 +890,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if target is an ancestor of this node, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00417">417</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00413">413</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ab5ac4c7186b11ca305a365a05d183a28">jeod::RefFrame::is_progeny_of()</a>.</p>
 
@@ -927,9 +924,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Is the body a root node? </p>
 <dl class="section return"><dt>Returns</dt><dd>True if the parent is null, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00186">186</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00172">172</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a6c3a3e292f5c8b4999e92bef22655eaf">jeod::MassBody::attach_root_body()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a13dd9b29d6bb6891774b725be24a7423">jeod::MassBody::reattach()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ab912e6815fda82a73f70b0307d557c2e">jeod::MassBody::update_mass_properties()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a933ba0b83090314baea6f6b49ff4e6fb">jeod::MassBody::~MassBody()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a6c3a3e292f5c8b4999e92bef22655eaf">jeod::MassBody::attach_root_body()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a1851ced506595d50d6c002628409b9c7">jeod::MassBody::reattach()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8e8a8dd47cb63f2ac8803a9c4134a4ff">jeod::MassBody::update_mass_properties()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad837ddcc221b7541228e40b003bda65f">jeod::MassBody::~MassBody()</a>.</p>
 
 </div>
 </div>
@@ -961,7 +958,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the parent links, non-const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to this object's parent <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00215">215</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00199">199</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -993,7 +990,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the parent links, const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to this object's parent <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00224">224</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00208">208</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1025,7 +1022,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the root links object, non-const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Root links object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00253">253</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00249">249</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1057,7 +1054,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the root links object, const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Root links object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00262">262</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00258">258</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1075,7 +1072,6 @@ template&lt;class Links, class Container, class Messages&gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">jeod::TreeLinks</a>&lt; Links, Container, Messages &gt;::make_root </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -1089,9 +1085,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 
 <p>Make the links object a root object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00332">332</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00334">334</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a70ae96dbf13223e78787dc756cd764c7">jeod::RefFrame::make_root()</a>, and <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html#ac86eaa61d08029d20ecc21dc48407c5d">jeod::TimeDyn::TimeDyn()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a63423dfe0d445e7a37e3a7d178cc710d">jeod::RefFrame::make_root()</a>, and <a class="el" href="../../d4/dac/classjeod_1_1TimeDyn.html#ac86eaa61d08029d20ecc21dc48407c5d">jeod::TimeDyn::TimeDyn()</a>.</p>
 
 </div>
 </div>
@@ -1130,7 +1126,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Nth links container </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00311">311</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00302">302</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a90f52426fa843481b68f7765a09084b3">jeod::MassPoint::compute_relative_state()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a90a469fd38ee230197a74240605799f5">jeod::RefFrame::compute_relative_state()</a>.</p>
 
@@ -1171,7 +1167,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Nth links container </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00322">322</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00319">319</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1231,9 +1227,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the parent container, non-const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to this object's parent Container object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00234">234</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00217">217</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a910d205b999208dd6b1e6e5556c7a9a5">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a12ecb33b85319432c1f5cbca4cc78085">jeod::MassBody::attach_to()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad5a1f9253eeb85dbe92622b61dcb75ff">jeod::MassBody::detach()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5508e671597d26defd7e3aa40a804e0c">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a5e890bdb553fb2c8b2b466d1dd66fe96">jeod::MassBody::get_parent_body()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#aebb40884b68ae84875492621c2020403">jeod::MassBody::get_parent_body_internal()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a13dd9b29d6bb6891774b725be24a7423">jeod::MassBody::reattach()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a910d205b999208dd6b1e6e5556c7a9a5">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d9/d3f/classjeod_1_1JeodBaseTime.html#a05b1c1e565d22009d8d2c57d20faf30f">jeod::JeodBaseTime::add_type_update()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a12ecb33b85319432c1f5cbca4cc78085">jeod::MassBody::attach_to()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a1998671ba070c169ebbf9547e84a5ebb">jeod::MassBody::detach()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#aa6a2cde84644f457e00ec88de5360033">jeod::RefFrame::get_parent()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#af4a594f0bbbc165fa9f54fefedb8126c">jeod::MassBody::get_parent_body()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a5456b501f4ea13ff031b2945f4bce662">jeod::MassBody::get_parent_body_internal()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a1851ced506595d50d6c002628409b9c7">jeod::MassBody::reattach()</a>.</p>
 
 </div>
 </div>
@@ -1265,7 +1261,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the parent container, const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to this object's parent Container object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00243">243</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00233">233</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1296,7 +1292,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 
 <p>Return the length of the path_to_node_ vector. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00290">290</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00284">284</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9f338639d6f636217a2b1ecd2f9d7918">jeod::RefFrame::compute_position_from()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a7d1539d452e61646a1c9682ee16c8492">jeod::MassPoint::compute_pred_rel_state()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a7731632a74808339f5582e866bb38f94">jeod::RefFrame::compute_pred_rel_state()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#ab8b4abf1121006dbe0a86a5f3210dc6a">jeod::MassPoint::compute_state_wrt_pred()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a745df687b554e015a3d9c5febf465971">jeod::RefFrame::compute_state_wrt_pred()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a300f665b4f3ed445752777be371e1ce2">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::find_last_common_index()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a2e9f590ed60c50237b11c4d8507b8b6a">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::nth_from_root()</a>.</p>
 
@@ -1336,7 +1332,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00397">397</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00396">396</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ab23e5b6e2d0a8f8b1cd950a13459c7f8">jeod::RefFrame::reset_parent()</a>, and <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#af4af6c95678f7fdc5a4852c5512a8f03">jeod::RefFrame::transplant_node()</a>.</p>
 
@@ -1370,9 +1366,9 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the root container object, non-const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Root container object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00272">272</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00267">267</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ab63573f74bd326d8a33f6d3d61600d3b">jeod::RefFrame::get_root()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad2b0ff0169d20dfa1e0afd9a251d3829">jeod::MassBody::get_root_body()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a7c1045df073f23a0712cc196021bf72f">jeod::MassBody::get_root_body_internal()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#afa4595e453260e1c89c239aa7ad7c815">jeod::RefFrame::get_root()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a5b992d9b45f15b765b03faa290441439">jeod::MassBody::get_root_body()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a6fd0aecffbe01589f9e3865408232aec">jeod::MassBody::get_root_body_internal()</a>.</p>
 
 </div>
 </div>
@@ -1404,7 +1400,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Accessor for the root container object, const version. </p>
 <dl class="section return"><dt>Returns</dt><dd>Root container object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00281">281</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00276">276</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1498,7 +1494,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00102">102</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00100">100</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1526,7 +1522,7 @@ template&lt;class RLinks &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00106">106</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00102">102</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1554,7 +1550,7 @@ template&lt;class RLinks &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00108">108</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
@@ -1582,13 +1578,13 @@ template&lt;class RLinks &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00107">107</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00103">103</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a id="a85ec1bcc439fcd7362fae97f6826fa55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85ec1bcc439fcd7362fae97f6826fa55">&#9670;&nbsp;</a></span>children_</h2>
+<a id="a8abf90de123db052c57d3f3746f13d1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8abf90de123db052c57d3f3746f13d1d">&#9670;&nbsp;</a></span>children_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1599,7 +1595,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;Links*&gt; <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">jeod::TreeLinks</a>&lt; Links, Container, Messages &gt;::children_</td>
+          <td class="memname">std::vector&lt;Links *&gt; <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">jeod::TreeLinks</a>&lt; Links, Container, Messages &gt;::children_</td>
         </tr>
       </table>
   </td>
@@ -1612,7 +1608,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>The <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object's children. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00581">581</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00580">580</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a8f862c8ba23dbf65d323bdfe24f9ecce">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::child_head()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a13b221c4b78a0f14d315a9713a92b1ab">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::child_tail()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#adfdefd88f6b67e9fedea8392969aaa4c">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::construct_path_to_node()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ac2111b446429e2b660f9576b43789780">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::has_children()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a797e5f7ff55b25598a285bc80d030123">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::is_atomic()</a>.</p>
 
@@ -1643,7 +1639,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>The object to which this set of links pertains; the container. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00569">569</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00568">568</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ae3018a7ce9674ff7df88b152bb7c299e">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::container()</a>.</p>
 
@@ -1674,14 +1670,14 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>The <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object that is the immediate parent of this <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object in the directed tree that contains this <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object. </p>
 <p>This pointer is null for all root objects.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00576">576</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00575">575</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a674082d9f62e3a8fe95bde1c2d58cdec">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::attach()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#aeda214c646bfd333885db4917a281263">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::attach_internal()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#adfdefd88f6b67e9fedea8392969aaa4c">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::construct_path_to_node()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ac9e7bc6e2e5fa715fd5e25af517494ad">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::detach_internal()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a7cf65806d8f4ed62df57398387bddd05">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::is_root()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a9dcb90f135b7591c4f0b55e1cdafb4c8">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::links_parent()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ab55b0f82fa0d195fb5598a4bbc48e060">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::make_root()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#af4bc716791706bc3cbc9ecbb661a2e1b">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::parent()</a>.</p>
 
 </div>
 </div>
-<a id="a155b1de0aa31015fbcd63226e5fff74e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a155b1de0aa31015fbcd63226e5fff74e">&#9670;&nbsp;</a></span>path_to_node_</h2>
+<a id="a8dc4d30b69e0e13e6e99a9d437e43a1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dc4d30b69e0e13e6e99a9d437e43a1d">&#9670;&nbsp;</a></span>path_to_node_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1692,7 +1688,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;Links*&gt; <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">jeod::TreeLinks</a>&lt; Links, Container, Messages &gt;::path_to_node_</td>
+          <td class="memname">std::vector&lt;Links *&gt; <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html">jeod::TreeLinks</a>&lt; Links, Container, Messages &gt;::path_to_node_</td>
         </tr>
       </table>
   </td>
@@ -1705,7 +1701,7 @@ template&lt;class Links, class Container, class Messages&gt; </div>
 <p>Vector of pointers to <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> nodes containing the sequence of links from the root node of the tree to this <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="Encapsulates links (parent, children, siblings) between objects, in the form of a tree...">TreeLinks</a> object. </p>
 <p>The path_to_node_ remains empty until the links object is made viable by either a call to <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a674082d9f62e3a8fe95bde1c2d58cdec" title="Add this object as a child of the frame containing these links. ">attach()</a> or to <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ab55b0f82fa0d195fb5598a4bbc48e060" title="Make the links object a root object. ">make_root()</a>. The zeroth element of this array is the root object. The last element is this node.trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00591">591</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/dfe/tree__links_8hh_source.html#l00590">590</a> of file <a class="el" href="../../d2/dfe/tree__links_8hh_source.html">tree_links.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a674082d9f62e3a8fe95bde1c2d58cdec">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::attach()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#adfdefd88f6b67e9fedea8392969aaa4c">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::construct_path_to_node()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a300f665b4f3ed445752777be371e1ce2">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::find_last_common_index()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#ad95dadd40c26c2a8a5df19d95eae48f1">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::find_last_common_node()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a1874487e5cf40e95628850b0c178b9cf">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::find_path_index()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#abecdae69470950fedb51075f47233236">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::is_progeny_of()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a02111512626a18309063a78a3a04ed90">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::links_root()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a2e9f590ed60c50237b11c4d8507b8b6a">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::nth_from_root()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a0ac2a5f47d2d37e353ac2ee105e011b0">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::path_length()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a026e65d312a29f7083d1cf2c5c72d879">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::root()</a>, <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#a75afdd99c9b25f907e9936d4f4d49b77">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::set_path_size()</a>, and <a class="el" href="../../dd/d9e/classjeod_1_1TreeLinks.html#af90cb8e449c3ce459c26ecb7d9d17787">jeod::TreeLinks&lt; MassBodyLinks, MassBody, MassBodyMessages &gt;::TreeLinks()</a>.</p>
 

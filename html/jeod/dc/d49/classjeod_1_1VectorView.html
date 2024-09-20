@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -61,8 +61,8 @@ Inheritance diagram for jeod::VectorView&lt; ElemType, RefType &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/daa/classjeod_1_1VectorView__inherit__graph.png" border="0" usemap="#jeod_1_1VectorView_3_01ElemType_00_01RefType_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1VectorView_3_01ElemType_00_01RefType_01_4_inherit__map" id="jeod_1_1VectorView_3_01ElemType_00_01RefType_01_4_inherit__map">
-<area shape="rect" id="node2" href="../../da/d67/classjeod_1_1ColumnView.html" title="Represents a view into a column of an array. " alt="" coords="5,95,208,136"/>
-<area shape="rect" id="node3" href="../../d5/de2/classjeod_1_1RowView.html" title="Represents a view into a row of an array. " alt="" coords="232,95,416,136"/>
+<area shape="rect" id="node2" href="../../da/d67/classjeod_1_1ColumnView.html" title="Represents a view into a column of an array. " alt="" coords="5,95,228,136"/>
+<area shape="rect" id="node3" href="../../d5/de2/classjeod_1_1RowView.html" title="Represents a view into a row of an array. " alt="" coords="252,95,451,136"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -77,14 +77,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a40fbe9cf7e9b4e60f0ea1c355636ac22"><td class="memItemLeft" align="right" valign="top">virtual RefType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a40fbe9cf7e9b4e60f0ea1c355636ac22">operator[]</a> (unsigned i_elem)=0</td></tr>
 <tr class="memdesc:a40fbe9cf7e9b4e60f0ea1c355636ac22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-const index operator.  <a href="#a40fbe9cf7e9b4e60f0ea1c355636ac22">More...</a><br /></td></tr>
 <tr class="separator:a40fbe9cf7e9b4e60f0ea1c355636ac22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c02b99cacd74e4618a9b049828d07f2"><td class="memTemplParams" colspan="2">template&lt;typename SourceType , typename T  = VectorView&gt; </td></tr>
-<tr class="memitem:a4c02b99cacd74e4618a9b049828d07f2"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;! std::is_reference&lt; RefType &gt;::value, T &amp; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4c02b99cacd74e4618a9b049828d07f2">operator=</a> (const SourceType &amp;src)</td></tr>
-<tr class="memdesc:a4c02b99cacd74e4618a9b049828d07f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment from an object that implements <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4d6beac17cff8c5acb4ae49c6d7f3184" title="Get the number of data elements encapsulated by this view. ">size()</a>.  <a href="#a4c02b99cacd74e4618a9b049828d07f2">More...</a><br /></td></tr>
-<tr class="separator:a4c02b99cacd74e4618a9b049828d07f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8187328d153df78d64c88b51f2fd08d5"><td class="memTemplParams" colspan="2">template&lt;std::size_t N, typename T  = VectorView&gt; </td></tr>
-<tr class="memitem:a8187328d153df78d64c88b51f2fd08d5"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;! std::is_reference&lt; RefType &gt;::value, T &amp; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a8187328d153df78d64c88b51f2fd08d5">operator=</a> (const ElemType src[N])</td></tr>
-<tr class="memdesc:a8187328d153df78d64c88b51f2fd08d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment from a primitive array.  <a href="#a8187328d153df78d64c88b51f2fd08d5">More...</a><br /></td></tr>
-<tr class="separator:a8187328d153df78d64c88b51f2fd08d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a960327a3bca44c2ab17d24224862fe20"><td class="memTemplParams" colspan="2">template&lt;typename SourceType , typename T  = VectorView&gt; </td></tr>
+<tr class="memitem:a960327a3bca44c2ab17d24224862fe20"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::is_reference&lt; RefType &gt;::value, T &amp; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a960327a3bca44c2ab17d24224862fe20">operator=</a> (const SourceType &amp;src)</td></tr>
+<tr class="memdesc:a960327a3bca44c2ab17d24224862fe20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment from an object that implements <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4d6beac17cff8c5acb4ae49c6d7f3184" title="Get the number of data elements encapsulated by this view. ">size()</a>.  <a href="#a960327a3bca44c2ab17d24224862fe20">More...</a><br /></td></tr>
+<tr class="separator:a960327a3bca44c2ab17d24224862fe20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eede95a667d08f1b8184157509c6d58"><td class="memTemplParams" colspan="2">template&lt;std::size_t N, typename T  = VectorView&gt; </td></tr>
+<tr class="memitem:a2eede95a667d08f1b8184157509c6d58"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::is_reference&lt; RefType &gt;::value, T &amp; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a2eede95a667d08f1b8184157509c6d58">operator=</a> (const ElemType src[N])</td></tr>
+<tr class="memdesc:a2eede95a667d08f1b8184157509c6d58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment from a primitive array.  <a href="#a2eede95a667d08f1b8184157509c6d58">More...</a><br /></td></tr>
+<tr class="separator:a2eede95a667d08f1b8184157509c6d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a6a0a531759ec61d57c17c24e9537c6"><td class="memItemLeft" align="right" valign="top">virtual ElemType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a2a6a0a531759ec61d57c17c24e9537c6">operator[]</a> (unsigned i_elem) const</td></tr>
 <tr class="memdesc:a2a6a0a531759ec61d57c17c24e9537c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const index operator.  <a href="#a2a6a0a531759ec61d57c17c24e9537c6">More...</a><br /></td></tr>
 <tr class="separator:a2a6a0a531759ec61d57c17c24e9537c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -97,10 +97,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d6beac17cff8c5acb4ae49c6d7f3184"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4d6beac17cff8c5acb4ae49c6d7f3184">size</a> () const</td></tr>
 <tr class="memdesc:a4d6beac17cff8c5acb4ae49c6d7f3184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of data elements encapsulated by this view.  <a href="#a4d6beac17cff8c5acb4ae49c6d7f3184">More...</a><br /></td></tr>
 <tr class="separator:a4d6beac17cff8c5acb4ae49c6d7f3184"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0f60ba96eb382bbb1aa9e5410a3659"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html">SubVectorView</a>&lt; <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">VectorView</a>&lt; ElemType, RefType &gt;, ElemType, RefType, RefType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a9f0f60ba96eb382bbb1aa9e5410a3659">make_view</a> (const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a7b855a634f8fa1eb8f0f005b32e0216a">SolverTypes::IndexPairT</a> &amp;range)</td></tr>
+<tr class="memitem:a9f0f60ba96eb382bbb1aa9e5410a3659"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html">SubVectorView</a>&lt; <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">VectorView</a>&lt; ElemType, RefType &gt;, ElemType, RefType, RefType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a9f0f60ba96eb382bbb1aa9e5410a3659">make_view</a> (const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a2e6ebf69b36d6f1ede4da18dac894141">SolverTypes::IndexPairT</a> &amp;range)</td></tr>
 <tr class="memdesc:a9f0f60ba96eb382bbb1aa9e5410a3659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a view into this view.  <a href="#a9f0f60ba96eb382bbb1aa9e5410a3659">More...</a><br /></td></tr>
 <tr class="separator:a9f0f60ba96eb382bbb1aa9e5410a3659"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d7d73463832047db2695709a6cdf5f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html">SubVectorView</a>&lt; const <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">VectorView</a>&lt; ElemType, RefType &gt;, ElemType, ElemType, RefType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4d7d73463832047db2695709a6cdf5f7">make_view</a> (const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a7b855a634f8fa1eb8f0f005b32e0216a">SolverTypes::IndexPairT</a> &amp;range) const</td></tr>
+<tr class="memitem:a4d7d73463832047db2695709a6cdf5f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html">SubVectorView</a>&lt; const <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">VectorView</a>&lt; ElemType, RefType &gt;, ElemType, ElemType, RefType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4d7d73463832047db2695709a6cdf5f7">make_view</a> (const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a2e6ebf69b36d6f1ede4da18dac894141">SolverTypes::IndexPairT</a> &amp;range) const</td></tr>
 <tr class="memdesc:a4d7d73463832047db2695709a6cdf5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a view into this view.  <a href="#a4d7d73463832047db2695709a6cdf5f7">More...</a><br /></td></tr>
 <tr class="separator:a4d7d73463832047db2695709a6cdf5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -128,7 +128,7 @@ class jeod::VectorView&lt; ElemType, RefType &gt;</h3>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d5e/forward__view_8hh_source.html#l00064">64</a> of file <a class="el" href="../../d4/d5e/forward__view_8hh_source.html">forward_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d5e/forward__view_8hh_source.html#l00063">63</a> of file <a class="el" href="../../d4/d5e/forward__view_8hh_source.html">forward_view.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aeb4d47b75ccec3bcd3a510e50ba50b6f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb4d47b75ccec3bcd3a510e50ba50b6f">&#9670;&nbsp;</a></span>VectorView()</h2>
@@ -164,7 +164,7 @@ template&lt;typename ElemType, typename RefType&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00100">100</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
@@ -240,7 +240,7 @@ template&lt;typename ElemType, typename RefType&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00192">192</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00181">181</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#afdc3fcead8c8367e93b4796cba9a041d">jeod::VectorView&lt; ElemType, BaseRefType &gt;::at()</a>.</p>
 
@@ -287,7 +287,7 @@ template&lt;typename ElemType, typename RefType&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00208">208</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00197">197</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
@@ -305,7 +305,7 @@ template&lt;typename ElemType , typename RefType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html">SubVectorView</a>&lt; <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">VectorView</a>&lt; ElemType, RefType &gt;, ElemType, RefType, RefType &gt; <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">jeod::VectorView</a>&lt; ElemType, RefType &gt;::make_view </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a7b855a634f8fa1eb8f0f005b32e0216a">SolverTypes::IndexPairT</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a2e6ebf69b36d6f1ede4da18dac894141">SolverTypes::IndexPairT</a> &amp;&#160;</td>
           <td class="paramname"><em>range</em></td><td>)</td>
           <td></td>
         </tr>
@@ -327,7 +327,7 @@ template&lt;typename ElemType , typename RefType &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The 'end' in the above has the canonical range meaning of the last item plus one. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The created view, as a sub vector. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00276">276</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00248">248</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
@@ -345,7 +345,7 @@ template&lt;typename ElemType , typename RefType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html">SubVectorView</a>&lt; const <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">VectorView</a>&lt; ElemType, RefType &gt;, ElemType, ElemType, RefType &gt; <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">jeod::VectorView</a>&lt; ElemType, RefType &gt;::make_view </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a7b855a634f8fa1eb8f0f005b32e0216a">SolverTypes::IndexPairT</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d56/classjeod_1_1SolverTypes.html#a2e6ebf69b36d6f1ede4da18dac894141">SolverTypes::IndexPairT</a> &amp;&#160;</td>
           <td class="paramname"><em>range</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -367,12 +367,12 @@ template&lt;typename ElemType , typename RefType &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The 'end' in the above has the canonical range meaning of the last item plus one. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The created view, as a sub vector. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00293">293</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00255">255</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
-<a id="a4c02b99cacd74e4618a9b049828d07f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c02b99cacd74e4618a9b049828d07f2">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a960327a3bca44c2ab17d24224862fe20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a960327a3bca44c2ab17d24224862fe20">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -385,7 +385,7 @@ template&lt;typename SourceType , typename T  = VectorView&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if&lt;! std::is_reference&lt;RefType&gt;::value, T&amp;&gt;::type <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">jeod::VectorView</a>&lt; ElemType, RefType &gt;::operator= </td>
+          <td class="memname">std::enable_if&lt;!std::is_reference&lt;RefType&gt;::value, T &amp;&gt;::type <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">jeod::VectorView</a>&lt; ElemType, RefType &gt;::operator= </td>
           <td>(</td>
           <td class="paramtype">const SourceType &amp;&#160;</td>
           <td class="paramname"><em>src</em></td><td>)</td>
@@ -413,12 +413,12 @@ template&lt;typename SourceType , typename T  = VectorView&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00134">134</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00126">126</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
-<a id="a8187328d153df78d64c88b51f2fd08d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8187328d153df78d64c88b51f2fd08d5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a2eede95a667d08f1b8184157509c6d58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eede95a667d08f1b8184157509c6d58">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,7 +431,7 @@ template&lt;std::size_t N, typename T  = VectorView&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if&lt;! std::is_reference&lt;RefType&gt;::value, T&amp;&gt;::type <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">jeod::VectorView</a>&lt; ElemType, RefType &gt;::operator= </td>
+          <td class="memname">std::enable_if&lt;!std::is_reference&lt;RefType&gt;::value, T &amp;&gt;::type <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html">jeod::VectorView</a>&lt; ElemType, RefType &gt;::operator= </td>
           <td>(</td>
           <td class="paramtype">const ElemType&#160;</td>
           <td class="paramname"><em>src</em>[N]</td><td>)</td>
@@ -459,7 +459,7 @@ template&lt;std::size_t N, typename T  = VectorView&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00160">160</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00150">150</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
@@ -498,7 +498,7 @@ template&lt;typename ElemType, typename RefType&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the indexed value. </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html#a035a381a1f33af108950f6a93cdf00ec">jeod::SubVectorView&lt; UnderlyingType, ElemType, RefType, BaseRefType &gt;</a>, <a class="el" href="../../d5/de2/classjeod_1_1RowView.html#af11f4c53d4521468cf3542a5f642499e">jeod::RowView&lt; ArrayType, ElemType, RefType &gt;</a>, and <a class="el" href="../../da/d67/classjeod_1_1ColumnView.html#a5132a493d867e9e116fc57ac7c0c159c">jeod::ColumnView&lt; ArrayType, ElemType, RefType &gt;</a>.</p>
+<p>Implemented in <a class="el" href="../../d1/d2f/classjeod_1_1SubVectorView.html#a8292d31ab64f35248930f984e96259c1">jeod::SubVectorView&lt; UnderlyingType, ElemType, RefType, BaseRefType &gt;</a>, <a class="el" href="../../da/d67/classjeod_1_1ColumnView.html#a5132a493d867e9e116fc57ac7c0c159c">jeod::ColumnView&lt; ArrayType, ElemType, RefType &gt;</a>, and <a class="el" href="../../d5/de2/classjeod_1_1RowView.html#af11f4c53d4521468cf3542a5f642499e">jeod::RowView&lt; ArrayType, ElemType, RefType &gt;</a>.</p>
 
 </div>
 </div>
@@ -537,7 +537,7 @@ template&lt;typename ElemType, typename RefType&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The indexed value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00181">181</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00170">170</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
@@ -569,7 +569,7 @@ template&lt;typename ElemType, typename RefType&gt; </div>
 <p>Get the number of data elements encapsulated by this view. </p>
 <dl class="section return"><dt>Returns</dt><dd>View size. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00217">217</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00206">206</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
 </div>
 </div>
@@ -599,9 +599,9 @@ template&lt;typename ElemType, typename RefType&gt; </div>
 <p>The number of elements in the view. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00257">257</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d51/vector__view_8hh_source.html#l00235">235</a> of file <a class="el" href="../../d8/d51/vector__view_8hh_source.html">vector_view.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a565472bf7235c4fe2dd21284f107470e">jeod::VectorView&lt; ElemType, BaseRefType &gt;::at()</a>, <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4c02b99cacd74e4618a9b049828d07f2">jeod::VectorView&lt; ElemType, BaseRefType &gt;::operator=()</a>, and <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4d6beac17cff8c5acb4ae49c6d7f3184">jeod::VectorView&lt; ElemType, BaseRefType &gt;::size()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a565472bf7235c4fe2dd21284f107470e">jeod::VectorView&lt; ElemType, BaseRefType &gt;::at()</a>, <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a960327a3bca44c2ab17d24224862fe20">jeod::VectorView&lt; ElemType, BaseRefType &gt;::operator=()</a>, and <a class="el" href="../../dc/d49/classjeod_1_1VectorView.html#a4d6beac17cff8c5acb4ae49c6d7f3184">jeod::VectorView&lt; ElemType, BaseRefType &gt;::size()</a>.</p>
 
 </div>
 </div>

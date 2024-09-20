@@ -59,10 +59,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/trick_dynbody_integ_loop.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_DYNBODY_INTEG_LOOP_SCHEDULER_HH
 #define JEOD_DYNBODY_INTEG_LOOP_SCHEDULER_HH
@@ -80,33 +79,35 @@ Library dependencies:
 // Trick includes
 #include "sim_services/Integrator/include/IntegLoopScheduler.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 // Forward declarations
 class DynManager;
 class DynamicsIntegrationGroup;
 class TimeManager;
 class GravityManager;
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * Namespace Trick furnishes several standard functions for use in the Trick environment.
  */
-namespace Trick {
+namespace Trick
+{
 class SimObject;
-}
+} // namespace Trick
 
 /**
  * Namespace er7_utils contains the state integration models used by JEOD.
  */
-namespace er7_utils {
+namespace er7_utils
+{
 class IntegrableObject;
-}
-
+} // namespace er7_utils
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A Trick::IntegLoopScheduler that provides the ability to integrate a
@@ -130,293 +131,258 @@ namespace jeod {
  * JeodIntegLoopSimObject.
  * See $JEOD_HOME/lib/jeod/JEOD_S_modules/integ_loop.sm.
  */
-class JeodDynbodyIntegrationLoop :
-   public Trick::IntegLoopScheduler,
-   virtual public JeodIntegrationGroupOwner
+class JeodDynbodyIntegrationLoop : public Trick::IntegLoopScheduler,
+                                   virtual public JeodIntegrationGroupOwner
 {
-
-   JEOD_MAKE_SIM_INTERFACES(JeodDynbodyIntegrationLoop)
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodDynbodyIntegrationLoop)
 
 public:
+    // Member functions
 
-   // Member functions
+    // Constructor and destructor
 
-   // Constructor and destructor
+    /**
+     * JeodDynbodyIntegrationLoop default constructor.
+     * @note This exists only for the purpose of automated checkpoint/restart.
+     * @warning Do not use the default constructor outside of this context.
+     */
+    JeodDynbodyIntegrationLoop();
 
-   /**
-    * JeodDynbodyIntegrationLoop default constructor.
-    * @note This exists only for the purpose of automated checkpoint/restart.
-    * @warning Do not use the default constructor outside of this context.
-    */
-   JeodDynbodyIntegrationLoop ();
+    /**
+     * JeodDynbodyIntegrationLoop non-default constructor.
+     * This is the constructor that should be used in the S_define file.
+     * The SimObject that contains this JeodDynbodyIntegrationLoop instance must
+     * register an "integ_loop" class job that calls the loop's integrate method.
+     * @param cycle
+     *   The integration interval in simulation seconds. This must be the same
+     *   interval as specified in the integ_loop job specification.
+     * @param sim_object_in
+     *   The SimObject that contains this JeodDynbodyIntegrationLoop instance.
+     * @param time_manager_in
+     *   The simulation's time manager object.
+     * @param dyn_manager_in
+     *   The simulation's dynamics manager object.
+     * @param grav_manager_in
+     *   The simulation's gravity manager object.
+     * @param integ_cotr_in
+     *   The integrator constructor used to create integration artifacts.
+     * @param integ_group_factory
+     *   The integration group object used to create this loop's integ group.
+     */
+    JeodDynbodyIntegrationLoop(double cycle,
+                               Trick::SimObject & sim_object_in,
+                               TimeManager & time_manager_in,
+                               DynManager & dyn_manager_in,
+                               GravityManager & grav_manager_in,
+                               er7_utils::IntegratorConstructor *& integ_cotr_in,
+                               DynamicsIntegrationGroup & integ_group_factory);
 
+    /**
+     * JeodDynbodyIntegrationLoop destructor.
+     */
+    ~JeodDynbodyIntegrationLoop() override;
 
-   /**
-    * JeodDynbodyIntegrationLoop non-default constructor.
-    * This is the constructor that should be used in the S_define file.
-    * The SimObject that contains this JeodDynbodyIntegrationLoop instance must
-    * register an "integ_loop" class job that calls the loop's integrate method.
-    * @param cycle
-    *   The integration interval in simulation seconds. This must be the same
-    *   interval as specified in the integ_loop job specification.
-    * @param sim_object_in
-    *   The SimObject that contains this JeodDynbodyIntegrationLoop instance.
-    * @param time_manager_in
-    *   The simulation's time manager object.
-    * @param dyn_manager_in
-    *   The simulation's dynamics manager object.
-    * @param grav_manager_in
-    *   The simulation's gravity manager object.
-    * @param integ_cotr_in
-    *   The integrator constructor used to create integration artifacts.
-    * @param integ_group_factory
-    *   The integration group object used to create this loop's integ group.
-    */
-   JeodDynbodyIntegrationLoop (
-      double cycle,
-      Trick::SimObject & sim_object_in,
-      TimeManager & time_manager_in,
-      DynManager & dyn_manager_in,
-      GravityManager & grav_manager_in,
-      er7_utils::IntegratorConstructor *& integ_cotr_in,
-      DynamicsIntegrationGroup & integ_group_factory);
+    JeodDynbodyIntegrationLoop(const JeodDynbodyIntegrationLoop &) = delete;
+    JeodDynbodyIntegrationLoop & operator=(const JeodDynbodyIntegrationLoop &) = delete;
 
+    // Member functions
 
-   /**
-    * JeodDynbodyIntegrationLoop destructor.
-    */
-   ~JeodDynbodyIntegrationLoop () override;
+    /**
+     * S_define-level function to initialize the integration loop.
+     *
+     * This function should be called as a very low phase integration class job.
+     */
+    void initialize_integ_loop();
 
+    /**
+     * S_define-level function to reset JEOD time to the time at the start of
+     * the current integration loop.
+     *
+     * This function should be called as a very low phase pre-integration class
+     * job in simulations that have multiple integration loops.
+     */
+    void set_time_to_loop_start();
 
-   // Member functions
+    /**
+     * Update the provided integration group, which must be the integration group
+     * contained within this integration loop object.
+     *
+     * @note This function is public because it is called (indirectly) from
+     * DynManager::initialize_simulation. It should otherwise be viewed
+     * as a protected or private function.
+     *
+     * @param group  The IntegrationGroup to be updated, which must be
+     *               the integration loop's integration group object.
+     */
+    void update_integration_group(JeodIntegrationGroup & group) override;
 
-   /**
-    * S_define-level function to initialize the integration loop.
-    *
-    * This function should be called as a very low phase integration class job.
-    */
-   void initialize_integ_loop (void);
+    /**
+     * Add a sim object to the set of objects to be integrated by this
+     * integration loop object. The job queues for this loop are rebuilt after
+     * adding the sim object.
+     *
+     * @param sim_obj  The SimObject to be added to this loop object.
+     * @return  Zero => success, non-zero => error.
+     */
+    int add_sim_object(Trick::SimObject & sim_obj) override; // cppcheck-suppress virtualCallInConstructor
 
+    /**
+     * Add the specified integrable object, which should not be a DynBody,
+     * to the integration group's set of integrable objects.
+     *
+     * @param integrable_object  Object to be added.
+     */
+    virtual void add_integrable_object(er7_utils::IntegrableObject & integrable_object);
 
-   /**
-    * S_define-level function to reset JEOD time to the time at the start of
-    * the current integration loop.
-    *
-    * This function should be called as a very low phase pre-integration class
-    * job in simulations that have multiple integration loops.
-    */
-   void set_time_to_loop_start();
+    /**
+     * Remove a sim object from the set of objects to be integrated by this
+     * integration loop object. The job queues for this loop are rebuilt after
+     * removing the sim object.
+     *
+     * @param sim_obj  The SimObject to be removed from this loop object.
+     * @return  Zero => success, non-zero => error.
+     */
+    int remove_sim_object(Trick::SimObject & sim_obj) override;
 
+    /**
+     * Remove the specified integrable object from the integration group's
+     * set of integrable objects.
+     *
+     * @param integrable_object  Object to be removed.
+     */
+    virtual void remove_integrable_object(er7_utils::IntegrableObject & integrable_object);
 
-   /**
-    * Update the provided integration group, which must be the integration group
-    * contained within this integration loop object.
-    *
-    * @note This function is public because it is called (indirectly) from
-    * DynManager::initialize_simulation. It should otherwise be viewed
-    * as a protected or private function.
-    *
-    * @param group  The IntegrationGroup to be updated, which must be
-    *               the integration loop's integration group object.
-    */
-   void update_integration_group (
-      JeodIntegrationGroup & group) override;
+    // Passthru methods
 
+    /**
+     * Compute the gravitational accelerations of each dynamic body
+     * that is integrated by this integration loop.
+     */
+    virtual void gravitation()
+    {
+        integ_group->gravitation(*dyn_manager, *gravity_manager);
+    }
 
-   /**
-    * Add a sim object to the set of objects to be integrated by this
-    * integration loop object. The job queues for this loop are rebuilt after
-    * adding the sim object.
-    *
-    * @param sim_obj  The SimObject to be added to this loop object.
-    * @return  Zero => success, non-zero => error.
-    */
-   int add_sim_object (Trick::SimObject & sim_obj) override; //cppcheck-suppress virtualCallInConstructor
+    /**
+     * Collect the derivatives for each dynamic body
+     * that is integrated by this integration loop.
+     */
+    virtual void collect_derivatives()
+    {
+        integ_group->collect_derivatives();
+    }
 
-
-   /**
-    * Add the specified integrable object, which should not be a DynBody,
-    * to the integration group's set of integrable objects.
-    *
-    * @param integrable_object  Object to be added.
-    */
-   virtual void add_integrable_object (
-      er7_utils::IntegrableObject & integrable_object);
-
-
-   /**
-    * Remove a sim object from the set of objects to be integrated by this
-    * integration loop object. The job queues for this loop are rebuilt after
-    * removing the sim object.
-    *
-    * @param sim_obj  The SimObject to be removed from this loop object.
-    * @return  Zero => success, non-zero => error.
-    */
-   int remove_sim_object (Trick::SimObject & sim_obj) override;
-
-
-   /**
-    * Remove the specified integrable object from the integration group's
-    * set of integrable objects.
-    *
-    * @param integrable_object  Object to be removed.
-    */
-   virtual void remove_integrable_object (
-      er7_utils::IntegrableObject & integrable_object);
-
-
-   // Passthru methods
-
-   /**
-    * Compute the gravitational accelerations of each dynamic body
-    * that is integrated by this integration loop.
-    */
-   virtual void gravitation (void)
-   {
-      integ_group->gravitation (*dyn_manager, *gravity_manager);
-   }
-
-
-   /**
-    * Collect the derivatives for each dynamic body
-    * that is integrated by this integration loop.
-    */
-   virtual void collect_derivatives (void)
-   {
-      integ_group->collect_derivatives ();
-   }
-
-
-   /**
-    * Set the deriv_ephem_update flag for the integration group.
-    * @param val  New value for deriv_ephem_update.
-    */
-   virtual void set_deriv_ephem_update (bool val)
-   {
-      deriv_ephem_update = val;
-      if (integ_group != nullptr) {
-         integ_group->deriv_ephem_update = deriv_ephem_update;
-      }
-   }
-
+    /**
+     * Set the deriv_ephem_update flag for the integration group.
+     * @param val  New value for deriv_ephem_update.
+     */
+    virtual void set_deriv_ephem_update(bool val)
+    {
+        deriv_ephem_update = val;
+        if(integ_group != nullptr)
+        {
+            integ_group->deriv_ephem_update = deriv_ephem_update;
+        }
+    }
 
 protected:
+    // Member functions
 
-   // Member functions
+    /**
+     * Find the sim object that contains the specified integrable object.
+     * @param integrable_object Object to be found.
+     * @return Sim object that contains the specified object, or null if none.
+     */
+    Trick::SimObject * find_containing_sim_object(er7_utils::IntegrableObject & integrable_object);
 
-   /**
-    * Find the sim object that contains the specified integrable object.
-    * @param integrable_object Object to be found.
-    * @return Sim object that contains the specified object, or null if none.
-    */
-   Trick::SimObject * find_containing_sim_object (
-      er7_utils::IntegrableObject & integrable_object);
+    /**
+     * Add the DynBody objects contained in the specified sim object to the set
+     * of DynBody objects integrated by this integration loop.
+     *
+     * @param sim_obj  The SimObject being added to this loop object.
+     */
+    virtual void add_sim_object_bodies(Trick::SimObject & sim_obj);
 
+    /**
+     * Add the dyn bodies contained in all the sim objects integrated by
+     * this integration loop to the loop's integration group.
+     */
+    virtual void add_sim_object_bodies();
 
-   /**
-    * Add the DynBody objects contained in the specified sim object to the set
-    * of DynBody objects integrated by this integration loop.
-    *
-    * @param sim_obj  The SimObject being added to this loop object.
-    */
-   virtual void add_sim_object_bodies (Trick::SimObject & sim_obj);
+    /**
+     * Remove the DynBody objects contained in the specified sim object from the
+     * set of DynBody objects integrated by this integration loop.
+     *
+     * @param sim_obj  The SimObject being removed from this loop object.
+     */
+    virtual void remove_sim_object_bodies(Trick::SimObject & sim_obj);
 
+    /**
+     * Integrate sim objects over the specified time span.
+     * This is an overridable internal integration function and is called by the
+     * externally-visible integrate method and by call_dynamic_event_jobs.
+     *
+     * @return               Zero/non-zero success indicator.
+     *                       Out-of-sync integrators cause a non-zero return.
+     * @param beg_sim_time   The time at the start of the integration interval.
+     * @param del_sim_time   The time span of the integration interval.
+     */
+    int integrate_dt(double beg_sim_time, double del_sim_time) override;
 
-   /**
-    * Add the dyn bodies contained in all the sim objects integrated by
-    * this integration loop to the loop's integration group.
-    */
-   virtual void add_sim_object_bodies (void);
+    // Member data
 
+    /**
+     * The simulation object that contains this integration loop object.
+     */
+    Trick::SimObject * loop_sim_object{}; //!< trick_units(--)
 
-   /**
-    * Remove the DynBody objects contained in the specified sim object from the
-    * set of DynBody objects integrated by this integration loop.
-    *
-    * @param sim_obj  The SimObject being removed from this loop object.
-    */
-   virtual void remove_sim_object_bodies (Trick::SimObject & sim_obj);
+    /**
+     * The JEOD dynamics manager.
+     */
+    DynManager * dyn_manager{}; //!< trick_units(--)
 
+    /**
+     * The JEOD time manager.
+     */
+    TimeManager * time_manager{}; //!< trick_units(--)
 
-   /**
-    * Integrate sim objects over the specified time span.
-    * This is an overridable internal integration function and is called by the
-    * externally-visible integrate method and by call_dynamic_event_jobs.
-    *
-    * @return               Zero/non-zero success indicator.
-    *                       Out-of-sync integrators cause a non-zero return.
-    * @param beg_sim_time   The time at the start of the integration interval.
-    * @param del_sim_time   The time span of the integration interval.
-    */
-   int integrate_dt (double beg_sim_time, double del_sim_time) override;
+    /**
+     * The gravity model manager.
+     */
+    GravityManager * gravity_manager{}; //!< trick_units(--)
 
+    /**
+     * Dummy integration interface; needed by the integ_group.
+     */
+    JeodTrickIntegrator integ_interface; //!< trick_units(--)
 
-   // Member data
+    /**
+     * Handle to the integration constructor used to create integrators.
+     */
+    er7_utils::IntegratorConstructor ** integ_constructor{}; //!< trick_units(--)
 
-   /**
-    * The simulation object that contains this integration loop object.
-    */
-   Trick::SimObject * loop_sim_object; //!< trick_units(--)
+    /**
+     * The externally-supplied integration group used as a template for
+     * creating this integration loop's integration group.
+     */
+    const DynamicsIntegrationGroup * integ_group_factory{}; //!< trick_units(--)
 
-   /**
-    * The JEOD dynamics manager.
-    */
-   DynManager * dyn_manager; //!< trick_units(--)
+    /**
+     * The integration group that performs  the integration.
+     */
+    DynamicsIntegrationGroup * integ_group{}; //!< trick_units(--)
 
-   /**
-    * The JEOD time manager.
-    */
-   TimeManager * time_manager; //!< trick_units(--)
-
-   /**
-    * The gravity model manager.
-    */
-   GravityManager * gravity_manager; //!< trick_units(--)
-
-   /**
-    * Dummy integration interface; needed by the integ_group.
-    */
-   JeodTrickIntegrator integ_interface; //!< trick_units(--)
-
-   /**
-    * Handle to the integration constructor used to create integrators.
-    */
-   er7_utils::IntegratorConstructor ** integ_constructor; //!< trick_units(--)
-
-   /**
-    * The externally-supplied integration group used as a template for
-    * creating this integration loop's integration group.
-    */
-   const DynamicsIntegrationGroup * integ_group_factory; //!< trick_units(--)
-
-   /**
-    * The integration group that performs  the integration.
-    */
-   DynamicsIntegrationGroup * integ_group; //!< trick_units(--)
-
-   /**
-    * If set, ephemerides will be updated at the derivative rate.
-    * If clear, ephemerides will not be updated at the derivative rate by
-    * the ephemerides manager. Derivative-rate updates can still be attained
-    * by explicitly calling the various ephemerides model's update functions
-    * as derivative class jobs.
-    */
-   bool deriv_ephem_update; //!< trick_units(--)
-
-
-private:
-   // Having a copy constructor and assignment operator doesn't make a lick of
-   // sense for this class.
-
-   //!< Deleted.
-   JeodDynbodyIntegrationLoop (const JeodDynbodyIntegrationLoop &);
-
-   //!< Deleted.
-   JeodDynbodyIntegrationLoop& operator= (const JeodDynbodyIntegrationLoop &);
+    /**
+     * If set, ephemerides will be updated at the derivative rate.
+     * If clear, ephemerides will not be updated at the derivative rate by
+     * the ephemerides manager. Derivative-rate updates can still be attained
+     * by explicitly calling the various ephemerides model's update functions
+     * as derivative class jobs.
+     */
+    bool deriv_ephem_update{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

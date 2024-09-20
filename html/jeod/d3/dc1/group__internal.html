@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -61,13 +61,13 @@ Macros</h2></td></tr>
 <tr class="memitem:gaad106dda07018f15fcdd71b110c473ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#gaad106dda07018f15fcdd71b110c473ab">JEOD_ALLOC_POINTER_FILL</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:gaad106dda07018f15fcdd71b110c473ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill pattern for pointer types.  <a href="#gaad106dda07018f15fcdd71b110c473ab">More...</a><br /></td></tr>
 <tr class="separator:gaad106dda07018f15fcdd71b110c473ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga36b929b87f5a5a907abb600abf30d6cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a>(is_array,  nelem,  fill,  tentry)</td></tr>
+<tr class="memitem:ga36b929b87f5a5a907abb600abf30d6cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a>(is_array,  nelem,  fill,  tentry)&#160;&#160;&#160;<a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a71d1e1f795faf36c850f56589ed7b939">jeod::JeodMemoryManager::create_memory</a>(is_array, nelem, fill, tentry, __FILE__, __LINE__)</td></tr>
 <tr class="memdesc:ga36b929b87f5a5a907abb600abf30d6cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate and register memory to be populated via placement new.  <a href="#ga36b929b87f5a5a907abb600abf30d6cf">More...</a><br /></td></tr>
 <tr class="separator:ga36b929b87f5a5a907abb600abf30d6cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab83c2e991bdc553709cd4596639bec17"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#gab83c2e991bdc553709cd4596639bec17">JEOD_ALLOC_ARRAY_INTERNAL</a>(type,  nelem,  fill,  tentry)&#160;&#160;&#160;new (<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a> (true, nelem, fill, tentry)) type[nelem]</td></tr>
+<tr class="memitem:gab83c2e991bdc553709cd4596639bec17"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#gab83c2e991bdc553709cd4596639bec17">JEOD_ALLOC_ARRAY_INTERNAL</a>(type,  nelem,  fill,  tentry)&#160;&#160;&#160;new(<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a>(true, nelem, fill, tentry)) type[nelem]</td></tr>
 <tr class="memdesc:gab83c2e991bdc553709cd4596639bec17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate nelem elements of pointers to the specified structured type.  <a href="#gab83c2e991bdc553709cd4596639bec17">More...</a><br /></td></tr>
 <tr class="separator:gab83c2e991bdc553709cd4596639bec17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad24f818882d231bad4bda70a9360703b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#gad24f818882d231bad4bda70a9360703b">JEOD_ALLOC_OBJECT_INTERNAL</a>(type,  fill,  constr,  tentry)&#160;&#160;&#160;new (<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a> (false, 1, fill, tentry) ) type constr</td></tr>
+<tr class="memitem:gad24f818882d231bad4bda70a9360703b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#gad24f818882d231bad4bda70a9360703b">JEOD_ALLOC_OBJECT_INTERNAL</a>(type,  fill,  constr,  tentry)&#160;&#160;&#160;new(<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a>(false, 1, fill, tentry)) type constr</td></tr>
 <tr class="memdesc:gad24f818882d231bad4bda70a9360703b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate an instance of the specified class using the specified constructor arguments.  <a href="#gad24f818882d231bad4bda70a9360703b">More...</a><br /></td></tr>
 <tr class="separator:gad24f818882d231bad4bda70a9360703b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab70701cb197a939389ec83c465e258e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc1/group__internal.html#gab70701cb197a939389ec83c465e258e2">JEOD_DELETE_INTERNAL</a>(ptr,  is_array)</td></tr>
@@ -110,7 +110,7 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;new (<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a> (true, nelem, fill, tentry)) type[nelem]</td>
+          <td></td><td>&#160;&#160;&#160;new(<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a>(true, nelem, fill, tentry)) type[nelem]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -127,7 +127,7 @@ Macros</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00204">204</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00193">193</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
 
 </div>
 </div>
@@ -146,7 +146,7 @@ Macros</h2></td></tr>
 <p>Fill pattern for non-primitive types. </p>
 <p>This is a nasty fill pattern that forces JEOD developers to write constructors that initialize every element of a class. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00158">158</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00153">153</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
 
 </div>
 </div>
@@ -183,7 +183,7 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;new (<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a> (false, 1, fill, tentry) ) type constr</td>
+          <td></td><td>&#160;&#160;&#160;new(<a class="el" href="../../d3/dc1/group__internal.html#ga36b929b87f5a5a907abb600abf30d6cf">JEOD_CREATE_MEMORY</a>(false, 1, fill, tentry)) type constr</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -199,7 +199,7 @@ Macros</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00217">217</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00205">205</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
 
 </div>
 </div>
@@ -218,7 +218,7 @@ Macros</h2></td></tr>
 <p>Fill pattern for pointer types. </p>
 <p>Pointer types are initialized to null pointers. Note that this may change in the future. JEOD developers are strongly encouraged to initialize pointer arrays after allocating them. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00178">178</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00171">171</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
 
 </div>
 </div>
@@ -237,7 +237,7 @@ Macros</h2></td></tr>
 <p>Fill pattern for primitive types. </p>
 <p>Primitive types are initialized to all zero. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00167">167</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00161">161</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
 
 </div>
 </div>
@@ -274,12 +274,11 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a71d1e1f795faf36c850f56589ed7b939">jeod::JeodMemoryManager::create_memory</a>(is_array, nelem, fill, tentry, __FILE__, __LINE__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a71d1e1f795faf36c850f56589ed7b939">jeod::JeodMemoryManager::create_memory</a> ( \</div><div class="line">      is_array, nelem, fill, tentry, \</div><div class="line">      __FILE__, __LINE__)</div><div class="ttc" id="classjeod_1_1JeodMemoryManager_html_a71d1e1f795faf36c850f56589ed7b939"><div class="ttname"><a href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a71d1e1f795faf36c850f56589ed7b939">jeod::JeodMemoryManager::create_memory</a></div><div class="ttdeci">static void * create_memory(bool is_array, unsigned int nelems, int fill, const TypeEntry &amp;tentry, const char *file, unsigned int line)</div><div class="ttdoc">Allocate memory and register the allocated memory with JEOD. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d8d/memory__manager__static_8cc_source.html#l00269">memory_manager_static.cc:269</a></div></div>
-</div><!-- fragment -->
+
 <p>Allocate and register memory to be populated via placement new. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -291,7 +290,7 @@ Macros</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00189">189</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00181">181</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
 
 </div>
 </div>
@@ -320,8 +319,9 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">      if (ptr != <span class="keyword">nullptr</span>) { <a class="code" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a1efd5671dc0e91bd99a9e8ba40d6c762">\</a></div><div class="line"><a class="code" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a1efd5671dc0e91bd99a9e8ba40d6c762">         jeod::JeodMemoryManager::destroy_memory</a> ( \</div><div class="line">            <a class="code" href="../../df/d44/namespacejeod.html#af3249b17ac61b32f4201ee91a10eb6f1">jeod::jeod_alloc_get_allocated_pointer</a> (ptr), \</div><div class="line">            is_array, \</div><div class="line">            __FILE__, __LINE__); \</div><div class="line">         ptr = <span class="keyword">nullptr</span>; \</div><div class="line">      } \</div><div class="line">   } <span class="keywordflow">while</span> (0)</div><div class="ttc" id="classjeod_1_1JeodMemoryManager_html_a1efd5671dc0e91bd99a9e8ba40d6c762"><div class="ttname"><a href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a1efd5671dc0e91bd99a9e8ba40d6c762">jeod::JeodMemoryManager::destroy_memory</a></div><div class="ttdeci">static void destroy_memory(void *addr, bool delete_array, const char *file, unsigned int line)</div><div class="ttdoc">Destroy memory previously registered with JEOD. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d8d/memory__manager__static_8cc_source.html#l00339">memory_manager_static.cc:339</a></div></div>
-<div class="ttc" id="namespacejeod_html_af3249b17ac61b32f4201ee91a10eb6f1"><div class="ttname"><a href="../../df/d44/namespacejeod.html#af3249b17ac61b32f4201ee91a10eb6f1">jeod::jeod_alloc_get_allocated_pointer</a></div><div class="ttdeci">void * jeod_alloc_get_allocated_pointer(T *pointer)</div><div class="ttdoc">Cast a pointer to some object to a pointer to void* such that a pointer to a polymorphic object...</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh_source.html#l00161">jeod_alloc_get_allocated_pointer.hh:161</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span>                                                                                                                 \</div><div class="line">    {                                                                                                                  \</div><div class="line">        if(ptr != <span class="keyword">nullptr</span> &amp;&amp; <a class="code" href="../../d0/d87/group__external.html#ga02aad3086af361e5a13552eb2219bd8f">JEOD_IS_ALLOCATED</a>(ptr))                                                                   \</div><div class="line">        {                                                                                                              <a class="code" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a1efd5671dc0e91bd99a9e8ba40d6c762">\</a></div><div class="line"><a class="code" href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a1efd5671dc0e91bd99a9e8ba40d6c762">            jeod::JeodMemoryManager::destroy_memory</a>(<a class="code" href="../../df/d44/namespacejeod.html#af3249b17ac61b32f4201ee91a10eb6f1">jeod::jeod_alloc_get_allocated_pointer</a>(ptr),                       \</div><div class="line">                                                    is_array,                                                          \</div><div class="line">                                                    __FILE__,                                                          \</div><div class="line">                                                    __LINE__);                                                         \</div><div class="line">            ptr = <span class="keyword">nullptr</span>;                                                                                             \</div><div class="line">        }                                                                                                              \</div><div class="line">    } <span class="keywordflow">while</span>(0)</div><div class="ttc" id="classjeod_1_1JeodMemoryManager_html_a1efd5671dc0e91bd99a9e8ba40d6c762"><div class="ttname"><a href="../../d8/d4c/classjeod_1_1JeodMemoryManager.html#a1efd5671dc0e91bd99a9e8ba40d6c762">jeod::JeodMemoryManager::destroy_memory</a></div><div class="ttdeci">static void destroy_memory(void *addr, bool delete_array, const char *file, unsigned int line)</div><div class="ttdoc">Destroy memory previously registered with JEOD. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d8d/memory__manager__static_8cc_source.html#l00300">memory_manager_static.cc:300</a></div></div>
+<div class="ttc" id="group__external_html_ga02aad3086af361e5a13552eb2219bd8f"><div class="ttname"><a href="../../d0/d87/group__external.html#ga02aad3086af361e5a13552eb2219bd8f">JEOD_IS_ALLOCATED</a></div><div class="ttdeci">#define JEOD_IS_ALLOCATED(ptr)</div><div class="ttdoc">Determine if ptr was allocated by some JEOD_ALLOC_xxx_ARRAY macro. </div><div class="ttdef"><b>Definition:</b> <a href="../../de/d31/jeod__alloc_8hh_source.html#l00468">jeod_alloc.hh:468</a></div></div>
+<div class="ttc" id="namespacejeod_html_af3249b17ac61b32f4201ee91a10eb6f1"><div class="ttname"><a href="../../df/d44/namespacejeod.html#af3249b17ac61b32f4201ee91a10eb6f1">jeod::jeod_alloc_get_allocated_pointer</a></div><div class="ttdeci">void * jeod_alloc_get_allocated_pointer(T *pointer)</div><div class="ttdoc">Cast a pointer to some object to a pointer to void* such that a pointer to a polymorphic object...</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d5a/jeod__alloc__get__allocated__pointer_8hh_source.html#l00153">jeod_alloc_get_allocated_pointer.hh:153</a></div></div>
 </div><!-- fragment -->
 <p>Free memory allocated with some JEOD_ALLOC macro. </p>
 <p>Depends on</p><pre class="fragment">dynamic_cast&lt;void*&gt;(ptr) </pre><p> yielding a pointer to the most derived object pointed to by <em>ptr</em>. See ISO/IEC 14882:2003 section 5.2.7.7. </p><dl class="params"><dt>Parameters</dt><dd>
@@ -332,7 +332,7 @@ Macros</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00231">231</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html#l00218">218</a> of file <a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">jeod_alloc.hh</a>.</p>
 
 </div>
 </div>

@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -45,8 +45,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::ContactMessages Class Reference</div>  </div>
@@ -58,35 +58,35 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7db5906204245fbad15a03c33b392b3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a7db5906204245fbad15a03c33b392b3a">ContactMessages</a> ()=delete</td></tr>
+<tr class="separator:a7db5906204245fbad15a03c33b392b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43956f440433fee69458e43380a95b8c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a43956f440433fee69458e43380a95b8c">ContactMessages</a> (const <a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html">ContactMessages</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:a43956f440433fee69458e43380a95b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a2b114e05b5612c4f7fb6c51dfdcef9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html">ContactMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a6a2b114e05b5612c4f7fb6c51dfdcef9">operator=</a> (const <a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html">ContactMessages</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:a6a2b114e05b5612c4f7fb6c51dfdcef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a94e72f289ccc1562e7b34cfb6ba20252"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a94e72f289ccc1562e7b34cfb6ba20252">initialization_error</a></td></tr>
-<tr class="memdesc:a94e72f289ccc1562e7b34cfb6ba20252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with errors during initialization of the contact model.  <a href="#a94e72f289ccc1562e7b34cfb6ba20252">More...</a><br /></td></tr>
-<tr class="separator:a94e72f289ccc1562e7b34cfb6ba20252"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac173c0239670ddaef6071a9529d77640"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#ac173c0239670ddaef6071a9529d77640">runtime_error</a></td></tr>
-<tr class="memdesc:ac173c0239670ddaef6071a9529d77640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with errors during the runtime of the contact model.  <a href="#ac173c0239670ddaef6071a9529d77640">More...</a><br /></td></tr>
-<tr class="separator:ac173c0239670ddaef6071a9529d77640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5554b17680d747f2f418aca5fbf9bee8"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a5554b17680d747f2f418aca5fbf9bee8">pre_initialization_error</a></td></tr>
-<tr class="memdesc:a5554b17680d747f2f418aca5fbf9bee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with errors during the setup of the system, before runtime.  <a href="#a5554b17680d747f2f418aca5fbf9bee8">More...</a><br /></td></tr>
-<tr class="separator:a5554b17680d747f2f418aca5fbf9bee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a983d21c17a9b24d7ed7ed0d036e9ad06"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a983d21c17a9b24d7ed7ed0d036e9ad06">initialization_warns</a></td></tr>
-<tr class="memdesc:a983d21c17a9b24d7ed7ed0d036e9ad06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with warning during initialization of the contact model.  <a href="#a983d21c17a9b24d7ed7ed0d036e9ad06">More...</a><br /></td></tr>
-<tr class="separator:a983d21c17a9b24d7ed7ed0d036e9ad06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3db69b40d57a135bca90f4de4b7ac744"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a3db69b40d57a135bca90f4de4b7ac744">runtime_warns</a></td></tr>
-<tr class="memdesc:a3db69b40d57a135bca90f4de4b7ac744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with warnings given at runtime.  <a href="#a3db69b40d57a135bca90f4de4b7ac744">More...</a><br /></td></tr>
-<tr class="separator:a3db69b40d57a135bca90f4de4b7ac744"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9427e1585b46c10f7c28ebb5185e6101"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a9427e1585b46c10f7c28ebb5185e6101">runtime_inform</a></td></tr>
-<tr class="memdesc:a9427e1585b46c10f7c28ebb5185e6101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with information given at runtime.  <a href="#a9427e1585b46c10f7c28ebb5185e6101">More...</a><br /></td></tr>
-<tr class="separator:a9427e1585b46c10f7c28ebb5185e6101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:af8101d9ad96d08106542dfed2e096990"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#af8101d9ad96d08106542dfed2e096990">ContactMessages</a> (void)</td></tr>
-<tr class="separator:af8101d9ad96d08106542dfed2e096990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6d8d3034f0abad1be55941bca262979"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#ad6d8d3034f0abad1be55941bca262979">ContactMessages</a> (const <a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html">ContactMessages</a> &amp;rhs)</td></tr>
-<tr class="separator:ad6d8d3034f0abad1be55941bca262979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0233039438a69b19681b3fdbd21910a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html">ContactMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#af0233039438a69b19681b3fdbd21910a">operator=</a> (const <a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html">ContactMessages</a> &amp;rhs)</td></tr>
-<tr class="separator:af0233039438a69b19681b3fdbd21910a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc2f9031077b442f1d4b2510579ac59"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a6fc2f9031077b442f1d4b2510579ac59">initialization_error</a> = &quot;interactions/contact&quot; &quot;initialization_error&quot;</td></tr>
+<tr class="memdesc:a6fc2f9031077b442f1d4b2510579ac59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with errors during initialization of the contact model.  <a href="#a6fc2f9031077b442f1d4b2510579ac59">More...</a><br /></td></tr>
+<tr class="separator:a6fc2f9031077b442f1d4b2510579ac59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb494b52876ee1c61cafd34fc85935cb"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#afb494b52876ee1c61cafd34fc85935cb">runtime_error</a> = &quot;interactions/contact&quot; &quot;runtime_error&quot;</td></tr>
+<tr class="memdesc:afb494b52876ee1c61cafd34fc85935cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with errors during the runtime of the contact model.  <a href="#afb494b52876ee1c61cafd34fc85935cb">More...</a><br /></td></tr>
+<tr class="separator:afb494b52876ee1c61cafd34fc85935cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a589dd0290346a2f19514d599e59af65f"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a589dd0290346a2f19514d599e59af65f">pre_initialization_error</a> = &quot;interactions/contact&quot; &quot;pre_initialization_error&quot;</td></tr>
+<tr class="memdesc:a589dd0290346a2f19514d599e59af65f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with errors during the setup of the system, before runtime.  <a href="#a589dd0290346a2f19514d599e59af65f">More...</a><br /></td></tr>
+<tr class="separator:a589dd0290346a2f19514d599e59af65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a328c93fdeb29121e0cef34127b0343dc"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a328c93fdeb29121e0cef34127b0343dc">initialization_warns</a> = &quot;interactions/contact&quot; &quot;initialization_warns&quot;</td></tr>
+<tr class="memdesc:a328c93fdeb29121e0cef34127b0343dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with warning during initialization of the contact model.  <a href="#a328c93fdeb29121e0cef34127b0343dc">More...</a><br /></td></tr>
+<tr class="separator:a328c93fdeb29121e0cef34127b0343dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94e459df26a9262d9000283ee2403ab3"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a94e459df26a9262d9000283ee2403ab3">runtime_warns</a> = &quot;interactions/contact&quot; &quot;runtime_warns&quot;</td></tr>
+<tr class="memdesc:a94e459df26a9262d9000283ee2403ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with warnings given at runtime.  <a href="#a94e459df26a9262d9000283ee2403ab3">More...</a><br /></td></tr>
+<tr class="separator:a94e459df26a9262d9000283ee2403ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d236aa5a9693b832e7df2a339868898"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a7d236aa5a9693b832e7df2a339868898">runtime_inform</a> = &quot;interactions/contact&quot; &quot;<a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a94e459df26a9262d9000283ee2403ab3">runtime_warns</a>&quot;</td></tr>
+<tr class="memdesc:a7d236aa5a9693b832e7df2a339868898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associated with information given at runtime.  <a href="#a7d236aa5a9693b832e7df2a339868898">More...</a><br /></td></tr>
+<tr class="separator:a7d236aa5a9693b832e7df2a339868898"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -98,10 +98,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Messages associated with use of the contact model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00085">85</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af8101d9ad96d08106542dfed2e096990"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8101d9ad96d08106542dfed2e096990">&#9670;&nbsp;</a></span>ContactMessages() <span class="overload">[1/2]</span></h2>
+<a id="a7db5906204245fbad15a03c33b392b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db5906204245fbad15a03c33b392b3a">&#9670;&nbsp;</a></span>ContactMessages() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -112,22 +112,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::ContactMessages::ContactMessages </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad6d8d3034f0abad1be55941bca262979"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6d8d3034f0abad1be55941bca262979">&#9670;&nbsp;</a></span>ContactMessages() <span class="overload">[2/2]</span></h2>
+<a id="a43956f440433fee69458e43380a95b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43956f440433fee69458e43380a95b8c">&#9670;&nbsp;</a></span>ContactMessages() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +144,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -153,8 +152,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af0233039438a69b19681b3fdbd21910a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0233039438a69b19681b3fdbd21910a">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a6a2b114e05b5612c4f7fb6c51dfdcef9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2b114e05b5612c4f7fb6c51dfdcef9">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +171,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -230,8 +229,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a id="a94e72f289ccc1562e7b34cfb6ba20252"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94e72f289ccc1562e7b34cfb6ba20252">&#9670;&nbsp;</a></span>initialization_error</h2>
+<a id="a6fc2f9031077b442f1d4b2510579ac59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc2f9031077b442f1d4b2510579ac59">&#9670;&nbsp;</a></span>initialization_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,7 +239,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::ContactMessages::initialization_error</td>
+          <td class="memname">const char * jeod::ContactMessages::initialization_error = &quot;interactions/contact&quot; &quot;initialization_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -249,18 +248,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">    <span class="stringliteral">&quot;interactions/contact&quot;</span>  <span class="stringliteral">&quot;initialization_error&quot;</span></div></div><!-- fragment -->
+
 <p>Associated with errors during initialization of the contact model. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00098">98</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00095">95</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/d5f/classjeod_1_1ContactSurface.html#a29ca0a922ef5748e7e94d3fa4aeea20e">jeod::ContactSurface::allocate_array()</a>, <a class="el" href="../../df/d5f/classjeod_1_1ContactSurface.html#ae8d9fc897ac6901a8c5379fe8e7dedda">jeod::ContactSurface::allocate_interaction_facet()</a>, <a class="el" href="../../d1/dce/classjeod_1_1LineContactFacetFactory.html#a644d1fcac1a71beae64cfc064bf5d417">jeod::LineContactFacetFactory::create_facet()</a>, <a class="el" href="../../df/d43/classjeod_1_1PointContactFacetFactory.html#a8cf32df1e43b2cb6f9cf73a4ca64807d">jeod::PointContactFacetFactory::create_facet()</a>, and <a class="el" href="../../d0/d8e/classjeod_1_1ContactSurfaceFactory.html#a6b4c0c4bdfd39700452db35b2fdff7b9">jeod::ContactSurfaceFactory::create_surface()</a>.</p>
 
 </div>
 </div>
-<a id="a983d21c17a9b24d7ed7ed0d036e9ad06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a983d21c17a9b24d7ed7ed0d036e9ad06">&#9670;&nbsp;</a></span>initialization_warns</h2>
+<a id="a328c93fdeb29121e0cef34127b0343dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a328c93fdeb29121e0cef34127b0343dc">&#9670;&nbsp;</a></span>initialization_warns</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,7 +268,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::ContactMessages::initialization_warns</td>
+          <td class="memname">const char * jeod::ContactMessages::initialization_warns = &quot;interactions/contact&quot; &quot;initialization_warns&quot;</td>
         </tr>
       </table>
   </td>
@@ -278,18 +277,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">    <span class="stringliteral">&quot;interactions/contact&quot;</span>  <span class="stringliteral">&quot;initialization_warns&quot;</span></div></div><!-- fragment -->
+
 <p>Associated with warning during initialization of the contact model. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00113">113</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00110">110</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a0f82f331c51b1f574b214df128e24237">jeod::LineContactFacet::create_pair()</a>, and <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#aad144f5dfd38fd09926edf8592ece686">jeod::PointContactFacet::create_pair()</a>.</p>
 
 </div>
 </div>
-<a id="a5554b17680d747f2f418aca5fbf9bee8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5554b17680d747f2f418aca5fbf9bee8">&#9670;&nbsp;</a></span>pre_initialization_error</h2>
+<a id="a589dd0290346a2f19514d599e59af65f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a589dd0290346a2f19514d599e59af65f">&#9670;&nbsp;</a></span>pre_initialization_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +297,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::ContactMessages::pre_initialization_error</td>
+          <td class="memname">const char * jeod::ContactMessages::pre_initialization_error = &quot;interactions/contact&quot; &quot;pre_initialization_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -307,18 +306,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">    <span class="stringliteral">&quot;interactions/contact&quot;</span>  <span class="stringliteral">&quot;pre_initialization_error&quot;</span></div></div><!-- fragment -->
+
 <p>Associated with errors during the setup of the system, before runtime. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00106">106</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00103">103</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/d8e/classjeod_1_1ContactSurfaceFactory.html#a9c1a49227a2654a862ea26b6e1fb733b">jeod::ContactSurfaceFactory::add_facet_params()</a>.</p>
 
 </div>
 </div>
-<a id="ac173c0239670ddaef6071a9529d77640"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac173c0239670ddaef6071a9529d77640">&#9670;&nbsp;</a></span>runtime_error</h2>
+<a id="afb494b52876ee1c61cafd34fc85935cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb494b52876ee1c61cafd34fc85935cb">&#9670;&nbsp;</a></span>runtime_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +326,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::ContactMessages::runtime_error</td>
+          <td class="memname">const char * jeod::ContactMessages::runtime_error = &quot;interactions/contact&quot; &quot;runtime_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -336,16 +335,16 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">    <span class="stringliteral">&quot;interactions/contact&quot;</span>  <span class="stringliteral">&quot;runtime_error&quot;</span></div></div><!-- fragment -->
+
 <p>Associated with errors during the runtime of the contact model. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00102">102</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00099">99</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
 
 </div>
 </div>
-<a id="a9427e1585b46c10f7c28ebb5185e6101"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9427e1585b46c10f7c28ebb5185e6101">&#9670;&nbsp;</a></span>runtime_inform</h2>
+<a id="a7d236aa5a9693b832e7df2a339868898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d236aa5a9693b832e7df2a339868898">&#9670;&nbsp;</a></span>runtime_inform</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -354,7 +353,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::ContactMessages::runtime_inform</td>
+          <td class="memname">const char * jeod::ContactMessages::runtime_inform = &quot;interactions/contact&quot; &quot;<a class="el" href="../../d9/d26/classjeod_1_1ContactMessages.html#a94e459df26a9262d9000283ee2403ab3">runtime_warns</a>&quot;</td>
         </tr>
       </table>
   </td>
@@ -363,16 +362,16 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"> <span class="stringliteral">&quot;interactions/contact&quot;</span>  <span class="stringliteral">&quot;runtime_warns&quot;</span></div></div><!-- fragment -->
+
 <p>Associated with information given at runtime. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00124">124</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00121">121</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
 
 </div>
 </div>
-<a id="a3db69b40d57a135bca90f4de4b7ac744"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3db69b40d57a135bca90f4de4b7ac744">&#9670;&nbsp;</a></span>runtime_warns</h2>
+<a id="a94e459df26a9262d9000283ee2403ab3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94e459df26a9262d9000283ee2403ab3">&#9670;&nbsp;</a></span>runtime_warns</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +380,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::ContactMessages::runtime_warns</td>
+          <td class="memname">const char * jeod::ContactMessages::runtime_warns = &quot;interactions/contact&quot; &quot;runtime_warns&quot;</td>
         </tr>
       </table>
   </td>
@@ -390,11 +389,11 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">    <span class="stringliteral">&quot;interactions/contact&quot;</span>  <span class="stringliteral">&quot;runtime_warns&quot;</span></div></div><!-- fragment -->
+
 <p>Associated with warnings given at runtime. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00117">117</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html#l00114">114</a> of file <a class="el" href="../../d8/d5a/contact__messages_8hh_source.html">contact_messages.hh</a>.</p>
 
 </div>
 </div>

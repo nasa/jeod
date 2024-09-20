@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -49,7 +49,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::PlanetRNP Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -65,12 +64,12 @@ Inheritance diagram for jeod::PlanetRNP:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d9e/classjeod_1_1PlanetRNP__inherit__graph.png" border="0" usemap="#jeod_1_1PlanetRNP_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1PlanetRNP_inherit__map" id="jeod_1_1PlanetRNP_inherit__map">
-<area shape="rect" id="node6" href="../../d5/d04/classjeod_1_1RNPJ2000.html" title="Implements the J2000 RNP model using the generic RNP framework. " alt="" coords="51,304,169,331"/>
-<area shape="rect" id="node7" href="../../db/d3b/classjeod_1_1RNPMars.html" title="Implements the &quot;Pathfinder&quot; Mars RNP model using the generic RNP framework. " alt="" coords="193,304,305,331"/>
-<area shape="rect" id="node2" href="../../d5/d90/classjeod_1_1PlanetOrientation.html" title="The generic framework for orientation models to interact with a DynManager object. " alt="" coords="102,155,257,181"/>
-<area shape="rect" id="node3" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="5,80,172,107"/>
-<area shape="rect" id="node4" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="12,5,165,32"/>
-<area shape="rect" id="node5" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="196,80,347,107"/>
+<area shape="rect" id="node6" href="../../d5/d04/classjeod_1_1RNPJ2000.html" title="Implements the J2000 RNP model using the generic RNP framework. " alt="" coords="65,304,187,331"/>
+<area shape="rect" id="node7" href="../../db/d3b/classjeod_1_1RNPMars.html" title="Implements the &quot;Pathfinder&quot; Mars RNP model using the generic RNP framework. " alt="" coords="211,304,327,331"/>
+<area shape="rect" id="node2" href="../../d5/d90/classjeod_1_1PlanetOrientation.html" title="The generic framework for orientation models to interact with a DynManager object. " alt="" coords="111,155,283,181"/>
+<area shape="rect" id="node3" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="5,80,191,107"/>
+<area shape="rect" id="node4" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="13,5,183,32"/>
+<area shape="rect" id="node5" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="215,80,376,107"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -78,17 +77,17 @@ Collaboration diagram for jeod::PlanetRNP:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d26/classjeod_1_1PlanetRNP__coll__graph.png" border="0" usemap="#jeod_1_1PlanetRNP_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1PlanetRNP_coll__map" id="jeod_1_1PlanetRNP_coll__map">
-<area shape="rect" id="node2" href="../../d5/d90/classjeod_1_1PlanetOrientation.html" title="The generic framework for orientation models to interact with a DynManager object. " alt="" coords="1015,159,1169,186"/>
-<area shape="rect" id="node3" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="208,95,375,122"/>
-<area shape="rect" id="node11" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="463,83,605,110"/>
-<area shape="rect" id="node4" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="5,95,159,122"/>
-<area shape="rect" id="node5" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="216,31,367,58"/>
-<area shape="rect" id="node6" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. " alt="" coords="735,235,825,262"/>
-<area shape="rect" id="node7" href="../../d5/d53/classjeod_1_1BasePlanet.html" title="A BasePlanet contains the base data needed to model a planet in JEOD. " alt="" coords="473,235,595,262"/>
-<area shape="rect" id="node8" title="STL class. " alt="" coords="251,202,331,228"/>
-<area shape="rect" id="node9" href="../../d6/d00/classjeod_1_1RefFrameRot.html" title="Represent the rotational aspects of a reference frame&#39;s state. " alt="" coords="713,286,847,312"/>
-<area shape="rect" id="node10" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html" title="An EphemerisOrientation object updates the rotational state of an ephemeris reference frame..." alt="" coords="691,83,869,110"/>
-<area shape="rect" id="node12" href="../../d7/d61/classjeod_1_1PlanetRotation.html" title="The generic base class for all planet transformations. " alt="" coords="1022,238,1162,264"/>
+<area shape="rect" id="node2" href="../../d5/d90/classjeod_1_1PlanetOrientation.html" title="The generic framework for orientation models to interact with a DynManager object. " alt="" coords="1109,188,1281,215"/>
+<area shape="rect" id="node3" href="../../de/d30/classjeod_1_1EphemerisInterface.html" title="Interface class that specifies minimal functionality of an ephemeris model. " alt="" coords="225,5,411,32"/>
+<area shape="rect" id="node11" href="../../d2/da5/classjeod_1_1EphemerisItem.html" title="The EphemerisItem class is the base class for representing an item that is modeled in an ephemeris mo..." alt="" coords="504,163,661,189"/>
+<area shape="rect" id="node4" href="../../da/d54/classjeod_1_1ActivateInterface.html" title="A class that inherits from the ActivateInterface class must provide activate and deactivate methods..." alt="" coords="5,5,176,32"/>
+<area shape="rect" id="node5" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="237,69,399,96"/>
+<area shape="rect" id="node6" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. " alt="" coords="801,315,900,341"/>
+<area shape="rect" id="node7" href="../../d5/d53/classjeod_1_1BasePlanet.html" title="A BasePlanet contains the base data needed to model a planet in JEOD. " alt="" coords="517,276,648,303"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="275,213,361,240"/>
+<area shape="rect" id="node9" href="../../d6/d00/classjeod_1_1RefFrameRot.html" title="Represent the rotational aspects of a reference frame&#39;s state. " alt="" coords="781,264,921,291"/>
+<area shape="rect" id="node10" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html" title="An EphemerisOrientation object updates the rotational state of an ephemeris reference frame..." alt="" coords="751,163,951,189"/>
+<area shape="rect" id="node12" href="../../d7/d61/classjeod_1_1PlanetRotation.html" title="The generic base class for all planet transformations. " alt="" coords="1119,267,1272,293"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -103,12 +102,14 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a023e4182986829b37c9a6e0ac78f7053"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a023e4182986829b37c9a6e0ac78f7053">PlanetRNP</a> ()</td></tr>
-<tr class="memdesc:a023e4182986829b37c9a6e0ac78f7053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor; constructs a <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html" title="The generic framework for orientation models based on the RNP paradigm. ">PlanetRNP</a> object.  <a href="#a023e4182986829b37c9a6e0ac78f7053">More...</a><br /></td></tr>
-<tr class="separator:a023e4182986829b37c9a6e0ac78f7053"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a223b507300db6d60f4dea6cbf6feed4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a223b507300db6d60f4dea6cbf6feed4d">~PlanetRNP</a> () override</td></tr>
-<tr class="memdesc:a223b507300db6d60f4dea6cbf6feed4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class destructor.  <a href="#a223b507300db6d60f4dea6cbf6feed4d">More...</a><br /></td></tr>
-<tr class="separator:a223b507300db6d60f4dea6cbf6feed4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8c12a094d5ff69496b31260bcab228"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a8d8c12a094d5ff69496b31260bcab228">PlanetRNP</a> ()=default</td></tr>
+<tr class="separator:a8d8c12a094d5ff69496b31260bcab228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9235c1a8c8395c8e77573621c44cc758"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a9235c1a8c8395c8e77573621c44cc758">~PlanetRNP</a> () override=default</td></tr>
+<tr class="separator:a9235c1a8c8395c8e77573621c44cc758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d902e5b27bc2594d1cee019adaff8bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html">PlanetRNP</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a0d902e5b27bc2594d1cee019adaff8bd">operator=</a> (const <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html">PlanetRNP</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:a0d902e5b27bc2594d1cee019adaff8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae82e11189ff787fbe6d404130eb4d049"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#ae82e11189ff787fbe6d404130eb4d049">PlanetRNP</a> (const <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html">PlanetRNP</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:ae82e11189ff787fbe6d404130eb4d049"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04a56c69b8828107310728e1b41d08f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp</a> ()</td></tr>
 <tr class="memdesc:a04a56c69b8828107310728e1b41d08f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the calculation for all rotation models contained in the RNP, used on the last time set in each model through PlanetRotation::set_time.  <a href="#a04a56c69b8828107310728e1b41d08f5">More...</a><br /></td></tr>
 <tr class="separator:a04a56c69b8828107310728e1b41d08f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,16 +119,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aabb4d1ec1cfc1b00ee05333c317c1f9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp</a> ()</td></tr>
 <tr class="memdesc:aabb4d1ec1cfc1b00ee05333c317c1f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiples out the (up to) four planet rotation models (nutation, precession, polar motion and rotation), leaving out models whose pointers are NULL, and feeds it to the planet attitude found in the dyn manager given in initialize.  <a href="#aabb4d1ec1cfc1b00ee05333c317c1f9f">More...</a><br /></td></tr>
 <tr class="separator:aabb4d1ec1cfc1b00ee05333c317c1f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43d60e405a72be0899ee4cc413b48c57"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a43d60e405a72be0899ee4cc413b48c57">get_name</a> () const override=0</td></tr>
-<tr class="memdesc:a43d60e405a72be0899ee4cc413b48c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">A re-declaration of the pure virtual function in order to convince trick that yes, this is a pure virtual class.  <a href="#a43d60e405a72be0899ee4cc413b48c57">More...</a><br /></td></tr>
-<tr class="separator:a43d60e405a72be0899ee4cc413b48c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a0e2dd2f391b48ac194db4fe5412c2d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a5a0e2dd2f391b48ac194db4fe5412c2d">get_name</a> () const override=0</td></tr>
+<tr class="memdesc:a5a0e2dd2f391b48ac194db4fe5412c2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A re-declaration of the pure virtual function in order to convince trick that yes, this is a pure virtual class.  <a href="#a5a0e2dd2f391b48ac194db4fe5412c2d">More...</a><br /></td></tr>
+<tr class="separator:a5a0e2dd2f391b48ac194db4fe5412c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1PlanetOrientation"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1PlanetOrientation')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html">jeod::PlanetOrientation</a></td></tr>
-<tr class="memitem:a2d7de053670a71de28b2ff681deee4cb inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a2d7de053670a71de28b2ff681deee4cb">PlanetOrientation</a> ()</td></tr>
-<tr class="memdesc:a2d7de053670a71de28b2ff681deee4cb inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor; constructs a <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html" title="The generic framework for orientation models to interact with a DynManager object. ">PlanetOrientation</a> object.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a2d7de053670a71de28b2ff681deee4cb">More...</a><br /></td></tr>
-<tr class="separator:a2d7de053670a71de28b2ff681deee4cb inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab76c4a0aa0eca3038908adcb235722c6 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ab76c4a0aa0eca3038908adcb235722c6">~PlanetOrientation</a> () override</td></tr>
-<tr class="memdesc:ab76c4a0aa0eca3038908adcb235722c6 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class destructor.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ab76c4a0aa0eca3038908adcb235722c6">More...</a><br /></td></tr>
-<tr class="separator:ab76c4a0aa0eca3038908adcb235722c6 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f5b294cebce5db794e8ddfb6c00f60 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a33f5b294cebce5db794e8ddfb6c00f60">PlanetOrientation</a> ()=default</td></tr>
+<tr class="separator:a33f5b294cebce5db794e8ddfb6c00f60 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af235036e48072aaa546f3e8bcd197e91 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af235036e48072aaa546f3e8bcd197e91">~PlanetOrientation</a> () override=default</td></tr>
+<tr class="separator:af235036e48072aaa546f3e8bcd197e91 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de76ce6d833ce4276d3b3de506a2a1e inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html">PlanetOrientation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a8de76ce6d833ce4276d3b3de506a2a1e">operator=</a> (const <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html">PlanetOrientation</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:a8de76ce6d833ce4276d3b3de506a2a1e inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fddbd1a7c16dc79304e5ed505d15b1b inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a5fddbd1a7c16dc79304e5ed505d15b1b">PlanetOrientation</a> (const <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html">PlanetOrientation</a> &amp;rhs)=delete</td></tr>
+<tr class="separator:a5fddbd1a7c16dc79304e5ed505d15b1b inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6c6eb9b18705af9020ff5b97dccd3c3 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af6c6eb9b18705af9020ff5b97dccd3c3">initialize</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> &amp;dyn_manager)</td></tr>
 <tr class="memdesc:af6c6eb9b18705af9020ff5b97dccd3c3 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">Goes to the dyn manager given and searches for the planet indicated by the user inputted name, in the given dyn manager.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af6c6eb9b18705af9020ff5b97dccd3c3">More...</a><br /></td></tr>
 <tr class="separator:af6c6eb9b18705af9020ff5b97dccd3c3 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,74 +153,67 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a146d93fc1503da2c561dfb4f2f872c00 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the name.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a146d93fc1503da2c561dfb4f2f872c00">More...</a><br /></td></tr>
 <tr class="separator:a146d93fc1503da2c561dfb4f2f872c00 inherit pub_methods_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1EphemerisInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1EphemerisInterface')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html">jeod::EphemerisInterface</a></td></tr>
-<tr class="memitem:a15a1c9025e8c34bbbe0a15705d384210 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a15a1c9025e8c34bbbe0a15705d384210">~EphemerisInterface</a> (void) override</td></tr>
-<tr class="memdesc:a15a1c9025e8c34bbbe0a15705d384210 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor; there is nothing to destroy here.  <a href="../../de/d30/classjeod_1_1EphemerisInterface.html#a15a1c9025e8c34bbbe0a15705d384210">More...</a><br /></td></tr>
-<tr class="separator:a15a1c9025e8c34bbbe0a15705d384210 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a087443d3e9130eeb165646c67c985499 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a087443d3e9130eeb165646c67c985499">timestamp</a> (void) const =0</td></tr>
-<tr class="memdesc:a087443d3e9130eeb165646c67c985499 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Indicates when class was last updated.  <a href="../../de/d30/classjeod_1_1EphemerisInterface.html#a087443d3e9130eeb165646c67c985499">More...</a><br /></td></tr>
-<tr class="separator:a087443d3e9130eeb165646c67c985499 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12c7d16c8ea0bbde5d27ba1e4fa5af95 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a12c7d16c8ea0bbde5d27ba1e4fa5af95">ephem_update</a> (void)=0</td></tr>
-<tr class="memdesc:a12c7d16c8ea0bbde5d27ba1e4fa5af95 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Update the model.  <a href="../../de/d30/classjeod_1_1EphemerisInterface.html#a12c7d16c8ea0bbde5d27ba1e4fa5af95">More...</a><br /></td></tr>
-<tr class="separator:a12c7d16c8ea0bbde5d27ba1e4fa5af95 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9a79918b99e84aeb53e39a537c423b inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a9e9a79918b99e84aeb53e39a537c423b">~EphemerisInterface</a> () override=default</td></tr>
+<tr class="separator:a9e9a79918b99e84aeb53e39a537c423b inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5450c24f60bbb6259c3733ea37034082 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#a5450c24f60bbb6259c3733ea37034082">timestamp</a> () const =0</td></tr>
+<tr class="memdesc:a5450c24f60bbb6259c3733ea37034082 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates when class was last updated.  <a href="../../de/d30/classjeod_1_1EphemerisInterface.html#a5450c24f60bbb6259c3733ea37034082">More...</a><br /></td></tr>
+<tr class="separator:a5450c24f60bbb6259c3733ea37034082 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae149a706a846a5758a228f2e29398d6 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d30/classjeod_1_1EphemerisInterface.html#aae149a706a846a5758a228f2e29398d6">ephem_update</a> ()=0</td></tr>
+<tr class="memdesc:aae149a706a846a5758a228f2e29398d6 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the model.  <a href="../../de/d30/classjeod_1_1EphemerisInterface.html#aae149a706a846a5758a228f2e29398d6">More...</a><br /></td></tr>
+<tr class="separator:aae149a706a846a5758a228f2e29398d6 inherit pub_methods_classjeod_1_1EphemerisInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1ActivateInterface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1ActivateInterface')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html">jeod::ActivateInterface</a></td></tr>
-<tr class="memitem:a1e2c4e3126f2105b15e32651e3e5c883 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a1e2c4e3126f2105b15e32651e3e5c883">ActivateInterface</a> ()</td></tr>
-<tr class="memdesc:a1e2c4e3126f2105b15e32651e3e5c883 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Default constructor.  <a href="../../da/d54/classjeod_1_1ActivateInterface.html#a1e2c4e3126f2105b15e32651e3e5c883">More...</a><br /></td></tr>
-<tr class="separator:a1e2c4e3126f2105b15e32651e3e5c883 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5f7026b8f548b7c5b25c20c7cc9391d inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#ac5f7026b8f548b7c5b25c20c7cc9391d">~ActivateInterface</a> ()</td></tr>
-<tr class="memdesc:ac5f7026b8f548b7c5b25c20c7cc9391d inherit pub_methods_classjeod_1_1ActivateInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Destructor.  <a href="../../da/d54/classjeod_1_1ActivateInterface.html#ac5f7026b8f548b7c5b25c20c7cc9391d">More...</a><br /></td></tr>
-<tr class="separator:ac5f7026b8f548b7c5b25c20c7cc9391d inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a735ddfc8f504cb54e2b874fa47d95131 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#a735ddfc8f504cb54e2b874fa47d95131">ActivateInterface</a> ()=default</td></tr>
+<tr class="separator:a735ddfc8f504cb54e2b874fa47d95131 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa12963a4f5aedaa0d27a3f72cdf90020 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d54/classjeod_1_1ActivateInterface.html#aa12963a4f5aedaa0d27a3f72cdf90020">~ActivateInterface</a> ()=default</td></tr>
+<tr class="separator:aa12963a4f5aedaa0d27a3f72cdf90020 inherit pub_methods_classjeod_1_1ActivateInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1RefFrameOwner"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1RefFrameOwner')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html">jeod::RefFrameOwner</a></td></tr>
-<tr class="memitem:a52d8011ba86952dec33a808a40f8f13b inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a52d8011ba86952dec33a808a40f8f13b">RefFrameOwner</a> ()</td></tr>
-<tr class="memdesc:a52d8011ba86952dec33a808a40f8f13b inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> default constructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a52d8011ba86952dec33a808a40f8f13b">More...</a><br /></td></tr>
-<tr class="separator:a52d8011ba86952dec33a808a40f8f13b inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a343b1fe6efe5ecd88c33398f92ea6257 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a343b1fe6efe5ecd88c33398f92ea6257">~RefFrameOwner</a> ()</td></tr>
-<tr class="memdesc:a343b1fe6efe5ecd88c33398f92ea6257 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> destructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a343b1fe6efe5ecd88c33398f92ea6257">More...</a><br /></td></tr>
-<tr class="separator:a343b1fe6efe5ecd88c33398f92ea6257 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49685b837fce13d51d5844f31c24acf0 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a49685b837fce13d51d5844f31c24acf0">RefFrameOwner</a> ()=default</td></tr>
+<tr class="memdesc:a49685b837fce13d51d5844f31c24acf0 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> default constructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a49685b837fce13d51d5844f31c24acf0">More...</a><br /></td></tr>
+<tr class="separator:a49685b837fce13d51d5844f31c24acf0 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a064221590c8eb9890f212100a1979e34 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a064221590c8eb9890f212100a1979e34">~RefFrameOwner</a> ()=default</td></tr>
+<tr class="memdesc:a064221590c8eb9890f212100a1979e34 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. ">RefFrameOwner</a> destructor.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a064221590c8eb9890f212100a1979e34">More...</a><br /></td></tr>
+<tr class="separator:a064221590c8eb9890f212100a1979e34 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8270e0387ef69d7130017f463e3029c8 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a8270e0387ef69d7130017f463e3029c8">note_frame_status_change</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *frame)</td></tr>
 <tr class="memdesc:a8270e0387ef69d7130017f463e3029c8 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note that a reference frame has changed its active/inactive status.  <a href="../../d9/d58/classjeod_1_1RefFrameOwner.html#a8270e0387ef69d7130017f463e3029c8">More...</a><br /></td></tr>
 <tr class="separator:a8270e0387ef69d7130017f463e3029c8 inherit pub_methods_classjeod_1_1RefFrameOwner"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a146f90054b7ea04464e4b3408e89d479"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a146f90054b7ea04464e4b3408e89d479">nutation</a></td></tr>
+<tr class="memitem:a146f90054b7ea04464e4b3408e89d479"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a146f90054b7ea04464e4b3408e89d479">nutation</a> {}</td></tr>
 <tr class="memdesc:a146f90054b7ea04464e4b3408e89d479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the nutation model.  <a href="#a146f90054b7ea04464e4b3408e89d479">More...</a><br /></td></tr>
 <tr class="separator:a146f90054b7ea04464e4b3408e89d479"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1154c369d13bfdc5b8a73956ad594590"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1154c369d13bfdc5b8a73956ad594590">precession</a></td></tr>
+<tr class="memitem:a1154c369d13bfdc5b8a73956ad594590"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1154c369d13bfdc5b8a73956ad594590">precession</a> {}</td></tr>
 <tr class="memdesc:a1154c369d13bfdc5b8a73956ad594590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the precession model.  <a href="#a1154c369d13bfdc5b8a73956ad594590">More...</a><br /></td></tr>
 <tr class="separator:a1154c369d13bfdc5b8a73956ad594590"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0faaa12f610f4141d58c7b226430c274"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a0faaa12f610f4141d58c7b226430c274">polar_motion</a></td></tr>
+<tr class="memitem:a0faaa12f610f4141d58c7b226430c274"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a0faaa12f610f4141d58c7b226430c274">polar_motion</a> {}</td></tr>
 <tr class="memdesc:a0faaa12f610f4141d58c7b226430c274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the polar_motion model.  <a href="#a0faaa12f610f4141d58c7b226430c274">More...</a><br /></td></tr>
 <tr class="separator:a0faaa12f610f4141d58c7b226430c274"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaca3dcb3ac1d0aa027030746548b41aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a></td></tr>
+<tr class="memitem:aaca3dcb3ac1d0aa027030746548b41aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a> {}</td></tr>
 <tr class="memdesc:aaca3dcb3ac1d0aa027030746548b41aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the rotation model.  <a href="#aaca3dcb3ac1d0aa027030746548b41aa">More...</a><br /></td></tr>
 <tr class="separator:aaca3dcb3ac1d0aa027030746548b41aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a85522e31d0e99adf74c5194c82be81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872">RNPFidelity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1a85522e31d0e99adf74c5194c82be81">rnp_type</a></td></tr>
+<tr class="memitem:a1a85522e31d0e99adf74c5194c82be81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872">RNPFidelity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1a85522e31d0e99adf74c5194c82be81">rnp_type</a> {<a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a5158a8b7302e87386c9cc5e9d50583a3">FullRNP</a>}</td></tr>
 <tr class="memdesc:a1a85522e31d0e99adf74c5194c82be81"><td class="mdescLeft">&#160;</td><td class="mdescRight">The fidelity of the RNP model.  <a href="#a1a85522e31d0e99adf74c5194c82be81">More...</a><br /></td></tr>
 <tr class="separator:a1a85522e31d0e99adf74c5194c82be81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44ec66ae45a5983df49dd0a440f89c0b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a44ec66ae45a5983df49dd0a440f89c0b">enable_polar</a></td></tr>
+<tr class="memitem:a44ec66ae45a5983df49dd0a440f89c0b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a44ec66ae45a5983df49dd0a440f89c0b">enable_polar</a> {true}</td></tr>
 <tr class="memdesc:a44ec66ae45a5983df49dd0a440f89c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives the option of turning on or off polar motion.  <a href="#a44ec66ae45a5983df49dd0a440f89c0b">More...</a><br /></td></tr>
 <tr class="separator:a44ec66ae45a5983df49dd0a440f89c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9080aeed5096b89eb0029ab8133cf05"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aa9080aeed5096b89eb0029ab8133cf05">NP_matrix</a> [3][3]</td></tr>
+<tr class="memitem:aa9080aeed5096b89eb0029ab8133cf05"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aa9080aeed5096b89eb0029ab8133cf05">NP_matrix</a> [3][3] { {1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, { 0.0, 0.0, 1.0 } }</td></tr>
 <tr class="memdesc:aa9080aeed5096b89eb0029ab8133cf05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation Matrix representing: transpose(nutation-&gt;rotation) * transpose(precession-&gt;rotation)  <a href="#aa9080aeed5096b89eb0029ab8133cf05">More...</a><br /></td></tr>
 <tr class="separator:aa9080aeed5096b89eb0029ab8133cf05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1PlanetOrientation"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1PlanetOrientation')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html">jeod::PlanetOrientation</a></td></tr>
-<tr class="memitem:a25ff87d0dedc574958a831a742ff6144 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a25ff87d0dedc574958a831a742ff6144">active</a></td></tr>
+<tr class="memitem:a25ff87d0dedc574958a831a742ff6144 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a25ff87d0dedc574958a831a742ff6144">active</a> {true}</td></tr>
 <tr class="memdesc:a25ff87d0dedc574958a831a742ff6144 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the orientation model actively updating? Defaults to true.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a25ff87d0dedc574958a831a742ff6144">More...</a><br /></td></tr>
 <tr class="separator:a25ff87d0dedc574958a831a742ff6144 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af05b4106306ca6d9104b0e4a1949ca13 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af05b4106306ca6d9104b0e4a1949ca13">planet</a></td></tr>
+<tr class="memitem:af05b4106306ca6d9104b0e4a1949ca13 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d76/classjeod_1_1Planet.html">Planet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af05b4106306ca6d9104b0e4a1949ca13">planet</a> {}</td></tr>
 <tr class="memdesc:af05b4106306ca6d9104b0e4a1949ca13 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">The planet the attitude model will be working on.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#af05b4106306ca6d9104b0e4a1949ca13">More...</a><br /></td></tr>
 <tr class="separator:af05b4106306ca6d9104b0e4a1949ca13 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60b2b5ad5afc8cc74f9a2e5124ea28c0 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a60b2b5ad5afc8cc74f9a2e5124ea28c0">name</a></td></tr>
+<tr class="memitem:a60b2b5ad5afc8cc74f9a2e5124ea28c0 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a60b2b5ad5afc8cc74f9a2e5124ea28c0">name</a> {&quot;&quot;}</td></tr>
 <tr class="memdesc:a60b2b5ad5afc8cc74f9a2e5124ea28c0 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the planet the attitude model will be working on.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a60b2b5ad5afc8cc74f9a2e5124ea28c0">More...</a><br /></td></tr>
 <tr class="separator:a60b2b5ad5afc8cc74f9a2e5124ea28c0 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0abcfeaad5fe5679bf78735d0b844b06 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html">RefFrameRot</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a0abcfeaad5fe5679bf78735d0b844b06">planet_rot_state</a></td></tr>
+<tr class="memitem:a0abcfeaad5fe5679bf78735d0b844b06 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html">RefFrameRot</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a0abcfeaad5fe5679bf78735d0b844b06">planet_rot_state</a> {}</td></tr>
 <tr class="memdesc:a0abcfeaad5fe5679bf78735d0b844b06 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current rotational state of the planet.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a0abcfeaad5fe5679bf78735d0b844b06">More...</a><br /></td></tr>
 <tr class="separator:a0abcfeaad5fe5679bf78735d0b844b06 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac21ae51b45b3855b6a54352a3c229395 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ac21ae51b45b3855b6a54352a3c229395">planet_omega</a></td></tr>
+<tr class="memitem:ac21ae51b45b3855b6a54352a3c229395 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ac21ae51b45b3855b6a54352a3c229395">planet_omega</a> {}</td></tr>
 <tr class="memdesc:ac21ae51b45b3855b6a54352a3c229395 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nominal axial velocity of the earth.  <a href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ac21ae51b45b3855b6a54352a3c229395">More...</a><br /></td></tr>
 <tr class="separator:ac21ae51b45b3855b6a54352a3c229395 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1f75b34f3a15e99247aa23bd3102082 inherit pub_attribs_classjeod_1_1PlanetOrientation"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d95/classjeod_1_1EphemerisOrientation.html">EphemerisOrientation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ac1f75b34f3a15e99247aa23bd3102082">orient_interface</a></td></tr>
@@ -226,18 +222,9 @@ Data Fields</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a342cba4f18aee5ddd3403fdaaa9b9b84"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a342cba4f18aee5ddd3403fdaaa9b9b84">scratch_matrix</a> [3][3]</td></tr>
+<tr class="memitem:a342cba4f18aee5ddd3403fdaaa9b9b84"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a342cba4f18aee5ddd3403fdaaa9b9b84">scratch_matrix</a> [3][3] {}</td></tr>
 <tr class="memdesc:a342cba4f18aee5ddd3403fdaaa9b9b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">A transformation matrix used for intermediate math steps.  <a href="#a342cba4f18aee5ddd3403fdaaa9b9b84">More...</a><br /></td></tr>
 <tr class="separator:a342cba4f18aee5ddd3403fdaaa9b9b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:aac1d89912e1c4d3b60d6d7462e3bcc35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html">PlanetRNP</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aac1d89912e1c4d3b60d6d7462e3bcc35">operator=</a> (const <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html">PlanetRNP</a> &amp;rhs)</td></tr>
-<tr class="memdesc:aac1d89912e1c4d3b60d6d7462e3bcc35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#aac1d89912e1c4d3b60d6d7462e3bcc35">More...</a><br /></td></tr>
-<tr class="separator:aac1d89912e1c4d3b60d6d7462e3bcc35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60891b1e1f55e7cc4426305c943da1f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a60891b1e1f55e7cc4426305c943da1f8">PlanetRNP</a> (const <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html">PlanetRNP</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a60891b1e1f55e7cc4426305c943da1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not implemented.  <a href="#a60891b1e1f55e7cc4426305c943da1f8">More...</a><br /></td></tr>
-<tr class="separator:a60891b1e1f55e7cc4426305c943da1f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -249,7 +236,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The generic framework for orientation models based on the RNP paradigm. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00105">105</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a130676c47c0734334c13acde1b43c872"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a130676c47c0734334c13acde1b43c872">&#9670;&nbsp;</a></span>RNPFidelity</h2>
@@ -273,37 +260,38 @@ Friends</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00115">115</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00113">113</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a023e4182986829b37c9a6e0ac78f7053"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a023e4182986829b37c9a6e0ac78f7053">&#9670;&nbsp;</a></span>PlanetRNP() <span class="overload">[1/2]</span></h2>
+<a id="a8d8c12a094d5ff69496b31260bcab228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8c12a094d5ff69496b31260bcab228">&#9670;&nbsp;</a></span>PlanetRNP() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">jeod::PlanetRNP::PlanetRNP </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Default constructor; constructs a <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html" title="The generic framework for orientation models based on the RNP paradigm. ">PlanetRNP</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00072">72</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae920bc96c598c4303e48a0ea663dd89d">jeod::Matrix3x3::initialize()</a>, and <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aa9080aeed5096b89eb0029ab8133cf05">NP_matrix</a>.</p>
-
 </div>
 </div>
-<a id="a223b507300db6d60f4dea6cbf6feed4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a223b507300db6d60f4dea6cbf6feed4d">&#9670;&nbsp;</a></span>~PlanetRNP()</h2>
+<a id="a9235c1a8c8395c8e77573621c44cc758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9235c1a8c8395c8e77573621c44cc758">&#9670;&nbsp;</a></span>~PlanetRNP()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -314,26 +302,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::PlanetRNP::~PlanetRNP </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Class destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00088">88</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
-
 </div>
 </div>
-<a id="a60891b1e1f55e7cc4426305c943da1f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60891b1e1f55e7cc4426305c943da1f8">&#9670;&nbsp;</a></span>PlanetRNP() <span class="overload">[2/2]</span></h2>
+<a id="ae82e11189ff787fbe6d404130eb4d049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae82e11189ff787fbe6d404130eb4d049">&#9670;&nbsp;</a></span>PlanetRNP() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,18 +334,16 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Not implemented. </p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a43d60e405a72be0899ee4cc413b48c57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43d60e405a72be0899ee4cc413b48c57">&#9670;&nbsp;</a></span>get_name()</h2>
+<a id="a5a0e2dd2f391b48ac194db4fe5412c2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0e2dd2f391b48ac194db4fe5412c2d">&#9670;&nbsp;</a></span>get_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,7 +352,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char* jeod::PlanetRNP::get_name </td>
+          <td class="memname">std::string jeod::PlanetRNP::get_name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -387,14 +368,14 @@ Friends</h2></td></tr>
 <p>A re-declaration of the pure virtual function in order to convince trick that yes, this is a pure virtual class. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d3/d76/classjeod_1_1Planet.html" title="Describes a planet with mass and shape. ">Planet</a> name. </dd></dl>
 
-<p>Implements <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ad19d0913e4ad5c6e7c9a04c3e9fb0bb4">jeod::PlanetOrientation</a>.</p>
+<p>Implements <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a6547939b7508981771ec7c7367664952">jeod::PlanetOrientation</a>.</p>
 
-<p>Implemented in <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a64500641d669ec0ae97b60a7559e32b5">jeod::RNPMars</a>, and <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#ad58696bc8182e2bc17d06215da85c2a8">jeod::RNPJ2000</a>.</p>
+<p>Implemented in <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a88cfb8d2748c143222dc875c4fc87226">jeod::RNPMars</a>, and <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#a8a60e59fac0daf7a7321ff290f46b1bf">jeod::RNPJ2000</a>.</p>
 
 </div>
 </div>
-<a id="aac1d89912e1c4d3b60d6d7462e3bcc35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac1d89912e1c4d3b60d6d7462e3bcc35">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a0d902e5b27bc2594d1cee019adaff8bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d902e5b27bc2594d1cee019adaff8bd">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,12 +393,10 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Not implemented. </p>
 
 </div>
 </div>
@@ -430,7 +409,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::PlanetRNP::propagate_rnp </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -439,9 +417,9 @@ Friends</h2></td></tr>
 
 <p>Multiples out the (up to) four planet rotation models (nutation, precession, polar motion and rotation), leaving out models whose pointers are NULL, and feeds it to the planet attitude found in the dyn manager given in initialize. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00201">201</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00176">176</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#aa74953bae640a66e1bbcea408b69b22c">jeod::RefFrameRot::ang_vel_mag</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a6c4eb8c28e647698c11aacdab2c11e5d">jeod::RefFrameRot::ang_vel_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a950a9bbdf057a3fe644f0f0c28505d6f">jeod::RefFrameRot::compute_quaternion()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a0d58896b595c365dcec77c2f39fe81b3">ConstantNP</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a44ec66ae45a5983df49dd0a440f89c0b">enable_polar</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a80d16316154edc702c5a92b279c25033">jeod::RNPMessages::fidelity_error</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a5158a8b7302e87386c9cc5e9d50583a3">FullRNP</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aa9080aeed5096b89eb0029ab8133cf05">NP_matrix</a>, <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ac21ae51b45b3855b6a54352a3c229395">jeod::PlanetOrientation::planet_omega</a>, <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a0abcfeaad5fe5679bf78735d0b844b06">jeod::PlanetOrientation::planet_rot_state</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a0faaa12f610f4141d58c7b226430c274">polar_motion</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a7dce874a72c84d050f94c3109a6db77d">jeod::Matrix3x3::product()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a97a3105b5139aefaf3634ad78f512c03">jeod::Matrix3x3::product_transpose_transpose()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1a85522e31d0e99adf74c5194c82be81">rnp_type</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a81aa8ec7c5c605a5d2a06c3670bf8d01">jeod::PlanetRotation::rotation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a8c5c642e81239ecc1f61989287bb59e9">RotationOnly</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a342cba4f18aee5ddd3403fdaaa9b9b84">scratch_matrix</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a284648205d28e9a20352018ab2ddc2b2">jeod::RNPMessages::setup_error</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, and <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a5c5e7d3749a4f34b4e55b4da4a9fc8ae">jeod::Matrix3x3::transpose()</a>.</p>
+<p class="reference">References <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#aa74953bae640a66e1bbcea408b69b22c">jeod::RefFrameRot::ang_vel_mag</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a6c4eb8c28e647698c11aacdab2c11e5d">jeod::RefFrameRot::ang_vel_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a950a9bbdf057a3fe644f0f0c28505d6f">jeod::RefFrameRot::compute_quaternion()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a0d58896b595c365dcec77c2f39fe81b3">ConstantNP</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a44ec66ae45a5983df49dd0a440f89c0b">enable_polar</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a122e96d29bc0b43e283dd52d1a344c1d">jeod::RNPMessages::fidelity_error</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a5158a8b7302e87386c9cc5e9d50583a3">FullRNP</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aa9080aeed5096b89eb0029ab8133cf05">NP_matrix</a>, <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#ac21ae51b45b3855b6a54352a3c229395">jeod::PlanetOrientation::planet_omega</a>, <a class="el" href="../../d5/d90/classjeod_1_1PlanetOrientation.html#a0abcfeaad5fe5679bf78735d0b844b06">jeod::PlanetOrientation::planet_rot_state</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a0faaa12f610f4141d58c7b226430c274">polar_motion</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae65d9afbfc1b4fe9a51729c3cca28984">jeod::Matrix3x3::product()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ac27c29159c268e2a68f8316d481fdbe1">jeod::Matrix3x3::product_transpose_transpose()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1a85522e31d0e99adf74c5194c82be81">rnp_type</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a81aa8ec7c5c605a5d2a06c3670bf8d01">jeod::PlanetRotation::rotation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a8c5c642e81239ecc1f61989287bb59e9">RotationOnly</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a342cba4f18aee5ddd3403fdaaa9b9b84">scratch_matrix</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a3a77cc1680de27c2d1927b93ea763231">jeod::RNPMessages::setup_error</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, and <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a5c5e7d3749a4f34b4e55b4da4a9fc8ae">jeod::Matrix3x3::transpose()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#ab545951e7da34127c83508c05aa5ea7b">update_axial_rotation()</a>, and <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>.</p>
 
@@ -456,7 +434,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::PlanetRNP::update_axial_rotation </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -465,9 +442,9 @@ Friends</h2></td></tr>
 
 <p>Same as update_rnp, but only the axial_rotation will be updated. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00173">173</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00151">151</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a284648205d28e9a20352018ab2ddc2b2">jeod::RNPMessages::setup_error</a>, and <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a5c8ea5db4d53d4918c02501c4743f36f">jeod::PlanetRotation::update_rotation()</a>.</p>
+<p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a3a77cc1680de27c2d1927b93ea763231">jeod::RNPMessages::setup_error</a>, and <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a93c9894b8b2f01d1000b43cf590d229d">jeod::PlanetRotation::update_rotation()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#abdca9fcf43a250a348745903b496e085">jeod::RNPJ2000::ephem_update()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a92b211f4183268df175499802bafa404">jeod::RNPMars::ephem_update()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#aca80e7627e204691c5d5c7ca6885c3b9">jeod::RNPJ2000::update_axial_rotation()</a>, and <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a4bdcb14a7af8ff6dcf340a1ab2b624a2">jeod::RNPMars::update_axial_rotation()</a>.</p>
 
@@ -482,7 +459,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::PlanetRNP::update_rnp </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -492,9 +468,9 @@ Friends</h2></td></tr>
 <p>Invokes the calculation for all rotation models contained in the RNP, used on the last time set in each model through PlanetRotation::set_time. </p>
 <p>Then multiplies out and updates the attitude of the planet found during initialization. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00102">102</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d13/planet__rnp_8cc_source.html#l00075">75</a> of file <a class="el" href="../../db/d13/planet__rnp_8cc_source.html">planet_rnp.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a44ec66ae45a5983df49dd0a440f89c0b">enable_polar</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a80d16316154edc702c5a92b279c25033">jeod::RNPMessages::fidelity_error</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a5158a8b7302e87386c9cc5e9d50583a3">FullRNP</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aa9080aeed5096b89eb0029ab8133cf05">NP_matrix</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a146f90054b7ea04464e4b3408e89d479">nutation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a0faaa12f610f4141d58c7b226430c274">polar_motion</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1154c369d13bfdc5b8a73956ad594590">precession</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a97a3105b5139aefaf3634ad78f512c03">jeod::Matrix3x3::product_transpose_transpose()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1a85522e31d0e99adf74c5194c82be81">rnp_type</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a81aa8ec7c5c605a5d2a06c3670bf8d01">jeod::PlanetRotation::rotation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a284648205d28e9a20352018ab2ddc2b2">jeod::RNPMessages::setup_error</a>, and <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a5c8ea5db4d53d4918c02501c4743f36f">jeod::PlanetRotation::update_rotation()</a>.</p>
+<p class="reference">References <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a44ec66ae45a5983df49dd0a440f89c0b">enable_polar</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a122e96d29bc0b43e283dd52d1a344c1d">jeod::RNPMessages::fidelity_error</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a5158a8b7302e87386c9cc5e9d50583a3">FullRNP</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aa9080aeed5096b89eb0029ab8133cf05">NP_matrix</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a146f90054b7ea04464e4b3408e89d479">nutation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a0faaa12f610f4141d58c7b226430c274">polar_motion</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1154c369d13bfdc5b8a73956ad594590">precession</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ac27c29159c268e2a68f8316d481fdbe1">jeod::Matrix3x3::product_transpose_transpose()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a1a85522e31d0e99adf74c5194c82be81">rnp_type</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a81aa8ec7c5c605a5d2a06c3670bf8d01">jeod::PlanetRotation::rotation</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aaca3dcb3ac1d0aa027030746548b41aa">rotation</a>, <a class="el" href="../../d0/d4d/classjeod_1_1RNPMessages.html#a3a77cc1680de27c2d1927b93ea763231">jeod::RNPMessages::setup_error</a>, and <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a93c9894b8b2f01d1000b43cf590d229d">jeod::PlanetRotation::update_rotation()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, and <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#aad7f41958d0fe2493a49fc47ffac9782">jeod::RNPMars::update_rnp()</a>.</p>
 
@@ -546,7 +522,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00106">106</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00107">107</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 </div>
 </div>
@@ -558,7 +534,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::PlanetRNP::enable_polar</td>
+          <td class="memname">bool jeod::PlanetRNP::enable_polar {true}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -566,7 +542,7 @@ Friends</h2></td></tr>
 <p>Gives the option of turning on or off polar motion. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00153">153</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00155">155</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a8b141fd26cf281317426a0c8d9f77174">jeod::RNPMars::RNPMars()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, and <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>.</p>
 
@@ -579,7 +555,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::PlanetRNP::NP_matrix[3][3]</td>
+          <td class="memname">double jeod::PlanetRNP::NP_matrix[3][3] { {1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, { 0.0, 0.0, 1.0 } }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -587,9 +563,9 @@ Friends</h2></td></tr>
 <p>Rotation Matrix representing: transpose(nutation-&gt;rotation) * transpose(precession-&gt;rotation) </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00159">159</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00161">161</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a023e4182986829b37c9a6e0ac78f7053">PlanetRNP()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, and <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, and <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>.</p>
 
 </div>
 </div>
@@ -600,7 +576,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::nutation</td>
+          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::nutation {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -608,7 +584,7 @@ Friends</h2></td></tr>
 <p>Pointer to the nutation model. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00132">132</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00130">130</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#a8f8fd3b7e68272a94e6ab2389595c726">jeod::RNPJ2000::RNPJ2000()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a8b141fd26cf281317426a0c8d9f77174">jeod::RNPMars::RNPMars()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>, and <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#aad7f41958d0fe2493a49fc47ffac9782">jeod::RNPMars::update_rnp()</a>.</p>
 
@@ -621,7 +597,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::polar_motion</td>
+          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::polar_motion {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -642,7 +618,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::precession</td>
+          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::precession {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -650,7 +626,7 @@ Friends</h2></td></tr>
 <p>Pointer to the precession model. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00136">136</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00135">135</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#a8f8fd3b7e68272a94e6ab2389595c726">jeod::RNPJ2000::RNPJ2000()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a8b141fd26cf281317426a0c8d9f77174">jeod::RNPMars::RNPMars()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>, and <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#aad7f41958d0fe2493a49fc47ffac9782">jeod::RNPMars::update_rnp()</a>.</p>
 
@@ -663,7 +639,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872">RNPFidelity</a> jeod::PlanetRNP::rnp_type</td>
+          <td class="memname"><a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872">RNPFidelity</a> jeod::PlanetRNP::rnp_type {<a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a130676c47c0734334c13acde1b43c872a5158a8b7302e87386c9cc5e9d50583a3">FullRNP</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -671,7 +647,7 @@ Friends</h2></td></tr>
 <p>The fidelity of the RNP model. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00149">149</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00150">150</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#afbc1a9a48aceaa96a7888b8f297f0e2b">jeod::RNPJ2000::initialize()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a60e31d86f3f0a114a3795437e182330d">jeod::RNPMars::initialize()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#aca80e7627e204691c5d5c7ca6885c3b9">jeod::RNPJ2000::update_axial_rotation()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a4bdcb14a7af8ff6dcf340a1ab2b624a2">jeod::RNPMars::update_axial_rotation()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>, and <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#aad7f41958d0fe2493a49fc47ffac9782">jeod::RNPMars::update_rnp()</a>.</p>
 
@@ -684,7 +660,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::rotation</td>
+          <td class="memname"><a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html">PlanetRotation</a>* jeod::PlanetRNP::rotation {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -692,7 +668,7 @@ Friends</h2></td></tr>
 <p>Pointer to the rotation model. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00144">144</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00145">145</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#a8f8fd3b7e68272a94e6ab2389595c726">jeod::RNPJ2000::RNPJ2000()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a8b141fd26cf281317426a0c8d9f77174">jeod::RNPMars::RNPMars()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#aca80e7627e204691c5d5c7ca6885c3b9">jeod::RNPJ2000::update_axial_rotation()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#ab545951e7da34127c83508c05aa5ea7b">update_axial_rotation()</a>, <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#a4bdcb14a7af8ff6dcf340a1ab2b624a2">jeod::RNPMars::update_axial_rotation()</a>, <a class="el" href="../../d5/d04/classjeod_1_1RNPJ2000.html#adc9ff4ed3294d12a3b9a2573b81d915c">jeod::RNPJ2000::update_rnp()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">update_rnp()</a>, and <a class="el" href="../../db/d3b/classjeod_1_1RNPMars.html#aad7f41958d0fe2493a49fc47ffac9782">jeod::RNPMars::update_rnp()</a>.</p>
 
@@ -708,7 +684,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::PlanetRNP::scratch_matrix[3][3]</td>
+          <td class="memname">double jeod::PlanetRNP::scratch_matrix[3][3] {}</td>
         </tr>
       </table>
   </td>
@@ -721,7 +697,7 @@ Friends</h2></td></tr>
 <p>A transformation matrix used for intermediate math steps. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00166">166</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html#l00167">167</a> of file <a class="el" href="../../d7/d7a/planet__rnp_8hh_source.html">planet_rnp.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">propagate_rnp()</a>.</p>
 

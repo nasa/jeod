@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::BodyRefFrame Class Reference</div>  </div>
@@ -63,8 +62,8 @@ Inheritance diagram for jeod::BodyRefFrame:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d75/classjeod_1_1BodyRefFrame__inherit__graph.png" border="0" usemap="#jeod_1_1BodyRefFrame_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1BodyRefFrame_inherit__map" id="jeod_1_1BodyRefFrame_inherit__map">
-<area shape="rect" id="node2" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="21,80,133,107"/>
-<area shape="rect" id="node3" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="13,5,140,32"/>
+<area shape="rect" id="node2" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="22,80,141,107"/>
+<area shape="rect" id="node3" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="12,5,151,32"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -72,95 +71,85 @@ Collaboration diagram for jeod::BodyRefFrame:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d76/classjeod_1_1BodyRefFrame__coll__graph.png" border="0" usemap="#jeod_1_1BodyRefFrame_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1BodyRefFrame_coll__map" id="jeod_1_1BodyRefFrame_coll__map">
-<area shape="rect" id="node2" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="859,199,971,225"/>
-<area shape="rect" id="node6" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="jeod::TreeLinks\&lt; RefFrame\lLinks, RefFrame, RefFrameMessages \&gt;" alt="" coords="1137,183,1395,225"/>
-<area shape="rect" id="node3" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="616,271,743,297"/>
-<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="604,169,755,196"/>
-<area shape="rect" id="node5" href="../../d8/d46/classjeod_1_1RefFrameLinks.html" title="Encapsulates the links between reference frames. " alt="" coords="1497,217,1639,244"/>
-<area shape="rect" id="node7" title="STL class. " alt="" coords="297,36,377,63"/>
-<area shape="rect" id="node18" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="618,5,741,32"/>
-<area shape="rect" id="node8" title="STL class. " alt="" coords="5,29,132,70"/>
-<area shape="rect" id="node9" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="608,220,751,247"/>
-<area shape="rect" id="node10" href="../../dc/d08/classjeod_1_1RefFrameTrans.html" title="Represent the translational aspects of a reference frame&#39;s state. " alt="" coords="265,169,409,196"/>
-<area shape="rect" id="node11" href="../../d6/d00/classjeod_1_1RefFrameRot.html" title="Represent the rotational aspects of a reference frame&#39;s state. " alt="" coords="271,220,404,247"/>
-<area shape="rect" id="node12" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="10,155,127,181"/>
-<area shape="rect" id="node15" href="../../dd/d6e/classjeod_1_1MassPointState.html" title="Defines the state – position and orientation – of a MassPoint. " alt="" coords="433,119,580,145"/>
-<area shape="rect" id="node13" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="843,120,988,147"/>
-<area shape="rect" id="node14" href="../../da/da4/classjeod_1_1MassPoint.html" title="Adds tree linkages and a name to a MassPointState. " alt="" coords="857,29,973,56"/>
-<area shape="rect" id="node17" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="jeod::TreeLinks\&lt; MassPoint\lLinks, MassPoint, MassBodyMessages \&gt;" alt="" coords="1133,38,1399,79"/>
-<area shape="rect" id="node16" href="../../db/ddc/classjeod_1_1MassPointLinks.html" title="Encapsulates the links between mass points. " alt="" coords="1495,11,1641,37"/>
+<area shape="rect" id="node2" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="920,199,1039,225"/>
+<area shape="rect" id="node6" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="jeod::TreeLinks\&lt; RefFrame\lLinks, RefFrame, RefFrameMessages \&gt;" alt="" coords="1223,183,1497,225"/>
+<area shape="rect" id="node3" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a..." alt="" coords="658,271,797,297"/>
+<area shape="rect" id="node4" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="647,169,808,196"/>
+<area shape="rect" id="node5" href="../../d8/d46/classjeod_1_1RefFrameLinks.html" title="Encapsulates the links between reference frames. " alt="" coords="1605,217,1759,244"/>
+<area shape="rect" id="node7" title="STL class. " alt="" coords="320,36,407,63"/>
+<area shape="rect" id="node18" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="660,5,795,32"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="5,29,144,70"/>
+<area shape="rect" id="node9" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="651,220,804,247"/>
+<area shape="rect" id="node10" href="../../dc/d08/classjeod_1_1RefFrameTrans.html" title="Represent the translational aspects of a reference frame&#39;s state. " alt="" coords="287,169,440,196"/>
+<area shape="rect" id="node11" href="../../d6/d00/classjeod_1_1RefFrameRot.html" title="Represent the rotational aspects of a reference frame&#39;s state. " alt="" coords="293,220,433,247"/>
+<area shape="rect" id="node12" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="9,155,140,181"/>
+<area shape="rect" id="node15" href="../../dd/d6e/classjeod_1_1MassPointState.html" title="Defines the state – position and orientation – of a MassPoint. " alt="" coords="464,119,623,145"/>
+<area shape="rect" id="node13" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="901,120,1057,147"/>
+<area shape="rect" id="node14" href="../../da/da4/classjeod_1_1MassPoint.html" title="Adds tree linkages and a name to a MassPointState. " alt="" coords="917,29,1041,56"/>
+<area shape="rect" id="node17" href="../../dd/d9e/classjeod_1_1TreeLinks.html" title="jeod::TreeLinks\&lt; MassPoint\lLinks, MassPoint, MassBodyMessages \&gt;" alt="" coords="1219,38,1501,79"/>
+<area shape="rect" id="node16" href="../../db/ddc/classjeod_1_1MassPointLinks.html" title="Encapsulates the links between mass points. " alt="" coords="1603,11,1761,37"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad59dca9a4249db0adb37b6bc13436f6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#ad59dca9a4249db0adb37b6bc13436f6a">BodyRefFrame</a> (void)</td></tr>
-<tr class="memdesc:ad59dca9a4249db0adb37b6bc13436f6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#ad59dca9a4249db0adb37b6bc13436f6a">More...</a><br /></td></tr>
-<tr class="separator:ad59dca9a4249db0adb37b6bc13436f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af97461bfe7623d0e67ff901d9a7bfec4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#af97461bfe7623d0e67ff901d9a7bfec4">~BodyRefFrame</a> (void) override</td></tr>
-<tr class="memdesc:af97461bfe7623d0e67ff901d9a7bfec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#af97461bfe7623d0e67ff901d9a7bfec4">More...</a><br /></td></tr>
-<tr class="separator:af97461bfe7623d0e67ff901d9a7bfec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ed477827b055b2fe66487f69d8f0d6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a5ed477827b055b2fe66487f69d8f0d6e">BodyRefFrame</a> ()=default</td></tr>
+<tr class="separator:a5ed477827b055b2fe66487f69d8f0d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf4ccc6e3a14b8a79f2677d992c854a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#abf4ccc6e3a14b8a79f2677d992c854a3">~BodyRefFrame</a> () override=default</td></tr>
+<tr class="separator:abf4ccc6e3a14b8a79f2677d992c854a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a525ea5e92ed5d80e9bde0f42aefdf6d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a525ea5e92ed5d80e9bde0f42aefdf6d5">BodyRefFrame</a> (const <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> &amp;)=delete</td></tr>
+<tr class="separator:a525ea5e92ed5d80e9bde0f42aefdf6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f82675f0597683baddc017558a1f5da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a5f82675f0597683baddc017558a1f5da">operator=</a> (const <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> &amp;)=delete</td></tr>
+<tr class="separator:a5f82675f0597683baddc017558a1f5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1RefFrame"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1RefFrame')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">jeod::RefFrame</a></td></tr>
-<tr class="memitem:a9482353f081a6010119cfc0e14b98a72 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9482353f081a6010119cfc0e14b98a72">RefFrame</a> (void)</td></tr>
-<tr class="memdesc:a9482353f081a6010119cfc0e14b98a72 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. ">RefFrame</a> object.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a9482353f081a6010119cfc0e14b98a72">More...</a><br /></td></tr>
-<tr class="separator:a9482353f081a6010119cfc0e14b98a72 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86a59fdec03efc085c9efc7d277f6926 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a86a59fdec03efc085c9efc7d277f6926">~RefFrame</a> (void) override</td></tr>
-<tr class="memdesc:a86a59fdec03efc085c9efc7d277f6926 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. ">RefFrame</a> object.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a86a59fdec03efc085c9efc7d277f6926">More...</a><br /></td></tr>
-<tr class="separator:a86a59fdec03efc085c9efc7d277f6926 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fa985a007f8db031efd480f24c796e5 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5fa985a007f8db031efd480f24c796e5">set_name</a> (const char *name_item1)</td></tr>
-<tr class="memdesc:a5fa985a007f8db031efd480f24c796e5 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a copy of the provided name.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a5fa985a007f8db031efd480f24c796e5">More...</a><br /></td></tr>
-<tr class="separator:a5fa985a007f8db031efd480f24c796e5 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a334fe05286a69c6fb8b58b1bfa7e2b62 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a334fe05286a69c6fb8b58b1bfa7e2b62">set_name</a> (const char *name_item1, const char *name_item2)</td></tr>
-<tr class="memdesc:a334fe05286a69c6fb8b58b1bfa7e2b62 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a name as a dot-conjoined string.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a334fe05286a69c6fb8b58b1bfa7e2b62">More...</a><br /></td></tr>
-<tr class="separator:a334fe05286a69c6fb8b58b1bfa7e2b62 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bb41bc9fc896f75b50a88ad881d9c5f inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a6bb41bc9fc896f75b50a88ad881d9c5f">set_name</a> (const char *name_item1, const char *name_item2, const char *name_item3)</td></tr>
-<tr class="memdesc:a6bb41bc9fc896f75b50a88ad881d9c5f inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a name as a dot-conjoined string.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a6bb41bc9fc896f75b50a88ad881d9c5f">More...</a><br /></td></tr>
-<tr class="separator:a6bb41bc9fc896f75b50a88ad881d9c5f inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a704ccabe46b274d3843351162041fcbf inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a704ccabe46b274d3843351162041fcbf">set_name</a> (const char *name_item1, const char *name_item2, const char *name_item3, const char *name_item4)</td></tr>
-<tr class="memdesc:a704ccabe46b274d3843351162041fcbf inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a name as a dot-conjoined string.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a704ccabe46b274d3843351162041fcbf">More...</a><br /></td></tr>
-<tr class="separator:a704ccabe46b274d3843351162041fcbf inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5035e8d24e441c7a8fea478eec611ce6 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5035e8d24e441c7a8fea478eec611ce6">set_name</a> (const char *name_item1, const char *name_item2, const char *name_item3, const char *name_item4, const char *name_item5)</td></tr>
-<tr class="memdesc:a5035e8d24e441c7a8fea478eec611ce6 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a name as a dot-conjoined string.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a5035e8d24e441c7a8fea478eec611ce6">More...</a><br /></td></tr>
-<tr class="separator:a5035e8d24e441c7a8fea478eec611ce6 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec3e336675ebec52f4e7a92b13dfc437 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#aec3e336675ebec52f4e7a92b13dfc437">set_name</a> (const char *name_item1, const char *name_item2, const char *name_item3, const char *name_item4, const char *name_item5, const char *name_item6)</td></tr>
-<tr class="memdesc:aec3e336675ebec52f4e7a92b13dfc437 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a name as a dot-conjoined string.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#aec3e336675ebec52f4e7a92b13dfc437">More...</a><br /></td></tr>
-<tr class="separator:aec3e336675ebec52f4e7a92b13dfc437 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc1cc41ef07af196d000cae535b084ea inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#abc1cc41ef07af196d000cae535b084ea">set_name</a> (const char *name_item1, const char *name_item2, const char *name_item3, const char *name_item4, const char *name_item5, const char *name_item6, const char *name_item7)</td></tr>
-<tr class="memdesc:abc1cc41ef07af196d000cae535b084ea inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a name as a dot-conjoined string.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#abc1cc41ef07af196d000cae535b084ea">More...</a><br /></td></tr>
-<tr class="separator:abc1cc41ef07af196d000cae535b084ea inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d5bdb56bb46d594c2f1843b404c591c inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9d5bdb56bb46d594c2f1843b404c591c">get_name</a> (void) const</td></tr>
-<tr class="memdesc:a9d5bdb56bb46d594c2f1843b404c591c inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a9d5bdb56bb46d594c2f1843b404c591c">More...</a><br /></td></tr>
-<tr class="separator:a9d5bdb56bb46d594c2f1843b404c591c inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e8b889b6b9faf5d8fb0ed9dc808f5b3 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a4e8b889b6b9faf5d8fb0ed9dc808f5b3">RefFrame</a> ()</td></tr>
+<tr class="memdesc:a4e8b889b6b9faf5d8fb0ed9dc808f5b3 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. ">RefFrame</a> object.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a4e8b889b6b9faf5d8fb0ed9dc808f5b3">More...</a><br /></td></tr>
+<tr class="separator:a4e8b889b6b9faf5d8fb0ed9dc808f5b3 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9df7ffabcd6964406091172e80c1e9e4 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a9df7ffabcd6964406091172e80c1e9e4">~RefFrame</a> () override</td></tr>
+<tr class="memdesc:a9df7ffabcd6964406091172e80c1e9e4 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. ">RefFrame</a> object.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a9df7ffabcd6964406091172e80c1e9e4">More...</a><br /></td></tr>
+<tr class="separator:a9df7ffabcd6964406091172e80c1e9e4 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0cc0e9857df0bd4ebc39afb29b8e546 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ab0cc0e9857df0bd4ebc39afb29b8e546">RefFrame</a> (const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;frame)=delete</td></tr>
+<tr class="separator:ab0cc0e9857df0bd4ebc39afb29b8e546 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4744c9cc6e5b8181d87c188f52d1442 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ab4744c9cc6e5b8181d87c188f52d1442">operator=</a> (const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;frame)=delete</td></tr>
+<tr class="separator:ab4744c9cc6e5b8181d87c188f52d1442 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92214d7d317f8020b96ec38ddaa770cb inherit pub_methods_classjeod_1_1RefFrame"><td class="memTemplParams" colspan="2">template&lt;typename... Type&gt; </td></tr>
+<tr class="memitem:a92214d7d317f8020b96ec38ddaa770cb inherit pub_methods_classjeod_1_1RefFrame"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a92214d7d317f8020b96ec38ddaa770cb">set_name</a> (const std::string &amp;nameIn, Type... namesIn)</td></tr>
+<tr class="separator:a92214d7d317f8020b96ec38ddaa770cb inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ecb0175ce907f3fdfa89b399eb4746 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#af4ecb0175ce907f3fdfa89b399eb4746">set_name</a> (const std::string &amp;nameIn)</td></tr>
+<tr class="separator:af4ecb0175ce907f3fdfa89b399eb4746 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da5d50aa8e348a10d6d7fe16adc1ab3 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0da5d50aa8e348a10d6d7fe16adc1ab3">get_name</a> () const</td></tr>
+<tr class="memdesc:a0da5d50aa8e348a10d6d7fe16adc1ab3 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a0da5d50aa8e348a10d6d7fe16adc1ab3">More...</a><br /></td></tr>
+<tr class="separator:a0da5d50aa8e348a10d6d7fe16adc1ab3 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a0ce595cdcf77a17ddcbea2fcdd32e5 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">set_timestamp</a> (double time)</td></tr>
 <tr class="memdesc:a0a0ce595cdcf77a17ddcbea2fcdd32e5 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the update time of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a0a0ce595cdcf77a17ddcbea2fcdd32e5">More...</a><br /></td></tr>
 <tr class="separator:a0a0ce595cdcf77a17ddcbea2fcdd32e5 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a6d3aedd2e24947d9ee2257e62debb7 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a1a6d3aedd2e24947d9ee2257e62debb7">timestamp</a> (void) const</td></tr>
-<tr class="memdesc:a1a6d3aedd2e24947d9ee2257e62debb7 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the update time of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a1a6d3aedd2e24947d9ee2257e62debb7">More...</a><br /></td></tr>
-<tr class="separator:a1a6d3aedd2e24947d9ee2257e62debb7 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a903f6616fe8f7d3b37795396321a19ad inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a903f6616fe8f7d3b37795396321a19ad">timestamp</a> () const</td></tr>
+<tr class="memdesc:a903f6616fe8f7d3b37795396321a19ad inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the update time of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a903f6616fe8f7d3b37795396321a19ad">More...</a><br /></td></tr>
+<tr class="separator:a903f6616fe8f7d3b37795396321a19ad inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb31ecc92a524530e40d87ecb9a59b69 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#acb31ecc92a524530e40d87ecb9a59b69">set_owner</a> (<a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html">RefFrameOwner</a> *new_owner)</td></tr>
 <tr class="memdesc:acb31ecc92a524530e40d87ecb9a59b69 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the owner of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#acb31ecc92a524530e40d87ecb9a59b69">More...</a><br /></td></tr>
 <tr class="separator:acb31ecc92a524530e40d87ecb9a59b69 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3a85bd8ca30a2cba62078a1b982635a inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html">RefFrameOwner</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ac3a85bd8ca30a2cba62078a1b982635a">get_owner</a> (void) const</td></tr>
-<tr class="memdesc:ac3a85bd8ca30a2cba62078a1b982635a inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the owner of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#ac3a85bd8ca30a2cba62078a1b982635a">More...</a><br /></td></tr>
-<tr class="separator:ac3a85bd8ca30a2cba62078a1b982635a inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14682ace59bf67547bc993b1da0dde48 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html">RefFrameOwner</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a14682ace59bf67547bc993b1da0dde48">get_owner</a> () const</td></tr>
+<tr class="memdesc:a14682ace59bf67547bc993b1da0dde48 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the owner of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a14682ace59bf67547bc993b1da0dde48">More...</a><br /></td></tr>
+<tr class="separator:a14682ace59bf67547bc993b1da0dde48 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a260f7ba668831d0a952387d0738f4de5 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a260f7ba668831d0a952387d0738f4de5">set_active_status</a> (bool value) override</td></tr>
 <tr class="memdesc:a260f7ba668831d0a952387d0738f4de5 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Augment <a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a03075c3b694c04723575143b77051772" title="Set the active data member to the provided value. ">Subscription::set_active_status</a> by telling the frame owner that the active/inactive state of this frame has changed.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a260f7ba668831d0a952387d0738f4de5">More...</a><br /></td></tr>
 <tr class="separator:a260f7ba668831d0a952387d0738f4de5 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5508e671597d26defd7e3aa40a804e0c inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a5508e671597d26defd7e3aa40a804e0c">get_parent</a> (void) const</td></tr>
-<tr class="memdesc:a5508e671597d26defd7e3aa40a804e0c inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the parent of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a5508e671597d26defd7e3aa40a804e0c">More...</a><br /></td></tr>
-<tr class="separator:a5508e671597d26defd7e3aa40a804e0c inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab63573f74bd326d8a33f6d3d61600d3b inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ab63573f74bd326d8a33f6d3d61600d3b">get_root</a> (void) const</td></tr>
-<tr class="memdesc:ab63573f74bd326d8a33f6d3d61600d3b inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the root of this frame's tree.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#ab63573f74bd326d8a33f6d3d61600d3b">More...</a><br /></td></tr>
-<tr class="separator:ab63573f74bd326d8a33f6d3d61600d3b inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ae96dbf13223e78787dc756cd764c7 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a70ae96dbf13223e78787dc756cd764c7">make_root</a> (void)</td></tr>
-<tr class="memdesc:a70ae96dbf13223e78787dc756cd764c7 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make this frame a root frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a70ae96dbf13223e78787dc756cd764c7">More...</a><br /></td></tr>
-<tr class="separator:a70ae96dbf13223e78787dc756cd764c7 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6a2cde84644f457e00ec88de5360033 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#aa6a2cde84644f457e00ec88de5360033">get_parent</a> () const</td></tr>
+<tr class="memdesc:aa6a2cde84644f457e00ec88de5360033 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the parent of this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#aa6a2cde84644f457e00ec88de5360033">More...</a><br /></td></tr>
+<tr class="separator:aa6a2cde84644f457e00ec88de5360033 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa4595e453260e1c89c239aa7ad7c815 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#afa4595e453260e1c89c239aa7ad7c815">get_root</a> () const</td></tr>
+<tr class="memdesc:afa4595e453260e1c89c239aa7ad7c815 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the root of this frame's tree.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#afa4595e453260e1c89c239aa7ad7c815">More...</a><br /></td></tr>
+<tr class="separator:afa4595e453260e1c89c239aa7ad7c815 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63423dfe0d445e7a37e3a7d178cc710d inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a63423dfe0d445e7a37e3a7d178cc710d">make_root</a> ()</td></tr>
+<tr class="memdesc:a63423dfe0d445e7a37e3a7d178cc710d inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make this frame a root frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a63423dfe0d445e7a37e3a7d178cc710d">More...</a><br /></td></tr>
+<tr class="separator:a63423dfe0d445e7a37e3a7d178cc710d inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a931cdbd471c81ce318d00ab45c361a51 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a931cdbd471c81ce318d00ab45c361a51">add_child</a> (<a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;frame)</td></tr>
 <tr class="memdesc:a931cdbd471c81ce318d00ab45c361a51 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a child frame to this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a931cdbd471c81ce318d00ab45c361a51">More...</a><br /></td></tr>
 <tr class="separator:a931cdbd471c81ce318d00ab45c361a51 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb06115d8e0542a79bdc8d389e978b4c inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#adb06115d8e0542a79bdc8d389e978b4c">remove_from_parent</a> (void)</td></tr>
-<tr class="memdesc:adb06115d8e0542a79bdc8d389e978b4c inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove this node as a child of its parent node.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#adb06115d8e0542a79bdc8d389e978b4c">More...</a><br /></td></tr>
-<tr class="separator:adb06115d8e0542a79bdc8d389e978b4c inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a668dc81a01e719afe7fc2441f003282f inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a668dc81a01e719afe7fc2441f003282f">remove_from_parent</a> ()</td></tr>
+<tr class="memdesc:a668dc81a01e719afe7fc2441f003282f inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove this node as a child of its parent node.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a668dc81a01e719afe7fc2441f003282f">More...</a><br /></td></tr>
+<tr class="separator:a668dc81a01e719afe7fc2441f003282f inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5ac4c7186b11ca305a365a05d183a28 inherit pub_methods_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#ab5ac4c7186b11ca305a365a05d183a28">is_progeny_of</a> (const <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">RefFrame</a> &amp;frame) const</td></tr>
 <tr class="memdesc:ab5ac4c7186b11ca305a365a05d183a28 inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if this frame is a progeny of the provided frame, false if not.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#ab5ac4c7186b11ca305a365a05d183a28">More...</a><br /></td></tr>
 <tr class="separator:ab5ac4c7186b11ca305a365a05d183a28 inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,56 +184,47 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af84cc31797d818c6ee89974781f659cd inherit pub_methods_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each reference frame has a path from the root of the reference frame tree to the frame in question.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#af84cc31797d818c6ee89974781f659cd">More...</a><br /></td></tr>
 <tr class="separator:af84cc31797d818c6ee89974781f659cd inherit pub_methods_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjeod_1_1Subscription"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjeod_1_1Subscription')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../db/d06/classjeod_1_1Subscription.html">jeod::Subscription</a></td></tr>
-<tr class="memitem:a91d33ca3bb5009f7ecb8828eab4a8fb4 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a91d33ca3bb5009f7ecb8828eab4a8fb4">Subscription</a> ()</td></tr>
-<tr class="memdesc:a91d33ca3bb5009f7ecb8828eab4a8fb4 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> class default constructor.  <a href="../../db/d06/classjeod_1_1Subscription.html#a91d33ca3bb5009f7ecb8828eab4a8fb4">More...</a><br /></td></tr>
-<tr class="separator:a91d33ca3bb5009f7ecb8828eab4a8fb4 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e3676e58d185894554321fc2ab68906 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a1e3676e58d185894554321fc2ab68906">Subscription</a> ()=default</td></tr>
+<tr class="separator:a1e3676e58d185894554321fc2ab68906 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6185ba9f45af628836fd99fe76a4940 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#af6185ba9f45af628836fd99fe76a4940">Subscription</a> (<a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a583f1314a11754b8d0ea326ee56cad5b">Mode</a>)</td></tr>
 <tr class="memdesc:af6185ba9f45af628836fd99fe76a4940 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> class non-default constructor.  <a href="../../db/d06/classjeod_1_1Subscription.html#af6185ba9f45af628836fd99fe76a4940">More...</a><br /></td></tr>
 <tr class="separator:af6185ba9f45af628836fd99fe76a4940 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37bb71c35d3fd80aae263f369bbf82a2 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a37bb71c35d3fd80aae263f369bbf82a2">~Subscription</a> ()</td></tr>
-<tr class="memdesc:a37bb71c35d3fd80aae263f369bbf82a2 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> class destructor.  <a href="../../db/d06/classjeod_1_1Subscription.html#a37bb71c35d3fd80aae263f369bbf82a2">More...</a><br /></td></tr>
-<tr class="separator:a37bb71c35d3fd80aae263f369bbf82a2 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a439aab4c4e045cc174f9e5580276583e inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a439aab4c4e045cc174f9e5580276583e">is_active</a> (void) const</td></tr>
-<tr class="memdesc:a439aab4c4e045cc174f9e5580276583e inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of the active data member.  <a href="../../db/d06/classjeod_1_1Subscription.html#a439aab4c4e045cc174f9e5580276583e">More...</a><br /></td></tr>
-<tr class="separator:a439aab4c4e045cc174f9e5580276583e inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb152ff775a289cb89382e3540cb02d0 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#aeb152ff775a289cb89382e3540cb02d0">subscriptions</a> (void) const</td></tr>
-<tr class="memdesc:aeb152ff775a289cb89382e3540cb02d0 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of the subscribers data member.  <a href="../../db/d06/classjeod_1_1Subscription.html#aeb152ff775a289cb89382e3540cb02d0">More...</a><br /></td></tr>
-<tr class="separator:aeb152ff775a289cb89382e3540cb02d0 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5405af82c16faf6012c1e7290c7c41a6 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a583f1314a11754b8d0ea326ee56cad5b">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a5405af82c16faf6012c1e7290c7c41a6">get_subscription_mode</a> (void) const</td></tr>
-<tr class="memdesc:a5405af82c16faf6012c1e7290c7c41a6 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of the mode data member.  <a href="../../db/d06/classjeod_1_1Subscription.html#a5405af82c16faf6012c1e7290c7c41a6">More...</a><br /></td></tr>
-<tr class="separator:a5405af82c16faf6012c1e7290c7c41a6 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02fe5e4b93045793be70f43839b0c339 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a02fe5e4b93045793be70f43839b0c339">activate</a> (void)</td></tr>
-<tr class="memdesc:a02fe5e4b93045793be70f43839b0c339 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#a02fe5e4b93045793be70f43839b0c339">More...</a><br /></td></tr>
-<tr class="separator:a02fe5e4b93045793be70f43839b0c339 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe85e24e1041548672fcdc66033bc34c inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#afe85e24e1041548672fcdc66033bc34c">deactivate</a> (void)</td></tr>
-<tr class="memdesc:afe85e24e1041548672fcdc66033bc34c inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivate a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#afe85e24e1041548672fcdc66033bc34c">More...</a><br /></td></tr>
-<tr class="separator:afe85e24e1041548672fcdc66033bc34c inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4590bb6b39afe751a56a8575b6e5e4a1 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a4590bb6b39afe751a56a8575b6e5e4a1">subscribe</a> (void)</td></tr>
-<tr class="memdesc:a4590bb6b39afe751a56a8575b6e5e4a1 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a subscription to a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#a4590bb6b39afe751a56a8575b6e5e4a1">More...</a><br /></td></tr>
-<tr class="separator:a4590bb6b39afe751a56a8575b6e5e4a1 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af77f964dd55bc4f49a0ae20fe0528553 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#af77f964dd55bc4f49a0ae20fe0528553">unsubscribe</a> (void)</td></tr>
-<tr class="memdesc:af77f964dd55bc4f49a0ae20fe0528553 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a subscription to a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#af77f964dd55bc4f49a0ae20fe0528553">More...</a><br /></td></tr>
-<tr class="separator:af77f964dd55bc4f49a0ae20fe0528553 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a94bd0af2e2acc8b0ad1cbfbb01336 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a25a94bd0af2e2acc8b0ad1cbfbb01336">~Subscription</a> ()=default</td></tr>
+<tr class="separator:a25a94bd0af2e2acc8b0ad1cbfbb01336 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2989cd4d81c1ae671693b231b7a2d1ba inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a2989cd4d81c1ae671693b231b7a2d1ba">is_active</a> () const</td></tr>
+<tr class="memdesc:a2989cd4d81c1ae671693b231b7a2d1ba inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of the active data member.  <a href="../../db/d06/classjeod_1_1Subscription.html#a2989cd4d81c1ae671693b231b7a2d1ba">More...</a><br /></td></tr>
+<tr class="separator:a2989cd4d81c1ae671693b231b7a2d1ba inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69e2f0c87b4e68990b5b345c515697ec inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a69e2f0c87b4e68990b5b345c515697ec">subscriptions</a> () const</td></tr>
+<tr class="memdesc:a69e2f0c87b4e68990b5b345c515697ec inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of the subscribers data member.  <a href="../../db/d06/classjeod_1_1Subscription.html#a69e2f0c87b4e68990b5b345c515697ec">More...</a><br /></td></tr>
+<tr class="separator:a69e2f0c87b4e68990b5b345c515697ec inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acde3f0de01afbd510562ed82996452a2 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a583f1314a11754b8d0ea326ee56cad5b">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#acde3f0de01afbd510562ed82996452a2">get_subscription_mode</a> () const</td></tr>
+<tr class="memdesc:acde3f0de01afbd510562ed82996452a2 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the value of the mode data member.  <a href="../../db/d06/classjeod_1_1Subscription.html#acde3f0de01afbd510562ed82996452a2">More...</a><br /></td></tr>
+<tr class="separator:acde3f0de01afbd510562ed82996452a2 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510e02e414dfe64ada59d9d2e1034e98 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a510e02e414dfe64ada59d9d2e1034e98">activate</a> ()</td></tr>
+<tr class="memdesc:a510e02e414dfe64ada59d9d2e1034e98 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#a510e02e414dfe64ada59d9d2e1034e98">More...</a><br /></td></tr>
+<tr class="separator:a510e02e414dfe64ada59d9d2e1034e98 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10aa729ccfcfdcfe788b1f20a7184b13 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a10aa729ccfcfdcfe788b1f20a7184b13">deactivate</a> ()</td></tr>
+<tr class="memdesc:a10aa729ccfcfdcfe788b1f20a7184b13 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivate a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#a10aa729ccfcfdcfe788b1f20a7184b13">More...</a><br /></td></tr>
+<tr class="separator:a10aa729ccfcfdcfe788b1f20a7184b13 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad60c693071cde2785924c8539c6fe723 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#ad60c693071cde2785924c8539c6fe723">subscribe</a> ()</td></tr>
+<tr class="memdesc:ad60c693071cde2785924c8539c6fe723 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a subscription to a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#ad60c693071cde2785924c8539c6fe723">More...</a><br /></td></tr>
+<tr class="separator:ad60c693071cde2785924c8539c6fe723 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fbc9b2834841c3787b6e9e1b6291f37 inherit pub_methods_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a0fbc9b2834841c3787b6e9e1b6291f37">unsubscribe</a> ()</td></tr>
+<tr class="memdesc:a0fbc9b2834841c3787b6e9e1b6291f37 inherit pub_methods_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a subscription to a <a class="el" href="../../db/d06/classjeod_1_1Subscription.html" title="A Subscription object provides two approaches of marking something as being active or inactive: The a...">Subscription</a> object.  <a href="../../db/d06/classjeod_1_1Subscription.html#a0fbc9b2834841c3787b6e9e1b6291f37">More...</a><br /></td></tr>
+<tr class="separator:a0fbc9b2834841c3787b6e9e1b6291f37 inherit pub_methods_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:aa9d8412c26a4d274a16251f8f858d0e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d20/classjeod_1_1RefFrameItems.html">RefFrameItems</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#aa9d8412c26a4d274a16251f8f858d0e5">initialized_items</a></td></tr>
 <tr class="memdesc:aa9d8412c26a4d274a16251f8f858d0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies which state elements (position, velocity, attitude, and rate) have been initialized.  <a href="#aa9d8412c26a4d274a16251f8f858d0e5">More...</a><br /></td></tr>
 <tr class="separator:aa9d8412c26a4d274a16251f8f858d0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21f943f97f0fdd4b12f383582c5ae4c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/da4/classjeod_1_1MassPoint.html">MassPoint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a21f943f97f0fdd4b12f383582c5ae4c7">mass_point</a></td></tr>
+<tr class="memitem:a21f943f97f0fdd4b12f383582c5ae4c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/da4/classjeod_1_1MassPoint.html">MassPoint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a21f943f97f0fdd4b12f383582c5ae4c7">mass_point</a> {}</td></tr>
 <tr class="memdesc:a21f943f97f0fdd4b12f383582c5ae4c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the mass point that defines the origin and orientation of this frame, but with respect to the mass tree rather than with respect to the reference frame tree.  <a href="#a21f943f97f0fdd4b12f383582c5ae4c7">More...</a><br /></td></tr>
 <tr class="separator:a21f943f97f0fdd4b12f383582c5ae4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classjeod_1_1RefFrame"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classjeod_1_1RefFrame')"><img src="../../closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html">jeod::RefFrame</a></td></tr>
 <tr class="memitem:a96355ac0132216c2cca0a409cfd164fb inherit pub_attribs_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html">RefFrameState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">state</a></td></tr>
 <tr class="memdesc:a96355ac0132216c2cca0a409cfd164fb inherit pub_attribs_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">The translational and rotational state of the reference frame with respect to its parent.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">More...</a><br /></td></tr>
 <tr class="separator:a96355ac0132216c2cca0a409cfd164fb inherit pub_attribs_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a5c0855d15b47934115e3822962a95116"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#a5c0855d15b47934115e3822962a95116">BodyRefFrame</a> (const <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> &amp;)</td></tr>
-<tr class="separator:a5c0855d15b47934115e3822962a95116"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3cf21f11d10ae020bf3a832694549fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html#af3cf21f11d10ae020bf3a832694549fb">operator=</a> (const <a class="el" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html">BodyRefFrame</a> &amp;)</td></tr>
-<tr class="separator:af3cf21f11d10ae020bf3a832694549fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -275,33 +255,83 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a6b008736798c89e1d1f85dacfffbd668 inherit pro_attribs_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a6b008736798c89e1d1f85dacfffbd668">name</a></td></tr>
 <tr class="memdesc:a6b008736798c89e1d1f85dacfffbd668 inherit pro_attribs_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">The identifier for this reference frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a6b008736798c89e1d1f85dacfffbd668">More...</a><br /></td></tr>
 <tr class="separator:a6b008736798c89e1d1f85dacfffbd668 inherit pro_attribs_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52632b47f0187b6688eb3ff34f4be994 inherit pro_attribs_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html">RefFrameOwner</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a52632b47f0187b6688eb3ff34f4be994">owner</a></td></tr>
+<tr class="memitem:a52632b47f0187b6688eb3ff34f4be994 inherit pro_attribs_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d58/classjeod_1_1RefFrameOwner.html">RefFrameOwner</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a52632b47f0187b6688eb3ff34f4be994">owner</a> {}</td></tr>
 <tr class="memdesc:a52632b47f0187b6688eb3ff34f4be994 inherit pro_attribs_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object that "owns" this frame.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a52632b47f0187b6688eb3ff34f4be994">More...</a><br /></td></tr>
 <tr class="separator:a52632b47f0187b6688eb3ff34f4be994 inherit pro_attribs_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c59f5db603609a57120231a3e267689 inherit pro_attribs_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d46/classjeod_1_1RefFrameLinks.html">RefFrameLinks</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a8c59f5db603609a57120231a3e267689">links</a></td></tr>
 <tr class="memdesc:a8c59f5db603609a57120231a3e267689 inherit pro_attribs_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the parent/child/sibling linkages between frames.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a8c59f5db603609a57120231a3e267689">More...</a><br /></td></tr>
 <tr class="separator:a8c59f5db603609a57120231a3e267689 inherit pro_attribs_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49c986f892728b5fa4f947f37871277c inherit pro_attribs_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a49c986f892728b5fa4f947f37871277c">update_time</a></td></tr>
+<tr class="memitem:a49c986f892728b5fa4f947f37871277c inherit pro_attribs_classjeod_1_1RefFrame"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a49c986f892728b5fa4f947f37871277c">update_time</a> {}</td></tr>
 <tr class="memdesc:a49c986f892728b5fa4f947f37871277c inherit pro_attribs_classjeod_1_1RefFrame"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time that the frame was lasted updated, dynamic time seconds.  <a href="../../dc/dad/classjeod_1_1RefFrame.html#a49c986f892728b5fa4f947f37871277c">More...</a><br /></td></tr>
 <tr class="separator:a49c986f892728b5fa4f947f37871277c inherit pro_attribs_classjeod_1_1RefFrame"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjeod_1_1Subscription"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjeod_1_1Subscription')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../db/d06/classjeod_1_1Subscription.html">jeod::Subscription</a></td></tr>
-<tr class="memitem:a0887a5490de05afe2c4b18db4123b104 inherit pro_attribs_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a583f1314a11754b8d0ea326ee56cad5b">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a0887a5490de05afe2c4b18db4123b104">mode</a></td></tr>
+<tr class="memitem:a0887a5490de05afe2c4b18db4123b104 inherit pro_attribs_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a583f1314a11754b8d0ea326ee56cad5b">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a0887a5490de05afe2c4b18db4123b104">mode</a> {<a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a583f1314a11754b8d0ea326ee56cad5ba4460dc45d10eacaa3022eff853cd0e1b">Detect</a>}</td></tr>
 <tr class="memdesc:a0887a5490de05afe2c4b18db4123b104 inherit pro_attribs_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode in which the object is operating.  <a href="../../db/d06/classjeod_1_1Subscription.html#a0887a5490de05afe2c4b18db4123b104">More...</a><br /></td></tr>
 <tr class="separator:a0887a5490de05afe2c4b18db4123b104 inherit pro_attribs_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab84441828fe116fc57d5c62479a134e3 inherit pro_attribs_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#ab84441828fe116fc57d5c62479a134e3">subscribers</a></td></tr>
+<tr class="memitem:ab84441828fe116fc57d5c62479a134e3 inherit pro_attribs_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#ab84441828fe116fc57d5c62479a134e3">subscribers</a> {}</td></tr>
 <tr class="memdesc:ab84441828fe116fc57d5c62479a134e3 inherit pro_attribs_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of subscribers for this object.  <a href="../../db/d06/classjeod_1_1Subscription.html#ab84441828fe116fc57d5c62479a134e3">More...</a><br /></td></tr>
 <tr class="separator:ab84441828fe116fc57d5c62479a134e3 inherit pro_attribs_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e789fa5366759f8540ab1150ca05015 inherit pro_attribs_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a3e789fa5366759f8540ab1150ca05015">active</a></td></tr>
+<tr class="memitem:a3e789fa5366759f8540ab1150ca05015 inherit pro_attribs_classjeod_1_1Subscription"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d06/classjeod_1_1Subscription.html#a3e789fa5366759f8540ab1150ca05015">active</a> {}</td></tr>
 <tr class="memdesc:a3e789fa5366759f8540ab1150ca05015 inherit pro_attribs_classjeod_1_1Subscription"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether the object is active.  <a href="../../db/d06/classjeod_1_1Subscription.html#a3e789fa5366759f8540ab1150ca05015">More...</a><br /></td></tr>
 <tr class="separator:a3e789fa5366759f8540ab1150ca05015 inherit pro_attribs_classjeod_1_1Subscription"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extend <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. ">RefFrame</a> to add coupling between the reference frame tree and the mass tree and to keep track of which state items have been set. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00079">79</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00077">77</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5c0855d15b47934115e3822962a95116"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c0855d15b47934115e3822962a95116">&#9670;&nbsp;</a></span>BodyRefFrame() <span class="overload">[1/2]</span></h2>
+<a id="a5ed477827b055b2fe66487f69d8f0d6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ed477827b055b2fe66487f69d8f0d6e">&#9670;&nbsp;</a></span>BodyRefFrame() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">jeod::BodyRefFrame::BodyRefFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf4ccc6e3a14b8a79f2677d992c854a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf4ccc6e3a14b8a79f2677d992c854a3">&#9670;&nbsp;</a></span>~BodyRefFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">jeod::BodyRefFrame::~BodyRefFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a525ea5e92ed5d80e9bde0f42aefdf6d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a525ea5e92ed5d80e9bde0f42aefdf6d5">&#9670;&nbsp;</a></span>BodyRefFrame() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,76 +349,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad59dca9a4249db0adb37b6bc13436f6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad59dca9a4249db0adb37b6bc13436f6a">&#9670;&nbsp;</a></span>BodyRefFrame() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::BodyRefFrame::BodyRefFrame </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Default constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00126">126</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
-
-</div>
-</div>
-<a id="af97461bfe7623d0e67ff901d9a7bfec4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af97461bfe7623d0e67ff901d9a7bfec4">&#9670;&nbsp;</a></span>~BodyRefFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::BodyRefFrame::~BodyRefFrame </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00140">140</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af3cf21f11d10ae020bf3a832694549fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3cf21f11d10ae020bf3a832694549fb">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a5f82675f0597683baddc017558a1f5da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f82675f0597683baddc017558a1f5da">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,7 +376,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -459,7 +429,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00081">81</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00079">79</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
 
 </div>
 </div>
@@ -479,9 +449,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Specifies which state elements (position, velocity, attitude, and rate) have been initialized. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00092">92</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00086">86</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a5ba539276c11f9f699c2607b3dc4052b">jeod::DynBody::compute_derived_state_forward()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a69fafd71bf91877dad8e1c043a0c94bf">jeod::DynBody::compute_derived_state_reverse()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aa123ba718472016ea9cd95b76081bed7">jeod::DynBody::compute_state_elements_forward()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a825fc0c69709ce218d741c97f6e9d59b">jeod::DynBody::compute_state_elements_reverse()</a>, <a class="el" href="../../db/d77/classjeod_1_1DynBodyInitTransState.html#a71ddf0862d43c290566b5f4554383848">jeod::DynBodyInitTransState::is_ready()</a>, <a class="el" href="../../d6/dda/classjeod_1_1DynBodyInitRotState.html#a15358a702e485290c9a9ad4eea552cd7">jeod::DynBodyInitRotState::is_ready()</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a21596127f1cf7bfd092640944ea6d2b5">jeod::DynBodyInitPlanetDerived::is_ready()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a16653ac9e35a47abf861314a9ece1d50">jeod::DynBodyInit::is_ready()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a93fbb3180200381ff6e5665575d7437b">jeod::DynBody::propagate_state_from_composite()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#adef66af0e47210759e93e797e136d36f">jeod::DynBody::propagate_state_from_structure()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a00aa98983ca47651e5db879d7dfda61c">jeod::DynBody::set_state_source_internal()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#acc0624208e1b9bd2a051d8d59976c47e">jeod::DynBody::update_integrated_state()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a5ba539276c11f9f699c2607b3dc4052b">jeod::DynBody::compute_derived_state_forward()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a69fafd71bf91877dad8e1c043a0c94bf">jeod::DynBody::compute_derived_state_reverse()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aa123ba718472016ea9cd95b76081bed7">jeod::DynBody::compute_state_elements_forward()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a825fc0c69709ce218d741c97f6e9d59b">jeod::DynBody::compute_state_elements_reverse()</a>, <a class="el" href="../../d6/dda/classjeod_1_1DynBodyInitRotState.html#a3a6c7b62d6829f8d1bd11394e793aedf">jeod::DynBodyInitRotState::is_ready()</a>, <a class="el" href="../../db/d77/classjeod_1_1DynBodyInitTransState.html#a554ac21f71168b7ee0e563953c7f57e6">jeod::DynBodyInitTransState::is_ready()</a>, <a class="el" href="../../d7/dc2/classjeod_1_1DynBodyInitPlanetDerived.html#a43bb60d30fde87c4305b2f5971023306">jeod::DynBodyInitPlanetDerived::is_ready()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a7d1ab97333791cc3d957bcdd0a45b5b0">jeod::DynBodyInit::is_ready()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a93fbb3180200381ff6e5665575d7437b">jeod::DynBody::propagate_state_from_composite()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#adef66af0e47210759e93e797e136d36f">jeod::DynBody::propagate_state_from_structure()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a00aa98983ca47651e5db879d7dfda61c">jeod::DynBody::set_state_source_internal()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#acc0624208e1b9bd2a051d8d59976c47e">jeod::DynBody::update_integrated_state()</a>.</p>
 
 </div>
 </div>
@@ -492,7 +462,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../da/da4/classjeod_1_1MassPoint.html">MassPoint</a>* jeod::BodyRefFrame::mass_point</td>
+          <td class="memname"><a class="el" href="../../da/da4/classjeod_1_1MassPoint.html">MassPoint</a>* jeod::BodyRefFrame::mass_point {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -500,9 +470,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Pointer to the mass point that defines the origin and orientation of this frame, but with respect to the mass tree rather than with respect to the reference frame tree. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00099">99</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html#l00093">93</a> of file <a class="el" href="../../d6/d75/body__ref__frame_8hh_source.html">body_ref_frame.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a418b88c1a703d144afbf6632e017e841">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae86035f84748bb371c0fe6194e286394">jeod::DynBody::add_mass_body_frames()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1774e1644785aee5977a91c0ac6830dd">jeod::DynBody::add_mass_point()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1f442f80d7bf36ccf377ba5aff8a69b1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a8435a5fa032d499d84413c6b07e3fb3f">jeod::DynBody::attach_to_frame()</a>, <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6cf776a58f9db0c7515768c645d3b2d8">jeod::LineContactFacet::calculate_torque()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a2fe505c2b698aaa1294cf9421d906162">jeod::PointContactFacet::calculate_torque()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aab8e1051f32ce7c8a6bf0c86ad9cfc87">jeod::DynBody::compute_ref_point_transform()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a10ee6681e3eb82f1335ee5e6e33f6fed">jeod::StructureIntegratedDynBody::compute_vehicle_point_derivatives()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a876acbdd16b9c6b66e54631841697dba">jeod::DynBody::compute_vehicle_point_derivatives()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a6a0db353d0bc8d2e8e233a6b84d4b758">jeod::DynBody::compute_vehicle_point_states()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a2b0ec9597c15a39df08979d90b1aa22a">jeod::DynBody::DynBody()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aaacee3ff8d7cc2569e7eb896e60d8320">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#ae86035f84748bb371c0fe6194e286394">jeod::DynBody::add_mass_body_frames()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1774e1644785aee5977a91c0ac6830dd">jeod::DynBody::add_mass_point()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aca611be05781da171880d8d3b99777d5">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a388568fb55c3a09b244b4e193162e85a">jeod::DynBody::attach_to_frame()</a>, <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a6cf776a58f9db0c7515768c645d3b2d8">jeod::LineContactFacet::calculate_torque()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#a2fe505c2b698aaa1294cf9421d906162">jeod::PointContactFacet::calculate_torque()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aab8e1051f32ce7c8a6bf0c86ad9cfc87">jeod::DynBody::compute_ref_point_transform()</a>, <a class="el" href="../../d3/dc7/classjeod_1_1StructureIntegratedDynBody.html#a10ee6681e3eb82f1335ee5e6e33f6fed">jeod::StructureIntegratedDynBody::compute_vehicle_point_derivatives()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a876acbdd16b9c6b66e54631841697dba">jeod::DynBody::compute_vehicle_point_derivatives()</a>, and <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a2b0ec9597c15a39df08979d90b1aa22a">jeod::DynBody::DynBody()</a>.</p>
 
 </div>
 </div>

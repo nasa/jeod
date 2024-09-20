@@ -75,52 +75,37 @@ Library dependencies:
 // Model includes
 #include "flat_plate_radiation_factory.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The factory for creating Radiation Surfaces
  */
-class RadiationSurfaceFactory : public InteractionSurfaceFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(RadiationSurfaceFactory)
+class RadiationSurfaceFactory : public InteractionSurfaceFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationSurfaceFactory)
 
 public:
+    // Member methods:
+    RadiationSurfaceFactory();
+    ~RadiationSurfaceFactory() override;
+    RadiationSurfaceFactory & operator=(const RadiationSurfaceFactory &) = delete;
+    RadiationSurfaceFactory(const RadiationSurfaceFactory &) = delete;
 
-
-//Member methods:
-
-   // constructor
-   RadiationSurfaceFactory ();
-
-   // destructor
-   ~RadiationSurfaceFactory () override;
-
-   void add_facet_params (FacetParams* to_add) override;
-
+    void add_facet_params(FacetParams * to_add) override;
 
 protected:
-
-  // Included so JEOD can include all default facet factories that
-  // it knows about. For extensibility the user can add
-  // factories with add_facet_factory.
-   /**
-    * The factory to build flat plate thermal facets
-    */
-  FlatPlateRadiationFactory flat_plate_radiation_factory; //!< trick_units(--)
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   RadiationSurfaceFactory& operator = (const RadiationSurfaceFactory& rhs);
-   RadiationSurfaceFactory (const RadiationSurfaceFactory& rhs);
-
+    // Included so JEOD can include all default facet factories that
+    // it knows about. For extensibility the user can add
+    // factories with add_facet_factory.
+    /**
+     * The factory to build flat plate thermal facets
+     */
+    FlatPlateRadiationFactory flat_plate_radiation_factory; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

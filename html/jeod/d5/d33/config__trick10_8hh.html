@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -53,7 +53,16 @@ $(function() {
 
 <p>Configure JEOD for use in a Trick10 environment.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &quot;<a class="el" href="../../dd/d3e/jeod__va__macro__utility_8hh_source.html">jeod_va_macro_utility.hh</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for config_trick10.hh:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/da8/config__trick10_8hh__incl.png" border="0" usemap="#config__trick10_8hh" alt=""/></div>
+<map name="config__trick10_8hh" id="config__trick10_8hh">
+<area shape="rect" id="node2" href="../../dd/d3e/jeod__va__macro__utility_8hh.html" title="Support header for variable argument macro functions. " alt="" coords="5,80,189,107"/>
+</map>
+</div>
+</div>
 <p><a href="../../d5/d33/config__trick10_8hh_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -66,8 +75,14 @@ Macros</h2></td></tr>
 <tr class="separator:ga752da0362381e2bdae16bc6671dfb9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaeeb3f1939d67fffa338b157372ca17a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gaeeb3f1939d67fffa338b157372ca17a0">JEOD_UINTPTR_T</a>&#160;&#160;&#160;unsigned long int</td></tr>
 <tr class="separator:gaeeb3f1939d67fffa338b157372ca17a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7ece2c8cdd2becbbd37240b743aa3e09"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga7ece2c8cdd2becbbd37240b743aa3e09">JEOD_CLASS_ESTABLISH_FRIENDS</a>(class_name)</td></tr>
-<tr class="separator:ga7ece2c8cdd2becbbd37240b743aa3e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa212cdb47f3a523faacb73f2bfc2f1fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gaa212cdb47f3a523faacb73f2bfc2f1fb">JEOD_CLASS_ESTABLISH_FRIENDS3</a>(ns1,  ns2,  class_name)</td></tr>
+<tr class="separator:gaa212cdb47f3a523faacb73f2bfc2f1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74f9a988cdc06e74fe67702a7e834c5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga74f9a988cdc06e74fe67702a7e834c5b">JEOD_CLASS_ESTABLISH_FRIENDS2</a>(ns,  class_name)</td></tr>
+<tr class="separator:ga74f9a988cdc06e74fe67702a7e834c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac44fe94684af9f93fc456005fe69df18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gac44fe94684af9f93fc456005fe69df18">JEOD_CLASS_ESTABLISH_FRIENDS1</a>(class_name)</td></tr>
+<tr class="separator:gac44fe94684af9f93fc456005fe69df18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9208ae4713a35c78c4901fc4c28017f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gab9208ae4713a35c78c4901fc4c28017f">JEOD_CLASS_ESTABLISH_FRIENDS</a>(...)&#160;&#160;&#160;<a class="el" href="../../de/ddd/group__SimInterface.html#gabc394c637da4240eb4758fb0bb424cfd">JEODVMACRO</a>(JEOD_CLASS_ESTABLISH_FRIENDS, __VA_ARGS__)</td></tr>
+<tr class="separator:gab9208ae4713a35c78c4901fc4c28017f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3906908f497537ef6fc9dd768259cba3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga3906908f497537ef6fc9dd768259cba3">JEOD_ATTRIBUTES_SIM_ENGINE_HEADER</a>&#160;&#160;&#160;&quot;sim_services/MemoryManager/include/attributes.h&quot;</td></tr>
 <tr class="separator:ga3906908f497537ef6fc9dd768259cba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ed4b8089ce824fa494239ee5de57044"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga6ed4b8089ce824fa494239ee5de57044">JEOD_ATTRIBUTES_TYPE</a>&#160;&#160;&#160;struct ATTRIBUTES_tag</td></tr>
@@ -76,7 +91,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga0ecaf697fe18fa5824a7f04b80f1f93a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab0f00dbf6334d12e02f6e958a30f9245"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gab0f00dbf6334d12e02f6e958a30f9245">JEOD_SIM_INTEGRATOR_SIM_ENGINE_HEADER</a>&#160;&#160;&#160;&quot;sim_services/Integrator/include/Integrator.hh&quot;</td></tr>
 <tr class="separator:gab0f00dbf6334d12e02f6e958a30f9245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga518a134e83fdb50e4f61f03f231bf7df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga518a134e83fdb50e4f61f03f231bf7df">JEOD_SIM_INTEGRATOR_FORWARD</a>&#160;&#160;&#160;namespace Trick { class Integrator; }</td></tr>
+<tr class="memitem:ga518a134e83fdb50e4f61f03f231bf7df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#ga518a134e83fdb50e4f61f03f231bf7df">JEOD_SIM_INTEGRATOR_FORWARD</a></td></tr>
 <tr class="separator:ga518a134e83fdb50e4f61f03f231bf7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf9a6b4e23fe57f56eaf73d263ce2a40e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/ddd/group__SimInterface.html#gaf9a6b4e23fe57f56eaf73d263ce2a40e">JEOD_SIM_INTEGRATOR_POINTER_TYPE</a>&#160;&#160;&#160;Trick::Integrator *</td></tr>
 <tr class="separator:gaf9a6b4e23fe57f56eaf73d263ce2a40e"><td class="memSeparator" colspan="2">&#160;</td></tr>

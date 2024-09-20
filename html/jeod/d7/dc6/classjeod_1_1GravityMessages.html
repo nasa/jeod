@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -45,8 +45,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::GravityMessages Class Reference</div>  </div>
@@ -58,38 +58,38 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5536f270936715adea29d6d842802f7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a5536f270936715adea29d6d842802f7d">GravityMessages</a> ()=delete</td></tr>
+<tr class="separator:a5536f270936715adea29d6d842802f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8da66f2ed972ec6a1847b72faa9edd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#ac8da66f2ed972ec6a1847b72faa9edd9">GravityMessages</a> (const <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html">GravityMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:ac8da66f2ed972ec6a1847b72faa9edd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2118a22cfb86e866df5702f9bacadad1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html">GravityMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a2118a22cfb86e866df5702f9bacadad1">operator=</a> (const <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html">GravityMessages</a> &amp;)=delete</td></tr>
+<tr class="separator:a2118a22cfb86e866df5702f9bacadad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a581240cfca3c2d32fe497ca554c78946"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a581240cfca3c2d32fe497ca554c78946">duplicate_entry</a> = &quot;environment/gravity/&quot; &quot;duplicate_entry&quot;</td></tr>
-<tr class="memdesc:a581240cfca3c2d32fe497ca554c78946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a duplicate entry is detected.  <a href="#a581240cfca3c2d32fe497ca554c78946">More...</a><br /></td></tr>
-<tr class="separator:a581240cfca3c2d32fe497ca554c78946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7805a321eb2196b9f3376b10489dea6"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#ac7805a321eb2196b9f3376b10489dea6">missing_entry</a> = &quot;environment/gravity/&quot; &quot;missing_entry&quot;</td></tr>
-<tr class="memdesc:ac7805a321eb2196b9f3376b10489dea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a missing entry is detected.  <a href="#ac7805a321eb2196b9f3376b10489dea6">More...</a><br /></td></tr>
-<tr class="separator:ac7805a321eb2196b9f3376b10489dea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89d40c734a3fdc9f0cd7dd9aea217df2"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a89d40c734a3fdc9f0cd7dd9aea217df2">invalid_name</a> = &quot;environment/gravity/&quot; &quot;invalid_name&quot;</td></tr>
-<tr class="memdesc:a89d40c734a3fdc9f0cd7dd9aea217df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a name is invalid (null or empty).  <a href="#a89d40c734a3fdc9f0cd7dd9aea217df2">More...</a><br /></td></tr>
-<tr class="separator:a89d40c734a3fdc9f0cd7dd9aea217df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4a9473505ee4d34200c1ac3b926d123"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#ae4a9473505ee4d34200c1ac3b926d123">invalid_object</a> = &quot;environment/gravity/&quot; &quot;invalid_object&quot;</td></tr>
-<tr class="memdesc:ae4a9473505ee4d34200c1ac3b926d123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when an object is invalid (wrong type).  <a href="#ae4a9473505ee4d34200c1ac3b926d123">More...</a><br /></td></tr>
-<tr class="separator:ae4a9473505ee4d34200c1ac3b926d123"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a489df8ddea6ecfdeffd24b4f1faa43e7"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a489df8ddea6ecfdeffd24b4f1faa43e7">invalid_limit</a> = &quot;environment/gravity/&quot; &quot;invalid_limit&quot;</td></tr>
-<tr class="memdesc:a489df8ddea6ecfdeffd24b4f1faa43e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a limit is out of range.  <a href="#a489df8ddea6ecfdeffd24b4f1faa43e7">More...</a><br /></td></tr>
-<tr class="separator:a489df8ddea6ecfdeffd24b4f1faa43e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9618a20f7c02e3ebdf4ea12c7d69b34a"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a9618a20f7c02e3ebdf4ea12c7d69b34a">domain_error</a> = &quot;environment/gravity/&quot; &quot;domain_error&quot;</td></tr>
-<tr class="memdesc:a9618a20f7c02e3ebdf4ea12c7d69b34a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a value is outside the known-to-be-valid range, e.g., a radial distance less than the planet's equatorial radius.  <a href="#a9618a20f7c02e3ebdf4ea12c7d69b34a">More...</a><br /></td></tr>
-<tr class="separator:a9618a20f7c02e3ebdf4ea12c7d69b34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e4ae285b1eb1315421fe00c266fc8b9"><td class="memItemLeft" align="right" valign="top">static char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a4e4ae285b1eb1315421fe00c266fc8b9">null_pointer</a> = &quot;environment/gravity/&quot; &quot;null_pointer&quot;</td></tr>
-<tr class="memdesc:a4e4ae285b1eb1315421fe00c266fc8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a pointer is invalid (null or empty).  <a href="#a4e4ae285b1eb1315421fe00c266fc8b9">More...</a><br /></td></tr>
-<tr class="separator:a4e4ae285b1eb1315421fe00c266fc8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ab2fed7aa051b7ccb0c6291e46ca9c8fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#ab2fed7aa051b7ccb0c6291e46ca9c8fb">GravityMessages</a> (void)</td></tr>
-<tr class="separator:ab2fed7aa051b7ccb0c6291e46ca9c8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23a44b5f3ced9acc143d1b3f9891a136"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a23a44b5f3ced9acc143d1b3f9891a136">GravityMessages</a> (const <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html">GravityMessages</a> &amp;)</td></tr>
-<tr class="separator:a23a44b5f3ced9acc143d1b3f9891a136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc80751de5bf054576cc29381cb58c09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html">GravityMessages</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#adc80751de5bf054576cc29381cb58c09">operator=</a> (const <a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html">GravityMessages</a> &amp;)</td></tr>
-<tr class="separator:adc80751de5bf054576cc29381cb58c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52a31edb78f0b794f84581c7a6751401"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a52a31edb78f0b794f84581c7a6751401">duplicate_entry</a> = &quot;environment/gravity/&quot; &quot;duplicate_entry&quot;</td></tr>
+<tr class="memdesc:a52a31edb78f0b794f84581c7a6751401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a duplicate entry is detected.  <a href="#a52a31edb78f0b794f84581c7a6751401">More...</a><br /></td></tr>
+<tr class="separator:a52a31edb78f0b794f84581c7a6751401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f70e7bfa7d0c4376d2507a6da42c324"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a0f70e7bfa7d0c4376d2507a6da42c324">missing_entry</a> = &quot;environment/gravity/&quot; &quot;missing_entry&quot;</td></tr>
+<tr class="memdesc:a0f70e7bfa7d0c4376d2507a6da42c324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a missing entry is detected.  <a href="#a0f70e7bfa7d0c4376d2507a6da42c324">More...</a><br /></td></tr>
+<tr class="separator:a0f70e7bfa7d0c4376d2507a6da42c324"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4acc7c743dea73eaaa8b1e6baac2fd72"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a4acc7c743dea73eaaa8b1e6baac2fd72">invalid_name</a> = &quot;environment/gravity/&quot; &quot;invalid_name&quot;</td></tr>
+<tr class="memdesc:a4acc7c743dea73eaaa8b1e6baac2fd72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a name is invalid (null or empty).  <a href="#a4acc7c743dea73eaaa8b1e6baac2fd72">More...</a><br /></td></tr>
+<tr class="separator:a4acc7c743dea73eaaa8b1e6baac2fd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0887935ffca135d5d5d2cb69c1834798"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a0887935ffca135d5d5d2cb69c1834798">invalid_object</a> = &quot;environment/gravity/&quot; &quot;invalid_object&quot;</td></tr>
+<tr class="memdesc:a0887935ffca135d5d5d2cb69c1834798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when an object is invalid (wrong type).  <a href="#a0887935ffca135d5d5d2cb69c1834798">More...</a><br /></td></tr>
+<tr class="separator:a0887935ffca135d5d5d2cb69c1834798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0197e1928ea98d6ebbad83c621a9183e"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a0197e1928ea98d6ebbad83c621a9183e">invalid_limit</a> = &quot;environment/gravity/&quot; &quot;invalid_limit&quot;</td></tr>
+<tr class="memdesc:a0197e1928ea98d6ebbad83c621a9183e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a limit is out of range.  <a href="#a0197e1928ea98d6ebbad83c621a9183e">More...</a><br /></td></tr>
+<tr class="separator:a0197e1928ea98d6ebbad83c621a9183e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a7698f944e2543c6d80593473e081e4"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a1a7698f944e2543c6d80593473e081e4">domain_error</a> = &quot;environment/gravity/&quot; &quot;domain_error&quot;</td></tr>
+<tr class="memdesc:a1a7698f944e2543c6d80593473e081e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issued when a value is outside the known-to-be-valid range, e.g., a radial distance less than the planet's equatorial radius.  <a href="#a1a7698f944e2543c6d80593473e081e4">More...</a><br /></td></tr>
+<tr class="separator:a1a7698f944e2543c6d80593473e081e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bd0fb555a9463c10bfe1ab3636e8cbd"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/classjeod_1_1GravityMessages.html#a0bd0fb555a9463c10bfe1ab3636e8cbd">null_pointer</a> = &quot;environment/gravity/&quot; &quot;null_pointer&quot;</td></tr>
+<tr class="memdesc:a0bd0fb555a9463c10bfe1ab3636e8cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error issued when a pointer is invalid (null or empty).  <a href="#a0bd0fb555a9463c10bfe1ab3636e8cbd">More...</a><br /></td></tr>
+<tr class="separator:a0bd0fb555a9463c10bfe1ab3636e8cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -101,10 +101,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Specifies the message IDs used in the gravity model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00084">84</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00082">82</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab2fed7aa051b7ccb0c6291e46ca9c8fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2fed7aa051b7ccb0c6291e46ca9c8fb">&#9670;&nbsp;</a></span>GravityMessages() <span class="overload">[1/2]</span></h2>
+<a id="a5536f270936715adea29d6d842802f7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5536f270936715adea29d6d842802f7d">&#9670;&nbsp;</a></span>GravityMessages() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -115,22 +115,21 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">jeod::GravityMessages::GravityMessages </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a23a44b5f3ced9acc143d1b3f9891a136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23a44b5f3ced9acc143d1b3f9891a136">&#9670;&nbsp;</a></span>GravityMessages() <span class="overload">[2/2]</span></h2>
+<a id="ac8da66f2ed972ec6a1847b72faa9edd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8da66f2ed972ec6a1847b72faa9edd9">&#9670;&nbsp;</a></span>GravityMessages() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +147,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -156,8 +155,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="adc80751de5bf054576cc29381cb58c09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc80751de5bf054576cc29381cb58c09">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a2118a22cfb86e866df5702f9bacadad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2118a22cfb86e866df5702f9bacadad1">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +174,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -228,13 +227,13 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00087">87</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00084">84</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a id="a9618a20f7c02e3ebdf4ea12c7d69b34a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9618a20f7c02e3ebdf4ea12c7d69b34a">&#9670;&nbsp;</a></span>domain_error</h2>
+<a id="a1a7698f944e2543c6d80593473e081e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a7698f944e2543c6d80593473e081e4">&#9670;&nbsp;</a></span>domain_error</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +242,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::GravityMessages::domain_error = &quot;environment/gravity/&quot; &quot;domain_error&quot;</td>
+          <td class="memname">const char * jeod::GravityMessages::domain_error = &quot;environment/gravity/&quot; &quot;domain_error&quot;</td>
         </tr>
       </table>
   </td>
@@ -256,14 +255,14 @@ Friends</h2></td></tr>
 <p>Issued when a value is outside the known-to-be-valid range, e.g., a radial distance less than the planet's equatorial radius. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00122">122</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00115">115</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#ad2e4ebc00e57e0e6b05a33df013f3dca">jeod::SphericalHarmonicsGravityControls::calc_nonspherical()</a>.</p>
 
 </div>
 </div>
-<a id="a581240cfca3c2d32fe497ca554c78946"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a581240cfca3c2d32fe497ca554c78946">&#9670;&nbsp;</a></span>duplicate_entry</h2>
+<a id="a52a31edb78f0b794f84581c7a6751401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52a31edb78f0b794f84581c7a6751401">&#9670;&nbsp;</a></span>duplicate_entry</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,7 +271,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::GravityMessages::duplicate_entry = &quot;environment/gravity/&quot; &quot;duplicate_entry&quot;</td>
+          <td class="memname">const char * jeod::GravityMessages::duplicate_entry = &quot;environment/gravity/&quot; &quot;duplicate_entry&quot;</td>
         </tr>
       </table>
   </td>
@@ -285,14 +284,14 @@ Friends</h2></td></tr>
 <p>Issued when a duplicate entry is detected. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00096">96</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00089">89</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a5ec955bba8bd78a6039df483b8a7f21c">jeod::GravityInteraction::add_control()</a>, <a class="el" href="../../d9/d26/classjeod_1_1SphericalHarmonicsGravitySource.html#afb346767a03aa9a9330c355c4b82b693">jeod::SphericalHarmonicsGravitySource::add_deltacoeff()</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a8f798f4f80d6bd4514a155af5f654852">jeod::GravityManager::add_grav_source()</a>.</p>
 
 </div>
 </div>
-<a id="a489df8ddea6ecfdeffd24b4f1faa43e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a489df8ddea6ecfdeffd24b4f1faa43e7">&#9670;&nbsp;</a></span>invalid_limit</h2>
+<a id="a0197e1928ea98d6ebbad83c621a9183e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0197e1928ea98d6ebbad83c621a9183e">&#9670;&nbsp;</a></span>invalid_limit</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,7 +300,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::GravityMessages::invalid_limit = &quot;environment/gravity/&quot; &quot;invalid_limit&quot;</td>
+          <td class="memname">const char * jeod::GravityMessages::invalid_limit = &quot;environment/gravity/&quot; &quot;invalid_limit&quot;</td>
         </tr>
       </table>
   </td>
@@ -314,14 +313,14 @@ Friends</h2></td></tr>
 <p>Issued when a limit is out of range. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00116">116</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00109">109</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#a237d0efb0d8abb908936832fef9c2913">jeod::SphericalHarmonicsGravityControls::check_validity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#a228fda6e9dd158b04f5d5331d72983d2">jeod::SphericalHarmonicsGravityControls::check_validity()</a>.</p>
 
 </div>
 </div>
-<a id="a89d40c734a3fdc9f0cd7dd9aea217df2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89d40c734a3fdc9f0cd7dd9aea217df2">&#9670;&nbsp;</a></span>invalid_name</h2>
+<a id="a4acc7c743dea73eaaa8b1e6baac2fd72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4acc7c743dea73eaaa8b1e6baac2fd72">&#9670;&nbsp;</a></span>invalid_name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -330,7 +329,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::GravityMessages::invalid_name = &quot;environment/gravity/&quot; &quot;invalid_name&quot;</td>
+          <td class="memname">const char * jeod::GravityMessages::invalid_name = &quot;environment/gravity/&quot; &quot;invalid_name&quot;</td>
         </tr>
       </table>
   </td>
@@ -343,14 +342,14 @@ Friends</h2></td></tr>
 <p>Error issued when a name is invalid (null or empty). </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00106">106</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00099">99</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#a8f798f4f80d6bd4514a155af5f654852">jeod::GravityManager::add_grav_source()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#aafcd6c07ce28c54801821439ab4460e5">jeod::GravityManager::find_grav_source()</a>, and <a class="el" href="../../d7/d5f/classjeod_1_1SphericalHarmonicsTidalEffects.html#a8a829222dd6d0c0783912523a6c8c7a7">jeod::SphericalHarmonicsTidalEffects::initialize()</a>.</p>
 
 </div>
 </div>
-<a id="ae4a9473505ee4d34200c1ac3b926d123"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4a9473505ee4d34200c1ac3b926d123">&#9670;&nbsp;</a></span>invalid_object</h2>
+<a id="a0887935ffca135d5d5d2cb69c1834798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0887935ffca135d5d5d2cb69c1834798">&#9670;&nbsp;</a></span>invalid_object</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,7 +358,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::GravityMessages::invalid_object = &quot;environment/gravity/&quot; &quot;invalid_object&quot;</td>
+          <td class="memname">const char * jeod::GravityMessages::invalid_object = &quot;environment/gravity/&quot; &quot;invalid_object&quot;</td>
         </tr>
       </table>
   </td>
@@ -372,14 +371,14 @@ Friends</h2></td></tr>
 <p>Error issued when an object is invalid (wrong type). </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00111">111</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00104">104</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#a237d0efb0d8abb908936832fef9c2913">jeod::SphericalHarmonicsGravityControls::check_validity()</a>, <a class="el" href="../../d7/d5f/classjeod_1_1SphericalHarmonicsTidalEffects.html#a8a829222dd6d0c0783912523a6c8c7a7">jeod::SphericalHarmonicsTidalEffects::initialize()</a>, and <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#ad0a52dd87d14e981c23eab5b4c050430">jeod::GravityControls::initialize_control()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#a228fda6e9dd158b04f5d5331d72983d2">jeod::SphericalHarmonicsGravityControls::check_validity()</a>, <a class="el" href="../../d7/d5f/classjeod_1_1SphericalHarmonicsTidalEffects.html#a8a829222dd6d0c0783912523a6c8c7a7">jeod::SphericalHarmonicsTidalEffects::initialize()</a>, and <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#ad0a52dd87d14e981c23eab5b4c050430">jeod::GravityControls::initialize_control()</a>.</p>
 
 </div>
 </div>
-<a id="ac7805a321eb2196b9f3376b10489dea6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7805a321eb2196b9f3376b10489dea6">&#9670;&nbsp;</a></span>missing_entry</h2>
+<a id="a0f70e7bfa7d0c4376d2507a6da42c324"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f70e7bfa7d0c4376d2507a6da42c324">&#9670;&nbsp;</a></span>missing_entry</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,7 +387,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::GravityMessages::missing_entry = &quot;environment/gravity/&quot; &quot;missing_entry&quot;</td>
+          <td class="memname">const char * jeod::GravityMessages::missing_entry = &quot;environment/gravity/&quot; &quot;missing_entry&quot;</td>
         </tr>
       </table>
   </td>
@@ -401,14 +400,14 @@ Friends</h2></td></tr>
 <p>Issued when a missing entry is detected. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00101">101</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00094">94</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#ad0a52dd87d14e981c23eab5b4c050430">jeod::GravityControls::initialize_control()</a>, and <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a1393ae1d0b679cc276f7b31ce30622a6">jeod::GravityInteraction::remove_control()</a>.</p>
 
 </div>
 </div>
-<a id="a4e4ae285b1eb1315421fe00c266fc8b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e4ae285b1eb1315421fe00c266fc8b9">&#9670;&nbsp;</a></span>null_pointer</h2>
+<a id="a0bd0fb555a9463c10bfe1ab3636e8cbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd0fb555a9463c10bfe1ab3636e8cbd">&#9670;&nbsp;</a></span>null_pointer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +416,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char const  * jeod::GravityMessages::null_pointer = &quot;environment/gravity/&quot; &quot;null_pointer&quot;</td>
+          <td class="memname">const char * jeod::GravityMessages::null_pointer = &quot;environment/gravity/&quot; &quot;null_pointer&quot;</td>
         </tr>
       </table>
   </td>
@@ -430,7 +429,7 @@ Friends</h2></td></tr>
 <p>Error issued when a pointer is invalid (null or empty). </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00127">127</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html#l00120">120</a> of file <a class="el" href="../../db/d3c/gravity__messages_8hh_source.html">gravity_messages.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a0b22b897e38614c2ddcd0db349f41d2c">jeod::GravityControls::reset_control()</a>.</p>
 

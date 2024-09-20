@@ -19,10 +19,9 @@ Purpose:
 Library dependencies:
   ((math_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -32,19 +31,17 @@ Library dependencies:
 // Model includes
 #include "../include/math_messages.hh"
 
-
-#define MAKE_MATH_MESSAGE_CODE(id) \
-   JEOD_MAKE_MESSAGE_CODE(MathMessages, "utils/math/", id)
-
+#define MAKE_MATH_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MathMessages, "utils/math/", id)
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Define MathMessages static member data
 
-MAKE_MATH_MESSAGE_CODE (ill_conditioned);
+MAKE_MATH_MESSAGE_CODE(ill_conditioned);
 
-} // End JEOD namespace
+} // namespace jeod
 
 #undef MAKE_MATH_MESSAGE_CODE
 

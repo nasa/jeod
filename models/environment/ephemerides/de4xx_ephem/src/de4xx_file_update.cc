@@ -27,25 +27,24 @@ Library dependency:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
-#include <limits>
 #include <cstdint>
 #include <dlfcn.h>
+#include <limits>
 #include <sstream>
 
 // JEOD includes
 #include "environment/ephemerides/ephem_interface/include/ephem_messages.hh"
-#include "utils/message/include/message_handler.hh"
 #include "utils/math/include/numerical.hh"
+#include "utils/message/include/message_handler.hh"
 
 // Model includes
 #include "../include/de4xx_file.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Calcuate the position and velocity states of selected planetary bodies at
@@ -111,79 +110,78 @@ namespace jeod {
  *    to the center of the Earth.
  * \param[in] time Time since reference\n Units: s
  */
-void
-De4xxFile::update (
-   double time)
+void De4xxFile::update(double time)
 {
-   int nactive;
+    int nactive;
 
-   double fblk;
-   uint32_t recno;
-
+    double fblk;
+    uint32_t recno;
 
     /* Count the number of active bodies. */
-   nactive = 0;
-   for (uint32_t ii = 0; ii < io.metaData->number_file_items; ii++)
-   {
-      De4xxFileItem * item_ii = &(item[ii]);
+    nactive = 0;
+    for(uint32_t ii = 0; ii < io.metaData->number_file_items; ii++)
+    {
+        De4xxFileItem * item_ii = &(item[ii]);
 
-       /* Check for availability and count active bodies. */
-      if (item_ii->active) {
-         if (! item_ii->avail) {
-            MessageHandler::fail (
-               __FILE__, __LINE__, EphemeridesMessages::item_not_in_file,
-               "Body %d ephemeris not available", ii);
+        /* Check for availability and count active bodies. */
+        if(item_ii->active)
+        {
+            if(!item_ii->avail)
+            {
+                MessageHandler::fail(__FILE__,
+                                     __LINE__,
+                                     EphemeridesMessages::item_not_in_file,
+                                     "Body %d ephemeris not available",
+                                     ii);
 
-            // Not reached
-            return;
-         }
-         nactive++;
-      }
-   }
+                // Not reached
+                return;
+            }
+            nactive++;
+        }
+    }
 
     /* Nothing to do if no bodies are active. */
-   if (nactive == 0) {
-      return;
-   }
+    if(nactive == 0)
+    {
+        return;
+    }
 
     /* Ensure the ephemerides database is open. */
-   if (io.file == nullptr) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, EphemeridesMessages::internal_error,
-         "Ephemeris file is not open");
+    if(io.file == nullptr)
+    {
+        MessageHandler::fail(__FILE__, __LINE__, EphemeridesMessages::internal_error, "Ephemeris file is not open");
 
-         // Not reached
-         return;
-   }
-
+        // Not reached
+        return;
+    }
 
     /* Compute the integral and fractional record numbers. */
-   fblk  = ref_time.block_no +
-           (time - ref_time.init_time) / (86400.0 * io.metaData->delta_epoch);
-   recno = static_cast<uint32_t> (fblk);
-   fblk -= static_cast<double> (recno);
-
+    fblk = ref_time.block_no + (time - ref_time.init_time) / (86400.0 * io.metaData->delta_epoch);
+    recno = static_cast<uint32_t>(fblk);
+    fblk -= static_cast<double>(recno);
 
     /* Record the update time. */
-   update_time = time;
-
+    update_time = time;
 
     /* Read and parse the record if needed. */
 
-   if(recno != io.recno) {
-       uint32_t starting_segment_record = io.segment_recno;
-       uint32_t update_segment_idx = std::numeric_limits<int>::max();
-       if (recno > io.recno) {
-            if (recno >= (io.total_num_recs - io.segmentData[io.metaData->number_segments - 1].num_recs))
+    if(recno != io.recno)
+    {
+        uint32_t starting_segment_record = io.segment_recno;
+        uint32_t update_segment_idx = std::numeric_limits<int>::max();
+        if(recno > io.recno)
+        {
+            if(recno >= (io.total_num_recs - io.segmentData[io.metaData->number_segments - 1].num_recs))
             {
                 update_segment_idx = io.metaData->number_segments - 1;
                 starting_segment_record = io.total_num_recs - io.segmentData[io.metaData->number_segments - 1].num_recs;
             }
             else
             {
-                for (uint32_t ii = io.segment_index; ii < io.metaData->number_segments; ++ii)
+                for(uint32_t ii = io.segment_index; ii < io.metaData->number_segments; ++ii)
                 {
-                    if (recno >= (starting_segment_record + (io.segmentData[ii].num_recs)))
+                    if(recno >= (starting_segment_record + (io.segmentData[ii].num_recs)))
                     {
                         starting_segment_record += (io.segmentData[ii].num_recs);
                     }
@@ -194,14 +192,14 @@ De4xxFile::update (
                     }
                 }
             }
-       }
-       else
-       {
-            if (recno >= (io.segmentData[0].num_recs))
+        }
+        else
+        {
+            if(recno >= (io.segmentData[0].num_recs))
             {
-                for (uint32_t ii = io.segment_index; ii > 0; --ii)
+                for(uint32_t ii = io.segment_index; ii > 0; --ii)
                 {
-                    if (recno < starting_segment_record)
+                    if(recno < starting_segment_record)
                     {
                         starting_segment_record -= (io.segmentData[ii - 1].num_recs);
                     }
@@ -217,39 +215,44 @@ De4xxFile::update (
                 update_segment_idx = 0;
                 starting_segment_record = 0;
             }
-       }
-       if(update_segment_idx != io.segment_index) {
-           io.segment_index = update_segment_idx;
-           io.segment_recno = starting_segment_record;
-           std::stringstream segment_var_name("segment_coeffs_");
-           segment_var_name << "segment_coeffs_" << io.segment_index;
+        }
+        if(update_segment_idx != io.segment_index)
+        {
+            io.segment_index = update_segment_idx;
+            io.segment_recno = starting_segment_record;
+            std::stringstream segment_var_name("segment_coeffs_");
+            segment_var_name << "segment_coeffs_" << io.segment_index;
 
-           // Clear dlerror
-           dlerror();
+            // Clear dlerror
+            dlerror();
 
-           io.coeffs_segment_starting_addr  = (double *)dlsym(io.file, segment_var_name.str().c_str());
-           if (io.coeffs_segment_starting_addr == nullptr) {
-              char * dlError = dlerror();
-              MessageHandler::fail (
-                 __FILE__, __LINE__, EphemeridesMessages::file_error,
-                 "Error obtaining ephemeris file symbol '%s' from '%s' for input: %s",
-                 segment_var_name.str().c_str(), file_spec.pathname.c_str(), dlError);
+            io.coeffs_segment_starting_addr = (double *)dlsym(io.file, segment_var_name.str().c_str());
+            if(io.coeffs_segment_starting_addr == nullptr)
+            {
+                char * dlError = dlerror();
+                MessageHandler::fail(__FILE__,
+                                     __LINE__,
+                                     EphemeridesMessages::file_error,
+                                     "Error obtaining ephemeris file symbol '%s' from '%s' for input: %s",
+                                     segment_var_name.str().c_str(),
+                                     file_spec.pathname.c_str(),
+                                     dlError);
 
-              // Not reached
-              return;
-           }
-       }
-       io.current_record_starting_addr = &(io.coeffs_segment_starting_addr[(recno - io.segment_recno)*io.metaData->ncoeff]);
-       io.recno = recno;
-       coef.coef = &(io.coeffs_segment_starting_addr[(recno - io.segment_recno)*io.metaData->ncoeff]);
-   }
+                // Not reached
+                return;
+            }
+        }
+        io.current_record_starting_addr = &(
+            io.coeffs_segment_starting_addr[(recno - io.segment_recno) * io.metaData->ncoeff]);
+        io.recno = recno;
+        coef.coef = &(io.coeffs_segment_starting_addr[(recno - io.segment_recno) * io.metaData->ncoeff]);
+    }
 
-//   capture_mem_stats();
+    //   capture_mem_stats();
 
     /* Interpolate position and velocity. */
-   interpolate (time, fblk);
+    interpolate(time, fblk);
 }
-
 
 /**
  * Calcuate the position and velocity states of selected planetary bodies at
@@ -275,12 +278,12 @@ void De4xxFile::interpolate(double time, double fblk)
     int kk;
 
     /* Interpolate position and velocity. */
-    for (ii = 0; ii < io.metaData->number_file_items; ii++)
+    for(ii = 0; ii < io.metaData->number_file_items; ii++)
     {
-        De4xxFileItem *item_ii = &(item[ii]);
-        if (item_ii->active)
+        De4xxFileItem * item_ii = &(item[ii]);
+        if(item_ii->active)
         {
-            EphemerisDataItemMeta &itemData = io.itemData[item_ii->item_idx];
+            EphemerisDataItemMeta & itemData = io.itemData[item_ii->item_idx];
 
             /* Get body-specific polynomial descriptors. */
             pscale = item_ii->pscale;
@@ -303,7 +306,7 @@ void De4xxFile::interpolate(double time, double fblk)
              *   dT[1]/dx = 1
              *   dT[k]/dx = 2 T[k-1] + 2 x dT[k-1]/dx - dT[k-2]/dx */
             chebyx = fsub + fsub - 1.0;
-            if ((coef.chebyterms < nterms) || (!Numerical::compare_exact(coef.chebyx, chebyx)))
+            if((coef.chebyterms < nterms) || (!Numerical::compare_exact(coef.chebyx, chebyx)))
             {
                 coef.chebyterms = nterms;
                 coef.chebyx = chebyx;
@@ -312,11 +315,11 @@ void De4xxFile::interpolate(double time, double fblk)
                 coef.chebypoly[1] = chebyx;
                 coef.chebyderiv[0] = 0.0;
                 coef.chebyderiv[1] = 1.0;
-                for (jj = 2; jj < nterms; jj++)
+                for(jj = 2; jj < nterms; jj++)
                 {
                     coef.chebypoly[jj] = twox * coef.chebypoly[jj - 1] - coef.chebypoly[jj - 2];
-                    coef.chebyderiv[jj] = coef.chebypoly[jj - 1] + coef.chebypoly[jj - 1]
-                            + twox * coef.chebyderiv[jj - 1] - coef.chebyderiv[jj - 2];
+                    coef.chebyderiv[jj] = coef.chebypoly[jj - 1] + coef.chebypoly[jj - 1] +
+                                          twox * coef.chebyderiv[jj - 1] - coef.chebyderiv[jj - 2];
                 }
             }
 
@@ -338,12 +341,12 @@ void De4xxFile::interpolate(double time, double fblk)
             item_offset = itemData.offset - 1 + nitems * nterms * subint;
 
             /* Interpolate to get position, velocity for each component. */
-            for (jj = 0; jj < nitems; jj++)
+            for(jj = 0; jj < nitems; jj++)
             {
                 std::size_t coefs_starting_idx = item_offset + jj * nterms;
                 item_ii->state[0][jj] = 0.0;
                 item_ii->state[1][jj] = 0.0;
-                for (kk = nterms - 1; kk >= 0; kk--)
+                for(kk = nterms - 1; kk >= 0; kk--)
                 {
                     item_ii->state[0][jj] += coef.chebypoly[kk] * coef.coef[coefs_starting_idx + kk];
                     item_ii->state[1][jj] += coef.chebyderiv[kk] * coef.coef[coefs_starting_idx + kk];
@@ -361,7 +364,7 @@ void De4xxFile::interpolate(double time, double fblk)
     }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -37,21 +37,20 @@
 //=============================================================================
 // Illustrates the addition of new clocks.  This sim is largely redundant
 // because most applications will use one of the pre-packaged time modules.
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-
-// Include the default trick object
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
 // Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
-
 
 // Time Object.  No time S_module available.
 ##include "environment/time/include/time_manager.hh"
@@ -65,67 +64,66 @@
 
 ##include "environment/time/data/include/tai_to_utc.hh"
 
-class JeodTimeSimObject : public Trick::SimObject {
-  public:
-   jeod::TimeManager time_manager;
-   jeod::TimeManagerInit time_manager_init;
+class JeodTimeSimObject : public Trick::SimObject
+{
+public:
+    jeod::TimeManager time_manager;
+    jeod::TimeManagerInit time_manager_init;
 
-   // Time Scales
-   jeod::TimeTAI time_tai;
-   jeod::TimeUTC time_utc;
+    // Time Scales
+    jeod::TimeTAI time_tai;
+    jeod::TimeUTC time_utc;
 
-   // Time Converters
-   jeod::TimeConverter_Dyn_TAI  conv_dyn_tai;
-   jeod::TimeConverter_TAI_UTC  conv_tai_utc;
+    // Time Converters
+    jeod::TimeConverter_Dyn_TAI conv_dyn_tai;
+    jeod::TimeConverter_TAI_UTC conv_tai_utc;
 
-   // Instances for default data:
-   jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data    tai_utc_default_data;
+    // Instances for default data:
+    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data tai_utc_default_data;
 
-   JeodTimeSimObject( ){
+    JeodTimeSimObject()
+    {
+        //
+        // Default data jobs
+        //
 
-      //
-      // Default data jobs
-      //
+        ("default_data") tai_utc_default_data.initialize(&conv_tai_utc);
 
-      ("default_data") tai_utc_default_data.initialize( &conv_tai_utc );
+        //
+        // Initialization jobs
+        //
 
-      //
-      // Initialization jobs
-      //
+        // TAI
+        P_TIME("initialization") time_manager.register_time(time_tai);
+        P_TIME("initialization") time_manager.register_converter(conv_dyn_tai);
 
-      // TAI
-      P_TIME ("initialization") time_manager.register_time(time_tai);
-      P_TIME ("initialization") time_manager.register_converter(conv_dyn_tai);
+        // UTC
+        P_TIME("initialization") time_manager.register_time(time_utc);
+        P_TIME("initialization") time_manager.register_converter(conv_tai_utc);
 
-      // UTC
-      P_TIME ("initialization") time_manager.register_time(time_utc );
-      P_TIME ("initialization") time_manager.register_converter(conv_tai_utc );
+        // Initialize the time manager.
+        P_TIME("initialization") time_manager.initialize(&time_manager_init);
 
-      // Initialize the time manager.
-      P_TIME ("initialization")  time_manager.initialize(&time_manager_init);
+        // Compute appropriate calendar dates at initialization.
+        P_TIME("initialization") time_utc.calendar_update(exec_get_sim_time());
 
-      // Compute appropriate calendar dates at initialization.
-      P_TIME ("initialization") time_utc.calendar_update(exec_get_sim_time() );
+        //
+        // Scheduled jobs
+        //
+        // Update Time Scales
+        (DYNAMICS, "environment") time_manager.update(exec_get_sim_time());
 
-      //
-      // Scheduled jobs
-      //
-      // Update Time Scales
-      (DYNAMICS, "environment") time_manager.update( exec_get_sim_time() );
+        // Update the calendar times of interest.
+        (DYNAMICS, "environment") time_utc.calendar_update(exec_get_sim_time());
+    }
 
-      // Update the calendar times of interest.
-      (DYNAMICS, "environment") time_utc.calendar_update( exec_get_sim_time() );
-   };
-
-  private:
-   // This object is not copyable
-   JeodTimeSimObject (const JeodTimeSimObject&);
-   JeodTimeSimObject & operator = (const JeodTimeSimObject&);
-
+private:
+    // This object is not copyable
+    JeodTimeSimObject(const JeodTimeSimObject &);
+    JeodTimeSimObject & operator=(const JeodTimeSimObject &);
 };
+
 JeodTimeSimObject jeod_time;
-
-
 
 // Include the most dynamics class and object suitable for integrating
 #include "dynamics.sm"
@@ -134,4 +132,4 @@ JeodTimeSimObject jeod_time;
 #include "vehicle_basic.sm"
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

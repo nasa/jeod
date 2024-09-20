@@ -50,19 +50,23 @@ The following simulation objects are defined in this sim:
 ==============================================================================*/
 
 // Define job calling intervals
-#define DYNAMICS        1.00  // Moon/orbital dynamics interval
+#define DYNAMICS 1.00 // Moon/orbital dynamics interval
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
-#include "dynamics.sm"
-#include "Base/vehicle_baseline.sm"
-VehicleBasicSimObject vehA( dynamics.dyn_manager);
-VehicleBasicSimObject vehB( dynamics.dyn_manager);
 
+#include "Base/vehicle_baseline.sm"
+#include "dynamics.sm"
+VehicleBasicSimObject vehA(dynamics.dyn_manager);
+VehicleBasicSimObject vehB(dynamics.dyn_manager);
 
 /***********************************************************************
 CLASS: (Rel_stateSimObject)
@@ -71,45 +75,38 @@ PURPOSE:
 ***********************************************************************/
 ##include "dynamics/derived_state/include/relative_derived_state.hh"
 
-class Rel_stateSimObject: public Trick::SimObject {
+class Rel_stateSimObject: public Trick::SimObject
+{
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & vehA_body;
+    jeod::DynBody & vehB_body;
 
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
-  jeod::DynBody & vehA_body;
-  jeod::DynBody & vehB_body;
+public:
+    jeod::RelativeDerivedState vehA_wrt_vehB_in_B;
+    jeod::RelativeDerivedState vehB_wrt_vehA_in_A;
+    jeod::RelativeDerivedState vehA_wrt_vehB_in_B_generalized;
 
- public:
-  jeod::RelativeDerivedState  vehA_wrt_vehB_in_B;
-  jeod::RelativeDerivedState  vehB_wrt_vehA_in_A;
-  jeod::RelativeDerivedState  vehA_wrt_vehB_in_B_generalized;
+    // Constructor
+    Rel_stateSimObject(jeod::DynManager & dyn_mngr_in, jeod::DynBody & vehA_body_in, jeod::DynBody & vehB_body_in)
+        : dyn_manager(dyn_mngr_in),
+          vehA_body(vehA_body_in),
+          vehB_body(vehB_body_in)
+    {
+        P_DYN("initialization") vehA_wrt_vehB_in_B.initialize(vehA_body, dyn_manager);
+        P_DYN("initialization") vehB_wrt_vehA_in_A.initialize(vehA_body, dyn_manager);
+        P_DYN("initialization") vehA_wrt_vehB_in_B_generalized.initialize(dyn_manager);
 
-  //Constructor
-  Rel_stateSimObject ( jeod::DynManager & dyn_mngr_in,
-                       jeod::DynBody & vehA_body_in,
-                       jeod::DynBody & vehB_body_in)
-    :
-    dyn_manager(dyn_mngr_in),
-    vehA_body(vehA_body_in),
-    vehB_body(vehB_body_in)
-  {
-    P_DYN  ("initialization") vehA_wrt_vehB_in_B.initialize ( vehA_body,
-                                                                      dyn_manager);
-    P_DYN  ("initialization") vehB_wrt_vehA_in_A.initialize ( vehA_body,
-                                                                      dyn_manager);
-    P_DYN  ("initialization") vehA_wrt_vehB_in_B_generalized.initialize ( dyn_manager);
+        (DYNAMICS, "environment") vehA_wrt_vehB_in_B.update();
+        (DYNAMICS, "environment") vehB_wrt_vehA_in_A.update();
+        (DYNAMICS, "environment") vehA_wrt_vehB_in_B_generalized.update();
+    }
 
-    (DYNAMICS, "environment") vehA_wrt_vehB_in_B.update ( );
-    (DYNAMICS, "environment") vehB_wrt_vehA_in_A.update ( );
-    (DYNAMICS, "environment") vehA_wrt_vehB_in_B_generalized.update ( );
-  }
-
- private:
-  Rel_stateSimObject (const Rel_stateSimObject&);
-  Rel_stateSimObject & operator = (const Rel_stateSimObject&);
+    Rel_stateSimObject(const Rel_stateSimObject &) = delete;
+    Rel_stateSimObject & operator=(const Rel_stateSimObject &) = delete;
 };
-Rel_stateSimObject rel_state (dynamics.dyn_manager,
-                              vehA.dyn_body,
-                              vehB.dyn_body);
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics;
+Rel_stateSimObject rel_state(dynamics.dyn_manager, vehA.dyn_body, vehB.dyn_body);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

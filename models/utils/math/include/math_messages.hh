@@ -54,58 +54,38 @@ Purpose:
 Library dependencies:
   ((../src/math_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MATH_MESSAGES_HH
 #define JEOD_MATH_MESSAGES_HH
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the math model.
  */
-class MathMessages {
+class MathMessages
+{
+    // Static member data
+public:
+    /**
+     * Error issued when an ill-conditioned matrix is detected.
+     */
+    static const char * ill_conditioned; //!< trick_units(--)
 
- // Static member data
- public:
-
-   /**
-    * Error issued when an ill-conditioned matrix is detected.
-    */
-   static char const * ill_conditioned; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   /**
-    * Not implemented.
-    */
-   MathMessages (void);
-
-   /**
-    * Not implemented.
-    */
-   MathMessages (const MathMessages &);
-
-   /**
-    * Not implemented.
-    */
-   MathMessages & operator= (const MathMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted
+    MathMessages() = delete;
+    MathMessages(const MathMessages &) = delete;
+    MathMessages & operator=(const MathMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -14,4 +14,6 @@ veh_state(veh)
 
 veh.pfix.reference_name = "Earth"
 
+earth.rnp.enable_polar = False 
+
 trick.stop(86400)

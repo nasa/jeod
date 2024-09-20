@@ -14,11 +14,12 @@ Assumptions and Limitations:
 
 *******************************************************************************/
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 class SphericalHarmonicsSolidBodyTidesInit;
-}
+} // namespace jeod
+
 #define JEOD_FRIEND_CLASS SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data
 
 // JEOD includes
@@ -31,24 +32,16 @@ class SphericalHarmonicsSolidBodyTidesInit;
 // Unsupported includes
 #include "../include/earth_solid_tides.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data::initialize (
-   SphericalHarmonicsSolidBodyTidesInit * SphericalHarmonicsSolidBodyTidesInit_ptr)
+namespace jeod
 {
-   SphericalHarmonicsSolidBodyTidesInit_ptr->k2 = 0.29525;
-   // IERS elastic earth Love number
-   SphericalHarmonicsSolidBodyTidesInit_ptr->num_tidal_bodies = 2;
-   SphericalHarmonicsSolidBodyTidesInit_ptr->tidal_body_names =
-      JEOD_ALLOC_PRIM_ARRAY (2, char*);
 
-   SphericalHarmonicsSolidBodyTidesInit_ptr->tidal_body_names[0+0] =
-      NamedItem::construct_name ("Sun");
-   SphericalHarmonicsSolidBodyTidesInit_ptr->tidal_body_names[0+1] =
-      NamedItem::construct_name ("Moon");
+void SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data::initialize(
+    SphericalHarmonicsSolidBodyTidesInit * SphericalHarmonicsSolidBodyTidesInit_ptr)
+{
+    SphericalHarmonicsSolidBodyTidesInit_ptr->k2 = 0.29525;
+    // IERS elastic earth Love number
+    SphericalHarmonicsSolidBodyTidesInit_ptr->tidal_body_names.push_back("Sun");
+    SphericalHarmonicsSolidBodyTidesInit_ptr->tidal_body_names.push_back("Moon");
 }
-} // End JEOD namespace
+} // namespace jeod

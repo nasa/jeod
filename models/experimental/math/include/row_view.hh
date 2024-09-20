@@ -51,20 +51,18 @@ Purpose: ()
 SWIG: (No)
 */
 
-
 #ifndef JEOD_ARRAY_ROW_VIEW_HH
 #define JEOD_ARRAY_ROW_VIEW_HH
 
-
 #include "forward_view.hh"
-#include "vector_view.hh"
 #include "solver_types.hh"
+#include "vector_view.hh"
 
 #include <stdexcept>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Represents a view into a row of an array.
@@ -77,11 +75,9 @@ namespace jeod {
  * @tparam ElemType The type of the elements held by the underlying object.
  *   This is assumed to be a primitive type.
  */
-template <class ArrayType, typename ElemType, typename RefType>
-class RowView : public VectorView<ElemType, RefType>
+template<class ArrayType, typename ElemType, typename RefType> class RowView : public VectorView<ElemType, RefType>
 {
 public:
-
     /**
      * Non-default constructor.
      * @note This can create a zero-sized view.
@@ -96,23 +92,17 @@ public:
      *   and must not be greater than the underlying vector's size.
      * @throw std::out_of_range if the range is invalid.
      */
-    RowView (
-        ArrayType& array_in,
-        unsigned row_in,
-        const SolverTypes::IndexPairT& col_range)
-    :
-        VectorView<ElemType>(col_range.second-col_range.first),
-        array(array_in),
-        the_row(row_in),
-        beg_col(col_range.first)
+    RowView(ArrayType & array_in, unsigned row_in, const SolverTypes::IndexPairT & col_range)
+        : VectorView<ElemType>(col_range.second - col_range.first),
+          array(array_in),
+          the_row(row_in),
+          beg_col(col_range.first)
     {
-        const auto& array_size = array.size();
-        if ((the_row          >= array_size.first) ||
-            (col_range.second <  col_range.first) ||
-            (col_range.second >  array_size.second))
+        const auto & array_size = array.size();
+        if((the_row >= array_size.first) || (col_range.second < col_range.first) ||
+           (col_range.second > array_size.second))
         {
-            throw std::out_of_range(
-                "Attempt to create an invalid row view into an array");
+            JEOD_THROW(std::out_of_range("Attempt to create an invalid row view into an array"));
         }
     }
 
@@ -122,17 +112,16 @@ public:
      * @return Reference to the indexed value of the view, which is the
      *   beg_elem+i_elem element of the underlying std::vector.
      */
-    RefType operator[] (unsigned i_elem) override
+    RefType operator[](unsigned i_elem) override
     {
-        return array(the_row,beg_col+i_elem);
+        return array(the_row, beg_col + i_elem);
     }
 
 protected:
-
     /**
      * The underlying array.
      */
-    ArrayType& array; //!< trick_units(--)
+    ArrayType & array; //!< trick_units(--)
 
     /**
      * The array row encapsulated by this view.
@@ -145,11 +134,9 @@ protected:
     const unsigned beg_col; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

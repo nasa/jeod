@@ -10,146 +10,146 @@
 
 \section{Detailed Design}\label{sec:detailed_design}
 \subsection{API}
-Follow this link for the 
+Follow this link for the
 \href{file:refman.pdf}{\em \ModelDesc\ API}~\cite{api:mass}.
 
 \subsection{Class Overview}
 
-The MassBody is the basic class for a Mass Body.  It comtains (this is not an 
+The MassBody is the basic class for a Mass Body.  It comtains (this is not an
 exhaustive list):
 \begin{itemize}
- \item \textit{core\_properties}, an instance of MassProperties, that 
+ \item \textit{core\_properties}, an instance of MassProperties, that
  describes the properties of the MassBody as a single entity.
  \begin{itemize}
-  \item A MassProperties class is a MassBasicPoint which also provides data 
+  \item A MassProperties class is a MassBasicPoint which also provides data
   elements for mass and the inertia tensor.
   \begin{itemize}
-   \item A MassBasicPoint is a MassPointState that provides the linkages 
-   within the mass tree (to its children, parent, etc.).  A mass tree 
-   comprises the collection of MassBasicPoint instances that are physically 
+   \item A MassBasicPoint is a MassPointState that provides the linkages
+   within the mass tree (to its children, parent, etc.).  A mass tree
+   comprises the collection of MassBasicPoint instances that are physically
    connected at some point.
    \begin{itemize}
-    \item A MassPointState provides data elements for the position of the 
-    point, and the orientation of the axes associated with the point, with 
+    \item A MassPointState provides data elements for the position of the
+    point, and the orientation of the axes associated with the point, with
     respect to some parent.
    \end{itemize}
-   \item A related item, a MassPoint, is simply a MassBasicPoint with a name, 
+   \item A related item, a MassPoint, is simply a MassBasicPoint with a name,
    allowing for it to be found easily.
   \end{itemize}
   \end{itemize}
- 
 
- \item \textit{composite\_properties}, another instance of MassProperties, 
+
+ \item \textit{composite\_properties}, another instance of MassProperties,
  that describes the properties of the subtree of which the body is the head.
  \item \textit{structure\_point}, an instance of MassBasicPoint (see above).
 \end{itemize}
 
-Note that since a MassProperties is a MassBasicPoint, it must have a parent 
-for evaluation of its position and orientation.  The parent of both instances 
-of Mass Properties (\textit{core\_properties} and 
-\textit{composite\_properties}) is the MassBasicPoint  
-\textit{structure\_point}; the position and orientation are stated relative to 
+Note that since a MassProperties is a MassBasicPoint, it must have a parent
+for evaluation of its position and orientation.  The parent of both instances
+of Mass Properties (\textit{core\_properties} and
+\textit{composite\_properties}) is the MassBasicPoint
+\textit{structure\_point}; the position and orientation are stated relative to
 the structural axes.
 
 
 \subsection{Attaching Bodies}\label{sec:attaching_bodies}
-Attaching two bodies together is typically performed with a Body Action.  A 
-rough outline of the algorithm is presented here, instructions for 
-implementation are contained in the Body Action document 
+Attaching two bodies together is typically performed with a Body Action.  A
+rough outline of the algorithm is presented here, instructions for
+implementation are contained in the Body Action document
 (\cite{dynenv:DYNBODY}).
 
-The following rules provide the restrictions on which bodies can be commanded 
+The following rules provide the restrictions on which bodies can be commanded
 attached to which bodies.
 \begin{itemize}
- \item A DynBody (extension of MassBody) can never be a child of a basic 
+ \item A DynBody can never be a child of a basic
  MassBody.
  \item There can be no circular attachments.
 \end{itemize}
-IMPORTANT NOTE: Only root bodies may actually attach to another body.  While 
-it may be legal to command the attachment of body A to body B (subject to the 
-rules above), the attachment in the mass tree will be represented as the root 
+IMPORTANT NOTE: Only root bodies may actually attach to another body.  While
+it may be legal to command the attachment of body A to body B (subject to the
+rules above), the attachment in the mass tree will be represented as the root
 of the tree containing body A attaching to body B.
 
 \subsubsection{Attaching using Points}
-The easiest implementation of attaching two bodies is to define an attach 
-point (a MassPoint) on each body, and make those points coincident, with their 
-z-axes aligned, and their x- and y-axes both anti-aligned.  Because each 
-MassPoint will have position and orientation defined with respect to its 
-respective body's structural axes, it is a striaghtforward undertaking to 
-obtain the orientation and position of the child body's structural axes with 
-respect to the parent body's structural axes.  Then, the general attachment 
-method can be implemented, and the parent will have as children its MassPoint 
-used for attachment and the child structure-point; the child will have as a 
+The easiest implementation of attaching two bodies is to define an attach
+point (a MassPoint) on each body, and make those points coincident, with their
+z-axes aligned, and their x- and y-axes both anti-aligned.  Because each
+MassPoint will have position and orientation defined with respect to its
+respective body's structural axes, it is a striaghtforward undertaking to
+obtain the orientation and position of the child body's structural axes with
+respect to the parent body's structural axes.  Then, the general attachment
+method can be implemented, and the parent will have as children its MassPoint
+used for attachment and the child structure-point; the child will have as a
 child its MassPoint used for attachment.
 
 \subsubsection{Attaching using Offset and Orientation}
-This more general form of the attach process requires knowledge of the 
-orientation and relative position of the child body's structural-axes with 
-respect to those of the parent body, which may be provided directly or from 
-the previous method.  
+This more general form of the attach process requires knowledge of the
+orientation and relative position of the child body's structural-axes with
+respect to those of the parent body, which may be provided directly or from
+the previous method.
 
-If the child body is not the root of its own tree, its root is first found, 
-then the relative position and orientation of that root body's structure-axes 
+If the child body is not the root of its own tree, its root is first found,
+then the relative position and orientation of that root body's structure-axes
 relative to the structure-axes of the parent body are determined.
 
-With the root state known, the attachment of the root of the child's tree (the 
+With the root state known, the attachment of the root of the child's tree (the
 child-root) to the parent can proceed in three steps:
 \begin{enumerate}
-\item{\bf Validate:} Is this a valid attachment which for the \ModelDesc, 
-means it follows a tree structure and avoids 
+\item{\bf Validate:} Is this a valid attachment which for the \ModelDesc,
+means it follows a tree structure and avoids
 invalid circular attachments.
-\item{\bf Establish Links:} The child-root MassBody is required to establish 
-the links to the parent MassBody that define their 
+\item{\bf Establish Links:} The child-root MassBody is required to establish
+the links to the parent MassBody that define their
 relationship in the mass tree.
-\item{\bf Update Properties:}  The parent MassBody updates its composite 
-properties to reflect the addition of the child-root MassBody.  
+\item{\bf Update Properties:}  The parent MassBody updates its composite
+properties to reflect the addition of the child-root MassBody.
 The composite properties of the child-root remain unchanged.
 \end{enumerate}
- 
-A few examples will help illustrate the concept of attachments and we will 
-start by supposing that we have three MassBodys called 
+
+A few examples will help illustrate the concept of attachments and we will
+start by supposing that we have three MassBodys called
 A, B, and C respectively.
 
-In the first example we decide to attach MassBody C to MassBody B thereby 
+In the first example we decide to attach MassBody C to MassBody B thereby
 making C a child of B.  Given that no other attachments exist in
-this example this is a valid attachment so we will pass step one(Validate).  
-In step two(Establish Links) the child will update the 
-links between the two MassBodys including MassPointLinks and MassBodyLinks.  
-In step three(Update Properties) the parent will 
-update its composite properties (mass, inertia, center of mass) to represent 
+this example this is a valid attachment so we will pass step one(Validate).
+In step two(Establish Links) the child will update the
+links between the two MassBodys including MassPointLinks and MassBodyLinks.
+In step three(Update Properties) the parent will
+update its composite properties (mass, inertia, center of mass) to represent
 the combined state.
 
-Building on the new mass tree created with the attachment of MassBody C to 
-MassBody B, we will now attach MassBody B to MassBody A. 
-MassBody B will then become a child of MassBody A, and MassBody C will remain 
-a child of MassBody B.  In this attachment process, the validity is checked -- 
-since A is not already attached to B or C this is approved.  MassBody B now 
-performs the Establish Links step configuring all MassPointLinks and 
-MassBodyLinks with MassBody A.  Then MassBody A uses the composite properties 
-of MassBody B to perform the Update Properties step.  It should be noted that 
+Building on the new mass tree created with the attachment of MassBody C to
+MassBody B, we will now attach MassBody B to MassBody A.
+MassBody B will then become a child of MassBody A, and MassBody C will remain
+a child of MassBody B.  In this attachment process, the validity is checked --
+since A is not already attached to B or C this is approved.  MassBody B now
+performs the Establish Links step configuring all MassPointLinks and
+MassBodyLinks with MassBody A.  Then MassBody A uses the composite properties
+of MassBody B to perform the Update Properties step.  It should be noted that
 the
 composite properties of MassBody B already include the properties of
-MassBody C so, following the update, the composite properties of A represent 
+MassBody C so, following the update, the composite properties of A represent
 the entire tree.
-Even though the properties of A do contain information for the entire tree, 
+Even though the properties of A do contain information for the entire tree,
 MassBody A has no knowledge that
 MassBody C exists.  MassBody A only knows about MassBody B.
 
-Consider another situation: return to the situation where only MassBody B and 
-MassBody C are attached and C is a child of B.  
-Suppose we then want to attach MassBody C to MassBody A.  The \ModelDesc\ 
-recognizes that MassBody C is not a root body, so instead attaches MassBody B 
-to MassBody A.  The offset and rotation of B with respect to A are set such 
+Consider another situation: return to the situation where only MassBody B and
+MassBody C are attached and C is a child of B.
+Suppose we then want to attach MassBody C to MassBody A.  The \ModelDesc\
+recognizes that MassBody C is not a root body, so instead attaches MassBody B
+to MassBody A.  The offset and rotation of B with respect to A are set such
 that the offset and rotation of C with respect to A are as requested.  Again,
-the composite mass properties of A will include those of C through the 
+the composite mass properties of A will include those of C through the
 composite properties of B.
 
 In both situations, the mass tree looks identical.
 
 \subsection{Detach Overview}
-In the detach scenario, the links between the body to be detached and its 
-parent are severed, and the composite properties of the parent are updated to 
-reflect that one of its children has been removed.  The composite properties 
+In the detach scenario, the links between the body to be detached and its
+parent are severed, and the composite properties of the parent are updated to
+reflect that one of its children has been removed.  The composite properties
 of the child body are unchanged.
 \clearpage
 \boilerplateinventory

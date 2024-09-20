@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,7 +48,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::ContactPair Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -64,9 +63,9 @@ Inheritance diagram for jeod::ContactPair:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d0f/classjeod_1_1ContactPair__inherit__graph.png" border="0" usemap="#jeod_1_1ContactPair_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1ContactPair_inherit__map" id="jeod_1_1ContactPair_inherit__map">
-<area shape="rect" id="node2" href="../../df/ddc/classjeod_1_1LineContactPair.html" title="An point to point contact pair for use in the contact model. " alt="" coords="5,80,152,107"/>
-<area shape="rect" id="node3" href="../../d0/da7/classjeod_1_1LinePointContactPair.html" title="An point to point contact pair for use in the contact model. " alt="" coords="177,80,354,107"/>
-<area shape="rect" id="node4" href="../../d0/d41/classjeod_1_1PointContactPair.html" title="An point to point contact pair for use in the contact model. " alt="" coords="378,80,531,107"/>
+<area shape="rect" id="node2" href="../../df/ddc/classjeod_1_1LineContactPair.html" title="An point to point contact pair for use in the contact model. " alt="" coords="5,80,164,107"/>
+<area shape="rect" id="node3" href="../../d0/da7/classjeod_1_1LinePointContactPair.html" title="An point to point contact pair for use in the contact model. " alt="" coords="189,80,381,107"/>
+<area shape="rect" id="node4" href="../../d0/d41/classjeod_1_1PointContactPair.html" title="An point to point contact pair for use in the contact model. " alt="" coords="405,80,570,107"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -74,52 +73,52 @@ Collaboration diagram for jeod::ContactPair:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d60/classjeod_1_1ContactPair__coll__graph.png" border="0" usemap="#jeod_1_1ContactPair_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1ContactPair_coll__map" id="jeod_1_1ContactPair_coll__map">
-<area shape="rect" id="node2" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="1081,105,1215,132"/>
-<area shape="rect" id="node3" href="../../d3/de9/classjeod_1_1InteractionFacet.html" title="A base class for an interaction specific facet. " alt="" coords="667,5,815,32"/>
-<area shape="rect" id="node4" href="../../d1/d0a/classjeod_1_1Facet.html" title="A general base class for all surface model facets. " alt="" coords="389,69,476,96"/>
-<area shape="rect" id="node5" title="STL class. " alt="" coords="37,248,117,275"/>
-<area shape="rect" id="node7" href="../../d9/df8/classjeod_1_1FacetParams.html" title="General base class for all parameters associated with facets in the surface model. " alt="" coords="233,193,365,220"/>
-<area shape="rect" id="node9" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="243,303,355,329"/>
-<area shape="rect" id="node13" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s..." alt="" coords="1264,292,1443,319"/>
-<area shape="rect" id="node6" href="../../d2/dee/classjeod_1_1ContactParams.html" title="A base class for all contact parameters used in the surface model. " alt="" coords="668,53,813,80"/>
-<area shape="rect" id="node8" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="500,251,643,277"/>
-<area shape="rect" id="node11" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="839,216,947,243"/>
-<area shape="rect" id="node10" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="5,436,148,463"/>
-<area shape="rect" id="node14" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="1083,216,1213,243"/>
-<area shape="rect" id="node12" href="../../d2/dd7/classjeod_1_1PairInteraction.html" title="Simple spring contact parameters. " alt="" coords="1284,343,1423,369"/>
+<area shape="rect" id="node2" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. " alt="" coords="1325,141,1468,168"/>
+<area shape="rect" id="node3" href="../../d3/de9/classjeod_1_1InteractionFacet.html" title="A base class for an interaction specific facet. " alt="" coords="821,72,984,99"/>
+<area shape="rect" id="node4" href="../../d1/d0a/classjeod_1_1Facet.html" title="A general base class for all surface model facets. " alt="" coords="511,79,603,105"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="39,187,125,213"/>
+<area shape="rect" id="node7" href="../../d9/df8/classjeod_1_1FacetParams.html" title="General base class for all parameters associated with facets in the surface model. " alt="" coords="329,136,469,163"/>
+<area shape="rect" id="node9" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="340,523,459,549"/>
+<area shape="rect" id="node11" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1008,340,1125,367"/>
+<area shape="rect" id="node12" href="../../d2/dd7/classjeod_1_1PairInteraction.html" title="Simple spring contact parameters. " alt="" coords="1149,31,1301,57"/>
+<area shape="rect" id="node13" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html" title="The class used for deriving the state of some frame associated with the subject DynBody relative to s..." alt="" coords="1591,419,1787,445"/>
+<area shape="rect" id="node14" href="../../dd/d63/classjeod_1_1DerivedState.html" title="The base class used for deriving a state representation of some subject DynBody. " alt="" coords="1325,393,1468,420"/>
+<area shape="rect" id="node6" href="../../d2/dee/classjeod_1_1ContactParams.html" title="A base class for all contact parameters used in the surface model. " alt="" coords="825,121,981,148"/>
+<area shape="rect" id="node8" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="645,400,797,427"/>
+<area shape="rect" id="node10" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="5,568,159,595"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4457502efe2aeae1447bc2e6a798efd4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a4457502efe2aeae1447bc2e6a798efd4">ContactPair</a> ()</td></tr>
-<tr class="memdesc:a4457502efe2aeae1447bc2e6a798efd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default Constructor.  <a href="#a4457502efe2aeae1447bc2e6a798efd4">More...</a><br /></td></tr>
-<tr class="separator:a4457502efe2aeae1447bc2e6a798efd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ab77275742e716f320e254bf186174c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2ab77275742e716f320e254bf186174c">~ContactPair</a> ()</td></tr>
-<tr class="memdesc:a2ab77275742e716f320e254bf186174c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a2ab77275742e716f320e254bf186174c">More...</a><br /></td></tr>
-<tr class="separator:a2ab77275742e716f320e254bf186174c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bd2724d5f7d689b69fd6fe1384d127b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a6bd2724d5f7d689b69fd6fe1384d127b">ContactPair</a> ()=default</td></tr>
+<tr class="separator:a6bd2724d5f7d689b69fd6fe1384d127b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cdd8f6232ed1252345dc8c690380d8a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9cdd8f6232ed1252345dc8c690380d8a">~ContactPair</a> ()=default</td></tr>
+<tr class="separator:a9cdd8f6232ed1252345dc8c690380d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4830bf63c12687188992229187e9376b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a4830bf63c12687188992229187e9376b">operator=</a> (const <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;)=delete</td></tr>
+<tr class="separator:a4830bf63c12687188992229187e9376b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2becf6a6a1949907294d29b8b0734b6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2becf6a6a1949907294d29b8b0734b6f">ContactPair</a> (const <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;)=delete</td></tr>
+<tr class="separator:a2becf6a6a1949907294d29b8b0734b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cb91fe8178709360a2d4e78783d1bd8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a0cb91fe8178709360a2d4e78783d1bd8">in_range</a> ()</td></tr>
 <tr class="memdesc:a0cb91fe8178709360a2d4e78783d1bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">test whether the pair is in range for interaction  <a href="#a0cb91fe8178709360a2d4e78783d1bd8">More...</a><br /></td></tr>
 <tr class="separator:a0cb91fe8178709360a2d4e78783d1bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40d11c0a2c74003c212c9889071da0dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a40d11c0a2c74003c212c9889071da0dc">is_active</a> ()</td></tr>
 <tr class="memdesc:a40d11c0a2c74003c212c9889071da0dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if contact can occur between the two facets.  <a href="#a40d11c0a2c74003c212c9889071da0dc">More...</a><br /></td></tr>
 <tr class="separator:a40d11c0a2c74003c212c9889071da0dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bed1db236e014852580a6db70afa5f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a7bed1db236e014852580a6db70afa5f7">is_complete</a> (void)</td></tr>
-<tr class="memdesc:a7bed1db236e014852580a6db70afa5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the pair has a target facet.  <a href="#a7bed1db236e014852580a6db70afa5f7">More...</a><br /></td></tr>
-<tr class="separator:a7bed1db236e014852580a6db70afa5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade096fb496114db84e48cd6488c96522"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#ade096fb496114db84e48cd6488c96522">get_subject</a> (void)</td></tr>
-<tr class="memdesc:ade096fb496114db84e48cd6488c96522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the pair has a target facet.  <a href="#ade096fb496114db84e48cd6488c96522">More...</a><br /></td></tr>
-<tr class="separator:ade096fb496114db84e48cd6488c96522"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23bc013bdc169bd5b40c22014d761bc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a23bc013bdc169bd5b40c22014d761bc5">get_target</a> (void)</td></tr>
-<tr class="memdesc:a23bc013bdc169bd5b40c22014d761bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the pair has a target facet.  <a href="#a23bc013bdc169bd5b40c22014d761bc5">More...</a><br /></td></tr>
-<tr class="separator:a23bc013bdc169bd5b40c22014d761bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab08d7364505d7538844dc78706977c3c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#ab08d7364505d7538844dc78706977c3c">in_contact</a> (void)=0</td></tr>
-<tr class="memdesc:ab08d7364505d7538844dc78706977c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Virtual funtion to determine if the pair is in contact.  <a href="#ab08d7364505d7538844dc78706977c3c">More...</a><br /></td></tr>
-<tr class="separator:ab08d7364505d7538844dc78706977c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad93b68fc4a1d6c441f6a263d59c3f6eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#ad93b68fc4a1d6c441f6a263d59c3f6eb">is_complete</a> ()</td></tr>
+<tr class="memdesc:ad93b68fc4a1d6c441f6a263d59c3f6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the pair has a target facet.  <a href="#ad93b68fc4a1d6c441f6a263d59c3f6eb">More...</a><br /></td></tr>
+<tr class="separator:ad93b68fc4a1d6c441f6a263d59c3f6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a693355d7ae1dbdc2f97441635ceca2f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a693355d7ae1dbdc2f97441635ceca2f2">get_subject</a> ()</td></tr>
+<tr class="memdesc:a693355d7ae1dbdc2f97441635ceca2f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the pair has a target facet.  <a href="#a693355d7ae1dbdc2f97441635ceca2f2">More...</a><br /></td></tr>
+<tr class="separator:a693355d7ae1dbdc2f97441635ceca2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af43a0756846efe2ee0c43ec8d476acc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#af43a0756846efe2ee0c43ec8d476acc5">get_target</a> ()</td></tr>
+<tr class="memdesc:af43a0756846efe2ee0c43ec8d476acc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the pair has a target facet.  <a href="#af43a0756846efe2ee0c43ec8d476acc5">More...</a><br /></td></tr>
+<tr class="separator:af43a0756846efe2ee0c43ec8d476acc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6692435a6f566c3e77aef3f232d244e7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a6692435a6f566c3e77aef3f232d244e7">in_contact</a> ()=0</td></tr>
+<tr class="memdesc:a6692435a6f566c3e77aef3f232d244e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual funtion to determine if the pair is in contact.  <a href="#a6692435a6f566c3e77aef3f232d244e7">More...</a><br /></td></tr>
+<tr class="separator:a6692435a6f566c3e77aef3f232d244e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ea800fcbe8377d7437c2bcbf6a05b89"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a3ea800fcbe8377d7437c2bcbf6a05b89">initialize_pair</a> (<a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *subject_facet, <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *target_facet)=0</td></tr>
-<tr class="memdesc:a3ea800fcbe8377d7437c2bcbf6a05b89"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Initialize the contact pair by setting the subject, target, and creating the relstate if possible.  <a href="#a3ea800fcbe8377d7437c2bcbf6a05b89">More...</a><br /></td></tr>
+<tr class="memdesc:a3ea800fcbe8377d7437c2bcbf6a05b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the contact pair by setting the subject, target, and creating the relstate if possible.  <a href="#a3ea800fcbe8377d7437c2bcbf6a05b89">More...</a><br /></td></tr>
 <tr class="separator:a3ea800fcbe8377d7437c2bcbf6a05b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80f61edf30f060a10184974cf24b9349"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a80f61edf30f060a10184974cf24b9349">initialize_relstate</a> (<a class="el" href="../../d6/d9a/classjeod_1_1DynManager.html">DynManager</a> *dyn_manager)</td></tr>
 <tr class="memdesc:a80f61edf30f060a10184974cf24b9349"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
@@ -131,10 +130,10 @@ Initialize the relative state between the facets and register with the dynamics 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a53f2c9f5050d9e3a3a1b154096776412"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dd7/classjeod_1_1PairInteraction.html">PairInteraction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a53f2c9f5050d9e3a3a1b154096776412">interaction</a></td></tr>
+<tr class="memitem:a53f2c9f5050d9e3a3a1b154096776412"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/dd7/classjeod_1_1PairInteraction.html">PairInteraction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a53f2c9f5050d9e3a3a1b154096776412">interaction</a> {}</td></tr>
 <tr class="memdesc:a53f2c9f5050d9e3a3a1b154096776412"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters that define the force calculation function between the subjec and target.  <a href="#a53f2c9f5050d9e3a3a1b154096776412">More...</a><br /></td></tr>
 <tr class="separator:a53f2c9f5050d9e3a3a1b154096776412"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f0ae0284935b35b55af859dc7c2af82"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2f0ae0284935b35b55af859dc7c2af82">interaction_distance</a></td></tr>
+<tr class="memitem:a2f0ae0284935b35b55af859dc7c2af82"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2f0ae0284935b35b55af859dc7c2af82">interaction_distance</a> {}</td></tr>
 <tr class="memdesc:a2f0ae0284935b35b55af859dc7c2af82"><td class="mdescLeft">&#160;</td><td class="mdescRight">rel_state distance at which in_contact should be called  <a href="#a2f0ae0284935b35b55af859dc7c2af82">More...</a><br /></td></tr>
 <tr class="separator:a2f0ae0284935b35b55af859dc7c2af82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -143,19 +142,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a7396b4fda754b4a8c6df6109b2ed6bda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html">RelativeDerivedState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a7396b4fda754b4a8c6df6109b2ed6bda">rel_state</a></td></tr>
 <tr class="memdesc:a7396b4fda754b4a8c6df6109b2ed6bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current relative state between the subject and the target in the subject frame.  <a href="#a7396b4fda754b4a8c6df6109b2ed6bda">More...</a><br /></td></tr>
 <tr class="separator:a7396b4fda754b4a8c6df6109b2ed6bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d8f124e45d231c0794a93b2ac9f4df4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9d8f124e45d231c0794a93b2ac9f4df4">subject</a></td></tr>
+<tr class="memitem:a9d8f124e45d231c0794a93b2ac9f4df4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9d8f124e45d231c0794a93b2ac9f4df4">subject</a> {}</td></tr>
 <tr class="memdesc:a9d8f124e45d231c0794a93b2ac9f4df4"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to the contact facet that is the subject of the associated relative states.  <a href="#a9d8f124e45d231c0794a93b2ac9f4df4">More...</a><br /></td></tr>
 <tr class="separator:a9d8f124e45d231c0794a93b2ac9f4df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1048ac3bf86a4c5b040865d5700289ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a1048ac3bf86a4c5b040865d5700289ea">target</a></td></tr>
+<tr class="memitem:a1048ac3bf86a4c5b040865d5700289ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a1048ac3bf86a4c5b040865d5700289ea">target</a> {}</td></tr>
 <tr class="memdesc:a1048ac3bf86a4c5b040865d5700289ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to the contact facet that is the target of the associated relative states.  <a href="#a1048ac3bf86a4c5b040865d5700289ea">More...</a><br /></td></tr>
 <tr class="separator:a1048ac3bf86a4c5b040865d5700289ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a805d87be570df7cbbb9ddb2bf4085962"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a805d87be570df7cbbb9ddb2bf4085962">operator=</a> (const <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;rhs)</td></tr>
-<tr class="separator:a805d87be570df7cbbb9ddb2bf4085962"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bfbaddabd013587a2b1f77f535ae995"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8bfbaddabd013587a2b1f77f535ae995">ContactPair</a> (const <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;rhs)</td></tr>
-<tr class="separator:a8bfbaddabd013587a2b1f77f535ae995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -167,32 +159,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An base contact pair class for use in the contact model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00083">83</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4457502efe2aeae1447bc2e6a798efd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4457502efe2aeae1447bc2e6a798efd4">&#9670;&nbsp;</a></span>ContactPair() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::ContactPair::ContactPair </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default Constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00047">47</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
-
-</div>
-</div>
-<a id="a2ab77275742e716f320e254bf186174c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ab77275742e716f320e254bf186174c">&#9670;&nbsp;</a></span>~ContactPair()</h2>
+<a id="a6bd2724d5f7d689b69fd6fe1384d127b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bd2724d5f7d689b69fd6fe1384d127b">&#9670;&nbsp;</a></span>ContactPair() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,28 +171,48 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">jeod::ContactPair::~ContactPair </td>
+          <td class="memname">jeod::ContactPair::ContactPair </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destructor. </p>
+</div>
+</div>
+<a id="a9cdd8f6232ed1252345dc8c690380d8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdd8f6232ed1252345dc8c690380d8a">&#9670;&nbsp;</a></span>~ContactPair()</h2>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00062">62</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual jeod::ContactPair::~ContactPair </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8bfbaddabd013587a2b1f77f535ae995"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bfbaddabd013587a2b1f77f535ae995">&#9670;&nbsp;</a></span>ContactPair() <span class="overload">[2/2]</span></h2>
+<a id="a2becf6a6a1949907294d29b8b0734b6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2becf6a6a1949907294d29b8b0734b6f">&#9670;&nbsp;</a></span>ContactPair() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,13 +224,13 @@ Friends</h2></td></tr>
           <td class="memname">jeod::ContactPair::ContactPair </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -260,7 +250,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">bool jeod::ContactPair::check_tree </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -275,16 +264,16 @@ Friends</h2></td></tr>
 <p>Make sure the two contact facets are not on the same mass tree. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00138">138</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00108">108</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8a91a749c099fb81dc1b5b5008e0ede7">jeod::InteractionFacet::base_facet</a>, <a class="el" href="../../d1/d0a/classjeod_1_1Facet.html#aaa302448072e1b3b9c1e99696108a4f2">jeod::Facet::get_mass_body_ptr()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ad2b0ff0169d20dfa1e0afd9a251d3829">jeod::MassBody::get_root_body()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9d8f124e45d231c0794a93b2ac9f4df4">subject</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a1048ac3bf86a4c5b040865d5700289ea">target</a>.</p>
+<p class="reference">References <a class="el" href="../../d3/de9/classjeod_1_1InteractionFacet.html#a8a91a749c099fb81dc1b5b5008e0ede7">jeod::InteractionFacet::base_facet</a>, <a class="el" href="../../d1/d0a/classjeod_1_1Facet.html#aaa302448072e1b3b9c1e99696108a4f2">jeod::Facet::get_mass_body_ptr()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a5b992d9b45f15b765b03faa290441439">jeod::MassBody::get_root_body()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9d8f124e45d231c0794a93b2ac9f4df4">subject</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a1048ac3bf86a4c5b040865d5700289ea">target</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a40d11c0a2c74003c212c9889071da0dc">is_active()</a>.</p>
 
 </div>
 </div>
-<a id="ade096fb496114db84e48cd6488c96522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade096fb496114db84e48cd6488c96522">&#9670;&nbsp;</a></span>get_subject()</h2>
+<a id="a693355d7ae1dbdc2f97441635ceca2f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a693355d7ae1dbdc2f97441635ceca2f2">&#9670;&nbsp;</a></span>get_subject()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,7 +281,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> * jeod::ContactPair::get_subject </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -302,7 +290,7 @@ Friends</h2></td></tr>
 <p>Determine if the pair has a target facet. </p>
 <dl class="section return"><dt>Returns</dt><dd>subject <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. ">ContactFacet</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00116">116</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00090">90</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9d8f124e45d231c0794a93b2ac9f4df4">subject</a>.</p>
 
@@ -310,8 +298,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a23bc013bdc169bd5b40c22014d761bc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23bc013bdc169bd5b40c22014d761bc5">&#9670;&nbsp;</a></span>get_target()</h2>
+<a id="af43a0756846efe2ee0c43ec8d476acc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af43a0756846efe2ee0c43ec8d476acc5">&#9670;&nbsp;</a></span>get_target()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +307,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a> * jeod::ContactPair::get_target </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -329,14 +316,14 @@ Friends</h2></td></tr>
 <p>Determine if the pair has a target facet. </p>
 <dl class="section return"><dt>Returns</dt><dd>target <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. ">ContactFacet</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00127">127</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00099">99</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a1048ac3bf86a4c5b040865d5700289ea">target</a>.</p>
 
 </div>
 </div>
-<a id="ab08d7364505d7538844dc78706977c3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab08d7364505d7538844dc78706977c3c">&#9670;&nbsp;</a></span>in_contact()</h2>
+<a id="a6692435a6f566c3e77aef3f232d244e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6692435a6f566c3e77aef3f232d244e7">&#9670;&nbsp;</a></span>in_contact()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,7 +334,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">virtual void jeod::ContactPair::in_contact </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -359,8 +345,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><br />
-Virtual funtion to determine if the pair is in contact. </p>
+<p>Virtual funtion to determine if the pair is in contact. </p>
 <p><a class="el" href="../../d9/d55/classjeod_1_1Contact.html" title="An base contact class for use in the surface model. ">Contact</a> depends on specific geometry so implementation has to wait for a derived class. </p>
 
 <p>Implemented in <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair</a>, and <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#adf8c2aa2e13a0b3a6a309ba1d5e7bbe2">jeod::PointContactPair</a>.</p>
@@ -376,7 +361,6 @@ Virtual funtion to determine if the pair is in contact. </p>
         <tr>
           <td class="memname">bool jeod::ContactPair::in_range </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -386,9 +370,9 @@ Virtual funtion to determine if the pair is in contact. </p>
 <p>test whether the pair is in range for interaction </p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00073">73</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00049">49</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2f0ae0284935b35b55af859dc7c2af82">interaction_distance</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a2dc636bff4d1f58a641dafdc96d7e22a">jeod::RefFrameTrans::position</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a5f38669c19f7f17f699644f6ed86453a">jeod::RelativeDerivedState::rel_state</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a7396b4fda754b4a8c6df6109b2ed6bda">rel_state</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a306b7d86a4f3af35bfa784ae484c1bd5">jeod::RelativeDerivedState::update()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a9765082d5eda2ce5c0aa388b9d58b5c1">jeod::Vector3::vmag()</a>.</p>
+<p class="reference">References <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a2f0ae0284935b35b55af859dc7c2af82">interaction_distance</a>, <a class="el" href="../../dc/d08/classjeod_1_1RefFrameTrans.html#a2dc636bff4d1f58a641dafdc96d7e22a">jeod::RefFrameTrans::position</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a5f38669c19f7f17f699644f6ed86453a">jeod::RelativeDerivedState::rel_state</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a7396b4fda754b4a8c6df6109b2ed6bda">rel_state</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#aaef243a1c26a384df56cb5d3c606d08d">jeod::RefFrameState::trans</a>, <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#a17ed756298fb247baefcd7384f2e9315">jeod::RelativeDerivedState::update()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#ad610f3ddf2a1c89c7f21158eb8e7c39d">jeod::Vector3::vmag()</a>.</p>
 
 </div>
 </div>
@@ -426,8 +410,7 @@ Virtual funtion to determine if the pair is in contact. </p>
 </table>
 </div><div class="memdoc">
 
-<p><br />
-Initialize the contact pair by setting the subject, target, and creating the relstate if possible. </p>
+<p>Initialize the contact pair by setting the subject, target, and creating the relstate if possible. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">subject_facet</td><td>subject <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html" title="An contact interaction specific facet for use in the surface model. ">ContactFacet</a> </td></tr>
@@ -474,7 +457,7 @@ Initialize the relative state between the facets and register with the dynamics 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00160">160</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00129">129</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d6/dbf/classjeod_1_1RelativeDerivedState.html#aeefeff121940794ce8b6b90538725474">jeod::RelativeDerivedState::initialize()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a7396b4fda754b4a8c6df6109b2ed6bda">rel_state</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9d8f124e45d231c0794a93b2ac9f4df4">subject</a>, and <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#ad5350c4e30d2cca737931e74fc49d4f8">jeod::ContactFacet::vehicle_body</a>.</p>
 
@@ -491,7 +474,6 @@ Initialize the relative state between the facets and register with the dynamics 
         <tr>
           <td class="memname">bool jeod::ContactPair::is_active </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -501,14 +483,14 @@ Initialize the relative state between the facets and register with the dynamics 
 <p>Determine if contact can occur between the two facets. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00088">88</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00064">64</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html#a9eb8121060e8cc0ac0981826eec344ed">jeod::ContactFacet::active</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8eebeb8b621f23d884e53c287c4e921c">check_tree()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a9d8f124e45d231c0794a93b2ac9f4df4">subject</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a1048ac3bf86a4c5b040865d5700289ea">target</a>.</p>
 
 </div>
 </div>
-<a id="a7bed1db236e014852580a6db70afa5f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bed1db236e014852580a6db70afa5f7">&#9670;&nbsp;</a></span>is_complete()</h2>
+<a id="ad93b68fc4a1d6c441f6a263d59c3f6eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad93b68fc4a1d6c441f6a263d59c3f6eb">&#9670;&nbsp;</a></span>is_complete()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -516,7 +498,6 @@ Initialize the relative state between the facets and register with the dynamics 
         <tr>
           <td class="memname">bool jeod::ContactPair::is_complete </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -526,14 +507,14 @@ Initialize the relative state between the facets and register with the dynamics 
 <p>Determine if the pair has a target facet. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00102">102</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html#l00077">77</a> of file <a class="el" href="../../d4/dc6/contact__pair_8cc_source.html">contact_pair.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a1048ac3bf86a4c5b040865d5700289ea">target</a>.</p>
 
 </div>
 </div>
-<a id="a805d87be570df7cbbb9ddb2bf4085962"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a805d87be570df7cbbb9ddb2bf4085962">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a4830bf63c12687188992229187e9376b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4830bf63c12687188992229187e9376b">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -545,13 +526,13 @@ Initialize the relative state between the facets and register with the dynamics 
           <td class="memname"><a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a>&amp; jeod::ContactPair::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html">ContactPair</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -604,7 +585,7 @@ Initialize the relative state between the facets and register with the dynamics 
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00085">85</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00086">86</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
 
 </div>
 </div>
@@ -616,7 +597,7 @@ Initialize the relative state between the facets and register with the dynamics 
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/dd7/classjeod_1_1PairInteraction.html">PairInteraction</a>* jeod::ContactPair::interaction</td>
+          <td class="memname"><a class="el" href="../../d2/dd7/classjeod_1_1PairInteraction.html">PairInteraction</a>* jeod::ContactPair::interaction {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -624,7 +605,7 @@ Initialize the relative state between the facets and register with the dynamics 
 <p>Parameters that define the force calculation function between the subjec and target. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00091">91</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a0f82f331c51b1f574b214df128e24237">jeod::LineContactFacet::create_pair()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#aad144f5dfd38fd09926edf8592ece686">jeod::PointContactFacet::create_pair()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair::in_contact()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#adf8c2aa2e13a0b3a6a309ba1d5e7bbe2">jeod::PointContactPair::in_contact()</a>, and <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair::in_contact()</a>.</p>
 
@@ -637,7 +618,7 @@ Initialize the relative state between the facets and register with the dynamics 
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::ContactPair::interaction_distance</td>
+          <td class="memname">double jeod::ContactPair::interaction_distance {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -645,7 +626,7 @@ Initialize the relative state between the facets and register with the dynamics 
 <p>rel_state distance at which in_contact should be called </p>
 <p>trick_units(m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00096">96</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00095">95</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d9/d7b/classjeod_1_1LineContactFacet.html#a0f82f331c51b1f574b214df128e24237">jeod::LineContactFacet::create_pair()</a>, <a class="el" href="../../da/d1d/classjeod_1_1PointContactFacet.html#aad144f5dfd38fd09926edf8592ece686">jeod::PointContactFacet::create_pair()</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a0cb91fe8178709360a2d4e78783d1bd8">in_range()</a>.</p>
 
@@ -674,7 +655,7 @@ Initialize the relative state between the facets and register with the dynamics 
 <p>Current relative state between the subject and the target in the subject frame. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00153">153</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00145">145</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#ae2bcb1a86db2405364ce48f73d97b8a5">jeod::LineContactPair::in_contact()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#adf8c2aa2e13a0b3a6a309ba1d5e7bbe2">jeod::PointContactPair::in_contact()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#adcb0c295663955ad42f3660cc9308a41">jeod::LinePointContactPair::in_contact()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a0cb91fe8178709360a2d4e78783d1bd8">in_range()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a80f61edf30f060a10184974cf24b9349">initialize_relstate()</a>.</p>
 
@@ -690,7 +671,7 @@ Initialize the relative state between the facets and register with the dynamics 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a>* jeod::ContactPair::subject</td>
+          <td class="memname"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a>* jeod::ContactPair::subject {}</td>
         </tr>
       </table>
   </td>
@@ -703,9 +684,9 @@ Initialize the relative state between the facets and register with the dynamics 
 <p>pointer to the contact facet that is the subject of the associated relative states. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00158">158</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00150">150</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8eebeb8b621f23d884e53c287c4e921c">check_tree()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#ade096fb496114db84e48cd6488c96522">get_subject()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a80f61edf30f060a10184974cf24b9349">initialize_relstate()</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a40d11c0a2c74003c212c9889071da0dc">is_active()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8eebeb8b621f23d884e53c287c4e921c">check_tree()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a693355d7ae1dbdc2f97441635ceca2f2">get_subject()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a80f61edf30f060a10184974cf24b9349">initialize_relstate()</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a40d11c0a2c74003c212c9889071da0dc">is_active()</a>.</p>
 
 </div>
 </div>
@@ -719,7 +700,7 @@ Initialize the relative state between the facets and register with the dynamics 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a>* jeod::ContactPair::target</td>
+          <td class="memname"><a class="el" href="../../d2/ddc/classjeod_1_1ContactFacet.html">ContactFacet</a>* jeod::ContactPair::target {}</td>
         </tr>
       </table>
   </td>
@@ -732,9 +713,9 @@ Initialize the relative state between the facets and register with the dynamics 
 <p>pointer to the contact facet that is the target of the associated relative states. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00163">163</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html#l00155">155</a> of file <a class="el" href="../../d8/d7b/contact__pair_8hh_source.html">contact_pair.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8eebeb8b621f23d884e53c287c4e921c">check_tree()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a23bc013bdc169bd5b40c22014d761bc5">get_target()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a40d11c0a2c74003c212c9889071da0dc">is_active()</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a7bed1db236e014852580a6db70afa5f7">is_complete()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a8eebeb8b621f23d884e53c287c4e921c">check_tree()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#af43a0756846efe2ee0c43ec8d476acc5">get_target()</a>, <a class="el" href="../../df/ddc/classjeod_1_1LineContactPair.html#a0160d7bd832297eeab54231152236f71">jeod::LineContactPair::initialize_pair()</a>, <a class="el" href="../../d0/d41/classjeod_1_1PointContactPair.html#ad01c63c5567adcaf84324ee8268f1ed1">jeod::PointContactPair::initialize_pair()</a>, <a class="el" href="../../d0/da7/classjeod_1_1LinePointContactPair.html#ab8d06b43a8a257511d5f4d1bcb019ad9">jeod::LinePointContactPair::initialize_pair()</a>, <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#a40d11c0a2c74003c212c9889071da0dc">is_active()</a>, and <a class="el" href="../../da/d1b/classjeod_1_1ContactPair.html#ad93b68fc4a1d6c441f6a263d59c3f6eb">is_complete()</a>.</p>
 
 </div>
 </div>

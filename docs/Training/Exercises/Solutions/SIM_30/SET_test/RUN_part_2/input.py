@@ -20,7 +20,7 @@ exec(compile(open("Modified_data/surface_part2.py", "rb").read(), "Modified_data
 exec(compile(open("Modified_data/attach.py", "rb").read(), "Modified_data/attach.py", 'exec'))
 
 
-vehicle.reattachments = trick.alloc_type(4,"jeod::BodyReattach")
+vehicle.reattachments = trick.TMM_declare_var_s("jeod::BodyReattach vehicle_reattachments[4]")
 
 vehicle.reattachments[0].set_subject_body( vehicle.array )
 vehicle.reattachments[0].offset_pstr_cstr_pstr = [0,0,0]

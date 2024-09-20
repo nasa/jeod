@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_T56_OE_VER/ 
+#  (To define the input data for simulation SET_test/RUN_T56_OE_VER/
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -33,13 +33,13 @@ orb_elem_test.orb_elem_ver.velocity  = [ 4.901327e+03, 5.533756e+03, -1.976341e+
 read =1
 trick.add_read(read, """
 
-orb_elem_test.orb_elem.semiparam     = 11067.790e+03 
-orb_elem_test.orb_elem.e_mag         = .83285 
+orb_elem_test.orb_elem.semiparam     = 11067.790e+03
+orb_elem_test.orb_elem.e_mag         = .83285
 orb_elem_test.orb_elem.inclination   = 1.53362081372742
 orb_elem_test.orb_elem.mean_anom     = 0.1327277817291182
 orb_elem_test.orb_elem.arg_periapsis = 0.93165675471457
 orb_elem_test.orb_elem.long_asc_node = 3.97743083236988
-orb_elem_test.orb_elem_ver.to_cartesian = 1 
+orb_elem_test.orb_elem_ver.to_cartesian = True
 """)
 
 

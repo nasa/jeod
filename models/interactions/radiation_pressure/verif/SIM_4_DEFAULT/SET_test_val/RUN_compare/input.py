@@ -1,11 +1,11 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_compare/ 
+#  (To define the input data for simulation SET_test/RUN_compare/
 ####################################################################################
 
 
 trick.sim_services.exec_set_trap_sigfpe(1)
-dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4;
+dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4
 
 #############  NUMERICAL DEFAULT DATA  #################
 LOG_CYCLE = 1.0
@@ -19,17 +19,10 @@ log_radiation_rec( LOG_CYCLE )
 
 #include "S_default.dat"
 #include "Log_data/radiation_rec.d"
-#FIXME:  sys.exec.in.trap_sigfpe          = Yes
-#FIXME:  sys.exec.in.pre_init_checkpoint  = No
-#FIXME:  sys.exec.in.post_init_checkpoint = No
-#FIXME:  sys.exec.in.end_checkpoint       = No
-#FIXME:  sys.exec.in.reduced_checkpoint   = No
-#FIXME:  sys.exec.sim_com.monitor_on      = No
-#FIXME:  sys.exec.rt_log.group[0].record  = No
 
 
 #/******************************************************************************/
-#/* Set up the time object:                                                    */  
+#/* Set up the time object:                                                    */
 #/******************************************************************************/
 exec(compile(open( "Modified_data/date_and_time.py", "rb").read(), "Modified_data/date_and_time.py", 'exec'))
 

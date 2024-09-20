@@ -21,13 +21,12 @@ Library dependencies:
    (dynamics/mass/src/mass_point_state.cc)
    (utils/quaternion/src/quat_from_mat.cc)
    (utils/lvlh_frame/src/lvlh_frame.cc)
-   (utils/ref_frames/src/ref_frame_compute_relative_state.cc)
-   (utils/ref_frames/src/ref_frame_set_name.cc))
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
 *******************************************************************************/
-
 
 // System includes
 #include <cstddef>
@@ -41,44 +40,24 @@ Library dependencies:
 // Model includes
 #include "../include/lvlh_derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct a LvlhDerivedState object.
- */
-LvlhDerivedState::LvlhDerivedState (
-   void)
-:
-   DerivedState(),
-   register_frame(true),
-   lvlh_frame(),
-   lvlh_state(),
-   planet_centered_inertial(nullptr),
-   local_dm(nullptr)
+namespace jeod
 {
-   ;
-}
-
-
 
 /**
  * Destruct a LvlhDerivedState object.
  */
-LvlhDerivedState::~LvlhDerivedState (
-   void)
+LvlhDerivedState::~LvlhDerivedState()
 {
-   // Disconnect the LVLH frame from the planet-center inertial frame.
-   lvlh_frame.remove_from_parent();
+    // Disconnect the LVLH frame from the planet-center inertial frame.
+    lvlh_frame.remove_from_parent();
 
-   // Recant the registration done by the initialize() method.
-   if (local_dm != nullptr) {
-      local_dm->remove_ref_frame (lvlh_frame);
-   }
+    // Recant the registration done by the initialize() method.
+    if(local_dm != nullptr)
+    {
+        local_dm->remove_ref_frame(lvlh_frame);
+    }
 }
-
-
 
 /**
  * Begin initialization of a LvlhDerivedState.
@@ -88,43 +67,37 @@ LvlhDerivedState::~LvlhDerivedState (
  * \param[in,out] subject_body Subject body
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-LvlhDerivedState::initialize (
-   DynBody & subject_body,
-   DynManager & dyn_manager)
+void LvlhDerivedState::initialize(DynBody & subject_body, DynManager & dyn_manager)
 {
+    // First perform general derived state initializations.
+    DerivedState::initialize(subject_body, dyn_manager);
+    lvlh_state.set_subject_frame(subject->composite_body);
+    lvlh_state.set_planet_name(reference_name);
+    lvlh_state.initialize(dyn_manager);
 
-   // First perform general derived state initializations.
-   DerivedState::initialize (subject_body, dyn_manager);
-   lvlh_state.set_subject_frame(subject->composite_body);
-   lvlh_state.set_planet_name (reference_name);
-   lvlh_state.initialize(dyn_manager);
+    lvlh_frame.set_name(subject_body.name.get_name(), reference_name, "lvlh");
+    planet_centered_inertial = const_cast<RefFrame *>(lvlh_state.frame.get_parent());
+    planet_centered_inertial->add_child(lvlh_frame);
 
-   lvlh_frame.set_name (subject_body.name.c_str(), reference_name, "lvlh");
-   (planet_centered_inertial=const_cast<RefFrame *>(lvlh_state.frame.get_parent()))->
-                    add_child(lvlh_frame);
-
-   // If requested, register the frame with the dynamics manager.
-   if (register_frame) {
-      dyn_manager.add_ref_frame (lvlh_frame);
-      local_dm = &dyn_manager;
-   }
+    // If requested, register the frame with the dynamics manager.
+    if(register_frame)
+    {
+        dyn_manager.add_ref_frame(lvlh_frame);
+        local_dm = &dyn_manager;
+    }
 }
-
 
 /**
  * Update the state.
  */
-void
-LvlhDerivedState::update (
-   void)
+void LvlhDerivedState::update()
 {
-   lvlh_state.update();
-   lvlh_frame.state = lvlh_state.frame.state;
-   lvlh_frame.set_timestamp(lvlh_state.frame.timestamp());
+    lvlh_state.update();
+    lvlh_frame.state = lvlh_state.frame.state;
+    lvlh_frame.set_timestamp(lvlh_state.frame.timestamp());
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

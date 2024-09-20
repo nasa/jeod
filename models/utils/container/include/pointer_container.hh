@@ -51,10 +51,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_POINTER_CONTAINER_H
 #define JEOD_MEMORY_POINTER_CONTAINER_H
@@ -69,151 +68,133 @@ Purpose:
 // System includes
 #include <string>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A JeodPointerContainer is a JeodContainer that contains pointers to objects
  * of type ElemType.
  */
-template <typename ContainerType, typename ElemType>
-class JeodPointerContainer : public JeodContainer<ContainerType, ElemType*> {
-
+template<typename ContainerType, typename ElemType>
+class JeodPointerContainer : public JeodContainer<ContainerType, ElemType *>
+{
 public:
-   /**
-    * Construct a JeodPointerContainer.
-    */
-   JeodPointerContainer (void)
-   :
-      JeodContainer<ContainerType, ElemType*>(),
-      base_type_descriptor(nullptr)
-   {}
+    /**
+     * Construct a JeodPointerContainer.
+     */
+    JeodPointerContainer()
+        : JeodContainer<ContainerType, ElemType *>()
 
-   /**
-    * Copy-construct a JeodPointerContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Pointer container to be copied.
-    */
-   JeodPointerContainer (const JeodPointerContainer & source)
-   :
-      JeodContainer<ContainerType, ElemType*>(source),
-      base_type_descriptor(nullptr)
-   {}
+    {
+    }
 
-   /**
-    * Copy-construct a JeodPointerContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Pointer container to be copied.
-    */
-   explicit JeodPointerContainer (
-      const typename ContainerType::stl_container_type & source)
-   :
-      JeodContainer<ContainerType, ElemType*>(source),
-      base_type_descriptor(nullptr)
-   {}
+    /**
+     * Copy-construct a JeodPointerContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Pointer container to be copied.
+     */
+    JeodPointerContainer(const JeodPointerContainer & source)
+        : JeodContainer<ContainerType, ElemType *>(source),
+          base_type_descriptor(nullptr)
+    {
+    }
 
-   /**
-    * Copy from a JeodPointerContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Pointer container to be copied.
-    */
-   JeodPointerContainer &
-   operator= (const JeodPointerContainer & source)
-   {
-      JeodContainer<ContainerType, ElemType*>::operator= (source);
-      return *this;
-   }
+    /**
+     * Copy-construct a JeodPointerContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Pointer container to be copied.
+     */
+    explicit JeodPointerContainer(const typename ContainerType::stl_container_type & source)
+        : JeodContainer<ContainerType, ElemType *>(source),
+          base_type_descriptor(nullptr)
+    {
+    }
 
-   /**
-    * Copy from an STL container.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Pointer container to be copied.
-    */
-   JeodPointerContainer &
-   operator= (const typename ContainerType::stl_container_type & source)
-   {
-      JeodContainer<ContainerType, ElemType*>::operator= (source);
-      return *this;
-   }
+    /**
+     * Copy from a JeodPointerContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Pointer container to be copied.
+     */
+    JeodPointerContainer & operator=(const JeodPointerContainer & source)
+    {
+        JeodContainer<ContainerType, ElemType *>::operator=(source);
+        return *this;
+    }
 
-   /**
-    * Destruct a JeodPointerContainer.
-    */
-   virtual ~JeodPointerContainer (void) {}
+    /**
+     * Copy from an STL container.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Pointer container to be copied.
+     */
+    JeodPointerContainer & operator=(const typename ContainerType::stl_container_type & source)
+    {
+        JeodContainer<ContainerType, ElemType *>::operator=(source);
+        return *this;
+    }
 
-   /**
-    * Initialize a checkpointable object, called by the checkpoint manager.
-    *
-    * In the case of a JeodPointerContainer, this method gets the descriptor for
-    * the type of data pointed to members of the container.
-    */
-   void initialize_checkpointable (
-   const void * container,                // In: -- Not used.
-   const std::type_info & container_type, // In: -- Not used.
-   const std::string & elem_name)         // In: -- Not used.
-   override
-   {
-      JeodContainer<ContainerType, ElemType*>::initialize_checkpointable (
-         container, container_type, elem_name);
+    /**
+     * Destruct a JeodPointerContainer.
+     */
+    virtual ~JeodPointerContainer() = default;
 
-      if (base_type_descriptor == nullptr) {
-         base_type_descriptor =
-            JeodMemoryManager::get_type_descriptor (typeid(ElemType));
-      }
-   }
+    /**
+     * Initialize a checkpointable object, called by the checkpoint manager.
+     *
+     * In the case of a JeodPointerContainer, this method gets the descriptor for
+     * the type of data pointed to members of the container.
+     */
+    void initialize_checkpointable(const void * container,                // In: -- Not used.
+                                   const std::type_info & container_type, // In: -- Not used.
+                                   const std::string & elem_name)         // In: -- Not used.
+        override
+    {
+        JeodContainer<ContainerType, ElemType *>::initialize_checkpointable(container, container_type, elem_name);
 
-   /**
-    * Return the value of the item to be written to the checkpoint file.
-    * For a JeodPointerContainer, the value names the pointed-to object.
-    */
-   const std::string
-   get_item_value (void)
-   override
-   {
-      return JeodSimulationInterface::get_name_at_address (
-                reinterpret_cast<void *> (*this->checkpoint_iter),
-                base_type_descriptor);
-   }
+        if(base_type_descriptor == nullptr)
+        {
+            base_type_descriptor = JeodMemoryManager::get_type_descriptor(typeid(ElemType));
+        }
+    }
 
-   /**
-    * Interpret the provided value and add it to the list.
-    * For a JeodPointerContainer, the value should specify (in string form)
-    * the address of some object in active memory.
-    */
-   void
-   perform_insert_action (
-      const std::string & value)
-   override
-   {
-      this->insert (
-         this->end(),
-         reinterpret_cast<ElemType *> (
-            JeodSimulationInterface::get_address_at_name (value)));
-   }
+    /**
+     * Return the value of the item to be written to the checkpoint file.
+     * For a JeodPointerContainer, the value names the pointed-to object.
+     */
+    const std::string get_item_value() override
+    {
+        return JeodSimulationInterface::get_name_at_address(reinterpret_cast<void *>(*this->checkpoint_iter),
+                                                            base_type_descriptor);
+    }
 
+    /**
+     * Interpret the provided value and add it to the list.
+     * For a JeodPointerContainer, the value should specify (in string form)
+     * the address of some object in active memory.
+     */
+    void perform_insert_action(const std::string & value) override
+    {
+        this->insert(this->end(), reinterpret_cast<ElemType *>(JeodSimulationInterface::get_address_at_name(value)));
+    }
 
 protected:
-
-   /**
-    * Memory model descriptor of the type of data stored in the container.
-    */
-   const JeodMemoryTypeDescriptor * base_type_descriptor; //!< trick_io(**)
+    /**
+     * Memory model descriptor of the type of data stored in the container.
+     */
+    const JeodMemoryTypeDescriptor * base_type_descriptor{}; //!< trick_io(**)
 };
-
 
 // DO NOT USE.
 // This is deprecated and will disappear with the next release.
 // Use one of the JeodPointerXxx classes instead.
-#define JEOD_POINTER_CONTAINER(container_type,elem_type) \
-   JeodPointerContainer<Jeod##container_type<elem_type*>,elem_type>
+#define JEOD_POINTER_CONTAINER(container_type, elem_type)                                                              \
+    JeodPointerContainer<Jeod##container_type<elem_type *>, elem_type>
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

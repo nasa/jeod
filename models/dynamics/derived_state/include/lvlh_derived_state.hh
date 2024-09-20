@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_LVLH_DERIVED_STATE_HH
 #define JEOD_LVLH_DERIVED_STATE_HH
 
@@ -74,87 +73,71 @@ Library dependencies:
 // Model includes
 #include "derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used for deriving the rectilinear LVLH representations
  * of a subject DynBody's state.
  */
-class LvlhDerivedState : public DerivedState {
+class LvlhDerivedState : public DerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LvlhDerivedState)
 
- JEOD_MAKE_SIM_INTERFACES(LvlhDerivedState)
+    // Member data
 
+public:
+    /**
+     * If set (default), the LVLH frame will be registered with the dynamics
+     * manager at initialization time. This will make the frame accessible
+     * through the dynamic manager via its find_ref_frame method.
+     */
+    bool register_frame{true}; //!< trick_units(--)
 
- // Member data
+    /**
+     * The LVLH frame of the subject body with respect to the planet
+     * specified by the reference name.
+     */
+    RefFrame lvlh_frame; //!< trick_units(--)
 
- public:
+    /**
+     * The LvlhFrame object responsible for maintaining the lvlh_frame.
+     */
+    LvlhFrame lvlh_state; //!< trick_units(--)
 
-   /**
-    * If set (default), the LVLH frame will be registered with the dynamics
-    * manager at initialization time. This will make the frame accessible
-    * through the dynamic manager via its find_ref_frame method.
-    */
-   bool register_frame; //!< trick_units(--)
+protected:
+    /**
+     * The inertial frame with origin at the center of the specified planet.
+     */
+    RefFrame * planet_centered_inertial{}; //!< trick_units(--)
 
-   /**
-    * The LVLH frame of the subject body with respect to the planet
-    * specified by the reference name.
-    */
-   RefFrame lvlh_frame; //!< trick_units(--)
+    DynManager * local_dm{};
 
-   /**
-    * The LvlhFrame object responsible for maintaining the lvlh_frame.
-    */
-   LvlhFrame lvlh_state; //!< trick_units(--)
+    // Methods
 
+public:
+    // Default constructor and destructor
+    LvlhDerivedState() = default;
+    ~LvlhDerivedState() override;
+    LvlhDerivedState(const LvlhDerivedState &) = delete;
+    LvlhDerivedState & operator=(const LvlhDerivedState &) = delete;
 
- protected:
+    // initialize(): Initialize the DerivedState (but not necessarily the
+    // state itself.)
+    // Rules for derived classes:
+    // All derived classes must forward the initialize() call to the immediate
+    // parent class and then perform class-dependent object initializations.
+    void initialize(DynBody & subject_body, DynManager & dyn_manager) override;
 
-   /**
-    * The inertial frame with origin at the center of the specified planet.
-    */
-   RefFrame * planet_centered_inertial; //!< trick_units(--)
-
-
- private:
-
-   DynManager * local_dm;
-
-
- // Methods
-
- public:
-
-   // Default constructor and destructor
-   LvlhDerivedState ();
-   ~LvlhDerivedState () override;
-
-   // initialize(): Initialize the DerivedState (but not necessarily the
-   // state itself.)
-   // Rules for derived classes:
-   // All derived classes must forward the initialize() call to the immediate
-   // parent class and then perform class-dependent object initializations.
-   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
-
-   // update(): Update the DerivedState representation of the subject DynBody.
-   // Rules for derived classes:
-   // All derived classes must perform class-dependent actions and then
-   // must forward the update() call to the immediate parent class.
-   void update (void) override;
-
-
- private:
-
-   // The copy constructor and assignment operator for this class are
-   // declared private and are not implemented.
-   LvlhDerivedState (const LvlhDerivedState&);
-   LvlhDerivedState & operator = (const LvlhDerivedState&);
-
+    // update(): Update the DerivedState representation of the subject DynBody.
+    // Rules for derived classes:
+    // All derived classes must perform class-dependent actions and then
+    // must forward the update() call to the immediate parent class.
+    void update() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

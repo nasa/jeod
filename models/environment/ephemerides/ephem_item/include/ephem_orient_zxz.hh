@@ -62,10 +62,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_ORIENT_ZXZ_HH
 #define JEOD_EPHEM_ORIENT_ZXZ_HH
-
 
 // System includes
 
@@ -78,77 +76,59 @@ Library dependencies:
 #include "class_declarations.hh"
 #include "ephem_orient.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The EphemerisZXZOrientation is an EphemerisOrientation subclass that updates
  * orientation based on an Z-X-Z Euler sequence and the time derivatives of
  * this sequence.
  */
-class EphemerisZXZOrientation : public EphemerisOrientation {
-JEOD_MAKE_SIM_INTERFACES(EphemerisZXZOrientation)
+class EphemerisZXZOrientation : public EphemerisOrientation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EphemerisZXZOrientation)
 
 public:
+    // Member functions
+    EphemerisZXZOrientation() = default;
+    ~EphemerisZXZOrientation() override = default;
+    EphemerisZXZOrientation(const EphemerisZXZOrientation &) = delete;
+    EphemerisZXZOrientation & operator=(const EphemerisZXZOrientation &) = delete;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // Getters
 
-   // Constructor and destructor
-   EphemerisZXZOrientation ();
-   ~EphemerisZXZOrientation () override;
+    // Get the Euler angles
+    const double * get_euler_angles() const;
+    void get_euler_angles(double * angles) const;
 
-   // Getters
+    // Get the Euler angle time derivatives
+    const double * get_euler_rates() const;
+    void get_euler_rates(double * rates) const;
 
-   // Get the Euler angles
-   const double * get_euler_angles () const;
-   void get_euler_angles (double * angles) const;
+    // Setters and other non-const methods
 
-   // Get the Euler angle time derivatives
-   const double * get_euler_rates () const;
-   void get_euler_rates (double * rates) const;
+    // Update the state
+    virtual void update(const double * angles, const double * derivs, double time);
 
-
-   // Setters and other non-const methods
-
-   // Update the state
-   virtual void update (
-      const double * angles, const double * derivs, double time);
-
-   // Propagate the state to some specified dynamic time
-   virtual void propagate (double to_time);
-
+    // Propagate the state to some specified dynamic time
+    virtual void propagate(double to_time);
 
 protected:
+    // Member data
 
-   // Member data
+    /**
+     * Astronomical (zxz) Euler angles.
+     */
+    double euler_angle_313[3]{}; //!< trick_units(rad)
 
-   /**
-    * Astronomical (zxz) Euler angles.
-    */
-   double euler_angle_313[3]; //!< trick_units(rad)
-
-   /**
-    * Time derivatives of the zyz Euler angles.
-    */
-   double euler_rate_313[3];  //!< trick_units(rad/s)
-
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   ///
-   /// Not implemented.
-   EphemerisZXZOrientation (const EphemerisZXZOrientation &);
-   ///
-   /// Not implemented.
-   EphemerisZXZOrientation & operator= (const EphemerisZXZOrientation &);
+    /**
+     * Time derivatives of the zyz Euler angles.
+     */
+    double euler_rate_313[3]{}; //!< trick_units(rad/s)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -25,11 +25,10 @@ log_sv_force_torque_rec( LOG_CYCLE , "iss" , "sv_dyn" )
 #/*---------------------------------------------
 # * Set up the simulation executive parameters.
 # *---------------------------------------------*/
-exec(compile(open( "Modified_data/trick/no_debug.py", "rb").read(), "Modified_data/trick/no_debug.py", 'exec'))
-set_trick_no_debug()
-exec(compile(open( "Modified_data/trick/exec_setup.py", "rb").read(), "Modified_data/trick/exec_setup.py", 'exec'))
-set_trick_exec_setup()
-#FIXME:  sys.exec.in.trap_sigfpe = Yes
+
+
+
+
 
 
 #/*---------------------------------------------

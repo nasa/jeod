@@ -73,61 +73,56 @@ Library dependencies:
 // Model includes
 #include "time.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeManagerInit;
-
 
 /**
  * Represents the Dynamic Time in the simulation.
  */
-class TimeDyn : public JeodBaseTime {
+class TimeDyn : public JeodBaseTime
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeDyn)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeDyn)
-
-// Member Data
+    // Member Data
 public:
-   /**
-    * Multiplicative difference between sim-time and dyn-time.  This is the
-    * value that is changed externally.
-    */
-  double scale_factor;//!< trick_units(--)
+    /**
+     * Multiplicative difference between sim-time and dyn-time.  This is the
+     * value that is changed externally.
+     */
+    double scale_factor{1.0}; //!< trick_units(--)
 
 private:
-   /**
-    * Private copy of scale_factor.  This value should not be changed
-    * externally; it is used for comparison purposes to identify when
-    * "scale_factor" has changed.
-    */
-  double ref_scale;   //!< trick_units(--)
-   /**
-    * Extrapolated difference between sim-time and dyn-time at the sim-start
-    * (0 if there are no changes to direction or scale)
-    */
-  double offset;      //!< trick_units(--)
+    /**
+     * Private copy of scale_factor.  This value should not be changed
+     * externally; it is used for comparison purposes to identify when
+     * "scale_factor" has changed.
+     */
+    double ref_scale{1.0}; //!< trick_units(--)
 
-// Member functions:
+    /**
+     * Extrapolated difference between sim-time and dyn-time at the sim-start
+     * (0 if there are no changes to direction or scale)
+     */
+    double offset{}; //!< trick_units(--)
+
+    // Member functions:
 public:
-  //Constructor
-   TimeDyn ();
-  // Destructor
-   ~TimeDyn () override;
-   bool update_offset (void);
+    TimeDyn();
+    ~TimeDyn() override = default;
+    TimeDyn(const TimeDyn &) = delete;
+    TimeDyn & operator=(const TimeDyn &) = delete;
+
+    bool update_offset();
 
 private:
-   void initialize_initializer_time (TimeManagerInit * tm_init) override;
-   void update (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeDyn (const TimeDyn&);
-   TimeDyn & operator = (const TimeDyn&);
+    void initialize_initializer_time(TimeManagerInit * tm_init) override;
+    void update() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

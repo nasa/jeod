@@ -48,27 +48,22 @@ Purpose:( This sim object models Moon with the LP150Q gravity model.)
 #include "planet_generic.sm"
 class Moon_LP150Q_SimObject: public PlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_moon_default_data    moon_default_data;
-  jeod::SphericalHarmonicsGravitySource_moon_LP150Q_default_data moon_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_moon_default_data moon_default_data;
+    jeod::SphericalHarmonicsGravitySource_moon_LP150Q_default_data moon_grav_default_data;
 
-  Moon_LP150Q_SimObject( jeod::DynManager   & dyn_manager_in,
-                         jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            moon_default_data,
-                            moon_grav_default_data)
-  {  
-    //
-    // Environment class jobs
-    //
-    //Must be called after update_ephemerides
-    P60001("environment") planet.calculate_alt_pfix();
-  }
- private:
-  Moon_LP150Q_SimObject (const Moon_LP150Q_SimObject&);
-  Moon_LP150Q_SimObject & operator = (const Moon_LP150Q_SimObject&);
+    Moon_LP150Q_SimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, moon_default_data, moon_grav_default_data)
+    {
+        //
+        // Environment class jobs
+        //
+        // Must be called after update_ephemerides
+        (DYNAMICS, "environment") planet.calculate_alt_pfix();
+    }
+
+    Moon_LP150Q_SimObject(const Moon_LP150Q_SimObject &) = delete;
+    Moon_LP150Q_SimObject & operator=(const Moon_LP150Q_SimObject &) = delete;
 };
 #endif

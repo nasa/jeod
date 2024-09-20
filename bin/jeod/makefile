@@ -2,17 +2,6 @@
 ################################################################################
 # JEOD library makefile
 # Usage: cd $JEOD_HOME && make -f bin/jeod/makefile [var=val ...] [goal]
-# Supported variable settings:
-# ER7_UTILS_HOME  Directory that contains the toplevel er7_utils directory
-# TRICK_HOME      Alternative way to specify the er7_utils directory
-# JEOD_SPICE_DIR  Directory that contains the SPICE toolkit
-# TRICK_BUILD     Non-empty value => Trick as opposed to unit test build
-# HIGHLIGHT       Any non-empty value highlights compiler warnings
-# WARNINGS        Optional warnings (-Wall is always in effect).
-# AT              Specify AT= to see all recipe commands
-# OPTLEVEL        Specify OPTLEVEL=-O0 to compile unoptimized
-# GCOV            Any non-empty value enables gcov compilation
-#                 (Implies OPTLEVEL=-O0)
 ################################################################################
 
 .PHONY: all clean clean_obj clean_dep
@@ -30,6 +19,17 @@ endif
 
 ifndef TRICK_BUILD
 TRICK_BUILD:=1
+endif
+
+ifneq (0,${TRICK_BUILD})
+   ifndef TRICK_HOME
+      $(error "TRICK_BUILD is set to 1 but TRICK_HOME is not defined")
+   endif
+   ifndef BUILD_DIR
+      export TRICK_HOST_CPU := $(shell TRICK_FORCE_32BIT=$(TRICK_FORCE_32BIT) $(TRICK_HOME)/bin/trick-gte TRICK_HOST_CPU)
+      BUILD_DIR:=${JEOD_HOME}/build_${TRICK_HOST_CPU}
+      INSTALL_DIR:=$(JEOD_HOME)/lib_jeod_${TRICK_HOST_CPU}
+   endif
 endif
 
 ifndef ENABLE_UNIT_TESTS
@@ -53,7 +53,7 @@ BUILD_TYPE:=Debug
 endif
 
 ifndef INSTALL_DIR
-INSTALL_DIR:=$(JEOD_HOME)
+INSTALL_DIR:=$(JEOD_HOME)/lib_jeod
 endif
 
 ifneq (,$(wildcard $(BUILD_DIR)/CMakeCache.txt))
@@ -97,20 +97,16 @@ endif
 endif
 all:
 	@echo "Building JEOD Library"
-	rm -r $(BUILD_DIR); \
-	mkdir -p $(BUILD_DIR);\
-	cd $(BUILD_DIR);\
-	$(CMAKE_CMD) -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DINSTALL_DIR=${INSTALL_DIR} -DTRICK_BUILD=${TRICK_BUILD}  \
+	-rm -r $(BUILD_DIR)
+	$(CMAKE_CMD) -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DINSTALL_DIR=${INSTALL_DIR} -DTRICK_BUILD=${TRICK_BUILD}  \
            -DENABLE_UNIT_TESTS=${ENABLE_UNIT_TESTS} -DREGEN_DE4XX_DATA=${REGEN_DE4XX_DATA} \
-           -DDE4XX_ONLY=${DE4XX_ONLY} ..;\
-	$(MAKE) install
+           -DCMAKE_CXX_FLAGS="${TRICK_CXXFLAGS} ${TRICK_SYSTEM_CXXFLAGS}" -DDE4XX_ONLY=${DE4XX_ONLY} -S $(JEOD_HOME)
+	$(MAKE) -C $(BUILD_DIR) install
 else
 ifneq (,$(wildcard $(BUILD_DIR)/Makefile))
 all:
 	@echo "Building JEOD Library"
-	mkdir -p $(BUILD_DIR);\
-	cd $(BUILD_DIR);\
-	$(MAKE) install
+	$(MAKE) -C $(BUILD_DIR) install
 else
 all:
 	@echo "Cmake files found but no $(BUILD_DIR)/Makefile found. Skipping JEOD Library build"

@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -64,12 +64,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:af634f0082c87decf61d33c0e01c3662e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#af634f0082c87decf61d33c0e01c3662e">identity</a> (double mat[3][3])</td></tr>
 <tr class="memdesc:af634f0082c87decf61d33c0e01c3662e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct identity matrix: mat[i][j] = delta_ij.  <a href="#af634f0082c87decf61d33c0e01c3662e">More...</a><br /></td></tr>
 <tr class="separator:af634f0082c87decf61d33c0e01c3662e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf13facb013da07ea42fc7c7c25b4c20"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#acf13facb013da07ea42fc7c7c25b4c20">cross_matrix</a> (double const vec[3], double cross_mat[3][3])</td></tr>
-<tr class="memdesc:acf13facb013da07ea42fc7c7c25b4c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the skew symmetric cross product matrix: mat[i][k] = epsilon_ijk vec[j], epsilon_ijk is the Levi-Cevita symbol.  <a href="#acf13facb013da07ea42fc7c7c25b4c20">More...</a><br /></td></tr>
-<tr class="separator:acf13facb013da07ea42fc7c7c25b4c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c5812bfb42731a9b6cb99bf576e8874"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a1c5812bfb42731a9b6cb99bf576e8874">outer_product</a> (double const vec_left[3], double const vec_right[3], double prod[3][3])</td></tr>
-<tr class="memdesc:a1c5812bfb42731a9b6cb99bf576e8874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the outer product of two vectors: mat[i][j] = vec_left[i] * vec_right[j].  <a href="#a1c5812bfb42731a9b6cb99bf576e8874">More...</a><br /></td></tr>
-<tr class="separator:a1c5812bfb42731a9b6cb99bf576e8874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa671226a9a6be8139ab24f9396df350f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aa671226a9a6be8139ab24f9396df350f">cross_matrix</a> (const double vec[3], double cross_mat[3][3])</td></tr>
+<tr class="memdesc:aa671226a9a6be8139ab24f9396df350f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the skew symmetric cross product matrix: mat[i][k] = epsilon_ijk vec[j], epsilon_ijk is the Levi-Cevita symbol.  <a href="#aa671226a9a6be8139ab24f9396df350f">More...</a><br /></td></tr>
+<tr class="separator:aa671226a9a6be8139ab24f9396df350f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2cd9823a49c9093a43b0c2951d2304d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#af2cd9823a49c9093a43b0c2951d2304d">outer_product</a> (const double vec_left[3], const double vec_right[3], double prod[3][3])</td></tr>
+<tr class="memdesc:af2cd9823a49c9093a43b0c2951d2304d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the outer product of two vectors: mat[i][j] = vec_left[i] * vec_right[j].  <a href="#af2cd9823a49c9093a43b0c2951d2304d">More...</a><br /></td></tr>
+<tr class="separator:af2cd9823a49c9093a43b0c2951d2304d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c5d121ed4472f6b36a4aa62ba153dc6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8c5d121ed4472f6b36a4aa62ba153dc6">negate</a> (double mat[3][3])</td></tr>
 <tr class="memdesc:a8c5d121ed4472f6b36a4aa62ba153dc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Negated matrix in-place: mat[i][j] = -mat[i][j].  <a href="#a8c5d121ed4472f6b36a4aa62ba153dc6">More...</a><br /></td></tr>
 <tr class="separator:a8c5d121ed4472f6b36a4aa62ba153dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -79,65 +79,65 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7692ddd7baa353b9b12c554546736097"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a7692ddd7baa353b9b12c554546736097">scale</a> (double scalar, double mat[3][3])</td></tr>
 <tr class="memdesc:a7692ddd7baa353b9b12c554546736097"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale matrix in-place, mat[i][j] = scalar * mat[i][j].  <a href="#a7692ddd7baa353b9b12c554546736097">More...</a><br /></td></tr>
 <tr class="separator:a7692ddd7baa353b9b12c554546736097"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3394ab6ad96b4cf3272207cd01369266"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a3394ab6ad96b4cf3272207cd01369266">incr</a> (double const addend[3][3], double mat[3][3])</td></tr>
-<tr class="memdesc:a3394ab6ad96b4cf3272207cd01369266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment matrix in-place: mat[i][j] = mat[i][j] + addend[i][j].  <a href="#a3394ab6ad96b4cf3272207cd01369266">More...</a><br /></td></tr>
-<tr class="separator:a3394ab6ad96b4cf3272207cd01369266"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e399c013e4d399a7a601f9727acf84a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a7e399c013e4d399a7a601f9727acf84a">decr</a> (double const subtrahend[3][3], double mat[3][3])</td></tr>
-<tr class="memdesc:a7e399c013e4d399a7a601f9727acf84a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decrement matrix in-place: mat[i][j] = mat[i][j] - subtrahend[i][j].  <a href="#a7e399c013e4d399a7a601f9727acf84a">More...</a><br /></td></tr>
-<tr class="separator:a7e399c013e4d399a7a601f9727acf84a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8583cc7909b7039e66c4ac5ea192f6d4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8583cc7909b7039e66c4ac5ea192f6d4">copy</a> (double const input_mat[3][3], double copy[3][3])</td></tr>
-<tr class="memdesc:a8583cc7909b7039e66c4ac5ea192f6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy matrix: copy[i][j] = mat[i][j].  <a href="#a8583cc7909b7039e66c4ac5ea192f6d4">More...</a><br /></td></tr>
-<tr class="separator:a8583cc7909b7039e66c4ac5ea192f6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf558e3655989f1b3e00b236046763cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#acf558e3655989f1b3e00b236046763cd">negate</a> (double const input_mat[3][3], double <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8583cc7909b7039e66c4ac5ea192f6d4">copy</a>[3][3])</td></tr>
-<tr class="memdesc:acf558e3655989f1b3e00b236046763cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Negate matrix: copy[i][j] = -mat[i][j].  <a href="#acf558e3655989f1b3e00b236046763cd">More...</a><br /></td></tr>
-<tr class="separator:acf558e3655989f1b3e00b236046763cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c78e685977382b6856218990d4fc5e0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a0c78e685977382b6856218990d4fc5e0">transpose</a> (double const input_mat[3][3], double trans[3][3])</td></tr>
-<tr class="memdesc:a0c78e685977382b6856218990d4fc5e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transpose matrix: copy[i][j] = mat[j][i].  <a href="#a0c78e685977382b6856218990d4fc5e0">More...</a><br /></td></tr>
-<tr class="separator:a0c78e685977382b6856218990d4fc5e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ac32e1efa8f5e7ed121b8a8eee13714"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a2ac32e1efa8f5e7ed121b8a8eee13714">scale</a> (double const mat[3][3], double scalar, double prod[3][3])</td></tr>
-<tr class="memdesc:a2ac32e1efa8f5e7ed121b8a8eee13714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale matrix: copy[i][j] = scalar * mat[i][j].  <a href="#a2ac32e1efa8f5e7ed121b8a8eee13714">More...</a><br /></td></tr>
-<tr class="separator:a2ac32e1efa8f5e7ed121b8a8eee13714"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48e902179ad1f20d026557c0a0c85dad"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a48e902179ad1f20d026557c0a0c85dad">add</a> (double const augend[3][3], double const addend[3][3], double sum[3][3])</td></tr>
-<tr class="memdesc:a48e902179ad1f20d026557c0a0c85dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add matrices: sum[i][j] = augend[i][j] + addend[i][j].  <a href="#a48e902179ad1f20d026557c0a0c85dad">More...</a><br /></td></tr>
-<tr class="separator:a48e902179ad1f20d026557c0a0c85dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8b3fd53d02e3ff61aed5c60835c15f5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aa8b3fd53d02e3ff61aed5c60835c15f5">subtract</a> (double const minuend[3][3], double const subtrahend[3][3], double diff[3][3])</td></tr>
-<tr class="memdesc:aa8b3fd53d02e3ff61aed5c60835c15f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtract matrices: diff[i][j] = minuend[i][j] - subtrahend[i][j].  <a href="#aa8b3fd53d02e3ff61aed5c60835c15f5">More...</a><br /></td></tr>
-<tr class="separator:aa8b3fd53d02e3ff61aed5c60835c15f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dce874a72c84d050f94c3109a6db77d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a7dce874a72c84d050f94c3109a6db77d">product</a> (double const mat_left[3][3], double const mat_right[3][3], double prod[3][3])</td></tr>
-<tr class="memdesc:a7dce874a72c84d050f94c3109a6db77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left * mat_right: prod[i][j] = mat_left[i][k] * mat_right[k][j].  <a href="#a7dce874a72c84d050f94c3109a6db77d">More...</a><br /></td></tr>
-<tr class="separator:a7dce874a72c84d050f94c3109a6db77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a263beb251a9ee2b7031cb2260854d3b1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a263beb251a9ee2b7031cb2260854d3b1">product_left_transpose</a> (double const mat_left[3][3], double const mat_right[3][3], double prod[3][3])</td></tr>
-<tr class="memdesc:a263beb251a9ee2b7031cb2260854d3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left^T * mat_right: prod[i][j] = mat_left[k][i] * mat_right[k][j].  <a href="#a263beb251a9ee2b7031cb2260854d3b1">More...</a><br /></td></tr>
-<tr class="separator:a263beb251a9ee2b7031cb2260854d3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5a024ded2acf75adf43d537fe915325"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ad5a024ded2acf75adf43d537fe915325">product_right_transpose</a> (double const mat_left[3][3], double const mat_right[3][3], double prod[3][3])</td></tr>
-<tr class="memdesc:ad5a024ded2acf75adf43d537fe915325"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left * mat_right^T: prod[i][j] = sum_k mat_left[i][k] * mat_right[j][k].  <a href="#ad5a024ded2acf75adf43d537fe915325">More...</a><br /></td></tr>
-<tr class="separator:ad5a024ded2acf75adf43d537fe915325"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a3105b5139aefaf3634ad78f512c03"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a97a3105b5139aefaf3634ad78f512c03">product_transpose_transpose</a> (double const mat_left[3][3], double const mat_right[3][3], double prod[3][3])</td></tr>
-<tr class="memdesc:a97a3105b5139aefaf3634ad78f512c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left^T * mat_right^T: prod[i][j] = sum_k mat_left[k][i] * mat_right[j][k].  <a href="#a97a3105b5139aefaf3634ad78f512c03">More...</a><br /></td></tr>
-<tr class="separator:a97a3105b5139aefaf3634ad78f512c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eedcc2a4e6531cd090f6422f0d6dac5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a9eedcc2a4e6531cd090f6422f0d6dac5">transform_matrix</a> (double const trans[3][3], double const mat[3][3], double prod[3][3])</td></tr>
-<tr class="memdesc:a9eedcc2a4e6531cd090f6422f0d6dac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product trans * mat * trans^T prod[i][j] = trans[i][k] * mat[k][l] * trans[j][l].  <a href="#a9eedcc2a4e6531cd090f6422f0d6dac5">More...</a><br /></td></tr>
-<tr class="separator:a9eedcc2a4e6531cd090f6422f0d6dac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d43c85aa7c9b3b73c6c7c2a88c0476f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a3d43c85aa7c9b3b73c6c7c2a88c0476f">transpose_transform_matrix</a> (double const trans[3][3], double const mat[3][3], double prod[3][3])</td></tr>
-<tr class="memdesc:a3d43c85aa7c9b3b73c6c7c2a88c0476f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product trans^T * mat * trans prod[i][j] = trans[k][i] * mat[k][l] * trans[l][j].  <a href="#a3d43c85aa7c9b3b73c6c7c2a88c0476f">More...</a><br /></td></tr>
-<tr class="separator:a3d43c85aa7c9b3b73c6c7c2a88c0476f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c65ff131fafe7c023984da438d21bba"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a1c65ff131fafe7c023984da438d21bba">invert</a> (double const matrix[3][3], double inverse[3][3])</td></tr>
-<tr class="memdesc:a1c65ff131fafe7c023984da438d21bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse of a 3x3 matrix.  <a href="#a1c65ff131fafe7c023984da438d21bba">More...</a><br /></td></tr>
-<tr class="separator:a1c65ff131fafe7c023984da438d21bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55c7c681102bd5d8ea0c628b8f43bcf5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a55c7c681102bd5d8ea0c628b8f43bcf5">invert_symmetric</a> (double const matrix[3][3], double inverse[3][3])</td></tr>
-<tr class="memdesc:a55c7c681102bd5d8ea0c628b8f43bcf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse of a symmetric 3x3 matrix.  <a href="#a55c7c681102bd5d8ea0c628b8f43bcf5">More...</a><br /></td></tr>
-<tr class="separator:a55c7c681102bd5d8ea0c628b8f43bcf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8000c7f448c6b47e54c895c474cfac78"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8000c7f448c6b47e54c895c474cfac78">print</a> (double const mat[3][3])</td></tr>
-<tr class="memdesc:a8000c7f448c6b47e54c895c474cfac78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print matrix to standard error.  <a href="#a8000c7f448c6b47e54c895c474cfac78">More...</a><br /></td></tr>
-<tr class="separator:a8000c7f448c6b47e54c895c474cfac78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81e9ee9f937c32671b54aff406893bc9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a81e9ee9f937c32671b54aff406893bc9">incr</a> (const double addend[3][3], double mat[3][3])</td></tr>
+<tr class="memdesc:a81e9ee9f937c32671b54aff406893bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment matrix in-place: mat[i][j] = mat[i][j] + addend[i][j].  <a href="#a81e9ee9f937c32671b54aff406893bc9">More...</a><br /></td></tr>
+<tr class="separator:a81e9ee9f937c32671b54aff406893bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334357e0ac0bdbf69d8b46750878dd44"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a334357e0ac0bdbf69d8b46750878dd44">decr</a> (const double subtrahend[3][3], double mat[3][3])</td></tr>
+<tr class="memdesc:a334357e0ac0bdbf69d8b46750878dd44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decrement matrix in-place: mat[i][j] = mat[i][j] - subtrahend[i][j].  <a href="#a334357e0ac0bdbf69d8b46750878dd44">More...</a><br /></td></tr>
+<tr class="separator:a334357e0ac0bdbf69d8b46750878dd44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae92a5fb1c7bc8ad224425e2bdf6101b8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae92a5fb1c7bc8ad224425e2bdf6101b8">copy</a> (const double input_mat[3][3], double copy[3][3])</td></tr>
+<tr class="memdesc:ae92a5fb1c7bc8ad224425e2bdf6101b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy matrix: copy[i][j] = mat[i][j].  <a href="#ae92a5fb1c7bc8ad224425e2bdf6101b8">More...</a><br /></td></tr>
+<tr class="separator:ae92a5fb1c7bc8ad224425e2bdf6101b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad8b80ae531dd723295227809df81a16"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aad8b80ae531dd723295227809df81a16">negate</a> (const double input_mat[3][3], double <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae92a5fb1c7bc8ad224425e2bdf6101b8">copy</a>[3][3])</td></tr>
+<tr class="memdesc:aad8b80ae531dd723295227809df81a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Negate matrix: copy[i][j] = -mat[i][j].  <a href="#aad8b80ae531dd723295227809df81a16">More...</a><br /></td></tr>
+<tr class="separator:aad8b80ae531dd723295227809df81a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c059d567c9d74ace93a17329166cddd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a3c059d567c9d74ace93a17329166cddd">transpose</a> (const double input_mat[3][3], double trans[3][3])</td></tr>
+<tr class="memdesc:a3c059d567c9d74ace93a17329166cddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transpose matrix: copy[i][j] = mat[j][i].  <a href="#a3c059d567c9d74ace93a17329166cddd">More...</a><br /></td></tr>
+<tr class="separator:a3c059d567c9d74ace93a17329166cddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c7a3654f084b90c583ee6111ddf29b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a66c7a3654f084b90c583ee6111ddf29b">scale</a> (const double mat[3][3], double scalar, double prod[3][3])</td></tr>
+<tr class="memdesc:a66c7a3654f084b90c583ee6111ddf29b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale matrix: copy[i][j] = scalar * mat[i][j].  <a href="#a66c7a3654f084b90c583ee6111ddf29b">More...</a><br /></td></tr>
+<tr class="separator:a66c7a3654f084b90c583ee6111ddf29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad53588cc1b3f48d13a496d07fa6b639b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ad53588cc1b3f48d13a496d07fa6b639b">add</a> (const double augend[3][3], const double addend[3][3], double sum[3][3])</td></tr>
+<tr class="memdesc:ad53588cc1b3f48d13a496d07fa6b639b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add matrices: sum[i][j] = augend[i][j] + addend[i][j].  <a href="#ad53588cc1b3f48d13a496d07fa6b639b">More...</a><br /></td></tr>
+<tr class="separator:ad53588cc1b3f48d13a496d07fa6b639b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cf61391c56edbc02d19c9fe138f69c9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8cf61391c56edbc02d19c9fe138f69c9">subtract</a> (const double minuend[3][3], const double subtrahend[3][3], double diff[3][3])</td></tr>
+<tr class="memdesc:a8cf61391c56edbc02d19c9fe138f69c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtract matrices: diff[i][j] = minuend[i][j] - subtrahend[i][j].  <a href="#a8cf61391c56edbc02d19c9fe138f69c9">More...</a><br /></td></tr>
+<tr class="separator:a8cf61391c56edbc02d19c9fe138f69c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae65d9afbfc1b4fe9a51729c3cca28984"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae65d9afbfc1b4fe9a51729c3cca28984">product</a> (const double mat_left[3][3], const double mat_right[3][3], double prod[3][3])</td></tr>
+<tr class="memdesc:ae65d9afbfc1b4fe9a51729c3cca28984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left * mat_right: prod[i][j] = mat_left[i][k] * mat_right[k][j].  <a href="#ae65d9afbfc1b4fe9a51729c3cca28984">More...</a><br /></td></tr>
+<tr class="separator:ae65d9afbfc1b4fe9a51729c3cca28984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a776d81b4f452701e4870f17ee62e11d1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a776d81b4f452701e4870f17ee62e11d1">product_left_transpose</a> (const double mat_left[3][3], const double mat_right[3][3], double prod[3][3])</td></tr>
+<tr class="memdesc:a776d81b4f452701e4870f17ee62e11d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left^T * mat_right: prod[i][j] = mat_left[k][i] * mat_right[k][j].  <a href="#a776d81b4f452701e4870f17ee62e11d1">More...</a><br /></td></tr>
+<tr class="separator:a776d81b4f452701e4870f17ee62e11d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f403d9f77c562c2934bf23091bc5434"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a9f403d9f77c562c2934bf23091bc5434">product_right_transpose</a> (const double mat_left[3][3], const double mat_right[3][3], double prod[3][3])</td></tr>
+<tr class="memdesc:a9f403d9f77c562c2934bf23091bc5434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left * mat_right^T: prod[i][j] = sum_k mat_left[i][k] * mat_right[j][k].  <a href="#a9f403d9f77c562c2934bf23091bc5434">More...</a><br /></td></tr>
+<tr class="separator:a9f403d9f77c562c2934bf23091bc5434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac27c29159c268e2a68f8316d481fdbe1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ac27c29159c268e2a68f8316d481fdbe1">product_transpose_transpose</a> (const double mat_left[3][3], const double mat_right[3][3], double prod[3][3])</td></tr>
+<tr class="memdesc:ac27c29159c268e2a68f8316d481fdbe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product mat_left^T * mat_right^T: prod[i][j] = sum_k mat_left[k][i] * mat_right[j][k].  <a href="#ac27c29159c268e2a68f8316d481fdbe1">More...</a><br /></td></tr>
+<tr class="separator:ac27c29159c268e2a68f8316d481fdbe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf73c0abadda02e0ad373530e078f6f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aaaf73c0abadda02e0ad373530e078f6f">transform_matrix</a> (const double trans[3][3], const double mat[3][3], double prod[3][3])</td></tr>
+<tr class="memdesc:aaaf73c0abadda02e0ad373530e078f6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product trans * mat * trans^T prod[i][j] = trans[i][k] * mat[k][l] * trans[j][l].  <a href="#aaaf73c0abadda02e0ad373530e078f6f">More...</a><br /></td></tr>
+<tr class="separator:aaaf73c0abadda02e0ad373530e078f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac18a00dec8f8344781634367b6b01293"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ac18a00dec8f8344781634367b6b01293">transpose_transform_matrix</a> (const double trans[3][3], const double mat[3][3], double prod[3][3])</td></tr>
+<tr class="memdesc:ac18a00dec8f8344781634367b6b01293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the matrix product trans^T * mat * trans prod[i][j] = trans[k][i] * mat[k][l] * trans[l][j].  <a href="#ac18a00dec8f8344781634367b6b01293">More...</a><br /></td></tr>
+<tr class="separator:ac18a00dec8f8344781634367b6b01293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0267c1b8595b116e70be8f4326c666dc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a0267c1b8595b116e70be8f4326c666dc">invert</a> (const double matrix[3][3], double inverse[3][3])</td></tr>
+<tr class="memdesc:a0267c1b8595b116e70be8f4326c666dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse of a 3x3 matrix.  <a href="#a0267c1b8595b116e70be8f4326c666dc">More...</a><br /></td></tr>
+<tr class="separator:a0267c1b8595b116e70be8f4326c666dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ace8d38e058e90c02725276c2261b0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae9ace8d38e058e90c02725276c2261b0">invert_symmetric</a> (const double matrix[3][3], double inverse[3][3])</td></tr>
+<tr class="memdesc:ae9ace8d38e058e90c02725276c2261b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse of a symmetric 3x3 matrix.  <a href="#ae9ace8d38e058e90c02725276c2261b0">More...</a><br /></td></tr>
+<tr class="separator:ae9ace8d38e058e90c02725276c2261b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8a5f901f188f965e1859a42ef3ff4a8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#af8a5f901f188f965e1859a42ef3ff4a8">print</a> (const double mat[3][3])</td></tr>
+<tr class="memdesc:af8a5f901f188f965e1859a42ef3ff4a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print matrix to standard error.  <a href="#af8a5f901f188f965e1859a42ef3ff4a8">More...</a><br /></td></tr>
+<tr class="separator:af8a5f901f188f965e1859a42ef3ff4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides static methods for operations that involve 3x3 matrices. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dae/matrix3x3_8hh_source.html#l00072">72</a> of file <a class="el" href="../../d0/dae/matrix3x3_8hh_source.html">matrix3x3.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dae/matrix3x3_8hh_source.html#l00071">71</a> of file <a class="el" href="../../d0/dae/matrix3x3_8hh_source.html">matrix3x3.hh</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a48e902179ad1f20d026557c0a0c85dad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48e902179ad1f20d026557c0a0c85dad">&#9670;&nbsp;</a></span>add()</h2>
+<a id="ad53588cc1b3f48d13a496d07fa6b639b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad53588cc1b3f48d13a496d07fa6b639b">&#9670;&nbsp;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,13 +148,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::add </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>augend</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>addend</em>[3][3], </td>
         </tr>
         <tr>
@@ -186,14 +186,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00410">410</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00326">326</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a405b24c32e3dfa983e1631f027fedaa9">jeod::MassBody::calc_composite_inertia()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a5156c75cb476277ad951d84b477ca9d0">jeod::MassBody::calc_composite_inertia()</a>.</p>
 
 </div>
 </div>
-<a id="a8583cc7909b7039e66c4ac5ea192f6d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8583cc7909b7039e66c4ac5ea192f6d4">&#9670;&nbsp;</a></span>copy()</h2>
+<a id="ae92a5fb1c7bc8ad224425e2bdf6101b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae92a5fb1c7bc8ad224425e2bdf6101b8">&#9670;&nbsp;</a></span>copy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +204,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::copy </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>input_mat</em>[3][3], </td>
         </tr>
         <tr>
@@ -235,14 +235,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00296">296</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00237">237</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6fc436abf50454f01e0b644bcb77f273">jeod::DynBodyInit::apply_user_inputs()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a8435a5fa032d499d84413c6b07e3fb3f">jeod::DynBody::attach_to_frame()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#aa37debf5712b77b52f272a91e90767ab">jeod::DynBodyConstraintsSolver::compute_root_to_this()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a7ce8253fbdfbfb77207e3c4018a45760">jeod::MassPoint::compute_state_wrt_pred()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#af3469775f6c79f92093cdff25f73ae82">jeod::RefFrameRot::copy()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a7dd3c771db23604137b3504cd6e98475">jeod::MassPointState::copy_state()</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a9897d73bbc494c38174c9c6f03972e04">jeod::PlanetRotation::get_rotation()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a3d87983fe304c8891fe5c5fb02170513">jeod::Orientation::get_transform()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#adc7b01e2705682409a26aba9a7401330">jeod::GravityManager::gravitation()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a17d036eff8a3443cf35872a7c34ca982">jeod::MassPointState::incr_right()</a>, <a class="el" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html#aa094fe5b13318bc6ca6aa5c8788be10d">jeod::DynBodyGenericFrameAttachment::initialize_attachment()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a3b4d73969eeb9c3f534ead1d0d545bdc">jeod::MassBody::initialize_mass()</a>, <a class="el" href="../../d2/d15/classjeod_1_1MassPointInit.html#a6bf3bf2705b3d70c8aa59d17c4ee3f4a">jeod::MassPointInit::initialize_mass_point()</a>, <a class="el" href="../../d0/da8/classjeod_1_1MassPropertiesInit.html#a9405d8b5805df9059782c98106550578">jeod::MassPropertiesInit::initialize_mass_properties()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#acf558e3655989f1b3e00b236046763cd">negate()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a04ff9197dd48b02c4148133d56caef91">jeod::Orientation::Orientation()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a86e69addfca641368b5b840a92afb83f">jeod::BasePlanet::set_alt_pfix()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a437c883c52a74d2f34475afe5a4cfa19">jeod::DynBody::set_attitude_matrix()</a>, <a class="el" href="../../dc/df6/classjeod_1_1ConstraintFrame.html#a2a346ff1e0b5ad756142ac0faecff98f">jeod::ConstraintFrame::set_struct_to_constraint_frame()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a046c50293aebaa1712b44374b478e079">jeod::Orientation::set_transform()</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">jeod::GravityTorque::update()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ab912e6815fda82a73f70b0307d557c2e">jeod::MassBody::update_mass_properties()</a>, and <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a8929832b57c8bcdc554be3c0e725af59">jeod::MassPointState::update_orientation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/dd2/classjeod_1_1DynBodyInitLvlhState.html#a6fc7eb59835bb9f45c3d327aebf1bce1">jeod::DynBodyInitLvlhState::apply()</a>, <a class="el" href="../../d3/d4f/classjeod_1_1DynBodyInit.html#a6d04bf2a80ff96095b83dde8642c0a91">jeod::DynBodyInit::apply_user_inputs()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a388568fb55c3a09b244b4e193162e85a">jeod::DynBody::attach_to_frame()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#aa37debf5712b77b52f272a91e90767ab">jeod::DynBodyConstraintsSolver::compute_root_to_this()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a7ce8253fbdfbfb77207e3c4018a45760">jeod::MassPoint::compute_state_wrt_pred()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#af3469775f6c79f92093cdff25f73ae82">jeod::RefFrameRot::copy()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a7dd3c771db23604137b3504cd6e98475">jeod::MassPointState::copy_state()</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a9897d73bbc494c38174c9c6f03972e04">jeod::PlanetRotation::get_rotation()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a3d87983fe304c8891fe5c5fb02170513">jeod::Orientation::get_transform()</a>, <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#adc7b01e2705682409a26aba9a7401330">jeod::GravityManager::gravitation()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a17d036eff8a3443cf35872a7c34ca982">jeod::MassPointState::incr_right()</a>, <a class="el" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html#aa094fe5b13318bc6ca6aa5c8788be10d">jeod::DynBodyGenericFrameAttachment::initialize_attachment()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a699c640c1aab79e2c36d960e94229884">jeod::MassBody::initialize_mass()</a>, <a class="el" href="../../d2/d15/classjeod_1_1MassPointInit.html#a6bf3bf2705b3d70c8aa59d17c4ee3f4a">jeod::MassPointInit::initialize_mass_point()</a>, <a class="el" href="../../d0/da8/classjeod_1_1MassPropertiesInit.html#a9405d8b5805df9059782c98106550578">jeod::MassPropertiesInit::initialize_mass_properties()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aad8b80ae531dd723295227809df81a16">negate()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a04ff9197dd48b02c4148133d56caef91">jeod::Orientation::Orientation()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a86e69addfca641368b5b840a92afb83f">jeod::BasePlanet::set_alt_pfix()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a437c883c52a74d2f34475afe5a4cfa19">jeod::DynBody::set_attitude_matrix()</a>, <a class="el" href="../../dc/df6/classjeod_1_1ConstraintFrame.html#a2a346ff1e0b5ad756142ac0faecff98f">jeod::ConstraintFrame::set_struct_to_constraint_frame()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a046c50293aebaa1712b44374b478e079">jeod::Orientation::set_transform()</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">jeod::GravityTorque::update()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8e8a8dd47cb63f2ac8803a9c4134a4ff">jeod::MassBody::update_mass_properties()</a>, and <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a8929832b57c8bcdc554be3c0e725af59">jeod::MassPointState::update_orientation()</a>.</p>
 
 </div>
 </div>
-<a id="acf13facb013da07ea42fc7c7c25b4c20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf13facb013da07ea42fc7c7c25b4c20">&#9670;&nbsp;</a></span>cross_matrix()</h2>
+<a id="aa671226a9a6be8139ab24f9396df350f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa671226a9a6be8139ab24f9396df350f">&#9670;&nbsp;</a></span>cross_matrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,7 +253,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::cross_matrix </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>vec</em>[3], </td>
         </tr>
         <tr>
@@ -284,12 +284,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00115">115</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00101">101</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
-<a id="a7e399c013e4d399a7a601f9727acf84a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e399c013e4d399a7a601f9727acf84a">&#9670;&nbsp;</a></span>decr()</h2>
+<a id="a334357e0ac0bdbf69d8b46750878dd44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a334357e0ac0bdbf69d8b46750878dd44">&#9670;&nbsp;</a></span>decr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +300,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::decr </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>subtrahend</em>[3][3], </td>
         </tr>
         <tr>
@@ -331,7 +331,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00271">271</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00219">219</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
@@ -367,14 +367,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00094">94</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00086">86</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a418b88c1a703d144afbf6632e017e841">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d7/d67/classjeod_1_1BodyAttachAligned.html#a4f10936062356738ed249541d83a3543">jeod::BodyAttachAligned::apply()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#a4d952e4aed8379399fdceaa149805b6c">jeod::BasePlanet::BasePlanet()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#aa37debf5712b77b52f272a91e90767ab">jeod::DynBodyConstraintsSolver::compute_root_to_this()</a>, <a class="el" href="../../dc/df6/classjeod_1_1ConstraintFrame.html#ac394155f5a26b6cdb061ab9bcf0f2e01">jeod::ConstraintFrame::ConstraintFrame()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#ae658d0c3f850a2e281bd84261e999d4a">jeod::DynBodyConstraintsSolver::DynBodyConstraintsSolver()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a7cc54d58c40a7348e5a8f0c440550303">jeod::RefFrameRot::initialize()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a36bb646d0c107b472046887d6489d207">jeod::MassPointState::initialize_mass_point()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a3c6928f2f828b9fbbdc636035974bd01">jeod::MassBody::MassBody()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#ace4107fe2da19584099376f651bf046a">jeod::MassPointState::MassPointState()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a2a3f93e4d1df2766063a1a84f35677e6">jeod::MassPointState::negate()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#a5dc8b0c4c31bee02604ac849755117d8">jeod::Orientation::Orientation()</a>, <a class="el" href="../../d8/def/classjeod_1_1PendulumConstraintComponent.html#a5dff0fa74a17901b7a8ca8ac056908f8">jeod::PendulumConstraintComponent::PendulumConstraintComponent()</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#a37d867c3c173bb59778c5c7cb1f02314">jeod::PlanetRotation::PlanetRotation()</a>, and <a class="el" href="../../d8/d87/classjeod_1_1NutationJ2000.html#a278abb158063cc2cf8f3c80100ed92e3">jeod::NutationJ2000::update_rotation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aaacee3ff8d7cc2569e7eb896e60d8320">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d7/d67/classjeod_1_1BodyAttachAligned.html#a4f10936062356738ed249541d83a3543">jeod::BodyAttachAligned::apply()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#aa37debf5712b77b52f272a91e90767ab">jeod::DynBodyConstraintsSolver::compute_root_to_this()</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#a7cc54d58c40a7348e5a8f0c440550303">jeod::RefFrameRot::initialize()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a36bb646d0c107b472046887d6489d207">jeod::MassPointState::initialize_mass_point()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a0cbb5742a660e5567b91d0f4e11ff710">jeod::MassBody::MassBody()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a2a3f93e4d1df2766063a1a84f35677e6">jeod::MassPointState::negate()</a>, and <a class="el" href="../../d8/d87/classjeod_1_1NutationJ2000.html#a278abb158063cc2cf8f3c80100ed92e3">jeod::NutationJ2000::update_rotation()</a>.</p>
 
 </div>
 </div>
-<a id="a3394ab6ad96b4cf3272207cd01369266"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3394ab6ad96b4cf3272207cd01369266">&#9670;&nbsp;</a></span>incr()</h2>
+<a id="a81e9ee9f937c32671b54aff406893bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81e9ee9f937c32671b54aff406893bc9">&#9670;&nbsp;</a></span>incr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -385,7 +385,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::incr </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>addend</em>[3][3], </td>
         </tr>
         <tr>
@@ -416,9 +416,9 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00246">246</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00201">201</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a405b24c32e3dfa983e1631f027fedaa9">jeod::MassBody::calc_composite_inertia()</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#adc7b01e2705682409a26aba9a7401330">jeod::GravityManager::gravitation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a5156c75cb476277ad951d84b477ca9d0">jeod::MassBody::calc_composite_inertia()</a>, and <a class="el" href="../../de/d78/classjeod_1_1GravityManager.html#adc7b01e2705682409a26aba9a7401330">jeod::GravityManager::gravitation()</a>.</p>
 
 </div>
 </div>
@@ -454,14 +454,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00076">76</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00073">73</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1f442f80d7bf36ccf377ba5aff8a69b1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#ad2e4ebc00e57e0e6b05a33df013f3dca">jeod::SphericalHarmonicsGravityControls::calc_nonspherical()</a>, <a class="el" href="../../da/d89/classjeod_1_1PrecessionMars.html#abe1450b7b03d2e3183b9414201f407c7">jeod::PrecessionMars::compute_fixed_matrices()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#aed495f059a78ca27a13763cf2dbd7544">jeod::Orientation::compute_matrix_from_euler_angles()</a>, <a class="el" href="../../d1/ddd/classjeod_1_1ConstrainedRigidMass.html#a0b1cf11505c1c59bf78547837792abd8">jeod::ConstrainedRigidMass::ConstrainedRigidMass()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#afd16bfa0bae3e59adb36cb9531ebf8b7">jeod::MassBody::detach_update_properties()</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a64de09a193c0ed165e34ce0678833ec5">jeod::GravityControls::gravitation()</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#aa9dbe5e7390cabe2a7168efcca36e5e1">jeod::GravityControls::GravityControls()</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#afcb6b217cfbeecaec5cdb0f83a5b80a5">jeod::GravityInteraction::GravityInteraction()</a>, <a class="el" href="../../d4/de8/classjeod_1_1MassProperties.html#aaf43e5547f782480ad7f7bb621fe838f">jeod::MassProperties::MassProperties()</a>, <a class="el" href="../../d0/da8/classjeod_1_1MassPropertiesInit.html#a10d08d0f6ccab908f4e28bc9e7ccafe5">jeod::MassPropertiesInit::MassPropertiesInit()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a023e4182986829b37c9a6e0ac78f7053">jeod::PlanetRNP::PlanetRNP()</a>, <a class="el" href="../../da/d89/classjeod_1_1PrecessionMars.html#ae39fa58f0e031146e74058fb0f06ca29">jeod::PrecessionMars::PrecessionMars()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ab912e6815fda82a73f70b0307d557c2e">jeod::MassBody::update_mass_properties()</a>, and <a class="el" href="../../d2/d87/classjeod_1_1NutationMars.html#a84a2d36313013f6cc43b9f2e11c2f550">jeod::NutationMars::update_rotation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aca611be05781da171880d8d3b99777d5">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#ad2e4ebc00e57e0e6b05a33df013f3dca">jeod::SphericalHarmonicsGravityControls::calc_nonspherical()</a>, <a class="el" href="../../da/d89/classjeod_1_1PrecessionMars.html#abe1450b7b03d2e3183b9414201f407c7">jeod::PrecessionMars::compute_fixed_matrices()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#aed495f059a78ca27a13763cf2dbd7544">jeod::Orientation::compute_matrix_from_euler_angles()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#afd16bfa0bae3e59adb36cb9531ebf8b7">jeod::MassBody::detach_update_properties()</a>, <a class="el" href="../../d7/db0/classjeod_1_1GravityControls.html#a64de09a193c0ed165e34ce0678833ec5">jeod::GravityControls::gravitation()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8e8a8dd47cb63f2ac8803a9c4134a4ff">jeod::MassBody::update_mass_properties()</a>, and <a class="el" href="../../d2/d87/classjeod_1_1NutationMars.html#a84a2d36313013f6cc43b9f2e11c2f550">jeod::NutationMars::update_rotation()</a>.</p>
 
 </div>
 </div>
-<a id="a1c65ff131fafe7c023984da438d21bba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c65ff131fafe7c023984da438d21bba">&#9670;&nbsp;</a></span>invert()</h2>
+<a id="a0267c1b8595b116e70be8f4326c666dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0267c1b8595b116e70be8f4326c666dc">&#9670;&nbsp;</a></span>invert()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,7 +472,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">int jeod::Matrix3x3::invert </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>matrix</em>[3][3], </td>
         </tr>
         <tr>
@@ -509,14 +509,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d7b/dm__invert_8cc_source.html#l00075">75</a> of file <a class="el" href="../../db/d7b/dm__invert_8cc_source.html">dm_invert.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d7b/dm__invert_8cc_source.html#l00072">72</a> of file <a class="el" href="../../db/d7b/dm__invert_8cc_source.html">dm_invert.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, and <a class="el" href="../../dc/d8e/classjeod_1_1MathMessages.html#aa0780a3555cabd11d3a271a0262891a9">jeod::MathMessages::ill_conditioned</a>.</p>
 
 </div>
 </div>
-<a id="a55c7c681102bd5d8ea0c628b8f43bcf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55c7c681102bd5d8ea0c628b8f43bcf5">&#9670;&nbsp;</a></span>invert_symmetric()</h2>
+<a id="ae9ace8d38e058e90c02725276c2261b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ace8d38e058e90c02725276c2261b0">&#9670;&nbsp;</a></span>invert_symmetric()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -527,7 +527,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">int jeod::Matrix3x3::invert_symmetric </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>matrix</em>[3][3], </td>
         </tr>
         <tr>
@@ -565,11 +565,11 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/da8/dm__invert__symm_8cc_source.html#l00076">76</a> of file <a class="el" href="../../da/da8/dm__invert__symm_8cc_source.html">dm_invert_symm.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/da8/dm__invert__symm_8cc_source.html#l00073">73</a> of file <a class="el" href="../../da/da8/dm__invert__symm_8cc_source.html">dm_invert_symm.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#acc229e7e7258d50918102f33670cd829">jeod::MessageHandler::error()</a>, and <a class="el" href="../../dc/d8e/classjeod_1_1MathMessages.html#aa0780a3555cabd11d3a271a0262891a9">jeod::MathMessages::ill_conditioned</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#afd16bfa0bae3e59adb36cb9531ebf8b7">jeod::MassBody::detach_update_properties()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#ab912e6815fda82a73f70b0307d557c2e">jeod::MassBody::update_mass_properties()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#afd16bfa0bae3e59adb36cb9531ebf8b7">jeod::MassBody::detach_update_properties()</a>, and <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8e8a8dd47cb63f2ac8803a9c4134a4ff">jeod::MassBody::update_mass_properties()</a>.</p>
 
 </div>
 </div>
@@ -605,12 +605,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00169">169</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00142">142</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
-<a id="acf558e3655989f1b3e00b236046763cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf558e3655989f1b3e00b236046763cd">&#9670;&nbsp;</a></span>negate() <span class="overload">[2/2]</span></h2>
+<a id="aad8b80ae531dd723295227809df81a16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad8b80ae531dd723295227809df81a16">&#9670;&nbsp;</a></span>negate() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,7 +621,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::negate </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>input_mat</em>[3][3], </td>
         </tr>
         <tr>
@@ -656,14 +656,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00325">325</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00260">260</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">References <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8583cc7909b7039e66c4ac5ea192f6d4">copy()</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae92a5fb1c7bc8ad224425e2bdf6101b8">copy()</a>.</p>
 
 </div>
 </div>
-<a id="a1c5812bfb42731a9b6cb99bf576e8874"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c5812bfb42731a9b6cb99bf576e8874">&#9670;&nbsp;</a></span>outer_product()</h2>
+<a id="af2cd9823a49c9093a43b0c2951d2304d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2cd9823a49c9093a43b0c2951d2304d">&#9670;&nbsp;</a></span>outer_product()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -674,13 +674,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::outer_product </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>vec_left</em>[3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>vec_right</em>[3], </td>
         </tr>
         <tr>
@@ -712,12 +712,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00145">145</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00125">125</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
-<a id="a8000c7f448c6b47e54c895c474cfac78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8000c7f448c6b47e54c895c474cfac78">&#9670;&nbsp;</a></span>print()</h2>
+<a id="af8a5f901f188f965e1859a42ef3ff4a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8a5f901f188f965e1859a42ef3ff4a8">&#9670;&nbsp;</a></span>print()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -728,7 +728,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::print </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat</em>[3][3]</td><td>)</td>
           <td></td>
         </tr>
@@ -748,12 +748,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00736">736</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00540">540</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
-<a id="a7dce874a72c84d050f94c3109a6db77d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dce874a72c84d050f94c3109a6db77d">&#9670;&nbsp;</a></span>product()</h2>
+<a id="ae65d9afbfc1b4fe9a51729c3cca28984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae65d9afbfc1b4fe9a51729c3cca28984">&#9670;&nbsp;</a></span>product()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -764,13 +764,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::product </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_left</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_right</em>[3][3], </td>
         </tr>
         <tr>
@@ -806,14 +806,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00468">468</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00368">368</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a418b88c1a703d144afbf6632e017e841">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1f442f80d7bf36ccf377ba5aff8a69b1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#af907eaca8dcab5816dd36195b60beb26">jeod::BasePlanet::calculate_alt_pfix()</a>, <a class="el" href="../../da/d89/classjeod_1_1PrecessionMars.html#abe1450b7b03d2e3183b9414201f407c7">jeod::PrecessionMars::compute_fixed_matrices()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#aed495f059a78ca27a13763cf2dbd7544">jeod::Orientation::compute_matrix_from_euler_angles()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#aa37debf5712b77b52f272a91e90767ab">jeod::DynBodyConstraintsSolver::compute_root_to_this()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">jeod::PlanetRNP::propagate_rnp()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a9eedcc2a4e6531cd090f6422f0d6dac5">transform_matrix()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#af4816199cf27798853522a3c4b629c9b">jeod::DynBodyConstraintsSolver::transform_matrix_from_root()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a3d43c85aa7c9b3b73c6c7c2a88c0476f">transpose_transform_matrix()</a>, <a class="el" href="../../dc/df6/classjeod_1_1ConstraintFrame.html#ac08965e0369e67ea3fb0675f3f835511">jeod::ConstraintFrame::update_root_to_constraint_frame()</a>, and <a class="el" href="../../da/d89/classjeod_1_1PrecessionMars.html#a9148641de0a4f2e7a605a4e2bdb5ce62">jeod::PrecessionMars::update_rotation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aaacee3ff8d7cc2569e7eb896e60d8320">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aca611be05781da171880d8d3b99777d5">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d5/d53/classjeod_1_1BasePlanet.html#ad1ef1e4467d01c51f30e8d4c7d597fe6">jeod::BasePlanet::calculate_alt_pfix()</a>, <a class="el" href="../../da/d89/classjeod_1_1PrecessionMars.html#abe1450b7b03d2e3183b9414201f407c7">jeod::PrecessionMars::compute_fixed_matrices()</a>, <a class="el" href="../../db/de5/classjeod_1_1Orientation.html#aed495f059a78ca27a13763cf2dbd7544">jeod::Orientation::compute_matrix_from_euler_angles()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#aa37debf5712b77b52f272a91e90767ab">jeod::DynBodyConstraintsSolver::compute_root_to_this()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">jeod::PlanetRNP::propagate_rnp()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aaaf73c0abadda02e0ad373530e078f6f">transform_matrix()</a>, <a class="el" href="../../da/d94/classjeod_1_1DynBodyConstraintsSolver.html#af4816199cf27798853522a3c4b629c9b">jeod::DynBodyConstraintsSolver::transform_matrix_from_root()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ac18a00dec8f8344781634367b6b01293">transpose_transform_matrix()</a>, <a class="el" href="../../dc/df6/classjeod_1_1ConstraintFrame.html#ac08965e0369e67ea3fb0675f3f835511">jeod::ConstraintFrame::update_root_to_constraint_frame()</a>, and <a class="el" href="../../da/d89/classjeod_1_1PrecessionMars.html#a9148641de0a4f2e7a605a4e2bdb5ce62">jeod::PrecessionMars::update_rotation()</a>.</p>
 
 </div>
 </div>
-<a id="a263beb251a9ee2b7031cb2260854d3b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a263beb251a9ee2b7031cb2260854d3b1">&#9670;&nbsp;</a></span>product_left_transpose()</h2>
+<a id="a776d81b4f452701e4870f17ee62e11d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a776d81b4f452701e4870f17ee62e11d1">&#9670;&nbsp;</a></span>product_left_transpose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -824,13 +824,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::product_left_transpose </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_left</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_right</em>[3][3], </td>
         </tr>
         <tr>
@@ -866,14 +866,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00525">525</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00399">399</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a910d205b999208dd6b1e6e5556c7a9a5">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a2247970e1b8a3d1552f8dc26b782d6f1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a12ecb33b85319432c1f5cbca4cc78085">jeod::MassBody::attach_to()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a3d43c85aa7c9b3b73c6c7c2a88c0476f">transpose_transform_matrix()</a>, and <a class="el" href="../../de/dda/classjeod_1_1CheckItem.html#a991146a634b0290741d8dea7f146d39b">jeod::CheckItem::within_eigen_tolerance()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a910d205b999208dd6b1e6e5556c7a9a5">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a2247970e1b8a3d1552f8dc26b782d6f1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a12ecb33b85319432c1f5cbca4cc78085">jeod::MassBody::attach_to()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ac18a00dec8f8344781634367b6b01293">transpose_transform_matrix()</a>, and <a class="el" href="../../de/dda/classjeod_1_1CheckItem.html#a991146a634b0290741d8dea7f146d39b">jeod::CheckItem::within_eigen_tolerance()</a>.</p>
 
 </div>
 </div>
-<a id="ad5a024ded2acf75adf43d537fe915325"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5a024ded2acf75adf43d537fe915325">&#9670;&nbsp;</a></span>product_right_transpose()</h2>
+<a id="a9f403d9f77c562c2934bf23091bc5434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f403d9f77c562c2934bf23091bc5434">&#9670;&nbsp;</a></span>product_right_transpose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -884,13 +884,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::product_right_transpose </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_left</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_right</em>[3][3], </td>
         </tr>
         <tr>
@@ -926,14 +926,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00582">582</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00432">432</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a9eedcc2a4e6531cd090f6422f0d6dac5">transform_matrix()</a>, and <a class="el" href="../../d0/d75/classjeod_1_1SpiceEphemOrientation.html#af6ed4c619a2e4645550c6df50520f1c3">jeod::SpiceEphemOrientation::update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#a41226dd71640061081e450d413148d1b">jeod::LvlhRelativeDerivedState::convert_circ_to_rect()</a>, <a class="el" href="../../dd/d1a/classjeod_1_1LvlhRelativeDerivedState.html#ae0ab3f8cef1471d6f12ea0ac392ee3a4">jeod::LvlhRelativeDerivedState::convert_rect_to_circ()</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aaaf73c0abadda02e0ad373530e078f6f">transform_matrix()</a>, and <a class="el" href="../../d0/d75/classjeod_1_1SpiceEphemOrientation.html#af6ed4c619a2e4645550c6df50520f1c3">jeod::SpiceEphemOrientation::update()</a>.</p>
 
 </div>
 </div>
-<a id="a97a3105b5139aefaf3634ad78f512c03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97a3105b5139aefaf3634ad78f512c03">&#9670;&nbsp;</a></span>product_transpose_transpose()</h2>
+<a id="ac27c29159c268e2a68f8316d481fdbe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac27c29159c268e2a68f8316d481fdbe1">&#9670;&nbsp;</a></span>product_transpose_transpose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -944,13 +944,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::product_transpose_transpose </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_left</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat_right</em>[3][3], </td>
         </tr>
         <tr>
@@ -986,9 +986,9 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00639">639</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00465">465</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a418b88c1a703d144afbf6632e017e841">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1f442f80d7bf36ccf377ba5aff8a69b1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">jeod::PlanetRNP::propagate_rnp()</a>, and <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">jeod::PlanetRNP::update_rnp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aaacee3ff8d7cc2569e7eb896e60d8320">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aca611be05781da171880d8d3b99777d5">jeod::DynBody::attach_child()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">jeod::PlanetRNP::propagate_rnp()</a>, and <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#a04a56c69b8828107310728e1b41d08f5">jeod::PlanetRNP::update_rnp()</a>.</p>
 
 </div>
 </div>
@@ -1035,12 +1035,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00221">221</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00183">183</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
-<a id="a2ac32e1efa8f5e7ed121b8a8eee13714"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ac32e1efa8f5e7ed121b8a8eee13714">&#9670;&nbsp;</a></span>scale() <span class="overload">[2/2]</span></h2>
+<a id="a66c7a3654f084b90c583ee6111ddf29b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66c7a3654f084b90c583ee6111ddf29b">&#9670;&nbsp;</a></span>scale() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1051,7 +1051,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::scale </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat</em>[3][3], </td>
         </tr>
         <tr>
@@ -1089,12 +1089,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00383">383</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00307">307</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
-<a id="aa8b3fd53d02e3ff61aed5c60835c15f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8b3fd53d02e3ff61aed5c60835c15f5">&#9670;&nbsp;</a></span>subtract()</h2>
+<a id="a8cf61391c56edbc02d19c9fe138f69c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cf61391c56edbc02d19c9fe138f69c9">&#9670;&nbsp;</a></span>subtract()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1105,13 +1105,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::subtract </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>minuend</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>subtrahend</em>[3][3], </td>
         </tr>
         <tr>
@@ -1143,14 +1143,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00437">437</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00345">345</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/da8/classjeod_1_1MassPropertiesInit.html#a9405d8b5805df9059782c98106550578">jeod::MassPropertiesInit::initialize_mass_properties()</a>.</p>
 
 </div>
 </div>
-<a id="a9eedcc2a4e6531cd090f6422f0d6dac5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9eedcc2a4e6531cd090f6422f0d6dac5">&#9670;&nbsp;</a></span>transform_matrix()</h2>
+<a id="aaaf73c0abadda02e0ad373530e078f6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaf73c0abadda02e0ad373530e078f6f">&#9670;&nbsp;</a></span>transform_matrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1161,13 +1161,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::transform_matrix </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>trans</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat</em>[3][3], </td>
         </tr>
         <tr>
@@ -1203,9 +1203,9 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00696">696</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00510">510</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">References <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a7dce874a72c84d050f94c3109a6db77d">product()</a>, and <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ad5a024ded2acf75adf43d537fe915325">product_right_transpose()</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae65d9afbfc1b4fe9a51729c3cca28984">product()</a>, and <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a9f403d9f77c562c2934bf23091bc5434">product_right_transpose()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../d0/da8/classjeod_1_1MassPropertiesInit.html#a9405d8b5805df9059782c98106550578">jeod::MassPropertiesInit::initialize_mass_properties()</a>, and <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">jeod::GravityTorque::update()</a>.</p>
 
@@ -1243,14 +1243,14 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00194">194</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00161">161</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a418b88c1a703d144afbf6632e017e841">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a1f442f80d7bf36ccf377ba5aff8a69b1">jeod::DynBody::attach_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a8bb801418d233774ae985098d87e834d">jeod::MassBody::attach_to()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a56ad811a6dc23b22ecfe2a0a531f56b7">jeod::MassPoint::compute_pred_rel_state()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0ac11c8bfd9e29833f3f3d5c9b8adf23">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#ab0f3f5c40ce190211295b7960e31878e">jeod::PlanetRotation::get_rotation_transpose()</a>, <a class="el" href="../../d2/d15/classjeod_1_1MassPointInit.html#a6bf3bf2705b3d70c8aa59d17c4ee3f4a">jeod::MassPointInit::initialize_mass_point()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a2a3f93e4d1df2766063a1a84f35677e6">jeod::MassPointState::negate()</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a4be9e4abbc30e5acd592a466886d5fac">jeod::RefFrameState::negate()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">jeod::PlanetRNP::propagate_rnp()</a>, and <a class="el" href="../../db/d30/classjeod_1_1EulerDerivedState.html#a8a454f05f8d543c0a6f9b5d279958cb3">jeod::EulerDerivedState::update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aaacee3ff8d7cc2569e7eb896e60d8320">jeod::DynBody::add_mass_body()</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#aca611be05781da171880d8d3b99777d5">jeod::DynBody::attach_child()</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a762d22d06e03d61fc8ee0b1349e6a31d">jeod::MassBody::attach_to()</a>, <a class="el" href="../../da/da4/classjeod_1_1MassPoint.html#a56ad811a6dc23b22ecfe2a0a531f56b7">jeod::MassPoint::compute_pred_rel_state()</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a0ac11c8bfd9e29833f3f3d5c9b8adf23">jeod::RefFrame::compute_relative_state()</a>, <a class="el" href="../../d7/d61/classjeod_1_1PlanetRotation.html#ab0f3f5c40ce190211295b7960e31878e">jeod::PlanetRotation::get_rotation_transpose()</a>, <a class="el" href="../../d2/d15/classjeod_1_1MassPointInit.html#a6bf3bf2705b3d70c8aa59d17c4ee3f4a">jeod::MassPointInit::initialize_mass_point()</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#a2a3f93e4d1df2766063a1a84f35677e6">jeod::MassPointState::negate()</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a4be9e4abbc30e5acd592a466886d5fac">jeod::RefFrameState::negate()</a>, <a class="el" href="../../d7/d52/classjeod_1_1PlanetRNP.html#aabb4d1ec1cfc1b00ee05333c317c1f9f">jeod::PlanetRNP::propagate_rnp()</a>, and <a class="el" href="../../db/d30/classjeod_1_1EulerDerivedState.html#a17311805aadd9314496fa50017977f77">jeod::EulerDerivedState::update()</a>.</p>
 
 </div>
 </div>
-<a id="a0c78e685977382b6856218990d4fc5e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c78e685977382b6856218990d4fc5e0">&#9670;&nbsp;</a></span>transpose() <span class="overload">[2/2]</span></h2>
+<a id="a3c059d567c9d74ace93a17329166cddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c059d567c9d74ace93a17329166cddd">&#9670;&nbsp;</a></span>transpose() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1261,7 +1261,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::transpose </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>input_mat</em>[3][3], </td>
         </tr>
         <tr>
@@ -1296,12 +1296,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00355">355</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00283">283</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
 </div>
 </div>
-<a id="a3d43c85aa7c9b3b73c6c7c2a88c0476f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d43c85aa7c9b3b73c6c7c2a88c0476f">&#9670;&nbsp;</a></span>transpose_transform_matrix()</h2>
+<a id="ac18a00dec8f8344781634367b6b01293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac18a00dec8f8344781634367b6b01293">&#9670;&nbsp;</a></span>transpose_transform_matrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1312,13 +1312,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void jeod::Matrix3x3::transpose_transform_matrix </td>
           <td>(</td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>trans</em>[3][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double const&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>mat</em>[3][3], </td>
         </tr>
         <tr>
@@ -1354,11 +1354,11 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00719">719</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html#l00528">528</a> of file <a class="el" href="../../d4/d22/matrix3x3__inline_8hh_source.html">matrix3x3_inline.hh</a>.</p>
 
-<p class="reference">References <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a7dce874a72c84d050f94c3109a6db77d">product()</a>, and <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a263beb251a9ee2b7031cb2260854d3b1">product_left_transpose()</a>.</p>
+<p class="reference">References <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae65d9afbfc1b4fe9a51729c3cca28984">product()</a>, and <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a776d81b4f452701e4870f17ee62e11d1">product_left_transpose()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a405b24c32e3dfa983e1631f027fedaa9">jeod::MassBody::calc_composite_inertia()</a>, and <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#ad2e4ebc00e57e0e6b05a33df013f3dca">jeod::SphericalHarmonicsGravityControls::calc_nonspherical()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a5156c75cb476277ad951d84b477ca9d0">jeod::MassBody::calc_composite_inertia()</a>, and <a class="el" href="../../d9/d50/classjeod_1_1SphericalHarmonicsGravityControls.html#ad2e4ebc00e57e0e6b05a33df013f3dca">jeod::SphericalHarmonicsGravityControls::calc_nonspherical()</a>.</p>
 
 </div>
 </div>

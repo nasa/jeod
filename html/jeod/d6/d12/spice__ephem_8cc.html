@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -54,52 +54,52 @@ $(function() {
 
 <p>Define the methods for the SPICE ephemeris model class.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdarg&gt;</code><br />
-<code>#include &lt;set&gt;</code><br />
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdarg&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
 <code>#include &quot;SpiceUsr.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d24/ephem__messages_8hh_source.html">environment/ephemerides/ephem_interface/include/ephem_messages.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d01/time__manager_8hh_source.html">environment/time/include/time_manager.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/da4/named__item_8hh_source.html">utils/named_item/include/named_item.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d31/jeod__alloc_8hh_source.html">utils/memory/include/jeod_alloc.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/da4/named__item_8hh_source.html">utils/named_item/include/named_item.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/d87/spice__ephem_8hh_source.html">../include/spice_ephem.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for spice_ephem.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d3c/spice__ephem_8cc__incl.png" border="0" usemap="#spice__ephem_8cc" alt=""/></div>
 <map name="spice__ephem_8cc" id="spice__ephem_8cc">
-<area shape="rect" id="node7" href="../../d5/d24/ephem__messages_8hh.html" title="Define the class EphemeridesMessages, the class that specifies the message IDs used in the JEOD ephem..." alt="" coords="2385,229,2556,285"/>
-<area shape="rect" id="node10" href="../../d8/d01/time__manager_8hh.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="571,341,738,382"/>
-<area shape="rect" id="node20" href="../../d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="455,623,622,665"/>
-<area shape="rect" id="node21" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="2558,720,2700,761"/>
-<area shape="rect" id="node22" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="44,623,192,665"/>
-<area shape="rect" id="node23" href="../../d0/d87/spice__ephem_8hh.html" title="Define class for the SPICE ephemeris model. " alt="" coords="1683,80,1858,107"/>
-<area shape="rect" id="node8" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1459,720,1610,761"/>
-<area shape="rect" id="node9" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="1998,809,2073,836"/>
-<area shape="rect" id="node13" href="../../dc/dce/jeod__integration__time_8hh.html" title="Define the class JeodIntegrationTime. " alt="" coords="668,437,835,479"/>
-<area shape="rect" id="node18" href="../../de/d8d/time__dyn_8hh.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="477,445,570,471"/>
-<area shape="rect" id="node15" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2054,527,2202,568"/>
-<area shape="rect" id="node16" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="2433,631,2540,657"/>
-<area shape="rect" id="node19" href="../../d3/d76/time_8hh.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="420,534,486,561"/>
-<area shape="rect" id="node24" href="../../d1/ddf/ephem__interface_8hh.html" title="Define base class for all ephemeris interface models. " alt="" coords="1566,333,1737,389"/>
-<area shape="rect" id="node26" href="../../d9/dc2/ephem__ref__frame_8hh.html" title="Define the class EphemerisRefFrame. " alt="" coords="1220,333,1390,389"/>
-<area shape="rect" id="node28" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1289,534,1441,561"/>
-<area shape="rect" id="node29" href="../../d9/d6c/ephem__manager_8hh.html" title="Define the EphemManager class, which manages the ephemeris models in a JEOD&#45;based simulation..." alt="" coords="1898,333,2069,389"/>
-<area shape="rect" id="node32" href="../../d1/d17/environment_2time_2include_2class__declarations_8hh.html" title="Forward declaration of classes defined in time.hh. " alt="" coords="1696,155,1844,181"/>
-<area shape="rect" id="node33" href="../../d7/d73/object__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2387,527,2535,568"/>
-<area shape="rect" id="node35" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="836,527,1012,568"/>
-<area shape="rect" id="node37" href="../../d4/d29/spice__ephem__orient_8hh.html" title="Define class SpiceEphemOrient, which extends EphemerisOrientation for use with the SPICE ephemeris mo..." alt="" coords="1516,155,1672,181"/>
-<area shape="rect" id="node39" href="../../df/da5/spice__ephem__point_8hh.html" title="Define class SpiceEphemPoint, which extends EphemerisPoint for use with the SPICE ephemeris model..." alt="" coords="1820,534,1972,561"/>
-<area shape="rect" id="node25" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="1238,623,1396,665"/>
-<area shape="rect" id="node27" href="../../d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="1182,437,1340,479"/>
-<area shape="rect" id="node30" href="../../d6/d5e/ref__frame__manager_8hh.html" title="Define the RefFrameManager class, which manages the reference frames in a JEOD&#45;based simulation..." alt="" coords="1900,437,2057,479"/>
-<area shape="rect" id="node31" href="../../dd/dab/base__ephem__manager_8hh.html" title="Define the BaseEphemManager class, which defines the interfaces to the class EphemManager. " alt="" coords="2238,631,2409,657"/>
-<area shape="rect" id="node34" href="../../d6/d9c/object__container_8hh.html" title="Define class template JeodObjectContainer. " alt="" coords="2564,631,2699,657"/>
-<area shape="rect" id="node36" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="834,631,960,657"/>
-<area shape="rect" id="node38" href="../../d4/d17/ephem__orient_8hh.html" title="Define class EphemerisOrientation. " alt="" coords="1516,229,1702,285"/>
-<area shape="rect" id="node40" href="../../de/d91/ephem__point_8hh.html" title="Define class EphemerisPoint. " alt="" coords="1775,616,1960,672"/>
+<area shape="rect" id="node7" href="../../d5/d24/ephem__messages_8hh.html" title="Define the class EphemeridesMessages, the class that specifies the message IDs used in the JEOD ephem..." alt="" coords="2879,155,3074,211"/>
+<area shape="rect" id="node10" href="../../d8/d01/time__manager_8hh.html" title="To manage the various time representations and the converters between them throughout the simulation..." alt="" coords="723,266,913,307"/>
+<area shape="rect" id="node20" href="../../d0/da4/named__item_8hh.html" title="Define the NamedItem utility class. " alt="" coords="227,563,414,605"/>
+<area shape="rect" id="node21" href="../../de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="3054,667,3214,709"/>
+<area shape="rect" id="node22" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1529,563,1693,605"/>
+<area shape="rect" id="node23" href="../../d0/d87/spice__ephem_8hh.html" title="Define class for the SPICE ephemeris model. " alt="" coords="1929,80,2120,107"/>
+<area shape="rect" id="node8" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1609,764,1774,805"/>
+<area shape="rect" id="node9" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="2288,853,2369,880"/>
+<area shape="rect" id="node13" href="../../dc/dce/jeod__integration__time_8hh.html" title="Define the class JeodIntegrationTime. " alt="" coords="615,467,805,508"/>
+<area shape="rect" id="node18" href="../../de/d8d/time__dyn_8hh.html" title="Represents the Dynamic Time in the simulation. " alt="" coords="451,377,553,404"/>
+<area shape="rect" id="node15" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2191,563,2357,605"/>
+<area shape="rect" id="node16" href="../../d0/d9e/jeod__vector_8hh.html" title="Define class template JeodVector. " alt="" coords="2215,675,2333,701"/>
+<area shape="rect" id="node19" href="../../d3/d76/time_8hh.html" title="JeodBaseTime is an abstract class, containing the basic structure of all clocks that run in JEOD..." alt="" coords="393,474,465,501"/>
+<area shape="rect" id="node24" href="../../d1/ddf/ephem__interface_8hh.html" title="Define base class for all ephemeris interface models. " alt="" coords="1870,556,2065,612"/>
+<area shape="rect" id="node26" href="../../d9/dc2/ephem__ref__frame_8hh.html" title="Define the class EphemerisRefFrame. " alt="" coords="1501,363,1695,419"/>
+<area shape="rect" id="node28" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1233,571,1403,597"/>
+<area shape="rect" id="node29" href="../../d9/d6c/ephem__manager_8hh.html" title="Define the EphemManager class, which manages the ephemeris models in a JEOD&#45;based simulation..." alt="" coords="2173,363,2367,419"/>
+<area shape="rect" id="node32" href="../../d1/d17/environment_2time_2include_2class__declarations_8hh.html" title="Forward declaration of classes defined in time.hh. " alt="" coords="1885,169,2047,196"/>
+<area shape="rect" id="node33" href="../../d7/d73/object__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="2475,467,2641,508"/>
+<area shape="rect" id="node35" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="2665,467,2861,508"/>
+<area shape="rect" id="node37" href="../../d4/d29/spice__ephem__orient_8hh.html" title="Define class SpiceEphemOrient, which extends EphemerisOrientation for use with the SPICE ephemeris mo..." alt="" coords="1637,169,1810,196"/>
+<area shape="rect" id="node39" href="../../df/da5/spice__ephem__point_8hh.html" title="Define class SpiceEphemPoint, which extends EphemerisPoint for use with the SPICE ephemeris model..." alt="" coords="889,571,1057,597"/>
+<area shape="rect" id="node25" href="../../d9/d2e/subscription_8hh.html" title="Define the class Subscription. " alt="" coords="1478,667,1654,709"/>
+<area shape="rect" id="node27" href="../../d8/d69/ref__frame_8hh.html" title="Define the class RefFrame. " alt="" coords="1398,467,1574,508"/>
+<area shape="rect" id="node30" href="../../d6/d5e/ref__frame__manager_8hh.html" title="Define the RefFrameManager class, which manages the reference frames in a JEOD&#45;based simulation..." alt="" coords="2223,467,2399,508"/>
+<area shape="rect" id="node31" href="../../dd/dab/base__ephem__manager_8hh.html" title="Define the BaseEphemManager class, which defines the interfaces to the class EphemManager. " alt="" coords="27,675,217,701"/>
+<area shape="rect" id="node34" href="../../d6/d9c/object__container_8hh.html" title="Define class template JeodObjectContainer. " alt="" coords="2902,571,3051,597"/>
+<area shape="rect" id="node36" href="../../d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="2585,571,2726,597"/>
+<area shape="rect" id="node38" href="../../d4/d17/ephem__orient_8hh.html" title="Define class EphemerisOrientation. " alt="" coords="1645,259,1853,315"/>
+<area shape="rect" id="node40" href="../../de/d91/ephem__point_8hh.html" title="Define class EphemerisPoint. " alt="" coords="939,660,1147,716"/>
 </map>
 </div>
 </div>

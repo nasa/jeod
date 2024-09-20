@@ -63,7 +63,6 @@ Library dependencies:
   ((../src/time_standard.cc))
 ******************************************************************************/
 
-
 #ifndef JEOD_TIME_STANDARD_HH
 #define JEOD_TIME_STANDARD_HH
 
@@ -75,9 +74,9 @@ Library dependencies:
 // model includes
 #include "time.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeManagerInit;
 
@@ -86,151 +85,136 @@ class TimeManagerInit;
  * A class that serves as the base for all time
  * representations that are well defined outside the simulation.
  */
-class TimeStandard : public JeodBaseTime {
+class TimeStandard : public JeodBaseTime
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeStandard)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeStandard)
+    friend class TimeUDE;
 
-friend class TimeUDE;
-
-
-// Member Data
+    // Member Data
 public:
-   /**
-    * The simtime when the calendar update was last run.
-    */
-   double last_calendar_update; //!< trick_units(--)
+    /**
+     * The simtime when the calendar update was last run.
+     */
+    double last_calendar_update{-100000.0}; //!< trick_units(--)
 
-   /**
-    * Used for determining whether to update the
-    * date in the calendar function
-    */
-   int prev_julian_day;      //!< trick_units(day)
+    /**
+     * Used for determining whether to update the
+     * date in the calendar function
+     */
+    int prev_julian_day{-1000000000}; //!< trick_units(day)
 
-   /**
-    * The value of "seconds" at the start of the year in which the last
-    * seconds_of_year calculation was made.  Used for
-    * seconds_of_year calculations only.
-    */
-   double seconds_at_year_start;  //!< trick_units(s)
+    /**
+     * The value of "seconds" at the start of the year in which the last
+     * seconds_of_year calculation was made.  Used for
+     * seconds_of_year calculations only.
+     */
+    double seconds_at_year_start{}; //!< trick_units(s)
 
-   /**
-    * The year in which the last seconds_of_year calculation was made.  At the
-    * start of this year, seconds had value seconds_at_year_start.  Used for
-    * seconds_of_year calculations only.
-    */
-   int year_of_last_soy;          //!< trick_units(--)
+    /**
+     * The year in which the last seconds_of_year calculation was made.  At the
+     * start of this year, seconds had value seconds_at_year_start.  Used for
+     * seconds_of_year calculations only.
+     */
+    int year_of_last_soy{-1000000}; //!< trick_units(--)
 
-   /**
-    * This flag can be turned off by developers wanting to avoid warnings
-    * about a simulation being initialized pre-1968.
-    * The flag defaults to true - warning will be sent.
-    */
-   bool send_warning_pre_1968;    //!< trick_units(--)
+    /**
+     * This flag can be turned off by developers wanting to avoid warnings
+     * about a simulation being initialized pre-1968.
+     * The flag defaults to true - warning will be sent.
+     */
+    bool send_warning_pre_1968{true}; //!< trick_units(--)
 
-   /**
-    * Difference between Truncated Julian and Modified Julian.
-    */
-   const double tjt_mjt_offset;    //!< trick_units(day)
+    /**
+     * Difference between Truncated Julian and Modified Julian.
+     */
+    const double tjt_mjt_offset{40000.0}; //!< trick_units(day)
 
-   /**
-    * Difference between Julian and Truncated Julian.
-    */
-   const double tjt_jd_offset;     //!< trick_units(day)
+    /**
+     * Difference between Julian and Truncated Julian.
+     */
+    const double tjt_jd_offset{2440000.5}; //!< trick_units(day)
 
-   /**
-    * Truncated Julian time for this time-type.
-    */
-   double trunc_julian_time;       //!< trick_units(day)
+    /**
+     * Truncated Julian time for this time-type.
+     */
+    double trunc_julian_time{}; //!< trick_units(day)
 
-   /**
-    * Conventional Julian Date.  NOTE - because this value is typically so
-    * large, it has very little room for fine-detail precision.  It should only
-    * ever be used as an output for the likes of terminal displays and for input
-    * to legacy code.  Never use for newly developed code.
-    */
-   double julian_date;             //!< trick_units(day)
+    /**
+     * Conventional Julian Date.  NOTE - because this value is typically so
+     * large, it has very little room for fine-detail precision.  It should only
+     * ever be used as an output for the likes of terminal displays and for input
+     * to legacy code.  Never use for newly developed code.
+     */
+    double julian_date{}; //!< trick_units(day)
 
-   /**
-    * Truncated Julian Date at epoch.
-    */
-   double tjt_at_epoch;      //!< trick_units(day)
+    /**
+     * Truncated Julian Date at epoch.
+     */
+    double tjt_at_epoch{}; //!< trick_units(day)
 
-   /**
-    * Gregorian calendar date day number.
-    */
-   int calendar_day;       //!< trick_units(day)
+    /**
+     * Gregorian calendar date day number.
+     */
+    int calendar_day{}; //!< trick_units(day)
 
-   /**
-    * 24-hour clock hour number.
-    */
-   int calendar_hour;      //!< trick_units(hr)
+    /**
+     * 24-hour clock hour number.
+     */
+    int calendar_hour{}; //!< trick_units(hr)
 
-   /**
-    * Clock minute number.
-    */
-   int calendar_minute;    //!< trick_units(min)
+    /**
+     * Clock minute number.
+     */
+    int calendar_minute{}; //!< trick_units(min)
 
-   /**
-    * Clock second number.
-    */
-   double calendar_second; //!< trick_units(s)
+    /**
+     * Clock second number.
+     */
+    double calendar_second{}; //!< trick_units(s)
 
-   /**
-    * Gregorian calendar year.
-    */
-   int calendar_year;      //!< trick_units(--)
+    /**
+     * Gregorian calendar year.
+     */
+    int calendar_year{}; //!< trick_units(--)
 
-   /**
-    * Gregorian calendar month.
-    */
-   int calendar_month;     //!< trick_units(--)
+    /**
+     * Gregorian calendar month.
+     */
+    int calendar_month{}; //!< trick_units(--)
 
-
-// Member functions:
+    // Member functions:
 public:
-  //Constructor
-   TimeStandard ();
-  // Destructor
-   ~TimeStandard () override;
+    TimeStandard() = default;
+    ~TimeStandard() override = default;
+    TimeStandard(const TimeStandard &) = delete;
+    TimeStandard & operator=(const TimeStandard &) = delete;
 
-   void calendar_update (double simtime);
-   void initialize_initializer_time (TimeManagerInit * tm_init) override;
-   void add_type_initialize (const int seeking_status,
-                             TimeManagerInit * tm_init) override;
-   void initialize_from_parent (TimeManagerInit * tm_init) override;
+    void calendar_update(double simtime);
+    void initialize_initializer_time(TimeManagerInit * tm_init) override;
+    void add_type_initialize(const int seeking_status, TimeManagerInit * tm_init) override;
+    void initialize_from_parent(TimeManagerInit * tm_init) override;
 
-   void set_time_by_seconds (const double new_seconds) override;
-   void set_time_by_days (const double new_days) override;
-   void set_time_by_trunc_julian (const double new_tjt);
+    void set_time_by_seconds(const double new_seconds) override;
+    void set_time_by_days(const double new_days) override;
+    void set_time_by_trunc_julian(const double new_tjt);
 
-   double julian_date_at_epoch (void);
+    double julian_date_at_epoch();
 
-   double seconds_of_year (void);
+    double seconds_of_year();
+
 protected:
+    virtual void convert_from_calendar();
 
+    virtual void calculate_calendar_values();
 
-   virtual void convert_from_calendar (void);
-
-   virtual void calculate_calendar_values (void);
-
-   /**
-    * Set the epoch time.
-    */
-   virtual void set_epoch(void) = 0;
-
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeStandard (const TimeStandard&);
-   TimeStandard & operator = (const TimeStandard&);
-
-
-
+    /**
+     * Set the epoch time.
+     */
+    virtual void set_epoch() = 0;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

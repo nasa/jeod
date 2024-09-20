@@ -6,7 +6,7 @@ def log_3x3_mx( drg, var):
   for ii in range(3):
     log_3_vec( drg, var+"["+str(ii)+"]")
 
-dr_group = trick.sim_services.DRAscii("V_1_State")
+dr_group = trick.sim_services.DRBinary("V_1_State")
 dr_group.set_cycle(12)
 dr_group.freq = trick.sim_services.DR_Always
 log_3_vec( dr_group, "rel_state.vehA_wrt_vehB.rel_state.trans.position")

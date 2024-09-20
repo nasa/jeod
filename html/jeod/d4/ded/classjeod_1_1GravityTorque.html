@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -48,7 +48,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::GravityTorque Class Reference</div>  </div>
@@ -64,44 +63,47 @@ Collaboration diagram for jeod::GravityTorque:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d48/classjeod_1_1GravityTorque__coll__graph.png" border="0" usemap="#jeod_1_1GravityTorque_coll__map" alt="Collaboration graph"/></div>
 <map name="jeod_1_1GravityTorque_coll__map" id="jeod_1_1GravityTorque_coll__map">
-<area shape="rect" id="node2" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1411,752,1519,779"/>
-<area shape="rect" id="node30" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1680,912,1796,939"/>
-<area shape="rect" id="node3" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="5,824,156,851"/>
-<area shape="rect" id="node6" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="261,853,373,880"/>
-<area shape="rect" id="node5" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="1049,928,1224,955"/>
-<area shape="rect" id="node11" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="618,739,761,765"/>
-<area shape="rect" id="node22" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="594,846,785,887"/>
-<area shape="rect" id="node7" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="9,895,152,921"/>
-<area shape="rect" id="node8" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="584,1019,795,1045"/>
-<area shape="rect" id="node23" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1057,1147,1216,1173"/>
-<area shape="rect" id="node12" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="244,708,389,735"/>
-<area shape="rect" id="node13" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="1051,101,1222,128"/>
-<area shape="rect" id="node15" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="582,94,797,135"/>
-<area shape="rect" id="node16" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="1072,184,1201,211"/>
-<area shape="rect" id="node17" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="631,160,748,187"/>
-<area shape="rect" id="node18" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="1041,369,1232,410"/>
-<area shape="rect" id="node19" href="../../d3/d88/classjeod_1_1SimpleCheckpointable.html" title="The SimpleCheckpointable class provides a simple checkpoint/restart interface by which an object can ..." alt="" coords="597,277,781,304"/>
-<area shape="rect" id="node33" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="1047,265,1227,306"/>
-<area shape="rect" id="node20" href="../../d2/d30/classjeod_1_1RestartableGeneralizedStepSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lStepSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="552,329,827,399"/>
-<area shape="rect" id="node21" href="../../dd/d1c/classjeod_1_1RestartableGeneralizedDerivSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lDerivSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="552,423,827,494"/>
-<area shape="rect" id="node24" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="1057,481,1216,508"/>
-<area shape="rect" id="node25" href="../../d5/d03/classjeod_1_1JPVCollectTorque.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectTorque&gt;::type with an implem..." alt="" coords="610,519,769,545"/>
-<area shape="rect" id="node26" href="../../db/d8d/classjeod_1_1JPVCollectForce.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectForce&gt;::type with an impleme..." alt="" coords="613,569,765,596"/>
-<area shape="rect" id="node28" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="1075,1096,1198,1123"/>
-<area shape="rect" id="node31" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="1058,532,1215,559"/>
-<area shape="rect" id="node32" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravityControls \&gt;" alt="" coords="605,621,774,662"/>
-<area shape="rect" id="node34" href="../../d1/dd0/classjeod_1_1RestartableSimpleSecondOrderODEIntegrator.html" title="jeod::RestartableSimpleSecond\lOrderODEIntegrator\&lt; 3 \&gt;" alt="" coords="587,211,792,253"/>
+<area shape="rect" id="node2" href="../../d3/da3/classjeod_1_1DynBody.html" title="Class DynBody is the base class for all dynamic bodies. " alt="" coords="1544,883,1661,910"/>
+<area shape="rect" id="node31" href="../../de/de6/classjeod_1_1MassBody.html" title="Represent both an atomic chunk of mass and an interconnected set of masses. " alt="" coords="1839,1042,1963,1069"/>
+<area shape="rect" id="node3" href="../../d9/d58/classjeod_1_1RefFrameOwner.html" title="Identify an object as an &quot;owner&quot; of a reference frame. " alt="" coords="5,909,167,935"/>
+<area shape="rect" id="node6" href="../../dc/dad/classjeod_1_1RefFrame.html" title="Describe a frame of reference and define operations on reference frames. " alt="" coords="279,835,397,862"/>
+<area shape="rect" id="node5" href="../../d3/dd5/classjeod_1_1EphemerisRefFrame.html" title="An EphemerisRefFrame is a RefFrame whose state is set by an ephemeris model. " alt="" coords="1151,833,1339,859"/>
+<area shape="rect" id="node12" href="../../d9/d6c/classjeod_1_1BodyRefFrame.html" title="Extend RefFrame to add coupling between the reference frame tree and the mass tree and to keep track ..." alt="" coords="673,679,825,706"/>
+<area shape="rect" id="node23" href="../../d7/d85/classjeod_1_1DynBodyGenericFrameAttachment.html" title="A wrench comprises a torque and a force applied at a point on a DynBody. " alt="" coords="645,764,852,805"/>
+<area shape="rect" id="node7" title="STL class. " alt="" coords="43,1249,129,1275"/>
+<area shape="rect" id="node29" href="../../d3/d2d/classjeod_1_1NamedItem.html" title=" &#160;Provides a set of static methods for constructing dot&#45;conjoined names. " alt="" coords="1178,1249,1313,1275"/>
+<area shape="rect" id="node8" href="../../df/d5a/classjeod_1_1RefFrameState.html" title="Represent a reference frame&#39;s state. " alt="" coords="9,791,163,818"/>
+<area shape="rect" id="node9" href="../../df/d77/classjeod_1_1BaseEphemeridesManager.html" title="The EphemManager class augments the RefFrameManager with ephemeris&#45;related items. ..." alt="" coords="633,926,864,953"/>
+<area shape="rect" id="node24" href="../../d9/d15/classjeod_1_1BaseDynManager.html" title="The DynManager class augments the EphemManager with dynamics&#45;related items. " alt="" coords="1159,1001,1331,1027"/>
+<area shape="rect" id="node13" href="../../dc/d20/classjeod_1_1RefFrameItems.html" title="Identify which aspects of a reference frame&#39;s state have been set. " alt="" coords="260,585,416,611"/>
+<area shape="rect" id="node14" href="../../dc/d77/classjeod_1_1JeodIntegrationTime.html" title="The class JeodIntegrationTime adds the concepts of timestamping and notification of changes in the na..." alt="" coords="1150,1102,1341,1129"/>
+<area shape="rect" id="node16" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::TimeChangeSubscriber \&gt;" alt="" coords="629,1132,868,1173"/>
+<area shape="rect" id="node17" href="../../d9/d6a/classjeod_1_1FrameDerivs.html" title="Contains translational and rotational second derivatives. " alt="" coords="1175,1182,1315,1209"/>
+<area shape="rect" id="node18" href="../../d2/d8b/classjeod_1_1Quaternion.html" title="Implement quaternions to the extent needed to represent orientations. " alt="" coords="683,1198,814,1225"/>
+<area shape="rect" id="node19" href="../../d0/d74/classjeod_1_1RestartableSO3SecondOrderODEIntegrator.html" title="A RestartableSO3SecondOrderODEIntegrator integrates a generalized second order ODE that describes rot..." alt="" coords="1143,189,1348,231"/>
+<area shape="rect" id="node20" href="../../d3/d88/classjeod_1_1SimpleCheckpointable.html" title="The SimpleCheckpointable class provides a simple checkpoint/restart interface by which an object can ..." alt="" coords="647,71,851,98"/>
+<area shape="rect" id="node34" href="../../db/da1/classjeod_1_1RestartableT3SecondOrderODEIntegrator.html" title="A RestartableT3SecondOrderODEIntegrator integrates a second order ODE in three space, d^2x/dt^2 = a(x,t), where x is a three&#45;vector. " alt="" coords="1148,60,1343,101"/>
+<area shape="rect" id="node21" href="../../d2/d30/classjeod_1_1RestartableGeneralizedStepSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lStepSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="595,217,903,288"/>
+<area shape="rect" id="node22" href="../../dd/d1c/classjeod_1_1RestartableGeneralizedDerivSecondOrderODEIntegrator.html" title="jeod::RestartableGeneralized\lDerivSecondOrderODEIntegrator\l\&lt; 4, 3, er7_utils::LeftQuaternionGeneralized\lPositionFunctions \&gt;" alt="" coords="595,123,903,193"/>
+<area shape="rect" id="node25" href="../../d7/df4/classjeod_1_1BodyForceCollect.html" title="Serves as the collection point for forces and torques that act on a vehicle. " alt="" coords="1160,386,1331,413"/>
+<area shape="rect" id="node26" href="../../d5/d03/classjeod_1_1JPVCollectTorque.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectTorque&gt;::type with an implem..." alt="" coords="665,377,832,403"/>
+<area shape="rect" id="node27" href="../../db/d8d/classjeod_1_1JPVCollectForce.html" title="This is a derived version of the template class JeodPointerVector&lt;CollectForce&gt;::type with an impleme..." alt="" coords="669,313,828,339"/>
+<area shape="rect" id="node32" href="../../d9/d16/classjeod_1_1GravityInteraction.html" title="Specifies interactions between a vehicle and a set of gravitational bodies. " alt="" coords="1157,437,1333,463"/>
+<area shape="rect" id="node33" href="../../da/d08/classjeod_1_1JeodPointerVector.html" title="jeod::JeodPointerVector\l\&lt; jeod::GravityControls \&gt;" alt="" coords="653,428,844,469"/>
+<area shape="rect" id="node35" href="../../d1/dd0/classjeod_1_1RestartableSimpleSecondOrderODEIntegrator.html" title="jeod::RestartableSimpleSecond\lOrderODEIntegrator\&lt; 3 \&gt;" alt="" coords="637,5,861,47"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a03a09461476b76568543ba2121a9720d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a03a09461476b76568543ba2121a9720d">GravityTorque</a> ()</td></tr>
-<tr class="memdesc:a03a09461476b76568543ba2121a9720d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html" title="Computes the torque on an object due to gravitation. ">GravityTorque</a> object.  <a href="#a03a09461476b76568543ba2121a9720d">More...</a><br /></td></tr>
-<tr class="separator:a03a09461476b76568543ba2121a9720d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3874358990762a2388ff4b05e1f6e2bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a3874358990762a2388ff4b05e1f6e2bf">~GravityTorque</a> ()</td></tr>
-<tr class="memdesc:a3874358990762a2388ff4b05e1f6e2bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct a <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html" title="Computes the torque on an object due to gravitation. ">GravityTorque</a> object.  <a href="#a3874358990762a2388ff4b05e1f6e2bf">More...</a><br /></td></tr>
-<tr class="separator:a3874358990762a2388ff4b05e1f6e2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a08ab31b911b2d17ea0e8279de06de8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a1a08ab31b911b2d17ea0e8279de06de8">GravityTorque</a> ()=default</td></tr>
+<tr class="separator:a1a08ab31b911b2d17ea0e8279de06de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e120001583da57e7ef0bdc2e0a39ec3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a5e120001583da57e7ef0bdc2e0a39ec3">~GravityTorque</a> ()=default</td></tr>
+<tr class="separator:a5e120001583da57e7ef0bdc2e0a39ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34ebcb77ee49c60239f51e6f979821b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a34ebcb77ee49c60239f51e6f979821b3">operator=</a> (const <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;)=delete</td></tr>
+<tr class="separator:a34ebcb77ee49c60239f51e6f979821b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a828a43be6ff820f272285474d8aaeb51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a828a43be6ff820f272285474d8aaeb51">GravityTorque</a> (const <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;)=delete</td></tr>
+<tr class="separator:a828a43be6ff820f272285474d8aaeb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9eb8d7383c06848417fa595aaed43c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ad9eb8d7383c06848417fa595aaed43c4">initialize</a> (<a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> &amp;subject)</td></tr>
 <tr class="memdesc:ad9eb8d7383c06848417fa595aaed43c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html" title="Computes the torque on an object due to gravitation. ">GravityTorque</a> object.  <a href="#ad9eb8d7383c06848417fa595aaed43c4">More...</a><br /></td></tr>
 <tr class="separator:ad9eb8d7383c06848417fa595aaed43c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,25 +113,18 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ac1adca1b00b0bae324ac8ca621b2faa0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ac1adca1b00b0bae324ac8ca621b2faa0">torque</a> [3]</td></tr>
+<tr class="memitem:ac1adca1b00b0bae324ac8ca621b2faa0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ac1adca1b00b0bae324ac8ca621b2faa0">torque</a> [3] {}</td></tr>
 <tr class="memdesc:ac1adca1b00b0bae324ac8ca621b2faa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The output torque, in the structural frame.  <a href="#ac1adca1b00b0bae324ac8ca621b2faa0">More...</a><br /></td></tr>
 <tr class="separator:ac1adca1b00b0bae324ac8ca621b2faa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eb7eecfb8f8c2d62e53ebb876effd00"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a7eb7eecfb8f8c2d62e53ebb876effd00">active</a></td></tr>
+<tr class="memitem:a7eb7eecfb8f8c2d62e53ebb876effd00"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a7eb7eecfb8f8c2d62e53ebb876effd00">active</a> {true}</td></tr>
 <tr class="memdesc:a7eb7eecfb8f8c2d62e53ebb876effd00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the model active?  <a href="#a7eb7eecfb8f8c2d62e53ebb876effd00">More...</a><br /></td></tr>
 <tr class="separator:a7eb7eecfb8f8c2d62e53ebb876effd00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a5aca1e21bc09115dc89cb089d3fb3ffb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a5aca1e21bc09115dc89cb089d3fb3ffb">subject_body</a></td></tr>
+<tr class="memitem:a5aca1e21bc09115dc89cb089d3fb3ffb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a5aca1e21bc09115dc89cb089d3fb3ffb">subject_body</a> {}</td></tr>
 <tr class="memdesc:a5aca1e21bc09115dc89cb089d3fb3ffb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The subject body for the gradient torque.  <a href="#a5aca1e21bc09115dc89cb089d3fb3ffb">More...</a><br /></td></tr>
 <tr class="separator:a5aca1e21bc09115dc89cb089d3fb3ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ac94509d0226e055f573661139df6d26c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ac94509d0226e055f573661139df6d26c">operator=</a> (const <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;rhs)</td></tr>
-<tr class="separator:ac94509d0226e055f573661139df6d26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a143c70dcb518b510b40f407c123a8396"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a143c70dcb518b510b40f407c123a8396">GravityTorque</a> (const <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;rhs)</td></tr>
-<tr class="separator:a143c70dcb518b510b40f407c123a8396"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -141,56 +136,60 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Computes the torque on an object due to gravitation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00085">85</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a03a09461476b76568543ba2121a9720d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03a09461476b76568543ba2121a9720d">&#9670;&nbsp;</a></span>GravityTorque() <span class="overload">[1/2]</span></h2>
+<a id="a1a08ab31b911b2d17ea0e8279de06de8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a08ab31b911b2d17ea0e8279de06de8">&#9670;&nbsp;</a></span>GravityTorque() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">jeod::GravityTorque::GravityTorque </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Construct a <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html" title="Computes the torque on an object due to gravitation. ">GravityTorque</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html#l00053">53</a> of file <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html">gravity_torque.cc</a>.</p>
-
-<p class="reference">References <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a7eb7eecfb8f8c2d62e53ebb876effd00">active</a>, <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a1daaf35ab931ace7fa80c921bcf0cb59">jeod::Vector3::initialize()</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a5aca1e21bc09115dc89cb089d3fb3ffb">subject_body</a>, and <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ac1adca1b00b0bae324ac8ca621b2faa0">torque</a>.</p>
-
 </div>
 </div>
-<a id="a3874358990762a2388ff4b05e1f6e2bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3874358990762a2388ff4b05e1f6e2bf">&#9670;&nbsp;</a></span>~GravityTorque()</h2>
+<a id="a5e120001583da57e7ef0bdc2e0a39ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e120001583da57e7ef0bdc2e0a39ec3">&#9670;&nbsp;</a></span>~GravityTorque()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">jeod::GravityTorque::~GravityTorque </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Destruct a <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html" title="Computes the torque on an object due to gravitation. ">GravityTorque</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html#l00065">65</a> of file <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html">gravity_torque.cc</a>.</p>
-
 </div>
 </div>
-<a id="a143c70dcb518b510b40f407c123a8396"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a143c70dcb518b510b40f407c123a8396">&#9670;&nbsp;</a></span>GravityTorque() <span class="overload">[2/2]</span></h2>
+<a id="a828a43be6ff820f272285474d8aaeb51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a828a43be6ff820f272285474d8aaeb51">&#9670;&nbsp;</a></span>GravityTorque() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,13 +201,13 @@ Friends</h2></td></tr>
           <td class="memname">jeod::GravityTorque::GravityTorque </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -240,14 +239,14 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html#l00077">77</a> of file <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html">gravity_torque.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html#l00054">54</a> of file <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html">gravity_torque.cc</a>.</p>
 
 <p class="reference">References <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a5aca1e21bc09115dc89cb089d3fb3ffb">subject_body</a>.</p>
 
 </div>
 </div>
-<a id="ac94509d0226e055f573661139df6d26c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac94509d0226e055f573661139df6d26c">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a34ebcb77ee49c60239f51e6f979821b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34ebcb77ee49c60239f51e6f979821b3">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,13 +258,13 @@ Friends</h2></td></tr>
           <td class="memname"><a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a>&amp; jeod::GravityTorque::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html">GravityTorque</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -281,7 +280,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void jeod::GravityTorque::update </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -290,9 +288,9 @@ Friends</h2></td></tr>
 
 <p>Perform <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html" title="Computes the torque on an object due to gravitation. ">GravityTorque</a> updates. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html#l00090">90</a> of file <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html">gravity_torque.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html#l00062">62</a> of file <a class="el" href="../../d2/d22/gravity__torque_8cc_source.html">gravity_torque.cc</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a7eb7eecfb8f8c2d62e53ebb876effd00">active</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a3fb1af0a1367dc9cb2201ae57e7b3469">jeod::DynBody::composite_body</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a9a8f4fcc344a5ec845d4352b56846296">jeod::MassBody::composite_properties</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a8583cc7909b7039e66c4ac5ea192f6d4">jeod::Matrix3x3::copy()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a77949c3f3fe37d35413f2ff33dbf5a99">jeod::GravityInteraction::grav_grad</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a32deaebb6be759d5909a5a46d9767c5a">jeod::DynBody::grav_interaction</a>, <a class="el" href="../../d4/de8/classjeod_1_1MassProperties.html#a2daa291bb336ea9a824d5e22518b52c1">jeod::MassProperties::inertia</a>, <a class="el" href="../../d2/d4b/classjeod_1_1GravityTorqueMessages.html#a205c990e4bafc66d0b78336983bf5c6c">jeod::GravityTorqueMessages::initialization_error</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a9890b8ca17959b7d08a1d6782a204cd3">jeod::DynBody::mass</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a5aca1e21bc09115dc89cb089d3fb3ffb">subject_body</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#ac90932ccd4051d89e0d137dd8792aa38">jeod::MassPointState::T_parent_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ac1adca1b00b0bae324ac8ca621b2faa0">torque</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#a9eedcc2a4e6531cd090f6422f0d6dac5">jeod::Matrix3x3::transform_matrix()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#addfb4aaa94e819647dafa0113a83cd1e">jeod::Vector3::transform_transpose()</a>.</p>
+<p class="reference">References <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a7eb7eecfb8f8c2d62e53ebb876effd00">active</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a3fb1af0a1367dc9cb2201ae57e7b3469">jeod::DynBody::composite_body</a>, <a class="el" href="../../de/de6/classjeod_1_1MassBody.html#a9a8f4fcc344a5ec845d4352b56846296">jeod::MassBody::composite_properties</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#ae92a5fb1c7bc8ad224425e2bdf6101b8">jeod::Matrix3x3::copy()</a>, <a class="el" href="../../dc/dd5/classjeod_1_1MessageHandler.html#a9e28d474aa90c9042c855e9de94d1394">jeod::MessageHandler::fail()</a>, <a class="el" href="../../d9/d16/classjeod_1_1GravityInteraction.html#a77949c3f3fe37d35413f2ff33dbf5a99">jeod::GravityInteraction::grav_grad</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a32deaebb6be759d5909a5a46d9767c5a">jeod::DynBody::grav_interaction</a>, <a class="el" href="../../d4/de8/classjeod_1_1MassProperties.html#a2daa291bb336ea9a824d5e22518b52c1">jeod::MassProperties::inertia</a>, <a class="el" href="../../d2/d4b/classjeod_1_1GravityTorqueMessages.html#a146d138835d40f0c006b8934093e5724">jeod::GravityTorqueMessages::initialization_error</a>, <a class="el" href="../../d3/da3/classjeod_1_1DynBody.html#a9890b8ca17959b7d08a1d6782a204cd3">jeod::DynBody::mass</a>, <a class="el" href="../../df/d5a/classjeod_1_1RefFrameState.html#a71897df9fc6b4e31e15c066cf8f39c71">jeod::RefFrameState::rot</a>, <a class="el" href="../../dc/dad/classjeod_1_1RefFrame.html#a96355ac0132216c2cca0a409cfd164fb">jeod::RefFrame::state</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a5aca1e21bc09115dc89cb089d3fb3ffb">subject_body</a>, <a class="el" href="../../dd/d6e/classjeod_1_1MassPointState.html#ac90932ccd4051d89e0d137dd8792aa38">jeod::MassPointState::T_parent_this</a>, <a class="el" href="../../d6/d00/classjeod_1_1RefFrameRot.html#ae48a3d9cb98b2570abe4d57895702152">jeod::RefFrameRot::T_parent_this</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ac1adca1b00b0bae324ac8ca621b2faa0">torque</a>, <a class="el" href="../../df/d0e/classjeod_1_1Matrix3x3.html#aaaf73c0abadda02e0ad373530e078f6f">jeod::Matrix3x3::transform_matrix()</a>, and <a class="el" href="../../d4/d50/classjeod_1_1Vector3.html#a094163f78eabeb8fed12fdbc06b615ad">jeod::Vector3::transform_transpose()</a>.</p>
 
 </div>
 </div>
@@ -342,7 +340,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00087">87</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00086">86</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
 
 </div>
 </div>
@@ -354,7 +352,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool jeod::GravityTorque::active</td>
+          <td class="memname">bool jeod::GravityTorque::active {true}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -362,9 +360,9 @@ Friends</h2></td></tr>
 <p>Is the model active? </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00109">109</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a03a09461476b76568543ba2121a9720d">GravityTorque()</a>, and <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">update()</a>.</p>
 
 </div>
 </div>
@@ -378,7 +376,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a>* jeod::GravityTorque::subject_body</td>
+          <td class="memname"><a class="el" href="../../d3/da3/classjeod_1_1DynBody.html">DynBody</a>* jeod::GravityTorque::subject_body {}</td>
         </tr>
       </table>
   </td>
@@ -391,9 +389,9 @@ Friends</h2></td></tr>
 <p>The subject body for the gradient torque. </p>
 <p>trick_units(&ndash;) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00118">118</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00110">110</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a03a09461476b76568543ba2121a9720d">GravityTorque()</a>, <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ad9eb8d7383c06848417fa595aaed43c4">initialize()</a>, and <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#ad9eb8d7383c06848417fa595aaed43c4">initialize()</a>, and <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">update()</a>.</p>
 
 </div>
 </div>
@@ -404,7 +402,7 @@ Friends</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double jeod::GravityTorque::torque[3]</td>
+          <td class="memname">double jeod::GravityTorque::torque[3] {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -412,9 +410,9 @@ Friends</h2></td></tr>
 <p>The output torque, in the structural frame. </p>
 <p>trick_units(N*m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00104">104</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html#l00099">99</a> of file <a class="el" href="../../d7/d71/gravity__torque_8hh_source.html">gravity_torque.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a03a09461476b76568543ba2121a9720d">GravityTorque()</a>, and <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d4/ded/classjeod_1_1GravityTorque.html#a9f185d2fc65139ee04e2ba3f0418c37f">update()</a>.</p>
 
 </div>
 </div>

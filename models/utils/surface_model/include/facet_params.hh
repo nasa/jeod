@@ -57,15 +57,10 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
-Library dependencies:
-    ((../src/facet_params.cc))
-
- 
 *******************************************************************************/
 
 #ifndef JEOD_FACET_PARAMS_HH
 #define JEOD_FACET_PARAMS_HH
-
 
 // System includes
 #include <string>
@@ -75,52 +70,38 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * General base class for all parameters associated with
  * facets in the surface model.
  */
-class FacetParams {
-
-   JEOD_MAKE_SIM_INTERFACES(FacetParams)
+class FacetParams
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FacetParams)
 
 public:
+    FacetParams() = default;
+    virtual ~FacetParams() = default;
+    FacetParams & operator=(const FacetParams &) = delete;
+    FacetParams(const FacetParams &) = delete;
 
-   // constructor
-   FacetParams ();
+    /**
+     * Name that will be used to match FacetParams to facets
+     */
+    std::string name; //!< trick_units(--)
 
-   // destructor
-   virtual ~FacetParams ();
-
-
-   /**
-    * Name that will be used to match FacetParams to facets
-    */
-   std::string name; //!< trick_units(--)
-
-
-   /**
-    * Setter for the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
-
-
-protected:
-
-private:
-
-   // Operator = and copy constructor locked from use by being private
-
-   FacetParams& operator = (const FacetParams& rhs);
-   FacetParams (const FacetParams& rhs);
-
+    /**
+     * Setter for the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

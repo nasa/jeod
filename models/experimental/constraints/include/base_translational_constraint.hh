@@ -50,17 +50,15 @@
 Purpose: ()
 */
 
-
 #include "experimental/math/include/solver_types.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
-
 
 #ifndef JEOD_BASE_TRANSLATIONAL_CONSTRAINT_HH
 #define JEOD_BASE_TRANSLATIONAL_CONSTRAINT_HH
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Abstract base class that prescribes behaviors of a constraint related to
@@ -70,11 +68,9 @@ namespace jeod {
  */
 class BaseTranslationalConstraint
 {
-
-    JEOD_MAKE_SIM_INTERFACES(BaseTranslationalConstraint)
+    JEOD_MAKE_SIM_INTERFACES(jeod, BaseTranslationalConstraint)
 
 public:
-
     /**
      * Default constructor.
      */
@@ -85,41 +81,35 @@ public:
      */
     virtual ~BaseTranslationalConstraint() = default;
 
-
-   /**
+    /**
      * Get the effective mass for this constraint.
      */
-    virtual double get_mass () const = 0;
+    virtual double get_mass() const = 0;
 
 #ifndef SWIG
     /**
      * Get the position at which the constraint force is applied relative to
      * the constraint frame origin, in constraint frame coordinates.
      */
-    virtual SolverTypes::ConstDecayedVector3T
-    get_constraint_position_constraint_frame () const = 0;
+    virtual SolverTypes::ConstDecayedVector3T get_constraint_position_constraint_frame() const = 0;
 
     /**
      * Get the position at which the constraint force is applied relative to
      * the root structural origin, in root body structural coordinates.
      */
-    virtual SolverTypes::ConstDecayedVector3T
-    get_constraint_position_root () const = 0;
+    virtual SolverTypes::ConstDecayedVector3T get_constraint_position_root() const = 0;
 
     /**
      * Get the position at which the constraint force is applied relative to
      * the root body center of mass, in root body structural coordinates.
      */
-    virtual SolverTypes::ConstDecayedVector3T
-    get_constraint_position_com () const = 0;
+    virtual SolverTypes::ConstDecayedVector3T get_constraint_position_com() const = 0;
 #endif
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

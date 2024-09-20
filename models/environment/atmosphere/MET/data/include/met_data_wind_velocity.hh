@@ -48,27 +48,41 @@ Library dependencies:
 
 #include "utils/message/include/message_handler.hh"
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class WindVelocity;
 
-class WindVelocity_wind_velocity_default_data {
- public:
-   const static int num_layers = 12; /* trick_units(--) @n
-          The number of layers in this default data set. */
-   double omega_scale_fac[num_layers]; /* trick_units(--) @n
-           Default settings for omega_scale_fac*/
-   double omega_scale_alt[num_layers]; /* trick_units(--) @n
-           Default settings for omega_scale_alt*/
-   double omega; /* trick_units(rad/s) @n
-           planetary rotation rate. */
+class WindVelocity_wind_velocity_default_data
+{
+public:
+    const static int num_layers = 12; /* trick_units(--) @n The number of layers in this default data set. */
 
-   WindVelocity_wind_velocity_default_data();
-   void initialize (WindVelocity*);
-   void initialize (WindVelocity&);
+    double omega_scale_fac[num_layers]{
+        1.0, 1.1, 1.16, 1.21, 1.25, 1.3, 1.34, 1.38, 1.4, 1.405, 1.41, 1.4142136}; /* trick_units(--) @n Default
+                                                                                      settings for omega_scale_fac*/
+
+    double omega_scale_alt[num_layers]{180000.0,
+                                       200000.0,
+                                       220000.0,
+                                       240000.0,
+                                       260000.0,
+                                       280000.0,
+                                       300000.0,
+                                       320000.0,
+                                       340000.0,
+                                       360000.0,
+                                       380000.0,
+                                       400000.0}; /* trick_units(--) @n Default settings for omega_scale_alt*/
+
+    double omega{7.292115146706388e-5}; /* trick_units(rad/s) @n planetary rotation rate. */
+
+    WindVelocity_wind_velocity_default_data() = default;
+    void initialize(WindVelocity *);
+    void initialize(WindVelocity &);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

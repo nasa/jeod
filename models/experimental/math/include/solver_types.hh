@@ -52,17 +52,15 @@ ICG: (No)
 SWIG: (No)
 */
 
-
 #ifndef JEOD_SOLVER_TYPES_HH
 #define JEOD_SOLVER_TYPES_HH
-
 
 #include <type_traits>
 #include <utility>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Define various types used in the constraints concept.
@@ -71,97 +69,90 @@ namespace jeod {
  */
 class SolverTypes
 {
-
 public:
-
     // Data types
 
     /**
      * Vector3T foo is equivalent to double foo[3].
      */
-    typedef double Vector3T[3];
+    using Vector3T = double[3];
 
     /**
      * ConstVector3T foo is equivalent to const double foo[3].
      */
-    typedef const double ConstVector3T[3];
+    using ConstVector3T = const double[3];
 
     /**
      * A pointer to a Vector3T.
      */
-    typedef Vector3T* Vector3PointerT;
+    using Vector3PointerT = Vector3T *;
 
     /**
      * A pointer to a ConstVector3T.
      */
-    typedef ConstVector3T* ConstVector3PointerT;
+    using ConstVector3PointerT = ConstVector3T *;
 
     /**
      * An L-value reference to a Vector3T.
      */
-    typedef Vector3T& Vector3RefT;
+    using Vector3RefT = Vector3T &;
 
     /**
      * An L-value reference to a ConstVector3T.
      */
-    typedef ConstVector3T& ConstVector3RefT;
+    using ConstVector3RefT = ConstVector3T &;
 
     /**
      * aka double*
      */
-    typedef double* DecayedVector3T;
+    using DecayedVector3T = double *;
     /**
      * aka const double*
      */
-    typedef const double* ConstDecayedVector3T;
-
+    using ConstDecayedVector3T = const double *;
 
     /**
      * Matrix3x3T foo is equivalent to double foo[3][3]
      */
-    typedef double Matrix3x3T[3][3];
+    using Matrix3x3T = double[3][3];
 
     /**
      * ConstMatrix3x3T foo is equivalent to const double foo[3][3]
      */
-    typedef const double ConstMatrix3x3T[3][3];
+    using ConstMatrix3x3T = const double[3][3];
 
     /**
      * A pointer to a Matrix3x3T.
      */
-    typedef Matrix3x3T* Matrix3x3PointerT;
+    using Matrix3x3PointerT = Matrix3x3T *;
 
     /**
      * A pointer to a ConstMatrix3x3T.
      */
-    typedef ConstMatrix3x3T* ConstMatrix3x3PointerT;
+    using ConstMatrix3x3PointerT = ConstMatrix3x3T *;
 
     /**
      * An L-value reference to a Matrix3x3T.
      */
-    typedef Matrix3x3T& Matrix3x3RefT;
+    using Matrix3x3RefT = Matrix3x3T &;
 
     /**
      * An L-value reference to a ConstMatrix3x3T.
      */
-    typedef ConstMatrix3x3T& ConstMatrix3x3RefT;
-    typedef Vector3T* DecayedMatrix3x3T;
-    typedef ConstVector3T* ConstDecayedMatrix3x3T;
+    using ConstMatrix3x3RefT = ConstMatrix3x3T &;
+    using DecayedMatrix3x3T = Vector3T *;
+    using ConstDecayedMatrix3x3T = ConstVector3T *;
 
-    typedef std::pair<unsigned, unsigned> IndexPairT;
+    using IndexPairT = std::pair<unsigned, unsigned>;
 
-
-private:
     // This is a class that is not a class.
-    SolverTypes();
-    ~SolverTypes();
+    SolverTypes() = delete;
+    ~SolverTypes() = default;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

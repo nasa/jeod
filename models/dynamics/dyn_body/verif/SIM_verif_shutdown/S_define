@@ -51,16 +51,20 @@
 //  ((Mitch Hollander) (METECS) (JEOD4.0.1 Patch Release))
 //==============================================================================
 
-
 // Define job calling intervals
-#define DYNAMICS        0.01   // dynamics interval
+#define DYNAMICS 0.01 // dynamics interval
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 
 /*****************************************************************************
@@ -72,28 +76,29 @@ Purpose:(Baseline vehicle, suitable for veh2 and veh3)
 ##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
 ##include "dynamics/body_action/include/mass_body_init.hh"
 
-class VehSimObject: public Trick::SimObject {
- public:
-  jeod::DynBody                 dyn_body;
-  jeod::DynBodyInitTransState   trans_init;
-  jeod::DynBodyInitRotState     rot_init;
-  jeod::MassBodyInit            mass_init;
+class VehSimObject: public Trick::SimObject
+{
+public:
+    jeod::DynBody dyn_body;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
 
-  std::string frame_to_check_at_shutdown;
+    std::string frame_to_check_at_shutdown;
 
-  VehSimObject( jeod::DynManager & dm_in)
-    : frame_to_check_at_shutdown("payload_dyn_body.payload_attached_mass.another_point")
-    , dyn_manager(dm_in)
-  {
-    P_ENV ("initialization") dyn_body.initialize_model(dyn_manager);
-    (DYNAMICS, "scheduled")  dyn_body.mass.update_mass_properties();
-  };
+    VehSimObject(jeod::DynManager & dm_in)
+        : frame_to_check_at_shutdown("payload_dyn_body.payload_attached_mass.another_point"),
+          dyn_manager(dm_in)
+    {
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
+        (DYNAMICS, "scheduled") dyn_body.mass.update_mass_properties();
+    }
 
-  ~VehSimObject()
-  {
-        send_hs (stderr,"~VehSimObject()\n");
-        jeod::RefFrame* found_frame = 0x0;
-        found_frame = dyn_manager.find_ref_frame(frame_to_check_at_shutdown.c_str());
+    ~VehSimObject()
+    {
+        send_hs(stderr, "~VehSimObject()\n");
+        jeod::RefFrame * found_frame = 0x0;
+        found_frame = dyn_manager.find_ref_frame(frame_to_check_at_shutdown);
         if(found_frame)
         {
             std::cout << "Found frame named: '" << found_frame->get_name() << "'" << std::endl;
@@ -102,55 +107,53 @@ class VehSimObject: public Trick::SimObject {
         {
             std::cout << "No frame named: '" << frame_to_check_at_shutdown << "'" << std::endl;
         }
-  }
-  
+    }
 
- protected:
-  // External references
-  jeod::DynManager & dyn_manager;
+    VehSimObject(const VehSimObject &) = delete;
+    VehSimObject & operator=(const VehSimObject &) = delete;
 
- private:
-  VehSimObject (const VehSimObject&);
-  VehSimObject & operator = (const VehSimObject&);
-
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
 };
 
 /*****************************************************************************
 PayloadObject
 Purpose:
     (Definition for payload which will be deleted first to ensure JEOD
-     automatically detaches and dereferences bodies and their respective 
+     automatically detaches and dereferences bodies and their respective
      attributes at shutdown.)
 
 *****************************************************************************/
 ##include "dynamics/body_action/include/body_attach_aligned.hh"
 ##include "dynamics/body_action/include/body_detach.hh"
 ##include "dynamics/body_action/include/body_detach_specific.hh"
-class PayloadObject: public Trick::SimObject {
- public:
-  jeod::MassBody          secondary_mass;
-  jeod::DynBody           primary_body;
+class PayloadObject: public Trick::SimObject
+{
+public:
+    jeod::MassBody secondary_mass;
+    jeod::DynBody primary_body;
 
-  jeod::MassBodyInit      primary_mass_init;
-  jeod::MassBodyInit      secondary_mass_init;
-  
-  jeod::BodyAttachAligned attach_primary_to_veh;
-  jeod::BodyAttachAligned attach_secondary_to_primary;
+    jeod::MassBodyInit primary_mass_init;
+    jeod::MassBodyInit secondary_mass_init;
 
-  std::string frame_to_check_at_shutdown;
+    jeod::BodyAttachAligned attach_primary_to_veh;
+    jeod::BodyAttachAligned attach_secondary_to_primary;
 
-  PayloadObject( jeod::DynManager & dm_in)
-   : frame_to_check_at_shutdown("payload_dyn_body.payload_attached_mass.another_point")
-   , dyn_manager( dm_in )
-  { 
-        P_ENV ("initialization") primary_body.initialize_model( dyn_manager );
-  }
+    std::string frame_to_check_at_shutdown;
 
-  ~PayloadObject()
-  {
-        send_hs (stderr,"~PayloadObject()\n");
-        jeod::RefFrame* found_frame = 0x0;
-        found_frame = dyn_manager.find_ref_frame(frame_to_check_at_shutdown.c_str());
+    PayloadObject(jeod::DynManager & dm_in)
+        : frame_to_check_at_shutdown("payload_dyn_body.payload_attached_mass.another_point"),
+          dyn_manager(dm_in)
+    {
+        P_ENV("initialization") primary_body.initialize_model(dyn_manager);
+    }
+
+    ~PayloadObject()
+    {
+        send_hs(stderr, "~PayloadObject()\n");
+        jeod::RefFrame * found_frame = 0x0;
+        found_frame = dyn_manager.find_ref_frame(frame_to_check_at_shutdown);
         if(found_frame)
         {
             std::cout << "Found frame named: '" << found_frame->get_name() << "'" << std::endl;
@@ -159,23 +162,19 @@ class PayloadObject: public Trick::SimObject {
         {
             std::cout << "No frame named: '" << frame_to_check_at_shutdown << "'" << std::endl;
         }
-  }
+    }
 
+    PayloadObject(const PayloadObject &) = delete;
+    PayloadObject & operator=(const PayloadObject &) = delete;
 
-
- protected:
-  // External references
-  jeod::DynManager& dyn_manager;
-
- private:
-  PayloadObject (const PayloadObject&);
-  PayloadObject & operator = (const PayloadObject&);
+protected:
+    // External references
+    jeod::DynManager & dyn_manager;
 };
-
 
 // Define the payload last
 // such that ~PayloadObject() is called before ~VehSimObject()
-VehSimObject  veh( dynamics.dyn_manager);
-PayloadObject payload( dynamics.dyn_manager);
+VehSimObject veh(dynamics.dyn_manager);
+PayloadObject payload(dynamics.dyn_manager);
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

@@ -1,30 +1,33 @@
 <map id="flat_plate_thermal_aero_factory.cc" name="flat_plate_thermal_aero_factory.cc">
-<area shape="rect" id="node3" href="$de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="303,95,446,136"/>
-<area shape="rect" id="node26" href="$d8/deb/flat__plate__thermal_8hh.html" title="Flat plates for use in the surface model, including a thermal portion. " alt="" coords="1754,184,1889,240"/>
-<area shape="rect" id="node31" href="$dc/d2e/flat__plate__thermal__aero__factory_8hh.html" title="Creates a flat plate aero facet from a flat plate thermal facet. " alt="" coords="2389,95,2557,136"/>
-<area shape="rect" id="node35" href="$d8/d62/flat__plate__aero__facet_8hh.html" title="The aerodynamic specific implementation of flat plate. " alt="" coords="2883,303,3045,329"/>
-<area shape="rect" id="node37" href="$da/dc4/flat__plate__aero__params_8hh.html" title="The set of parameters used to create an aerodynamic interaction specific flat plate facet from a gene..." alt="" coords="2979,191,3111,233"/>
-<area shape="rect" id="node40" href="$d3/de4/aerodynamics__messages_8hh.html" title="Aerodynamics message for message handling. " alt="" coords="2248,295,2408,337"/>
-<area shape="rect" id="node6" href="$d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="493,399,691,441"/>
-<area shape="rect" id="node9" href="$db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="30,399,194,441"/>
-<area shape="rect" id="node12" href="$d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="1061,199,1203,225"/>
-<area shape="rect" id="node7" href="$dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="691,585,765,612"/>
-<area shape="rect" id="node18" href="$d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1299,295,1447,337"/>
-<area shape="rect" id="node19" href="$dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2045,496,2195,537"/>
-<area shape="rect" id="node20" href="$d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="866,295,1059,337"/>
-<area shape="rect" id="node21" href="$d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1115,392,1245,448"/>
-<area shape="rect" id="node22" href="$d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1617,407,1735,433"/>
-<area shape="rect" id="node23" href="$d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="968,407,1091,433"/>
-<area shape="rect" id="node24" href="$d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="594,303,713,329"/>
-<area shape="rect" id="node25" href="$da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="2209,399,2357,441"/>
-<area shape="rect" id="node27" href="$da/df1/thermal__facet__rider_8hh.html" title="Defining the thermal characteristics of surface facets. " alt="" coords="2077,288,2224,344"/>
-<area shape="rect" id="node29" href="$da/dfa/flat__plate_8hh.html" title="Flat plates for use in the surface model. " alt="" coords="1909,303,2003,329"/>
-<area shape="rect" id="node28" href="$d1/d31/thermal__integrable__object_8hh.html" title="Define an IntegrableObject class adapted to thermal integration. " alt="" coords="2005,399,2133,441"/>
-<area shape="rect" id="node30" href="$d6/dff/facet_8hh.html" title="Individual facets for use in the surface model. " alt="" coords="1861,407,1931,433"/>
-<area shape="rect" id="node32" href="$d8/d45/interaction__facet_8hh.html" title="Individual facets for use with specific environment interaction models. " alt="" coords="2429,184,2563,240"/>
-<area shape="rect" id="node33" href="$d0/d79/interaction__facet__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="2534,288,2669,344"/>
-<area shape="rect" id="node34" href="$d7/d56/flat__plate__aero__factory_8hh.html" title="Creates a flat plate aero facet from a basic flat plate facet. " alt="" coords="2639,199,2809,225"/>
-<area shape="rect" id="node36" href="$da/d68/aero__drag_8hh.html" title="Orbital aerodynamics paramter definitions and the main class for calculating aerodynamic drag..." alt="" coords="2929,407,3026,433"/>
-<area shape="rect" id="node38" href="$d9/d25/aero__params_8hh.html" title="A virtual base class for aero facet parameters, used to create interaction facets for aero in the Int..." alt="" coords="2744,303,2859,329"/>
-<area shape="rect" id="node39" href="$d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="2635,399,2803,441"/>
+<area shape="rect" id="node3" href="$de/d31/jeod__alloc_8hh.html" title="Define JEOD memory allocation macros. " alt="" coords="355,266,515,307"/>
+<area shape="rect" id="node26" href="$d8/deb/flat__plate__thermal_8hh.html" title="Flat plates for use in the surface model, including a thermal portion. " alt="" coords="2108,437,2258,493"/>
+<area shape="rect" id="node31" href="$d3/de4/aerodynamics__messages_8hh.html" title="Aerodynamics message for message handling. " alt="" coords="2298,445,2476,486"/>
+<area shape="rect" id="node32" href="$d8/d62/flat__plate__aero__facet_8hh.html" title="The aerodynamic specific implementation of flat plate. " alt="" coords="2744,266,2891,307"/>
+<area shape="rect" id="node38" href="$da/dc4/flat__plate__aero__params_8hh.html" title="The set of parameters used to create an aerodynamic interaction specific flat plate facet from a gene..." alt="" coords="3124,266,3271,307"/>
+<area shape="rect" id="node41" href="$dc/d2e/flat__plate__thermal__aero__factory_8hh.html" title="Creates a flat plate aero facet from a flat plate thermal facet. " alt="" coords="2454,95,2640,136"/>
+<area shape="rect" id="node6" href="$d7/d63/memory__attributes_8hh.html" title="Define JEOD memory interface macros. " alt="" coords="845,549,1068,590"/>
+<area shape="rect" id="node9" href="$db/d5a/jeod__alloc__get__allocated__pointer_8hh.html" title="Define function template jeod_alloc_get_allocated_pointer. " alt="" coords="172,549,354,590"/>
+<area shape="rect" id="node12" href="$d4/dcb/memory__manager_8hh.html" title="Define the JeodMemoryManager class, the central agent of the memory model. " alt="" coords="797,363,958,389"/>
+<area shape="rect" id="node7" href="$dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="668,839,749,865"/>
+<area shape="rect" id="node18" href="$d0/d15/checkpointable_8hh.html" title="Define the class JeodCheckpointable, the base class for checkpointing and restoring data that are opa..." alt="" coords="1397,445,1564,486"/>
+<area shape="rect" id="node19" href="$dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="2323,749,2488,791"/>
+<area shape="rect" id="node20" href="$d9/d20/memory__interface_8hh.html" title="Define the MemoryInterface class, which abstractly defines the interface between the memory manager a..." alt="" coords="952,445,1169,486"/>
+<area shape="rect" id="node21" href="$d8/df8/simulation__interface_8hh.html" title="Define the abstract class JeodSimulationInterface. " alt="" coords="1392,645,1539,701"/>
+<area shape="rect" id="node22" href="$d0/dae/memory__item_8hh.html" title="Define the class JeodMemoryItem. " alt="" coords="1448,556,1582,583"/>
+<area shape="rect" id="node23" href="$d7/d29/memory__table_8hh.html" title="Define classes for representing data types. " alt="" coords="684,556,821,583"/>
+<area shape="rect" id="node24" href="$d3/ddf/memory__type_8hh.html" title="Define the abstract class JeodMemoryTypeDescriptor and templates that create instantiable classes tha..." alt="" coords="475,452,608,479"/>
+<area shape="rect" id="node25" href="$da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1606,549,1770,590"/>
+<area shape="rect" id="node27" href="$da/df1/thermal__facet__rider_8hh.html" title="Defining the thermal characteristics of surface facets. " alt="" coords="2227,541,2392,597"/>
+<area shape="rect" id="node29" href="$da/dfa/flat__plate_8hh.html" title="Flat plates for use in the surface model. " alt="" coords="2100,556,2202,583"/>
+<area shape="rect" id="node28" href="$d1/d31/thermal__integrable__object_8hh.html" title="Define an IntegrableObject class adapted to thermal integration. " alt="" coords="2171,653,2318,694"/>
+<area shape="rect" id="node30" href="$d6/dff/facet_8hh.html" title="Individual facets for use in the surface model. " alt="" coords="1998,660,2072,687"/>
+<area shape="rect" id="node33" href="$da/d68/aero__drag_8hh.html" title="Orbital aerodynamics paramter definitions and the main class for calculating aerodynamic drag..." alt="" coords="2932,363,3039,389"/>
+<area shape="rect" id="node36" href="$d0/d7a/aero__facet_8hh.html" title="Individual facets for use with aero environment interaction models. " alt="" coords="2678,556,2789,583"/>
+<area shape="rect" id="node34" href="$d5/d20/default__aero_8hh.html" title="An implementation of ballistic coefficent and coefficient of drag for use in the AerodynamicDrag obje..." alt="" coords="2924,452,3048,479"/>
+<area shape="rect" id="node35" href="$dd/d7f/aero__surface_8hh.html" title="Vehicle surface model for aerodynamics. " alt="" coords="2721,452,2848,479"/>
+<area shape="rect" id="node37" href="$d8/d45/interaction__facet_8hh.html" title="Individual facets for use with specific environment interaction models. " alt="" coords="2596,645,2746,701"/>
+<area shape="rect" id="node39" href="$d9/d25/aero__params_8hh.html" title="A virtual base class for aero facet parameters, used to create interaction facets for aero in the Int..." alt="" coords="3134,556,3261,583"/>
+<area shape="rect" id="node40" href="$d5/da7/facet__params_8hh.html" title="A virtual base class for facet parameters, used to create interaction facets in the InteractionSurfac..." alt="" coords="2974,653,3160,694"/>
+<area shape="rect" id="node42" href="$d7/d56/flat__plate__aero__factory_8hh.html" title="Creates a flat plate aero facet from a basic flat plate facet. " alt="" coords="2518,184,2709,211"/>
+<area shape="rect" id="node43" href="$d0/d79/interaction__facet__factory_8hh.html" title="Factory that creates an interaction facet, for a specific environment interaction model..." alt="" coords="2569,259,2720,315"/>
 </map>

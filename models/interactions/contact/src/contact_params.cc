@@ -33,30 +33,18 @@ Library dependencies:
 #include "../include/contact_params.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Default Constructor
  */
-
-ContactParams::ContactParams (
-   void)
+ContactParams::ContactParams()
 {
-   JEOD_REGISTER_CLASS(ContactParams);
+    JEOD_REGISTER_CLASS(ContactParams);
 }
 
-
-/**
- * Destructor
- */
-
-ContactParams::~ContactParams (
-   void)
-{
-   // empty for now
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

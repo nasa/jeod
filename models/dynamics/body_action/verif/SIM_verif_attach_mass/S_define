@@ -37,13 +37,19 @@
 // This is an initialization-only sim, but the time model doesn't know that ...
 #define DYNAMICS 1.0
 
-
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "JEOD_S_modules/jeod_sys.sm"
-#include "JEOD_S_modules/default_priority_settings.sm"
-#include "JEOD_S_modules/time_dyntime_only.sm"
-#include "JEOD_S_modules/dynamics_multi_group.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
+
+// Include the default system classes:
+#include "time_dyntime_only.sm"
+
+#include "dynamics_multi_group.sm"
 
 //***************************************************************
 // CLASS: (ComponentsSimObject)
@@ -60,45 +66,44 @@
 ##include "dynamics/body_action/include/body_reattach.hh"
 ##include "dynamics/body_action/include/body_detach.hh"
 
-class ComponentsSimObject: public Trick::SimObject {
-
+class ComponentsSimObject: public Trick::SimObject
+{
 public:
-   jeod::MassBody parent_body;
-   jeod::MassBody child1_body;
-   jeod::MassBody child2_body;
-   jeod::MassBody child3_body;
-   jeod::MassBodyInit parent_init;
-   jeod::MassBodyInit child1_init;
-   jeod::MassBodyInit child2_init;
-   jeod::MassBodyInit child3_init;
-   jeod::BodyAttachAligned pt_attach1;
-   jeod::BodyAttachAligned pt_attach2;
-   jeod::BodyAttachAligned pt_attach3;
-   jeod::BodyAttachMatrix attach1;
-   jeod::BodyAttachMatrix attach2;
-   jeod::BodyAttachMatrix attach3;
-   jeod::BodyReattach reattach;
-   jeod::BodyDetach detach;
+    jeod::MassBody parent_body;
+    jeod::MassBody child1_body;
+    jeod::MassBody child2_body;
+    jeod::MassBody child3_body;
+    jeod::MassBodyInit parent_init;
+    jeod::MassBodyInit child1_init;
+    jeod::MassBodyInit child2_init;
+    jeod::MassBodyInit child3_init;
+    jeod::BodyAttachAligned pt_attach1;
+    jeod::BodyAttachAligned pt_attach2;
+    jeod::BodyAttachAligned pt_attach3;
+    jeod::BodyAttachMatrix attach1;
+    jeod::BodyAttachMatrix attach2;
+    jeod::BodyAttachMatrix attach3;
+    jeod::BodyReattach reattach;
+    jeod::BodyDetach detach;
 
-   char* file_name;
+    char * file_name;
 
-   // Constructor
-   ComponentsSimObject() {
+    // Constructor
+    ComponentsSimObject()
+    {
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") parent_body.update_mass_properties();
 
-      //
-      // Initialization jobs
-      //
-      P_DYN  ("initialization") parent_body.update_mass_properties ();
+        //
+        // Shutdown jobs
+        //
+        ("shutdown") parent_body.print_tree(file_name, 10);
+    }
 
-      //
-      // Shutdown jobs
-      //
-      ("shutdown") parent_body.print_tree (file_name, 10);
-   }
-
-private:
-   ComponentsSimObject (const ComponentsSimObject&);
-   ComponentsSimObject & operator = (const ComponentsSimObject&);
-
+    ComponentsSimObject(const ComponentsSimObject &) = delete;
+    ComponentsSimObject & operator=(const ComponentsSimObject &) = delete;
 };
-ComponentsSimObject components ;
+
+ComponentsSimObject components;

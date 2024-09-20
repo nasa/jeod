@@ -53,19 +53,20 @@
 Purpose:
    ()
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_PLANET_FIXED_POSITION_CLASS_DECLS_HH
 #define JEOD_PLANET_FIXED_POSITION_CLASS_DECLS_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class AltLatLongState;
 class PlanetFixedPosition;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

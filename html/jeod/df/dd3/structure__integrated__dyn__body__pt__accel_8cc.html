@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -57,35 +57,35 @@ $(function() {
 <code>#include &quot;<a class="el" href="../../db/da6/dyn__body__messages_8hh_source.html">dynamics/dyn_body/include/dyn_body_messages.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d36/vector3_8hh_source.html">utils/math/include/vector3.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/de8/message__handler_8hh_source.html">utils/message/include/message_handler.hh</a>&quot;</code><br />
-<code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;cstdio&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for structure_integrated_dyn_body_pt_accel.cc:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d11/structure__integrated__dyn__body__pt__accel_8cc__incl.png" border="0" usemap="#structure__integrated__dyn__body__pt__accel_8cc" alt=""/></div>
 <map name="structure__integrated__dyn__body__pt__accel_8cc" id="structure__integrated__dyn__body__pt__accel_8cc">
-<area shape="rect" id="node2" href="../../dc/dd3/structure__integrated__dyn__body_8hh.html" title="Define the class StructureIntegratedDynBody, which integrates a DynBody object&#39;s structural state..." alt="" coords="2496,95,2663,136"/>
-<area shape="rect" id="node5" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="159,385,283,426"/>
-<area shape="rect" id="node24" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="2189,385,2337,426"/>
-<area shape="rect" id="node29" href="../../db/da6/dyn__body__messages_8hh.html" title="Define the class DynBodyMessages. " alt="" coords="5,95,188,136"/>
-<area shape="rect" id="node3" href="../../de/da6/body__wrench__collect_8hh.html" title="Defines the class BodyWrenchCollect. " alt="" coords="353,191,515,218"/>
-<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1448,481,1599,523"/>
-<area shape="rect" id="node9" href="../../d5/d76/vehicle__properties_8hh.html" title="Define the class VehicleProperties. " alt="" coords="2697,191,2843,218"/>
-<area shape="rect" id="node11" href="../../df/d1a/vehicle__non__grav__state_8hh.html" title="Define the class VehicleNonGravState. " alt="" coords="2496,191,2673,218"/>
-<area shape="rect" id="node12" href="../../d0/d75/dyn__body_8hh.html" title="Define the class DynBody. " alt="" coords="1448,184,1631,225"/>
-<area shape="rect" id="node4" href="../../d4/dd8/wrench_8hh.html" title="Define the class Wrench. " alt="" coords="263,288,346,315"/>
-<area shape="rect" id="node8" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="515,385,663,426"/>
-<area shape="rect" id="node10" href="../../dc/dca/solver__types_8hh.html" title="Defines various type definitions used in the constraints concept. " alt="" coords="2623,281,2797,322"/>
-<area shape="rect" id="node14" href="../../d6/d75/body__ref__frame_8hh.html" title="Define the class BodyRefFrame. " alt="" coords="1355,392,1486,419"/>
-<area shape="rect" id="node15" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="471,288,621,315"/>
-<area shape="rect" id="node16" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="1971,288,2086,315"/>
-<area shape="rect" id="node17" href="../../dd/d8a/dyn__body__generic__rigid__attach_8hh.html" title="Define the class Wrench. " alt="" coords="1460,281,1619,322"/>
-<area shape="rect" id="node18" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="1175,281,1333,322"/>
-<area shape="rect" id="node20" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="645,281,839,322"/>
-<area shape="rect" id="node21" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="1737,385,1913,426"/>
-<area shape="rect" id="node22" href="../../d0/d96/generalized__second__order__ode__technique_8hh.html" title="Define the static class GeneralizedSecondOrderODETechnique. " alt="" coords="1988,377,2165,433"/>
-<area shape="rect" id="node23" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="1745,281,1947,322"/>
-<area shape="rect" id="node25" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="1561,392,1713,419"/>
+<area shape="rect" id="node2" href="../../dc/dd3/structure__integrated__dyn__body_8hh.html" title="Define the class StructureIntegratedDynBody, which integrates a DynBody object&#39;s structural state..." alt="" coords="2607,95,2791,136"/>
+<area shape="rect" id="node5" href="../../db/d36/vector3_8hh.html" title="Vector math inline functions. " alt="" coords="5,385,144,426"/>
+<area shape="rect" id="node24" href="../../da/de8/message__handler_8hh.html" title="Define the class MessageHandler, the base class for generating messages. " alt="" coords="1497,385,1661,426"/>
+<area shape="rect" id="node29" href="../../db/da6/dyn__body__messages_8hh.html" title="Define the class DynBodyMessages. " alt="" coords="2815,95,3017,136"/>
+<area shape="rect" id="node3" href="../../de/da6/body__wrench__collect_8hh.html" title="Defines the class BodyWrenchCollect. " alt="" coords="511,191,689,218"/>
+<area shape="rect" id="node6" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="1156,481,1321,523"/>
+<area shape="rect" id="node9" href="../../df/d1a/vehicle__non__grav__state_8hh.html" title="Define the class VehicleNonGravState. " alt="" coords="2859,191,3055,218"/>
+<area shape="rect" id="node10" href="../../d5/d76/vehicle__properties_8hh.html" title="Define the class VehicleProperties. " alt="" coords="2621,191,2784,218"/>
+<area shape="rect" id="node12" href="../../d0/d75/dyn__body_8hh.html" title="Define the class DynBody. " alt="" coords="1284,184,1487,225"/>
+<area shape="rect" id="node4" href="../../d4/dd8/wrench_8hh.html" title="Define the class Wrench. " alt="" coords="121,288,210,315"/>
+<area shape="rect" id="node8" href="../../d8/dd6/pointer__vector_8hh.html" title="Define checkpointable replacements for STL sequence containers. " alt="" coords="762,385,929,426"/>
+<area shape="rect" id="node11" href="../../dc/dca/solver__types_8hh.html" title="Defines various type definitions used in the constraints concept. " alt="" coords="2607,281,2806,322"/>
+<area shape="rect" id="node14" href="../../d7/df2/body__force__collect_8hh.html" title="Define the class BodyForceCollect. " alt="" coords="638,288,802,315"/>
+<area shape="rect" id="node15" href="../../d6/d75/body__ref__frame_8hh.html" title="Define the class BodyRefFrame. " alt="" coords="346,392,491,419"/>
+<area shape="rect" id="node16" href="../../dd/d8a/dyn__body__generic__rigid__attach_8hh.html" title="Define the class Wrench. " alt="" coords="336,281,512,322"/>
+<area shape="rect" id="node17" href="../../d8/d33/frame__derivs_8hh.html" title="Define the FrameDerivs class. " alt="" coords="2052,288,2180,315"/>
+<area shape="rect" id="node18" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="2306,281,2481,322"/>
+<area shape="rect" id="node20" href="../../d0/da1/gravity__interaction_8hh.html" title="Define the GravityInteraction class, used to represent the gravitational interaction betweens a DynBo..." alt="" coords="826,281,1046,322"/>
+<area shape="rect" id="node21" href="../../da/de5/simple__checkpointable_8hh.html" title="Define the class SimpleCheckpointable. " alt="" coords="1005,385,1201,426"/>
+<area shape="rect" id="node22" href="../../d0/d96/generalized__second__order__ode__technique_8hh.html" title="Define the static class GeneralizedSecondOrderODETechnique. " alt="" coords="1277,377,1473,433"/>
+<area shape="rect" id="node23" href="../../d9/d81/restartable__state__integrator_8hh.html" title="Define classes that encapsulate the construction, destruction, checkpointing, and restarting of state..." alt="" coords="1121,281,1348,322"/>
+<area shape="rect" id="node25" href="../../d3/d89/ref__frame__interface_8hh.html" title="Define the class RefFrameOwner, which identifies an object as an &quot;owner&quot; of a reference frame..." alt="" coords="567,392,737,419"/>
 </map>
 </div>
 </div>

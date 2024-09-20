@@ -24,7 +24,7 @@
  Library dependencies:
  ((contact_pair.cc))
 
- 
+
 
  *****************************************************************************/
 
@@ -32,123 +32,93 @@
 #include <cmath>
 
 /* JEOD includes */
-#include "utils/math/include/vector3.hh"
 #include "dynamics/mass/include/mass.hh"
+#include "utils/math/include/vector3.hh"
 
 /* Model includes */
 #include "../include/contact_pair.hh"
 
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Default Constructor
- */
-ContactPair::ContactPair (
-   void)
-: // Return: -- None
-interaction (nullptr),
-interaction_distance(0.0),
-subject (nullptr),
-target (nullptr)
+namespace jeod
 {
-
-}
-
-
-/**
- * Destructor
- */
-ContactPair::~ContactPair (
-   void)
-{
-
-}
 
 /**
  * test whether the pair is in range for interaction
  * @return bool
  */
-bool
-ContactPair::in_range (
-   void)
+bool ContactPair::in_range()
 {
-   rel_state.update();
-   if (std::fpclassify(interaction_distance) == FP_ZERO || interaction_distance >= Vector3::vmag(rel_state.rel_state.trans.position)) {
-      return true;
-   }
-   return false;
+    rel_state.update();
+    if(std::fpclassify(interaction_distance) == FP_ZERO ||
+       interaction_distance >= Vector3::vmag(rel_state.rel_state.trans.position))
+    {
+        return true;
+    }
+    return false;
 }
 
 /**
  * Determine if contact can occur between the two facets.
  * @return bool
  */
-bool
-ContactPair::is_active (
-   void)
+bool ContactPair::is_active()
 {
-   if(subject->active && target->active && check_tree()) {
-      return true;
-   }
-   return false;
+    if(subject->active && target->active && check_tree())
+    {
+        return true;
+    }
+    return false;
 }
 
 /**
  * Determine if the pair has a target facet.
  * @return bool
  */
-bool
-ContactPair::is_complete (
-   void)
+bool ContactPair::is_complete()
 {
-   if(target != nullptr) {
-      return true;
-   }
-   return false;
+    if(target != nullptr)
+    {
+        return true;
+    }
+    return false;
 }
 
 /**
  * Determine if the pair has a target facet.
  * @return subject ContactFacet
  */
-ContactFacet *
-ContactPair::get_subject (
-   void)
+ContactFacet * ContactPair::get_subject()
 {
-   return subject;
+    return subject;
 }
 
 /**
  * Determine if the pair has a target facet.
  * @return target ContactFacet
  */
-ContactFacet *
-ContactPair::get_target (
-   void)
+ContactFacet * ContactPair::get_target()
 {
-   return target;
+    return target;
 }
 
 /**
  * Make sure the two contact facets are not on the same mass tree.
  * @return bool
  */
-bool
-ContactPair::check_tree(
-   void)
+bool ContactPair::check_tree()
 {
-   const MassBody * subject_root_mass;
-   const MassBody * target_root_mass;
+    const MassBody * subject_root_mass;
+    const MassBody * target_root_mass;
 
-   subject_root_mass = subject->base_facet->get_mass_body_ptr()->get_root_body ();
-   target_root_mass = target->base_facet->get_mass_body_ptr()->get_root_body ();
+    subject_root_mass = subject->base_facet->get_mass_body_ptr()->get_root_body();
+    target_root_mass = target->base_facet->get_mass_body_ptr()->get_root_body();
 
-   if (subject_root_mass != target_root_mass) {
-      // The pair is not on the same mass tree.
-      return true;
-   }
-   return false;
+    if(subject_root_mass != target_root_mass)
+    {
+        // The pair is not on the same mass tree.
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -156,16 +126,12 @@ ContactPair::check_tree(
  * class.
  * \param[in] dyn_manager dynamics manager
  */
-void
-ContactPair::initialize_relstate (
-   DynManager * dyn_manager)
+void ContactPair::initialize_relstate(DynManager * dyn_manager)
 {
-   rel_state.initialize (*(subject->vehicle_body), *dyn_manager);
+    rel_state.initialize(*(subject->vehicle_body), *dyn_manager);
 }
 
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

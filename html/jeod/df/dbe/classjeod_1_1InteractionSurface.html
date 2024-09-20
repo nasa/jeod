@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -46,7 +46,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">jeod::InteractionSurface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -62,41 +61,34 @@ Inheritance diagram for jeod::InteractionSurface:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d1b/classjeod_1_1InteractionSurface__inherit__graph.png" border="0" usemap="#jeod_1_1InteractionSurface_inherit__map" alt="Inheritance graph"/></div>
 <map name="jeod_1_1InteractionSurface_inherit__map" id="jeod_1_1InteractionSurface_inherit__map">
-<area shape="rect" id="node2" href="../../d5/d99/classjeod_1_1AeroSurface.html" title="The aerodynamic specific interaction surface, for use with the surface model. " alt="" coords="5,80,132,107"/>
-<area shape="rect" id="node3" href="../../df/d5f/classjeod_1_1ContactSurface.html" title="The contact specific interaction surface, for use with the surface model. " alt="" coords="156,80,301,107"/>
-<area shape="rect" id="node4" href="../../d0/d8b/classjeod_1_1RadiationSurface.html" title="The surface of the vehicle that interacts with the incident flux. " alt="" coords="326,80,481,107"/>
+<area shape="rect" id="node2" href="../../d5/d99/classjeod_1_1AeroSurface.html" title="The aerodynamic specific interaction surface, for use with the surface model. " alt="" coords="5,80,143,107"/>
+<area shape="rect" id="node3" href="../../df/d5f/classjeod_1_1ContactSurface.html" title="The contact specific interaction surface, for use with the surface model. " alt="" coords="167,80,325,107"/>
+<area shape="rect" id="node4" href="../../d0/d8b/classjeod_1_1RadiationSurface.html" title="The surface of the vehicle that interacts with the incident flux. " alt="" coords="349,80,519,107"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a22bc0b5792157704c232584d8917fecf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a22bc0b5792157704c232584d8917fecf">InteractionSurface</a> ()</td></tr>
-<tr class="memdesc:a22bc0b5792157704c232584d8917fecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default Constructor.  <a href="#a22bc0b5792157704c232584d8917fecf">More...</a><br /></td></tr>
-<tr class="separator:a22bc0b5792157704c232584d8917fecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e11c5fc9a4470c154e0ed007a0ba002"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a0e11c5fc9a4470c154e0ed007a0ba002">~InteractionSurface</a> ()</td></tr>
-<tr class="memdesc:a0e11c5fc9a4470c154e0ed007a0ba002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a0e11c5fc9a4470c154e0ed007a0ba002">More...</a><br /></td></tr>
-<tr class="separator:a0e11c5fc9a4470c154e0ed007a0ba002"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52c9cd99c2288d74841126173ea45996"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a52c9cd99c2288d74841126173ea45996">accumulate_thermal_sources</a> (void)</td></tr>
-<tr class="memdesc:a52c9cd99c2288d74841126173ea45996"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Adds all thermal sources together.  <a href="#a52c9cd99c2288d74841126173ea45996">More...</a><br /></td></tr>
-<tr class="separator:a52c9cd99c2288d74841126173ea45996"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f73ace9c7798ed1aaf2bc2c63cb316f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a9f73ace9c7798ed1aaf2bc2c63cb316f">thermal_integrator</a> (void)</td></tr>
-<tr class="memdesc:a9f73ace9c7798ed1aaf2bc2c63cb316f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><br />
-Integrates thermal sources to get temperature.  <a href="#a9f73ace9c7798ed1aaf2bc2c63cb316f">More...</a><br /></td></tr>
-<tr class="separator:a9f73ace9c7798ed1aaf2bc2c63cb316f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f9443f18479f23ce860cee465352bcd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a1f9443f18479f23ce860cee465352bcd">InteractionSurface</a> ()=default</td></tr>
+<tr class="separator:a1f9443f18479f23ce860cee465352bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad48d9037ea2eb1a20acc3a260891f10b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#ad48d9037ea2eb1a20acc3a260891f10b">~InteractionSurface</a> ()=default</td></tr>
+<tr class="separator:ad48d9037ea2eb1a20acc3a260891f10b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2d11b2ee8cf2feb654226b8fd8c008"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#adc2d11b2ee8cf2feb654226b8fd8c008">operator=</a> (const <a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;)=delete</td></tr>
+<tr class="separator:adc2d11b2ee8cf2feb654226b8fd8c008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb6e475d829e8f4be7fcf0d374ff7f22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#afb6e475d829e8f4be7fcf0d374ff7f22">InteractionSurface</a> (const <a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;)=delete</td></tr>
+<tr class="separator:afb6e475d829e8f4be7fcf0d374ff7f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac518a10a4c10f8c806163e7927bed6d3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#ac518a10a4c10f8c806163e7927bed6d3">accumulate_thermal_sources</a> ()</td></tr>
+<tr class="memdesc:ac518a10a4c10f8c806163e7927bed6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds all thermal sources together.  <a href="#ac518a10a4c10f8c806163e7927bed6d3">More...</a><br /></td></tr>
+<tr class="separator:ac518a10a4c10f8c806163e7927bed6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9ae9cef8020a923f69a02673bd1502"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a1c9ae9cef8020a923f69a02673bd1502">thermal_integrator</a> ()</td></tr>
+<tr class="memdesc:a1c9ae9cef8020a923f69a02673bd1502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrates thermal sources to get temperature.  <a href="#a1c9ae9cef8020a923f69a02673bd1502">More...</a><br /></td></tr>
+<tr class="separator:a1c9ae9cef8020a923f69a02673bd1502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ce64766eda0ce6f10d518fef6956768"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a3ce64766eda0ce6f10d518fef6956768">allocate_array</a> (unsigned int size)=0</td></tr>
 <tr class="memdesc:a3ce64766eda0ce6f10d518fef6956768"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pure virtual function that will allocate the array of pointers to the correct interaction facet type, of the given size.  <a href="#a3ce64766eda0ce6f10d518fef6956768">More...</a><br /></td></tr>
 <tr class="separator:a3ce64766eda0ce6f10d518fef6956768"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad475a78e39e8c58bb257cffabf469ef1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#ad475a78e39e8c58bb257cffabf469ef1">allocate_interaction_facet</a> (<a class="el" href="../../d1/d0a/classjeod_1_1Facet.html">Facet</a> *facet, <a class="el" href="../../da/d77/classjeod_1_1InteractionFacetFactory.html">InteractionFacetFactory</a> *factory, <a class="el" href="../../d9/df8/classjeod_1_1FacetParams.html">FacetParams</a> *params, unsigned int index)=0</td></tr>
 <tr class="memdesc:ad475a78e39e8c58bb257cffabf469ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pure virtual function that will allocate the interaction facet, from the given facet, using the given facet parameters, and place it in the allocated array of interaction facets at the given index.  <a href="#ad475a78e39e8c58bb257cffabf469ef1">More...</a><br /></td></tr>
 <tr class="separator:ad475a78e39e8c58bb257cffabf469ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a332d082e93c2711f9bf3c8459c3f2439"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#a332d082e93c2711f9bf3c8459c3f2439">operator=</a> (const <a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;rhs)</td></tr>
-<tr class="separator:a332d082e93c2711f9bf3c8459c3f2439"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af77e214905a2145ef854af3f8d1af8bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html#af77e214905a2145ef854af3f8d1af8bc">InteractionSurface</a> (const <a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;rhs)</td></tr>
-<tr class="separator:af77e214905a2145ef854af3f8d1af8bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -108,32 +100,10 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A base class for interaction specific surfaces. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00088">88</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00084">84</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a22bc0b5792157704c232584d8917fecf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22bc0b5792157704c232584d8917fecf">&#9670;&nbsp;</a></span>InteractionSurface() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">jeod::InteractionSurface::InteractionSurface </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default Constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/dbf/interaction__surface_8cc_source.html#l00039">39</a> of file <a class="el" href="../../d3/dbf/interaction__surface_8cc_source.html">interaction_surface.cc</a>.</p>
-
-</div>
-</div>
-<a id="a0e11c5fc9a4470c154e0ed007a0ba002"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e11c5fc9a4470c154e0ed007a0ba002">&#9670;&nbsp;</a></span>~InteractionSurface()</h2>
+<a id="a1f9443f18479f23ce860cee465352bcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f9443f18479f23ce860cee465352bcd">&#9670;&nbsp;</a></span>InteractionSurface() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,28 +112,48 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">jeod::InteractionSurface::~InteractionSurface </td>
+          <td class="memname">jeod::InteractionSurface::InteractionSurface </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destructor. </p>
+</div>
+</div>
+<a id="ad48d9037ea2eb1a20acc3a260891f10b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad48d9037ea2eb1a20acc3a260891f10b">&#9670;&nbsp;</a></span>~InteractionSurface()</h2>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/dbf/interaction__surface_8cc_source.html#l00051">51</a> of file <a class="el" href="../../d3/dbf/interaction__surface_8cc_source.html">interaction_surface.cc</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual jeod::InteractionSurface::~InteractionSurface </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<a id="af77e214905a2145ef854af3f8d1af8bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af77e214905a2145ef854af3f8d1af8bc">&#9670;&nbsp;</a></span>InteractionSurface() <span class="overload">[2/2]</span></h2>
+<a id="afb6e475d829e8f4be7fcf0d374ff7f22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb6e475d829e8f4be7fcf0d374ff7f22">&#9670;&nbsp;</a></span>InteractionSurface() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,13 +165,13 @@ Friends</h2></td></tr>
           <td class="memname">jeod::InteractionSurface::InteractionSurface </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -189,8 +179,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a52c9cd99c2288d74841126173ea45996"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52c9cd99c2288d74841126173ea45996">&#9670;&nbsp;</a></span>accumulate_thermal_sources()</h2>
+<a id="ac518a10a4c10f8c806163e7927bed6d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac518a10a4c10f8c806163e7927bed6d3">&#9670;&nbsp;</a></span>accumulate_thermal_sources()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +191,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">virtual void jeod::InteractionSurface::accumulate_thermal_sources </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -213,12 +202,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><br />
-Adds all thermal sources together. </p>
+<p>Adds all thermal sources together. </p>
 
-<p>Reimplemented in <a class="el" href="../../d0/d8b/classjeod_1_1RadiationSurface.html#a3c9ea50206b886d947cc6bf9312be48f">jeod::RadiationSurface</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d0/d8b/classjeod_1_1RadiationSurface.html#a9af2e3a93b548f31149a497f376ad460">jeod::RadiationSurface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00109">109</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00100">100</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/dfd/classjeod_1_1ThermalModelRider.html#a4ad5721f800cb5dce505852e3e2d0daf">jeod::ThermalModelRider::update()</a>.</p>
 
@@ -327,8 +315,8 @@ Adds all thermal sources together. </p>
 
 </div>
 </div>
-<a id="a332d082e93c2711f9bf3c8459c3f2439"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a332d082e93c2711f9bf3c8459c3f2439">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="adc2d11b2ee8cf2feb654226b8fd8c008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2d11b2ee8cf2feb654226b8fd8c008">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,21 +328,21 @@ Adds all thermal sources together. </p>
           <td class="memname"><a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a>&amp; jeod::InteractionSurface::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../df/dbe/classjeod_1_1InteractionSurface.html">InteractionSurface</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9f73ace9c7798ed1aaf2bc2c63cb316f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f73ace9c7798ed1aaf2bc2c63cb316f">&#9670;&nbsp;</a></span>thermal_integrator()</h2>
+<a id="a1c9ae9cef8020a923f69a02673bd1502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c9ae9cef8020a923f69a02673bd1502">&#9670;&nbsp;</a></span>thermal_integrator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,7 +353,6 @@ Adds all thermal sources together. </p>
         <tr>
           <td class="memname">virtual void jeod::InteractionSurface::thermal_integrator </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -377,12 +364,11 @@ Adds all thermal sources together. </p>
 </table>
 </div><div class="memdoc">
 
-<p><br />
-Integrates thermal sources to get temperature. </p>
+<p>Integrates thermal sources to get temperature. </p>
 
-<p>Reimplemented in <a class="el" href="../../d0/d8b/classjeod_1_1RadiationSurface.html#a9217487be1cb812a04c8d630483f8765">jeod::RadiationSurface</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d0/d8b/classjeod_1_1RadiationSurface.html#a1a5d24562608b2ee9190c814a4f3d71c">jeod::RadiationSurface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00121">121</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00109">109</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="../../da/dfd/classjeod_1_1ThermalModelRider.html#a4ad5721f800cb5dce505852e3e2d0daf">jeod::ThermalModelRider::update()</a>.</p>
 
@@ -434,13 +420,12 @@ Integrates thermal sources to get temperature. </p>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00090">90</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html#l00086">86</a> of file <a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="../../d3/d90/interaction__surface_8hh_source.html">interaction_surface.hh</a></li>
-<li><a class="el" href="../../d3/dbf/interaction__surface_8cc_source.html">interaction_surface.cc</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -53,7 +53,7 @@
 Purpose:
   ()
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_MODEL_TEMPLATE_FOO_HH
@@ -66,9 +66,9 @@ Purpose:
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * All JEOD classes should have a doxygen-style header that describes the
@@ -76,25 +76,25 @@ namespace jeod {
  * In this case, this class exists to demonstrate some base JEOD documentation
  * concepts.
  */
-class Foo {
+class Foo
+{
 public:
+    // Constructor and destructor.
+    Foo();
+    ~Foo();
 
-   // Constructor and destructor.
-   Foo();
-   ~Foo();
-
-   // Accessors.
-   void set_num (int value);
-   int get_num ();
+    // Accessors.
+    void set_num(int value);
+    int get_num();
 
 protected:
-   /**
-    * A non-zero number between -42 and 42 (inclusive).
-    */
-   int num; //!< trick_units(--)
+    /**
+     * A non-zero number between -42 and 42 (inclusive).
+     */
+    int num{42}; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -60,7 +60,7 @@
  Library dependencies:
     ((../src/contact.cc))
 
- 
+
 
 *****************************************************************************/
 
@@ -72,8 +72,8 @@
 
 /* JEOD includes */
 #include "dynamics/dyn_manager/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/container/include/pointer_list.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "class_declarations.hh"
@@ -82,101 +82,90 @@
 #include "pair_interaction.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An base contact class for use in the surface model.
  */
-class Contact {
-
-   JEOD_MAKE_SIM_INTERFACES(Contact)
+class Contact
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, Contact)
 
 public:
-   /**
-    * toggles contact on and off, true=on false=off
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * toggles contact on and off, true=on false=off
+     */
+    bool active{true}; //!< trick_units(--)
 
-   /**
-    * factor determines if contact is limited by a muliple of the
-    * maximum dimensions of the facets in a pair.
-    */
-   double contact_limit_factor; //!< trick_units(--)
+    /**
+     * factor determines if contact is limited by a muliple of the
+     * maximum dimensions of the facets in a pair.
+     */
+    double contact_limit_factor{}; //!< trick_units(--)
 
-   // constructor
-   Contact ();
-
-   // destructor
-   virtual ~Contact ();
+    Contact();
+    virtual ~Contact();
+    Contact & operator=(const Contact &) = delete;
+    Contact(const Contact &) = delete;
 
     /*
     The registration functions.
     Registrations accepts only the base class and type casts as necessary
     to create maps for the possible interactions.
     */
-   // Single facet with no stipulations as to what it interacts with.
-   void register_contact (ContactFacet * facet);
-   // Array of ContactFacets with no stipulation as to what they interact with.
-   void register_contact (ContactFacet ** facets, unsigned int n_facets);
-   // Pair of facets each will only interact with the other.
-   void register_contact (ContactFacet * facet1, ContactFacet * facet2);
-   // Two arrays of ContactFacets that will only interact with each other.
-   void register_contact (
-      ContactFacet ** facets1,
-      unsigned int n_facets1,
-      ContactFacet ** facets2,
-      unsigned int n_facets2);
+    // Single facet with no stipulations as to what it interacts with.
+    void register_contact(ContactFacet * facet);
+    // Array of ContactFacets with no stipulation as to what they interact with.
+    void register_contact(ContactFacet ** facets, unsigned int n_facets);
+    // Pair of facets each will only interact with the other.
+    void register_contact(ContactFacet * facet1, ContactFacet * facet2);
+    // Two arrays of ContactFacets that will only interact with each other.
+    void register_contact(ContactFacet ** facets1,
+                          unsigned int n_facets1,
+                          ContactFacet ** facets2,
+                          unsigned int n_facets2);
 
-   // place a pair interaction on the list.
-   void register_interaction (PairInteraction * interaction);
+    // place a pair interaction on the list.
+    void register_interaction(PairInteraction * interaction);
 
-   // find the correct pair interaction based on a set of contact params.
-   virtual PairInteraction * find_interaction(
-      ContactParams *params_1,
-      ContactParams *params_2);
+    // find the correct pair interaction based on a set of contact params.
+    virtual PairInteraction * find_interaction(ContactParams * params_1, ContactParams * params_2);
 
-   /*
-    Clean up registrations and create all necessary lists.
-    */
-   void initialize_contact (DynManager * manager);
+    /*
+     Clean up registrations and create all necessary lists.
+     */
+    void initialize_contact(DynManager * manager);
 
-   /*
-    Check contact pair list for duplicates before making a new pair.
-    */
-   bool unique_pair ( const ContactFacet * facet_1, const ContactFacet * facet_2);
+    /*
+     Check contact pair list for duplicates before making a new pair.
+     */
+    bool unique_pair(const ContactFacet * facet_1, const ContactFacet * facet_2);
 
-   /*
-    Function to check for contact.  Loops through all the created pairs.
-    */
-   void check_contact ();
+    /*
+     Function to check for contact.  Loops through all the created pairs.
+     */
+    void check_contact();
 
 protected:
-   /**
-    * Pointer to the dyn_manager so relstates and be successfully initialized.
-    */
-   DynManager * dyn_manager; //!< trick_units(--)
+    /**
+     * Pointer to the dyn_manager so relstates and be successfully initialized.
+     */
+    DynManager * dyn_manager{}; //!< trick_units(--)
 
-   /**
-    * list of all possible pairings of contact facets registered with this contact
-    * class or derived class
-    */
-  JeodPointerList<ContactPair>::type contact_pairs; //!< trick_io(**)
+    /**
+     * list of all possible pairings of contact facets registered with this contact
+     * class or derived class
+     */
+    JeodPointerList<ContactPair>::type contact_pairs; //!< trick_io(**)
 
-   /**
-    * list of all possible pair interaction types
-    */
-   JeodPointerList<PairInteraction>::type pair_interactions; //!< trick_io(**)
-
-
-private:
-   /* Operator = and copy constructor hidden from use by being private */
-
-   Contact& operator = (const Contact& rhs);
-   Contact (const Contact& rhs);
-
+    /**
+     * list of all possible pair interaction types
+     */
+    JeodPointerList<PairInteraction>::type pair_interactions; //!< trick_io(**)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

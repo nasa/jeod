@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">JEOD
-   &#160;<span id="projectnumber">5.1</span>
+   &#160;<span id="projectnumber">5.2</span>
    </div>
    <div id="projectbrief">JSC Engineering Orbital Dynamics</div>
   </td>
@@ -52,27 +52,27 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Define the class MassBodyAttachAligned, which causes one MassBody to be attached to another at a pair of MassPoints.  
+<p>Define the class BodyAttachAligned, which causes one MassBody to be attached to another at a pair of MassPoints.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../dc/df9/jeod__class_8hh_source.html">utils/sim_interface/include/jeod_class.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh_source.html">class_declarations.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/da1/body__attach_8hh_source.html">body_attach.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh_source.html">class_declarations.hh</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for body_attach_aligned.hh:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d37/body__attach__aligned_8hh__incl.png" border="0" usemap="#body__attach__aligned_8hh" alt=""/></div>
 <map name="body__attach__aligned_8hh" id="body__attach__aligned_8hh">
-<area shape="rect" id="node2" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="699,333,849,375"/>
-<area shape="rect" id="node5" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body_init_XXX.hh files. " alt="" coords="27,251,175,278"/>
-<area shape="rect" id="node6" href="../../da/da1/body__attach_8hh.html" title="Define the class MassBodyAttach, the base class used for attaching a pair of MassBody objects to one ..." alt="" coords="629,80,740,107"/>
-<area shape="rect" id="node3" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="737,423,811,449"/>
-<area shape="rect" id="node4" href="../../d5/d33/config__trick10_8hh.html" title="Configure JEOD for use in a Trick10 environment. " alt="" coords="713,497,835,524"/>
-<area shape="rect" id="node7" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="909,155,1066,196"/>
-<area shape="rect" id="node8" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body.hh. " alt="" coords="121,333,304,375"/>
-<area shape="rect" id="node9" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="586,244,783,285"/>
-<area shape="rect" id="node10" href="../../d1/d5a/dynamics_2mass_2include_2class__declarations_8hh.html" title="Forward declarations of mass model classes. " alt="" coords="419,333,577,375"/>
-<area shape="rect" id="node11" href="../../d0/d85/body__action_8hh.html" title="Define the class BodyAction, the base class used for performing actions on a MassBody or DynBody obje..." alt="" coords="384,162,495,189"/>
-<area shape="rect" id="node13" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="301,244,460,285"/>
+<area shape="rect" id="node2" href="../../dc/df9/jeod__class_8hh.html" title="Define the JEOD class declaration macros JEOD_MAKE_SIM_INTERFACES and and JEOD_DECLARE_SIM_INTERFACES..." alt="" coords="48,333,213,375"/>
+<area shape="rect" id="node5" href="../../da/da1/body__attach_8hh.html" title="Define the class MassBodyAttach, the base class used for attaching a pair of MassBody objects to one ..." alt="" coords="509,80,632,107"/>
+<area shape="rect" id="node12" href="../../d1/db4/dynamics_2body__action_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body_init_XXX.hh files. " alt="" coords="736,251,898,278"/>
+<area shape="rect" id="node3" href="../../dc/d53/config_8hh.html" title="Configure JEOD for use by some simulation engine. " alt="" coords="90,423,171,449"/>
+<area shape="rect" id="node4" href="../../d5/d33/config__trick10_8hh.html" title="Configure JEOD for use in a Trick10 environment. " alt="" coords="64,497,197,524"/>
+<area shape="rect" id="node6" href="../../df/d48/dynamics_2dyn__body_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_body.hh. " alt="" coords="472,333,674,375"/>
+<area shape="rect" id="node7" href="../../dc/d26/dynamics_2dyn__manager_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in dyn_manager.hh. " alt="" coords="40,244,258,285"/>
+<area shape="rect" id="node8" href="../../d1/d5a/dynamics_2mass_2include_2class__declarations_8hh.html" title="Forward declarations of mass model classes. " alt="" coords="699,333,874,375"/>
+<area shape="rect" id="node9" href="../../da/d05/utils_2ref__frames_2include_2class__declarations_8hh.html" title="Forward declarations of classes defined in ref_frame.hh. " alt="" coords="608,155,784,196"/>
+<area shape="rect" id="node10" href="../../d0/d85/body__action_8hh.html" title="Define the class BodyAction, the base class used for performing actions on a MassBody or DynBody obje..." alt="" coords="411,162,532,189"/>
+<area shape="rect" id="node13" href="../../d2/d7e/mass_8hh.html" title="Define the class MassBody. " alt="" coords="384,244,559,285"/>
 </map>
 </div>
 </div>
@@ -91,7 +91,7 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Define the class MassBodyAttachAligned, which causes one MassBody to be attached to another at a pair of MassPoints. </p>
+<div class="textblock"><p>Define the class BodyAttachAligned, which causes one MassBody to be attached to another at a pair of MassPoints. </p>
 
 <p class="definition">Definition in file <a class="el" href="../../d5/d77/body__attach__aligned_8hh_source.html">body_attach_aligned.hh</a>.</p>
 </div></div><!-- contents -->

@@ -24,19 +24,16 @@ class Planet;
 // Unsupported includes
 #include "../include/earth.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-Planet_earth_default_data::initialize (
-   Planet * Planet_ptr)
+namespace jeod
 {
-   Planet_ptr->name = "Earth";
 
-   /* GSFC Earth fact sheet */
-   Planet_ptr->flat_inv = 298.257223563;
-   Planet_ptr->r_eq = 1000 * (6378.137);
+void Planet_earth_default_data::initialize(Planet * Planet_ptr)
+{
+    Planet_ptr->name = "Earth";
+
+    /* GSFC Earth fact sheet */
+    Planet_ptr->flat_inv = 298.257223563;
+    Planet_ptr->r_eq = 1000 * (6378.137);
 }
-} // End JEOD namespace
+} // namespace jeod

@@ -50,10 +50,8 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_LINEAR_SYSTEM_SOLVER_HH
 #define JEOD_LINEAR_SYSTEM_SOLVER_HH
-
 
 #include "solver_types.hh"
 #include "sub_vector_view.hh"
@@ -63,9 +61,9 @@ Purpose: ()
 #include "utils/memory/include/jeod_alloc.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents a linear system of equations, A*x = b, where A is conceptually
@@ -88,64 +86,61 @@ namespace jeod {
  */
 class LinearSystemSolver
 {
-    JEOD_MAKE_SIM_INTERFACES(LinearSystemSolver)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LinearSystemSolver)
 
 public:
-
     // Member types.
 
     /**
      * Vector of doubles.
      */
-    typedef JeodPrimitiveVector<double>::type DoubleVectorT;
+    using DoubleVectorT = JeodPrimitiveVector<double>::type;
 
 #ifndef SWIG
     /**
      * A slice of the A matrix.
      */
-    typedef SubArrayView<TwoDArray, double> AMatrixViewT;
+    using AMatrixViewT = SubArrayView<TwoDArray, double>;
 
     /**
      * A slice of the b vector.
      */
-    typedef SubVectorView<std::vector<double>, double> BVectorViewT;
+    using BVectorViewT = SubVectorView<std::vector<double>, double>;
 #endif
-
 
     // Member functions
 
     /**
      * Default constructor.
      */
-    LinearSystemSolver ()
+    LinearSystemSolver()
     {
         JEOD_REGISTER_NONEXPORTED_CLASS(LinearSystemSolver);
         // FIXME: Make TwoDArray checkpointable.
         // FIXME: Uncomment the following after fixing the above.
         // JEOD_REGISTER_CHECKPOINTABLE (this, a_matrix);
-        JEOD_REGISTER_CHECKPOINTABLE (this, b_vector);
+        JEOD_REGISTER_CHECKPOINTABLE(this, b_vector);
     }
 
     /**
      * Destructor.
      */
-    virtual ~LinearSystemSolver ()
+    virtual ~LinearSystemSolver()
     {
         // FIXME: Uncomment the following after making TwoDArray checkpointable.
         // JEOD_DEREGISTER_CHECKPOINTABLE (this, a_matrix);
-        JEOD_DEREGISTER_CHECKPOINTABLE (this, b_vector);
+        JEOD_DEREGISTER_CHECKPOINTABLE(this, b_vector);
     }
-
 
     /**
      * Set the maximum dimensionality of the problem.
      */
-    virtual void set_max_dimensions (unsigned max_dims_in)
+    virtual void set_max_dimensions(unsigned max_dims_in)
     {
-        if (max_dims < max_dims_in)
+        if(max_dims < max_dims_in)
         {
             max_dims = max_dims_in;
-            a_matrix.reserve(max_dims*max_dims);
+            a_matrix.reserve(max_dims * max_dims);
             b_vector.reserve(max_dims);
         }
     }
@@ -153,9 +148,9 @@ public:
     /**
      * Set the current dimensionality of the problem.
      */
-    virtual void set_n_dimensions (unsigned n_dims)
+    virtual void set_n_dimensions(unsigned n_dims)
     {
-        set_max_dimensions (n_dims);
+        set_max_dimensions(n_dims);
         a_matrix.resize(n_dims, n_dims);
         b_vector.resize(n_dims);
         n_dimensions = n_rows = n_cols = n_dims;
@@ -165,9 +160,8 @@ public:
     /**
      * Create a view to a portion of the A matrix.
      */
-    AMatrixViewT make_a_matrix_view(
-        const SolverTypes::IndexPairT& row_range,
-        const SolverTypes::IndexPairT& col_range)
+    AMatrixViewT make_a_matrix_view(const SolverTypes::IndexPairT & row_range,
+                                    const SolverTypes::IndexPairT & col_range)
     {
         return AMatrixViewT(a_matrix, row_range, col_range);
     }
@@ -175,22 +169,23 @@ public:
     /**
      * Create a view to a portion of the b vector.
      */
-    BVectorViewT make_b_vector_view(
-        const SolverTypes::IndexPairT& row_range)
+    BVectorViewT make_b_vector_view(const SolverTypes::IndexPairT & row_range)
     {
         return BVectorViewT(b_vector, row_range);
     }
 #endif
 
-
     /**
      * Solve for x in A*x = b.
      */
-    virtual unsigned solve(DoubleVectorT& x) = 0;
+    virtual unsigned solve(DoubleVectorT & x) = 0;
 
+    // The copy constructor and copy assignment operator are not implemented
+    // to avoid erroneous copies.
+    LinearSystemSolver(const LinearSystemSolver &) = delete;
+    LinearSystemSolver & operator=(const LinearSystemSolver &) = delete;
 
 protected:
-
     /**
      * The matrix A in A*x = b.
      */
@@ -204,38 +199,29 @@ protected:
     /**
      * The maximum number of dimensions, to scope sizing of A and b.
      */
-    unsigned max_dims; //!< trick_units(--)
+    unsigned max_dims{}; //!< trick_units(--)
 
     /**
      * The current dimensionality of the problem.
      */
-    unsigned n_dimensions; //!< trick_units(--)
+    unsigned n_dimensions{}; //!< trick_units(--)
 
     /**
      * The number of rows currently in use.
      * By default, this is the current dimensionality of the problem.
      */
-    unsigned n_rows; //!< trick_units(--)
+    unsigned n_rows{}; //!< trick_units(--)
 
     /**
      * The number of columns currently in use.
      * By default, this is the current dimensionality of the problem.
      */
-    unsigned n_cols; //!< trick_units(--)
-
-private:
-    // The copy constructor and copy assignment operator are not implemented
-    // to avoid erroneous copies.
-    LinearSystemSolver (const LinearSystemSolver&);
-    LinearSystemSolver& operator= (const LinearSystemSolver&);
-
+    unsigned n_cols{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

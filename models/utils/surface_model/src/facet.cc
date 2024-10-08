@@ -26,7 +26,7 @@ Library dependencies:
      (dynamics/mass/src/mass.cc)
      (dynamics/mass/src/mass_point_state.cc))
 
- 
+
 *******************************************************************************/
 
 // System includes
@@ -58,6 +58,7 @@ Facet::Facet (
    name(),
    mass_body_name(nullptr),
    mass_body_ptr(nullptr),
+   mass_rel_struct(nullptr),
    connections_initialized(false)
 {
    Vector3::initialize (position);

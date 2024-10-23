@@ -118,6 +118,11 @@ private:
      */
     DynManager * local_dm{}; //!< trick_units(--)
 
+    /*
+     * Indicates whether frame has already been initialized.
+     */
+    bool initialized{}; //!< trick_units(--)
+
     // Methods
 public:
     // Default constructor and destructor

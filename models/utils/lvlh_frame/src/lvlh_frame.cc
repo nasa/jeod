@@ -74,6 +74,11 @@ LvlhFrame::~LvlhFrame()
  */
 void LvlhFrame::initialize(DynManager & dyn_manager)
 {
+    if(initialized)
+    {
+        return;
+    }
+
     // Cache a pointer to the dyn manager. We will need it for the destructor.
     local_dm = &dyn_manager;
 
@@ -169,6 +174,8 @@ void LvlhFrame::initialize(DynManager & dyn_manager)
     Vector3::initialize(frame.state.rot.ang_vel_this);
     Vector3::initialize(frame.state.rot.ang_vel_unit);
     frame.state.rot.ang_vel_unit[1] = -1;
+
+    initialized = true;
 }
 
 /**

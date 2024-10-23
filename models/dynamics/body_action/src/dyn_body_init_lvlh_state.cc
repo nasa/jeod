@@ -87,24 +87,18 @@ void DynBodyInitLvlhState::initialize(DynManager & dyn_manager)
  */
 void DynBodyInitLvlhState::apply(DynManager & dyn_manager)
 {
-    LvlhFrame lvlh_frame; // -- Reference vehicle LVLH frame
+    LvlhFrame lvlh_frame; // -- Reference vehicle LVLH frame to be used if undefined.
 
-    if(lvlh_object_ptr != nullptr)
+    if(lvlh_object_ptr == nullptr)
     {
-        lvlh_object_ptr->update();
-        reference_ref_frame = &lvlh_object_ptr->frame;
+        lvlh_object_ptr = &lvlh_frame;
+        lvlh_object_ptr->set_subject_frame(ref_body->composite_body);
+        lvlh_object_ptr->set_planet(*planet);
     }
-    else
-    {
-        // Construct the LVLH frame.
-        lvlh_frame.set_subject_frame(ref_body->composite_body);
-        lvlh_frame.set_planet(*planet);
-        lvlh_frame.initialize(dyn_manager);
-        lvlh_frame.update();
-        // The position/velocity/attitude/rate data pertain to this newly
-        // constructed LVLH frame.
-        reference_ref_frame = &lvlh_frame.frame;
-    }
+
+    lvlh_object_ptr->initialize(dyn_manager);
+    lvlh_object_ptr->update();
+    reference_ref_frame = &lvlh_object_ptr->frame;
 
     if(lvlh_type == LvlhType::CircularCurvilinear)
     {

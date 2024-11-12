@@ -223,12 +223,7 @@ SurfaceModel::update_articulation (
 
    // update all of the MassPointStates we have knowledge of.
 
-   // for(unsigned int ii = 0; ii < articulation_states.size(); ++ii) {
-   for(std::list<FacetStateInfo>::iterator ii = articulation_states.begin();
-       ii != articulation_states.end();
-       ++ii) {
-
-      FacetStateInfo& current_state = *ii;
+   for(auto & current_state : articulation_states) {
 
       if(struct_body_ptr->get_root_body() !=
          current_state->mass_body->get_root_body())

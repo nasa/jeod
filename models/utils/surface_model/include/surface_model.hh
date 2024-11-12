@@ -59,7 +59,7 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     ((../src/surface_model.cc))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_SURFACE_MODEL_HH
@@ -204,7 +204,7 @@ protected:
     * The set of states used to update the articulation of
     * each facet
     */
-   JeodObjectList<FacetStateInfo>::type articulation_states; //!< trick_io(**)
+    std::list<FacetStateInfo *> articulation_states;
 
 
 private:

@@ -88,9 +88,11 @@ void DynBodyInitLvlhState::initialize(DynManager & dyn_manager)
 void DynBodyInitLvlhState::apply(DynManager & dyn_manager)
 {
     LvlhFrame lvlh_frame; // -- Reference vehicle LVLH frame to be used if undefined.
+    bool tempFrameNeeded = false;
 
     if(lvlh_object_ptr == nullptr)
     {
+        tempFrameNeeded = true;
         lvlh_object_ptr = &lvlh_frame;
         lvlh_object_ptr->set_subject_frame(ref_body->composite_body);
         lvlh_object_ptr->set_planet(*planet);
@@ -178,9 +180,13 @@ void DynBodyInitLvlhState::apply(DynManager & dyn_manager)
     // state set to this newly-constructed LVLH frame.
     DynBodyInitPlanetDerived::apply(dyn_manager);
 
-    // The LVLH frame will go out of scope on returning from this function.
-    // The reference_ref_frame should no longer point to this frame.
-    reference_ref_frame = nullptr;
+    // The temporary LVLH frame will go out of scope on returning from this function.
+    // reference_ref_frame and lvlh_object_ptr should no longer point to it.
+    if(tempFrameNeeded)
+    {
+        reference_ref_frame = nullptr;
+        lvlh_object_ptr = nullptr;
+    }
 }
 
 } // namespace jeod

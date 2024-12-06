@@ -65,7 +65,7 @@ SurfaceModel::SurfaceModel (
    JEOD_REGISTER_CLASS(Facet);
    JEOD_REGISTER_CLASS(FacetStateInfo);
    JEOD_REGISTER_CHECKPOINTABLE(this, facets);
-
+   JEOD_REGISTER_CHECKPOINTABLE(this, articulation_states);
 }
 
 /**
@@ -82,6 +82,8 @@ SurfaceModel::~SurfaceModel (
         JEOD_DELETE_OBJECT(articulation_states.back());
         articulation_states.pop_back();
     }
+
+    JEOD_DEREGISTER_CHECKPOINTABLE(this, articulation_states);
 }
 
 /*******************************************************************************

@@ -69,6 +69,7 @@ Library dependencies:
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
+#include "utils/container/include/pointer_list.hh"
 #include "utils/container/include/pointer_vector.hh"
 #include "utils/container/include/object_vector.hh"
 #include "utils/container/include/object_list.hh"
@@ -204,8 +205,7 @@ protected:
     * The set of states used to update the articulation of
     * each facet
     */
-    std::list<FacetStateInfo *> articulation_states;
-
+    JeodPointerList<FacetStateInfo>::type articulation_states; //!< trick_io(**)
 
 private:
 

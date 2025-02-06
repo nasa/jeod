@@ -1,0 +1,37 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Summarize the purpose of the SPICE model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+The JEOD \SpiceDesc\ provides equivalent functionality to the existing DE4xx
+ephemerides and Earth orientation (RNPJ2000) models, while expanding upon
+their capabilities. As those models can, it can supply high-fidelity
+ephemerides for the Sun, planets, Pluto, and the Moon, as well as
+high-fidelity RNP for the Earth and Moon. However, the \SpiceDesc\ can also
+provide high-fidelity ephemeris and simple orientation models for all of the
+planets, natural satellites (moons), asteroids, comets, and other objects and
+locations of interest in the solar system.  Thus, the \SpiceDesc\ offers
+significant advantages over existing JEOD implementations of DE4xx and RNPJ2000:
+\begin{itemize}
+\item Compatibility -- The SPICE Toolkit, which is implemented by the \SpiceDesc,
+is an agency standard supported and maintained by the Jet Propulsion
+Laboratory (JPL).
+\item Extended coverage -- JPL offers a vast selection of data files which can
+provide custom ephemerides and orientation information for most objects and
+locations of interest in the solar system.
+\item Custom data -- JPL offers data files which are fitted for specific
+applications where high accuracy or other special characteristics are required.
+Additionally, with the proper know-how, users can create their own
+SPICE-compatible data files which would then be usable with the JEOD \SpiceDesc.
+\end{itemize}
+
+Users are encouraged to convert existing simulations to use the \SpiceDesc\ as
+it may prove necessary in the future to deprecate and ultimately remove the
+classic JEOD implementations of DE4xx and RNPJ2000.
+
+\end{abstract}

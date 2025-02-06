@@ -1,0 +1,78 @@
+#!/bin/csh -f
+
+# Run this in a SIM_* directory.  It will create a SIM_*_T10 directory at the
+# same level (if it does not already exist), and work in that.
+
+set currentdir_post = `pwd |sed 's/.*_//'`
+if( $currentdir_post != "T10" ) then
+  set currentdir_pre = `pwd | sed 's/.*\///' | sed 's/_.*//'`
+  if( $currentdir_pre != "SIM") then
+    echo "Not in a SIM directory.  Quitting."
+    exit
+  endif
+  set newdir = `pwd |sed 's/.*\///'| sed 's/$/_T10/'`
+  if (! -e ../$newdir) then
+    echo "Creating new version of simulation; could take some time."
+    svn export . ../$newdir
+    echo "Done."
+  endif
+  cd ../$newdir 
+endif
+pwd
+ls
+
+if( -e translation_fails) then
+  rm translation_fails
+endif
+
+
+set rel_dir = ".."
+while(! -e $rel_dir/sims/shared/Trick10/S_modules )
+  set rel_dir = "${rel_dir}/.."
+end
+ln -s $rel_dir/sims/shared/Trick10/S_modules JEOD_S_modules
+
+
+# S_define
+echo "***************************PROCESSING S_DEFINE*************************"
+if (! -e S_define_07) then
+   cp S_define S_define_07
+endif
+
+sed 's/sys.exec.out.time/exec_get_sim_time()/' S_define_07 > S_define_tmp
+
+perl $JEOD_HOME/translation_scripts/trick_7_10_Sdef.pl S_define_tmp $JEOD_HOME
+rm S_define_tmp
+
+
+# Log data
+echo ""
+echo "*************************PROCESSING LOG FILES************************"
+cd Log_data
+
+foreach file (*.d)
+  perl $JEOD_HOME/translation_scripts/trick_7_10_log.pl $file
+end
+
+cd ..
+
+#Modified_data
+echo ""
+echo "*******************PROCESSING MODIFIED_DATA FILES********************"
+if ( -e Modified_data) then
+  cd  Modified_data
+
+  foreach file (`find -name '*.d'`)
+    perl $JEOD_HOME/translation_scripts/trick_7_10_mod_data.pl $file
+  end
+  cd ..
+endif
+
+
+#input files
+echo ""
+echo "**********************PROCESSING INPUT FILES************************"
+foreach run (SET_test/RUN_*)
+  perl $JEOD_HOME/translation_scripts/trick_7_10_input.pl $run/input
+end
+

@@ -1,0 +1,379 @@
+\section{Conceptual Design}
+The primary purpose of the \ModelDesc is to represent dynamic aspects of
+spacecraft in a simulation.
+The model's DynBody class is the base class for such representations.
+A DynBody has properties such as mass that are intrinsic to the body itself
+as well as extrinsic properties such as the state of the body with
+respect to the outside world. External forces and torques act to change
+the body's state over time.
+
+The forces and torques that act on a DynBody are obviously \hasa
+relationships.\footnote{A \hasa relationship entails containment while a \isa
+relationship entails specialization. A car \isa kind of vehicle but \hasa carburetor and four tires. Sometimes the distinction between \isa and \hasa
+is not as clear as in this simple example. For example, the very first design
+of JEOD 2.0 used a \hasa relationship for the association between a DynBody
+object and a MassBody object, whereas JEOD 3.0 used a DynBody \isa MassBody approach. Ultimately, these design decisions should be made in order to balance code legibility, use cases, and user feedback.}
+Multiple forces and torques can be present and can vary in number
+and nature from body to body.
+State is also a \hasa relationship as a DynBody has multiple states.
+The body's center of mass and structural origin, for example, have potentially
+distinct locations with respect to the outside world.
+
+A spacecraft has mass properties such as mass, a center of mass, and
+moment of inertia.
+These intrinsic properties of a DynBody are represented by the
+\hypermodelref{MASS} MassBody class. The relationship
+between a DynBody and a MassBody can be either \hasa or \isa.
+In JEOD 1.5, the relationship between an OrbitalBody
+and a MassBody was \hasa by necessity. JEOD 1.5 was implemented in C,
+which does not offer \isa relationships. That limitation does not
+exist in JEOD 2.0. Making the relation \isa offered the advantage of overridden
+functions over a \hasa relationship. The JEOD 2.0 DynBody class
+inherited from the JEOD 2.0 MassBody class. In JEOD 4.0, the relationship was 
+reverted to a \hasa relationship with friendship. This removed the need for 
+constant checks to differentiate between a MassBody and a DynBody, and provides
+ extension stability by preventing users from overriding protected JEOD 
+ functionality.
+
+The enhanced flexibility introduced with recent changes to
+the \hypermodelref{INTEGRATION} \INTEGRATION are enabled by abstracting the 
+sorts of things which JEOD can integrate in the er7\_utils::IntegrableObject
+class. Now a DynBody \isa er7\_utils::IntegrableObject.  In addition, the
+DynBody class now provides the capability to associate additional
+IntegrableObjects which are integrated along with the DynBody state.
+
+\subsection{Key Concepts}\label{sec:key_concepts}
+This section describes the key concepts that form the conceptual foundation of
+the \ModelDesc.
+
+\subsubsection{Mass}\label{sec:key_mass}
+As noted above, a DynBody \hasa MassBody.
+MassBody objects have mass properties and can be attached to/detached from
+other MassBody objects. MassBody objects represent mass properties in the
+form of instances of the MassProperties class.
+The MassProperties class derives from the MassPoint class.
+
+A MassBody object defines three mass properties objects, and hence three
+MassPoints, one for each of the object's \begin{inparaenum}[(1)]
+\item structural origin/structural axes,
+\item core center of mass/body axes, and
+\item composite center of mass/body axes.
+\end{inparaenum}
+The MassPoints class defines a rudimentary kind of reference frame basis. These
+rudimentary reference frames include an origin and a set of orthogonal
+right-handed axes, but exclude the derivatives information found in the
+\hypermodelref{REFFRAMES}.
+A basic MassBody object lacks a connection to the
+outside world. The DynBody class adds that connection to a MassBody object. 
+DynBody mass attributes exist in the MassBody \verb+DynBody::mass+  member.
+MassBody's referring to the mass contents of a DynBody contain a pointer DynBody \verb+MassBody::dyn_owner+ member. 
+Pure mass items, which do not refer to a dynamic body, should have a \verb+NULL+ value for this member.
+
+\subsubsection{State}
+The DynBody class makes the connection to the outside world in the form of
+`state'.  Multiple states, in fact. The \ModelDesc uses the BodyRefFrame
+class to represent state. A BodyRefFrame \isa RefFrame plus a pointer
+to a MassPoint object. The model maintains a BodyRefFrame for each of the
+MassPoint objects associated with a MassBody object.
+
+A RefFrame object contains links and states. The links connect RefFrame
+objects to one another. The state describes the
+translational and rotational relation between the frame and its parent frame.
+All active reference frames in a simulation are connected to one another to
+form a tree structure. The problem at hand is to connect the reference frames
+associated with a DynBody object to this larger, simulation-wide reference
+frame tree.
+
+\subsubsection{Inertial Frames}
+The root node of the simulation reference frame tree is, by
+assumption, a true Newtonian inertial frame of reference. Other reference
+frames in the tree loosely qualify as being `inertial' frames. These so-called
+inertial frames are not truly inertial frames; their origins are accelerating
+with respect to the root frame. What qualifies these frames as being `inertial'
+frames is that they are not rotating with respect to the root frame,
+they are connected to the root frame either directly or through other
+`inertial' frames, and they are subject to gravitation forces only.
+Non-rotating planet-centered reference frames, for example, qualify as
+`inertial' reference frames in JEOD. (And elsewhere. This is a very
+widespread and very convenient abuse of notation.)
+
+Any non-inertial frame can be made to look like an inertial frame of reference
+(\ie $F=ma$) by means of fictional forces and torques. These fictional forces
+and torques are accounting tricks. The only such trick needed to make the JEOD
+inertial frames appear to be true inertial frames is to account for the
+inertial force due to frame acceleration, and that acceleration is only
+gravitational. The \hypermodelref{GRAVITY} performs these accounting tricks.
+From the perspective of this model, these pseudo-inertial frames of reference
+can be treated as inertial frames in which $F=ma$ is valid.
+
+\subsubsection{Integration Frame}
+The connection between a DynBody object's DynBodyFrame objects and the outside
+world is through the DynBody object's integration frame. The integration frame
+must be one of the simulation's inertial frames. All of the DynBodyFrame objects
+associated with a given DynBody object share the DynBody object's integration
+frame as a common parent.
+
+A driving requirement for JEOD was to provide the ability for different
+vehicles in a multi-vehicle simulation to have their states represented in
+and integrated in different frames of reference.
+For example, using the Moon-centered inertial frame as the
+integration frame would best suit a vehicle orbiting the Moon, but the
+Earth-centered inertial frame would best suit a vehicle in low Earth orbit.
+The \ModelDesc accomplishes this goal by enabling each root DynBody object to
+have its own integration frame. This allows state to be represented in and
+integrated in the frame best-suited to the object in question.
+
+Another driving requirement for JEOD was to provide the ability to switch
+integration frames for a given vehicle during the course of a simulation run.
+For example, a vehicle in transit from the Earth to the Moon should be able
+to switch the vehicle's integration frame from Earth-centered inertial to
+Moon-centered inertial at some point during the transit. The \ModelDesc
+accomplishes this goal as well. A DynBody object's integration frame can
+be changed dynamically in a manner that is consistent with the laws of physics.
+
+\subsubsection{Attach/Detach}\label{sec:key_attach_detach}
+MassBody objects can be attached to/detached from one another. So can
+DynBody objects. This capability is essential for modeling the docking and
+undocking of spacecraft. The composite mass properties change when MassBody
+objects attach or detach. That plus more happens when DynBody objects attach
+and detach. Vehicle states change, and these changes must be consistent
+with the laws of physics.
+
+The \ModelDesc attach mechanism first queries both the child and parent regarding the validity of the proposed
+attachment. If both the child and parent assent to the attachment, the transform from the root body of the child
+to the desired attach point is calculated. If the child is already a root body, the transform is simply the mass point
+transform or the user-provided transform. The child is told to establish the linkages between
+child-and-parent/parent-and-child while the parent is told to update properties using the \MASS attach mechanisms.
+
+A detachment proceeds similarly. First there is a check for validity,
+and only then is the child told to sever linkages and the parent is told
+to update properties. The DynBody calls the \MASS detach mechanisms.
+
+\subsubsection{Initialization}\label{sec:key_initialization}
+Initializing a DynBody object is a rather complex process. The zeroth stage
+of the initialization process occurs when the object is constructed.
+For example, the association between the core properties and core state is
+immutable and can be established at construction time.
+
+The next stage of initialization involves preparing the object for the truly
+complex stages that follow. The body is registered with the dynamics manager,
+as are the standard body reference frames associated with the body. The
+body's integration frame is set and the standard body reference frames are
+linked to this integration frame. Note that while the links between the
+DynBody object are established in this phase, much work remains to be done.
+The body is unattached and its mass properties, mass points/vehicle points, and
+states remain uninitialized at this stage.
+
+These yet-to-be initialized aspects of a DynBody must be initialized in the
+proper order. The recommended approach is to first initialize the mass
+properties and mass points of all MassBody objects, then perform any
+initialization-time attachments, and finally initialize state. This is
+the approach taken when the body action-based initialization scheme is used
+to initialize mass bodies and dynamic bodies.
+This approach involves a series of interactions
+between the \hypermodelref{DYNMANAGER} and the \hypermodelref{BODYACTION}.
+The \BODYACTION in turn interacts with
+several other models, including this model, while performing its actions.
+
+With this approach, the simulation's dynamics manager performs, in stages,
+the queued BodyAction objects that derive from the MassBodyInit class,
+then the queued BodyAction objects that derive from the BodyAttach class,
+and finally the queued BodyAction objects that derive from the DynBodyInit
+class.
+The first stage establishes the mass properties and the attach points needed to
+properly perform the next two stages. The attachments made in the second stage
+(potentially) reduce the number of independent states that need to be set.
+The final stage initializes states.
+
+\subsubsection{State Initialization}\label{sec:key_state_initialization}
+Properly initializing the state of all of the vehicles in a simulation
+has been an ongoing and rather vexing issue.
+The code that performed this initialization in pre-2.0 releases of JEOD was
+fragile, hard to extend, and overly complex. JEOD 2.0 solved this problem by
+spreading the responsibility for state initialization over several models.
+
+The recommended approach is to use the \BODYACTION to initialize states.
+That model provides several classes that derive from the DynBodyInit class.
+It is these DynBodyInit derivative classes that initialize DynBody states.
+Each DynBodyInit object sets one or more elements (position, velocity,
+orientation, and angular velocity) of a reference frame associated with the
+DynBody object that is the subject of the DynBodyInit object.
+The to-be-set state elements are specified with respect to some other
+basis reference frame, which need not be the subject DynBody object's
+integration frame. For example, rendezvous simulations often initialize the
+state of one vehicle given the relative state with some other target vehicle.
+
+Certain elements of the basis reference frame must already have been
+established before the values of the desired state elements can be determined.
+These required elements form a set of prerequisites for setting the desired
+state elements. Those prerequisites are sometimes satisfied immediately, as is
+the case when the basis is a planetary frame. Difficulties can arise when the
+basis is a vehicle frame. Suppose the reference object for a given
+DynBodyInit object is some vehicle frame for which the requisite state elements
+have not been set. One option would be to simply declare a user error when this
+happens. That is not the course taken by JEOD.
+Instead, the DynBodyInit object in question is put on hold until the reference
+vehicle frame is initialized to the extent needed by the DynBodyInit object.
+
+Each BodyAction object, including the DynBodyInit objects, provides an
+indication of whether the object is ready to perform its action. The dynamics
+manager queries each enqueued object regarding its readiness before telling
+the object to perform its action. The readiness test for a DynBodyInit object
+includes a check of whether the prerequisite state elements have been set.
+The dynamics manager repeatedly loops over the queued DynBodyInit objects,
+stopping only when either all such objects have been applied or until
+no such object indicates that it is ready to be applied.
+
+This model participates in the exchange as well. The DynBody class provides
+mechanisms
+to query which state elements have been set,
+to set specific state elements, and
+to propagate the set states to frames associated with the DynBody object,
+including those owned by DynBody objects attached to the subject DynBody
+object.
+
+
+\subsubsection{Forces and Torques}
+In addition to the acceleration due to gravity,
+a spacecraft can be subject to many external forces and torques.
+For example a spacecraft's thrusters, atmospheric drag, and radiation pressure
+exert forces and torques on the vehicle. The source and nature of these forces
+and torques is more or less irrelevant to this model.
+Forces and torques are each categorized as effector, environmental, and
+non-transmitted. This categorization is external to this model; all this model
+sees is a set of three Standard Template Library (STL) vectors of
+CollectForces and a set of three STL vectors of CollectTorques.
+
+The distinction between the effector and environmental forces and torques is
+somewhat arbitrary and exists solely as an aid to the user.\footnote{From a
+JEOD perspective, things would be a bit easier had the effector and
+environmental  forces been lumped together as transmitted forces, with the
+effector and environmental torques similarly lumped together as transmitted
+torques.}
+On the other hand, the distinction between the non-transmitted forces and
+torques and the effector and environmental forces and torques is significant.
+For a non-root DynBody object, the effector and environmental forces and
+torques are transmitted to the DynBody object to which the non-root DynBody is
+attached. The non-transmitted forces and torques are not transmitted to the
+parent (hence the name).
+
+The reason for having these non-transmitted forces and torques is again one of
+user convenience. Consider the force due to atmospheric drag on a composite
+vehicle. While this composite drag force is the vector sum of the drag forces
+on the individual vehicles that comprise the composite, the close proximity of
+the components of the composite vehicle makes those individual drag forces
+different from what they would be in the absence of those other vehicles.
+Enabling users to mark certain forces and torques as non-transmittable
+simplifies the users' calculation of those forces and torques that are affected
+by the presence of or connection to other vehicles. Users can simply ignore
+those complicating factors and calculate those forces and torques as if other
+vehicles were not present.
+
+The net force and torque on a root body form the basis for the equations of
+motion for that body. It is the net forces and torques that are of the
+greatest interest to JEOD. JEOD uses the superposition principle to compute the
+net force acting on a DynBody object. The net force on a root body is the
+vector sum of all of the forces acting directly on that body, including that
+body's non-transmitted forces, plus the sum of all transmittable forces acting
+on bodies attached to the root body. Calculating the net torque is a bit more
+complex. In addition to the torques specified through the collect vectors,
+torques due to non-centerline forces must be taken into account. The
+forces in the collect vectors are assumed to act through the center of mass
+of the DynBody object that contains those collect vectors. When a DynBody object is
+attached as a child to some other DynBody object, the centerline forces on the
+child body become non-centerline forces when transmitted to the parent body.
+
+\subsubsection{Wrenches}
+JEOD 3.4 introduces the concept of a wrench. A wrench comprises an external force
+and an external torque, with the the force applied at a specified point on the
+dynamic body. The torque induced by the force should not be included in the
+torque portion of a wrench; JEOD calculates this torque. For example, a typical
+chemical thruster model that uses a wrench will have the torque be zero.
+On the other hand, a model of an ion thruster will have a non-zero torque.
+The difference is that the exhaust from a chemical thruster typically does not
+have a curl while the exhaust from an ion thruster does. Even if an ion thruster's
+line of action passes directly through the vehicle's center of mass, the thruster
+imparts a torque on the vehicle due to the swirling exhaust.
+
+\subsubsection{Collect Mechanism}
+The above discussion on forces and torques ignored how the STL collect vectors
+are formed. How these vectors are populated is not an issue of concern in the
+narrow view of the DynBody class taken by itself. From the perspective of the
+DynBody class, those vectors are populated by some external agent.
+This is a concern to the model taken as a whole, and even more importantly,
+it is a concern to the user.
+
+Prior to JEOD 2.0, Trick users used Trick's \emph{collect} mechanism to
+identify the forces and torques in play. This approach was replaced for a
+number of reasons. Instead, JEOD and Trick developers worked
+together to create the Trick 07 \emph{vcollect} mechanism. Compared to the
+\emph{collect} mechanism, this new mechanism has the potential for greater
+safety (type, unit, and dimensionality),
+takes better advantage of capabilities provided with the C++ language,
+and is easier to implement outside of the Trick environment.
+
+The wrenches introduced in JEOD 3.4 can also be collected via the vcollect
+mechanism. As of JEOD 3.4, only the StructureIntegratedDynBody provides the
+ability to collect and process wrenches. This capability may be migrated upward
+in future releases of JEOD.
+
+\subsubsection{Gravity}
+The above discussion on forces intentionally skirted over the issue of
+gravitational acceleration. JEOD has always treated gravitation as a topic
+conceptually distinct from the other forces that act on a dynamic body.
+One reason for doing so is that the \hypermodelref{GRAVITY} computes
+gravitational acceleration directly, and acceleration (rather than force)
+is what is ultimately needed to formulate the equations of motion.
+
+More importantly, gravitation truly is distinct from the external forces.
+Unlike any other force, the gravitational force acting on an object cannot be
+detected directly by any device. An accelerometer, for example, measures the
+acceleration due to the net non-gravitational force. Even though JEOD assumes
+Newtonian physics, it is a good idea to look at gravitation from the
+perspective of the more accurate general relativistic point of view.
+Gravitation is not a force in general relativity. It is something quite
+different from forces and is best treated as such.
+
+The earlier discussion on integration frames noted that the integration
+frame can be a not-quite inertial frame. The \GRAVITY folds the acceleration
+of a DynBody's integration frame into the total gravitational acceleration
+presented to a DynBody object. As far as the DynBody object is concerned,
+the integration frame \emph{is} an inertial frame of reference; Newton's
+second law can be employed to integrate a DynBody object's state.
+
+\subsubsection{Equations of Motion}\label{sec:key_eom}
+The external forces and gravitational acceleration form the basis for the
+translational equations of motion for a dynamic body, while the external torques
+form the basis for the body's rotational equations of motion. Those equations
+of motion are second order differential equations; they must be integrated over
+time.
+
+\subsubsection{State Integration}\label{sec:key_state_integ}
+This state integration must be performed numerically due to the varying and complex nature of the forces and torques. This model uses the \INTEGRATION to
+perform the numerical integration.
+
+The model only integrates the root body of a tree of attached DynBody objects
+and for that body, integrates only one reference frame. This is the body's
+integrated frame. Exactly which frame is integrated is a decision made by a
+class that derives from the DynBody class. The DynBody class provided integrates the root body's composite body frame.
+The StructureIntegratedDynBody class (introduced with JEOD 3.4) integrates the
+root body's structural frame.
+
+\subsubsection{State Propagation}\label{sec:key_state_prop}
+A DynBody contains multiple reference frames. All of these frames must reflect
+the current state of the vehicle. Since only one frame is integrated, the other
+frames must be made consistent with this integrated frame. This is performed
+by propagating the results of the integration to all frames associated
+with the DynBody object, including the DynBody objects attached as children
+to the root DynBody object. This propagation is performed using the geometry
+information embodied in the MassBody objects from which the DynBody objects
+are derived.
+
+\subsubsection{Point Acceleration}
+A reference frame state contains zeroth and first derivatives. Second
+derivatives are not a part of the state. Some vehicle sensors such as
+accelerometers need acceleration data, and they need the acceleration that
+would be sensed at the point where the accelerometer is located.
+An accelerometer senses acceleration due to non-gravitational forces.
+The model provides an acceleration propagation capability to meet this
+need.

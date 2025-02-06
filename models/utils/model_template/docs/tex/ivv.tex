@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% ivv.tex
+%
+% Inspection, verification, and validation of the <model name>
+%
+% Usage instructions:
+% This file should comprise a
+% - The \chapter command, which must not be changed.
+% - A number of \section command. You can change the labels but do not
+%   change the names, and do not add any sections of your own.
+% - Text to fill in the contents of the sections (which you must provide).
+%
+% Feel free to:
+% - Change the labels on the \section commands.
+% - Use your own \subsection commands and below. Structure is good.
+% - Use figures and tables.
+% - Split the file into parts if it gets too big.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Inspection, Verification, and Validation}
+\hyperdef{part}{ivv}{}\label{ch:ivv}
+
+\section{Inspection}\label{sec:inspect}
+This section describes the inspections of the \MODELTITLE.
+
+% \input{ivv_inspect}
+
+\newpage
+\section{Test}
+This section describes various tests conducted to demonstrate
+that the \MODELTITLEx satisfies the requirements levied against it.
+The tests described in this section
+are archived in the JEOD directory FIXME.
+
+
+% \input{ivv_test}
+
+\newpage
+\section{Metrics}
+
+Table~\ref{tab:coarse_metrics} presents coarse metrics on the source
+files that comprise the model.
+\input{coarse_metrics}
+
+Table~\ref{tab:metrix_metrics} presents the extended cyclomatic complexity (ECC)
+of the methods defined in the model.
+\input{metrix_metrics}
+
+
+\newpage
+\section{Requirements Traceability}
+This section is intentionally left blank for this release.
+%\input{ivv_trace}

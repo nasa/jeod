@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the RadiationPressure model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Analysis}
+
+\subsection{Identifying the Radiation Pressure Model}
+If the radiation pressure model is included in your simulation, there must be an
+instance declared of the class \textit{RadiationPressure}.  There must also be a
+Radiation Surface through which the radiation field can interact with the
+vehicle.  Searching the S\_define for ``RadiationPressure'' is a good strategy
+for determining the presence of a Radiation Pressure model in the simulation.
+Once identified, it is also necessary to identify which type of surface is being
+used; there are two fundamentally different types of surface, the general
+surface (the S\_define will contain an instance of a RadiationSurface) and the
+model-specific, default surface (the S\_define will contain an instance of a RadiationDefaultSurface).
+
+The default surface is defined by relatively few characteristics, so is more easily created, managed, and manipulated.  However, it is constrained to represent the effect of a spherical shell around the vehicle, so has limited applicability.  Because the default surface is so easily defined, the definition often resides in an input file.
+
+The general surface uses the Surface Model to define the surface (see the Surface Model~\cite{dynenv:SURFACEMODEL} documentation for details on how this functions).  The basic premise of the surface model is that the actual vehicular surface can be represented as a combination of geometric surfaces, or facets (typically, these are flat plates).  The number of facets used to describe the surface depends on the complexity of the surface and the desired fidelity of the approximation.  Because the general surface can be significantly more complex, it is typically defined in a data file that is included into the input file.
+
+\subsection{Editing the Radiation Pressure Model}
+The model parameters and the individual parameters for the surface as defined can easily be edited.  It is also possible to replace one surface with another mid-simulation (for example, to increase the desired fidelity during particularly sensitive phases of the mission), although this requires knowledge of how to implement a surface, and is beyond the scope of the Analyst.  Details can be found in the Integration section of the User's Guide.
+
+The description of the control is divided into model-wide control, surface element control, and illumination control.
+
+\subsubsection{Model control}
+
+The most important flag is the \textit{active} flag; this turns the radiation pressure model on or off.  This value defaults to true.
+
+The following settings apply to the model as a whole:
+\begin{itemize}
+\item{\textit{calculate\_forces}, default = true}.  \newline
+The \RadiationPressureDesc\ can be used to model surface temperature variations and forces resulting from the interaction of the vehicle surface with the radiation environment.  Turning this off restricts the scope to temperature only.
+\end{itemize}
+
+\subsubsection{RadiationThirdBody Control}
+The frequency with which the RadiationThirdBody state is updated can be
+manipulated.  This is more important for RadiationReflectingThirdBody items
+than for generic RadiationThirdBody.  The value \textit{update\_interval}
+specifies the minimum time interval between updates.  The state will be updated
+at the call following passage of this time.  If this value is set to 0.0
+(default), the state will be updated continuously.
+
+
+\subsubsection{Default Surface Control}
+
+The following values affect the behavior if the default surface:
+\begin{itemize}
+\item{Cross-sectional Area (\textit{cx\_area}, default = 0.0)}.
+\item{Surface Area (\textit{surface\_area}, default = 0.0)}. \newline
+The area of the surface can be defined in one of two ways -- either as a cross-sectional, or a surface area.  Since the default surface models a sphere, these differ by a factor of 4.  The user should not attempt to define both.
+
+\item {Albedo (\textit{albedo}, default = -1.0)}. \newline
+This is the fraction of light incident on the surface that is immediately reflected back away.  This value runs from 0.0 (matte black) to 1.0 (mirrored).
+
+Either the radiation coefficient, or the combination of albedo and diffuse
+parameter, must be specified for a default surface.  The negative default
+settings on these values ensure that one \textit{and only one} valid entry is
+made.
+
+\item {Diffuse parameter (\textit{diffuse}, default = -1.0)}.\newline
+This is the fraction of reflected light that is reflected diffusely; reflection can often be classified into specular or diffuse reflection, specular reflection is the type of reflection from a mirror, whereas diffuse reflection is the type of reflection off a matte surface.  A rough matte surface would have a diffuse parameter close to 1, while a highly polished surface would typically have a diffuse parameter closer to 0.
+
+Either the radiation coefficient, or the combination of albedo and diffuse
+parameter, must be specified for a default surface.  The negative default
+settings on these values ensure that one \textit{and only one} valid entry is
+made.
+
+\item{Emissivity (\textit{thermal.emissivity}, default = 0.0)}. \newline
+The emissivity measures how close to Planck-like Black Body radiation the thermal emission actually is.  This value is typically highly dependent on albedo, with the sum of the two terms approximately equal to 1.0.
+
+\item {Heat Capacity (\textit{thermal.heat\_capacity}, default = 0.0)}.\newline
+The heat capacity must be defined if the surface is thermally dynamic.  It is quite unreasonable to set some arbitrary number as a default setting, so 0.0 was assigned.  However, that means that the temperature of the surface can change without bound for an infinitesimal imbalance in the energy received and emitted (the vehicle requires 0.0 energy to change its temperature by each degree).  If this number is not at all known, the only safe option is to make the surface thermally static by turning off the active flag.
+
+\item {Internal Sources (\textit{thermal.thermal\_power\_dump}), default =
+0.0)}.\newline
+If the vehicle has some source of internal thermal energy generation (e.g. some sort of reactor), this value would be set equal to the power input to the vehicle surface from that source.
+
+\item {Radiation Coefficient (\textit{rad\_coeff}, default = -1.0)}.\newline
+The radiation coefficient ($C_R$) provides an alternative method for specifying the
+reflection parameters, using only one value instead of albedo ($\alpha$) and
+diffuse ($\delta$).
+Numerically,
+\begin{equation*}
+C_R = 1 + \frac{4}{9} \alpha \delta \in [1.000 , 1.444]
+\end{equation*}
+Either the radiation coefficient, or the combination of albedo and diffuse
+parameter, must be specified for a default surface.  The negative default
+settings on these values ensures that one \textit{and only one} valid entry is
+made.
+
+\item {Temperature (\textit{temperature}, default = 0.0)}.\newline
+The extent to which radiation is absorbed and emitted has an effect on temperature, and vice versa.  Since the radiation model includes pressure from thermal radiative emission, it is important that the temperature is known to some level of accuracy.
+
+\item {Thermally Dynamic (\textit{thermal.active}, default = true)}.\newline
+Integration of the temperature is time-consuming and cumbersome.  If the vehicle is in a situation in which the surface temperature does not change appreciably, this value can be turned off to circumvent the integration.  In that case, the temperature of the vehicle will be constant in time.
+
+\end{itemize}
+
+
+\subsubsection{General Surface Control}
+Each facet in the surface is assigned a set of physical and material properties.  The physical properties typically vary from facet to facet, but many facets may share the same material properties if they are fabricated of the same material.
+
+\paragraph{Physical Properties} \ \newline
+The following values are assigned to each facet in the surface.
+\begin{itemize}
+\item {Position (\textit{position}, 3-vector)}. \newline
+The relative positions of the facets are necessary to generate torques.  If the surface is a fixed and immovable monolith, these values are typically expressed in the structural reference frame.
+\item{Orientation (\textit{normal}, 3-vector, unit vector)}.  \newline
+As the vehicle position and attitude changes, facets will tend to rotate in and out of sunlight.  The orientation allows the correct angle to the flux vector to be calculated.  This should be expressed in the same reference frame as the position.
+\item{Area (\textit{surface\_area})}.
+\item{Temperature (\textit{temperature})}.  \newline See Default Surface for explanation.
+\item{Thermally Dynamic (\textit{thermal.active})}.  \newline
+See Default Surface for explanation.
+\item{Internal Sources (\textit{thermal.thermal\_power\_dump}}.  \newline See Default Surface for explanation.
+\end{itemize}
+
+\paragraph{Material Properties} \ \newline
+Each facet contains an element, \textit{param\_name}, that identifies the material from which it is made.  Each set of parameters contains the following information:
+\begin{itemize}
+\item {Name (\textit{name})}. \newline
+This matches the value of \textit{param\_name} in the facet.
+\item{Albedo (\textit{albedo})}. \newline
+See Default Surface for explanation.
+\item{Diffuse Parameter(\textit{diffuse})}. \newline
+See Default Surface for explanation.
+\item{Emissivity (\textit{thermal.emissivity})}.  \newline
+See Default Surface for explanation.
+\item{Heat Capacity (\textit{thermal.heat\_capacity\_per\_area})}.  \newline
+See Default Surface for explanation of the importance of heat capacity.  Because this is a material property, and heat capacity depends on the size of the facet, this value is defined as heat capacity per unit area, and internally converted into the heat capacity.
+\end{itemize}
+
+
+\subsubsection{Illumination Control}
+
+The radiation source is assumed to be that of the sun.  This can be changed, by changing the values \textit{source.name, source.luminosity, source.radius}; however, it is recommended that these be left at the solar default settings.
+
+The following controls are more typically changed:
+\begin{itemize}
+\item{\textit{third\_bodies[ii]$->$shadow\_geometry}, default = RadiationSource::Conical}.
+\newline
+This can take a value either Cylindrical (or Cyl) or Conical (or Con), and allows the user to switch between the true conical shadowing of an intervening body, and the simpler cylindrical shadowing.  It is not necessary to treat all third-body objects alike.
+\item{\textit{third\_bodies[ii]$->$active}, default = true}. \newline
+If the user wishes to include the effects of an intervening body, the method \textit{set\_third\_body\_active} must be run (and \textit{set\_third\_body\_inactive} will inactivate it again).  These methods will control the general flag, \textit{third\_bodies\_active}.
+The flag is user-controllable, and can be manually set, but should not be (unless the user really knows what he or she is doing).
+\item{\textit{third\_bodies\_active}, default = false}. \newline
+If the \textit{third\_bodies\_active} flag is set, then any registered and active third-bodies (e.g., Earth) will be processed for affect on the raw flux.
+IMPORTANT NOTE -- there is no reason to change this flag manually.  If the third bodies are activated/inactivated using the provided methods, then this flag is automatically controlled (on when any number of third bodies is active, off when all third-bodies are inactive).
+\end{itemize}
+
+
+\subsection{Output Data}
+The primary output data of the \RadiationPressureDesc\ are the values:
+\begin{itemize}
+\item{\textit{force}}
+\item{\textit{torque}}
+\end{itemize}
+
+Also available are the forces due to each interaction process across the surface.
+
+\begin{itemize}
+\item{\textit{rad\_surface.F\_absorption}}
+\item{\textit{rad\_surface.F\_specular}}
+\item{\textit{rad\_surface.F\_diffuse}}
+\item{\textit{rad\_surface.F\_emission}}
+\item{\textit{rad\_surface.force}}
+\item{\textit{rad\_surface.torque}}
+\end{itemize}
+
+IMPORTANT NOTE -- the model \textit{force} and \textit{torque} are more reliable than the surface versions (\textit{rad\_surface.force} and \textit{rad\_surface.torque}).  In most applications, they are identical.  The distinction comes only when an active model is turned off.  The model values will be reset to zero, but the surface values will retain their old value.  The model values should be used preferentially over the surface values.
+
+The same data is calculated and can be extracted for each individual facet,
+along with the temperature of the facet.  These individual facet data cannot be
+directly recorded in a regular Trick simulation, but are indirectly available.
+An example of how to record these data is shown in
+\textit{verif/SIM\_2\_SHADOW\_CALC/Log\_data\_radiation\_rec.d}, using the
+additional object \textit{radiation.data\_rec}, an instance of
+RadiationDataRecorder.  This functionality requires an additional function call
+to \textit{radiation.data\_rec.record\_data} from the S\_define, and can be found in SIM\_2\_SHADOW\_CALC, SIM\_3\_ORBIT, and SIM\_4\_DEFAULT.
+The additional functionality and class are defined in the verification section
+of the model, and are made available to the user, but are not intended to be an
+integral part of the \RadiationPressureDesc.

@@ -1,0 +1,32 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Mathematical Formulation part of Product Spec for the SolarBeta model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Mathematical Formulations}\label{sec:solarbetamath}
+
+The mathematical algorithm for computing the Solar Beta angle is straightforward, and builds on tools developed in other models.
+
+While Solar Beta is typically defined (and used) for Earth-orbiting situations, the same concepts can easily be extended to any other planet.  Therefore, the code is written in such a way as to make the ``host'' planet a user-defined quantity.  Throughout this description, we will refer to \textit{planet}; for most applications, this can be read as \textit{Earth}.  
+
+First, the position of \textit{sun} with respect to \textit{planet} is determined using the \textit{compute\_position\_from} method from the \textit{Planet} model (see the \href{file:\JEODHOME/models/environment/planet/docs/planet.pdf}{\em Planet model documentation}~\cite{dynenv:PLANET} for details), and the state of the vehicle with respect to \textit{planet} is determined using the \textit{compute\_relative\_state} method from the \textit{DynBody} model (see the \href{file:\JEODHOME/models/dynamics/dyn_body/docs/dyn_body.pdf}{\em Dynamics Body documentation}~\cite{dynenv:DYNBODY} for details).  Both relative positions are represented in the inertial reference frame (origin is not relevant since these are relative positions).
+
+Denote $\vec {r}_{A,B}$ as the position of object A with respect to B.
+
+The specific angular momentum of the vehicle due to its orbital motion about the specified planetary body is calculated from a straightforward vector (cross) product of position with velocity.  Since the state is recorded in the inertial reference frame centered on the planet, the angular momentum will also be expressed in the inertial reference frame (origin is not relevant).  Note, however, that while the definition of Solar Beta breaks down when the vehicle is not in orbit about its specified planet, this calculation continues to be completely valid.  Verifying that the vehicle is in orbit would be computationally expensive, and this verification IS NOT carried out.  It is left to the user to ensure that the vehicle is, in fact, in orbit about the specified planet
+
+\begin{equation*}
+\vec{h} = \vec{r}_{veh,planet} \times \vec{v}_{veh,planet}
+\end{equation*}
+
+Next, the scalar product of the specific angular momentum and sun-planet vectors is taken, and manipulated to provide $\beta$.
+
+\begin{equation*}
+\vec{h} \cdot \vec{r}_{sun,planet} = \left|\vec{h}\right|\left|\vec{r}_{sun,planet}\right|cos\alpha = \left|\vec{h}\right|\left|\vec{r}_{sun,planet}\right| sin\beta
+\end{equation*}
+\begin{equation}
+\beta = sin^{-1} \left( \frac{\vec{h} \cdot \vec{r}_{sun,planet}}{\left|\vec{h}\right|\left|\vec{r}_{sun,planet}\right|} \right)
+\end{equation}

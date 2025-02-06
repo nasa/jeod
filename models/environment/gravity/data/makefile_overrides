@@ -1,0 +1,9 @@
+# Ensure optimization is disabled when compiling the large gravity models,
+# Earth GEMT1 and GGM02C, Mars MR0110B2, and Moon LP150Q.
+
+# Set JEOD_HOME based on the location of this file
+JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))../../../..)
+
+include $(JEOD_HOME)/bin/jeod/compile_unoptimized.mk
+
+$(call jeod_compile_directory_unoptimized,environment/gravity/data)

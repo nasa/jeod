@@ -1,0 +1,24 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Abstract for earthlighting
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+In the analysis of complex dynamic systems, such as the rendezvous of two
+spacecraft orbiting the Earth, visual simulation can be an extremelly useful tool.
+To give the imagery a sense of realism, the ambient lighting experienced by the
+spacecraft must be estimated in some form.
+The \earthlightingDesc\ computes the lighting conditions experienced by a vehicle, for a specific time, traveling in low earth orbit.
+The \earthlightingDesc\ calculates these effects using the current ephemeris
+information for the Sun, Earth  and
+Moon and determines if the lighting body is partially or completely
+occluded.  It then calculates a lighting fraction parameter using the
+occlusion fraction and the current phase of the body.  It also performs
+a very crude approximation of Earth-Albedo effects; however, this
+calculation should not be used where accurate knowledge of the Earth-Albedo
+effects are desired.
+
+\end{abstract}

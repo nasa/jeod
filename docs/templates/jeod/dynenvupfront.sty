@@ -1,0 +1,149 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File: dynenvupfront.sty
+% This file defines some up-front macros needed by dynenv.sty.
+% Note well: This file does not stand by itself. It is a part of dynenv.sty.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{dynenvupfront}[2011/08/02 v2.2 Dynamics package macros]
+
+
+% Define a small set of macros that need to be defined up-front:
+% - dynenv@additem, add an item to a comma-separated list
+% - dynenv@foreach, apply something to each member of a comma-separated list
+% - dynenv@buildlist, rebuild a comma-separated list sans whitespace
+% - escapeus, escape underscores (needed by add_model)
+% - add_model, specify a JEOD model (used in jeodspec.sty)
+
+
+% Avoid problems with an overridden \relax.
+\let\dynenv@relax=\relax
+
+% Test if some symbol (typically sans the leading backslash) is empty.
+\newif\if@dynenv@isempty
+\def\dynenv@ifempty#1{%
+   \expandafter\ifx\csname#1\endcsname\@empty%
+     \@dynenv@isemptytrue%
+   \else%
+     \expandafter\ifx\csname#1\endcsname\dynenv@relax%
+       \@dynenv@isemptytrue%
+     \else%
+       \@dynenv@isemptyfalse%
+     \fi%
+   \fi%
+   \if@dynenv@isempty%
+     \expandafter\@firstoftwo%
+   \else%
+     \expandafter\@secondoftwo%
+   \fi%
+}
+
+% Build a comma-separated list
+% #1 is the name of the list sans the leading backslash
+% #2 is the item to be added
+\def\dynenv@additem#1#2{%
+  \begingroup
+    \edef\@tempa{\zap@space#2 \@empty}%
+    \ifx\@tempa\@empty\else
+      \expandafter\dynenv@add@item{\@tempa}{#1}%
+    \fi
+  \endgroup
+}
+
+% Build a comma-separated list
+% #1 is the item to be added
+% #2 is the name of the list sans the leading backslash
+% Note that the arguments are reversed from \dynenv@additem.
+\def\dynenv@add@item#1#2{%
+  \dynenv@ifempty{#2}%
+    {\expandafter\xdef\csname #2\endcsname{#1}}%
+    {\expandafter\xdef\csname #2\endcsname{\csname #2\endcsname,#1}}%
+}
+
+
+% Entry to foreach mechanism
+% #1 is the macro to be applied to each element of the list
+% #2 is the comma-separated list to be processed.
+% The list to be processed should not contain any empty members;
+% a pair of successive commas indicates end of list.
+\long\def\dynenv@foreach#1#2{%
+  \ifx#2\@empty\else
+    \global\advance\dynenv@foreach@depth\@ne
+    \expandafter
+    \gdef\csname @dynenv@foreach@apply\the\dynenv@foreach@depth\endcsname{#1}%
+    \dynenv@foreach@set@apply
+    \expandafter\dynenv@for@each#2,,%
+    \global\expandafter\let
+    \csname @dynenv@foreach@apply\the\dynenv@foreach@depth\endcsname
+    \dynenv@relax
+    \global\advance\dynenv@foreach@depth\m@ne
+    \ifnum\dynenv@foreach@depth>0\dynenv@relax
+      \dynenv@foreach@set@apply
+    \else
+      \global\let\@dynenv@foreach@apply\dynenv@relax
+    \fi
+  \fi
+}
+
+% foreach helpers
+
+\newcount\dynenv@foreach@depth \dynenv@foreach@depth=0
+
+\long\def\dynenv@for@each#1,{%
+  \ifx#1\@empty\else
+    \@dynenv@foreach@apply{#1}%
+    \expandafter\dynenv@for@each
+  \fi
+}
+
+\def\dynenv@foreach@set@apply{%
+  \begingroup
+    \expandafter\let
+    \csname @dynenv@foreach@apply\the\dynenv@foreach@depth\endcsname
+    \dynenv@relax
+    \xdef\@dynenv@foreach@apply{%
+      \csname @dynenv@foreach@apply\the\dynenv@foreach@depth\endcsname}%
+  \endgroup
+}
+
+
+% Rebuild a comma-separated list, stripping out the spaces
+% #1 is the name of the list sans the leading backslash
+% #2 is the list to be rebuilt
+\def\dynenv@buildlist#1#2{%
+  \expandafter\let\csname #1\endcsname\@empty%
+  \dynenv@foreach{\dynenv@additem{#1}}{#2}%
+}
+
+
+% Escape underscores.
+\DeclareRobustCommand*{\escapeus}[1]{%
+  \begingroup\@activeus\scantokens{#1\endinput}\endgroup}
+\begingroup\lccode`\~=`\_\relax
+   \lowercase{\endgroup\def\@activeus{\catcode`\_=\active \let~\_}}
+
+
+% Build a bunch of macros for a JEOD model.
+% #1 - Model name, all caps such as ATMOSPHERE
+% #2 - Model parent directory, e.g. environment
+% #3 - Model directory, e.g. atmosphere
+% #4 - Model title, e.g. Atmosphere Model
+\newcommand\addmodel[4]{%
+  \expandafter\def\csname#1\endcsname{#4}%
+  \expandafter\def\csname#1TEXTPATH\expandafter\endcsname{%
+    \escapeus{#2/#3}\relax}%
+  \expandafter\def\csname#1PATH\endcsname{#2/#3}%
+  \expandafter\def\csname#1HTML\endcsname{#1.html}%
+  \expandafter\xdef\csname#1DOC\endcsname{%
+    \csname#1PATH\endcsname/docs/#3.pdf}
+  \expandafter\xdef\csname#1API\endcsname{%
+    \csname#1PATH\endcsname/docs/refman.pdf}%
+}
+
+\newcommand\addnonmodel[4]{%
+   \expandafter\def\csname#1\endcsname{#4}%
+   \expandafter\def\csname#1PATH\endcsname{#2/#3}%
+   \expandafter\xdef\csname#1DOC\endcsname{%
+      \csname#1PATH\endcsname/docs/#3.pdf}
+}
+
+\endinput

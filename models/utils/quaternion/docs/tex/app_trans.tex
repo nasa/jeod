@@ -1,0 +1,792 @@
+\section{Rotation and Transformation}\label{sec:app_rot_trans}
+
+One reason quaternions are so useful is their ability
+to represent rotations and transformations.
+This section develops these capabilities.
+While quaternions do have other applications beyond their ability to compactly
+represent rotations and transformations, the JEOD uses
+quaternions solely for this purpose.
+
+Two possible conventions exist when describing rotations:
+rotation of an object relative to fixed axes and rotation of the axes
+relative to a fixed object.
+In this discussion, the former will be referred to
+as a \emph{rotation} and the latter, a \emph{transformation}.
+The two concepts are closely related.
+For example, the \emph{rotation} matrix that rotates a vector
+about the $\vhat u$ axis by an angle of $\theta$
+is the transpose of the \emph{transformation} matrix that transforms
+a vector to the frame whose axes are rotated about the $\vhat u$ axis
+by an angle of $\theta$ relative to the original frame.
+
+\subsection{Single-Axis Rotations}\label{sec:app_single_axis}
+
+\begin{theorem}[Single-Axis Rotation]\label{thm:quat_single_axis_rot}
+Rotating a $3-$vector $\vect x$
+by an angle $\theta$
+about an axis directed along the $\vhat u$ unit vector results in
+\begin{equation}
+  \vect x^\prime =
+  \cos\theta\, \vect x +
+  (1-\cos\theta) (\vhat u \cdot \vect x) \vhat u +
+  \sin\theta\, \vhat u \times \vect x
+\label{eqn:quat_single_axis_rot}
+\end{equation}
+where $\vect x^\prime$ is the result of the rotation.
+\end{theorem}
+\begin{proof}
+The rotation does not affect the component of $\vect x$ along the rotation axis.
+Rotating a vector $\vect x$ directed solely along the rotation axis
+$\vect x = x \vhat u$ has no effect: $\vect x^\prime = \vect x$,
+which agrees with the theorem
+since $\vhat u \times \vect x = 0$ in this case.
+
+Assuming $\vect x$ has some non-zero component normal to the rotation axis,
+represent $\vect x$ as
+\begin{align*}
+  \vect x &= \vect x_u + \vect x_v
+\intertext{where}
+  \vect x_u &= (\vect x \cdot \vhat u) \vhat u \\
+  \vect x_v &= \vect x - (\vect x \cdot \vhat u) \vhat u \\
+\intertext{Note that $\vect x_v$ is normal to $\vhat u$ by construction %
+           and is non-zero by assumption. Let}
+  \vhat v &= \frac{\vect x_v}{\norm{\vect x_v}} \\
+  \vhat w &= \vhat u \times \vhat v\text{, completing a RHS.} \\
+\intertext{Rotating $\vect x_v$ by an angle $\theta$ in the $vw$ plane %
+           results in}
+  \vect x_v^\prime &=
+    \norm{\vect x_v}(\cos\theta \, \vhat v + \sin\theta \, \vhat w) \\
+  &=
+    \cos\theta\, (\vect x - (\vect x \cdot \vhat u) \vhat u) +
+    \sin\theta\, \vhat u \times \vect x_v  \\
+\intertext{The rotation does not affect $\vect x_u$ and thus}
+  \vect x^\prime &= \vect x_u + \vect x_v^\prime \\
+  &=
+    (\vect x \cdot \vhat u) \vhat u +
+    \cos\theta\, (\vect x - (\vect x \cdot \vhat u) \vhat u) +
+    \sin\theta\, \vhat u \times \vect x_v  \\
+   &=
+     \cos\theta\, \vect x
+     + (1-\cos\theta)(\vect x \cdot \vhat u) \vhat u
+     + \sin\theta\, \vhat u \times \vect x
+\end{align*}
+\end{proof} 
+
+
+\begin{theorem}[Single-Axis Transformation]\label{thm:quat_single_axis_trans}
+Given a frame $B$
+whose axes are rotated
+about the $\vhat u$ axis by an angle of $\theta$ relative to frame $A$,
+a three-vector $\framevect A x$ expressed in frame $A$
+transforms to frame $B$ via
+\begin{equation}
+  \framevect B x =
+  \cos\theta\, \framevect A x
+      + (1-\cos\theta) (\vhat u \cdot \framevect A x) \vhat u
+      - \sin\theta\, \vhat u \times \framevect A x
+\label{eqn:quat_single_axis_trans}
+\end{equation}
+\end{theorem}
+\begin{proof}
+This theorem  follows immediately from theorem~\ref{thm:quat_single_axis_rot}
+by recognizing that
+each axis of frame $B$ is the corresponding axis of frame $A$ rotated
+according to theorem~\ref{thm:quat_single_axis_rot}
+and applying the scalar triple product rule.
+\end{proof} 
+
+
+\subsection{Rotation and Transformation Quaternions}
+
+\emph{Any} quaternion can be used to represent a rotation or transformation
+of a $3-$vector via one of the two forms
+\begin{align*}
+  \QxVxQ{\quat Q}{\vect x}{\quat Q^{-1}} && \text{or} &&
+  \QxVxQ{\quat Q^{-1}}{\vect x}{\quat Q} &\qquad\qquad
+\end{align*}
+A \emph{unit} quaternion can be used to represent a rotation or transformation
+of a $3-$vector via one of the two forms
+\begin{align*}
+  \QxVxQ{\quat Q}{\vect x}{\quatconj Q} && \text{or} &&
+  \QxVxQ{\quatconj Q}{\vect x}{\quat Q} &\qquad\qquad
+\end{align*}
+That such forms do indeed rotate or transform a $3-$vector
+will be developed later in this section.
+
+The four forms differ in the use of the quaternion inverse versus the conjugate
+and the placement of the quaternion and its inverse or conjugate relative
+to the vector to be rotated or transformed:
+\begin{itemize}
+\item The inverse is used in the first pair of forms,
+while the conjugate in the second pair.
+Since the inverse of a unit quaternion is the conjugate,
+the second pair of forms is
+a specialization of the first pair for the unit quaternions.
+\item The quaternion is placed to the \emph{left}
+of the vector in the first triple product of each pair of forms.
+Quaternion used for rotation or transformation based on these forms
+are thus called \emph{left} rotation or transformation quaternions.
+\item The quaternion is placed to the \emph{right}
+of the vector in the second triple product of each pair of forms.
+Quaternion used for rotation or transformation based on these forms
+are thus called \emph{right} rotation or transformation quaternions.
+
+\end{itemize}
+
+There is no loss and much to be gained by eliminating the first pair of forms
+from consideration---\emph{i.e.}, to restrict rotation/transformation
+quaternions to the unit quaternions.
+Since multiplying a quaternion by a real scalar commutes,
+pre- and post-multiplying either of the first pair of rotation/transformation
+forms by a real scalar
+and its multiplicative inverse will not affect the outcome of form.
+Given a general quaternion that achieves a desired rotation or transformation,
+the unit quaternion formed by scaling the original quaternion by the inverse of
+its magnitude thus achieves the same rotation or transformation
+as does the original quaternion. There is no loss of expressiveness in
+retricting rotation/transformation quaternions to the unit quaternions.
+At the same time, there is a considerable gain
+in making this restriction.
+The most obvious gain is in the rotation/transformation
+forms themselves. Finding a quaternion's inverse involves finding its conjugate
+and then performing extra calculations. The restriction bypasses those extra
+calculations.
+More importantly, operations that involve the rotation/transformation quaternion
+but not its inverse are sensitive to scaling and typically take on a simpler
+form. For example, the logarithm and the time derivative of a unit quaternion
+are pure imaginary quaternions. For these reasons, unit quaternions
+are used almost exclusively to represent rotations and transformations.
+
+There is no outstanding reason, however, to prefer left versus right
+rotation/transformation quaternions. Making an \emph{a-priori} choice is
+beneficial in the sense that doing so simplifies the software and reduces
+the chances of an error in interpretation.
+However, when one receives a quaternion from an external organization,
+care must be taken in interpreting that quaternion. One must also take care
+in the interpretation of the elements of some externally-generated quaternion,
+as the choice of placing the scalar part first or last in a $4-$vector
+representation is arbitrary.
+
+\subsubsection{Left Rotation and Transformation Quaternions}
+
+\begin{algorithm}\label{thm:quat_quat_left_rot}
+The left rotation unit quaternion
+\begin{align}
+  \quat Q_{rot} &= \quatrrot{\theta}{\vhat u} \label{eqn:quat_left_rot_def} \\
+\intertext{rotates a three-vector $\vect x$ about the $\vhat u$ axis %
+           by an angle of $\theta$:}
+  \quatsv 0 {\vect x^\prime} &=
+    \QxVxQ{\quat Q_{rot}}{\vect x}{\quatconj Q_{rot}}
+  \label{eqn:quat_left_rot_QxVxQ}
+\end{align}
+where $\vect x^\prime$ is the result of the rotation.
+\end{algorithm}
+\begin{proof}
+To demonstrate that this quaternion does indeed perform the specified rotation,
+expanding equation~\eqref{eqn:quat_left_rot_QxVxQ} results in
+\begin{align*}
+  \QxVxQ{\quat Q_{rot}}{\vect x}{\quatconj Q_{rot}} &=
+   \QxVxQ{\quatrrot{\theta}{\vhat u}}{\vect x}{\quattrot{\theta}{\vhat u}} \\
+   &=
+   \quatsv
+     0
+     {\sin^2\frac\theta2 \vhat u \cdot \vect x \vhat u
+      + \cos^2\frac\theta2 \vect x
+      + 2 \cos\frac\theta2 \sin\frac\theta2 \vhat u \times \vect x
+      - \sin^2\frac\theta2 \left(\vhat u \times \vect x\right)\times \vhat u} \\
+\intertext{Using the half-angle formulae}
+  \sin^2\frac\theta2 &= \frac 1 2 (1-\cos\theta) \\
+  \cos^2\frac\theta2 &= \frac 1 2 (1+\cos\theta) \\
+\intertext{and the vector triple product identity}
+  \left(\vhat u \times \vect x\right) \times \vhat u
+    &= \vect x - \left(\vect x \cdot \vhat u\right) \vhat u \\
+\intertext{the quaternion product equation~\eqref{eqn:quat_left_rot_QxVxQ} %
+           simplifies to}
+   \QxVxQ{\quat Q_{rot}}{\vect x}{\quatconj Q_{rot}} &=
+   \quatsv
+     0
+     {\cos\theta \vect x +
+      (1-\cos\theta) (\vhat u \cdot \vect x) \vhat u +
+      \sin\theta \vhat u \times \vect x}
+\end{align*}
+\end{proof}
+
+Just as rotation and transformation matrices are related via matrix
+transposition, rotation and transformation quaternions are related via
+quaternion conjugation:
+\begin{theorem}\label{thm:quat_left_trans}
+The left transformation unit quaternion
+\begin{align}
+  \tquat A B &= \quattrot{\theta}{\vhat u}\label{eqn:quat_left_trans_def} \\
+\intertext{transforms a three-vector $\framevect A x$ expressed in frame $A$ %
+           to frame $B$ whose axes are rotated %
+           about the $\vhat u$ axis by an angle of $\theta$ relative to the %
+           original frame $A$ via:}
+  \quatsv 0 {\framevect B x}
+    &= \QxVxQ{\tquat A B}{\framevect A x}{\tquatconj A B}
+  \label{eqn:quat_left_trans_QxVxQ}
+ \end{align}
+\end{theorem}
+\begin{proof}
+Expanding and simplifying equation~\eqref{eqn:quat_left_trans_QxVxQ} results in
+\begin{align*}
+  \QxVxQ{\tquat A B}{\framevect A x}{\tquatconj A B} &=
+   \quatsv
+     0
+     {\cos\theta \framevect A x
+      + (1-\cos\theta) (\vhat u \cdot \framevect A x) \vhat u
+      - \sin\theta \vhat u \times \framevect A x}
+\end{align*}
+\end{proof}
+
+Consider a left transformation unit quaternion as
+defined in equation~\eqref{eqn:quat_left_trans_def}.
+\begin{theorem}\label{thm:quat_left_trans_log}
+The quaternion logarithm of a left transformation unit quaternion
+\begin{align}
+  \quat Q &= \quattrot{\theta}{\vhat u} \nonumber \\
+\intertext{is}
+  \log \quat Q &=
+    \quatsv 0 {-\frac 1 2 \theta {\vhat u}}\label{eqn:quat_left_trans_log}
+\end{align}
+\end{theorem}
+\begin{proof}
+The theorem follows immediately from theorem~\ref{thm:quat_log}.
+\end{proof}
+
+
+\subsubsection{Right Rotation and Transformation Quaternions}
+
+One unfortunate aspect of quaternions is that they magnify the confusion
+regarding \emph{rotation} and \emph{transformation}.
+The conjugate of a \emph{left} rotation or transformation quaternion can also
+be used as the basis for rotation or transformation.
+For example, the \emph{right rotation unit quaternion}
+\begin{align*}
+  \quat Q_{rot,\text{right}} &= \quattrot{\theta}{\vhat u} \\
+\intertext{\emph{rotates} a three-vector $\vect x$ about the
+           $\vhat u$ axis by an angle of $\theta$ via:}
+  \quatsv 0 {\vect x^\prime} &=
+    \QxVxQ{\quatconj Q_{rot,\text{right}}}{\vect x}{\quat Q_{rot,\text{right}}}
+\end{align*}
+which yields the same value for $\vect x^\prime$
+as does equation~\eqref{eqn:quat_left_rot_QxVxQ}.
+
+The \ModelDesc uses left transformation unit quaternions
+because they chain in the same manner
+as do transformation matrices and because the dynamics
+package is concerned with transformations, not rotations.
+
+
+\subsubsection{Chains of Transformations and Rotations}\label{sec:app_chains}
+
+Transformation matrices chain from right to left:
+given a pair transformations $\tmat A B$ and $\tmat B C$
+from frame A to frame B  and
+from frame B to frame C, the transformation from
+frame A to frame C is
+\begin{equation}
+\tmat A C = \MxM{\tmat B C}{\tmat A B} \label{eqn:quat_tmat_chain}
+\end{equation}
+
+Left transformation quaternions similarly chain from right to left:
+\begin{theorem}\label{thm:quat_ltquat_chain}
+\begin{equation}
+\tquat A C = \QxQ{\tquat B C}{\tquat A B} \label{eqn:quat_ttquat_chain}
+\end{equation}
+\end{theorem}
+\begin{proof}
+A vector $\framevect A x$ transforms from frame $A$ to frame $B$
+and from frame $B$ to $C$ via equation~\eqref{eqn:quat_left_trans_QxVxQ}:
+\begin{align*}
+  \quatsv 0 {\framevect B x} &=
+    \QxVxQ{\tquat A B}{\framevect A x}{\tquatconj A B} \\
+  \quatsv 0 {\framevect C x} &=
+     \QxVxQ{\tquat B C}{\framevect B x}{\tquatconj B C} \\
+     &= \QxQxQ
+        {\tquat B C}
+        {\left(\QxVxQ{\tquat A B}{\framevect A x}{\tquatconj A B}\right)}
+        {\tquatconj B C} \\
+\intertext{Since quaternion multiplication is associative,}
+  \quatsv 0 {\framevect C x}
+   &= \QxQxQ
+   {\left(\QxQ{\tquat B C}{\tquat A B}\right)}
+   {\quatsv 0 {\framevect A x}}
+   {\left(\QxQ{\tquatconj A B}{\tquatconj B C}\right)} \\
+   &= \QxQxQ
+   {\left(\QxQ{\tquat B C}{\tquat A B}\right)}
+   {\quatsv 0 {\framevect A x}}
+   {\quatconjlr{\QxQ{\tquat B C}{\tquat A B}}}
+\intertext{The direct transformation from frame $A$ to frame $C$ is}
+  \quatsv 0 {\framevect C x} &=
+    \QxVxQ{\tquat A C}{\framevect A x}{\tquatconj A C} \\
+\intertext{from which}
+  \tquat A C &= \QxQ{\tquat B C}{\tquat A B}
+\end{align*}
+\end{proof}
+
+Rotation matrices chain from left to right:
+Given a pair of rotation matrices $\mat{R}_{rot_1}$ and $\mat{R}_{rot_2}$,
+the rotation matrix that represents performing rotation $rot_2$ after
+performing rotation $rot_1$ is
+\begin{align}
+  \mat{R}_{rot_{1+2}} &=
+    \MxM{\mat{R}_{rot_1}}{\mat{R}_{rot_2}} \label{eqn:quat_rmat_chain} \\
+  \intertext{Left rotation quaternions still chain from right to left:}
+  \quat Q_{rot_{1+2}} &=
+    \QxQ{\quat Q_{rot_2}}{\quat Q_{rot_1}}
+  \label{eqn:quat_rquat_chain}
+\end{align}
+
+\subsection{Quaternions and Alternate Representation Schemes}
+
+\subsubsection{Single-Axis Rotations}
+
+Quaternions are closely related to a single axis rotation.
+Given a rotation about some axis $\vhat u$ by an angle $\theta$
+that describes the relative orientation of two reference frames,
+one merely need apply equation~\eqref{eqn:quat_left_trans_def}
+to form the corresponding left transformation unit quaternion.
+
+The next theorem establishes a constructive technique for determining
+the single axis rotation given a left transformation unit quaternion.
+\begin{theorem}\label{thm:quat_left_trans_to_rot}
+Given a left transformation unit quaternion $\quat Q$
+and its decomposition into a unit vector $\vhat u$ and angle $\theta^\prime$
+per theorem~\ref{thm:quat_unit_decomp},
+The single axis rotation corresponding
+to $\quat Q$ is a rotation of an angle $\theta = -2 \theta^\prime$
+about the $\vhat u$ axis.
+\end{theorem}
+\begin{proof}
+Forming the left transformation unit quaternion from the single axis rotation
+$\theta$ about $\vhat u$ per equation~\eqref{eqn:quat_left_trans_def} yields
+the original left transformation unit quaternion $\quat Q$.
+\end{proof}
+
+\subsubsection{Transformation Matrices}\label{sec:app_to_mat}
+
+\begin{theorem}\label{thm:quat_single_to_tmat}
+Given a single axis rotation
+about the $\vhat u$ axis by an angle of $\theta$
+from reference frame $A$ to reference frame $B$,
+the $i,j^{th}$element of the transformation matrix
+$\tmat A B$ from frame $A$ to frame $B$ is
+\begin{align}
+  {\tmat A B}_{ij} &=
+    \cos\theta\;
+    \delta_{ij} + (1-\cos\theta) u_i u_j + \sin\theta \sum_k \epsilon_{ijk} u_k
+\label{eqn:quat_single_to_tmat} \\
+\intertext{where}
+  \delta_{ij}\;&\text{is} \; \text{the Kronecker delta} \nonumber\\
+  \epsilon_{ijk}\;&\text{is} \; \text{the permutation symbol:} \nonumber\\
+  \epsilon_{ijk} &= \begin{cases}
+    {\phantom{-}1} &
+           \text{if $i$, $j$, and $k$ are an even permutation of $(1,2,3)$}, \\
+    {-1} & \text{if $i$, $j$, and $k$ are an odd permutation of $(1,2,3)$}, \\
+    {\phantom{-}0} & \text{otherwise ($i=j$, $i=k$, or $j=k$)}. \\
+  \end{cases}\nonumber
+\end{align}
+\end{theorem}
+\begin{proof}
+The $i^{th}$ row of $\tmat A B$ contains the transpose of the unit vector
+$\vhat e_i$ rotated about the $\vhat u$ axis by an angle of $\theta$.
+(The unit vector $\vhat e_i$ contains a one in row $i$ and zeros elsewhere:
+$\vhat e_{i_j} = \delta_{ij}$).
+Applying equation~\eqref{eqn:quat_single_axis_rot} to $\vhat e_i$
+and representing the cross product of two
+vectors $a$ and $b$ as $(a\times b)_j = \sum_i \sum_k \epsilon_{ijk} a_k b_i$
+results in equation~\eqref{eqn:quat_single_to_tmat}.
+\end{proof}
+ 
+ \begin{theorem}\label{thm:quat_quat_to_tmat}
+ Given a left transformation unit quaternion
+from reference frame $A$ to reference frame $B$
+ $\tquat A B = \quatsv {q_s}{\vect{q_v}}$,
+the transformation matrix corresponding to $\tquat A B$ is
+\begin{equation}
+ {\tmat A B}_{ij} = (2 q_s^{\phantom{s}2} - 1) \delta_{ij}
+   + 2 (q_{v_i} q_{v_j} - \sum_k \epsilon_{ijk} q_s q_{v_k})
+\label{eqn:quat_quat_to_tmat}
+\end{equation}
+\end{theorem}
+\begin{proof}
+By using the half-angle formulae
+\begin{align*}
+  \cos\theta  &= 2 \cos^2\frac\theta2 - 1 = 1 - 2\sin^2\frac\theta2 \\
+  \sin\theta   &= 2 \cos\frac\theta2 \sin\frac\theta2 \\
+\intertext{equation~\eqref{eqn:quat_single_to_tmat} becomes}
+  {\tmat A B}_{ij} &=
+    (2 \cos^2\frac\theta2 - 1) \delta_{ij}
+    + 2\sin^2\frac\theta2 u_i u_j
+    + 2 \cos\frac\theta2 \sin\frac\theta2 \sum_k \epsilon_{ijk} u_k \\
+\intertext{Per equation~\eqref{eqn:quat_left_trans_def},}
+  q_s &= \cos\frac\theta2 \\
+  \vect{q_v} &= -\sin\frac\theta2{\vhat u}
+\end{align*}
+by which equation~\eqref{eqn:quat_single_to_tmat} further reduces to 
+equation~\eqref{eqn:quat_quat_to_tmat}.
+\end{proof}
+
+\begin{theorem}\label{thm:quat_tmat_to_quat}
+Given a transformation matrix
+from reference frame $A$ to reference frame $B$ $\tmat A B$
+the left transformation unit quaternion $\tquat A B$ with
+scalar and vector parts $q_s$ and $\vect{q_v}$
+corresponding to $\tmat A B$ is given by four methods
+labeled $q_s$ and $q_{v_i}, i\in(0,1,2)$. \\
+\begin{align}
+\intertext{Defining}
+  tr &\equiv \operatorname{tr}(\tmat A B) \\
+  t_i &\equiv {\tmat A B}_{ii} - ({\tmat A B}_{jj} + {\tmat A B}_{kk}) \\
+  d_k &\equiv {\tmat A B}_{ji} - {\tmat A B}_{ij} \quad (\epsilon_{ijk} = 1) \\
+  s_{ij} &\equiv {\tmat A B}_{ji} + {\tmat A B}_{ij} \quad(i \neq j)
+\end{align}
+Method $q_s$ is
+\begin{equation}
+\label{eqn:tmat_to_quat_meth_qs}
+\left. %{
+\begin{aligned}
+  f_1 &= \sqrt{tr+1}\qquad \\
+  f_2 &= \frac 1{2 f_1} \\
+  q_s &= \frac 1 2 f_1 \\
+  q_{v_i} &= d_i f_2 \\
+  q_{v_j} &= d_j f_2 \\
+  q_{v_k} &= d_k f_2
+\end{aligned}\right\}
+\end{equation}
+Methods $q_{v_i}, i\in(0,1,2)$ are
+\begin{equation}
+\label{eqn:tmat_to_quat_meth_qvi}
+\left. %{
+\begin{aligned}
+  f_1 &= \sqrt{t_i+1}\qquad\\
+  f_2 &= \frac 1{2 f_1} \\
+  q_{v_i} &= \frac 1 2 f_1 \\
+  q_{v_j} &= s_{ij} f_2 \\
+  q_{v_k} &= s_{ik} f_2 \\
+  q_s &= d_i f_2
+\end{aligned}\right\}
+\end{equation}
+\end{theorem}
+\begin{proof}
+By equation~\eqref{eqn:quat_quat_to_tmat},
+the terms $tr$, $t_i$, $d_k$ and $s_{ij}$ are
+\begin{align}
+  tr     &= \operatorname{tr}(\tmat A B) =  4 q_s^{\phantom{s}2} - 1 \\
+  t_i    &= {\tmat A B}_{ii} - ({\tmat A B}_{jj} + {\tmat A B}_{kk})
+          = 4 q_{v_i}^2 - 1 \\
+  d_k    &= {\tmat A B}_{ji} - {\tmat A B}_{ij} \  (\epsilon_{ijk} = 1)
+          = 4 q_s q_{v_k} \\
+  s_{ij} &= {\tmat A B}_{ji} + {\tmat A B}_{ij}  \  (i \neq j)
+          = 4 q_{v_i} q_{v_j}
+\end{align}
+from which equations~\eqref{eqn:tmat_to_quat_meth_qs}
+and~\eqref{eqn:tmat_to_quat_meth_qvi}
+are readily derived.
+\end{proof}
+
+\subsubsection{Euler Angles}\label{sec:app_to_euler}
+
+Euler proved in 1776 that any arbitrary rotation or transformation can be
+described by only three parameters. An Euler sequence comprises a sequence of
+rotations by various angles about various axes in a specified order.
+For example, a yaw-pitch-roll transformation sequence involves a transformation
+about the $z-$axis followed by a second transformation about the transformed
+$y-$axis followed by a final rotation about the doubly-transformed $x-$axis.
+
+\begin{theorem}\label{thm:quat_rot_to_quat_general}
+Given an Euler sequence comprising:
+\begin{itemize}
+\item A rotation through an angle $\theta_1$ counterclockwise
+about the $\vhat u_1$ axis followed by
+\item A rotation through an angle $\theta_2$ counterclockwise
+about the $\vhat u_2$ axis followed by
+\item A rotation through an angle $\theta_3$ counterclockwise
+about the $\vhat u_3$ axis
+\end{itemize}
+that represents the transformation from
+from reference frame $A$ to reference frame $B$,
+the corresponding left transformation unit quaternion
+$\quat{Q}_{123}
+  (\theta_{1}, \vhat u_1; \theta_{2}, \vhat u_2; \theta_{3}, \vhat u_3)$ is
+\begin{align}
+  \quat{Q}_{123}
+    (\theta_{1}, \vhat u_1; \theta_{2}, \vhat u_2; \theta_{3}, \vhat u_3) &=
+    \QxQxQ{\quat{Q}(\theta_3, \vhat u_3)}
+          {\quat{Q}(\theta_2, \vhat u_2)}
+          {\quat{Q}(\theta_1, \vhat u_1)}
+    \label{eqn:quat_euler_to_quat_general} \\
+  \intertext{where}
+  \quat{Q}(\theta_1, \vhat u_1) &\equiv \quattrot{\theta_1}{\vhat u_1} \\
+  \quat{Q}(\theta_2, \vhat u_2) &\equiv \quattrot{\theta_2}{\vhat u_2} \\
+  \quat{Q}(\theta_3, \vhat u_3) &\equiv \quattrot{\theta_3}{\vhat u_3}
+\end{align}
+\end{theorem}
+\begin{proof}
+The left transformation quaternions corresponding to the individual rotations,
+$\quat{Q}(\theta_1, \vhat u_1)$,
+$\quat{Q}(\theta_2, \vhat u_2)$, and
+$\quat{Q}(\theta_3, \vhat u_3)$,
+follow from equation~\eqref{eqn:quat_left_trans_def}.
+The product follows from equation~\eqref{eqn:quat_ttquat_chain}.
+\end{proof}
+
+The Trick package is only concerned with Euler sequences that use some
+permutation of rotations about the $x$, $y$, and $z$ axes.
+(Trick does not cover the standard astronaumical $\phi-\theta-\psi$ sequence.)
+With this restriction, equation~\eqref{eqn:quat_euler_to_quat_general} can be
+reduced to two cases:
+one if the unit vectors $(\vhat u_1, \vhat u_2, \vhat u_3)$
+form an even permutation of $(x, y, z)$
+and another if the unit vectors $(\vhat u_1, \vhat u_2, \vhat u_3)$
+form an odd permutation of $(x, y, z)$.
+
+\begin{theorem}\label{thm:quat_rot_to_quat_even}
+Given an Euler sequence
+$\theta_1$ about the $\vhat u_1$ axis,
+$\theta_2$ about the $\vhat u_2$ axis,
+$\theta_3$ about the $\vhat u_3$ axis,
+where $(\vhat u_1, \vhat u_2, \vhat u_3)$ is an
+even permutation of $(\vhat x, \vhat y, \vhat z)$,
+that represents the transformation from
+from reference frame $A$ to reference frame $B$,
+the corresponding left transformation unit quaternion
+$\quat{Q}_{123}
+  (\theta_{1}, \vhat u_1; \theta_{2}, \vhat u_2; \theta_{3}, \vhat u_3)$
+is
+\begin{equation}
+  \quat{Q}_{123}
+    (\theta_{1}, \vhat u_1; \theta_{2}, \vhat u_2; \theta_{3}, \vhat u_3) =
+       \quatsv[5pt]
+        {\cos\frac{\theta_3}2 \cos\frac{\theta_2}2 \cos\frac{\theta_1}2
+          - \sin\frac{\theta_3}2 \sin\frac{\theta_2}2 \sin\frac{\theta_1}2}
+        {
+          - \begin{pmatrix}
+          \phantom{+}
+            (\cos\frac{\theta_3}2 \cos\frac{\theta_2}2 \sin\frac{\theta_1}2
+            + \sin\frac{\theta_3}2 \sin\frac{\theta_2}2 \cos\frac{\theta_1}2)
+            \vhat u_1 \\[5pt]
+          +
+            (\cos\frac{\theta_3}2 \sin\frac{\theta_2}2 \cos\frac{\theta_1}2
+            - \sin\frac{\theta_3}2 \cos\frac{\theta_2}2 \sin\frac{\theta_1}2)
+            \vhat u_2 \\[5pt]
+          +
+           (\cos\frac{\theta_3}2 \sin\frac{\theta_2}2 \sin\frac{\theta_1}2
+            + \sin\frac{\theta_3}2 \cos\frac{\theta_2}2 \cos\frac{\theta_1}2)
+           \vhat u_3
+           \end{pmatrix}}
+   \label{eqn:quat_rot_to_quat_even}
+\end{equation}
+\end{theorem}
+\begin{proof}
+This follows directly by expanding
+equation~\eqref{eqn:quat_euler_to_quat_general}
+for the special case of a set of orthogonal unit vectors
+$\vhat u_1$, $\vhat u_2$, $\vhat u_3$
+for which $\vhat u_1 \times \vhat u_2 = \vhat u_3$.
+\end{proof}
+
+\begin{theorem}\label{thm:quat_rot_to_quat_odd}
+Given an Euler sequence
+$\theta_1$ about the $\vhat u_1$ axis,
+$\theta_2$ about the $\vhat u_2$ axis,
+$\theta_3$ about the $\vhat u_3$ axis,
+where $(\vhat u_1, \vhat u_2, \vhat u_3)$ is an
+odd permutation of $(\vhat x, \vhat y, \vhat z)$,
+that represents the transformation from
+from reference frame $A$ to reference frame $B$,
+the corresponding left transformation unit quaternion
+$\quat{Q}_{123}
+  (\theta_{1}, \vhat u_1; \theta_{2}, \vhat u_2; \theta_{3}, \vhat u_3)$
+is
+\begin{equation}
+  \quat{Q}_{123}
+    (\theta_{1}, \vhat u_1; \theta_{2}, \vhat u_2; \theta_{3}, \vhat u_3) =
+       \quatsv[5pt]
+        {\cos\frac{\theta_3}2 \cos\frac{\theta_2}2 \cos\frac{\theta_1}2
+          + \sin\frac{\theta_3}2 \sin\frac{\theta_2}2 \sin\frac{\theta_1}2}
+        {
+          - \begin{pmatrix}
+          \phantom{+}
+            (\cos\frac{\theta_3}2 \cos\frac{\theta_2}2 \sin\frac{\theta_1}2
+            - \sin\frac{\theta_3}2 \sin\frac{\theta_2}2 \cos\frac{\theta_1}2)
+            \vhat u_1 \\[5pt]
+          +
+            (\cos\frac{\theta_3}2 \sin\frac{\theta_2}2 \cos\frac{\theta_1}2
+            + \sin\frac{\theta_3}2 \cos\frac{\theta_2}2 \sin\frac{\theta_1}2)
+            \vhat u_2 \\[5pt]
+          -
+           (\cos\frac{\theta_3}2 \sin\frac{\theta_2}2 \sin\frac{\theta_1}2
+            - \sin\frac{\theta_3}2 \cos\frac{\theta_2}2 \cos\frac{\theta_1}2)
+            \vhat u_3
+           \end{pmatrix}}
+   \label{eqn:quat_rot_to_quat_odd}
+\end{equation}
+\end{theorem}
+\begin{proof}
+This follows directly by expanding
+equation~\eqref{eqn:quat_euler_to_quat_general}
+for the special case of a set of orthogonal unit vectors
+$\vhat u_1$, $\vhat u_2$, $\vhat u_3$
+for which $\vhat u_1 \times \vhat u_2 = - \vhat u_3$.
+\end{proof}
+
+With a bit of trigonemtric manipulation,
+the inverse operation of determining the Euler angles given a quaternion
+and a rotation sequence follow from theorems~\ref{thm:quat_rot_to_quat_even}
+and~\ref{thm:quat_rot_to_quat_odd}.
+
+\begin{theorem}\label{thm:quat_quat_to_rot_even}
+Given an even permutation $(\vhat u_1, \vhat u_2, \vhat u_3)$ of
+$(\vhat x, \vhat y, \vhat z)$
+and a quaternion \\
+$\quat Q = \quatsv {q_s}
+                   {q_{v_1} \vhat u_1 +
+                    q_{v_2} \vhat u_2 +
+                    q_{v_3} \vhat u_3}$,
+the Euler sequence
+$\theta_1$ about the $\vhat u_1$ axis,
+$\theta_2$ about the $\vhat u_2$ axis,
+$\theta_3$ about the $\vhat u_3$ axis is given by
+
+\begin{align}
+  \theta_2 &= \arcsin(-2(q_s q_{v_2} - q_{v_1} q_{v_3}))
+    \label{eqn:quat_quat_to_rot_even_theta_2} \\
+  \theta_1 &= \arctan(-2(q_s q_{v_1} + q_{v_2} q_{v_3}),
+                     ({q_s}^2-q_{v_2}^2)-(q_{v_1}^2-q_{v_3}^2))
+    \label{eqn:quat_quat_to_rot_even_theta_1} \\
+  \theta_3 &= \arctan(-2(q_s q_{v_3} + q_{v_2} q_{v_1}),
+                     ({q_s}^2-q_{v_2}^2)-(q_{v_3}^2-q_{v_1}^2))
+    \label{eqn:quat_quat_to_rot_even_theta_3} \\
+\intertext{Equations~\eqref{eqn:quat_quat_to_rot_even_theta_1} %
+           and~\eqref{eqn:quat_quat_to_rot_even_theta_3} are valid %
+           only if $\abs{\sin\theta_2} \neq 1$. %
+           $\abs{\sin\theta_2} = 1$ represents a singularity, %
+           in which case $\theta_1$ and $\theta_3$ are related via}
+  \theta_1 + \theta_3 \sin\theta_2 &=
+      2 \arctan(-q_{v_3} \sin\theta_2, q_{v_2} \sin\theta_2) =
+      2 \arctan(-q_{v_1},q_s)
+    \label{eqn:quat_quat_to_rot_even_singular}
+\end{align}
+\end{theorem}
+\begin{proof}
+Th solution for $\theta_2$ and the non-singular solutions for
+$\theta_1$ and $\theta_3$ follow by replacing the arguments of the inverse
+trigonometric functions in equations~\eqref{eqn:quat_quat_to_rot_even_theta_2}
+to~\eqref{eqn:quat_quat_to_rot_even_theta_3} into
+equation~\eqref{eqn:quat_rot_to_quat_even}.
+The singular solutions follow by replacing $\theta_2 = \pm \frac \pi 2$ into
+equation~\eqref{eqn:quat_rot_to_quat_even}.
+\end{proof}
+
+\begin{theorem}\label{thm:quat_quat_to_rot_odd}
+Given an odd permutation $(\vhat u_1, \vhat u_2, \vhat u_3)$ of
+$(\vhat x, \vhat y, \vhat z)$
+and a quaternion \\
+$\quat Q = \quatsv {q_s}
+                   {q_{v_1} \vhat u_1 +
+                    q_{v_2} \vhat u_2 +
+                    q_{v_3} \vhat u_3}$,
+the Euler sequence
+$\theta_1$ about the $\vhat u_1$ axis,
+$\theta_2$ about the $\vhat u_2$ axis,
+$\theta_3$ about the $\vhat u_3$ axis is given by
+
+\begin{align}
+  \theta_2 &= \arcsin(-2(q_s q_{v_2} + q_{v_1} q_{v_3}))
+    \label{eqn:quat_quat_to_rot_odd_theta_2} \\
+  \theta_1 &= \arctan(-2(q_s q_{v_1} - q_{v_2} q_{v_3}),
+                     ({q_s}^2-q_{v_2}^2)-(q_{v_1}^2-q_{v_3}^2))
+    \label{eqn:quat_quat_to_rot_odd_theta_1} \\
+  \theta_3 &= \arctan(-2(q_s q_{v_3} - q_{v_2} q_{v_1}),
+                     ({q_s}^2-q_{v_2}^2)-(q_{v_3}^2-q_{v_1}^2))
+    \label{eqn:quat_quat_to_rot_odd_theta_3} \\
+\intertext{Equations~\eqref{eqn:quat_quat_to_rot_odd_theta_1} %
+           and~\eqref{eqn:quat_quat_to_rot_odd_theta_3} are valid %
+           only if $\abs{\sin\theta_2} \neq 1$.%
+           $\abs{\sin\theta_2} = 1$ represents a singularity, %
+           in which case $\theta_1$ and $\theta_3$ are related via}
+  \theta_1 - \theta_3 \sin\theta_2 &=
+      2 \arctan(q_{v_3} \sin\theta_2,-q_{v_2} \sin\theta_2) =
+      2 \arctan(-q_{v_1},q_s)
+    \label{eqn:quat_quat_to_rot_odd_singular}
+\end{align}
+\end{theorem}
+\begin{proof}
+Th solution for $\theta_2$ and the non-singular solutions for
+$\theta_1$ and $\theta_3$ follow by replacing the arguments of the inverse
+trigonometric functions in equations~\eqref{eqn:quat_quat_to_rot_odd_theta_2}
+to~\eqref{eqn:quat_quat_to_rot_odd_theta_3} into
+equation~\eqref{eqn:quat_rot_to_quat_odd}.
+The singular solutions follow by replacing $\theta_2 = \pm \frac \pi 2$ into
+equation~\eqref{eqn:quat_rot_to_quat_odd}.
+\end{proof}
+ 
+
+\subsection{Comparing and Averaging Transformation Quaternions}
+
+Suppose $\vect x_1$ and $\vect x_2$ are two vectors
+that represent the some comparable quantity
+such as the position of a spacecraft at a specific point in time as computed
+by two different methods
+or the position of a spacecraft at two different points in time.
+Various analyses are frequently based on the
+difference between the two vectors,
+$\Delta \vect x \equiv \vect x_2 - \vect x_1$.
+
+Now suppose $\quat Q_1$ and $\quat Q_2$ are two left transformation
+quaternions that that represent some comparable transformation.
+The additive difference between the two transformation quaternions has no
+physical meaning and thus is not useful for analysis.
+The normative mathematics of the transformation quaternions is
+multiplication rather than addition.
+A multiplicative rather than additive scheme is needed to
+determine the "distance" between two quaternions.
+\begin{definition}[Quaternion difference]\label{def:quat_err}
+Given quaternions $\quat{Q}_1$ and $\quat{Q}_2$,
+the difference between the two quaternions is defined as
+\begin{equation}
+  \Delta \quat Q \equiv \ 
+                 \operatorname{acute} (\QxQ{\quat{Q}_2}{\quat{Q}_1^\conj})
+  \label{eqn:quat_err_def}
+\end{equation}
+where \emph{acute} denotes that all components of the product
+$\QxQ{\quat{Q}_2}{\quat{Q}_1^\conj}$
+are to be negated when the scalar part of the product is negative.
+\end{definition}
+
+The magnitude of an error vector is often a more significant indicator
+than is the direction of the error when analyzing errors in vectors.
+Similarly, the single axis rotation angle computed from the quaternion
+difference is often a more significant indicator than the direction of the
+rotation when analyzing errors in transformation quaternions.
+
+The difference between two vectors is also useful for computing
+a weighted average:
+$\bar{\vect x} = w  \Delta \vect x + \vect x_1$ where $w$ is some
+weight factor between 0 and 1.
+The arithmetic mean results when $w=1/2$.
+
+Similarly, the weighted mean of two quaternions is
+ \begin{definition}[Quaternion weighted mean]\label{def:quat_wmean}
+Given quaternions $\quat{Q}_1$ and $\quat{Q}_2$,
+the weighted mean of the two quaternions is defined as
+\begin{equation}
+  \bar{\quat Q} = \QxQ{(\Delta \quat Q)^w}{\quat{Q}_1}\label{eqn:quat_wmean_def}
+\end{equation}
+where $w$ is a weight factor between 0 and 1 and
+$\Delta \quat Q$ is computed via equation~\eqref{eqn:quat_err_def}.
+\end{definition}
+
+\begin{align*}
+\intertext{Let}
+  \Delta \quat Q &= \quatsv{\Delta q_s}{\vect {\Delta q_v}}
+\intertext{if $\abs{\Delta q_s} \approx 1$ then $(\Delta \quat Q)^w$ %
+           can be approximated using the small angle approximations} \\
+  \cos(w\theta) &\approx 1 + w^2(\cos\theta-1) \\
+  \sin(w\theta) &\approx w\sin\theta \\
+  (\Delta \quat Q)^w &\approx
+    \quatsv{1 + w^2(\Delta q_s-1)}{w \vect {\Delta q_v}}
+\end{align*}
+

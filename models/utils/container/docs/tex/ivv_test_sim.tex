@@ -1,0 +1,37 @@
+\test{Container Simulation}\label{test:sim}
+\begin{description}
+\item[Test Directory]
+{\tt models/utils/container/verif/SIM\_container\_T10}
+
+\item[Test Description]
+This unit test exercises the checkpoint / restart capabilities of the
+model.
+
+To run the test, enter the test directory and type the command
+{\tt CP build} to build the test program and then run the resultant
+executable with each of the four run directories. The non-restart
+run directories must be run prior to running the restart directories.
+
+\item[Success Criteria]
+The success criteria involve analyzing the detailed output that results
+from running the program.
+\begin{itemize}
+\item The simulation must build and each run directory shall
+run to completion.
+\item The two checkpoint tests (SET\_test/RUN\_empty and SET\_test/RUN\_full)
+must produce Trick and JEOD checkpoint files that reflect the contents
+of the containers.
+\item the two restart tests (SET\_test/RUN\_empty\_restart and
+SET\_test/RUN\_full\_restart) must restore from the appropriate checkpoint
+file and must report the same content as reported by the corresponding
+checkpoint test.
+\end{itemize}
+
+\item[Test Results]
+The test passes.
+
+\item[Applicable Requirements]
+This test demonstrates the satisfaction of the 
+requirement \traceref{reqt:chkpt}.
+
+\end{description}

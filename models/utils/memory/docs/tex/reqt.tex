@@ -1,0 +1,204 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% reqt.tex
+% Toplevel requirements on the Memory Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}
+\label{ch:reqt}
+%----------------------------------
+
+\requirement{Top-level requirement}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum,  meet all external and
+  internal requirements 
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+  Inspection 
+\end{description}
+
+
+\requirement{Memory Allocation}
+\label{reqt:alloc}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide the ability to allocate and initialize
+  memory of the data types described below.
+  \subrequirement{Array of pointers to some data type.}
+  \label{reqt::alloc_pointer_array}
+  The model shall provide the ability to allocate an array of a specified
+  number of pointers to a specified type, with each element of the allocated
+  array initialized to the null pointer.
+  \subrequirement{Array of structured objects.}
+  \label{reqt::alloc_object_array}
+  The model shall provide the ability to allocate an array of a specified
+  number of objects of a specified structured (non-primitive) type, with each
+  element of the allocated array initialized using the default constructor for
+  the specified type.
+  \subrequirement{Array of primitive objects.}
+  \label{reqt::alloc_prim_array}
+  The model shall provide the ability to allocate an array of a specified
+  number of objects of a specified primitive data type, with each element of
+  the allocated array initialized as zero.
+  \subrequirement{Single structured object.}
+  \label{reqt::alloc_object}
+  The model shall provide the ability to allocate a single instance of a
+  specified structured type, with the allocated object initialized using
+  the constructor that matches a specified set of constructor arguments.
+  \subrequirement{Single primitive object.}
+  \label{reqt::alloc_prim}
+  The model shall provide the ability to allocate a single instance of a
+  specified primitive type, with the allocated object initialized to a
+  specified value.
+  \subrequirement{String duplication.}
+  \label{reqt::strdup}
+  The model shall provide the ability to create a copy of
+  a specified null-terminated string.
+
+\item[Rationale:]\ \newline
+  The primary objective of the \ModelDesc is to make allocated memory visible to
+  the simulation engine (e.g., Trick) in a manner that enables the simulation
+  engine's data input and output mechanisms to operate on the memory.
+  The simulation engine must be notified of memory allocations to the use of
+  these input and output mechanisms. Encapsulating memory allocations is the
+  first step in accomplishing this primary objective.
+  
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Memory Registration}
+\label{reqt:registration}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall use the capabilities provided by the Simulation
+  Interface Model to register all memory allocated using the capabilities
+  described in requirement~\ref{reqt:alloc} with the simulation engine.
+
+\item[Rationale:]\ \newline
+  This requirement is the second step toward accomplishing the primary objective
+  of making allocated memory visible to the simulation engine.
+
+  The reason for using the Simulation Interface Model is that JEOD 2.1
+  encapsulates all interactions with the simulation engine in that model.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Memory Deallocation}
+\label{reqt:free}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide the ability to destroy and release memory
+  previously allocated via the capabilities described in requirement
+  \ref{reqt:alloc}.
+
+\item[Rationale:]\ \newline
+  Memory allocated by JEOD models must eventually be released to
+  avoid memory leaks.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Freeing from a Base Class Pointer}
+\label{reqt:base_class_pointer_free}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall properly destroy and release an object previously
+  allocated by the model given a base class pointer to the object in question.
+
+\item[Rationale:]\ \newline
+  Derived class and base class pointers to the same object do not necessarily
+  point to the same location in memory. The \ModelDesc machinery must be
+  capable of handling this fact of life.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Memory Deregistration}
+\label{reqt:deregistration}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall use the capabilities provided by the Simulation
+  Interface Model to remove the registration of memory that is deallocated
+  using the capabilities described in requirement~\ref{reqt:free}.
+
+\item[Rationale:]\ \newline
+  Memory that is released can be reused for other purposes. Failing to remove
+  the registration for deallocated memory would make the simulation engine's
+  memory model invalid.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Thread Safety}
+\label{reqt:threads}
+\begin{description}
+\item[Requirement:]\ \newline
+  The implementation of the \ModelDesc shall be thread-safe when used in
+  a POSIX-complaint environment.
+
+\item[Rationale:]\ \newline
+  Trick makes extensive use of threads, as do many other simulation engines.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Memory Tracking}
+\label{reqt:tracking}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall keep track of all outstanding memory allocations made
+  with the model (memory allocated using the capabilities described in
+  requirement~\ref{reqt:alloc} and not yet freed using the capabilities
+  described in requirement~\ref{reqt:free}).
+
+\item[Rationale:]\ \newline
+  This capability is a nice-to-have for the purposes of debugging memory leaks
+  but will be essential in future releases of JEOD to fully support
+  checkpoint/restart.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Memory Reporting}
+\label{reqt:reporting}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall optionally report individual memory transactions and
+  shall optionally report outstanding memory allocations at simulation end time.
+
+\item[Rationale:]\ \newline
+  This capability provides a debugging aid. This capability needs to be
+  optional as the output is of little interest except when needed.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Checkpoint/Restart (FUTURE)}
+\label{reqt:checkpoint_restart}
+Reserved.

@@ -1,0 +1,25 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: Model.tex
+%
+% Purpose: Top level document for Model.  Should not need to be edited.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[pdflscape]{dynenv}
+
+% Add the requirements et al. to the table of contents
+\dynenvaddtocitems{reqt=1,insp=2,test=2}
+
+\begin{document}
+
+% Front matter: Executive summary, table of contents, lists of figures & tables
+\frontmatter[style=summary,figures,tables]{summary}
+
+% Main document body: Each chapter is in its own file
+\mainmatter{intro,reqt,spec,guide,ivv}
+
+% Back matter: Bibliography
+\backmatter{appendix}
+
+\end{document}

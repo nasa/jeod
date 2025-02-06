@@ -1,0 +1,380 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: Model.tex
+%
+% Purpose: Top level document for Model.  Should not need to be edited.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\documentHistory{
+{\bf Author} & {\bf Date} & {\bf Description} \\ \hline \hline
+\ModelAuthor & \ModelAuthDate & Initial Version \\ \hline
+}
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{DYNCOMP}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+\usepackage{float}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\DYNCOMPDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\DYNCOMPDesc}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{verif/SIM\_dyncomp}
+\docrev{3.0}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\DYNCOMPDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{DYNCOMPAbstract}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+\section{Introduction}
+After any revision of the JEOD software there is a process of regression
+testing. Each version of JEOD is verified and validated in two ways.  All releases
+are tested for accuracy against trajectories of actual vehicles.  They are also
+regression tested by comparing the results of individual model vetification
+simulations, and by running combined simulations such as \DYNCOMPDesc.
+
+
+The present version, as it becomes available, is tested against the last version
+and checked for differences. This means all code,test runs, and documents are
+checked against the previous JEOD as a truth model. Any differences between code,
+documents and test runs for models that did not change have to be explained or
+resolved.
+Once resolution has been achieved, the data files for regression testing are
+archived in
+house in the JEOD directories. Any change -- whether it be a code change, model
+addition, document changed or test run addition -- is documented in the top
+level JEOD documents.
+These documents are made
+available, along with version notes at the time of JEOD official release.
+
+The documentation for SIM\_dyncomp for this release is contained in the
+following document:
+A Process for Comparing Dynamics of Distributed Space Systems Simulations\cite{siw}.
+It is hyperlinked here:
+\DYNCOMLINK
+
+The validation of these simulations are explained in the paper.
+Note the validation data consisted of independent simulation to simulation
+comparisons
+and simple analytical models what could be computed independent of JEOD.
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this section.
+%%% Mention that JEOD.pdf is the parent document.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+
+
+\section {SIM\_dyncomp S\_define}
+For reference the SIM\_dyncomp S\_define is included here.  It relies
+extensively on the standard JEOD S-modules:
+
+\subsection{Preamble}
+
+\begin{verbatim}
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//=============================================================================
+// This simulation provides a reference implementation that can be used for
+// comparison to other orbital dynamics implementations.  It is intended to
+// provide a reference set for dynamics comparison.
+//
+// This simulation models a single vehicle in orbit around the Earth.  There
+// are many adjustable configuration parameters that can be used to test out
+// a suite of test cases with specific behavior.  These test cases form the
+// basis for simulation to simulation comparison.
+//
+//          sys - Trick runtime executive and data recording routines
+//         time - Representations of different clocks used in the sim
+//     dynamics - Orbital dynamics
+//          env - Environment: ephemeris, gravity
+//          sun - Sun planetary model
+//         moon - Moon planetary model
+//        earth - Earth planetary model
+//       vehicle - Space vehicle dynamics model
+//
+//=============================================================================
+\end{verbatim}
+
+\subsection{Configuration}
+\begin{itemize}
+\item Define the job-calling intervals
+
+\begin{verbatim}
+// Define job calling intervals
+#define LOW_RATE_ENV  60.00    // Low-rate environment update interval
+#define DYNAMICS       0.03125 // Vehicle and plantary dynamics interval (32Hz)
+\end{verbatim}
+
+\item Include the standard job-priority definitions
+
+\begin{verbatim}
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
+\end{verbatim}
+
+\item Bring in the trick-system and jeod-system top-level modules
+
+\begin{verbatim}
+ // Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+\end{verbatim}
+
+\end{itemize}
+
+\subsection{Time}
+Use the standard jeod\_time.sm sim-module; in addition to the default TAI
+clock, add UT1, UTC, TT, and GMST.  Also specify that the clocks should have
+their calendar representations computed out.
+
+\begin{verbatim}
+// Set up desired time types and include the JEOD time S_module
+#define TIME_MODEL_UT1
+#define TIME_MODEL_UTC
+#define TIME_MODEL_TT
+#define TIME_MODEL_GMST
+#define TIME_CALENDAR_UPDATE_INTERVAL  DYNAMICS
+#include "jeod_time.sm"
+\end{verbatim}
+
+\subsection{Dynamics}
+Use the standard dynamics sim-object.
+\begin{verbatim}
+#include "dynamics.sm"
+\end{verbatim}
+
+\subsection{Environment}
+Use the standard environment sim-object, with sun, moon and earth planetary
+bodies.
+
+\begin{verbatim}
+#include "environment.sm"
+#include "sun_basic.sm"
+#include "moon_basic.sm"
+\end{verbatim}
+For earth, use the full earth model with a spherical harmonic gravity, MET
+atmosphere, and RNP.  For legacy reasons, we use the (older) GEMT1 gravity
+model rather than the default GGM02C model.
+\begin{verbatim}
+#define JEOD_OVERRIDE_GGM02C_WITH_GEMT1
+#include "earth_GGM02C_MET_RNP.sm"
+\end{verbatim}
+
+
+\subsection{Vehicle}
+We want some specific capabilities for our vehicle, so we will build a new
+vehicle sim-object based off one of the standard S-modules.
+
+\subsubsection{Model Headers}
+\begin{verbatim}
+/*****************************************************************************
+Vehicle Sim Object
+Purpose:(Provides the vehicle object)
+*****************************************************************************/
+// Include headers for classes that this class contains:
+##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
+##include "dynamics/derived_state/include/euler_derived_state.hh"
+##include "dynamics/derived_state/include/lvlh_derived_state.hh"
+##include "dynamics/derived_state/include/orb_elem_derived_state.hh"
+##include "dynamics/dyn_body/include/force.hh"
+##include "dynamics/dyn_body/include/torque.hh"
+##include "interactions/gravity_torque/include/gravity_torque.hh"
+##include "environment/atmosphere/include/atmosphere.hh"
+##include "interactions/aerodynamics/include/aero_drag.hh"
+
+// Include default data classes:
+##include "interactions/aerodynamics/data/include/aero_model.hh"
+\end{verbatim}
+
+\subsubsection{Inheritance}
+Note - we use the sim-object version found in Base.  This is just the
+definition, without the instantiation.
+\begin{verbatim}
+// include the base class defintion.
+#include "Base/vehicle_atmosphere.sm"
+class VehicleSimObject : public VehicleAtmSimObject
+{
+\end{verbatim}
+
+\subsubsection{Content}
+Note - this is the content in addition to the content of the
+VehicleAtmSimObject.
+\begin{verbatim}
+ public:
+  DynBodyInitLvlhRotState lvlh_init;
+  EulerDerivedState     euler;
+  LvlhDerivedState      lvlh;
+  EulerDerivedState     lvlh_euler;
+  OrbElemDerivedState   orb_elem;
+  Force  force_extern;
+  Torque torque_extern;
+  GravityTorque grav_torque;
+  SphericalHarmonicsGravityControls  earth_grav_control;
+  SphericalHarmonicsGravityControls  moon_grav_control;
+  SphericalHarmonicsGravityControls  sun_grav_control;
+  AerodynamicDrag  aero_drag;
+
+  // Instances for default data:
+  AerodynamicDrag_aero_model_default_data    aero_drag_default_data;
+
+  //Constructor
+  VehicleSimObject( DynManager    & dyn_manager_,
+                    METAtmosphere & atmos_,
+                    WindVelocity  & wind_)
+     :
+     VehicleAtmSimObject( dyn_manager_, atmos_, wind_)
+
+  {
+    //
+    //Default data jobs
+    //
+    ("default_data") aero_drag_default_data.initialize ( &aero_drag );
+
+    //
+    // Initialization jobs
+    //
+    P_DYN  ("initialization") euler.initialize( dyn_body,
+                                                dyn_manager );
+    P_DYN  ("initialization") lvlh.initialize( dyn_body,
+                                               dyn_manager );
+    P_DYN  ("initialization") lvlh_euler.initialize( lvlh.lvlh_frame,
+                                                     dyn_body,
+                                                     dyn_manager );
+    P_DYN  ("initialization") orb_elem.initialize( dyn_body,
+                                                   dyn_manager );
+    ("initialization") euler.update( );
+    ("initialization") pfix.update( );
+    ("initialization") lvlh.update( );
+    ("initialization") lvlh_euler.update( );
+    ("initialization") orb_elem.update( );
+    ("initialization") grav_torque.initialize( dyn_body );
+    //
+    // Environment class jobs
+    //
+    (DYNAMICS, "environment") euler.update( );
+    (DYNAMICS, "environment") lvlh.update( );
+    (DYNAMICS, "environment") lvlh_euler.update( );
+    (DYNAMICS, "environment") orb_elem.update( );
+    //
+    // Derivative class jobs
+    //
+    P_BODY   ("derivative") aero_drag.aero_drag(
+          dyn_body.composite_body.state.trans.velocity,
+          &atmos_state,
+          dyn_body.structure.state.rot.T_parent_this,
+          dyn_body.composite_properties.mass,
+          dyn_body.composite_properties.position);
+    P_PGRAV   ("derivative") grav_torque.update();
+  }
+
+ private:
+  VehicleSimObject (const VehicleSimObject&);
+  VehicleSimObject & operator = (const VehicleSimObject&);
+
+};
+\end{verbatim}
+
+\subsubsection{Instantiation}
+\begin{verbatim}
+VehicleSimObject vehicle ( dynamics.dyn_manager,
+                           earth.atmos,
+                           earth.wind_velocity);
+\end{verbatim}
+
+\subsection{Collect statements}
+Collect forces and torques
+\begin{verbatim}
+vcollect vehicle.dyn_body.collect.collect_effector_forc CollectForce::create {
+   vehicle.force_extern
+};
+vcollect vehicle.dyn_body.collect.collect_environ_forc CollectForce::create {
+};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_forc CollectForce::create {
+   vehicle.aero_drag.aero_force
+};
+vcollect vehicle.dyn_body.collect.collect_effector_torq CollectTorque::create {
+   vehicle.torque_extern
+};
+vcollect vehicle.dyn_body.collect.collect_environ_torq CollectTorque::create {
+};
+vcollect vehicle.dyn_body.collect.collect_no_xmit_torq CollectTorque::create {
+   vehicle.aero_drag.aero_torque,
+   vehicle.grav_torque.torque
+};
+\end{verbatim}
+
+\subsection{Integration Loop}
+\begin{verbatim}
+IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth, vehicle;
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,DYNCOMP}
+\bibliographystyle{plain}
+
+%\pagebreak
+%\appendix
+
+\end{document}

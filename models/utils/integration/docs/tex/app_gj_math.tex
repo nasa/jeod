@@ -1,0 +1,1166 @@
+Here, we present the derivation of the 
+coefficients used in this Gauss-Jackson implementation.  The derivation 
+follows that of Berry and Healy~\cite{paper:Berry_Healy}, generalized to 
+provide user-specified order; the method is further generalized to provide 
+the 
+bootstrapping off the RK4 primer.
+
+Although in JEOD we are dealing typically with 3-vectors, the 3 elements
+in those vectors are mutually independent and integration must be
+carried out term-by-term. In this analysis, we will be dealing with
+the integration of single-dimension values, e.g. only the x-component
+of some vector.
+
+\subsection{Nomenclature}
+We will be representing the state value as  $x_{n}$: the value of variable
+\textit{x} at time-step \textit{n}. For our purposes, we are assuming
+a constant time-step, \textit{h}.
+
+We are looking for a method by which the zeroth derivative
+$(x_{n})$ and the first derivative $(\dot{x}_{n})$ can be written in
+terms of previously known values 
+$\left\{x_{i},\dot{x}_{i},\ddot{x}_{i}\right\}$ for  $i<n$.
+
+The current state, and its derivative, will be expressed as a
+combination of those previous states, each multiplied by some
+predetermined coefficients. The derivation of the coefficients for
+the Gauss-Jackson integration scheme requires a systematic derivation
+of Adams-Moulton corrector coefficients, Adams-Bashforth predictor
+coefficients, St\"ormer-Cowell corrector coefficients, and St\"ormer
+predictor coefficients.
+
+The Summed-Adams method is used for the generation of the first-derivative
+state (e.g. velocity).
+
+The Gauss-Jackson method is used for the generation of the zeroth-derivative
+state (e.g. position).
+
+\begin{enumerate}
+ \item The raw coefficients:
+ \begin{itemize}
+  \item $c_i$\ \ \ code:\textit{am}\ \   Adams-Moulton coefficient (used in derivation of $A_{Ci}$ and $A_{Ii}$)
+  \item $c'_i$\ \ \ code:\textit{ab}\ \  Adams-Bashforth coefficients (used in derivation of $A_{Pi}$)
+  \item $q_i$\ \ \ code:\textit{sc}\ \   St\"ormer-Cowell coefficients (used in derivation of $G_{Ci}$ and $G_{Ii}$)
+  \item $q'_i$\ \ \ code:\textit{sp}\ \  St\"ormer coefficients (used in derivation of $G_{Pi}$)
+ \end{itemize}
+ \item Intermediate coefficients, identified in the derivation but not used in the code:
+ \begin{itemize}
+  \item $g_i$ Gauss-Jackson corrector coefficients
+  \item $g'_i$ Gauss-Jackson predictor coefficients
+  \item $\sigma_i$ Summed-Adams corrector coefficients
+  \item $\sigma'_i$ Summed-Adams predictor coefficients
+ \end{itemize}
+ \item The processed coefficients in ordinate form:
+\begin{itemize}\label{sec:GJ_Math_Form_sum_arrays}
+ \item $A_{Ci}$\ \ \ code:\textit{sa\_corrector\_coeff}\ \   
+ Summed-Adams corrector coefficients (equation \ref{eq:A_Ci})
+ \item $A_{Ii}$\ \ \ code:\textit{sa\_corrector\_coeff}\ \   
+ Summed-Adams initializing coefficients (equation \ref{eq:A_Ii})
+ \item $A_{Pi}$\ \ \ code:\textit{sa\_predictor\_coeff}\ \   
+ Summed-Adams predictor coefficients (equation \ref{eq:A_Pi})
+ \item $G_{Ci}$\ \ \ code:\textit{gj\_corrector\_coeff}\ \   
+ Gauss-Jackson corrector coefficients (equation \ref{eq:G_Ci})
+ \item $G_{Ii}$\ \ \ code:\textit{gj\_corrector\_coeff}\ \   
+ Gauss-Jackson initializing coefficients (equation \ref{eq:G_Ii})
+ \item $G_{Pi}$\ \ \ code:\textit{gj\_predictor\_coeff}\ \   
+ Gauss-Jackson predictor coefficients (equation \ref{eq:G_Pi})
+\end{itemize}
+\item The operators:
+\begin{itemize}
+
+\item The backward-difference operator, $\nabla$:
+\begin{equation}
+\nabla x_{n}=x_{n}-x_{n-1}
+\end{equation}
+
+\item The displacement operator, \textit{E}:
+\begin{equation}
+Ex_{n}=x_{n+1}
+\end{equation}
+
+\item The differentiation operator, \textit{D}:
+\begin{equation}
+Dx_{n}=\dot{x}_{n}
+\end{equation}
+
+\item The corrector integration operator, \textit{L}:
+
+\begin{equation} \label{eq:L_def}
+x_{n}=x_{n-1}+hL({\dot{x}}_{n})
+\end{equation}
+
+\item The predictor integration operator, \textit{J}:
+
+\begin{equation} \label{eq:J_def}
+x_{n}=x_{n-1}+hJ({\dot{x}}_{n-1})
+\end{equation} 
+\end{itemize}
+\end{enumerate}
+
+
+\subsection{Applications of the Operators}
+\begin{itemize}
+
+
+\item Consider multiple applications of the backward-difference operator:
+
+\begin{equation*}
+\nabla^{2}x_{n} = \nabla x_{n}-\nabla x_{n-1} = 
+(x_{n}-x_{n-1})-(x_{n-1}-x_{n-2}) = x_{n}-2x_{n-1}+x_{n-2}
+\end{equation*}
+\begin{equation*}
+\nabla ^{3}x_{n} =  \nabla ^{2}x_{n}-\nabla ^{2}x_{n-1}  =
+(x_{n}-2x_{n-1}+x_{n-2})-(x_{n-1}-2x_{n-2}+x_{n-3})
+\end{equation*}
+
+In general, this follows the binomial:
+
+
+\begin{equation} \label{eq:del_binomial}
+ \nabla ^{i}x_{n}=\sum
+_{j=0}^{j=i}(-1)^{j}\left(\begin{matrix}i\\j\end{matrix}\right)x_{n-j}
+\end{equation}
+
+where  
+\begin{equation*}
+ \left(\begin{matrix}i\\j\end{matrix}\right)=\frac{i!}{j!(i-j)!}
+\end{equation*}
+
+
+\item Consider repetitive application of the displacement operator,
+\textit{E}.
+
+\begin{equation*}
+E^{m}x_{n}=x_{n+m}
+\end{equation*}
+
+This can be expanded as a Taylor series:
+
+\begin{equation*}
+E^{m}x_{n}=x_{n}+\mathit{mh}\dot{x}_{n}+
+\frac{(\mathit{mh})^{2}}{2!}\ddot{x}_{n}+
+\frac{(\mathit{mh})^{3}}{3!}\dddot{x}_{n}+...
+\end{equation*}
+
+\item Consider the relation between $E$ and $D$.
+Substituting the differentiation operator, \textit{D}, the Taylor
+expansion can be written as 
+
+\begin{equation}
+E^{m}x_{n}\ =\ \left(1+\mathit{mhD}+
+\frac{(\mathit{mh})^{2}}{2!}D^{2}+
+\frac{(\mathit{mh})^{3}}{3!}D^{3}+...\right)x_{n}\ =\ \ e^{\mathit{mhD}}x_{n}
+\end{equation}
+
+Consequently, $E$ and $D$ are related by 
+\begin{equation}
+\ln E=\mathit{hD}
+\end{equation}
+
+\item Consider the relation between $E$ and $\nabla$.
+
+\begin{equation*}
+E^{-1}x_{n}\ =\ x_{n-1}\ =\ x_{n}-\nabla x_{n}
+\end{equation*}
+
+Consequently,
+\begin{equation*}
+E^{-1} =1-\nabla 
+\end{equation*}
+
+\begin{equation} \label{eq:E_rel_del}
+E = \frac{1}{1-\nabla}
+\end{equation}
+
+\item Relation between $D$ and $\nabla$.
+Thus,
+\begin{equation}
+\mathit{hD}=\ln E=-\ln (1-\nabla )
+\end{equation}
+and
+\begin{equation}\label{eq:D_inv_rel_del}
+\frac{D^{-1}}{h}=-\frac{1}{\ln (1-\nabla )}
+\end{equation}
+\end{itemize}
+
+We need expressions for the integration operators, $J$ and $L$, in
+terms of $\nabla $, since this is the operator that allows us to
+access previous states.
+
+\subsection{Derivation of the Coefficients}\label{sec:math_form_gj_coeffs}
+
+\subsubsection{Adams-Moulton Coefficients}
+\label{sec:math_form_gj_adams_moulton}
+
+Consider the corrector operator, \textit{L},  first; it is the easier of the 
+two.
+
+The defining equation for the corrector operator (equation \ref{eq:L_def}):
+\begin{equation*}
+x_{n}=x_{n-1}+hL({\dot{x}}_{n})
+\end{equation*}
+
+Application of the backward-difference operator gives 
+$\nabla x_{n} = x_{n}-x_{n-1}$, which can be re-written as 
+$\nabla x_{n} = hL({\dot{x}}_{n})$, with the derivative expressable in terms 
+of the 
+ differentiation operator, \textit{D}.
+
+\begin{equation*}
+\nabla x_{n} = hL(D(x_{n}))
+\end{equation*}
+
+Consequently, from equation~\ref{eq:D_inv_rel_del} we have a relation between 
+$L$, $D$, and $\nabla $:
+
+\begin{equation} \label{eq:L_del_relation}
+L = \frac{\nabla D^{-1}}{h} = -\frac{\nabla }{\ln (1-\nabla )}
+\end{equation}
+
+Recognizing that the Taylor expansion of 
+$\ln (1-x) = -\left(x+\frac{x^{2}}{2}+\frac{x^{3}}{3}+...\right)$, we can
+write:
+
+\begin{equation}\label{eq:L_del_1}
+L=-{\frac{1}{1+\frac{\nabla }{2}+\frac{\nabla ^{2}}{3}+...}}
+\end{equation}
+
+
+We are looking for an expression for $L$ in terms of $\nabla $.  
+Writing $L$ as a power expansion of $\nabla$:
+
+\begin{equation}\label{eq:L_c_coeffs}
+L = \sum _{i=0}^{\infty}c_{i}\nabla ^{i}
+\end{equation}
+ 
+
+and substituting into equation~\ref{eq:L_del_1} and rearranging, we have:
+
+\begin{equation*}
+\left(\sum _{i=0}^{\infty}c_{i}\nabla ^{i}\right)
+\left(1+\frac{\nabla }{2}+\frac{\nabla ^{2}}{3}+...\right) = 1
+\end{equation*}
+
+Collecting powers of $\nabla $ yields:
+
+ $\begin{gathered}c_{0}=1\hfill \\\frac{c_{0}}{2}+c_{1}=0\hfill
+\\\frac{c_{0}}{3}+\frac{c_{1}}{2}+c_{2}=0\end{gathered}$
+
+etc.
+
+In general,
+\begin{equation}\label{eq:L_c_coeffs_eval}
+ c_{n}=-\sum _{i=0}^{n-1}{\frac{c_{i}}{n+1-i}}
+\end{equation}
+
+
+These represent the Adams-Moulton corrector coefficients, and are used
+in generating the final set of coefficients for the corrector side of
+the summed-Adams integrator, which is used in this implementation of the 
+Gauss-Jackson
+integrator for generating the state of the first derivative (e.g. velocity).
+
+These coefficients can be used to correct the current state, following
+calculation of the derivative of the state based on the previous
+calculation of the current state, for example:
+
+
+\begin{equation} \label{eq:adams_moulton}
+x_{n}=x_{n-1}+h\left(\sum _{i=0}^{\infty}c_{i}\nabla ^{i}\right)(\dot{x}_{n})
+\end{equation}
+
+The selected order of the integrator determines how many of
+these coefficients are needed; for reasons which may become apparent
+later, this implementation requires \textit{N+2} of these coefficients for
+an integrator of order N.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Adams-Bashforth Coefficients}
+
+Next consider the predictor integration operator, \textit{J}.
+
+The defining equation for the predictor operator (equation \ref{eq:J_def}):
+\begin{equation*}
+x_{n+1}=x_{n}+h\;J({\dot{x}}_{n})
+\end{equation*}
+
+Application of the backward-difference operator gives 
+$\nabla x_{n+1} = x_{n+1}-x_{n}$, which can be re-written as 
+$\nabla x_{n+1} = h\;J({\dot{x}}_{n})$, with the derivative expressable in 
+terms of the 
+ differentiation operator, \textit{D}, and the displacement operator, 
+ \textit{E}.
+
+\begin{equation*}
+\nabla x_{n+1} = h\;J(D(x_{n})) = h\;J(D(E^{-1}(x_{n+1})))
+\end{equation*}
+
+Rearranging and substituting from equations~\ref{eq:D_inv_rel_del} 
+and~\ref{eq:E_rel_del} gives:
+
+\begin{equation} \label{eq:J_del_relation}
+J = \frac{\nabla ED^{-1}}{h} = -\frac{\nabla }{(1-\nabla )\ln(1-\nabla )}
+\end{equation}
+
+Recognizing the similarities between equations
+\ref{eq:J_del_relation} and \ref{eq:L_del_relation}, the predictor integration
+operator can be written in terms of the backward-difference operator and the
+corrector integrator operator (for which we already have an expression in
+terms of the backward-difference operator):
+\begin{equation}
+J = (1-\nabla )^{-1}L 
+\end{equation}
+
+$J$ can now be written as a power expansion in $\nabla$, with coefficients 
+evaluated by writing $L$, and $(1-\nabla)^{-1}$ as power expansions (see 
+equation~\ref{eq:L_c_coeffs} for expansion of $L$):
+
+\begin{equation*}
+J=\left(\sum_{i=0}^{\infty }c'_{i}\nabla ^{i}\right) = 
+\left(1+\nabla +\nabla ^{2}+\nabla ^{3}+...\right)\left(\sum _{i=0}^{\infty 
+}c_{i}\nabla ^{i}\right)
+\end{equation*}
+
+Hence, by comparing powers of $\nabla$, the coefficients for $J$ can be 
+related to those for $L$:
+
+\begin{equation*}
+c'_{i}\ =\ \sum _{j=0}^{i}c_{j}\ =\ c'_{i-1}+c_{i}
+\end{equation*}
+
+These are the Adams-Bashforth predictor coefficients, and are used in
+generating the final set of coefficients for the predictor side of the
+summed-Adams integrator, which is used in this implementation of the 
+Gauss-Jackson
+integrator for generating the state of the first derivative (e.g. velocity).
+
+These coefficients can be used to predict the next state, following
+calculation of the derivative of the final, converged, value of the current 
+state.
+For example:
+
+
+\begin{equation} \label{eq:adams_bashforth}
+x_{n+1}=x_{n}+h\left(\sum _{i=0}^{\infty}c'_{i}\nabla ^{i}\right)(\dot{x}_{n})
+\end{equation}
+
+
+
+
+
+
+\subsubsection{St\"ormer-Cowell Coefficients}
+
+To obtain the coefficients for the second-order integrators, we need to
+apply the appropriate integrator operators twice.
+
+First, consider the expansion of $L^2$, with the expression for $L$ from 
+equation~\ref{eq:L_c_coeffs}:
+
+
+\begin{equation}\label{eq:L2_q_coeffs}
+L^{2}=
+\sum_{i=0}^{\infty }q_{i}\nabla ^{i} = 
+(c_{0}+c_{1}\nabla +c_{2}\nabla ^{2}+...)(c_{0}+c_{1}\nabla +c_{2}\nabla 
+^{2}+...)
+\end{equation}
+
+It is apparent that 
+\begin{equation}\label{eq:stormer_q_def}
+q_{i}=\sum _{j=0}^{i}c_{j}c_{i-j}
+\end{equation}
+
+The double-application of the corrector integrator operator, \textit{L} 
+yields:
+
+\begin{equation*}
+L^{2}({\ddot{x}}_{n})\ =\ \frac{x_{n}-2x_{n-1}+x_{n-2}}{h^{2}}
+\end{equation*}
+
+Consequently,
+
+
+\begin{equation} \label{eq:stormer_cowell}
+x_{n}=2x_{n-1}-x_{n-2}+h^{2}(\sum _{i=0}^{\infty
+}q_{i}\nabla ^{i})\ddot{x}_{n}
+\end{equation}
+
+This provides a convenient formula for obtaining the double integral; it
+is considered a \textit{corrector} because it relies on the second derivative
+at some point in order to generate the zeroth derivative at the same point.
+
+The values $q_i$ are the St\"ormer-Cowell coefficients, and are used in
+generating the final set of coefficients for the corrector side of the
+Gauss-Jackson integrator, which is used in this implementation of the 
+Gauss-Jackson
+integrator for generating the state of the zeroth derivative (e.g. position).
+
+
+
+
+
+
+
+\subsubsection{St\"ormer Coefficients}
+
+The comparative predictor coefficients can be obtained by application of
+the displacement operator again, just as we generated the
+Adams-Bashforth coefficients from the Adams-Moulton coefficients.
+
+
+\begin{equation*}
+L^{2}(E({\ddot{x}}_{n})) = \frac{x_{n+1}-2x_{n}+x_{n-1}}{h^{2}}
+\end{equation*}
+
+As with the derivation of the Adams-Bashforth coefficients,
+this can be expressed as a power series in $\nabla$:
+
+\begin{equation*}
+L^{2}(E({\ddot{x}}_{n})) = \left(\sum _{i=0}^{\infty}q'_{i}\nabla ^{i}\right)
+\left({\ddot{x}}_{n}\right) \Rightarrow
+\end{equation*}
+\begin{equation*}
+L^{2}E=L^{2}(1-\nabla )^{-1}=
+\left(\sum_{i=0}^{\infty }q_{i}\nabla ^{i}\right)(1+\nabla +\nabla ^{2}+...) =
+\left(\sum _{i=0}^{\infty}q'_{i}\nabla ^{i}\right)
+\end{equation*}
+
+with
+
+\begin{equation}\label{eq:stormer_qprime_def}
+q'_{i}\ =\ \sum _{j=0}^{i}q_{j}\ =\ q'_{i-1}+q_{i}
+\end{equation}
+\begin{equation*}
+q'_{0}=q_{0}=1
+\end{equation*}
+
+These coefficients are used to predict the next state, and for
+generating the predictor coefficients for the Gauss-Jackson integrator.
+
+
+\begin{equation} \label{eq:stormer}
+x_{n+1}=2x_{n}-x_{n-1}+h^{2}(\sum _{i=0}^{\infty}q'_{i}\nabla ^{i})
+\left({\ddot{x}}_{n}\right)
+\end{equation}
+
+This provides a convenient formula for obtaining the double integral; it
+is considered a \textit{predictor} because it relies on the second derivative
+at some point in order to generate the zeroth derivative at a point in the future.
+
+The values $q'_i$ are the St\"ormer coefficients, and are used in
+generating the final set of coefficients for the predictor side of the
+Gauss-Jackson integrator, which is used in this implementation of the Gauss-Jackson
+integrator for generating the state of the zeroth derivative (e.g. position).
+
+Note the similarity between this predictor form (equation \ref{eq:stormer}) 
+and the corrector form (equation \ref{eq:stormer_cowell}) shifted by one:
+
+\begin{equation*}
+x_{n+1}=2x_{n}-x_{n-1}+h^{2}(\sum _{i=0}^{\infty
+}q_{i}\nabla ^{i}){\ddot{x}}_{n+1}
+\end{equation*}
+
+This allows the easy recognition that:
+
+
+\begin{equation} \label{eq:q_qprime}
+\sum _{i=0}^{\infty }q_{i}\nabla ^{i}{\ddot{x}}_{n+1} =
+\sum _{i=0}^{\infty}q'_{i}\nabla ^{i}{\ddot{x}}_{n}
+\end{equation}
+
+\subsection{Summed Forms of the Integrators}
+
+The summed forms express the desired target value in terms of the appropriate
+derivatives and the \textit{summation operator}, $\nabla^{-1}$
+
+\subsubsection{Summed-Adams Corrector}
+
+The summed-Adams corrector is derived directly from the Adams-Moulton
+expressions (equation \ref{eq:adams_moulton}).
+
+\begin{equation*}
+x_{n}=x_{n-1}+h\left(\sum _{i=0}^{\infty
+}c_{i}\nabla ^{i}\right)(\dot{x}_{n})
+\end{equation*}
+
+The two zeroth derivative terms can
+be collected on the left hand side, and written in terms of the
+backward-difference operator,  $\nabla $.
+
+\begin{equation*}
+\nabla (x_{n})=h\left(\sum _{i=0}^{\infty }c_{i}\nabla ^{i}\right)(\dot{x}_{n})
+\end{equation*}
+
+Now applying  $\nabla ^{-1}$ to both sides, and pulling the first term
+$(c_{0}=1)$ out of the summation, yields:
+
+\begin{equation*}
+x_{n}=h\left(\nabla ^{-1}+\sum _{i=0}^{\infty}c_{i+1}\nabla ^{i}\right)(\dot{x}_{n})
+\end{equation*}
+
+The coefficients in the sum for the summed-Adams corrector are just
+those for the Adams-Moulton corrector, only offset by one position:
+
+
+\begin{equation} \label{eq:summed_adams_corrector}
+x_{n}=h\left(\nabla ^{-1}+\sum _{i=0}^{\infty }\sigma
+_{i}\nabla ^{i}\right)(\dot{x}_{n})
+\end{equation}
+with  $\sigma _{i}=c_{i+1}$
+
+\subsubsection{Summed-Adams Predictor}
+
+The summed-Adams predictor is derived from the Adams-Bashforth
+expressions in the same way as the corrector is derived from the Adams-Moulton
+expressions.
+
+
+\begin{equation} \label{eq:summed_adams_predictor}
+x_{n+1}=h\left(\nabla ^{-1}+\sum _{i=0}^{\infty }\sigma'_{i}\nabla ^{i}\right)
+(\dot{x}_{n})
+\end{equation}
+with  $\sigma '_{i}=c'_{i+1}$
+
+\subsubsection{Gauss-Jackson Corrector}
+
+The derivation of the Gauss-Jackson double integration expressions comes
+from the expressions of St\"ormer and Cowell in much the same way that
+the summed Adams were just derived.
+
+Notice the symmetry between
+$L^2$ and $\nabla ^{2}$:
+\begin{equation*}
+ \nabla x_n = hL(\dot{x}_n)
+\end{equation*}
+\begin{equation*}
+ \nabla^2 x_n = h^2L^2(\ddot{x}_n)
+\end{equation*}
+
+Thus, from equation~\ref{eq:L2_q_coeffs}:
+
+\begin{equation*}
+\nabla ^{2}(x_{n})=h^{2}\left(\sum _{i=0}^{\infty
+}q_{i}\nabla ^{i}\right)({\ddot{x}}_{n})
+\end{equation*}
+
+and $x_{n}$ can be written as
+
+\begin{equation*}
+x_{n}= 
+h^{2}\nabla ^{-2}\left(\sum _{i=0}^{\infty}q_{i}\nabla ^{i}\right)({\ddot{x}}_{n}) =
+h^{2}\left(\sum _{i=0}^{\infty}q_{i}\nabla ^{i-2}\right)({\ddot{x}}_{n})
+\end{equation*}
+
+Consider the first two terms in the summation, as defined in the derivation of the St\"ormer-Cowell coefficients. 
+
+\begin{equation*}
+\begin{gathered}q_{0}=c_{0}c_{0}=1\hfill
+\\q_{1}=c_{0}c_{1}+c_{1}c_{0}=-1\end{gathered}
+\end{equation*}
+
+Pulling these out of the summation term yields:
+
+\begin{equation*}
+x_{n} =
+h^{2}\left(\nabla ^{-2}-\nabla ^{-1}+\sum _{i=0}^{\infty}q_{i+2}\nabla ^{i}\right)
+({\ddot{x}}_{n}) =
+h^{2}\left(\nabla ^{-2}(1-\nabla )+\sum_{i=0}^{\infty }q_{i+2}\nabla ^{i}\right)
+({\ddot{x}}_{n})
+\end{equation*}
+
+Recall that $E^{-1} = (1-\nabla)$ (equation \ref{eq:E_rel_del})
+
+\begin{equation*}
+x_{n}\ =\ h^{2}\left(\nabla ^{-2}E^{-1}+\sum _{i=0}^{\infty
+}q_{i+2}\nabla ^{i}\right)({\ddot{x}}_{n})
+\end{equation*}
+
+Thus
+\begin{equation}
+x_{n} = h^{2}\left(
+\nabla ^{-2}({\ddot{x}}_{n-1})+
+\sum _{i=0}^{\infty}g_{i}\nabla ^{i}({\ddot{x}}_{n})
+\right)
+\end{equation}
+with  $g_{i}=q_{i+2}$.
+
+This is the Gauss-Jackson corrector formulation, with coefficients equal to
+those from the St\"ormer-Cowell, but displaced by two. The additional term at
+the front has to be handled separately.
+
+
+
+\subsubsection{Gauss-Jackson Predictor}
+
+The same analysis can be applied to the St\"ormer predictor
+representation, starting with the same comparison between $\nabla ^2$ and 
+$L^2$:
+
+\begin{equation*}
+\nabla ^{2}x_{n+1}=h^{2}L^2\ddot{x}_{n+1} = 
+h^2\left(\sum _{i=0}^{\infty
+}q_{i}\nabla ^{i}{\ddot{x}}_{n+1}\right)
+\end{equation*}
+
+
+Substituting the St\"ormer predictor coefficients in place of the 
+St\"ormer-Cowell
+corrector coefficients (see equation \ref{eq:q_qprime}) produces:
+
+\begin{equation*}
+\nabla ^{2}x_{n+1}=h^{2}\left(\left(q_0+q_1 \nabla \right) \ddot x_{n+1} + 
+\sum _{i=2}^{\infty
+}q'_{i}\nabla ^{i}{\ddot{x}}_{n}\right)
+\end{equation*}
+
+Continuing now with the same analysis, produces:
+
+\begin{equation*}
+x_{n+1} = h^{2}\left(\nabla ^{-2}(1-\nabla){\ddot{x}}_{n+1} + 
+\sum_{i=0}^{\infty} q'_{i+2}\nabla ^{i}{\ddot{x}}_{n} \right)
+\end{equation*}
+
+Thus,
+
+\begin{equation}
+x_{n+1} = h^{2}\left(\nabla ^{-2}({\ddot{x}}_{n})+\sum _{i=0}^{\infty
+}g'_{i}\nabla ^{i}({\ddot{x}}_{n})\right)
+\end{equation}
+
+with  $g'_{i}=q'_{i+2}$.
+
+
+\subsection{Ordinate Forms of the Integrators}
+
+Both the summed-Adams and Gauss-Jackson forms have two sets of
+components. The first is a power of the summation operator 
+(the inverse backward-difference operator),  $\nabla ^{-1}$, and the
+second is the summation over applications of the backward-difference
+operator.
+
+The first term appears relatively straightforward; it applies to only one
+historical data value, and can be iteratively traced back, all the way
+to the epoch.  The derivation of that iterative trace is investigated in section
+\textref{Summation Term}{sec:summation_term}.
+The second term is more complex; at each evaluation
+step, the backward-difference operator must be applied some number of
+times to each of the historical data points, up to the desired order of
+the integrator. An alternative form, the \textit{ordinate} form,
+handles much of that summation by assigning a new set of coefficients.
+This is investigated in the section 
+\textref{Ordinate Form Summations}{sec:ordinate_form_summations}.
+
+
+\subsection{Ordinate Form Summations}\label{sec:ordinate_form_summations}
+
+\subsubsection{Summed-Adams Corrector}
+We saw earlier (equation \ref{eq:del_binomial}) that the powers of the 
+backward-difference operator could be written as
+
+\begin{equation*}
+\nabla ^{i}x_{n}=\sum
+_{j=0}^{i}(-1)^{j}\left(\begin{matrix}i\\j\end{matrix}\right)x_{n-j}
+\end{equation*}
+
+Consider the summed-Adams corrector (equation \ref{eq:summed_adams_corrector},
+truncated at the order of the integrator, \textit{N}:
+\begin{equation*}
+x_{n}=h\left(\nabla ^{-1}+\sum _{i=0}^{N}\sigma
+_{i}\nabla ^{i}\right)(\dot{x}_{n})
+\end{equation*}
+
+The summed term can be expressed as:
+
+\begin{equation*}
+\sum _{i=0}^{N}\sigma _{i}\nabla ^{i}(\dot{x}_{n}) =
+\sum _{i=0}^{N}\sigma_{i}\sum_{j=0}^{i}(-1)^{j}
+\left(\begin{matrix}i\\j\end{matrix}\right)
+\dot{x}_{n-j} = 
+\sum_{j=0}^{N}\left[(-1)^{j}\sum _{i=0}^{N}\sigma_{i}
+\left(\begin{matrix}i\\j\end{matrix}\right)\right]{\dot{x}}_{n-j}
+\end{equation*}
+
+
+Thus, the summed-Adams corrector coefficients are expressed in ordinate
+form, with coefficients expressed in terms of the coefficients from the
+summed-Adams corrector coefficients.
+
+Letting
+
+\begin{equation} \label{eq:A_Ci}
+A_{Ci}=(-1)^{i}\sum _{j=i}^{N}\sigma
+_{j}\left(\begin{matrix}j\\i\end{matrix}\right)
+\end{equation}
+
+the first-order corrector form becomes:
+
+\begin{equation} \label{eq:sa_corr_form}
+x_{n}=h\left(\nabla ^{-1}(\dot{x}_{n})+\sum
+_{i=0}^{N}A_{Ci}{\dot{x}}_{n-i}\right)
+\end{equation}
+
+Note that the new coefficients $A_{Ci}$ do not depend on the previous states, so may be
+calculated once for any given value \textit{N}.  The use of these coefficients
+simplifies the application from the multiple application of powers of the $\nabla $
+operator to the state $\dot{x}_n$, replacing it with the sum over scaled values
+of the historical state values, $\dot{x}_{n-i}$. 
+
+
+\subsubsection{Summed-Adams Predictor}
+Similarly, the summed term in the summed-Adams predictor expression
+(equation \ref{eq:summed_adams_predictor}):
+\begin{equation*}
+x_{n+1}=h\left(\nabla ^{-1}+\sum _{i=0}^{\infty }\sigma'_{i}\nabla ^{i}\right)
+(\dot{x}_{n})
+\end{equation*}
+
+can be written as
+ 
+\begin{equation} \label{eq:sa_pred_form}
+x_{n+1}=h\left(\nabla ^{-1}(\dot{x}_{n})+\sum
+_{i=0}^{N}A_{Pi}{\dot{x}}_{n-i}\right)
+\end{equation}
+
+with ordinate coefficients expressed in terms of the coefficients from the
+summed-Adams predictor coefficients:
+
+\begin{equation} \label{eq:A_Pi}
+A_{Pi}=(-1)^{i}\sum _{j=i}^{N}\sigma
+'_{j}\left(\begin{matrix}j\\i\end{matrix}\right)
+\end{equation}
+
+\subsubsection{Gauss-Jackson Corrector}
+For the Gauss-Jackson corrector in ordinate form, we obtain
+
+
+\begin{equation} \label{eq:gj_corr_form}
+x_{n}\ =\ h^{2}\left(\nabla ^{-2}({\ddot{x}}_{n-1})+\sum
+_{i=0}^{N}G_{Ci}({\ddot{x}}_{n-i})\right)
+\end{equation}
+with 
+
+
+\begin{equation} \label{eq:G_Ci}
+G_{Ci}=(-1)^{i}\sum
+_{j=i}^{N}g_{j}\left(\begin{matrix}j\\i\end{matrix}\right)
+\end{equation}
+
+\subsubsection{Gauss-Jackson Predictor}
+For the Gauss-Jackson predictor in ordinate form, we obtain
+
+\begin{equation} \label{eq:gj_pred_form}
+x_{n+1}\ =\ h^{2}\left(\nabla ^{-2}({\ddot{x}}_{n})+\sum
+_{i=0}^{N}G_{Pi}({\ddot{x}}_{n-i})\right) 
+\end{equation}
+with 
+
+\begin{equation} \label{eq:G_Pi}
+G_{Pi}=(-1)^{i}\sum
+_{j=i}^{N}g'_{j}\left(\begin{matrix}j\\i\end{matrix}\right)
+\end{equation}
+
+
+
+\subsection{Generation of the Summation Term}\label{sec:summation_term}
+
+\subsubsection{Adams-sum} \ \newline
+The first order summation term is referred to in the code as the
+\textit{adams\_sum}.
+
+Recall that the backward difference operator is defined as 
+$\nabla  x_{n}=x_{n}-x_{n-1}$. Therefore, the inverse can be found
+recursively:
+
+\begin{eqnarray*}
+x_{n} & = & \nabla ^{-1}x_{n}-\nabla ^{-1}x_{n-1}\ \Rightarrow \\
+\nabla ^{-1}x_{n} & = & x_{n}+\nabla ^{-1}x_{n-1} \\ 
+& = & x_{n}+x_{n-1}+x_{n-2}+...+x_{1}+\nabla ^{-1}x_{0}
+\end{eqnarray*}
+
+Hence, the value  $\nabla ^{-1}{{x}}_{n}$ can be found
+by iterative summation (hence the name, \textit{summation operator}).
+The same result can be applied to the derivative terms.
+
+Let the \textit{adams-sum} be defined as
+\begin{equation}
+\alpha_{n} \equiv \nabla ^{-1}\ddot{x}_{n}=\alpha_{n-1}+\ddot{x}_{n}
+\end{equation}
+
+
+It remains only to identify the value of the summation operator applied
+to the epoch,  $\nabla ^{-1}{\ddot{x}}_{0}$ in order to find the value of the
+summation operator applied to any point in the future.
+
+Consider the summed-Adams corrector, expressed in ordinate form at the
+epoch, applied to the first-derivative (as it is in this integration algorithm).
+
+\begin{equation*}
+\dot x_{0}=h\left(\nabla ^{-1}{\ddot{x}}_{0}+\sum
+_{i=0}^{N}A_{{Ci}}({\ddot{x}}_{-i})\right)
+\end{equation*}
+With an evaluation of the summed-term, and knowledge of the epoch state,
+the epoch summation term can be evaluated.
+
+However, this form is not particularly useful, because it requires \textit{N+1}
+pre-epoch second-derivative values, which we do not have. We do, however,
+have \textit{N+1} points around epoch (i.e. the priming points). Suppose there are
+\textit{m} post-epoch priming points and \textit{N-m}
+pre-epoch priming points (typically, for \textit{N} even,  $m=\frac{N}{2}$,
+and for \textit{N} odd,  $m=\frac{N+1}{2}$); these can all be accessed
+by very careful applications of the displacement
+operator, \textit{E} (recall that $E^{-1} = 1-\nabla $).
+
+A trivial application to the summed-term in its current truncated form yields:
+\begin{equation*}
+\sum _{i=0}^{N}A_{Ci}({\ddot{x}}_{-i}) =
+\sum_{i=0}^{N}A_{Ci}(E^{-m}E^{m}({\ddot{x}}_{-i})) =
+\sum_{i=0}^{N}A_{Ci}(1-\nabla )^{m}({\ddot{x}}_{m-i})
+\end{equation*}
+
+In this form, we are using only the known values of the derivative, but
+have incorporated additional difference operators, which have pushed
+the integrator beyond order \textit{N}, and done so inconsistently --
+the term $\ddot{x}_{m-N-1}$ has been eliminated from direct contribution by
+truncation of the sum, but indirectly included with terms such as 
+$\nabla  \ddot{x}_{m-N}$, and $\nabla ^m \ddot{x}_{2m-N-1}$.
+
+Correctly truncating the series at \textit{N} requires that we go
+back to the regular form.
+
+Consider the same application of the displacement operator to the regular form
+(equation \ref{eq:summed_adams_corrector})
+\begin{equation*}
+\dot x_{0}=h\left(\nabla ^{-1}+\sum _{i=0}^{\infty }\sigma
+_{i}\nabla ^{i}\right)(\ddot{x}_{0})=
+h\left(\nabla ^{-1}{\ddot{x}}_{0}+\sum _{i=0}^{\infty}\sigma
+_{i}(1-\nabla )^{m}\nabla ^{i}(\ddot{x}_{m})\right)
+\end{equation*}
+
+The summed-term can be written in its binomial expansion:
+\begin{equation*}
+\sum _{i=0}^{\infty}\sigma_{i}(1-\nabla )^{m}\nabla ^{i} = 
+\sum _{i=0}^{\infty}\sigma_{i}
+\sum_{j=0}^{m}(-1)^{j}\left(\begin{matrix}m\\j\end{matrix}\right)\nabla ^{j+i}
+\end{equation*}
+
+Now we can more accurately truncate the series at \textit{N} by truncating
+$j+i \leqslant N$, thereby recognizing that the index \textit{j} is
+additionally constrained by  $j\leqslant N-i$.
+
+Thus,
+\begin{equation*}
+\sum _{i=0}^{\infty}\sigma _{i}(1-\nabla )^{m}\nabla ^{i}\ \approx 
+\sum_{i=0}^{N}\sigma_{i}
+\left(\sum_{j=0}^{min(m,(N-i))}(-1)^{j}
+\left(\begin{matrix}m\\j\end{matrix}\right)
+\right)
+\nabla ^{i+j}
+\end{equation*}
+
+Notice that this covers every combination, subject to the constraints:
+
+\begin{equation*}
+(0\leqslant j\leqslant N-i)\ and\ (0\leqslant j\leqslant m)\ and\ 
+(0\leqslant i\leqslant N)
+\end{equation*}
+
+Notice that  $i\leqslant N$ is made redundant by the
+constraints, $(i+j\leqslant N)$ and $(0\leqslant j)$.
+
+Letting  $k=i+j$, then we have:
+\begin{eqnarray*}
+i \geqslant 0 &\Rightarrow & 0\leqslant i+j = k \\
+i \geqslant 0 &\Rightarrow & j\leqslant i+j = k \\
+j \leqslant N-i &\Rightarrow & k = i+j \leqslant N \\
+\end{eqnarray*}
+
+and the constraints become:
+\begin{equation*}
+(0\leqslant k\leqslant N)\ and\ (0\leqslant j\leqslant m)\ and\ (j\leqslant k) 
+\end{equation*}
+
+
+
+Subject to these constraints, the sum can be regrouped:
+\begin{equation*}
+\sum_{i=0}^{N}\sigma_{i}
+\left(\sum_{j=0}^{min(m,(N-i))}(-1)^{j}
+\left(\begin{matrix}m\\j\end{matrix}\right)
+\right)
+\nabla ^{i+j} =
+\sum_{k=0}^{N}\sigma_{k-j}
+\left(\sum_{j=0}^{min(m,k)}(-1)^{j}
+\left(\begin{matrix}m\\j\end{matrix}\right)
+\right)
+\nabla ^{k}
+\end{equation*}
+
+Thus,
+
+\begin{equation*}
+\sum_{i=0}^{\infty}\sigma _{i}(1-\nabla )^{m}\nabla ^{i}\approx
+\sum _{i=0}^{N}\left(\kappa_{mi}\nabla ^{i}\right)
+\end{equation*}
+
+with
+\begin{equation*}
+\kappa_{mi} \equiv
+\sum_{j=0}^{min(m,i)}(-1)^{j}
+\left(\begin{matrix}m\\j\end{matrix}\right)
+\sigma_{i-j}
+\end{equation*}
+
+
+The correctly truncated form is then:
+\begin{equation*}
+\dot x_{0} \approx h\left( \nabla ^{-1}\ddot{x}_{0} + 
+\sum_{i=0}^{N}\kappa_{mi}\nabla ^i \ddot{x}_m \right)
+\end{equation*}
+
+
+Now performing the translation to ordinate form of the correctly truncated version produces:
+
+
+\begin{equation} \label{eq:x0dot}
+\dot x_{0} = h\left(\nabla ^{-1}({\ddot{x}}_{0})+
+\sum_{i=0}^{N}A_{Ii}{\ddot{x}}_{m-i}\right)
+\end{equation}
+where
+
+\begin{equation} \label{eq:A_Ii}
+A_{Ii}=(-1)^{i}\sum _{j=i}^{N}\kappa
+_{mj}\left(\begin{matrix}j\\i\end{matrix}\right)
+\end{equation}
+
+From here, it is easy to obtain the expression for the initial term in
+the \textit{adams\_sum} series, given a complete set of priming points.
+
+The adams-sum, 
+\begin{equation}
+\alpha _{n} \equiv \nabla ^{-1} \ddot{x}_{n} = \ddot{x}_{n}+\alpha_{n-1}=
+\ddot{x}_{n}+\ddot{x}_{n-1}+...+\ddot{x}_{1}+\alpha_{0}
+\end{equation}
+
+with
+\begin{equation*}
+\alpha_0 \equiv \nabla ^{-1}\ddot{x}_{0}=\frac{\dot{x}_{0}}{h}-\sum_{i=0}^{N}A_{Ii}\ddot{x}_{m-i}
+\end{equation*}
+(by equation \ref{eq:x0dot})
+
+\subsubsection{Gauss-sum}\ \newline
+The second-order summation term is referred to in the code as the
+\textit{gauss\_sum}. The derivation is a little more complicated, but follows
+a similar process.
+
+Let the \textit{gauss-sum} 
+\begin{equation}
+\gamma _{n} \equiv \nabla ^{-2} \ddot{x}_{n}
+\end{equation}
+
+Inverting the double application of $\nabla $ 
+\begin{equation*}
+\nabla ^2 x_n = x_n - 2 x_{n-1} + x_{n-2}
+\end{equation*}
+and then expanding each term yields:
+ 
+
+\begin{equation} \label{eq:del2_xn_1}
+\nabla ^{-2} x_n = x_{n} + 2\nabla ^{-2}x_{n-1} - \nabla ^{-2}x_{n-2}
+\end{equation}
+
+Write  $p_{n}=\nabla ^{-2}x_{n}-\nabla ^{-2}x_{n-1}$; then by simple substitution: 
+\begin{equation*}
+\nabla ^{-2}x_{n} = x_{n}+\nabla ^{-2}x_{n-1}+p_{n-1}
+\end{equation*}
+
+Also, since $\nabla ^{-1}x_{n}=x_{n}+x_{n-1}+...+\nabla ^{-1}x_{0}$ 
+\begin{eqnarray*}
+p_{n} & = &\nabla ^{-1}(\nabla ^{-1}x_{n})-\nabla ^{-1}(\nabla ^{-1}x_{n-1}) \\
+ & = & \nabla ^{-1}(x_{n}+x_{n-1}+...+\nabla ^{-1}x_{0})- \nabla ^{-1}
+        (x_{n-1}+x_{n-2}+...+\nabla ^{-1}x_{0})\\
+ & = & \nabla ^{-1}x_n
+\end{eqnarray*}
+
+Hence, 
+\begin{equation} \label{eq:del2_xn}
+\nabla ^{-2}x_{n} = x_{n}+\nabla ^{-2}x_{n-1}+\nabla ^{-1}x_{n-1}
+\end{equation}
+
+Thus, 
+\begin{equation}
+\gamma_n = \ddot{x}_n + \gamma_{n-1} + \alpha_{n-1}
+\end{equation}
+
+(i.e. the sum of this term, the previous iteration of the
+\textit{gauss-sum} term, and the previous iteration of the
+\textit{adams-sum }term, making the gauss-sum evaluation
+intrinsically dependant upon the adams-sum evaluation).
+
+Note that there are inevitably two constant terms in this expression,
+ultimately $\gamma_0$ and $\alpha_0$.  The latter of these we have already
+found; the former can be determined using the same methods.
+
+Consider the evaluation at epoch:
+
+\begin{equation*}
+x_{0}=h^{2}\left(\nabla ^{-2}{\ddot{x}}_{-1}+
+\sum_{i=0}^{N}g_{i}(1-\nabla )^{m}\nabla ^{i}({\ddot{x}}_{m})\right)
+\end{equation*}
+
+Combining equations \ref{eq:del2_xn_1} and \ref{eq:del2_xn} 
+\begin{equation*}
+\nabla ^{-2}x_{1} = x_{1}+2 \nabla ^{-2}x_{0} - \nabla ^{-2}x_{-1} = x_{1}+\nabla ^{-2}x_{0}+\nabla ^{-1}x_{0}
+\end{equation*}
+yields
+\begin{equation*}
+\nabla ^{-2}x_{-1}=\nabla ^{-2}x_{0}-\nabla ^{-1}x_{0}
+\end{equation*}
+
+Hence,
+\begin{equation*}
+x_{0}=h^{2}\left(\gamma_{0}-\alpha_{0}+\sum
+_{i=0}^{N}g_{i}(1-\nabla )^{m}\nabla ^{i}({\ddot{x}}_{m})\right)
+\end{equation*}
+
+Following the same method as for the \textit{adams-sum}, the summed term
+can be written in ordinate form:
+
+\begin{equation*}
+\sum_{i=0}^{N}g_{i}(1-\nabla )^{m}\nabla ^{i} =
+\sum_{i=0}^{N}\left(\lambda_{mi}\right)\nabla ^{i}
+\end{equation*}
+with
+\begin{equation*}
+\lambda_{mi} \equiv \sum_{j=0}^{min(m,i)}(-1)^{j}
+\left(\begin{matrix}m\\j\end{matrix}\right) g_{i-j}
+\end{equation*}
+Then:
+
+\begin{equation*}
+x_{0}=h^{2}\left(\gamma_{0}-\alpha_{0}+
+\sum_{i=0}^{N}G_{Ii} \ddot{x}_{m-i}\right)
+\end{equation*}
+
+where
+
+\begin{equation} \label{eq:G_Ii}
+G_{Ii}=(-1)^{i}\sum_{j=i}^{N}\lambda_{mj}\left(
+\begin{matrix}j\\i\end{matrix}\right)
+\end{equation}
+
+Now, with knowledge of  $\alpha_0 = \nabla ^{-1}{\ddot{x}}_{0}$ from the
+\textit{adams\_sum}, it is clear that
+
+\begin{equation}
+\gamma_0 = \nabla ^{-2}{\ddot{x}}_{0}=\frac{x_{0}}{h^{2}}+\nabla ^{-1}({\ddot{x}}_{0})-
+\sum_{i=0}^{N}G_{Ii}{\ddot{x}}_{m-i}
+\end{equation}
+
+
+\section{Putting it together}
+
+Consider the current state, \textit{n}, moving to the next state, \textit{n+1}.
+This next state must first be predicted and then corrected for the
+determination of both the first-derivative state (e.g. velocity) using
+the Summed-Adams formulation, and for the zeroth-derivative state
+(e.g. position) using the Gauss-Jackson formulation.
+
+\subsection{Summed-Adams}\label{sec:math_form_summary_sa}
+\begin{itemize}
+ \item Predictor:
+\begin{equation}\label{eq:sa_predictor}
+\dot{x}_{n+1}=h\left(\alpha _{n}+\sum_{i=0}^{N}A_{Pi}\ \ddot{x}_{n-i}\right)
+\end{equation}
+\item Corrector:
+\begin{equation}\label{eq:sa_corrector}
+\dot{x}_{n+1}=h\left(\alpha_{n+1}+\sum_{i=0}^{N}A_{Ci}\ \ddot{x}_{n+1-i}\right)
+\end{equation}
+\end{itemize}
+
+
+With the \textit{adams-sum} defined as:
+
+\begin{equation*} 
+\alpha_{n}= \alpha_{n-1}+\ddot{x}_n
+\end{equation*}
+
+and
+\begin{equation*} 
+\alpha_{0} =\frac{\dot{x}_0}{h}-\sum_{i=0}^{N}A_{Ii}\ddot{x}_{m-i}
+\end{equation*}
+
+
+The corrector term must be repeatedly evaluated and corrected as a
+function of the second derivative of the state being calculated (
+${\ddot{x}}_{n+1}$). It therefore makes sense to divide this into two
+parts, one that is already determined, and one that is variable.
+
+(Note that  ${\alpha }_{n+1}={\alpha }_{n}+{\ddot{x}}_{n+1}$ is naturally
+separated into known and unknown parts, also).
+
+\begin{equation}\label{eq:ACO_offset}
+{\dot{x}}_{n+1}=h\left(\left(\alpha_{n}+
+\sum_{i=1}^{N}A_{Ci} \ddot{x}_{(n+1)-i)}\right)+(1+A_{C0}) 
+\ddot{x}_{n+1}\right)
+\end{equation}
+By the time the corrector phase is entered, the derivative
+history will include  $\ddot{x}_{n+1}$ as the most recent back-point (stored 
+at position $0$ in the array).  Position $1$ will give 
+$\ddot{x}_{n}$, position $2$ $\ddot{x}_{n-1}$, etc. Hence, both
+$A_{Ci}$ and $\ddot{x}_{(n+1)-i)}$ are at position $i$ in their respective
+arrays.
+
+Note -- because this is the only place that the coefficient 
+$A_{C0}$ is used, the corresponding value in the code,
+\textit{sa\_corrector\_coeff[0]} is given the value 
+$A_{C0}+1$. All other elements
+\textit{sa\_corrector\_coeff[i]} are given the value $A_{Ci}$.
+
+\subsection{Gauss-Jackson}
+\begin{itemize}
+ \item Predictor:  
+\begin{equation}\label{eq:gj_predictor}
+ x_{n+1}\ =\ h^{2}\left(\gamma_{n}+
+ \sum_{i=0}^{N}G_{Pi}({\ddot{x}}_{n-i})\right)
+\end{equation}
+
+\item Corrector:
+\begin{equation}\label{eq:gj_corrector}
+x_{n+1}\ =\ h^{2}\left(\gamma _{n}+
+\sum_{i=0}^{N}G_{Ci}({\ddot{x}}_{n+1-i})\right)
+\end{equation}
+\end{itemize}
+With the \textit{gauss-sum} defined as:
+
+\begin{equation*}
+\gamma _{n}=\gamma_{n-1}+\alpha _{n-1}+ \ddot{x}_{n}
+\end{equation*}
+
+and
+\begin{equation*}
+\gamma_{0} =\frac{x_0}{h^2}+\alpha_{0}-\sum_{i=0}^{N}G_{Ii} \ddot{x}_{m-i}
+\end{equation*}
+
+
+Similarly, this corrector term can be broken into a determined and a 
+variable component:
+
+\begin{equation*}
+x_{n+1} = h^{2}\left(\left(\gamma _{n}+\sum
+_{i=1}^{N}G_{Ci}(\ddot{x}_{(n+1)-i})\right)+G_{C0}(\ddot{x}_{n+1})\right)
+\end{equation*}
+
+with both
+$G_{Ci}$ and $\ddot{x}_{(n+1)-i)}$ at position $i$ in their respective
+arrays.

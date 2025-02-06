@@ -1,0 +1,128 @@
+See the \href{file:refman.pdf}{Reference Manual}\cite{thermalbib:ReferenceManual} for a summary of member data and member methods for all classes.  This section describes the functional operation of the methods in each class.
+
+Objects are presented in alphabetical order.
+Methods are presented in alphabetical order within the object in
+which they are located.  
+
+\begin{enumerate}
+\classitem{ThermalFacetRider} Base-class
+
+This is the rider that attaches to a particular instance of the
+generic and virtual InteractionFacet object.
+
+{\bf Methods:}
+
+\begin{enumerate}
+
+\funcitem{accumulate\_thermal\_sources}\label{ref:facetaccumulatethermalsources}
+
+It is assumed that any external, model-specific, heating sources have
+already been accumulated (e.g., as a result of radiative absorption
+(\textit{radiation\_pressure}), or aerodynamic drag heating
+(\textit{aerodynamics})).  This method is intended to be used to
+accumulate vehicular sources of energy, such as a power sink/source
+from within the vehicle, or conduction between facets.
+
+\funcitem{initialize}\label{ref:facetinitialize}
+When the facet is initialized, we set both the
+\textit{dynamic\_temperature}
+(that is the operating temperature) and the
+\textit{next\_temperature} (the operating temperature predicted at
+the end of the current integration step) to the initialization value.
+
+The radiative emission, known from equation \ref{eqn:thermalemission} to be 
+$P_{emit} = \epsilon \sigma A T^4$ must be
+calculated repeatedly.  Three of those values are constants, so those
+are stored together in a new variable, \textit{rad\_constant
+=}$\epsilon \sigma A$.
+
+
+\funcitem{integrate}\label{ref:facetintegrate}
+The integration routine is described in detail in the
+\textref{integrator}{ref:thermalRK4integrator} description found in
+the Mathematical Formulation section of this document.
+\end{enumerate}
+
+
+\classitem{ThermalIntegrableObject}er7\_utils::IntegrableObject 
+
+This is a derived class of a generic object specialized for thermal
+integration which can be integrated by JEOD.
+
+{\bf Methods:}
+
+\begin{enumerate}
+
+\funcitem{compute\_temp\_dot}\label{ref:integratecomputetempdot}
+Computes the time derivative of temperature and the 
+instantaneous rate of emission.
+
+\funcitem{create\_integrators}\label{integratecreateintegrators}
+Required by \textit{er7\_utils::IntegrableObject}
+
+
+\funcitem{destroy\_integrators}\label{integratedestroyintegrators}
+Required by \textit{er7\_utils::IntegrableObject}
+
+
+\funcitem{initialize}\label{ref:integrateinitialize}
+Sets the initial temperature and caches a pointer to the
+\textit{ThermalFacetRider} associated with the facet to be integrated.
+
+
+\funcitem{integrate}\label{ref:integrateintegrate}
+Implements the \textit{integrate} method of 
+\textit{er7\_utils::IntegrableObject}
+
+
+\funcitem{get\_temp}\label{integrategettemp}
+Accessor method for the temperature
+
+\funcitem{get\_temp\_dot}\label{integrategettempdot}
+Accessor method for time derivative of temperature.
+
+
+\funcitem{reset\_integrators}\label{integrateresetintegrators}
+Required by \textit{er7\_utils::IntegrableObject}
+\end{enumerate}
+
+
+\classitem{ThermalMessages}
+  Base-class
+
+This is the message handler for the \ThermalRiderDesc.  It has
+no methods.
+
+
+
+\classitem{ThermalModelRider}
+  Base-class
+
+This is the object that rides on the interaction model directly.
+
+
+{\bf Methods:}
+
+\begin{enumerate}
+\funcitem{update}
+If the model is to include thermal sources coming from within the
+vehicle, the \textit{model} method \textit{accumulate\_thermal\_sources} is called,
+which ultimately calls the \textit{facet} method
+\textref{accumulate\_thermal\_sources}{ref:facetaccumulatethermalsources}
+for each of the facets.
+
+If the temperature of the surface is intended to be dynamic, the
+routine \textit{thermal\_integrator} is called
+which ultimately calls 
+\textref{integrate}{ref:facetintegrate} for each of the facets.
+\end{enumerate}
+
+\classitem{ThermalParams}
+  Base-class
+
+This class contains the collection of data for a thermal facet; it
+contains no methods.
+
+
+\end{enumerate}
+

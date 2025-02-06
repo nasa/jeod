@@ -1,0 +1,174 @@
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+
+\section{Project Requirements}
+\requirement{Top-level Requirement}
+\label{reqt:toplevel}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale]
+  This model shall, at a minimum,  meet all external and
+  internal requirements 
+  applied to the \JEODid\ release.
+\item[Verification]
+  Inspection 
+\end{description:}
+
+\requirement{Ephemeris Items}
+\label{reqt:ephem_items}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide the ability to represent and operate on
+  the ephemeris items described by some ephemeris model.
+  \subrequirement{Basic capabilities.}
+  \label{reqt::ephem_item_base}
+  Each ephemeris item shall have a settable and gettable name and timestamp
+  and shall be capable of being enabled/disabled and activated/deactivated.
+  \subrequirement{Position and velocity of a point in space.}
+  \label{reqt::ephem_point}
+  An ephemeris point shall extend the ephemeris item capabilities by
+  providing the ability to represent and update the translational state
+  (position and velocity) of some point in space associated with some
+  inertial frame of reference.
+  \subrequirement{Position and velocity of a planet.}
+  \label{reqt::ephem_planet}
+  An ephemeris planet shall extend the ephemeris point capabilities
+  for points in space associated with the center of mass of a planetary body.
+  \subrequirement{Orientation and angular velocity of a planet.}
+  \label{reqt::ephem_orientation}
+  An ephemeris orientation shall extend the ephemeris item capabilities
+  by providing the ability to represent and update the rotational state
+  (orientation and angular velocity) of some planet-fixed reference frame.
+\item[Rationale]
+The JPL Developmental Ephemerides provide position and velocity of the Sun,
+the planets and the Moon and also provide the orientation and angular velocity
+of the Moon.
+\item[Verification]
+  Inspection, Test
+\end{description:}
+
+
+\requirement{Ephemeris Interface}
+\label{reqt:ephem_interface}
+\begin{description:}
+\item[Requirement]
+  An ephemeris model provides state information on one or more planetary
+  object. A framework that characterizes in generic terms what constitutes
+  a JEOD-compliant ephemeris model is needed to enable the use of
+  different ephemerides in JEOD.
+  \subrequirement{Base class.}
+  \label{reqt:ephem_interface_class}
+  The \ModelDesc shall define a framework that prescribes the behavior of
+  any implementation of a JEOD-compliant ephemeris model.
+  \subrequirement{Derived classes.}
+  \label{reqt:ephem_interface_extensions}
+  A JEOD-compliant implementation of an ephemeris model shall be
+  capable of being initialized, activated, updated, and shall build the
+  elements of the reference frame tree described by the ephemeris model
+  consonant with the way in which JEOD calculates gravitational acceleration.
+\item[Rationale]
+  This requirement specifies an object-oriented scheme in which a base class
+  defines but does not implement the behaviors levied on the derived classes.
+
+  The requirement to construct the reference frame tree consonant with
+  gravity calculations can be met in at least three ways:
+  \begin{itemize}
+  \item A flat scheme with the system barycenter at the root of the tree and all
+    other ephemeris-based reference frames descending directly from this root,
+  \item A hierarchical scheme with the system barycenter at the root, subsystem
+    barycenters (planets plus moons) descending from the system barycenter,
+    and a planet and its moons descending from the subsystem barycenter,
+  \item A mixed scheme.
+  \end{itemize}
+  \item[Verification]
+  Inspection
+\end{description:}
+
+\requirement{Ephemeris Manager}
+\label{reqt:ephem_manager}
+\begin{description:}
+\item[Requirement]
+  The JEOD reference frame manager provides a base capability for managing
+  a set of reference frames that are connected in the form of a tree.
+  The \ModelDesc ephemerides manager extends these base capabilities.
+  \subrequirement{Registration Services.}
+  The \ModelDesc shall provide registration and lookup capabilities for
+  planets, ephemeris items, and integration frames.
+  \subrequirement{Ephemeris Model Management.}
+  The \ModelDesc shall provide the ability to register ephemeris models
+  with the \ModelDesc and shall coordinate the initialization, activation,
+  and updating of the registered ephemeris models.
+\item[Rationale]
+  The JEOD 2.0 implementation of the dynamics manager was overly complex.
+  Functionality that pertained to reference frames only was moved to the
+  reference frame manager sub-model while functionality that pertained to items
+  related to ephemerides was moved to the ephemeris manager sub-model. 
+  This is an internal requirement that reflects this architectural decision.
+\item[Verification]
+  Inspection, Test
+\end{description:}
+
+\requirement[Solar System]{Solar System Representation}
+\label{reqt:solar_system}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide the ability to represent:
+  \subrequirement{Planetary position and velocity.}
+  The model shall provide the ability to represent the position and velocity
+  of the Sun, the planets, Pluto, and the Moon.
+  \subrequirement{Lunar orientation and angular velocity.}
+  The model shall provide the ability to represent the orientation and angular
+  velocity of the Moon.
+  \subrequirement{JPL Development Ephemerides.}
+  The model shall use the JPL Development Ephemerides as the basis for
+  these state representations.
+\item[Rationale]
+  These specified items are those represented in the JPL Development
+  Ephemerides. The JPL DE4xx series represents the most recent of a very
+  long history of planetary ephemeris models.
+\item[Verification]
+  Inspection, Test
+\end{description:}
+
+
+\requirement[DE4xx Module]{Development Ephemeris Implementation}
+\label{reqt:de4xx_ephem_interface}
+\begin{description:}
+\item[Requirement]
+  The implementation of the DE4xx ephemeris model shall satisfy the constraints
+  levied in requirement~\ref{reqt:ephem_interface} on extensions to the base
+  ephemeris interface capabilities.
+\item[Rationale]
+  This requirement is a distinguishing feature of JEOD 2.x versus JEOD 1.x.
+  It changes the model from a set of routines into a set of classes
+  that fits into the overall architecture.
+\item[Verification]
+  Inspection, Test
+\end{description:}
+
+
+\requirement{Propagated Planet}
+\label{reqt:prop_planet}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide the ability to:
+  \subrequirement{Ephemeris Mode.}
+  The model shall provide the ability to compute the position and velocity
+  of a planetary body via some ephemeris model.
+  \subrequirement{Propagated Mode.}
+  The model shall provide the ability to compute the position and velocity
+  of a planetary body by propagating the state over time per the
+  gravitational forces that act on the body.
+  \subrequirement{Mode Change.}
+  The model shall provide the ability to dynamically switch the mechanism
+  used to compute state from ephemeris mode to propagated mode.
+\item[Rationale]
+  This is an external requirement levied upon JEOD by its customers.
+\item[Verification]
+  Inspection, Test
+\end{description:}

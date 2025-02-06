@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE product PUBLIC "-//Tricklab//DTD Product V1.0//EN" "Product.dtd">
+
+<!-- Description: Plot of Y(t) vs. t, with attributes, titles, labels, units -->
+
+<product version="1.0">
+    <title>User Job Execution History</title>
+    <page vcells="0">
+        <title>User Job Execution Times</title>
+        <plot grid="yes" background_color="cornsilk2">
+            <title>JOB_jeod_time.time_manager.update.25.01(environment_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" scale="0.000001">JOB_jeod_time.time_manager.update.25.01(environment_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk2">
+            <title>JOB_dynamics.dyn_manager.update_ephemerides.26.02(environment_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" scale="0.000001">JOB_dynamics.dyn_manager.update_ephemerides.26.02(environment_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk2">
+            <title>JOB_dynamics.dyn_manager.perform_actions.26.03(environment_1.000)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" scale="0.000001">JOB_dynamics.dyn_manager.perform_actions.26.03(environment_1.000)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk2">
+            <title>JOB_dynamics.dyn_manager.gravitation.26.04(derivative)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" scale="0.000001">JOB_dynamics.dyn_manager.gravitation.26.04(derivative)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk2">
+            <title>JOB_dynamics.dyn_manager.compute_derivatives.26.05(derivative)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" scale="0.000001">JOB_dynamics.dyn_manager.compute_derivatives.26.05(derivative)</var>
+            </curve>
+        </plot>
+        <plot grid="yes" background_color="cornsilk2">
+            <title>JOB_dynamics.dyn_manager.integrate.26.06(integration)</title>
+            <xaxis> <label>Time</label> <units>s</units> </xaxis>
+            <yaxis> <label>Execution Time</label> </yaxis>
+            <curve>
+                <var>sys.exec.out.time</var>
+                <var line_color="red" scale="0.000001">JOB_dynamics.dyn_manager.integrate.26.06(integration)</var>
+            </curve>
+        </plot>
+    </page>
+</product>

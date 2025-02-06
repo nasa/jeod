@@ -1,0 +1,33 @@
+\test{Basic Unit Test}\label{test:basic}
+\begin{description}
+\item[Test Directory]
+{\tt models/utils/container/verif/unit\_tests/basic}
+
+\item[Test Description]
+This unit test exercises all of the required \Cplusplus container library
+capabilities except for the lexicological comparisons.
+
+To run the test, enter the test directory and type the command
+{\tt make build} to build the test program and then type the command
+{\tt ./test\_program} to run the test program.
+The test performs a number of operations on various containers.
+Each such operation is designed to produce an expected result.
+The test prints the expected and obtained results for each tested operation.
+
+\item[Success Criteria]
+The success criteria involve analyzing the detailed output that results
+from running the program.
+\begin{itemize}
+\item The test must build and run to completion.
+\item The reported output must match expectations.
+\end{itemize}
+
+\item[Test Results]
+The test passes.
+
+\item[Applicable Requirements]
+This test demonstrates the satisfaction of the
+requirement \traceref{reqt:stl_containers} except for
+the ability to compare objects.
+
+\end{description}

@@ -1,0 +1,62 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the ThermalRider model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Analysis}
+\label{sec:user_analysis}
+Determining whether or not the \ThermalRiderDesc\ is included in a simulation is
+non-obvious; because the model rides on some other model, it is unlikely to
+appear as an \textit{S\_define} file entry.  Instead, it is necessary to look
+for the data files that are used to define the vehicle surface.  An example of
+this is found in the radiation pressure model, at \newline
+\textit{interactions/radiation\_pressure/verif/SIM\_2\_SHADOW\_CALC/SET\_test/RUN\_ten\_plates/input} \newline
+(here, the \ThermalRiderDesc\ is riding on the Radiation Pressure Model).  We will use this example as a guide to establishing the Thermal Rider on any model.
+
+At some point in any simulation that utilizes a surface-interaction, the surface must be defined; that definition is typically carried out through a data file.  There may also be some values that are set in the input file.  This particular input file contains the surface description at the very end, and includes the data file \textit{Modified\_data/radiation\_surface\_v2.d}, which defines the surface.  Simple models, with only one surface, may put all of the thermal characteristics into the input file (e.g., \textit{interactions/radiation\_pressure/verif/SIM\_1\_BASIC/SET\_test/RUN\_basic/input}, which includes a data file for the full surface, and just a few lines for the default spherical surface).
+
+The \ThermalRiderDesc\ descriptors fall into one of three categories:
+\begin{itemize}
+\item  The model-wide descriptors.
+\item The facet-specific descriptors.
+\item The facet parameter descriptors (material-specific).  
+\end{itemize}
+The facets are the sections of the overall vehicle surface into which that surface has been divided; they are defined and controlled at an individual level.
+
+\subsection{Model-wide Descriptors}
+These values are found one level below the thermal rider, which is one level
+below the interaction model on which the \ThermalRiderDesc\ rides, e.g.,
+\textit{radiation.rad\_pressure.thermal.***}.
+
+\begin{itemize}
+\item{\textit{active}}\ \newline
+The \textit{active} flag toggles the entire \ThermalRiderDesc\ on or off.  The default value is \textit{false} (i.e., off).  This flag would typically be set in an input file, or in the case of the Radiation Pressure Model (upon which we are currently riding), this flag is automatically set to true, since the Radiation Pressure Model cannot function without a Thermal Rider.  
+\item{\textit{include\_internal\_thermal\_effects}}\ \newline
+This flag allows for the inclusion of thermal flow within the vehicle, e.g., from a power source inside the vehicle, or facet-to-facet conduction.  This flag also defaults to \textit{false}.
+\end{itemize}
+
+\subsection{Facet-specific Descriptors}
+These values are found one level below the thermal rider, which is one level
+below the facet on which it rides, which is one level below the surface, e.g.,
+\textit{radiation.rad\_surface.facets.thermal.***}
+\begin{itemize}
+\item{\textit{active}}\ \newline
+In addition to having the capability to turn the entire thermal model on or off, facets are equipped with an individual on/off flag to indicate whether or not to integrate the temperature.  A facet that is inactive ($active = false$) will just retain a constant temperature.
+\item{\textit{heat\_capacity}}\ \newline
+This can be defined for the facet at an individual level, or in the parameters list as a heat capacity per unit area (a material property), which is then converted into the facet-specific \textit{heat\_capacity} by functionality within the model-specific Interaction Facet.
+\item{\textit{thermal\_power\_dump}}\ \newline
+This value allows some level of thermal power to be transfered to the facet from within the vehicle if the model-wide \textit{include\_internal\_thermal\_effects} flag is set.  A positive value represents flow into the facet, a negative value represents flow out of the facet.
+\end{itemize}
+
+
+\subsection{Facet Parameter Descriptors}
+These values describe the material with which a facet is made.  Each facet is assigned a parameter list; this avoids repetition of identical information from facet to facet.  In our example, only one material is defined, \textit{radiation\_test\_material}, and it is assigned to all facets.
+\begin{itemize}
+\item{\textit{emissivity}}\ \newline
+The emissivity measures how similar to a black-body a material is in the thermal emission that it gives off.  An emissivity of 1.0 represents a perfect black-body, an emissivity of 0.0 implies that the surface cannot radiate at all.
+\item{\textit{heat\_capacity\_per\_area}}\ \newline
+This is converted into the facet-specific \textit{heat capacity} by functionality within the model-specific Interaction Facet.  It is useful to allow for comparable behavior across facets of vastly different size without the necessity of calculating the heat capacity for each facet individually.
+\end{itemize}

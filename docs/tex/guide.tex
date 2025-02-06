@@ -1,0 +1,61 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: User Guide for JSC Engineering Orbital Dynamics (JEOD)
+%
+%
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\hyperdef{chapter}{user}{}\label{ch:user}
+\section{Resources for JEOD Users}
+There are several resources for users of the JEOD Software Package.
+
+Each JEOD model document contains its own user guide, the names and links to the individual JEOD model documents are given in Table \ref{tbl:modeltree} above.
+
+The \hyperTutorial\ leads users from a simple simulation to incrementally more complex simulations and offers very practical guidance throughout.
+
+Finally a user should review the documentation associated with the simulation engine in use.  For the example simulations contained in the JEOD release this would include the
+
+\begin{itemize}
+\item{\em The Trick User's Guide}
+\cite{Vetter:TrickUser}
+
+\item{\em Trick Tutorial}
+\cite{Vetter:TrickTutorial}
+\end{itemize}
+
+\section{JEOD Model User Guide Organization}
+This user guide is in a different format than the model documentation, because it addresses the entire JEOD package for which the user distinctions are less clear.  The JEOD Model User Guides are generally divided into three sections based on the potentially different interests of users:
+\begin{itemize}
+\item Instructions for Simulation Users - commonly includes guidelines on modification of input files for a simulation containing the model,
+\item Instructions for Simulation Developers - will include a detailed discussion the S\_define file requirements of the model,
+\item Instructions for Model Developers - contains instruction on the common ways that the model can be extended.
+\end{itemize}
+
+\section{Overview of the Use of the JEOD Package}
+Here are some basic considerations for performing JEOD simulations. As an example consider the goal of propagating a space vehicle in low Earth orbit under the influence of the dominant environmental forces at that altitude. These forces at altitudes of 100 to 500 miles are for the Earth, mainly dominated by the geopotential, atmospheric forces, perturbations by the Sun and Moon, solid Earth tides and to a small degree by radiation forces. For this simulation it is required that there be a six degree of freedom representation of the state of the vehicle and a set of command lines for the recording of information of interest.  The JEOD simulation of a single vehicle requires:
+\begin{enumerate}
+\item Initialization of the environment,
+\item Initialization of the vehicle state,
+\item Propagation of the environment,
+\item Propagation of the state,
+\item Data Recording.
+\end{enumerate}
+The implementation of these processes requires that the following information be in place:
+\begin{enumerate}
+\item Default data, which typically initializes environmental models such as \hypermodelref{RNP}\ and \hypermodelref{GRAVITY}\,
+\item The Input file data, which typically initializes vehicle properties and state information,
+\item A Data recording file or files.
+\end{enumerate}
+
+To run a JEOD simulation, the JEOD models must be properly initialized and executed with the right phasing, because some models rely on the completion of others. The rough recommended initialization order is:
+\begin{itemize}
+\item Time.
+\item Dynamics Manager.
+\item Environment-related models.
+\item Vehicle.
+\item Relative frames and states.
+\end{itemize}
+Also events such as scheduled and derivative class jobs should be phased properly too. In general, it is recommended to study model verification simulations and/or the  \hyperTutorial\ simulations for examples of job phasing. You can also refer to the diagrams in Section \ref{sec:phasing} for more information.

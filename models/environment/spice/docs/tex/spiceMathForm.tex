@@ -1,0 +1,190 @@
+In order for a given reference frame $B$ (which need not initially be known
+to JEOD) to properly mesh with the JEOD reference frame system, it is necessary
+to define the following quantities:
+\begin{itemize}
+\item The parent frame, denoted generically as $A$. This needs to be
+a frame that is already part of the JEOD reference frame tree and which is
+also known to SPICE. 
+\item The position and velocity of the origin of frame $B$ expressed in $A$.
+\item T\_parent\_this. This is the $3 \times 3$ transformation from $A$ to
+$B$.
+\item ang\_vel\_this. This is the angular velocity of $B$ with respect to
+$A$, expressed in $B$.
+\end{itemize}
+
+
+\subsection{Nomenclature}
+Subscripts will indicate the reference frame to which a quantity is relative
+and the coordinate system in which it is expressed. For example,
+$\vec x_{B|A:A}$ represents a vector position of frame $B$ with
+respect to frame $A$ expressed in frame $A$.
+
+
+\subsection{Relevant Functions from CSPICE} \label{subsec:functions}
+The SPICE kernels and functions provide means of determining the 
+information necessary to define $B$ as a JEOD reference frame. This is
+accomplished by interfacing with the C-language implementation of SPICE,
+known as CSPICE.
+
+\paragraph{Translation}
+In order to obtain $\vec x_{B|A:A}$ and $\dot{\vec{x}}_{B|A:A}$,
+the position and velocity of the origin of $B$ expressed in $A$, JEOD employs
+the CSPICE function spkez\_c. This function provides the position and velocity
+of a ``target'' with respect to an ``observer'' in a specified coordinate system
+at a given time.  For JEOD, the coordinate system to use is J2000, since JEOD
+tracks the origins of all celestial bodies in J2000. The values
+$\vec x_{B|A:A}$ and $\dot{\vec{x}}_{B|A:A}$ are returned by
+the function in a single $6$-array from which JEOD will then need to extract
+them.  The call to spkez\_c by JEOD is:
+\begin{verbatim}
+spkez_c (int Frame_B_ID,
+         double ephemeris_time,
+         "J2000",
+         "none",
+         int Frame_A_ID,
+         double state[6],
+         double *lt);
+\end{verbatim}
+The arguments for the function call are explained as follows:
+\begin{itemize}
+\item The Frame\_x\_ID arguments are the SPICE-defined integer codes for $A$
+and $B$. For a description of these codes, see section~\ref{subsec:codes}.
+\item The ``ephemeris\_time'' parameter is the time at which the relative state
+between $A$ and $B$ is desired, in the Barycentric Dynamic Time (TDB) time scale.
+\item Parameter ``J2000'' identifies the coordinate system in which position and
+velocity should be expressed.
+\item The ``none'' specifies that no aberration correction is to be applied, which is
+consistent with the geometric interpretation of the ephemeris understood by JEOD.
+\item Parameter ``state'' is the previously mentioned $6$-array from which the
+position and velocity will be extracted following the function call.
+\item The last parameter is unused by JEOD and thus is populated by a dummy
+variable. It is the light travel time.
+\end{itemize}
+Upon completion of the call to spkez\_c, JEOD then extracts the desired quantities
+$\vec{x}_{B|A:A}$ and $\dot{\vec{x}}_{B|A:A}$ from ``state'' by:
+\begin{eqnarray}
+\label{eq:state}
+\vec{x}_{B|A:A} & = & \mbox{state[$i$] for }i = 0 \ldots 2 \\ \nonumber
+\dot{\vec{x}}_{B|A:A} & = & \mbox{state[$i$] for }i = 3 \ldots 5
+\end{eqnarray}
+
+\paragraph{Orientation and Rotation}
+The C implementation of SPICE (CSPICE) includes  the function sxform\_c which
+retrieves a $6 \times 6$ matrix mapping position and velocity expressed in a
+given frame to its representation in a different frame.  This matrix accounts
+for orientation and relative rotation of the frames. (In the context of
+ephemeris, this matrix is the mapping between the standard JEOD
+pseudo-inertial frame (JEOD\_Planet\_Name.inertial)
+centered on a celestial body and its planet-fixed counterpart.)  The sxform\_c
+function assumes that both frames share a common origin. The relation
+between the frames can be written as:
+\begin{equation}
+\left [\begin{array}{c}\vec x_B \\ \dot{\vec{x}}_B \end{array}\right ] =
+M_{B|A} \left [\begin{array}{c} \vec x_A \\ \dot{\vec{x}}_A \end{array}
+\right ]
+\label{eq:m6}
+\end{equation}
+\noindent where
+$\left [\begin{array}{c}\vec x_A \\ \dot{\vec{x}}_B \end{array}\right ]$
+and
+$\left [\begin{array}{c}\vec x_B \\ \dot{\vec{x}}_B \end{array}\right ]$
+are position and velocity of a point expressed in frame $A$ and $B$
+respectively.
+
+The matrix $M_{B|A}$ can be partitioned into four $3 \times 3$
+sub-matrices to facilitate extracting the orientation and angular velocity
+between the standard pseudo-inertial and planet-fixed frames of the celestial
+body of interest:
+\begin{equation}
+M_{B|A} = \left [\begin{array}{cc}
+T_{B|A} & 0 \\
+-\Omega_{B|A:B}T_{B|A} & T_{B|A}
+\end{array} \right ]
+\label{eq:m33}
+\end{equation}
+\noindent where $T_{B|A}$ is the $3 \times 3$ transformation from
+frame $A$ to frame $B$ (T\_parent\_this in JEOD, because in the JEOD
+reference frame tree the planet-fixed frame for a body is child to the
+standard pseudo-inertial frame for the same body), and $\Omega_{B|A:B}$
+is the skew-symmetric matrix satisfying
+\begin{equation}
+\Omega_{B|A:B} \vec{x} = \vec{\omega}_{B|A:B} \times \vec{x}
+\label{eq:omega_cross_r}
+\end{equation}
+\noindent where $\vec{\omega}_{B|A:B}$ is the vector angular velocity of $B$ with
+respect to $A$ expressed in $B$ (ang\_vel\_this in JEOD).
+From ~\ref{eq:m33} it follows that
+\begin{equation}
+T_{i, j B|A} = M_{i,j} \mbox{ for }i, j = 0\ldots2
+\label{eq:T}
+\end{equation}
+\noindent and
+\begin{equation}
+\Omega_{B|A:B} = -M_{i,j}T^t_{B|A} \mbox{ for }i = 3\ldots5, j = 0\ldots2
+\label{eq:Omega}
+\end{equation}
+Finally, $\vec{\omega}_{B|A:B}$ is realized as
+\begin{equation}
+\vec{\omega}_{B|A:B} = \left [\begin{array}{c}
+-\Omega_{1,2 B|A:B} \\
+\Omega_{0,2 B|A:B} \\
+-\Omega_{0,1 B|A:B} \end{array} \right ]
+\label{eq:VecOmega}
+\end{equation}
+
+The call to sxform\_c by JEOD is:
+\begin{verbatim}
+sxform_c (char * from,
+          char * to,
+          double ephemeris_time,
+          double trans[6][6]);
+\end{verbatim}
+The parameter ``from'' should be set to ``J2000'' in order to obtain the
+relation between the standard pseudo-inertial frame centered at the
+origin of the body of interest and the associated planet-fixed frame.  This is
+because in JEOD all standard pseudo-inertial frames are J2000-oriented.  Next,
+``to'' is the name of $B$, the planet-fixed frame, which JEOD constructs
+consistent with SPICE nomenclature.  The time parameter ``ephemeris\_time'' is
+the time at which the rotation state between $A$ and $B$ is desired in the TDB
+time scale. Finally, ``trans'' is the previously discussed $6 \times 6$
+matrix $M_{B|A}$.
+
+
+\subsection {Integration with the JEOD Reference Frame System}
+Following the calls to spkez\_c and sxform\_c described in the previous
+subsections, all information needed to create a new JEOD frame representing
+$B$ is now available.  The data members in the new Frame\_B correspond to the
+quantities obtained in ~\ref{eq:state}, ~\ref{eq:T} and ~\ref{eq:VecOmega}
+as follows:
+\begin{eqnarray}
+\mbox{Frame\_B.state.trans.position} & = & \vec{x}_{B|A:A} \\ \nonumber
+\mbox{Frame\_B.state.trans.velocity} & = & \dot{\vec{x}}_{B|A:A} \\ \nonumber
+\mbox{Frame\_B.state.rot.T\_parent\_this} & = & T_{B|A} \\ \nonumber
+\mbox{Frame\_B.state.rot.ang\_vel\_this} & = & \vec{\omega}_{B|A:B}
+\label{eq:FrameBDefinition}
+\end{eqnarray}
+
+
+\subsection {NAIF Integer ID Codes} \label{subsec:codes}
+Every object in the SPICE inventory is assigned an integer identification code.
+These codes follow some simple rules which are exploited in order to determine
+parent-child relationships in the JEOD reference frame tree.  Specifically, the
+solar system and planetary barycenters are numbered $0 \ldots 9$ in order of
+distance from the sun. For purposes of this identification system,
+the Pluto-Charon barycenter ID is $9$. Each planet is assigned the code $x99$
+where $x = 1 \ldots 9$. The Sun is numbered $10$.  The planets Mercury and Venus
+are moonless, thus there is no distinction between $1$ and $199$ or $2$ and $299$.
+Codes larger than $999$ are reserved for comets and asteroids.  Planetary moons
+are ordered from inner to outer, so, for example, the code for Phobos is $401$,
+and the code for Deimos is $402$. The code system treats Pluto as a planet, thus
+Pluto is $999$ and Charon is $901$. For full documentation,
+see \href{https://naif.jpl.nasa.gov/naif/documentation.html}{NAIF Documentation}.
+
+With this information, it is possible to write simple rules to determine the
+code of the parent of any solar system object using the object's own code.
+\begin{itemize}
+\item $Code > 999$ (comet or asteroid): $Parent = 0$ (Solar System Barycenter).
+\item $Code = 199$ or $299$ (Mercury or Venus): $Parent = 0$ (Solar System
+Barycenter).
+\item Otherwise, $Parent = \left\lfloor\frac{Code}{100}\right\rfloor$.
+\end{itemize}

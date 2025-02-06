@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: gravity.tex
+%
+% Purpose: Top level document for the gravity model.
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Use the standard JEOD dynenv document class
+\documentclass{dynenv}
+
+% Add the requirements et al to the table of contents
+\dynenvaddtocitems{reqt=1,insp=2,test=2}
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+
+% use the better float package
+\usepackage{float}
+
+% use the equation package stuff
+\usepackage{amsmath, amsthm, amssymb}
+
+
+\begin{document}
+
+% Front matter: Executive summary, table of contents, lists of figures & tables
+\frontmatter[style=abstract,figures,tables]{gravityAbstract}
+
+% Main document body, each is chapter in its own file
+\mainmatter{gravityChapters}
+
+% Back matter: Bibliography
+\backmatter{}
+
+\end{document}

@@ -1,0 +1,145 @@
+\chapter{Euler's Method}\label{app:euler}
+
+\section{Overview}
+
+Euler's method is the simplest of the integrators.
+The technique addresses initial value problems for first order ODEs.
+Euler's method propagates state to the end of an integration interval
+in one step by assuming that the values of the derivatives over the
+integration interval are equal to the values at the start of the interval.
+
+\section{Classification}
+
+Euler's method is a single step, single stage, single cycle integrator
+for scalar-valued first order ODEs.
+The technique exhibits a global truncation error that is
+proportional to the step size.
+As is the case for other solvers for scalar-valued first order ODEs, Euler's
+method can easily be adapted to solving vector-valued initial value problems
+of arbitrary order.
+
+\section{Implemented and Provided Techniques}
+
+Table \ref{tab:euler_method_problems} lists the types of initial value problems
+that can be solved using Euler's method.
+As noted in the table, Euler's method implementations exist
+for all four types of initial value problems addressed by the
+ER7 Utilities integration suite.
+
+\begin{table}[htp]
+\centering
+\caption{Euler Method Initial Value Problems}
+\label{tab:euler_method_problems}
+\vspace{1ex}
+\begin{tabular}{ll}\hline
+\bf{Problem Type} & \bf{Support} \\
+\hline\hline
+\tt{FirstOrderODE} & Implemented \\
+\tt{SimpleSecondOrderODE} & Implemented \\
+\tt{GeneralizedDerivSecondOrderODE} & Implemented \\
+\tt{GeneralizedStepSecondOrderODE} & Implemented \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Mathematical Description}
+
+Euler's method is the simplest of techniques for numerically
+solving a scalar first order ODE initial value problem given
+by equation~(\ref{eqn:euler_scalar_1st_order_ode_problem}).
+
+\begin{equation}
+\label{eqn:euler_scalar_1st_order_ode_problem}
+\begin{split}
+\frac{d s(t)}{dt} &= f(t, s(t)) \\
+s(t_0) &= s_0
+\end{split}
+\end{equation}
+
+Euler's method propagates state from time $t$ to $t+\Delta t$
+by assuming that the derivative is constant between $t$ and $t+\Delta t$
+and is equal to the value at the start of the integration interval
+\cite{butcher:2008}:
+
+\begin{equation}
+\label{eqn:euler_scalar_1st_order_ode_step}
+s(t+\Delta t) = s(t) + f(t, s(t)) \Delta t
+\end{equation}
+
+Note that in numerical integration literature, it is the integration technique
+that calls the derivative function $f(t, s(t))$. That is not the case
+with Trick integration, and hence with the ER7 utilities integrators.
+The derivatives are instead inputs to the integration function.
+
+\subsection{First Order ODE}
+
+The \erseven implementation of Euler's method applies
+equation~(\ref{eqn:euler_scalar_1st_order_ode_step})
+to each element of a vector-valued first order ODE initial value problem.
+
+\subsection{Second Order ODE}
+
+The \erseven implementation of Euler's method applies
+equation~(\ref{eqn:euler_scalar_1st_order_ode_step})
+to each element of the position vector and then
+to each element of the velocity vector to solve a
+vector-valued second order ODE initial value problem.
+
+\subsection{Generalized Position / Generalized Velocity ODE}
+
+The \erseven implementation of Euler's method applies
+equation~(\ref{eqn:euler_scalar_1st_order_ode_step})
+to each element of the position vector (using the generalized position
+derivative function to compute the derivative of the position vector)
+and then to each element of the velocity vector to solve a
+vector-valued generalized position / generalized velocity initial value problem.
+
+
+\subsection{Lie Group Second Order ODE}
+
+Applying Euler's method to a second order Lie group problem involves
+advancing generalized position using the Lie group exponential map step function
+applied against the initial generalized position and generalized velocity.
+Generalized velocity is once again advanced per the basic Euler method.
+
+The exponential map step function
+$\expmapStep(\Delta \vect{\theta}, \vect{x})$ advances
+position via $\expmap(\Delta \vect{\theta})\cdot \vect x$. In this expression,
+the exponential is the exponential map function that maps from the tangent
+Lie algebra space at $x$ to the Lie group. The multiplication of this
+quantity with the input generalized position is performed per the group operator
+of the Lie group.
+
+\begin{equation}
+\label{eqn:euler_lie_group_position}
+\begin{split}
+\splitcenter{\Delta \vect{\theta}} &= \vect v(t) \Delta t \\
+\vect x(t+\Delta t) &= \expmapStep(\Delta \vect{\theta}, \vect x(t)) \\
+\vect v(t+\Delta t) &= \vect v(t) + \dot{\vect v}(t) \Delta t
+\end{split}
+\end{equation}
+
+\section{Implementation}
+
+TBS
+
+\section{Usage Instructions}
+
+To use Euler's method to integrate the dynamics of a monolithic JEOD simulation
+(\emph{i.e.}, one in which the dynamics manager performs the integration),
+set the {\tt{jeod\_integ\_opt}} element of the simulation's
+{\tt{DynManagerInit}} object to {\tt{trick.Integration.Euler}}
+in the appropriate Python input file.
+
+The method is provided for backwards compatibility reasons and because
+Euler's method forms the basis of almost all numerical integration techniques.
+
+It is recommended that Euler's method not be used in any simulation.
+Euler's method is highly inaccurate and rather unstable.
+The only advantage of this technique is that it needs just one
+evaluation of the derivative function per integration cycle.
+More accurate techniques that similarly require just one derivative evaluation
+per integration cycle exist.
+Use one of these alternatives in lieu of using Euler's method,
+or use a higher order technique.
+Any other technique is better than Euler's method.

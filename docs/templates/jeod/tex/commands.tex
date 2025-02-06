@@ -1,0 +1,120 @@
+\section{Commands and Environments}
+\subsection{Commands}
+\begin{description}
+\item[\command{addmodel}\cmdarg{NAME}\cmdarg{dir}\cmdarg{name}\cmdarg{title}]
+  \hfill [dynenvupfront.sty] \\
+  Word
+\item[\command{backmatter}\cmdopt{options}\cmdarg{list,of,files}]
+  \hfill [dynenvmatter.sty] \\
+  See FIXME.
+\item[\command{boilerplatechapterone\cmdarg{description}\cmdarg{history}}]
+  \hfill [dynenvboilerplate.sty] \\
+  Argument \#1 - Contents of section 1.1 \\
+  Argument \#2 - Table entries for history table. \\
+  See section~\ref{sec:chapterone} for details.
+\item[\command{boilerplateinventory}] \hfill [dynenvboilerplate.sty] \\
+  Word
+\item[\command{boilerplatemetrics}] \hfill [dynenvboilerplate.sty] \\
+  Word
+\item[\command{boilerplatetraceability}] \hfill [dynenvboilerplate.sty] \\
+  Word
+\item[\command{escapeus}\cmdarg{text\_with\_underscores}]
+  \hfill [dynenvupfront.sty] \\
+  Word
+\item[\command{iflabeldefined}\cmdarg{label}\cmdarg{commands}]
+  \hfill [dynenvboilerplate.sty] \\
+  Argument \#1 - Label to be tested.\\
+  Argument \#2 - Code to be expanded. \\
+  Expands second argument if label specified by first argument is defined.
+\item[\command{JEODHOME}] \hfill [paths.def] \\
+  Path to \$JEODHOME.
+\item[\command{frontmatter}\cmdopt{options}\cmdarg{abstractOrSummary}]
+  \hfill [dynenvmatter.sty] \\
+  See FIXME.
+\item[\command{inspection}\cmdarg{name}] \hfill [dynenvreqt.sty] \\
+  Words.
+\item[\command{longentry}] \hfill [dynenvboilerplate.sty] \\
+  Causes broken lines in a |longtable| environment to be printed with a
+  hanging indent.
+\item[\command{mainmatter}\cmdopt{options}\cmdarg{list,of,files}]
+  \hfill [dynenvmatter.sty] \\
+  See FIXME.
+\item[\command{MODELDIR}] \hfill [paths.def] \\
+  Model directory, with underscores escaped.
+\item[\command{MODELDIRx}] \hfill [dynenv.sty] \\
+  |{\MODELDIR\xspace}|
+\item[\command{MODELDOCS}] \hfill [paths.def] \\
+  Relative path to model documentation directory.
+\item[\command{MODELGROUP}] \hfill [paths.def] \\
+  Model group (same as type except for utils).
+\item[\command{MODELGROUPx}] \hfill [dynenv.sty] \\
+  |{\MODELGROUPx\xspace}|
+\item[\command{ModelHistory}] \hfill [\inanglebrackets{model\_name}.sty] \\
+  History table entries.
+\item[\command{MODELHOME}] \hfill [paths.def] \\
+  Relative path to model directory.
+\item[\command{MODELNAME}] \hfill [paths.def] \\
+  Model directory, underscores not escaped.
+\item[\command{MODELPATH}] \hfill [paths.def] \\
+  Path to model directory from \$JEODHOME.
+\item[\command{MODELPATHx}] \hfill [dynenv.sty] \\
+  |{\MODELPATH\xspace}|
+\item[\command{ModelPrefix}] \hfill [\inanglebrackets{model\_name}.sty] \\
+  One-word prefix for requirements, etc.
+\item[\command{MODELTITLE}] \hfill [paths.def] \\
+  All-caps model name command.
+\item[\command{MODELTITLEx}] \hfill [dynenv.sty] \\
+  |{\MODELTITLE\xspace}|
+\item[\command{MODELTYPE}] \hfill [paths.def] \\
+  Model type (e.g., dynamics, environment).
+\item[\command{MODELTYPEx}] \hfill [dynenv.sty] \\
+  |{\MODELTYPE\xspace}|
+\item[\command{simpletracetable}\cmdarg{one}\cmdarg{two}\cmdarg{three}]
+  \hfill [dynenvreqt.sty] \\
+  Words.
+\item[\command{requirement}\cmdarg{name}] \hfill [dynenvreqt.sty] \\
+  Words.
+\item[\command{subrequirement}\cmdarg{name}] \hfill [dynenvreqt.sty] \\
+  Words.
+\item[\command{test}\cmdarg{name}] \hfill [dynenvreqt.sty] \\
+  Words.
+\item[\command{traceref}\cmdarg{label}]
+  \hfill [dynenvreqt.sty] \\
+  Words.
+\item[\command{tracerefrange}\cmdarg{label1}\cmdarg{label2}]
+  \hfill [dynenvreqt.sty] \\
+  Words.
+\item[\command{tracetable}\cmdarg{one}\cmdarg{two}\cmdarg{three}]
+  \hfill [dynenvreqt.sty] \\
+  Words.
+\end{description}
+
+\subsection{Environments}
+\begin{description}
+\item[\option{abstract}] \hfill [dynenvmatter.sty] \\
+  The abstract environment defined in |report.cls| issues an almost
+  harmless |\titlepage| command,  the harm being that it resets the page
+  number to one (or rather, roman i). Redefining this environment avoids
+  this problem.
+\item[\option{codeblock}] \hfill [dynenvcode.sty] \\
+  The codeblock environment is a specialization of the Verbatim environment.
+  Use this environment for code to be printed inline with the text. The
+  printed code will be indented with respect to the current indentation level.
+\item[\option{codebox}] \hfill [dynenvcode.sty] \\
+  The codebox environment is a specialization of the Verbatim environment.
+  Use this environment for code to be printed in an exhibit. The code will
+  be framed in a box and is indented slightly with respect to page boundaries.
+\item[\option{description:}] \hfill [dynenvreqt.sty] \\
+  The description: environment is a specialization of the description
+  environment intended for use with requirements.
+\item[\option{exhibit}] \hfill [dynenvcode.sty] \\
+  The exhibit environment is similar to the table environment.
+  Exhibits, like tables, can have captions and labels. The caption should
+  be placed above the exhibited items. The exhibit will be listed as a part
+  of the list of tables.
+\item[\option{stretchlongtable}] \hfill [dynenvboilerplate.sty] \\
+  A | stretchlongtable | is a |longtable| environment that takes an optional
+  |arraystretch| (default: 1.2). If specified, the |arraystretch| value must be
+  specified in angle brackets and must precede the optional arguments to the
+  |longtable| environment.
+\end{description}

@@ -1,0 +1,84 @@
+
+
+
+%----------------------------------
+\chapter{Introduction}\label{ch:OrbElemintro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \OrbElemDescT}
+\input{OrbElemIntroduction}
+
+
+
+%----------------------------------
+\chapter{Product Requirements}\label{ch:OrbElemreqt}
+%----------------------------------
+
+\input{OrbElemReqt}
+
+
+%----------------------------------
+\chapter{Product Specification}\label{ch:OrbElemspec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{OrbElemSpec_Concept}
+%\section{Mathematical Formulations}
+\input{OrbElemSpec_Math}
+%\section{Detailed Design}
+\input{OrbElemSpec_Detail}
+
+
+\chapter{User's Guide}\label{ch:OrbElemuser}
+%----------------------------------
+The Analysis section of the User's Guide is intended primarily for
+users of pre-existing simulations.  
+It contains: 
+\begin{itemize}
+\item A description of how to modify \OrbElemDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file,
+\item An overview of how to interpret (but not edit) the S\_define
+file,
+\item A sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section of the User's Guide is intended for simulation
+developers.
+It describes the necessary configuration of the \OrbElemDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section of the user guide.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:OrbElemspec}).
+
+The Extension section of the User's Guide is intended primarily for
+developers
+needing to extend the capability of the \OrbElemDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:OrbElemspec}).
+
+
+\section{Analysis}
+\input{OrbElemUser_Analysis}
+
+%\section{Integration}
+\input{OrbElemUser_Integration}
+
+%\section{Extension}
+\input{OrbElemUser_Extension}
+
+%----------------------------------
+\chapter{Verification and
+Validation}\label{ch:OrbElemivv}
+%----------------------------------
+
+\section{Verification}
+\input{OrbElemVV_Verif}
+
+%\section{Validation}
+\input{OrbElemVV_Valid}

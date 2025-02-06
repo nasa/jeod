@@ -1,0 +1,107 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: rel_kin.tex
+%
+% Purpose: Top level document for rel_kin.  Should not need to be edited.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\documentHistory{
+{\bf Author} & {\bf Date} & {\bf Description} \\ \hline \hline
+\ModelAuthor & \ModelAuthDate & Initial Version \\ \hline
+}
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{rel_kin}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+
+% use the better float package
+\usepackage{float}
+
+% use equation package stuff
+\usepackage{amsmath, amsthm, amssymb}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\relkinDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\relkinDesc}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{models/dynamics/rel\_kin}
+\docrev{1.0}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\relkinDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Automation, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{rel_kinAbstract}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+%%% For a simple document make a copy of Chapters.tex and use this format
+%%% use of earth_lightingChapters vs ModelChapters is solely for the purpose of
+%%% combatability with the copy_templates.csh script.
+\include{rel_kinChapters}
+
+%%% or for a document with multiple parts make as many copies of Chapters.tex
+%%% as you have parts and use this format
+%\hyperdef{part}{part1}{\part{Part 1 Title}}\label{pt1:title}
+%\include{earth_lightingChapters1}
+%\hyperdef{part}{part2}{\part{Part 2 Title}}\label{pt2:title}
+%\include{earth_lightingChapters2}
+%%% etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,rel_kin}
+\bibliographystyle{plain}
+
+%\pagebreak
+%\appendix
+
+\end{document}

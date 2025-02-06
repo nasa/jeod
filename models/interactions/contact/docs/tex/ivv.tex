@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Provide Chapter 5 Inspections, Tests, and Metrics for the Contact Model
+%
+%  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%----------------------------------
+\chapter{Inspections, Tests, and Metrics}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Inspections}
+
+\inspection{Top-level inspection}\label{inspect:jeod}
+ This document structure, the code, and associated files have been inspected, and together satisfy requirement \ref{reqt:jeod}.
+
+
+\inspection{Extensibility inspection}\label{inspect:contact_extend}
+ Examples of the extensibility of the \ModelDesc are numerous in the released version of JEOD and \ref{reqt:contact_extend} is easily verified.
+\begin{itemize}
+\item The Contact class is extended for ground contact in the example simulation SIM\_ground\_contact\_T10.
+\item The SpringPairInteraction class is an extension of the PairInteraction class.
+\item The PointContactFacet class and the LineContactFacet class extend the ContactFacet class.
+\end{itemize}
+
+\inspection{Circular contact  inspection}\label{inspect:Circular_Contact}
+ The code was inspected and used in non-JEOD released simulations and the non-circular nature of the \ModelDesc was verified. \ref{reqt:Circular_Contact}.
+
+\section{Tests}
+\test{Two-Sphere Contact: Aligned}\label{test:contact_01}
+\begin{description}
+\item[Purpose:] \ \newline
+The purpose of this test is to see the results of two point contact facets contacting and rebounding. For this test the contact facets were aligned (no translation or rotation offsets) along the line of approach.\\
+SIM directory: models/interactions/contact/verif/SIM\_contact\_T10\\
+Run directory: RUN\_point
+\item[Requirements:] \ \newline
+By passing this test, the \ModelDesc partially satisfies requirements \ref{reqt:Contact_Surfaces} and \ref{reqt:Contact_Spring_Default}.
+\item[Procedure:]\ \newline
+In this test, the simulation was run and the position, velocity, and contact forces of the two bodies was examined. The principle test being that the facets make contact at the appropriate range and produce forces in the correct directions.
+\item[Results:]\ \newline
+The contact occurred at the correct distance.  The two bodies then separated and the forces generated were equal and opposite.
+\end{description}
+
+\test{Two-Sphere Contact: Inversed}\label{test:contact_02}
+\begin{description}
+\item[Purpose:] \ \newline
+The purpose of this test is to see the results of two point contact facets contacting and rebounding. For this test the contact facets were rotated 180 degrees about line of approach, but had not translational offset about that line.\\
+SIM directory: models/interactions/contact/verif/SIM\_contact\_T10\\
+Run directory: RUN\_point\_inverse
+\item[Requirements:] \ \newline
+By passing this test, the \ModelDesc partially satisfies requirements \ref{reqt:Contact_Surfaces} and \ref{reqt:Contact_Spring_Default}.
+\item[Procedure:]\ \newline
+In this test, the simulation was run and the position, velocity, and contact forces of the two bodies was examined. The principle test being that the facets make contact at the appropriate range and produce forces in the correct directions.
+\item[Results:]\ \newline
+The contact occurred at the correct distance.  The two bodies then separated and the forces generated were equal and opposite.
+\end{description}
+
+\test{Two-Sphere Contact: Off Center}\label{test:contact_03}
+\begin{description}
+\item[Purpose:] \ \newline
+The purpose of this test is to see the results of two point contact facets contacting and rebounding. For this test the contact facets were rotated 180 degrees about and translationally offset from the line of approach.\\
+SIM directory: models/interactions/contact/verif/SIM\_contact\_T10\\
+Run directory: RUN\_point\_off\_center
+\item[Requirements:] \ \newline
+By passing this test, the \ModelDesc partially satisfies requirements \ref{reqt:Contact_Surfaces} and \ref{reqt:Contact_Spring_Default}.
+\item[Procedure:]\ \newline
+In this test, the simulation was run and the position, velocity, and contact forces of the two bodies was examined. The principle test being that the facets make contact at the appropriate range and produce forces in the correct directions.
+\item[Results:]\ \newline
+The contact occurred at the correct distance.  The two bodies then separated and the forces generated were equal and opposite.
+\end{description}
+
+\test{Two-Cylinder Contact: Aligned}\label{test:contact_04}
+\begin{description}
+\item[Purpose:] \ \newline
+The purpose of this test is to see the results of two line contact facets contacting and rebounding. For this test the contact facets were aligned (no translation or rotation offsets) along the line of approach.\\
+SIM directory: models/interactions/contact/verif/SIM\_contact\_T10\\
+Run directory: RUN\_line
+\item[Requirements:] \ \newline
+By passing this test, the \ModelDesc partially satisfies requirements \ref{reqt:Contact_Surfaces} and \ref{reqt:Contact_Spring_Default}.
+\item[Procedure:]\ \newline
+In this test, the simulation was run and the position, velocity, and contact forces of the two bodies was examined. The principle test being that the facets make contact at the appropriate range and produce forces in the correct directions.
+\item[Results:]\ \newline
+The contact occurred at the correct distance.  The two bodies then separated and the forces generated were equal and opposite.
+\end{description}
+
+\test{Two-Cylinder Contact: Inverse}\label{test:contact_05}
+\begin{description}
+\item[Purpose:] \ \newline
+The purpose of this test is to see the results of two line contact facets contacting and rebounding. For this test the contact facets were rotated 180 degrees about the line of approach.\\
+SIM directory: models/interactions/contact/verif/SIM\_contact\_T10\\
+Run directory: RUN\_line\_inverse
+\item[Requirements:] \ \newline
+By passing this test, the \ModelDesc partially satisfies requirements \ref{reqt:Contact_Surfaces} and \ref{reqt:Contact_Spring_Default}.
+\item[Procedure:]\ \newline
+In this test, the simulation was run and the position, velocity, and contact forces of the two bodies was examined. The principle test being that the facets make contact at the appropriate range and produce forces in the correct directions.
+\item[Results:]\ \newline
+The contact occurred at the correct distance.  The two bodies then separated and the forces generated were equal and opposite.
+\end{description}
+
+\test{Two-Cylinder Contact: Arbitrary}\label{test:contact_06}
+\begin{description}
+\item[Purpose:] \ \newline
+The purpose of this test is to see the results of two line contact facets contacting and rebounding. For this test the contact facets were rotated at arbitrary angles about and translationally offset from the line of approach.\\
+SIM directory: models/interactions/contact/verif/SIM\_contact\_T10\\
+Run directory: RUN\_line\_arbitary
+\item[Requirements:] \ \newline
+By passing this test, the \ModelDesc partially satisfies requirements \ref{reqt:Contact_Surfaces} and \ref{reqt:Contact_Spring_Default}.
+\item[Procedure:]\ \newline
+In this test, the simulation was run and the position, velocity, and contact forces of the two bodies was examined.
+The principle test being that the facets make contact at the appropriate range and produce forces in the correct directions.
+\item[Results:]\ \newline
+The contact occurred at the correct distance.  The two bodies then separated and the forces generated were equal and opposite.
+\end{description}
+
+\test{Sphere Cylinder Contact}\label{test:contact_07}
+\begin{description}
+\item[Purpose:] \ \newline
+The purpose of this test is to see the results of a point contact facet and a line contact facet contacting and rebounding.\\
+SIM directory: models/interactions/contact/verif/SIM\_contact\_T10\\
+Run directory: RUN\_line\_point
+\item[Requirements:] \ \newline
+By passing this test, the \ModelDesc partially satisfies
+requirements \ref{reqt:Contact_Surfaces} and \ref{reqt:Contact_Spring_Default}.
+\item[Procedure:]\ \newline
+In this test, the simulation was run and the position, velocity, and contact forces of the two bodies was examined.
+The principle test being that the facets make contact at the appropriate range and produce forces in the correct directions.
+\item[Results:]\ \newline
+The contact occurred at the correct distance.  The two bodies then separated and the forces generated were equal and opposite.
+\end{description}
+
+\newpage
+\section{Requirements Traceability}\label{sec:traceability}
+\begin{table}[ht]\label{tab:reqt_ivv_xref}
+\begin{tabular}{||p{3.2in}|p{3.2in}|} \hline
+{\bf Requirement} & {\bf Inspection or test} \\ \hline \hline
+\ref{reqt:jeod} - Top-level requirements &
+  Insp. \ref{inspect:jeod} - meets Top-level \\ \hline
+\ref{reqt:Contact_Surfaces} - Contact Between Surfaces in 3D Space &
+  All tests  \\ \hline
+\ref{reqt:Contact_Spring_Default} - Default Spring Contact Force &
+  All tests  \\ \hline
+\ref{reqt:Circular_Contact} - Limit Circular Contact &
+  Insp. \ref{inspect:Circular_Contact}  \\ \hline
+\ref{reqt:contact_extend} - \ModelDesc Extensibility &
+  Insp. \ref{inspect:contact_extend}\\ \hline
+\end{tabular}
+\caption{Requirements Traceability}
+\end{table}
+
+\section{Metrics}
+\include{coarse_metrics}
+\include{metrix_metrics}

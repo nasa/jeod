@@ -1,0 +1,134 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//==============================================================================
+// This simulation is a demonstration simulation for the attach and detach
+// mechanisms between 2 dynamic bodies.
+//
+// The following simulation objects are defined in this sim:
+//
+//          sys - Trick runtime executive and data recording routines
+//         time - Time, this sim has no absolute reference time
+//         mngr - The management of the simulation
+//         veh1 - free-floating vehicle
+//         veh2 - free-floating vehicle
+//         veh3 - free-floating vehicle
+//
+//  ((Gary Turner) (Odyssey SR) (JEOD2.0 Alpha Release))
+//==============================================================================
+
+
+// Define job calling intervals
+#define DYNAMICS        0.01   // dynamics interval
+
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+#include "time_dyntime_only.sm"
+#include "dynamics.sm"
+
+/*****************************************************************************
+VehSimObject
+Purpose:(Baseline vehicle, suitable for veh2 and veh3)
+*****************************************************************************/
+##include "dynamics/dyn_body/include/dyn_body.hh"
+##include "dynamics/body_action/include/dyn_body_init_trans_state.hh"
+##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
+##include "dynamics/body_action/include/mass_body_init.hh"
+
+class VehSimObject: public Trick::SimObject {
+ protected:
+  // External references
+  jeod::DynManager & dyn_manager;
+
+
+ public:
+  jeod::DynBody                 dyn_body;
+  jeod::DynBodyInitTransState   trans_init;
+  jeod::DynBodyInitRotState     rot_init;
+  jeod::MassBodyInit            mass_init;
+
+  VehSimObject( jeod::DynManager & dyn_mngr_in)
+    :
+    dyn_manager(dyn_mngr_in)
+
+  {
+
+    P_ENV ("initialization") dyn_body.initialize_model(dyn_manager);
+    (DYNAMICS, "scheduled")  dyn_body.mass.update_mass_properties();
+  };
+
+ private:
+  VehSimObject (const VehSimObject&);
+  VehSimObject & operator = (const VehSimObject&);
+
+};
+
+/*****************************************************************************
+Veh1SimObject
+Purpose:(definition for veh1 which includes all the attach/detach information)
+*****************************************************************************/
+##include "dynamics/body_action/include/body_attach_aligned.hh"
+##include "dynamics/body_action/include/body_detach.hh"
+##include "dynamics/body_action/include/body_detach_specific.hh"
+class Veh1SimObject: public VehSimObject {
+ public:
+  jeod::BodyAttachAligned   attach_to_2;
+  jeod::BodyAttachAligned   attach_to_2b;
+  jeod::BodyAttachAligned   attach_to_3;
+  jeod::BodyDetach          detach_from_2;
+  jeod::BodyDetachSpecific  detach_from_3;
+
+  Veh1SimObject( jeod::DynManager & dyn_mngr_in)
+    :
+    VehSimObject( dyn_mngr_in)
+  { };
+
+ private:
+  Veh1SimObject (const Veh1SimObject&);
+  Veh1SimObject & operator = (const Veh1SimObject&);
+
+};
+
+Veh1SimObject veh1  ( dynamics.dyn_manager);
+VehSimObject  veh2  ( dynamics.dyn_manager);
+VehSimObject  veh3  ( dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop  (DYNAMICS) dynamics;

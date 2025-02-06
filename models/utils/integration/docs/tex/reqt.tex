@@ -1,0 +1,137 @@
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+
+\requirement{Project Requirements}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in the 
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{JEOD} top-level document.
+
+\item[Rationale:]\ \newline
+  This is a project-wide requirement.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement{\erseven Framework} \label{reqt:use_er7_utils}
+\begin{description}
+\item[Requirement:]\ \newline
+ The \ModelDesc shall provide extensions of the \erseven integration
+ framework that enable it to be used in JEOD.
+
+\item[Rationale:]\ \newline
+ The \erseven integration framework was made intentionally generic so that
+ it can be used in a Trick and/or a JEOD context.
+
+\item[Remarks:]\ \newline
+ The intent of this requirement is to extend the \erseven concept of an
+ integration group and of a time interface to a JEOD-specific setting.
+
+\item[Verification:]\ \newline
+ Inspection, test
+\end{description}
+
+
+\requirement{\erseven Techniques} \label{reqt:supported_er7_techniques}
+\begin{description}
+\item[Requirement:]\ \newline
+ The \ModelDesc shall provide access to all integration techniques defined in the
+ \erseven integration module.
+
+\item[Rationale:]\ \newline
+ The intent of creating the \erseven was to provide a common framework for
+ integration and to provide integration techniques formerly defined in Trick and in
+ JEOD. Not providing access to all those techniques would be counterproductive.
+
+\item[Verification:]\ \newline
+ Inspection, test
+\end{description}
+
+
+\requirement{Long-Arc Integration} \label{reqt:long_arc_integration} \begin{description} \item[Requirement:]\ \newline
+ The \ModelDesc shall provide techniques that accurately and efficiently
+ integrate translational state over long spans of time.
+
+\item[Rationale:]\ \newline
+ This capability is needed for a number of human and automated simulations.
+
+\item[Verification:]\ \newline
+ Inspection, test
+\end{description}
+
+
+\requirement{Extensibility}
+\label{reqt:extensibility}
+\begin{description}
+\item[Requirement:]\ \newline
+ The \ModelDesc architecture shall support extensibility to enable the use of
+ techniques not provided by the \erseven integration module.
+
+\item[Rationale:]\ \newline
+ Providing all of the plethora of numerical integration techniques
+ that exist is not practical. However, the architecture should be
+ extensible so as to accommodate techniques not provided.
+
+\item[Verification:]\ \newline
+ Inspection, test
+\end{description}
+
+
+\requirement{Support JEOD ODEs} \label{reqt:integration_problems} \begin{description} \item[Requirement:]\ \newline
+ The \ModelDesc will provide support for the three classes
+ of integration problems encountered in JEOD:
+ \begin{enumerate}
+   \item Scalar first order ordinary differential equations,
+   \item Three-vector second order ordinary differential equations, and
+   \item The Lie group SO3 as a second order ordinary differential equation.
+ \end{enumerate}
+ The support shall be in the form of classes that simplify the use of
+ the broader classes of problems supported by the \erseven and
+ that automatically allocate and deallocate resources per the
+ Resource Allocation Is Initialization (RAII) scheme widely used
+ across the C++ community.
+
+\item[Rationale:]\ \newline
+ These integration support constructs simplify the use of the
+ integration elsewhere and reduce the chances of lost resources.
+
+\item[Verification:]\ \newline
+ Inspection, test
+\end{description}
+
+
+\requirement{Multiple States}
+\label{reqt:multiple_states}
+\begin{description}
+\item[Requirement:]\ \newline
+ The \ModelDesc shall provide the ability to integrate multiple states.
+
+\item[Rationale:]\ \newline
+ A simulation can involve multiple vehicles, each with its own translational
+ and rotational state.
+
+\item[Verification:]\ \newline
+ Inspection, test
+\end{description}
+
+
+\requirement{Multiple Integrators}
+\label{reqt:multiple_integrators}
+\begin{description}
+\item[Requirement:]\ \newline
+ The \ModelDesc shall provide the ability to simultaneously integrate states
+ using disparate integration rates and techniques.
+
+\item[Rationale:]\ \newline
+ A simulation can involve multiple vehicles, and each vehicle may have its
+ own requirements on the propagation of its state.  Particularly in
+ situations where the behaviors are governed by different scales of time
+ (e.g. one vehicle in a geo-synchronous orbit and one in a low-Earth-orbit),
+ the optimal integration rates (and, in some cases, methods) may differ from
+ vehicle to vehicle.
+
+\item[Verification:]\ \newline
+ Inspection, test
+\end{description}

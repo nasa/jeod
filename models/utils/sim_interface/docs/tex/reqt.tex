@@ -1,0 +1,208 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% reqt.tex
+% Requirements on the Simulation Interface Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}
+\label{ch:reqt}
+%----------------------------------
+
+\requirement{Top-level requirement}
+\label{reqt:toplevel}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}
+           {JEOD top-level document}.
+\item[Rationale]
+  This is a project-wide requirement.
+\item[Verification]
+  Inspection 
+\end{description:}
+
+\requirement{Hidden Data Visibility}
+\label{reqt:hidden_data_visibility}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide a generic (simulation engine agnostic) mechanism
+  by which a model developer can make protected and private data visible to the
+  simulation engine.
+\item[Rationale]
+  Simulation users at times need access to protected and private data.
+  As one simulation user said, ``Murphy's Law laughs at and cosmic rays don't
+  obey data encapsulation. I need to see, and sometimes modify, your hidden
+  data. Tell me I can't have such access and my project won't use your tool.''
+
+  Another motivating factor is the need to make JEOD checkpointable and
+  restartable. The Trick simulation engine do most of the work with regard
+  to checkpoint and restart if hidden data are visible to Trick. Making
+  hidden data visible drastically reduces the burden of making JEOD
+  checkpointable and restartable.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+
+\requirement{Allocated Data Visibility}
+\label{reqt:allocated_data_visibility}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide a generic (simulation engine agnostic) mechanism
+  by which data allocated via the \MEMORY\ can be made visible to the
+  simulation engine.
+\item[Rationale]
+  The same factors that motivated requirement~\ref{reqt:hidden_data_visibility}
+  apply to this requirement.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+
+\requirement{Simulation Engine Interface}
+\label{reqt:sim_engine_interface}
+\begin{description:}
+\item[Requirement]
+  With one exception, the \ModelDesc shall be the only JEOD model that
+  directly invokes simulation engine functions
+  or that directly uses simulation engine data constructs.
+\item[Exception]
+  The \DYNMANAGER\ is allowed to use Trick 7 specific data constructs
+  with regard to integration.
+\item[Rationale]
+  The need to support the Trick environment resulted in an ever-growing
+  number of Trick-specific constructs sprinkled throughout JEOD.
+  These widely dispersed Trick-specific constructs threatened to make JEOD
+  unusable outside of the Trick environment.
+  This growth in Trick-specific constructs and the associated risk of
+  failing to be usable outside of Trick were the key factors that motivated
+  the the creation of the \ModelDesc.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+\requirement{Integration Interface}
+\label{reqt:integ_interface}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide:
+  \subrequirement{Generic.}
+   Simulation engine agnostic mechanisms to make
+  JEOD integration operable within a generic simulation environment.
+  \subrequirement{Trick specific.}
+  Trick-specific implementations of these mechanisms to make
+  JEOD integration operable within the Trick simulation environment.
+\item[Rationale]
+  This is a derived requirement of requirement~\ref{reqt:sim_engine_interface}.
+
+  JEOD integration can be used in simulation engines such as Trick
+  that treat integration as an abstract process, but this requires
+  communications between integration as performed by JEOD and
+  integration as performed by the simulation engine.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+
+\requirement{Job Cycle}
+\label{reqt:job_cycle}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide a mechanism to obtain the time interval between
+  successive calls by the simulation engine to the currently executing function.
+\item[Rationale]
+  This is a derived requirement of requirement~\ref{reqt:sim_engine_interface}.
+
+  The physical processes modeled in some JEOD models require knowledge
+  of the rate at which the process model is called.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+
+\requirement{Trick Message Handler}
+\label{reqt:trick_message_handler}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide a Trick-based implementation of the abstract
+  class MessageHandler.
+\item[Rationale]
+  This is a derived requirement of requirement~\ref{reqt:sim_engine_interface}.
+
+  None of the verification simulations would build without a functional
+  message handler.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+\requirement{Checkpoint/\hspace{0pt} Restart}
+\label{reqt:checkpoint_restart}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide mechanisms that enable JEOD-based simulations
+  to be checkpointable and restartable in the Trick 10 environment.
+\item[Rationale]
+  This is a requirement mandated by external users of JEOD.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+
+\requirement{Address/Name Translation}
+\label{reqt:addr_name_xlate}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide mechanisms to translate an address
+  to a simulation engine symbolic name and to translate a symbolic name
+  to an address.
+\item[Rationale]
+  This is a derived requirement of
+  requirements~\ref{reqt:sim_engine_interface}
+  and~\ref{reqt:checkpoint_restart},
+  levied on the model by the \CONTAINER.
+\item[Discussion]
+  This capability is only used when the simulation interface object
+  indicates that checkpoint/restart are enabled. An implementation that
+  does not support checkpoint/restart can provide dummy implementations
+  of this functionality.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+
+
+\requirement{Multiple Integration Groups}
+\label{reqt:multiple_integ_groups}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall provide a multiple integration group capability
+  in the Trick 10 environment. In particular,
+  \subrequirement{Multiple rates.}
+  The model shall provide the ability to
+  integrate different dynamic bodies at different rates / with different
+  integration techniques.
+  \subrequirement{Switchability.}
+  The model shall provide the ability to
+  move a dynamic body from one integration group to another.
+\item[Rationale]
+  This is a requirement mandated by external users of JEOD.
+\item[Verification]
+  Inspection, Test 
+\end{description:}
+
+
+\requirement{Extensibility}
+\label{reqt:extensibility}
+\begin{description:}
+\item[Requirement]
+  The \ModelDesc shall be architected in such a manner that
+  allows it to be applied to simulation engines other than Trick.
+\item[Rationale]
+  That JEOD is to be usable outside of the Trick environment
+  is a top-level JEOD requirement.
+\item[Verification]
+  Inspection
+\end{description:}

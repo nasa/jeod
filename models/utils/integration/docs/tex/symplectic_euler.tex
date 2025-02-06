@@ -1,0 +1,104 @@
+\chapter{Symplectic Euler's Method}\label{app:symplectic_euler}
+
+\section{Overview}
+
+The symplectic Euler method (also known as the semi-implicit Euler method,
+the semi-explicit Euler method, the Euler-Cromer method)
+is the simplest of integrators for second order ODE initial value problems.
+The method propagates position and velocity by assuming a constant acceleration
+and constant velocity across the integration interval. The technique advances
+velocity to the end of the integration interval using the acceleration at the
+start of the interval and advances position using the updated velocity.
+
+\section{Classification}
+
+The symplectic Euler method is a single step, single stage, single cycle
+integrator for scalar-valued second order ODEs.
+The only derivatives required are those at the start of an integration cycle,
+which makes this method a single step integrator. 
+The algorithm proceeds immediately to the end of the cycle,
+which makes this method a single stage integrator.
+The algorithm does not subdivide an integration tour into multiple cycles,
+which makes this method a single cycle integrator.
+
+As is the case for other solvers for scalar-valued second order ODEs, the
+symplectic Euler method can easily be adapted to solving vector-valued
+second order ODE initial value problems. In cannot be applied to initial value
+problems of arbitrary order.
+
+Like the basic Euler method, the symplectic Euler exhibits a local truncation
+error that is proportional to the square of the step size and thus exhibits a
+global truncation error that is proportional to the step size.
+The symplectic Euler method is thus a first order integrator in terms of
+accuracy.
+
+\section{Implemented and Provided Techniques}
+
+Table \ref{tab:symplectic_euler_method_problems} lists the types of initial value problems
+that can be solved using the symplectic Euler method.
+As noted in the table, the symplectic Euler method provides
+solvers for all four types of initial value problems addressed by the
+ER7 Utilities integration suite.
+
+\begin{table}[htp]
+\centering
+\caption{Symplectic Euler Method Initial Value Problems}
+\label{tab:symplectic_euler_method_problems}
+\vspace{1ex}
+\begin{tabular}{ll}\hline
+\bf{Problem Type} & \bf{Support} \\
+\hline\hline
+\tt{FirstOrderODE} & Provided \\
+\tt{SimpleSecondOrderODE} & Implemented \\
+\tt{GeneralizedDerivSecondOrderODE} & Implemented \\
+\tt{GeneralizedStepSecondOrderODE} & Implemented \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Mathematical Description}
+
+The symplectic Euler method propagates velocity from time $t$ to $t+\Delta t$
+by assuming a constant acceleration between $t$ and $t+\Delta t$
+that is equal to the value at the start of the integration interval.
+The method then propagates positon by assuming a constant velocity over the
+integration interval that is equal to the value at the end of the interval:
+
+\begin{equation}
+\label{eqn:symplectic_euler_scalar_2nd_order_ode_step}
+\begin{split}
+v(t+\Delta t) &= v(t) + \Delta t f(t, x(t), v(t)) \\
+x(t+\Delta t) &= x(t) + \Delta t v(t+\Delta t)
+\end{split}
+\end{equation}
+
+\section{First Order ODE}
+
+The symplectic Euler method explicitly addresses second order ODEs,
+meaning that it cannot be used to solve an initial value problem
+for a first order ODE.
+The basic Euler method is used as a surrogate for symplectic
+Euler.
+
+\section{Second Order ODE}
+
+The \erseven implementation of the symplectic Euler method applies
+equation~(\ref{eqn:symplectic_euler_scalar_2nd_order_ode_step})
+to each element of the position and velocity vectors.
+
+\section{Generalized Position / Generalized Velocity ODE}
+
+TBS
+
+\section{Lie Group Second Order ODE}
+
+TBS
+
+\section{Usage Instructions}
+
+To use the symplectic Euler method to integrate the dynamics of a monolithic
+JEOD simulation
+(\emph{i.e.}, one in which the dynamics manager performs the integration),
+set the {\tt{jeod\_integ\_opt}} element of the simulation's
+{\tt{DynManagerInit}} object to {\tt{trick.Integration.SymplecticEuler}}
+in the appropriate Python input file.

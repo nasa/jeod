@@ -1,0 +1,71 @@
+Table~\ref{tab:reqt_ivv_xref} summarizes the inspections and tests
+that demonstrate the satisfaction of the requirements levied on the model.
+
+\begin{table}[hbp!]
+%\begin{longtable}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\centering
+\caption{Requirements Traceability}
+\label{tab:reqt_ivv_xref}
+\vspace{1ex}
+% \\[6pt]
+%\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Inspection or test} \\ \hline\hline
+\ref{reqt:toplevel} & Project Requirements &
+     Insp. & \ref{inspect:TLI}     & Top-level Inspection
+\tabularnewline[4pt]
+\ref{reqt:mass_requirements}          & Mass &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+  && Test  & \ref{test:state_init}    & State Initialization \\
+  && Test  & \ref{test:attach_detach} & Attach/Detach \\
+  && Test  & \ref{test:force_torque}  & Force/Torque
+\tabularnewline[4pt]
+\ref{reqt:integ_frame}                & Integration Frame &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+  && Test  & \ref{test:state_init}    & State Initialization \\
+  && Test  & \ref{test:frame_switch}  & Frame Switch
+\tabularnewline[4pt]
+\ref{reqt:state_representation}       & State Representation &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+  && Test  & \ref{test:state_init}    & State Initialization \\
+  && Test  & \ref{test:frame_switch}  & Frame Switch
+\tabularnewline[4pt]
+\ref{reqt:staged_initialization}      & Staged Initialization &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+  && Test  & \ref{test:state_init}    & State Initialization
+\tabularnewline[4pt]
+\ref{reqt:eom}                        & Equations of Motion &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+  && Insp. & \ref{inspect:math}       & Mathematical Formulation \\
+  && Test  & \ref{test:attach_detach} & Attach/Detach \\
+  && Test  & \ref{test:force_torque}  & Force/Torque \\
+  && Test  & \ref{test:frame_switch}  & Frame Switch \\
+  && Test  & \ref{test:struct_integ}  & Structure Integration
+\tabularnewline[4pt]
+\ref{reqt:state_integ_prop}           & State Integration &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+& and Propagation
+   & Insp. & \ref{inspect:math}       & Mathematical Formulation \\
+  && Test  & \ref{test:attach_detach} & Attach/Detach \\
+  && Test  & \ref{test:force_torque}  & Force/Torque \\
+  && Test  & \ref{test:frame_switch}  & Frame Switch \\
+  && Test  & \ref{test:struct_integ}  & Structure Integration
+\tabularnewline[4pt]
+\ref{reqt:vehicle_points}             & Vehicle Points &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+  && Test  & \ref{test:attach_detach} & Attach/Detach \\
+  && Test  & \ref{test:force_torque}  & Force/Torque \\
+  && Test  & \ref{test:frame_switch}  & Frame Switch
+\tabularnewline[4pt]
+\ref{reqt:attach_detach}              & Attach/Detach &
+     Insp. & \ref{inspect:design}     & Design Inspection \\
+  && Insp. & \ref{inspect:math}       & Mathematical Formulation \\
+  && Test  & \ref{test:attach_detach} & Attach/Detach \\
+  && Test  & \ref{test:force_torque}  & Force/Torque
+\tabularnewline[4pt]
+\hline
+\end{tabular}
+\end{table}
+%\end{longtable}

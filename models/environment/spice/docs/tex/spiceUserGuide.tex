@@ -1,0 +1,257 @@
+The User Guide chapters for many JEOD models contain sections for simulation
+users, simulation builders, and model extenders.  This chapter will primarily
+describe the verification sim provided for the \SpiceDesc\ and how to obtain
+SPICE and the data files to use with it.  Thus, most of the content is
+intended for simulation users.  However, there is also a short section at the
+end of the chapter which describes briefly how to use the \SpiceDesc\ in a
+Trick and JEOD simulation more generally, which should be useful for simulation
+builders. The \SpiceDesc\ was not designed to be extended, therefore, there is
+no section describing extension.
+
+The verification directory for the \SpiceDesc\ includes two simulations: the
+\SpiceDesc\ verification sim based on the SPICE ephemeris toolkit, and a
+classic JEOD DE4xx-based ephemerides sim. These exercise comparable
+capabilities, though it will be demonstrated how to expand SIM\_spice to
+provide capabilities not available from the DE4xx model. Both simulations
+should basically run ``out-of-the-box'', except that the SPICE simulation
+(``SIM\_spice'') requires the C implementation of SPICE library, named CSPICE,
+in order to run.
+
+
+\section {The CSPICE Library}
+SIM\_spice requires an external library in order to access the capabilities of
+SPICE. In order to run SIM\_spice, it is necessary to download and compile
+\href{https://naif.jpl.nasa.gov/naif/toolkit.html}{the SPICE toolkit}, then
+define the environment variable ``JEOD\_SPICE\_DIR'' to point to the directory
+where it was compiled.
+
+The default build for the SPICE toolkit creates the static library
+\begin{verbatim}
+${JEOD_SPICE_DIR}/lib/cspice.a.
+\end{verbatim}
+SIM\_spice includes a file containing make overrides (S\_overrides.mk) which
+uses the environment variable \verb|$JEOD_SPICE_DIR| to locate the SPICE library.
+Unfortunately, the default build process for SPICE does not prepend the ``lib''
+prefix to the name of the library file cspice.a.  To fix this, either rename
+the file or provide an appropriately named symbolic link. The shell commands
+for each alternative are given below.
+\begin{verbatim}
+mv ${JEOD_SPICE_DIR}/lib/cspice.a ${JEOD_SPICE_DIR}/lib/libcspice.a
+
+ln -s ${JEOD_SPICE_DIR}/lib/cspice.a ${JEOD_SPICE_DIR}/lib/libcspice.a
+\end{verbatim}
+
+
+\section{Obtaining SPICE kernels}
+This section describes the process used to obtain SPICE data files such as
+the ones for Sun, Earth, Moon, and Mars used in SIM\_spice.  Two major sources
+of SPICE data will be discussed: NAIF and Horizons.
+
+
+\subsection {NASA's Navigation and Ancillary Information Facility (NAIF)}
+\label{subsec:naif}
+Data files which are used by the SPICE toolkit are called ``kernels''.  To
+obtain many pre-made kernels including those for the Sun and planets, go to
+the~\href{http://naif.jpl.nasa.gov/naif}{NAIF homepage}. Follow the links to
+Data $\to$ Generic Kernels $\to$ Generic Kernels.  The resulting page should
+show a list of directories and a file named ``aareadme.txt''.  At this point
+it would be a good idea to read the file, which contains a concise explanation
+of the various generic spice kernels.
+
+Kernels for planetary ephemerides which describe translational motion of
+astronomical objects are referred generically in SPICE as ``spk''
+(SPICE Planetary Kernel) files. There are special high-fidelity versions of
+such files which are in binary format and have the extension ``.bsp''.
+The spk file used in SIM\_spice for ephemerides of the Sun and planets is
+named ``de421.bsp'' and can be found in the directory
+spk/planets/a\_old\_versions. The DE421 ephemeris file was used in order to
+provide a consistent comparison with what is available with the classic JEOD
+ephemerides model, but any other file containing analogous data could have
+been used.
+
+Kernel files for natural satellites of other planets can be found in the
+folder spk/satellites. For example, data for Phobos and Deimos, the moons of
+Mars, are contained in the file ``mar097.bsp.''  Planets with large moon
+systems are broken into separate files; however, since Mars has only two
+moons, there is only a single file for the Martian system. The ``readme''
+files in that folder can assist in determining which files are needed for
+a given object.
+
+Besides de421.bsp, the other files needed for SIM\_spice are the
+high-precision orientation models for Earth and Moon.  These can be found in
+the~\href{http://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck}
+{``pck'' directory} on the ``Generic Kernels'' page.  The specific files
+used are ``earth\_000101\_171024\_170805.bpc'' and
+``moon\_pa\_de421\_1900-2050.bpc.'' These files provide the high-fidelity
+orientation models for Earth and Moon. The directory contains other versions
+which may be a better match for some situations.  The file ``aareadme.txt'
+contains descriptions of each file which can aid in determining which best
+suits the desired application. The files used with SIM\_spice were chosen
+because they provide capabilities similar to JEOD's existing RNP model.
+
+Note that the text kernels
+``pck00010.tpc'' and ``moon\_080317.tf'' are also found in this directory.
+``moon\_080317.tf '' includes definitions for 
+standard lunar reference frames while ``pck00010.tpc'' contains
+low fidelity (IAU) orientation models for planets and natural satellites in the 
+solar system. The orientation model for Mars that SPICE offers is one of these
+relatively low fidelity IAU models; however, it agrees reasonably well with
+the JEOD model for Mars orientation.
+
+
+\subsection {The Jet Propulsion Laboratory Horizons System}
+\label{subsec:horizons}
+While the NAIF website includes ephemerides for Sun, Planets, natural
+satellites, and barycenters, as well as orientation models for planets and
+satellites, it is generally necessary to obtain kernel files for objects
+such as comets and asteroids from the JPL Horizons system.  There are both
+web ~\href{http://ssd.jpl.nasa.gov/?horizons}{(Horizons main page)} and telnet
+interfaces to Horizons; however, high-fidelity binary files are only
+available through the telnet interface.  The following example describes the
+process for obtaining a high-fidelity ephemeris file for the asteroid Itokawa.
+
+First type the following from the command line:
+\begin{verbatim}
+telnet ssd.jpl.nasa.gov 6775
+\end{verbatim}
+The first task is to find the body of interest. In the case of Itokawa, this
+is very easy. Just type ``Itokawa'' at the ``Horizons$>$'' prompt. Once Horizons
+finds Itokawa, press Return to confirm. The screen will fill with information
+about Itokawa, and at the bottom the user will be prompted for input.  Type
+``s'' to request an ``spk'' file.  The next step will request an email address.
+Enter it and confirm.  Then, Horizons will ask whether a text file is desired.
+Since binary is desired instead, respond with ``n''.
+
+Next, the start and stop dates for the file are needed. For instance,
+SIM\_spice starts and ends on Jan. 30, 2009, so any range which includes that
+day would be fine.
+
+Finally, the system creates a binary spk file and provides instructions on
+how/where to retrieve it by anonymous ftp. The name of the file is a somewhat
+random string of characters; the user will likely find it helpful to rename
+it something more human-friendly after retrieval, such as ``itokawa.bsp''.
+Follow the instructions and retrieve the file.
+
+
+\section{SIM\_spice}
+Once SPICE has been downloaded and installed, SIM\_spice is ready to be run.
+The simulation directory already contains the SPICE kernels needed to operate the
+basic simulation which includes Sun, Earth, Moon, and Mars.  These files were
+retrieved using the process described in section~\ref{subsec:naif}.
+
+The standard RUN case delivered with SIM\_spice is named ``RUN\_01''. That run
+will create files that log the position and velocity of Sun, Earth, Moon and
+Mars in Solar System Barycenter coordinates. The rotational states of Earth,
+Moon, and Mars are also logged in their respective files. The exact same
+information is logged by SIM\_de4xx and can be used for comparison. 
+
+The generalized version of SIM\_spice includes two bodies, Phobos and Itokawa,
+which are not part of the JEOD DE4xx model. In order to run the generalized sim,
+one merely needs to uncomment a few lines in the input deck and download the
+necessary files from NAIF and Horizons.  The appropriate file for Phobos is
+named ``mar097.bsp'' and is located in the directory ``spk/satellites'' on
+the NAIF Generic Kernels page; see section~\ref{subsec:naif} for further
+information on retrieval.  The appropriate file for Itokawa can be retrieved
+from the JPL Horizons system; the process is thoroughly described in
+section~\ref{subsec:horizons}.
+
+Once those files are retrieved, place them in the data directory of
+SIM\_spice. Then open the file SET\_test/RUN\_01/input.py and uncomment
+line 19. The additional bodies will now be actively updated upon subsequent
+re-runs of SIM\_spice.
+
+(Aside: If one is interested in seeing how the SPICE files are unpacked
+and the resulting JEOD reference frame tree is built, then uncomment line 7 of
+SET\_test/RUN\_01/input.py. Note that doing so uncorks a spew of other debug
+output from JEOD as well, so it might be the kind of thing best left for
+debugging purposes.)
+
+
+\section{Using SPICE in a Trick Simulation}\label{sec:builder}
+In order to have planets or other celestial bodies in a Trick simulation,
+one should instantiate a SimObject for each object. The typical architecture
+includes the following:
+\begin{itemize}
+\item A SimObject to manage the overall environment.
+\item Planetary SimObjects, one for each celestial body, containing Planet
+and GravitySource classes to represent the associated celestial body's reference
+frames, characteristics, and gravity.
+\item ``Default data'' classes to initialize the Planet and GravitySource objects
+within each planetary SimObject with the characteristics of the associated
+celestial body.
+\end{itemize}
+
+
+\subsection{Planetary SimObjects}\label{subsec:planet.sm}
+Planetary SimObjects are the S\_define level classes which encapsulate a planet
+or other celestial object. JEOD provides several predefined S\_modules of this
+sort for Earth, Moon, Mars, and the Sun; they can be found in
+\verb|${JEOD_HOME}/lib/jeod/JEOD_S_modules|.
+
+In addition to the standard JEOD S\_modules for Earth, Moon, Sun, and Mars,
+SIM\_spice also includes two custom S\_modules, itokawa\_basic.sm and
+phobos\_basic.sm, which are used in the generalized simulation. These
+S\_modules were built by inheriting from a generic planet module found
+in the directory \verb|${JEOD_HOME}/lib/jeod/JEOD_S_modules/Base| which is
+there for that purpose. Thus, itokawa\_basic.sm and phobos\_basic.sm
+are excellent prototypes for any new S\_modules that may need to be created
+for celestial objects driven by SPICE.
+
+
+\subsection{Planetary Initialization Classes}\label{subsec:planetary_init}
+JEOD provides default data classes to initialize Planet and GravitySource
+objects for Earth, Moon, Sun, Mars, and Jupiter. These standard JEOD
+initialization classes are found in the ``data'' directories for the planet
+and gravity models respectively.  For the purposes of demonstrating the
+capabilities of the SPICE model via SIM\_spice, analogous initialization
+classes were created for Phobos and Itokawa.  However, these classes are
+only for demonstration and should not be used when accurate planet or gravity
+models are needed.
+
+
+\subsection{Working with SPICE Ephemerides}\label{subsec:spice_ephelmerides}
+Starting with JEOD version 3.3, the standard JEOD module library includes
+an S\_module named environment\_spice.sm which defines an environment
+SimObject for the SPICE ephemerides. Thus, including SPICE in a sim is
+as simple as adding the line
+\begin{verbatim}
+#include "JEOD_S_modules/environment_spice.sm"
+\end{verbatim}
+to an S\_define file.
+
+Unlike the classic DE4xx model, the \SpiceDesc\ has no concept of activation
+or deactivation of an individual celestial object once declared.  If a
+SPICE ephemeris object exists in a sim, then SPICE assumes that the object
+should be active.  So, all that is necessary in order for a sim to contain
+celestial bodies driven by the \SpiceDesc\ is to define their S\_modules,
+and include environment\_spice.sm as above.
+
+The rest of what is needed is supplied in the input deck. The following
+examples assume one is using the standard JEOD S\_module environment\_spice.sm,
+which instantiates a SimObject named ``env'' containing the data member
+``spice'', which is of type ``SpiceEphemeris'' (i.e., the \SpiceDesc).
+
+First, introduce the kernel files downloaded from NAIF, containing data
+for Sun, Earth, Moon, and Mars:
+\begin{verbatim}
+env.spice.metakernel_filename = "data/kernels.tm"
+\end{verbatim}
+The file kernels.tm is a so-called ``metakernel'' file, meaning it contains
+a list of kernels for SPICE to load. This file can be used as a template for
+tailoring to one's own needs.  For the generalized sim containing Phobos and
+Itokawa, please refer to the file data/more\_kernels.tm.
+
+Next, load the planetary ephemerides (see Modified\_data/spice.py):
+\begin{verbatim}
+env.spice.add_planet_name("Sun")
+env.spice.add_planet_name("Earth")
+env.spice.add_planet_name("Moon")
+env.spice.add_planet_name("Mars")
+\end{verbatim}
+
+Finally, request orientation calculations for Earth, Moon, and Mars:
+\begin{verbatim}
+env.spice.add_orientation("Earth")
+env.spice.add_orientation("Moon")
+env.spice.add_orientation("Mars")
+\end{verbatim}

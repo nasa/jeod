@@ -1,0 +1,189 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//=============================================================================
+// Two vehicles in Earth orbit with relative states managed by Relkin manager.
+// 
+//=============================================================================
+
+#define DYNAMICS      1.0
+
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+#include "time_dyntime_only.sm"
+#include "dynamics.sm"
+#include "environment_sans_de405.sm"
+#include "earth_basic.sm"
+
+//***************************************************************
+// CLASS: (VehicleSimObject)
+// PURPOSE:
+//  ( This sim object models a very basic vehicle.)
+//***************************************************************
+##include "dynamics/dyn_body/include/dyn_body.hh"
+##include "environment/gravity/include/spherical_harmonics_gravity_controls.hh"
+##include "dynamics/body_action/include/dyn_body_init_lvlh_trans_state.hh"
+##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
+##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
+##include "dynamics/body_action/include/mass_body_init.hh"
+##include "utils/lvlh_frame/include/lvlh_frame.hh"
+
+class VehicleSimObject : public Trick::SimObject
+{
+  public:
+   jeod::DynBody    dyn_body;
+   jeod::SphericalHarmonicsGravityControls  grav_control;
+
+   jeod::DynBodyInitOrbit          orb_init;
+   jeod::DynBodyInitLvlhRotState   lvlh_rot_init;
+   jeod::DynBodyInitLvlhTransState lvlh_trans_init;
+   jeod::MassBodyInit              mass_init;
+
+   jeod::LvlhFrame             lvlh_frame;
+   jeod::LvlhFrame             lvlh_frame_struc;
+
+   VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
+     :
+       dyn_manager(dyn_mngr_in)
+   {
+      P_ENV ("initialization") dyn_body.initialize_model(dyn_manager );
+      P_ENV ("initialization") lvlh_frame.initialize ( dyn_manager);
+      P_ENV ("initialization") lvlh_frame_struc.initialize ( dyn_manager);
+
+
+      (DYNAMICS, "environment") lvlh_frame.update ( );
+      (DYNAMICS, "environment") lvlh_frame_struc.update ( );
+   };
+
+  private:
+
+   VehicleSimObject (const VehicleSimObject&);
+   VehicleSimObject & operator = (const VehicleSimObject&);
+
+   jeod::DynManager & dyn_manager;
+
+};
+VehicleSimObject vehicleA(dynamics.dyn_manager);
+VehicleSimObject vehicleB(dynamics.dyn_manager);
+
+/*****************************************************************************
+Purpose:(Relative States)
+*****************************************************************************/
+##include "dynamics/rel_kin/include/relative_kinematics.hh"
+##include "dynamics/derived_state/include/lvlh_relative_derived_state.hh"
+##include "dynamics/derived_state/include/relative_derived_state.hh"
+
+class RelStateSimObject : public Trick::SimObject {
+
+  public:
+   jeod::LvlhRelativeDerivedState  pointA_wrt_bodyB_in_lvlh_bodyB;
+   jeod::LvlhRelativeDerivedState  pointB_wrt_bodyB_in_lvlh_bodyB;
+   jeod::RelativeDerivedState      pointA_wrt_pointB_in_strucB;
+   jeod::RelativeDerivedState      bodyB_wrt_bodyA_in_bodyA;
+   jeod::LvlhRelativeDerivedState  bodyA_wrt_bodyB_in_lvlh_bodyB;
+   jeod::LvlhRelativeDerivedState  bodyB_wrt_bodyA_in_lvlh_bodyA;
+   jeod::LvlhRelativeDerivedState  bodyA_wrt_strucB_in_curvi_lvlh_strucB;
+   jeod::LvlhRelativeDerivedState  bodyB_wrt_strucA_in_curvi_lvlh_strucA;
+   jeod::LvlhRelativeDerivedState  bodyB_wrt_strucA_in_lvlh_strucA;
+   jeod::RelativeKinematics        relkin;
+
+  RelStateSimObject( jeod::DynBody &  veh_A_bdy_in,
+                     jeod::DynBody &  veh_B_bdy_in,
+                     jeod::DynManager        &  dyn_mngr_in  )
+    :
+    veh_A_body(veh_A_bdy_in),
+    veh_B_body(veh_B_bdy_in),
+    dyn_manager(dyn_mngr_in)
+
+  {
+
+     P_DYN  ("initialization") pointA_wrt_bodyB_in_lvlh_bodyB.initialize (
+                                                                 veh_A_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") pointB_wrt_bodyB_in_lvlh_bodyB.initialize (
+                                                                 veh_B_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") pointA_wrt_pointB_in_strucB.initialize (
+                                                                 veh_A_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") bodyB_wrt_bodyA_in_bodyA.initialize (
+                                                                 veh_B_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") bodyA_wrt_bodyB_in_lvlh_bodyB.initialize (
+                                                                 veh_A_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") bodyB_wrt_bodyA_in_lvlh_bodyA.initialize (
+                                                                 veh_B_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") bodyA_wrt_strucB_in_curvi_lvlh_strucB.initialize (
+                                                                 veh_A_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") bodyB_wrt_strucA_in_curvi_lvlh_strucA.initialize (
+                                                                 veh_B_body,
+                                                                 dyn_manager);
+     P_DYN  ("initialization") bodyB_wrt_strucA_in_lvlh_strucA.initialize (
+                                                                 veh_B_body,
+                                                                 dyn_manager);
+
+
+     P_DYN ("initialization") relkin.add_relstate( pointA_wrt_bodyB_in_lvlh_bodyB);
+     P_DYN ("initialization") relkin.add_relstate( pointB_wrt_bodyB_in_lvlh_bodyB);
+     P_DYN ("initialization") relkin.add_relstate( pointA_wrt_pointB_in_strucB);
+     P_DYN ("initialization") relkin.add_relstate( bodyB_wrt_bodyA_in_bodyA);
+     P_DYN ("initialization") relkin.add_relstate( bodyA_wrt_bodyB_in_lvlh_bodyB);
+     P_DYN ("initialization") relkin.add_relstate( bodyB_wrt_bodyA_in_lvlh_bodyA);
+     P_DYN ("initialization") relkin.add_relstate( bodyA_wrt_strucB_in_curvi_lvlh_strucB);
+     P_DYN ("initialization") relkin.add_relstate( bodyB_wrt_strucA_in_curvi_lvlh_strucA);
+     P_DYN ("initialization") relkin.add_relstate( bodyB_wrt_strucA_in_lvlh_strucA);
+
+     (DYNAMICS, "environment") relkin.update_all ( );
+   };
+
+  private:
+   RelStateSimObject (const RelStateSimObject&);
+   RelStateSimObject & operator = (const RelStateSimObject&);
+
+   jeod::DynBody &  veh_A_body;
+   jeod::DynBody &  veh_B_body;
+   jeod::DynManager & dyn_manager;
+};
+RelStateSimObject relative(vehicleA.dyn_body,
+                           vehicleB.dyn_body,
+                           dynamics.dyn_manager);
+
+// Set the integration
+IntegLoop sim_integ_loop (DYNAMICS) dynamics;

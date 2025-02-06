@@ -1,0 +1,66 @@
+\test{Instance Test}\label{test:instance}
+\begin{description}
+\item[Background]
+The two unit tests described above address the static conversion methods provided
+by the model. These conversion methods are secondary to the primary purpose of
+the model, which is to serve as an input mechanism by which simulation users can
+specify an orientation in any of the supported forms. The model accomplishes
+this by making the Orientation class instantiable.
+The purpose of this test is to test the completeness and correctness of the
+treatment of Orientation objects.
+
+The model provides three different schemes for setting an Orientation object:
+By construction, through setters, and by direct assignment to member data.
+The model provides two schemes for accessing an Orientation object:
+Through getters and by direct access to member data. The direct access to
+member data means that the model must provide means to ensure that an
+accessible representation is consistent with input. This leads to yet another
+set of member functions that compute some desired product.
+
+This test tests various combinations of assignment techniques paired with access
+techniques, with each of the twelve different Euler sequences counted as
+a separate technique. While the two previous unit tests used numerical overkill
+to demonstrate correctness, this test uses a combinatoric overkill approach.
+
+\item[Test description]
+This test assumes that all of the direct conversions depicted in
+figure~\ref{fig:representations} operate correctly. Ignoring the multiplicity
+of representation schemes, this test uses but one orientation as the basis for
+testing, a rotation of 120 degrees about the line $x=y=z$. As this orientation
+is well-removed from all gimbal lock positions, the errors that result from
+converting from one form to another should be small numerical errors.
+
+The following pairings of assignment and access techniques are tested:
+\begin{itemize}
+\item Setters and getters.
+\item Constructors and getters.
+\item Direct assignments and direct access.
+\end{itemize}
+
+\item[Test directory] {\tt verif/unit\_tests/instance} \\
+This is a standard unit test directory with two configuration managed items,
+main.cc and makefile. Simply type {\tt make} to build the test article and run
+the test in default mode. This default mode summarizes the results of the test.
+To see individual output, issue the command {\tt ./test\_program -verbose} after
+having made the test article.
+
+\item[Success criteria]
+Having a known correct response means that the error in any retrieved
+representation can be readily calculated. The test passes if each of the
+retrieved representations is within some threshold of the known value.
+The selected orientation is well-removed from all gimbal lock positions.
+The errors that result from converting from any one form to another should be
+very small numerical errors. The test uses a threshold of $10^{-15}$ radians to
+detect errors.
+
+\item[Test results]
+The test exhaustively tests all combinations of inputs and outputs. All outputs
+are numerically close to the expected correct value. The test passes.
+
+\item[Relevant requirements]
+This test demonstrates the satisfaction of
+requirements~\ref{reqt:representations} and~\ref{reqt:data_access}
+and partially demonstrates the satisfaction of
+requirement~\ref{reqt:euler_angles}.
+
+\end{description}

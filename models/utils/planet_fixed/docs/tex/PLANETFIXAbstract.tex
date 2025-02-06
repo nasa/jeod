@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Planet Fixed Utility
+% Purpose:
+%
+% 
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+This model utility provides two coordinate transformations:
+\begin{itemize}
+\item A module for transformation from planet centered planet fixed Cartesian coordinates to
+      planetospherical or planetoellipsoidal coordinates (a longitude, latitude, altitude set)
+      and vice versa.(Note: in the model the word ellipse occurs in place of ellipsoidal coordinates.
+      The reader should note that ellipsoidal is the standard usage for a given planetary body.
+       See the Explanatory Supplement to the Astronomical Almanac \cite{Seidelmann}.
+\item A module for transformation from planet centered planet fixed to a tangent plane system.
+      This is a horizon system and here is chosen to be the North East Down specification with
+      coordinates of altitude , latitude (or elliptical latitude) and longitude chosen as the non
+      cartestian coordinates.(This is the reversed version of Local North East Up coordinates, where height
+      (or altitude), right ascension and declination are chosen.)
+\end{itemize}
+The term planet\_fix refers to the two utility modules planet\_fixed\_posn and north\_east\_down.\\
+These coordinates and coordinate transformation apply to any body in the solar system. The reader however
+will find difference nomenclature in the literature for these as noted above.
+\end{abstract}

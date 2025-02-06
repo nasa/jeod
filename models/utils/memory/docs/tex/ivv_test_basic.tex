@@ -1,0 +1,61 @@
+\test{Basic}\label{test:basic}
+\begin{description}
+\item[Test Directory]
+{\tt models/utils/memory/verif/unit\_tests/basic}
+
+\item[Test Description] This unit test exercises 
+the basic ability of the \ModelDesc to allocate and deallocate memory.
+The test allocates and later deletes the following types of data:
+\begin{enumerate}
+\item An object of a primitive type via {\tt JEOD\_ALLOC\_PRIM\_OBJECT},
+\item Arrays of a primitive type via {\tt JEOD\_ALLOC\_PRIM\_ARRAY},
+\item An array of pointers to structured data
+  via {\tt JEOD\_ALLOC\_CLASS\_POINTER\_ARRAY},
+\item An array of a structured type via {\tt JEOD\_ALLOC\_CLASS\_ARRAY},
+\item Objects of a structured type via {\tt JEOD\_ALLOC\_CLASS\_OBJECT}.
+\end{enumerate}
+
+To run the test, enter the test directory and type the command
+{\tt make build} to build the test program and then type the command
+{\tt ./test\_program -verbose} to run the test program with debugging
+enabled.
+
+\item[Success Criteria]
+The success criteria involve analyzing the debug output that results
+from running the program in debug mode:
+\begin{itemize}
+\item Each memory allocation must indicate that
+an appropriately-sized block of memory is allocated,
+the allocated memory is registered the simulation interface,
+the allocated memory is registered with the \ModelDesc, and
+the allocated memory is initialized as expected.
+
+\item Each memory deallocation must indicate that
+the allocated memory: is deregistered with the simulation interface,
+is properly destructed and freed, and
+is deregistered with the \ModelDesc.
+
+\item The summary output must report that all memory has been freed.
+\end{itemize}
+
+\item[Test Results]
+The test passes.
+
+\item[Applicable Requirements]
+This test demonstrates the partial or complete satisfaction of the 
+following requirements:
+\begin{itemize}
+\item \ref{reqt:alloc}. The {\tt JEOD\_ALLOC} macros properly
+  allocate and initialize blocks of memory.
+\item \ref{reqt:registration}. The model registers allocated memory with
+  the simulation engine.
+\item \ref{reqt:free}. The {\tt JEOD\_DELETE} macros properly
+  destruct and delete blocks of memory.
+\item \ref{reqt:base_class_pointer_free}. The {\tt JEOD\_DELETE} macros
+  function properly when the target of the deletion is a base class pointer
+  with a different address than that of the allocated memory.
+\item \ref{reqt:deregistration}. The model deregisters released memory
+  with the simulation engine.
+\end{itemize}
+
+\end{description}

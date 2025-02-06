@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% spec.tex
+%
+% Specifications of the <model name>
+%
+% Usage instructions:
+% This file should comprise a
+% - The \chapter command, which must not be changed.
+% - A number of \section command. You can change the labels but do not
+%   change the names, and do not add any sections of your own.
+% - Text to fill in the contents of the sections (which you must provide).
+%
+% Feel free to:
+% - Change the labels on the \section commands.
+% - Use your own \subsection commands and below. Structure is good.
+% - Use figures and tables.
+% - Split the file into parts if it gets too big.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+
+\section{Conceptual Design}
+\label{sec:conceptual_design}
+
+% Provide a conceptual description of the model.
+% This section typically provides answers to the following:
+% - What are the key concepts of the model?
+% - What is the model architecture?
+% - With what other models does this model interact?
+
+% If needed, put a \clearpage at the end of the section to ensure that all
+% floats (figures and tables) are printed before the start of the next section.
+
+\section{Mathematical Formulation}
+\label{sec:mathematics}
+
+% Note: Do not delete this section for a non-mathematical model. Instead use N/A
+% or some other designation to indicate that the section is blank.
+% For all other models, this is where you should describe the mathematics that
+% underlie your model. Do not put those mathematical descriptions in the
+% conceptual design or detailed design sections.
+
+
+\section{Detailed Design}
+\label{sec:detailed_design}
+
+% Provide a detailed description of the model.
+% This section typically provides answers to the following:
+% - What is the model API?
+% - What design decisions are not captured in the API that some future
+%   maintainer of the model or some programmatic user of the model should know?
+% - With what other models does this model interact?
+
+% As a starter you should refer to the API. If you have a bibtex entry
+% tagged with api:\MODELNAME, you can use the following:
+% The classes and methods of the \MODELTITLEx are described in detail in the
+% \hyperapiref{\MODELNAME}. This section describes architecture details that
+% are not present in the API document.
+
+% If the conceptual design did not take the model to the point where the
+% API alone suffices to provide the necessary understanding you should
+% continue the discussion of the details of the design.
+
+% As with the conceptual design, make sure all of your floats are printed.
+
+
+% Inventory instructions: Tailoring instructions are embedded in the
+% itemized list.
+\section{Inventory}
+All \MODELTITLEx files are located in {\tt \$\{JEOD\_HOME\}/\MODELPATH}.
+Relative to this directory,
+\begin{itemize}
+\vspace{-0.2\baselineskip}
+%
+% Header and source files.
+% Tailoring is needed for
+% - Models with headers only
+% - Models with headers and source in model subdirectories.
+\item Header and source files are located
+in model {\tt include} and {\tt src} subdirectories.
+See table~\ref{tab:source_files}
+for a listing of the configuration-managed files in these directories.
+%
+% Data files and other stuff.
+% This item prints only if your model has data files and other stuff. Do not
+% delete this item if your model doesn't have any data or miscellaneous files.
+% Nothing will be printed in such a case.
+% Tailoring is needed for
+% - Models that have other stuff such as a makefile_overrides file.
+\iflabeldefined{tab:data_files}{%
+\vspace{-0.1\baselineskip}
+\item Data files are located in the model data subdirectory.
+See table~\ref{tab:data_files}
+for a listing of the configuration-managed files in this directory.
+}%
+%
+% Documentation files.
+% This item should be the same for all models.
+%
+\vspace{-0.1\baselineskip}
+\item Documentation files are located in the model {\tt docs} subdirectory.
+See table~\ref{tab:documentation_files}
+for a listing of the configuration-managed files in this directory.
+%
+% Verification files.
+% This item should be the same for all models.
+% This item prints only if your model has verification files. Do not
+% delete this item if your model doesn't have a verif directory.
+% Nothing will be printed in such a case.
+%
+\iflabeldefined{tab:verification_files}{%
+\vspace{-0.1\baselineskip}
+\item Verification files are located in the model {\tt verif} subdirectory.
+See table~\ref{tab:verification_files}
+for a listing of the configuration-managed files in this directory.
+}%
+\end{itemize}
+
+\input{inventory}

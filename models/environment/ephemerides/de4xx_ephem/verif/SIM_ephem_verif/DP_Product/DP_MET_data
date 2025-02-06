@@ -1,0 +1,44 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "Atmospheric Data"
+
+    PLOT 1: "Geodetic Altitude (m)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Altitude"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.ellip_coords.altitude"
+            UNITS: "M"
+            LABEL: "Altitude"
+
+    PLOT 2: "Density (kg/m^3)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Density"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.atmos.density"
+            UNITS: "kg/M3"
+            LABEL: "density"
+
+    PLOT 3: "Temperature (K)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Temperature"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.atmos.temperature"
+            UNITS: "K"
+            LABEL: "temperature"

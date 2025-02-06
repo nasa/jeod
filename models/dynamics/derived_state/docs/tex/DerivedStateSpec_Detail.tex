@@ -1,0 +1,56 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the DerivedState model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+\label{ref:DerivedState}
+
+\subsection{Functional Design}
+See the \href{file:refman.pdf}{Reference Manual}\cite{derivedstatebib:ReferenceManual} for a summary of member data and member methods for all classes.  This section describes the functional operation of the methods identified in the base-class, DerivedState.
+
+The Derived State provides common functionality to its sub-classes.
+
+\begin{itemize}
+\funcitem{find\_planet}
+Uses the Dynamics Manager method \textit{find\_planet} to find a planet with name \textit{planet\_name}
+\funcitem{initialize}
+The \textit{initialize} method receives a reference to the subject body and to the dynamics manager.  Its primary responsibility is to set the identifying name of the state, \textit{state\_identifier}.  This comprises the following elements:
+\begin{enumerate}
+\item{The type name}\ \newline
+The type name would be something like \textit{LvlhDerivedState}, or \textit{RelativeDerivedState}.
+\item{The name of the subject body}\ \newline
+This is set by the user, often in the input file, or a Modified data file.  Both are included in the verification simulations:  for example, the Solar Beta verification simulation uses the input file (textit{verif/SIM\_SolarBeta/SET\_test/RUN\_comp\_ISS/input})
+\begin{verbatim}
+veh.dyn_body.set_name( "solar_beta_test_vehicle" );
+\end{verbatim}
+whereas the LVLH verification simulation uses a Modified Data file entry \newline (\textit{verif/SIM\_LVLH/Modified\_data/veh.d})
+\begin{verbatim}
+veh.dyn_body.set_name( "vehicle1" );
+\end{verbatim}
+
+\item{The reference name \textit{(optional)}}\ \newline
+The reference name is used in identifying a reference frame by name, and in naming the state identifier.  By coincidence, for those sub-classes of DerivedState included in \JEODid\, when the reference name is being used to identify a reference frame, it is always used to identify a planet.  However, this is a coincidence, not a rule; it is not set in stone and any extensions to \JEODid\ need not adhere to this statement.
+
+Not all subclasses of DerivedState require the \textit{reference\_name} in all situations, some require it only when the user requires something other than the default reference frame, and some never require it.  For those subclasses and situations that do not require a reference name, the inclusion of one will only be used in the state identifier.  Those that do not have a defined reference name will have only a 2-member identifier, whereas those with a reference name will have a 3-member identifier.  This value is also set by the user, again usually in the input file or a Modified data file.
+For example, from \textit{verif/SIM\_SolarBeta/SET\_test/RUN\_comp\_ISS/input}:
+\begin{verbatim}
+veh.solar_beta.reference_name = "Earth";
+\end{verbatim}
+\end{enumerate}
+
+Continuing with the example from
+\textit{verif/SIM\_SolarBeta/SET\_test/RUN\_comp\_ISS/input},
+the simulation has a SolarBetaDerivedState, for which this initialize method is called.  The resulting \textit{state\_identifier} value that is output is
+\begin{verbatim}
+SolarBetaDerivedState.solar_beta_test_vehicle.Earth
+\end{verbatim}
+\funcitem{update}
+This method is included for consistency; it has no other purpose.
+\funcitem{validate\_name}
+Used by \textit{find\_planet} to ensure that names have been specified.
+\end{itemize}

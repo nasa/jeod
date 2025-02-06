@@ -1,0 +1,139 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ivv.tex
+% Verification and validation of the Dynamics Manager Model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Inspection, Verification, and Validation}\hyperdef{part}{ivv}{}
+\label{ch:ivv}
+%----------------------------------
+
+\section{Inspection}\label{ch:inspect}
+This section describes inspections of the \ModelDesc
+with respect to the requirements level on the model.
+
+\inspection{Top-level Requirements}
+\label{inspect:TLI}
+This model does not yet comply with requirement~\ref{reqt:toplevel};
+it has not been adequately tested.
+The code body does comply with the top-level requirement.
+
+\inspection{Design Inspection}
+\label{inspect:design}
+By inspection, the \ModelDesc provides\begin{itemize}
+\item Registration and lookup services
+  as specified by requirement~\ref{reqt:lists}. This requirement
+  is also partially met through the DynManager's inheritence
+  of the EphemeridesManager \cite{dynenv:EPHEMERIDES}, which
+  inherits from the RefFrameManager \cite{dynenv:REFFRAMES}.
+\item Operation modes
+  as specified by requirement~\ref{reqt:mode}.
+\item Ephemeris initialization capabilities
+  as specified by requirement~\ref{reqt:ephem}.
+\item Ephemerides-free operations
+  as specified by requirement~\ref{reqt:ephem_free}.
+\item Support for body actions
+  as specified by requirement~\ref{reqt:body_actions}.
+\item Body initializations
+  as specified by requirement~\ref{reqt:init_time_body_actions}.
+\item Asynchronous actions
+  as specified by requirement~\ref{reqt:asynch_body_actions}.
+\item A common integration scheme
+  as specified by requirement~\ref{reqt:common_integ}.
+\item State and time propagation
+  as specified by requirement~\ref{reqt:integration}.
+\item Gravitational computations
+  as specified by requirement~\ref{reqt:gravitation}.
+\end{itemize}
+
+\inspection{Test Inspection}
+\label{inspect:extern_tests}
+One reason this document does not comply with requirement~\ref{reqt:toplevel}
+is that no unit tests are supplied with the model.
+That said, all of the JEOD-level and many of the model-level tests
+use the \ModelDesc. These other tests collectively demonstrate
+that the model does satisfy
+requirements~\ref{reqt:mode}
+to~\ref{reqt:gravitation}.
+
+\section{Metrics}
+Table~\ref{tab:coarse_metrics} presents coarse metrics on the source
+files that comprise the model.
+
+\input{coarse_metrics}
+
+Table~\ref{tab:metrix_metrics} presents the cyclomatic complexity of the 
+methods defined in the model.
+
+\input{metrix_metrics}
+
+\section{Requirements Traceability}
+
+The IV\&V artifacts that demonstrate the satisfaction of the requirements
+in chapter~\ref{ch:reqt} are depicted in
+table~\ref{tab:reqt_traceability}.
+
+\begin{table}[htp]
+\centering
+\caption{Requirements Traceability}
+\label{tab:reqt_traceability}
+\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Artifact} \\ \hline\hline
+\ref{reqt:toplevel} & Top-level requirement &
+   Insp. & \ref{inspect:TLI} &
+   Top-level requirements\\
+&& && \failed \\[4pt]
+\ref{reqt:lists} & Registration and lookup services &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\[4pt]
+\ref{reqt:mode} & Mode &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\[4pt]
+\ref{reqt:ephem} & Ephemerides operations &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\[4pt]
+\ref{reqt:ephem_free} & Ephemerides-free operations &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+\ref{reqt:body_actions} & Body actions &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\[4pt]
+\ref{reqt:init_time_body_actions} & Initialization body actions &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\[4pt]
+\ref{reqt:asynch_body_actions} & Asynchronous body actions &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\[4pt]
+\ref{reqt:common_integ} & Common integration scheme &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\[4pt]
+\ref{reqt:integration} & State and time propagation &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\[4pt]
+\ref{reqt:gravitation} & Gravitation &
+   Insp. & \ref{inspect:design} &
+   Design inspection\\
+&& Insp. & \ref{inspect:extern_tests} &
+   Test inspection\\
+\hline
+\end{tabular}
+\end{table}

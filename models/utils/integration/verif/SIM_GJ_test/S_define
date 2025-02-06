@@ -1,0 +1,128 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//==============================================================================
+// This simulation is a demonstration simulation for the lunar environment
+// and orbital dynamics models in Trick. The following simulation objects
+// are defined in this sim:
+//
+//          sys - Trick runtime executive and data recording routines
+//         time - Simplified time model
+//         test - Item under test
+//
+//==============================================================================
+
+
+// Define job calling intervals
+#define DYNAMICS        1.00  // Dynamics interval
+
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
+
+ // Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "time_TAI_UTC_UT1_TT.sm"
+#include "dynamics.sm"
+#include "environment.sm"
+#include "earth_basic.sm"
+#include "vehicle_basic.sm"
+
+
+
+
+
+//// Include headers for classes that this class contains:
+##include "utils/integration/gauss_jackson/include/gauss_jackson_integrator_constructor.hh"
+##include "er7_utils/integration/rk4/include/rk4_integrator_constructor.hh"
+
+
+class TestSimObject: public Trick::SimObject {
+
+private: // external reference
+   jeod::RefFrameTrans & veh_state;
+public:
+
+   int count;
+
+   double r_err;
+   double v_err;
+
+   double r_err_mag;
+   double r_err_tot;
+   double r_err_mag_tot;
+   double r_err_ave;
+   double r_err_mag_ave;
+   double log_r_err_mag_ave;
+
+   // Member functions
+   void gen_vals() {
+      r_err = (jeod::Vector3::vmag(veh_state.position) - 9.0E6) / 9.0E6;
+      v_err = (jeod::Vector3::vmag(veh_state.velocity) - 8.0E3) / 8.0E3;
+      r_err_mag = std::abs(r_err);
+      count ++;
+      r_err_tot += r_err;
+      r_err_mag_tot += r_err_mag;
+      r_err_ave = r_err_tot / count;
+      r_err_mag_ave = r_err_mag_tot / count;
+      log_r_err_mag_ave = std::log10(r_err_mag_ave);
+   }
+
+   // Constructor
+   TestSimObject (jeod::RefFrameTrans & state_in)
+       :
+       veh_state(state_in),
+       count(0),
+       r_err_tot(1.0E-16),
+       r_err_mag_tot(1.0E-16)
+   {
+   (DYNAMICS, "environment") gen_vals();
+   }
+
+
+private:
+
+   // Unimplemented copy constructor and assignment operator
+   TestSimObject (const TestSimObject&);
+   TestSimObject & operator = (const TestSimObject&);
+};
+TestSimObject state (vehicle.dyn_body.composite_body.state.trans);
+
+
+IntegLoop sim_integ_loop (DYNAMICS) dynamics;

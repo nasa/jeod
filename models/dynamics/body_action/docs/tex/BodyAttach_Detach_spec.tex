@@ -1,0 +1,100 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAttach_Detach_spec.tex
+% spec for BodyAttach_Detach
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Specification}\label{ch:\modelpartid:spec}
+
+\section{Conceptual Design}
+The \partxname comprises six classes.
+\begin{itemize}
+\item BodyAttach, which derives directly from the base BodyAction class.
+This class provides the conceptual basis for attaching two MassBody objects.
+The subject of the action is to be attached as a child of a parent body.
+The geometric details of the attachment (and the actual attachment) is a task
+left to derived classes.
+\item BodyAttachAligned, which derives from BodyAttach.
+A BodyAttachAligned object attaches MassBody objects using a point-to-point
+attachment mechanism.
+\item BodyAttachMatrix, which also derives from BodyAttach.
+A BodyAttachMatrix object attaches MassBody objects using a geometric
+attachment mechanism.
+\item BodyReattach, which derives directly from BodyAction.
+A BodyReattach object alters the geometry of an existing attachment.
+\item BodyDetach, which derives directly from BodyAction.
+A BodyDetach object detaches a MassBody object from its immediate
+parent (which is not specified).
+\item BodyDetachSpecific, which derives directly from BodyDetach.
+A BodyDetachSpecific object detaches a MassBody subtree from a
+specific parent.
+\end{itemize}
+
+\section{Mathematical Formulations}
+All of the underlying mathematics is performed by the Mass Model
+and the Dynamic Body Model, depending on what kinds of bodies are
+being attached, reattached, or detached.
+Refer to the Mathematical Formulations section of
+the \hypermodelref{MASS}
+and the \hypermodelref{DYNBODY}.
+
+\section{Detailed Design}
+
+\subsection{Attachment}
+The \ModelDesc BodyAttach class provides the basis for performing
+attachments. This class contains a member
+data element that identifies the parent MassBody to which the subject
+MassBody is to be attached.
+However, this class itself does not perform the
+attachment. That is the task of classes that derive from BodyAttach.
+Two concepts drove this design.
+\begin{itemize}
+\item The MassBody class provides multiple ways to accomplish the basic task of
+  attaching MassBody objects in the form of multiple {\tt attach\_to/attach\_child()} methods.
+  Distinct classes that derive from BodyAttach use distinct
+  {\tt attach\_to/attach\_child()} mechanisms.
+\item The Dynamics Manager takes advantage of this inheritance to attach
+  MassBody objects at initialization time. Any enqueued BodyAction objects
+  that derive from BodyAttach and are ready to run at initialization
+  time will be run as a part of the overall initialization processing.
+  Attachments are performed after having performed all of the actions
+  that initialize the mass properties and mass points of the simulation's
+  MassBody objects but before performing any state initializations.
+\end{itemize}
+
+JEOD supplies two classes that derive from BodyAttach.
+BodyAttachAligned uses the point-to-point form of {\tt attach\_to/attach\_child()}
+while BodyAttachMatrix uses the offset+matrix form.
+The BodyAttachAligned class contains data members that name the
+attach points on the two vehicles.
+The point-to-point {\tt apply()} method attaches the
+subject MassBody as a child of the parent MassBody object at the named
+attach points.
+The BodyAttachMatrix contains data members that specify the location
+and orientation of the subject body's structural frame with respect to
+the parent body's structural frame. The offset+matrix {\tt apply()} method
+attaches the subject MassBody as a child of the parent MassBody object
+using the supplied offset and orientation.
+
+\subsection{Reattachment}
+
+\subsection{Detachment}
+The MassBody class provides two versions of the {\tt detach()} method.
+Each of the two sub-model classes that perform detachments use one
+of these methods. The BodyDetach class uses the basic {\tt detach()}
+method to detach the subject MassBody object from its immediate parent.
+The class BodyDetachSpecific uses the form of {\tt detach()}
+that specifies the parent object. The body that is actually detached
+is the child of the specified parent that lies along the chain of mass bodies
+that link the subject body to the parent body in terms of parent-child
+relationships.
+
+\subsection{MassBody versus DynBody Attachment and Detachment}
+Properly attaching and detaching DynBody objects is a considerably more
+involved process that the corresponding tasks for MassBody objects.
+DynBody objects have momentum that must be conserved; energy must also
+be conserved on detachment. This is not a concern for simple MassBody objects.
+Fortunately for this model. all that detail is hidden in the guts of the
+{\tt attach\_to/attach\_child()} and {\tt detach()} methods. This model does not need to concern
+itself with the different behaviors; it merely needs to call the appropriate
+{\tt attach\_to/attach\_child()} or {\tt detach()} method.

@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Ephemerides model executive summary
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter*{Executive Summary}
+
+The JEOD \ModelDesc provides a generic framework for defining ephemeris models.
+The model comprises five sub-models:
+\begin{description}
+\item[Ephemeris Item]
+Ephemeris models represent as functions of time the position and velocity of
+planetary bodies and barycenters of multiple planetary bodies.
+Some models also represent as functions of time the orientations and angular
+velocities of planetary bodies.
+The Ephemeris Item sub-model defines the classes needed to represent these
+planetary states.
+\item[Ephemeris Interface]
+Any JEOD-based implementation of an ephemeris model needs to function
+properly with the rest of JEOD. One key aspect of this is the JEOD concept of a
+reference frame tree.  JEOD uses reference frames to describe the states of
+objects in space. Reference frames link to other reference frames to form a
+reference frame tree. JEOD relies upon the ephemeris models to
+define the base of this reference frame tree.
+The Ephemeris Interface sub-model prescribes basic behaviors that any
+ephemeris model must follow in the form of the EphemerisInterface class.
+\item[Ephemeris Manager]
+The RefFrameManager class defined in the {\REFFRAMES} provides basic
+capabilities regarding the management of a set of reference frames connected
+to form a reference frame tree. The Ephemeris Manager sub-model extends the
+RefFrameManager, adding capabilities related to managing planets,
+ephemeris items, and ephemeris models.
+\item[De4xx Ephemerides]
+The Jet Propulsion Laboratory has a long history of modeling the behavior of the
+solar system in the form of ephemeris models. The most recent members of these
+models are the 400/403/405/\ldots series of the JPL Development Ephemerides, or
+the DE4xx models for short. The De4xx Ephemerides sub-model provides the data for
+the DE405, DE421 and DE440 models and defines the class
+De4xxEphemeris, which extends the EphemerisInterface class.
+\item[Propagated Planet]
+The propagated planet sub-model
+provides the ability to have planetary state
+computed via some ephemeris model
+or propagated by integrating the equations of motion.
+This can be particularly useful for objects such as asteroids
+for which an ephemeris model is not readily
+available.
+\end{description}

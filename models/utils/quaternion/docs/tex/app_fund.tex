@@ -1,0 +1,63 @@
+ \section{Quaternion Fundamentals}\label{sec:app_fund}
+  
+ The quaternions are an extension of the complex numbers
+ first invented by William Rowan Hamilton with three distinct square roots of $-1$, which are
+ typically denoted as $i$, $j$, and $k$.
+
+\subsection{Fundamental Formula}
+
+The quaternion imaginary units obey Hamilton's Fundamental Formula of Quaternion Algebra,
+
+\begin{equation}
+i^2 = j^2 = k^2 = ijk = -1 \label{eqn:quat_fundamental_formula}
+\end{equation}
+
+An immediate consequence of this definition is that multiplication of quaternion imaginary units is not commutative:
+\begin{subequations}
+\begin{align}
+ij &= k = -ji \\
+jk &= i = -kj \\
+ki &= j = -ik
+\end{align}
+\end{subequations}
+
+
+\subsection{Quaternion Representation}\label{sec:app_rep}
+
+Just as  a complex number can be represented as a sum of real and imaginary parts, a quaternion can also be written as a linear combination of real and imaginary quaternion parts:
+\begin{align}
+\quat Q &= q_s + q_i i + q_j j + q_k k \label{eqn:quat_rep_explicit} \\
+\intertext{or more compactly as the four-vector}
+\quat Q &= \begin{bmatrix}q_s \\ q_i \\ q_j \\ q_k \end{bmatrix} \label{eqn:quat_rep_4vector}\\
+\intertext{or even more compactly by representing the imaginary quaternion part as a vector:}
+\quat Q &=\quatsv {q_s} {\vect{q_v}} \label{eqn:quat_rep_scalar_vector}\\
+\intertext{where $\vect{q_v}$ comprises the imaginary quaternion part of $\quat Q$:}
+\vect{q_v} &= \begin{bmatrix} q_i \\ q_j \\ q_k \end{bmatrix} \label{eqn:quat_vector_part}
+\end{align}
+
+JEOD represents quaternions in the scalar $+$ vector form.
+This representation scheme is used in this document.
+
+\subsection{Special Cases}\label{sec:app_scases}
+
+Quaternions of particular interest are:
+
+\begin{itemize}
+\item
+The quaternion whose scalar and vector parts are identically zero
+is the \emph{zero quaternion}.
+\item
+A quaternion whose vector part is identically zero
+is a \emph{pure real quaternion}.
+\item
+A quaternion whose scalar part is identically zero
+is a \emph{pure imaginary quaternion}.
+\item
+A quaternion of the form $\quat Q = \quatsv {q_s} {\vect{q_v}}$ with
+${q_s}^2 +  \vect{q_v} \cdot \vect{q_v} = 1$
+is a \emph{unit quaternion}.
+\item
+The quaternion $\quatsv 1 {\vect{0}}$
+is the \emph{real unit quaternion}.
+\end{itemize}
+ 

@@ -1,0 +1,62 @@
+\test{Eigen Rotation Test}\label{test:eigen}
+\begin{description}
+\item[Background]
+The purpose of this test is to determine whether the two static
+methods that convert eigen rotations to and from transformation matrix
+are implemented correctly. The transformation from an eigen rotation to a matrix
+is straight line code. This method involves no branching and has little if any numerical sensitivity.
+
+The true challenge is to verify the correctness of the conversion from
+transformation matrices to eigen rotations. The underlying algorithm splits
+rotations into four main groups: Null rotations, small rotations (up to 45
+degrees), intermediate rotations (45 to 135 degrees), and large rotations
+(135 to 180 degrees). The test needs to ensure each case is well-covered, with
+special attention to rotations very close to 0 and 180 degrees.
+The algorithm shouldn't be sensitive to which of {\em x}, {\em y}, or {\em z} is
+the dominant axis, but that selection is the subject of a branch. This needs to
+be well-covered as well. The test achieves this coverage by overkill.
+
+\item[Test description]
+The test generates 340 unit vectors spread around the unit sphere. A set of 19
+eigen rotations are performed for each unit vector. Nine of these rotations
+are from 0 to 180 degrees in steps of 22.5 degrees. The remaining ten involve
+rotations very close to 0 and 180 degrees.
+
+Each individual test proceeds by
+\begin{enumerate}
+\item Constructing a left transformation quaternion from the eigen rotation and
+then constructing a transformation from the quaternion. This provides a means
+of testing the correctness of the eigen rotation to matrix computation.
+\item Constructing a transformation matrix from the eigen rotation using
+the Orientation model.
+\item Comparing the results from steps 1 and 2. The two matrices should be
+very close to one another. The threshold used is $10^{-15}$ radians, or
+numerical error.
+\item Computing an eigen rotation from the matrix constructed in step 1.
+This should reproduce the original rotation angle and unit vector. The
+combined angular error in the two should once again represent numerical
+error, or $10^{-15}$ radians.
+\end{enumerate}
+
+\item[Test directory] {\tt verif/unit\_tests/eigen\_rotation} \\
+This is a standard unit test directory with two configuration managed items,
+main.cc and makefile. Simply type {tt make} to build the test article and run the
+test in default mode. This default mode summarizes the results of the test.
+To see individual output, issue the command {\tt ./test\_program -verbose} after
+have made the test article.
+
+\item[Success criteria]
+As mentioned above, each of the 6460 tests must pass both the matrix and
+eigen tests to within numerical error. An individual test passes only if both
+subtests pass. All 340*19=6460 tests must pass for the test to pass as a whole.
+
+\item[Test results]
+The test passes.
+
+\item[Relevant requirements]
+This test demonstrates the satisfaction of requirement~\ref{reqt:conversions}
+sub-requirements~\ref{reqt:eigen_to_mat} to~\ref{reqt:mat_to_eigen}
+and partially demonstrates the satisfaction of
+requirement~\ref{reqt:representations}.
+
+\end{description}

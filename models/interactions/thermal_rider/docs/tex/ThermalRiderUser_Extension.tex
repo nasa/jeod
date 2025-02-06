@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Extension part of User's Guide for the ThermalRider model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Extension}
+ \label{sec:user_extension}
+
+\subsection{Extending the Capability of the \ThermalRiderDesc.}
+The \ThermalRiderDesc\ is intended to be a stand-alone sub-model, used to enhance an interaction model.  There is no specific plan to extend the capability of the \ThermalRiderDesc.
+
+\subsection{Using the \ThermalRiderDesc\ to Extend the Capability of an Interaction Model.}
+
+The \ThermalRiderDesc\ comes in two parts, one attached to each of the facets, and one attached to the interaction model itself (the \textit{thermal facet rider} and \textit{thermal model rider} respectively).  Both must be added to the interaction model in order for the \ThermalRiderDesc\ to function.  We will treat these individually.
+
+\subsection{\ThermalRiderDesc}
+\begin{enumerate}
+\item
+If the main class for the interaction model (e.g. \textit{RadiationPressure} for the Radiation Pressure Model) does not contain an instance of the \ThermalRiderDesc, add one.  Call it \textit{thermal.}
+\item
+Every Interaction Model must already have an \textit{update} (or similar) method, through which the interaction forces are updated.  This method must perform the following additional tasks:
+\begin{enumerate}
+\item Call the \textit{thermal.update} method (\textit{thermal} being the name of the instance of the \ThermalRiderDesc).  This may require the addition of code to the interaction model update method; if so use the Radiation Pressure Model as a template. 
+\item Obtain the integration step size that will be used by the thermal integrator.  Again, use the Radiation Pressure model as a template.
+\end{enumerate}
+\item
+It is assumed that if the user makes the effort to specify the \ThermalRiderDesc, that the intention is to have it active.  The \textit{model-level} active flag therefore defaults to \textit{true} (i.e., on).
+\end{enumerate}
+
+
+\subsection{Thermal Facet Rider}
+Adding the Facet Rider is more complicated than adding the Model Rider.  Since the interaction surface comprises the facets, changing the facets requires changes to the interaction surface.
+
+\subsubsection{Thermally Active Facets}
+\begin{enumerate}
+\item
+When the facet is created, the thermal values from the parameter list must be copied over into the facet (see \textit{RadiationFacet::define\_facet\_core}).
+\item
+Within the initialization of the Interaction Facet, the \textit{thermal.initialize} method must be called; this sets the radiation constant that is used in modeling the thermal radiation, and initializes the dynamic and next-step temperatures.
+\item
+If the interaction force is temperature dependent, the thermal integrator must be called from some method that is called at the regular update rate in order to maintain the correct temperature profile.  Note that it is the thermal integration method that updates \textit{thermal.dynamic\_temperature} to the value calculated in the previous integration step, so this method should be called before the \textit{current} temperature is needed.
+\end{enumerate}
+
+\subsubsection{Thermally Active Surface}
+The thermally active surface should contain the following additional methods:
+\begin{enumerate}
+\item{accumulate\_thermal\_sources}
+\item{thermal\_integrator}
+\item{equalize\_absorption\_emission}
+\end{enumerate}
+These are simple interface methods, passing control from the model through to the individual facets one at a time.  They can typically be copied verbatim from the example of a Radiation Surface in the Radiation Pressure model.
+
+

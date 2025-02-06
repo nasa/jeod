@@ -1,0 +1,197 @@
+
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+
+\requirement{Project Requirements}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in the
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{JEOD} top-level document.
+
+\item[Rationale:]\ \newline
+  This is a project-wide requirement.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement{Mass}
+\label{reqt:mass_requirements}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall satisfy all requirements levied on the
+  \hypermodelrefinside{MASS}{part}{reqt}.
+
+\item[Rationale:]\ \newline
+  A dynamic body has the properties of a mass body, including mass,
+  moment of inertia, and center of mass.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{Integration Frame}
+\label{reqt:integ_frame}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide the ability to initially specify and to
+  dynamically change the reference frame with respect to which the
+  states associated with a dynamic body are referenced and are integrated.
+
+\item[Rationale:]\ \newline
+  The integration frame is the connection between a dynamic body and
+  the outside world.
+
+  That each independent vehicle can have its own integration frame and
+  that this frame can be changed during the course of a simulation run
+  are driving requirements for JEOD.
+
+  Changing integration frames needs to be done within the confines of the
+  laws of physics.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+
+\requirement{State Representation}
+\label{reqt:state_representation}
+\begin{description}
+\item[Requirement:]\ \newline
+  \subrequirement{State Representation}\label{reqt:state_rep_sub}.
+    The \ModelDesc shall provide the ability to represent the states
+    (positions, velocities, orientations, and angular velocities)
+    of local reference frames (origin and axes) associated with a dynamic body
+    with respect to the body's integration frame.
+  \subrequirement{Required Frames}\label{reqt:state_rep_details}.
+    The \ModelDesc shall represent the states of the object's\begin{itemize*}
+    \item Structural origin / structural axes,
+    \item Core center of mass / body axes,
+    \item Composite center of mass / body axes, and
+    \item Mass point frames registered as object frames of interest.
+    \end{itemize*}
+
+\item[Rationale:]\ \newline
+  This requirement gives a dynamic body a connection to the outside world.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{Staged Initialization}
+\label{reqt:staged_initialization}
+\begin{description}
+\item[Requirement:]\ \newline
+  \subrequirement{Separate Initializations}\label{reqt:partial_init}.
+    The \ModelDesc shall provide the ability to set one or more element of the
+    state (position, velocity, orientation, and angular velocity) of one of the
+    reference frames associated with a dynamic body.
+  \subrequirement{Partial Propagation}\label{reqt:partial_prop}.
+    The \ModelDesc shall provide the ability to propagate the partially set
+    states for a given dynamic body to all reference frames associated with
+    that body, subject to the mathematical limits regarding the ability to
+    perform the propagation.
+  \subrequirement{Initialized State Elements Query}\label{reqt:init_query}.
+    The \ModelDesc shall provide the ability to query whether
+    specific elements (position, velocity, orientation, and/or angular velocity)
+    of the state of a reference frame associated with a dynamic body
+    have been initialized.
+
+\item[Rationale:]\ \newline
+  Vehicle states must be initialized before they can be used.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{Equations of Motion}
+\label{reqt:eom}
+\begin{description}
+\item[Requirement:]\ \newline
+  \subrequirement{Forces and Torques}\label{reqt:force_torque}.
+    The \ModelDesc shall provide the ability to individually represent
+    and collectively assess the forces and torques that act on a dynamic body,
+    including forces and torques acting on dynamic bodies attached to
+    the dynamic body in question.
+  \subrequirement{Non-transmitted forces and torques}\label{reqt:no_xmit}.
+    The model shall provide the ability to identify some forces and torques
+    as being non-transmittable to the parent dynamic body.
+  \subrequirement{Translational Acceleration}\label{trans_accel}.
+    The model shall provide the ability to calculate the translational
+    acceleration of a dynamic body that results from the collective forces
+    acting on the dynamic body, including gravitation.
+  \subrequirement{Rotational Acceleration}\label{rot_accel}.
+    The model shall provide the ability to calculate the rotational
+    acceleration of a dynamic body that results from the collective torques
+    acting on the dynamic body, including the fictitious inertial torque.
+
+\item[Rationale:]\ \newline
+  Properly representing the equations of motion is a prerequisite
+  to computing the time-varying nature of a dynamic body's state.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{State Integration and Propagation}
+\label{reqt:state_integ_prop}
+\begin{description}
+\item[Requirement:]\ \newline
+  \subrequirement{State Integration}\label{reqt:state_integ}.
+    The \ModelDesc shall provide the ability to integrate at least one of a
+    dynamic body's reference frames over time based on the dynamical equations
+    of motion for that body.
+  \subrequirement{State Propagation}\label{reqt:state_prop}.
+    The \ModelDesc shall provide the ability to propagate a dynamic body's
+    non-integrated states such that the propagated states, local frames,
+    and integrated states are consistent to within numerical precision.
+
+\item[Rationale:]\ \newline
+  Properly integrating vehicle state over time has been a driving requirement
+  for JEOD since its inception.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{Vehicle Points}
+\label{reqt:vehicle_points}
+\begin{description}
+\item[Requirement:]\ \newline
+  \subrequirement{Vehicle Point Registration}\label{reqt:point_spec}.
+    The \ModelDesc shall provide the ability to register local reference frames
+    associated with mass points as object frames of interest.
+  \subrequirement{Vehicle Point Acceleration}\label{reqt:point_accel}.
+    The \ModelDesc shall provide the ability to compute the translational and
+    rotational acceleration of a local reference frame associated with a mass
+    point, including the non-gravitational translational acceleration.
+
+\item[Rationale:]\ \newline
+  This requirement derives from reqt~\ref{reqt:state_rep_details}.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}
+
+
+\requirement{Attach/Detach}
+\label{reqt:attach_detach}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide the ability to attach and detach dynamic
+  bodies in a manner consistent with the conservation laws.
+
+\item[Rationale:]\ \newline
+  The \MASS attach/detach requirements do not mention the
+  conservation laws, so this functionality must be introduced in \ModelDesc in order to provide capabilities for docking, berthing, jettision, etc. operations common to spaceflight missions.
+
+\item[Verification:]\ \newline
+  Inspection, test
+\end{description}

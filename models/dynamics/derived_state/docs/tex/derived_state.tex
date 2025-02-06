@@ -1,0 +1,231 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Top level document for \DerivedStateDesc.  DO NOT EDIT!!!
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the AMS math package
+%
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the common math nomenclature
+%
+\usepackage{dynmath}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{derived_state}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false,verbose]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\DerivedStateDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\DerivedStateDesc}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{models/dynamics/derived\_state}
+\docrev{1.1}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\DerivedStateDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{DerivedStateAbstract}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+
+
+
+\part{Overview}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \DerivedStateDesc}
+\input{DerivedStateIntroduction}
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item{\href{file:\JEODHOME/docs/JEOD.pdf}
+           {\em JSC Engineering Orbital Dynamics}}
+			  \cite{dynenv:JEOD}
+\end{itemize}
+
+The \DerivedStateDesc\ forms a component of the \ModelClass\ suite of
+models within \JEODid. It is located at
+models/\ModelClass/derived\_state.  
+
+\section{Documentation History}
+\input{DerivedStateIntro_change_history}
+
+
+\section{Documentation Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}.  The document comprises several parts.  The first part is an overview of the model; each subsequent part describes a sub-model of the \DerivedStateDesc, with each sub-model representing an independent reference frame or state representation.  Each part is organized into a similar structure, comprising the following chapters in order:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Introduction] - 
+This introduction describes the objective and purpose of the object of the respective part; the introduction in Part I - Overview also contains the document history.
+
+\item[Product Requirements] -
+Describes requirements for the object of the respective part.
+
+\item[Product Specification] -
+Describes the underlying theory, architecture, and design of the
+object of the respective part in detail.  It will be organized into the following sections:
+\begin{itemize}
+ \item Conceptual Design.
+ \item Mathematical Formulations.
+ \item Detailed Design.
+ \item Version Inventory (Part I - Overview only).
+\end{itemize}
+ 
+
+\item[User's Guide] -
+Describes how to use the object of the respective part in a Trick simulation.  The User's Guide for each sub-model
+is divided into three sections to represent the JEOD defined user types:
+\begin{itemize}
+ \item Analysts or users of simulations (Analysis).
+ \item Integrators or developers of simulations (Integration).
+ \item Model Extenders (Extension).
+\end{itemize}
+ 
+\item[Verification and Validation] -
+Contains verification and validation procedures and
+results for the object of the resepctive part.
+
+\end{description}
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{spec}{}\label{ch:reqt}
+%----------------------------------
+
+\requirement{Top-level requirement}
+\label{reqt:top_level}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum,  meet all external and
+  internal requirements 
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+  Inspection 
+\end{description}
+
+\input{DerivedStateReqt}
+
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{DerivedStateSpec_Concept}
+%\section{Mathematical Formulations}
+\include{DerivedStateSpec_Math}
+%\section{Detailed Design}
+\include{DerivedStateSpec_Detail}
+%\section{Version Inventory}
+\include{DerivedStateSpec_Inventory}
+
+\chapter{User's Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+The top level of the \DerivedStateDesc\ should not be used directly in a simulation.  Specific instances of the \DerivedStateDesc\ should be used instead, although the implementation varies from instance to instance.  See the User's Guides in the respective Part of this document for details of specific implementation.
+
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+\input{DerivedStateVV_Verif}
+
+%\section{Validation}
+\include{DerivedStateVV_Valid}
+
+\include{DerivedStateVV_Metrics}
+
+
+\part{\EulerDescT}
+\include{Euler}
+\part{\LVLHDesc}
+\include{LVLH}
+\part{\LRDSDesc}
+\include{LRDS}
+\part{\NEDDesc}
+\include{NED}
+\part{\OrbElemDescT}
+\include{OrbElem}
+\part{\PlanetaryDescT}
+\include{Planetary}
+\part{\RelativeDescT}
+\include{Relative}
+\part{\SolarBetaDescT}
+\include{SolarBeta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,DerivedState}
+\bibliographystyle{plain}
+
+%\pagebreak
+%\appendix
+
+\end{document}

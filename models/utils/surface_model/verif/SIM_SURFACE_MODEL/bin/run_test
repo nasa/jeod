@@ -1,0 +1,10 @@
+#!/bin/csh
+#============================================================================
+#      Script: run_test
+#
+# Description: This script will execute the simulation for an input file
+#              in the run directory of SET_test.
+#
+#============================================================================
+
+   (./S_main_${TRICK_HOST_CPU}.exe SET_test/RUN_surface_model_ver/input.py) |& ./bin/eatHeaders

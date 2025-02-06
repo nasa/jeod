@@ -1,0 +1,104 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+/*************     TRICK HEADER     ******************************************
+Earth_GGM02C_MET_SimObject
+Purpose:( This sim object models Earth with a GGM02C gravity model and
+          a MET atmosphere.)
+*****************************************************************************/
+#ifndef SIM_OBJECT_EARTH_GGM02C_MET
+#define SIM_OBJECT_EARTH_GGM02C_MET
+
+// Headers for classes this contains:
+##include "environment/atmosphere/base_atmos/include/wind_velocity.hh"
+##include "environment/atmosphere/MET/include/MET_atmosphere.hh"
+
+// Headers for default data.
+##include "environment/atmosphere/MET/data/include/met_data_wind_velocity.hh"
+##include "environment/atmosphere/MET/data/include/solar_mean.hh"
+
+#include "earth_GGM02C_baseline.sm"
+class Earth_GGM02C_MET_SimObject : public Earth_GGM02C_SimObject
+{
+ protected:
+  // External references
+  jeod::TimeUTC      & utc;
+
+ public:
+  jeod::WindVelocity   wind_velocity;
+  jeod::METAtmosphere  atmos;
+
+  // Default data
+  jeod::WindVelocity_wind_velocity_default_data  wind_velocity_default_data;
+  jeod::METAtmosphere_solar_mean_default_data    atmos_default_data;
+
+  Earth_GGM02C_MET_SimObject( jeod::DynManager   & dyn_manager_in,
+                              jeod::GravityManager & grav_in,
+                              jeod::TimeUTC      & utc_in,
+                              jeod::TimeTT       & tt_in,
+                              jeod::TimeUT1      & ut1_in,
+                              jeod::TimeGMST     & gmst_in)
+    :
+    Earth_GGM02C_SimObject( dyn_manager_in,
+                            grav_in,
+                            tt_in,
+                            ut1_in,
+                            gmst_in),
+    utc(utc_in)
+  {
+    //
+    //Default data jobs
+    //
+    ("default_data") wind_velocity_default_data.initialize ( &wind_velocity );
+    ("default_data") atmos_default_data.initialize ( &atmos );
+
+    //
+    // Initialization jobs
+    //
+    P_ENV ("initialization") atmos.update_time( utc );
+
+    //
+    // Environment class jobs
+    //
+    (DYNAMICS, "environment") atmos.update_time( utc );
+  }
+
+ private:
+  // Unimplemented copy constructor and assignment operator
+  Earth_GGM02C_MET_SimObject (const Earth_GGM02C_MET_SimObject&);
+  Earth_GGM02C_MET_SimObject & operator = (const Earth_GGM02C_MET_SimObject&);
+};
+#endif

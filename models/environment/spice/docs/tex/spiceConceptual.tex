@@ -1,0 +1,13 @@
+NASA's Navigation Ancillary Information Facility (NAIF) offers NASA flight
+projects and NASA funded researchers an observation geometry information
+system called ``SPICE.'' Among other things, SPICE provides ephemerides for
+hundreds of natural and man-made objects in the solar system as well as
+orientation data for planets and moons which have orientation models.
+
+The JSC Engineering Orbital Dynamics (JEOD) software includes a reference
+frame model which relies on the concept of the frames having parents, where
+each frame is defined with respect to its parent. The goal then is to use
+SPICE to extend JEOD's built-in frame concept to any celestial object of
+interest in a seamless way. To this end, it is necessary to derive both the
+relational and mathematical components of a JEOD frame from information
+provided by SPICE.

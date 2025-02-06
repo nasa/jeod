@@ -1,0 +1,50 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Quaternion model executive summary
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Executive Summary}
+Sir William Rowan Hamilton developed a four dimensional extension to the complex
+numbers called quaternions in the mid 1800s. Like the reals and the complex
+numbers, quaternions can be added, subtracted, multiplied, and divided.
+Unlike the reals and complex numbers, quaternion multiplication and division
+is not commutative. Care must be taken in specifying the order of the
+factors when multiplying quaternions.
+
+Quaternions, like complex numbers, can be represented as comprising real
+imaginary parts. In the case of quaternions, there are three distinct roots
+of -1, $i$, $j$, and $k$. The imaginary part of a quaternion can be viewed
+as a three vector. (In fact, the use of $\hat i$, $\hat j$, and $\hat k$ as
+canonical unit vectors in mathematics and physics was motivated by Hamilton's
+quaternions.)
+
+One widely used application of the quaternions is to represent rotations and
+transformations in three dimensional space.
+That application is the subject of the JEOD Quaternion model.
+The full power of the quaternions is not needed for this application.
+Unit quaternions (quaternions whose magnitude is identically one) suffice
+for representing rotations in Euclidean three-space.
+The principal operations of interest for this use of quaternions are
+\begin{itemize}
+\item Data representation.
+Quaternions must be represented by some means to enable their use.
+The JEOD quaternion model represents quaternions as comprising
+a scalar real part and an imaginary vector part.
+\item Multiplication.
+A sequence of rotations or transformations in three space
+maps to a product of quaternion representations of those rotations /
+transformations.
+\item Normalization.
+The quaternions used to represent rotations / transformations in three space
+should be unit quaternions. Normalizing a quaternion makes it a unit quaternion.
+\item Conjugation.
+One advantage of using unit quaternions is that the inverse is particularly
+easy to compute: It is the quaternion's conjugate.
+\item Conversion.
+Quaternions are but one of many ways to represent rotations and transformations
+in three space. Conversions between quaternions and other schemes can be
+quite useful.
+\end{itemize}

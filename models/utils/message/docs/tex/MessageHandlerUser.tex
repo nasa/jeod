@@ -1,0 +1,164 @@
+The User Guide is composed of three sections. The Analysis section is 
+intended primarily for users of pre-existing simulations.  
+The Integration section of the user guide is intended for simulation developers.  
+The Extension section of the user guide is intended primarily for developers 
+needing to extend the capability of the \MessageHandlerDesc.  Such users 
+should have a thorough understanding of how the model is used in the preceding 
+Integration section, and of the model 
+specification (described in Chapter \ref{ch:spec}).
+
+\section{Analysis}
+The primary purpose of the \MessageHandlerDesc\ is to provide analysts
+(i.e., sim users) useful information regarding the status of a sim
+while it is running. Some messages are related to the 
+intentional termination of a sim. Other messages may occur without
+sim termination. Sim users can use the information conveyed by the
+\MessageHandlerDesc\ to help ensure their sim is running
+correctly or to report possible problems in the JEOD models to 
+the JEOD development team. When reporting a message be sure
+to capture the entire message.  This will aid with the
+determination and correction of the problem.
+
+An example of a message from the JEOD Gravity Model is:
+\begin{verbatim}
+SIMULATION TERMINATED IN
+  PROCESS: 1
+  JOB/ROUTINE: 2/gravity_source.cc line 551
+DIAGNOSTIC:
+Error environment/gravity ord_exceeds_deg_error:
+Gravity field order (80) is greater than gravity field degree (70).
+\end{verbatim}
+In this case, the user requested a gravity order which is larger
+than the gravity degree. 
+
+The analyst has three inputs to control the types of messages displayed
+and the information related to those messages:
+
+{\bf suppression\_level} - Default value: 10 (warnings and non-fatal errors).
+All messages have an associated severity level, with increasingly positive
+values indicating warnings of decreasing severity. Fatal errors have a
+negative severity level. Messages whose severity equals or exceeds the
+value of the global message handler's suppression\_level are suppressed.
+Note that fatal errors cannot be suppressed.
+
+{\bf suppress\_id} - Default value: false.
+This flag indicates whether the message ID is printed for unsuppressed
+messages. The ID is not printed if this flag is set to true.
+The message ID is always printed for errors.
+
+{\bf suppress\_location} - Default value: false.
+This flag indicates whether the message source file and line number
+are printed for unsuppressed messages. The location is not printed if this
+flag is set to true.
+The message location is always printed for errors.
+
+The first Trick sim\_object created should contain an instance of 
+JeodSimulationInterface, which
+will automatically construct a singleton MessageHandler for the sim.
+Here is a typical definition of such a sim\_object.
+\begin{verbatim}
+/* ===================== JEOD System Simulation Object ===================== **/
+/* ========================================================================= **/
+sim_object { /* jeod_sys
+---------------------------------------------------*/
+   /*=========================================================================
+    =  This is the JEOD executive model, this model should be basically
+    =  the same for all JEOD-based Trick applications.
+=
+    =========================================================================*/
+   /*==================
+    = DATA Structures =
+    ==================*/
+   utils/sim_interface/include: JeodTrickSimInterface sim_interface;
+} jeod_sys;
+\end{verbatim}
+
+
+An example of how these three controls might be set in an input file is:
+\begin{verbatim}
+jeod_sys.sim_interface.message_handler.suppression_level = MessageHandler::Warning;
+jeod_sys.sim_interface.message_handler.suppress_id       = true;
+jeod_sys.sim_interface.message_handler.suppress_location = false;
+\end{verbatim}
+In this example case, only errors will be reported; warnings and other
+messages with a higher severity level will be suppressed.
+For any message that is not suppressed, the ID number will be suppressed and location
+of any messages will be displayed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Integration}
+The use of the \MessageHandlerDesc\ by sim integrators is essentially the
+same as for sim analysts. The severity level of suppressed messages
+can be changed to suit the needs of the sim integrator. See previous section
+for more information.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extension}
+Sim developers can add messages to a model. The messages are normally defined
+in the model class in the {\bf include} directory.  For example,
+messages for the JEOD Gravity Model are defined in {\bf models/environment/gravity/include}
+in the file gravity\_messages.hh as shown below:
+\begin{verbatim}
+   // Errors
+   static char const * max_deg_error; /* --
+      Error issued when requested gravity field degree exceeds maximum */
+
+   static char const * max_ord_error; /* --
+      Error issued when requested gravity field order exceeds maximum */
+
+   static char const * ord_exceeds_deg_error; /* --
+      Error issued when requested gravity field order is greater than degree */
+
+
+   // Warnings
+   static char const * radial_distance_warning; /* --
+      Warning issued when radial distance is less than equatorial radius of
+      gravity model */
+
+\end{verbatim}
+
+The same messages must also be added to a corresponding file in the 
+{\bf src} directory, such as:
+\begin{verbatim}
+// Errors
+char const * GravityMessages::max_deg_error =
+    PATH " max_deg_error";
+
+char const * GravityMessages::max_ord_error =
+    PATH " max_ord_error";
+
+char const * GravityMessages::ord_exceeds_deg_error =
+    PATH " ord_exceeds_deg_error";
+
+// Warnings
+char const * GravityMessages::radial_distance_warning =
+    PATH " radial_distance_warning";
+\end{verbatim}
+
+Finally, the code that actually triggers the message must be included
+in the proper source code file.  For the Gravity Model example, the
+message trigger code appears in the gravity\_body.cc file.  An
+example of a {\bf failure} and a {\bf warning} trigger are:
+\begin{verbatim}
+      // check if maximum order to be used for computations is greater than
+      // maximum degree
+      if (controls.order > controls.degree) {
+         MessageHandler::fail (
+         __FILE__, __LINE__, GravityMessages::ord_exceeds_deg_error,
+         "Gravity field order (%i) is greater than gravity field degree (%i).\n",
+         controls.order,controls.degree);
+         return;
+
+      }
+
+      // check if radial distance is less than equatorial radius
+      if (r_mag < radius) {
+         MessageHandler::warn (
+            __FILE__, __LINE__, GravityMessages::radial_distance_warning,
+            "Radial distance (%E) is less than equatorial radius of gravity model (%E).\n",
+            r_mag,radius);
+      }
+
+\end{verbatim}
+
+%----------------------------------

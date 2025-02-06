@@ -1,0 +1,85 @@
+
+
+
+%----------------------------------
+\chapter{Introduction}\label{ch:Eulerintro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \EulerDescT}
+\input{EulerIntroduction}
+
+
+
+%----------------------------------
+\chapter{Product Requirements}\label{ch:Eulerreqt}
+%----------------------------------
+
+\input{EulerReqt}
+
+
+%----------------------------------
+\chapter{Product Specification}\label{ch:Eulerspec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{EulerSpec_Concept}
+%\section{Mathematical Formulations}
+\input{EulerSpec_Math}
+%\section{Detailed Design}
+\input{EulerSpec_Detail}
+
+\chapter{User's Guide}\label{ch:Euleruser}
+%----------------------------------
+The Analysis section of the User's Guide is intended primarily for
+users of pre-existing simulations.  
+It contains: 
+\begin{itemize}
+\item A description of how to modify \EulerDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file,
+\item An overview of how to interpret (but not edit) the S\_define
+file,
+\item A sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section of the User's Guide is intended for simulation
+developers.
+It describes the necessary configuration of the \EulerDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section of the user guide.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:Eulerspec}).
+
+The Extension section of the User's Guide is intended primarily for
+developers
+needing to extend the capability of the \EulerDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:Eulerspec}).
+
+
+\section{Analysis}
+\input{EulerUser_Analysis}
+
+%\section{Integration}
+\input{EulerUser_Integration}
+
+%\section{Extension}
+\input{EulerUser_Extension}
+
+%----------------------------------
+\chapter{Verification and
+Validation}\label{ch:Eulerivv}
+%----------------------------------
+
+\section{Verification}
+\input{EulerVV_Verif}
+
+%\section{Validation}
+\input{EulerVV_Valid}
+
+

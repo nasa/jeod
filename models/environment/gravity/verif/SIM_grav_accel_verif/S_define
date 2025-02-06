@@ -1,0 +1,136 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+/*******************************************************************************
+
+This sim is used to verify the JEOD gravity model
+
+*******************************************************************************/
+
+// Define job calling intervals
+#define DYNAMICS      1.0
+
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+// Include the standard S-modules:
+#include "time_dyntime_only.sm"
+#include "dynamics.sm"
+#include "environment_sans_de405.sm"
+
+
+/*****************************************************************************
+Earth Sim Object
+Purpose:(Provides a planet called "Earth", but it is only loosely based on
+         Earth. It has a unique gravity field that is used for testing whether
+         the application of spherical harmonics produces an a acceleration
+         that matches with that produced by a set of 12 point-masses; the 12
+         point-masses were used to generate the spherical harmonics.
+*****************************************************************************/
+#include "Base/planet_generic.sm"
+##include "environment/planet/data/include/earth.hh"
+##include "environment/gravity/verif/data/include/grav_verif.hh"
+
+class EarthSimObject: public PlanetGenericSimObject{
+ public:
+  jeod::Planet_earth_default_data  earth_default_data;
+  jeod::SphericalHarmonicsGravitySource_grav_verif_default_data grav_default_data;
+
+  EarthSimObject( jeod::DynManager   & dyn_manager_in,
+                  jeod::GravityManager & grav_in)
+    :
+    PlanetGenericSimObject( dyn_manager_in,
+                            grav_in,
+                            earth_default_data,
+                            grav_default_data)
+  {
+  };
+ private:
+  // Unimplemented copy constructor and assignment operator
+  EarthSimObject (const EarthSimObject&);
+  EarthSimObject & operator = (const EarthSimObject&);
+};
+
+EarthSimObject earth( dynamics.dyn_manager,
+                      env.gravity_manager);
+
+
+
+/*****************************************************************************
+VehicleSimObject
+Purpose:(Models the vehicle)
+*****************************************************************************/
+#include "Base/vehicle_baseline.sm"
+
+// Include headers for classes that this class contains:
+##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
+##include "dynamics/derived_state/include/planetary_derived_state.hh"
+##include "interactions/gravity_torque/include/gravity_torque.hh"
+##include "environment/gravity/verif/gravity_verification/include/gravity_verif.hh"
+
+class VehicleSimObject: public VehicleBasicSimObject
+{
+ protected:
+  jeod::DynManager & dyn_manager;
+ public:
+  jeod::DynBodyInitLvlhRotState lvlh_init;
+
+  jeod::GravityVerification grav_verif;
+
+
+  //Constructor
+  VehicleSimObject( jeod::DynManager & dyn_mngr_in)
+    :
+    VehicleBasicSimObject( dyn_mngr_in),
+    dyn_manager( dyn_mngr_in)
+  {
+    (DYNAMICS, "environment") dyn_manager.gravitation();
+    (DYNAMICS, "environment") grav_verif.verify_grav_accel(
+         dyn_body.composite_body.state.trans.position,
+         dyn_body.grav_interaction.grav_accel);
+  }
+
+ private:
+  VehicleSimObject (const VehicleSimObject&);
+  VehicleSimObject & operator = (const VehicleSimObject&);
+};
+VehicleSimObject vehicle ( dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop (DYNAMICS) dynamics;

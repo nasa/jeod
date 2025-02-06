@@ -1,0 +1,224 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//==============================================================================
+// This simulation is a demonstration simulation for the JEOD2.0 implementation
+// of the time module.  This simulation incoporates all of the time classes in
+// the alpha-release of Jeod2.0.
+//
+// The following simulation objects are defined in this sim:
+//
+//          sys - Trick runtime executive and data recording routines
+//         time - Universal time
+//
+// 
+//==============================================================================
+
+
+// Define job calling intervals
+#define DYNAMICS      1.00   // Moon/orbital dynamics interval
+
+
+// Define the phase initialization priorities.
+// NOTE: Initialization jobs lacking an assigned phase initialization priority
+// run after all initialization jobs that have assigned phase init priorities.
+#define P_TIME  P10   // Highest priority; these jobs only depend on time
+
+ // Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+
+//***************************************************************
+// CLASS: (Jeod_timeSimObject)
+// PURPOSE:
+//  ( This sim object relates simulation time to time on the Earth.)
+//***************************************************************
+
+
+// Include headers for classes that this class contains:
+##include "environment/time/include/time_manager.hh"
+##include "environment/time/include/time_manager_init.hh"
+##include "environment/time/include/time_gmst.hh"
+##include "environment/time/include/time_gps.hh"
+##include "environment/time/include/time_met.hh"
+##include "environment/time/include/time_tai.hh"
+##include "environment/time/include/time_tdb.hh"
+##include "environment/time/include/time_tt.hh"
+##include "environment/time/include/time_ut1.hh"
+##include "environment/time/include/time_utc.hh"
+##include "environment/time/include/time_converter_ut1_gmst.hh"
+##include "environment/time/include/time_converter_tai_gps.hh"
+##include "environment/time/include/time_converter_std_ude.hh"
+##include "environment/time/include/time_converter_std_ude.hh"
+##include "environment/time/include/time_converter_dyn_tai.hh"
+##include "environment/time/include/time_converter_dyn_tdb.hh"
+##include "environment/time/include/time_converter_tai_tdb.hh"
+##include "environment/time/include/time_converter_tai_tt.hh"
+##include "environment/time/include/time_converter_tai_ut1.hh"
+##include "environment/time/include/time_converter_tai_utc.hh"
+
+// Include default data classes:
+##include "environment/time/data/include/tai_to_ut1.hh"
+##include "environment/time/data/include/tai_to_utc.hh"
+
+class Jeod_timeSimObject: public Trick::SimObject {
+
+   public:
+    jeod::TimeManager manager;
+    jeod::TimeManagerInit manager_init;
+    jeod::TimeGMST gmst;
+    jeod::TimeGPS  gps;
+    jeod::TimeMET  metveh1;
+    jeod::TimeMET  metveh2;
+    jeod::TimeTAI  tai;
+    jeod::TimeTDB  tdb;
+    jeod::TimeTT   tt ;
+    jeod::TimeUT1  ut1;
+    jeod::TimeUTC  utc;
+    jeod::TimeConverter_UT1_GMST ut1_gmst;
+    jeod::TimeConverter_TAI_GPS  tai_gps;
+    jeod::TimeConverter_STD_UDE  tai_metveh1;
+    jeod::TimeConverter_STD_UDE  tai_metveh2;
+    jeod::TimeConverter_Dyn_TAI  dyn_tai;
+    jeod::TimeConverter_Dyn_TDB  dyn_tdb;
+    jeod::TimeConverter_TAI_TDB  tai_tdb;
+    jeod::TimeConverter_TAI_TT   tai_tt ;
+    jeod::TimeConverter_TAI_UT1  tai_ut1;
+    jeod::TimeConverter_TAI_UTC  tai_utc;
+
+// Instances for matching to other sim objects:
+
+// Instances for default data:
+    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data    tai_ut1_default_data;
+    jeod::TimeConverter_TAI_UTC_tai_to_utc_default_data    tai_utc_default_data;
+
+//Constructor
+    Jeod_timeSimObject() {
+
+   //
+   //Default data jobs
+   //
+      ("default_data") tai_ut1_default_data.initialize ( &tai_ut1 );
+      ("default_data") tai_utc_default_data.initialize ( &tai_utc );
+
+   //
+   //
+   //
+   // Initialization jobs
+   //
+      P_TIME  ("initialization") manager.register_time(
+          gmst);
+      P_TIME  ("initialization") manager.register_converter(
+          ut1_gmst);
+      P_TIME  ("initialization") manager.register_time(
+          gps);
+      P_TIME  ("initialization") manager.register_converter(
+          tai_gps);
+      P_TIME  ("initialization") manager.register_time_named(
+          metveh1,
+          "met_veh1");
+      P_TIME  ("initialization") manager.register_converter(
+          tai_metveh1,
+          "TAI",
+          "met_veh1");
+      P_TIME  ("initialization") manager.register_time_named(
+          metveh2,
+          "met_veh2");
+      P_TIME  ("initialization") manager.register_converter(
+          tai_metveh2,
+          "TAI",
+          "met_veh2");
+      P_TIME  ("initialization") manager.register_time(
+          tai);
+      P_TIME  ("initialization") manager.register_converter(
+          dyn_tai);
+      P_TIME  ("initialization") manager.register_time(
+          tdb);
+      P_TIME  ("initialization") manager.register_converter(
+          dyn_tdb);
+      P_TIME  ("initialization") manager.register_converter(
+          tai_tdb);
+      P_TIME  ("initialization") manager.register_time(
+          tt);
+      P_TIME  ("initialization") manager.register_converter(
+          tai_tt);
+      P_TIME  ("initialization") manager.register_time(
+          ut1);
+      P_TIME  ("initialization") manager.register_converter(
+          tai_ut1);
+      P_TIME  ("initialization") manager.register_time(
+          utc);
+      P_TIME  ("initialization") manager.register_converter(
+          tai_utc);
+      P_TIME  ("initialization") manager.initialize(
+          &manager_init);
+      P_TIME  ("initialization") tai.calendar_update(
+          0.0);
+      P_TIME  ("initialization") tdb.calendar_update(
+          0.0);
+      P_TIME  ("initialization") tt.calendar_update(
+          0.0);
+      P_TIME  ("initialization") ut1.calendar_update(
+          0.0);
+      P_TIME  ("initialization") utc.calendar_update(
+          0.0);
+   //
+   // Scheduled jobs
+   //
+      // Note - this call is not necessary.  If it is not made, the following
+      // call to calendar_update will make it automatically.
+      (DYNAMICS, "environment") manager.update(
+          exec_get_sim_time());
+      (DYNAMICS, "environment") tai.calendar_update(
+          exec_get_sim_time());
+      (DYNAMICS, "environment") tdb.calendar_update(
+          exec_get_sim_time());
+      (DYNAMICS, "environment") tt.calendar_update(
+          exec_get_sim_time());
+      (DYNAMICS, "environment") ut1.calendar_update(
+          exec_get_sim_time());
+      (DYNAMICS, "environment") utc.calendar_update(
+          exec_get_sim_time());
+    }
+
+  private:
+    Jeod_timeSimObject (const Jeod_timeSimObject&);
+    Jeod_timeSimObject & operator = (const Jeod_timeSimObject&);
+
+};
+Jeod_timeSimObject jeod_time ;

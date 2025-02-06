@@ -1,0 +1,57 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the OrbElem model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Analysis}
+\label{sec:orbelemuseranalysis}
+
+\subsection{Identifying the \OrbElemDescT}
+If Orbital Elements have been included in the simulation, there will be an instance of \textit{OrbElemDerivedState} located in the S\_define file.  This would typically be found in either the vehicle object, or a separate relative-state object.  There should be an accompanying call to an initialization routine, which takes a reference to the \textit{subject\_body} as one if its inputs, and an accompanying call to an update function.  The essential \textit{reference\_name} is defined elsewhere, often in the input file.
+
+Example:
+\begin{verbatim}
+sim_object{
+dynamics/derived_state:    OrbElemDerivedState example_of_orb_elem_state;
+
+(initialization) dynamics/derived_state:
+example_of_rel_state_object.example_of_orb_elem_state.initialize (
+    Inout DynBody &      subject_body = vehicle_1.dyn_body,
+    Inout DynManager &   dyn_manager  = manager_object.dyn_manager);
+    
+{environment} dynamics/derived_state:
+example_of_rel_state_object.example_of_orb_elem_state.update ( )
+
+} example_of_rel_state_object;
+\end{verbatim}
+
+Then the input file may have entries comparable to:
+\begin{verbatim}
+example_of_rel_state_object.example_of_orb_elem_state.reference_name = "Earth";
+\end{verbatim}
+
+
+\subsection{Editing the \OrbElemDescT}
+There is nothing to edit in the \OrbElemDesc.  The only public data elements are the output data.
+
+\subsection{Output Data}
+The various outputs from the \OrbElemDesc, listed in the introduction, are accessible as follows:
+\begin{verbatim}
+   example_of_rel_state_object.example_of_orb_elem_state.elements.semi_major_axis,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.semiparam,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.e_mag,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.inclination,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.arg_periapsis,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.long_asc_node,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.true_anom,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.mean_anom,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.orbital_anom,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.mean_motion,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.orb_energy,
+   example_of_rel_state_object.example_of_orb_elem_state.elements.orb_ang_momentum.
+\end{verbatim}
+
+

@@ -1,0 +1,86 @@
+\chapter{Introduction}\hyperdef{part}{intro}{}
+\label{ch:intro}
+
+\section{Purpose and Objectives of the \ModelDesc}
+\label{sec:purp}
+Sir William Rowan Hamilton developed a four dimensional extension to the complex
+numbers called quaternions in the mid 1800s. Like the reals and the complex
+numbers, quaternions can be added, subtracted, multiplied, and divided.
+Unlike the reals and complex numbers, quaternion multiplication and division
+is not commutative. Care must be taken in specifying the order of the
+factors when multiplying quaternions.
+
+Quaternions, like complex numbers, can be represented as comprising real
+imaginary parts. In the case of quaternions, there are three distinct roots
+of -1, $i$, $j$, and $k$. The imaginary part of a quaternion can be viewed
+as a three vector. (In fact, the use of $\hat i$, $\hat j$, and $\hat k$ as
+canonical unit vectors in mathematics and physics was motivated by Hamilton's
+quaternions.)
+
+One widely used application of the quaternions is to represent rotations and
+transformations in Euclidean three dimensional space.
+That application is the subject of the \ModelDesc.
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item \hyperJEOD
+\end{itemize}
+
+The \ModelDesc forms a component of the utilities suite of
+models within \JEODid. It is located at
+models/utils/quaternion.
+
+
+\input{change_history}
+
+
+Quaternions are used throughout JEOD. These uses include:
+\begin{itemize}
+\item The \hypermodelref{REFFRAMES},
+which uses left transformation unit quaternions
+(along with transformation matrices) to represent the rotational
+relationships between reference frames.
+\item The \hypermodelref{MASS},
+which uses left transformation unit quaternions
+(along with transformation matrices) to represent the rotational
+relationships between mass bodies.
+\item The \hypermodelref{DYNBODY},
+which uses quaternionic propagation to
+model the time evolution of a dynamic body's rotational state.
+\item The \hypermodelref{ORIENTATION},
+which uses left transformation unit quaternions
+as one of several mechanisms by which the user can specify
+a rotational relationship.
+\end{itemize}
+
+
+\section{Documentation Organization}
+\label{sec:docorg}
+This document is formatted in accordance with the 
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}.
+
+The document comprises chapters organized as follows:
+
+\begin{description}
+%% longer chapter descriptions, more information.
+
+\item[Chapter 1: Introduction] -
+This introduction describes the objective and purpose of the \ModelDesc.
+
+\item[Product Requirements] -
+The requirements chapter describes the requirements on the \ModelDesc.
+
+\item[Chapter 3: Product Specification] - 
+The specification chapter describes
+the architecture and design of the \ModelDesc.
+
+\item[Chapter 4: User Guide] - 
+The user guide chapter describes
+how to use the \ModelDesc.
+
+\item[Chapter 5: Verification and Validation] -  
+The inspection, verification, and validation (IV\&V) chapter describes
+the verification and validation procedures and results for the \ModelDesc.
+
+\end{description}

@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Quaternion math description
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Quaternion Mathematics}\label{sec:app_math}
+
+The JEOD uses unit quaternions\cite{kuipers:2002} as one of several means
+for representing rotations and transformations in three space.
+This section provides an overview on the use of quaternions in the
+JEOD.  The contents of this section are:
+\begin{itemize}
+\item Section~\ref{sec:app_nomen} defines the nomenclature used in this
+chapter.
+\item Section~\ref{sec:app_fund} establishes the fundamentals of
+quaternions.
+\item Section~\ref{sec:app_arith} develops elementary quaternion
+arithmetic.
+\item Section~\ref{sec:app_exp} describes the extension of the exponential
+and logarithm
+to the quaternions.
+\item Section~\ref{sec:app_rot_trans} describes how quaternions are used to
+represent transformations and rotations.
+\item Section~\ref{sec:app_time_deriv} develops the time derivative of a
+transformation quaternion.
+\item Sections~\ref{sec:app_att_prop} and~\ref{sec:app_rate_prop}
+describes techniques for propagating vehicle attitude and attitude rate
+using quaternions.
+\end{itemize}
+
+%%% Nomenclature
+\input{app_nomen}
+
+%%% Fundamentals
+\input{app_fund}
+
+%%% Arithmetic
+\input{app_arith}
+
+%%% Exponential
+\input{app_exp}
+
+%%% Transformations
+\input{app_trans}
+
+%%% Time Derivative
+\input{app_deriv}
+
+%%% Propagation
+\input{app_prop}

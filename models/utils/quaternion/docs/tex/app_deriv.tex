@@ -1,0 +1,142 @@
+\section{Quaternion Time Derivative}\label{sec:app_time_deriv}
+
+This section develops the time derivative of a left transformation quaternion.
+
+The time derivative of a vector $\vect x$ is observer-dependent.
+The relation between the time derivative of $\vect x$ as observed in an inertial
+frame $I$ and the time derivative of $\vect x$ as observed in a frame $B$ rotating at
+a rate $\omega$ with respect to the inertial frame\cite{Goldstein} is\begin{align}
+\framedot{I}{\vect x} &= \framedot{B}{\vect x} + \vect \omega \times \vect x
+  \label{eqn:quat_xdot_in_frame} \\
+\intertext{where}
+  \framedot{F}{\vect x}\;&\text{is}
+    \; \text{the time derivative of $\vect x$ as observed in frame $F$} \nonumber\\
+\end{align}
+
+This can be expressed in quaternion form as
+\begin{align}
+\QBI & \QxQ
+    {\left(
+      \frac{d}{dt}
+      \left(
+        \QxVxQ
+          {\QBIconj}
+          {\framevect B x}
+          {\QBI}
+      \right)
+    \right)}
+    {\QBIconj}
+  = \quatsv0{\framevdot B x}
+    + \quatsv0{\framerelvect B \omega I B \times \framevect B x}
+\label{eqn:quat_xdot_quat_form_1} \\
+\intertext{where}
+  \QBI\;&\text{is}
+    \; \text{the left transformation quaternion from frame $I$ to frame $B$} \nonumber\\
+  \framerelvect B \omega I B\;&\text{is}
+    \; \text{the angular velocity of frame $B$ with respect to frame $I$, expressed in frame $B$}
+      \nonumber\\
+  \framevect B x\;&\text{is}
+    \; \text{an arbitrary vector $\vect x$, expressed in frame $B$} \nonumber
+\end{align}
+
+The derivative in the left-hand side of equation~\eqref{eqn:quat_xdot_quat_form_1} expands to
+\begin{equation}
+\begin{split}
+\text{\makebox[3.0em]{}}&\text{\makebox[-3.0em]{}}
+ \frac{d}{dt} \left(\QxVxQ{\QBIconj}{\framevect B x}{\QBI}\right) =\\
+   & \QxVxQ{\QBIconjdot}{\framevect B x}{\QBI}%\\
+  \;+\; \QxVxQ{\QBIconj}{\framevdot B x}{\QBI} %\\
+  \;-\; \quatconjlr{\QxVxQ{\QBIconjdot}{\framevect B x}{\QBI}}
+\end{split}
+\end{equation}
+
+Applying the above to the left-hand side of equation~\eqref{eqn:quat_xdot_quat_form_1} and simplifying yields
+\begin{equation}
+\begin{split}
+\text{\makebox[3.0em]{}}&\text{\makebox[-3.0em]{}}
+\QxQxQ
+  {\QBI}
+  {\left(\frac{d}{dt} \left(\QxVxQ{\QBIconj}{\framevect B x}{\QBI} \right) \right)}
+  {\QBIconj} = \\
+& \QxQ{\QBI}{\QxV{\QBIconjdot}{\framevect B x}}
+   - \quatconjlr{\QxQ{\QBI}{\QxV{\QBIconjdot}{\framevect B x}}}
+  +  \quatsv0{\framevdot B x}
+\end{split}\label{eqn:quat_xdot_quat_form_lhs}
+\end{equation}
+
+Using
+\begin{equation}
+\quatsv0{\framerelvect B \omega I B \times \framevect B x} =
+\frac{1}{2}\left(\left(\QxQ{\quatsv0{\framerelvect B \omega I B}}{\quatsv0{\framevect B x}}\right)-
+\quatconjlr{\QxQ{\quatsv0{\framerelvect B \omega I B}}{\quatsv0{\framevect B x}}}\right)
+\end{equation}
+
+The right-hand side of equation~\eqref{eqn:quat_xdot_quat_form_1} expands to
+\begin{equation}
+\begin{split}
+\text{\makebox[3.0em]{}}&\text{\makebox[-3.0em]{}}
+\frac{d}{dt} \quatsv0{\framevect B x}
+    + \quatsv0{\framerelvect B \omega I B \times \framevect B x} = \\
+   & \frac{d}{dt} \quatsv0{\framevect B x}
+  + \frac{1}{2} \left(\left(\QxQ{\quatsv0{\framerelvect B \omega I B}}{\quatsv0{\framevect B x}}\right)
+  - \quatconjlr{\QxQ{\quatsv0{\framerelvect B \omega I B}}{\quatsv0{\framevect B x}}}\right)
+\end{split}\label{eqn:quat_xdot_quat_form_rhs}
+\end{equation}
+
+Equating
+equations~\eqref{eqn:quat_xdot_quat_form_lhs}
+and~\eqref{eqn:quat_xdot_quat_form_rhs}
+and eliminating the common term $\quatsv0{\framevdot B x}$ yields
+\begin{equation}
+\begin{split}
+& \QxQxQ{\QBI}{\QBIconjdot}{\quatsv0{\framevect B x}}
+   - \quatconjlr{\QxQxQ{\QBI}{\QBIconjdot}{\quatsv0{\framevect B x}}} = \\
+\qquad &  \left(\frac{1}{2} \QxQ{\quatsv0{\framerelvect B \omega I B}}{\quatsv0{\framevect B x}}\right)
+  - \quatconjlr{\frac{1}{2} \QxQ{\quatsv0{\framerelvect B \omega I B}}{\quatsv0{\framevect B x}}}
+\end{split} \label{eqn:quat_xdot_quat_form_2}
+\end{equation}
+
+Since equation \eqref{eqn:quat_xdot_quat_form_2} must be satisfied for \emph{any} vector $\vect x$,
+\begin{equation}
+\QxQ{\QBI}{\QBIconjdot} - \quatconjlr{\QxQ{\QBI}{\QBIconjdot}} = 
+\left(\frac{1}{2} \quatsv0{\framerelvect B \omega I B}\right)
+  - \quatconjlr{\frac{1}{2}\quatsv0{\framerelvect B \omega I B}}
+  \label{eqn:quat_xdot_quat_form_3}
+\end{equation}
+
+Note that equation ~\eqref{eqn:quat_xdot_quat_form_3} is of the form
+\begin{equation*}
+\quat{Q}_a - \quatconj{Q}_a = \quat{Q}_b - \quatconj{Q}_b
+\end{equation*}
+Such a form requires that the vector parts of $\quat{Q}_a$ and $\quat{Q}_b$ be equal;
+the scalar parts are unconstrained.
+Since the scalar parts of $\QBI \QBIconjdot$ and $\quatsv0{\framerelvect B \omega I B}$
+are zero, equation~\eqref{eqn:quat_xdot_quat_form_3} reduces to
+\begin{align}
+  \QxQ{\QBI}{\QBIconjdot} &= \frac{1}{2} \quatsv0{\framerelvect B \omega I B} \\
+\intertext{or}
+  \QBIdot &=  \QxQ{\quatsv0{-\frac{1}{2} {\framerelvect B \omega I B}}}{\QBI}
+  \label{eqn:quat_qdot}
+\end{align}
+
+The \ModelDesc uses equation~\eqref{eqn:quat_qdot} to form the
+derivative of the inertial-to-body left transformation quaternion $\QBI$.
+
+Solving equation~\eqref{eqn:quat_qdot} for the body rate yields
+\begin{align}
+  \quatsv0{\framerelvect B \omega I B} &= 2 \QxQ{\QBI}{\QBIconjdot} 
+  \label{eqn:quat_body_rate_from_qbidot}
+\end{align}
+
+Differentiating equation~\eqref{eqn:quat_qdot} again yields the second derivative
+of the inertial-to-body left transformation quaternion $\QBI$:
+\begin{align}
+  \QBIdotdot &=
+     \QxQ{\quatsv0{-\frac{1}{2} {\framerelvdot B \omega I B}}}{\QBI} +
+     \QxQ{\quatsv0{-\frac{1}{2} {\framerelvect B \omega I B}}}{\QBIdot} \\
+    &= 
+     \QxQ
+       {\quatsv{-\frac{1}{4} \norm{\framerelvect B \omega I B}^2}{-\frac{1}{2} {\framerelvdot B \omega I B}}}
+     {\QBI}
+    \label{eqn:quat_qdot_deriv}
+\end{align} 

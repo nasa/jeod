@@ -1,0 +1,42 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Integration part of User's Guide for the Relative model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Integration}
+\label{sec:relativeintegration}
+
+Including the \RelativeDesc\ into the simulation requires some knowledge of other reference frames and derived states.
+
+ \subsection{Generating the S\_define}
+
+Conventional practice would add the \RelativeDesc\ to a separate relative-state object at the end of the S\_define file.  It is also possible to add the relative state to a specific vehicle, but care must be taken to ensure that the target frame has been fully updated before the relative state is called.  For example, if the relative state is to be between two vehicles, \textit{A} and \textit{B} (suppose \textit{A} is the \textit{subject}, and \textit{B} the \textit{target}), then the relative state must be generated after object \textit{B}, and the particular reference frame of interest associated with \textit{B}, are both updated.  A simple solution to this is to either place the relative state calculation at the end of the simulation, or to prioritize the call to update the relative state such that is is processed after that of \textit{B}.  There is no internal check that this ordering is achieved, the responsibility for ensuring this lies entirely on the Integrator.
+
+The instance of \textit{RelativeDerivedState} needs to be defined, the model initialized, and a routine update scheduled.  A simple example of how this may look is found in the \textref{Analysis}{sec:relativeuseranalysis} section.  Simple example simulations are found in the verification simulations for the \textref{\NEDDesc}{ch:NEDivv} and the \textref{\LVLHDesc}{ch:LVLHivv} released with \JEODid.  For more complicated setups, where there are multiple relative states defined, it is strongly recommended that all relative states be put together into one relative state object, and grouped under the Relative Kinematics manager.  This manager handles all of the relative states together after all of the individual frames have been evaluated, and avoids the need to make a separate call from the S\_define for each individual state.  See the \href{file:\JEODHOME/models/dynamics/rel\_kin/docs/rel\_kin.pdf}{Relative Kinematics}~\cite{dynenv:RELKIN} document for details.
+
+\subsection{Generating the Input File}
+The input file (or Modified Data file) must contain the names of the \textit{subject\_frame} (\textit{subject\_frame\_name}) and \textit{target\_frame} (\textit{target\_frame\_name}), as well as the \textit{direction\_sense} for each instance of a RelativeDerivedState.  The \textit{subject\_body} is defined elsewhere, as it is passed into the initialization routine from the S\_define.  The \textit{subject\_body} so passed into the initialization routine must include a reference frame with a name that matches the \textit{subject\_frame\_name}, or the initialization routine will fail.  See the \href{file:\JEODHOME/models/utils/ref\_frames/docs/ref\_frames.pdf}{Reference Frames}~\cite{dynenv:REFFRAMES} documentation for more details on the convention for naming the reference frames.
+
+See the \textref{Analysis}{sec:relativeuseranalysis} section for an example of how the input data may appear.
+
+\subsection{Logging the Data}
+There are multiple variables available for output, to represent the 12-vector state description.  The most commonly used are the relative position and velocity, which are logged by adding the following lines to the list of logging data:
+\begin{verbatim}
+"example_of_rel_state_object.example_of_rel_der_state.rel_state.trans.position[0-2]",
+"example_of_rel_state_object.example_of_rel_der_state.rel_state.trans.velocity[0-2]",
+\end{verbatim}
+
+The rotational state has some flexibility in its representation.  The angular position can be accessed through a quaternion or transformation matrix representation, e.g.
+\begin{verbatim}
+"example_of_rel_state_object.example_of_rel_der_state.rel_state.rot.T_parent_this[0][0-2]",
+"example_of_rel_state_object.example_of_rel_der_state.rel_state.rot.T_parent_this[1][0-2]",
+"example_of_rel_state_object.example_of_rel_der_state.rel_state.rot.T_parent_this[2][0-2]",
+\end{verbatim}
+
+and the angular rates can be accessed through the angular velocity vector, or with a magnitude and unit vector representation, e.g.
+\begin{verbatim}
+"example_of_rel_state_object.example_of_rel_der_state.rel_state.rot.ang_vel_this[0-2]",
+\end{verbatim}

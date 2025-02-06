@@ -1,0 +1,591 @@
+Dynamics Comparison Data
+
+PLOTS:
+
+PAGE 1: "ECEF Position"
+
+    PLOT 1: "ECEF X Position"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X Pos"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.cart_coords[0]"
+            UNITS: "M"
+            LABEL: "xyz[0]"
+
+    PLOT 2: "ECEF Y Position"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y Pos"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.cart_coords[1]"
+            UNITS: "M"
+            LABEL: "xyz[1]"
+
+    PLOT 3: "ECEF Z Position"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z Pos"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.cart_coords[2]"
+            UNITS: "M"
+            LABEL: "xyz[2]"
+
+PAGE 2: "J2000 Position"
+
+    PLOT 1: "J2000 X Position"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X Pos"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.position[0]"
+            UNITS: "M"
+            LABEL: "inertial_pos[0]"
+
+    PLOT 2: "J2000 Y Position"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y Pos"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.position[1]"
+            UNITS: "M"
+            LABEL: "inertial_pos[1]"
+
+    PLOT 3: "J2000 Z Position"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z Pos"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.position[2]"
+            UNITS: "M"
+            LABEL: "inertial_pos[2]"
+
+PAGE 3: "J2000 Velocity"
+
+    PLOT 1: "J2000 X Velocity"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X Vel"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.velocity[0]"
+            UNITS: "M/s"
+            LABEL: "inertial_vel[0]"
+
+    PLOT 2: "J2000 Y Velocity"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y Vel"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.velocity[1]"
+            UNITS: "M/s"
+            LABEL: "inertial_vel[1]"
+
+    PLOT 3: "J2000 Z Velocity"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z Vel"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.trans.velocity[2]"
+            UNITS: "M/s"
+            LABEL: "inertial_vel[2]"
+
+PAGE 4: "J2000 Acceleration"
+
+    PLOT 1: "J2000 X Acceleration"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X Accel"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[0]"
+            UNITS: "M/s2"
+            LABEL: "inertial_accel[0]"
+
+    PLOT 2: "J2000 Y Acceleration"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y Accel"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[1]"
+            UNITS: "M/s2"
+            LABEL: "inertial_accel[1]"
+
+    PLOT 3: "J2000 Z Acceleration"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z Accel"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.trans_accel[2]"
+            UNITS: "M/s2"
+            LABEL: "inertial_accel[2]"
+
+PAGE 5: "J2000 Attitude Quaternion"
+
+    PLOT 1: "Quaternion Scalar: Q_s = cos(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_s"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.scalar"
+            LABEL: "Q_inertial_body[0]"
+
+    PLOT 2: "Quaternion Vector: Q_x = -U_x sin(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_x"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[0]"
+            LABEL: "Q_inertial_body[1]"
+
+    PLOT 3: "Quaternion Vector: Q_y = -U_y sin(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[1]"
+            LABEL: "Q_inertial_body[2]"
+
+    PLOT 4: "Quaternion Vector: Q_z = -U_z sin(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[2]"
+            LABEL: "Q_inertial_body[3]"
+
+PAGE 6: "Rotational Body Rate"
+
+    PLOT 1: "Body Rate - X Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.ang_vel_this[0]"
+            UNITS: "d/s"
+            LABEL: "body_rate[0]"
+
+    PLOT 2: "Body Rate - Y Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.ang_vel_this[1]"
+            UNITS: "d/s"
+            LABEL: "body_rate[1]"
+
+    PLOT 3: "Body Rate - Z Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.ang_vel_this[2]"
+            UNITS: "d/s"
+            LABEL: "body_rate[2]"
+
+PAGE 7: "Rotational Body Acceleration"
+
+    PLOT 1: "Body Accel - X Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.rot_accel[0]"
+            UNITS: "d/s2"
+            LABEL: "body_accel[0]"
+
+    PLOT 2: "Body Accel - Y Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.rot_accel[1]"
+            UNITS: "d/s2"
+            LABEL: "body_accel[1]"
+
+    PLOT 3: "Body Accel - Z Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.rot_accel[2]"
+            UNITS: "d/s2"
+            LABEL: "body_accel[2]"
+
+PAGE 8: "Geodetic Altitude"
+
+    PLOT 1: "Geodetic Altitude"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Alt"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.pfix.state.ellip_coords.altitude"
+            UNITS: "M"
+            LABEL: "altitude"
+
+PAGE 9: "Atmospheric Density"
+
+    PLOT 1: "Atmospheric Density"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Density"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.atmos.density"
+            UNITS: "kg/M3"
+            LABEL: "density"
+
+PAGE 10: "Atmospheric Temperature"
+
+    PLOT 1: "Atmospheric Temperature"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Temp"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.atmos.temperature"
+            UNITS: "K"
+            LABEL: "temperature"
+
+PAGE 11: "Gravitational Acceleration"
+
+    PLOT 1: "X Grav Accel"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.grav_accel[0]"
+            UNITS: "M/s2"
+            LABEL: "accel[0]"
+
+    PLOT 2: "Y Grav Accel"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.grav_accel[1]"
+            UNITS: "M/s2"
+            LABEL: "accel[1]"
+
+    PLOT 3: "Z Grav Accel"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.grav_accel[2]"
+            UNITS: "M/s2"
+            LABEL: "accel[2]"
+
+PAGE 12: "Gravity Gradient Torque"
+
+    PLOT 1: "X-Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.grav_torque.torque[0]"
+            UNITS: "N*M"
+            LABEL: "grav_torque[0]"
+
+    PLOT 2: "X-Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.grav_torque.torque[1]"
+            UNITS: "N*M"
+            LABEL: "grav_torque[1]"
+
+    PLOT 3: "X-Axis"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.grav_torque.torque[2]"
+            UNITS: "N*M"
+            LABEL: "grav_torque[2]"
+
+PAGE 13: "Aerodynamic Force"
+
+    PLOT 1: "X Aero Force"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_force[0]"
+            UNITS: "N"
+            LABEL: "force[0]"
+
+    PLOT 2: "Y Aero Force"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_force[1]"
+            UNITS: "N"
+            LABEL: "force[1]"
+
+    PLOT 3: "Z Aero Force"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_force[2]"
+            UNITS: "N"
+            LABEL: "force[2]"
+
+PAGE 14: "Aerodynamic Torque"
+
+    PLOT 1: "X Aero Torque"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_torque[0]"
+            UNITS: "N*M"
+            LABEL: "torque[0]"
+
+    PLOT 2: "Y Aero Torque"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_torque[1]"
+            UNITS: "N*M"
+            LABEL: "torque[1]"
+
+    PLOT 3: "Z Aero Torque"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.aero_drag.aero_torque[2]"
+            UNITS: "N*M"
+            LABEL: "torque[2]"
+
+PAGE 15: "Non-Gravitational External Forces"
+
+    PLOT 1: "X External Force"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_forc[0]"
+            UNITS: "N"
+            LABEL: "no_xmit_forc[0]"
+
+    PLOT 2: "Y External Force"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_forc[1]"
+            UNITS: "N"
+            LABEL: "no_xmit_forc[1]"
+
+    PLOT 3: "Z External Force"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_forc[2]"
+            UNITS: "N"
+            LABEL: "no_xmit_forc[2]"
+
+PAGE 16: "External Torques"
+
+    PLOT 1: "X External Torque"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "X"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[0]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[0]"
+
+    PLOT 2: "Y External Torque"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[1]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[1]"
+
+    PLOT 3: "Z External Torque"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.collect.no_xmit_torq[2]"
+            UNITS: "N*M"
+            LABEL: "no_xmit_torq[2]"
+

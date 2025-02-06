@@ -1,0 +1,17 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Abstract for the ThermalRider model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{abstract}
+
+The \ThermalRiderDesc\ is not a stand-alone model; it requires some connectivity to another Interaction model that defines an Interaction Surface (e.g. Radiation Pressure, or Aerodynamic Drag).  Its connection to the Surface Model is indirect, seen only through the Interaction Surface, not the surface itself.
+
+The \ThermalRiderDesc\ serves to provide any Interaction Surface with thermal monitoring capabilities.  Given the current environment, it integrates the thermal processes (e.g. internal power dump, skin friction, radiative absorption, thermal emission) using an R-K 4th order integrator to give the temperature evolution of the surface.
+
+
+\end{abstract}

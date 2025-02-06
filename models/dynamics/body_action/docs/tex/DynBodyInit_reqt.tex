@@ -1,0 +1,241 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DynBodyInit_reqt.tex
+% Requirements on/levied by the DynBodyInit submodel
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Requirements}\label{ch:\modelpartid:reqt}
+
+
+\requirement[Translational state]{Translational State Specification in Terms of a Known Frame}
+\label{reqt:DynBodyInit:cartesian_trans}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This model shall provide the ability to initialize
+    the position and/or velocity vectors of a subject DynBody object
+    given the subject body's position and/or velocity vectors
+    with respect to a reference frame
+    whose state with respect to the vehicle's integration frame is known.
+  \item[Rationale:]\ \newline
+    This requirement derives from
+    requirement~\ref{reqt:overview:dyn_body_init}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+
+\requirement[Rotational state]{Rotational State Specification in Terms of a Known Frame}
+\label{reqt:DynBodyInit:cartesian_rot}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This model shall provide the ability to initialize
+    the attitude and/or attitude rate of a subject DynBody object
+    given the object's attitude and/or attitude rate
+    with respect to a reference frame
+    whose state with respect to the vehicle's integration frame is known.
+  \item[Rationale:]\ \newline
+    This requirement derives from
+    requirement~\ref{reqt:overview:dyn_body_init}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Orbital Elements}
+\label{reqt:DynBodyInit:orbelem}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This model shall provide the ability to initialize
+    the position and velocity of a subject DynBody object
+    given a set of osculating orbital elements as represented in
+    some non-rotating reference frame about some planet.
+   Table~\ref{tab:reqt_orb_elem_checklist}
+    lists the orbital elements sets
+    that pertain to this requirement.
+  \item[Rationale:]\ \newline
+    The multiplicity of options enables the use of
+    known vehicle translational states as provided by external sources.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\begin{table}[htp]
+\begin{minipage}{\textwidth}
+\centering
+\caption{Orbital Elements}
+\label{tab:reqt_orb_elem_checklist}
+\vspace{1ex}
+\begin{tabular}{||c||cccccccccccccc||c|}
+\hline
+   &
+  \multicolumn{14}{||c||}{
+    {\bf Orbital Elements}
+    \footnote{
+      Six orbital elements are needed to uniquely specify the orbital state.
+      Six orbital elements are checked in each line of the table.
+      The \ModelDesc shall provide the ability to transform the indicated
+      sets of six orbital elements to position and velocity vectors.}
+    } & \\ \hline\hline
+  \tilt{\bf{Subrequirement}} &
+  \tilt{\bf{Inclination}} &
+  \tilt{\bf{Longitude of ascending node}} &
+  \tilt{\bf{Semi-major axis}} &
+  \tilt{\bf{Semi-latus rectum}} &
+  \tilt{\bf{Eccentricity}} &
+  \tilt{\bf{Altitude at periapsis}} &
+  \tilt{\bf{Altitude at apoapsis}} &
+  \tilt{\bf{Argument of periapsis}} &
+  \tilt{\bf{Argument of latitude}} &
+  \tilt{\bf{Time since periapsis passage}} &
+  \tilt{\bf{Mean anomaly}} &
+  \tilt{\bf{True anomaly}} &
+  \tilt{\bf{Orbital radius}} &
+  \tilt{\bf{Radial velocity}} &
+  \tilt{\bf{Index Number}
+    \footnote{
+      The options are indexed in this fashion to replicate the
+      numbering scheme used in JEOD 1.4/1.5.}
+    } \\ \hline\hline
+%                     SET #1  Classical orbital elements:
+%                             Inclination,
+%                             Longitude of Ascending Node,
+%                             Eccentricity,
+%                             Argument of Periapsis,
+%                             Semi Major Axis,
+%                             Time since Periapsis passage
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     $\surd$ & & $\surd$ & & & $\surd$ & & $\surd$ & & & & & 1 \\
+%                     SET #2: Inclination,
+%                             Longitude of Ascending Node,
+%                             Eccentricity,
+%                             Argument of Periapsis,
+%                             Semi Major Axis,
+%                             Mean Anomaly
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     $\surd$ & & $\surd$ & & & $\surd$ & & & $\surd$ & & & & 2\\
+%                     SET #3: Inclination,
+%                             Longitude of Ascending Node,
+%                             Eccentricity,
+%                             Argument of Periapsis,
+%                             True Anomaly,
+%                             Semi Latus Rectum,
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     & $\surd$ & $\surd$ & & & $\surd$ & & & & $\surd$ & & & 3 \\
+%                     SET #4: Inclination,
+%                             Longitude of Ascending Node,
+%                             Argument of Periapsis,
+%                             True Anomaly,
+%                             Altitude at Periapsis,
+%                             Altitude at Apoapsis,
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     & & & $\surd$ & $\surd$ & $\surd$ & & & & $\surd$ & & & 4 \\
+%                     SET #5: Inclination,
+%                             Longitude of Ascending Node,
+%                             Argument of Periapsis,
+%                             Time since Periapsis passage,
+%                             Altitude at Periapsis,
+%                             Altitude at Apoapsis,
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     & & & $\surd$ & $\surd$ & $\surd$ & & $\surd$ & & & & & 5 \\
+%                     SET #6: Inclination,
+%                             Longitude of Ascending Node,
+%                             Semi Major Axis,
+%                             Argument of Latitude,
+%                             Orbital Radius,
+%                             Orbit Radial Velocity,
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     $\surd$ & & & & & & $\surd$ & & & & $\surd$ & $\surd$ & 6 \\
+%                     SET #10 AEITA
+%                             Inclination,
+%                             Right Ascension of Ascending Node,
+%                             Eccentricity,
+%                             Argument of Periapsis,
+%                             Semi Major Axis,
+%                             True Anomaly,
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     $\surd$ & & $\surd$ & & & $\surd$ & & & & $\surd$ & & & 10 \\
+%                     SET #11 HAPRWP
+%                             Altitude at Periapsis,
+%                             Altitude at Apoapsis,
+%                             Inclination,
+%                             Right Ascension of Ascending Node,
+%                             Argument of Periapsis,
+%                             True Anomaly */
+\tabsubrequirement &
+     $\surd$ & $\surd$ &
+     & & & $\surd$ & $\surd$ & $\surd$ & & & & $\surd$ & & & 11 \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+%\end{landscape}
+
+\requirement[LVLH frame]{State Specification in Terms of an LVLH Frame}
+\label{reqt:DynBodyInit:LVLH}
+\begin{description}
+  \item[Requirement:]\ \newline
+    If the position and velocity of a reference DynBody object's body frame
+    with respect to a subject DynBody object's integration frame are known,
+    this model shall provide the ability to initialize
+    aspects of the state of the subject body
+    given elements of the subject body's state
+    with respect to the reference body's
+    rectilinear or curvilinear Local Vertical, Local Horizontal frame
+    with respect to some planet.
+  \item[Rationale:]\ \newline
+    This requirement derives from
+    requirement~\ref{reqt:overview:dyn_body_init}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement[NED frame]{State Specification in Terms of a North-East-Down Frame}
+\label{reqt:DynBodyInit:NED}
+\begin{description}
+  \item[Requirement:]\ \newline
+  \subrequirement{Point-relative.}
+  \label{reqt:DynBodyInit:reference_NED}
+    This model shall provide the ability to initialize
+    aspects of the state of a subject body
+    given elements of the subject body's state
+    with respect to a planet-based reference point.
+  \subrequirement{Vehicle-relative.}
+  \label{reqt:DynBodyInit:relative_NED}
+    If the position and velocity of a reference DynBody object's body frame
+    with respect to a subject DynBody object's integration frame are known,
+    this model shall provide the ability to initialize
+    aspects of the state of the subject body
+    given elements of the subject body's state
+    with respect to the reference body's
+    North-East-Down frame
+    with respect to some planet.
+  \item[Rationale:]\ \newline
+    This requirement derives from
+    requirement~\ref{reqt:overview:dyn_body_init}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Readiness Detection}
+\label{reqt:DynBodyInit:is_ready}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This model shall provide the ability to detect when a state
+    initializer is ready to be executed (and when it is not ready)
+    based on the data needed by the initialization object.
+  \item[Rationale:]\ \newline
+    This requirement derives from
+    requirement~\ref{reqt:overview:dyn_body_init}.
+
+    One of the key goals of this model is to remove dependencies upon the order
+    in which objects are declared in the S\_define file or the order in which
+    objects are added to the Dynamic Manager's list of BodyAction objects.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}

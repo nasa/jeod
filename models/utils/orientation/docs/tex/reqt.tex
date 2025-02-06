@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Orientation model requirements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+
+\requirement{Project Requirements}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in the 
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{JEOD} top-level document.
+
+\item[Rationale:]\ \newline
+  This is a project-wide requirement.
+
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+
+\requirement{Supported Representations}
+\label{reqt:representations}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide the ability to represent an orientation
+  in any of the following forms:
+  \subrequirement{}3x3 transformation matrix.
+  \subrequirement{}Left unit transformation quaternion.
+  \subrequirement{}Eigen rotation.
+  \subrequirement{}Euler angles.
+
+\item[Rationale:]\ \newline
+  There are many different but equivalent ways of representing the orientation
+  of an object. Some are more intuitive than others while some are more
+  amenable to analysis. An external source may specify orientation in any
+  one of these forms (and others as well).  For these reasons, JEOD must be
+  able to model the orientation of an object in a number of representation
+  schemes.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Data Access}
+\label{reqt:data_access}
+\begin{description}
+\item[Requirement:]\ \newline
+  \subrequirement{Member Access.}
+  The \ModelDesc shall provide public access to its representations of
+  an orientation.
+  \subrequirement{Data Consistency.}
+  The \ModelDesc shall provide mechanisms to ensure that the member data
+  for some representation of an orientation is consistent with input data.
+  \subrequirement{Programmatic Assignment.}
+  The \ModelDesc shall provide functional mechanisms to initialize or update
+  an orientation.
+  \subrequirement{Programmatic Access.}
+  The \ModelDesc shall provide functional mechanisms to access representations
+  of an orientation.
+
+\item[Rationale:]\ \newline
+  Public access is provided for backward compatibility. The model would
+  fail to satisfy the requirement to represent multiple representation schemes
+  without the consistency requirement. The latter two sub-requirements support
+  a more modern, object-oriented view.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Euler Angles}
+\label{reqt:euler_angles}
+\begin{description}
+\item[Requirement:]\ \newline
+  With regard to Euler angles,
+  \subrequirement{Supported Sequences.}
+    The \ModelDesc shall support all twelve of the Euler rotation sequences.
+  \subrequirement{Sequence Identifiers.}
+    The numerical values of the identifiers used in the \ModelDesc to
+    identify the six aerodynamics angles shall be equal to the corresponding
+    identifiers used in Trick.
+
+\item[Rationale:]\ \newline
+  JEOD 2.0 used the Trick math library Euler angle identifiers and only
+  supported the six aerodynamics Euler angles supported by Trick.
+  The project requirement to make JEOD 2.1 Trick-independent means
+  that the identifiers must now be defined by JEOD. The requirement to use the
+  same numerical values as in Trick makes these new identifiers backwards
+  compatible with JEOD 2.0. The requirement to be Trick-independent also
+  provided the opportunity to support all twelve Euler sequences.
+
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Conversions between Representation Schemes}
+\label{reqt:conversions}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall provide the following conversion schemes:
+  \subrequirement{}\label{reqt:eigen_to_mat}
+  Eigen rotations to transformation matrices.
+  \subrequirement{}\label{reqt:mat_to_eigen}
+  Transformation matrices to eigen rotations.
+  \subrequirement{}\label{reqt:euler_to_mat}
+  Euler angles to transformation matrices.
+  \subrequirement{}\label{reqt:mat_to_euler}
+  Transformation matrices to Euler angles.
+  \subrequirement{}\label{reqt:euler_to_quat}
+  Euler angles to quaternions.
+\item[Rationale:]\ \newline
+  JEOD 2.0 used Trick math library functions to perform the first four
+  of the specified conversions. The project requirement to make JEOD 2.1
+  Trick-independent means that these conversion methods must now be implemented
+  in JEOD. The final conversion makes it possible to directly compute a
+  quaternionic representation from all supported representations.
+  
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}

@@ -1,0 +1,58 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Analysis part of User's Guide for the Euler model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Analysis}
+
+\label{sec:euleruseranalysis}
+\subsection{Identifying the \EulerDescT}
+If the Euler angles have been included in the simulation, there will be an instance of \textit{EulerDerivedState} located in the S\_define file.  This would typically be found in the vehicle object.  There should be an accompanying call to an initialization routine, which takes a reference to the \textit{subject\_body} as one if its inputs, and may also take a reference to a reference-frame, although this is not necessary.  There will also be an accompanying call to an update function.  The essential variable \textit{sequence}, the order in which the angles should be assigned to each axis, is defined elsewhere, often in the input file.
+
+Example:
+\begin{verbatim}
+sim_object{
+dynamics/derived_state:    EulerDerivedState example_of_euler_angles;
+
+(initialization) dynamics/derived_state:
+example_of_rel_state_object.example_of_euler_angles.initialize (
+    Inout DynBody &      subject_body = vehicle_1.dyn_body,
+    Inout DynManager &   dyn_manager  = manager_object.dyn_manager);
+    
+{environment} dynamics/derived_state:
+example_of_rel_state_object.example_of_euler_angles.update ( )
+
+} example_of_rel_state_object;
+\end{verbatim}
+
+The input file may contain an entry comparable to:
+\begin{verbatim}
+example_of_rel_state_object.example_of_euler_angles.sequence = Roll_Pitch_Yaw;
+\end{verbatim}
+This variable can take one of the following values:
+\begin{itemize}
+\item{} Roll\_ Pitch\_ Yaw
+\item{} Roll\_ Yaw\_ Pitch
+\item{} Pitch\_ Yaw\_ Roll
+\item{} Pitch\_ Roll\_ Yaw
+\item{} Yaw\_ Roll\_ Pitch
+\item{} Yaw\_ Pitch\_ Roll
+\end{itemize}
+
+\subsection{Editing the \EulerDescT}
+The sequence is open to edit by the analyst.
+
+\subsection{Output Data}
+The direct output from the \EulerDesc\ comprises only the two vectors of angles,
+\textit{ref\_body\_angles} (the Euler angles from the reference frame to the subject frame), and
+\textit{body\_ref\_angles} (the Euler angles to the reference frame from the subject frame).
+\begin{verbatim}
+example_of_rel_state_object.example_of_euler_angles.ref_body_angles[0-2]
+example_of_rel_state_object.example_of_euler_angles.body_ref_angles[0-2]
+\end{verbatim}
+
+
+

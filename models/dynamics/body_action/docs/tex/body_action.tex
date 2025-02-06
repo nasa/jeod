@@ -1,0 +1,137 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% body_action.tex
+% Top level document for the Body Action Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the AMS math package
+%
+\usepackage{amsmath,amssymb,amsfonts}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the common math nomenclature
+%
+\usepackage{dynmath}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{body_action}
+
+%
+% Add the requirements to the table of contents
+%
+\dynenvaddtotoc{reqt}{1}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{color}
+
+%
+% Bring in the PDF landscape environment
+%
+\usepackage{pdflscape}
+
+%
+% Bring in listing environment
+%
+\usepackage{paralist}
+\usepackage{longtable}
+
+%
+% Fixes for footnotes
+%
+\usepackage{footmisc}
+
+%
+% Enable change bars
+%
+\usepackage{changebar}
+
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false,pdfpagelabels]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\ModelDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={initialization events},
+   pdfsubject={\ModelDesc}}
+
+%\renewcommand{\abstractname}{Executive Summary}
+
+%\setcounter{secnumdepth}{2}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{\ModelPath}
+\docrev{1.3}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\ModelDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\phantomsection
+%\pdfbookmark{Executive Summary}{abstract}
+\addcontentsline{toc}{chapter}{Executive Summary}
+\include{exec_summary}
+
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+\include{part_overview}
+\clearpage
+\include{part_BodyAction}
+\clearpage
+\include{part_MassBodyInit}
+\clearpage
+\include{part_BodyAttach_Detach}
+\clearpage
+\include{part_DynBodyInit}
+\clearpage
+\include{part_DynBodyFrameSwitch}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+%\pdfbookmark[-1]{Bibliography}{bibliography}
+\phantomsection
+%\pdfbookmark{Executive Summary}{abstract}
+\addcontentsline{toc}{part}{Bibliography}
+\bibliography{dynenv,body_action}
+\bibliographystyle{plain}
+
+\end{document}

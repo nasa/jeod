@@ -1,0 +1,31 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% exec_summary.tex
+% Memory model executive summary
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Executive Summary}
+
+The \ModelDesc forms a component of the dynamics suite of
+models within \JEODid. It is located at
+models/utils/memory.
+
+This model provides mechanisms in the form of macros and classes
+for allocating and deallocating memory.
+Several factors drove the design of the \ModelDesc.
+
+\paragraph*{Environment.}
+The model is to work within and outside of the Trick environment.
+(Only the Trick-based capabilities are used in JEOD 2.0.)
+
+\paragraph*{Flexibility.}
+The model is to work with a wide variety of data types, including
+pointers, C++ primitive types, and classes.
+
+\paragraph*{C++ Concerns.} The C++ allocation operators
+\verb|new| and \verb|new[]| have distinct semantics,
+as do \verb|delete| and \verb|delete[]|.
+
+\paragraph*{Ease of Use.} All of the above concerns should
+be hidden from the programmers who use the model.

@@ -1,0 +1,382 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the time model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+
+
+% This file was converted to LaTeX by Writer2LaTeX ver. 1.0 beta3
+% see http://writer2latex.sourceforge.net for more info
+
+This section describes the key concepts found in the \timeDesc.  For an
+architectural overview, see the 
+\href{file:refman.pdf} {\em Reference Manual} \cite{timebib:ReferenceManual}.
+
+\subsection{Overview}
+
+The {\textquotedblleft}second{\textquotedblright} is a well-defined
+quantity, counted to high precision by atomic clocks, and is
+incorporated into many physical constants, even into the definition of
+length.  In a Newtonian universe, all atomic clocks would tick at the
+same rate; the fundamental unit of time may as well be the Earth-based
+atomic time (TAI) as any other atomic-time.  In the vast majority of
+applications of JEOD (near-Earth simulations with millisecond
+precision), using TAI as the fundamental second is highly recommended,
+and 1 second of simulation time should equal 1 second of TAI.  In rare
+exceptions, it may be desirable to use a more heliocentric central
+base-time (e.g. Barycentric Dynamic Time (TDB) or Ephemeris Time (not
+included in this release)), and some local time to track each vehicle
+independently.
+
+
+
+In \JEODid, there are many different clocks available, each of which has
+the following commonalities:
+
+
+
+
+\begin{itemize}
+\item A character-string name
+\item An initial value (value at sim-start)
+\item Identification (by name) of the time-type from which it is to be
+initialized
+\item Identification (by name) of the time-type from which it is to be
+updated
+\item A pointer to the converter function that will be used to update it
+\item A pointer to the Time Manager (\textit{TimeManager})
+\item A pointer to the Time Manager Initializer.
+(\textit{TimeManagerInit})
+\end{itemize}
+
+
+
+\subsection{Simulator Time}
+In previous versions of JEOD, the simulator time (in a Trick simulation,
+this is \textit{sys.exec.out.time}) was used as the basis for all
+dynamical processes.  Everything progressed at the rate at which
+simulator time advanced.  This is highly inflexible, and the \JEODid\
+model has moved away from using the simulator time for anything more
+than an incremental counter.  Simulator Time is NOT a part of the Time
+model.
+
+\subsection{Dynamic Time}
+To enhance flexibility, we have added an intermediary time to manipulate
+the simulation time to a clock appropriate for integrating the dynamics
+of the simulation.  While simulation time always advances forward at a
+constant {\textquotedblleft}rate{\textquotedblright}, Dynamic Time
+(class:\textit{TimeDyn}, object ID: \textit{time.dyn}) can be made to
+speed up or slow down (thereby adjusting the temporal resolution
+without adjusting the calling frequencies), or even to run in reverse. 
+TimeDyn can, in principle, be linked to any clock (e.g. TAI, UTC, UT1)
+with an appropriate converter, and thereby define that clock as the
+fundamental second.  Because TAI is based on the SI second at
+Earth's gravitational potential, it is highly
+recommended that TAI be used, unless the user fully understands the
+implications of switching to a different fundamental clock.
+
+
+
+
+This is really important, so it is worth repeating: it is this Dynamic
+Time, not the simulator time, that is to be used by the integrators. 
+Simulator time has no physical significance whatsoever, it is purely
+used as a {\textquotedblleft}placeholder{\textquotedblright} to monitor
+the computational progress of the simulation.
+
+
+
+
+There are some other important issues associated with the switch from a
+\textit{sim-time} based simulation to a \textit{dyn-time} based
+simulation, due to the separation between simulation management and
+dynamic integration:
+
+
+\begin{itemize}
+\item Time resolution can now be adjusted trivially, while calls to
+functions are maintained at a constant ratio.  For example, suppose
+that Function \textit{X} is called every 3 seconds, and function
+\textit{Y} called 3 times for every call to \textit{X }(i.e. every
+second), and the user wishes higher resolution at a particular part of
+the simulation.  It is sufficient to adjust the rate at which
+\textit{dyn-time }advances. Adjusting by a factor of 10 would yield
+calls to function \textit{X} every 0.3 seconds, and to function
+\textit{Y} every 0.1 seconds.  There is no need to adjust the job-cycle
+in the actual simulation.
+\item Previous time-resolution limitations associated with simulation
+management are no longer valid.  Increased resolution can be achieved
+by setting \textit{dyn-time} to run at a small fraction of the rate of
+\textit{sim-time, }thereby increasing the available resolution without
+bound.
+\item A consequence of this feature is that the calling rate defined in
+the simulation will only be true if \textit{dyn-time} and
+\textit{sim-time} are running at the same rate.  Again, setting the
+calling rate to be every 3 units in the simulation will be every 0.3
+seconds if \textit{dyn-time} runs at one-tenth the rate of
+\textit{sim-time}.
+\item Adjusting the time-resolution away from a 1-1 ratio can also have
+unintended consequences in the operation of the simulation,
+particularly if the simulation is interfacing with some other
+application.  Adjusting the time-resolution could affect the rate at
+which data is exchanged, and only one side of the interface would be
+aware of the change.
+
+
+
+\end{itemize}
+
+
+
+Dynamic Time is automatically incorporated into every simulation as an
+inherent part of the Time Manager.  Dynamic Time always starts the
+simulation at 0.0.
+
+
+
+
+From\textit{ dyn\_time, }the other times can be derived, although the
+default converters that come with \JEODid mostly require that TAI be
+derived from \textit{dyn-time} and everything else from TAI.  All of
+the other times are therefore referred to as derived-times, which is
+then subdivided into Standard Times, and User-Defined-Epoch Times.
+
+
+
+
+\subsection{Derived Time}
+Depending on the simulation, it may or may not be necessary for
+additional time representations.  If the purpose of a simulation is to
+observe some arbitrary dynamic event with no reference to any external
+configuration, then no additional times are needed.  As soon as
+time-varying environmental factors are introduced, or the user wishes
+to use a clock that starts at some value other than 0.0, it becomes
+necessary to add additional capabilities.  To convert between time
+representations, Time Converters are then needed.  To manage all of the
+time representations into a coherent system, a Time Manager is also
+provided.
+
+All additional times are derived from Dynamic Time (either directly, or
+via other derived times).  
+
+There are two fundamentally distinct types of these derived times -- one
+that is well defined outside the simulation, and one that is not.  The
+first is referred to as a Standard Time, the second as a
+User-Defined-Epoch Time (UDE).  All derived times fall into one of
+these two categories, the concept of derived time becomes incorporated
+into both of these categories, and disappears as a stand-alone concept.
+
+\subsection[Standard Time (STD)]{Standard Time (STD)}
+The concept of a Standard Time is that it is commonly accepted, with no
+ambiguity.  Picking a particular value on a particular clock (e.g. noon
+on January 23, 2009, UTC) is well understood without additional
+context.  Consequently, there can be only one clock running in a
+simulation for each of these times (e.g. 2 clocks running UTC would
+have to read exactly the same value, and would be entirely redundant).
+
+The specific clocks all inherit from the base-class TimeStandard.  The 
+commonality between the various subclasses is extensive, therefore TimeStandard
+provides the vast majority of the structure and methods for those subclasses.
+Nevertheless, there is no known application that could utilize an
+instance of a TimeStandard (extension to add other clocks should be carried out
+by \textit{inheriting} from TimeStandard, not by instantiating a TimeStandard).  
+Consequently, the ability to instantiate a TimeStandard was deprecated in JEOD 
+version 2.1, and removed in JEOD version 2.2.
+
+\subsection{User-Defined-Epoch Time (UDE)}
+The main distinction between a Standard Time and a User-Defined Time is
+that User-Defined Times are ambiguous without additional context.  A
+commonly used example of a UDE (User Defined Epoch) is Mission Elapsed
+Time.  Simply stating that a simulation started 2 hours after the
+mission started is not a very meaningful statement, unless we also have
+information on when the mission started.  The \textit{epoch} of UDEs
+(i.e. when their value was zero) must be defined before they make any
+sense at all; that epoch must ultimately be anchored with a Standard
+Time, or with the Dynamic Time.  A secondary difference arises from the
+ambiguity of a UDE time; while Standard Times are restricted to one
+instance per time-type, the UDEs have no such restriction.  A dozen or
+more different clocks could be running simultaneously, representing
+different time zones (ticking with UTC), or different mission-elapsed
+times for simulations involving multiple vehicles.
+
+\subsection{Epoch Definitions}
+An epoch is an instant in time; for our purposes, it is a particular
+time when the values of two or more clocks are known simultaneously. 
+The most commonly used epoch in modern analysis is J2000, corresponding
+to noon TT on January 1, 2000.  This is the default epoch used for all
+Standard Times (except GPS, which has its own well-defined epoch), although users are free to define their own. 
+Indeed, users must define their own epoch for UDE times (as the name suggests), 
+since these have no fixed epoch.
+
+J2000 is defined with respect to Terrestrial Time; the value of other clocks is known at J2000, but it is not the same value as for Terrestrial Time.  To tie clock values together, we use Truncated Julian Date.  Truncated Julian
+Date is based on Julian Date, but with a more recent epoch; we use the
+NASA definition of Truncated Julian Date with a epoch of midnight on
+May 23/24, 1968.  This value is specific to the clock under consideration (so UTC TJT=0 occurred at 00:00:00 May 24, 1968 UTC, which is a different instant in time from TT TJT = 0, or TAI TJT = 0). 
+
+It is important to differentiate between the two epoch concepts.  The
+former is used to zero a time representation, while the latter is used
+to provide continuity between types.  JEOD provides two variables --
+\textit{seconds} and \textit{days} --  associated with the former
+interpretation for each time representation; these measure the elapsed
+time since that epoch.  Each Standard Time (except GMST) also carries a variable
+\textit{trunc\_julian\_time}, and a constant \textit{tjt\_at\_epoch};
+these are associated with the latter interpretation.
+
+
+
+
+\subsection[\ Time{}-keeping]{ Time-keeping}
+A decimal counter-type clock was chosen as the basic time-keeping method
+in each time representation because it is more computationally
+efficient than conducting the constant verification for passing through
+boundaries that is inherent to a calendar-type clock.  For all times,
+seconds-since-epoch, and days-since-epoch are both maintained.  For
+most Standard Times, the epoch chosen is J2000 (12:00 noon TT on
+January 1, 2000).  Additionally, for Standard Times, the NASA standard
+Truncated Julian Time is also maintained.  The Truncated Julian
+representation was chosen for its improved accuracy over the Julian or
+Modified Julian representations, and for its versatility in comparing
+current values of standard clocks, and for converting to calendar-type
+representations.  The following example demonstrates the distinction
+between maintaining Truncated Julian Time and seconds since epoch
+(J2000).
+
+\begin{quotation}
+Terrestrial Time (TT) ticks in lockstep with atomic time (TAI), but they
+are offset by a constant value.  The J2000 epoch occurred at the same
+instant for both, so the respective seconds-since-epoch values will be
+the same for both since they tick in lockstep.  Conversely, the
+Truncated Julian Time {\textquotedblleft}epochs{\textquotedblright} are
+clock-dependent, so they occurred at different instants.  Since TT and
+TAI are offset from each other, their respective Truncated Julian Times
+values will always differ by a constant amount and their reported times
+will therefore differ, as is expected.
+\end{quotation}
+
+A calendar-based clock is also made available for most Standard Times;
+maintaining this is more demanding than the simple decimal-type clocks,
+so we have left this to the discretion of the user.  It is an easy task
+to have the simulation routinely calculate the calendar representation,
+but the default is to omit the calendar representation.  Similarly, for
+the UDE Times, there is a clock capability (day::hour::min::sec) that
+can be maintained if desired.
+
+
+
+
+\subsection{Initializing the Simulation}
+For maximum versatility, the code must be able to initialize the
+simulation given a time in any convenient format referencing any
+defined clock.  The resulting consequence is that there is plenty of
+opportunity to \textit{incorrectly } specify the initialization time. 
+Users should take care to read through the initialization instructions
+found in the Analysis section of the User Guide (chapter \ref{ch:user}).
+
+
+
+
+\subsection{Time Converters}
+Time Converters are needed to calculate the values of derived times
+(ultimately) from the Dynamic Time.
+
+Converters between types are each in a separate class.  All converters
+operate between two time-types,
+{\textquotedblleft}type-a{\textquotedblright}, and
+{\textquotedblleft}type-b{\textquotedblright}; their classes are named,
+accordingly, TimeConverter\_AAA\_BBB.  All converters have the
+following commonalities:
+
+
+\begin{itemize}
+\item The name of type-a
+\item The name of type-b
+\item Identification of the available functionality of the converter;
+each converter has two directions available (a-to-b, and b-to-a), and
+two potential operation times (initialization, and runtime).  Each
+converter class has four flags, one for each combination. to indicate how
+the converter may be used.
+\item A numerical difference between type-a and type-b.  In some cases,
+this is a constant, in others it is calculated, in others it is
+obtained from data tables.
+\end{itemize}
+
+
+
+\subsection{Time Manager}
+The Time Manager controls all of the time representations.
+
+The initialization of the class TimeManager is handled by the class
+TimeManagerInit.
+
+The Time Manager contains a list of all the time representations that are to
+be updated during the simulation.
+
+The Time Manager first updates the Dynamic Time, based on the Simulator Time.  
+Each of
+the derived-time representations then update from their respective
+parent time, starting from \textit{dyn-time} and propagating down the
+time-update-tree as needed.
+
+
+
+
+The TimeManager maintains two lists:
+
+
+\begin{itemize}
+\item All registered JeodBaseTime-derived time instances.
+
+\begin{itemize}
+\item This list is created at initialization, and after which it remains 
+constant throughout the simulation.
+\item At the end of the initialization cycle, all times and their 
+conversions should be identified. At this point, the list of time objects is 
+sorted in the order that their update must take place.
+\item Each time instance knows where it is located in that list.
+\item The TimeManager has a lookup function to find the location on that
+list of any time object by name.
+\item The Time Manager keeps all of these types updated throughout the
+simulation.
+\end{itemize}
+\item All registered Time Converters.
+
+\end{itemize}
+
+
+
+\subsection{Time Update Tree}
+This is a tree built at initialization that is stored in the TimeManager
+class.  Coming from TimeDyn, the tree branches to any time classes
+scheduled to be updated directly from DynTime.  Then from each of those
+to the next layer down, etc.  For each branch, a Time Converter is
+needed.  If the tree cannot be built at initialization (due to
+insufficient Time Converters), the simulation will fail immediately. 
+The hierarchical list of time types maintained by the TimeManager is
+derived from this tree, then knowledge of the tree is discarded.
+
+
+
+
+\subsection{Time Manager Initialization}
+The TimeManagerInitializer performs the following tasks:
+
+
+\begin{itemize}
+\item Creates a tree-like structure for initialization and updating
+hierarchy
+
+\begin{itemize}
+\item Includes auto-finding paths, and user-entered override
+capabilities
+\item Ensures that there are no circular dependencies or orphans
+\end{itemize}
+\item Identifies which converter functions are required for navigating
+the tree of time-types
+\item Initializes all of the time representations.
+\end{itemize}
+

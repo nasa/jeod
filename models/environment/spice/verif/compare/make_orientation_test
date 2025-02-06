@@ -1,0 +1,13 @@
+CXX=g++
+CXXFLAGS=-g -Wall -pedantic
+OBJECTS=src/eigen_rotation.o src/orientation_test.o
+EXECUTABLE=orientation_test
+
+$(EXECUTABLE) : $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $@
+
+ src/tokenizer.o src/compare.o : include/tokenizer.hh
+
+.phony : clean
+clean :
+	rm $(OBJECTS) $(EXECUTABLE)

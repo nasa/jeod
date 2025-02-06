@@ -1,0 +1,60 @@
+\chapter{Heun's Method}\label{app:rk2heun}
+
+The RK2 method is the simplest of the predictor-corrector methods.  The
+prediction of the final state is made using Euler's method, then the
+derivatives computed for the final state are combined with the derivatives of
+the initial state to produce a mean over the interval.  This mean value is
+then used to correct the final state.
+
+ This is a second-order, two-stage, single-step, single-cycle algorithm.
+
+The first stage involves an Euler step to the end of the interval.
+The second stage computes the mean value as the average of
+the state derivative at the start of the interval and
+the state derivative at the end of the interval
+(as computed with the state from the first step).
+Table~\ref{tab:heun_butcher} specifies the Butcher tableau for Heun's method.
+
+\begin{table}[htp]
+\centering
+\caption{Heun's Method Butcher Tableau}
+\label{tab:heun_butcher}
+\vspace{1.5ex}
+\begin{tabular}{c|cc}
+0 && \\
+1 & 1 & \\
+\hline
+& 1/2 & 1/2
+\end{tabular}
+\end{table}
+
+Equations~(\ref{eqn:rk2_heun_0}) and~(\ref{eqn:rk2_heun_1}) describe
+the equations that govern propagation using Heun's method.
+
+Stage 0 (predictor):
+\begin{equation}
+\label{eqn:rk2_heun_0}
+\begin{split}
+t_1 &= t_f = t_i + \Delta t \\
+\dot{\vect s}_0 &= \dot{\vect s}(t_i,\vect s(t_i)) \\
+\vect s_1(t_1) &= \vect s(t_i) +  \Delta t\, \dot{\vect s}_0
+\end{split}
+\end{equation}
+Stage 1 (corrector):
+\begin{equation}
+\label{eqn:rk2_heun_1}
+\begin{split}
+t_2 &= t_f = t_1 = t_i + \Delta t \\
+\dot{\vect s}_1 &= \dot{\vect s}(t_1,\vect s(t_1)) \\
+\bar {\dot{\vect s}} &= \frac{\dot{\vect s}_0+\dot{\vect s}_1} 2 \\
+\vect s(t_f) &= \vect s(t) + \Delta t\, \bar {\dot{\vect s}}
+\end{split}
+\end{equation}
+
+There are an infinite number of Runge Kutta methods for
+any given order and number of stages.
+For example, another second order two stage Runge Kutta method
+is the midpoint method.
+The midpoint method takes an Euler step to the midpoint of the
+interval and uses the derivative at this midpoint as the mean value.
+

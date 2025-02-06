@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAction_spec.tex
+% Specification of the BodyAction class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Specification}\label{ch:\modelpartid:spec}
+
+\section{Conceptual Design}
+All of the instantiable \ModelDesc classes ultimately derive from the BodyAction
+base class. This base class by itself does not change a single aspect of
+a subject MassBody, DynBody, or derived class object. Making changes to a body is the
+responsibility of the various classes that derive from the base BodyAction
+class. The base class provides a common framework for describing actions to be
+performed. This framework includes
+\begin{itemize}
+\item Descent from a common base class. This common basis enables forming a
+collection of body actions in the form of base class pointers. The DynManager
+class does exactly this. The \ModelDesc was explicitly architected to enable
+this treatment.
+\item Base class member data, including a pointer to the {\tt mass\_subject} MassBody object or
+{\tt dyn\_subject} DynBody object that is the subject of the BodyAction object.
+\item Base class member functions that specify how to operate on the BodyAction
+object. In particular, a trio of virtual methods described below
+form a standard the basis by which derived classes can extend this base class.
+\end{itemize}
+
+\section{Mathematical Formulations}
+N/A
+\section{Detailed Design}
+The base class defines three virtual methods that together form the
+function interface by which an external user of the \ModelDesc functionally
+interacts with BodyAction objects. These methods are
+\begin{description}
+\item[initialize]
+Each \ModelDesc object must be initialized.
+This initialization is the task of the overridable {\tt initialize()}
+method. This method initializes a BodyAction object.
+It does not alter the subject object.
+\item[is\_ready]
+The {\tt is\_ready()} method indicates whether the BodyAction object is
+ready to perform its action on the subject object, but does not alter the object.
+For example, a DynBodyInitLvlhState object sets parts of the subject
+DynBody object's state based on the Local Vertical, Local Horizontal (LVLH)
+frame defined by some reference DynBody object.
+The DynBodyInitLvlhState object remains in a not-ready state
+until the reference body's position and velocity vector have been set.
+\item[apply]
+The {\tt apply()} method performs the action on the subject object.
+\end{description}
+
+The BodyActionMessages class simply encapsulates labels for use with the
+JEOD Message Handler. The model reports the following types of messages:
+\begin{description}
+\item[fatal\_error]
+      Issued when performing an action results in an error return from the
+      method performing the action.
+\item[illegal\_value]
+      Issued when a simple type (e.g. an enum) has an illegal value.
+\item[invalid\_name]
+      Issued when a name is invalid (NULL, empty, or does not name an object
+      of the specified type).
+\item[invalid\_object]
+      Issued when a pointer points to an object of the wrong type.
+\item[null\_pointer]
+      Error issued when a pointer is required but was not provided.
+\item[not\_performed]
+      Issued when a BodyAction cannot be run.
+\item[trace]
+      Debug message issued to trace BodyAction actions.
+\end{description}

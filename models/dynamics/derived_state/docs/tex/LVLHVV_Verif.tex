@@ -1,0 +1,67 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Verification part of V&V for the LVLH model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Verification}
+
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy  
+% requirement \ref{reqt:<label>}.
+
+ For testing the \LVLHDesc\, a simulation of two vehicles was established, with the two vehicles in identical orbits, separated by 1 degree. Both vehicles generate a LVLH reference frame, and the relative state of the other vehicle is calculated in both.  Three such cases are run, with the vehicles in an equatorial, circular orbit; an inclined, circular orbit; and an equatorial, eccentric orbit.
+
+\test{Verification of \LVLHDesc\ Output Data for Generic Orbits}\label{test:LVLH}
+
+\begin{description}
+\item{Purpose:}\newline
+To demonstrate that the output from the \LVLHDesc\ provides meaningful data.
+
+\item{Requirements:}\newline
+Satisfactory conclusion of this test satisfies requirement \ref{reqt:LVLH}
+
+\item{Procedure:}\newline
+The data from the LVLH output was compared against theory for the following features:
+\begin{enumerate}
+ \item  {Orientation of the velocity vector.} \ \newline
+The orientation of the velocity vector, expressed in the LVLH frame, was considered.
+
+ \item {Calculation of Transformation matrix elements.} \ \newline
+The inertial position outputs from the simulations were differenced, transformed into the respective LVLH frame (position of vehicle 1 with respect to vehicle 2 was transformed into the LVLH frame associated with vehicle 2, and vice versa), and compared against the output frm the relative state, expressed in LVLH.
+
+Similarly, the relative velocity vectors were transformed and the additional term for frame rotation introduced.  Using equation~\vref{equ:LVLHvel}, the term
+\begin{equation*}
+ - \vec \omega_{LVLH2\_wrt\_inrtl:LVLH2} \times \vec x_{veh1\_wrt\_veh2:LVLH2} = \begin{bmatrix} \lvert \omega \rvert x_3 \\ 0 \\ -\lvert \omega \rvert x_1 \end{bmatrix} 
+\end{equation*}
+where $LVLH2$ is the LVLH frame associated with vehicle 2.
+
+This term was added to the straightforward transformation of the velocity difference, and then compared to the output from the LVLH frame.
+
+\item {Symmetry between vehicles.} \ \newline
+The output from each LVLH frame was compared with the output from the other.
+\end{enumerate}
+
+
+\item{Predictions:}
+\begin{enumerate}
+ \item {Orientation of velocity vector} \ \newline
+The velocity vector should be oriented in the x-z plane at all times, and along the x-axis only for the two circular orbits.  The elliptical orbit should show some variation in the z-component of its velocity vector.
+
+\item {Calculation of Transformation matrix elements} \ \newline
+The transformed inertial output should be identical to the LVLH frame output.
+
+\item {Symmetry between vehicles} \ \newline
+The y-axis output for both velocity and position should be zero for all time, for all representations.
+For the circular orbits, the x-components of the relative positions should be constant and symmetric, with the value in one direction being negative the value in the other.  For the elliptical orbit, the x-component of position should oscillate, but never cross zero.  While the vehicles are close, the two outputs should approximate mirror images, but this should not hold true on close inspection due to the difference in curvature of the two orbits at the locations of the two vehicles.
+The z-component of position should be a constant positive value for the circular orbits in both frames.  The z-component of position on the elliptical orbit will oscillate, with more elliptic orbits exhibiting both positive and negative values in the oscillation.  As with the y-component, the oscillation should exhibit approximate reflection symmetry between the two frames, but only approximate. 
+The circular orbits should return zero velocity values across all components.  The elliptical orbit should return features consistent with the position data, i.e. approximate reflection symmetry, with non-sinusoidal oscillations in the x- and z- components.
+\end{enumerate}
+
+
+\item{Results:}\ \newline
+All output data confirmed expectations, within numerical precision.  Constants were not quite constant, but exhibited some very small oscillatory behavior.
+\end{description}

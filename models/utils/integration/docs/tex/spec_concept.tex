@@ -1,0 +1,563 @@
+This section describes the key concepts of the \ModelDesc and of the 
+\erseven Integration module.
+
+\subsection{Initial Value Problem}
+An initial value problem comprises 
+\begin{itemize}
+\item A set of variables that describe some state,
+\item A set of initial values for these state variables,
+\item A set of ordinary differential equations (ODEs) that describe how state
+  changes with respect to an independent variable (typically time), and
+\item An interval over which state is to be advanced.
+\end{itemize}
+
+Three initial value problems currently arise in JEOD:
+\begin{itemize}
+\item Propagating the temperature of a radiative surface
+  from one time step to the next.
+  The temperature of the surface varies with time per the
+  Stefan-Boltzmann law.
+\item Propagating the translational state (position and velocity) of a
+  dynamic body from one time step to the next.
+  The translational state varies with time per Newton's second law.
+\item Propagating the rotational state (orientation and angular velocity) of a
+  dynamic body from one time step to the next.
+  The rotational state varies with time per the rotational analog of
+  Newton's second law.
+\end{itemize}
+
+The three initial value problems mentioned above in general do not have nice
+closed-form solutions. Numerical techniques must be used to yield approximations
+to the solutions to the problems.
+The principal purpose of the \ModelDesc is to provide tools that
+numerically solve such initial value problems.
+See Shampine\cite{shampine:1994} for a generic discussion of numerical
+solution of ordinary differential equations.
+
+\subsection{Integration Techniques}
+
+In the context of the \ModelDesc, an integration technique is a specific
+algorithm that approximately propagates state over time per some ODE.
+There are many different such techniques, several of which
+are provided by the \erseven and by JEOD. They range in
+complexity from the very simple Euler techniques to the rather complex
+Gauss-Jackson and LSODE integrators. The paragraphs that follow describe
+various ways to look at different integration techniques.
+
+\subparagraph{%
+Does the technique take multiple steps to achieve the desired end point?}
+\leavevmode\newline
+All but the very simplest of integration techniques involve multiple steps to
+reach the desired end point.
+Most instances of the Runge-Kutta family of integration techniques integrate
+to intermediate points in the integration interval before making the final
+step that necessarily hits the end of the integration interval. For example,
+the midpoint method first integrates to the middle of the integration interval
+before integrating to the end of the interval, and the classical fourth order
+Runge-Kutta technique goes to the midpoint twice before going to the end
+of the interval (which it also hits twice).
+
+Predictor-corrector methods also take multiple steps to reach the desired
+end point. Each step of a predictor-corrector method advances state to the
+end of the integration inteval, but these methods move to the end of the
+interval multiple times. The first step uses a predictor algorithm to predict
+the value at the end of the interval. The following steps use a different
+algorithm to correct that value. Simple predictor-corrector algorithms
+apply the correction but once. More advanced techniques repeatedly apply the
+corrector until the changes to the corrected state is less than some tolerance.
+
+\subparagraph{%
+Does the technique divide the integration interval into subintervals?}
+\leavevmode\newline
+This concept is distinct from the above.
+Integration techniques that do this are adaptive techniques.
+An adaptive technique uses some underlying integration technique to propagate
+over a subinterval. The adaptive part of the technique tries to find an
+optimal length for the subinterval, neither too long nor too short, that
+makes the integrator perform close to optimal with regard to accuracy.
+
+\subparagraph{Does the technique use historical data?}
+\leavevmode\newline
+All but the simplest of predictor-corrector techniques use historical data
+to improve the accuracy of the prediction/correction. This improved accuracy
+comes at a cost. One issue is that such techniques are not self-starting. Some
+other technique must be used to provide the initial set of history data.
+The other issue is that discontinuities in the derivatives (e.g., a satellite
+subject to radiation pressure coming out of or going into Earth shadow)
+can wreak havoc with the historical data. Users of such techniques need
+to be aware of the pitfalls as well as the advantages of these techniques.
+
+\subparagraph{How many derivative evaluations are needed?}
+\leavevmode\newline
+One of the key advantages of predictor-corrector techniques over Runge-Kutta
+techniques is that given techniques of the same order, the former tend to need
+far fewer evaluations of the derivatives to attain the same level of accuracy
+if the function to be integrated is analytic. The fewer derivative calls, the
+better, because evaluating derivatives tends to be very expensive
+computationally.
+
+\subparagraph{What kind of accuracy can be acheived/expected?}
+\leavevmode\newline
+This is possibly the most important question of all.
+Any numerical integration technique is subject to errors inherent to the
+technique itself.
+Some techniques are numerically unstable if the time step is too large,
+and even where they are stable, truncation errors inevitably result from the
+approximations used by the techniques. These truncation errors tend to
+decrease as the integration interval decreases, but not indefinitely. At
+some point, round-off error that is inherent to the use of finite precision
+arithmetic (e.g., double precision variables) overwhelms the truncation error.
+For integration intervals smaller than this transition point, decreasing the
+size of the integration interval increases the error in the solution.
+
+Characterizing the error behavior of the various integration techniques is
+a key aspect of the testing section of this document.
+
+\subsection{Trick Integration} \label{sec:con_des_trick}
+
+The literature on numerical integration of an ODE will typically have the
+integrator call some function to calculate the derivative.
+Except for the simplest of integrators, there will be
+many calls to the derivative function sprinkled throughout the algorithm.
+
+This is not how integration works in a Trick simulation.
+
+In a Trick simulation, derivative class jobs calculate various quantities
+that eventually result in state derivatives while integration class jobs
+advance state using those already calculated derivatives.
+The Trick integration loop calls all of the pertinent derivative class jobs
+and then calls all of the pertinent integration class jobs.
+
+This simplifies the development of a Trick-based simulation at the expense of
+making things rather difficult for the developers of an integration technique.
+Except for the very simplest of integration techniques which call the derivative
+function once per integration cycle, the myriad calls to the derivative function
+must be implemented as if the integrator was a reentrant coroutine.
+The approach taken in all of the \erseven and JEOD state integration
+techniques is to emulate this reentrant coroutine behavior via
+a finite state machine.
+
+\subsection{ER7 Utilities Integration} \label{sec:con_des_er7}
+
+The \ModelDesc largely stood on its own in previous JEOD releases.
+This is no longer the case in \JEODid.
+The integration framework and most of the integration techniques have been
+migrated to the \erseven package.
+This section summarizes the key concepts of the \erseven Integration module.
+
+\subsubsection{Integrable Object}
+An integrable object is an object such as a JEOD DynBody that contains
+time-dependent state information that needs to be propagated over time in
+accordance with some ordinary differential equation.
+The integrable object presumably will contain one or more state integrators
+(see below) to perform this state propagation.
+
+\subsubsection{State Integrator}
+A state integrator is an object that uses a specific integration technique to
+propagate state over time. To conform with the Trick integration scheme, the
+object's integration function must receive derivatives and finite state as
+input arguments.
+
+\subsubsection{Integrator Result}
+A state integrator returns an integrator result object to indicate whether
+the integrator successfully achieved the target state and to indicate the
+amount by which integration time should be advanced.
+
+\subsubsection{Integrator Result Merger}
+Oftentimes multiple integrable objects are integrated concurrently.
+The integrator results returned by the multiple state integrators must be
+merged to form a single merged integrator result. An integrator result merger
+object performs these merge operations.
+
+\subsubsection{Integration Group}
+An integration group conceptually contains a set of integrable objects that are
+to be integrated concurrently. All objects in the group have their integrated
+state advanced at the same dynamic step size. On each step within the
+integration process, all derivative class jobs associated with the group are
+called, followed by calls to each of the integration class jobs associated with
+the group.
+This means the state integrators used by the objects must be compatible
+with one another. On each integration step, the state integrators used by the
+integrable objects in the group must advance state to the same point in time.
+
+\subsubsection{Integration Controls}
+An integration controls object works with an integration group to manage the
+integration process. The group, along with the integrable objects contained by
+the group, are indifferent to the specific integration technique used to
+propagate state.  Each integration group contains an integration controls object
+that directs the integration process at the group level to the target point in
+time. The integration controls object manages the finite state machine that
+controls the behavior of the state integrators used by the group's integrable
+objects. The integration controls defers the calling of the integrable objects
+contained with the integration group to the group. The integration result
+returned by the group tells the integration controls how to advance the
+finite state machine and how to advance time.
+
+\subsubsection{Time}
+The \erseven integration module defines time in a very abstract sense.
+Integration time in Trick is contained within the Trick Integrator object,
+while time in JEOD is a global set of objects. The only common aspect between
+these two very disparate concepts is that time is something that needs to be
+updated as a part of the integration process.
+
+\subsubsection{Integrator Constructor}
+There are two key consistency issues regarding the use of multiple state
+integrators within an integration group. On each integration step,
+the integration controls' finite state machine directs the state integrators
+to advance integrable state to some specific point in time. This means that
+state integrators used within an integration group must behave consistently with
+regard to the finite state machine managed by the integration controls and
+with regard to how time is to be advanced.
+
+This presents a potential issue for JEOD because of the global nature of the
+JEOD time objects and because of the use of multiple state integrators within
+an integration group. This issue does not arise if the integration controls and
+state integrators are consistent with one another.
+
+An integrator constructor creates objects that collectively and consistently
+work together to integrate the states of integrable objects over time.
+An integrator constructor creates\begin{itemize}
+\item State integrator objects that integrable objects can use to
+integrate state,
+\item Integrator results merger objects that state integrators and integration
+groups can use to merge results from multiple integrators, and
+\item Integration controls objects that integration groups can use to
+direct the integration process.
+\end{itemize}
+Using an integrator constructor ensures that the state integrator objects,
+integrator results merger objects, and integration controls object used within
+an integration group are consistent with respect to the finite state machine
+and with respect to time.
+
+\subsubsection{Supported Integration Techniques}
+\label{sec:con_des_er7_integ_techniques}
+
+The \erseven provides a number of integration techniques. Each integration
+technique includes a technique-specific integrator constructor that ensures
+consistency of state integrators and integration controls across an integration
+group. The paragraphs that follow describe the techniques provided with
+the \erseven Integration model.
+
+\paragraph{Euler's Method}
+Euler's method is the simplest of integration techniques.
+It advances the first order ODE $\dot x(t) = f(x,t)$ via
+$x(t+\Delta t) = x(t) + \Delta t \, f(x,t)$.
+Euler's method is the basis for all of the other integration techniques supplied
+with the \erseven Integration model. Euler's method itself exhibits a global
+error that is first order in time. This means Euler's method typically exhibits
+very poor accuracy. As a result, its use is not recommended.
+
+See appendix \ref{app:euler} for details.
+
+\paragraph{Symplectic Euler Method}
+The symplectic Euler is the simplest of integration techniques
+specialized to second order ODE problems.
+It advances  the second order ODE
+$\dot x(t) = v(t)$, $\dot v(t) = f(x,v,t)$ via
+$v(t+\Delta t) = v(t) + \Delta t \, f(x,v,t)$,
+$x(t+\Delta t) = x(t) + \Delta t \, v(t+\Delta t)$.
+The symplectic Euler method is only marginally better than the basic Euler
+method when applied to second order ODE problems.
+As is the case with the basic Euler method,
+users are advised to avoid using the symplectic Euler method.
+
+See appendix \ref{app:symplectic_euler} for details.
+
+\paragraph{Beeman's Algorithm}
+Beeman's algorithm is a predictor-corrector algorithm tailored to
+second order ODEs. Its global error is second order in time, making it
+significantly better than the Euler techniques described above.
+
+See appendix \ref{app:beeman} for details.
+
+\paragraph{Second Order Nystr\"{o}m-Lear (NL2)}
+The second-order Nystr\"{o}m-Lear techhnique is a Runge-Kutta-style technique
+tailored to second order ODEs. As the name suggests, it also exhibits a
+global error that is second order in time.
+
+See appendix \ref{app:nl2} for details.
+
+\paragraph{Position Verlet}
+The position verlet method is a member of the verlet family of integrators,
+all of which exhibit a global error that is second order in time.
+The verlet algorithms alternate between advancing position and velocity at
+half step intervals. The position verlet algorithm advances velocity at the
+half step, which means that position verlet only needs one derivative
+call per integration step.
+
+See appendix \ref{app:position_verlet} for details.
+
+\paragraph{Heun's Method}
+Heun's method can be viewed as either a second order Runge-Kutta integrator
+or as a simple predictor-corrector algorithm. It advances state as a full
+Euler step using the derivative at the start of the interval
+followed by a corrective Euler step using the average of initial and final
+derivatives.
+
+See appendix \ref{app:rk2heun} for details.
+
+\paragraph{Midpoint Method}
+The midpoint method is another member of the second order Runge-Kutta family
+of integrators. It advances state as an Euler step to the midpoint of the
+interval followed by a full Euler step using the midpoint derivatives.
+
+See appendix \ref{app:rk2midpoint} for details.
+
+\paragraph{Velocity Verlet}
+The velocity verlet method is a member of the verlet family of integrators.
+The velocity verlet algorithm advances velocity at step boundaries.
+Unlike the position verlet method, the velocity verlet needs two derivative
+calls per intergration step because of drag. Also unlike the position verlet
+method, the velocity verlet method is self-starting.
+
+See appendix \ref{app:velocity_verlet} for details.
+
+\paragraph{Modified Midpoint (MM4)}
+This method is of unknown heritage. The name suggests that it exhibits an
+error that is fourth order in time. This is not the case.
+This method exists for backward compatibility only. Its use is not recommended.
+
+See appendix \ref{app:mm4} for details.
+
+\paragraph{Fourth Order Adams-Bashforth-Moulton (ABM4)}
+The fourth order Adams-Bathforth-Moulton technique is a predictor-corrector
+algorithm for first order ODEs. This technique uses the four step
+Adams-Bashforth integrator as a predictor and the three step Adams-Moulton
+as a corrector. This technique exhibits a global error that is fourth order
+in time. It only requires two derivative calls per step, but does so at the
+expense of not being self-starting and at the expense of mishandling
+discontinuities in the derivatives.
+
+See appendix \ref{app:abm4} for details.
+
+\paragraph{Fourth Order Runge-Kutta}
+The classical fourth order Runge-Kutta technique advances state by taking
+four steps per integration cycle. The first two steps advance state to the
+midpoint of the integration interval while the last two advance state to the
+end of the interval. As the name suggests, this technique exhibits a global
+error that is fourth order in time.
+
+See appendix \ref{app:rk4} for details.
+
+\paragraph{Fourth Order Runge-Kutta-Gill}
+The fourth order Runge-Kutta-Gill method uses the same intermediate steps as
+does the classical fourth order Runge-Kutta technique but uses a different
+Butcher tableau.
+
+See appendix \ref{app:rkg4} for details.
+
+\paragraph{Fifth Order Runge-Kutta-Fehlberg}
+The Runge-Kutta-Fehlberg family of techniques were designed for use in adaptive
+integrators, integrators that change the step size to keep the error within
+some bound. These style integrators use a pair of Runge-Kutta integrators
+to provide different estimates of the integrated state. The fifth order
+Runge-Kutta-Fehlberg technique provided with the \erseven Integration model
+is not adaptive. It is the higher order member of the fourth and fifth
+order techniques used by an adaptive Runge-Kutta-Fehlberg 4/5 integrator.
+
+See appendix \ref{app:rkf45} for details.
+
+\paragraph{Eighth Order Runge-Kutta-Fehlberg}
+The eighth order Runge-Kutta-Fehlberg is the higher order member of the seventh
+and eighth order techniques used by an adaptive Runge-Kutta-Fehlberg 7/8
+integrator. This technique, like the fifth order Runge-Kutta-Fehlberg provided
+with the \erseven Integration model, is not adaptive.
+
+See appendix \ref{app:rkf78} for details.
+
+\subsubsection{Supported Initial Value Problems}
+
+The techniques listed above address one or more of the following types of
+initial value problems:\begin{itemize}
+\item First order ODE,
+\item Second order ODE,
+\item Second order generalized derivative ODE, and
+\item Second order Lie group ODE.
+\end{itemize}
+These are described in detail in the following paragraphs.
+
+There is an obvious mismatch between the first and second order techniques
+in the above list. The reason is simple: Nobody has asked for integrators
+that solve the first order ODE equivalents of the second order generalized
+derivative and Lie group problems.
+
+\paragraph{First order ODE}
+The first order ODE $\dot x(t) = f(x(t),t)$
+describes the behavior of the problem to be solved.
+The state integrator for a first order ODE solver
+receives the vector $x(t)$ and its time derivative $v(t)=f(x(t),t)$
+as arguments.
+
+Most of the techniques listed in section~\ref{sec:con_des_er7_integ_techniques}
+are first order ODE solvers. Others are specific to second order ODEs. While a
+first order ODE solver can be used to solve a second order ODE, the converse
+is not true. Those techniques that are specific to second order ODEs provide
+a surrogate when asked to provide a solver for a first order ODE.
+
+\paragraph{Second order ODE}
+The second order ODE
+$\dot x(t) = v(t)$, $\dot v(t) = f(x(t),v(t),t)$
+describes the behavior of the problem to be solved.
+The state integrator for a second order ODE solver
+receives the vectors $x(t)$, $v(t)$, and $a(t)=f(x(t),v(t),t)$ as arguments.
+
+All of the techniques listed in section~\ref{sec:con_des_er7_integ_techniques}
+can solve a second order ODE. Some of the listed techniques specifically address
+second order ODEs; the remaining techniques are first order ODE solvers that can
+easily be adapted to solving a second order ODE.
+
+\paragraph {Second order generalized derivative ODE}
+The generalized second order ODE
+$\dot x(t) = g(x(t),v(t))$, $\dot v(t) = f(x(t),v(t),t)$
+describes the behavior of the problem to be solved.
+As is the case with the basic second order ODE solver, the state integrator
+for a generalized derivative second order ODE solver
+receives the vectors $x(t)$, $v(t)$, and $a(t)=f(x(t),v(t),t)$ as arguments.
+
+The function $g(x(t),v(t))$ maps generalized position and generalized velocity
+to the first time derivative of generalized position.
+Some integration techniques need an auxiliary function $h(x(t),v(t),a(t))$
+that maps generalized position, generalized velocity, and the time derivative
+of generalized velocity to the second time derivative of generalized position.
+These two functions must be specified when the generalized derivative integrator
+is created.
+
+All of the techniques listed in section~\ref{sec:con_des_er7_integ_techniques}
+can solve a second order generalized derivative ODE.
+
+\paragraph {Second order Lie group ODE}
+The generalized second order ODE
+$\dot x(t) = \alpha\, v(t) \bullet x(t)$, $\dot v(t) = f(x(t),v(t),t)$
+describes the behavior of the problem to be solved.
+As is the case with the basic second order ODE solver, the state integrator
+for a generalized derivative second order ODE solver
+receives the vectors $x(t)$, $v(t)$, and $a(t)=f(x(t),v(t),t)$ as arguments.
+
+In the above, the generalized position $x(t)$ is an element of a Lie group, the
+generalized velocity is an element of a Lie algebra for that Lie group, and
+$\alpha$ is a constant scale factor. The product $v(t) \bullet x(t)$ is
+performed in the context of the group action of the Lie group.
+This multiplication typically is not commutative in these Lie group problems:
+$a \bullet b \ne b \bullet a$ in general. Indeed, the Lie bracket
+$[a,b] = a \bullet b - b \bullet a$ typically is not zero, and typically plays
+a key role in the solutions to the problem.
+
+The second order Lie group problems are obviously a special case of the second
+order generalized derivative problems described above. The rationale for these
+Lie group solvers is that they pay attention to the geometry of the problem.
+If a technique provides a Lie group solver it will inevitably perform much
+better than the corresponding generalized derivative solver.
+
+This would be an academic exercise were it not for the fact that rotations in
+three dimensional space form a Lie group, the group $SO(3)$. The Lie group
+solvers were developed because of the relevance of this group to physics-based
+simulations and because the Lie group techniques offer marked improvements in
+accuracy over alternative formulations.
+
+The Lie group solvers need two special functions that need to be specified at
+construction time. The \emph{expmap} function approximates the Lie group's
+exponential map, while the \emph{dexpinv} function approximates the Lie group's
+pullback function.
+
+Only some of the techniques listed in
+section~\ref{sec:con_des_er7_integ_techniques}
+can solve a second order Lie group ODE. The second order generalized derivative
+solver should be used in lieu of the Lie group solver in the case of a technique
+that does not provide a Lie group solver.
+
+\subsubsection{Integrator Constructor Factory}
+
+The \erseven Integration model provides an integrator constructor factory
+that simplifies the specification of an integration technique. The factory
+constructs an integrator constructor that corresponds to one of the supported
+techniques. All the user needs to specify is an element of the enumeration
+of supported integration techniques.
+
+\subsubsection{Support for Generalized Second Order Integrators}
+
+To illustrate how the functions needed by the generalized derivative and Lie
+group integrator are to behave, the \erseven Integration module provides
+implementations of the four functions needed by a second order ODE left quaternion
+representation of orientation.
+It is intentional that this is exactly the functionality needed by JEOD.
+
+\subsection{JEOD Integration Model} \label{sec:con_des_jeod}
+
+The JEOD \ModelDesc builds on the functionality provided by the \erseven
+Integration model.
+
+\subsubsection{JEOD Integration Group} \label{sec:con_des_jeod_integ_group}
+
+A JEOD integration group extends the concept of an \erseven integration group.
+The \erseven concept is rather basic. It has to be so as to accommodate both
+the Trick and JEOD concepts of integration. This extension is limited to
+core concepts. It does not cover dynamics, as this is the purview of the
+JEOD dynamics models. The \hypermodelref{DYNMANAGER} in turn extends the
+JEOD integration group to cover dynamics.
+
+\subsubsection{Generalized Second Order ODE}
+
+As mentioned above, a second order Lie group problem is a special case
+of a second order generalized derivative problem. Some integration techniques
+only provide a second order generalized derivative integrator. The default
+in JEOD 3.0 is to use the second order Lie group integrator if available.
+If it's not available, the second order generalized derivative solver can always
+be used as a backup. The \ModelDesc provides mechanisms for dealing with a
+mismatch between requested and available techniques.
+
+\subsubsection{Restartable State Integrator}
+
+C++ does not provide garbage collection, making properly managing resources
+a key problem for C++ programs. One approach is to put the burden entirely
+on the programmer: make the programmer responsible for allocating and
+releasing all needed resources such as allocated memory. A better approach
+is to use techniques such as the non-intuitively named RAII
+("Resource Allocation Is Initialization") design pattern to remove this burden
+from the programmer. This design pattern incorporates resource allocation and
+deallocation into the object design.
+
+Because state integrators are allocated by an integrator constructor, this makes
+the state integrators used in JEOD subject to the very problem that the RAII
+design pattern solves. The \ModelDesc provides class templates that solve the
+allocation problem in a generic sense and provides three instances of these
+class templates that specifically address the three kinds of
+initial value problems found within JEOD.
+
+\subsubsection{Time}
+
+The \erseven Integration model provides a very abstract concept of time.
+The JEOD \ModelDesc extends this abstract concept, but only to the point needed
+by the model itself. The \hypermodelref{TIME} further extends this JEOD
+integration time to form the JEOD time manager.
+ 
+Users can make the JEOD time manager change rate.
+This can wreak havoc with predictor-corrector methods unless these integrators
+are reset. The \ModelDesc implements a concept of a time change subscriber
+so that interested parties can respond to changes in JEOD time. The
+JEOD integration group is a time change subscriber.
+
+\subsubsection{JEOD-Specific Integration Techniques}
+
+All of the integration techniques described in
+section~\ref{sec:con_des_er7_integ_techniques} can be used in JEOD-based
+simulations. JEOD provides two additional techniques aimed at long arc
+integration problems. These two techniques are described below.
+
+\paragraph{Gauss-Jackson}
+The Gauss-Jackson integrator provided with JEOD 3.0 is a non-adaptive
+(fixed step size) predictor-corrector solver for second order ODEs. Users
+have control over the order of the technique and tolerance targets of the
+corrector algorithm. This technique performs particularly well compared to
+other techniques when applied to nearly circular orbits.
+
+See appendix \ref{app:gauss_jackson} for details.
+
+\paragraph{LSODE}
+The Livermore Solver for Ordinary Differential Equations (LSODE) uses a number
+of integration techniques to solve intial value problems for first order ODEs.
+Some of the solvers used by LSODE are adaptive. Users have control over the
+solver algorithm, the order technique, and the tolerance targets.
+This technique performs particularly well compared to other techniques when
+applied to markedly non-circular trajectories.
+
+See appendix \ref{app:lsode} for details.

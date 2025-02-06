@@ -1,0 +1,42 @@
+\section{Conceptual Design}
+The \NamedItemDesc\ is a single class with no instance fields or methods.  It's content 
+consists of $7$ construct\_name static methods 
+which construct dot-conjoined names from $1$ to $7$ input string arguments; two generic methods 
+for constructing dot-conjoined strings from a variable number of arguments (null terminated); 
+and a method for determining a suffix of a dot-conjoined string given an input prefix.  These
+methods are basic C++ functions which serve their intended purpose and play no role in the object design of JEOD.
+\section{File Inventory}
+\begin{longtable}{c}
+Files Comprising the \NamedItemDesc\  \\
+\endfirsthead
+Continued from previous page \\
+\endhead
+Continued on next page \\
+\endfoot
+\caption{File Inventory}
+\endlastfoot
+named\_item: \\
+docs \\
+include \\
+src \\
+ \\
+named\_item/docs: \\
+NamedItem.pdf \\
+tex \\
+ \\
+named\_item/docs/tex: \\
+makefile \\
+NamedItemAbstract.tex \\
+NamedItem.bib \\
+NamedItemChapters.tex \\
+NamedItemReq.tex \\
+NamedItemSpec.tex \\
+NamedItem.sty \\
+NamedItem.tex \\
+ \\
+named\_item/include: \\
+named\_item.hh \\
+ \\
+named\_item/src: \\
+named\_item.cc \\
+\end{longtable}

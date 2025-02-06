@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MassBodyInit_ivv.tex
+% Verification and validation for the MassBodyInit class.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Inspection, Verification, and Validation}\label{ch:\modelpartid:ivv}
+\section{Inspection}
+\inspection[MassBodyInit design]{Design Inspection}
+\label{inspect:MassBodyInit:design}
+The \partxname comprises a single class, class MassBodyInit, which
+derives directly from the BodyAction class. This class overrides the
+{\tt apply()} method. The implementation of that method invokes the overridden
+parent class implementation.
+
+By inspection, the \partxname satisfies
+requirements~\ref{reqt:BodyAction:virtual_methods}
+and~\ref{reqt:BodyAction:base_class_mandate}.
+
+\section{Validation}
+This sub-model is validated as a part of the
+MassBody Attach/Detach Sub-Model validation.
+See section~\ref{sec:BodyAttach_Detach:validation}.
+
+\section{Requirements Traceability}
+Table~\ref{tab:MassBodyInit:reqt_traceability}
+summarizes the inspections and tests that demonstrate the satisfaction of the
+requirements levied on the \partxname.
+
+\begin{table}[htp]
+\centering
+\caption{MassBodyInit Requirements Traceability}
+\label{tab:MassBodyInit:reqt_traceability}
+\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Artifact} \\ \hline\hline
+\ref{reqt:MassBodyInit:mass_ppty_init} & Initialize mass properties &
+   Test & \ref{test:BodyAttach_Detach:attach_detach} &
+   Attach/detach\\[4pt]
+\ref{reqt:MassBodyInit:mass_pnts_init} & Initialize mass points &
+   Test & \ref{test:BodyAttach_Detach:attach_detach} &
+   Attach/detach\\
+\hline
+\end{tabular}
+\end{table}

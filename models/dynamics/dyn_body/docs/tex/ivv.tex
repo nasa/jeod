@@ -1,0 +1,39 @@
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+
+\section{Inspection}\label{sec:inspect}
+\input{ivv_inspect}
+
+\section{Validation}
+This section describes various tests conducted to verify and validate
+that the \ModelDesc satisfies the requirements levied against it.
+The tests described in this section
+are archived in the JEOD directories
+\verb+models/dynamics/dyn_body/verif+ and
+\verb+models/dynamics/body_action/verif+.
+
+\newpage
+\input{ivv_test_state_init}
+\clearpage
+\newpage
+\input{ivv_test_attach_detach}
+\newpage
+\input{ivv_test_force_torque}
+\newpage
+\input{ivv_test_frame_switch}
+\newpage
+\input{ivv_test_structure_integration}
+
+\newpage
+\section{Metrics}
+Table~\ref{tab:coarse_metrics} presents coarse metrics on the source
+files that comprise the model.
+\input{coarse_metrics}
+
+Table~\ref{tab:metrix_metrics} presents the extended cyclomatic complexity (ECC)
+of the methods defined in the model.
+\input{metrix_metrics}
+
+
+\newpage
+\section{Requirements Traceability}
+\input{ivv_trace}

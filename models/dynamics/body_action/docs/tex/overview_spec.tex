@@ -1,0 +1,212 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% overview_spec.tex
+% Toplevel specification of the Body Action Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}
+\label{ch:overview:spec}
+%----------------------------------
+
+\section{Conceptual Design}
+\subsection{Overview}
+The \ModelDesc comprises several classes that provide various mechanisms
+for setting aspects of instances of the MassBody class, DynBody class, and
+their derived classes. The capabilities provided by the model include:
+\begin{itemize}
+\item Setting the mass properties of a MassBody object,
+\item Attaching and detaching MassBody and DynBody objects to/from one another,
+\item Setting the state of a DynBody object, and
+\item Changing the frame in which a DynBody object's state is propagated.
+\end{itemize}
+
+Note that while the first function refers to a MassBody, the latter two
+capabilities pertain to DynBody. Meanwhile, attachment can involve
+interactions between a DynBody and MassBody object.
+The subject can be specified by MassBody or DynBody, and the correct behavior
+implied (if possible).
+
+The first two capabilities pertain to body objects in general.
+The model does not specifically provide the ability to set the mass properties of a DynBody object.
+Because a DynBody contains a MassBody and because the mass properties are orthogonal
+to the additional capabilities provided by the DynBody class,
+the same capability used to set the mass properties
+of a MassBody object functions correct when applied to a DynBody object.
+
+Attaching and detaching DynBody objects to/from one another  involves
+considerably more computational effort than does attaching/detaching
+simple MassBody objects. The
+DynBody class adds state information to the
+MassBody class. How attachment and detachment affect state is not a part
+of the basic MassBody attachment and detachment calculations due to
+conservation of momentum calculations.
+Thanks to the construction of the attachment and detachment methods,
+there is no need for a special-purpose DynBody attachment or detachment
+body action. The basic method works correctly when applied to a DynBody object.
+
+\subsection{Base Classes}
+
+All of the instantiable \ModelDesc classes ultimately derive from the
+BodyAction base class. This base class provides a common framework for
+describing actions to be performed on a MassBody (or derived class) object.
+The common basis for all \ModelDesc objects enables forming a
+collection of body actions in the form of base class pointers. The DynManager
+class does exactly this. The \ModelDesc was explicitly architected to enable
+this treatment.
+
+The \ModelDesc defines one other base class, the BodyActionMessages class.
+This static class is not instantiable and has no derived classes. It exists to
+conform with the JEOD scheme for generating messages.
+
+See part \ref{part:BodyAction} for a complete description of these
+base classes.
+
+\subsection{Derived Classes}
+
+The BodyAction base class by itself does not change a single
+aspect of a subject MassBody or DynBody type object. Making changes to a
+subject is the responsibility of the various classes that derive from the
+BodyAction base class. The derived classes include
+\begin{itemize}
+\item MassBodyInit. \\
+MassBody objects represent masses with structural and body reference frames.
+This class initializes a subject MassBody object's mass properties,
+specifies the object's structure-to-body transformation, and
+any defines user-defined points of interest (``mass points'').
+
+See part \ref{part:MassBodyInit} for a complete description of the
+MassBodyInit class.
+
+\item BodyAttach and BodyDetach. \\
+Connected vehicle objects form a mass tree topology.
+Classes that derive from BodyAttach attach a subject Body object to
+some other Body object. JEOD defines the BodyAttachAligned class to connect
+two bodies by aligning specified vehicle points on each body at coincident
+position with a 180 degree yaw relative orientataion. The BodyAttachMatrix
+class defines attachment by defining the relative position of a child body
+structure with respect to a parent body structure point.
+The classes BodyDetach and BodyDetachSpecific undo
+these attachments.
+
+See part \ref{part:BodyAttach_Detach} for a complete description of the
+attach/detach sub-model.
+
+\item DynBodyInit. \\
+The DynBody class includes several attributes absent from the MassBody class that are
+needed to model a vehicle in space. This includes the object's state---its
+position, velocity, attitude, and angular velocity with respect to some
+inertial (non-rotating) reference frame. Classes that derive from
+DynBodyInit initialize part or all of a subject DynBody object's state.
+JEOD defines several classes that derive from the DynBodyInit class.
+
+See part \ref{part:DynBodyInit} for a complete description of the
+DynBodyInit sub-model.
+
+\item DynBodyFrameSwitch. \\
+The ability to switch the frame in which a DynBody object's state is
+represented and propagated was a driving requirement for JEOD.
+The DynBodyFrameSwitch accomplishes that goal.
+
+See part \ref{part:DynBodyFrameSwitch} for a complete description of the
+DynBodyFrameSwitch class.
+\end{itemize}
+
+\subsection{Interactions With Other Models}
+The \ModelDesc interacts with several JEOD models. Chief among these
+are interactions with
+the \hypermodelref{MASS},
+which defines the MassBody class;
+the \hypermodelref{DYNBODY},
+which defines the DynBody class; and
+the \hypermodelref{DYNMANAGER},
+which defines the DynManager class.
+
+A JEOD simulation typically contains one or more instances of a
+class that derives from the DynBody class.
+Each DynBody object represents some vehicle in space.
+The DynBody class contains an instance of the MassBody class,
+and it can have other MassBody objects or DynBody object attached to it.
+
+The purpose of this model is to alter some aspect of an instance of the
+MassBody, DynBody, or derived class.
+Some of the model classes operate directly on MassBody objects, some on DynBody
+objects. In general, the user may specify either as the subject to the BodyAction,
+and the correct body type will be inferred.
+The \ModelDesc classes that operate on MassBody and DynBody objects
+by utilizing their public interfaces methods.
+Other model classes specialize to altering some aspect of a DynBody object.
+These classes use the public interfaces of the DynBody class to achieve
+their desired end.
+
+Along to the DynBody objects that represent vehicles,
+a JEOD simulation also contains a DynManager object that manages the
+dynamic objects in a simulation.
+The DynManager object uses the \ModelDesc via a Standard Template Library
+list of pointers to \ModelDesc objects. Simulation users can add
+elements to this list. As the list comprises pointers to objects, the
+pointed-to objects can be instances of different classes so long as
+they derive from the same base class. (All \ModelDesc objects derive
+from a common base class.)
+The simulation DynManager object uses this list during simulation
+initialization time to initialize the simulation's MassBody/DynBody objects
+and uses this list during simulation run time to perform
+asynchronous actions.
+
+In addition to the above three models, the \ModelDesc interacts with
+several other JEOD models. A driving concern for the \ModelDesc is to
+do as little as possible in the model.
+The model source files instead leverage capabilities that exist in other
+models. In addition to the models listed above, this model uses:
+\begin{itemize}
+\item The \hypermodelref{DERIVEDSTATE}
+to construct Local Vertical, Local Horizontal frames,
+\item The \hypermodelref{MATH}
+for matrix and vector manipulations,
+\item The \hypermodelref{MEMORY}
+to allocate memory,
+\item The \hypermodelref{MESSAGE}
+to report errors and generate messages,
+\item The \hypermodelref{NAMEDITEM}
+to construct names,
+\item The \hypermodelref{ORBITALELEMENTS}
+to compute orbits,
+\item The \hypermodelref{PLANET}
+to determine planetary coefficients,
+\item The \hypermodelref{PLANETFIXED}
+to construct North-East-Down frames, and
+\item The \hypermodelref{REFFRAMES}
+to compute relative state.
+\end{itemize}
+
+
+\section{Mathematical Formulations}
+N/A
+\section{Detailed Design}
+See the \hyperapiref{BODYACTION}
+for a description of classes that comprise the model and for descriptions
+of the member data and member functions defined by these classes.
+
+\section{Inventory}
+All \ModelDesc files are located in
+{\tt \$\{JEOD\_HOME\}/models/dynamics/body\_action}.
+Relative to this directory,
+\begin{itemize}
+\vspace{-0.2\baselineskip}
+\item Header and source files are located
+in the model {\tt include} and {\tt src} subdirectories.
+Table~\ref{tab:source_files} lists the
+configuration-managed files in these directories.
+\vspace{-0.1\baselineskip}
+\item Documentation files are located in the model {\tt docs} subdirectory.
+See table~\ref{tab:documentation_files}
+for a listing of the
+configuration-managed files in this directory.
+\vspace{-0.1\baselineskip}
+\item Verification files are located in the model {\tt verif} subdirectory.
+See table~\ref{tab:verification_files}
+for a listing of the
+configuration-managed files in this directory.
+\end{itemize}
+
+\input{inventory}

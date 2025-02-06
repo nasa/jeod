@@ -1,0 +1,124 @@
+\section{Quaternion Exponential}\label{sec:app_exp}
+
+This section develops the exponential of a quaternion.
+The exponential function is the most important function in mathematics.
+It is defined, for every complex number $z$,
+by $\exp z = \sum_{n=0}^\infty \frac{z^n}{n!}$.
+Extending this definition to the quaternions,
+\begin{definition}[Quaternion Exponential]\label{def:quat_exp}
+The quaternion exponential function is defined as
+\begin{equation}
+\exp \quat Q \equiv \sum_{n=0}^\infty \frac{\quat Q^n}{n!}\label{eqn:quat_expq}
+\end{equation}
+\end{definition}
+
+The complex exponential maps the pure imaginary numbers to the unit circle via
+Euler's Equation, $e^{i\theta} = \cos \theta + i \sin \theta$.
+The following theorem demonstrates that the quaternion exponential
+has a similar mapping function when applied to pure imaginary quaternions.
+
+\begin{theorem}\label{thm:quat_exp_imQ}
+Let $\quat Q$ be a pure imaginary quaternion of the form
+$\quatsv 0 {\theta \vhat u}$. \\
+Then
+\begin{equation}
+  \exp \quat Q = \quatsv {\cos \theta} {\sin \theta \vhat u}\label{eqn:quat_exp_imQ_Euler}
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\intertext{The quaternion as defined above has decomposition}
+  \quat Q &\equiv \quatsv 0 {\theta \vhat u}
+          = \theta \quatsv {\cos \frac \pi 2} {\sin \pi 2 \vhat u} \\
+\intertext{By equation~\eqref{eqn:quat_rat_power},}
+  \quat Q ^{2n} &= \theta^{2n}
+                   \quatsv {\cos ((2n) \frac \pi 2)}
+                           {\sin ((2n) \frac\pi 2) \vhat u} \\
+                &= (-1)^n \theta^{2n} \quatsv 1 {\vect 0} \\
+  \quat Q ^{2n+1} &= \theta^{2n+1}
+                     \quatsv {\cos ((2n+1) \frac \pi 2)}
+                             {\sin ((2n+1) \frac\pi 2) \vhat u} \\
+                &= (-1)^n \theta^{2n+1}  \quatsv 0 {\vhat u} \\
+\intertext{Partitioning the sum equation~\eqref{def:quat_exp}
+           into even and odd powers of $n$ yields}
+\exp \quat Q &= \sum_{n=0}^\infty \frac{\quat Q^{2n}}{(2n)!} +
+                \sum_{n=0}^\infty \frac{\quat Q^{2n+1}}{(2n+1)!} \\
+\intertext{and thus}
+  \exp\left.\quatsv 0 {\theta \vhat u} \right. &=
+    \left(\sum_{n=0}^\infty \frac {(-1)^n} {(2n)!} \theta^{2n} \right)
+      \quatsv 1 {\vect 0} +
+    \left(\sum_{n=0}^\infty \frac {(-1)^n} {(2n+1)!} \theta^{2n+1} \right)
+      \quatsv 0 {\vhat u} \\
+  &= \quatsv {\cos \theta} {\sin \theta \vhat u}
+\end{align*}
+\end{proof}
+
+\begin{corollary}\label{thm:quat_exp}
+Let $\quat Q$ be a quaternion of the form $\quatsv {q_s} {q_v \vhat u}$. \\
+Then
+\begin{align}
+  \exp \quat Q &=
+    \exp q_s \quatsv {\cos q_v} {\sin q_v \vhat u}
+  \label{eqn:quat_exp_general} \\
+\intertext{where}
+  \exp q_s\;&\text{is the real exponential function of the real scalar $q_s$}
+  \nonumber
+\end{align}
+\end{corollary}
+\begin{proof}
+Since the product of a quaternion and a real quaternion commutes,
+\begin{align*}
+  \quat Q^{n} &=
+    \sum_{r=0}^n
+      \frac{n!}{r!(n-r)!}
+      \quatsv {q_s} {\vect 0}^r \; \quatsv {0} {q_v \vhat u}^{n-r} \\
+\intertext{and thus}
+  \exp \quat Q &=
+    \sum_{n=0}^\infty \sum_{r=0}^n
+      \frac1{r!(n-r)!}
+      \quatsv {q_s} {\vect 0}^r \; \quatsv {0} {q_v \vhat u}^{n-r} \\
+\intertext{Collecting like powers of $\quatsv {q_s} {\vect 0}$ %
+           and setting $n-r\equiv s$,}
+  \exp \quat Q &=
+      \left(\sum_{r=0}^\infty \frac1{r!} \quatsv {q_s} {\vect 0} ^r\right)
+      \left(\sum_{s=0}^\infty \frac1{s!} \quatsv {0} {q_v \vhat u} ^s\right) \\
+    &= \exp q_s \quatsv {\cos q_v} {\sin q_v \vhat u}
+\end{align*}
+\end{proof}
+
+The quaternion logarithm function is defined as the inverse of the
+quaternion exponential:
+\begin{definition}[Quaternion logarithm]\label{def:quat_log}
+\begin{equation*}
+  \quat Q_2 = \log \quat Q \iff \exp \quat Q_2 = \quat Q
+\end{equation*}
+\end{definition}
+Note that the quaternion logarithm of the zero quaternion is undefined
+since there is no quaternion $\quat Q$ such that $\exp \quat Q = \vect 0$.
+
+\begin{theorem}\label{thm:quat_log}
+The quaternion logarithm of a quaternion $\quat Q$ is
+\begin{equation}
+  \log \quat Q = \quatsv{\log s}{\theta \vhat u} \label{eqn:quat_log_def}
+\end{equation}
+where $s$, $\theta$, and $\vhat u$ are a decomposition of the quaternion $\quat Q$.
+\end{theorem}
+\begin{proof}
+Exponentiating the quaternion $\quatsv{\log s}{\theta \vhat u}$ yields,
+per equation~\eqref{eqn:quat_exp_general},
+$s \quatsv {\cos \theta} {\sin \theta \vhat u} = \quat Q$.
+\end{proof}
+
+
+\begin{corollary}\label{thm:quat_unit_log}
+The quaternion logarithm of a unit quaternion $\quat Q$ is
+\begin{equation}
+  \log \quat Q = \quatsv{0}{\theta \vhat u} \label{eqn:quat_unit_log_def}
+\end{equation}
+where $\theta$, and $\vhat u$ are a decomposition of the unit quaternion $\quat Q$.
+\end{corollary}
+\begin{proof}
+This follows directly from theorem~\ref{thm:quat_log}. The scalar $s$ in the
+decomposition of a unit quaternion is $1$, and $\log 1=0$.
+\end{proof}
+ 

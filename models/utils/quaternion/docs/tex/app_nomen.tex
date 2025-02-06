@@ -1,0 +1,54 @@
+\pagebreak
+
+\section{Nomenclature}\label{sec:app_nomen}
+
+\providecommand{\acchdr}[1]{%
+\multicolumn{4}{l}{\rule{0pt}{3ex}\parbox[c]{0.6\textwidth}{#1}} \\
+\cline{2-4} \rule{1.5em}{0pt} & {\bf Description} & {\bf Nomenclature} & {\bf Example}\\ \cline{2-4} \cline{2-4}}
+
+\begin{table*}[h]
+\begin{tabular}{l||l|l|l|}
+\acchdr{{\bf{Display style for vectors, matrices, and quaternions}}}
+\rule{0pt}{3ex} & Scalar &
+  in plain math font & $\omega$ \\
+\rule{0pt}{1.5ex} & Vector &
+  in bold math font& $\vect \omega$ \\
+\rule{0pt}{1.5ex} & Matrix &
+  in bold math font& $\mat T$ \\
+\rule{0pt}{1.5ex} & Quaternion&
+  in caligraphy font, uppercase & $\quat Q$ \\
+\cline{2-4}
+\acchdr{{\bf{Vector Adornments}}}
+\rule{0pt}{3ex} & Vector from $a$ to $b$ &
+ Arrow-separated subscript & $\relvect x a b$ \\
+\rule{0pt}{3ex} & Vector from origin to $b$ &
+  Subscript on right & $\absvect x b$ \\
+\rule{0pt}{3ex} & Vector in frame $A$ &
+  Subscript on right & $\framevect A x$ \\
+\rule{0pt}{3ex} & Vector time derivative in frame $A$&
+  Frame to right of dot & $\framedot A {\vect x}$ \\
+\cline{2-4}
+\acchdr{{\bf{Matrix Adornments}}}
+\rule{0pt}{3ex} & Transformation from $A$ to $B$ &
+  Arrow-separated subscript & $\tmat A B$ \\
+\rule{0pt}{3ex} & Matrix product &
+  No operator & $\MxM{\tmat B C}{\tmat A B}$ \\
+\rule{0pt}{3ex} & Matrix transpose &
+  Superscript $\top$ & $\matT T$ \\
+\cline{2-4}
+\acchdr{{\bf{Quaternion Adornments}}}
+\rule{0pt}{3ex} & Transformation from $A$ to $B$ &
+  Arrow-separated subscript & $\tquat A B$ \\
+\rule{0pt}{3ex} & Quaternion product &
+  No operator & $\QxQ{\tquat B C}{\tquat A B}$ \\
+\rule{0pt}{3ex} & Quaternion conjugate &
+  Superscript $\star$ & $\quatconj Q$ \\
+\rule{0pt}{3ex} & Quaternion components &
+  Scalar $+$ vector $or$ four-vector&
+  $\quatsv{q_s}{\vect{q_v}} \;or\; \bmatrix q_s \\ q_x \\ q_y \\ q_z\endbmatrix$ \\
+\cline{2-4}
+\end{tabular}
+\end{table*}
+
+\pagebreak
+ 

@@ -1,0 +1,204 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% overview_ivv.tex
+% Toplevel verification and validation of the Body Action Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Inspection, Verification, and Validation}\hyperdef{part}{ivv}{}
+\label{ch:overview:ivv}
+%----------------------------------
+
+\section{Inspection}\label{ch:overview:inspect}
+All of the high-level requirements levied on the \ModelDesc
+are satisfied by inspection.
+
+\inspection{Top-level Requirements}
+\label{inspect:overview:top_level}
+By inspection, the \ModelDesc satisfies the requirements specified in
+requirement~\ref{reqt:overview:top_level}.
+
+\inspection{Derived Requirements}
+\label{inspect:overview:derived}
+The requirements for the \ModelDesc are implemented as derived
+requirements in the subsequent document parts. The inspections,
+verifications, and validations used to satisfy the derived
+requirements in turn satisfy these top-level requirements.
+The requirements flow-down for the model is depicted in
+table~\ref{tab:overview:reqt_flowdown}.
+
+By inspection, the \ModelDesc satisfies the requirements specified in
+requirements~\ref{reqt:overview:base_class}
+to~\ref{reqt:overview:frame_switch}.
+
+\begin{table}[htp]
+\centering
+\caption{Requirements Flowdown}
+\label{tab:overview:reqt_flowdown}
+\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Artifact} \\ \hline\hline
+\ref{reqt:overview:base_class} & Base class &
+   Reqt. & \ref{reqt:BodyAction:base_class} &
+   Base class\\
+&& Reqt. & \ref{reqt:BodyAction:active} &
+   Activation\\
+&& Reqt. & \ref{reqt:BodyAction:virtual_methods} &
+   Virtual methods\\
+&& Reqt. & \ref{reqt:BodyAction:base_class_mandate} &
+   Base class mandate\\[4pt]
+\ref{reqt:overview:subject_body} & Subject specification &
+   Reqt. & \ref{reqt:BodyAction:subject_body} &
+   Subject body\\[4pt]
+\ref{reqt:overview:mass_ppty_init} & Initialize mass properties &
+   Reqt. & \ref{reqt:MassBodyInit:mass_ppty_init} &
+   Initialize mass properties\\[4pt]
+\ref{reqt:overview:mass_point_init} & Initialize mass points &
+   Reqt. & \ref{reqt:MassBodyInit:mass_pnts_init} &
+   Initialize mass points\\[4pt]
+\ref{reqt:overview:mass_attach} & Attach MassBody/DynBody objects &
+   Reqt. & \ref{reqt:BodyAttach_Detach:attach} &
+   Attach MassBody/DynBody objects\\[4pt]
+\ref{reqt:overview:mass_detach} & Detach MassBody/DynBody objects &
+   Reqt. & \ref{reqt:BodyAttach_Detach:detach_immediate} &
+   Detach from parent\\
+&& Reqt. & \ref{reqt:BodyAttach_Detach:detach_specific} &
+   Specific detach\\[4pt]
+\ref{reqt:overview:dyn_body_init} & State initialization &
+   Reqt. & \ref{reqt:DynBodyInit:cartesian_trans} &
+   Translational state\\
+&& Reqt. & \ref{reqt:DynBodyInit:cartesian_rot} &
+   Rotational state\\
+&& Reqt. & \ref{reqt:DynBodyInit:LVLH} &
+   LVLH frame\\
+&& Reqt. & \ref{reqt:DynBodyInit:NED} &
+   NED frame\\
+&& Reqt. & \ref{reqt:DynBodyInit:is_ready} &
+   Readiness detection\\[4pt]
+\ref{reqt:overview:frame_switch} & Frame switch &
+   Reqt. & \ref{reqt:DynBodyFrameSwitch:frame_switch} &
+   Frame switch\\
+\hline
+\end{tabular}
+\end{table}
+\clearpage
+
+
+\inspection{Messages}
+\label{inspect:overview:messages}
+The \ModelDesc detects the following classes of errors and warnings:
+\begin{itemize}
+\item Fatal error, \verb+BodyActionMessages::fatal_error+. \\
+Issued when a non-fatal error is detected and the user has requested that such
+errors be treated as terminal errors.
+\item Null pointer, \verb+BodyActionMessages::null_pointer+. \\
+Issued when a pointer that should have been set is null.
+Null pointer errors are always fatal.
+\item Invalid name, \verb+BodyActionMessages::invalid_name+.\\
+Issued when some name is invalid.
+The error is not fatal if the action can proceed,
+but the results should always be treated as suspect when this happens.
+Invalid names that preclude performing the action are fatal errors.
+\item Invalid object, \verb+BodyActionMessages::invalid_object+. \\
+Issued when some object is not of the expected type.
+Invalid object errors are treated similarly to invalid name errors.
+\item Illegal value, \verb+BodyActionMessages::illegal_value+. \\
+Issued when some value is not valid given the context.
+A warning is issued if the value is correctable.
+Uncorrectable illegal values are fatal errors.
+\item Unperformed action, \verb+BodyActionMessages::not_performed+. \\
+These are serious but non-fatal errors, issued under two circumstances:
+\begin{itemize}
+\item An object never indicates that it is ready to be performed
+when it should have indicated readiness at some point in time.
+This will occur, for example, when the user has created circular
+dependencies amongst the queued DynBodyInit objects.
+\item An object indicates that it is ready to be performed
+but fails to perform the action as requested.
+This will occur, for example, when the user has attempts to create
+an illegal attachment.
+\end{itemize}
+\end{itemize}
+The above are reported to the user via the \hypermodelref{MESSAGE}.
+
+The \ModelDesc also uses the \MESSAGE~to indicate successful
+application of a body action. These success messages use the
+\verb+MessageHandler::debug()+ method with message class
+\verb+BodyActionMessages::trace+.
+These debug messages are not generated by default; users will not see these
+messages unless they explicitly enable their generation.
+The tests~\ref{test:BodyAttach_Detach:attach_detach},
+\ref{test:DynBodyInit:state_init},
+and~\ref{test:DynBodyFrameSwitch:frame_switch} do exactly that.
+
+By inspection, the \ModelDesc satisfies
+requirements~\ref{reqt:overview:errors}
+and~\ref{reqt:overview:debug}.
+
+
+\section{Metrics}
+
+Table~\ref{tab:coarse_metrics} presents coarse metrics on the source
+files that comprise the model.
+
+\input{coarse_metrics}
+
+Table~\ref{tab:metrix_metrics} presents the extended cyclomatic complexity
+(ECC) of the methods defined in the model.
+
+\input{metrix_metrics}
+
+
+\section{Requirements Traceability}
+
+The IV\&V artifacts that demonstrate the satisfaction of the requirements
+in chapter~\ref{ch:overview:reqt} are depicted in
+table~\ref{tab:overview:reqt_traceability}.
+
+\begin{table}[htp]
+\centering
+\caption{Requirements Traceability}
+\label{tab:overview:reqt_traceability}
+\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Artifact} \\ \hline\hline
+\ref{reqt:overview:top_level} & Top-level requirement &
+   Insp. & \ref{inspect:overview:top_level} &
+   Top-level requirements\\[4pt]
+\ref{reqt:overview:base_class} & Base class &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:subject_body} & Subject specification &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:mass_ppty_init} & Initialize mass properties &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:mass_point_init} & Initialize mass points &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:mass_attach} & Attach MassBody objects &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:mass_detach} & Detach MassBody/DynBody objects &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:dyn_body_init} & State initialization &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:frame_switch} & Frame switch &
+   Insp. & \ref{inspect:overview:derived} &
+   Derived requirements\\[4pt]
+\ref{reqt:overview:errors} & Errors &
+   Insp. & \ref{inspect:overview:messages} &
+   Messages\\[4pt]
+\ref{reqt:overview:debug} & Trace &
+   Insp. & \ref{inspect:overview:messages} &
+   Messages\\
+\hline
+\end{tabular}
+\end{table}

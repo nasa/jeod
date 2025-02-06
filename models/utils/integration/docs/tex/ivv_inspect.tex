@@ -1,0 +1,36 @@
+\inspection{Top-level Inspection}
+\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected, 
+and together satisfy requirement~\traceref{reqt:toplevel}.
+
+
+\inspection{Mathematical Formulation}
+\label{inspect:math}
+The implementations of the various integration techniques
+implement the corresponding algorithms as described in
+section~\ref{sec:algorithms}.
+
+By inspection, the \ModelDesc partially satisfies
+requirements~\traceref{reqt:supported_er7_techniques}
+and~\traceref{reqt:long_arc_integration}.
+
+
+\inspection{Design Inspection}
+\label{inspect:design}
+The model design uses a set of abstract classes. Each supported technique 
+builds
+upon these abstract classes using a common scheme.  This scheme of using
+derived classes enables extensions to the model, one of the key goals of (and
+requirements on) the model. A new model comprises extensions to three abstract 
+classes. The TwoStateIntegrator class abstractly propagates generalized
+position and velocity. The TimeIntegrator class abstractly propagates time
+in concert with the state integrator. The IntegratorConstructor creates
+new instances of the state and time integrator.
+
+By inspection, the \ModelDesc partially satisfies
+requirements~\traceref{reqt:use_er7_utils},
+~\traceref{reqt:extensibility}, 
+~\traceref{reqt:integration_problems},
+~\traceref{reqt:multiple_states},
+and ~\traceref{reqt:multiple_integrators}.
+

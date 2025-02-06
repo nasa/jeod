@@ -1,0 +1,80 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Verification part of V&V for the LVLH relative derived state model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{Verification}
+
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy
+% requirement \ref{reqt:<label>}.
+
+A simulation was developed to test the \LRDSDesc. The simulation
+includes two vehicles, and LVLH relative derived states, both rectilinear and
+curvilinear, are computed. A software program is provided to check the derived
+state outputs in the generic cases.  Two run cases are
+provided; one generic which tests most aspects of the model which can be
+independently verified by the software program and a second case which allows
+verification of the rotational curvilinear state by inspection.
+
+\test{Verification of \LRDSDesc\ Output Data for Rectilinear LVLH}\label{test:RLVLH}
+
+\begin{description}
+\item{Purpose:}\newline
+To demonstrate that the output of the \LRDSDesc\ in the rectilinear case is
+consistent with existing LVLH code.
+\item{Requirements:}\newline
+Satisfactory conclusion of this test satisfies requirement \ref{reqt:RLVLH}
+
+\item{Procedure:}\newline
+The data from the rectilinear LVLH output was compared against the
+\LVLHDesc\ for the following features:
+\begin{enumerate}
+ \item  {Position.}
+ \item  {Velocity.}
+ \item  {Angular Velocity.}
+ \item {Calculation of Transformation matrix elements.}
+\end{enumerate}
+
+\item{Predictions:}
+The values should be identical.
+
+\item{Results:}\ \newline
+The outputs were identical.
+\end{description}
+
+\test{Verification of \LRDSDesc\ Output Data for Curvilinear LVLH}\label{test:CLVLH}
+
+\begin{description}
+\item{Purpose:}\newline
+To demonstrate that the output of the \LRDSDesc\ in the curvilinear case
+matches theoretical predictions.
+\item{Requirements:}\newline
+Satisfactory conclusion of this test satisfies requirement \ref{reqt:CLVLH}
+
+\item{Procedure:}\newline
+The data from the curvilinear output was compared against that of a computer
+program which used an independent method for calculating the following features:
+\begin{enumerate}
+ \item  {Position.}
+ \item  {Velocity.}
+ \item  {Angular Momentum.}
+\end{enumerate}
+
+\item{Predictions:}
+The values should match to machine precision.
+
+\item{Results:}\ \newline
+The outputs matched to machine precision.
+
+\item {Hand Calculation of Transformation Matrix}
+
+A second run case was included in which the transformation from curvilinear
+LVLH to the subject frame could easily be calculated by hand. The output of
+the \LRDSDesc\ was identical to the hand calculations. The case was constructed
+in such a way that the curvilinear and rectilinear frames would differ by a
+$90$ degree rotation, thus accentuating the effectiveness of the test.
+\end{description}

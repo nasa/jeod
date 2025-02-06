@@ -1,0 +1,138 @@
+\chapter{Classical Fourth Order Runge Kutta (RK4)}\label{app:rk4}
+
+\section{Overview}
+
+The classical fourth order Runge Kutta integrator is one of the most widely
+used techniques for solving initial value problems.
+The technique addresses initial value problems for first order ODEs.
+As the name suggests, this technique is a Runge Kutta method,
+a single step (i.e., no past history), multi-stage integrator.
+
+\section{Classification}
+
+TBS
+
+\section{Implemented and Provided Techniques}
+
+Table \ref{tab:rk4_method_problems} lists the types of initial value problems
+that can be used in conjunction with an RK4-based integrator
+constructor. As noted in the table, RK4 implementations exist
+for all four types of initial value problems addressed by the
+ER7 Utilities integration suite.
+
+\begin{table}[htp]
+\centering
+\caption{RK4 Initial Value Problems}
+\label{tab:rk4_method_problems}
+\vspace{1ex}
+\begin{tabular}{ll}\hline
+\bf{Problem Type} & \bf{Support} \\
+\hline\hline
+\tt{FirstOrderODE} & Implemented \\
+\tt{SimpleSecondOrderODE} & Implemented \\
+\tt{GeneralizedDerivSecondOrderODE} & Implemented \\
+\tt{GeneralizedStepSecondOrderODE} & Implemented \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Mathematical Description}
+
+The ER7 utilities RungeKutta4 integration technique is the standard
+fourth order, four stage Runge Kutta method.
+Table~\ref{tab:rk4_butcher} specifies the Butcher tableau for this method.
+ 
+\begin{table}[htp]
+\centering
+\caption{RK4 Butcher Tableau}
+\label{tab:rk4_butcher}
+\vspace{1.5ex}
+\begin{tabular}{c|cccc}
+0 &&&& \\
+1/2 & 1/2 &&& \\
+1/2 & 0 & 1/2 && \\
+1 & 0 & 0 & 1 & \\
+\hline
+& 1/6 & 1/3 & 1/3 & 1/6 
+\end{tabular}
+\end{table}
+
+The equations that govern propagation via the standard RK4 method are given by
+equations~(\ref{eqn:rk4_0}) to~(\ref{eqn:rk4_3}).
+
+Stage 0:
+\begin{equation}
+\label{eqn:rk4_0}
+\begin{split}
+t_1 &= t_i + \frac{\Delta t}2 \\
+\dots_0 &= \dot s(t_i,s(t_i)) \\
+s_1(t_1) &= s(t_i) + \frac{\Delta t}2 \, \dots_0
+\end{split}
+\end{equation}
+Stage 1:
+\begin{equation}
+\label{eqn:rk4_1}
+\begin{split}
+t_2 &= t_1 = t_i + \frac{\Delta t}2 \\
+\dots_1 &= \dot s(t_1,s_1(t_1)) \\
+s_2(t_2) &= s(t_i) + \frac{\Delta t}2 \, \dots_1
+\end{split}
+\end{equation}
+Stage 2:
+\begin{equation}
+\label{eqn:rk4_2}
+\begin{split}
+t_3 &= t_f = t_i + \Delta t \\
+\dots_2 &= \dot s(t_2,s_1(t_2)) \\
+s_3(t_3) &= s(t_i) + \Delta t \, \dots_2
+\end{split}
+\end{equation}
+Stage 3 (final):
+\begin{equation}
+\label{eqn:rk4_3}
+\begin{split}
+\dots_3 &= \dot s(t_3,s_1(t_3)) \\
+t_4 &= t_3 = t_f = t_i + \Delta t \\
+\bar {\dots} &=
+  \frac{\dots_0 + 2\dot s_1 + 2\dots_2+\dot s_3} 6 \\
+s(t_f) &= s(t_i) + \Delta t \, \bar {\dots}
+\end{split}
+\end{equation}
+
+\section{First Order ODE}
+
+The \erseven implementation of the fourth order Runge-Kutta technique applies
+equations~(\ref{eqn:rk4_0}) to~(\ref{eqn:rk4_3})
+to each element of a vector-valued first order ODE initial value problem.
+
+\section{Second Order ODE}
+
+The \erseven implementation of the fourth order Runge-Kutta technique applies
+equations~(\ref{eqn:rk4_0}) to~(\ref{eqn:rk4_3})
+to each element of the position vector and then
+to each element of the velocity vector to solve a
+vector-valued second order ODE initial value problem.
+
+\section{Generalized Position / Generalized Velocity ODE}
+
+The \erseven implementation of the fourth order Runge-Kutta technique applies
+equations~(\ref{eqn:rk4_0}) to~(\ref{eqn:rk4_3})
+to each element of the position vector (using the generalized position
+derivative function to compute the derivative of the position vector)
+and then to each element of the velocity vector to solve a
+vector-valued generalized position / generalized velocity initial value problem.
+
+
+\section{Lie Group Second Order ODE}
+
+TBS
+
+
+\section{Usage Instructions}
+The classical fourth order Runge-Kutta technique is the default integration
+technique for a monolithic JEOD simulation.
+
+To specifically select this technique,
+set the {\tt{jeod\_integ\_opt}} element of the simulation's
+{\tt{DynManagerInit}} object to {\tt{trick.Integration.RungeKutta4}}
+in the appropriate Python input file.

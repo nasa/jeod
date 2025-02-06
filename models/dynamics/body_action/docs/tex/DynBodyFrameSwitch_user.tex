@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DynBodyFrameSwitch_user.tex
+% User guide for the DynBodyFrameSwitch class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\label{ch:\modelpartid:user}
+The following assumes the scheme outlined in
+section~\ref{subsec:recommended_practice}.
+
+\section{Analysis}
+
+Assume a simulation S\_define file declares simulation objects
+named `chaser' and `dynamics'. The chaser object contains
+a DynBody object name `dyn\_body' and
+a DynBodyFrameSwitch object named `frame\_switch'. The dynamics object
+contains a DynManager object named `manager' and a BodyAction pointer
+named `action\_ptr'.
+
+The following will cause the vehicle to switch from the initial Earth-centered
+inertial integration frame to a Moon-centered inertial integration frame upon
+entering the Moon's sphere of influence.
+
+\begin{verbatim}
+chaser.frame_switch.set_subject_body(chaser.dyn_body);
+chaser.frame_switch.action_name         = "frame_switch_enter";
+chaser.frame_switch.integ_frame_name    = "Moon.inertial";
+chaser.frame_switch.switch_sense        = DynBodyFrameSwitch::SwitchOnApproach;
+chaser.frame_switch.switch_distance {M} = 66.2e6;
+dynamics.body_action_ptr = &chaser.frame_switch;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+\end{verbatim}
+
+\section{Integration}
+The simulation integrator must make the DynBodyFrameSwitch visible to
+the simulation user. The above example assumes the integrator declared
+a DynBodyFrameSwitch object named `frame\_switch' as part of the chaser
+simulation object.
+
+Because this is an asynchronous operation, the simulation integrator needs
+to ensure that the Dynamics Manager {\tt perform\_actions()} method is called
+as a scheduled job.
+
+\section{Extension}
+This model relies on the user to specify the radius of the sphere of influence.
+An obvious extension to this model is to calculate that radius.

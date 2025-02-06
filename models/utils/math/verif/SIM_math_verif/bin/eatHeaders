@@ -1,0 +1,16 @@
+#! /usr/bin/perl
+use strict;
+
+sub special {
+return $_[0] =~ /(\033[^\033]*)/cg;
+} # end special
+
+my @lines=<>;
+
+foreach(@lines) {
+   if ( special $_) {
+      exit
+   } else {
+      print 
+   }
+} # end foreach

@@ -1,0 +1,65 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the RadiationPressure model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+This section describes the key concepts found in the \RadiationPressureDesc.  For an
+architectural overview, see the \RadiationPressureDesc\
+\href{file:refman.pdf} {\em Reference Manual} \cite{radbib:ReferenceManual}.
+
+
+\subsection{Photon Interaction}
+
+The \RadiationPressureDesc\ models the interaction between a vehicle and the
+radiation field in which it is located.  This overall interaction can be
+divided and subdivided into four processes, each of which is well understood.
+
+\begin{itemize}
+\item{Absorption}\par
+When a photon strikes a surface, there is some probability that it will be
+absorbed by the surface, thereby raising the energy (observed as a rise in
+temperature) of that surface.  The momentum of the photon must also be
+absorbed by the surface, since momentum is conserved; this change in momentum
+is interpreted as a force, called radiation pressure.
+\item{Reflection}\par
+There is some probability that the photon will simply bounce off the surface.  While this will not directly affect the material itself, the momentum of the incident photon is absorbed, and the surface will also recoil in response to the momentum that the reflected photon carries in the opposite direction.  There are two distinct types of reflection, \textit{specular} and \textit{diffuse}.  The actual reflection profile of a surface can, in most cases, be modeled to fairly good precision as a combination of these two types, weighted according to the specific material.
+\begin{itemize}
+\item{Specular}\par
+Specular reflection is the type of reflection seen from a smooth surface.  The reflected photon leaves the surface at the same angle as the incident photon.  The result of such reflection is that:
+\begin{itemize}\par
+\item Parallel to the surface there is no net force, the photon retains its momentum in that direction.
+\item Perpendicular to the surface, the photon momentum changes by double the component of the incident photon.
+\end{itemize}
+\item{Diffuse}\par
+Diffuse reflection is the type of reflection seen from dull, matte finishes.  On a microscopic level, the surface is not smooth, and the reflected photon is reflected at some unpredictable angle.  Statistically, diffuse reflection has been well modeled, and we have the Lambertian profile, which forms a cosine density function centered on the normal to the macroscopic surface.  Integrating over that profile produces an effect whereby the entire diffuse reflection profile can be modeled as a single reflection along the normal to the macroscopic surface, but carrying only 2/3 of the photon momentum.  The result of such reflection is that:
+\begin{itemize}\par
+\item Parallel to the surface the photon momentum changes by the component of the incident photon in that direction.
+\item Perpendicular to the surface, the photon momentum changes by the component of the incident photon in that direction, plus 2/3 of the magnitude of the photon momentum.
+\end{itemize}
+\end{itemize}
+\item{Emission}\par
+All bodies at temperatures above 0 Kelvin radiate to some extent, with a profile that varies with temperature to the 4th power.  The thermal emission is also modeled with a Lambertian profile, i.e. 2/3 of the power radiated is considered, and it is all emitted normal to the macroscopic surface.
+\end{itemize}
+
+An alternative representation considers the vehicle to be an isothermal sphere with some fixed and isotropic combination of the above characteristics.  It is then possible to represent all four interaction methods with a single value, called the Coefficient of Reflection.  It must be realized that this is only relevant to a spherical, isotropic, isothermal surface; the mathematics describing the relation between the four interaction methods and this Coefficient of Reflection are developed in section \reftext{Coefficient of Reflection}{sec:coefficientofreflection}.
+
+
+
+\subsection {Radiation Field}
+The radiation field is the environment in which the surface is located.  The field has two important effects on the vehicle: it provides energy and momentum.  The energy imbalance (between absorbed and emitted radiation) is critically important when considering the thermal response of a vehicle to the environment.  The momentum imbalance produces a net force and corresponding torque on the vehicle; although this force is typically dominated by aerodynamic uncertainties for low-Earth-orbits, it does become significant for lunar and deep-space missions.
+
+The strength of that field is described by a vector quantity, called the flux, which (somewhat ambiguously) can be defined as the rate at which energy, or momentum, is transmitted through space.  Often, when the intent is to interpret flux as being associated with the momentum, the flux is deliberately identified as the momentum-flux.
+
+Often, there is a dominant source of radiation (typically, that is the sun) that is so overwhelming that any other sources provide negligible effect.  If other sources are to be utilized, it is very important to realize that the flux is not an additive vector.  For example, two bright lights shining at each other do not add to produce zero flux in the middle.  Even in situations where the forces perfectly cancel, it is unlikely that the torques also cancel, and impossible for the thermal responses to cancel, since those are a scalar effect.  Therefore, it is important to consider all sources of flux as being inherently independent, and the radiation field must be considered to be comprised of multiple independent subfields rather than a single accumulated field.
+
+When extending the model to include planetary albedo effects, this concept is particularly important.  While for distant sources it is reasonable to make the assumption that the incident radiation is all parallel, that is an invalid assumption where the source covers a significant solid angle of the environment.  In the latter case, a single source can simultaneously illuminate opposite sides of a single vehicle, and the magnitude of the source itself is a function of the vehicle orientation, as different surfaces `see' more or less of the source.
+
+\subsection {Surface Model}
+The interaction is between the radiation field and the surface of the vehicle, so we must have some model of the surface.  This can be modeled simply, using the default spherical isothermal surface, or with greater fidelity using the JEOD Surface Model (first available in JEOD version 2.0.1).
+
+\subsection {Temperature}
+The emission from the vehicle depends strongly on surface temperature, and so temperature must be modeled for an accurate representation.  For this, the \RadiationPressureDesc\ relies on the JEOD Thermal-rider model (first available in JEOD version 1.5).

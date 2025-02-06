@@ -1,0 +1,19 @@
+To run SIM_spice, the kernel files are needed. The files used for testing can be accessed by unzipping jeod_ephemdata.zip. Alternatively, they are available to be downloaded on the NAIF website. Refer to data/kernels*.tm in this directory to identify the required files to run SIM_spice.
+
+The NAIF directory structure may change in the future, but the files required for SIM_spice are located in the following directories as of February 2025.
+*Note that pck/earth_000101_******_******.bpc is automatically updated on NAIFs website and has small differences over time, so to perfectly match the regression data, use the kernal files in regression.zip.
+https://naif.jpl.nasa.gov/pub/naif/generic_kernels/
+For kernels_421.tm:
+spk/planets/a_old_versions/de421.bsp
+pck/pck00010.tpc
+pck/earth_000101_******_******.bpc
+pck/moon_pa_de421_1900-2050.bpc
+fk/satellites/moon_080317.tf
+
+For kernels_440.tm:
+spk/planets/de440.bsp
+spk/satellites/mar097.bsp
+pck/pck00011.tpc
+pck/earth_000101_******_******.bpc
+pck/moon_pa_de440_200625.bpc
+fk/satellites/moon_de440_220930.tf

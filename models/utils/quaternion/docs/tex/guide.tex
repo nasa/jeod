@@ -1,0 +1,72 @@
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+This chapter describes how to use the \quaternionDesc model from the
+perspective of a simulation user, a simulation developer,
+and a model developer.
+
+
+\section{Analysis}
+The Quaternion class is not intended to be used directly at the \Sdefine level.
+Several JEOD models do however contain Quaternion objects as data elements.
+Whether these elements can be set in the input or
+logged to some log file depends on the object.
+
+As the Quaternion data elements comprise the scalar and vector parts of the
+quaternion, the standard Trick forms for setting / logging a scalar and a
+three-vector double variable can be used to initialize  / log a Quaternion
+element that embedded inside some larger data structure.
+
+One very important caveat regarding the initialization and analysis of a
+quaternion:
+The user must be cognizant that different people use quaternions
+in different ways represent the orientation of an object or reference frame.
+In addition to the obvious sense issue (e.g., body to inertial versus
+inertial to body), some use quaternions to represent rotation while
+others use quaternions to represent transformations, and some use left
+quaternions while others use right quaternions. The JEOD Quaternion model
+uses left unit transformation quaternions.
+
+Because multiple representation schemes exist, a quaternion provided by some
+external source may need to be converted to the left unit transformation
+quaternion form used by the JEOD Quaternion model. This is a simple
+operation: negate the imaginary (vectorial) part of the quaternion.
+ For example, a quaternion received from an external source that
+uses right unit transformation quaternions will need to be conjugated
+before it can be used within JEOD.
+
+
+\section{Integration}
+The Quaternion class is not intended to be used directly at the \Sdefine level.
+Several JEOD models do however contain Quaternion objects as data elements.
+The simulation developer should understand how quaternions are used in these
+various models.
+
+The ability to convert a quaternion to an eigen rotation provides a  
+useful capability for the analysis of quaternions used to represent  
+rotations. Suppose two alternate expressions such as the true versus  
+navigated values of a quaternion are available. Analysts will want to  
+know whether these quaternions differ significantly. Designating the  
+two quaternions as Q1 and Q2, if the two were exactly equal, the  
+product Q1 Q2* would be the pure real unit quaternion. An eigen  
+decomposition of this product will yield an eigen angle and eigen unit  
+vector. The eigen angle is very useful in assessing the difference  
+between the quaternions. Embedding the member function eigen\_compare in the
+\Sdefine file can provide this critical analytical capability.
+
+
+\section{Extension}
+
+The JEOD 2.0 Quaternion model lacks the full functionality described
+in Appendix~\ref{sec:app_math}. One obvious extension
+to the Quaternion class is to provide this full set of capabilities.
+Other missing capabilities include:
+\begin{itemize}
+\item Support for right transformation quaternions, and
+\item Support for additional charts on SO(3) such as 
+Euler angles, Rodrigues parameters, and modified Rodrigues parameters.
+\end{itemize}
+
+The primary purpose of the Quaternion class is to be embedded as data
+element within some other class. The JEOD Orientation, Reference Frame,
+and Mass models exemplify this use. A model developer who wishes to
+make such a use of the JEOD Quaternion model is encouraged to look
+at these other models as a template.

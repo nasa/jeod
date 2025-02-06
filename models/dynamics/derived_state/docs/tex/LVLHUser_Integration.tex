@@ -1,0 +1,36 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Integration part of User's Guide for the LVLH model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Integration}
+Simply including the \LVLHDesc\ is straightforward; using it to its full capacity is more challenging.
+
+\subsection{Generating the S\_define}
+
+The LVLH model should be used in conjunction with a RelativeDerivedState.  The ordering of their evaluation is very important; the LvlhDerivedState must be evaluated before the RelativeDerivedState in order to get the current relative state expressed in the current LVLH orientation.
+
+An important consequence of using a RelativeDerivedState to express the relative states of two objects in an LVLH reference frame requires the consideration of the class structure of both LvlhDerivedState and RelativeDerivedState.  There are two types of reference frames in use, BodyRefFrame, and RefFrame.  The BodyRefFrame is associated with a DynBody (a body with dynamic properties), while the RefFrame need not be, it can be associated with some fixed (non-dynamic) body or point.
+
+The LVLH reference frame in an LvlhDerivedState is an instance of a RefFrame, there is no requirement that this be attached to a DynBody.  However, the RelativeDerivedState contains both a BodyRefFrame (\textit{subject\_frame}) and a RefFrame (\textit{target\_frame}); the intention is that the state of a body can be expressed in some other reference frame. Therefore, when generating the relative states, it is \textit{not} possible to use the generated LVLH reference frame as the subject frame, it must instead be the target frame.  Then, the vehicle whose state is being expressed must be associated with the subject frame, and the \textit{subject\_frame\_name} and \textit{target\_frame\_name} must be set appropriately.  Then, the \textit{direction\_sense} of the Relative Derived State must be \textit{ComputeSubjectStateinTarget}.
+
+An illustration of this is found in the verification simulations for the LVLH model (verif/SIM\_LVLH).  Here, the relative state instance that expresses the state of vehicle1 (\textit{veh}) with respect to vehicle2 (\textit{veh2}), \textit{veh\_wrt\_veh2}, has:
+\begin{verbatim}
+subject_frame_name = "vehicle1.composite_body";
+target_frame_name = "vehicle2.Earth.lvlh";
+direction_sense = RelativeDerivedState::ComputeSubjectStateinTarget;
+\end{verbatim}
+
+Notice also in these simulations that the LvlhDerivedState is contained within the respective vehicle object, while the RelativeDerivedState is contained within the \textit{rel\_state} object.  This assignment is intentional, though not necessary.  What is necessary is that the state of the two vehicles be evaluated before the relative state, and that the LVLH reference frame be appropriately oriented, based on the state of its parent vehicle, before the relative state can be expressed in that frame.  Therefore, it was chosen to move the relative state calculations to the end of the S\_define, where they will be processed only after the vehicle and LVLH reference frames have been processed.  This is recommended procedure.
+
+\subsection{Generating the Input File}
+The input file (or Modified Data file) must contain the name of the planet, identified as \textit{reference\_name}:
+\begin{verbatim}
+example_of_rel_state_object.example_of_lvlh_state.reference_name = "Earth";
+\end{verbatim}
+
+\subsection{Logging the Data}
+See the \textref{Analysis}{sec:relativeuseranalysis} for a list of available output data from a RelativeDerivedState.

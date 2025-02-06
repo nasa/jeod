@@ -1,0 +1,420 @@
+\section{Document Production}
+\label{sec:doc_production}
+The \dynenv package provides three macros that simplify the specification of a
+document, |frontmatter|, |mainmatter|, and |backmatter|. These macros write
+the front matter, main matter, and back matter of a JEOD document.
+
+\subsection{The Structure of a JEOD Document}
+All JEOD document must have:
+\begin{itemize}
+\item Front matter than comprises:
+  \begin{itemize}
+  \item The cover pages,
+  \item An abstract or executive summary,
+  \item A table of contents, and
+  \item Optional lists of figures and tables.
+  \end{itemize}
+\item Body matter that comprises five chapters labeled:
+  \begin{itemize}
+  \item Introduction,
+  \item Product Requirements,
+  \item Product Specification,
+  \item User Guide, and
+  \item Inspections, Tests, and Metrics.
+  \end{itemize}
+  Details regarding the contents of these chapters is specified elsewhere.
+  Documents that have multiple parts should have these five chapters
+  in each part.
+\item Back matter that comprises:
+  \begin{itemize}
+  \item Optional appendices, and
+  \item A bibliography.
+  \end{itemize}
+  The bibliography is constructed automatically from the references in the
+  document, the JEOD \BibTeX\ file, and the model-specific \BibTeX\ file.
+\end{itemize}
+
+\subsection{Front Matter}
+The \command{frontmatter} macro constructs the front matter. The macro takes
+one optional and one mandatory argument.
+\begin{codeblock}
+\frontmatter[options]{abstractOrSummary}
+\end{codeblock}
+The options are a comma-separated list of elements of the form
+|key=value| or just |key|. The keys are:
+\begin{description}
+\item[\option{style=<style>}] Specifies whether the document summary is written
+  using the abstract environment or as an unnumbered chapter.
+  Use |style=abstract| for the former, |style=summary| for the latter.
+\item[\option{label=<name>}]Specifies the PDF label of the summary.
+This option is only needed when the summary is written as an unnumbered chapter
+and the name of that chapter is something other than ``Executive Summary.''
+\item[\option{figures}] Causes the list of figures to be generated.
+\item[\option{tables}] Causes the list of tables to be generated.
+\end{description}
+Note: The optional argument is not completely optional.
+You must specify the |style|.
+
+The mandatory argument specifies the name of the file (sans the |.tex| suffix)
+the contains the abstract or summary.
+
+\subsubsection{Sample Usage}
+The following generates front matter with a list of tables (but no list of
+figures) with the abstract contained in the file |ModelAbstract.tex|.
+\begin{codeblock}
+\frontmatter[style=abstract,tables]{ModelAbstract}
+\end{codeblock}
+
+The next example generates front matter with a list of figures and a list of
+tables with an executive summary contained in the file |summary.tex|.
+\begin{codeblock}
+\frontmatter[style=summary,figures,tables]{summary}
+\end{codeblock}
+
+The final example generates front matter with no list of figures or list of
+tables with an abstract in |chapter*| form contained in the file |abstract.tex|.
+\begin{codeblock}
+\frontmatter[style=summary,label=Abstract]{abstract}
+\end{codeblock}
+
+\subsubsection{Abstract or Executive Summary?}
+The purpose of the abstract or executive summary is to inform the reader of
+the relevance of the subject of the document to some problem the reader needs
+to solve. This preface to the document should clearly but concisely summarize
+the subject of the document.
+
+Use an abstract if this summary description is very brief, four or five
+paragraphs at most. An abstract cannot contain any sectioning commands.
+Longer descriptions that need some internal structure should be written in an
+executive summary form.
+
+An executive summary can be considerably longer than four or five paragraphs
+but should never be  more than 10\% of the document as a whole.
+An executive summary must at a minimum start with a |\chapter*| command and may
+contain |\section*| and lower level sectioning commands. Always use the starred
+form of the sectioning commands in an executive summary.
+While the outline of the main matter is highly structured, this is not the
+case for an executive summary. You don't need no stinkin' requirements,
+for example. Write in a manner that best summarizes the material.
+
+\subsubsection{Sample Abstract}
+
+The following sample abstract summarizes the fictitious psychoceramics model.
+
+\begin{codeblock}
+\begin{abstract}
+The cracked pot interaction, first investigated by Josiah S. Carberry, is
+typically a small perturbative force in spacecraft dynamics. Refinements of
+the interaction have been proposed over the years by a number of authors.
+Future developments in this field may well revolutionize space flight.
+This is the golden age of psychoceramics! The Psychoceramics Model
+implements models of several of the more promising of these techniques.
+\end{abstract}
+\end{codeblock}
+
+Assuming the above is the contents of the |abstract.tex| file in the |docs/tex|
+directory of the psychoceramics model, the toplevel |psychoceramics.tex| file could include this abstract via
+\begin{codeblock}
+\frontmatter[style=abstract,tables]{abstract}
+\end{codeblock}
+
+
+\subsubsection{Sample Executive Summary}
+
+The executive summary form of the preface provides a more detailed
+(but still summary) description of the subject matter. An executive summary
+for the above fictitious model is presented below.
+
+\begin{codeblock}
+\chapter*{Executive Summary}
+\section*{Overview}
+The cracked pot interaction, first investigated by Josiah S. Carberry, is
+typically a small perturbative force in spacecraft dynamics. Refinements of
+the interaction have been proposed over the years by a number of authors.
+Future developments in this field may well revolutionize space flight.
+This is the golden age of psychoceramics! The Psychoceramics Model
+implements models of several of the more promising of these techniques.
+
+\section*{Implemented Interactions}
+A wide variety of interactions are implemented in the model, far too many to
+enumerate in this introductory note. One of the more interesting is the
+application of Bell's inequality to a vehicle at 37.235163 north latitude,
+115.810645 west longitude on the 91st day of the year (92nd in leap years).
+For other interactions provided by the model, users are advised to RTFC.
+
+\section*{Implementation Techniques}
+A variety of innovative programming techniques were employed to model the
+more esoteric aspects of psychoceramics. The model makes extensive use of
+obfuscatory techniques, several of which have been featured in the IOCCC.
+Multiple virtual protected inheritance, quadruple dispatch, nondeterministic
+behavior, and operator re-re-overloading are heavily employed. The model
+explores the deepest and darkest corners of metaprogramming, and implements
+features that hitherto have been lost since the days of INTERCAL and APL.
+\end{codeblock}
+
+Assuming the above is the contents of the |summary.tex| file in the |docs/tex|
+directory of the psychoceramics model, the toplevel |psychoceramics.tex| file could include this executive summary via
+\begin{codeblock}
+\frontmatter[style= summary,tables]{summary}
+\end{codeblock}
+
+
+\subsection{Main Matter}
+The \command{mainmatter} macro constructs the body matter. The macro
+takes a single argument, a comma-separated list of files to be |\input|.
+One approach to organizing the document content is to have one master file
+that encapsulates all of the body content. For example, with the body
+matter encapsulated in the file |ModelBody.tex|, one would use the following
+to build the body of the document:
+\begin{codeblock}
+\mainmatter{ModelBody}
+\end{codeblock}
+Another approach is to place each of the five chapters in its own |.tex|
+file. For example, if these five files are |intro.tex|, |reqt.tex|, |spec.tex|,
+|guide.tex|, and |ivv.tex|, one would use the following
+to build the body of the document:
+\begin{codeblock}
+\mainmatter{intro,reqt,spec,guide,ivv}
+\end{codeblock}
+
+\subsubsection{Introduction}
+\label{sec:chapterone}
+The first chapter of the document introduces the subject of the document
+in a structured way. This chapter comprises four sections:
+\begin{description}
+\item[1.1 (Purpose and Objectives):] Brief description of the subject matter.
+\item[1.2 (Context within JEOD):] Context of the subject matter within JEOD.
+\item[1.3 (Document History):] History of the document.
+\item[1.4 (Document Organization):] Table of contents in text form.
+\end{description}
+The bulk of this chapter is standard across almost all model documents.
+Only sections 1.1 (purpose and objectives) and 1.3 (document history) are
+document-specific.
+
+The macro |\boilerplatechapterone| constructs this first chapter.
+The macro takes two arguments, the contents of section 1.1 (purpose and objectives) and the table entries for section 1.3 (history). Example:
+
+\begin{codeblock}
+\boilerplatechapterone{
+  The cracked pot interaction, first investigated by Josiah S. Carberry, is
+  typically a small perturbative force in spacecraft dynamics. Refinements of
+  the interaction have been proposed over the years by a number of authors.
+  Future developments in this field may well revolutionize space flight.
+  This is the golden age of psychoceramics! The Psychoceramics Model
+  implements models of several of the more promising of these techniques.}
+{
+  \ModelHistory
+}
+\end{codeblock}
+
+In the above example, the first argument is the first paragraph from the
+executive summary. The second paragraph is the |\ModelHistory| command,
+presumably defined in the model-specific .sty file.
+See section~\ref{sec:model.sty}.
+
+
+\subsubsection{Product Requirements}
+\label{sec:chaptertwo}
+Unlike the other four chapters, the requirements chapter has no sections.
+It comprises one requirement after another.
+Example:
+\begin{codeblock}
+\requirement{Flux Capacitor}
+\label{reqt:1.21gigawatts}
+\begin{description:}
+\item[Requirement]
+ The model shall simulate the behavior of a vehicle outfitted with a
+ flux capacitor connected to a 1.21 gigawatt power source
+ as the vehicle crosses the 88 MPH threshold.
+\item[Rationale]
+This capability is needed by the BTTF simulation group.
+\item[Verification]
+Inspection, test
+\end{description:}
+\end{codeblock}
+
+\subsubsection{Product Specification}
+\label{sec:chapterthree}
+The product specification chapter of the document introduces the subject of the document
+in a structured way. This chapter comprises four sections:
+\begin{description}
+\item[3.1 (Conceptual Design):] This section provides
+a conceptual description of the model.
+This section typically provides answers to the following:
+\begin{itemize}
+\item What are the key concepts of the model?
+\item What is the model architecture?
+\item What drove the design of the model?
+\end{itemize}
+
+\item[3.2 (Mathematical Formulations):] This section summarizes
+the mathematics employed by the model.
+
+In the case of a mathematics-free computer science model,
+this section should be named "Key Algorithms."
+\item[3.3 (Interactions):] Describes how the model interacts with
+other JEOD models and other external agents.
+\item[3.4 (Detailed Design):] Details on the design.
+\item[3.5 (Inventory):] Details on the design.
+\end{description}
+
+FIXME.
+
+\subsubsection{User Guide}
+\label{sec:chapterfour}
+\begin{description}
+\item[4.1 (Instructions for Simulation Users):] Broad description of classes, key design concepts, etc.
+\item[4.2 (Instructions for Simulation Developers):] Broad description of classes, key design concepts, etc.
+\item[4.3 (Instructions for Model Developers):] Broad description of classes, key design concepts, etc.
+\end{description}
+
+
+\subsubsection{Inspections, Tests, and Metrics}
+\label{sec:chapterfive}
+\begin{description}
+\item[5.1 (Inspections):] Broad description of classes, key design concepts, etc.
+\item[5.2 (Tests):] Broad description of classes, key design concepts, etc.
+\item[5.3 (Requirements Traceability):] Broad description of classes, key design concepts, etc.
+\item[5.4 (Metrics):] Broad description of classes, key design concepts, etc.
+\end{description}
+
+\subsubsection{Multi-part Documents}
+Word.
+
+\subsection{Back Matter}
+The \command{backmatter} macro constructs the back matter.
+The macro takes one optional and one mandatory argument.
+\begin{quote}
+|\backmatter[options]{appendices}|
+\end{quote}
+The options are a comma-separated list of elements of the form
+|key=value| or just |key|. The keys are:
+\begin{description}
+\item[\option{bibpos=<pos>}] Specifies whether the bibliography
+is placed before (|pos=start|) or after (|pos=end|) the appendices.
+\item[\option{modelbibfile=<name>}] Specifies the name of the model-specific
+|.bib| file. This option is needed only in the case that the model author
+has not followed the recommended practice of naming the model-specific
+|.bib| file after the model.
+\item[\option{nomodelbibfile}] Specifies that there is no model-specific
+|.bib| file.
+\end{description}
+
+The mandatory argument specifies the names of the files (sans the |.tex| suffix)
+the build the appendices.
+Use an empty argument '{}' if the model has no appendices.
+
+\subsection{Document Directory Files}
+\subsubsection{Makefile}
+\subsubsection{Model-Specific Package}\label{sec:model.sty}
+when the \dynenv package is operating in |complete| mode,
+it loads the model-specific
+package file via |\RequirePackage{\MODELNAME}|
+
+One such place where the \dynenv package uses one of names defined in
+|paths.def| is the very next operation the \dynenv package performs
+when the package is operating in |complete| mode: It loads the model-specific
+package file via |\RequirePackage{\MODELNAME}|. For a model document that
+is built following the recommended practice, the model-specific
+package file must define the following:
+\begin{description}
+\item[\command{ModelRevision}] The revision number of the model document.\\
+  This should be incremented in some manner when the contents of the model
+  document are updated. It is recommended that this definition be placed very
+  close to the start of the model-specific package to ease the update process.
+\item[\command{ModelAuthor}] The name or names of the people who wrote the
+  current revision of the model.\\
+  The |\ModelAuthor| is used to generate the inside cover and
+  is stored as the PDF author of the document.
+  Multiple authors, if present, must be separated by newlines (|\\|).
+\item[\command{ModelPrefix}] A one word name of the model.\\
+  The |\ModelPrefix| is used to label the requirements, inspections, and tests
+  that are specified in the model's |.tex| files.
+\item[\command{ModelDesc}] A short description of the model.\\
+  The |\ModelDesc| is stored as the PDF description of the document.
+\item[\command{ModelKeywords}] A comma-separated list of keywords.\\
+  The |\ModelKeywords| are stored as the PDF keywords of the document.
+\end{description}
+
+It is recommended that the document history also be stored in the model-specific
+package file as the command \command{ModelHistory}. This practice places the
+document revision number and history in close proximity, thereby easing update.
+The command should define a list of table entries, newest to oldest.
+Each entry must be of the form |Author & Date & Revision & Description \\|.
+The fields are:
+\begin{description}
+\item[Author]       The authors responsible for the current document revision.
+\item[Date]         The month and year of the document revision.
+\item[Revision]     The document revision number in major.minor format.
+\item[Description]  A brief description of why the revision was made.
+\end{description}
+
+A sample model-specific style file follows for the fictitious
+psychoceramics model.
+
+
+\begin{codeblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model-specific style sheet for the Psychoceramics Model.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}[2009/01/01]% LaTeX date must be January 2009 or later
+
+% Package definition.
+\ProvidesPackage{psychoceramics}[2011/03/01 v1.0 psychoceramics model macros]
+
+% Author and revision number of current revision of the document.
+\newcommand\ModelAuthor{Josiah S. Carberry, III}
+\newcommand\ModelRevision{1.0}
+
+% Document history, in the form of a list of table entries.
+% Entries should be in reverse time order (newest first).
+% Each entry must be of the form
+%   Author & Date & Revision & Description \\
+\newcommand\ModelHistory {
+  Josiah S. Carberry, III & April 2011 & 1.0 & Initial version \\
+}
+
+% Model description macros, used for the cover page and to tag requirements.
+\newcommand\ModelPrefix{Psychoceramics}
+\newcommand\ModelDesc{Psychoceramics Model\xspace}
+\newcommand\ModelKeywords{BEM, FTL, BTTF}
+\end{codeblock}
+
+\subsubsection{Top-level .tex File}
+Exhibit~\ref{exhibit:psychoceramics.tex} displayes the complete contents of
+the top-level .tex file file the fictitious psychoceramics model.
+
+\begin{exhibit}
+\centering
+\caption{Contents of \texttt{psychoceramics.tex}}
+\label{exhibit:psychoceramics.tex}
+\begin{codebox}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% psychoceramics.tex
+% Top level document for the Psychoceramics Model
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the standard JEOD dynenv document class
+\documentclass{dynenv}
+
+% Add the requirements et al. to the table of contents
+\dynenvaddtocitems{reqt=1,insp=2,test=2}
+
+\begin{document}
+
+% Front matter: Executive summary, table of contents, lists of figures & tables
+\frontmatter[style=summary,figures,tables]{summary}
+
+% Main document body: Each chapter is in its own file
+\mainmatter{intro,reqt,spec,guide,ivv}
+
+% Back matter: Bibliography
+\backmatter{}
+
+\end{document}
+\end{codebox}
+\end{exhibit}
+
+\subsubsection{Lower Level .tex File}

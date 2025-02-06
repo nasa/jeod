@@ -1,0 +1,14 @@
+# This is a Trick log file translation file for RNP Verifs
+
+earth.utime.out.julian_date          time.time_ut1.trunc_julian_time
+earth.rnp.out.gast                   earth.rnp.theta_gast
+earth.rnp.out.equ_equinox            earth.rnp.NJ2000.equa_of_equi
+earth.rnp.in.enable_polar            earth.rnp.enable_polar
+earth.rnp.in.override_polar          earth.rnp.PMJ2000.override_table
+earth.rnp.planet_omega               earth.rnp.in.earth_omega
+earth.rnp.rnp_type                   earth.rnp.in.init_option
+earth.rnp.out.nutation               earth.logging.nut_trans
+earth.rnp.out.precession             earth.logging.prec_trans
+earth.rnp.out.rotation               earth.logging.rot_trans
+earth.rnp.out.RNP                    earth.earth.pfix.state.rot.T_parent_this
+earth.rnp.out.NP                     earth.rnp.NP_matrix

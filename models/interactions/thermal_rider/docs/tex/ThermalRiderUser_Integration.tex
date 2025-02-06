@@ -1,0 +1,32 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Integration part of User's Guide for the ThermalRider model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Integration}
+ \label{sec:user_integration}
+
+Including the Thermal Rider option into any existing surface is fairly straightforward, the most difficult part of using the \ThermalRiderDesc\ is in creating the \textit{Interaction Surface} on which it will ride.  The \ThermalRiderDesc\ comes in two parts, one attached to each of the facets, and one attached to the interaction model itself (the \textit{thermal facet rider} and \textit{thermal model rider} respectively).  We will treat these individually.  If the interaction model does not include both the model rider and the facet riders, see the section \textref{Extension}{sec:user_extension} for details on how to extend an interaction model to include the Thermal Rider.
+
+\subsection{\ThermalRiderDesc}
+The main class for the interaction model (e.g. \textit{RadiationPressure} for the Radiation Pressure Model) must contain an instance of the \ThermalRiderDesc.
+Every Interaction Model must already have an \textit{update} (or similar) method, through which the interaction forces are updated.  This method must call the \textit{thermal.update} method (\textit{thermal} being the name of the instance of the \ThermalRiderDesc).  The setting of data values necessary to the \ThermalRiderDesc\ is covered in the section \textref{Analysis}{sec:user_analysis}.
+
+
+
+\subsection{Thermal Facet Rider}
+This rider must be attached to each of the facets in the surface; ideally, the thermal rider would be added when the model-specific interaction facets are defined, based on the generic Interaction Facet.  See, for an example. the class \textit{RadiationFacet} in the Radiation Pressure Model. 
+
+It is important to ensure that all facets in the surface have thermal characteristics available to them, even if the intention is to de-activate the thermal activity in many of those facets.  The code is expecting that certain methods will be available to all facets, and that will only work if they all contain the Thermal Facet Rider.
+
+Setting the data for the each of the facets is covered in section \textref{Analysis}{sec:user_analysis}.
+
+
+
+
+
+
+

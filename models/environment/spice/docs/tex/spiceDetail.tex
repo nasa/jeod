@@ -1,0 +1,64 @@
+\subsection{Process Architecture}
+The \SpiceDesc\ is an extension of the JEOD ephemeris model framework
+and is organized into three primary classes. The first is SpiceEphemeris,
+which extends the EphemerisInterface class and thus is the orchestrator
+of the entire \SpiceDesc. The second is SpiceEphemPoint, which is a child
+class of EphemerisPoint.  There must be a separate SpiceEphemPoint for each
+celestial body for which SPICE is to update the translational state in a
+simulation. The final class is SpiceEphemOrientation, which extends
+EphemerisOrientation. It performs a similar function as SpiceEphemPoint,
+but for the rotational state of celestial bodies; one must exist in the
+sim for each body that SPICE is to keep updated with respect to rotational
+state.
+
+The usual types of methods used for such things as initializing and updating
+the model exist for the \SpiceDesc, just as for most JEOD models.  Since
+this is a model to interface with SPICE, much of the functionality
+involves either creating connections to SPICE or obtaining data from it in
+accordance with the setup implemented in the simulation.  Since the
+\SpiceDesc\ fits into the existing JEOD ephemeris model framework, the
+Dynamics Manager takes care of orchestrating the state updates automatically.
+
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods of the
+\SpiceDesc.
+
+The \SpiceDesc\ contains the classes SpiceEphemeris, SpiceEphemPoint, and
+SpiceEphemOrientation. While there are several methods for each class, both
+new and inherited, this section will focus on only a few key SpiceEphemeris
+methods. Discussion of these methods will provide good insight into the inner
+workings of the \SpiceDesc.  For an exhaustive treatment of the methods for
+all three classes, see the \href{file:refman.pdf}{Reference Manual}\cite{api:spice}.
+
+The SpiceEphemeris class contains the following methods, among others:
+\begin{enumerate}
+
+\funcitem{add\_planet\_name}
+This is an S\_define or input file method which is used to add a new
+SpiceEphemPoint to the \SpiceDesc's list of ones to keep updated.
+
+\funcitem{add\_orientation}
+This is an S\_define or input file method which is used to add a new
+SpiceEphemOrientation to the \SpiceDesc's list of ones to keep updated.
+
+\funcitem{initialize\_model}
+This is an S\_define-level method, which sets the \SpiceDesc\ up
+properly.  It has several subroutines and performs critical tasks such as
+loading the given SPICE kernels, finding the desired celestial bodies and
+orientations within them, figuring out what barycenters need to exist in
+the simulation based upon the points and orientations loaded, creating
+said barycenters, and making connections to the appropriate ephemeris
+point and orientation objects in the SPICE kernels.
+
+\funcitem{ephem\_build\_tree}
+This method is called automatically by the Dynamics Manager whenever it
+is determined that the reference frame tree needs to be rebuilt.
+
+\funcitem{ephem\_update}
+This method is called automatically by the Dynamics Manager and is the
+routine that actually performs the state updates for the loaded
+SpiceEphemPoints and SpiceEphemOrientations.
+
+\end{enumerate}
+

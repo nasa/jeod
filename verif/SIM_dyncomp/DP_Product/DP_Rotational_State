@@ -1,0 +1,158 @@
+Dynamics Comparison Rotational State
+
+PLOTS:
+
+PAGE 1: "J2000 Attitude Quaternion"
+
+    PLOT 1: "Quaternion Scalar: Q_s = cos(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_s"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.scalar"
+            LABEL: "Q_inertial_body[0]"
+
+    PLOT 2: "Quaternion Vector: Q_x = -U_x sin(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_x"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[0]"
+            LABEL: "Q_inertial_body[1]"
+
+    PLOT 3: "Quaternion Vector: Q_y = -U_y sin(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_y"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[1]"
+            LABEL: "Q_inertial_body[2]"
+
+    PLOT 4: "Quaternion Vector: Q_z = -U_z sin(a/2)"
+        Y_AXIS_FORMAT: "%g"
+        Y_AXIS_LABEL: "Q_z"
+        X_AXIS_LABEL: "Time"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.Q_parent_this.vector[2]"
+            LABEL: "Q_inertial_body[3]"
+
+PAGE 2: "Body Attitude wrt J2000 - RPY"
+
+    PLOT 1: "Roll"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.euler.ref_body_angles[0]"
+            UNITS: "d"
+            LABEL: "euler.ref_body_angles[0]"
+
+    PLOT 2: "Pitch"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.euler.ref_body_angles[1]"
+            UNITS: "d"
+            LABEL: "euler.ref_body_angles[1]"
+
+    PLOT 3: "Yaw"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.euler.ref_body_angles[2]"
+            UNITS: "d"
+            LABEL: "euler.ref_body_angles[2]"
+
+PAGE 3: "Body Rate"
+
+    PLOT 1: "X-Axis (Roll)"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.ang_vel_this[0]"
+            UNITS: "d/s"
+            LABEL: "body_rate[0]"
+
+    PLOT 2: "Y-Axis (Pitch)"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.ang_vel_this[1]"
+            UNITS: "d/s"
+            LABEL: "body_rate[1]"
+
+    PLOT 3: "Z-Axis (Yaw)"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.composite_body.state.rot.ang_vel_this[2]"
+            UNITS: "d/s"
+            LABEL: "body_rate[2]"
+
+PAGE 4: "Body Acceleration"
+
+    PLOT 1: "X-Axis (Roll)"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.rot_accel[0]"
+            UNITS: "d/s2"
+            LABEL: "body_accel[0]"
+
+    PLOT 2: "Y-Axis (Pitch)"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.rot_accel[1]"
+            UNITS: "d/s2"
+            LABEL: "body_accel[1]"
+
+    PLOT 3: "Z-Axis (Yaw)"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.derivs.rot_accel[2]"
+            UNITS: "d/s2"
+            LABEL: "body_accel[2]"

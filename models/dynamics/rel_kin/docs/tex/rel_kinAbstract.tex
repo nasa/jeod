@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Abstract for rel_kin model
+%
+%  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+The JEOD \relkinDesc\ enables centralized management and calculation of the
+states of multiple points of interest associated with a particular Dynamics
+Body, relative to some other reference frame.  These points can be anywhere
+in relation to the Dynamics Body, and the other reference frame can be any
+type of reference frame. All points of interest can be updated in batch
+fashion, or individual points can be updated.  The \relkinDesc\ does no
+calculations on its own, but instead serves as a ``manager'' class that
+orchestrates a set of user-defined Relative Derived States as desired
+by the user to accomplish these capabilities.
+
+This document describes the implementation of the \relkinDesc\ including
+the model requirements, specifications, and architecture.  A user guide
+is provided to assist with implementing the model in Trick simulations.
+Finally, the methods and results of verification and validation of the
+model are included.
+
+\end{abstract}

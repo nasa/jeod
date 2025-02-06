@@ -1,0 +1,68 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MassBodyInit_user.tex
+% User Guide for the MassBodyInit class.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\label{ch:\modelpartid:user}
+The following assumes the scheme outlined in
+section~\ref{subsec:recommended_practice}.
+
+\section{Analysis}
+
+Assume a simulation S\_define file declares simulation objects
+named `vehicle' and `dynamics'. The vehicle object contains
+a DynBody object name `dyn\_body' and
+a MassBodyInit object named `mass\_init'. The dynamics object
+contains a DynManager object named `manager' and a BodyAction pointer
+named `body\_action\_ptr'.
+
+The following will cause the vehicle's mass properties to be initialized.
+In this example, the body and structural frames are a related by a 180
+degree pitch. The vehicle is initialized with one point of interest.
+
+\begin{verbatim}
+vehicle.mass_init.set_subject_body(vehicle.dyn_body.mass);
+vehicle.mass_init.action_name = "vehicle.mass";
+
+vehicle.mass_init.properties.mass {kg} = 10000.0;
+vehicle.mass_init.properties.position[0] {M} = 27.856, 0.003, 9.600;
+
+vehicle.mass_init.properties.inertia_spec = MassPropertiesInit::Body;
+vehicle.mass_init.properties.inertia[0][0] {kg*M2} =  7e11,  0.0,   0.0;
+vehicle.mass_init.properties.inertia[1][0] {kg*M2} =  0.0,  12e11,  0.0;
+vehicle.mass_init.properties.inertia[2][0] {kg*M2} =  0.0,   0.0,  10e11;
+
+vehicle.mass_init.properties.pt_orientation.data_source =
+   Orientation::InputMatrix;
+vehicle.mass_init.properties.pt_frame_spec =
+   MassPointInit::StructToBody;
+vehicle.mass_init.properties.pt_orientation.trans[0][0] =  -1.0,  0.0,  0.0;
+vehicle.mass_init.properties.pt_orientation.trans[1][0] =   0.0,  1.0,  0.0;
+vehicle.mass_init.properties.pt_orientation.trans[2][0] =   0.0,  0.0, -1.0;
+
+vehicle.mass_init.num_points = 1;
+vehicle.mass_init.points = alloc(1);
+vehicle.mass_init.points[0].set_name( "attach_point" );
+vehicle.mass_init.points[0].position[0] {M} = 3.937, 0.003, 9.600;
+vehicle.mass_init.points[0].pt_orientation.trans[0][0] = -1.0,  0.0,  0.0;
+vehicle.mass_init.points[0].pt_orientation.trans[1][0] =  0.0,  1.0,  0.0;
+vehicle.mass_init.points[0].pt_orientation.trans[2][0] =  0.0,  0.0, -1.0;
+vehicle.mass_init.points[0].pt_orientation.data_source =
+   Orientation::InputMatrix;
+vehicle.mass_init.points[0].pt_frame_spec =
+   MassPointInit::StructToPoint;
+
+dynamics.body_action_ptr = &vehicle.mass_init;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+\end{verbatim}
+
+
+\section{Integration}
+The simulation integrator must make the MassBodyInit visible to
+the simulation user. The above example assumes the integrator declared
+a MassBodyInit object named `mass\_init' as part of the vehicle
+simulation object.
+
+\section{Extension}
+This class is not recommended for user extensions.

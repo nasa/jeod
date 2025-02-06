@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAttach_Detach_user.tex
+% user for BodyAttach_Detach
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{User Guide}\label{ch:\modelpartid:user}
+The following assumes the scheme outlined in
+section~\ref{subsec:body_action_pool_practice}.
+
+\section{Analysis}
+
+The Trick input file code below illustrates the use of the \partxname.
+The objects involved in this example are
+\begin{description}
+\item[Vehicle A] A DynBody object with two points of interest
+  labeled as "point\_C" and "point\_D".
+\item[Vehicle B] A DynBody object with one point of interest
+  labeled as "point\_C".
+\item[Vehicle C] A DynBody object with two points of interest
+  labeled as "point\_B" and "point\_A"
+\item[Vehicle D] A DynBody object with two points of interest
+  labeled as "point\_A" and "point\_E".
+\item[Mass E] This is a simple MassBody object with one point of interest
+  labeled as "point\_D".
+\end{description}
+This example does not depict the mass and state initializations.
+The mass initializations will endow the objects with mass properties
+and create the points of interest identified above.
+The state initializations will provide the independent vehicles
+with state.
+
+The events in this example are
+\begin{itemize}
+\item At initialization time, vehicle C is to be attached to vehicle B
+  such that point B on vehicle C is connected to point C on vehicle B.
+\item Also at initialization time, mass E is to be attached to vehicle D
+  such that point D on mass E is connected to point E on vehicle D.
+\item At t=10, vehicle C is to be attached to vehicle A
+  such that point A on vehicle C is connected to point C on vehicle A.
+  Note that because vehicle C is already attached to vehicle B,
+  it is vehicle B that is attach to vehicle A rather than the C-to-A
+  attachment that the user requested.
+\item At t=20, vehicle D is to be attached to vehicle A
+  such that point A on vehicle D is connected to point D on vehicle A.
+\item At t=30, vehicle C is to detach from vehicle A.
+ Note that the real attachment is B attached to A, and it is vehicle
+ B that detaches from vehicle A rather than vehicle C.
+\item At t=40, vehicle D is to detach from vehicle A.
+\end{itemize}
+
+
+\begin{verbatim}
+BodyAttachAligned * C_to_B = new BodyAttachAligned[1];
+C_to_B->action_name        = "C_to_B";
+C_to_B->set_subject_body(vehicle_C.dyn_body.mass);
+C_to_B->subject_point_name = "point_B";
+C_to_B->set_parent_body(vehicle_B.dyn_body.mass);
+C_to_B->parent_point_name  = "point_C";
+dynamics.body_action_ptr   = C_to_B;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+BodyAttachAligned * E_to_D = new BodyAttachAligned[1];
+E_to_D->action_name        = "E_to_D";
+E_to_D->set_subject_body(vehicle_D.mass_E);
+E_to_D->subject_point_name = "point_D";
+E_to_D->set_parent_body(vehicle_D.dyn_body);
+E_to_D->parent_point_name  = "point_E";
+dynamics.body_action_ptr   = E_to_D;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+BodyAttachAligned * D_to_A = new BodyAttachAligned[1];
+D_to_A->action_name        = "D_to_A";
+D_to_A->set_subject_body(vehicle_D.dyn_body);
+D_to_A->subject_point_name = "point_A";
+D_to_A->set_parent_body(vehicle_A.dyn_body);
+D_to_A->parent_point_name  = "point_D";
+D_to_A->active             = false;
+dynamics.body_action_ptr   = D_to_A;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+BodyDetachSpecific * C_from_A = new BodyDetachSpecific[1];
+C_from_A->action_name      = "D_from_A";
+C_from_A->set_subject_body(vehicle_C.dyn_body.mass);
+C_from_A->set_detach_from_body(vehicle_A.dyn_body.mass);
+dynamics.body_action_ptr   = C_from_A;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+
+// Mass and state initializations not shown.
+
+
+stop = 10;
+BodyAttachAligned * C_to_A = new BodyAttachAligned[1];
+C_to_A->action_name        = "C_to_A";
+C_to_A->set_subject_body(vehicle_C.dyn_body);
+C_to_A->subject_point_name = "point_A";
+// OK to use MassBody instance within DynBody (checked via MassBody::dyn_owner)
+C_to_A->set_parent_body(vehicle_A.dyn_body.mass);
+C_to_A->parent_point_name  = "point_C";
+C_to_A->active             = true;
+dynamics.body_action_ptr   = C_to_A;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+stop = 20;
+D_to_A->active           = true;
+
+stop = 30;
+C_from_A->active         = true;
+
+stop = 40;
+BodyDetach * D_from_A = new BodyDetach[1];
+D_from_A->action_name      = "D_from_A";
+D_from_A->set_subject_body(vehicle_D.dyn_body);
+D_from_A->active           = true;
+dynamics.body_action_ptr   = D_from_A;
+call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+
+stop = 50;
+\end{verbatim}
+
+\section{Integration}
+The simulation integrator must make the \partxname classes needed
+simulation user available for use.
+Unlike other examples in this document,
+the above only requires the integrator to declare a pool of objects.
+\begin{verbatim}
+sim_object {
+   BodyAttachAligned * body_attach;
+   BodyDetach * detach;
+   BodyDetachSpecific * detach_specific;
+} body_actions;
+\end{verbatim}
+
+Because this example involves asynchronous operations,
+the simulation integrator also needs
+to ensure that the Dynamics Manager {\tt perform\_actions()} method is called
+as a scheduled job.
+
+
+\section{Extension}
+The DynBody and MassBody classes provides multiple ways to attach objects.
+Each \partxname subclass provides only one of those techniques.
+One possible extension to the sub-model is to create a class that
+derives from BodyAttach that uses some other attachment
+mechanism.

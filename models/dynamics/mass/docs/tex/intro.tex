@@ -1,0 +1,44 @@
+\boilerplatechapterone{
+
+The \ModelDesc\ maintains the mass properties of all non-planetary massive
+objects in the simulation.  Mass-Body objects that also have a dynamic state are
+represented as Dyn-Body ~\cite{dynenv:DYNBODY} objects, 
+Dyn-Body being an inheritance from Mass-Body (i.e. a DynBody object is a
+MassBody object, but with additional descriptors).
+Consequently, the most frequently and obviously encountered Mass-Body objects
+are the Dyn-Body-based simulation vehicle(s); this model accurately maintains 
+the mass
+properties of such entities throughout processes such as mass depletion due to
+fuel usage, the attaching and detaching of one Mass Body to/from another, and
+the relative motion of individual massive components of a composite body
+comprising multiple Mass Body elements (e.g. rotation of a solar panel on a 
+vehicle).
+
+When the dynamic state of a composite vehicle (one comprising multiple
+components) is integrated, only one integration is performed for the entire
+composite unit; the component parts are not integrated directly.
+It is the \ModelDesc that is responsible for computing the overall mass and 
+inertia
+of the composite body that will be used in determining the dynamic response to
+applied forces and torques.
+
+While the most obviously encountered Mass Body objects happen to be Dyn Body
+objects, the separation of mass properties from dynamic properties allows for a
+natural delineation between those objects for which dynamic state is
+important, and those for which it is not.  When only the mass is important, a
+Mass Body is used; a Dyn Body is used when the object must also have a dynamic
+state.
+
+For example, a user may choose to add
+a massive fuel tank to a vehicle with no intention of ever wanting to know how
+anything about the tank's position or velocity.
+Indeed, unless the tank is ejected at some point,
+then even if its dynamic state is desired, it can be obtained from the vehicle
+itself; maintaining its own state would be redundant.
+
+It is therefore quite a natural development to build a dynamic body from a
+collection of non-dynamic massive bodies, each of which has its own unique (and
+possibly time-varying) mass properties.  Keeping track of varying mass
+properties within a compound body is a non-trivial undertaking, so this model
+performs those tasks behind the scenes.
+}{\ModelHistory}

@@ -1,0 +1,166 @@
+\subsection {Mass}
+The core and composite masses are found at \textit{*\_properties.mass}.
+\subsubsection {Core Property}
+This value has to be set externally (e.g. by the user).
+\subsubsection {Composite Property}
+This value is computed trivially, 
+\begin{equation}
+  M_{composite} = M_{core} + \sum_{children} M_{composite,i}
+\end{equation}
+where $M_{composite,i}$ is the composite mass of each of the children of this 
+Mass Body.  Clearly, generation of the composite mass is an iterative 
+procedure, requiring first the calculation of the corresponding value for each 
+of the children, which require the same for theirs, etc.
+
+\subsection{Center of Mass}
+The position of the core and composite centers of mass are found at 
+\textit{*\_properties.position}; the value is expressed in the structural axes.
+\subsubsection {Core property}
+This value has to be set externally (e.g. by the user).
+\subsubsection {Composite Property}
+The position of the composite center of mass is derived from the respective 
+positions of all of the components of the sub-tree originating with this body, 
+using classical mechanics:
+\begin{equation}
+{M_{composite}} \cdot \vec{x}_{composite} = M_{core}  \cdot \vec{x}_{core}  + 
+\sum_{children}{M_{composite,i} \cdot \vec{y}_{composite,i} }
+\label{CoM_cal}
+\end{equation}
+
+where $\vec{y}_{composite,i} $ is the position of the respective composite 
+center of mass for each of the children, expressed with respect to, and in, 
+the structural axes of this mass body.
+
+\begin{equation}
+ \vec{y}_{composite,i} = \vec{x}_i + \relvect T i {this} \left( 
+ \vec{x}_{composite,i} \right)
+\end{equation}
+
+with $\vec{x}_i$ the position of the child's structure point expressed in, and 
+with respect to the structural axes of this body, and $\relvect T i {this}$ is 
+the transformation matrix from the structural axes of the child body to the 
+structural axes of this body.
+
+Again, this is clearly an interative process.
+
+
+\subsection{Inertia Tensor}
+The inertia tensor for the core and composite bodies are found at 
+\textit{*\_properties.inertia}; the value is referenced to the respective body 
+axes. The diagonal elements are positive moments of inertia, while the
+off-diagonal elements are negative products of inertia.
+
+
+\subsubsection {Core Property}
+This value has to be set externally (e.g. by the user).
+\subsubsection {Composite Property}
+Computation of the composite body inertia tensor is a multi-step process:
+\begin{enumerate}
+ \item Compute the inertia tensor for the core-body, referenced to the 
+ composite-body body-axes, rather than the core-body body-axes.  Since the two 
+ sets of axes are aligned, we can use the parallel axis theorem:
+ \begin{equation}\label{eq:inertia_offset}
+  \inertia_{core:comp} = \inertia_{core:core} + M_{core} \begin{bmatrix} y^2 + 
+  z^2 & -xy & -xz \\-xy & x^2 + z^2 & -yz \\ -xz & -yz & x^2+y^2 \end{bmatrix}
+ \end{equation}
+ where $x$, $y$, and $z$ represent the position of the core center of mass 
+ relative to the composite center of mass, expressed in the composite 
+ body-axes.
+ \item For each child, transform a copy of the child's composite-body inertia 
+ tensor so that it is referenced to this (i.e. the parent) body's 
+ composite-body body-axes, rather than its own.  This is a multi-step process:
+ \begin{enumerate}
+  \item Compute the position of the origin of the child's composite-body-axes 
+  relative to that of this body.
+  \item Compute the orientation of the child's composite-body-axes relative to 
+  that of this body.
+  \item Use the orientation data to apply a rotational transformation to the 
+  child's composite-body inertia tensor such that it references the parent's 
+  composite-body-axes.  This step is necessary because the composite-body-axes 
+  for the child body are, in general, not aligned with those for the parent 
+  body. Consider
+  \begin{equation*}
+   \tau = \inertia \alpha
+  \end{equation*}
+  Hence, $\tau_{parent}$ can be expressed as 
+  \begin{equation*}
+   \tau_{parent} = \inertia_{parent} \alpha_{parent}
+  \end{equation*}
+  and also expressed as a transformation of the same expression in the child 
+  frame:
+  \begin{equation*}
+   \tau_{parent} = T_{child \rightarrow parent} \left( \inertia_{child}  
+   \left( T_{parent \rightarrow child} \left( \alpha_{parent} \right) \right) 
+   \right)
+  \end{equation*}
+ Consequently,\begin{equation}
+   \inertia_{parent} = T_{child \rightarrow parent}  \inertia_{child}   
+   T_{parent \rightarrow child}
+  \end{equation} 
+  This term represents the inertia tensor in a set of axes aligned with the 
+  parent composite-body-axes, with an origin that still matches that of the 
+  child composite-body-axes.
+  \item Evaluate and add the parallel-axis theorem addition term in equation 
+  \ref{eq:inertia_offset}, such that:
+  \begin{equation}\label{eq:inertia_child}
+   \inertia_{child:parent} = T_{child \rightarrow parent}  
+   \inertia_{child:child}   T_{parent \rightarrow child} + M_{core} 
+   \begin{bmatrix} y^2 + z^2 & -xy & -xz \\-xy & x^2 + z^2 & -yz \\ -xz & -yz 
+   & x^2+y^2 \end{bmatrix}
+  \end{equation}
+  where $x$, $y$, and $z$ represent the position of the child composite-body 
+  center of mass relative to the parent composite-body center of mass, 
+  expressed in the parent composite-body-axes.  $M_{child}$ is the mass of the 
+  child composite-body.
+  
+ \end{enumerate}
+ \item Add to the adjusted parent body inertia tensor (equation 
+ \ref{eq:inertia_offset}) the resulting inertia tensors for each of the 
+ children (equation \ref{eq:inertia_child})to give the composite body inertia 
+ tensor for the parent.\begin{equation}
+  \inertia_{comp:comp} = \inertia_{core:comp} + \sum_{children} 
+  \inertia_{child:parent}
+ \end{equation}
+ 
+ \end{enumerate}
+
+
+
+
+\subsection{Inverse Inertia}
+The inverse-inertia tensor for a body is found at 
+\textit{inverse\_inertia}; the value is referenced to the respective body 
+axes.The inverse inertia is only needed where torques are going to be applied 
+to a 
+MassBody, and then only if the MassBody has a dynamic state to respond to 
+those torques (i.e. if it is a DynBody).  Furthermore, since torques (and 
+forces) are only applied to a mass tree in its entirety, the only inverse 
+inertia that is needed is that of the composite properties of the root body.  
+Consequently, the inverse inertia is only computed if the MassBody is a 
+DynBody, if it is at the root of its tree (including single-entity trees), and 
+then only the composite inertia is inverted.
+
+\subsection{Transformation from Structure to Body}
+The transformation from the strucutral-axes to the body-axes is found at 
+\textit{*\_properties.T\_parent\_this} and at 
+\textit{*\_properties.Q\_parent\_this} (for a transformation matrix and 
+quaternion set, respectively).  This value is set at initialization for the 
+core-properties; 
+
+\subsubsection {Core Property}
+This value has to be set externally (e.g. by the user) at initialization; it 
+is fixed for the duration of the simulation.
+\subsubsection {Composite Property}
+Since both sets of body axes are aligned, the value set for the 
+core-properties gets copied into the composite-properties at initialization. 
+
+\subsection{Attaching Bodies}
+The process by which bodies are attached is outlined in the Detailed Design 
+section (\ref{sec:attaching_bodies})
+
+
+
+
+
+
+

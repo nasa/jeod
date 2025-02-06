@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose: Provide Chapter 2 Requirements for the Contact Model
+%
+%  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+\requirement{JEOD Requirements}
+\label{reqt:jeod}
+  \begin{description}
+  \item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{top-level document}~\cite{dynenv:JEOD} .
+  \item[Rationale:]\ \newline
+  This model shall, at a minimum, meet all external and internal requirements applied to the
+  \JEODid\ release.
+  \item[Verification:]\ \newline
+  Inspection
+  \end{description}
+
+\requirement{Contact Between Surfaces in 3D Space}
+\label{reqt:Contact_Surfaces}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \ModelDesc shall determine if two or more 3D surfaces are in contact and resolve the
+     resultant forces utilizing user defined dynamics.
+  \item[Rationale:]\ \newline
+     Contact between surfaces is the core functionality of the \ModelDesc.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Provide a Default Contact Force Model Based on Springs}
+\label{reqt:Contact_Spring_Default}
+\begin{description}
+  \item[Requirement:]\ \newline
+     The \ModelDesc shall provide default contact dynamics functionality based on simple springs.
+  \item[Rationale:]\ \newline
+     A basic contact force generation model needed to be provided with the \ModelDesc and has been in
+     the form of a simple spring.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Limit Circular Contact}
+\label{reqt:Circular_Contact}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \ModelDesc shall limit contact determination to surfaces that do not reside on the same vehicle or attached vehicles.
+  \item[Rationale:]\ \newline
+     In order to avoid potential circular contact or attachments, which are not allowed in JEOD, surfaces residing on the same
+     body or tree are excluded from contacting each other.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{\ModelDesc Extensibility}
+\label{reqt:contact_extend}
+  \begin{description}
+    \item[Requirement:]\ \newline
+    The \ModelDesc shall be extensible.
+    \item[Rationale:]\ \newline
+    Other objects and classes should be able to derive from components of the \ModelDesc.
+    \item[Verification:]\ \newline
+    Inspection
+  \end{description}

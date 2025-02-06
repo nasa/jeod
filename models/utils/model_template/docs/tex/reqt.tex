@@ -1,0 +1,66 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% reqt.tex
+%
+% Requirements on the <model name>
+%
+% Usage instructions:
+% This file should comprise a
+% * The \chapter command, which must not be changed.
+% * The toplevel requirement, which also should not be changed.
+% * A set of model-specific requirements.
+% * And nothing else.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}
+\label{ch:reqt}
+
+% All models must have this top-level requirement as requirement #1.
+
+\requirement{Top-level requirement}
+\label{reqt:toplevel}
+\begin{description:}
+\item[Requirement]
+  The \MODELTITLEx shall meet the JEOD project requirements specified in
+  the \JEODidx \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}
+  {top-level document}.
+\item[Rationale]
+  This model shall, at a minimum, meet all external and
+  internal requirements applied to the \JEODidx release.
+\item[Verification]
+  Inspection 
+\end{description:}
+
+
+% Add model-specific requirements per the following format:
+% \requirement{Requirement name}
+% \label{reqt:some_id}
+% \begin{description:}
+% \item[Requirement]
+% What the model is to do, in requirementese.
+% \item[Rationale]
+% Additional verbiage that describes / motivates the requirement.
+% \item[Verification]
+% Verification technique(s); choose one of:
+%   Inspection
+%   Test
+%   Inspection, test
+% \end{description:}
+%
+% The Requirement name should be a short name for the requirment. This
+% name will appear in the .pdf file.
+% The given \label will not appear as text in the .pdf file. This label is
+% how you refer back to the requirement in your inspections, tests, and
+% traceability table.
+% The "description:" items must be labeled as Requirement, Rationale, and
+% Verification. Do not use any other labels.
+% The "Requirement" shall use shall and must be verifiable. Be careful of the
+% word 'and'. This indicates that you have multiple requirements lurking about.
+% Split the requirement into multiple requirements or use the \subrequirement
+% command.
+% The "Rationale" is less encumbered of formalism than the requirement proper.
+% Here you can elaborate on the intent of the requirement and explain why the
+% requirement exists.
+% The "Verification" is the easiest to fill in. It is either "Inspection",
+% "Test", or "Inspection, test".

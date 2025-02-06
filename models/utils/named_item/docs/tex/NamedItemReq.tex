@@ -1,0 +1,26 @@
+\requirement{String Construction}
+\label{reqt:SC}
+\begin{description}
+  \item[Requirement:]\ \newline
+The \NamedItemDesc\ shall offer static functions capable of accepting one or more 
+character strings, computing space requirements for a dot-conjoined concatenation
+of the input strings, allocating the required space (including the null character terminating the string), and returning the newly created dot-conjoined string.
+  \item[Rationale:]\ \newline
+This is the function of the construct\_name methods
+
+  \item[Verification:]\ \newline
+    Inspection
+\end{description}
+\requirement{Suffix Determination}
+\label{reqt:SD}
+\begin{description}
+\item[Requirement:]\ \newline
+The \NamedItemDesc\ shall offer a static method capable of finding the part of a dot-conjoined name 
+             following a given prefix. For names of the form "prefix.suffix",
+             this function shall return a pointer to "suffix". The function shall return 
+             the input name if the name does not start with "prefix.".
+\item[Rationale:]\ \newline
+Determination of a suffix in this manner supports JEOD naming and message conventions.
+  \item[Verification:]\ \newline
+    Inspection
+\end{description}

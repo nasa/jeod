@@ -1,0 +1,385 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DynBodyInit_ivv.tex
+% Verification and validation for the DynBodyInit and derived classes.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Inspection, Verification, and Validation}\label{ch:\modelpartid:ivv}
+\section{Inspection}\label{sec:DynBodyInit:inspect}
+
+\inspection[DynBodyInit design]{Design Inspection}
+\label{inspect:DynBodyInit:design}
+Table~\ref{tab:DynBodyInit:virtual_overrides}
+portrays the class hierarchy for this sub-model
+and identifies which classes provide implementations of the
+{\tt initialize()}, {\tt is\_ready()}, and {\tt apply()} methods.
+As shown in that table,\begin{itemize}
+\item The DynBodyInit class derives directly from the BodyAction class.
+\item All other \partxname classes derive from DynBodyInit, some directly,
+others indirectly.
+\item For each provided implementation of the key virtual methods
+an implementation of that method also exists in the parent class.
+\end{itemize}
+Code inspection reveals that each implementation of the key virtual methods
+invokes the overridden parent class implementation and that
+all of the {\tt is\_ready()} methods properly incorporate the result from
+the invocation of the overridden {\tt is\_ready()} into the readiness
+assessment.
+
+By inspection, the \partxname satisfies
+requirements~\ref{reqt:BodyAction:virtual_methods}
+and~\ref{reqt:BodyAction:base_class_mandate}.
+
+\begin{table}[htp]
+\centering
+\caption{DynBody State Initialization Sub-Model Virtual Methods}
+\label{tab:DynBodyInit:virtual_overrides}
+\vspace{1ex}
+\begin{minipage}{0.8\textwidth}
+\centering
+\begin{tabular}{||l|l|c|c|c|} \hline
+{\bf Class} & {\bf Parent Class} &
+\multicolumn{3}{|c|} {\bf Class Defines $\cdots$} \\
+{\bf Name
+  \footnote{To reduce the table width, the leading DynBodyUnit on
+  classes that derive from DynBodyInit is replaced with center dots.
+  For example, the class DynBodyInitWrtPlanet is abbreviated as
+  $\cdots$WrtPlanet.
+  \label{fn:DynBodyInit:virt_meth_table_abbrev}}} &
+{\bf Name \footref{fn:DynBodyInit:virt_meth_table_abbrev}} &
+{\bf initialize()} & {\bf is\_ready()} & {\bf apply()} \\
+\hline \hline
+DynBodyInit & BodyAction &
+  \checkmark & \checkmark & \checkmark \\
+$\cdots$WrtPlanet & DynBodyInit &
+  \checkmark & \checkmark & \checkmark \\
+$\cdots$PlanetDerived & $\cdots$WrtPlanet &
+  \checkmark & \checkmark & \checkmark \\
+$\cdots$LvlhState & $\cdots$PlanetDerived &
+  \checkmark & & \checkmark \\
+$\cdots$LvlhRotState & $\cdots$LvlhState &
+  \checkmark & & \\
+$\cdots$LvlhTransState & $\cdots$LvlhState &
+  \checkmark & & \\
+$\cdots$NedState & $\cdots$PlanetDerived &
+  \checkmark & & \checkmark \\
+$\cdots$NedRotState & $\cdots$NedState &
+  \checkmark & & \\
+$\cdots$NedTransState & $\cdots$NedState &
+  \checkmark & & \\
+$\cdots$TransState & DynBodyInit &
+  \checkmark & \checkmark & \checkmark \\
+$\cdots$Orbit & $\cdots$TransState &
+  \checkmark & & \checkmark \\
+$\cdots$RotState & DynBodyInit &
+  \checkmark & \checkmark & \checkmark \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+
+
+\section{Validation}
+This section describes various tests conducted to verify and validate
+that the \partxname satisfies the requirements levied against it.
+All verification and validation test source code, simulations and procedures
+for this sub-model are in either the {\tt SIM\_orbinit}, or {\tt SIM\_lvlh\_init},
+subdirectory of the JEOD directory {\tt models/dynamics/body\_action/verif}.
+
+Each of the simulation directories comprise
+\begin{itemize}
+\item A Trick \Sdefine file. This file defines
+two dynamic bodies, each having a variety of state initializers;
+a dynamics manager, which is needed to run the initializers,
+and a minimal set of other objects needed by the dynamics manager.
+\item Run directories in each of the {\tt SET\_test} and
+{\tt SET\_test\_val} directories,
+The run directories within the {\tt SET\_test} directory contain
+simulation input files which the correspondingly-named run directories
+in the {\tt SET\_test\_val} directory contain log files used for
+regression testing.
+\item Several {\tt Modified\_data} files and one {\tt Log\_data} file,
+which are used by the run input files to configure a simulation run.
+\item In {\tt SIM\_orbinit}, one test script, {\tt scripts/run\_tests.pl}.
+The output of the shell script is organized to correspond with
+the validation tests described in this section.
+Numbers that pass the various test criteria are marked in green while
+failing values are marked in red.
+\end{itemize}
+
+\newpage
+\test{State Initializations}
+\label{test:DynBodyInit:state_init}
+\begin{description}
+\item[Background]
+The purpose of the \partxname is to initialize
+reference frame states contained in a DynBody object.
+A reference frame state comprises two main parts, the translational and
+rotational aspects of the frame. A reference frame's translational state
+describes the position and velocity of the origin of the frame with respect
+to the parent frame; the rotational state describes the orientation and
+angular velocity of the frame's axes with respect to the parent frame.
+
+The DynBodyInit subclasses set some but not necessarily all aspects of some
+reference frame associated with a DynBody object. The set reference frame
+might or might not be the DynBody object's integrated frame, and the
+reference reference frame for the DynBodyInit object might or might not
+be the DynBody object's integration frame.
+
+\item[Test description]
+These tests verify the errors that result from initializing state
+via the various DynBodyInit subclasses fall within bounds.
+
+\item[Test cases]
+Table~\ref{tab:DynBodyInit:Cartesian}
+lists the simulation run directories associated with this test
+and the results of the test.
+
+\item[Success criteria]
+These tests pertain to a vehicle initialized in low Earth orbit
+using either specifications relative to the Earth or to another
+spacecraft in low Earth orbit. The errors should be very small,
+and thus the success criteria are quite stringent for this test.
+Each component of the position vector
+must have an error no larger than 1 millimeter
+and each component of the velocity vector
+must have an error no larger than 0.01 millimeters/second.
+\item[Test results]
+All tests pass.
+\item[Applicable requirements]
+This test collectively demonstrates the satisfaction of
+requirements~\ref{reqt:DynBodyInit:cartesian_trans}
+to~\ref{reqt:DynBodyInit:is_ready}.
+\end{description}
+
+\begin{table}[htp]
+\centering
+\caption{Cartesian Position/Velocity Test Cases}
+\label{tab:DynBodyInit:Cartesian}
+\vspace{1ex}
+\begin{minipage}{\textwidth}
+\centering
+\begin{tabular}{||l|l|l|l|l|l|l|l|} \hline
+{\bf Run} & {\bf Class} & {\bf Source} & {\bf Subj.} & {\bf Subj.} &
+{\bf Pos. Err.} & {\bf Vel. Err.} & {\bf Status} \\
+{\bf Directory} & {\bf Name
+\footnote{The class names in the table are listed in abbreviated form.
+The true class name is the listed class name prefixed with ``DynBodyInit''
+and suffixed with ``State''.
+For example, Trans is short for DynBodyInitTransState.}} &
+{\bf Frame} & {\bf Frame} & {\bf Vehicle} &
+{(m)} & {(m/s)} & \\
+\hline \hline
+RUN\_0400 & Trans      & \Inertial & \Body   & ISS     &
+  \green{$0.0$}          & \green{$0.0$}          & \passed \\
+RUN\_0401 & Trans      & \Inertial & \Body   & STS 114 &
+  \green{$0.0$}          & \green{$0.0$}          & \passed \\
+RUN\_0410 & Trans      & \Pfix     & \Body   & ISS     &
+  \green{$3.0\eneg{9}$}  & \green{$1.9\eneg{12}$} & \passed \\
+RUN\_0411 & Trans      & \Pfix     & \Body   & STS 114 &
+  \green{$3.0\eneg{9}$}  & \green{$1.8\eneg{12}$} & \passed \\
+RUN\_0441 & Trans      & \TBody    & \Body   & STS 114 &
+  \green{$1.3\eneg{10}$} & \green{$3.5\eneg{13}$} & \passed \\
+RUN\_0571 & LvlhTrans  & \TLvlh    & \Body   & STS 114 &
+  \green{$1.3\eneg{10}$} & \green{$3.3\eneg{13}$} & \passed \\
+RUN\_0681 & NedTrans   & \TNed     & \Body   & STS 114 &
+  \green{$4.1\eneg{9}$}  & \green{$2.2\eneg{12}$} & \passed \\
+RUN\_3771 & Lvlh       & \TLvlh    & \Body   & STS 114 &
+  \green{$1.3\eneg{10}$} & \green{$3.3\eneg{13}$} & \passed \\
+RUN\_3822 & Ned        & \Ned      & \Struct & Pad 39A &
+  \green{$2.1\eneg{9}$}  & \green{$7.1\eneg{14}$} & \passed \\
+RUN\_4451 & Trans      & \TStruct  & \Struct & STS 114 &
+  \green{$3.3\eneg{10}$} & \green{$2.8\eneg{13}$} & \passed \\
+RUN\_4681 & NedTrans   & \TNed     & \Struct & STS 114 &
+  \green{$1.3\eneg{9}$}  & \green{$1.3\eneg{13}$} & \passed \\
+RUN\_5461 & Trans      & \TPoint   & \Point  & STS 114 &
+  \green{$7.7\eneg{10}$} & \green{$1.0\eneg{12}$} & \passed \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Orbital Elements Test Cases}
+\label{tab:DynBodyInit:Orbit}
+\vspace{1ex}
+\begin{tabular}{||l|l|l|l|l|l|l|} \hline
+{\bf Run} & {\bf Source} & {\bf Subject} & {\bf Set} &
+{\bf Pos. Err} & {\bf Vel. Err.} & {\bf Status} \\
+{\bf Directory} & {\bf Frame} & {\bf Vehicle} & {\bf \#} &
+{(m)} & {(m/s)} & \\
+\hline \hline
+RUN\_0001 & \Inertial & ISS     &  1 &
+  \green{$4.9\eneg{5}$}  & \green{$6.6\eneg{8}$}  & \passed \\
+RUN\_0002 & \Inertial & ISS     &  2 &
+  \green{$2.7\eneg{5}$}  & \green{$5.4\eneg{8}$}  & \passed \\
+RUN\_0003 & \Inertial & ISS     &  3 &
+  \green{$1.9\eneg{5}$}  & \green{$5.7\eneg{8}$}  & \passed \\
+RUN\_0004 & \Inertial & ISS     &  4 &
+  \green{$1.7\eneg{5}$}  & \green{$5.3\eneg{8}$}  & \passed \\
+RUN\_0005 & \Inertial & ISS     &  5 &
+  \green{$2.9\eneg{5}$}  & \green{$5.9\eneg{8}$}  & \passed \\
+RUN\_0006 & \Inertial & ISS     &  6 &
+  \green{$1.7\eneg{5}$}  & \green{$5.3\eneg{8}$}  & \passed \\
+RUN\_0010 & \Inertial & ISS     & 10 &
+  \green{$1.7\eneg{5}$}  & \green{$5.7\eneg{8}$}  & \passed \\
+RUN\_0011 & \Inertial & ISS     & 11 &
+  \green{$1.7\eneg{5}$}  & \green{$5.3\eneg{8}$}  & \passed \\
+RUN\_0101 & \Inertial & STS 114 &  1 &
+  \green{$1.7\eneg{5}$}  & \green{$3.2\eneg{8}$}  & \passed \\
+RUN\_0102 & \Inertial & STS 114 &  2 &
+  \green{$4.2\eneg{5}$}  & \green{$4.4\eneg{8}$}  & \passed \\
+RUN\_0103 & \Inertial & STS 114 &  3 &
+  \green{$8.3\eneg{5}$}  & \green{$1.1\eneg{7}$}  & \passed \\
+RUN\_0104 & \Inertial & STS 114 &  4 &
+  \green{$8.3\eneg{5}$}  & \green{$9.6\eneg{8}$}  & \passed \\
+RUN\_0105 & \Inertial & STS 114 &  5 &
+  \green{$2.0\eneg{5}$}  & \green{$3.4\eneg{8}$}  & \passed \\
+RUN\_0106 & \Inertial & STS 114 &  6 &
+  \green{$3.9\eneg{5}$}  & \green{$5.0\eneg{8}$}  & \passed \\
+RUN\_0110 & \Inertial & STS 114 & 10 &
+  \green{$8.4\eneg{5}$}  & \green{$1.1\eneg{7}$}  & \passed \\
+RUN\_0111 & \Inertial & STS 114 & 11 &
+  \green{$8.3\eneg{5}$}  & \green{$9.6\eneg{8}$}  & \passed \\
+RUN\_0201 & \Pfix     & ISS     &  1 &
+  \green{$8.0\eneg{5}$}  & \green{$6.7\eneg{8}$}  & \passed \\
+RUN\_0202 & \Pfix     & ISS     &  2 &
+  \green{$7.1\eneg{5}$}  & \green{$3.8\eneg{8}$}  & \passed \\
+RUN\_0203 & \Pfix     & ISS     &  3 &
+  \green{$6.4\eneg{5}$}  & \green{$3.7\eneg{8}$}  & \passed \\
+RUN\_0204 & \Pfix     & ISS     &  4 &
+  \green{$6.3\eneg{5}$}  & \green{$6.4\eneg{8}$}  & \passed \\
+RUN\_0205 & \Pfix     & ISS     &  5 &
+  \green{$7.0\eneg{5}$}  & \green{$5.1\eneg{9}$}  & \passed \\
+RUN\_0206 & \Pfix     & ISS     &  6 &
+  \green{$6.3\eneg{5}$}  & \green{$6.2\eneg{8}$}  & \passed \\
+RUN\_0210 & \Pfix     & ISS     & 10 &
+  \green{$6.4\eneg{5}$}  & \green{$3.7\eneg{8}$}  & \passed \\
+RUN\_0211 & \Pfix     & ISS     & 11 &
+  \green{$6.3\eneg{5}$}  & \green{$6.4\eneg{8}$}  & \passed \\
+RUN\_0301 & \Pfix     & STS 114 &  1 &
+  \green{$4.2\eneg{5}$}  & \green{$6.2\eneg{8}$}  & \passed \\
+RUN\_0302 & \Pfix     & STS 114 &  2 &
+  \green{$8.9\eneg{5}$}  & \green{$8.9\eneg{8}$}  & \passed \\
+RUN\_0303 & \Pfix     & STS 114 &  3 &
+  \green{$2.3\eneg{5}$}  & \green{$6.6\eneg{8}$}  & \passed \\
+RUN\_0304 & \Pfix     & STS 114 &  4 &
+  \green{$1.9\eneg{5}$}  & \green{$5.7\eneg{8}$}  & \passed \\
+RUN\_0305 & \Pfix     & STS 114 &  5 &
+  \green{$2.4\eneg{5}$}  & \green{$6.0\eneg{8}$}  & \passed \\
+RUN\_0306 & \Pfix     & STS 114 &  6 &
+  \green{$1.9\eneg{5}$}  & \green{$5.6\eneg{8}$}  & \passed \\
+RUN\_0310 & \Pfix     & STS 114 & 10 &
+  \green{$2.5\eneg{5}$}  & \green{$6.7\eneg{8}$}  & \passed \\
+RUN\_0311 & \Pfix     & STS 114 & 11 &
+  \green{$1.9\eneg{5}$}  & \green{$5.7\eneg{8}$}  & \passed \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Attitude Test Cases}
+\label{tab:DynBodyInit:Attitude}
+\vspace{1ex}
+\begin{minipage}{\textwidth}
+\centering
+\begin{tabular}{||l|l|l|l|l|l|l|} \hline
+{\bf Run} & {\bf Class} & {\bf Source} & {\bf Subj.} & {\bf Subj.} &
+{\bf Att. Err.} & {\bf Status} \\
+{\bf Directory} & {\bf Name
+\footnote{See table~\ref{tab:DynBodyInit:Cartesian}.}} &
+{\bf Frame} & {\bf Frame} & {\bf Vehicle} &
+{(d)} & \\
+\hline \hline
+RUN\_1230 & LvlhRot    & \TLvlh    & \Body   & ISS     &
+  \green{$0.0$}          & \passed \\
+RUN\_2100 & Rot        & \Inertial & \Body   & ISS     &
+  \green{$3.0\eneg{14}$} & \passed \\
+RUN\_3771 & Lvlh       & \TLvlh    & \Body   & STS 114 &
+  \green{$2.1\eneg{14}$} & \passed \\
+RUN\_3822 & Ned        & \Ned      & \Struct & Pad 39A &
+  \green{$1.8\eneg{14}$} & \passed \\
+RUN\_4451 & Rot        & \TStruct  & \Struct & STS 114 &
+  \green{$2.7\eneg{14}$} & \passed \\
+RUN\_4681 & NedRot     & \TNed     & \Struct & STS 114 &
+  \green{$1.4\eneg{14}$} & \passed \\
+RUN\_5461 & Rot        & \TPoint   & \Point  & STS 114 &
+  \green{$1.3\eneg{14}$} & \passed \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+
+
+\begin{table}[htp]
+\centering
+\caption{Body Rate Test Cases}
+\label{tab:DynBodyInit:Att_rate}
+\vspace{1ex}
+\begin{minipage}{\textwidth}
+\centering
+\begin{tabular}{||l|l|l|l|l|l|l|} \hline
+{\bf Run} & {\bf Class} & {\bf Source} & {\bf Subj.} & {\bf Subj.} &
+{\bf Rate Err.} & {\bf Status} \\
+{\bf Directory} & {\bf Name
+\footnote{See table~\ref{tab:DynBodyInit:Cartesian}.}} &
+{\bf Frame} & {\bf Frame} & {\bf Vehicle} &
+{(d/s)} & \\
+\hline \hline
+RUN\_1230 & LvlhRot    & \TLvlh    & \Body   & ISS     &
+  \green{$7.8\eneg{19}$} & \passed \\
+RUN\_2100 & Rot        & \Inertial & \Body   & ISS     &
+  \green{$0.0$}          & \passed \\
+RUN\_3771 & Lvlh       & \TLvlh    & \Body   & STS 114 &
+  \green{$1.2\eneg{17}$} & \passed \\
+RUN\_3822 & Ned        & \Ned      & \Struct & Pad 39A &
+  \green{$9.8\eneg{19}$} & \passed \\
+RUN\_4451 & Rot        & \TStruct  & \Struct & STS 114 &
+  \green{$2.2\eneg{17}$} & \passed \\
+RUN\_4681 & NedRot     & \TNed     & \Struct & STS 114 &
+  \green{$4.5\eneg{19}$} & \passed \\
+RUN\_5461 & LvlhRot    & \TLvlh    & \Body   & STS 114 &
+  \green{$0.0$}          & \passed \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+
+\clearpage
+\section{Requirements Traceability}
+Table~\ref{tab:DynBodyInit:reqt_traceability}
+summarizes the inspections and tests that demonstrate the satisfaction of the
+requirements levied on the \partxname.
+
+\begin{table}[htp]
+\centering
+\caption{DynBodyInit Requirements Traceability}
+\label{tab:DynBodyInit:reqt_traceability}
+\vspace{1ex}
+\begin{tabular}{||l @{\hspace{4pt}} l|l @{\hspace{2pt}} l @{\hspace{4pt}} l|}
+\hline
+\multicolumn{2}{||l|}{\bf Requirement} &
+\multicolumn{3}{l|}{\bf Artifact} \\ \hline\hline
+\ref{reqt:DynBodyInit:cartesian_trans} & Translational state &
+   Test & \ref{test:DynBodyInit:state_init} &
+   State initializations\\[4pt]
+\ref{reqt:DynBodyInit:cartesian_rot} & Rotational state &
+   Test & \ref{test:DynBodyInit:state_init} &
+   State initializations\\[4pt]
+\ref{reqt:DynBodyInit:orbelem} & Orbital elements &
+   Test & \ref{test:DynBodyInit:state_init} &
+   State initializations\\[4pt]
+\ref{reqt:DynBodyInit:LVLH} & LVLH frame &
+   Test & \ref{test:DynBodyInit:state_init} &
+   State initializations\\[4pt]
+\ref{reqt:DynBodyInit:NED} & NED frame &
+   Test & \ref{test:DynBodyInit:state_init} &
+   State initializations\\[4pt]
+\ref{reqt:DynBodyInit:is_ready} & Readiness detection &
+   Test & \ref{test:DynBodyInit:state_init} &
+   State initializations\\
+\hline
+\end{tabular}
+\end{table}

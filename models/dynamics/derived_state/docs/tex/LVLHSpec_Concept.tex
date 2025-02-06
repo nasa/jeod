@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Conceptual part of Product Spec for the LVLH model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\section{Conceptual Design}
+The \LVLHDesc\ is used to express the state of some vehicle with respect to a reference frame that is aligned with the local vertical and horizontal axes at some other point (referred to below as the defining point), which is often another vehicle.  A planetary object (referred to below as the specified planet) is used to define ``vertical'', and also to orient the axes in the horizontal plane.
+
+The axes are defined as:
+
+\begin{align*}
+ \hat i &= \hat j \times \hat k \\
+ \hat j &= - \hat h \\
+ \hat k &= - \hat r
+\end{align*}
+
+$\hat h$ represents the unit vector oriented with the angular momentum vector, associated with the translational motion of the defining point with respect to the specified planet.
+
+$\hat r$ represents the unit vector oriented with the radial vector, from the specified planet to the defining point.
+
+The LVLH reference frame fits into the reference frame tree as a child of the inertial reference frame associated with the specified planet.
+
+The LVLH reference frame provided by this derived state model is a recti-linear LVLH representation.

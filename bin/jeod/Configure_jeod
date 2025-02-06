@@ -1,0 +1,238 @@
+#!/usr/bin/perl -w
+
+################################################################################
+#
+# Purpose:
+# Generate the makefiles used to build the JEOD.
+#
+# Usage:
+# Configure_jeod [options]
+#
+# Options:
+# The user can provide various options that alter the behavior of this script.
+# See the documentation at the end of the script for details.
+#
+################################################################################
+
+
+eval 'exec perl -S $0 ${1+"$@"}'
+if 0;
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+## use lib "$ENV{JEOD_HOME}/bin/jeod";
+## use JeodConfig;
+
+
+my ($Help,            # -help            Prints help and exists
+    $Analysis,        # -analysis        Build in tools/analysis
+    $Compiler,        # -compiler        Specifies compiler to be used
+    $Build,           # -nobuild         To just build the toplevel makefile
+    $Er7_utils,       # -er7_utils       ER7 utilities home directory
+    $Extras,          # -extras          Build in unsupported/models
+    $Gcov,            # -gcov            Compile with options for gcov
+    $Harness,         # -harness         Build in tools/test_harness
+    $Makefile,        # -makefile <name> Specify the makefile name
+    $Keep_going,      # -nokeep-going    To make build stop at first error
+    $Non_trick,       # -nontrick        Build in unsupported/non_trick
+    $Suffix,          # -suffix <value>  Specify the lib & obj directory suffix
+    $Trick,           # -trick           Build with -DTRICK_VER set
+
+    @Install_options, # Options passed to install_makefile.pl
+    @Subdirs,         # Directories passed to install_makefile.pl
+    @Make_options);   # Options passed to make
+
+
+
+# Set default command line options.
+$Help         = 0;
+$Analysis     = 0;
+$Build        = 1;
+$Gcov         = 0;
+$Harness      = 1;
+$Non_trick    = 0;
+$Er7_utils    = $ENV{ER7_UTILS_HOME};
+$Extras       = 0;
+$Keep_going   = 1;
+$Makefile     = 'makefile';
+$Suffix       = '';
+$Trick        = 0;
+
+if (defined $ENV{TRICK_HOST_CPU}) {
+   $Suffix = '_jeod_' . $ENV{TRICK_HOST_CPU};
+}
+
+
+# Parse the command line.
+GetOptions (
+   'help'         => \$Help,
+   'analysis!'    => \$Analysis,
+   'build!'       => \$Build,
+   'compiler=s'   => \$Compiler,
+   'er7_utils=s'  => \$Er7_utils,
+   'extras!'      => \$Extras,
+   'keep-going!'  => \$Keep_going,
+   'gcov!'        => \$Gcov,
+   'harness!'     => \$Harness,
+   'makefile=s'   => \$Makefile,
+   'nontrick!'    => \$Non_trick,
+   'suffix=s'     => \$Suffix,
+   'trick!'       => \$Trick)
+   or pod2usage(2);
+pod2usage(-exitstatus => 0, -verbose => 2) if $Help;
+
+$Non_trick && $Trick
+   and die "Flags -trick and -nontrick are incompatible\n";
+
+unless (defined $Er7_utils) {
+   if (defined $ENV{ER7_UTILS_HOME}) {
+      $Er7_utils = "$ENV{ER7_UTILS_HOME}";
+   }
+   elsif (defined $ENV{TRICK_HOME}) {
+      warn "ER7_UTILS_HOME is not defined. Using \$TRICK_HOME/trick_source\n";
+      $Er7_utils = "$ENV{TRICK_HOME}/trick_source";
+   }
+   else {
+      die 'Neither ER7_UTILS_HOME nor TRICK_HOME is defined';
+   }
+   $ENV{ER7_UTILS_HOME} = $Er7_utils;
+}
+
+if ($Analysis) {
+  warn "Option -analysis is not yet supported\n";
+   $Analysis = 0;
+}
+
+
+# Interpret the options.
+@Subdirs = qw(models);
+push @Subdirs, 'tools'       if $Harness || $Analysis;
+push @Subdirs, 'unsupported' if $Extras || $Non_trick;
+
+@Install_options = ('-top', '-makefile', $Makefile, '-suffix', $Suffix);
+push @Install_options, '-analysis'               if $Analysis;
+push @Install_options, ('-compiler', $Compiler)  if defined $Compiler;
+push @Install_options, '-extras'                 if $Extras;
+push @Install_options, '-gcov'                   if $Gcov;
+push @Install_options, '-harness'                if $Harness;
+push @Install_options, '-non_trick'              if $Non_trick;
+push @Install_options, '-trick'                  if $Trick;
+
+@Make_options = ('-f', $Makefile);
+push @Make_options, '-k' if $Keep_going;
+
+
+chdir $ENV{JEOD_HOME} or die;
+
+system 'perl',
+       "bin/jeod/install_makefile.pl",
+       @Install_options,
+       @Subdirs;
+
+system 'make', @Make_options if $Build && -f $Makefile;
+
+__END__
+
+=head1 NAME
+
+Configure_jeod -
+Generates the toplevel makefile used to build the JEOD and optionally
+builds the JEOD library/libraries.
+
+=head1 SYNPOSIS
+
+Configure_jeod [options]
+create_toplevel_makefile.pl
+[ -analysis | -noanalysis ]
+[ -build | -nobuild ]
+[ -harness | -noharness ]
+[ -trick | -notrick ]
+[ -unsupported | -nounsupported ]
+[ -makefile <makefile_name> ]
+[ -suffix <suffix> ]
+
+
+=head1 OPTIONS
+
+=over 2
+
+=item
+
+-help
+
+Print this page and exit.
+
+=item
+
+-analysis / -noanalysis (default)
+
+Future hook. For now, do not set this option.
+
+=item
+
+-build (default) / -nobuild
+
+The script always builds the topevel makefile (the one in $JEOD_HOME).
+The script builds just the toplevel makefile when -nobuild is specified.
+When -build is specified the script will build all specified products.
+
+=item
+
+-gcov / -nogcov (default)
+
+Specifying -gcov has the effect of adding -fprofile-arcs and -ftest-coverage
+to the TRICK_CFLAGS environment variable. Files are compiled in prep for use
+with gcov. The default value (-nogcov) does nothing special with the compile
+flags.
+
+=item
+
+-harness (default) / -noharness
+
+Specifying -harness makes the generated makefiles traverse into
+tools/test_harness as well as the models directory. With -noharness,
+only the models code will be compiled into the JEOD library.
+
+=item
+
+-keep_going (default) / -nokeep_going
+
+Specifying -keep_going makes make continue on even in the face of errors.
+With -nokeep, make will stop at the first error.
+
+=item
+
+-trick / -notrick (default)
+
+Only one of the -trick / -notrick options should be specified.
+These options specify whether the JEOD library is tno be build for use
+inside of (-trick) or outside of (-notrick) a Trick environment.
+
+
+=back
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item
+
+JEOD_HOME
+The toplevel JEOD directory; the directory that contains this script.
+
+=item
+
+TRICK_CFLAGS
+The compile flags used with Trick.
+
+=back
+
+=head1 DESCRIPTION
+
+The Configure_jeod script generates the toplevel makefile used to build the
+JEOD library, and optionally, auxilliary libraries and
+verification simulations.
+
+
+=cut

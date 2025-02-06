@@ -1,0 +1,338 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% user.tex
+% User guide for the Memory Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}
+\label{ch:overview:user}
+%----------------------------------
+
+This chapter describes of the use of the \ModelDesc.
+
+\section{Analysis}
+The \ModelDesc is not an analytic tool. It can however be used to identify
+memory usage problems by defining {\tt JEOD\_MEMORY\_DEBUG} and
+{\tt JEOD\_MEMORY\_GUARD} in the {\tt TRICK]\_CFLAGS} environment variable.
+The following settings are available:
+\begin{itemize}
+\item {\tt -DJEOD\_MEMORY\_DEBUG=0} (default setting).
+  The \ModelDesc reports only serious errors in this mode.
+\item {\tt -DJEOD\_MEMORY\_DEBUG=1}. Level 0 plus summary.
+  This setting makes the model generate a summary report at shutdown time.
+\item {\tt -DJEOD\_MEMORY\_DEBUG=2}. Reserved.
+\item {\tt -DJEOD\_MEMORY\_DEBUG=3}. Blow-by-blow account of all transactions.
+\item {\tt -DJEOD\_MEMORY\_GUARD=0} (default setting).
+  The model does not guard against memory overwrites.
+\item {\tt -DJEOD\_MEMORY\_GUARD=1}
+  If both debugging and guarding are enabled, the model guards against simple
+  memory overwrites by allocating 24 extra bytes around each allocation.
+  Any detected modifications to these guard bytes are reported as errors.
+\end{itemize}
+
+\section{Integration}
+Any JEOD-based simulation must contain an object of a class that derives from
+the JeodSimulationInterface class. A compliant version of a class that derives
+from JeodSimulationInterface (e.g., the JeodTrickSimInterface class recommended
+for use in all Trick-based simulations that use JEOD)
+must contain a JeodMemoryManager object.
+Following the instructions for use of the \hypermodelref{SIMINTERFACE}.
+
+\section{Programmatic Use of the Model}
+Model developers are free to use the externally-usable macros in their own
+models.
+
+\subsection{Primitive Types}
+To allocate/deallocate primitive types, or pointers to primitive types,
+all that is needed is to include the model header file and use the appropriate
+macros. For example, suppose the class {\tt MyModel} has a {\tt double **}
+member data element named {\tt double\_arr}. It is to be a $2\times N$ array,
+where $N$ is a to-be-supplied parameter. Displayed below are the
+{\tt initialize} and {\tt cleanup} methods for this class.
+
+
+\begin{verbatim}
+// Jeod includes
+#include "utils/memory/jeod_alloc.hh"
+
+// Model includes
+#include "../my_model.hh"
+
+void
+MyModel::initialize (
+   unsigned int nelem_in)  // In: -- Number of elements
+{
+   // Allocate double_arr
+   nelem = nelem_in;
+   double_arr    = JEOD_ALLOC_PRIM_ARRAY (2, double *);
+   double_arr[0] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
+   double_arr[1] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
+   
+   // Populate double_arr (not shown)
+
+   return;
+}
+
+void
+MyModel::cleanup ()
+{
+   JEOD_DELETE_ARRAY (double_arr[0]);
+   JEOD_DELETE_ARRAY (double_arr[1]);
+   JEOD_DELETE_ARRAY (double_arr);
+   return;
+}
+\end{verbatim}
+
+
+\subsection{Structured Types}
+Using the model with structured types in a Trick setting requires a
+bit more work. The user must declare as an external reference the
+automatically-generated {\tt ATTRIBUTES} array for the types.
+Suppose that a pointer to a {\tt Foo} object is added as a data
+member to {\tt MyModel} class. The {\tt Foo} object is to be constructed
+with a non-default constructor that takes a reference to the MyModel object
+as an argument.
+
+\begin{verbatim}
+// Trick includes
+#include "sim_services/include/attributes.h"
+extern ATTRIBUTES * attrFoo;
+
+// Jeod includes
+#include "utils/memory/jeod_alloc.hh"
+
+// Model includes
+#include "../my_model.hh"
+
+void
+MyModel::initialize (
+   unsigned int nelem_in)  // In: -- Number of elements
+{
+   // Allocate double_arr
+   nelem = nelem_in;
+   double_arr    = JEOD_ALLOC_PRIM_ARRAY (2, double *);
+   double_arr[0] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
+   double_arr[1] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
+   
+   // Populate double_arr (not shown)
+
+   // Allocate and construct the Foo object.
+   foo = JEOD_ALLOC_CLASS_OBJECT (Foo, (*this));
+   
+   return;
+}
+
+void
+MyModel::cleanup ()
+{
+   JEOD_DELETE_OBJECT (foo);
+   JEOD_DELETE_ARRAY (double_arr[0]);
+   JEOD_DELETE_ARRAY (double_arr[1]);
+   JEOD_DELETE_ARRAY (double_arr);
+   return;
+}
+\end{verbatim}
+
+\subsection{Macro Descriptions}
+
+\subsubsection{Macro {\tt JEOD\_ALLOC\_CLASS\_MULTI\_POINTER\_ARRAY(nelem,type,asters)}}
+\begin{description}
+\item[Purpose]
+Allocate an array of {\tt nelem} multi-level pointers to the specified
+{\tt type}. The {\tt asters} are asterisks that specify the pointer level.
+The allocated memory is initialized via {\tt new}.
+\item[Returns]
+Allocated array of specified type.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt nelem} &  Size of the array. \\
+{\tt type} &  The underlying type, which must be a structured type. \\
+{\tt asters} &  A bunch of asterisks. \\
+\end{tabular}
+\item[Example]
+Allocate two pointers-to-pointers to the class {\tt Foo}.
+Note that this does not allocate either the {\tt Foo} objects or pointers to
+the {\tt Foo} objects.
+\begin{verbatim}
+Foo *** foo_array = JEOD_ALLOC_CLASS_MULTI_POINTER_ARRAY(2,Foo,**);
+\end{verbatim}
+\end{description}
+
+\subsubsection{Macro {\tt JEOD\_ALLOC\_CLASS\_POINTER\_ARRAY(nelem,type)}}
+\begin{description}
+\item[Purpose]
+Allocate an array of {\tt nelem} pointers to the specified {\tt type}.
+The allocated memory is initialized via {\tt new}.
+\item[Returns] Allocated array of specified type.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt nelem} &  Size of the array. \\
+{\tt type} &  The underlying type, which must be a structured type.
+\end{tabular}
+\item[Example]
+Allocate an array of two pointers to the class {\tt Foo}.
+Note that this does not allocate the {\tt Foo} objects themselves.\begin{verbatim}
+Foo ** foo_array = JEOD_ALLOC_CLASS_POINTER_ARRAY(2,Foo);
+\end{verbatim}
+\end{description}
+
+
+\subsubsection{Macro {\tt JEOD\_ALLOC\_CLASS\_ARRAY(nelem,type)}}
+\begin{description}
+\item[Purpose]
+Allocate an array of {\tt nelem} instances of the specified structured
+{\tt type}. The default constructor is invoked to initialize each
+allocated object.
+\item[Returns] Allocated array of specified type.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt nelem} &  Size of the array. \\
+{\tt type} &  The underlying type, which must be a structured type.
+\end{tabular}
+\item[Example]
+Allocate an array containing two objects to the class {\tt Foo}.
+\begin{verbatim}
+Foo ** foo_array = JEOD_ALLOC_CLASS_ARRAY(2,Foo);
+\end{verbatim}
+\end{description}
+
+\subsubsection{Macro {\tt JEOD\_ALLOC\_PRIM\_ARRAY(nelem,type)}}
+\begin{description}
+\item[Purpose]
+Allocate {\tt nelem} elements of the specified primitive {\tt type}.
+The allocated array is zero-filled.
+\item[Returns] Allocated array of specified type.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt nelem} &  Size of the array. \\
+{\tt type} &  The underlying type, which must be a C++ primitive type.
+\end{tabular}
+\item[Example]
+Allocate an array of two doubles.
+\begin{verbatim}
+double * double_array = JEOD_ALLOC_PRIM_ARRAY(2,double);
+\end{verbatim}
+\end{description}
+
+\subsubsection{Macro {\tt JEOD\_ALLOC\_CLASS\_OBJECT(type,constr)}}
+\begin{description}
+\item[Purpose]
+Allocate one instance of the specified class. The supplied
+constructor arguments, {\tt constr}, are used as arguments to
+{\tt new}.
+The default constructor will be invoked if the {\tt constr}
+argument is the empty list; a non-default constructor will be
+invoked for a non-empty list.
+\item[Returns] Pointer to allocated object.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt type} &  The underlying type, which must be a structured type. \\
+{\tt constr} &  Constructor arguments, enclosed in parentheses.
+\end{tabular}
+\item[Example]
+Allocate a new object of type Foo, invoking the
+\verb|Foo::Foo(bar,baz)| constructor.
+\begin{verbatim}
+Foo * foo = JEOD_ALLOC_CLASS_OBJECT(Foo,(bar,baz));
+\end{verbatim}
+\end{description}
+
+
+\subsubsection{Macro {\tt JEOD\_ALLOC\_PRIM\_OBJECT(type, initial)}}
+\begin{description}
+\item[Purpose]
+Allocate one instance of the specified {\tt type}.
+The object is initialized with the supplied {\tt initial} value.
+\item[Returns] Pointer to allocated primitive.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt type} &  The underlying type, which must be a C++ primitive type. \\
+{\tt initial} &  Initial value.
+\end{tabular}
+\item[Example]
+Allocate a double and initialize it to $\pi$.
+\begin{verbatim}
+double * foo = JEOD_ALLOC_PRIM_OBJECT(double, 3.14159265358979323846);
+\end{verbatim}
+\end{description}
+
+\subsubsection{Macro {\tt JEOD\_STRDUP(string)}}
+\begin{description}
+\item[Purpose]
+Create a copy of the input {\tt string}.
+\item[Note] The {\tt string} should not be a computed item.
+\item[Returns] Pointer to duplicated string.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt string} &  String to be duplicated.
+\end{tabular}
+\item[Example]
+Allocate a \verb|char*| array large enough to hold the
+string "Hello, world" (plus the null character) and copy the
+string into the allocated array.
+\begin{verbatim}
+char * foo = JEOD_STRDUP("Hello, world");
+\end{verbatim}
+\end{description}
+
+\subsubsection{Macro {\tt JEOD\_IS\_ALLOCATED (ptr)}}
+\begin{description}
+\item[Purpose]
+Determine if {\tt ptr} was allocated by some
+\verb|JEOD_ALLOC_xxx_ARRAY| macro.
+\item[Returns]
+true if {\tt ptr} was allocated by the model, false otherwise.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt ptr} &  Memory to be checked.
+\end{tabular}
+\item[Example]
+Check that memory was allocated by JEOD before freeing it.
+\begin{verbatim}
+if ((name != NULL) && JEOD_IS_ALLOCATED (name)) {
+   JEOD_DELETE_ARRAY(name);
+}
+\end{verbatim}
+\end{description}
+
+\subsubsection{Macro {\tt JEOD\_DELETE\_ARRAY (ptr)}}
+\begin{description}
+\item[Purpose]
+Free memory at {\tt ptr} that was earlier allocated with some
+{\tt JEOD\_ALLOC\_xxx\_ARRAY} macro.
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt ptr} &  Memory to be released.
+\end{tabular}
+\item[Example]
+Allocate a chunk of memory and then free it.
+\begin{verbatim}
+Foo * foo1 = JEOD_ALLOC_CLASS_ARRAY(2,Foo);
+...
+JEOD_DELETE_ARRAY(foo1);
+\end{verbatim}
+\end{description}
+
+\subsubsection{Macro {\tt JEOD\_DELETE\_OBJECT (ptr)}}
+\begin{description}
+\item[Purpose]
+Free memory at {\tt ptr} that was earlier allocated with some
+{\tt JEOD\_ALLOC\_xxx\_OBJECT} macro.
+\item[Returns] N/A
+\item[Arguments] \ \\
+\begin{tabular}{@{}ll}
+{\tt ptr} &  Memory to be released.
+\end{tabular}
+\item[Example]
+Allocate a chunk of memory and then free it.
+\begin{verbatim}
+Foo * foo1 = JEOD_ALLOC_CLASS_OBJECT(Foo,());
+...
+JEOD_DELETE_OBJECT(foo1);
+\end{verbatim}
+\end{description}
+
+\section{Extension}
+The \ModelDesc is not designed for extensibility.

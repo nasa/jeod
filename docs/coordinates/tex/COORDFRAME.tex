@@ -1,0 +1,170 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: JEODcoord.tex
+%
+% Purpose: Top level document for Model.  Should not need to be edited.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twoside,11pt,titlepage]{report}
+
+%
+% Bring in the common page setup
+%
+\usepackage{dynenv}
+
+%
+% Bring in the model-specific commands
+%
+\usepackage{COORDFRAME}
+
+%
+% Bring in the graphics environment
+%
+\usepackage{graphicx}
+\usepackage{appendix}
+\usepackage{wasysym}
+%
+% Bring in the hyper ref environment
+%
+\usepackage[colorlinks,plainpages=false]{hyperref}
+%  keywords for pdfkeywords are separated by commas
+\hypersetup{
+   pdftitle={\COORDFRAMEDesc},
+   pdfauthor={\ModelAuthor},
+   pdfkeywords={\ModelKeywords},
+   pdfsubject={\COORDFRAMEDesc}}
+
+% for document revisions only: 
+\newcommand\documentHistory{
+{\bf Author} & {\bf Date} & {\bf Description} \\ \hline \hline
+A. A. Jackson & March 2012 &  Initial Version \\ \hline
+}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+\docid{docs}
+\docrev{1.0}
+\date{\RELEASEMONTH\ \RELEASEYEAR}
+\modelname{\COORDFRAMEDesc}
+\doctype{}
+\author{\ModelAuthor}
+\managers{
+  Robert O. Shelton \\ Project Manager \\
+  Michael T. Red \\ Simulation and Graphics Branch Chief \\
+  R. Matt Ondler \\ Software, Robotics, and Simulation Division Chief}
+\pdfbookmark{Title Page}{titlepage}
+\makeDynenvTitlepage
+
+\pdfbookmark{Abstract}{abstract}
+\include{COORDFRAMEAbstract}
+\setcounter{chapter}{0}
+\pdfbookmark{Contents}{contents}
+\tableofcontents
+\vfill
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+\pagenumbering{arabic}
+
+%sections{Document Description}
+
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when 
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this sections.
+%%% Mention that JEOD.pdf is the parent document.
+
+\begin{tabular}{||l|l|l|} \hline
+\documentHistory
+\end{tabular}
+
+\section{Document Organization}
+This document is formatted in accordance with the 
+NASA Software Engineering sections Standard~\cite{NASA:SWE} 
+
+\section{Coordinate Frames Introduction}
+ A reference frame is an ordered set of three
+mutually orthogonal (possibly time dependent) unit length
+direction vectors, coupled with a location
+called the frame's center or origin.
+ 
+Astrodynamics standards distinguish between a reference system and a reference frame \cite{IAU2006}.
+(1) A reference system is the complete specification of how a celestial coordinate
+or vehicle system is to be formed. It defines the origin and fundamental planes (or axes) of the coordinate system. It also specifies all of the constants, models, and algorithms used to transform between observable quantities and reference data that conform to the system.
+(2) A celestial reference frame consists of a set of identifiable fiducial points on the sky along with their coordinates, which serves as the practical realization of a reference system.
+
+In addition vehicle associated reference frames are defined when necessary.
+
+\paragraph{Authority Standards} 
+\begin{itemize}
+\item {Planetary Data System (PDS) - Jet Propulsion Laboratory (JPL) and the 
+JPL Navigation and Ancillary Information Facility }
+\item { International Astronomical Union (IAU)
+The IAU Working Group on Cartographic coordinates.
+     Coordinates and Rotational Elements
+(Coordinated with JPL's Development Ephemeris) }
+\end{itemize}
+
+\paragraph{Notes}
+\begin{itemize}
+\item {In the following IERS stands for International Earth Rotation Service.}
+\item{ In anticipation of the expansion of JEOD celestial coordinate systems to bodies other than the Earth, Moon and Mars sections 2 and 3 below 
+are presented to be in conformance with
+the IAU\cite{IAU2006} and IERS \cite{IERS2003}.
+
+Because of their generality these systems are presented in the order that follows. The Generalized system is presented first and a more detalied realization is presented following.}
+\end{itemize}
+
+
+%\end{description}
+
+%----------------------------------
+%\chapter{JEOD Coordinate Systems}\hyperdef{part}{reqt}{}\label{ch:coord}\JEODid}
+%----------------------------------
+\chapter{JEOD Coordinate Systems}
+
+\include{sections/sec1}
+
+\include{sections/sec2}
+
+\include{sections/sec3}
+
+\include{sections/sec4}
+
+\include{sections/sec5}
+
+\include{sections/sec6}
+
+\include{sections/sec7}
+
+\include{sections/sec7a}
+
+\include{sections/sec8}
+
+\include{sections/sec9}
+
+\include{sections/sec10}
+
+\include{sections/sec11}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\pdfbookmark{Bibliography}{bibliography}
+\bibliography{dynenv,COORDFRAME}
+\bibliographystyle{plain}
+
+\end{document}
+

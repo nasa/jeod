@@ -1,0 +1,305 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File: dynenvmatter.sty
+% This file defines macros that establish document content.
+% Note well: This file does not stand by itself. It is a part of dynenv.sty.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{dynenvmatter}[2011/08/02 v2.2 Dynamics package macros]
+
+
+%
+% Set things up for the cover page
+%
+\pkgrel{\JEODid}
+\JSCnum{\JEODJSCNUM}
+\metatitle{\JEOD}
+\nasaorg{\JEODORG}
+\managers{\JEODMANAGERS}
+
+
+%
+% The report abstract macro issues an almost-harmless \titlepage command,
+% the harm being that it resets the page number to one (or rather, roman i).
+% Override the report abstract to avoid these problems.
+%
+\renewenvironment{abstract}{%
+   \null\vfil
+   \@beginparpenalty\@lowpenalty
+   \begin{center}%
+      \bfseries \abstractname
+      \@endparpenalty\@M
+   \end{center}}%
+{\par\vfil\null}
+
+
+%
+% Front matter
+% The front matter of a JEOD document comprises
+%   - The cover pages,
+%   - An abstract or executive summary,
+%   - The table of contents,
+%   - The list of figures (optional), and
+%   - The list of tables (optional).
+
+% Handy little error macro.
+\def\dynenv@option@error#1#2{%
+   \PackageError{dynenv}{In \#1, #2}{This error is non-recoverable.}}
+
+% \dynenv@frontmatter@summary is the name of the summary section.
+% It is only used if the style is summary, and defaults to {Executive Summary}.
+\def\dynenv@frontmatter@summary{Executive Summary}
+
+% Provide a means for specifying alternate names.
+\define@key[dynenv]{frontmatter}{label}{%
+   \gdef\dynenv@frontmatter@summary{#1}}
+
+% \dynenv@frontmatter@preamble does the 'right thing' to set up for a
+% abstract or summary. By default, the 'right thing' is to croak.
+\def\dynenv@frontmatter@preamble{%
+   \dynenv@option@error{frontmatter}{No style option provided}}
+
+% Provide a means for specifying what that 'right thing' is.
+\define@choicekey+[dynenv]{frontmatter}{style}[\val\nr]{abstract,summary}{%
+   \ifcase\nr\relax
+      \gdef\dynenv@frontmatter@preamble{%
+         \pdfbookmark[\dynenv@topnumber]{Abstract}{abstract}}
+   \or
+      \gdef\dynenv@frontmatter@preamble{%
+         \phantomsection
+         \addcontentsline{toc}{\dynenv@toplevel}{\dynenv@frontmatter@summary}}
+   \fi}
+{%
+   \dynenv@option@error{frontmatter}{Bad style option '\val'}}
+
+
+% Provide a means for specifying whether to generate the list of figures.
+\newif\ifdynenv@frontmatter@lof
+\dynenv@frontmatter@loffalse
+\define@boolkey+[dynenv]{frontmatter}{figures}[true]{%
+   \ifdynenv@frontmatter@figures
+      \dynenv@frontmatter@loftrue
+   \else
+      \dynenv@frontmatter@loffalse
+   \fi}
+{%
+   \dynenv@option@error{frontmatter}{Non-boolean value for figures}}
+
+
+% Provide a means for specifying whether to generate the list of tables.
+\newif\ifdynenv@frontmatter@lot
+\dynenv@frontmatter@lotfalse
+\define@boolkey+[dynenv]{frontmatter}{tables}[true]{%
+   \ifdynenv@frontmatter@tables
+      \dynenv@frontmatter@lottrue
+   \else
+      \dynenv@frontmatter@lotfalse
+   \fi}
+{%
+   \dynenv@option@error{frontmatter}{Non-boolean value for tables}}
+
+
+%
+% \frontmatter[options]{abstractOrSummary}
+% Options are a comma-separated list:
+%   style=abstract|summary
+%   figures[=true|false]
+%   tables[=true|false]
+% abstractOrSummary is the .tex file (sans the .tex suffix) that
+% contains the abstract or summary.
+%
+% The contents of the abstractOrSummary file dictate the style and label
+% options.
+% Case 1: File contains an abstract:
+%   The contents of the abstractOrSummary file are of the form
+%     \begin{abstract}
+%     Words
+%     \end{abstract}
+%   In this case, specify style=abstract in the options.
+% Case 2: File contains an executive summary labeled as such:
+%   The contents of the abstractOrSummary file are of the form
+%     \chapter*{Executive Summary}
+%     Words and section*{} or lower
+%   In this case, specify style=summary in the options.
+% Case 3: File contains a summary (a chapter*) but not an Executive Summary.
+%   For example, the contents of the abstractOrSummary file are of the form
+%     \chapter*{Abstract}
+%     Words and section*{} or lower
+%   In this case, specify style=summary,label=Abstract in the options.
+%
+% If your document contains figures or tables and you want these listed as the
+% list of figures / list of tables, add figures or tables to the options.
+%
+% Some examples:
+% \frontmatter[style=abstract,tables]{ModelAbstract}
+%    Generates a front matter with a list of tables (but no list of figures)
+%    with an abstract contained in the file ModelAbstract.tex.
+% \frontmatter[style=summary,figures,tables]{summary}
+%    Generates a front matter with a list of figures and a list of tables
+%    with an executive summary contained in the file summary.tex.
+% \frontmatter[style=summary,label=Abstract]{abstract}
+%    Generates a front matter with no list of figures or list of tables
+%    with an abstract in chapter* form contained in the file abstract.tex.
+\def\frontmatter{\@ifnextchar[\@frontmatter{\@frontmatter[]}}
+\def\@frontmatter[#1]#2{%
+   \setkeys[dynenv]{frontmatter}{#1}%
+%%
+%% Setup the hyperref package.
+%% Note: This assumes a conformant model-specific package file.
+%%
+   \hypersetup{%
+      pdftitle={\MODELTITLE},%
+      pdfauthor={\ModelAuthor},%
+      pdfkeywords={\ModelKeywords},%
+      pdfsubject={\ModelDesc}}%
+%%
+%% Page numbers in the front matter are in Roman numerals
+%%
+   \pagenumbering{roman}%
+%%
+%% Bookmark the title page.
+%%
+   \pdfbookmark[\dynenv@topnumber]{Title Page}{titlepage}%
+%%
+%% Make the title page (front and back), and possibly the signature page.
+%%
+   \docid{\MODELPATH}%
+   \date{\RELEASEMONTH\ \RELEASEYEAR}%
+   \modelname{\MODELTITLE}%
+   \doctype{}%
+   \author{\ModelAuthor}%
+   \makeDynenvTitlepage
+%%
+%% Include the abstract or executive summary
+%%
+   \dynenv@frontmatter@preamble%
+   \input{#2}
+%%
+%% Construct the table of contents.
+%%
+   \newpage
+   \pdfbookmark[\dynenv@topnumber]{Contents}{contents}%
+   \tableofcontents
+   \vfill
+%%
+%% Construct the list of figures.
+%%
+   \ifdynenv@frontmatter@lof
+      \newpage
+      \phantomsection
+      \addcontentsline{toc}{\dynenv@toplevel}{List of Figures}%
+      \listoffigures
+      \vfill
+   \fi
+%%
+%% Construct the list of tables.
+%%
+   \ifdynenv@frontmatter@lot
+      \newpage
+      \phantomsection
+      \addcontentsline{toc}{\dynenv@toplevel}{List of Tables}%
+      \listoftables
+      \vfill
+   \fi
+}
+
+
+%
+% Main matter
+% \frontmatter[options]{list,of,files}
+% Note: There are no mainmatter options for now.
+% The non-optional argument is a comma-separated list of files to include.
+%
+\def\mainmatter{\@ifnextchar[\@mainmatter{\@mainmatter[]}}
+\def\@mainmatter[#1]#2{%
+   \setkeys[dynenv]{mainmatter}{#1}%
+   \newpage
+   \pagebreak
+   \pagenumbering{arabic}
+   \dynenv@buildlist{dynenv@file@list}{#2}%
+   \dynenv@foreach{\input}{\dynenv@file@list}%
+   \let\dynenv@file@list\relax
+}
+
+
+%
+% Back matter
+%
+
+% Provide means for specifying the model bibliography.
+% Default is \MODELNAME.bib
+% Option modelbibfile provides an alternate name.
+% Option nomodelbibfile says no such file exists.
+\def\dynenv@backmatter@bibfiles{dynenv,\MODELNAME}
+\define@key[dynenv]{backmatter}{modelbibfile}{%
+   \gdef\dynenv@backmatter@bibfiles{dynenv,#1}}%
+\define@boolkey+[dynenv]{backmatter}{nomodelbibfile}[true]{%
+   \ifdynenv@backmatter@nomodelbibfile
+      \gdef\dynenv@backmatter@bibfiles{dynenv}%
+   \else
+      \dynenv@option@error{frontmatter}{nomodelbibfile=false is invalid}%
+   \fi}
+{%
+   \dynenv@option@error{frontmatter}{Non-boolean value for nomodelbibfile}}
+
+% Provide a means for specifying where the bibliography belongs.
+\newif\ifdynenv@backmatter@bibfirst
+\dynenv@backmatter@bibfirstfalse
+\define@choicekey+[dynenv]{backmatter}{bibpos}[\val\nr]{start,end}{%
+   \ifcase\nr\relax
+      \dynenv@backmatter@bibfirsttrue
+   \or
+      \dynenv@backmatter@bibfirstfalse
+   \fi}
+{%
+   \dynenv@option@error{backmatter}{Bad bibpos option '\val'}}
+
+% Generate the bibliography.
+\def\dynenv@backmatter@makebib{%
+   \newpage
+   \pagebreak
+   \phantomsection
+   \addcontentsline{toc}{\dynenv@toplevel}{Bibliography}
+   \bibliography{\dynenv@backmatter@bibfiles}
+   \bibliographystyle{plain}
+}
+
+% Process appendices
+\def\dynenv@backmatter@makeapp#1{%
+   \ifx#1\empty\else
+      \newpage
+      \pagebreak
+      \ifdynenv@appendix
+         \appendix
+         \appendixpage
+         \addappheadtotoc
+      \else
+         \phantomsection
+         \addcontentsline{toc}{\dynenv@toplevel}{Appendix}
+         \appendix
+      \fi
+      \dynenv@foreach{\input}{#1}%
+   \fi
+}
+
+%
+% Back matter
+% \backmatter[options]{list,of,files}
+% Backmatter options are
+%  - modelbibfile=<bib_file_name>
+%  - nomodelbibfile
+%  - bibpos=<start|end>
+% The non-optional argument is a comma-separated list of appendices.
+%
+\def\backmatter{\@ifnextchar[\@backmatter{\@backmatter[]}}
+\def\@backmatter[#1]#2{%
+   \setkeys[dynenv]{backmatter}{#1}%
+   \ifdynenv@backmatter@bibfirst
+      \dynenv@backmatter@makebib
+      \dynenv@backmatter@makeapp{#2}%
+   \else
+      \dynenv@backmatter@makeapp{#2}%
+      \dynenv@backmatter@makebib
+   \fi
+}
+
+\endinput

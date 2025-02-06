@@ -1,0 +1,48 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the NED model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+See the \href{file:refman.pdf}{Reference Manual}\cite{derivedstatebib:ReferenceManual} for a summary of member data and member methods for all classes.  
+
+\subsection{Process Architecture}
+The architecture for the \NEDDesc\ is trivial, the \NEDDesc\ methods are largely independent of one another.
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods in each class.
+
+The \NEDDesc\ contains only one class:
+\begin{itemize}
+\classitem{NedDerivedState}
+\textref{DerivedState}{ref:DerivedState}
+
+This contains the methods \textit{compute\_ned\_frame}, \textit{initialize}, and \textit{update}:
+\begin{enumerate}
+
+\funcitem{compute\_ned\_frame}
+This method utilizes methods from the planet-fixed model, see the \href{file:\JEODHOME/models/utils/planet\_fixed/docs/planet\_fixed.pdf}{\em Planet Fixed} documentation~\cite{dynenv:PLANETFIXED} for details on these methods.
+
+It uses the NorthEastDown methods (from the planet-fixed model) \textit{set\_ned\_trans\_states} and \textit{build\_ned\_orientation} to generate the NED state.  The former, in turn, calls the PlanetFixedPosition method \textit{update\_from\_cart} to convert the Cartesian representation into spherical and elliptical representations.  The latter uses these generated latitude and longitude values to  produce a transformation matrix and corresponding quaternions for going from the planet-fixed reference frame to the NorthEastDown reference frame.
+
+\funcitem{initialize}
+The initialization process comprises the following steps:
+\begin{enumerate}
+\item{} The generic DerivedState initialization routine is called to establish the naming convention of the reference object (i.e., the planet about which the vehicle is orbiting) and state identifier.
+\item{} The DerivedState method \textit{find\_planet} is called (which subsequently calls the  \href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{\em Dynamics Manager}~\cite{dynenv:DYNMANAGER}) method of the same name to find a planet by name; that name is stored as \textit{reference\_name}, and is usually assigned in an input file.
+\item{} The name of the NED state is set as \textit{vehicle\_name.planet\_name.ned}.
+\item{} The element \textit{planet\_centered\_planet\_fixed} is set to be the planet-fixed reference frame identified by \textit{reference\_name}.
+\item{} The North-East-Down reference frame is added as a child to the \textit{planet\_centered\_planet\_fixed} frame.
+\item{} The North-East-Down frame is registered with the Dynamics manager (optional, user can specify with the \textit{register\_frame} flag, default is true).
+\item {} The identified planet is then passed into the initialize method for the PlanetFixedPosition object, \textit{ned\_state} (\textit{ned\_state} is a NorthEastDown state, which inherits from PlanetFixedPosition), which simply records a pointer to the planet just found in the PlanetFixedPosition class (see \href{file:\JEODHOME/models/utils/planet\_fixed/docs/planet\_fixed.pdf}{\em Planet Fixed} documentation~\cite{dynenv:PLANETFIXED}).
+\end{enumerate}
+
+\funcitem{update}
+This method uses the RefFrame method \textit{compute\_relative\_state} (see \href{file:\JEODHOME/models/utils/ref\_frames/docs/ref\_frames.pdf}{\em Reference Frames} documentation~\cite{dynenv:REFFRAMES}) to calculate the full state of the \textit{subject} in the planet fixed reference frame.  Then, it passes the translational part of that state (i.e. position and velocity) into the \textit{compute\_ned\_frame} method.
+
+\end{enumerate}
+\end{itemize}

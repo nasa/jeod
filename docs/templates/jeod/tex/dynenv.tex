@@ -1,0 +1,215 @@
+%&latex
+
+\documentclass[10pt]{ltxdoc}
+\DisableCrossrefs
+\OnlyDescription
+
+\newcommand\ModelPrefix{bogus}
+
+\usepackage[section,nosigpage,fancyvrb]{dynenv}
+
+
+% Bring in the hyper ref environment
+\usepackage[colorlinks,bookmarks]{hyperref}
+\hypersetup{
+   pdftitle={The dynenv Class and dynenv Package},
+   pdfauthor={David Hammen, Odyssey Space Research, LLC}}
+
+\MakeShortVerb{|}
+
+
+\newcommand\package[1]{%
+  \texorpdfstring{\textsf{#1}\xspace}{#1}}
+\newcommand\dynenv{\package{dynenv}}
+\newcommand\command[1]{%
+  \texorpdfstring{\texttt{\textbackslash{}#1}\xspace}{\textbackslash{}#1}}
+\newcommand{\inanglebrackets}[1] {\textless{}#1\textgreater{}}
+\newcommand\option[1]{\texttt{#1}}
+\newcommand{\cmdarg}[1] {\texttt{\{\inanglebrackets{#1}\}}}
+\newcommand{\cmdopt}[1] {\texttt{[\inanglebrackets{#1}]}}
+
+\makeatletter
+
+\def\@maketitle{%
+  \newpage
+%  \null
+    \vspace{-1.0em}%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    \vskip 1em%
+    {\large \@date}%
+  \end{center}%
+  \par
+%  \vskip 0.5em%
+}
+
+\renewenvironment{abstract}{%
+   \null\vfil
+%   \@beginparpenalty\@lowpenalty
+   \begin{center}%
+      \bfseries \abstractname
+%      \@endparpenalty\@M
+   \end{center}}%
+{%
+   \par
+   \null\vfil
+%   \@beginparpenalty\@lowpenalty
+   \begin{center}%
+      \bfseries \contentsname
+%      \@endparpenalty\@M
+   \end{center}}
+
+
+\renewcommand\tableofcontents{%
+   \vspace{-1ex}
+   \@starttoc{toc}%
+}
+
+\renewenvironment{frontmatter}{\@twocolumntrue}{\onecolumn}
+
+%\newcounter{exhibit}
+%\newcommand\exhibitname{Exhibit}
+\renewenvironment{exhibit}
+                 {\@float{exhibit}}
+                 {\end@float}
+ 
+\makeatother
+
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+
+\pdfbookmark{Title Page}{titlepage}
+
+\newbox\abstractbox
+\setbox\abstractbox=\vbox{
+  \begin{abstract}
+    All JEOD model documents use the \dynenv suite to simplify document
+    specification and to give the document package a uniform appearance.
+    The suite provides tools that aid in document production, in naming and
+    referencing other JEOD models, and in specifying and referencing
+    requirements and IV\&V artifacts.
+  \end{abstract}}
+
+\title{The \dynenv Class and \dynenv Package}
+\author{David Hammen\\Odyssey Space Research, LLC}
+\date{06/06/11\\\box\abstractbox}
+
+\begin{frontmatter}
+\maketitle
+\tableofcontents
+\end{frontmatter}
+
+\section{Introduction}
+This note describes the key capabilities of the JEOD \LaTeX\ \dynenv class and
+\dynenv package.
+All JEOD model documents must use either the \dynenv class or package.
+The suite has four primary purposes:
+\begin{itemize}
+\item Simplify the process of specifying a model document.
+\item Optionally load a common set of packages.
+This reduces the work and knowledge burden on model document authors
+and helps provide a common look to the JEOD documentation suite.
+\item Provide a standardized way to name and reference JEOD models and
+JEOD documents.
+\item Provide a standardized way to represent and reference
+requirements, inspections, and tests.
+\end{itemize}
+
+\section{Using the Suite}
+\label{sec:usage}
+
+The \dynenv suite can be used as a class or as a package. The syntax of
+the two approaches is quite similar:
+
+\begin{quote}
+|\documentclass[<options>]{dynenv}|
+\end{quote}
+versus
+\begin{quote}
+|\usepackage[<options>]{dynenv}|
+\end{quote}
+
+\subsection{The \dynenv Class}
+The \dynenv class is a very simple \LaTeX\ class.
+The body of |dynenv.cls|, sans comments is:
+\begin{quote}
+|\LoadClass[twoside,11pt,titlepage]{report}|\\
+\ \\
+|\PassOptionsToPackage{complete}{dynenv}|\\
+|\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{dynenv}}|\\
+|\ProcessOptions\relax|\\
+\ \\
+|\RequirePackage{dynenv}|
+\end{quote}
+
+The class re-implements the \package{report} class with a fixed set of options,
+currently |twoside,11pt,titlepage|,
+and then imports the \dynenv package.
+All options to the \dynenv class, plus the |complete| option,
+are passed on to the \dynenv package.
+
+\subsection{The \dynenv Package}
+The \dynenv package is the workhorse of the \dynenv suite.
+The remainder of this document describes features provided by
+the \dynenv package.
+
+\subsection{Recommended Practice}
+The recommended practice is to use the \dynenv class in conjunction with the
+document production macros described in section~\ref{sec:doc_production}.
+Doing so results in a very short and very comprehensible main document.
+
+\subsection{Class and Package Options}
+\label{sec:options}
+All options provided to the \dynenv class are passed
+on without processing to the \dynenv package.
+The options to the \dynenv package fall into two categories:
+Options that have an explicit option handler, and arbitrary options that do not have a handler.
+The options with explicit handlers are:
+\begin{description}
+\item[|sigpage|] Passed to the \package{dyncover} package.
+When specified, the document will have a signature page.
+\item[|nosigpage|] Passed to the \package{dyncover} package.
+When specified, the document will not have a signature page.
+Model documents should not specify either the |sigpage| or |nosigpage| option.
+They should instead rely on the default. 
+\item[|section|] Indicates that the highest-level sectioning command
+in the document is |\section|. This document, for example.
+Model documents should never use the |section| option.
+\item[|sections|] An alias for |section|.
+\item[|part|] Indicates that the highest-level sectioning command
+in the document is |\part|. The documents for large models are sometimes
+written in parts to make the document more manageable.
+\item[|parts|] An alias for |part|.
+\item[|appendix|] Specifying this option causes the \dynenv suite to load
+the \package{appendix} package and modifies the behavior of the |backmatter|
+macro to suit the use of that package.
+\item[|complete|] Causes the \dynenv package to load a set of commonly used
+packages, the auto-generated |paths.def| file, the model-specific
+package, and finally, the \package{hyperref} package. (The \package{hyperref}
+should always be the very last package that is loaded in any \LaTeX
+document.)
+\item[|full|] An alias for |complete|.
+\item[|hyperref|] This is explicitly marked as an illegal option.
+Never specify |hyperref| as an option.
+\end{description}
+All options other than those listed above indicate additional packages
+to be loaded by the \dynenv package. These additional packages are loaded
+without any options. If a model document needs to use some non-standard package
+with options specified, the model-specific package file should use the
+|\RequirePackage| macro to load the package.
+
+\input{packages}
+\input{document}
+\input{reqt_insp_test}
+\input{commands}
+
+\end{document}

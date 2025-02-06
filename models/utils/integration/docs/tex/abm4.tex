@@ -1,0 +1,71 @@
+\chapter{Fourth Order Adams-Bashforth-Moulton}\label{app:abm4}
+
+Adams-Bashforth-Moulton methods combine an explicit Adams-Bashforth
+integrator as a predictor and an implicit Adams-Moulton integrator
+as a corrector. The fourth order Adams-Bashforth-Moulton method
+implemented in JEOD uses the four step Adams-Bashforth integrator
+as a predictor and the three step Adams-Moulton integrator as a corrector.
+
+\subsubsection{Maintaining the Derivative History}
+All but the simplest of Adams-Bashforth-Moulton methods require a history
+of prior derivatives. JEOD uses the fourth order Adams-Bashforth-Moulton method
+which requires four sets of prior derivatives.
+
+On the first step of an integration cycle the JEOD implementation of the
+ABM4 method saves the input derivatives in a derivative history buffer.
+How derivatives are saved depends on whether the requisite set of four prior
+derivatives have been gathered. The method operates in priming mode until the
+requisite set of four prior derivatives have been gathered.
+
+In priming mode, the derivatives are stored consecutively in the slot designated
+by a primer counter which advances from zero to three as derivatives are
+gathered. Once primed, the derivative history buffer is treated as a circular
+array. New derivatives are copied into the slot occupied by the oldest data
+and pointers are advanced circularly.
+
+\subsubsection{Integrating State}
+The state is advanced on each integration step. The primer is used to
+advance the state while the method is in priming mode.
+Once the requisite four sets of derivatives from the primer have been gathered,
+the ABM4 integrator uses a two stage predictor-corrector technique to advance
+the state.
+The equations that govern propagation via the ABM4 method are given by
+equations~(\ref{eqn:abm4_0}) and~(\ref{eqn:abm4_1})\cite{hamming:1986}.
+
+Stage 0 (predictor):
+\begin{equation}
+\label{eqn:abm4_0}
+\begin{split}
+\bar {\dot{\vect s}}_{AB} &=
+  \frac{55\dot{\vect s}_0 - 59\dot{\vect s}_{-1} +
+        37\dot{\vect s}_{-2} - 9\dot{\vect s}_{-3}} {24} \\
+t_1 &= t_f = t_i + \Delta t \\
+\vect s_1(t_1) &= \vect s(t) + \Delta t \, \bar {\dot{\vect s}}_{AB}
+\end{split}
+\end{equation}
+
+Stage 1 (corrector):
+\begin{equation}
+\label{eqn:abm4_1}
+\begin{split}
+\dot{\vect s}_1 &= \dot{\vect s}(t_1,\vect s(t_1)) \\
+\bar {\dot{\vect s}}_{AM} &=
+  \frac{9\dot{\vect s}_1 +19\dot{\vect s}_0 -
+        5\dot{\vect s}_{-1} + \dot{\vect s}_{-2}} {24} \\
+t_2 &= t_1 = t_f = t_i + \Delta t \\
+\vect s(t_2) &= \vect s(t) + \Delta t \, \bar {\dot{\vect s}}_{AM}
+\end{split}
+\end{equation}
+
+\subsubsection{ABM4 Primer}
+The simplest of the Adams-Bashforth-Moulton methods combines explicit
+and implicit Euler integration. This simplest implementation does not
+rely on historical data. All other Adams-Bashforth-Moulton methods,
+including the fourth order method implemented in JEOD,
+do rely on historical data; they are not self-starting.
+Some other technique must be used to prime the method.
+Once primed the Adams-Bashforth-Moulton methods are self-sustaining.
+As both the fourth order Adams-Bashforth-Moulton method and the fourth order
+Runge Kutta method have fourth order accuracy, JEOD uses the RK4 method
+as a primer for the ABM4 method.
+

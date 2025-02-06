@@ -1,0 +1,86 @@
+
+
+
+%----------------------------------
+\chapter{Introduction}\label{ch:Planetaryintro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \PlanetaryDescT}
+\input{PlanetaryIntroduction}
+
+
+
+%----------------------------------
+\chapter{Product Requirements}\label{ch:Planetaryreqt}
+%----------------------------------
+
+\input{PlanetaryReqt}
+
+
+%----------------------------------
+\chapter{Product Specification}\label{ch:Planetaryspec}
+%----------------------------------
+
+\section{Conceptual Design}
+\input{PlanetarySpec_Concept}
+%\section{Mathematical Formulations}
+\input{PlanetarySpec_Math}
+%\section{Detailed Design}
+\input{PlanetarySpec_Detail}
+
+
+\chapter{User's Guide}\label{ch:Planetaryuser}
+%----------------------------------
+The Analysis section of the User's Guide is intended primarily for
+users of pre-existing simulations.  
+It contains: 
+\begin{itemize}
+\item A description of how to modify \PlanetaryDesc\ variables after
+the simulation
+has compiled, including an in-depth discussion of the input file,
+\item An overview of how to interpret (but not edit) the S\_define
+file,
+\item A sample of some of the typical variables that may be logged.
+\end{itemize}
+
+The Integration section of the User's Guide is intended for simulation
+developers.
+It describes the necessary configuration of the \PlanetaryDesc\
+within an
+S\_define file, and the creation of standard run directories.  The
+latter
+component assumes a thorough understanding of the preceding Analysis
+section of the user guide.
+Where applicable, the user may be directed to selected portions of
+Product Specification (Chapter \ref{ch:Planetaryspec}).
+
+The Extension section of the User's Guide is intended primarily for
+developers
+needing to extend the capability of the \PlanetaryDesc.  Such users
+should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
+specification (described in Chapter \ref{ch:Planetaryspec}).
+
+
+\section{Analysis}
+\input{PlanetaryUser_Analysis}
+
+%\section{Integration}
+\input{PlanetaryUser_Integration}
+
+%\section{Extension}
+\input{PlanetaryUser_Extension}
+
+%----------------------------------
+\chapter{Verification and
+Validation}\label{ch:Planetaryivv}
+%----------------------------------
+
+\section{Verification}
+\input{PlanetaryVV_Verif}
+
+%\section{Validation}
+\input{PlanetaryVV_Valid}
+
+

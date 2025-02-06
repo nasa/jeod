@@ -1,0 +1,302 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Extension part of User's Guide for the time model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Extension}\label{sec:User_Extension}
+
+Several new files will be needed when extending the capability of the
+\timeDesc\ with new Standard Times (note that JEOD allows for an
+indefinite number of UDE Times, adding UDE times is as simple as adding
+them to the S\_define, and initializing them).
+
+Perhaps the easiest way to do this is to copy an existing file of
+comparable purpose, and replace all instances of the old type with the
+new type.  Remember to do this for both lowercase and uppercase.
+
+Then edit the new file as needed.
+
+\subsection{How to add a new time-type:}
+\label{ref:Howtoaddanewtimetype}
+
+An example of adding a new time type is verified at
+\textref{SIM\_6\_extension}{test:sim6} in the Verification section of this
+document.  The code to support this verification is found at
+\textit{time/verif/SIM\_6\_extension}.
+
+\begin{enumerate}
+
+
+\item{Add it to a header file in the format:}
+
+\begin{verbatim}
+  class TimeABC : public TimeStandard 
+{
+  TimeABC( );
+  ~TimeABC( );
+}
+\end{verbatim}
+
+
+\item{Make a constructor for it:}
+
+The \textit{name} is required, any other values are optional
+
+\begin{verbatim}
+  TimeABC::TimeABC()
+  {
+    name = "ABC";
+    // optional content
+    // e.g., set_epoch();
+  }
+\end{verbatim}
+
+\item{Make a destructor for it}
+\item{Add a new converter class(optional)} 
+
+Presumably, if this is a new time-type, a new converter will be needed. 
+See the next section on how to add a new TimeConverter Class.
+
+\item{Add it to the S\_define in 2 places}
+
+First, declare it
+\begin{verbatim}
+  class YourTimeSimObject : public Trick::SimObject
+  {
+    
+    ...
+
+    TimeABC  abc;
+    
+    ...
+
+    YourTimeSimObject()
+    {
+       ...
+       P_TIME ("initialization") time_manager.register_time( abc );
+       ...
+    }
+  };
+\end{verbatim}
+
+Second, register it.
+
+\begin{verbatim}
+  P_TIME (initialization) environment/time:     time.manager.register_time( 
+           In        JeodBaseTime  & time_reg = time.abc);
+\end{verbatim}
+
+\item{Update input file (optional)}
+Add values to the input file to describe the location in the
+initialization and update tree
+
+\end{enumerate}
+
+
+
+\subsection{How to Add a New TimeConverter Function}\label{ref:howtoaddanewconverterfunction}
+In some cases, the standard release of \JEODid\ is equipped with one-way
+converters, but the functionality was not provided for both directions.
+ For example, it is possible to convert UT1 to GMST, but not vice
+versa.  If there is need for the reverse functionality, that function
+can easily be added by editing two files.
+
+
+
+
+\subsubsection{Change the Constructor}
+In the appropriate TimeConverter\_xxx\_yyy function, there are two areas
+to change.  The first is in the constructor, where a pair of
+functionality flags will likely be set to False.  Let us assume that
+the \textit{a\_to\_b} converter is defined, and the \textit{b\_to\_a}
+converter is only available at runtime.  Then the following flags should be set:
+
+\begin{verbatim}
+  TimeConverter_XXX_YYY::TimeConverter_XXX_YYY()
+  {
+    valid_directions = A_TO_B | B_TO_A_UPDATE;
+    // other code
+  }
+\end{verbatim}
+
+\subsubsection{Add the function}
+Further down in this file, you will find the code for the defined
+converter function
+(\textit{TimeConverter\_XXX\_YYY::convert\_a\_to\_b()}), 
+
+and for the reverse function
+(\textit{TimeConverter\_XXX\_YYY::convert\_b\_to\_a()}).
+
+
+
+
+\subsubsection{Declare the function}
+The default (inherited from \textit{TimeConverter}) version of an
+undefined converter function is intended to cause execution to stop
+immediately.  The appropriate header file must be changed to declare
+that this new function exists, and prevent inheritance of the
+termination version.
+
+In file \textit{include/time\_converter\_xxx\_yyy.hh, }add the following
+line:
+
+\begin{verbatim}
+ // convert_b_to_a: Apply the converter in the reverse direction
+    void convert_b_to_a(void);
+\end{verbatim}
+
+The function is now ready to go; to use it, add it to the definition of
+the appropriate tree in the input file (see Analysis section of this
+User Guide).
+
+
+
+
+
+
+
+\subsection{How to Add a TimeConverter Class}
+These steps are for users intending to add completely new converter
+functionality
+
+\subsubsection{Write a header file for the new class}
+In the format
+
+\begin{verbatim}
+class TimeConverter_XYZ_ABC : public TimeConverter {
+ 
+   JEOD_MAKE_SIM_INTERFACES(TimeConverter_TAI_GPS)
+ 
+// Member Data
+private: 
+ TimeXYZ * xyz_ptr; /* ** 
+  Converter parent time, always a TimeXYZ for this converter. */
+ TimeABC * abc_ptr; /* ** 
+  Converter parent time, always a TimeABC for this converter. */
+
+// Member functions:
+public: 
+// Constructor
+  TimeConverter_TAI_GPS();
+// Destructor
+  ~TimeConverter_TAI_GPS();
+
+private:
+// Initialize the converter
+  void initialize( JeodBaseTime * parent, JeodBaseTime * child, const int direction);
+
+// convert_a_to_b: Apply the converter in the forward direction
+  void convert_a_to_b(void);  // optional
+
+// convert_b_to_a: Apply the converter in the reverse direction
+  void convert_b_to_a(void);  // optional
+}
+\end{verbatim} 
+
+Either or both of the converter functions may be included.  Having
+neither is not illegal, but is redundant (the converter has no
+functionality).  Having both is also usually redundant, unless one is
+intended for use during initialization and the other during updates.
+
+\subsubsection[\ Write the source code:]{ Write the source code:}
+The \textit{initializer} function must be defined, along with
+\textit{convert\_a\_to\_b( ) }and \textit{convert\_b\_to\_a( ) } if
+included in the header file.  
+
+
+
+
+\paragraph{Initializer}
+The \textit{initializer} sets the pointers and initializes any data
+values required in the conversion process.  In the case that the
+conversion process is itself a function of time, it must be initialized
+with respect to some time.  This function is called as needed during
+the initialization process: when the time-types are being initialized,
+or when the update tree is being generated.  If a converter is needed
+for either of those tasks, this function is called.  It can be assumed
+that the \textit{parent }type has been initialized already, and that
+the time is known in that representation.  It should be assumed that
+the \textit{child} type has not.  Because either type (\textit{a }or
+\textit{b, }i.e.\textit{ xyz }or\textit{ abc})\textit{ }can be known a
+priori, there are two {\textquotedblleft}directions{\textquotedblright}
+available.
+
+A simple example may look like:
+
+\begin{verbatim}
+void TimeConverter_XYZ_ABC::initializer( // Return: -- Void
+   JeodBaseTime * const parent_ptr, 
+   JeodBaseTime * const child_ptr,  
+   const int int_dir)  
+{ 
+ verify_setup(parent_ptr,child_ptr,int_dir);
+
+ if (int_dir == 1) { 
+   xyz_ptr = dynamic_cast<TimeXYZ *> (parent_ptr);
+   abc_ptr = dynamic_cast<TimeABC *> (child_ptr);
+ }
+
+ else if (int_dir == -1) {
+   xyz_ptr = dynamic_cast<TimeXYZ *> (child_ptr);
+   abc_ptr = dynamic_cast<TimeABC *> (parent_ptr);
+ }
+ a_to_b_offset = some_value_or_function;
+ initialized = true;  
+ return; 
+}
+\end{verbatim}
+
+\paragraph{Converter functions}
+The converter functions are described in more detail in the previous
+section, \textref{How to Add a New Converter Function}{ref:howtoaddanewconverterfunction}.
+
+\paragraph{Constructor}
+The master class, \textit{TimeConverter}, sets \textit{a\_to\_b\_offset = 0.0},
+and \textit{initialized = false. } These values are inherited by
+default; \textit{initialized} will be reset to t\textit{rue} in the
+initialization function, and \textit{a\_to\_b\_offset} may be
+calculated in the initialization function if necessary.  The
+functionality flags, \textit{a\_to\_b\_initialization, 
+a\_to\_b\_runtime, b\_to\_a\_initialization,} and
+\textit{b\_to\_a\_runtime} should be set in the specific class
+constructor.  The two time-type pointers should be initialized to NULL
+(they are reset in the initializer function).  The identification names
+of the two time types between which this converter operates must be \textbf{identical to} the names of those time-types as
+they appear in their respective classes.
+
+\begin{verbatim}
+  a_name = "XYZ";
+  b_name = "ABC";
+\end{verbatim}
+
+\paragraph[Destructor]{Destructor}
+Releasing the memory allocated in the name definition is no longer necessary in JEOD 4.0, as the a\_name and b\_name members have converted to STL strings.
+
+\subsubsection[Add it to the S\_define in 2 places]{\rmfamily\bfseries Add
+it to the S\_define in 2 places}
+\ First, declare it. Second Register it.
+
+\begin{verbatim}
+  class YourTimeSimObject : public Trick::SimObject
+  {
+    
+    ...
+
+    TimeConverter_XYZ_ABC xyz_abc;
+    
+    ...
+
+    YourTimeSimObject()
+    {
+       ...
+
+       P_TIME ("initialization") manager.register_converter( xyz_abc );
+      
+       ...
+    }
+  };
+\end{verbatim}
+

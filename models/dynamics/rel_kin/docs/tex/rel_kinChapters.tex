@@ -1,0 +1,733 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \relkinDesc}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this
+%%% document exists and what it hopes to accomplish.
+
+The purpose of the \relkinDesc\ is to provide the \JEODid\ with a centralized
+management interface for the calculation of relative states of multiple points
+of interest associated with a particular Dynamics Body, relative to any
+desired reference frame.  These points can be anywhere on, or anywhere in
+relation to, the Dynamics Body, and the desired reference frame can be any
+coordinate frame. All points of interest can be updated in batch fashion, or
+individual points can be updated one at a time.  The \relkinDesc\ does no
+calculations on its own, but instead serves as a ``manager'' class that
+orchestrates a set of user-defined Relative Derived States to accomplish these
+capabilities.
+
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item{\href{file:\JEODHOME/docs/JEOD.pdf}
+           {\em JSC Engineering Orbital Dynamics}}
+                          \cite{dynenv:JEOD}
+\end{itemize}
+
+The \relkinDesc\ forms a component of the \ModelClass\ suite of
+models within \JEODid. It is located at
+models/\ModelClass/rel\_kin.
+
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this section.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+\\ \\ \\ %%% forced extra space because Latex was formatting oddly.
+The \relkinDesc\ is a model that is heavily revised for JEOD v2.0.x, though it
+is partly based on the Relative Kinematics Computations model released as
+part of JEOD v1.5.x.  Thus, this document derives lightly from that
+model's documentation, entitled JSC Engineering Orbital Dynamics Relative
+Kinematics Computations Module, most recently released with JEOD v1.5.2.
+
+
+\section{Document Organization}
+This document is formatted in accordance with the
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}
+and is organized into the following chapters:
+
+\begin{description}
+
+\item[Chapter 1: Introduction] -
+This introduction contains four sections: purpose and objective,
+context within JEOD, document history, and document organization.
+
+\item[Chapter 2: Product Requirements] -
+Describes requirements for the \relkinDesc.
+
+\item[Chapter 3: Product Specification] -
+Describes the underlying theory, architecture, and design of the
+\relkinDesc\ in detail.  It is organized into
+four sections: Conceptual Design, Mathematical Formulations, Detailed
+Design, and Version Inventory.
+
+\item[Chapter 4:  User's Guide] -
+Describes how to use the \relkinDesc\ in a Trick simulation.  It
+is broken into three sections to represent the JEOD
+defined user types: Analysts or users of simulations (Analysis),
+Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -
+Contains verification and validation procedures and
+results for the \relkinDesc.
+
+\end{description}
+
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+
+This chapter identifies the requirements for the \relkinDesc.
+
+\requirement{Top-level Requirement}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum, meet all external and internal requirements
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+     Inspection
+\end{description}
+
+
+\section{Data Requirements}\label{sec:data_reqts}
+This section identifies requirements on the data represented by the \relkinDesc.
+These as-built requirements are based on the \relkinDesc\ data definition header
+file.
+
+\requirement{Relative Kinematics Data Encapsulation}
+\label{reqt:relkin_data_encapsulation}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \relkinDesc\ shall encapsulate the following data to enable its
+    proper functionality:
+  \subrequirement{Number of Relative States}
+    The number of Relative Derived States being managed by the \relkinDesc.
+  \subrequirement{List of Relative States}
+    A list of pointers to the Relative Derived States being managed.
+
+  \item[Rationale:]\ \newline
+    The primary purpose of the \relkinDesc\ is to serve as a consolidated
+    management interface for a collection of Relative Derived States; the
+    model needs these pieces of information to properly manage the
+    collection. This requirement constrains the design of the module data.
+
+  \item[Verification:]\ \newline
+    Inspection
+\end{description}
+
+
+\section{Functional Requirements}\label{sec:func_reqts}
+This section identifies requirements on the functional
+capabilities provided by the \relkinDesc.
+These as-built requirements are based on the \relkinDesc\ source files.
+
+\requirement{Add New Relative State To List}
+\label{reqt:func_add_relstate}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \relkinDesc\ shall perform the following actions when commanded to
+    add a new Relative Derived State to its list of managed ones:
+  \subrequirement{Check For Duplicate Relative State}
+    Search the list of currently managed Relative Derived States to ensure
+    the candidate is not already being managed.
+  \subrequirement{Add Unique Relative State To List}
+    If the candidate is found to be unique, then it is added to the list of
+    currently managed Relative Derived States.
+
+  \item[Rationale:]\ \newline
+    The ability to add new Relative Derived States to the \relkinDesc\ is
+    necessary for it to fulfill its purpose as a centralized management
+    interface for Relative Derived States.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Remove Relative State From List}
+\label{reqt:func_remove_relstate}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \relkinDesc\ shall perform the following actions when commanded to
+    remove a Relative Derived State from its list of managed ones:
+  \subrequirement{Check For Relative State}
+    Search the list of currently managed Relative Derived States to ensure
+    the candidate is being managed.
+  \subrequirement{Remove Relative State From List}
+    If the candidate is found, then it is removed from the list of
+    currently managed Relative Derived States.
+
+  \item[Rationale:]\ \newline
+    The ability to remove Relative Derived States from the \relkinDesc\ is
+    necessary for it to fulfill its purpose as a centralized management
+    interface for Relative Derived States.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Find Relative State In List}
+\label{reqt:func_find_relstate}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \relkinDesc\ shall find a specified Relative Derived State in its
+    list of managed ones when commanded to do so.
+
+  \item[Rationale:]\ \newline
+    This capability is necessary both for Relative Derived State list
+    maintenance and state updates, the two primary functions of the model.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Update Single Relative State}
+\label{reqt:func_update_single}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \relkinDesc\ shall direct the state update of any single Derived
+    Relative State in its list of managed ones when commanded to do so.
+
+  \item[Rationale:]\ \newline
+    This is one of the core intended capabilities of the model.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Update All Relative States}
+\label{reqt:func_update_all}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \relkinDesc\ shall direct the update of all of the Derived Relative
+    States in its list of managed ones when commanded to do so.
+
+  \item[Rationale:]\ \newline
+    This is one of the core intended capabilities of the model.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+%%% Format for the model Requirements is open.  It should include requirements for this model
+%%% only and use requirment tags like the one below.
+%\requirement{...}
+%\label{reqt:...}
+%\begin{description}
+%  \item[...]\ \newline
+%    The documentation for the model shall include
+%
+%    \subrequirement{}
+%    \label{reqt:...}
+%      Software requirements specification.
+%
+%    ...
+%
+%  \item[title]\ \newline
+%    text
+%
+%  ...
+%
+%\end{description}
+
+
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+This chapter defines the conceptual design, the mathematical formulations, and
+the detailed design for the \relkinDesc.  It also contains the version inventory
+for this release of the \relkinDesc.
+
+\section{Conceptual Design}
+
+The \relkinDesc\ is designed to be the centralized management interface for
+groups of Relative Derived States for the \JEODid. These relative state
+instances should all be associated with the same Dynamics Body, but can be
+tied to any point of interest on, in, or around that body. The relative states
+can also be calculated relative to any desired reference frame. All of the
+relative states can be updated in batch fashion, or they can be updated one at
+a time, or some combination of the two. Note that the \relkinDesc\ does no
+calculations on its own, but instead orchestrates the set of Relative Derived
+States it is currently managing to accomplish these capabilities.
+
+
+\section{Mathematical Formulations}
+
+The \relkinDesc\ performs no calculations on its own; it instead orchestrates
+instances of Relative Derived States upon command. Thus, the reader should
+refer to the Relative Reference Frame State-representation section of the
+\JEODid\ Derived State Model documentation \cite{dynenv:DERIVEDSTATE} for
+information about the calculations performed via this model.
+
+
+\section{Detailed Design}
+
+The functionality of the \relkinDesc\ is fully contained within a single class.
+This section describes the class in detail.
+
+\subsubsection{Relative Kinematics Class Design}
+
+The {\em relative\_kinematics.hh} file contains the lone \relkinDesc\ class,
+which is named ``RelativeKinematics''. RelativeKinematics contains the
+following data members that define the list of relative states currently under
+management by the \relkinDesc:
+
+\begin{itemize}
+\item{relative\_states:} A Standard Template Library (STL) list of pointers to
+RelativeDerivedState objects, which are the links to each of the relative states
+currently being managed, and
+
+\item{num\_rel\_states:} The integer number of relative states currently being
+managed.
+\end{itemize}
+
+In addition to the default constructor and the destructor, the
+RelativeKinematics class also contains the following member functions.
+
+\paragraph{add\_relstate}
+
+This member function adds a given unique RelativeDerivedState to the list of
+ones currently being managed by the \relkinDesc.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{In:} RelativeDerivedState \& relstate - address of the
+RelativeDerivedState to be added to the \relkinDesc's list.
+\end{itemize}
+
+\paragraph{remove\_relstate}
+
+This member function removes a given RelativeDerivedState from the list of
+ones currently being managed by the \relkinDesc.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{In:} RelativeDerivedState \& relstate - address of the
+RelativeDerivedState to be removed from the \relkinDesc's list.
+\end{itemize}
+
+\paragraph{find\_relstate}
+
+This member function finds the RelativeDerivedState corresponding to the name
+provided in the \relkinDesc's list.
+
+\begin{itemize}
+\item{Return:} RelativeDerivedState * - a pointer to the RelativeDerivedState
+found; has value ``NULL'' if none were found.
+\item{In:} char * relstate\_name - name of the
+RelativeDerivedState to be found in the \relkinDesc's list.
+\end{itemize}
+
+\paragraph{update\_single}
+
+This member function orchestrates the update of the single
+RelativeDerivedState provided.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{In:} char * relstate\_name - name of the single
+RelativeDerivedState to be updated.
+\end{itemize}
+
+\paragraph{update\_all}
+
+This member function orchestrates the update of all of the
+RelativeDerivedState currently in the \relkinDesc's list.
+
+\begin{itemize}
+\item{Return:} void - no returned value
+\item{Void:} function takes no inputs.
+\end{itemize}
+
+Further information about the design of this model can be found
+in the  \href{file:refman.pdf} {\em Reference Manual}
+\cite{rel_kinbib:ReferenceManual}.
+
+
+\section{Version Inventory}
+
+The following enumerates all files that are contained in this version
+of the \relkinDesc.
+
+\begin{verbatim}
+
+./docs:
+refman.pdf
+rel_kin.pdf
+
+./docs/tex:
+makefile
+rel_kinAbstract.tex
+rel_kin.bib
+rel_kinChapters.tex
+rel_kin.sty
+rel_kin.tex
+
+./include:
+relative_kinematics.hh
+
+./src:
+relative_kinematics.cc
+
+./verif/SIM_RELKIN_VERIF:
+S_define
+S_overrides.mk
+
+./verif/SIM_RELKIN_VERIF/Log_data:
+log_relkin_verif.d
+
+./verif/SIM_RELKIN_VERIF/SET_test/RUN_relkin_test:
+input
+
+./verif/SIM_RELKIN_VERIF/SET_test_val/RUN_relkin_test:
+log_relkin_verif.trk
+
+\end{verbatim}
+
+
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+This chapter discusses how to use the \relkinDesc\ in a Trick simulation. Usage
+is treated at three levels of detail: Analysis, Integration, and Extension,
+each targeted at one of the three main anticipated categories of \JEODid\ users.
+
+The Analysis section of the user guide is intended primarily for users of
+pre-existing simulations. It contains an overview of a typical S\_define sim
+object that implements the \relkinDesc, but does not discuss how to edit it;
+the Analysis section also describes how to modify \relkinDesc\ variables after
+the simulation has compiled, such as via the input file. Since the \relkinDesc\
+is primarily a manager model, no discussion of variable logging will be
+given, as the variables likely to be logged are members of the contained
+relative states and thus are covered in other \JEODid\ model documentation.
+
+The Integration section of the user guide is intended for simulation developers.
+It describes the necessary configuration of the \relkinDesc\ within an
+S\_define file, and the creation of standard run directories.  The Integration
+section assumes a thorough understanding of the preceding Analysis section
+of the user guide. Where applicable, the user may be directed to selected
+portions of the Product Specification (Chapter \ref{ch:spec}).
+
+The Extension section of the user guide is intended primarily for developers
+needing to extend the capability of the \relkinDesc.  Such users should have a
+thorough understanding of how the model is used in the preceding Integration
+section, and of the model specification (described in Chapter \ref{ch:spec}).
+
+Note that the \relkinDesc\ depends completely on the Relative Derived States
+model, and any simulation involving implementation of the \relkinDesc\
+will thus require the successful setup of one or more RelativeDerivedState
+objects (\cite{dynenv:DERIVEDSTATE}) as well. This model dependency will be
+discussed as appropriate in the following sections.
+
+
+\section{Analysis}
+
+The Analysis and the Integration sections will assume, for the purposes of
+illustration, S\_define objects of the following form:
+
+\begin{verbatim}
+sim_object {
+
+   environment/time:          TimeManager    time_manager;
+
+} time;
+
+
+sim_object {
+
+   dynamics/dyn_manager:      DynManager     dyn_manager;
+
+} mngr;
+
+
+sim_object {
+
+   dynamics/dyn_body:         Simple6DofDynBody dyn_body;
+
+} veh;
+
+
+sim_object {
+
+   dynamics/rel_kin:          RelativeKinematics         relkin;
+   dynamics/derived_state:    RelativeDerivedState       cm_relstate;
+   dynamics/derived_state:    RelativeDerivedState       sensor1_relstate;
+   dynamics/derived_state:    RelativeDerivedState       sensor2_relstate;
+
+
+   P_DYN (initialization) dynamics/rel_kin:
+   relkin.relkin.add_relstate (
+      In RelativeDerivedState & new_relstate  = relkin.cm_relstate);
+
+   P_DYN (initialization) dynamics/rel_kin:
+   relkin.relkin.add_relstate (
+      In RelativeDerivedState & new_relstate  = relkin.sensor1_relstate);
+
+   P_DYN (initialization) dynamics/rel_kin:
+   relkin.relkin.add_relstate (
+      In RelativeDerivedState & new_relstate  = relkin.sensor2_relstate);
+
+
+   (DYNAMICS, environment) dynamics/rel_kin:
+   relkin.relkin.update_all ( );
+
+   P_ENV Imngr (derivative) dynamics/rel_kin:
+   relkin.relkin.update_single (
+      In char                 * relstate_name = relkin.cm_relstate.name);
+
+} relkin;
+\end{verbatim}
+
+Note that this code is only representative of sim objects necessary for this
+discussion, and does not hold a complete implementation. For full
+implementation details on the Time model, please see the \JEODid\ Time
+Representations Model documentation \cite{dynenv:TIME}; for full
+implementation details on the Dynamics Manager model,
+please see the \JEODid\ Dynamics Manager Model documentation
+\cite{dynenv:DYNMANAGER}; for full implementation details on the Simple
+Six-DOF Dynamics Body model, please see the appropriate section of the \JEODid\
+Dynamics Body Model documentation \cite{dynenv:DYNBODY}; and for full
+implementation details on the Relative Derived States model, please see the
+Relative Reference Frame State-representation section of the
+\JEODid\ Derived State Model documentation \cite{dynenv:DERIVEDSTATE}.
+
+The input files for the \relkinDesc\ are trivial. There are simply no data
+fields unique to the \relkinDesc\ beyond those in the RelativeDerivedState
+instances it contains, other than an integer count of the number of currently
+contained RelativeDerivedStates. Since this value is automatically incremented
+when RelativeDerivedState instances are added to the \relkinDesc's list, there
+are no unique settings required in input files for this model. (Note: please
+consult the appropriate section of \cite{dynenv:DERIVEDSTATE} for assistance in
+implementing the Relative Derived States model, including its input file
+settings.) Instead, all capabilities of this model are exercised by declarations
+in the simulation's S\_define rather than the manipulation of settings via input
+files or similar.
+
+
+\section{Integration}
+
+This section describes the process of implementing the \relkinDesc\ in a Trick
+simulation, and will use the same example S\_define found in the Analysis
+section for illustration. Please again note that this code is only
+representative of sim objects necessary for this discussion, and does not
+describe a complete implementation. For full implementation details on the Time
+model, please see the \JEODid\ Time Representations Model documentation
+\cite{dynenv:TIME}. For full implementation details on the Dynamics Manager
+model, please see the \JEODid\ Dynamics Manager Model documentation
+\cite{dynenv:DYNMANAGER}. For full implementation details on the Simple
+Six-DOF Dynamics Body model, please see the appropriate section of the \JEODid\
+Dynamics Body Model documentation \cite{dynenv:DYNBODY}. For full
+implementation details on the Relative Derived States model, please see the
+Relative Reference Frame State-representation section of the
+\JEODid\ Derived State Model documentation \cite{dynenv:DERIVEDSTATE}.
+
+To successfully integrate the \relkinDesc\ into a Trick simulation, the
+S\_define must contain instantiations of the following objects:
+\begin{itemize}
+\item A TimeManager object,
+\item A DynManager object,
+\item A DynBody object or one of its derived classes such as Simple6DofDynBody,
+\item One or more RelativeDerivedState objects for the \relkinDesc\
+to manage, and
+\item A RelativeKinematics object.
+\end{itemize}
+
+As noted above, the TimeManager, DynManager, DynBody or Simple6DofDynBody,
+and RelativeDerivedState classes must be correctly initialized and set up for
+successful simulation operation, though discussion of such setup for those
+classes is outside of the scope of this document; documentation specific to each
+of the applicable models should be consulted for those details.
+
+The main object for the \relkinDesc\ is the RelativeKinematics class, which is
+instantiated in the example code above via the line:
+
+\begin{verbatim}
+dynamics/rel_kin:          RelativeKinematics         relkin;
+\end{verbatim}
+
+After setting up the instantiation of a RelativeKinematics object, the next
+step is to add the RelativeDerivedStates that it is to manage to its list.
+(Note that they should be properly initialized first, which is outside the
+scope of this document; please consult the model-specific documentation for
+assistance in implementing this.)  This is accomplished by invoking the
+\relkinDesc\ {\em add\_relstate} member function as an initialization class job,
+as shown in the example above and reproduced here:
+
+\begin{verbatim}
+P_DYN (initialization) dynamics/rel_kin:
+relkin.relkin.add_relstate (
+   In RelativeDerivedState & new_relstate  = relkin.cm_relstate);
+
+P_DYN (initialization) dynamics/rel_kin:
+relkin.relkin.add_relstate (
+   In RelativeDerivedState & new_relstate  = relkin.sensor1_relstate);
+
+P_DYN (initialization) dynamics/rel_kin:
+relkin.relkin.add_relstate (
+   In RelativeDerivedState & new_relstate  = relkin.sensor2_relstate);
+\end{verbatim}
+
+This example shows the addition of three separate relative states to the
+\relkinDesc's list, each of which must be added individually via a separate
+call to the {\em add\_relstate} function.
+
+The final step required to integrate the \relkinDesc\ into a Trick simulation
+is to command the model to update the relative states at the desired time
+invervals. This is done by invoking either the \relkinDesc\ {\em update\_single}
+or {\em update\_all} member functions as desired:
+
+\begin{verbatim}
+   (DYNAMICS, environment) dynamics/rel_kin:
+   relkin.relkin.update_all ( );
+
+   P_ENV Imngr (derivative) dynamics/rel_kin:
+   relkin.relkin.update_single (
+      In char                 * relstate_name = relkin.cm_relstate.name);
+\end{verbatim}
+
+In this example code snippet, all of the currently managed relative states are
+being updated in batch fashion as an environment class job at the ``DYNAMICS''
+rate (the definition of which is outside the scope of this document), while
+the relative state ``cm\_relstate'' is additionally being updated by itself
+as a derivative class job and thus at the so-called derivative rate. Note that
+either function can be called at any frequency desired; the choices here are
+shown merely for introduction to the model's capabilities.
+
+No further steps are required for integration of the \relkinDesc\ into a Trick
+simulation.  As its purpose is primarily to serve as an interface by which the
+user can more easily manage multiple RelativeDerivedState objects all at once,
+the \relkinDesc\ itself performs no further tasks beyond the ones just
+illustrated.
+
+
+\section{Extension}
+
+Because the \relkinDesc\ was implemented in a very specific way to perform a
+very specific interface management function, it is not intended to be extensible.
+
+
+
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy
+% requirement \ref{reqt:<label>}.
+
+\inspection{Top-level Inspection}\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected,
+and together completely satisfy requirement \ref{reqt:toplevel}.
+
+\inspection{Data Requirements Inspection}\label{inspect:data_reqts}
+By inspection, the data structures of the \relkinDesc\ completely satisfy
+requirement \ref{reqt:relkin_data_encapsulation}.
+
+\inspection{Functional Requirements Inspection}\label{inspect:func_reqts}
+By inspection, the as-written function code of the \relkinDesc\
+satisfies requirements \ref{reqt:func_add_relstate},
+\ref{reqt:func_find_relstate}, \ref{reqt:func_update_single}, and
+\ref{reqt:func_update_all}.
+
+
+\section{Validation}
+For the single test case, a Trick simulation was run with an appropriately
+configured input file. This run can be found in its own directory in the
+SET\_test sub-directory of SIM\_RELKIN\_VERIF.
+
+
+\test{Relative Kinematics Model Test}\label{test:relkin_test}
+\begin{description}
+\item[Purpose:]\ \newline
+This test case is designed to examine the ability of the \relkinDesc\ to
+add new relative states to its internal list, to find relative states that
+are already in its internal list, to update individual relative states when
+so commanded, and to update all currently managed relative states when
+commanded. In doing so, the test case examines all functional aspects of the
+\relkinDesc.
+\item[Run directory:]\ \newline RUN\_relkin\_test
+\item[Requirements:]\ \newline
+By passing this test, this model satisfies requirements
+\mbox{\ref{reqt:func_add_relstate}}, \mbox{\ref{reqt:func_find_relstate}},
+\mbox{\ref{reqt:func_update_single}}, and \mbox{\ref{reqt:func_update_all}}.
+
+\item[Procedure:]\ \newline
+Since the model performs no calculations of its own, but instead merely directs
+instances of the RelativeDerivedState class to perform their calculations as
+appropriate, simple successful execution of a simulation containing both a
+properly implemented instance of the \relkinDesc, and properly implemented
+instances of the RelativeDerivedState class, is sufficient to fully demonstrate
+the capabilities of the model under examination.
+
+\item[Results:]\ \newline
+The simulation completed the run successfully. Since calls to all of the
+model's member functions are included either directly or indirectly in the test
+case (note that function {\em find\_relstate} is exercised by both the
+{\em add\_relstate} and {\em update\_single} even though it is not explicitly
+called in the S\_define), requirements
+\mbox{\ref{reqt:func_add_relstate}}, \mbox{\ref{reqt:func_find_relstate}},
+\mbox{\ref{reqt:func_update_single}}, and \mbox{\ref{reqt:func_update_all}}
+are demonstrated to be satisfied by this test.
+\end{description}
+
+\newpage
+\section{Requirements Traceability}\label{sec:traceability}
+
+\begin{longtable}[c]{||p{3in}|p{3in}|}
+\caption{Requirements Traceability} \\[6pt]
+\hline
+{\bf Requirement} & {\bf Inspection and Testing} \\
+\hline \hline
+\endhead
+
+\ref{reqt:toplevel} - Top-level Requirement &
+  Insp.~\ref{inspect:TLI} \\
+  \hline
+
+\ref{reqt:relkin_data_encapsulation} - Relative Kinematics Data Encapsulation &
+   Insp.~\ref{inspect:data_reqts} \\
+\hline
+
+\ref{reqt:func_add_relstate} - Add New Relative State To List &
+   Insp.~\ref{inspect:func_reqts} \\
+   &Test~\ref{test:relkin_test} \\
+\hline
+
+\ref{reqt:func_find_relstate} - Find Relative State In List &
+   Insp.~\ref{inspect:func_reqts} \\
+   &Test~\ref{test:relkin_test} \\
+\hline
+
+\ref{reqt:func_update_single} - Update Single Relative State &
+   Insp.~\ref{inspect:func_reqts} \\
+   &Test~\ref{test:relkin_test} \\
+\hline
+
+\ref{reqt:func_update_all} - Update All Relative States &
+   Insp.~\ref{inspect:func_reqts} \\
+   &Test~\ref{test:relkin_test} \\
+\hline
+
+\end{longtable}

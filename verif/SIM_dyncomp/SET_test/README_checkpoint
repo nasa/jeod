@@ -1,0 +1,20 @@
+The 3 checkpoint files demonstrate the checkpoint capability.
+RUN_checkpoint_baseline provides a baseline comparison
+RUN_checkpoint_create drops a checkpoint
+RUN_checkpoint_restart restarts from the checkpoint dropped by
+RUN_checkpoint_create.  It must be run *after* RUN_checkpoint_create.
+
+log_state.csv provides long-term state data for comparison between the baseline
+case and the restart case.
+
+log_post_checkpoint.csv is a smaller file that logs data only in the time
+immediately following the checkpoint.
+
+Comparing the post_checkpoint file between the baseline and create runs
+confirms that the dropping of a checkpoint has no effect on the simulation.
+
+Comparing the same file between the baseline and the restart runs provides an
+indication of the immediate error introduced by restarting from a checkpoint.
+
+Comparing the log-state file between the baseline and the restart runs provides
+an indication of the effect of propagating the restart errors.

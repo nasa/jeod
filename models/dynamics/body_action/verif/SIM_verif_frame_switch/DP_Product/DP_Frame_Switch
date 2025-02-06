@@ -1,0 +1,109 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "Page"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            TIME_NAME: "sys.exec.out.time"
+            LABEL: "sys.exec.out.time"
+            MIN_RANGE: 44
+            MAX_RANGE: 50
+
+        Y_variable: "veh.embary.rel_state.trans.position[0]"
+            MAX_RANGE: 0.0001
+            UNITS: "m"
+            LABEL: "veh.embary.rel_state.trans.position[0]"
+            MIN_RANGE: -0.0001
+            TIME_NAME: "sys.exec.out.time"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            TIME_NAME: "sys.exec.out.time"
+            LABEL: "sys.exec.out.time"
+            MIN_RANGE: 44
+            MAX_RANGE: 50
+
+        Y_variable: "veh.embary.rel_state.trans.position[1]"
+            MAX_RANGE: 0.0001
+            UNITS: "m"
+            LABEL: "veh.embary.rel_state.trans.position[1]"
+            MIN_RANGE: -0.0001
+            TIME_NAME: "sys.exec.out.time"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            TIME_NAME: "sys.exec.out.time"
+            LABEL: "sys.exec.out.time"
+            MIN_RANGE: 44
+            MAX_RANGE: 50
+
+        Y_variable: "veh.embary.rel_state.trans.position[2]"
+            MAX_RANGE: 0.0001
+            UNITS: "m"
+            LABEL: "veh.embary.rel_state.trans.position[2]"
+            MIN_RANGE: -0.0001
+            TIME_NAME: "sys.exec.out.time"
+
+PAGE 2: "Page"
+
+    PLOT 1: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            TIME_NAME: "sys.exec.out.time"
+            LABEL: "sys.exec.out.time"
+            MIN_RANGE: 44
+            MAX_RANGE: 50
+
+        Y_variable: "veh.embary.rel_state.trans.velocity[0]"
+            MAX_RANGE: 0.00000002
+            UNITS: "m/s"
+            LABEL: "veh.embary.rel_state.trans.velocity[0]"
+            MIN_RANGE: -0.000000001
+            TIME_NAME: "sys.exec.out.time"
+
+    PLOT 2: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            TIME_NAME: "sys.exec.out.time"
+            LABEL: "sys.exec.out.time"
+            MIN_RANGE: 44
+            MAX_RANGE: 50
+
+        Y_variable: "veh.embary.rel_state.trans.velocity[1]"
+            MAX_RANGE: 0.000000001
+            UNITS: "m/s"
+            LABEL: "veh.embary.rel_state.trans.velocity[1]"
+            MIN_RANGE: -0.00000001
+            TIME_NAME: "sys.exec.out.time"
+
+    PLOT 3: "Plot"
+        Y_AXIS_FORMAT: "%g"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            TIME_NAME: "sys.exec.out.time"
+            LABEL: "sys.exec.out.time"
+            MIN_RANGE: 44
+            MAX_RANGE: 50
+
+        Y_variable: "veh.embary.rel_state.trans.velocity[2]"
+            MAX_RANGE: 0.000000001
+            UNITS: "m/s"
+            LABEL: "veh.embary.rel_state.trans.velocity[2]"
+            MIN_RANGE: -0.00000001
+            TIME_NAME: "sys.exec.out.time"

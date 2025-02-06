@@ -1,0 +1,38 @@
+No title specified
+
+PLOTS:
+
+PAGE 1: "Gravitational Acceleration (m/s^2)"
+
+    PLOT 1: "X Acceleration"
+        Y_AXIS_LABEL: "sv_dyn.body.grav_interaction.grav_accel[0]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.grav_interaction.grav_accel[0]"
+            UNITS: "M/s2"
+            LABEL: "accel[0]"
+
+    PLOT 2: "Y Acceleration"
+        Y_AXIS_LABEL: "sv_dyn.body.grav_interaction.grav_accel[1]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.grav_interaction.grav_accel[1]"
+            UNITS: "M/s2"
+            LABEL: "accel[1]"
+
+    PLOT 3: "Z Acceleration"
+        Y_AXIS_LABEL: "sv_dyn.body.grav_interaction.grav_accel[2]"
+
+        X_variable: "sys.exec.out.time"
+            UNITS: "s"
+            LABEL: "sys.exec.out.time"
+
+        Y_variable: "sv_dyn.body.grav_interaction.grav_accel[2]"
+            UNITS: "M/s2"
+            LABEL: "accel[2]"

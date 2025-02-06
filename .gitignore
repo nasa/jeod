@@ -1,0 +1,144 @@
+# development scripts (only ignore in 'main' branch for release)
+dgh_scripts/
+docker/
+regression/
+tools/
+bin/jeod_cm/
+.gitlab-ci.yml
+
+
+# build products
+*.[oa]
+*.so
+*.gcno
+*.gcda
+*.gch
+*.dep
+gmon.out
+object_*
+dep_jeod_*
+.S_library_list_ext
+.S_library_swig
+.S_library_swig_ext
+.S_library_icg
+.icg_no_found
+*.pyc
+trickified/python
+regression/logs
+
+#documentation build products
+**/tex/coarse_metrics.tex
+**/tex/metrix_metrics.tex
+metrixpp.db
+**/tex/doc_install_out.txt
+**/tex/doc_out.txt
+**/tex/dyncover.sty
+**/tex/dynenv.bib
+**/tex/dynenv.cls
+**/tex/dynenv.sty
+**/tex/dynenvboilerplate.sty
+**/tex/dynenvcode.sty
+**/tex/dynenvlinks.sty
+**/tex/dynenvmatter.sty
+**/tex/dynenvreqt.sty
+**/tex/dynenvupfront.sty
+**/tex/dynmath.sty
+**/tex/autogenTracetable*.tex
+**/tex/*.aux
+**/tex/*.bbl
+**/tex/*.blg
+**/tex/*.lof
+**/tex/*.log
+**/tex/*.lot
+**/tex/*.out
+**/tex/*.pdf
+**/tex/*.toc
+**/tex/ifvtex.sty
+**/tex/inventory.tex
+**/tex/jeodspec.sty
+**/tex/longtable.dvi
+**/tex/longtable.sty
+**/tex/paths.def
+**/tex/ps4pdf.sty
+
+# editor temporary files
+*.swp
+*~
+.nfs*
+
+# Any file starting with a dot.
+.*
+
+# ctags tags files
+tags
+
+# Trick-generated files and folders
+# found in model and sim directories
+io_src
+swig
+
+# found only in sim directories
+.auto_checksums
+CP_out
+MAKE_out
+
+# auto-generated makefiles
+makefile
+makefile.bak
+
+**/gcov/**
+
+# Ignore generated trks but dont ignore ones in SET_test_val directories
+**/SIM_*/**/log_*.header
+**/SIM_*/**/log_*.trk
+**/SIM_*/**/log_*.csv
+**/SIM_*/**/*.out
+**/SIM_*/**/varserver_log
+**/SIM_*/**/**.xml
+**/SIM_*/SET_test/**/log_*.header
+**/SIM_*/SET_test/**/log_*.trk
+**/SIM_*/SET_test/**/log_*.csv
+**/SIM_*/SET_test/**/*.out
+**/SIM_*/SET_test/**/varserver_log
+!**/SIM_*/SET_test_val/**/log_*.header
+!**/SIM_*/SET_test_val/**/log_*.trk
+!**/SIM_*/SET_test_val/**/log_*.csv
+!**/SIM_*/SET_test_val_rh8/**/log_*.header
+!**/SIM_*/SET_test_val_rh8/**/log_*.trk
+!**/SIM_*/SET_test_val_rh8/**/log_*.csv
+trick.zip
+
+# sim-build artifacts
+**/SIM_*/build
+build
+_init_log.csv
+test_program
+
+chkpnt_*
+jeod_chkpnt_*
+DP_Product
+**/SIM_*/*akefile*
+Default_data
+Title
+send_hs
+swig_src
+S_source.cpp
+S_source.hh
+S_default.dat
+S_define_expnd*
+S_document.xml
+S_*.exe
+S_job_execution
+S_library_list
+S_sie.resource
+S_source.c
+S_checksums.c
+S_run_summary
+trick-catalog/
+trick/
+trick.zip
+errorlog.txt
+
+# ephemeris artifacts
+JPL-DE*.bin
+**/de4xx_ephem/ascii

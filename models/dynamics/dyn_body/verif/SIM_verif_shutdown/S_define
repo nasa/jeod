@@ -1,0 +1,181 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+//===========================TRICK HEADER=====================
+// PURPOSE:
+//==============================================================================
+// This simulation is a demonstration simulation for the shutdown (or deletion)
+// mechanisms between assemblies of DynBody's and MassBody's
+//
+// The following simulation objects are defined in this sim:
+//
+//          sys - Trick runtime executive and data recording routines
+//         time - Time, this sim has no absolute reference time
+//         mngr - The management of the simulation
+//          veh - free-floating vehicle
+//      payload - attached subassembly
+//
+//  ((Mitch Hollander) (METECS) (JEOD4.0.1 Patch Release))
+//==============================================================================
+
+
+// Define job calling intervals
+#define DYNAMICS        0.01   // dynamics interval
+
+// Include the default system classes:
+#include "sim_objects/default_trick_sys.sm"
+#include "jeod_sys.sm"
+#include "default_priority_settings.sm"
+
+#include "time_dyntime_only.sm"
+#include "dynamics.sm"
+
+/*****************************************************************************
+VehSimObject
+Purpose:(Baseline vehicle, suitable for veh2 and veh3)
+*****************************************************************************/
+##include "dynamics/dyn_body/include/dyn_body.hh"
+##include "dynamics/body_action/include/dyn_body_init_trans_state.hh"
+##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
+##include "dynamics/body_action/include/mass_body_init.hh"
+
+class VehSimObject: public Trick::SimObject {
+ public:
+  jeod::DynBody                 dyn_body;
+  jeod::DynBodyInitTransState   trans_init;
+  jeod::DynBodyInitRotState     rot_init;
+  jeod::MassBodyInit            mass_init;
+
+  std::string frame_to_check_at_shutdown;
+
+  VehSimObject( jeod::DynManager & dm_in)
+    : frame_to_check_at_shutdown("payload_dyn_body.payload_attached_mass.another_point")
+    , dyn_manager(dm_in)
+  {
+    P_ENV ("initialization") dyn_body.initialize_model(dyn_manager);
+    (DYNAMICS, "scheduled")  dyn_body.mass.update_mass_properties();
+  };
+
+  ~VehSimObject()
+  {
+        send_hs (stderr,"~VehSimObject()\n");
+        jeod::RefFrame* found_frame = 0x0;
+        found_frame = dyn_manager.find_ref_frame(frame_to_check_at_shutdown.c_str());
+        if(found_frame)
+        {
+            std::cout << "Found frame named: '" << found_frame->get_name() << "'" << std::endl;
+        }
+        else
+        {
+            std::cout << "No frame named: '" << frame_to_check_at_shutdown << "'" << std::endl;
+        }
+  }
+  
+
+ protected:
+  // External references
+  jeod::DynManager & dyn_manager;
+
+ private:
+  VehSimObject (const VehSimObject&);
+  VehSimObject & operator = (const VehSimObject&);
+
+};
+
+/*****************************************************************************
+PayloadObject
+Purpose:
+    (Definition for payload which will be deleted first to ensure JEOD
+     automatically detaches and dereferences bodies and their respective 
+     attributes at shutdown.)
+
+*****************************************************************************/
+##include "dynamics/body_action/include/body_attach_aligned.hh"
+##include "dynamics/body_action/include/body_detach.hh"
+##include "dynamics/body_action/include/body_detach_specific.hh"
+class PayloadObject: public Trick::SimObject {
+ public:
+  jeod::MassBody          secondary_mass;
+  jeod::DynBody           primary_body;
+
+  jeod::MassBodyInit      primary_mass_init;
+  jeod::MassBodyInit      secondary_mass_init;
+  
+  jeod::BodyAttachAligned attach_primary_to_veh;
+  jeod::BodyAttachAligned attach_secondary_to_primary;
+
+  std::string frame_to_check_at_shutdown;
+
+  PayloadObject( jeod::DynManager & dm_in)
+   : frame_to_check_at_shutdown("payload_dyn_body.payload_attached_mass.another_point")
+   , dyn_manager( dm_in )
+  { 
+        P_ENV ("initialization") primary_body.initialize_model( dyn_manager );
+  }
+
+  ~PayloadObject()
+  {
+        send_hs (stderr,"~PayloadObject()\n");
+        jeod::RefFrame* found_frame = 0x0;
+        found_frame = dyn_manager.find_ref_frame(frame_to_check_at_shutdown.c_str());
+        if(found_frame)
+        {
+            std::cout << "Found frame named: '" << found_frame->get_name() << "'" << std::endl;
+        }
+        else
+        {
+            std::cout << "No frame named: '" << frame_to_check_at_shutdown << "'" << std::endl;
+        }
+  }
+
+
+
+ protected:
+  // External references
+  jeod::DynManager& dyn_manager;
+
+ private:
+  PayloadObject (const PayloadObject&);
+  PayloadObject & operator = (const PayloadObject&);
+};
+
+
+// Define the payload last
+// such that ~PayloadObject() is called before ~VehSimObject()
+VehSimObject  veh( dynamics.dyn_manager);
+PayloadObject payload( dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop  (DYNAMICS) dynamics;

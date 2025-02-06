@@ -1,0 +1,24 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% File: JEOD.tex
+%
+% Purpose: Top level document for JSC Engineering Orbital Dynamics (JEOD)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[appendix]{dynenv}
+
+\dynenvaddtocitems{reqt=1,insp=2,test=2}
+
+\begin{document}
+
+% Front matter: Abstract, table of contents, lists of figures & tables 
+\frontmatter[style=abstract]{abstract}
+
+% Main document body: Each chapter is in its own file 
+\mainmatter{intro,reqt,spec,guide,ivv}
+
+% Back matter: Bibliography 
+\backmatter{appendices}
+
+\end{document}

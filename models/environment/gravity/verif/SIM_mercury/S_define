@@ -1,0 +1,425 @@
+//=============================================================================
+// Notices:
+//
+// Copyright © 2022 United States Government as represented by the Administrator
+// of the National Aeronautics and Space Administration.  All Rights Reserved.
+//
+//
+// Disclaimers:
+//
+// No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF
+// ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED
+// TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY
+// IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+// FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR
+// FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE
+// SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN
+// ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS,
+// RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS
+// RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY
+// DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE,
+// IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT "AS IS."
+//
+// Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY
+// LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE,
+// INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S
+// USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE
+// UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY
+// PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR
+// ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS
+// AGREEMENT.
+//
+//=============================================================================
+//
+//
+/**
+ * @file
+ * Simulation that propagates Mercury as a propagated planet, for the
+ * purpose of test relativistic gravity.
+ */
+
+/*
+Purpose: ()
+*/
+
+
+// Define job calling intervals
+#define DYNAMICS  16384.0
+#define LOGGING  131072.0
+
+
+##include <string>
+##include <cstddef>
+
+// Include the Trick system sim objects
+#include "sim_objects/default_trick_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
+
+// Include the JEOD system sim object
+#include "jeod_sys.sm"
+
+// Include the JEOD time sim object with TAI, TT, and TDB enabled
+#define TIME_MODEL_TT
+#define TIME_MODEL_TDB
+#include "jeod_time.sm"
+
+// Include the JEOD dynamics sim object
+#define JEOD_DYNMANAGER_OMIT_INTEGRATION
+#include "dynamics.sm"
+
+
+// JEOD environment sim object dependencies
+##include "environment/time/include/time_manager.hh"
+##include "environment/ephemerides/de4xx_ephem/include/de4xx_ephem.hh"
+
+#include "Base/environment_basic.sm"
+
+/**
+ * Essentially JEOD_S_modules/Base/environment.sm,
+ * but with an optional time type and the DE model hardcoded to 405
+ */
+class EnvSimObject: public EnvironmentBasicSimObject
+{
+protected:
+   // External references
+   jeod::TimeManager & time_manager;
+
+
+public:
+
+   std::string time_type;
+   jeod::De4xxEphemeris de4xx;
+
+   // Constructor
+   EnvSimObject (
+      jeod::TimeManager & time_manager_in,
+      jeod::DynManager & dyn_manager_in,
+      std::string time_type_in = "TT")
+   :
+      EnvironmentBasicSimObject(dyn_manager_in),
+      time_manager(time_manager_in),
+      time_type(time_type_in)
+   {
+      P_EPH ("initialization") de4xx.initialize_model (
+         time_manager, dyn_manager, time_type);
+   }
+
+ private:
+  // Unimplemented copy constructor and assignment operator
+  EnvSimObject (const EnvSimObject&);
+  EnvSimObject & operator = (const EnvSimObject&);
+};
+
+EnvSimObject env (jeod_time.time_manager, dynamics.dyn_manager, "TDB");
+
+
+// PlanetSimObject dependencies
+##include "environment/planet/include/planet.hh"
+##include "environment/gravity/include/gravity_manager.hh"
+##include "environment/gravity/include/spherical_harmonics_gravity_source.hh"
+
+
+/**
+ * Defines a gravitating body.
+ */
+class PlanetSimObject : public Trick::SimObject
+{
+public:
+   jeod::Planet planet;
+   jeod::SphericalHarmonicsGravitySource gravity_source;
+   std::string name; //<! trick_units(--)
+   double equatorial_radius; //!< trick_units(km)
+
+   // Constructor
+   PlanetSimObject (
+      std::string name_in,
+      double equatorial_radius_in,
+      jeod::DynManager & dyn_manager_in,
+      jeod::GravityManager & gravity_manager_in)
+   :
+      name(name_in),
+      equatorial_radius(equatorial_radius_in),
+      dyn_manager(dyn_manager_in),
+      gravity_manager(gravity_manager_in)
+   {
+
+      // Constructor proper.
+      planet.name = gravity_source.name = name;
+      planet.r_eq = equatorial_radius * 1e3;
+
+      // Initialization jobs.
+      P_ENV  ("initialization") gravity_source.initialize_body ( );
+
+      P_ENV  ("initialization") gravity_manager.add_grav_source (gravity_source);
+
+      P_EPH  ("initialization") initialize_planet();
+   }
+
+protected:
+   jeod::DynManager & dyn_manager; //!< trick_units(--)
+   jeod::GravityManager & gravity_manager; //!< trick_units(--)
+
+   virtual void initialize_planet ()
+   {
+      planet.register_model (gravity_source, dyn_manager);
+      planet.initialize ( );
+   }
+
+private:
+   // Unimplemented copy constructor and assignment operator
+   PlanetSimObject (const PlanetSimObject&);
+   PlanetSimObject & operator = (const PlanetSimObject&);
+};
+
+
+// Sun and planets, except Mercury
+PlanetSimObject sun (
+   "Sun",
+   6957000.,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject venus (
+   "Venus",
+   6051.8,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject earth (
+   "Earth",
+   6378.136,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject moon (
+   "Moon",
+   1738.1,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject mars (
+   "Mars",
+   3396.2,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject jupiter (
+   "Jupiter",
+   71492.,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject saturn (
+   "Saturn",
+   60268.,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject uranus (
+   "Uranus",
+   25559.,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+PlanetSimObject neptune (
+   "Neptune",
+   24764.,
+   dynamics.dyn_manager,
+   env.gravity_manager);
+
+
+// Propagated planet dependencies
+##include "dynamics/body_action/include/mass_body_init.hh"
+##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
+##include "environment/ephemerides/propagated_planet/include/propagated_planet.hh"
+##include "environment/gravity/include/spherical_harmonics_gravity_controls.hh"
+##include "utils/orbital_elements/include/orbital_elements.hh"
+##include "utils/ref_frames/include/ref_frame_state.hh"
+
+/**
+ * Defines a gravitating body that can be propagated.
+ */
+class PropagatedPlanetSimObject : public PlanetSimObject
+{
+public:
+   jeod::PropagatedPlanet prop_planet;
+   jeod::OrbitalElements orb_elem;
+   jeod::MassBodyInit mass_init;
+   jeod::DynBodyInitRotState rot_init;
+
+   // Constructor
+   PropagatedPlanetSimObject (
+      std::string name_in,
+      double equatorial_radius_in,
+      jeod::DynManager & dyn_manager_in,
+      jeod::GravityManager & gravity_manager_in,
+      std::string parent_in,
+      jeod::TimeManager & time_manager_in,
+      jeod::Planet & sun_in)
+   :
+      PlanetSimObject(
+         name_in, equatorial_radius_in,
+         dyn_manager_in, gravity_manager_in),
+      parent(parent_in),
+      time_manager(time_manager_in),
+      sun(sun_in)
+   {
+      // Constructor proper.
+      prop_planet.planet_name = (char*)(name.c_str());
+      prop_planet.parent_name = (char*)(parent.c_str());
+
+      grav_source_names[0] = "Sun";
+      grav_source_names[1] = "Venus";
+      grav_source_names[2] = "Earth";
+      grav_source_names[3] = "Moon";
+      grav_source_names[4] = "Mars";
+      grav_source_names[5] = "Jupiter";
+      grav_source_names[6] = "Saturn";
+      grav_source_names[7] = "Uranus";
+      grav_source_names[8] = "Neptune";
+
+      for (unsigned ii = 0; ii < 9; ++ii)
+      {
+         gravity_controls[ii].source_name = grav_source_names[ii];
+         gravity_controls[ii].active = false;
+         gravity_controls[ii].spherical = true;
+         gravity_controls[ii].gradient = false;
+         gravity_controls[ii].relativistic = false;
+      }
+
+
+      // Initialization jobs.
+
+      P_DYN  ("initialization") complete_initialization ();
+
+      P_DYN  ("initialization") composite_body->compute_relative_state (
+         sun.inertial, sun_relative_state);
+
+      P_DYN  ("initialization") orb_elem.from_cartesian (
+         sun_mu,
+         sun_relative_state.trans.position, sun_relative_state.trans.velocity);
+
+
+      // Environment class jobs
+
+      (LOGGING, "environment") composite_body->compute_relative_state (
+         sun.inertial, sun_relative_state);
+
+      (LOGGING, "environment") orb_elem.from_cartesian (
+         sun_mu,
+         sun_relative_state.trans.position, sun_relative_state.trans.velocity);
+   }
+
+
+   void activate_body (unsigned body_index, bool relativistic = false)
+   {
+      gravity_controls[body_index].active = true;
+      gravity_controls[body_index].relativistic = relativistic;
+   }
+
+protected:
+   std::string parent;
+   jeod::TimeManager & time_manager;
+   jeod::Planet & sun;
+   double sun_mu;
+   jeod::RefFrameState sun_relative_state;
+   jeod::BodyRefFrame* composite_body;
+   std::string grav_source_names[9];
+   jeod::SphericalHarmonicsGravityControls gravity_controls[9];
+
+   void complete_initialization ()
+   {
+      composite_body = &prop_planet.body.composite_body;
+      sun_mu = sun.grav_source->mu;
+   }
+
+   virtual void initialize_planet ()
+   {
+      prop_planet.initialize_model (time_manager, dyn_manager);
+      for (unsigned ii = 0; ii < 9; ++ii)
+      {
+         prop_planet.body.grav_interaction.add_control (&gravity_controls[ii]);
+      }
+      PlanetSimObject::initialize_planet();
+   }
+
+private:
+   // Unimplemented copy constructor and assignment operator
+   PropagatedPlanetSimObject (
+      const PropagatedPlanetSimObject&);
+   PropagatedPlanetSimObject & operator = (
+      const PropagatedPlanetSimObject&);
+
+};
+
+
+PropagatedPlanetSimObject mercury (
+   "Mercury", 2439.7,
+   dynamics.dyn_manager,
+   env.gravity_manager,
+   "SSBary.inertial",
+   jeod_time.time_manager,
+   sun.planet);
+
+
+
+// Include the JEOD integration loop sim object
+#include "integ_loop.sm"
+
+// Define the IntegConstructorSimObject
+##include "er7_utils/integration/core/include/integrator_constructor_factory.hh"
+##include "utils/integration/gauss_jackson/include/gauss_jackson_integrator_constructor.hh"
+##include "dynamics/dyn_manager/include/dynamics_integration_group.hh"
+
+
+class IntegConstructorSimObject: public Trick::SimObject {
+public:
+   er7_utils::Integration::Technique technique;
+   er7_utils::IntegratorConstructor * constructor;
+   jeod::GaussJacksonIntegratorConstructor gj_constructor;
+   jeod::DynamicsIntegrationGroup group;
+   bool constructor_allocated;
+
+   IntegConstructorSimObject ()
+   :
+      technique (er7_utils::Integration::Unspecified),
+      constructor (NULL),
+      constructor_allocated (false)
+   {
+      P0 ("initialization") create_integrator_constructor ();
+      ("shutdown") destroy_integrator_constructor ();
+   }
+
+   void create_integrator_constructor ()
+   {
+      if ((constructor == NULL) &&
+          (technique != er7_utils::Integration::Unspecified)) {
+         constructor_allocated = true;
+         constructor =
+            er7_utils::IntegratorConstructorFactory::create (technique);
+      }
+   }
+
+   void destroy_integrator_constructor ()
+   {
+      if (constructor_allocated) {
+         er7_utils::Er7UtilsDeletable::delete_instance (constructor);
+      }
+   }
+
+private:
+   IntegConstructorSimObject (const IntegConstructorSimObject&);
+   IntegConstructorSimObject & operator=(const IntegConstructorSimObject&);
+};
+
+IntegConstructorSimObject integ_constructor;
+
+JeodIntegLoopSimObject integ_loop (
+   DYNAMICS,
+   integ_constructor.constructor, integ_constructor.group,
+   jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager,
+   &mercury, NULL);

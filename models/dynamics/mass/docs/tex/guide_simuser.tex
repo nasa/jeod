@@ -1,0 +1,267 @@
+\subsection{Defining the Mass Body}
+The following values for each MassBody are typically specified in the input
+file:
+ \begin{enumerate}
+   \item Mass
+   \item Position of the center of mass with respect to its structural-axes
+   (often also known as the structural frame or structure frame)
+   \item The orientation of the body-axes with respect to the
+   structural-axes
+   \item Inertia tensor.
+   \end{enumerate}
+
+This specification is usually performed through the use of the MassBodyInit
+Body Action (this is strongly recommended).  The Body Action
+document~\cite{dynenv:BODYACTION} has its own User Guide specifically for the
+MassBodyInit action, duplicating some of the examples presented here.
+
+In the following example we have a simulation object called
+\textit{sim\_object\_A}, which contains a MassBody called \textit{body}, and
+an instance of the Body Action MassBodyInit called \textit{mass\_init}.
+
+Example code is given for Trick10 users; non-Trick users should
+follow a similar pattern using their appropriate syntax.  We start with the
+trivial declarations that tell \textit{mass\_init} that it is initializing
+body, that the body has a mass of 1.0 $kg$, and specifies the position of the
+center of mass of the body with respect to its structure-point.
+
+\paragraph{Trick 10}
+\begin{verbatim}
+sim_object_A.mass_init.set_subject_body(sim_object_A.body);
+sim_object_A.mass_init.properties.position = trick.attach_units("M",[1.0, 0.0,
+0.0])
+sim_object_A.mass_init.properties.mass     = trick.attach_units("kg",1.0)
+\end{verbatim}
+
+The orientation of the body-axes with respect to the structure-axes must also
+be specified.  Note that this orientation will be applied equally to the
+composite\_properties body-axes and to the core\_properties body-axes.
+
+There are several methods by which the orientation can be specified, as
+detailed in the Orientation Model document~\cite{dynenv:ORIENTATION}.  There
+are also two ways to interpret the specified rotation -- either as body to
+structure, or as structure to body (if none is specified, the default value is
+structure-to-body).
+
+The following values are all equivalent, and all mean structure-to-body:
+\begin{itemize}
+ \item 0
+ \item StructToBody
+ \item StructToCase
+ \item StructToPoint
+ \item StructToChild
+\end{itemize}
+
+The following values are all equivalent, and all mean body-to-structure:
+\begin{itemize}
+ \item 1
+ \item BodyToStruct
+ \item CaseToStruct
+ \item PointToStruct
+ \item ChildToStruct
+\end{itemize}
+
+\paragraph{Aside on Naming}
+While the names are functionally equivalent, they have specific meanings,
+hence the number of equivalent options:
+\begin{enumerate}
+\item \textit{Struct} refers to the structure-point.
+\item \textit{Body} typically refers to the body-axes associated with the
+MassBasicPoints \textit{core\_properties} and \textit{composite\_properties}.
+\item \textit{Case} is typically used to represent the case frame of a sensor,
+or similar, located at a MassPoint.
+\item \textit{Point} is a generic term, used for any mass point.
+\item \textit{Child} is also a generic reference that recognizes the mass-tree
+structure, wherein all mass points for a MassBody are children of the
+structure-point (obviously, excepting the structure-point itself).
+\end{enumerate}
+
+
+In the example below, we specify structure-to-body, and use eigen-vector
+rotation of 90 degrees about the z-axis (this would be the z-axis in the
+structure-axes)
+
+\paragraph{Trick 07}
+
+  \begin{verbatim}
+sim_object_A.mass_init.properties.pt_frame_spec =
+MassPointInit::StructToBody;
+sim_object_A.mass_init.properties.pt_orientation.data_source =
+                                        Orientation::InputEigenRotation;
+sim_object_A.mass_init.properties.pt_orientation.eigen_angle {d} = 90.0;
+sim_object_A.mass_init.properties.pt_orientation.eigen_axis[0]   = 0.0, 0.0,
+1.0;
+\end{verbatim}
+
+This example, in Trick10 gives a transformation matrix from body-axes to
+structure-axes, with a 180-degree rotation about the y-axis.
+\paragraph{Trick 10}
+
+  \begin{verbatim}
+sim_object_A.mass_init.properties.pt_frame_spec =
+                                         trick.MassPointInit.BodyToStruct;
+sim_object_A.mass_init.properties.pt_orientation.data_source =
+                                                 trick.Orientation.InputMatrix;
+sim_object_A.mass_init.properties.pt_orientation.trans[0] = [ -1.0,  0.0,  0.0]
+sim_object_A.mass_init.properties.pt_orientation.trans[1] = [  0.0,  1.0,  0.0]
+sim_object_A.mass_init.properties.pt_orientation.trans[2] = [  0.0,  0.0, -1.0]
+\end{verbatim}
+
+Note that the orientation of the body with respect to any other object has not
+been specified.  That is only relevant under one of the following situations:
+\begin{enumerate}
+ \item The body is attached to another body; in this case the relative
+ orientation between the two bodies will be specified as part of the
+ attachment definition.
+ \item The absolute orientation of the body is useful in some sense; in this
+ case, the body needs a state, and so should be a DynBody.  The initialization
+ of a DynBody does include orientation of its reference frames (which a
+ MassBaody does not have) with respect to their parent (which is the inertial
+ reference frame).  By orienting the DynBody reference frames, the MassBody
+ axes (which are aligned with the respective DynBody reference frames) also
+ get aligned.
+\end{enumerate}
+
+The final initialization item is the inertia tensor, and there are several
+methods for specifying this value.  The variable
+\textit{mass\_init.properties.inertia\_spec} can take one of the following
+values:
+\begin{itemize}
+ \item NoSpec         The inertia tensor is not specified.  Any attempt to
+ specify it in the \textit{mass\_init} object will be ignored.
+ \item Body (default) The inertia tensor is specified using the body-axes.
+ \item StructCG       The inertia tensor is specified using axes oriented with
+ the structure-axes, but based at the center-of-mass.
+ \item Struct  The inertia tensor is specified using the structure-axes.
+ \item SpecCG  The inertia tensor is specified using axes oriented with some
+ specified orientation, based at the center-of-mass.
+ \item Spec    The inertia tensor is specified using axes oriented with some
+ specified orientation, based at a specified origin.
+\end{itemize}
+
+For options \textit{Spec} and \textit{SpecCG} ONLY, the value
+\textit{mass\_init.properties.inertia\_orientation} must be specified.  This
+is an instance of the Orientation class, see the Orientation document for full
+details~\cite{dynenv:ORIENTATION}.  The value specified is the process by which
+the orientation of the axes in which the inertia tensor is specified may be
+transformed into the orientation of the body-axes (e.g. $T_{spec \rightarrow
+body}$.  It is analogous to the specification of the body-axes orientation
+relative to the structural-axes orientation.
+
+For option \textit{Spec} ONLY, the value \textit{mass\_init.inertia\_offset}
+must also be specified.  This is a simple 3-vector, expressed in the axes
+associated with the \textit{mass\_init.properties.inertia\_orientation}
+specification.
+
+\paragraph{Trick07}
+\begin{verbatim}
+sim_object_A.mass_init.properties.inertia[0][0] {kg*M2} = 1.0, 0.0, 0.0;
+sim_object_A.mass_init.properties.inertia[1][0] {kg*M2} = 0.0, 2.0, 0.0;
+sim_object_A.mass_init.properties.inertia[2][0] {kg*M2} = 0.0, 0.0, 3.0;
+\end{verbatim}
+
+In this example, the axes are switched to specify the inertia on the
+structure-axes.
+\paragraph{Trick10}
+\begin{verbatim}
+sim_object_A.mass_init.properties.inertia_spec =
+trick.MassPropertiesInit.Struct
+sim_object_A.mass_init.properties.inertia[0]  =
+                               trick.attach_units( "kg*m2",[ 1.0,  0.0,   0.0])
+sim_object_A.mass_init.properties.inertia[1]  =
+                               trick.attach_units( "kg*m2",[ 0.0,  2.0,   0.0])
+sim_object_A.mass_init.properties.inertia[2]  =
+                               trick.attach_units( "kg*m2",[ 0.0,  0.0,   3.0])
+
+\end{verbatim}
+
+
+\subsection{Adding Mass Points}
+Mass points are useful for providing additional sets of axes from which
+positions and orientations can be determined.  Perhaps the most useful
+application of MassPoint objects is in attaching mass bodies to one another.
+Mass points are typically defined using the same body action item, and at the
+same time that the rest of the MassBody is being defined.  The following items
+define a MassPoint:
+ \begin{enumerate}
+   \item Name
+   \item Position with respect to the structural-axes
+   \item The orientation of the point-axes with respect to the
+   structural-axes.
+   \end{enumerate}
+
+We have already covered the initialization of both of these elements for the
+MassBody, and the same system is followed for the MassPoint.  The position is
+straightforward again, and the orientation can be specified in any one of the
+many ways available from the Orientation model~\cite{dynenv:ORIENTATION}, and
+interpreted as either structure-to-body or body-to-structure, just as outlined
+above.
+
+The MassPoint instances do need allocation.  In the following examples, notice
+that the \textit{pt\_frame\_spec} value is not specified, so takes the default
+value \textit{StructToPoint}.  Notice also that I have chosen to illustrate
+two different ways of specifying the orientation in the two examples; this
+does not mean that one is prefered in Trick07 and one in Trick10, they are
+jsut illustrative examples.
+
+\paragraph{Trick07}
+\begin{verbatim}
+sim_object_A.mass_init.num_points = 1;
+sim_object_A.mass_init.points = alloc( 1 );
+
+sim_object_A.mass_init.points[0].set_name( "interesting_name" );
+sim_object_A.mass_init.points[0].pt_frame_spec =
+MassPointInit::StructToPoint;
+sim_object_A.mass_init.points[0].position[0] {M}  = 2.0, 0.0, 0.0;
+sim_object_A.mass_init.points[0].pt_orientation.data_source =
+                                               Orientation::InputEigenRotation;
+sim_object_A.mass_init.points[0].pt_orientation.eigen_angle {d} = 180.0;
+sim_object_A.mass_init.points[0].pt_orientation.eigen_axis[0]   = 0.0, 0.0,
+1.0;
+\end{verbatim}
+
+\paragraph{Trick10}
+\begin{verbatim}
+ sim_object_A.mass_init.num_points = 1
+ sim_object_A.mass_init.points =
+                            trick.sim_services.alloc_type( 1, "jeod::MassPointInit" )
+ sim_object_A.mass_init.points[0].set_name( "interesting_name" )
+ sim_object_A.mass_init.points[0].position  =
+                                      trick.attach_units( "m",[ 2.0, 0.0, 0.0])
+ sim_object_A.mass_init.points[0].pt_orientation.data_source =
+                                                  trick.Orientation.InputMatrix
+ sim_object_A.mass_init.points[0].pt_orientation.trans[0]  = [ -1.0,  0.0, 0.0]
+ sim_object_A.mass_init.points[0].pt_orientation.trans[1]  = [  0.0, -1.0, 0.0]
+ sim_object_A.mass_init.points[0].pt_orientation.trans[2]  = [  0.0,  0.0, 1.0]
+
+\end{verbatim}
+
+
+\subsection{Log Files}
+The output from the \ModelDesc\ is generally simple information (mass, center
+of
+mass, inertia matrix).  It is possible to output this information for all of
+the bodies in a simulation.
+
+Logging of the composite-properties is more common than the core-properties,
+because the core-properties are set by the user (so are presumably already
+known), whereas the composite-properties are generated by the \ModelDesc.
+
+
+\paragraph{Trick07}
+\begin{verbatim}
+  "sim_object_A.body.composite_properties.mass";
+  "sim_object_A.body.composite_properties.position[0]";
+  "sim_object_A.body.composite_properties.inertia[0][0-2]";
+  "sim_object_A.body.composite_properties.inertia[1][0-2]";
+  "sim_object_A.body.composite_properties.inertia[2][0-2]";
+\end{verbatim}
+
+\paragraph{Trick10}
+\begin{verbatim}
+  dr_group.add_variable("sim_object_A.body.composite_properties.mass")
+  for ii in range(0,3) :
+    dr_group.add_variable("sim_object_A.body.composite_properties.position["+st
+    r(ii)+"]")
+\end{verbatim}
+etc.

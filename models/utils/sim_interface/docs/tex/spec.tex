@@ -1,0 +1,577 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% spec.tex
+% Specification of the Simulation Interface Model
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+
+\section{Conceptual Design}
+\label{sec:conceptual_design}
+
+\subsection{Overview}
+
+JEOD must be usable in the Trick 13 environment,
+and should be usable in other environments as well.
+The decision to make the \ModelDesc was mostly an internal decision.
+The model consolidates the interfaces between JEOD and Trick,
+and potentially with other simulation engines, in one place.
+
+The \ModelDesc is implemented in the form of
+header files that configure JEOD for use in a particular simulation environment,
+header files the define macros,
+and header and source files that define classes.
+The common theme that connects these disparate items is
+that they represent interfaces between JEOD and the simulation engine.
+These interfaces take a number of forms:
+\begin{itemize}
+\item Making a class's protected and private data members
+  visible to the simulation engine.
+\item Making data items allocated by JEOD models
+  visible to the simulation engine.
+\item Translating addresses to and from simulation engine symbolic names.
+\item Checkpointing and restarting data allocations and \CONTAINER\ objects.
+\item Making JEOD integration work within the context
+  of a simulation engine's integration scheme.
+\item Obtaining the rate at which the simulation engine calls
+  the currently executing function. 
+\end{itemize}
+
+The Trick environment is the primary implementation target of JEOD.
+A number of the model header and source files pertain specifically to the Trick
+simulation environment.
+
+In addition to the above interfaces, the model provides a
+Trick 13-specific capability to support multiple rates of integration.
+
+\subsection{Configuration}
+Some of the header files provided with the model configure JEOD for use in
+a particular simulation environment. These configuration headers define
+a set of \Cplusplus macros. Some of these macros are used in other model
+header and source files. Others provide portable type definitions that can
+be used by  model developers.
+
+\subsection{Exposing Protected/Private Data Members to the Simulation Engine}
+All JEOD models must be restartable from a previously created set of
+checkpoint files. JEOD models rely primarily upon Trick 13 mechanisms to provide
+this checkpoint / restart capability. Making the protected and private data
+members of a class are visible to Trick enables Trick to checkpoint a large
+portion of the members of all class instances that are visible to Trick.
+
+To this end, the \ModelDesc provides two macros,
+\verb|JEOD_MAKE_SIM_INTERFACES| and \verb|JEOD_NOMINALLY_PRIVATE|.
+The former makes all of a class's data members visible
+to the simulation engine.
+All JEOD classes that have protected or private member data invoke this macro.
+The latter is for templates that are base classes of various JEOD classes.
+
+\subsection{Interfacing JEOD and Simulation Engine Integration}
+JEOD has a well-developed concept of how to integrate the equations of motion,
+but so do many simulation engines. The \ModelDesc provides mechanisms to
+make JEOD integration work within the context of how the simulation engine
+performs integration.
+
+\subsection{Interfacing JEOD and Simulation Engine Memory Management}
+The constructors and initialization-time functions of a number of the JEOD
+models allocate memory dynamically. These allocations, along with registrations
+of containers that need to be checkpointed and restarted, are the purview
+of the JEOD \MEMORY. The allocations and type descriptions must be coordinated
+with the simulation engine. The \ModelDesc relays information about the
+allocations to the simulation engine and provides the memory model with
+simulation engine descriptions of data types.
+
+\subsection{Checkpoint/Restart}
+
+JEOD checkpoint/restart capabilities come in two basic forms:
+A generic checkpoint/restart text-based capability,
+and a Trick 13-specific checkpoint restart capability that uses this generic
+capability to augment Trick 13 checkpoint restart.
+
+The generic capability extends \Cplusplus I/O to provide the ability to write
+and read a partitioned checkpoint file. Each partition in the file looks like
+a separate file from the perspective of start and end of file markers.
+This partitioning reduces the number of files that need to be managed.
+
+The Trick 13-specific capability augments existing Trick 13 text-based
+checkpoint/restart, writing checkpoint data to a pair of partitions
+in a partitioned JEOD checkpoint file during checkpoint
+and restoring content from that checkpoint file on restart.
+While Trick 13 can checkpoint and restore the contents of
+externally allocated data,  it cannot checkpoint and restore the
+allocations themselves. One of the partitions in the JEOD checkpoint file
+describes the data allocated by JEOD models. The \CONTAINER\ Checkpointable
+objects used throughout JEOD are opaque to the simulation engine.
+The other partition in the JEOD checkpoint file contains the contents
+of those Checkpointable objects.
+
+\subsection{Trick Message Handler}
+The \verb|MessageHandler| class is an abstract class.
+The \ModelDesc provides a Trick-specific classes that derive from
+the \verb|MessageHandler| and that are instantiable.
+
+\subsection{Multiple Integration Groups}
+Providing the ability to support multiple rates of integration, with each
+rate group using its own integration technique, has been a long-standing desire
+within the JEOD project.
+Until recently the Trick environment limited the extent to which this could be
+accomplished and there was no external impetus to provide this ability.
+Trick 13 now provides the necessary infrastructure to support this feature,
+and an external request for this feature now exists.
+The \ModelDesc provides a Trick 13-specific
+multiple integration group capability.
+
+\section{Key Algorithms}
+\label{sec:algorithms}
+
+\subsection{Checkpoint/Restart}
+The JEOD project assumed that the bulk of the checkpoint and restart
+efforts are provided by the simulation engine. The two exceptions to
+this are data allocated by JEOD and classes with data members that
+are opaque to the simulation engine.
+
+The \ModelDesc addresses these issues by recording the allocations and
+opaque content in a segmented JEOD checkpoint file. The allocations and opaque
+content are restored at restart time based on the contents of the
+specified JEOD checkpoint file.
+The algorithms for checkpointing and restoring Checkpointable objects
+is specified in the \CONTAINER.
+
+\subsection{Trick Name Lookup}
+JEOD uses Trick name lookup to convert addresses to names at checkpoint
+time and to convert names to addresses at restart time. The mechanisms
+for performing these activities were the result of mutually agreed upon
+negotiations between the Trick and JEOD development teams.
+
+\subsection{Trick Memory Registration}
+JEOD registers allocated memory and deregisters freed memory with Trick
+per interfaces described in the Trick documentation.
+
+
+\section{Interactions}
+\label{sec:interactions}
+
+\subsection{JEOD Models Used by the \ModelDesc}
+The \ModelDesc uses the following JEOD models:
+\begin{itemize}
+\item\hypermodelref{CONTAINER}.\\
+The Trick 13 memory interface maintains a registry of
+\CONTAINER\ \verb|JeodCheckpointable| objects.
+The model uses this registry as the basis for
+checkpointing the contents of the checkpointable objects at checkpoint time
+and for restoring the contents of the checkpointable objects at restart time.
+
+\item\hypermodelref{DYNMANAGER} and \hypermodelref{DYNBODY}.\\
+The JEOD-agnostic aspect of the Trick 13-specific multiple integration group
+capability integrates a collection of Trick 13 simulation objects.
+The JEOD-aware aspect of this capability augments this JEOD-agnostic capability,
+using a \verb|DynamicsIntegrationGroup| object to integrate all
+of the \verb|DynBody| objects contained in the subject simulation objects.
+The set of \verb|DynBody| to be integrated is formed by interactions with the
+simulation's \verb|DynManager| object.
+
+\item\hypermodelref{INTEGRATION}.\\
+The Trick simulation engine treats integration a special class of jobs.
+Trick makes integration abstract. It repeatedly calls derivative class jobs and
+then integration class jobs until the integration jobs indicate completion.
+The \ModelDesc enables communication between the simulation engine and
+JEOD integration in the form of the abstract class IntegratorInterface and
+Trick-specific classes that derive from IntegratorInterface.
+
+\item\hypermodelref{MEMORY}.\\
+Every JEOD-based simulation must contain exactly one instance of a class that
+derives from \verb|JeodSimulationInterface|. This class must contain or
+construct an instance of a class that derives from \verb|JeodMemoryManager|.
+
+The \ModelDesc reacts to calls from the memory manager regarding
+allocations/deallocations of memory and registrations/deregistrations
+of checkpointable objects.
+
+\item\hypermodelref{MESSAGE}.\\
+The \ModelDesc  mandates that a compliant \verb|JeodSimulationInterface|
+must either contain or construct an instance of a class that derives from
+\verb|MessageHandler|. This message handler must be created prior to the
+memory manager described above.
+
+As do almost all other models,
+the \ModelDesc uses the message handler to generate messages.
+
+\item\hypermodelref{NAMEDITEM}.\\
+The Trick 13-specific memory interface calls \verb|NamedItem::demangle| to
+demangle type names.
+
+\item\hypermodelref{TIME}.\\
+The JEOD-aware aspect of the Trick 13-specific multiple integration group
+capability uses the simulation's \verb|TimeManager| object to create the
+integration group and to update time at the start of an integration loop.
+\end{itemize}
+
+\subsection{JEOD Models That Use the \ModelDesc}
+All JEOD models use the \ModelDesc to make data members visible to the
+simulation engine. In addition to these uses,
+\begin{itemize}
+\item\hypermodelref{CONTAINER}.\\
+The Container Model uses the \ModelDesc to translate addresses to
+and from symbolic names.
+
+\item\hypermodelref{DYNMANAGER}.\\
+The \DYNMANAGER\ integrates the dynamic aspects of a typical JEOD-based
+simulation.
+It uses the \INTEGRATION\ to perform the integration, with the simulation engine
+mediating the integration process.
+Interactions between JEOD simulation and the simulation engine are handled
+generically by the \ModelDesc class \verb|JeodIntegratorInterface|.
+
+The \verb|DynManager| class contains an element of type
+\verb|JEOD_SIM_INTEGRATOR_POINTER_TYPE|.
+This macro defines a pointer to a simulation engine-specific integrator
+structure, \verb|Trick::Integrator| in the case of a Trick-based simulation.
+The Trick integration class job that calls the \verb|DynManager| instance's
+integrate function should supply this member as the \verb|sup\_class\_data|
+for the integration class job.
+
+\item\hypermodelref{INTEGRATION}.\\
+The Integration Model uses a \ModelDesc \verb|JeodIntegratorInterface| object to
+coordinate integration as performed by JEOD with integration as
+performed by the simulation engine.
+
+\item\hypermodelref{MEMORY}.\\
+The Memory Model uses the \ModelDesc to
+\begin{itemize}
+\item Coordinate JEOD and simulation engine descriptions of data types,
+\item Register/deregister allocated memory with the simulation engine, and
+\item Register/deregister Container Model objects with the \ModelDesc.
+\end{itemize}
+\end{itemize}
+
+
+\section{Detailed Design}
+
+\subsection{Configuration}
+The header file \verb|config.hh| includes an installation-specific
+configuration file that defines a set of macros used in other model headers.
+The model provides installation-specific configuration files for
+Trick 13 and for the Trick-independent test harness.
+
+Developers who wish to use JEOD in a non-Trick simulation environment
+must develop a custom installation-specific configuration file.
+
+\subsection{Exposing Protected/Private Data Members to the Simulation Engine}
+In a Trick environment, the macro \verb|JEOD_MAKE_SIM_INTERFACES|
+declares \verb|InputProcessor| as a friend class and declares the
+auto-generated \code{init\_attr\inanglebrackets{class\_name}}
+as a friend function.
+Declaring \verb|InputProcessor| as a friend class signals Trick's ICG facility
+to process protected and private data members. Declaring the function
+generated by ICG as a friend function is needed to make that auto-generated
+code compilable.
+
+Developers who wish to use JEOD in a non-Trick simulation environment
+that requires visibility to protected and private data must define a
+custom version of \verb|JEOD_MAKE_SIM_INTERFACES|.
+
+
+\subsection{The JEOD Simulation Interface Object}
+Every JEOD-based simulation must have exactly one instance of a class that
+that inherits from the abstract class \verb|JeodSimulationInterface|.
+\subsubsection{Class JeodSimulationInterface}
+This abstract class defines the basis for the interface between JEOD and a
+simulation engine. A compliant derived class must contain one instance each
+of a class that derives from \verb|MessageHandler| and a class that derives from
+\verb|JeodMemoryManager|. The \verb|MessageHandler| object must be constructed
+before the \verb|JeodMemoryManager| object; destruction must be performed in
+reverse order.
+
+\subsubsection{Class JeodSimulationInterfaceInit}
+This class defines configuration data that can be used to
+configure the \verb|JeodSimulationInterface| object's
+message handler and memory manager data members.
+
+\subsubsection{Class BasicJeodTrickSimInterface}
+This class implements the required capabilities of the
+generic \verb|JeodSimulationInterface| in a Trick simulation environment.
+The class contains a reference to a message handler,
+a memory interface object, and a memory manager object.
+The message handler, being a reference, must be created before
+the \verb|BasicJeodTrickSimInterface| object is constructed.
+
+The Trick 13 \verb|JEODSysSimObject| provided with JEOD contains a
+\verb|BasicJeodTrickSimInterface| data member. The MessageHandler object,
+which defaults to a \verb|TrickMessageHandler| object, is passed as an argument
+to the \verb|BasicJeodTrickSimInterface| non-default constructor.
+
+\subsubsection{Class JeodTrickSimInterface}
+This class derives from \verb|TrickMessageHandlerMixin| and
+\verb|BasicJeodTrickSimInterface|.
+The order of the inheritance ensures that the message handler is
+constructed prior to the memory interface and the memory manager members.
+Note that because the class \verb|TrickMessageHandlerMixin| derives from the
+the TrickMessageHandler class, using a \verb|JeodTrickSimInterface| precludes
+the use of a custom message handler. Developers who want to use their own
+message handler should use the \verb|BasicJeodTrickSimInterface| rather than
+the \verb|JeodTrickSimInterface|.
+
+\subsection{Interfacing JEOD and Simulation Engine Integration}
+\subsubsection{Configuration Macros}
+The configuration file should define a series of macros that encapsulate
+concepts related to integration. These integration configuration macros are:
+\begin{description}
+\item[\tt JEOD\_SIM\_INTEGRATOR\_FORWARD]
+provides a forward declaration to the simulation engine's
+integration data structure. This macro does not need to be defined
+if such a forward declaration isn't needed.
+In a Trick setting, this macro is defined via\newline
+{\tt \#define JEOD\_SIM\_INTEGRATOR\_FORWARD %\textbackslash\newline
+namespace Trick \{ class Integrator; \}}
+
+\item[\tt JEOD\_SIM\_INTEGRATOR\_POINTER\_TYPE]
+defines a pointer type that points to an instance of the
+simulation engine's integration data structure.
+In a Trick setting, this macro is defined via\newline
+{\tt \#define JEOD\_SIM\_INTEGRATOR\_POINTER\_TYPE Trick::Integrator *}
+
+\item[\tt JEOD\_SIM\_INTEGRATOR\_ENUM]
+defines an enumeration or integral type that identifies
+the type used by the simulation engine to identify an integration technique.
+In a Trick setting, this macro is defined via\newline
+{\tt \#define JEOD\_SIM\_INTEGRATOR\_ENUM Integrator\_type}
+\end{description}
+
+\subsubsection{Class JeodIntegratorInterface}
+This abstract class derives from the \verb|er7_utils::IntegratorInterface|
+class. The base class defines interfaces that the ER7 Utilities Integration
+model requires of an interface to the simulation engine's integration module.
+The class \verb|JeodIntegratorInterface| adds two additional pure virtual
+interfaces used within JEOD.
+
+Developers who wish to use JEOD in a non-Trick simulation environment
+must define a custom class that derives from \verb|JeodIntegratorInterface|
+to interface their simulation engine's concept of integration
+with JEOD's concept of integration.
+
+\subsection{Class TrickJeodIntegrator}
+This class extends the \verb|Trick::Integrator| class for internal use by
+JEOD. The class is needed because the Trick integration loop requires that
+integration class jobs be associated with a Trick integration structure.
+The loop uses this structure for various control purposes such as
+determining whether the derivative jobs are to be called on the first
+pass through the integration loop. 
+
+The class \verb|Trick::Integrator| declares two pure virtual member
+functions, \verb|initialize| and \verb|integrate|.
+Even though these functions are never used by JEOD integration, they
+must be defined to make the class instantiable.
+The class \verb|TrickJeodIntegrator| implements these as dummy functions.
+
+\subsection{Class JeodTrickIntegrator}
+This class derives from the \verb|JeodIntegratorInterface| class.
+It implements all pure virtual interfaces declared in and inherited by
+the parent class.
+The class also contains a \verb|TrickJeodIntegrator| data member.
+This inheritance and containment enables a \verb|JeodTrickIntegrator| instance
+to be used as a common basis for Trick and ER7 Utilities integration.
+
+\subsection{Interfacing JEOD and Simulation Engine Memory Management}
+\subsubsection{Class JeodMemoryInterface}
+This abstract class specifies several pure virtual methods that are needed to
+interface the JEOD memory manager with the simulation engine. These include
+\begin{itemize}
+\item Functions pertaining to the JEOD versus simulation engine
+representations of data types.
+\item Functions for registering/deregistering JEOD data allocations
+with the simulation engine.
+\item Functions for translating addresses to and from symbolic names.
+\item Functions for registering/deregistering JEOD container objects
+with the simulation interface.
+\item Functions for checkpointing/restoring those registered  container objects
+at checkpoint or restart time.
+\end{itemize}
+
+Developers who wish to use JEOD in a non-Trick simulation environment
+must define a custom class that derives from JeodMemoryInterface
+to interface their simulation engine's concept of memory with JEOD.
+
+\subsubsection{Class JeodTrickMemoryInterface}
+This class derives from \verb|JeodMemoryInterface|. It provides implementations
+of all of the pure virtual functions declared in the parent class.
+Several of these are dummy implementations based on the assumption
+that a \verb|JeodSimulationInterface| by default is not
+checkpointable/restartable.
+
+\subsubsection{Class JeodTrick10MemoryInterface}
+This class derives from \verb|JeodTrickMemoryInterface|. It overrides the dummy
+implementations provided in \verb|JeodTrickMemoryInterface| to make a
+Trick 13 / JEOD-based simulation fully checkpointable and restartable.
+
+
+\subsection{Checkpoint/Restart}
+This subsection describes the classes that provide a generic checkpoint/restart
+capability to create and restore from a partitioned checkpoint file.
+A partitioned checkpoint file comprises comprises multiple sections delineated
+by section markers, something along the lines of the following:
+\begin{codeblock}
+// ++++++++++++++++++++++++++++++++++++++++++ Start of section foo
+Contents of section foo (multiple lines)
+// ------------------------------------------ End of section foo
+
+// ++++++++++++++++++++++++++++++++++++++++++ Start of section bar
+Contents of section bar (multiple lines)
+// ------------------------------------------ End of section bar
+
+// ++++++++++++++++++++++++++++++++++++++++++ Start of section baz
+Contents of section baz (multiple lines)
+// ------------------------------------------ End of section baz
+\end{codeblock}
+
+A section within a checkpoint file looks like a ``file'' to the
+external users of this capability. The writers automatically create
+the section markers when an output section is opened and later closed.
+The readers make the individual sections look like a ``file''.
+The pseudo file appears to start just after the start of the section marker
+and end just before the end of section marker.
+
+The classes that comprise this capability take advantage of
+the fact that \Cplusplus I/O streams and buffers,
+unlike the \Cplusplus containers, were designed for extensibility.
+Users of this capability can use the standard \Cplusplus stream insertion
+and stream extraction operators to write to and read from a section
+of the checkpoint file.
+ 
+
+\subsubsection{Class CheckPointOutputManager}
+The class \verb|CheckPointOutputManager| provides the ability to create
+an output partitioned checkpoint file.
+The non-default constructor creates a \Cplusplus output file stream to the
+specified checkpoint file.
+This stream is private to the \verb|CheckPointOutputManager| instance.
+This stream is accessed indirectly via a \verb|SectionedOutputStream|
+object.
+The \verb|CheckPointOutputManager| member function \verb|create_section_writer|
+creates a \verb|SectionedOutputStream|.
+
+\subsubsection{Class SectionedOutputStream}
+A \verb|SectionedOutputStream| is a \verb|std::ostream| that writes a section
+of a partitioned checkpoint file. This class automatically writes the
+start and end markers of the checkpoint file section.
+
+The current implementation is a bit spare.
+It does not provide buffering,
+and it does not support \verb|seekp| or \verb|tellp|
+to reposition the stream.
+It does support the stream insertion operator.
+It is this operator that external users should use to
+write the contents of the checkpoint file section.
+
+Note that most of the content of this class is private.
+This class is not extensible and is intended to be used within the
+context of a \verb|CheckPointOutputManager|.
+
+\subsubsection{Class SectionedOutputBuffer}
+A \verb|SectionedOutputBuffer| is a \verb|std::streambuf| that writes a section
+of a partitioned checkpoint file. This stream buffer is created and used
+by a \verb|SectionedOutputStream| object.
+
+Note that with the exception of the destructor and the inherited members
+from \verb|std::streambuf|, everything in this class is private.
+This class is not extensible.
+
+\subsubsection{CheckPointInputManager}
+A \verb|CheckPointInputManager| provides the ability to read from a
+previously created partitioned checkpoint file.
+The non-default constructor creates a \Cplusplus input file stream to the
+specified checkpoint file.
+This stream is private to the \verb|CheckPointInputManager| instance.
+This stream is accessed indirectly via a \verb|SectionedInputStream|
+object.
+The \verb|CheckPointOInputManager| member function \verb|create_section_reader|
+creates a \verb|SectionedInputStream|.
+
+
+\subsubsection{SectionedInputStream}
+A \verb|SectionedInputStream| is a \verb|std::istream| that reads from a
+section in a partitioned checkpoint file. This class indicates EOF when the
+input pointer in the checkpoint file file buffer reaches the end of the section.
+
+The current implementation is a bit spare.
+It does not provide buffering,
+it does not support operations that require buffering
+such as \verb|peek|, \verb|putback|, and \verb|unget|,
+and it does not support \verb|seekg| or \verb|tellg|
+to reposition the stream.
+It does support \verb|std::getline| the stream extraction operator.
+It is this function or this operator that external users should use to
+read the contents of the checkpoint file section.
+
+Note that most of the content of this class is private.
+This class is not extensible and is intended to be used within the
+context of a CheckPointInputManager.
+
+\subsubsection{SectionedInputBuffer}
+A \verb|SectionedInputBuffer| is a \verb|std::streambuf| that reads from a
+section in a partitioned checkpoint file. This class indicates EOF when the
+input pointer in the checkpoint file file buffer reaches the end of the section.
+
+Note that with the exception of the destructor and the inherited members
+from \verb|std::streambuf|, everything in this class is private.
+This class is not extensible.
+
+\subsection{Trick Message Handler}
+\subsubsection{TrickMessageHandler}
+This class is an instantiable class that derives from the
+\verb|SuppressedCodeMessageHandler| class, which in turn derives from
+the \verb|MessageHandler| class.
+The \verb|TrickMessageHandler| provides an implementation of the
+\verb|process_message| member function declared as pure virtual in the base
+\verb|MessageHandler| class.
+
+JEOD classes that contain container objects should in general register those
+containers with the simulation interface at construction time.
+The TrickMessageHandler cannot do that because it needs to be constructed
+prior to the memory interface and memory manager.
+The class instead provides the method \verb|register_contents| which is
+called by the \verb|BasicJeodTrickSimInterface| constructor.
+
+\subsubsection{TrickMessageHandlerMixin}
+This class contains a \verb|TrickMessageHandler| as a protected data member.
+The class \verb|JeodTrickSimInterface| inherits from this class and from
+\verb|BasicJeodTrickSimInterface|, in that order. 
+
+
+\subsection{Multiple Integration Groups}
+The \ModelDesc provides a Trick 13-specific multiple integration group
+capability. In JEOD 2.2, this capability was split into a JEOD-agnostic and
+JEOD-aware parts. The JEOD-agnostic part is now a part of Trick 13. The
+only aspect left in JEOD is the JEOD-aware part of the JEOD 2.2 implementation.
+
+\subsubsection{JeodDynbodyIntegrationLoop}
+This class inherits from the \verb|Trick::IntegLoopScheduler| class
+and from the \INTEGRATION\ \verb|IntegrationGroupOwner| class to
+ provide the JEOD-aware aspect of the multiple integration group
+capability.
+A \verb|JeodDynbodyIntegrationLoop| object integrates all of the
+\verb|DynBody| objects that are contained in the sim objects to be integrated
+by that \verb|JeodDynbodyIntegrationLoop| object.
+
+A DynBody object that is an element of a Trick sim object is automatically moved
+from one integration loop to another when the sim object that contains the
+DynBody is moved to a different integration loop.
+Note well: JEOD does not support the concept of DynBody objects that are not
+members of a Trick simulation object. DynBody objects that are dynamically
+allocated outside of the context of a containing Trick simulation object is
+undefined behavior.
+
+A \verb|JeodDynbodyIntegrationLoop| object also integrates all non-DynBody
+integrable objects managed by the loop. These non-DynBody integrable objects
+can be added to or removed from the integration loop directly via calls to
+\verb|JeodDynbodyIntegrationLoop::add_integrable_object| and
+\verb|JeodDynbodyIntegrationLoop::remove_integrable_object|.
+
+The recommended practice is to instead associate integrable objects with
+a DynBody object. The integrable objects associated with a DynBody object
+are automatically added to the dynamics integration group that integrates
+the DynBody object. In a future release or patch to JEOD, these associated
+integrable objects will be moved along with the DynBody object as the
+DynBody object is moved from one integration loop to another.
+
+\clearpage
+\boilerplateinventory

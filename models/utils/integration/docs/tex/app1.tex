@@ -1,0 +1,133 @@
+\chapter{Integration Techniques}\label{app:overview}
+
+\section{Overview}
+
+The appendices that follow each describe a single technique for solving an
+an initial value problem.
+Some techniques natively address a first order ODE, others, a second order ODE.
+A first order ODE solver can readily be adapted to solve a second order ODE,
+but at the expense of ignoring some of the geometry of the problem.
+The converse is not true for a second order ODE solver.
+Most techniques, at their heart, address a scalar problem. These scalar-based
+techniques can readily be adapted to solving a vector problem, but once again
+at the expense of ignoring some of the geometry of the problem.
+A small number (only one in JEOD 3.0) explicitly address a vector ODE problem
+and do take advantage of the connections between the components of the vector.
+
+\section{Classification}
+
+A numerical integration technique can be classified in a number of ways:
+\begin{itemize}
+\item Whether the technique is a solver for a first or second order ODE.
+\item Whether the technique takes advantage of the vectorial nature of
+the problem.
+\item Whether the technique uses derivatives from previous integration
+intervals. The single step integrators do not use prior history.
+The multistep integrations do, which means these techniques need to be
+"primed" by some other integration technique.
+\item Whether the technique adaptively splits the integration interval
+into smaller cycles. LSODE is the only adaptive technique in JEOD 3.0.
+\item Whether the technique subdivides an integration cycle into stages.
+The Runge Kutta intergrators are multistage. The linear multistep integrators
+are single stage (but typically are multistep).
+\end{itemize}
+
+\section{Implemented and Provided Techniques}
+
+The implementation of an integration technique includes classes for solving
+initial value problems and an integrator constructor that creates instances
+of those solvers. The integrator constructor derives from the the \erseven
+Integration model base class {\tt er7\_utils::IntegratorConstructor}.
+This base class defines four overridable methods for constructing state
+integrators:\begin{description}
+\item[{\tt create\_first\_order\_ode\_integrator}]
+Creates an integrator for a first order ODE initial value problem.
+These integrators take a state vector and its time derivative as arguments.
+The goal of the integration is to advance the state vector to some
+desired end time.
+\item[{\tt create\_second\_order\_ode\_integrator}]
+Creates an integrator for a second order ODE initial value problem.
+These integrators take a state vector and its first and second derivative
+as arguments.
+The goal of the integration is to advance the state vector and its first
+derivative to some desired end time.
+\item[{\tt create\_generalized\_deriv\_second\_order\_ode\_integrator}]
+Creates an integrator for a generalized derivative second order ODE initial
+value problem.
+These integrators take a generalized position vector, a generalized velocity
+vector, and the time derivative of generalized velocity as arguments.
+The time derivative of generalized position is computed by some function
+of generalized position and velocity; this function is provided as an
+argument to the constructor function.
+The goal of the integration is to advance generalized position and velocity
+to some desired end time.
+\item[{\tt create\_generalized\_step\_second\_order\_ode\_integrator}]
+Creates an integrator for a second order Lie group initial value problem.
+\end{description}
+
+The base implementation of each of these is to generate an error message
+and return a null pointer. Using a null pointer to perform integration will
+cause the program to crash. The "Implemented and Provided Techniques" section
+of each of the technique-specific appendices that follow contains a table that
+indicates which of these four interfaces the technique supports.
+This support can be
+\begin{itemize}
+\item Direct -- The integrator constructor returns a solver implemented in the
+context of the technique,
+\item Indirect -- The integrator constructor returns a solver that is
+compatible with the technique, or
+\item Non-existent -- The technique does not override the default
+implementation.
+\end{itemize}
+
+\section{Mathematical Description}
+
+The "Mathematical Description" section of each of the technique-specific
+appendices that follow contains a description of the mathematics behind the
+technique. References are provided if possible.
+
+\subsection{First Order ODE}
+
+Most of the provided techniques target a scalar first order ODE. Adapting
+such a technique to a vectorial first order ODE is trivial: Simply apply
+the technique individually to each element of the vector. This comes at a
+cost of ignoring some of the geometry of the problem. LSODE specifically
+targets a vector first order ODE and can take geometry into account.
+
+Some of the provided techniques target second order ODEs. These techniques
+typically cannot be used to solve first order ODE initial value problems. 
+These techniques provide a surrogate first order solver that is compatible with
+the second order ODE technique when asked to create a solver for a
+first order ODE initial value problem.
+
+\subsection{Second Order ODE}
+
+All of the provided techniques provide solvers for second order ODEs. A first
+order ODE solver can readily be adapted to solving a second order ODE
+initial value problem, either by state doubling or by applying the technique
+to position first and velocity second. The remaining techniques explicitly
+solve a second order ODE initial value problem.
+
+\subsection{Generalized Position / Generalized Velocity ODE}
+
+All of the provided techniques provide solvers for generalized position /
+generalized velocity initial value problems. The constructor for the
+solver takes the functions that computes the first and second derivatives of
+generalized position as arguments. The same mechanisms used to adapt a
+first order ODE solver to a second order ODE problem can be employed using
+these functions. These functions can similarly be used by second order
+ODE solvers to adapt that solver to a generalized position / generalized
+velocity problem.
+
+\subsection{Lie Group Second Order ODE}
+
+Lie group solvers only exist for some of the integration techniques.
+A Lie group problem can always be recast as a generalized position /
+generalized velocity problem, so techniques that do not provide a Lie
+group integrator can still be used to solve these kinds of problems
+(but at the cost of accuracy).
+
+\section{Usage Instructions}
+
+The "Usage Instructions" section of each of the technique-specific
+appendices that follow contains a description of how to use the technique.

@@ -1,0 +1,18 @@
+The Message Handler Model validation run will output messages based
+on the input file configuration.
+
+After compiling the sim, run SET_test/RUN_test/input.py to see the
+error messages.
+
+This output can be compared against the record in
+SET_test_val/RUN_test/run.out
+
+Note that the comparison output in run.out shows only which messages get
+displayed and which do not (justification: error messages include full paths
+which will never be reproduceable on another system or for another user).
+
+This file should be reproduceable by sending the error messages (which go to
+stdout) elsewhere:
+S_main_[tab-complete] SET_test/RUN_test/input.py > /dev/null
+
+Without the stdout messages, the output should match that found in run.out.

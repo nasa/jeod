@@ -1,0 +1,82 @@
+# start by taking the JEOD 1.5 files, do a global search and replace in:
+#     name this file 
+# dut file,         replace
+perl parse_new.pl $1 > temp.dut
+
+cat deltaAT.d > temp.leap
+#cat $1 > temp.dut
+
+# place a space to separate the name from the index
+  sed -e {s/vec/vec\ /} temp.leap > temp.leap1
+  sed -e {s/UTIME\.in/TimeConverter_TAI_UT1/} temp.dut > temp.dut1a
+  sed -e {s/override_DUT1/override_data_table/} temp.dut1a > temp.dut1b 
+  sed -e {s/last_DUT1_index/last_index/} temp.dut1b > temp.dut1c
+  sed -e {s/DUT1_drjd/when_vec/} temp.dut1c > temp.dut1d
+  sed -e {s/DUT1_tbl/val_vec/} temp.dut1d > temp.dut1e
+  sed -e {s/vec/vec\ /} temp.dut1e > temp.dut1
+
+# take 40 000 days off the deltaAT.d file to convert from mjd to tjd.  print only
+# those values.
+    awk ' $1 == "TimeConverter_TAI_UTC.when_vec" && $3 == "=" {$4 = $4 - 40000; print $4}' temp.leap1 > temp.leap2b
+
+# count the number of entries in the leap table, enter it on the first line and
+# append the data
+    awk 'END {print NR}' temp.leap2b > temp.leap2a
+    cat temp.leap2a temp.leap2b > temp.leap2
+
+# do the same with the data for the number of leap seconds, so that it aligns
+# with the tjd at which the leap second was added.
+    awk ' $1 == "TimeConverter_TAI_UTC.val_vec" && $3 == "=" {print $4}' temp.leap1 > temp.leap3b
+    cat temp.leap2a temp.leap3b > temp.leap3
+
+# arrange the two data sets into two columns.
+    paste temp.leap2 temp.leap3 > temp.leap4
+
+# take the same 40 000 days off the "when" values for the calibrated DUT values.
+    awk ' $1 == "TimeConverter_TAI_UT1.when_vec" && $3 == "=" {$4 = $4 - 40000; print $4}' temp.dut1 > temp.dut2
+
+# print off the data "values" and arrange in the same 2 column format
+    awk ' $1 == "TimeConverter_TAI_UT1.val_vec" && $3 == "=" {print $4}' temp.dut1 > temp.dut3
+    paste temp.dut2 temp.dut3 > temp.dut4
+
+# this file should look like:  # of leap-second values, then leap second values,
+# then DUT values in 2 columns
+    cat temp.leap4 temp.dut4 > temp.comp
+
+# read in the number of leap-second data points, assign these values to 2
+# vectors, then work through a for loop to find the number of leap seconds
+# at each entry in the DUT table.  TAI to UT1 = (UT1 - TAI) = DUT1 - leap_value.
+    awk ' NR == 1 {breakline = $1+1}; NR <= breakline && NR >= 2{when[NR-1] = $1; val[NR-1] = $2}; NR == breakline {whencomp = when[1]; valcomp = val[1]; icomp = 1}; NR > breakline { for (i=icomp; $1>=when[i+1] && i < breakline-1; i=i+1) ; icomp = i; printf("%.7f\n", $2 - val[icomp])} ' temp.comp > temp.dut5
+
+
+# make the final data files; reduce the "when" by 40 000 days, add the
+# semi-colon back in (it is deleted in the arithmetic), and print the
+# whole file for TAI to UTC.
+    awk ' $1 == "TimeConverter_TAI_UTC.when_vec" && $3 == "=" {$4 = $4 - 40000; $5 = "; /*"}; {print $0}' temp.leap1 > temp.tai_to_utc1.d
+    sed -e {s/vec\ /vec/} temp.tai_to_utc1.d > tai_to_utc.d
+
+# for Converter_TAI_UT1, break the original file into the values, and everything else
+    awk ' $1 == "TimeConverter_TAI_UT1.val_vec" && $3 == "=" {print $0, ";"}' temp.dut1 > temp.dut6
+    awk ' $1 != "TimeConverter_TAI_UT1.val_vec" || $3 != "=" {print $0}' temp.dut1 > temp.dut7
+
+# edit the "when" lines from "everything else", taking out the 40 000 days and
+# adding in the semi-colon.
+    awk ' $1 == "TimeConverter_TAI_UT1.when_vec" && $3 == "=" {$4 = $4 - 40000; $5 = "; /*"}; {print $0}' temp.dut7 > temp.tai_to_ut1.d
+    
+# put the modified DUT values in a separate column but in the same file as the 
+# original full-text part of the "values" half of the file.    
+    paste temp.dut5 temp.dut6 >> temp.dut8
+
+# switch the new data for the old, and print the entire line with the new data.
+    awk ' {$5 = $1; print $2, $3, $4, $5, $6}' temp.dut8 > temp.dut9
+
+# append the modified "values" file to the end of the "everything else" file
+    cat temp.dut9 >> temp.tai_to_ut1.d
+    
+# remove all those spaces that were introduced at the beginning.    
+    sed -e {s/vec\ /vec/} temp.tai_to_ut1.d > tai_to_ut1.d
+
+#clean up
+#    rm temp.*
+
+

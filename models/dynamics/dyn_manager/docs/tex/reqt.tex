@@ -1,0 +1,229 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% reqt.tex
+% Requirements on the Dynamics Manager Model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}
+\label{ch:reqt}
+%----------------------------------
+
+\requirement{Top-level Requirement}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum,  meet all external and
+  internal requirements 
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+  Inspection 
+\end{description}
+
+
+\requirement{Registration and Lookup Services}
+\label{reqt:lists}
+\begin{description}
+\item[Requirement:]\ \newline
+  The model shall provide the ability to register and lookup by name
+  the following kinds of objects:
+  \subrequirement{Planets.}
+  \label{reqt:planet_list}
+  The model shall provide the ability to register and lookup objects
+  of the class Planet
+  (see \hypermodelref{PLANET}).
+  \subrequirement{Ephemeris items.}
+  \label{reqt:ephem_item_list}
+  The model shall provide the ability to register and lookup objects
+  of the class EphemerisItem
+  (see \hypermodelref{EPHEMERIDES})
+  and shall provide the ability to restrict the lookup to the
+  JEOD-provided classes that derive from EphemerisItem. 
+  \subrequirement{Reference frames.}
+  \label{reqt:ref_frame_list}
+  The model shall provide the ability to register and lookup objects
+  of the type RefFrame
+  (see \hypermodelref{REFFRAMES})
+  and shall provide the ability to restrict the lookup to the
+  reference frames registered as integration frames
+  (inertial frames or non-rotating frames that are subject to gravitation
+  forces only).
+  \subrequirement{Mass bodies.}
+  \label{reqt:mass_body_list}
+  The model shall provide the ability to register and lookup objects
+  of the type MassBody
+  (see \hypermodelref{MASS})
+  and shall provide the ability to restrict the lookup to the
+  the class DynBody
+  (see \hypermodelref{DYNBODY}).
+\item[Rationale:]\ \newline
+  The registration and lookup services are one of the driving
+  requirements for the model.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Mode}
+\label{reqt:mode}
+\begin{description}
+\item[Requirement:]\ \newline
+  The model shall provide the ability to operate in one of three modes:
+  \subrequirement{Empty space mode.}
+  \label{reqt:empty_space_mode}
+  Vehicles fly as if they are in empty space; the sun and planets are not
+  present. Ephemerides models are inactive.
+  \subrequirement{Single planet mode.}
+  \label{reqt:single_planet_mode}
+  Vehicles fly around a single planet. The sun and other planets are not
+  present. Ephemerides models are inactive.
+  \subrequirement{Ephemeris mode.}
+  \label{reqt:ephemeris_mode}
+  Vehicles fly in a system with multiple gravitational bodies.
+  Ephemerides models are active and define the basis of the reference
+  frame tree.
+\item[Rationale:]\ \newline
+  Simple problems should be simple to set up.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement[Ephemerides operations]{Ephemerides Initialization/Reinitialization}
+\label{reqt:ephem}
+\begin{description}
+\item[Requirement:]\ \newline
+  When operating in ephemeris mode,
+  the model shall initialize the registered ephemerides models
+  and shall provide these models with the ability to construct
+  the base of the reference frame tree.
+\item[Rationale:]\ \newline
+  The task of creating the base of the tree belongs to the ephemerides models.
+  This model's task is to provide a bridge between the ephemerides and
+  reference frame models.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement[Ephemerides-free operations]{Ephemerides-Free Operations}
+\label{reqt:ephem_free}
+\begin{description}
+\item[Requirement:]\ \newline
+  When operating in empty space or single planet mode, this
+  model shall define the base of the reference frame tree.
+\item[Rationale:]\ \newline
+  The ephemerides models are disabled (and may not be present)
+  in these simple modes.
+  The base of the reference frame tree still needs construction.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement{Body Actions}
+\label{reqt:body_actions}
+\begin{description}
+\item[Requirement:]\ \newline
+  In conjunction with the \hypermodelref{BODYACTION},
+  this model shall provide the ability to initialize and asynchronously
+  modify aspects of a mass or dynamic body.
+  \subrequirement{Action Registration.}
+  \label{reqt:add_body_action}
+  The model shall provide the ability to register a new body actions that is
+  to be performed at the appropriate time.
+  \subrequirement{Action Initialization.}
+  \label{reqt:initialize_body_action}
+  The model shall initialize each registered body actions at the
+  appropriate time and shall initialize each registered action once.
+  \subrequirement{Action Application.}
+  \label{reqt:apply_body_action}
+  The model shall apply registered body actions at the appropriate time.
+  Once applied the action shall be removed from the registered set of actions.
+\item[Rationale:]\ \newline
+  The Body Action Model and its interactions with other models,
+  including this one, is one of the key innovations of JEOD 2.0.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement{Initialization Body Actions}
+\label{reqt:init_time_body_actions}
+\begin{description}
+\item[Requirement:]\ \newline
+  \subrequirement{Initialization Classes.}
+  \label{reqt:init_time_body_action_classes}
+  The model shall initialize and apply registered BodyAction instances that
+  derive from the MassBodyInit, MassBodyAttach, and DynBodyInit classes
+  at simulation initialization time.
+  \subrequirement{Processing Order.}
+  \label{reqt:init_time_body_actions_order}
+  The model shall be able to properly initialize and apply a set of
+  non-conflicting initialization actions regardless of the order in
+  which the actions were registered.
+\item[Rationale:]\ \newline
+  The Body Action Model, along with its interactions with other models,
+  was introduced primarily to solve the initialization problem.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement{Asynchronous Body Actions}
+\label{reqt:asynch_body_actions}
+\begin{description}
+\item[Requirement:]\ \newline
+  The model shall provide the ability to initialize and apply registered
+  BodyAction instances during the course of a simulation run.
+\item[Rationale:]\ \newline
+  This is a nice side benefit of the model.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement{Common Integration Scheme} 
+\label{reqt:common_integ}
+\begin{description}
+\item[Requirement:]\ \newline
+  The model shall provide the ability to use the same integration scheme
+  for all registered dynamic bodies.
+\item[Rationale:]\ \newline
+  Unintentionally using different integration techniques introduces
+  subtle errors into a simulation.
+\item[Note:]\ \newline
+  Some users intentionally want to use different integration techniques or
+  integration rates for different vehicles.
+  The JEOD 2.0 implementation does not support this.
+  Support for this capability is planned for JEOD 2.1.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+\requirement{State and Time Propagation} 
+\label{reqt:integration}
+\begin{description}
+\item[Requirement:]\ \newline
+  The model shall manage the propagation of the states of the registered
+  dynamic bodies and of time from one dynamic time step to the next.
+\item[Rationale:]\ \newline
+  Coordinating the integration of state and time eliminates several
+  subtle simulation errors.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}
+
+
+\requirement{Gravitation}
+\label{reqt:gravitation}
+\begin{description}
+\item[Requirement:]\ \newline
+  The model shall provide the ability to compute the gravitational
+  accelerations acting on all registered dynamic bodies.
+\item[Rationale:]\ \newline
+  Computing gravitational acceleration is an
+  essential part of state propagation.
+\item[Verification:]\ \newline
+  Inspection, Test
+\end{description}

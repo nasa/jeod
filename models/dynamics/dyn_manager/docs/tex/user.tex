@@ -1,0 +1,285 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% user.tex
+% User guide for the Dynamics Manager Model
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}
+\label{ch:user}
+%----------------------------------
+This chapter describes how to use the \ModelDesc from the
+perspective of a simulation user, a simulation developer,
+and a model developer.
+
+
+\section{Analysis}
+This section addresses use of the \ModelDesc from the perspective
+of a simulation analyst. The model largely works behind the scenes.
+With the exception of the body action list described below,
+little interaction between the model and the typical simulation
+user is required.
+
+\subsection{The BodyAction List}\label{sec:user_analysis_body_action}
+
+The recommended practice regarding the initialization of DynBody
+objects in a JEOD-based Trick simulation is to use the
+\hypermodelref{BODYACTION} in conjunction with the \ModelDesc.
+The simulation's DynManager object maintains a list
+of \ModelDesc objects. Calling the DynManager's {\tt add\_body\_action()}
+method adds an item to the list. The DynManager draws objects from this list
+at the appropriate time and only does so when the objects indicate
+that they are ready to be executed. This mechanism disconnects the
+execution order of the enqueued model objects from the order in
+which the simulation objects are declared and from the order
+in which the objects are added to the list.
+
+This separation between initialization and declaration order
+was first addressed in JEOD 1.4/1.5, but the C-based solution
+involved some rather convoluted and very inflexible code.
+The C++ based JEOD 2.0 solution to this problem makes for
+a very extensible and simpler set of code. Users are strongly
+recommended to take advantage of this flexibility.
+
+\subsection{Initialization}\label{sec:user_analysis_initialization}
+The DynManager member function \verb+initialize_model()+ takes two arguments:
+a pointer to a Trick INTEGRATOR structure
+and a reference to a DynManagerInit object.
+The DynManagerInit is a simple object. It contains three data members that
+are used to set values in the simulation's dynamic manager that must
+remain constant for the duration of the simulation run. These three data
+members are:\begin{description}
+\item[{\tt EphemerisMode mode}]
+  Specifies the mode in which the dynamics manager will operate.
+  The default is ephemeris-driven mode, and this is the context under which
+  realistic simulations will operate. Following the guideline that simple
+  problems should be simple to specify, JEOD offers two other simplified modes,
+  empty space and single planet mode. There is but one integration frame
+  in these two simple modes. The two differ in that the planet in single
+  planet mode presumably has a gravitational field that affects dynamics
+  while gravitation is nonexistent in empty space mode.
+\item[{\tt char * central\_point\_name}]
+  This parameter names the central point and is used only when the manager
+  operates in empty space or single planet mode. 
+\item[{\tt IntegratorConstructor * integ\_constructor}]
+  The integrator constructor specifies the integration technique that is
+  to be used to integrate all of the dynamic bodies in a JEOD simulation.
+  See the \hypermodelref{INTEGRATION} for details.
+\end{description}
+
+If the DynManagerInit object's \verb+ integ_constructor+ pointer is null
+(which it is by default), the dynamics manager uses the \INTEGRATION factory constructor to create an integrator constructor based on the \verb+option+
+in the INTEGRATOR structure pointer passed to the \verb+initialize_model()+.
+
+\subsection{Controlling Dynamics}\label{sec:user_analysis_dynamics}
+The DynManager \verb+deriv_ephem_update+ data member determines whether
+ephemerides are updated at the derivative rate or only as scheduled.
+Setting this element to true will cause the ephemeris models to be updated at
+the derivative rate. Doing so makes the calculations of the perturbative
+gravitational accelerations more accurate but at the expense of an increased
+computational burden. The default setting for this data member is false,
+which means ephemerides are updated at the scheduled rate as specified
+in the simulation's \Sdefine file.
+
+\section{Integration}\label{sec:user_integration}
+This section addresses use of the \ModelDesc, first from the perspective of
+a simulation integrator and then from the perspective of a model developer
+who wants to use some of the functionality provided by this model.
+
+\subsection{\Sdefine-Level Integration}
+
+The DynManager class provides 48 publicly accessible methods, 50 counting
+the default constructor and destructor. Only eight of these methods are expected
+to be used in a simulation \Sdefine file. These eight methods are listed in
+table~\ref{tab:user_sdefine_methods}.
+
+\begin{table}[htp]
+\label{tab:user_sdefine_methods}
+\centering
+\caption{DynManager \Sdefine-level Methods}
+\vspace{1ex}
+\begin{minipage}{\textwidth}
+\centering
+\begin{tabular}{||l|l|p{3.41in}|}
+\hline
+{\bf Method} & {\bf Job Class} & {\bf Description}
+\\ \hline\hline
+\verb+add_body_action+ &
+  environment\footnote{Typically specified as a zero-rate job. Zero-rate jobs
+    are not be called on a regular basis. They can however be called from the
+    input file, which is the intended use of this method.} &
+  \raggedright Adds a BodyAction to the dynamic manager's list of body actions.
+    The dynamics manager will eventually process this newly-queued action.
+  \tabularnewline[6pt]
+\verb+compute_derivatives+ &
+  derivative\footnote{It may be desirable to also call this as scheduled jobs if
+    you are logging the accelerations of a DynBody object and want to see the
+    derivatives reflect the current time.\label{fn:guide_deriv_jobs}} &
+  \raggedright Causes each root dynamic body registered with the dynamics
+    manager to formulate the equations of motion for that body. This includes
+    accumulating the collected forces and torques that on the body. If your
+    simulation has gravitational forces, make sure you call \verb+gravitation()+
+    before calling \verb+ compute_derivatives()+.
+  \tabularnewline[6pt]
+\verb+gravitation+ &
+  derivative\footref{fn:guide_deriv_jobs} &
+  \raggedright Causes the gravity model to compute the gravitational
+    acceleration and gravity gradient for each root dynamic body registered with
+    the dynamics manager.
+  \tabularnewline[6pt]
+\verb+initialize_model+ &
+  initialization &
+  \raggedright Prepares the dynamics manager for the initializations that
+    are to follow. This method should run fairly early in the initialization
+    process.
+  \tabularnewline[6pt]
+\verb+initialize_simulation+ &
+  initialization &
+  \raggedright Initializes the ephemerides and performs the initialization-time
+    body actions registered with the dynamics manager.
+  \tabularnewline[6pt]
+\verb+integrate+ &
+  integration &
+  \raggedright Causes each root dynamic body registered with the dynamics
+    manager to integrate the equations of motion for that body and
+    updates time to reflect the time at the end of the intermediate step.
+  \tabularnewline[6pt]
+\verb+perform_actions+ &
+  environment &
+  \raggedright Performs all of the body actions registered with the
+    dynamics manager that are ready to be applied.
+  \tabularnewline[6pt]
+\verb+update_ephemerides+ &
+  environment &
+  \raggedright Makes each ephemeris model registered with the dynamics manager
+    update itself to reflect the current simulation time.
+  \tabularnewline[6pt]
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+
+\subsubsection{Initialization Jobs}\label{sec:user_integration_initialization}
+As noted in table~\ref{tab:user_sdefine_methods}, the model provides
+two methods that are expected to be used in an \Sdefine file as
+integration class jobs. These are \verb+initialize_model()+ and
+\verb+initialize_simulation()+.
+The first method, \verb+initialize_model()+, prepares the simulation's
+DynManager object for all of the other initializations that will soon follow.
+See section~\ref{sec:user_analysis_initialization}
+for a description of this method.
+The second method, \verb+initialize_simulation()+, takes no arguments.
+This method
+initializes the gravity controls for each of the simulation's dynamic bodies,
+completes the initialization of the simulation's ephemeris models, and
+initializes and applies body actions that have been registered with the
+dynamics manager and are ready to run at initialization time.
+
+The only initializations that should occur prior to the call to
+\verb+initialize_model()+ are initializations of the time model.
+Initializations that depend on dynamic bodies have fully-initialized states
+should be performed after the call to \verb+initialize_simulation()+.
+The bulk of the calls to initialization class jobs should be sandwiched
+between the calls to the two DynManager initialization-time methods.
+The best way to ensure that jobs will take place as described above
+in a Trick-based simulation is to use the Trick prioritization scheme.
+
+Two issues dictate this arrangement:\begin{itemize}
+\item Those intermediate initialization jobs' use of the dynamics manager
+  requires that the dynamics manager itself be properly initialized.
+  That means these tasks must be performed after the call to
+  \verb+initialize_model()+.
+\item  Which planetary ephemerides are active is determined by those frames
+  that have a non-zero subscription count. Initialization-time jobs that
+  subscribe to ephemerides-based reference frames must be performed prior
+  to the call to \verb+initialize_simulation()+ to ensure that the
+  simulation's reference frame tree is constructed as planned.
+\end{itemize}
+
+\subsubsection{Derivative and Integration Jobs}
+\label{sec:user_integration_dynamics}
+The model provides two methods,
+\verb+gravitation()+ and \verb+compute_derivatives()+,
+that should be called as derivative class jobs and
+one method, \verb+integrate()+,
+that should be called as an integration class job.
+The call to \verb+gravitation()+ must precede the call to
+\verb+compute_derivatives()+ to ensure proper computation of accelerations.
+
+As noted in table~\ref{tab:user_sdefine_methods}, it may be
+desirous to also call the two derivative class jobs as scheduled or
+logging class jobs. Doing so will not affect simulation dynamics, but it
+will make the logged accelerations be consonant with the other logged values.
+
+ 
+\subsubsection{Scheduled Jobs}\label{sec:user_integration_scheduled}
+The model provides three methods that are expected to be called as
+scheduled jobs. The method \verb+update_ephemerides()+ updates the
+simulation's ephemeris models to reflect the current time. All simulations
+that involve multiple gravitational bodies should include a call to
+this method in the simulation's \Sdefine file.
+
+The method \verb+perform_actions()+ performs queued body actions that
+are ready to be applied. Some simulations only use the \BODYACTION
+to initialize a simulation's dynamic bodies. These simulations do not
+need to call \verb+perform_actions()+. A call to this method is needed
+if the \BODYACTION is to be used to perform asynchronous operations.
+
+Finally, the mechanism by which body actions are registered with the
+simulation's dynamics manager is via calls to \verb+add_body_action()+.
+JEOD models do not invoke this method. The recommended practice is to call this
+method as a zero rate scheduled job in the simulation's \Sdefine file.
+Because the calling rate is zero, the generated \verb+S_source+ file will not
+call this method.
+The method can however be invoked from a simulation input file,
+and this is exactly how this method is intended to be used.
+
+\subsection{Using the Model in a User Defined Model}
+The public DynManager methods that are intended for use by model developers is
+more-or-less orthogonal to the set intended for use at the \Sdefine level.
+In particular, using \verb+add_body_action()+ and \verb+perform_actions()+ as
+methods invoked by a user model is not a recommended practice.
+
+The methods intended for use in user-defined methods fall into one of
+three categories.\begin{itemize}
+\item Lookup services.
+  The lookup methods include\begin{itemize}
+  \item {\tt find\_ephem\_item()}.
+    Finds the EphemItem
+    registered with the dynamics manager whose name matches the supplied value.
+  \item {\tt find\_ephem\_angle()}, {\tt find\_ephem\_point()}, and
+        {\tt find\_ephem\_planet()}.
+    Specializations of \verb+find_ephem_item()+
+    that restrict the lookup to specializations of EphemItem.
+  \item {\tt find\_planet()}.
+    Finds the Planet
+    registered with the dynamics manager whose name matches the supplied value.
+  \item {\tt find\_ref\_frame()}.
+    Finds the RefFrame
+    registered with the dynamics manager whose name matches the supplied value.
+  \item {\tt find\_dyn\_body()}.
+    Finds the DynBody
+    registered with the dynamics manager whose name matches the supplied value.
+  \end{itemize}
+\item Registration services. Most of the registration methods are intended
+  for use within JEOD. The one exception is \verb+add_ref_frame()+.
+  JEOD cannot possibly anticipate every reference frame that users might
+  want to use. For example, JEOD does not support the Mean of 1950 (M50)
+  reference frame. A user-defined model can implement this frame and
+  register it with the dynamics manager.
+\item Frame subscription services.
+  The frame subscription methods are\begin{itemize}
+  \item {\tt subscribe\_to\_frame()}
+    Increments a frame's subscription count.
+  \item {\tt unsubscribe\_to\_frame()}
+    Decrements a frame's subscription count.
+  \item {\tt frame\_is\_subscribed()}
+    Checks whether a frame's subscription count is positive.
+  \end{itemize}
+  Two versions of each method are defined. One takes a name of a reference
+  frame as an argument; the other takes a reference to a RefFrame object.
+\end{itemize}
+
+\section{Extension}
+The model is not designed to be extensible.

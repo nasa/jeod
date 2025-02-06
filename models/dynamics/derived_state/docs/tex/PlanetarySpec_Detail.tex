@@ -1,0 +1,40 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the Planetary model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+See the \href{file:refman.pdf}{Reference Manual}\cite{derivedstatebib:ReferenceManual} for a summary of member data and member methods for all classes.  
+
+\subsection{Process Architecture}
+The architecture for the \PlanetaryDesc\ is trivial, comprising methods that are operationally independent.
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods in each class.
+
+The \PlanetaryDesc\ contains only one class:
+\begin{itemize}
+\classitem{PlanetaryDerivedState}
+\textref{DerivedState}{ref:DerivedState}
+
+This contains only the methods \textit{initialize} and \textit{update}:
+\begin{enumerate}
+\funcitem{initialize}
+The initialization process comprises the following steps:
+\begin{enumerate}
+\item{} The generic DerivedState initialization routine is called to establish the naming convention of the reference object (i.e., the planet about which the vehicle is orbiting) and state identifier.
+\item{} The DerivedState method \textit{find\_planet} is called (which subsequently calls the  \href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{\em Dynamics Manager}~\cite{dynenv:DYNMANAGER}) method of the same name to find a planet by name; that name is stored as \textit{reference\_name}, and is usually assigned in an input file.
+\item{} The identified planet is then passed into the initialize method for the PlanetFixedPosition object, \textit{state}, which simply records a pointer to the planet just found in the PlanetFixedPosition class (see \href{file:\JEODHOME/models/utils/planet\_fixed/docs/planet\_fixed.pdf}{\em Planet Fixed} documentation~\cite{dynenv:PLANETFIXED}).
+\end{enumerate}
+
+\funcitem{update}
+This method uses the RefFrame method \textit{compute\_position\_from} (see \href{file:\JEODHOME/models/utils/ref\_frames/docs/ref\_frames.pdf}{\em Reference Frames} documentation~\cite{dynenv:REFFRAMES}) to calculate the Cartesian position of the \textit{subject} in the planet fixed reference frame.  Then, it uses the PlanetFixedPosition method \textit{update\_from\_cart} 
+(see \href{file:\JEODHOME/models/utils/planet\_fixed/docs/planet\_fixed.pdf}{\em Planet Fixed} documentation~\cite{dynenv:PLANETFIXED}) 
+to convert the Cartesian representation into spherical and elliptical representations.
+
+\end{enumerate}
+\end{itemize}

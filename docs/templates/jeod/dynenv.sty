@@ -1,0 +1,213 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File: dynenv.sty
+% This package file provides the common basis for all of the JEOD LaTeX-based
+% documents.
+%
+% Package options:
+% - sigpage   Enable signature page generation
+% - nosigpage Disable signature page generation
+% - appendix  RequirePackage{appendix}; backmatter setup modified appropriately
+% - part      Specify this option when the document has parts
+% - complete  Load the model package file and package hypperref if specified.
+% Options 'part' and 'complete' can also be specified with 'parts' and 'full',
+% respectively.
+%
+% This package allows arbitrary options as well as the above defined options.
+% Options that fall outside the above are assumed to name packages to be loaded.
+% These additional packages, if any, are loaded after the standard set of
+% packages are loaded.
+%
+% Do not specify hyperref as an option. Ever. But just in case someone does,
+% hyperref is the only (directly) illegal option to this package.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}[2009/01/01]% LaTeX date must be January 2009 or later
+\ProvidesPackage{dynenv}[2022/07/14 v5.0 Dynamics package macros]
+
+% Define a small set of macros that need to be defined up-front.
+\RequirePackage{ifmtarg}
+\RequirePackage{dynenvupfront}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% Define package options:
+%  - sigpage and nosigpage
+%  - part and section (aliases parts and sections)
+%  - appendix
+%  - complete (alias full)
+%  - hyperref (an illegal option)
+%
+
+% Option sigpage/nosigpage turns the signature page on or off.
+% The default is off as of JEOD release 2.2.
+\def\dynenv@sigpage{nosigpage}
+\DeclareOption{sigpage}{\def\dynenv@sigpage{sigpage}}
+\DeclareOption{nosigpage}{\def\dynenv@sigpage{nosigpage}}
+
+% Most documents have chapters as the toplevel entity.
+% Option section (alias sections) is for articles without chapters.
+% Option part (alias parts) is for big documents that contain parts.
+% Getting the toplevel entity wrong can lead to some surprising misfeatures.
+\def\dynenv@top@section{
+  \def\dynenv@topnumber{1}
+  \def\dynenv@toplevel{section}
+}
+\def\dynenv@top@chapter{
+  \def\dynenv@topnumber{0}
+  \def\dynenv@toplevel{chapter}
+}
+\def\dynenv@top@part{
+  \def\dynenv@topnumber{-1}
+  \def\dynenv@toplevel{part}
+}
+\dynenv@top@chapter
+\DeclareOption{section}{\dynenv@top@section}
+\DeclareOption{sections}{\dynenv@top@section}
+\DeclareOption{part}{\dynenv@top@part}
+\DeclareOption{parts}{\dynenv@top@part}
+
+% Option appendix loads package appendix and changes the behavior
+% of the backmatter.
+\newif\ifdynenv@appendix
+\dynenv@appendixfalse
+\DeclareOption{appendix}{\dynenv@appendixtrue}
+
+% Option color loads package color with options usenames,dvipsnames.
+\newif\ifdynenv@color
+\dynenv@colorfalse
+\DeclareOption{color}{\dynenv@colortrue}
+
+% Option complete (alias full) cause this package to load a bunch of packages.
+% The option defaults to off if dynenv.sty is loaded from a model document file.
+% It is on (with no way to turn it off) if the document file used dynenv.cls.
+\newif\ifdynenv@loadfull
+\ifx\in@dynenv@cls\@undefined
+   \dynenv@loadfullfalse
+\else
+   \dynenv@loadfulltrue
+\fi
+\DeclareOption{complete}{\dynenv@loadfulltrue}
+\DeclareOption{full}{\dynenv@loadfulltrue}
+
+% Option hyperref is illegal.
+\DeclareOption{hyperref}{%
+   \ClassError{dynenv}{Option `hyperref' not supported}{}}
+
+% Capture unspecified options as extra packages to be loaded.
+\let\dynenv@auxpackages=\@empty
+\DeclareOption*{\dynenv@additem{dynenv@auxpackages}{\CurrentOption}}
+
+
+% Process the options as specified by the calling .tex file.
+% Note: Conflicts are mediated by the declaration order in dynenv.sty rather
+% than by the order as specified in the options string.
+\ProcessOptions\relax
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Load the stuff that changes with each release, list of models, etc.
+\RequirePackage{jeodspec}
+
+% Specify the geometry.
+% JEOD documents have a 6.5 in x 8.75 in text area, and
+% paragraphs aren't indented but are separated by a small skip.
+\RequirePackage[text={6.5in,8.75in},centering]{geometry}
+\parindent=0in
+\parskip=6pt
+
+% Add space at end of a macro if needed
+\RequirePackage{xspace}
+
+% This package uses xkeyval for command options
+\RequirePackage{xkeyval}
+
+% The inventory et. al. use longtables
+\RequirePackage{longtable}
+
+% Bring in the appendix package if specified
+\ifdynenv@appendix
+   \RequirePackage{appendix}
+\fi
+
+% Load the AMS math package and graphics suites if complete option is active
+\ifdynenv@loadfull
+
+   % Bring in the AMS math package
+   \RequirePackage{amsmath,amssymb,amsfonts}
+
+   % Bring in the graphics environment
+   \RequirePackage{graphicx}
+\fi
+
+% Bring in the color package if specified
+\ifdynenv@color
+   \RequirePackage[usenames,dvipsnames]{color}
+\fi
+
+% Load extra packages if specified
+\@ifundefined{dynenv@auxpackages}{}{%
+   \dynenv@foreach{\RequirePackage}{\dynenv@auxpackages}}
+
+% Bring in JEOD packages:
+% - JEOD math nomenclature
+% - Cover page
+% - Document contents
+% - Hyperlinks and citations
+% - Requirements, inspections, and tests
+% - Boilerplate macros
+% - Exhibits of code
+\RequirePackage{dynmath}
+\RequirePackage[\dynenv@sigpage]{dyncover}
+\RequirePackage{dynenvmatter}
+\RequirePackage{dynenvlinks}
+\RequirePackage{dynenvreqt}
+\RequirePackage{dynenvboilerplate}
+\RequirePackage{dynenvcode}
+
+% If option complete is active, load
+%   - The auto-generated paths.def,
+%   - The model document package, and
+%   - hypperref, which must be the last package loaded.
+% Then setup hyperref using commands specified in the model document package.
+\ifdynenv@loadfull
+
+   % Include the makefile-generated paths definitions file
+   \input{paths.def}
+
+   % Load the model-specific package file
+   \RequirePackage{\MODELNAME}
+
+   % Invoke the dyncover \docrev macro with the \ModelRevision *if*
+   %   - The above defined \ModelRevision and
+   %   - It did not invoke the dyncover \docrev macro itself.
+   \ifx\@docrev\default@docrev
+      \ifx\ModelRevision\relax
+      \else
+         \docrev{\ModelRevision}
+      \fi
+   \fi
+
+   % Bring in the hyperref environment
+   \RequirePackage[colorlinks,plainpages=false]{hyperref}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Miscellaneous stuff.
+
+% Most older <model>.sty files specify modelprefix instead of ModelPrefix.
+\ifx\ModelPrefix\undefined\def\ModelPrefix{\modelprefix}\fi
+
+% The paths.defs macros intentionally do not invoke xspace.
+% Provide equivalents that do.
+\newcommand\MODELPATHx{\MODELPATH\xspace}
+\newcommand\MODELTYPEx{\MODELTYPE\xspace}
+\newcommand\MODELGROUPx{\MODELGROUP\xspace}
+\newcommand\MODELDIRx{\MODELDIR\xspace}
+\newcommand\MODELTITLEx{\MODELTITLE\xspace}
+
+
+\endinput

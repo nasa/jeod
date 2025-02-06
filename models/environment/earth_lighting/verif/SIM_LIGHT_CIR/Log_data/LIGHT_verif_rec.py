@@ -1,0 +1,27 @@
+drg = trick.sim_services.DRBinary("light_verif")
+drg.thisown = False
+drg.set_cycle(0.1)
+drg.set_freq(trick.DR_Always)
+
+drg.add_variable("light.area")
+drg.add_variable("light.lighting.sun_body.half_angle")
+drg.add_variable("light.lighting.sun_body.distance")
+drg.add_variable("light.lighting.moon_body.half_angle")
+drg.add_variable("light.lighting.moon_body.distance")
+drg.add_variable("light.lighting.earth_body.half_angle")
+drg.add_variable("light.lighting.earth_body.distance")
+drg.add_variable("light.lighting.sun_earth.obs_angle")
+drg.add_variable("light.lighting.sun_earth.occlusion")
+drg.add_variable("light.lighting.sun_earth.visible")
+drg.add_variable("light.lighting.sun_earth.lighting")
+drg.add_variable("light.lighting.moon_earth.obs_angle")
+drg.add_variable("light.lighting.moon_earth.occlusion")
+drg.add_variable("light.lighting.moon_earth.visible")
+drg.add_variable("light.lighting.moon_earth.lighting")
+drg.add_variable("light.lighting.earth_albedo.obs_angle")
+drg.add_variable("light.lighting.earth_albedo.occlusion")
+drg.add_variable("light.lighting.earth_albedo.visible")
+drg.add_variable("light.lighting.earth_albedo.lighting")
+
+# Add the data recording group to Trick's data recording.
+trick.add_data_record_group(drg)

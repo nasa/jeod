@@ -1,0 +1,82 @@
+
+\subsection{JEOD Models Used by the \ModelDesc}
+The \ModelDesc uses JEOD models to manage memory and to update time.
+
+Several model classes allocate memory and deallocate
+memory using the \hypermodelref{MEMORY}.
+The IntegratorConstructorFactory creates an instance of a class
+that derives from the IntegratorConstructor class.
+Each integrator constructor creates instances of state and time integrators.
+State integrators allocate memory for internal storage.
+The internal storage allocated by the state integrators is freed
+when the state integrators are destroyed. The freeing of the instances
+of integrator constructors, state integrators, and time integrators
+is the responsibility of the objects that created these instances
+rather than the \ModelDesc.
+
+The time integrators update the \hypermodelref{TIME}
+by invoking the \verb+TimeManager::update+ method with the interpolated
+simulation time at the end of each intermediate step.
+
+\subsection{Use of the \ModelDesc in JEOD}
+Two JEOD models use the \ModelDesc to integrate vehicle states over time:
+\begin{itemize}
+\item The \hypermodelref{DYNMANAGER}
+uses one of the \ModelDesc integrator constructors to create a time propagator
+and to create state integrators for each dynamic body in the simulation.
+The time integrator is owned by the dynamics manager while the
+state integrators are owned by the dynamic bodies.
+In the event that the dynamics manager is lacking a provided integrator 
+constructor, the dynamics manager uses the
+\ModelDesc's integrator constructor factory to create an integrator constructor
+based on the integration option in a Trick integration structure.
+
+Once the simulation is running, the dynamics manager propagates time using
+the time integrator and directs each root dynamic body to propagate its state.
+As the time and state integrators were created by a single integrator
+constructor, this approach ensures consistent state integration
+and time propagation across a simulation.
+\item The \hypermodelref{DYNBODY}
+uses the integrator constructor supplied by the dynamics manager to create rotational and/or translational state propagators. While the simulation is
+running, a dynamic body uses its constructed state propagators to propagate
+the body's rotational and translational states.
+\end{itemize}
+
+
+\subsection{Interactions with Trick}
+The \ModelDesc does not interact directly with Trick. In JEOD, that
+is the job of the Dynamics Manager Model. The \ModelDesc does
+provide interfaces that support these Trick/JEOD integration interactions.
+
+Trick uses INTEGRATOR structures and outputs from integration
+class jobs to drive the integration process. The \verb+first_step_deriv+
+flag in the INTEGRATOR structure determines whether the derivative
+functions are to be called on the first step of each integration cycle.
+Each IntegratorConstructor defines a \verb+first_step_second_derivs_flag+
+method to support the setting of this flag. Trick deems the integration
+cycle to be complete for a given integrator when the integrator returns
+a step number of zero. The Integration Controls supports this interface by 
+having the \verb+integrate+ methods return
+the step number.  The step number in integration controls is advanced only when 
+the integration group (and thereby all of the two-state integrators contained 
+therein) and the time integrator indicate that they have met their targets.
+
+\subsection{Interaction Requirements on the Dynamics Manager Model}
+The simulation's dynamics manager propagates the contents of all integration 
+groups (time and all dynamic bodies within that group) registered with the 
+dynamics manager.
+Time must be propagated within the integration cycle as some derivative
+functions such as non-spherical gravity depend on time.
+The \ModelDesc explicitly provides the ability to meet this need.
+The Dynamics Manager must use this provided capability to have the
+integrated vehicle states best reflect reality.
+
+
+\subsection{Interaction Requirements on the Dynamic Body Model}
+The dynamic bodies in a simulation use the \ModelDesc to propagate states
+over time. The \ModelDesc provides a generic capability to integrate generalized
+position and velocity. The user of a state integrator must properly tailor
+its use of the integrator to the problem at hand. This tailoring includes
+initialization and operation. The integrator must be constructed properly
+at initialization time and must be fed with properly constructed state
+and derivative vectors during operations.

@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BodyAction_reqt.tex
+% Requirements on/levied by the BodyAction class
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Product Requirements}\label{ch:\modelpartid:reqt}
+
+
+\requirement[Base class]{Body Action Base Class Definition}
+\label{reqt:BodyAction:base_class}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc shall define a class capable of forming the
+  basis for all model classes that operate on a linked MassBody or DynBody object.
+\item[Rationale:]\ \newline
+  This requirement derives from requirement~\ref{reqt:overview:base_class}.
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement[Object identification]{Object Identification}
+\label{reqt:BodyAction:self_identification}
+\begin{description}
+\item[Requirement:]\ \newline
+  Each instance of the \ModelDesc base class shall
+  provide the ability to identify itself.
+\item[Rationale:]\ \newline
+  This capability is needed for error handling and message generation.
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement[Subject body]{Subject Specification}
+\label{reqt:BodyAction:subject_body}
+\begin{description}
+\item[Requirement:]\ \newline
+  Each instance of the \ModelDesc base class shall
+  identify the subject body object
+  on which the model instance is to operate.
+\item[Rationale:]\ \newline
+  This requirement derives from requirement~\ref{reqt:overview:subject_body}.
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement{Activation}
+\label{reqt:BodyAction:active}
+\begin{description}
+\item[Requirement:]\ \newline
+  The \ModelDesc base class shall
+  provide an activation capability.
+\item[Rationale:]\ \newline
+  This derived requirement requirement derives
+  from requirement~\ref{reqt:overview:base_class}.
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement{Virtual Methods}
+\label{reqt:BodyAction:virtual_methods}
+\begin{description}
+\item[Requirement:]\ \newline
+  The BodyAction class shall define the functional interfaces
+  that generically describe the operations on model objects.
+  These functional interfaces are
+  \subrequirement{Initialization.}
+  \label{reqt:BodyAction:initialize}
+  The BodyAction class shall define a generic interface
+  for initializing BodyAction objects.
+  \subrequirement{Query readiness.}
+  \label{reqt:BodyAction:is_ready}
+  The BodyAction class shall define a generic interface
+  for querying the execution readiness of a BodyAction object.
+  \subrequirement{Execute.}
+  \label{reqt:BodyAction:apply}
+  The BodyAction class shall define a generic interface
+  for querying the execution readiness of a BodyAction object.
+  A BodyAction instance shall provide the ability to
+  perform some action on a MassBody/DynBody object.
+\item[Rationale:]\ \newline
+  This requirement derives from requirement~\ref{reqt:overview:base_class}.
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement[Base class mandate]{Body Action Base Class Mandate}
+\label{reqt:BodyAction:base_class_mandate}
+\begin{description}
+\item[Requirement:]\ \newline
+  All \ModelDesc classes that operate on a MassBody/DynBody object
+  shall derive from the BodyAction base class.
+\item[Rationale:]\ \newline
+  This requirement derives from requirement~\ref{reqt:overview:base_class}.
+
+  Note: This is a requirement levied by the \partxname on the
+  subsequent sub-models.
+\item[Verification:]\ \newline
+  Inspection
+\end{description}
+
+\requirement{Virtual Method Overrides}
+\label{reqt:BodyAction:overrides}
+\begin{description}
+\item[Requirement:]\ \newline
+  All \ModelDesc classes that override the virtual methods
+  described in requirement~\ref{reqt:BodyAction:virtual_methods}
+  shall forward the method invocation to the
+  most immediate parent class that handles this method.
+  \subrequirement{Initialization.}
+  \label{reqt:BodyAction:initialize_override}
+  Derived classes that override the {\tt initialize()} shall not
+  return from {\tt initialize()} without having invoked the
+  overridden implementation of the method.
+  \subrequirement{Query readiness.}
+  \label{reqt:BodyAction:is_ready_override}
+  Derived classes that override the {\tt is\_ready()} must
+  not indicate that the instance is ready to execute if the
+  overridden {\tt is\_ready()} method would indicated otherwise.
+  \subrequirement{Execute.}
+  \label{reqt:BodyAction:apply_override}
+  Derived classes that override the {\tt apply()} shall not
+  return from {\tt apply()} without having invoked the
+  overridden implementation of the method.
+\item[Rationale:]\ \newline
+  This is an internal requirement levied on derived classes.
+  The intent is to reduce replication of code and to ensure
+  that the parent classes are safe to operate.
+
+  Note:
+  This requirement does not pertain in the exceptional cases
+  where the overriding method does not return.
+  In particular, the method MessageHandler::Fail() does not return.
+\item[Verification:]\ \newline
+  Inspection
+\end{description}

@@ -1,0 +1,23 @@
+#!/bin/csh -f
+
+# Run from verif-level (after copying data over to SET_test_val and doing make
+# spotless)
+
+foreach sim (SIM_*_T10)
+  cd $sim
+  rm S_define_07
+  rm translation_fails
+  rm SET_tes*/RUN_*/input 
+  rm Log_data/*.d
+  if( -d Modified_data) then
+    cd Modified_data
+    foreach file (`find -name '*.d'`)
+      rm $file
+    end
+    cd ..
+  endif
+  cd ..
+end
+
+
+

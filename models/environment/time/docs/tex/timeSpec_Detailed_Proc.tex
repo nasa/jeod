@@ -1,0 +1,292 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the time model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Process Architecture}
+This section describes the flow from function to function.  The
+operation of each function is described under its object in the section
+\reftext{Functional Design}{ref:FunctionalDesign}.
+
+
+\subsubsection{Overview of calling sequence (initialization)}
+
+{\begin{enumerate}  %1.
+\item \textbf{TimeManager::register\_time} or \textbf{TimeManager::register\_time\_named}\par
+Stores the address of the manager in each time-type.  Adds the
+type to the manager's list of time-types, which is
+stored as a vector of pointers to each type.  Then stores the index
+(position in the vector) of each type in each type. 
+
+\item \textbf{TimeManager::register\_converter} \par
+Adds the converter to the TimeManager's list of
+converters.
+
+\clearpage
+
+\item \textbf{TimeManager::initialize}\par
+Registers and initializes the dynamic time. Records the number
+of time-types.
+{\begin{enumerate}   %(a)
+
+\item \textbf{TimeManagerInit::initialize\_manager}\par
+Sequence of calls
+
+{\begin{enumerate}  %i
+\item \textbf{TimeManagerInit::initialize}\par
+Records the dyn\_time index, and initializer index.
+
+Allocates memory.
+
+Initializes arrays.
+
+{\begin{enumerate}  %A
+\item \textbf{TimeManager::time\_lookup}\par
+Look up the initializer type by name.
+\item \textbf{TimeManagerInit::verify\_times\_setup} \par
+Sanity checks.
+\end{enumerate}}  %A 
+
+\item \textbf{TimeManagerInit::populate\_converter\_registry}
+{\footnote{{\bf Converter\_registry}\par
+This is a registry that allows quick verification and lookup of
+functions that convert from one time type to another.\par 
+There are
+2 converter registries, one for initialization, and one for runtime. 
+Both take advantage of the C++ vector, but the initialization registry
+is much larger than the runtime registry. \par 
+The first
+registry is used during the initialization process and contains 3
+vectors that represent \textit{n }x \textit{n }arrays, where \textit{n}
+is the number of time representations.  The converter from time
+\textit{i }to type \textit{j }is associated with element \textit{(ni +
+j) }of the vectors.\par 
+{\begin{enumerate}
+\item One vector \textit{(converter\_class\_ptr)} contains pointers to
+the associated converter class.
+\item A second vector \textit{(init\_converter\_dir\_table)} contains a
+value -1, 0, or 1.  The \textit{init }in the name indicates that this
+shows the direction in which the converter should be used during
+\textit{initialization}.  The number indicates the direction (-1
+reverse; 0 not available; 1 forward).
+\item A third vector \textit{(update\_converter\_dir\_table) }does the
+same for converters to be used during the simulation.
+\end{enumerate}}
+\par \par
+The second registry is used at runtime and contains only 2
+vectors, each with only \textit{n} elements:\par 
+{\begin{enumerate}
+\item update\_converter\_ptr.  Element\textit{ i }contains the pointer
+to the converter class that is used to update time type \textit{i.}
+\item update\_converter\_dir.  Element\textit{ i }contains -1, 0 or 1
+indicating the direction in which the converter should be used.
+\end{enumerate}}
+}} \par
+
+Stores pointers in the appropriate locations (a-to-b and b-to-a)
+for each of the converters stored by the Time Manager.
+
+Stores +1 / 0 / -1 in each location of the direction tables (+1
+represents a-to-b, 0 indicates that the converter may not be used, -1
+represents b-to-a).
+
+\end{enumerate}}  %i
+
+\item \textbf{TimeManagerInit::verify\_converter\_setup} \par
+
+Comprises sanity checks for where potential conflicts could occur between
+different converter classes.
+
+{\begin{enumerate}  %i
+\item \textbf{TimeManager::time\_lookup
+}\textit{(optional)} \par
+Look for the TAI, UTC, and UT1 time instances to verify correct setup.
+
+\end{enumerate}}  %i
+
+\clearpage
+
+\item \textbf{TimeManagerInit::create\_init\_tree}
+{\footnote{{\bf Initialization tree}\par 
+Each time type has a record of how it gets initialized,
+and one time type is designated as the
+{\textquotedblleft}initializer{\textquotedblright}.  The
+\textit{create\_init\_tree} function builds a tree starting with the
+initializer, and working down to those types that are initialized based
+on the value of the initializer, then those that are based on those
+that are based on the initializer, etc.  If the user omits \textit{an
+initialize\_from }specification for a particular type, this function
+will attempt to identify a suitable initialization path from the
+converter registry.  Structures that leave types isolated from the
+initializer, or produce loops, will cause a termination.}} \par
+
+Multi-pass function that repetitively calls
+add\_type\_initialize on all time-types that are not in the tree until
+everything is in the tree, or nothing else can be added.
+
+{\begin{enumerate}   %i
+\item \textbf{Time::add\_type\_initialize}\par
+Uses the user-specified {\textquotedblleft}initialize\_from\_
+name{\textquotedblright} values to place type. Where names are missing,
+type is placed in the tree based on the availability of converter
+functions.
+
+{\begin{enumerate}   %-
+\item \textbf{TimeManager::time\_lookup }\textit{(optional)} \par
+
+Look up the time types by name.
+\end{enumerate}}     % A
+
+\end{enumerate}}  %i
+
+\item \textbf{TimeManagerInit::initialize\_time\_types}
+{\footnote{{\bf Initialize time types}\par
+The function \textit{initialize\_time\_types} first
+calls \textit{initialize\_initializer\_time} to set the values in the
+time-type that resides at the top of the initialization tree, then
+calls \textit{initialize\_from\_parent }on each un-initialized time
+type.  \textit{initialize\_from\_parent }is a recursive function which
+will call itself on the parent time-type if the parent is not yet
+initialized.}}
+
+Sequence of calls
+
+{\begin{enumerate}   %i
+\item \textbf{Time***::initialize\_initializer\_time}
+{\footnote{{\bf Initialize initializer}\par
+If dyn\_time is the only time class, it is the
+initializer by default, and initializes to zero.  Otherwise, the
+user-defined initializer time is assigned its initial
+values.}} \textit{(optional)}
+
+Initialize the time specified by the user as the
+{\textquotedblleft}initializer{\textquotedblright} (this is at the head
+of the initialization tree).
+
+{\begin{enumerate}   %-
+\item \textbf{Time***::convert\_to\_julian }\textit{(optional)}
+\item[] If initialization data is in calendar format, this function converts it
+to Truncated Julian format.
+\end{enumerate}}     %-
+
+\item \textbf{Time::initialize\_from\_parent}\par
+Works down through the tree, initializing each time type from its parent
+in the initialization tree.
+
+{\begin{enumerate}   %-
+\item \textbf{TimeConverter::initialize}
+{\footnote{{\bf Initialize the converters}\par
+To set the time from the parent, the converter
+functions must be available.  Some of these may require some
+initialization (e.g. the TAI to UTC converter requires finding the
+appropriate values from data tables).  If the converter from parent to
+child has not been initialized, that is completed before the
+child's time is set as a call from
+\textit{initialize\_from\_parent}.\par \ \ If the converter has not
+been registered, the code will terminate.  This is redundant; if the
+converter had not been registered, it could not have been used in
+building the initialization tree.}}  \textit{(optional)}
+
+Initializes any converter functions that are needed in the process.
+\end{enumerate}}    %-
+\end{enumerate}}  %i
+
+\clearpage
+\item \textbf{TimeManagerInit::create\_update\_tree}
+{\footnote{{\bf Create the update tree}\par
+The update tree is built in much the same way as
+the initialization tree.  The top level of the update tree must be
+TimeDyn, which is the time used for integration and is derived directly
+from the simulation engine.  While the initialization process was
+distributed over many functions, the assignment of the update process
+is more compact, although the same checks are made that each time type
+can {\textquotedblleft}see{\textquotedblright} TimeDyn, and that there
+are no loops.}}
+
+Sequence of calls
+{\begin{enumerate}  %i
+\item \textbf{Time::add\_type\_update}
+{\footnote{{\bf Adding types to the
+update list}\par
+Recursive function.  Ensures that the parent type
+is in the tree, or calls itself on the parent if not, then records the
+appropriate converter functions in the runtime converter registry using
+\textit{organize\_update\_list}}} \par
+
+Repeats the tree-building exercise carried out in create\_init\_tree,
+but uses the update side of the converter functionality and starts with
+\textit{dyn-time} instead of {\textquotedblleft}initializer{\textquotedblright}.
+
+{\begin{enumerate}  %-
+\item \textbf{TimeManager::time\_lookup}  \textit{(optional)} \par
+Look up the time types by name.
+
+\item \textbf{TimeManager::organize\_update\_list}  \par
+Generates the hierarchical list of time types in the order in which they
+must be updated.  This is stored in TimeManager.
+
+\item \textbf{TimeConverter::initialize} \textit{(optional)} \par
+Called if the necessary time converter has not been called.
+
+\end{enumerate}}  %-
+\end{enumerate}}  %i
+\end{enumerate}}  %(a)
+
+\item \textbf{TimeManager::update}
+{\footnote{{\bf Update all times}\par
+Although all times have been set to their starting values, there
+may be some small numerical differences that occur when comparing the
+converters as used during initialization to those used during runtime. 
+These potential differences will have negligible effect on an absolute
+time reference, but may be noticeable with relative values.  Thus,
+starting with one structure and switching to another should be avoided.
+The initial times at the start of the simulation will be propagated
+down from TimeDyn in exactly the same way that they will be during the
+run.}} \par
+
+
+Run a full update on all times with \textit{dyn-time} = 0.0.
+\end{enumerate}}  %1
+
+\clearpage
+
+\subsubsection{Overview of calling sequence (runtime)}
+
+{\begin{enumerate}  %1
+\item \textbf{TimeManager::update}\par
+Sequence of calls:
+
+{\begin{enumerate}  %a
+\item \textbf{TimeDyn::update}\par
+Updates Dynamic Time first.
+
+\item \textbf{Time***::update}\par
+Call to the update function in each of the time classes.
+
+{\begin{enumerate}  %i
+\item \textbf{TimeConverter::convert\_a\_to\_b / convert\_b\_to\_a}
+{\footnote{{\bf Converter function}\newline
+The time class knows which converter class to use, and in which
+direction to use it.}}   \par
+
+Run the appropriate converter function.
+
+\end{enumerate}}   %i
+
+\item \textbf{TimeDyn::update\_offset}\par
+If the scale factor,\textit{m}, has changed on dynamic time,
+this function adjusts the offset, \textit{c}, of dynamic time,
+\textit{d}, from simulation time, s, so that $d=ms+c$.
+\end{enumerate}}  %a
+
+\item \textbf{(TimeStandard::calendar\_update)}\ \ \textit{(optional)  }
+Called on select derived times when a calendar-based output is desired.
+
+\end{enumerate}}  %1
+
+

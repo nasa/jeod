@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% model_template.tex
+% Top level document for the model template
+%
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Use the standard JEOD dynenv document class
+\documentclass{dynenv}
+
+% Add the requirements et al to the table of contents
+\dynenvaddtocitems{reqt=1,insp=2,test=2}
+
+
+\begin{document}
+
+% Front matter: Executive summary, table of contents, lists of figures & tables
+\frontmatter[style=summary,figures,tables]{summary}
+
+% Main document body, each is chapter in its own file
+\mainmatter{intro,reqt,spec,guide,ivv}
+
+% Back matter: Bibliography
+\backmatter{}
+
+\end{document}

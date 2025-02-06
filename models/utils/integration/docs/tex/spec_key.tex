@@ -1,0 +1,118 @@
+This section summarizes key algorithms used in the implementation
+of the \ModelDesc.
+
+\subsection{Integration Techniques}
+
+Each integration technique is described in detail in an appendix to this
+document. This section summarizes key characteristics of the techniques.
+Table~\ref{tab:integ_technique_interfaces} presents a summary of
+the integration techniques.
+
+\newcommand\enumnamesboth[2]{%
+  \multicolumn{1}{l}{{\tt #1}} &
+  \multicolumn{1}{l|}{{\tt #2}}}
+\newcommand\enumnamesfirst[1]{%
+  \multicolumn{1}{l}{{\tt #1}} &
+  \multicolumn{1}{l|}{N/A}}
+\newcommand\enumnamesnone{%
+  \multicolumn{1}{l}{N/A} &
+  \multicolumn{1}{l|}{N/A}}
+
+\begin{landscape}
+\begin{table}[htp]
+\begin{minipage}{\textwidth}
+\centering
+\caption{Integration Technique Characteristics}
+\label{tab:integ_technique_interfaces}
+\vspace{1ex}
+\begin{tabular}{||l|ccccll|}
+\hline
+{\bf Technique} &
+\tilt{\bf Accuracy (order)} &
+\tilt{\bf Needs Priming} &
+\tilt{\bf Number Stages Per Cycle
+   \footnote{%
+   This column indicates the number of steps per cycle after the technique
+   is primed. Techhnique that needs priming typically exhibit different
+   behavior during priming.}} &
+\tilt{\bf First Step Derivatives
+   \footnote{%
+   This column indicates whether derivative data must be provided to the
+   integrator on the first step of the integration cycle.
+   Some integration techniques do not use the derivatives on the first step
+   of an integration cycle. As computing derivatives is typically a rather
+   expensive computational process, the computation of those derivatives can be
+   bypassed if they aren't used.}} &
+{ \bf er7\_utils Enum Value} &
+{\bf Trick Enum Value}
+\\ \hline \hline
+Euler &
+  $O(\Delta t)$ & No & 1 & Yes &
+  \enumnamesboth{Euler}{Euler} \\
+Symplectic Euler &
+  $O(\Delta t)$ & No & 1 & Yes &
+  \enumnamesboth{SymplecticEuler}{Euler\_Cromer} \\ 
+Beeman's Algorithm &
+  $O(\Delta t^2)$ & Yes & 2 & Yes &
+  \enumnamesfirst{Beeman} \\
+Second order Nystr\"{o}m-Lear &
+  $O(\Delta t^2)$ & Yes & 2 & No &
+  \enumnamesboth{NystromLear2}{Nystrom\_Lear\_2} \\
+Position verlet &
+  $O(\Delta t^2)$ & No & 2 & No &
+  \enumnamesfirst{PositionVerlet} \\
+Heun's method &
+  $O(\Delta t^2)$ & No & 2 & Yes &
+  \enumnamesboth{RK2Heun}{Runge\_Kutta\_2} \\
+Midpoint method &
+  $O(\Delta t^2)$ & No & 2 & Yes &
+  \enumnamesfirst{RK2Midpoint} \\
+Velocity verlet &
+  $O(\Delta t^2)$ & No & 2 & Yes &
+  \enumnamesfirst{VelocityVerlet} \\
+Modified midpoint method &
+  $O(\Delta t^3)$ & No & 2 & Yes &
+  \enumnamesboth{ModifiedMidpoint4}{Modified\_Midpoint\_4} \\
+4th order Adams-Bashforth-Moulton &
+  $O(\Delta t^4)$ & Yes & 2 & Yes &
+  \enumnamesboth{AdamsBashforthMoulton4}{ABM\_Method} \\
+Runge-Kutta 4 &
+  $O(\Delta t^4)$ & No & 4 & Yes &
+  \enumnamesboth{RungeKutta4}{Runge\_Kutta\_4} \\
+Runge-Kutta-Gill 4 &
+  $O(\Delta t^4)$ & No & 4 & Yes &
+  \enumnamesboth{RKGill4}{Runge\_Kutta\_Gill\_4} \\
+ Runge-Kutta-Fehlberg 4/5 &
+  $O(\Delta t^5)$ & No & 6 & Yes &
+  \enumnamesboth{RKFehlberg45}{Runge\_Kutta\_Fehlberg\_45} \\
+ Runge-Kutta-Fehlberg 7/8 &
+  $O(\Delta t^8)$ & No & 12 & Yes &
+  \enumnamesboth{RKFehlberg78}{Runge\_Kutta\_Fehlberg\_78} \\
+Gauss-Jackson &
+  var. & Yes & var. & Yes &
+  \enumnamesnone \\
+LSODE &
+  var. & var. & var. & Yes &
+  \enumnamesnone \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+\end{landscape}
+
+% \textbf{First Step Derivatives} identifies whether derivative data must be
+% provided to the integrator on the first step of the integration cycle.
+% Some integration techniques do not use the derivatives on the first step
+% of an integration cycle. As computing derivatives is typically a rather
+% expensive computational process, the computation of those derivatives can be
+% bypassed if they aren't used.
+% 
+% \textbf{Supply 1st Derivative} identifies whether the time-derivative of the
+% zeroth-derivative-state must be passed in to the integrator (from outside).
+% For the symplectic Euler and Beeman algorithms, the propagation of the
+% zeroth-derivative-state (e.g. position) is based on an internally-generated
+% mean-value of its derivative.
+
+\subsection{Generalized Derivative Second Order ODEs}
+
+\subsection{Lie Group Integration}

@@ -1,0 +1,1019 @@
+\setcounter{chapter}{0}
+
+%----------------------------------
+\chapter{Introduction}\hyperdef{part}{intro}{}\label{ch:intro}
+%----------------------------------
+
+\section{Purpose and Objectives of the \planetDesc}
+%%% Incorporate the intro paragraph that used to begin this Chapter here.
+%%% This is location of the true introduction where you explain why this 
+%%% document exists and what it hopes to accomplish.
+
+Modeling planets is an integral part of the functionality of \JEODid, as
+many scenarios likely to be modeled using the package involve
+a vehicle or vehicles in orbit about some planetary body. The purpose of 
+the \planetDesc\ is to provide a single, consolidated location for the 
+storage of, and connection to, all the related elements that can be 
+considered to ``define'' a given planet mathematically.
+For an ellipsoidal planetary body, its shape constants are stored directly
+in the \planetDesc\, along with a pointer to the gravity model for the 
+same planet.  For all planetary bodies, ellipsoidal or otherwise,
+the \planetDesc\ houses the inertial and planet-fixed reference frames
+associated with it--though the \planetDesc\ plays no role in updating
+or maintaining these two frames.
+
+
+\section{Context within JEOD}
+The following document is parent to this document:
+\begin{itemize}
+\item{\href{file:\JEODHOME/docs/JEOD.pdf}
+           {\em JSC Engineering Orbital Dynamics}}
+                          \cite{dynenv:JEOD}
+\end{itemize}
+
+The \planetDesc\ forms a component of the \ModelClass\ suite of
+models within \JEODid. It is located at
+models/\ModelClass/planet.
+
+
+\section{Document History}
+%%% Status of this and only this document.  Any date should be relevant to when 
+%%% this document was last updated and mention the reason (release, bug fix, etc.)
+%%% Mention previous history aka JEOD 1.4-5 heritage in this section.
+
+\begin{tabular}{||l|l|l|l|} \hline
+\DocumentChangeHistory
+\end{tabular}
+\\ \\ \\ %%% forced extra space because Latex was formatting oddly.
+The \planetDesc\ is a model that is new for JEOD v2.0.x, though it is partly 
+derived from the Miscellaneous Transformations and Planetary Functions model
+released as part of JEOD v1.5.x.  Thus, this document derives lightly from that
+model's documentation, entitled JSC Engineering Orbital Dynamics Miscellaneous 
+Transformations and Planetary Functions, most recently released with
+JEOD v1.5.2.
+
+
+\section{Document Organization}
+This document is formatted in accordance with the
+NASA Software Engineering Requirements Standard~\cite{NASA:SWE}
+and is organized into the following chapters:
+
+\begin{description}
+
+\item[Chapter 1: Introduction] -
+This introduction contains four sections: purpose and objective,
+context within JEOD, document history, and document organization.
+
+\item[Chapter 2: Product Requirements] -
+Describes requirements for the \planetDesc.
+
+\item[Chapter 3: Product Specification] -
+Describes the underlying theory, architecture, and design of the
+\planetDesc\ in detail.  It is organized into
+four sections: Conceptual Design, Mathematical Formulations, Detailed
+Design, and Version Inventory.
+
+\item[Chapter 4:  User's Guide] -
+Describes how to use the \planetDesc\ in a Trick simulation.  It
+is broken into three sections to represent the JEOD
+defined user types: Analysts or users of simulations (Analysis),
+Integrators or developers of simulations (Integration),
+and Model Extenders (Extension).
+
+\item[Chapter 5: Verification and Validation] -
+Contains verification and validation procedures and
+results for the \planetDesc.
+
+\end{description}
+
+
+
+%----------------------------------
+\chapter{Product Requirements}\hyperdef{part}{reqt}{}\label{ch:reqt}
+%----------------------------------
+
+This chapter identifies the requirements for the \planetDesc.
+
+\requirement{Top-level Requirement}
+\label{reqt:toplevel}
+\begin{description}
+\item[Requirement:]\ \newline
+  This model shall meet the JEOD project requirements specified in
+  the \JEODid\
+  \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
+  document}.
+\item[Rationale:]\ \newline
+  This model shall, at a minimum, meet all external and internal requirements 
+  applied to the \JEODid\ release.
+\item[Verification:]\ \newline
+     Inspection
+\end{description}
+
+\section{Data Requirements}\label{sec:data_reqts}
+This section identifies requirements on the data represented by the \planetDesc.
+These as-built requirements are based on the \planetDesc\ data definition header 
+files.
+
+\requirement{Basic Planetary Body Data Encapsulation}
+\label{reqt:base_planet_data_encapsulation}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The base \planetDesc\ object shall encapsulate the following
+    data for the planetary body it represents:
+  \subrequirement{Planet Name}
+    The name of the planet being defined.
+  \subrequirement{Reference Frames}
+    The planet's inertial and planet-fixed reference frames.
+
+  \item[Rationale:]\ \newline
+    Providing this basic capability in the \planetDesc\ parent class allows
+    its use with all planetary bodies, including irregularly shaped ones.
+
+  \item[Verification:]\ \newline
+    Inspection
+\end{description}
+
+\requirement{Ellipsoidal Planet Data Encapsulation}
+\label{reqt:ellip_planet_data_encapsulation}
+\begin{description}
+  \item[Requirement:]\ \newline
+    For ellipsoidal planetary bodies, \planetDesc\ shall additionally
+    encapsulate the following via a provided derived class:
+  \subrequirement{Shape Constants}
+    The set of constants that define the shape of the planet, consisting of
+    the mean equatorial radius, mean polar radius, ellipsoid eccentricity,
+    the square of the ellipsoid eccentricity, flattening coefficient, and
+    the inverse of the flattening coefficient.
+  \subrequirement{Gravity Model Connection}
+    A pointer to the planet's gravity model.
+
+  \item[Rationale:]\ \newline
+    The primary purpose of the \planetDesc\ is to serve as
+    a container for these types of information considered
+    to ``define'' a planet's shape for the purposes of \JEODid.
+
+  \item[Verification:]\ \newline
+    Inspection
+\end{description}
+
+
+\section{Functional Requirements}\label{sec:func_reqts}
+This section identifies requirements on the functional 
+capabilities provided by the \planetDesc.  
+These as-built requirements are based on the \planetDesc\ source files.
+
+\requirement{Basic Model Registration}
+\label{reqt:func_base_register_model}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \planetDesc\ shall perform the following actions
+    when commanded to register, for all bodies represented:
+  \subrequirement{Register with Ephemerides Manager}
+    Add itself to the Ephemerides Manager's list of planets, and its
+    inertial and planet-fixed frames to the Ephemerides Manager's
+    list of reference frames.
+  \subrequirement{Connect Reference Frames}
+    Connect its two reference frames to each other and to the correct
+    reference frame pointers in the corresponding ephemeris object.
+
+  \item[Rationale:]\ \newline
+    All of these connections are needed for correct operation of the \planetDesc.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Ellipsoidal Planet Model Registration}
+\label{reqt:func_ellip_register_model}
+\begin{description}
+  \item[Requirement:]\ \newline
+    The \planetDesc\ shall perform the following additional actions
+    when commanded to register, for ellipsoidal bodies:
+  \subrequirement{Connect to Gravity Model}
+    Find the gravity model corresponding to the same planet, then 
+    correctly cross-connect itself and the gravity manager together.
+
+  \item[Rationale:]\ \newline
+    This additional connection is needed for correct operation of the
+    \planetDesc, for ellipsoidal planetary bodies.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+\requirement{Initialize Ellipsoidal Planet Constants}
+\label{reqt:func_init_ellip_constants}
+\begin{description}
+  \item[Requirement:]\ \newline
+    When commanded to initialize for an ellipsoidal planet, the \planetDesc\
+    shall initialize the values of the set of constants that define the
+    planetary shape, consisting of: the mean equatorial radius, mean polar
+    radius, ellipsoid eccentricity, the square of the ellipsoid eccentricity,
+    flattening coefficient, and the inverse of the flattening coefficient.
+  \item[Rationale:]\ \newline
+    These values must be set for proper operation of any simulation 
+    that includes the ellipsoidal planet derived class of the \planetDesc.
+
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}
+
+%%% Format for the model Requirements is open.  It should include requirements for this model 
+%%% only and use requirment tags like the one below.
+%\requirement{...}
+%\label{reqt:...}
+%\begin{description}
+%  \item[...]\ \newline
+%    The documentation for the model shall include
+%
+%    \subrequirement{}
+%    \label{reqt:...}
+%      Software requirements specification.
+%      
+%    ...
+%   
+%  \item[title]\ \newline
+%    text
+%
+%  ...
+%
+%\end{description}
+
+
+
+%----------------------------------
+\chapter{Product Specification}\hyperdef{part}{spec}{}\label{ch:spec}
+%----------------------------------
+
+This chapter defines the conceptual design, the mathematical formulations, and
+the detailed design for the \planetDesc.  It also contains the version inventory
+for this release of the \planetDesc.
+
+\section{Conceptual Design}
+
+The \planetDesc\ is designed to be a container class which serves as the
+single consolidated \JEODid\ location for the storage of, or connection
+to, all the related elements that mathematically ``define'' a planetary body.
+It houses the inertial and planet-fixed reference frames for the planet, though
+the \planetDesc\ plays no role in updating them. If the model is representing
+an ellipsoidal body, then based on user input, it also calculates and stores in
+itself the planetary shape constants for the planet.  Also for ellipsoidal
+bodies, the model connects itself to the GravitySource and ephemeris
+structures associated with that planet.
+
+
+\section{Mathematical Formulations}
+
+While the \planetDesc\ contains other information (a pointer to the ephemeris
+structure associated with the same planet, as well as the inertial and
+planet-fixed reference frames for it), it is only responsible for calculating
+something when it is being used to represent an ellipsoidal planetary body. When
+this is the case, it calculates the ellipsoidal shape constants found within it.
+The techniques used to solve for these values are discussed in this section.
+
+From \cite{ValladoSecond}, the equations used to solve for the other
+planetary shape constants based on the ones provided by the user are as follows:
+
+\begin{eqnarray} \label{shape_const_convert}
+f &=& \frac{r_{eq} - r_{pol}}{r_{eq}} \\
+r_{pol} &=& r_{eq} \times \sqrt{1 - e^2}
+\end{eqnarray}
+
+where
+\begin{itemize}
+\item $f$ is the planet's flattening coefficient,
+\item $r_{eq}$ is the planet's mean equatorial radius,
+\item $r_{pol}$ is the planet's mean polar radius, and
+\item $e$ is the planet's ellipsoid eccentricity.
+\end{itemize}
+
+Appropriate permutations of these equations are used depending on which
+constants the user provides.  If none are provided, then all constants are
+automatically set to zero by the \planetDesc.  More details about how to
+specify appropriate combinations of the planetary constants
+are given in the User Guide (Chapter \ref{ch:user}).
+
+
+\section{Detailed Design}
+
+The functionality of the \planetDesc\ is contained within two classes, one
+being derived from the other. This section describes both classes in detail.
+
+\subsubsection{BasePlanet Class Design}
+
+The {\em base\_planet.hh} file contains the basic \planetDesc\ class, named
+``BasePlanet''.  BasePlanet contains the following parameters common to all
+planetary bodies:
+
+\begin{itemize}
+\item{name:} The name of the planetary object being defined,
+
+\item{inertial:} The planet-centered J2000 pseudo-inertial reference frame, of
+object type EphemerisRefFrame, associated with this object, and
+
+\item{pfix:} The planet-centered, planet-fixed Cartesian reference frame, of
+object type EphemerisRefFrame, associated with this planet.
+\end{itemize}
+
+In addition to the default constructor and the destructor,
+the BasePlanet class also contains the following member functions.
+
+\paragraph{register\_planet}
+
+This member function registers the planet object and its reference frames
+with the Ephemerides Manager.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{Inout:} EphemeridesManager \& ephem\_manager - the Ephemerides manager
+object for the current simulation.
+\end{itemize}
+
+\paragraph{set\_name}
+
+This member function sets the name of the planetary body being represented.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{In:} const char * new\_name - new name to be applied
+\end{itemize}
+
+
+\subsubsection{Planet Class Design}
+
+The {\em planet.hh} file contains the \planetDesc\ class used to model
+ellipsoidal planetary bodies, which is named ``Planet''.  Planet contains the
+following parameters that mathematically define the shape of an ellipsoidal
+planetary body:
+
+\begin{itemize}
+\item{grav\_body:} A pointer to a GravitySource object representing the same
+planet being defined, which is linked to the proper GravBody when this class's
+register\_model method is correctly invoked,
+
+\item{r\_eq:} The mean equatorial radius for this planet, in meters,
+
+\item{r\_pol:} The mean polar radius for this planet, in meters,
+
+\item{e\_ellipsoid:} The ellipsoid eccentricity (NOT orbit eccentricity) of
+the planet being defined,
+
+\item{e\_ellip\_sq:} The square of the planet's ellipsoid eccentricity,
+
+\item{flat\_coeff:} The planet's ellipsoid flattening coefficient, termed the
+reciprocal flattening parameter by Vallado, and
+
+\item{flat\_inv:} The inverse of the ellipsoid flattening coefficient.
+\end{itemize}
+
+In addition to the default constructor, destructor, and the set\_name function
+it inherits from BasePlanet, the Planet class also contains the following
+member functions.
+
+\paragraph{register\_model}
+
+This member function invokes the register\_planet function
+inherited from the BasePlanet class. In addition to the actions which that
+function performs, this function also establishes the connections between the
+Planet class and the gravity manager.
+
+\begin{itemize}
+\item{Return:} void - no returned value.
+\item{Inout:} GravitySource \& grav\_body\_in - GravitySource object corresponding
+to the same planetary body.
+\item{Inout:} DynManager \& dyn\_manager - the Dynamics manager object for
+the current simulation. Note that DynManager is a class that inherits from
+EphemeridesManager.
+\end{itemize}
+
+\paragraph{initialize}
+
+This member function initializes the internal shape constant member variables
+for the ellipsoidal planet being defined.
+
+\begin{itemize}
+\item{return:} void - no returned value
+\item{void:} function takes no inputs.
+\end{itemize}
+
+Further information about the design of this model can be found
+in the  \href{file:refman.pdf} {\em Reference Manual}
+\cite{planetbib:ReferenceManual}.
+
+
+\input{planetSpec_Inventory.tex}
+
+
+
+
+%----------------------------------
+\chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
+%----------------------------------
+This chapter discusses how to use the \planetDesc\ in a Trick 7
+simulation. Usage is treated at three levels of detail: Analysis,
+Integration, and Extension, each targeted at one of the three main anticipated
+categories of \JEODid\ users.
+
+The Analysis section of the user guide is intended primarily for users of
+pre-existing simulations. It contains an overview of a typical S\_define sim
+object that implements the Planet class of the \planetDesc, but does not
+discuss how to edit it; the Analysis section also describes how to modify
+\planetDesc\ variables after the simulation has compiled, such as via the input
+file. Since the \planetDesc\ is primarily a container model, no discussion of
+variable logging will be given, as the variables likely to be logged are
+members of contained objects and thus are covered in other \JEODid\
+model documentation.
+
+The Integration section of the user guide is intended for simulation developers.
+It describes the necessary configuration of the \planetDesc\ within an
+S\_define file, and the creation of standard run directories.  The Integration
+section assumes a thorough understanding of the preceding Analysis section
+of the user guide. Where applicable, the user may be directed to selected
+portions of the Product Specification (Chapter \ref{ch:spec}).
+
+The Extension section of the user guide is intended primarily for developers
+needing to extend the capability of the \planetDesc.  Such users should have a
+thorough understanding of how the model is used in the preceding Integration
+section, and of the model specification (described in Chapter \ref{ch:spec}).
+
+Note that the \planetDesc\ depends heavily on the Ephemerides Manager or
+Dynamics Manager model, and the Gravity model; thus any simulation involving
+implementation of the \planetDesc\ will also require the successful setup of
+either an EphemeridesManager object or a DynamicsManager object (depending
+on whether BasePlanet or Planet is being used in the simulation), as well as
+some type of a GravitySource object (see \cite{dynenv:GRAVITY}) if using Planet.
+ Note that the class DynManager inherits from EphemeridesManager; see
+\cite{dynenv:DYNMANAGER} and \cite{dynenv:EPHEMERIDES} respectively for further
+information on each of these. See \cite{dynenv:GRAVITY} for further information
+on the Gravity model. These model dependencies will be discussed as appropriate
+in the following sections.
+
+\section{Analysis}
+
+The Analysis and the Integration sections will assume, for the purposes of
+illustration, S\_define objects of the following form:
+
+\begin{verbatim}
+sim_object {
+
+   environment/time: TimeManager time_manager;
+
+} time;
+
+
+sim_object {
+
+   dynamics/dyn_manager:     DynManager             dyn_manager;
+
+} mngr;
+
+
+sim_object { 
+
+   environment/gravity:       SphericalHarmonicsGravitySource   gravity_source
+      (environment/gravity/data/earth_GGM02C.d);
+
+
+   environment/planet:        Planet        planet
+      (environment/planet/data/earth.d);
+
+
+   P_ENV (initialization) environment/planet:
+   earth.planet.register_model (
+      Inout GravitySource &      grav_source = earth.gravity_source,
+      Inout DynManager    &      dyn_manager = mngr.dyn_manager);
+
+   P_BODY (initialization) environment/planet:
+   earth.planet.initialize ( );
+
+} earth;
+\end{verbatim}
+
+Note that this code is only representative of sim objects necessary for the
+discussion of how to use the \planetDesc, and does not hold a
+complete implementation. For full implementation details on the Time model,
+please see the \JEODid\ Time Representations Model documentation
+\cite{dynenv:TIME}; for full implementation details on the Dynamics Manager
+model, see the \JEODid\ Dynamics Manager Model documentation
+\cite{dynenv:DYNMANAGER}; and for full implementation details on the Gravity
+model, please see the \JEODid\ Gravity Model documentation
+\cite{dynenv:GRAVITY}.
+
+The input files for using the \planetDesc\ are straight-forward. Basically, the user
+is only required to provide a valid name (i.e., matching exactly to the one used
+elsewhere in the simulation for the same planet) for the planet being modeled.
+Further inputs depend on whether the BasePlanet class or the Planet class is
+being used. For BasePlanet, nothing further is required. For Planet, the desired
+modeling fidelity affects what the user should provide. For example, setting or
+leaving all ellipsoidal planetary shape fields as zeros results in
+the model assuming a perfectly spherical planet with a radius and gravitational
+constant set equal to the values used in the Gravity Model. If the user desires
+a non-spherical planet, then at least one of the following should be specified:
+\begin{itemize}
+\item Flattening coefficient
+\item Inverse flattening coefficient
+\item Ellipsoid eccentricity
+\item The square of the ellipsoid eccentricity
+\item The mean polar radius
+\end{itemize}
+The model will calculate the remaining values from the first of these
+parameters it encounters at runtime based on the listed order.
+
+An example of a non-spherical ellipsoidal planet initialization is the following
+set of input file commands, which are based on the assumed S\_define above:
+
+\begin{verbatim}
+earth.planet.name = "Earth";
+earth.planet.r_eq {km} = 6378.137;
+earth.e_ellipsoid = 0.081819221;
+\end{verbatim}
+
+Note that this set of example commands details initialization of the
+\planetDesc\ as a representation of a non-spherical Earth using the ellipsoid
+eccentricity parameter to define the describing set of shape constants.
+
+
+\section{Integration}
+
+This section describes the process of implementing the \planetDesc\ in a Trick
+simulation, and will use the same example S\_define found in the Analysis
+section for illustration. Please again note that this code is only
+representative of sim objects necessary for this discussion, and does not
+describe a complete implementation. For full implementation details on the Time
+model, please see the \JEODid\ Time Representations Model documentation
+\cite{dynenv:TIME}. For full implementation details on the Dynamics Manager
+model, please see the \JEODid\ Dynamics Manager Model documentation
+\cite{dynenv:DYNMANAGER}. For full implementation details on the Gravity model,
+please see the \JEODid\ Gravity Model documentation \cite{dynenv:GRAVITY}.
+
+To successfully integrate the \planetDesc\ into a Trick simulation, the
+S\_define must contain instantiations of the following objects.
+
+If using BasePlanet:
+\begin{itemize}
+\item A TimeManager object,
+\item An EphemeridesManager object, with which the \planetDesc\ must register
+itself for proper operation, and
+\item A BasePlanet object.
+\end{itemize}
+
+If using Planet:
+\begin{itemize}
+\item A TimeManager object,
+\item A DynManager, with which the \planetDesc\ must register itself
+for proper operation,
+\item A GravitySource object modeling the gravity of the same planet, to which
+the \planetDesc\ will link itself at registration with the DynManager, and
+\item A Planet object.
+\end{itemize}
+
+As noted above, all of the non-\planetDesc\ classes must be correctly
+initialized and set up for successful simulation operation, though discussion
+of such setup is outside of the scope of this document; documentation specific
+to each of the applicable models should be consulted for those details.
+
+To use the \planetDesc\ for modeling ellipsoidal planetary bodies, the main
+simulation object is the Planet class, which is instantiated
+in the example code above via the lines:
+
+\begin{verbatim}
+environment/planet:        Planet        planet
+   (environment/planet/data/earth.d);
+\end{verbatim}
+
+Note that this code includes a call to the ``earth.d'' default data file as a
+way of populating some of the model parameters with initial values. In addition
+to this file, there are also default data files shipped with the \JEODid\
+\planetDesc\ containing reference parameters for the sun, moon, mars, and
+Jupiter for the integrator's convenience, should the need for them arise.
+
+After setting up the instantiation of a Planet object, the next step is to
+register the model with the Dynamics Manager for the simulation. This is
+done by invoking the \planetDesc\ {\em register\_model} member function as an
+initialization class job, as shown in the example above and reproduced here:
+
+\begin{verbatim}
+P_ENV (initialization) environment/planet:
+earth.planet.register_model (
+   Inout GravitySource &      grav_source  = earth.gravity_source,
+   Inout DynManager    &      dyn_manager  = mngr.dyn_manager);
+\end{verbatim}
+
+Note that this call requires a GravitySource and a DynManager as inputs,
+illustrating the previously mentioned dependencies of the \planetDesc\ on other
+models. This registration step is the one in which the \planetDesc\ registers
+itself with the Dynamics Manager, connects itself with the GravitySource object
+associated with the same planet (they must be named {\em identically} or the
+linkage will fail and the simulation will terminate), and registers its
+internal planet-fixed and inertial reference frames with the DynManager.
+
+The final step required to integrate the \planetDesc\ into a Trick simulation
+for modeling ellipsoidal planetary bodies is to initialize the
+values of its planet shape constants using the
+\planetDesc\ {\em initialize} member function:
+
+\begin{verbatim}
+P_BODY (initialization) environment/planet:
+earth.planet.initialize ( );
+\end{verbatim}
+
+This too is intended to be used as an initialization class job. It reads user
+inputs (via default data, input file, modified data, or some combination of the
+three) and calculates the shape constants for the modeled planet accordingly.
+Further information on providing the \planetDesc\ with inputs can be found in
+the Analysis section of this chapter.
+
+No further steps are required for integration of the Planet class of the
+\planetDesc\ into a Trick simulation.  As the model's purpose is primarily to
+serve as a container object with which other models can interface, the
+\planetDesc\ itself performs no further calculations beyond the startup ones
+just described.
+
+
+\section{Extension}
+
+The \planetDesc\ itself contains an example of how to extend the model, since
+the Planet class that is part of it derives from and extends the fundamental
+BasePlanet class. Thus the extender should use the Planet class as a guide for
+creating any new types of planetary body containers that should be needed.
+
+
+
+%----------------------------------
+\chapter{Verification and Validation}\hyperdef{part}{ivv}{}\label{ch:ivv}
+%----------------------------------
+
+\section{Verification}
+%%% code imported from old template structure
+%\inspection{<Name of Inspection>}\label{inspect:<label>}
+% <description> to satisfy  
+% requirement \ref{reqt:<label>}.
+
+\inspection{Top-level Inspection}\label{inspect:TLI}
+This document structure, the code, and associated files have been inspected,
+and together completely satisfy requirement \ref{reqt:toplevel}.
+
+\inspection{Data Requirements Inspection}\label{inspect:data_reqts}
+By inspection, the data structures of the \planetDesc\ completely satisfy 
+requirements \ref{reqt:base_planet_data_encapsulation} and
+\ref{reqt:ellip_planet_data_encapsulation}.
+
+\inspection{Functional Requirements Inspection}\label{inspect:func_reqts}
+By inspection, the as-written function code of the \planetDesc\
+satisfies requirements \ref{reqt:func_base_register_model},
+\ref{reqt:func_ellip_register_model}, and \ref{reqt:func_init_ellip_constants}.
+
+
+\section{Validation}
+For each test case, a Trick simulation was run with an input file tailored
+to that case. Each input file has its own associated run directory, named
+appropriately for its test case. These run directories are contained in the
+SET\_test sub-directory of SIM\_PLANET\_VERIF.
+
+
+\test{Initialize From Ellipsoid Eccentricity}\label{test:init_eellip}
+\begin{description}
+\item[Purpose:]\ \newline
+This test case is designed to examine the ability of the \planetDesc\ to
+register itself with the Ephemerides Manager, and to test its ability to
+initialize the ellipsoidal planet shape constants given input in the form of
+ellipsoid eccentricity.
+\item[Run directory:]\ \newline RUN\_initplanet\_eellip
+\item[Requirements:]\ \newline
+By passing this test, this model satisfies requirements
+\mbox{\ref{reqt:func_base_register_model}} and
+\mbox{\ref{reqt:func_ellip_register_model}}, and partially satisfies
+requirement \mbox{\ref{reqt:func_init_ellip_constants}}.
+
+\item[Procedure:]\ \newline
+Simple successful execution of a simulation containing a properly implemented
+instance of the \planetDesc\ is sufficient to fully demonstrate the
+registration capability of the model. Implementing the simulation with an
+ellipsoid-specific instance will prove both the base and derived capabilities
+for the model, since the derived class inherits, and uses, all the capabilities
+of the base class.
+
+To test the ability of the \planetDesc\ to initialize the full \JEODid\ set of
+planet shape constants given ellipsoid eccentricity, values for Earth's
+ellipsoid eccentricity and mean equatorial radius were obtained from
+\cite{ValladoSecond} and used to initialize the model.  The expected values of
+the other parameters were then analytically determined and compared against the
+resulting \planetDesc\ output to determine its calculation accuracy.
+
+\item[Results:]\ \newline
+Table \ref{eellip_init_table} shows the values used for each input parameter,
+and both the simulation and analytical results for this test. Note that since
+the simulation completed the run successfully, requirements
+\mbox{\ref{reqt:func_base_register_model}} and
+\mbox{\ref{reqt:func_ellip_register_model}} are demonstrated to be satisfied by
+this test.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+ Input & Value & Output & Model Result & Analytical Result \\ \hline
+ $e$ & 0.081819221 & $e^2$ & 0.00669438 & 0.00669438 \\ \hline
+ $r_{eq}$ & 6378.137 $km$ & $f$ & 0.00335281 & 0.00335281 \\ \hline
+   &   & $f^{-1}$ & 298.257 & 298.257 \\ \hline
+   &   & $r_{eq}$ & 6378.137 $km$ & 6378.137 $km$ \\ \hline
+   &   & $r_{pol}$ & 6356.752 $km$ & 6356.752 $km$ \\ \hline
+\end{tabular}
+\caption{Results for Ellipsoid Eccentricity Initialization}
+\label{eellip_init_table}
+\end{center}
+\end{table}
+
+As this table shows, the model achieved the same results for the shape
+parameters as were obtained analytically for the listed inputs. (Note that the
+analytical results were truncated to the same number of significant digits as
+returned by the simulation to yield a consistent basis for comparison.) Thus,
+the model passed this test, partially satisfying requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+\end{description}
+
+
+\test{Initialize From Squared Ellipsoid Eccentricity}\label{test:init_eellipsq}
+\begin{description}
+\item[Purpose:]\ \newline
+This test case is designed to examine the ability of the \planetDesc\ to
+initialize the planet shape constants given input in the form of squared
+ellipsoid eccentricity.
+\item[Run directory:]\ \newline RUN\_initplanet\_eellipsq
+\item[Requirements:]\ \newline
+By passing this test, this model partially satisfies requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+
+\item[Procedure:]\ \newline
+To test the ability of the \planetDesc\ to initialize the full \JEODid\ set of
+planet shape constants given squared ellipsoid eccentricity, values for Earth's
+squared ellipsoid eccentricity and mean equatorial radius were developed from
+\cite{ValladoSecond} and used to initialize the model.  The expected values of
+the other parameters were then analytically determined and compared against the
+resulting \planetDesc\ output to determine its calculation accuracy.
+
+\item[Results:]\ \newline
+Table \ref{eellipsq_init_table} shows the values used for each input parameter,
+and both the simulation and analytical results for this test.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+ Input & Value & Output & Model Result & Analytical Result \\ \hline
+ $e^2$ & 0.006694384925 & $e$ & 0.0818192 & 0.0818192 \\ \hline
+ $r_{eq}$ & 6378.137 $km$ & $f$ & 0.00335281 & 0.00335281 \\ \hline
+   &   & $f^{-1}$ & 298.257 & 298.257 \\ \hline
+   &   & $r_{eq}$ & 6378.137 $km$ & 6378.137 $km$ \\ \hline
+   &   & $r_{pol}$ & 6356.752 $km$ & 6356.752 $km$ \\ \hline
+\end{tabular}
+\caption{Results for Squared Ellipsoid Eccentricity Initialization}
+\label{eellipsq_init_table}
+\end{center}
+\end{table}
+
+As this table shows, the model achieved the same results for the shape
+parameters as were obtained analytically for the listed inputs. (Note that the
+analytical results were truncated to the same number of significant digits as
+returned by the simulation to yield a consistent basis for comparison.) Thus,
+the model passed this test, partially satisfying requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+\end{description}
+
+
+\test{Initialize From Flattening Coefficient}\label{test:init_flatcoeff}
+\begin{description}
+\item[Purpose:]\ \newline
+This test case is designed to examine the ability of the \planetDesc\ to
+initialize the planet shape constants given input in the form of flattening
+coefficient.
+\item[Run directory:]\ \newline RUN\_initplanet\_flatcoeff
+\item[Requirements:]\ \newline
+By passing this test, this model partially satisfies requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+
+\item[Procedure:]\ \newline
+To test the ability of the \planetDesc\ to initialize the full \JEODid\ set of
+planet shape constants given flattening coefficient, values for Earth's
+flattening coefficient and mean equatorial radius were obtained from
+\cite{ValladoSecond} and used to initialize the model.  The expected values of
+the other parameters were then analytically determined and compared against the
+resulting \planetDesc\ output to determine its calculation accuracy.
+
+\item[Results:]\ \newline
+Table \ref{flatcoeff_init_table} shows the values used for each input parameter,
+and both the simulation and analytical results for this test.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+ Input & Value & Output & Model Result & Analytical Result \\ \hline
+ $f$ & 0.003352813 & $e$ & 0.0818192 & 0.0818192 \\ \hline
+ $r_{eq}$ & 6378.137 $km$ & $e^2$ & 0.00669438 & 0.00669438 \\ \hline
+   &   & $f^{-1}$ & 298.257 & 298.257 \\ \hline
+   &   & $r_{eq}$ & 6378.137 $km$ & 6378.137 $km$ \\ \hline
+   &   & $r_{pol}$ & 6356.752 $km$ & 6356.752 $km$ \\ \hline
+\end{tabular}
+\caption{Results for Flattening Coefficient Initialization}
+\label{flatcoeff_init_table}
+\end{center}
+\end{table}
+
+As this table shows, the model achieved the same results for the shape
+parameters as were obtained analytically for the listed inputs. (Note that the
+analytical results were truncated to the same number of significant digits as
+returned by the simulation to yield a consistent basis for comparison.) Thus,
+the model passed this test, partially satisfying requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+\end{description}
+
+
+\test{Initialize From Inverse Flattening Coefficient}\label{test:init_invflat}
+\begin{description}
+\item[Purpose:]\ \newline
+This test case is designed to examine the ability of the \planetDesc\ to
+initialize the planet shape constants given input in the form of inverse
+flattening coefficient.
+\item[Run directory:]\ \newline RUN\_initplanet\_invflat
+\item[Requirements:]\ \newline
+By passing this test, this model partially satisfies requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+
+\item[Procedure:]\ \newline
+To test the ability of the \planetDesc\ to initialize the full \JEODid\ set of
+planet shape constants given inverse flattening coefficient, values for Earth's
+inverse flattening coefficient and mean equatorial radius were developed from
+\cite{ValladoSecond} and used to initialize the model.  The expected values of
+the other parameters were then analytically determined and compared against the
+resulting \planetDesc\ output to determine its calculation accuracy.
+
+\item[Results:]\ \newline
+Table \ref{invflat_init_table} shows the values used for each input parameter,
+and both the simulation and analytical results for this test.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+ Input & Value & Output & Model Result & Analytical Result \\ \hline
+ $f^{-1}$ & 298.2570 & $e$ & 0.0818192 & 0.0818192 \\ \hline
+ $r_{eq}$ & 6378.137 $km$ & $e^2$ & 0.00669438 & 0.00669438 \\ \hline
+   &   & $f$ & 0.00335281 & 0.00335281 \\ \hline
+   &   & $r_{eq}$ & 6378.137 $km$ & 6378.137 $km$ \\ \hline
+   &   & $r_{pol}$ & 6356.752 $km$ & 6356.752 $km$ \\ \hline
+\end{tabular}
+\caption{Results for Inverse Flattening Coefficient Initialization}
+\label{invflat_init_table}
+\end{center}
+\end{table}
+
+As this table shows, the model achieved the same results for the shape
+parameters as were obtained analytically for the listed inputs. (Note that the
+analytical results were truncated to the same number of significant digits as
+returned by the simulation to yield a consistent basis for comparison.) Thus,
+the model passed this test, partially satisfying requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+\end{description}
+
+
+\test{Initialize From Mean Polar Radius}\label{test:init_rpol}
+\begin{description}
+\item[Purpose:]\ \newline
+This test case is designed to examine the ability of the \planetDesc\ to
+initialize the planet shape constants given input in the form of mean polar
+radius.
+\item[Run directory:]\ \newline RUN\_initplanet\_rpol
+\item[Requirements:]\ \newline
+By passing this test, this model partially satisfies requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+
+\item[Procedure:]\ \newline
+To test the ability of the \planetDesc\ to initialize the full \JEODid\ set of
+planet shape constants given mean polar radius, values for Earth's
+mean polar radius and mean equatorial radius were developed from
+\cite{ValladoSecond} and used to initialize the model.  The expected values of
+the other parameters were then analytically determined and compared against the
+resulting \planetDesc\ output to determine its calculation accuracy.
+
+\item[Results:]\ \newline
+Table \ref{rpol_init_table} shows the values used for each input parameter,
+and both the simulation and analytical results for this test.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+ Input & Value & Output & Model Result & Analytical Result \\ \hline
+ $r_{pol}$ & 6356.75160 & $e$ & 0.0818206 & 0.0818206 \\ \hline
+ $r_{eq}$ & 6378.137 $km$ & $e^2$ & 0.0066946 & 0.0066946 \\ \hline
+   &   & $f$ & 0.00335292 & 0.00335292 \\ \hline
+   &   & $f^{-1}$ & 298.247 & 298.247 \\ \hline
+   &   & $r_{eq}$ & 6378.137 $km$ & 6378.137 $km$ \\ \hline
+\end{tabular}
+\caption{Results for Mean Polar Radius Initialization}
+\label{rpol_init_table}
+\end{center}
+\end{table}
+
+As this table shows, the model achieved the same results for the shape
+parameters as were obtained analytically for the listed inputs. (Note that the
+analytical results were truncated to the same number of significant digits as
+returned by the simulation to yield a consistent basis for comparison.) Thus,
+the model passed this test, partially satisfying requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+\end{description}
+
+
+\test{Initialize As Spherical Planet}\label{test:init_spherical}
+\begin{description}
+\item[Purpose:]\ \newline
+This test case is designed to examine the ability of the \planetDesc\ to
+initialize the planet shape constants given only zeros for input.
+\item[Run directory:]\ \newline  RUN\_initplanet\_spherical
+\item[Requirements:]\ \newline
+By passing this test, this model partially satisfies requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+
+\item[Procedure:]\ \newline
+To test the ability of the \planetDesc\ to initialize the full \JEODid\ set of
+planet shape constants given only zeros as input, all shape parameters were
+initialized to zeros at the start of the run. The resulting \planetDesc\ output
+was then examined to determine whether the model did indeed properly initialize
+as a spherical planet with mean equatorial radius equal to the value obtained
+from its associated GravitySource object, as was expected.
+
+\item[Results:]\ \newline
+Table \ref{spherical_init_table} shows the values used for each input parameter,
+and both the simulation and analytical results for this test.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}\hline
+ Parameter & Input Value & Model Result & Analytical Result \\ \hline
+ $e$ & 0.0 & 0.0 & 0.0 \\ \hline
+ $e^2$ & 0.0 & 0.0 & 0.0 \\ \hline
+ $f$ & 0.0 & 0.0 & 0.0 \\ \hline
+ $f^{-1}$ & 0.0 & 0.0 & 0.0 \\ \hline
+ $r_{eq}$ & 0.0 $km$ & 6378.137 $km$ & 6378.137 $km$ \\ \hline
+ $r_{pol}$ & 0.0 $km$ & 6378.137 $km$ & 6378.137 $km$ \\ \hline
+\end{tabular}
+\caption{Results for Spherical Planet Initialization}
+\label{spherical_init_table}
+\end{center}
+\end{table}
+
+As this table shows, the model performed as expected for the given case; it
+obtained the mean equatorial radius from the associated GravitySource and used
+that value for both $r_{eq}$ and $r_{pol}$, leaving everything else zeros to
+result in a representation of a spherical earth. (Note that the analytical
+results were truncated to the same number of significant digits as returned by
+the simulation to yield a consistent basis for comparison.) Thus, the model
+passed this test, partially satisfying requirement
+\mbox{\ref{reqt:func_init_ellip_constants}}.
+\end{description}
+
+\newpage
+\section{Requirements Traceability}\label{sec:traceability}
+
+\begin{longtable}[c]{||p{3in}|p{3in}|}
+\caption{Requirements Traceability} \\[6pt]
+\hline
+{\bf Requirement} & {\bf Inspection and Testing} \\ 
+\hline \hline
+\endhead
+
+\ref{reqt:toplevel} - Top-level Requirement &
+  Insp.~\ref{inspect:TLI} \\ 
+  \hline
+
+\ref{reqt:base_planet_data_encapsulation} - Basic Data Encapsulation &
+   Insp.~\ref{inspect:data_reqts} \\
+\hline
+
+\ref{reqt:ellip_planet_data_encapsulation} - Ellipsoidal Data Encapsulation &
+   Insp.~\ref{inspect:data_reqts} \\
+\hline
+
+\ref{reqt:func_base_register_model} - Basic Model Registration &
+   Insp.~\ref{inspect:func_reqts} \\
+   &Test~\ref{test:init_eellip} \\ 
+\hline
+
+\ref{reqt:func_ellip_register_model} - Ellipsoidal Model Registration &
+   Insp.~\ref{inspect:func_reqts} \\
+   &Test~\ref{test:init_eellip} \\ 
+\hline
+
+\ref{reqt:func_init_ellip_constants} - Initialize Ellipsoidal Constants &
+   Insp.~\ref{inspect:func_reqts} \\
+   &Test~\ref{test:init_eellip} \\ 
+   &Test~\ref{test:init_eellipsq} \\ 
+   &Test~\ref{test:init_flatcoeff} \\ 
+   &Test~\ref{test:init_invflat} \\ 
+   &Test~\ref{test:init_rpol} \\ 
+   &Test~\ref{test:init_spherical} \\ 
+\hline
+
+\end{longtable}
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{planetVV_Metrics.tex}

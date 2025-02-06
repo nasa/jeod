@@ -1,0 +1,234 @@
+This section has two primary components:  how to add new integration 
+techniques to the \ModelDesc, and how to use the \ModelDesc in other 
+extensions of JEOD(see \textref{Using This Model in JEOD 
+ Extensions}{sec:user_modeldev_2}).
+
+\subsection{Adding New Integration Techniques}\label{sec:user_modeldev_1}
+A wide range of numerical integration techniques exist,
+only a few of which are implemented by JEOD. This section
+describes what needs to be done to implement a numerical integration
+algorithm using the \ModelDesc architecture.
+
+A model extender will typically need to write four classes:
+\begin{itemize}
+\item A class that derives from the TwoStateIntegrator class.
+This derived class will implement the desired numerical integration algorithm.
+
+The new TwoStateIntegrator class needs to define
+\begin{itemize}
+\item A non-default constructor for this class, including arguments typically 
+specifying
+\begin{itemize}
+ \item The number of elements in the zeroth-derivative (e.g. position) 
+ specification, and its derivative,
+ \item The number of elements in the first-derivative (e.g. velocity) 
+ specification, and its derivative,
+ \item An instance of a method used to compute the derivative of the 
+ zeroth-derivative state (typically from the zeroth- and first-derivative 
+ states).  This method originates from the template structure in the 
+ \textit{RestartableStateIntegrator} class, and is discussed further in the 
+ next section (see \textref{Using This Model in JEOD 
+ Extensions}{sec:user_modeldev_2}),
+ \item A reference to the Integration Controls appropriate to the integrator.
+\end{itemize}
+This constructor should then, in turn, call the base-class TwoStateIntegrator 
+constructor with the same set of arguments.
+
+\item An \verb+integrate+ method that implements the algorithm.  This method 
+must have the following arguments:
+\begin{itemize}
+ \item A double representing the time-step (this is the cycle-time-step, for 
+ the dynamic-time)
+ \item An unsigned integer representing the cycle-stage to which the 
+ integrator is moving, the target-stage.  This should come into the integrator 
+ from the controls, via the integration group.  That way, all integrators in 
+ the group are assured to have the same target.
+ \item Four double-pointers representing, in order, the time-derivative of the 
+ first-derivative-state, the first-derivative-state, the time-derivative of 
+ the zeroth-derivative-state, and the zeroth-derivative-state.  These should 
+ all point to arrays appropriately sized according to the values input into 
+ the constructor (first two arguments, outlined above).
+\end{itemize} 
+
+\item Data members to contain internal storage needed by the algorithm,
+\item A constructor and destructor to allocate and release memory,
+\item A \verb+delete_self+ method to make an instance delete itself,
+\item A \verb+reset+ method to make an instance of the class reset itself.  
+This method can be empty if the integration algorithm is self-starting, but 
+must be defined.
+
+\end{itemize}
+
+
+\item A class that derives from the TimeIntegrator class.
+This derived class will advance time in a manner consistent with the
+numerical integration algorithm.
+
+The new TimeIntegrator class needs to define
+\begin{itemize}
+\item An \verb+integrate+ method that advances time per the dictates of the
+desired numerical integration algorithm.
+The time integrator and state integrator must march in unison.
+\item A \verb+delete_self+ method to make an instance delete itself,
+\item A \verb+reset+ method to make an instance of the class reset itself.
+\item a non-default constructor that takes a reference argument to the 
+appropriate Integration Controls, and passes that on through to the 
+TimeIntegrator non-default constructor.
+\end{itemize}
+
+\item A class that derives from the IntegrationControls class.
+
+There are no required methods for the new class (the base class, 
+IntegrationControls, is an instantiable class); however, the following methods 
+may be necessary:
+\begin{itemize}
+ \item If the new 
+integrator represents a multi-cycle process, the new class must set the 
+\verb+multi_cycle+ flag to true in the constructor, and define
+\begin{itemize}
+ \item A \verb+start_integration_tour+ method if any additional processes are 
+ required when a new integration tour (not just an 
+ integration cycle) starts.
+ \item An \verb+end_integration_cycle+ method that tests for completion of the 
+ integration tour at the end of each integration cycle, and provides a 
+ suitable 
+ location for processes that occur only at the end of an integration cycle or 
+ an integration tour.  The return value from this method should be 
+ \textit{true} if the tour has completed, and \textit{false} otherwise. 
+\end{itemize}
+\item  A \verb+reset+ method if any additional verification or assignments 
+need to be made when the integrator is reset (default method is empty).
+\item While the \verb+integrate+ method is a virtual method (so can easily be 
+redefined for the new class), note that this method controls the entire 
+sequencing of the integration process and is critically important.  It has 
+been carefully constructed to provide the flexibility to accommodate a very 
+broad array of integration techniques; it may be easier to tweak the 
+integration algorithm to fit into this existing framework than to rewrite the 
+framework.
+
+\end{itemize}
+
+ Note -
+
+Integrators flagged as multi-cycle get two additional method calls 
+(\verb+start_integration_tour+ and \verb+end_integration_cycle+) regardless of 
+how many cycles they take per tour.  This feature can be useful for more than 
+just monitoring multiple cycles. For example, the Beeman and ABM4 methods are 
+multi-step, single-cycle methods, but the multi-cycle flag is set to 
+assist with the priming process.  In the class PrimingIntegrationControls, the 
+\verb+start_integration_tour+ method is used to monitor the priming process of 
+these integrators; once priming is complete, the multi-cycle flag is reset to 
+false, and the method is not revisited.
+
+\item A class that derives from the IntegratorConstructor class. This derived 
+class will create instances of the above three classes.  The following methods 
+must be defined:
+\begin{itemize}
+ \item A \verb+create_two_state_integrator+ method.  This method takes the 
+ four arguments listed above for the constructor of the TwoStateIntegrator 
+ class.  These values are passed directly through to the instantiation of the 
+ appropriate TwoStateIntegrator-derived class.  Note - these values are set 
+ externally to the \ModelDesc with default values within JEOD; for more 
+ information, see \textref{Using This Model in JEOD 
+ Extensions}{sec:user_modeldev_2}).
+ \item  A \verb+create_time_integrator+ method.  This method takes the 
+ integration controls reference as an argument, and passes it through to the 
+ instantiation of the appropriate TimeIntegrator-derived class.
+ \item A \verb+create_integration_controls+ method.  This method takes no 
+ arguments, and instantiates the appropriate IntegrationControls-derived class.
+ \item A \verb+delete_self+ method.  This method deletes the Integrator 
+ Constructor itself.
+\end{itemize}
+
+\end{itemize}
+
+General note -
+ 
+While the constructor must always create instances of a two-state integrator, 
+a 
+time integrator, and an integration controls, existing classes can be re-used 
+if the functionality is identical.  Examples:
+\begin{itemize}
+ \item Most integrators use the default IntegrationControls.
+ \item The Symplectic Euler method uses the time integrator from the Euler 
+ method, since their procession in time are equivalent.
+\end{itemize}
+
+
+
+
+The ability to extend the model was tested in test~\ref{test:extensibility}.
+
+
+
+\subsection{Using This Model in JEOD Extensions}\label{sec:user_modeldev_2}
+Within JEOD, the \ModelDesc is purely used for the integration of a 
+six-degree-of-freedom body, but the actual mathematical models within the 
+\ModelDesc are far more generic, and can be applied to any second-order system.
+Of particular note is the recognition that the first-derivative-state, while 
+intrinsically related to the zeroth-derivative-state, does not have to be a 
+time-derivative of it.  The example already in JEOD is the integration of the 
+angular state, where the orientation and rate of orientation change are 
+specified as quaternions, while the angular rate and rate of change of angular 
+rate are specified as Cartesian vectors.
+
+This same system is therefore useful in many other applications, such as a 
+Hamiltonian system utilizing generalized momenta and generalized coordinates 
+as the two states.  Indeed, the two states may be completely unassociated as 
+time-derivatives.
+
+In JEOD, the Simple6DofDynBody (see the Dynamics Body 
+documentation~\cite{dynenv:DYNBODY}) implements two 
+integration generators, one for the translational state, and one for the 
+rotational state.  These are instantiated in 
+\textit{dynamics/dyn\_body/simple\_6dof\_dyn\_body.hh}:
+\begin{itemize}
+ \item \verb+SimpleRestartableIntegrator<3> trans_integ_generator;+
+ \item \verb+RestartableIntegrator<4, 3, Quaternion::compute_left_quat_deriv>+ 
+        \newline \ \ \ \ \ \ \ \verb+rot_integ_generator;+
+\end{itemize}
+
+These structures are both templatized in 
+\textit{restartable\_state\_integrator.hh}, with the 
+SimpleRestartableIntegrator 
+a restricted case of the more general RestartableIntegrator.
+
+In the latter, general, implementation, the arguments are:
+\begin{enumerate}
+ \item The number of entries in the first state array (state[0], referred to 
+ as the zeroth-derivative-state in JEOD applications)
+ \item The number of entries in the second state array (state[1], referred to 
+ as the first-derivative-state in JEOD applications)
+ \item The specified method for creating the derivative of state[0] from 
+ state[0] and state[1].
+\end{enumerate}
+
+With the integrator generators so specified, then control passes to the 
+IntegrableObject (in JEOD, this is usually a Simple6DofDynBody, which is a 
+DynBody, which is an IntegrableObject (among other things)).  Somewhere in the 
+creation of the IntegrableObject-derived instance, (for a Simple6DofDynBody, 
+this is in the method \textit{Simple6DofDynBody::create\_integrators}), the 
+generator method \textit{create\_integrator} is called, passing arguments of 
+the appropriate instance of the IntegratorConstructor and IntegrationControls 
+that will be used to integrate the state of this object.
+
+The generator (an instance of the RestartableIntegrator class) method 
+\textit{create\_integrator} calls the IntegratorConstructor method 
+\textit{create\_two\_state\_integrator}, with 4 arguments: the three arguments 
+used in the 
+template discussed above, and the integration controls just passed in.
+
+Thus, an integrable object generates its two-state integrator that was 
+discussed in section~\ref{sec:user_modeldev_1}.  Note that the 
+integration-controls and time-integrator that the integrator-constructor 
+creates are created elsewhere, in the generation of an integration group.
+
+To extend this architecture, it is really only necessary to implement a 
+different IntegrableObject (other than a Simple6DofDynBody), and in that 
+implementation, put a different method in for the generation of the 
+time-derivative of state[0].  The Simple6DofDynBody has a translational 
+two-state, and a rotational two-state, with each two-state representing 3 
+degrees of freedom - hence 6 degrees of freedom total.  The new object can, in 
+principle, have any number of two-states, hence any number of degrees of 
+freedom; the only requirement is that all of the two-state sets be mutually 
+independent.

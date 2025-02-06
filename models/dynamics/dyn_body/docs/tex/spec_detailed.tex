@@ -1,0 +1,613 @@
+\section{Detailed Design}
+
+The classes and methods of the \ModelDesc are described in detail in the
+\hyperapiref{DYNBODY}.
+
+The outline of this section is organized along the lines of the
+key concepts described in section~\ref{sec:key_concepts}.
+Only those concepts that impact the detailed design are described in
+this section.
+
+
+\subsection{Mass}
+
+A DynBody \hasa public MassBody attribute with friendship access 
+declared in MassBody.
+
+In dyn\_body.hh
+\begin{verbatim}
+class DynBody : virtual public RefFrameOwner,
+    virtual public er7_utils::IntegrableObject { 
+...
+public:
+...
+    MassBody mass;
+...
+};
+\end{verbatim}
+
+In mass\_body.hh
+\begin{verbatim}
+class MassBody {
+...
+    friend class DynBody;
+...
+};
+\end{verbatim}
+
+Note that the DynBody class uses multiple inheritance. The RefFrameOwner class 
+is merely an abstract class for defining interface taxonomy. The MassBody 
+class is a full-fledged class.
+The public MassBody friendship 
+functionality is passed to other classes and functions that use a
+DynBody object. The protected MassBody functionality is fully visible
+within a DynBody class but not within classes that derive from the DynBody 
+class. Readers who wish to learn more about the MassBody
+functionality should refer to the \hypermodelref{MASS}.
+
+In previous versions of JEOD, a Simple6DofDynBody class inherited from the 
+DynBody class to provide IntegrableObject functionality to DynBody. All of 
+this functionality was collapsed into DynBody itself as of JEOD v4.0, because 
+nearly all JEOD use cases implemented Simple6DofDynBody, making intermediate 
+inheritance unnecessary.
+
+\subsection{State}
+The DynBody class contains three BodyRefFrame objects that correspond to the
+three MassProperties objects defined in the MassBody class. These are
+\begin{inparaenum}[(1)]
+\item \verb+core_body+, which represents the state of the
+  MassBody's \verb+core_properties+ object,
+\item \verb+composite_body+, which represents the state of the
+  MassBody's \verb+composite_properties+ object, and
+\item \verb+structure+, which represents the state of the
+  MassBody's \verb+structure_point+ object.
+\end{inparaenum}
+The connection between these three three BodyRefFrame objects and the
+corresponding MassProperties object is made by the DynBody constructor. 
+Further BodyRefFrame's corresponding to the MassBody's MassPoints may be 
+constructed through attachment.
+
+\subsection{Inertial Frames}
+The \DYNMANAGER, with the help of other models, determines which frames
+are 'inertial' frames and which are not. The \ModelDesc uses the
+\DYNMANAGER public interfaces that pertain to this concept.
+
+\subsection{Integration Frame}
+The user sets the integration frame \emph{by name} at initialization time.
+The initialization-time method \verb+DynBody::initialize_model()+ sets the
+integration frame based on the provided name.
+
+All attached DynBody objects share a common integration frame. The attach
+mechanisms described below ensure that this is the case.
+
+The model provides public and protected methods to switch the integration frame.
+The public methods are overloaded versions of
+\verb+switch_integration_frames()+. This is the interface that should
+be used to switch the integration frames. These methods ensure that the
+state is preserved when switching frames and propagate the change throughout
+the DynBody object.
+The protected methods are overloaded versions of \verb+set_integ_frame()+.
+These methods do not preserve state and are for internal use only.
+
+\subsection{Attach/Detach}\label{sec:detailed_attach_detach}
+The DynBody attach/detach mechanism separately performs the actions encompassed 
+by MassBody attach/mechanisms, with further extensions to verify validity and 
+perform dynamics updates (e.g. update the composite BodyRefFrame). The mathematics
+of this is described in section~\ref{sec:math_attach_detach}. None of the 
+attach methods are intended to be overridden by derived classes in order to 
+preserve core functionality. Extensibility can be achieved by manipulating 
+configuration before or after invoking these interface methods.
+
+The top level methods used to attach and detach DynBody instances are: \begin{itemize}
+\item \verb+DynBody::attach()+ to specify a DynBody to attach as a child, 
+\item \verb+DynBody::add_mass_body()+ to specify a MassBody or linkage of 
+    MassBodys to attach as child(ren), 
+\item \verb+DynBody::detach()+ to order this body to detach from its parent 
+    or detach another DynBody from this body,
+\item \verb+DynBody::remove_mass_body()+ to order this body to detach child(ren) 
+    MassBodys. 
+\end{itemize}
+
+Attachment orientation is specified in one of two ways: **explicitly** by 
+relative position/orientation between the body structures or **implicitly** by 
+names of body points to mate (with orientation defined as opposing in X and 
+aligned in Y w.r.t. point frames). 
+Momentum conservation is performed only if both the child and parent
+have fully initialized states. Two other cases are possible:
+\begin{itemize}
+\item Neither the parent nor child state has been initialized. This occurs
+during initialization-time attachments, which intentionally occur prior
+to state initialization. Only the MassBody properties are updated in this case.
+\item The parent has a fully initialized state but the child has no state
+information. This occurs when a simple MassBody is attached to a DynBody
+after initialization. The MassBody magically appears alongside the
+DynBody. The attachment is assumed to occur with no change to the parent
+body's core and structural states. State is propagated from the parent
+body's structural frame.
+\end{itemize}
+
+The attach mechanism invokes protected intermediate functions to organize the 
+attachment process. Several of these functions belong to MassBody and are
+exploited by DynBody through friendship.
+These methods are\begin{itemize}
+\item \verb+DynBody::attach_update_properties()+ to perform dynamic attachment, 
+\item \verb+MassBody::attach_establish_links()+ to update searchable tree linkage, 
+\item \verb+MassBody::detach_establish_links()+ to remove tree linkage, 
+\item \verb+MassBody::attach_update_properties()+ to combine the MassBody's internal
+    properties, 
+\item \verb+MassBody::attach_update_properties()+ to separate the MassBody's internal
+    properties, and
+\item \verb+MassPoint::compute_state_wrt_pred()+ to perform relative geometry 
+    calculations. 
+\end{itemize}
+These functions ensure that the attribute MassBody have correct composite 
+properties and linkages. The DynBody attach/detach methods also invoke 
+validation checks during the process to verify the commanded attachment is 
+valid.
+These methods are\begin{itemize}
+\item \verb+attach_validate_parent()+,
+  which is sent to the child body with the parent body supplied as an argument;
+\item \verb+attach_validate_child()+,
+  which is sent to the parent body with the child body supplied as an argument;
+\item \verb+add_mass_body_validate()+,
+  which is called by the DynBody with the child MassBody supplied as an argument;
+\end{itemize}
+The validation methods ensure that the bodies are registered with JEOD, will 
+not create a nodal attach tree such that any node is multiply or cyclically 
+attached, and that the supplied arguments do not refer to invalid types (e.g., 
+a DynBody may not attach as a child to a MassBody parent).
+
+\subsection{Initialization}
+Initialization of a DynBody object is a complex process that is spread amongst
+constructors, \Sdefine-level initialization methods, and the body action-based
+initialization mechanism. All elements of a DynBody object are initialized
+by the constructors. Pointers (including essential ones) are set to NULL and
+states are set to a default value. A few known, non-null initializations occur
+during this zeroth phase of the initialization process.
+
+The next step in the process is to perform model-level initializations.
+This is performed by the DynBody method {\tt initialize\_model()}.
+This method registers the DynBody object and the basic reference frames with the dynamics manager and sets the object's integration frame.
+This step leaves the mass properties and states uninitialized.
+
+The final step of the initialization process is best performed using the
+body-action based initialization mechanism. This operates in three stages,
+with mass properties and mass points initialized first, initialization-time
+attachments performed next, and body states initialized last.
+
+\subsection{State Initialization}
+The model participates in the recommended body action-based state initialization
+process in two ways, readiness checking and action application.
+The body action class DynBodyInit and its derived classes are responsible
+for state initialization, and both the readiness checking and action application
+involve interactions with the \ModelDesc.
+Readiness checking and action application are integral parts of the body
+action-based scheme. The simulation's dynamic manager invokes a body action's
+\verb+apply()+ method only if the action's \verb+is_ready()+ method assents to
+the forthcoming application.
+In the case of an action that derives from the DynBodyInit class, the
+\verb+is_ready()+ mechanism includes checks of whether required state elements
+in various BodyRefFrame objects have been initialized. The
+action is ready
+to be applied when all prerequisites have been satisfied.
+
+The \ModelDesc involvement in the readiness checking centers around the
+BodyRefFrame class. This class augments the RefFrame class with an
+\verb+initialized_items+ data member of type RefFrameItems.
+A RefFrameItems object contains an enumerated value that indicates which of the
+position, velocity, orientation, and angular velocity elements of a state have
+been set and provides methods to operate on that enumerated value.
+The \ModelDesc methods described in section~\ref{sec:detailed_state_prop} ensure
+ that a BodyRefFrame object's \verb+initialized_items+ are updated to reflect
+which of the object's state elements have been set.
+This mechanism makes readiness checking quite easy; all the DynBodyInit object
+needs to do is query the BodyRefFrame object's \verb+initialized_items+ data
+member as to whether all required state elements for that object have been set.
+
+The \ModelDesc involvement in the application of a DynBodyInit object
+centers around the DynBody class.
+The \verb+DynBodyInit::apply()+ method class invokes the subject
+DynBody object's \verb+set_state()+ method to set the user-specified state
+elements and then invokes the subject DynBody object's \verb+propagate_state()+
+method to propagate that newly computed state throughout the DynBody tree. The former
+sets the user-specified state elements in a user-specified body reference frame; the latter propagates known state elements throughout the tree.
+For details on the \verb+set_state()+ and \verb+propagate_state()+ methods see
+see section~\ref{sec:detailed_state_prop} below.
+
+\subsection{Forces and Torques}\label{sec:detailed_force_torque}
+Forces and torques in JEOD have always been, and continue to be, represented in the
+structural frame of the DynBody object with which the forces and torques are
+directly associated. The association between forces/torques and a DynBody
+object is achieved via the Trick \emph{vcollect} mechanism. The responsibility
+to properly represent forces and torques in an appropriate structural frame
+falls on the developer of a particular force/torque model while the
+responsibility to properly associate the forces and torques with the correct
+DynBody object falls on the simulation integrator.
+From the perspective of the \ModelDesc, the collected forces and torques are
+simply the elements of the six STL collect vectors data members contained in
+the DynBody object's \verb+collect+ data member.
+
+The \verb+collect+ data member is a BodyForceCollect object.
+The BodyForceCollect member data are:\begin{itemize}
+\item Six STL vectors, three each for forces and torques, representing the
+  effector, environmental, and non-transmitted forces and torques
+  acting on a body;
+\item Six correspondingly named 3-vectors\footnote{The overloading of the term
+  `vector' is a bit unfortunate here. The objects into which the forces
+  and torques are collected are STL vectors; that name was chosen by the C++
+  community. JEOD uses 3-vectors to represent forces and torques (and positions,
+  velocities, ...); that use of the word `vector' predates the computer science
+  use of the word by a considerable amount of time.} that represent the
+  category-specific sums of of the active collected forces and torques;
+\item Two more 3-vectors that contain the total force and torque as represented
+  in the structural frame, and
+\item Another two 3-vectors that contain the total force and torque
+  transformed to the frame needed by the equations of motion.
+  This equations of motion frame is the inertial integration frame for force
+  and the body frame for torque.
+\end{itemize}
+
+The three STL vectors that represent forces contain CollectForce pointers.
+A CollectForce object contains two pointers, active and force. The latter is a
+3-vector that contains the components of the force in structural coordinates.
+The former is a pointer to a boolean that indicates whether the force 3-vector
+should be included in the totals.
+The three STL vectors that represent torques contain CollectTorque vectors.
+A CollectTorque is analogous to a CollectForce, with a torque data member
+replacing the force data member.
+See section~\ref{sec:detailed_collect} below for details on the
+population of the six STL vectors in a BodyForceCollect object and
+construction of the CollectForce and CollectTorque objects.
+
+The method \verb+DynBody::collect_forces_and_torques()+ is responsible for
+interpreting and manipulating the contents of the DynBody \verb+collect+ data
+member. This method first sums the members of the six collect vectors, storing
+the sums in the correspondingly named sum. For example, the effector forces
+are collected at the \Sdefine-level into the \verb+collect_effector_forc+
+collect vector; the sum of the active elements of this STL vector is computed
+and stored in the \verb+effector_forc+ data member. The method is then
+recursively invoked on the DynBody objects attached as children to the DynBody
+object in question. The next stage of operation depends on whether the DynBody
+object is an attached or root body.
+
+In the case of attached bodies, the transmittable forces and torques are
+converted to the parent body's structural frame and added to the parent's total.
+For example, a child body's total effector torque is converted to the parent
+body's structural frame and added to the parent body's
+\verb+collect.effector_torq+ data member.
+Forces are treated similarly, but with the added complexity that a child body
+force becomes a force and a torque when transmitted to the parent body.
+
+In the case of a root body, the categorized totals for forces and torques are
+summed to form the grand total external force and external torque. These
+initial grand totals are expressed in structural components.
+These structurally-referenced grand totals are then transformed to the
+frame in which the equations of motion are represented---the inertial
+integration frame in the case of force but the body frame in the case of torque.
+The final step is to formulate the equations of motion for the composite body. The total inertial-referenced external force is combined with gravitational
+acceleration to form the translational equations of motion.
+The total body-referenced external torque is combined with the
+inertial torque to form the rotational equations of motion.
+The mathematical details of these operations are described in section
+~\ref{sec:math_collect} and ~\ref{sec:math_eom}.
+
+\subsection{Wrenches}\label{sec:detailed_wrench}
+Like forces and torques, wrenches in JEOD are represented in the structural
+frame of the DynBody object with which the wrenches are directly associated.
+Also like forces and torques, the association between wrenches and a
+DynBody object is achieved  via the Trick \emph{vcollect} mechanism.
+Unlike forces and torques, the collection mechanism for wrenches accounts for
+how forces induce torques if the line of action of the force does not pass
+through the vehicle's center of mass. This is what makes wrenches so appealing:
+They simplify the development of vehicle-specific models. A modeler no longer
+needs to calculate the torque induced by a force; the wrench mechanism does
+that for them.
+
+From the perspective of the \ModelDesc, the collected wrenches add to the
+collected forces and torques (this older concept will not be abandoned),
+but with all of the individual wrenches displaced to the vehicle
+center of mass during the collection process. To keep the concepts somewhat
+distinct, JEOD 3.4 uses a separate object for collecting wrenches. This is
+the \verb+effector_wrench_collection+ data member of StructureIntegratedDynBody.
+As of JEOD 3.4, wrenches can only be used in the context of this class.
+The DynBody concepts of non-transmitted and environmental forces and torques
+have not yet been propagated to wrenches. This may change in future releases.
+
+The class Wrench provides \verb|operator+=| to simplify the wrench collection
+process. This function transforms the summand wrench to be added to the point of
+the application of the sum and then adds the force and transformed torque
+to the force and torque of the sum.
+
+\subsection{Collect Mechanism}\label{sec:detailed_collect}
+The elements of the six collect vectors in a BodyForceCollect object are
+populated by the Trick \emph{vcollect} mechanism.
+This mechanism uses a \emph{converter} to convert the item list elements to a
+form suitable for pushing on the STL \emph{container};
+see section~\ref{sec:spec_interactions_trick} for details on the Trick side
+of this mechanism.
+This mechanism is used in a JEOD-based simulation to add forces and torques to
+one of the collect vectors contained in a DynBody object's collect data member.
+The \emph{container} is one of the six BodyForceCollect collect vectors;
+the \emph{converter} is \verb+CollectForce::create+ for the force collect
+vectors but \verb+CollectTorque::create+ for the torque collect vectors.
+
+The CollectForce and CollectTorque classes are Factory Method classes,
+with the \verb+create()+ methods forming overloaded named constructors
+that create CollectForce and CollectTorque objects.
+Each class provides five overloaded versions of \verb+create()+ distinguished
+by argument type. The \verb+CollectForce::create()+ methods are
+\begin{itemize}
+\item \verb+static CollectForce * create (double * vec)+\\
+  Creates a CInterfaceForce, a CollectForce derived class. The
+  force pointer in the created CInterfaceForce object is the input \verb+vec+
+  pointer. The \verb+active+ pointer is a newly allocated boolean pointer
+  with the contents set to true. (A CInterfaceForce is always active.)
+  The CInterfaceForce destructor releases this allocated memory.
+\item \verb+static CollectForce * create (Force & force)+\\
+  Creates a CollectForce with the force and active pointers in the created
+  CollectForce object pointing to the input Force object's force 3-vector and
+  active flag.
+\item \verb+static CollectForce * create (Force * force)+\\
+  This behaves similarly to the previous method; the only distinction is that
+  the argument is a pointer to rather than a reference to a Force object.
+\item \verb+static CollectForce * create (CollectForce & force)+\\
+  Creates a CollectForce via the CollectForce copy constructor.
+\item \verb+static CollectForce * create (CollectForce * force)+\\
+  This behaves similarly to the previous method; the only distinction is that
+  the argument is a pointer to rather than a reference to a CollectForce object.
+\end{itemize}
+The \verb+CollectTorque::create()+ methods are analogous to those of CollectForce class.
+
+The class StructureIntegratedDynBody augments the collected forces and torques
+with the forces and torques from the collected wrenches.
+
+\subsection{Gravity}\label{sec:detailed_gravity}
+The \ModelDesc does not compute the gravitation acceleration that acts
+on a DynBody object. The \DYNMANAGER does this on the behalf
+of this model, and does so by invoking the \GRAVITY.
+The \Sdefine-level \verb+DynManager::gravitation()+ method  invokes the
+\verb+GravityManager::gravitation()+ method for each root DynBody object.
+This architecture, while a bit duplicitous, eliminates a source of user errors,
+eliminates some rather ugly \Sdefine code, and offers a significant speedup
+when bodies are attached (gravitation is computed for root bodies only).
+
+The DynBody class contains a \verb+GravityInteraction+
+\verb+grav_interaction+ data member. This data member is passed, along
+with the DynBody object's position vector, as arguments to the GravityManager
+\verb+gravitation()+ method. The GravityInteraction data members include
+an array of GravityControls objects that direct the gravitational computations,
+a specification of the DynBody object's integration frame, and
+placeholders for the outputs from the gravitational computations.
+These output products are
+the gravitational potential,
+the gravitational acceleration vector,
+and the gravity gradient tensor.
+
+Each element of the GravityControls array in a GravityInteraction object
+specifies a gravitational body such as the Sun or Earth and specifies how
+the gravitational computations are to be performed for that gravitational body.
+Since each DynBody object has its own GravityInteraction object, different
+DynBody objects can specify different computation techniques for a given
+gravitational body.
+
+For example, consider a multi-vehicle simulation with one vehicle in low Earth
+orbit and another orbiting the Moon. The vehicle in low Earth orbit can
+treat the Moon as a point mass but use a high order model for the Earth.
+The vehicle in lunar orbit can use the reverse setup, with a high order model
+used for lunar gravity but a low order model for Earth gravity.
+
+The gravity computations can also be changed over the course of a simulation.
+For example, consider a simulation that starts with a vehicle in Earth orbit,
+performs a trans-Mars burn, and eventually reaches Mars. The simulation
+might start with Mars disabled, a point mass model for the Sun, and a high order
+model for the Earth. The Earth's gravitational influence diminishes as the
+vehicle starts moving away from the Earth, and eventually becomes negligible
+when the vehicle is well outside the Earth's Hill sphere. This suggests toning
+down the fidelity of the Earth's gravity model and eventually disabling the
+Earth completely. The reverse situation holds as the vehicle approaches Mars.
+
+\subsection{Equations of Motion}\label{sec:detailed_eom}
+
+Formulating the equations of motion is a part (a very small part) of the
+operations performed by \verb+DynBody::collect_forces_and_torques()+.
+See section~\ref{sec:detailed_force_torque} for a description of this method.
+
+\subsection{State Integration}\label{sec:detailed_state_integ}
+The DynBody class declares three virtual methods that pertain to state
+integration, which may be overriden by classes such as StructureIntegratedDynBody.
+ Users are free to write classes that derive from DynBody or
+ that provide alternate implementations.
+
+The three methods are\begin{description}
+\item[{\tt create\_integrators}] This initialization-time method creates the
+  state integrators that will be used during run time to integrate state.
+  The method receives pointer to an instance of a class that derives from the
+  IntegratorConstructor class. The \verb+create_integrators()+ method uses
+  this to create state integrators that implement the user-selected
+  integration algorithm.
+  The DynBody implementation creates two state integrators,
+  one for the translational state and one for the rotational state.
+  The created translational state integrator uses 3-vectors for generalized
+  position and velocity. The created rotational state integrator uses
+  a 4-vector for generalized position and a 3-vector for generalized velocity.
+\item[{\tt reset\_integrators}] Integrators that use historic data need to
+  discard that historic data on occasion. This method simply forwards the
+  \verb+reset+ on to the state integrators.
+\item[{\tt integrate}] This method performs the state integration. The
+  DynBody implementation accomplishes this by calling two internal
+  methods. One of these internal methods integrates the translational state of
+  the DynBody object's integrated frame using the object's
+  translational state integrator (which was created by the call to
+  \verb+create_integrators()+).
+  The other integrates the integrated frame's rotational state using the
+  rotational state integrator.
+\end{description}
+Most of the work is performed by the state integrators. See the
+\hypermodelref{INTEGRATION} for details.
+
+\subsection{Center of Mass State Integration}\label{sec:detailed_state_integ_com}
+The translational and rotational equations of motion decouple at a rigid
+body's center of mass. The translational state equations of motion are given by
+Newton's second law, $\boldsymbol F=m \boldsymbol a$ . JEOD separates
+gravitational interactions from external forces, resulting in
+$\boldsymbol a_\text{net} =
+\boldsymbol a_\text{grav} + \boldsymbol F_\text{ext}/m$ .
+The inertial state equations of motion are given by the rotational equivalent
+of Newton's second law, with an additional term that results from working in
+what inherently is a rotating frame,
+$\boldsymbol \tau = I \dot{\boldsymbol \omega} +
+(\boldsymbol{\mathrm I}\boldsymbol{\omega}) \times \boldsymbol{\omega}$ .
+
+\subsection{Structural State Integration}\label{sec:detailed_state_integ_struct}
+The translational and rotational equations of motion are coupled elsewhere
+on a rigid body. The translational state equations of motion at a point removed
+from the center of mass must account for centrifugal and Euler accelerations:
+$\boldsymbol a_\text{net} =
+\boldsymbol a_\text{grav} + \boldsymbol F_\text{ext}/m
++ \boldsymbol{\omega} \times (\boldsymbol{\omega} \times \boldsymbol r)
++ \dot{\boldsymbol \omega} \times \boldsymbol r$ .
+Rotational state is even messier. However, the equations of motion for rotational
+state simplify to exactly the same equations used for rotation about the center
+of mass. This shouldn't be surprising; angular velocity and angular acceleration
+are "free vectors": They're the same for any point on a rigid body.
+The class StructureIntegratedDynBody takes advantage of this. It uses the
+same equations of motion for rotational state as does DynBody.
+It does however account for coupling in the translational equations of motion.
+
+\subsection{State Propagation}\label{sec:detailed_state_prop}
+The term `state propagation' as used in this document and in the model code
+means propagating the state from a reference frame associated with a DynBody
+object to other reference frames associated with that DynBody object, either
+directly or via attachment, using the geometry information embedded in the
+MassBody objects that underlie the DynBody objects. State propagation is a
+topic distinct from state integration. State needs to be propagated from frame
+to frame for several reasons:
+\begin{itemize}
+\item During initialization. The user can set state elements in a staged manner,
+and can set different state elements in different frames. For example, a user
+might set the position and velocity of a subject vehicle in terms of the
+relative position and velocity between a VehiclePoint on the subject vehicle and
+another VehiclePoint on some reference vehicle, but set the orientation and
+angular velocity in terms of the relative orientation and angular velocity
+of the subject vehicle's body frame with respect to the reference vehicle's
+LVLH frame.
+\item After integration. The state integration mechanism integrates the state
+of one reference frame, the root DynBody object's integrated frame. The states
+of all of the other reference frames associated with a DynBody tree is propagated from this integrated frame.
+\item During attachment. The attach mechanism calculates and sets the state of
+one reference frame. The states of all of the other reference frames associated
+with a DynBody tree is propagated from this updated frame.
+\item During detachment. The states of all reference frames associated with a
+DynBody tree is propagated from this parent body's core body reference frame.
+\item During frame switch. The state of the root body's integrated frame is
+updated to reflect the switch to a new integration frame. The states
+of all of the other reference frames associated with a DynBody tree is propagated from this integrated frame.
+\item Per some user-defined model. For example, consider a JEOD-based federate
+in a distributed multi-vehicle simulation. The federate integrates vehicle
+states over time, even the states of vehicles that are not owned by the
+federate. When the owner of a state broadcasts new state elements, the federate
+must override the integrated state with the new official values. The state
+propagation mechanism can be employed to accomplish this goal.
+\end{itemize}
+
+The DynBody class provides several public methods related to
+initializing/overriding states and propagating the resulting settings
+throughout the DynBody tree. These methods are listed below.
+All but the last three methods in the list below take two arguments,
+the value of that element and the reference frame for which the appropriate
+state element is to be set. The last listed method is particularly
+important. Please read the entire list. These methods are
+\begin{itemize}
+\item \verb+set_position()+
+  sets the position element of the state of the input reference frame
+  to the input position and denotes that the input frame is
+  the definitive source for the DynBody object's position.
+\item \verb+set_velocity()+
+  sets the velocity element of the input frame's state and denotes that frame as
+  the definitive source for the DynBody object's velocity.
+\item \verb+set_attitude_left_quaternion()+
+  sets the attitude element of the input frame's state and denotes that frame as
+  the definitive source for the DynBody object's velocity.
+\item \verb+set_attitude_rate()+
+  sets the angular velocity element of the input frame's state and denotes that
+  frame as the definitive source for the DynBody object's angular velocity.
+\item \verb+set_attitude_right_quaternion()+
+  provides an alternate means for setting attitude.
+  JEOD uses left quaternions; others use right quaternions.
+  This method converts the input right quaternion to a left quaternion
+  before setting the attitude element.
+\item \verb+set_attitude_matrix()+
+  provides yet another alternate means for setting attitude.
+  This method converts the input transformation matrix to a left quaternion
+  before setting the attitude element.
+\item \verb+set_state()+
+  sets multiple state elements at once. This method takes three arguments,
+  a bit flag that specifies which state elements are to be set,
+  a RefFrameState that contains the desired state values,
+  and the subject reference frame.
+  It sets selected elements of the input frame's state based on the input state.
+  The bit flag specifies which elements are to be set.
+  The input frame is denoted as the definitive source for all set elements.
+\item \verb+set_state_source()+
+  denotes the given reference frame to be the definitive source for a
+  set of specified state elements. This method takes two arguments,
+  a bit flag that specifies the state elements and the subject reference frame.
+  This method does not set state. It is used when some particular frame's state
+  is known to be correct but the states of other frames is incorrect.
+  This occurs, for example, with detachment. Detachment makes the state of the
+  composite body frame of the parent body incorrect. The state of the core
+  body frame is correct, so the detach mechanism sets the core body to be the
+  (temporary) source of state information.
+\item \verb+propagate_state()+
+  propagates state settings throughout the DynBody tree.
+  This method takes no arguments.
+  Calling any of the above \verb+set_+ methods creates a problematic
+  situation. The state of one frame has been set, but this setting has not
+  been propagated throughout the DynBody tree. States are inconsistent with
+  geometry. This final method rectifies that situation. If possible,
+  it propagates state from the denoted definitive sources to the integrated
+  frame, and from there to all frames associated with the DynBody tree.
+  Upon completion, the integrated frame becomes the definitive source for all
+  state elements.
+\end{itemize}
+
+The method \verb+propagate_state()+ can always propagate state as described above once all four state elements (position, velocity, attitude, and angular
+velocity) have been set. This propagation is not always immediately possible
+during initialization due to the staged initialization scheme employed in JEOD.
+Individual state elements can be propagated, provided the propagation is
+performed in the order listed in table~\ref{tab:init_prop}.
+The first column of the table lists the element to be propagated;
+the second column specifies which state elements must have already been
+initialized in order to perform the propagation.
+
+\begin{table}[htp]
+\centering
+\caption{Initialization Time State Propagation}
+\label{tab:init_prop}
+\vspace{1ex}
+\begin{tabular}{||l|l|} \hline
+{\bf Element to be} & {\bf Required} \\
+{\bf Propagated} & {\bf Elements} \\
+\hline \hline
+Orientation & No constraints \\
+Angular velocity & Orientation \\
+Position & Orientation \\
+Velocity & Orientation and angular velocity \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Point Acceleration}
+The DynBody method \verb+compute_vehicle_point_derivatives()+
+computes the derivatives of the velocity and angular velocity vector for
+a specified BodyRefFrame. The method uses the mathematics described in
+section~\ref{sec:math_pt_accel} to calculate these derivatives.
+
+The envisioned use of this method is to provide the truth data needed by an
+accelerometer or inertial measurement unit (IMU). The specified BodyRefFrame
+will then be the case frame associated with that accelerometer or IMU.
+
+One caveat: This is a generic DynBody method. As such it makes the simplifying
+assumption that changes in mass properties are small and do not measurably
+impact dynamics.

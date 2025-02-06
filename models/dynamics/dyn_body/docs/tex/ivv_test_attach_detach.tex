@@ -1,0 +1,108 @@
+\test{Attach/Detach}\label{test:attach_detach}
+\begin{description}
+\item[Background] The primary purpose of this test is to test that
+the \ModelDesc attach and detach mechanisms operate as required.
+This includes satisfying the basic attach and detach requirements from
+the \MASS and satisfying the new DynBody requirement to obey the conservation laws
+while attaching and detaching objects.
+
+\item[Test description]
+This test places dynamic bodies in rather contrived circumstances to
+ensure the bodies come into alignment. The bodies attach at just the point
+in time when they do come into alignment. Bodies also detach in this test.
+The expectation is that the attachments should result in properly calculated
+mass properties and that attachments and detachments should conserve linear
+and angular momenta.
+
+\item[Test directory]
+{\tt models/dynamics/dyn\_body/verif/SIM\_VERIF\_ATTACH\_DETACH} \\
+This simulation defines three dynamic bodies and various \BODYACTION
+attach/detach objects that make the simulation's dynamic bodies
+attach to and detach from one another.
+
+The simulation contains two run directories.
+The \verb+RUN_simple_attach_detach+ directory uses only two of the
+dynamic bodies. The two bodies are configured to come into alignment
+ten seconds into the simulation, at which time they attach to one another.
+After another ten seconds the bodies detach.
+
+The \verb+RUN_complex_attach_detach+ directory uses all three vehicles.
+The simulation bodies combine in two steps to form a three-body composite body.
+The latter attachment specifies an attachment that, if performed as requested,
+would create a non-tree structure.
+One body detaches from this composite and reattaches later. Finally,
+the specific detachment capability is tested.
+
+\item[Success criteria]
+Table~\ref{tab:attach_detach_criteria} lists the items to be tested at specific
+events. Two types of criteria exist:
+Logical tests of the connectivity status, and numerical tests of mass properties
+and states. The connectivity must represent the attach/detach event that just
+occurred. The numerical results from the simulation should match analytic
+results to within numerical precision.
+
+\item[Test results]
+All tests pass.
+
+\item[Applicable requirements]
+This test demonstrates the partial or complete satisfaction of the
+following requirements:
+\begin{itemize}
+\item \ref{reqt:mass_requirements}. Mass properties are properly initialized and
+are properly updated due to attachments and detachments.
+\item \ref{reqt:eom}.
+Angular acceleration, including that due to inertial torque, is properly
+calculated.
+\item \ref{reqt:state_integ_prop}. The equations of motion are properly
+integrated.
+\item \ref{reqt:vehicle_points}. Vehicle points are properly constructed
+and used during attachments.
+\item \ref{reqt:attach_detach}. Demonstrating this capability
+is the primary purpose of this test.
+\end{itemize}
+
+\end{description}
+
+\begin{table}[htp]
+\centering
+\caption{Attach/Detach Test Criteria}
+\label{tab:attach_detach_criteria}
+\ \\[2ex]Simple Attach/Detach \\[6pt]
+\begin{tabular}{||r@{}l|p{2.4in}|p{2.7in}|} \hline
+\multicolumn{2}{||l|}{\bf Time}
+  & {\bf Event} & {\bf Test Items} \\ \hline \hline
+0 && Mass properties initialized & Body mass properties \\
+ && States initialized & Body states \\[6pt]
+10 && Bodies 1 and 2 come into alignment & Relative state \\
+ && Body 1 attaches to body 2 & Connectivity (Body 1 attached to 2) \\
+ &&& Composite mass properties \\
+ &&& Composite state \\[6pt]
+20 && Body 1 detaches & Connectivity (Body 1 detached from 2) \\
+ &&& Body states \\
+\hline
+\end{tabular}
+ \ \\[4ex]Complex Attach/Detach \\[6pt]
+\begin{tabular}{||r@{}l|p{2.4in}|p{2.7in}|} \hline
+\multicolumn{2}{||l|}{\bf Time}
+  & {\bf Event} & {\bf Test Items} \\ \hline \hline
+0 && Mass properties initialized & Body mass properties \\
+ && States initialized & Body states \\[6pt]
+10 && Bodies 1 and 2 come into alignment & Relative state \\
+ && Body 1 attaches to body 2 & Connectivity (Body 1 attached to 2) \\
+ &&& Composite mass properties \\
+ &&& Composite state \\[6pt]
+32&.78 & Bodies 1 and 3 come into alignment & Relative state \\
+ && Body 1 attaches to body 3 & Connectivity (Body 1 attached to 2 to 3) \\
+ &&& Composite mass properties \\
+ &&& Composite state \\[6pt]
+50 && Body 1 detaches & Connectivity (Body 1 detached from 2) \\
+ &&& Body states \\[6pt]
+55 && Bodies 1 and 2 come into alignment & Relative state \\
+ && Body 1 attaches to body 2 & Connectivity (Body 1 attached to 2 to 3) \\
+ &&& Composite mass properties \\
+ &&& Composite state \\[6pt]
+60 && Body 1 detaches from body 3 & Connectivity (Body 2 detached from 3) \\
+ &&& Body states \\
+\hline
+\end{tabular}
+\end{table}

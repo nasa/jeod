@@ -1,0 +1,52 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Purpose:  Detailed part of Product Spec for the Relative model
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Detailed Design}
+\label{sec:relativedetail}
+See the \href{file:refman.pdf}{Reference Manual}\cite{derivedstatebib:ReferenceManual} for a summary of member data and member methods for all classes.  
+
+\subsection{Process Architecture}
+The architecture for the \RelativeDesc\ is trivial, comprising methods that are operationally independent.
+
+\subsection{Functional Design}
+This section describes the functional operation of the methods in each class.
+
+
+The \RelativeDesc\ contains only one class:
+
+\begin{itemize}
+\classitem{RelativeDerivedState}
+\label{ref:RelativeDerivedState}
+\textref{DerivedState}{ref:DerivedState}
+
+This contains only the methods \textit{initialize} and \textit{update}:
+\begin{enumerate}
+\funcitem{initialize}
+The initialization process comprises the following steps:
+\begin{enumerate}
+\item{} The generic DerivedState initialization routine is called to assign the \textit{subject} value, and establish the naming convention for the state identifier.  Note - this is based on the \textit{subject} name, not on the \textit{target} name.  The user may wish to consider this in determining which object to associate as target, and which to associate as subject.
+\item{} Ensures that the \textit{subject\_frame} and \textit{target\_frame} are well-defined.
+\item{} The registry of active bodies, maintained by the Dynamics Manager (see \href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{\em Dynamics Manager Documentation}~\cite{dynenv:DYNMANAGER}) is updated to ensure that the \textit{target\_frame} is being updated, if necessary.
+\end{enumerate}
+
+\funcitem{update}
+The variable \textit{direction\_sense} can be set to one of two values:
+\begin{enumerate}
+\item{ComputeSubjectStateinTarget}
+\item{ComputeTargetStateinSubject}
+\end{enumerate}
+
+The appropriate call is made to the appropriate reference frame's \textit{calculate\_relative\_state} method, using the other reference frame as an argument (e.g., for ComputeSubjectStateinTarget, we are looking for the state of \textit{subject} with respect to \textit{target}, so the subject-frame's method would be called, using the target frame as an argument).
+
+
+\end{enumerate}
+\end{itemize}
+
+
+

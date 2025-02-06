@@ -1,0 +1,224 @@
+\section{Packages and Files Loaded by the \dynenv Package}
+\label{sec:packages}
+The \dynenv package loads a number of standard \LaTeX\ packages plus additional
+packages and files as indicated by the options to the \dynenv class or package.
+These packages and files are described below, in the order in which they
+are loaded by the \dynenv package. The descriptions below are brief.
+Users who want to obtain more information on one of the standard packages
+are encouraged to read the documentation provided by the package developer
+by typing |texdoc <package_name>| on the command line.
+
+\subsection{Package \package{jeodspec}}
+This package identifies the current JEOD release,
+defines some simple shortcut macros,
+and specifies the models that comprise the current release.
+See section~\ref{sec:jeodspec} for details.
+
+\subsection{Package \package{geometry}}
+Specifying page layout in \LaTeX\ is a bit tricky and error-prone.
+The \package{geometry} package solves these issues. The \dynenv package
+uses the \package{geometry} package to specify a standard page layout
+for JEOD documents. 
+
+\subsection{Package \package{xspace}}
+Consider the shortcut macro |\newcommand{fbz}{foo bar baz}|. Users of this
+macro have to take care to add a hard space after invoking the macro in the
+middle of a sentence but never to do so before punctuation. The \package{xspace}
+package solves this problem. Define the macro as |\newcommand{fbz}{foo bar baz\xspace}| and voila, there is no need for that hard space.
+
+\subsection{Package \package{xkeyval}}
+The \package{xkeyval} package provides a convenient mechanism for specifying
+and processing options to a class, package, or macro. The \dynenv package
+uses the capabilities provided by \package{xkeyvals} to specify and process
+the options to the document production macros
+(see section~\ref{sec:doc_production}), plus a few other macros.
+
+\subsection{Package \package{longtable}}
+The \package{longtable} package provides the ability to create tables that
+span multiple pages. Several of the automatically generated tables
+in JEOD model documents are long tables.
+
+\subsection{Package \package{appendix}}
+The \package{appendix} package alters some of the base \LaTeX\ mechanisms
+for presenting appendices and also provides the ability to have end of chapter
+appendices.
+
+The \package{appendix} package is not a part of the standard or extended sets of
+packages loaded by the \dynenv package. The package is loaded only if the
+|appendix| option is provided to the \dynenv class or package.
+The \package{appendix} package should not be used in documents with parts.
+
+\subsection{AMS Math Packages \package{amsmath}, \package{amssymb}, and \package{amsfonts}}
+The \package{amsmath} package improves upon and augments the base
+\LaTeX\ mechanisms for representing and displaying mathematical formulas
+and is the basis for the American Mathematical Society \LaTeX\ suite.
+The \package{amssymb} package defines miscellaneous mathematical symbols
+beyond those provided by the \package{amsmath} package, and the
+\package{amsfonts} package provides things such as
+blackboard bold letters, Fraktur letters, and other miscellaneous symbols.
+
+The AMS math packages are not a part of the standard set of packages
+loaded by the \dynenv package but they are a part of the extended set
+of packages (those enabled by specifying the \dynenv |complete| option).
+
+\subsection{Package \package{graphicx}}
+The \package{graphicx} package provides a range of capabilities. In JEOD,
+the graphics bundle is used primarily to include graphics into a document
+via the |includegraphics| macro.
+The \package{graphicx} package is not a part of the standard set of packages
+loaded by the \dynenv package but it is part of the extended set
+of packages, enabled by specifying the \dynenv |complete| option.
+
+\subsection{User-Specified Packages}
+All options provided to the \dynenv package other than those explicitly
+handled by a option handler specify some non-standard package to be
+loaded. See section~\ref{sec:options} for a list of options that have
+explicit handlers.
+
+One side effect of this handling of \dynenv package options is that
+options that do have explicit handlers cannot be used to load a package.
+That said, only three packages in the \LaTeX\ distribution are shadowed by
+\dynenv package options:
+\begin{description}
+\item[|appendix|] The \dynenv package loads the \package{appendix} package
+  when the |appendix| option is specified, so this shadowing doesn't count.
+\item[|hyperref|] The \dynenv package explicitly makes |hyperref| an illegal
+  option because the \package{hyperref} package by design needs to be the
+  very last package loaded in a document. That the \package{hyperref} package
+  is shadowed by the |hyperref| option is intentional.
+\item[|section|] The \package{section} package changes the appearance of
+  sectioning commands. JEOD documents should not use this package.
+\end{description}
+
+The use of the extended options capability is optional.
+The mechanism is a bit opaque. Some authors would rather explicitly
+invoke the |\RequirePackage| macro in the model-specific package file.
+Another issue is that the packages loaded via this mechanism are loaded without
+options. If options need to be specified those packages must be loaded
+in the model-specific package file.
+
+\subsection{Package \package{dynmath}}
+The \package{dynmath} package provides macros that implement the
+recommended practice for displaying vectors, matrices, and quaternions.
+This package is not a part of the \LaTeX\ distribution but is a part
+of the standard set of packages loaded by \dynenv.
+Documentation for this package is available in the JEOD file
+|docs/templates/jeod/dynmath.pdf|.
+
+\subsection{Package \package{dyncover}}
+The \package{dyncover} package creates cover pages for JEOD documents.
+This package is not a part of the \LaTeX\ distribution but is a part
+of the standard set of packages loaded by \dynenv.
+Documentation for this package is, ummm, RTFC.
+
+\subsection{File \package{paths.def}}
+The standard model document makefile automatically generates the file
+|paths.def|. This file defines a standard set of macros whose values depend
+on the model and on the make target. (The relative paths lose one level of indirection when the file is built with |make install| versus |make|.)
+The names defined in this file are used in |dynenv.sty| in various places.
+
+As a fictitious example, consider the model located in
+|$JEOD_HOME/models/interactions/psychoceramics|.
+The contents of the |paths.def| file
+for this model given the command |make| will be:
+\begin{codeblock}
+\ifx\model@pathsdef\endinput\endinput\else\let\model@pathsdef\endinput\fi|\\
+\newcommand\JEODHOME{../../../../..}
+\newcommand\MODELHOME{../..}
+\newcommand\MODELDOCS{..}
+\newcommand\MODELPATH{models/interactions/psychoceramics}
+\newcommand\MODELTYPE{interactions}
+\newcommand\MODELGROUP{interactions}
+\newcommand\MODELDIR{psychoceramics}
+\newcommand\MODELNAME{psychoceramics}
+\newcommand\MODELTITLE{\PSYCHOCERAMICS}
+\endinput
+\end{codeblock}
+
+The \dynenv package loads this file via |\input{paths.def}| when the
+package is operating in |complete| mode. The burden of loading this file
+otherwise falls on the model document author. Note that the file can safely
+be included multiple times because the first line of |paths.def| is the
+\TeX\ equivalent of the one-time include protection used in
+\Cplusplus header files.
+
+\subsection{Model-Specific Package}
+One such place where the \dynenv package uses one of names defined in
+|paths.def| is the very next operation the \dynenv package performs
+when the package is operating in |complete| mode: It loads the model-specific
+package file via |\RequirePackage{\MODELNAME}|. The model-specific
+package file defines a standard set of macro names whose definitions are
+model-specific, plus additional macros that are specific to the model.
+See section~\ref{sec:model.sty} for details.
+\subsection{Package \package{hyperref}}
+The \package{hyperref} package makes all cross-references in a PDF document
+into hyperlinks and adds the ability to insert hyperlinks to other documents.
+The \package{hyperref} package is not a part of the standard set of packages
+loaded by the \dynenv package but it is part of the extended set
+of packages, enabled by specifying the \dynenv |complete| option.
+
+To make the content linkable, the package needs to modify many macros created
+by other packages. The \package{hyperref} is typically the very last package
+loaded in a \LaTeX\ document to ensure that it can make those alterations.
+The \dynenv package loads \package{hyperref} when the \dynenv package is
+used per the recommended practice. This means that a |.tex| file that
+follows the recommended practice must by necessity have a very simple
+\LaTeX\ preface. There should be no |\usepackage| statements in the main
+|.tex| file for a model document that follows the recommended practice.
+
+
+\section{Package \package{jeodspec}}
+\label{sec:jeodspec}
+The \package{jeodspec} package defines commands that need to be updated with
+every release and with additions to or deletions from the JEOD model suite.
+The maintainers of this package will be JEOD administrators and model developers
+rather than \TeX\ programmers. The contents of |jeodspec.sty| are designed
+with this in mind. Extensive knowledge of \TeX\ is not required.
+
+The first set of definitions in |jeodspec.sty| specify items that need
+to be changed with each release:
+\begin{description}
+\item[\command{JEODid}] The name of the current (or upcoming) JEOD release.
+\item[\command{RELEASEMONTH}] The name of the month when the release will occur.
+\item[\command{RELEASEYEAR}] The four-digit year when the release will occur.
+\end{description}
+
+The next set of definitions specify items that need less frequent changes:
+\begin{description}
+\item[\command{JEODMANAGERS}] The names and titles of the people who
+need to approve the JEOD documentation suite.
+\item[\command{JEODORG}] The JSC organization under which JEOD is developed
+and maintained.\item[\command{JEODJSCNUM}] The official JSC document number
+for the JEOD documentation suite.
+\end{description}
+
+The third set of definitions create shortcut commands for text phrases used in
+multiple documents. Some comments:
+\begin{itemize}
+\item Model authors:
+Please do not add model-specific shortcuts to |jeodspec.sty|.
+These shortcuts should be for widely-used terminology.
+The model-specific .sty file is the place to define such shortcuts.
+\item The expansion of the older items in this set do not end with
+\command{xspace}. Please consider using \command{xspace} in future definitions.
+\end{itemize}
+
+The final set of definitions in |jeodspec.sty| identify the models that
+comprise the current JEOD release. Each JEOD model is specified via the
+\command{addmodel} macro. \command{addmodel} takes four arguments, as follows:
+\begin{itemize}
+\item The model name,
+by convention an all-caps, letters-only identifier.
+For example, this argument is |ATMOSPHERE| for the atmosphere model.
+\item The model parent directory name, one of dynamics, environment,
+interactions, or utils. The atmosphere model is located in
+|$JEOD_HOME/models/environment/atmosphere|, so in this case the parent
+directory name is |environment|.
+\item The model directory name. For the atmosphere model this is |atmosphere|.
+Do not escape underscores in the model directory name. The model directory
+name for the Earth Lighting Model is |earth_lighting|, not
+|earth\_lighting|.
+\item The model title. This is often an initial caps version of the
+model name, plus "Model". For example, the title of the atmosphere model
+is |Atmosphere Model|.
+\end{itemize}

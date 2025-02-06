@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((radiation_surface_factory.o))
+    ((../src/radiation_surface_factory.cc))
 
 
 *******************************************************************************/
@@ -95,9 +95,9 @@ public:
    RadiationSurfaceFactory ();
 
    // destructor
-   virtual ~RadiationSurfaceFactory ();
+   ~RadiationSurfaceFactory () override;
 
-   virtual void add_facet_params (FacetParams* to_add);
+   void add_facet_params (FacetParams* to_add) override;
 
 
 protected:

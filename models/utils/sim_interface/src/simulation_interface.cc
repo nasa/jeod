@@ -16,8 +16,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((simulation_interface.o)
-   (sim_interface_messages.o))
+  ((simulation_interface.cc)
+   (sim_interface_messages.cc))
 
  
 
@@ -42,7 +42,7 @@ namespace jeod {
 /*
 Purpose: (Define storage for the simulation-wide SimulationInterface object.)
 */
-JeodSimulationInterface * JeodSimulationInterface::sim_interface = NULL;
+JeodSimulationInterface * JeodSimulationInterface::sim_interface = nullptr;
 
 
 /**
@@ -76,7 +76,7 @@ JeodSimulationInterface::JeodSimulationInterface (
    mode(Construction),
    saved_mode(Construction)
 {
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       sim_interface = this;
    }
    else {
@@ -94,7 +94,7 @@ JeodSimulationInterface::~JeodSimulationInterface (
    void)
 {
    if (sim_interface == this) {
-      sim_interface = NULL;
+      sim_interface = nullptr;
    }
 }
 
@@ -130,11 +130,11 @@ JeodSimulationInterface::create_integrator_interface (
    void)
 {
    // Throw a fatal error if the singleton sim interface is not available.
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::singleton_error,
          "The master simulation interface has not been established.");
-      return 0;
+      return nullptr;
    }
 
    // Nominal case: Pass the call on to the sim interface object.
@@ -153,7 +153,7 @@ JeodSimulationInterface::get_job_cycle (
    void)
 {
    // Throw a fatal error if the singleton sim interface is not available.
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::singleton_error,
          "The master simulation interface has not been established.");
@@ -176,7 +176,7 @@ JeodSimulationInterface::get_memory_interface (
    void)
 {
    // Throw a fatal error if the singleton sim interface is not available.
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::singleton_error,
          "The master simulation interface has not been established.");
@@ -199,11 +199,11 @@ JeodSimulationInterface::get_name_at_address (
    const JeodMemoryTypeDescriptor * tdesc)
 {
    // Throw a fatal error if the singleton sim interface is not available.
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::singleton_error,
          "The master simulation interface has not been established.");
-      return 0;
+      return nullptr;
    }
 
    // Nominal case: Pass the call on to the sim interface object.
@@ -224,11 +224,11 @@ JeodSimulationInterface::get_address_at_name (
    const std::string & name)
 {
    // Throw a fatal error if the singleton sim interface is not available.
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::singleton_error,
          "The master simulation interface has not been established.");
-      return 0;
+      return nullptr;
    }
 
    // Nominal case: Pass the call on to the sim interface object.
@@ -249,7 +249,7 @@ JeodSimulationInterface::get_checkpoint_reader (
    const std::string & section_id)
 {
    // Throw a fatal error if the singleton sim interface is not available.
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::singleton_error,
          "The master simulation interface has not been established.");
@@ -270,7 +270,7 @@ JeodSimulationInterface::get_checkpoint_writer (
    const std::string & section_id)
 {
    // Throw a fatal error if the singleton sim interface is not available.
-   if (sim_interface == NULL) {
+   if (sim_interface == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::singleton_error,
          "The master simulation interface has not been established.");

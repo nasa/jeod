@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -156,7 +156,7 @@ class JeodMemoryTable {
       value_list()
    {
       // Reserve the zero index by pushing a null pointer on the vector.
-      value_list.push_back (NULL);
+      value_list.push_back (nullptr);
    }
 
    /**
@@ -169,10 +169,8 @@ class JeodMemoryTable {
       // Delete the contents of the identifier list.
       // Note that element zero is null, so loop starts at 1.
       for (unsigned int ii = 1; ii < value_list.size(); ++ii) {
-         if (value_list[ii] != NULL) {
-            delete value_list[ii];
-            value_list[ii] = NULL;
-         }
+         delete value_list[ii];
+         value_list[ii] = nullptr;
       }
 
       string_to_index.clear();
@@ -285,7 +283,7 @@ class JeodMemoryTable {
       if (iter != string_to_index.end()) {
          unsigned int idx = iter->second;
          delete value_list[idx];
-         value_list[idx] = NULL;
+         value_list[idx] = nullptr;
 
          // Deleting last element added: Shrink the vector.
          if (idx == value_list.size() - 1) {
@@ -322,7 +320,7 @@ class JeodMemoryTable {
 
       result = value_list[idx];
 
-      if (result == NULL) {
+      if (result == nullptr) {
          throw std::invalid_argument ("deleted entry");
       }
 
@@ -396,7 +394,7 @@ class JeodMemoryTableClonable : public JeodMemoryTable<ValueType> {
     * \return Duplicate of input value.
     * \param[in] value  Value to be cloned.
     */
-   virtual const ValueType * clone (const ValueType & value) const
+   const ValueType * clone (const ValueType & value) const override
    {
       return value.clone();
    }
@@ -442,7 +440,7 @@ class JeodMemoryTableCopyable : public JeodMemoryTable<ValueType> {
     * \return Duplicate of input value.
     * \param[in] value  Value to be cloned.
     */
-   virtual const ValueType * clone (const ValueType & value) const
+   const ValueType * clone (const ValueType & value) const override
    {
       return new ValueType (value);
    }

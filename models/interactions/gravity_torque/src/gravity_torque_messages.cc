@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((gravity_torque_messages.o))
+  ((gravity_torque_messages.cc))
 
 
 

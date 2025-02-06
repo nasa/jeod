@@ -15,7 +15,7 @@ mass properties and that attachments and detachments should conserve linear
 and angular momenta.
 
 \item[Test directory]
-{\tt models/dynamics/dyn\_body/verif/SIM\_VERIF\_ATTACH\_DETACH} \\
+{\tt models/dynamics/dyn\_body/verif/SIM\_verif\_attach\_detach} \\
 This simulation defines three dynamic bodies and various \BODYACTION
 attach/detach objects that make the simulation's dynamic bodies
 attach to and detach from one another.
@@ -24,7 +24,10 @@ The simulation contains two run directories.
 The \verb+RUN_simple_attach_detach+ directory uses only two of the
 dynamic bodies. The two bodies are configured to come into alignment
 ten seconds into the simulation, at which time they attach to one another.
-After another ten seconds the bodies detach.
+After another ten seconds the bodies detach. Then, a rotational spin is applied to body1 and the body2 is
+kinematically attached to a mass point on the body1. After some time, the spinning body is attached to the central
+point making all bodies attached to the integration frame with no motion at an offset. Finally, body1 is detached and
+reattached to the integration frame with no offset.
 
 The \verb+RUN_complex_attach_detach+ directory uses all three vehicles.
 The simulation bodies combine in two steps to form a three-body composite body.
@@ -78,7 +81,17 @@ is the primary purpose of this test.
  &&& Composite mass properties \\
  &&& Composite state \\[6pt]
 20 && Body 1 detaches & Connectivity (Body 1 detached from 2) \\
- &&& Body states \\
+ &&& Body states \\[6pt]
+30 && Body 1 begins rotational spin & Body states \\[6pt]
+35 && Body 2 kinematic attach to Body 1 & Connectivity (Body 2 attached to 1) \\
+ &&& No change to composite mass props for either body \\
+ &&& Body 2 relative to Body 1 is static \\
+ &&& Body 1 state continues undisturbed \\[6pt]
+40 && Body 1 kinematic attach to Central Point & Connectivity (Body 1 attached to "Central Point") \\
+   &&& Body states are static \\[6pt]
+50 && Body 1 detaches from the Central Point & Connectivity (Body 1 attached to "Central Point") \\
+   && Body 1 kinematic attaches to the Central Point with no offset & Body 1 has a zero state \\
+   &&& Body states are static \\
 \hline
 \end{tabular}
  \ \\[4ex]Complex Attach/Detach \\[6pt]

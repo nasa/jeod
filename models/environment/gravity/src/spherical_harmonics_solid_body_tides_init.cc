@@ -22,8 +22,8 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((spherical_harmonics_solid_body_tides_init.o)
-   (spherical_harmonics_tidal_effects_init.o))
+  ((spherical_harmonics_solid_body_tides_init.cc)
+   (spherical_harmonics_tidal_effects_init.cc))
 
 
 

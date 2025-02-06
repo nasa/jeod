@@ -16,14 +16,14 @@ Purpose:
   ()
 
 Library dependencies:
-  ((gravity_interaction.o)
-   (gravity_source.o)
-   (gravity_controls.o)
-   (gravity_manager.o)
-   (gravity_messages.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (environment/ephemerides/ephem_interface/ephem_ref_frame.o)
-   (environment/planet/planet.o))
+  ((gravity_interaction.cc)
+   (gravity_source.cc)
+   (gravity_controls.cc)
+   (gravity_manager.cc)
+   (gravity_messages.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc)
+   (environment/planet/src/planet.cc))
 
 
 *******************************************************************************/

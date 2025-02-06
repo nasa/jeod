@@ -27,10 +27,10 @@ Assumptions and limitations:
   ((This class works for all types of orbits.))
 
 Library dependencies:
-  ((orbital_elements.o)
-   (orbital_elements_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((orbital_elements.cc)
+   (orbital_elements_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -105,7 +105,7 @@ void OrbitalElements::set_object_name (
    const char * name)
 {
    // Make sure the string exists
-   if (name != NULL) {
+   if (name != nullptr) {
 
       object_name = name;
 
@@ -123,7 +123,7 @@ void OrbitalElements::set_planet_name (
    const char * name )
 {
    // Make sure the string exists
-   if (name != NULL) {
+   if (name != nullptr) {
 
       planet_name = name;
 
@@ -789,7 +789,6 @@ int OrbitalElements::KepEqtnE(
    double  tolerance = 1.0e-8;      // Iteration tolerance for eccentric anomaly
    double  pi = 3.141592653589793;  /* Value of pi use for computing initial
                                        guess for eccentric anomaly */
-   double  E_prev;                  // Previous value of the eccentric anomaly
 
    // Compute initial guess for E
    if ( ((-pi < M) && (M < 0.0)) || (M > pi) ) {
@@ -801,7 +800,7 @@ int OrbitalElements::KepEqtnE(
 
    // Begin looping through iterations
    for (i = 1; i <= 1000; i++) {
-      E_prev = *E;
+      double E_prev = *E; // Previous value of the eccentric anomaly
       *E = E_prev + ((M - E_prev + e*sin(E_prev)) / (1.0 - e*cos(E_prev)));
 
       // If iteration has converged, return number of iterations
@@ -846,7 +845,6 @@ int OrbitalElements::KepEqtnH(
    double  tolerance = 1.0e-08;    // Iteration tolerance for hyperbolic anomaly
    double  pi = 3.141592653589793; /* Value of pi use for computing initial
                                       guess for hyperbolic anomaly */
-   double  H_prev;                 // Previous value of hyperbolic anomaly
 
    // Compute initial guess for H
    if (e < 1.6) {
@@ -873,7 +871,7 @@ int OrbitalElements::KepEqtnH(
 
    // Begin looping through iterations
    for (i = 1; i <= 1000; i++) {
-      H_prev = *H;
+      double H_prev = *H; // Previous value of hyperbolic anomaly
       *H = H_prev + ( (M + H_prev - e*sinh(H_prev)) / (e*cosh(H_prev) - 1.0));
 
       // If iteration has converged, return number of iterations

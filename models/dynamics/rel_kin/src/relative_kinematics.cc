@@ -22,11 +22,11 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((relative_kinematics.o)
-   (rel_kin_messages.o)
-   (dynamics/derived_state/relative_derived_state.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((relative_kinematics.cc)
+   (rel_kin_messages.cc)
+   (dynamics/derived_state/src/relative_derived_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
 
 *******************************************************************************/
@@ -90,9 +90,9 @@ NamedItem::validate_name(__FILE__, __LINE__, relstate.name.c_str(),
 "input parameter relstate.name");
 
    // See if given relstate is already in list
-   RelativeDerivedState * found_relstate = NULL;
+   RelativeDerivedState * found_relstate = nullptr;
    found_relstate = find_relstate (relstate.name.c_str());
-   if (found_relstate != NULL) {
+   if (found_relstate != nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RelKinMessages::duplicate_entry,
          "Relative state %s already in RelKin list",
@@ -143,7 +143,7 @@ RelativeKinematics::find_relstate (
    const char * relstate_name)
 {
 
-   RelativeDerivedState * found_relstate = NULL;
+   RelativeDerivedState * found_relstate = nullptr;
    unsigned int n_relstates = num_rel_states;
 
    for (unsigned int ii = 0; ii < n_relstates; ++ii) {
@@ -170,9 +170,9 @@ RelativeKinematics::activate_relstate (
 
  // FIXME
    // Check if given relstate is in the relstate list
-   RelativeDerivedState * found_relstate = NULL;
+   RelativeDerivedState * found_relstate = nullptr;
    found_relstate = find_relstate (relstate.name.c_str());
-   if (found_relstate == NULL) {
+   if (found_relstate == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RelKinMessages::entry_not_found,
          "Relative state %s is not in the RelKin list",

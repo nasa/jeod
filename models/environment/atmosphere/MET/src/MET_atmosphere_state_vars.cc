@@ -28,8 +28,8 @@ ASSUMPTIONS AND LIMITATIONS:
    ((Too many to enumerate here.))
 
 LIBRARY DEPENDENCY:
-  ((environment/atmosphere/base_atmos/atmosphere_messages.o)
-   (utils/message/src/message_handler.o))
+  ((environment/atmosphere/base_atmos/src/atmosphere_messages.cc)
+   (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/

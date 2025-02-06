@@ -45,7 +45,7 @@ namespace jeod {
 SectionedInputBuffer::SectionedInputBuffer ()
 :
    std::streambuf (),
-   file_buf       (NULL),
+   file_buf       (nullptr),
    start_pos      (0),
    end_pos        (0),
    curr_pos       (0),
@@ -131,8 +131,8 @@ SectionedInputStream::SectionedInputStream ()
 :
    std::istream (&sectbuf),
    sectbuf      (),
-   manager      (NULL),
-   stream       (NULL),
+   manager      (nullptr),
+   stream       (nullptr),
    start_pos    (0),
    end_pos      (0),
    is_copy      (false),
@@ -188,12 +188,12 @@ SectionedInputStream::SectionedInputStream (
 {
    // No making copies of a copy, an active object, or an invalid object.
    // Oops. Too late now; we just did just that. Undo the copy.
-   if ((source.is_copy) || (source.is_active) || (source.stream == NULL)) {
+   if ((source.is_copy) || (source.is_active) || (source.stream == nullptr)) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::implementation_error,
          "Illegal attempt to copy a SectionedInputStream.");
-      manager = NULL;
-      stream  = NULL;
+      manager = nullptr;
+      stream  = nullptr;
    }
 }
 
@@ -224,10 +224,8 @@ const
    // - It is an invalid object,
    // - Already active, or
    // - The manager has an active writer on hand.
-   if ((manager == NULL) || (!manager) ||
-      (stream == NULL)  || (!stream)  ||
-      is_active ||
-      manager->have_active_reader()) {
+   if ((manager == nullptr) || (stream == nullptr)  || 
+      is_active || manager->have_active_reader()) {
       return false;
    }
    else {
@@ -247,8 +245,7 @@ SectionedInputStream::activate (
    void)
 {
    // Activating an invalid object is verboten.
-   if ((manager == NULL) || (!manager) ||
-      (stream == NULL)  || (!stream)) {
+   if ((manager == nullptr) || (stream == nullptr)) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::implementation_error,
          "Illegal attempt to activate an invalid SectionedInputStream.");
@@ -302,8 +299,8 @@ SectionedInputStream::deactivate (
    sectbuf.deactivate();
 
    // Mark the object as (permanently) inactive.
-   manager = NULL;
-   stream = NULL;
+   manager = nullptr;
+   stream = nullptr;
    is_active = false;
 }
 
@@ -321,7 +318,7 @@ CheckPointInputManager::CheckPointInputManager (
 :
    sections       (),
    stream         (fname.c_str(), std::ios::in),
-   current_reader (NULL),
+   current_reader (nullptr),
    filename       (fname),
    section_start  (start_marker),
    section_end    (end_marker),
@@ -470,9 +467,9 @@ SectionedInputStream
 CheckPointInputManager::create_trick_section_reader (
    void)
 {
-   if (current_reader != NULL) {
+   if (current_reader != nullptr) {
       current_reader->deactivate();
-      current_reader = NULL;
+      current_reader = nullptr;
    }
 
    return create_section_reader (true, "Trick");
@@ -488,7 +485,7 @@ bool
 CheckPointInputManager::register_reader (
    SectionedInputStream * reader)
 {
-   if (current_reader != NULL) {
+   if (current_reader != nullptr) {
       return false;
    }
    else {
@@ -505,13 +502,13 @@ CheckPointInputManager::register_reader (
  */
 bool
 CheckPointInputManager::deregister_reader (
-   SectionedInputStream * reader)
+   const SectionedInputStream * reader)
 {
    if (current_reader != reader) {
       return false;
    }
    else {
-      current_reader = NULL;
+      current_reader = nullptr;
       return true;
    }
 }

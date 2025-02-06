@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -40,7 +40,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((mars_MRO110B2.o))
+  ((../src/mars_MRO110B2.cc))
 ******************************************************************************/
 
 #ifndef JEOD_SPHERICALHARMONICSGRAVITYBODY_MARS_MRO110B2_DEFAULT_DATA_H
@@ -54,7 +54,7 @@ namespace jeod {
 class SphericalHarmonicsGravitySource_mars_MRO110B2_default_data :
       public SphericalHarmonicsGravitySource_default_data {
  public:
-   virtual void initialize (SphericalHarmonicsGravitySource*);
+   void initialize (SphericalHarmonicsGravitySource*) override;
 };
 
 } // End JEOD namespace

@@ -24,9 +24,9 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((ephem_orient.o)
-   (ephem_item.o)
-   (utils/message/message_handler.o))
+  ((ephem_orient.cc)
+   (ephem_item.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -100,7 +100,7 @@ EphemerisOrientation::enable (
       EphemerisOrientation * enabled_item =
          dynamic_cast <EphemerisOrientation *> (get_enabled_item ());
 
-      if ((enabled_item != NULL) && enabled_item->subscribed_to_inertial) {
+      if ((enabled_item != nullptr) && enabled_item->subscribed_to_inertial) {
          enabled_item->subscribed_to_inertial = false;
          subscribed_to_inertial = true;
       }

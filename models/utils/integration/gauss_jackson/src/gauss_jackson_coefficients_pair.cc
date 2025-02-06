@@ -64,7 +64,7 @@ GaussJacksonCoefficientsPair::apply (
    int nelem,
    int ncoeff,
    double const * ER7_UTILS_RESTRICT const * ER7_UTILS_RESTRICT acc_hist,
-   GaussJacksonTwoState & state_sum)
+   const GaussJacksonTwoState & state_sum)
 const ER7_UTILS_RESTRICT
 {
    double * ER7_UTILS_RESTRICT vel_sum = state_sum.first;
@@ -97,7 +97,7 @@ GaussJacksonCoefficientsPair::apply (
    int nelem,
    int ncoeff,
    double const * ER7_UTILS_RESTRICT const * ER7_UTILS_RESTRICT deriv_hist,
-   GaussJacksonOneState & state_sum)
+   const GaussJacksonOneState & state_sum)
 const ER7_UTILS_RESTRICT
 {
    double * ER7_UTILS_RESTRICT vel_sum = state_sum.first;

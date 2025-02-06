@@ -22,10 +22,10 @@ Assumptions and limitations:
   ((N/A))
 
 Library dependencies:
-  ((integ_group_primitives.o)
-   (dyn_manager.o)
-   (dyn_manager_messages.o)
-   (utils/message/message_handler.o))
+  ((integ_group_primitives.cc)
+   (dyn_manager.cc)
+   (dyn_manager_messages.cc)
+   (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -71,7 +71,7 @@ DynManager::add_integ_group (
 {
 
    // Check if it is too late in the game for such a registration.
-   if ((default_integ_group != NULL) || initialized) {
+   if ((default_integ_group != nullptr) || initialized) {
       MessageHandler::error (
          __FILE__, __LINE__, DynManagerMessages::inconsistent_setup,
          "Late call to add_integ_group()\n"

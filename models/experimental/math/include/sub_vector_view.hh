@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -142,7 +142,7 @@ public:
      * @return Reference to the indexed value of the view, which is the
      *   beg_elem+i_elem element of the underlying std::vector.
      */
-    virtual RefType operator[] (unsigned i_elem)
+    virtual RefType operator[] (unsigned i_elem) override
     {
         return obj[beg_elem+i_elem];
     }
@@ -161,11 +161,9 @@ protected:
     const unsigned beg_elem; //!< trick_units(--)
 };
 
+} // End JEOD namespace
 
 #endif
-
-
-} // End JEOD namespace
 
 #endif
 

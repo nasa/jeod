@@ -21,13 +21,17 @@ The \PlanetaryDesc\ contains only one class:
 \classitem{PlanetaryDerivedState}
 \textref{DerivedState}{ref:DerivedState}
 
-This contains only the methods \textit{initialize} and \textit{update}:
+This contains only the methods \textit{set\_use\_alt\_pfix}, \textit{initialize}, and \textit{update}:
 \begin{enumerate}
+\funcitem{set\_use\_alt\_pfix}
+This method sets the flag indicating whether to use the default planet-centered, planet-fixed reference frame associated with the planet or the alternate one, if one is available for the planet.
+
 \funcitem{initialize}
 The initialization process comprises the following steps:
 \begin{enumerate}
 \item{} The generic DerivedState initialization routine is called to establish the naming convention of the reference object (i.e., the planet about which the vehicle is orbiting) and state identifier.
 \item{} The DerivedState method \textit{find\_planet} is called (which subsequently calls the  \href{file:\JEODHOME/models/dynamics/dyn_manager/docs/dyn_manager.pdf}{\em Dynamics Manager}~\cite{dynenv:DYNMANAGER}) method of the same name to find a planet by name; that name is stored as \textit{reference\_name}, and is usually assigned in an input file.
+\item{} Depending on the value of \textit{use\_alt\_pfix}, the element \textit{pfix\_ptr} is set to either the default planet-fixed reference frame or the alternate planet-fixed reference frame of the planet identified by \textit{reference\_name} and the frame is subscribed.
 \item{} The identified planet is then passed into the initialize method for the PlanetFixedPosition object, \textit{state}, which simply records a pointer to the planet just found in the PlanetFixedPosition class (see \href{file:\JEODHOME/models/utils/planet\_fixed/docs/planet\_fixed.pdf}{\em Planet Fixed} documentation~\cite{dynenv:PLANETFIXED}).
 \end{enumerate}
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((gauss_jackson_integrator_constructor.o))
+  ((../src/gauss_jackson_integrator_constructor.cc))
 */
 
 
@@ -111,7 +111,7 @@ public:
    /**
     * GaussJacksonIntegratorConstructor destructor.
     */
-   ~GaussJacksonIntegratorConstructor ();
+   ~GaussJacksonIntegratorConstructor () override;
 
    /**
     * GaussJacksonIntegratorConstructor assignment operator.
@@ -144,15 +144,15 @@ public:
    /**
     * Return the class name.
     */
-   virtual const char * get_class_name (void) const
+   const char * get_class_name (void) const override
    { return "GaussJacksonIntegratorConstructor"; }
 
    /**
     * GaussJackson does not implement a 2nd order generalized step integrator.
     */
-   virtual bool implements (
+   bool implements (
       er7_utils::Integration::ODEProblemType problem_type)
-   const
+   const override
    {
       return (problem_type !=
               er7_utils::Integration::GeneralizedStepSecondOrderODE);
@@ -161,9 +161,9 @@ public:
    /**
     * GaussJackson does not provide a 2nd order generalized step integrator.
     */
-   virtual bool provides (
+   bool provides (
       er7_utils::Integration::ODEProblemType problem_type)
-   const
+   const override
    {
       return (problem_type !=
               er7_utils::Integration::GeneralizedStepSecondOrderODE);
@@ -180,15 +180,15 @@ public:
     * The caller is responsible for deleting the returned object.
     * @return Duplicated constructor.
     */
-   virtual er7_utils::IntegratorConstructor * create_copy (void) const;
+   er7_utils::IntegratorConstructor * create_copy (void) const override;
 
    /**
     * Create an integration controls that guides the GaussJackson integration
     * process. The caller is responsible for deleting the created object.
     * @return Integration controls object
     */
-   virtual er7_utils::IntegrationControls *
-   create_integration_controls (void) const;
+   er7_utils::IntegrationControls *
+   create_integration_controls (void) const override;
 
    /**
     * Create a GaussJackson state integrator for a first order ODE.
@@ -197,10 +197,10 @@ public:
     * @param[in]     size      State size
     * @param[in,out] controls  Integration controls
     */
-   virtual er7_utils::FirstOrderODEIntegrator *
+   er7_utils::FirstOrderODEIntegrator *
    create_first_order_ode_integrator (
       unsigned int size,
-      er7_utils::IntegrationControls & controls) const;
+      er7_utils::IntegrationControls & controls) const override;
 
    /**
     * Create a GaussJackson state integrator for a simple second order ODE.
@@ -209,10 +209,10 @@ public:
     * @param[in]     size      State size
     * @param[in,out] controls  Integration controls
     */
-   virtual er7_utils::SecondOrderODEIntegrator *
+   er7_utils::SecondOrderODEIntegrator *
    create_second_order_ode_integrator (
       unsigned int size,
-      er7_utils::IntegrationControls & controls) const;
+      er7_utils::IntegrationControls & controls) const override;
 
    /**
     * Create a GaussJackson state integrator for a generalized second order ODE
@@ -225,26 +225,26 @@ public:
     * @param[in]     deriv_funs     Position derivative functions container
     * @param[in,out] controls       Integration controls
     */
-   virtual er7_utils::SecondOrderODEIntegrator *
+   er7_utils::SecondOrderODEIntegrator *
    create_generalized_deriv_second_order_ode_integrator (
       unsigned int position_size,
       unsigned int velocity_size,
       const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
-      er7_utils::IntegrationControls & controls) const;
+      er7_utils::IntegrationControls & controls) const override;
 
    /**
     * GaussJackson can use a large number of steps per Trick cycle.
     * The magic number 192 is for order=16, ndboubling=6.
     * @return Always returns 192.
     */
-   virtual unsigned int get_buffer_size (void) const
+   unsigned int get_buffer_size (void) const override
    { return 192; }
 
    /**
     * GaussJackson uses two steps per cycle once primed.
     * @return Always returns 2.
     */
-   virtual unsigned int get_transition_table_size (void) const
+   unsigned int get_transition_table_size (void) const override
    { return 2; }
 
 private:

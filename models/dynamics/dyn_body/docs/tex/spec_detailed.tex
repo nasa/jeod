@@ -99,7 +99,9 @@ preserve core functionality. Extensibility can be achieved by manipulating
 configuration before or after invoking these interface methods.
 
 The top level methods used to attach and detach DynBody instances are: \begin{itemize}
-\item \verb+DynBody::attach()+ to specify a DynBody to attach as a child, 
+\item \verb+DynBody::attach_child()+ to specify a DynBody to attach as a child, 
+\item \verb+DynBody::attach_to()+ to specify a DynBody to attach as a parent, 
+\item \verb+DynBody::attach_to_frame()+ to specify a RefFrame to kinematically attach as a parent, 
 \item \verb+DynBody::add_mass_body()+ to specify a MassBody or linkage of 
     MassBodys to attach as child(ren), 
 \item \verb+DynBody::detach()+ to order this body to detach from its parent 
@@ -112,9 +114,10 @@ Attachment orientation is specified in one of two ways: **explicitly** by
 relative position/orientation between the body structures or **implicitly** by 
 names of body points to mate (with orientation defined as opposing in X and 
 aligned in Y w.r.t. point frames). 
-Momentum conservation is performed only if both the child and parent
+Momentum conservation is performed only if both the child and parent are two DynBody objects and 
 have fully initialized states. Two other cases are possible:
 \begin{itemize}
+\item The parent is a RefFrame and the attachment is treated kinematically.
 \item Neither the parent nor child state has been initialized. This occurs
 during initialization-time attachments, which intentionally occur prior
 to state initialization. Only the MassBody properties are updated in this case.

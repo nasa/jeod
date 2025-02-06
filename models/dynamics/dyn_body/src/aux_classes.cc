@@ -16,8 +16,8 @@ Purpose:
   ()
 
 Library dependencies:
-  ((aux_classes.o)
-   (utils/quaternion/quat.o))
+  ((aux_classes.cc)
+   (utils/quaternion/src/quat.cc))
 
 
 

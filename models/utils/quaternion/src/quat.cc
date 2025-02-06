@@ -22,8 +22,8 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((quat.o)
-   (quat_from_mat.o))
+  ((quat.cc)
+   (quat_from_mat.cc))
 
  
 
@@ -122,17 +122,16 @@ Quaternion::Quaternion (
 
   // If q1 = q2 or q1 = -q2 then theta = 0
   // Therefore, qm = q1
-  if (abs(cosTheta) > 1.0 || Numerical::compare_exact(abs(cosTheta),1.0))
+  if (std::abs(cosTheta) > 1.0 || Numerical::compare_exact(std::abs(cosTheta),1.0))
   {
-    qm.scalar = q1.scalar;
-    Vector3::copy(q1.vector, qm.vector);
+    return q1;
   }
 
   // Intermediate calcs. Angles are in radians
   double theta = std::acos(cosTheta);
   double sinTheta = std::sin(theta);
     // If theta = 180 deg, result is undefinted
-  if (abs(sinTheta) < 0.0000000000001 )
+  if (std::abs(sinTheta) < 0.0000000000001 )
   {
     MessageHandler::fail (
       __FILE__, __LINE__, QuatMessages::undefined,

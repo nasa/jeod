@@ -24,11 +24,11 @@ Assumptions and limitations:
   (TBS)
 
 Library dependencies:
-  ((lsode_first_order_ode_integrator__integrator.o)
-   (lsode_first_order_ode_integrator__manager.o)
-   (lsode_first_order_ode_integrator__support.o)
-   (lsode_first_order_ode_integrator__utility.o)
-   (lsode_data_classes.o))
+  ((lsode_first_order_ode_integrator__integrator.cc)
+   (lsode_first_order_ode_integrator__manager.cc)
+   (lsode_first_order_ode_integrator__support.cc)
+   (lsode_first_order_ode_integrator__utility.cc)
+   (lsode_data_classes.cc))
 
 
 

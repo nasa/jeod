@@ -18,7 +18,7 @@ CLASS:
    (derivative)
 
 LIBRARY DEPENDENCY:
-   ((gravity_gradient.o))
+   ((gravity_gradient.cc))
 
 
 */

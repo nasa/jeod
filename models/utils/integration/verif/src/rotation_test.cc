@@ -7,14 +7,14 @@ Reference:
   (((TBS)))
 
 Library dependencies:
-  ((rotation_test.o)
-   (angular_variance.o)
-   (integration_test.o)
-   (new_orientation.o)
-   (random.o)
-   (utils/quaternion/quat.o)
-   (utils/quaternion/quat_norm.o)
-   (utils/quaternion/quat_to_mat.o))
+  ((rotation_test.cc)
+   (angular_variance.cc)
+   (integration_test.cc)
+   (new_orientation.cc)
+   (random.cc)
+   (utils/quaternion/src/quat.cc)
+   (utils/quaternion/src/quat_norm.cc)
+   (utils/quaternion/src/quat_to_mat.cc))
 
  
 
@@ -100,7 +100,7 @@ RotationTest::create_integrators (
       }
    }
 
-   if (integ_generator != NULL) {
+   if (integ_generator != nullptr) {
       integ_generator->create_integrator (generator, controls);
    }
    else {
@@ -240,7 +240,7 @@ RotationTest::integrate (             // Return: -- Integration status
    unsigned int target_stage)         // In:     -- Target stage number
 {
    // We should always have an integrator at this point.
-   if (state_integrator == NULL) {
+   if (state_integrator == nullptr) {
       MessageHandler::fail (__FILE__, __LINE__,
                             IntegrationTestMessages::internal_error,
                             "Invalid integration technique");
@@ -364,7 +364,7 @@ RotationTest::shutdown (           // Return: -- Void
 {
 
    // Report defaults to stdout if not set.
-   if (report == NULL) {
+   if (report == nullptr) {
       report = stdout;
    }
 

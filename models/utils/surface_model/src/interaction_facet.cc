@@ -21,8 +21,8 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((interaction_facet.o)
-     (facet.o))
+    ((interaction_facet.cc)
+     (facet.cc))
 
  
 *******************************************************************************/
@@ -48,7 +48,7 @@ namespace jeod {
 InteractionFacet::InteractionFacet (
    void)
 :
-   base_facet(NULL)
+   base_facet(nullptr)
 {
 
    Vector3::initialize (force);

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ ASSUMPTIONS AND LIMITATIONS:
      (All facet information referenced wrt structural frame))
 
 Library dependencies:
-    ((radiation_pressure.o))
+    ((../src/radiation_pressure.cc))
 
 
 

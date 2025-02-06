@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_manager_init.o))
+  ((../src/time_manager_init.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_MANAGER_INIT_HH

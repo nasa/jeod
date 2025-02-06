@@ -24,13 +24,13 @@
     (N/A)
 
   LIBRARY DEPENDENCY:
-    ((mass_properties_init.o)
-     (mass_messages.o)
-     (mass_point_mass_inertia.o)
-     (mass_point_init.o)
-     (mass_point_state.o)
-     (utils/message/message_handler.o)
-     (utils/orientation/orientation.o))
+    ((mass_properties_init.cc)
+     (mass_messages.cc)
+     (mass_point_mass_inertia.cc)
+     (mass_point_init.cc)
+     (mass_point_state.cc)
+     (utils/message/src/message_handler.cc)
+     (utils/orientation/src/orientation.cc))
 
 
 

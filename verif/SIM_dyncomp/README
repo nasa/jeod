@@ -119,7 +119,8 @@ comparison test suite.  Each run directory has an input and Title file.
      RUN_9B/ : Rotational State Comparison: Torque, Initial Rate
      RUN_9C/ : Rotational State Comparison: Torque and Force, Zero Rate
      RUN_9D/ : Rotational State Comparison: Torque and Force, Initial Rate
-   RUN_full/ : Full Model Comparison
+   RUN_checkpoint_create/ : Full Model Comparison with checkpointing
+   RUN_checkpoint_restart/ : Scenario RUN_6C setup with restart to Full
 
 Note that RUN_1 only logs the Earth planetary modeling parameters at times
 0.0 and 28,800 seconds.  The rest of the validation runs have a much richer

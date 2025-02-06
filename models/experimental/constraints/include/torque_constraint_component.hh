@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -48,7 +48,7 @@
 
 /*
 Purpose: ()
-Library dependencies: ((torque_constraint_component.o))
+Library dependencies: ((../src/torque_constraint_component.cc))
 */
 
 
@@ -92,7 +92,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~TorqueConstraintComponent() = default;
+    ~TorqueConstraintComponent() override = default;
 
 
     // The copy constructor and copy assignment operator are deleted
@@ -109,14 +109,14 @@ public:
      * Perform actions related to the just-performed addition of this constraint
      * to a constraints solver. In this case, do nothing.
      */
-    virtual void attach_to_solver (DynBodyConstraintsSolver*, DynBody*)
+    void attach_to_solver (DynBodyConstraintsSolver*, DynBody*) override
     { }
 
     /**
      * Perform actions related to the just-performed removal of this constraint
      * from a constraints solver. In this case, do nothing.
      */
-    virtual void detach_from_solver (DynBodyConstraintsSolver*, DynBody*)
+    void detach_from_solver (DynBodyConstraintsSolver*, DynBody*) override
     { }
 
     /**
@@ -134,9 +134,9 @@ public:
      *   root body to non-constraint forces and torques, including
      *   the pre-constraint wrenches.
      */
-    virtual void setup_constraint (
+    void setup_constraint (
         const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state);
+        const VehicleNonGravState& non_grav_state) override;
 
     /**
      * Computes the coefficient of the solver A matrix that represents the
@@ -145,9 +145,9 @@ public:
      * @param other   The other constrained object.
      * @return  Interaction coefficient.
      */
-    virtual double get_cross_coeff (
+    double get_cross_coeff (
         const VehicleProperties& vehicle_properties,
-        const ConstraintComponent& other) const;
+        const ConstraintComponent& other) const override;
 
 #ifndef SWIG
     /**
@@ -161,10 +161,10 @@ public:
      *    due to a unitary value of the specified component of this constraint.
      * @return The response vector.
      */
-    virtual SolverTypes::DecayedVector3T get_translational_response (
+    SolverTypes::DecayedVector3T get_translational_response (
         const VehicleProperties& vehicle_properties,
         SolverTypes::ConstVector3T point,
-        SolverTypes::Vector3T response) const;
+        SolverTypes::Vector3T response) const override;
 #endif
 
     /**
@@ -172,14 +172,14 @@ public:
      * @param constraint_value  The solution to the matrix constraint equation
      *   for this constrained object.
      */
-    virtual void set_constraint_value (double constraint_value);
+    void set_constraint_value (double constraint_value) override;
 
     /**
      * Compute the response (if any) of the constrained object to the
      * overall behavior of the vehicle. In this case, do nothing.
      */
-    virtual void compute_constraint_response (
-        const VehicleProperties&, const VehicleNonGravState&)
+    void compute_constraint_response (
+        const VehicleProperties&, const VehicleNonGravState&) override
     { }
 
 

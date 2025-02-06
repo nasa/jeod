@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,9 +54,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_orient_zxz.o)
-   (ephem_orient.o)
-   (ephem_item.o))
+  ((../src/ephem_orient_zxz.cc)
+   (../src/ephem_orient.cc)
+   (../src/ephem_item.cc))
 
 
 
@@ -97,7 +97,7 @@ public:
 
    // Constructor and destructor
    EphemerisZXZOrientation ();
-   virtual ~EphemerisZXZOrientation ();
+   ~EphemerisZXZOrientation () override;
 
    // Getters
 

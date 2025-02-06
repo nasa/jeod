@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -65,7 +65,7 @@ Assumptions and limitations:
     IEEE-standard doubles))
 
 Library dependencies:
-  ((de4xx_file.o))
+  ((../src/de4xx_file.cc))
 
 
 
@@ -595,9 +595,9 @@ class De4xxFileRestart : public SimpleCheckpointable {
 
 public:
    explicit De4xxFileRestart (De4xxFile & in);
-   virtual ~De4xxFileRestart (void);
+   ~De4xxFileRestart (void) override;
 
-   virtual void simple_restore (void);
+   void simple_restore (void) override;
 
 protected:
    /**

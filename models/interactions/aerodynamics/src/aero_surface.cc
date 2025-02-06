@@ -21,14 +21,14 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((aero_surface.o)
-     (aero_facet.o)
-     (aerodynamics_messages.o)
-     (utils/sim_interface/memory_interface.o)
-     (utils/message/message_handler.o)
-     (utils/surface_model/facet.o)
-     (utils/surface_model/interaction_surface.o)
-     (utils/surface_model/interaction_facet_factory.o))
+    ((aero_surface.cc)
+     (aero_facet.cc)
+     (aerodynamics_messages.cc)
+     (utils/sim_interface/src/memory_interface.cc)
+     (utils/message/src/message_handler.cc)
+     (utils/surface_model/src/facet.cc)
+     (utils/surface_model/src/interaction_surface.cc)
+     (utils/surface_model/src/interaction_facet_factory.cc))
 
 
 *******************************************************************************/
@@ -58,7 +58,7 @@ namespace jeod {
 AeroSurface::AeroSurface (
    void)
 : // Return: -- void
-   aero_facets(NULL),
+   aero_facets(nullptr),
    facets_size(0)
 {
    JEOD_REGISTER_CLASS(AeroSurface);
@@ -73,10 +73,10 @@ AeroSurface::~AeroSurface (
    void)
 {
 
-   if (aero_facets != NULL) {
+   if (aero_facets != nullptr) {
 
       for (unsigned int ii = 0; ii < facets_size; ++ii) {
-         if (aero_facets[ii] != NULL) {
+         if (aero_facets[ii] != nullptr) {
             JEOD_DELETE_OBJECT (aero_facets[ii]);
          }
       }
@@ -98,7 +98,7 @@ AeroSurface::allocate_array (
    unsigned int size)
 {
 
-   if (aero_facets != NULL) {
+   if (aero_facets != nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, AerodynamicsMessages::initialization_error,
@@ -109,7 +109,7 @@ AeroSurface::allocate_array (
    }
 
    // Allocate the array we want, and set the size
-   if (size <= 0) {
+   if (size == 0) {
       MessageHandler::warn(
          __FILE__,__LINE__, AerodynamicsMessages::initialization_error,
          "AeroSurfade::allocate_array called for a surface with no declared\n"
@@ -124,7 +124,7 @@ AeroSurface::allocate_array (
 
    // Make sure all pointers are NULL so destructor never crashes
    for (unsigned int ii = 0; ii < facets_size; ++ii) {
-      aero_facets[ii] = NULL;
+      aero_facets[ii] = nullptr;
    }
 
    return;
@@ -169,13 +169,13 @@ AeroSurface::allocate_interaction_facet (
       dynamic casting it. If the dynamic cast fails, we want to destroy
       the InteractionFacet so we don't get a memory leak */
 
-   InteractionFacet* temp_facet = NULL;
+   InteractionFacet* temp_facet = nullptr;
 
    // attempt to create the facet
    temp_facet = factory->create_facet (facet, params);
 
    // if the facet is NULL, then we have a problem
-   if (temp_facet == NULL) {
+   if (temp_facet == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, AerodynamicsMessages::initialization_error,
@@ -191,7 +191,7 @@ AeroSurface::allocate_interaction_facet (
 
 
    // If that fails, it doesn't belong in this surface so there is a problem
-   if (temp_aero_facet == NULL) {
+   if (temp_aero_facet == nullptr) {
 
       // temp_facet can NOT be NULL, since it was already checked for above
       JEOD_DELETE_OBJECT (temp_facet);

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -46,13 +46,13 @@
  ()
 
  Library dependencies:
- ((terrain.o)
-  (utils/planet_fixed/planet_fixed_posn/planet_fixed_posn.o))
+ ((../src/terrain.cc)
+  (../../../../../../utils/planet_fixed/planet_fixed_posn/planet_fixed_posn.cc))
 
  
  *******************************************************************************/
-#ifndef _TERRAIN_HH_
-#define _TERRAIN_HH_
+#ifndef JEOD_TERRAIN_HH_
+#define JEOD_TERRAIN_HH_
 
 // JEOD includes
 #include "environment/planet/include/planet.hh"
@@ -94,4 +94,4 @@ private:
 
 } // End JEOD namespace
 
-#endif // end _TERRAIN_HH_ -- nothing after this line!
+#endif // end JEOD_TERRAIN_HH_ -- nothing after this line!

@@ -22,8 +22,8 @@ ASSUMPTIONS AND LIMITATIONS:
         This is not a stand-alone interaction model))
 
 Library dependencies:
-   ((thermal_params.o)
-    (utils/surface_model/interaction_surface.o))
+   ((thermal_params.cc)
+    (utils/surface_model/src/interaction_surface.cc))
 
 
 *******************************************************************************/

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -39,7 +39,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((mass_data.o))
+  ((../src/mass_data.cc))
 ******************************************************************************/
 
 #ifndef JEOD_POINT_MASS_GRAV_VERIF_DEFAULT_DATA_H

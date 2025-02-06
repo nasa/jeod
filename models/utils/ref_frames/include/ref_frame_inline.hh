@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -241,11 +241,11 @@ const
 {
    const RefFrameLinks * common_link =
       links.find_last_common_node (frame.links);
-   if (common_link != NULL) {
+   if (common_link != nullptr) {
       return (&(common_link->container()));
    }
    else {
-      return NULL;
+      return nullptr;
    }
 }
 

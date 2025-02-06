@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,7 +52,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((trick_memory_interface.o))
+  ((../src/trick_memory_interface.cc))
 
  
 
@@ -107,7 +107,7 @@ public:
 
    // Constructor and destructor
    JeodTrickMemoryInterface ();
-   virtual ~JeodTrickMemoryInterface ();
+   ~JeodTrickMemoryInterface () override;
 
 
    // Set the mode
@@ -118,75 +118,75 @@ public:
 
 
    // Find attributes in the symbol table.
-   virtual const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
-      const std::string & type_name) const;
+   const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
+      const std::string & type_name) const override;
 
-   virtual const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
-      const std::type_info & data_type) const;
+   const JEOD_ATTRIBUTES_POINTER_TYPE find_attributes (
+      const std::type_info & data_type) const override;
 
    // Create an attributes structure that represents a primitive type.
-   virtual JEOD_ATTRIBUTES_TYPE primitive_attributes (
-      const std::type_info & data_type) const;
+   JEOD_ATTRIBUTES_TYPE primitive_attributes (
+      const std::type_info & data_type) const override;
 
    // Create an attributes structure that represents a pointer type.
-   virtual JEOD_ATTRIBUTES_TYPE pointer_attributes (
-      const JEOD_ATTRIBUTES_TYPE & target_attr) const;
+   JEOD_ATTRIBUTES_TYPE pointer_attributes (
+      const JEOD_ATTRIBUTES_TYPE & target_attr) const override;
 
    // Create a simulation engine description of void*.
-   virtual JEOD_ATTRIBUTES_TYPE void_pointer_attributes () const;
+   JEOD_ATTRIBUTES_TYPE void_pointer_attributes () const override;
 
    // Create an attributes structure that represents a structured type.
-   virtual JEOD_ATTRIBUTES_TYPE structure_attributes (
+   JEOD_ATTRIBUTES_TYPE structure_attributes (
       const JEOD_ATTRIBUTES_POINTER_TYPE target_attr,
-      std::size_t target_size) const;
+      std::size_t target_size) const override;
 
 
    // Register allocated memory with the simulation engine.
-   virtual bool register_allocation (
+   bool register_allocation (
       const void * addr,
       const JeodMemoryItem & item,
       const JeodMemoryTypeDescriptor & tdesc,
       const char * file,
-      unsigned int line);
+      unsigned int line) override;
 
    // Revoke registation of memory that is about to be deleted.
-   virtual void deregister_allocation (
+   void deregister_allocation (
       const void * addr,
       const JeodMemoryItem & item,
       const JeodMemoryTypeDescriptor & tdesc,
       const char * file,
-      unsigned int line);
+      unsigned int line) override;
 
 
    // Register a JeodCheckpointable object with the simulation engine.
-   virtual void register_container (
+   void register_container (
       const void * owner,
       const JeodMemoryTypeDescriptor & owner_type,
       const char * elem_name,
-      JeodCheckpointable & container);
+      JeodCheckpointable & container) override;
 
    // Revoke registration of a JeodCheckpointable that is about to be deleted.
-   virtual void deregister_container (
+   void deregister_container (
       const void * owner,
       const JeodMemoryTypeDescriptor & owner_type,
       const char * elem_name,
-      JeodCheckpointable & container);
+      JeodCheckpointable & container) override;
 
 
    // Get the simulation name (if any) of the address.
-   virtual const std::string get_name_at_address (
+   const std::string get_name_at_address (
       const void * addr,
-       const JeodMemoryTypeDescriptor * tdesc) const;
+       const JeodMemoryTypeDescriptor * tdesc) const override;
 
    // Get the address (if any) corresponding to the given name.
-   virtual void * get_address_at_name (
-      const std::string & name) const;
+   void * get_address_at_name (
+      const std::string & name) const override;
 
 
    /**
     * The generic Trick memory interface does not support checkpoint/restart.
     */
-   virtual bool is_checkpoint_restart_supported () const { return false; }
+   bool is_checkpoint_restart_supported () const override { return false; }
 
    /**
     * Get the name of the current Trick checkpoint file.

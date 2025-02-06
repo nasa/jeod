@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -65,7 +65,7 @@ Assumptions and limitations:
   ((Earth specific))
 
 Library dependencies:
-  ((rotation_j2000.o))
+  ((../src/rotation_j2000.cc))
 
  
 *******************************************************************************/
@@ -133,14 +133,14 @@ public: // public member functions
 
    RotationJ2000 ();
 
-   virtual ~RotationJ2000 ();
+   ~RotationJ2000 () override;
 
    // RotationJ2000 specific implementation of update rotation
    // Before this is called, the
    // current_time parameter must be set to seconds since standard epoch
    // J2000, in the GMST time standard.
 
-   virtual void update_rotation ();
+   void update_rotation () override;
 
 private: // private member functions
 

@@ -12,7 +12,7 @@ def set_mass_sphere(veh_obj_reference) :
   # define M_PI        3.14159265358979323846
 
   #/* Set the mass porperties for this vehicle. */
-  veh_obj_reference.mass_init.subject = veh_obj_reference.body.mass
+  veh_obj_reference.mass_init.set_subject_body(veh_obj_reference.body.mass)
 
   #/* Set the struct to body reference frame orientation. */
   veh_obj_reference.mass_init.properties.pt_orientation.data_source =    trick.Orientation.InputEigenRotation

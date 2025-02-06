@@ -9,9 +9,9 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    ((radiation_data_recorder.o)
-     (interactions/radiation_pressure/flat_plate_radiation_facet.o)
-     (utils/sim_interface/memory_interface.o))
+    ((radiation_data_recorder.cc)
+     (interactions/radiation_pressure/src/flat_plate_radiation_facet.cc)
+     (utils/sim_interface/src/memory_interface.cc))
 
 
 *******************************************************************************/

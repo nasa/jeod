@@ -22,10 +22,10 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((spherical_harmonics_delta_coeffs.o)
-   (spherical_harmonics_delta_coeffs_init.o)
-   (spherical_harmonics_delta_controls.o)
-   (spherical_harmonics_gravity_source.o))
+  ((spherical_harmonics_delta_coeffs.cc)
+   (spherical_harmonics_delta_coeffs_init.cc)
+   (spherical_harmonics_delta_controls.cc)
+   (spherical_harmonics_gravity_source.cc))
 
 
 *******************************************************************************/
@@ -55,9 +55,9 @@ namespace jeod {
 SphericalHarmonicsDeltaCoeffs::SphericalHarmonicsDeltaCoeffs (
    void)
 :
-   grav_source(NULL),
-   delta_Cnm(NULL),
-   delta_Snm(NULL),
+   grav_source(nullptr),
+   delta_Cnm(nullptr),
+   delta_Snm(nullptr),
    degree(0),
    order(0),
    dC20(0.0)
@@ -72,7 +72,7 @@ SphericalHarmonicsDeltaCoeffs::SphericalHarmonicsDeltaCoeffs (
 SphericalHarmonicsDeltaCoeffs::~SphericalHarmonicsDeltaCoeffs (
    void)
 {
-   if (delta_Cnm != NULL) {
+   if (delta_Cnm != nullptr) {
       for (unsigned int ii = 0; ii <= degree; ++ii) {
          JEOD_DELETE_ARRAY (delta_Cnm[ii]);
          JEOD_DELETE_ARRAY (delta_Snm[ii]);

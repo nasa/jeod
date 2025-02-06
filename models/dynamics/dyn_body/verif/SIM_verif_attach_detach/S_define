@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -72,6 +72,8 @@ Purpose:(Baseline vehicle, suitable for veh2 and veh3)
 ##include "dynamics/body_action/include/dyn_body_init_trans_state.hh"
 ##include "dynamics/body_action/include/dyn_body_init_rot_state.hh"
 ##include "dynamics/body_action/include/mass_body_init.hh"
+##include "dynamics/dyn_body/include/force.hh"
+##include "dynamics/dyn_body/include/torque.hh"
 
 class VehSimObject: public Trick::SimObject {
  protected:
@@ -84,6 +86,8 @@ class VehSimObject: public Trick::SimObject {
   jeod::DynBodyInitTransState   trans_init;
   jeod::DynBodyInitRotState     rot_init;
   jeod::MassBodyInit            mass_init;
+  jeod::Force  force;
+  jeod::Torque torque;
 
   VehSimObject( jeod::DynManager & dyn_mngr_in)
     :
@@ -127,8 +131,59 @@ class Veh1SimObject: public VehSimObject {
 
 };
 
+class AttachToFrameHelper : public Trick::SimObject
+{
+public:
+   AttachToFrameHelper(jeod::DynBody & bodyIn) :
+       body(bodyIn)
+   {
+      jeod::Vector3::initialize(position);
+      jeod::Matrix3x3::identity(rotation);
+   }
+
+   double position[3];
+   double rotation[3][3];
+
+   void attach_wrap_child_parent_pos_rot(const std::string & child_frame, const std::string & parent_frame)
+   {
+      body.attach_to_frame(child_frame.c_str(), parent_frame.c_str(), position, rotation);
+   }
+
+   void attach_wrap_pos_rot_parent(jeod::RefFrame & parentIn)
+   {
+      body.attach_to_frame(position, rotation, parentIn);
+   }
+
+
+private:
+   jeod::DynBody & body;
+
+   AttachToFrameHelper (const AttachToFrameHelper&);
+   AttachToFrameHelper & operator = (const AttachToFrameHelper&);
+};
+
 Veh1SimObject veh1  ( dynamics.dyn_manager);
 VehSimObject  veh2  ( dynamics.dyn_manager);
 VehSimObject  veh3  ( dynamics.dyn_manager);
+AttachToFrameHelper attach_to_frame_helper(veh1.dyn_body);
+
+vcollect veh1.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   veh1.force
+};
+vcollect veh1.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   veh1.torque
+};
+vcollect veh2.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   veh2.force
+};
+vcollect veh2.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   veh2.torque
+};
+vcollect veh3.dyn_body.collect.collect_effector_forc jeod::CollectForce::create {
+   veh3.force
+};
+vcollect veh3.dyn_body.collect.collect_effector_torq jeod::CollectTorque::create {
+   veh3.torque
+};
 
 IntegLoop sim_integ_loop  (DYNAMICS) dynamics;

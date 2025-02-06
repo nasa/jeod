@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_met.o))
+  ((../src/time_met.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_MET_HH
@@ -102,9 +102,9 @@ public:
   //Constructor
    TimeMET ();
   // Destructor
-   ~TimeMET ();
+   ~TimeMET () override;
 
-   void update (void);
+   void update (void) override;
 
 
  // The copy constructor and assignment operator for this class are

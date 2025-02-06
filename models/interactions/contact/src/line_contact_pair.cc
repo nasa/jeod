@@ -22,7 +22,7 @@
  ((N/A))
 
  Library dependencies:
- ((line_contact_pair.o))
+ ((line_contact_pair.cc))
 
  
 
@@ -47,8 +47,8 @@ namespace jeod {
 LineContactPair::LineContactPair (
    void)
 : // Return: -- None
-line_subject (NULL),
-line_target (NULL)
+line_subject (nullptr),
+line_target (nullptr)
 {
 
 }
@@ -75,7 +75,6 @@ LineContactPair::in_contact(
    double sub_p1[3], sub_p2[3]; // subject line segment end points
    double tar_p3[3], tar_p4[3]; // target line segment end points
    double vec[3];  // temp vectors
-   double rel_velocity[3];  // relative velocity in subject frame
    double subject_mag, target_mag;  // distace vector magnitudes
 
    // initialize the end points of the line segments
@@ -151,6 +150,7 @@ LineContactPair::in_contact(
 
    // compare length to target point with subject radius
    if (subject_mag > target_mag) {
+      double rel_velocity[3];  // relative velocity in subject frame
       // find the vector that characterizes the interpenetration
       Vector3::diff(target_contact_point, subject_contact_point, vec);
       // find the relative velocity of the target in subject frame
@@ -174,7 +174,7 @@ void LineContactPair::initialize_pair (
    ContactFacet *target_facet)
 {
    line_subject = dynamic_cast<LineContactFacet*> (subject_facet);
-   if (target_facet != NULL) {
+   if (target_facet != nullptr) {
       line_target = dynamic_cast<LineContactFacet*> (target_facet);
       rel_state.name = NamedItem::construct_name_string (
          line_subject->base_facet->name.c_str(), line_target->base_facet->name);
@@ -188,7 +188,7 @@ void LineContactPair::initialize_pair (
                                              &rel_state.target_frame_name);
    }
    else {
-      line_target = NULL;
+      line_target = nullptr;
    }
 
    subject = line_subject;

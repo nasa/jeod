@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((flat_plate_radiation_facet.o))
+((../src/flat_plate_radiation_facet.cc))
 
 
 *******************************************************************************/
@@ -116,18 +116,18 @@ public:
    FlatPlateRadiationFacet ();
 
    // destructor
-   virtual ~FlatPlateRadiationFacet ();
+   ~FlatPlateRadiationFacet () override;
 
    void incident_radiation (
       const double flux_mag,
       const double flux_struct_hat[3],
-      const bool calculate_forces);
+      const bool calculate_forces) override;
 
-   void initialize_geom (double center_grav[3]);
+   void initialize_geom (double center_grav[3]) override;
 
    void define_facet (FlatPlate * flat_plate);
 
-   void radiation_pressure (void);
+   void radiation_pressure (void) override;
 
 protected:
 

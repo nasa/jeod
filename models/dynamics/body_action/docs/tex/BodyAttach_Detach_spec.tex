@@ -10,15 +10,16 @@
 The \partxname comprises six classes.
 \begin{itemize}
 \item BodyAttach, which derives directly from the base BodyAction class.
-This class provides the conceptual basis for attaching two MassBody objects.
-The subject of the action is to be attached as a child of a parent body.
+This class provides the conceptual basis for attaching two MassBody objects, a MassBody object to a DynBody, two DynBody
+objects or a DynBody to a RefFrame, exclusively.
+The subject of the action is to be attached as a child of a parent object.
 The geometric details of the attachment (and the actual attachment) is a task
 left to derived classes.
 \item BodyAttachAligned, which derives from BodyAttach.
-A BodyAttachAligned object attaches MassBody objects using a point-to-point
+A BodyAttachAligned object attaches two objects using a point-to-point
 attachment mechanism.
 \item BodyAttachMatrix, which also derives from BodyAttach.
-A BodyAttachMatrix object attaches MassBody objects using a geometric
+A BodyAttachMatrix object attaches two objects using a geometric
 attachment mechanism.
 \item BodyReattach, which derives directly from BodyAction.
 A BodyReattach object alters the geometry of an existing attachment.
@@ -53,6 +54,14 @@ Two concepts drove this design.
   attaching MassBody objects in the form of multiple {\tt attach\_to/attach\_child()} methods.
   Distinct classes that derive from BodyAttach use distinct
   {\tt attach\_to/attach\_child()} mechanisms.
+\item The DynBody class provides multiple ways to accomplish the basic task of
+  attaching DynBody objects in the form of multiple {\tt attach\_to/attach\_child()} methods.
+  Distinct classes that derive from BodyAttach use distinct
+  {\tt attach\_to/attach\_child()} mechanisms.
+\item The DynBody class provides multiple ways to accomplish the basic task of
+  kinematically attaching a DynBody object to a RefFrame in the form of multiple {\tt attach\_to\_frame()} methods.
+  Distinct classes that derive from BodyAttach use distinct
+  {\tt attach\_to\_frame()} mechanisms.
 \item The Dynamics Manager takes advantage of this inheritance to attach
   MassBody objects at initialization time. Any enqueued BodyAction objects
   that derive from BodyAttach and are ready to run at initialization
@@ -63,7 +72,7 @@ Two concepts drove this design.
 \end{itemize}
 
 JEOD supplies two classes that derive from BodyAttach.
-BodyAttachAligned uses the point-to-point form of {\tt attach\_to/attach\_child()}
+BodyAttachAligned uses the point-to-point form of {\tt attach\_to/attach\_child()/attach\_to\_frame()}
 while BodyAttachMatrix uses the offset+matrix form.
 The BodyAttachAligned class contains data members that name the
 attach points on the two vehicles.
@@ -82,7 +91,7 @@ using the supplied offset and orientation.
 The MassBody class provides two versions of the {\tt detach()} method.
 Each of the two sub-model classes that perform detachments use one
 of these methods. The BodyDetach class uses the basic {\tt detach()}
-method to detach the subject MassBody object from its immediate parent.
+method to detach the subject MassBody or DynBody object from its immediate parent.
 The class BodyDetachSpecific uses the form of {\tt detach()}
 that specifies the parent object. The body that is actually detached
 is the child of the specified parent that lies along the chain of mass bodies

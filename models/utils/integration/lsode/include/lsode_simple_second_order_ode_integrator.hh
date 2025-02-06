@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,8 +60,8 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((lsode_simple_second_order_ode_integrator.o)
-   (lsode_second_order_ode_integrator.o))
+  ((../src/lsode_simple_second_order_ode_integrator.cc)
+   (../src/lsode_second_order_ode_integrator.cc))
 
  
 
@@ -103,7 +103,7 @@ public:
    /**
     * LsodeSimpleSecondOrderODEIntegrator destructor.
     */
-   virtual ~LsodeSimpleSecondOrderODEIntegrator(void) {};
+   ~LsodeSimpleSecondOrderODEIntegrator(void) override {};
 
 
 
@@ -126,7 +126,7 @@ public:
                  unsigned int size);
 
 
-   virtual LsodeSimpleSecondOrderODEIntegrator * create_copy () const;
+   LsodeSimpleSecondOrderODEIntegrator * create_copy () const override;
 
    /**
     * Propagate state via Lsode's method.
@@ -139,12 +139,12 @@ public:
     *
     * @return The status (time advance, pass/fail status) of the integration.
     */
-   virtual er7_utils::IntegratorResult integrate (
+   er7_utils::IntegratorResult integrate (
       double dyn_dt,
       unsigned int target_stage,
       double const * ER7_UTILS_RESTRICT accel,
       double * ER7_UTILS_RESTRICT velocity,
-      double * ER7_UTILS_RESTRICT position);
+      double * ER7_UTILS_RESTRICT position) override;
 
 private:
    /**

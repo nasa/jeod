@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((spherical_harmonics_gravity_controls.o))
+  ((../src/spherical_harmonics_gravity_controls.cc))
 
 
 
@@ -201,12 +201,12 @@ class SphericalHarmonicsGravityControls : public GravityControls {
    SphericalHarmonicsGravityControls ();
 
    // Destructor
-   virtual ~SphericalHarmonicsGravityControls ();
+   ~SphericalHarmonicsGravityControls () override;
 
 
    // Perform derived-class specific setup of this control
-   virtual void initialize_control (  // Return: -- Void
-      GravityManager & grav_manager);     // In:     -- Reference to Gravity Manager
+   void initialize_control (  // Return: -- Void
+      GravityManager & grav_manager) override;     // In:     -- Reference to Gravity Manager
 
 
    // Add a new delta-control to var_effects list
@@ -268,11 +268,13 @@ class SphericalHarmonicsGravityControls : public GravityControls {
  protected:
 
    // Compute non-spherical gravity acceleration, potential at a point
-   virtual void calc_nonspherical ( // Return: --  Void
-      const double posn[3],         // In:    M    Pt. of interest, inrtl coords
-      double body_grav_accel[3],    // Out:   M/s2 Accel for given grav body
-      double dgdx[3][3],            // Out:   1/s2 Gradient for given grav body
-      double  Pot[1]);              // Out:   --   Potential
+   void calc_nonspherical ( // Return: --  Void
+      const double integ_pos[3],
+      const double posn[3],
+      const GravityIntegFrame& grav_source_frame,
+      double body_grav_accel[3],
+      double dgdx[3][3],
+      double&  pot) override;              // Out:   --   Potential
 
 
    // Check the validity of this control

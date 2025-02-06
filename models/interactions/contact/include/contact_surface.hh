@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@
      ((N/A))
 
 Library dependencies:
-    ((contact_surface.o))
+    ((../src/contact_surface.cc))
 
 
 *****************************************************************************/
@@ -91,7 +91,7 @@ public:
    ContactSurface ();
 
    // destructor
-   virtual ~ContactSurface ();
+   ~ContactSurface () override;
 
    /**
     * An array of pointers to contact interaction facets.
@@ -114,17 +114,17 @@ public:
    double contact_torque[3];    //!< trick_units(N/m)
 
    // Allocates the contact_facets array from the given size
-   virtual void allocate_array (unsigned int size);
+   void allocate_array (unsigned int size) override;
 
    // Allocates the facet at the "index" value in contact_facets, using
    // the base Facet given by the pointer facet, and using the parameter
    // object pointed to by params pointer and using the
    // InteractionFacetFactory pointed to by factory.
-   virtual void allocate_interaction_facet (
+   void allocate_interaction_facet (
       Facet* facet,
       InteractionFacetFactory* factory,
       FacetParams* params,
-      unsigned int index);
+      unsigned int index) override;
 
    // collect the forces and torques from all the facets in this contact surface.
    virtual void collect_forces_torques (void);

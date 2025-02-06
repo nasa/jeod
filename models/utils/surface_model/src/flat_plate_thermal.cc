@@ -21,9 +21,9 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate_thermal.o)
-     (flat_plate.o)
-     (interactions/thermal_rider/thermal_facet_rider.o))
+    ((flat_plate_thermal.cc)
+     (flat_plate.cc)
+     (interactions/thermal_rider/src/thermal_facet_rider.cc))
 
  
 *******************************************************************************/

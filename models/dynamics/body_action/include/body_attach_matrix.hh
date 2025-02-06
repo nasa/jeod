@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_attach_matrix.o))
+  ((../src/body_attach_matrix.cc))
 
 
 
@@ -95,8 +95,8 @@ class BodyAttachMatrix : public BodyAttach {
 
    /**
     * Location of this body's structural origin with respect to the new parent
-    * body's structural origin, specified in structural coordinates of the
-    * new parent body.
+    * body's structural origin (or generic reference frame),
+    * specified in structural coordinates of the new parent body.
     */
    double offset_pstr_cstr_pstr[3];   //!< trick_units(m)
 
@@ -115,10 +115,10 @@ class BodyAttachMatrix : public BodyAttach {
    BodyAttachMatrix ();
 
    // Destructor.
-   virtual ~BodyAttachMatrix ();
+   ~BodyAttachMatrix () override;
 
    // apply: Attach the specified mass bodies.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
 };
 

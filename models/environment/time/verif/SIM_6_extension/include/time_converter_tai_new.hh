@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -48,8 +48,8 @@ Assumptions and limitations:
  
 
 Library dependencies:
-  ((time_converter_tai_new.o)
-   (time_new.o))
+  ((../src/time_converter_tai_new.cc)
+   (../src/time_new.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_CONVERTER_TAI_New_HH
@@ -86,16 +86,16 @@ public:
   // Constructor
   TimeConverter_TAI_New();
   // Destructor
-  ~TimeConverter_TAI_New();
+  ~TimeConverter_TAI_New() override;
 
 private:
   // Initialize the converter
   void initialize( JeodBaseTime * parent,
                    JeodBaseTime * child,
-                  const int direction);
+                  const int direction) override;
 
   // convert_a_to_b: Apply the converter in the forward direction
-  void convert_a_to_b(void);
+  void convert_a_to_b(void) override;
 
 
 };

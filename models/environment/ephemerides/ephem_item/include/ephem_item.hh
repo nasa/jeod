@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ephem_item.o))
+  ((../src/ephem_item.cc))
 
 
 
@@ -128,7 +128,7 @@ public:
 
    // Constructor and destructor
    EphemerisItem ();
-   virtual ~EphemerisItem ();
+   ~EphemerisItem () override;
 
    // Advertised interfaces
 

@@ -13,7 +13,7 @@
 /*
 Purpose: ()
 Library dependencies: (
-  (constraint_frame.o))
+  (constraint_frame.cc))
 */
 
 
@@ -40,6 +40,7 @@ DynBodyConstraint::DynBodyConstraint()
 :
     constraint_frame(),
     solver(nullptr),
+    n_dimensions(0),
     inactive(false)
 {
 }

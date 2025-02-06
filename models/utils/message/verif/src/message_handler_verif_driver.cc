@@ -10,8 +10,8 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((message_handler_verif_driver.o)
-  ((message_handler_verif_messages.o))
+  ((message_handler_verif_driver.cc)
+  ((message_handler_verif_messages.cc))
 
  
 

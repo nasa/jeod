@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_lvlh_trans_state.o))
+  ((../src/dyn_body_init_lvlh_trans_state.cc))
 
 
 
@@ -103,10 +103,10 @@ class DynBodyInitLvlhTransState : public DynBodyInitLvlhState {
  public:
    DynBodyInitLvlhTransState ();
 
-   virtual ~DynBodyInitLvlhTransState ();
+   ~DynBodyInitLvlhTransState () override;
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
 };
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -45,7 +45,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_factory.o)
+    (../src/demo_factory.cc)
 
  
 *******************************************************************************/
@@ -71,12 +71,12 @@ public:
    FlatPlateDemoFactory1();
 
    // destructor
-   ~FlatPlateDemoFactory1();
+   ~FlatPlateDemoFactory1() override;
 
-   virtual InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params);
+   InteractionFacet* create_facet(Facet* facet,
+                                          FacetParams* params) override;
 
-   virtual bool is_correct_factory(Facet* facet);
+   bool is_correct_factory(Facet* facet) override;
 
 protected:
 
@@ -101,12 +101,12 @@ public:
    FlatPlateDemoFactory2();
 
    // destructor
-   ~FlatPlateDemoFactory2();
+   ~FlatPlateDemoFactory2() override;
 
-   virtual InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params);
+   InteractionFacet* create_facet(Facet* facet,
+                                          FacetParams* params) override;
 
-   virtual bool is_correct_factory(Facet* facet);
+   bool is_correct_factory(Facet* facet) override;
 
 protected:
 
@@ -131,12 +131,12 @@ public:
    DemoFacetFactory1();
 
    // destructor
-   ~DemoFacetFactory1();
+   ~DemoFacetFactory1() override;
 
-   virtual InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params);
+   InteractionFacet* create_facet(Facet* facet,
+                                          FacetParams* params) override;
 
-   virtual bool is_correct_factory(Facet* facet);
+   bool is_correct_factory(Facet* facet) override;
 
 protected:
 
@@ -161,12 +161,12 @@ public:
    DemoFacetFactory2();
 
    // destructor
-   ~DemoFacetFactory2();
+   ~DemoFacetFactory2() override;
 
-   virtual InteractionFacet* create_facet(Facet* facet,
-                                          FacetParams* params);
+   InteractionFacet* create_facet(Facet* facet,
+                                          FacetParams* params) override;
 
-   virtual bool is_correct_factory(Facet* facet);
+   bool is_correct_factory(Facet* facet) override;
 
 protected:
 

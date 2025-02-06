@@ -22,10 +22,10 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_converter.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((time_converter.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
  
 ******************************************************************************/
@@ -52,10 +52,10 @@ namespace jeod {
  */
 TimeConverter::TimeConverter (
    void)
+:    a_name(""),
+     b_name("")
 {
    initialized           = false;
-   a_name                = "";
-   b_name                = "";
    a_to_b_offset         = 0.0;
    valid_directions = NO_DIRECTION;
 }
@@ -84,15 +84,17 @@ TimeConverter::verify_setup (
    const JeodBaseTime * sub_ptr,
    const int int_dir)
 {
-   if (master_ptr == NULL) {
+   if (master_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error,
          "\nThe master pointer is NULL\n");
+      return;
    }
-   if (sub_ptr == NULL) {
+   if (sub_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error,
          "\nThe sub pointer is NULL\n");
+      return;
    }
    if (!master_ptr->initialized) {
       MessageHandler::fail (
@@ -101,6 +103,7 @@ TimeConverter::verify_setup (
          "%s, but the parent type (%s) has not been "
          "initialized. \n",
          master_ptr->name.c_str(), sub_ptr->name.c_str(), master_ptr->name.c_str());
+      return;
    }
    if (std::abs (int_dir) != 1) {
       MessageHandler::fail (
@@ -108,6 +111,7 @@ TimeConverter::verify_setup (
          "\n Failed to initialize converter between %s and "
          "%s because one or more of the inputs was invalid. \n",
          master_ptr->name.c_str(), sub_ptr->name.c_str());
+      return;
    }
 
    return;

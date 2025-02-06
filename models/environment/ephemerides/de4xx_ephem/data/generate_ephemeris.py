@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 description:
 Processes the Jet Propulsions Laboratory Developmental ephemerics (JPL DE)
@@ -18,6 +18,8 @@ import errno
 from itertools import islice
 from argparse import ArgumentParser as ArgParser
 from argparse import RawTextHelpFormatter as TxtFmt
+from mako.template import Template
+from mako import exceptions
 
 
 ###
@@ -255,151 +257,6 @@ def parse_data_file(mdata, filename):
     poly.num_records = len(poly.coefs)
     return poly
 
-
-def write_out_file(filename,data,meta,subset=None):
-    """
-    Write the output C++ source file for JEOD using data from parsed files
-    """
-    tab = ' '*4
-    with open(os.path.join(script_dir, 'ascp_stencil.cc.template'), 'r') as fin:
-        fmt = fin.read()
-    if subset is not None:
-        if isinstance(subset,int):
-            subset = [subset]
-
-    fout = open( filename, 'w' )
-    header_block = fmt.find('jeod::EphemerisDataSetMeta')
-    fout.write(fmt[:header_block])
-
-    fmt = fmt[header_block:]
-    
-    # jeod::EphemerisDataSetMeta
-    val = [ meta.num_items,
-            meta.start_epoch,
-            meta.stop_epoch,
-            meta.delta_epoch,
-            meta.number_segments,
-            meta.ncoeff ]
-
-    # double de_constants
-    block_val = (
-        meta.consts['DENUM'],
-        meta.consts['LENUM'],
-        meta.consts['AU'],
-        meta.consts['EMRAT'],
-        meta.consts['CLIGHT'],
-        meta.consts['GM1'],
-        meta.consts['GM2'],
-        meta.consts['GMB'],
-        meta.consts['GM4'],
-        meta.consts['GM5'],
-        meta.consts['GM6'],
-        meta.consts['GM7'],
-        meta.consts['GM8'],
-        meta.consts['GM9'],
-        meta.consts['GMS']  )
-    block_start = fmt.find('de_constants')
-    block_start += fmt[block_start:].find('{')
-    block_end   = fmt.find('}',block_start)+1
-    # Build format
-    block_fmt = '{\n' + tab*2 + (('%s,\n'+tab*2)*(len(block_val)-1)) + '%s' + tab + '\n}'
-    # Pipe entries
-    block = ( block_fmt % block_val )
-    fmt = fmt[:block_start] + block + fmt[block_end:]
-
-    # jeod::EphemerisDataItemMeta
-    val = val + [meta.num_items]
-    block_start = fmt.find('jeod::EphemerisDataItemMeta')
-    block_start += find_n(fmt[block_start:],'{',2)
-    block_end   = fmt.find('}',block_start)+1
-    block_fmt = tab +fmt[block_start:block_end]
-    block = str()
-    for ii in range(meta.num_items):
-        # Write values
-        block_val = (
-            meta.coef_start_index[ii],
-            meta.num_coef_per_component[ii],
-            meta.num_coef_sets[ii] )
-        # Modify format
-        block = block + ( block_fmt % block_val )
-        # Look ahead, place comma
-        if ii !=(meta.num_items-1):
-            block = block + ',\n'
-    fmt = fmt[:block_start] + block + fmt[block_end:]
-
-    # jeod::EphemerisDataSegmentMeta
-    val = val + [meta.number_segments]
-    block_start = fmt.find('jeod::EphemerisDataSegmentMeta')
-    block_start += find_n(fmt[block_start:],'{',2)
-    block_end   = fmt.find('}',block_start)+1
-    block_fmt = tab + fmt[block_start:block_end]
-    block = str()
-    for ii in range(len(data)):
-        # Write values
-        block_val = (
-            data[ii].num_records,
-            data[ii].record_start_epoch[0],
-            data[ii].record_stop_epoch[-1] )
-            
-        # Modify format
-        block = block + ( block_fmt % block_val )
-        # Look ahead, place comma
-        if ii !=(len(data)-1):
-            block = block + ',\n'
-    fmt = fmt[:block_start] + block + fmt[block_end:]
-
-    # Coefficients table
-    """
-    Really big table coming up, so modify approach used above. Instead, we need
-    to write as we go.
-        1) Find this block in the stencil template file.
-        2) Write everything up until now into the output file so that we can
-           start writing as we go without holding everything in memory
-        3) Create the format for each record.
-        4) Write each segment header, then loop to write each record
-    """
-    # 1)
-    val = val + [ meta.title ]
-    block_start = fmt.find('double segment_coeffs')
-    # block_end unneeded, last part of in file
-    # 2)
-    fmt = fmt[:block_start]
-    # Only write metadata to first subset file
-    if subset is None or 0 in subset:
-       fout.write( fmt % tuple(val) )
-    # 3)
-    newline = '\n'+tab+'  '
-    sep = ', '
-    coefs_per_line = 3
-    block_fmt = str()
-    block_fmt += tab + '{' + newline
-    block_fmt += (('%s'+sep)*coefs_per_line+newline)*int(meta.ncoeff/coefs_per_line)
-    # if no remainder, then remove trailing separator and close }
-    if (meta.ncoeff%coefs_per_line)==0:
-        block_fmt = block_fmt[:-(len(newline)+len(sep))] + '\n' +tab + '}'
-    # If remainder, add, then remove trailing separator and close }
-    else:
-        block_fmt += ('%s'+sep)*(meta.ncoeff%coefs_per_line)
-        block_fmt = block_fmt[:-(len(sep))] + '\n' + tab + '}'
-    frec = 0
-    for ii in subset:
-            fout.write( ( ('double segment_coeffs_%d[%d][%d] = {\n')
-                        % ( ii, data[ii].num_records, meta.ncoeff ) ) )
-            for jj in range(data[ii].num_records):
-                fout.write( ( block_fmt % tuple(data[ii].coefs[jj]) ) )
-                # look ahead, see if we need a comma
-                if jj!=(data[ii].num_records-1):
-                    fout.write( ',' )
-                fout.write( '\n' )
-            fout.write( '};\n\n' )
-            print('%6d records written from Julian dates %s to %s'
-                    % ( data[ii].num_records,
-                        data[ii].record_start_epoch[0], 
-                        data[ii].record_stop_epoch[-1] ) )
-            frec += data[ii].num_records
-    return frec
-
-
 ###
 #  main routine
 ###
@@ -487,9 +344,9 @@ for oldDeFile in oldDeFiles:
 frec = 0
 for ii in range(len(poly)):
     fout = os.path.join(out_dir,'de%s_%d.cc'%(denum,ii))
-    frec += write_out_file(fout,poly,meta,ii)
-if frec != records:
-    raise IOERROR(errno.EIO, 
-        "%d records found, but %d records published..."
-        % (records, frec) )
+    text = Template(filename='eph_meta.cc.mako').render(segIdx=ii, data=poly, meta=meta)
+    oFile = open(fout, 'w')
+    oFile.write(text)
+    oFile.close()
+    print("Generated {0}".format(fout))
 print('----- %10d total records written into JEOD Ephemeris -----' % records)

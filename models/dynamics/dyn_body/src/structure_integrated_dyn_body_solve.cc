@@ -14,8 +14,8 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((structure_integrated_dyn_body.o)
-   (experimental/constraints/dyn_body_constraints_solver.o))
+  ((structure_integrated_dyn_body.cc)
+   (experimental/constraints/src/dyn_body_constraints_solver.cc))
 */
 
 
@@ -35,8 +35,8 @@ namespace jeod {
 
 void
 StructureIntegratedDynBody::attach_update_properties (
-   double offset_pstr_cstr_pstr[3],
-   double T_pstr_cstr[3][3],
+   const double offset_pstr_cstr_pstr[3],
+   const double T_pstr_cstr[3][3],
    DynBody & child)
 {
     DynBody::attach_update_properties (
@@ -55,6 +55,7 @@ StructureIntegratedDynBody::attach_update_properties (
                     "Solver for DynBody '%s' is not set.\n"
                     "Solvers must be set prior to making attachments.",
                     name.c_str());
+                return;
             }
 
             child_dyn_body->constraints_solver->attach (
@@ -129,6 +130,7 @@ StructureIntegratedDynBody::add_constraint (
         MessageHandler::fail (
             __FILE__, __LINE__, DynBodyMessages::invalid_body,
             "add_constraint called prior to setting the solver.");
+        return;
     }
 
     constraints_solver->add_constraint (constraint);
@@ -154,6 +156,7 @@ StructureIntegratedDynBody::solve_constraints ()
         MessageHandler::fail (
             __FILE__, __LINE__, DynBodyMessages::invalid_body,
             "solve_constraints called prior to setting the solver.");
+        return;
     }
 
     // Populate the non-gravitational state structure.

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((gauss_jackson_state_machine.o))
+  ((../src/gauss_jackson_state_machine.cc))
 */
 
 

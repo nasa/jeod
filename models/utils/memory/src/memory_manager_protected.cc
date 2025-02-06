@@ -17,10 +17,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((memory_manager.o)
-   (memory_item.o)
-   (memory_messages.o)
-   (memory_type.o))
+  ((memory_manager.cc)
+   (memory_item.cc)
+   (memory_messages.cc)
+   (memory_type.cc))
 
  
 
@@ -294,7 +294,7 @@ JeodMemoryManager::get_type_entry_atomic (
    const std::type_info & typeid_info = tdesc.get_typeid();
    const std::string key (typeid_info.name());
    uint32_t index = 0;
-   const JeodMemoryTypeDescriptor * table_tdesc = NULL;
+   const JeodMemoryTypeDescriptor * table_tdesc = nullptr;
    bool added = false;
 
    // Insert/update the table with the table locked.
@@ -351,16 +351,14 @@ JeodMemoryManager::get_type_descriptor_atomic (
 const
 {
    const std::string key (typeid_info.name());
-   const JeodMemoryTypeDescriptor * tdesc = NULL;
-   uint32_t idx = 0;
-
+   const JeodMemoryTypeDescriptor * tdesc = nullptr;
 
    // Lookup the type descriptor with the table locked.
    try {
       begin_atomic_block ();
 
       // Lookup the type in the table, keyed by the RTTI mangled name.
-      idx = type_table.find (key);
+      uint32_t idx = type_table.find (key);
 
       // Get the descriptor if the above indicates the type is in the table.
       if (idx != 0) {
@@ -395,7 +393,7 @@ JeodMemoryManager::get_type_entry_atomic (
 const
 {
    uint32_t index = 0;
-   const JeodMemoryTypeDescriptor * table_tdesc = NULL;
+   const JeodMemoryTypeDescriptor * table_tdesc = nullptr;
 
    // Lookup the type descriptor with the table locked.
    try {
@@ -616,13 +614,13 @@ JeodMemoryManager::find_alloc_entry_atomic (
    const JeodMemoryTypeDescriptor *& found_type)
 {
    bool address_inside = false;
-   const void * test_addr = NULL;
-   const JeodMemoryItem * test_item = NULL;
-   const JeodMemoryTypeDescriptor * test_type = NULL;
+   const void * test_addr = nullptr;
+   const JeodMemoryItem * test_item = nullptr;
+   const JeodMemoryTypeDescriptor * test_type = nullptr;
 
    // Set the output values to indicate the address was not found.
-   found_addr = NULL;
-   found_type = NULL;
+   found_addr = nullptr;
+   found_type = nullptr;
 
    try {
       begin_atomic_block ();
@@ -822,8 +820,8 @@ JeodMemoryManager::delete_oldest_alloc_entry_atomic (
       // We are done when the table is finally empty.
       if (alloc_table.empty()) {
          allocation_number = 0;
-         addr = NULL;
-         type = NULL;
+         addr = nullptr;
+         type = nullptr;
       }
 
       // Not done. Find the oldest element, set outputs, and delete.

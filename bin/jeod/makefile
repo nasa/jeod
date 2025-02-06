@@ -103,13 +103,18 @@ all:
 	$(CMAKE_CMD) -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DINSTALL_DIR=${INSTALL_DIR} -DTRICK_BUILD=${TRICK_BUILD}  \
            -DENABLE_UNIT_TESTS=${ENABLE_UNIT_TESTS} -DREGEN_DE4XX_DATA=${REGEN_DE4XX_DATA} \
            -DDE4XX_ONLY=${DE4XX_ONLY} ..;\
-	$(MAKE) install;
+	$(MAKE) install
 else
+ifneq (,$(wildcard $(BUILD_DIR)/Makefile))
 all:
 	@echo "Building JEOD Library"
-	-mkdir -p $(BUILD_DIR);\
+	mkdir -p $(BUILD_DIR);\
 	cd $(BUILD_DIR);\
-	$(MAKE) install;
+	$(MAKE) install
+else
+all:
+	@echo "Cmake files found but no $(BUILD_DIR)/Makefile found. Skipping JEOD Library build"
+endif
 endif
 
 help:

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((contact_surface_factory.o))
+    ((../src/contact_surface_factory.cc))
 
 
 *****************************************************************************/
@@ -93,16 +93,16 @@ public:
    ContactSurfaceFactory ();
 
    // destructor
-   virtual ~ContactSurfaceFactory ();
+   ~ContactSurfaceFactory () override;
 
    // Creates the interaction surface from a base surface model
-   virtual void create_surface (
-      SurfaceModel* surface, InteractionSurface* inter_surface);
+   void create_surface (
+      SurfaceModel* surface, InteractionSurface* inter_surface) override;
 
    // Add a set of facet params to the ContactSurfaceFactory.
    // The type of FacetParams MUST be ContactParams, or the function
    // will fail.
-   virtual void add_facet_params (FacetParams* to_add);
+   void add_facet_params (FacetParams* to_add) override;
 
 protected:
 

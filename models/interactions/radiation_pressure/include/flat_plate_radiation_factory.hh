@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate_radiation_factory.o))
+    ((../src/flat_plate_radiation_factory.cc))
 
 
 *******************************************************************************/
@@ -92,11 +92,11 @@ public:
    FlatPlateRadiationFactory ();
 
    // destructor
-   ~FlatPlateRadiationFactory ();
+   ~FlatPlateRadiationFactory () override;
 
-   virtual InteractionFacet* create_facet (Facet* facet, FacetParams* params);
+   InteractionFacet* create_facet (Facet* facet, FacetParams* params) override;
 
-   virtual bool is_correct_factory (Facet* facet);
+   bool is_correct_factory (Facet* facet) override;
 
 protected:
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -113,7 +113,7 @@ class BodyRefFrame : public RefFrame {
  public:
 
    BodyRefFrame (void);
-   ~BodyRefFrame (void);
+   ~BodyRefFrame (void) override;
 
 };
 
@@ -127,7 +127,7 @@ BodyRefFrame::BodyRefFrame (
    void)
 :
    initialized_items(),
-   mass_point(NULL)
+   mass_point(nullptr)
 {
    ; // Empty
 }

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -47,7 +47,7 @@
      ((N/A))
 
  Library dependencies:
-    ((contact_ground.o))
+    ((../src/contact_ground.cc))
 
  
 
@@ -98,7 +98,7 @@ public:
    ContactGround ();
 
    // destructor
-   virtual ~ContactGround ();
+   ~ContactGround () override;
 
    /*
     Create the list of ground interfaces using the pairs list and set the

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ Assumptions and limitations:
   ((Take great care in mixing Trick integration and JEOD integration.))
 
 Library dependencies:
-  ((trick_dynbody_integ_loop.o))
+  ((../src/trick_dynbody_integ_loop.cc))
 
  
 
@@ -185,7 +185,7 @@ public:
    /**
     * JeodDynbodyIntegrationLoop destructor.
     */
-   virtual ~JeodDynbodyIntegrationLoop ();
+   ~JeodDynbodyIntegrationLoop () override;
 
 
    // Member functions
@@ -219,8 +219,8 @@ public:
     * @param group  The IntegrationGroup to be updated, which must be
     *               the integration loop's integration group object.
     */
-   virtual void update_integration_group (
-      JeodIntegrationGroup & group);
+   void update_integration_group (
+      JeodIntegrationGroup & group) override;
 
 
    /**
@@ -231,7 +231,7 @@ public:
     * @param sim_obj  The SimObject to be added to this loop object.
     * @return  Zero => success, non-zero => error.
     */
-   virtual int add_sim_object (Trick::SimObject & sim_obj);
+   int add_sim_object (Trick::SimObject & sim_obj) override; //cppcheck-suppress virtualCallInConstructor
 
 
    /**
@@ -252,7 +252,7 @@ public:
     * @param sim_obj  The SimObject to be removed from this loop object.
     * @return  Zero => success, non-zero => error.
     */
-   virtual int remove_sim_object (Trick::SimObject & sim_obj);
+   int remove_sim_object (Trick::SimObject & sim_obj) override;
 
 
    /**
@@ -294,7 +294,7 @@ public:
    virtual void set_deriv_ephem_update (bool val)
    {
       deriv_ephem_update = val;
-      if (integ_group != NULL) {
+      if (integ_group != nullptr) {
          integ_group->deriv_ephem_update = deriv_ephem_update;
       }
    }
@@ -348,7 +348,7 @@ protected:
     * @param beg_sim_time   The time at the start of the integration interval.
     * @param del_sim_time   The time span of the integration interval.
     */
-   virtual int integrate_dt (double beg_sim_time, double del_sim_time);
+   int integrate_dt (double beg_sim_time, double del_sim_time) override;
 
 
    // Member data

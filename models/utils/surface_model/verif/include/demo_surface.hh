@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -45,7 +45,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_surface.o)
+    (../src/demo_surface.cc)
 
  
 *******************************************************************************/
@@ -72,7 +72,7 @@ public:
    DemoSurface1();
 
    // destructor
-   virtual ~DemoSurface1();
+   ~DemoSurface1() override;
 
    DemoFacet1** demo_facets; /* trick_units(--) @n
       Array of facets to be tested */
@@ -80,11 +80,11 @@ public:
    unsigned int facets_size; /* trick_units(count) @n
       Size of the demo_facets array */
 
-   virtual void allocate_array(unsigned int size);
-   virtual void allocate_interaction_facet(Facet* facet,
+   void allocate_array(unsigned int size) override;
+   void allocate_interaction_facet(Facet* facet,
                                        InteractionFacetFactory* factory,
                                        FacetParams* params,
-                                       unsigned int index);
+                                       unsigned int index) override;
 
 protected:
 
@@ -108,7 +108,7 @@ public:
    DemoSurface2();
 
    // destructor
-   virtual ~DemoSurface2();
+   ~DemoSurface2() override;
 
    DemoFacet2** demo_facets; /* trick_units(--) @n
       Array of facets to be tested */
@@ -116,11 +116,11 @@ public:
    unsigned int facets_size; /* trick_units(count) @n
       Size of the demo_facets array */
 
-   virtual void allocate_array(unsigned int size);
-   virtual void allocate_interaction_facet(Facet* facet,
+   void allocate_array(unsigned int size) override;
+   void allocate_interaction_facet(Facet* facet,
                                        InteractionFacetFactory* factory,
                                        FacetParams* params,
-                                       unsigned int index);
+                                       unsigned int index) override;
 
 protected:
 

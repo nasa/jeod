@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((rel_kin_messages.o))
+  ((rel_kin_messages.cc))
 
 
 

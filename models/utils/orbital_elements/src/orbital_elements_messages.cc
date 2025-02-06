@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((orbital_elements_messages.o))
+  ((orbital_elements_messages.cc))
 
  
 

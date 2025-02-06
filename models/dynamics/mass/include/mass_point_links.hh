@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -92,7 +92,7 @@ class MassPointLinks :
     * Non-default constructor.
     * @param container_in The MassPoint object that contains this object.
     */
-   MassPointLinks (MassPoint & container_in)
+   explicit MassPointLinks (MassPoint & container_in)
    :
       TreeLinks<MassPointLinks, MassPoint, MassBodyMessages> (
          container_in, default_path_size)
@@ -107,7 +107,7 @@ class MassPointLinks :
    /**
     * Destructor.
     */
-   virtual ~MassPointLinks () = default;
+   ~MassPointLinks () override = default;
 
 
  private:

@@ -23,7 +23,7 @@ Assumptions and limitations:
   ((None))
 
 Library dependencies:
-  ((radiation_messages.o))
+  ((radiation_messages.cc))
 
 
 

@@ -7,14 +7,14 @@ Reference:
   ((TBS))
 
 Library dependencies:
-  ((new_orientation.o)
-   (orientation_messages.o)
-   (utils/message/message_handler.o)
-   (utils/quaternion/quat.o)
-   (utils/quaternion/quat_from_mat.o)
-   (utils/quaternion/quat_norm.o)
-   (utils/quaternion/quat_to_eigenrot.o)
-   (utils/quaternion/quat_to_mat.o))
+  ((new_orientation.cc)
+   (orientation_messages.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/quaternion/src/quat.cc)
+   (utils/quaternion/src/quat_from_mat.cc)
+   (utils/quaternion/src/quat_norm.cc)
+   (utils/quaternion/src/quat_to_eigenrot.cc)
+   (utils/quaternion/src/quat_to_mat.cc))
 
  
 *******************************************************************************/

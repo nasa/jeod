@@ -39,9 +39,9 @@ void gauss_quad_poly( size_t order, double lo, double hi) {
 
   double sum = 0.0;
   for (size_t ix = 0; ix <= gauss_order; ++ix) {
-    double true_x = lo + ((1+GaussQuadrature::gauss_xvalues[gauss_order][ix])/2.0) *(hi-lo);
+    double true_x = lo + ((1+jeod::GaussQuadrature::gauss_xvalues[gauss_order][ix])/2.0) *(hi-lo);
     sum += ((hi - lo) / 2) * poly( order, true_x) *
-             GaussQuadrature::gauss_weights[gauss_order][ix];
+             jeod::GaussQuadrature::gauss_weights[gauss_order][ix];
   }
   std::cout <<"Gauss quad value is "<< sum <<"\n";
   return;
@@ -61,8 +61,8 @@ int main()
   for (size_t gauss_order = 1; gauss_order <= 8; ++gauss_order) {
     double sum = 0.0;
     for (size_t ix = 0; ix < gauss_order; ++ix) {
-      double true_x = (1+GaussQuadrature::gauss_xvalues[gauss_order][ix]) * M_PI_4;
-      sum += M_PI_4 * sin(true_x) *  GaussQuadrature::gauss_weights[gauss_order][ix];
+      double true_x = (1+jeod::GaussQuadrature::gauss_xvalues[gauss_order][ix]) * M_PI_4;
+      sum += M_PI_4 * sin(true_x) *  jeod::GaussQuadrature::gauss_weights[gauss_order][ix];
     }
     std::cout <<"Gauss order "<< gauss_order <<" produces "<< sum <<"\n";
   }
@@ -71,8 +71,8 @@ int main()
   for (size_t gauss_order = 1; gauss_order <= 8; ++gauss_order) {
     double sum = 0.0;
     for (size_t ix = 0; ix < gauss_order; ++ix) {
-      double true_x = (1+GaussQuadrature::gauss_xvalues[gauss_order][ix]) * M_PI_2;
-      sum += M_PI_2 * cos(true_x) *  GaussQuadrature::gauss_weights[gauss_order][ix];
+      double true_x = (1+jeod::GaussQuadrature::gauss_xvalues[gauss_order][ix]) * M_PI_2;
+      sum += M_PI_2 * cos(true_x) *  jeod::GaussQuadrature::gauss_weights[gauss_order][ix];
     }
     std::cout <<"Gauss order "<< gauss_order <<" produces "<< sum <<"\n";
   }
@@ -81,8 +81,8 @@ int main()
   for (size_t gauss_order = 1; gauss_order <= 8; ++gauss_order) {
     double sum = 0.0;
     for (size_t ix = 0; ix < gauss_order; ++ix) {
-      double true_x = (1+GaussQuadrature::gauss_xvalues[gauss_order][ix]) * 2;
-      sum += 2 * sqrt(true_x) *  GaussQuadrature::gauss_weights[gauss_order][ix];
+      double true_x = (1+jeod::GaussQuadrature::gauss_xvalues[gauss_order][ix]) * 2;
+      sum += 2 * sqrt(true_x) *  jeod::GaussQuadrature::gauss_weights[gauss_order][ix];
     }
     std::cout <<"Gauss order "<< gauss_order <<" produces "<< sum <<"\n";
   }
@@ -91,8 +91,8 @@ int main()
   for (size_t gauss_order = 1; gauss_order <= 8; ++gauss_order) {
     double sum = 0.0;
     for (size_t ix = 0; ix < gauss_order; ++ix) {
-      double true_x = 1 + (1+GaussQuadrature::gauss_xvalues[gauss_order][ix]) * 0.5;
-      sum += 0.5 * (1/true_x) *  GaussQuadrature::gauss_weights[gauss_order][ix];
+      double true_x = 1 + (1+jeod::GaussQuadrature::gauss_xvalues[gauss_order][ix]) * 0.5;
+      sum += 0.5 * (1/true_x) *  jeod::GaussQuadrature::gauss_weights[gauss_order][ix];
     }
     std::cout <<"Gauss order "<< gauss_order <<" produces "<< sum <<"\n";
   }
@@ -101,8 +101,8 @@ int main()
   for (size_t gauss_order = 1; gauss_order <= 8; ++gauss_order) {
     double sum = 0.0;
     for (size_t ix = 0; ix < gauss_order; ++ix) {
-      double true_x = -1.0 + (1+GaussQuadrature::gauss_xvalues[gauss_order][ix]) * 1.5;
-      sum += 1.5 * (1/true_x) *  GaussQuadrature::gauss_weights[gauss_order][ix];
+      double true_x = -1.0 + (1+jeod::GaussQuadrature::gauss_xvalues[gauss_order][ix]) * 1.5;
+      sum += 1.5 * (1/true_x) *  jeod::GaussQuadrature::gauss_weights[gauss_order][ix];
     }
     std::cout <<"Gauss order "<< gauss_order <<" produces "<< sum <<"\n";
   }

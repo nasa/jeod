@@ -16,11 +16,11 @@ Purpose:
   ()
 
 Library dependencies:
-  ((gravity_manager.o)
-   (gravity_source.o)
-   (gravity_controls.o)
-   (gravity_messages.o)
-   (utils/message/message_handler.o))
+  ((gravity_manager.cc)
+   (gravity_source.cc)
+   (gravity_controls.cc)
+   (gravity_messages.cc)
+   (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -83,17 +83,17 @@ GravityManager::~GravityManager (
  */
 GravitySource *
 GravityManager::find_grav_source (
-   std::string source_name)
+   const std::string & source_name)
 const
 {
-   GravitySource * found_source = NULL;
+   GravitySource * found_source = nullptr;
    unsigned int nbodies     = sources.size();
 
    if ( source_name.empty() ) {
       MessageHandler::error (
          __FILE__, __LINE__, GravityMessages::invalid_name,
          "Null / empty string supplied to GravityManager::find_grav_source");
-      return NULL;
+      return nullptr;
    }
 
 
@@ -128,7 +128,7 @@ GravityManager::add_grav_source (
    }
 
    // Body names must be unique. Check for conflicts.
-   if ( find_grav_source(source.name ) != NULL ) {
+   if ( find_grav_source(source.name ) != nullptr ) {
       MessageHandler::fail (
          __FILE__, __LINE__, GravityMessages::duplicate_entry,
          "Duplicate planet name '%s'",
@@ -176,7 +176,7 @@ GravityManager::initialize_model (
  */
 void
 GravityManager::initialize_state (
-   BaseDynManager & manager)
+   const BaseDynManager & manager)
 {
 
    // Pass the initialize_state method to each gravitational body in the model.

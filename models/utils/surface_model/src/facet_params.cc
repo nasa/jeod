@@ -22,7 +22,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((facet_params.o))
+    ((facet_params.cc))
 
  
 *******************************************************************************/

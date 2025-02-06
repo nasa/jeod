@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -105,7 +105,7 @@ public:
     * This copies the Container contents, but not the Checkpointable contents.
     * @param source Primitive container to be copied.
     */
-   JeodPrimitiveContainer (
+   explicit JeodPrimitiveContainer (
       const typename ContainerType::stl_container_type & source)
    :
       JeodContainer<ContainerType, ElemType>(source)
@@ -146,7 +146,7 @@ public:
     * Return the value of the item to be written to the checkpoint file.
     * JeodPrimitiveContainer use the serializer to translate values to strings.
     */
-   virtual const std::string get_item_value (void)
+   const std::string get_item_value (void) override
    {
       return serializer.to_string (*this->checkpoint_iter);
    }
@@ -155,8 +155,7 @@ public:
     * Interpret the provided value and insert it at the end of the object.
     * JeodPrimitiveContainer use the serializer to interpret the input value.
     */
-   virtual void perform_insert_action (
-      const std::string & value)
+   void perform_insert_action (const std::string & value) override
    {
       this->insert (this->end(), serializer.from_string (value));
    }

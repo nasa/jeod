@@ -30,8 +30,8 @@ Class:
   (PrecessionJ2000)
 
 Library dependencies:
-  ((precession_j2000.o)
-   (environment/RNP/GenericRNP/planet_rotation.o))
+  ((precession_j2000.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation.cc))
 
  
 

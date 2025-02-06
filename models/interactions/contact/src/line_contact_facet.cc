@@ -15,10 +15,10 @@ Purpose:
   ()
 
 Library Dependencies:
-  ((contact_messages.o)
-   (line_contact_facet.o)
-   (line_contact_pair.o)
-   (line_point_contact_pair.o))
+  ((contact_messages.cc)
+   (line_contact_facet.cc)
+   (line_contact_pair.cc)
+   (line_point_contact_pair.cc))
 
 
 *******************************************************************************/
@@ -86,7 +86,7 @@ LineContactFacet::create_pair (
    // Allocate a ContactPair instance
    contact_pair = JEOD_ALLOC_CLASS_OBJECT (LineContactPair, ());
    // set the subject and target of the new pair
-   contact_pair->initialize_pair(this, NULL);
+   contact_pair->initialize_pair(this, nullptr);
 
    return contact_pair;
 }
@@ -110,27 +110,27 @@ LineContactFacet::create_pair (
    // attempt to cast the target to a LineContactFacet or PointContactFacet
    temp_line = dynamic_cast<LineContactFacet*> (target);
    temp_point = dynamic_cast<PointContactFacet*> (target);
-   if (temp_line == NULL && temp_point == NULL) {
+   if (temp_line == nullptr && temp_point == nullptr) {
       MessageHandler::warn (
          __FILE__, __LINE__, ContactMessages::initialization_warns,
          "The target ContactFacet passed into LineContactFacet::create_pair was "
          "not of type LineContactFacet or PointContactFAcet as required.");
 
-      return NULL;
+      return nullptr;
    }
-   if (temp_line == NULL) {
+   if (temp_line == nullptr) {
       LinePointContactPair * contact_pair;
       // Allocate a ContactPair instance
       contact_pair = JEOD_ALLOC_CLASS_OBJECT (LinePointContactPair, ());
 
       contact_pair->interaction = contact->find_interaction(surface_type, target->surface_type);
-      if (contact_pair->interaction == NULL) {
+      if (contact_pair->interaction == nullptr) {
          MessageHandler::warn (
                                __FILE__, __LINE__, ContactMessages::initialization_warns,
                                "No interaction type could be found for the surface types of these ContactFacets.");
 
          JEOD_DELETE_OBJECT(contact_pair);
-         return NULL;
+         return nullptr;
       }
 
       // set the subject and target of the new pair
@@ -146,13 +146,13 @@ LineContactFacet::create_pair (
       contact_pair = JEOD_ALLOC_CLASS_OBJECT (LineContactPair, ());
 
       contact_pair->interaction = contact->find_interaction(surface_type, target->surface_type);
-      if (contact_pair->interaction == NULL) {
+      if (contact_pair->interaction == nullptr) {
          MessageHandler::warn (
                                __FILE__, __LINE__, ContactMessages::initialization_warns,
                                "No interaction type could be found for the surface types of these ContactFacets.");
 
          JEOD_DELETE_OBJECT(contact_pair);
-         return NULL;
+         return nullptr;
       }
 
       // set the subject and target of the new pair

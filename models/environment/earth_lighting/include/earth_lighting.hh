@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ ASSUMPTIONS AND LIMITATIONS:
      (The DynManager that the EarthLighting object is initialized from must
       include ephemeris objects named specifically "Earth", "Moon" and "Sun"))
 LIBRARY DEPENDENCY:
-    ((earth_lighting.o))
+    ((../src/earth_lighting.cc))
 
 ******************************************************************************/
 
@@ -192,7 +192,7 @@ public:
    int circle_intersect (
       double r_bottom, double r_top, double d_centers, double* area);
 
-   void calc_lighting (double pos_veh[3]);
+   void calc_lighting (const double pos_veh[3]);
 
    /**
     * flag for if the model is active or not

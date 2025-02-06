@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -45,7 +45,7 @@ ASSUMPTIONS AND LIMITATIONS:
   (none)
 
 LIBRARY DEPENDENCY:
-  ((test_job_cycle.o))
+  ((../src/test_job_cycle.cc))
 
  
 ************************************************************************/
@@ -55,8 +55,8 @@ LIBRARY DEPENDENCY:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/sim_interface/include/simulation_interface.hh"
-#ifndef _TEST_JOB_CYCLE_TIME_H_
-#define _TEST_JOB_CYCLE_TIME_H_
+#ifndef TEST_JOB_CYCLE_TIME_H_
+#define TEST_JOB_CYCLE_TIME_H_
 
 //! Namespace jeod
 namespace jeod {

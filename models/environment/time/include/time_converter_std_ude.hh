@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,7 +61,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_converter_std_ude.o))
+  ((../src/time_converter_std_ude.cc))
 *******************************************************************************/
 
 #ifndef JEOD_TIME_CONVERTER_STD_UDE_HH
@@ -114,20 +114,20 @@ public:
   // Constructor
    TimeConverter_STD_UDE ();
   // Destructor
-   ~TimeConverter_STD_UDE ();
+   ~TimeConverter_STD_UDE () override;
 
-   void reset_a_to_b_offset (void);
+   void reset_a_to_b_offset (void) override;
 
   // Initialize the converter
    void initialize (JeodBaseTime * parent,
                     JeodBaseTime * child,
-                    const int direction);
+                    const int direction) override;
 
   // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void);
+   void convert_a_to_b (void) override;
 
   // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void);
+   void convert_b_to_a (void) override;
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.

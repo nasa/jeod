@@ -16,7 +16,7 @@ Purpose:
    ()
 
 Library dependencies:
-   ((memory_interface.o))
+   ((memory_interface.cc))
 
  
 

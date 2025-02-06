@@ -24,13 +24,13 @@ Assumptions and limitations:
   ((none))
 
 Library dependencies:
-  ((planet_orientation.o)
-   (RNP_messages.o)
-   (dynamics/dyn_manager/dyn_manager.o)
-   (environment/planet/planet.o)
-   (utils/ref_frames/ref_frame_state.o)
-   (utils/message/message_handler.o)
-   (utils/quaternion/quat_from_mat.o))
+  ((planet_orientation.cc)
+   (RNP_messages.cc)
+   (dynamics/dyn_manager/src/dyn_manager.cc)
+   (environment/planet/src/planet.cc)
+   (utils/ref_frames/src/ref_frame_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/quaternion/src/quat_from_mat.cc))
 
  
 
@@ -60,9 +60,9 @@ PlanetOrientation::PlanetOrientation (
    void)
 :
    active(true),
-   planet(NULL),
+   planet(nullptr),
    name(),
-   planet_rot_state(NULL),
+   planet_rot_state(nullptr),
    planet_omega(0.0)
 {
    ;
@@ -103,12 +103,13 @@ PlanetOrientation::initialize (
 
    planet = dyn_manager.find_planet (name.c_str());
 
-   if (planet == NULL) {
+   if (planet == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::initialization_error,
          "Planet %s specified in PlanetOrientation::initialize"
          " was not found", name.c_str());
+      return;
    }
 
    // initialize everything relevant in the

@@ -16,18 +16,18 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (dynamics/dyn_body/dyn_body_set_state.o)
-   (dynamics/mass/mass.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/orientation/orientation.o)
-   (utils/quaternion/quat_from_mat.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/named_item/named_item.o))
+  ((dyn_body_init.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (dynamics/dyn_body/src/dyn_body_set_state.cc)
+   (dynamics/mass/src/mass.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/orientation/src/orientation.cc)
+   (utils/quaternion/src/quat_from_mat.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/named_item/src/named_item.cc))
 
 
 
@@ -140,7 +140,7 @@ DynBodyInit::initialize (
          body_frame_id = "composite_body";
       }
       body_ref_frame =
-         find_body_frame (*dyn_subject, body_frame_id.c_str(), "body_frame_id");
+         find_body_frame (*dyn_subject, body_frame_id, "body_frame_id");
    }
 
 
@@ -149,7 +149,7 @@ DynBodyInit::initialize (
    // search is not needed.
    if (reference_ref_frame == nullptr) {
       reference_ref_frame =
-         find_ref_frame (dyn_manager, reference_ref_frame_name.c_str(),
+         find_ref_frame (dyn_manager, reference_ref_frame_name,
                          "reference_ref_frame_name");
    }
 
@@ -427,7 +427,7 @@ DynBodyInit::compute_translational_state (
  */
 Planet *
 DynBodyInit::find_planet (
-   DynManager & dyn_manager,
+   const DynManager & dyn_manager,
    const std::string & planet_name,
    const std::string & variable_name)
 {
@@ -464,7 +464,7 @@ DynBodyInit::find_planet (
  */
 DynBody *
 DynBodyInit::find_dyn_body (
-   DynManager & dyn_manager,
+   const DynManager & dyn_manager,
    const std::string & dyn_body_name,
    const std::string & variable_name)
 {
@@ -501,7 +501,7 @@ DynBodyInit::find_dyn_body (
  */
 RefFrame *
 DynBodyInit::find_ref_frame (
-   DynManager & dyn_manager,
+   const DynManager & dyn_manager,
    const std::string & ref_frame_name,
    const std::string & variable_name)
 {

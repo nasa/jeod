@@ -24,9 +24,9 @@
     (N/A)
 
   LIBRARY DEPENDENCY:
-    ((mass_properties.o)
-    (mass_point.o)
-    (mass_point_state.o))
+    ((mass_properties.cc)
+    (mass_point.cc)
+    (mass_point_state.cc))
 
 
 *******************************************************************************/

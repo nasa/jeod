@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@
  ((N/A))
 
  Library dependencies:
- ((point_contact_pair.o))
+ ((../src/point_contact_pair.cc))
 
  
 
@@ -99,15 +99,15 @@ public:
    PointContactPair();
 
    // destructor
-   virtual ~PointContactPair();
+   ~PointContactPair() override;
 
    // function that determines of a if the facets are in contact.
-   virtual void in_contact();
+   void in_contact() override;
 
    // initialize the contact pair, creating relstates if possible.
-   virtual void initialize_pair(
+   void initialize_pair(
       ContactFacet * subject_facet,
-      ContactFacet * target_facet);
+      ContactFacet * target_facet) override;
 
 private:
 

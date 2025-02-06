@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library Dependency:
-  ((trick10_memory_interface.o)
-   (trick_memory_interface.o)
-   (trick_memory_interface_alloc.o)
-   (trick_memory_interface_attrib.o)
-   (trick_memory_interface_chkpnt.o)
-   (trick_memory_interface_xlate.o)
-   (memory_interface.o))
+  ((trick10_memory_interface.cc)
+   (trick_memory_interface.cc)
+   (trick_memory_interface_alloc.cc)
+   (trick_memory_interface_attrib.cc)
+   (trick_memory_interface_chkpnt.cc)
+   (trick_memory_interface_xlate.cc)
+   (memory_interface.cc))
 
  
 
@@ -70,7 +70,7 @@ JeodTrick10MemoryInterface::JeodTrick10MemoryInterface (
       trick_MM->get_CheckPointAgent());
    trick_MM->set_CheckPointAgent(current_agent);
 
-   if (trick_checkpoint_agent == NULL) {
+   if (trick_checkpoint_agent == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, SimInterfaceMessages::interface_error,
          "Trick checkpoint agent is not accessible.");

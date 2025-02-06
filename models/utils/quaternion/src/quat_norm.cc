@@ -22,7 +22,7 @@ Assumptions and limitations:
   ((IEEE 754 / IEC 60559:1989 double precision floating point standard.))
 
 Library dependencies:
-  ((quat_norm.o))
+  ((quat_norm.cc))
 
  
 

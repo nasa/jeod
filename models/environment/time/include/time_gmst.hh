@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
 
 
 Library dependencies:
-  ((time_gmst.o))
+  ((../src/time_gmst.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_GMST_HH
@@ -90,18 +90,18 @@ public:
   // Constructor
    TimeGMST ();
   // Destructor
-   ~TimeGMST ();
+   ~TimeGMST () override;
 
    void set_time_by_trunc_julian (const double nonsense);
 
 private:
 
-   void calculate_calendar_values (void);
+   void calculate_calendar_values (void) override;
 
    /**
     * No action. Function is required to make this class instantiable.
     */
-   void set_epoch(void) {}
+   void set_epoch(void) override {}
 
  // The copy constructor and assignment operator for this class are
  // declared private and are not implemented.

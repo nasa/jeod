@@ -18,8 +18,8 @@ Purpose:
   ()
 
 LIBRARY DEPENDENCY:
-  ((de4xx_ephem_dynmanager.o)
-   (de4xx_ephem.o))
+  ((de4xx_ephem_dynmanager.cc)
+   (de4xx_ephem.cc))
 
 
 *******************************************************************************/
@@ -50,7 +50,7 @@ void
 De4xxEphemeris::initialize_model (
    const TimeManager & time_manager,
    DynManager & dyn_manager,
-   std::string  time_type)
+   const std::string & time_type)
 {
    initialize_model (
       time_manager, static_cast<EphemeridesManager &>(dyn_manager), time_type);

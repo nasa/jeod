@@ -16,8 +16,8 @@ Purpose:
   ()
 
 Library Dependency:
-  ((trick_memory_interface_alloc.o)
-   (trick_memory_interface.o))
+  ((trick_memory_interface_alloc.cc)
+   (trick_memory_interface.cc))
 
  
 
@@ -108,7 +108,7 @@ JeodTrickMemoryInterface::register_allocation (
            context.n_stars,
            context.var_name,
            context.n_cdims,
-           context.cdims) == NULL)) {
+           context.cdims) == nullptr)) {
 
       // Handle failed parse / failed registration.
       MessageHandler::error (

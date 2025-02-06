@@ -18,10 +18,10 @@ Purpose:
   ()
 
 Library dependencies:
-  ((spherical_harmonics_calc_nonspherical.o)
-   (spherical_harmonics_delta_controls.o)
-   (spherical_harmonics_gravity_source.o)
-   (environment/planet/planet.o))
+  ((spherical_harmonics_calc_nonspherical.cc)
+   (spherical_harmonics_delta_controls.cc)
+   (spherical_harmonics_gravity_source.cc)
+   (environment/planet/src/planet.cc))
 
 
 *******************************************************************************/
@@ -54,18 +54,19 @@ namespace jeod {
  */
 void
 SphericalHarmonicsGravityControls::calc_nonspherical (
-   const double posn[3],
-   double body_grav_accel[3],
-   double dgdx[3][3],
-   double  Pot[1])
-
+        const double integ_pos[3] __attribute__ ((unused)),
+        const double posn[3],
+        const GravityIntegFrame& grav_source_frame __attribute__ ((unused)),
+        double body_grav_accel[3],
+        double dgdx[3][3],
+        double&  pot)
 {
 
    // Compute position vector magnitude (distance to the attractor)
    double r_mag = Vector3::vmag (posn);
 
    // Check if radial distance is less than equatorial radius
-   if ((r_mag < harmonics_source->radius) & !min_radius_warn) {
+   if ((r_mag < harmonics_source->radius) && !min_radius_warn) {
       min_radius_warn = true;
       MessageHandler::warn (
          __FILE__, __LINE__, GravityMessages::domain_error,
@@ -168,9 +169,8 @@ SphericalHarmonicsGravityControls::calc_nonspherical (
    double Sums        = 0.0;
    double Sumt        = 0.0;
 
-   double Sumh_N      = 0.0;
-   double Sumj_N      = 0.0;
-   double Sumk_N      = 0.0;
+   double Sumj_N;
+   double Sumk_N;
    double Suml_N      = 0.0;
    double Summ_N      = 0.0;
    double Sumn_N      = 0.0;
@@ -180,10 +180,8 @@ SphericalHarmonicsGravityControls::calc_nonspherical (
    double Sumr_N      = 0.0;
    double Sums_N      = 0.0;
    double Sumt_N      = 0.0;
-   double Sumv_N      = 0.0;
 
    double Sumh_grad_N = 0.0;
-   double Sumgam_N    = 0.0;
    double Sumgam_grad_N = 0.0;
 
    double C_tilde[degree + 1];
@@ -192,29 +190,24 @@ SphericalHarmonicsGravityControls::calc_nonspherical (
    double Lambda      = 0.0;
 
    double * P_ii;
-   double * P_iim1;
-   double * P_iim2;
    double * C_ii;
    double * S_ii;
    double * zeta_ii;
    double * xi_ii;
-   double * eta_ii;
-   double * upsilon_ii;
 
-   double C_iijj          = 0.0;
-   double S_iijj          = 0.0;
+   double C_iijj;
+   double S_iijj;
 
-   double jj_x_Piijj      = 0.0;
-   double B_tilde         = 0.0;
-   double B_tilde_m1      = 0.0;
-   double A_tilde_m1      = 0.0;
-   double Piijj_x_Btilde  = 0.0;
-   double zetaiijj_x_Piijjp1 = 0.0;
+   double jj_x_Piijj;
+   double B_tilde; 
+   double B_tilde_m1; 
+   double A_tilde_m1; 
+   double Piijj_x_Btilde;
+   double zetaiijj_x_Piijjp1;
 
-   double dbl_iip1        = 0.0;
-   double dbl_jj          = 0.0;
-   double dbl_jjp1        = 0.0;
-   double dbl_jjm1        = 0.0;
+   double dbl_jj; 
+   double dbl_jjp1; 
+   double dbl_jjm1; 
 
    bool ii_grad_deg_nonzero;
    bool grad_order_nonzero;
@@ -250,12 +243,12 @@ SphericalHarmonicsGravityControls::calc_nonspherical (
       P_ii = &(Pnm[ii][0]);
       S_ii = &(harmonics_source->Snm[ii][0]);
       xi_ii = &(harmonics_source->xi[ii][0]);
-      eta_ii = &(harmonics_source->eta[ii][0]);
+      double * eta_ii = &(harmonics_source->eta[ii][0]);
       zeta_ii = &(harmonics_source->zeta[ii][0]);
-      upsilon_ii = &(harmonics_source->upsilon[ii][0]);
+      double * upsilon_ii = &(harmonics_source->upsilon[ii][0]);
 
-      P_iim1 = &(Pnm[ii-1][0]);
-      P_iim2 = &(Pnm[ii-2][0]);
+      double * P_iim1 = &(Pnm[ii-1][0]);
+      double * P_iim2 = &(Pnm[ii-2][0]);
 
       rad_div_r_nth = rad_div_r_nth * rad_div_r;
 
@@ -274,11 +267,11 @@ SphericalHarmonicsGravityControls::calc_nonspherical (
       P_ii[1] = xi_ii[1] * Epilson * P_iim1[1] - eta_ii[1] * P_iim2[1];
 
 
-      dbl_iip1 = harmonics_source->int_to_double[ii+1];
+      double dbl_iip1 = harmonics_source->int_to_double[ii+1];
 
-      Sumv_N   = P_ii[0] * C_ii[0];
-      Sumh_N   = P_ii[1] * C_ii[0] * zeta_ii[0];
-      Sumgam_N = Sumv_N * dbl_iip1;
+      double Sumv_N   = P_ii[0] * C_ii[0];
+      double Sumh_N   = P_ii[1] * C_ii[0] * zeta_ii[0];
+      double Sumgam_N = Sumv_N * dbl_iip1;
 
       for (unsigned int jj = 2; jj <= (ii - 2); ++jj) {
          // Equation (7-12)
@@ -415,7 +408,7 @@ SphericalHarmonicsGravityControls::calc_nonspherical (
 
    } // next n
 
-   *Pot   = mu_div_r * Sumv; // gravitational potential
+   pot   = mu_div_r * Sumv; // gravitational potential
    Lambda = Sumgam + Epilson * Sumh;
 
    // Equation (4-13)

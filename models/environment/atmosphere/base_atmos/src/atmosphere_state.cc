@@ -41,8 +41,8 @@ AtmosphereState::AtmosphereState ()
    temperature(0.0),
    density(0.0),
    pressure(0.0),
-   atmos(NULL),
-   pfix_pos(NULL)
+   atmos(nullptr),
+   pfix_pos(nullptr)
 {
    Vector3::initialize (wind);
 }
@@ -97,7 +97,7 @@ AtmosphereState::AtmosphereState (
 
 
 AtmosphereState&
-AtmosphereState::operator = (
+AtmosphereState::operator = ( // cppcheck-suppress operatorEqVarError
    const AtmosphereState& rhs)
 {
 
@@ -127,7 +127,7 @@ AtmosphereState::update_state (
    PlanetFixedPosition * pfix_pos_)
 {
    // Only call this update routine if model is set and active.
-   if (active && (atmos_model_ != NULL)) {
+   if (active && (atmos_model_ != nullptr)) {
       atmos_model_->update_atmosphere (pfix_pos_, this);
    }
 }
@@ -145,7 +145,7 @@ void
 AtmosphereState::update_state ()
 {
    // Only call this update routine if model is set and active.
-   if (active && (atmos != NULL)) {
+   if (active && (atmos != nullptr)) {
       atmos->update_atmosphere (pfix_pos, this);
    }
 }
@@ -168,7 +168,7 @@ AtmosphereState::update_wind (
 {
 
    // Only call this update routine if model is set and active.
-   if (active && (wind_vel != NULL)) {
+   if (active && (wind_vel != nullptr)) {
       wind_vel->update_wind (inrtl_pos, altitude, wind);
    }
    return;

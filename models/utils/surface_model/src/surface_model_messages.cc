@@ -25,7 +25,7 @@ Class:
    (None)
 
 Library dependencies:
-  ((surface_model_messages.o))
+  ((surface_model_messages.cc))
 
  
 

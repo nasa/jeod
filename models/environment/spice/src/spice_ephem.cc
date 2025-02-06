@@ -19,11 +19,11 @@ Assumptions and limitations:
 ((The JPL SPICE system uses TDB time.))
 
 Library Dependencies:
-((environment/ephemerides/ephem_interface/ephem_messages.o)
- (environment/time/time_manager.o)
- (utils/named_item/named_item.o)
- (utils/memory/memory_manager_static.o)
- (utils/message/message_handler.o))
+((environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+ (environment/time/src/time_manager.cc)
+ (utils/named_item/src/named_item.cc)
+ (utils/memory/src/memory_manager_static.cc)
+ (utils/message/src/message_handler.cc))
 
 
 
@@ -70,9 +70,9 @@ SpiceEphemeris::SpiceEphemeris (
    force_update(false),
    ident("SPICE"),
    update_time(-99e99),
-   root_item(NULL),
-   tdb_seconds(NULL),
-   dyn_seconds(NULL)
+   root_item(nullptr),
+   tdb_seconds(nullptr),
+   dyn_seconds(nullptr)
 {
 
 
@@ -249,7 +249,7 @@ SpiceEphemeris::initialize_time (
 
    // Test that an ephemeris time (TDB) object exists; if it does not, then
    // method time_manager.get_time_ptr("TDB") will return a NULL pointer.
-   if ((time_manager.get_time_ptr ("TDB")) == NULL) {
+   if ((time_manager.get_time_ptr ("TDB")) == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Could not find the TDB Time object.");
@@ -459,7 +459,7 @@ SpiceEphemeris::process_orientations (
 void
 SpiceEphemeris::populate_item (
    EphemerisItem & item,
-   std::string object_name)
+   const std::string & object_name)
 {
    item.set_name(object_name.c_str(), item.default_suffix());
    item.set_owner(this);
@@ -478,7 +478,7 @@ SpiceEphemeris::populate_item (
 SpiceEphemPoint *
 SpiceEphemeris::create_new_ephem_point (
    std::string object_name,
-   std::string spice_name)
+   const std::string & spice_name)
 {
 
    // Dynamically allocate new object.
@@ -496,7 +496,7 @@ SpiceEphemeris::create_new_ephem_point (
          "Unable to find a SPICE ID for specified SpiceEphemPoint name.");
 
       // Not reached.
-      return NULL;
+      return nullptr;
       }
 
    new_point->set_spice_id (found_id);
@@ -554,7 +554,7 @@ SpiceEphemeris::initialize_items (
 
    // Protect for inability to find a root frame. This means no spk files have
    // been loaded, so no reference frame tree can be built.
-   if (root_item == NULL) {
+   if (root_item == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::null_pointer,
          "Unable to find a frame tree root; try loading a SPICE spk file.");
@@ -580,7 +580,7 @@ SpiceEphemeris::introduce_item (
    ephem_mngr_local->add_ephem_item (item);
 
    // Protect for inability to find target frame, just in case.
-   if (item.get_target_frame() == NULL) {
+   if (item.get_target_frame() == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Unable to find target frame for EphemerisItem '%s'",
@@ -684,11 +684,11 @@ SpiceEphemeris::add_barycenter (
    bodc2n_c (id, MAX_NAME_LENGTH, spice_name, &found);
 
    // Create the new barycenter and add it to the array of such.
-   loaded_spk.push_back (create_new_ephem_point (jeod_name.c_str(),
+   loaded_spk.push_back (create_new_ephem_point (jeod_name,
       spice_name));
 
    // Register associated frame with the ephemeris manager.
-   if (ephem_mngr_local->find_ref_frame (frame_name.c_str()) == NULL) {
+   if (ephem_mngr_local->find_ref_frame (frame_name.c_str()) == nullptr) {
       ephem_mngr_local->add_integ_frame (barycenter_frames[id]);
    }
 
@@ -757,7 +757,7 @@ SpiceEphemeris::determine_root_node (
 
    // Nothing is extant: there is no root.
    if (loaded_spk.size() == 0) {
-      root_item = NULL;
+      root_item = nullptr;
       return;
    }
 
@@ -777,11 +777,11 @@ SpiceEphemeris::determine_root_node (
       // 0 through 9, with SSBary being zero, the search can be neatly
       // accomplished by a single search loop which stops on the first
       // barycenter it finds.
-      SpiceEphemPoint * found_bary = NULL;
+      SpiceEphemPoint * found_bary = nullptr;
       for (int ii = 0; ii < 10; ++ii) {
 
          found_bary = find_spice_id (ii);
-         if (found_bary != NULL) {
+         if (found_bary != nullptr) {
             root_item = found_bary;
             break;
          }
@@ -907,7 +907,7 @@ SpiceEphemeris::ephem_build_tree (
 
    // Protect for inability to find a root frame. This means no spk files have
    // been loaded, so no reference frame tree can be built.
-   if (root_item == NULL) {
+   if (root_item == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::null_pointer,
          "Unable to find a frame tree root; try loading a SPICE spk file.");
@@ -922,7 +922,7 @@ SpiceEphemeris::ephem_build_tree (
       "Adding root %s.\n", root_item->get_target_frame()->get_name());
 
    // Build the tree with root_item as the root.
-   ephem_manager.add_frame_to_tree (*(root_item->get_target_frame()), NULL);
+   ephem_manager.add_frame_to_tree (*(root_item->get_target_frame()), nullptr);
    add_descendants_r (root_item);
 
    return;
@@ -966,7 +966,7 @@ SpiceEphemeris::find_spice_id (
    int id_to_find)
 {
 
-   SpiceEphemPoint * found_object = NULL;
+   SpiceEphemPoint * found_object = nullptr;
    for (unsigned int ii = 0; ii < loaded_spk.size(); ++ii) {
 
       if (loaded_spk[ii]->get_spice_id() == id_to_find) {
@@ -1023,7 +1023,7 @@ SpiceEphemeris::update_trans (
    const double null_vec[3] = {0.0, 0.0, 0.0};
 
    // Update the root if it is owned by this model.
-   if (root_item != NULL) {
+   if (root_item != nullptr) {
       root_item->update (null_vec, null_vec, update_time);
    }
 

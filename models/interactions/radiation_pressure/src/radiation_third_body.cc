@@ -24,9 +24,9 @@ ASSUMPTIONS AND LIMITATIONS:
 CLASS:
     (None)
 LIBRARY DEPENDENCY:
-    ((radiation_third_body.o)
-     (radiation_messages.o)
-     (utils/message/message_handler.o))
+    ((radiation_third_body.cc)
+     (radiation_messages.cc)
+     (utils/message/src/message_handler.cc))
 
 
 ******************************************************************************/
@@ -56,20 +56,20 @@ namespace jeod {
  */
 RadiationThirdBody::RadiationThirdBody ()
    :
-   primary_source_ptr(NULL),
+   primary_source_ptr(nullptr),
    shadow_geometry(Conical),
    force_state_update(true),
    name(),
    active(true),
    update_interval(0.0),
    radius(0.0),
-   local_frame_ptr(NULL),
+   local_frame_ptr(nullptr),
 
    added_to_model(false),
    initialized(false),
    illum_factor(1.0),
    last_update_time(0.0),
-   planet_link(NULL),
+   planet_link(nullptr),
    r_plus(0.0),
    r_minus(0.0),
    r_ratio(0.0),
@@ -99,9 +99,10 @@ RadiationThirdBody::initialize (
          "Name must be specified in order to identify the body.\n"
          "Unable to proceed.  Terminating.\n");
       // fail out at this point.  DO NOT PROCEED.
+      return;
    }
 
-   if (primary_source_ptr == NULL) {
+   if (primary_source_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "Initializing the RadiationThirdBody named (%s) without specifying\n"
@@ -112,9 +113,10 @@ RadiationThirdBody::initialize (
          "Check documentation on how to configure this model.\n"
          "Unable to proceed.  Terminating.\n", name.c_str());
       // fail out at this point.  DO NOT PROCEED.
+      return;
    }
 
-   if (primary_source_ptr->inertial_frame_ptr == NULL) {
+   if (primary_source_ptr->inertial_frame_ptr == nullptr) {
       MessageHandler::fail(
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "While initializing the RadiationThirdBody named (%s), it was\n"
@@ -122,6 +124,7 @@ RadiationThirdBody::initialize (
          "(inertial_frame_ptr) has not been set.  This pointer must be\n"
          "set before the RadiationThirdBody can be initialized.\n", name.c_str());
       // fail out at this point.  DO NOT PROCEED.
+      return;
    }
 
    if (primary_source_ptr->radius <= 0.0) {
@@ -132,25 +135,27 @@ RadiationThirdBody::initialize (
          "This radius must be positive and must be set\n"
          "before the RadiationThirdBody can be initialized.\n", name.c_str());
       // fail out at this point.  DO NOT PROCEED.
+      return;
    }
 
    planet_link = dyn_mgr_ptr->find_planet (name.c_str());
-   if (planet_link == NULL) {
+   if (planet_link == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "Tried to initialize a Third Body with a name (%s) that is not\n"
          "recognized in the Dynamics Manager's list of planetary bodies or\n"
          "dynamic bodies.\nUnable to proceed.  Terminating.\n", name.c_str());
       // fail out at this point.  DO NOT PROCEED.
+      return;
    }
 
 //  TODO STUB:  This section allows for assignment of a RadiationThirdBody
 //  tag to a DynBody.  That is not necessary at this time.
 //  Replace failure outcome above by providing option to test "name" for being
 //  the name of a DynBody:
-//   if (planet_link == NULL) {
+//   if (planet_link == nullptr) {
 //      DynBody * dyn_body_link = dyn_mgr_ptr->find_dyn_body (name.c_str());
-//      if (dyn_body_link == NULL) {
+//      if (dyn_body_link == nullptr) {
 //         FAIL_OUT (both cases failed)
 //      }
 //      local_frame_ptr = &(dyn_body_link->composite_body);
@@ -163,7 +168,7 @@ RadiationThirdBody::initialize (
 //       subscribe_to_frame = planet_link->inertial;
 //   }
    local_frame_ptr = &(planet_link->pfix);
-   if (local_frame_ptr == NULL) {
+   if (local_frame_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RadiationMessages::invalid_setup_error, "\n"
          "Could not find a pfix frame associated with planet (%s)\n"

@@ -16,23 +16,23 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body.o)
-   (dyn_body_attach.o)
-   (dyn_body_collect.o)
-   (dyn_body_detach.o)
-   (dyn_body_find_body_frame.o)
-   (dyn_body_integration.o)
-   (dyn_body_initialize_model.o)
-   (dyn_body_propagate_state.o)
-   (dyn_body_set_state.o)
-   (dyn_body_vehicle_point.o)
-   (aux_classes.o)
-   (force.o)
-   (torque.o)
-   (dynamics/dyn_manager/dynamics_integration_group.o)
-   (dynamics/mass/mass.o)
-   (environment/gravity/gravity_interaction.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body.cc)
+   (dyn_body_attach.cc)
+   (dyn_body_collect.cc)
+   (dyn_body_detach.cc)
+   (dyn_body_find_body_frame.cc)
+   (dyn_body_integration.cc)
+   (dyn_body_initialize_model.cc)
+   (dyn_body_propagate_state.cc)
+   (dyn_body_set_state.cc)
+   (dyn_body_vehicle_point.cc)
+   (aux_classes.cc)
+   (force.cc)
+   (torque.cc)
+   (dynamics/dyn_manager/src/dynamics_integration_group.cc)
+   (dynamics/mass/src/mass.cc)
+   (environment/gravity/src/gravity_interaction.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -68,6 +68,7 @@ DynBody::DynBody ()
    integ_frame(nullptr),
    translational_dynamics(false),
    rotational_dynamics(false),
+   compute_point_derivative(false),
    three_dof(false),
    rotation_integration(GeneralizedSecondOrderODETechnique::LieGroup),
    autoupdate_vehicle_points(true),
@@ -157,7 +158,7 @@ DynBody::~DynBody ()
 }
 
 void
-DynBody::set_name ( std::string name_in )
+DynBody::set_name ( const std::string & name_in )
 {
     mass.set_name(name_in);
 }

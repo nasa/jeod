@@ -21,14 +21,14 @@ ASSUMPTIONS AND LIMITATIONS:
   ((None))
 
 LIBRARY DEPENDENCY:
-  ((time_converter_std_ude.o)
-   (time_converter.o)
-   (time.o)
-   (time_standard.o)
-   (time_ude.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((time_converter_std_ude.cc)
+   (time_converter.cc)
+   (time.cc)
+   (time_standard.cc)
+   (time_ude.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
  
 ******************************************************************************/
@@ -58,8 +58,8 @@ namespace jeod {
 TimeConverter_STD_UDE::TimeConverter_STD_UDE (
    void)
 {
-   std_ptr               = NULL;
-   ude_ptr               = NULL;
+   std_ptr               = nullptr;
+   ude_ptr               = nullptr;
    failed_null_test      = false;
    a_name                = "";
    b_name                = "";
@@ -98,9 +98,10 @@ TimeConverter_STD_UDE::initialize (
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
          "Illegal value of int_dir in STD->UDE initializer");
+      return;
    }
 
-   if ((std_ptr == NULL) && (ude_ptr == NULL) && !failed_null_test) {
+   if ((std_ptr == nullptr) && (ude_ptr == nullptr) && !failed_null_test) {
       MessageHandler::warn (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
          "Failed to initialize both sides of the converter between %s and %s.\n"
@@ -110,22 +111,25 @@ TimeConverter_STD_UDE::initialize (
 
       initialize (parent_ptr, child_ptr, (int_dir * -1));
       failed_null_test = true;
+      return;
    }
 
-   if (std_ptr == NULL) {
+   if (std_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
          "Failed to initialize the STD side of the converter between %s and %s.\n"
          "Neither type is a standard time-type.\n",
          parent_ptr->name.c_str(), child_ptr->name.c_str());
+      return;
    }
 
-   if (ude_ptr == NULL) {
+   if (ude_ptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
          "Failed to initialize the UDE side of the converter between %s and %s.\n"
          "Neither type is a UDE time-type.\n",
          parent_ptr->name.c_str(), child_ptr->name.c_str());
+      return;
    }
 
    a_to_b_offset    = ude_ptr->seconds - std_ptr->seconds;

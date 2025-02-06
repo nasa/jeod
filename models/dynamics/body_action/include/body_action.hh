@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_action.o))
+  ((../src/body_action.cc))
 
 
 
@@ -194,8 +194,8 @@ class BodyAction {
    std::string action_identifier; //!< trick_units(--)
 
    // Check the dyn and mass body pointers to make sure one is set.
-   virtual void validate_body_inputs(DynBody *& dyn_body_in, MassBody *& mass_body_in,
-           const std::string & body_base_name);
+   virtual bool validate_body_inputs(DynBody *& dyn_body_in, MassBody *& mass_body_in,
+           const std::string & body_base_name, bool allow_failure = false);
 
 
  // Member functions
@@ -217,7 +217,7 @@ class BodyAction {
    virtual ~BodyAction ();
 
    // Release allocated resources
-   virtual void shutdown ();
+   virtual void shutdown (); //cppcheck-suppress virtualCallInConstructor
 
 
    // get_identifier(): Accessor for the action_identifier.
@@ -251,8 +251,8 @@ class BodyAction {
    // validate_name: Ensure that a string is not trivially invalid.
    void validate_name (
       const std::string & variable_value,
-      const std::string & variable_type,
-      const std::string & variable_name);
+      const std::string & variable_name,
+      const std::string & variable_type);
 
 };
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_detach_specific.o))
+  ((../src/body_detach_specific.cc))
 
 
 
@@ -142,16 +142,16 @@ class BodyDetachSpecific : public BodyAction {
    BodyDetachSpecific ();
 
    // Destructor.
-   virtual ~BodyDetachSpecific ();
+   ~BodyDetachSpecific () override;
 
    // initialize: Initialize the initializer.
-   virtual void initialize (DynManager & dyn_manager);
+   void initialize (DynManager & dyn_manager) override;
 
    // apply: Detach the body from its parent body.
-   virtual void apply (DynManager & dyn_manager);
+   void apply (DynManager & dyn_manager) override;
 
    // is_ready: Is the action ready? (In this case, is the active flag set?)
-   virtual bool is_ready (void);
+   bool is_ready (void) override;
 
 };
 

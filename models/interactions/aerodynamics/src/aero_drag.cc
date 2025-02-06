@@ -34,9 +34,9 @@ ASSUMPTIONS AND LIMITATIONS:
 
 
 LIBRARY DEPENDENCY:
-    ((../src/aerodynamics_messages.cc)
-     (../src/aero_surface.cc)
-     (../src/default_aero.cc)
+    ((aerodynamics_messages.cc)
+     (aero_surface.cc)
+     (default_aero.cc)
      (utils/message/src/message_handler.cc))
 
 
@@ -71,8 +71,9 @@ AerodynamicDrag::AerodynamicDrag (
    active(true),
    constant_density(false),
    density(0.0),
+   param(),
    use_default_behavior(true),
-   aero_surface_ptr(NULL)
+   aero_surface_ptr(nullptr)
 {
    Vector3::initialize (aero_force);
    Vector3::initialize (aero_torque);
@@ -117,9 +118,6 @@ AerodynamicDrag::aero_drag (
       unit vector associated with rel_vel_cm_struct */
    double rel_vel_mag;   /* M/s
       magnitude of rel_vel_cm_struct */
-   double inv_vel;  /* s/M
-      inverse of rel_vel_mag */
-
 
    // If aerodynamics is not needed, get out
    if (!active) {
@@ -138,7 +136,7 @@ AerodynamicDrag::aero_drag (
 
    rel_vel_mag = Vector3::vmag (rel_vel_cm_struct);
    if (std::fpclassify(rel_vel_mag) != FP_ZERO) {
-      inv_vel     = 1 / rel_vel_mag;
+      double inv_vel     = 1 / rel_vel_mag; /* s/M inverse of rel_vel_mag */
       Vector3::scale (rel_vel_cm_struct, inv_vel, rel_vel_struct_hat);
    }
    else {
@@ -161,13 +159,13 @@ AerodynamicDrag::aero_drag (
    }
 
    // If we are to this point, we NEED to have a pointer to the aero_surface
-   if (aero_surface_ptr == NULL) {
+   if (aero_surface_ptr == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, AerodynamicsMessages::runtime_error,
          "use_default_behavior was set to false, but no aero_surface_ptr "
          "was supplied. Please supply an aero_surface_ptr.");
-
+      return;
    }
 
    for  (i_p = 0; i_p < aero_surface_ptr->facets_size; ++i_p) {
@@ -207,7 +205,7 @@ AerodynamicDrag::set_aero_surface(
 void
 AerodynamicDrag::clear_aero_surface()
 {
-   aero_surface_ptr = NULL;
+   aero_surface_ptr = nullptr;
 }
 
 

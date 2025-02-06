@@ -31,11 +31,11 @@ Assumptions and limitations:
 ((Mars specific))
 
 Library dependencies:
-((nutation_mars.o)
-(environment/RNP/GenericRNP/RNP_messages.o)
-(environment/RNP/GenericRNP/planet_rotation.o)
-(utils/sim_interface/memory_interface.o)
-(utils/message/message_handler.o))
+((nutation_mars.cc)
+(environment/RNP/GenericRNP/src/RNP_messages.cc)
+(environment/RNP/GenericRNP/src/planet_rotation.cc)
+(utils/sim_interface/src/memory_interface.cc)
+(utils/message/src/message_handler.cc))
 
  
 
@@ -72,9 +72,9 @@ NutationMars::NutationMars (
    mean_motion(0.0),
    mean_anomaly_j2000(0.0),
    q_angle_j2000(0.0),
-   I_m_orig(NULL),
-   psi_m_orig(NULL),
-   int_to_double(NULL)
+   I_m_orig(nullptr),
+   psi_m_orig(nullptr),
+   int_to_double(nullptr)
 {
 }
 
@@ -85,17 +85,17 @@ NutationMars::NutationMars (
 NutationMars::~NutationMars (
    void)
 {
-   if (I_m_orig != NULL) {
+   if (I_m_orig != nullptr) {
       JEOD_DELETE_ARRAY (I_m_orig);
-      I_m_orig = NULL;
+      I_m_orig = nullptr;
    }
-   if (psi_m_orig != NULL) {
+   if (psi_m_orig != nullptr) {
       JEOD_DELETE_ARRAY (psi_m_orig);
-      psi_m_orig = NULL;
+      psi_m_orig = nullptr;
    }
-   if (int_to_double != NULL) {
+   if (int_to_double != nullptr) {
       JEOD_DELETE_ARRAY (int_to_double);
-      int_to_double = NULL;
+      int_to_double = nullptr;
    }
 
    return;
@@ -124,8 +124,8 @@ NutationMars::update_rotation (
    nutation_in_obliquity = I_m_orig[0];
 
    // Initialize the variables used in the summation
-   double alpha_m = 0.0;
-   double theta_m = 0.0;
+   double alpha_m;
+   double theta_m;
 
    // Perform the summation stackup
    for (unsigned int ii = 1; ii <= 9; ++ii) {

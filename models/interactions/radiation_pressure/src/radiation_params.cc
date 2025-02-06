@@ -22,9 +22,9 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((radiation_params.o)
-     (interactions/thermal_rider/thermal_params.o)
-     (utils/surface_model/facet_params.o))
+    ((radiation_params.cc)
+     (interactions/thermal_rider/src/thermal_params.cc)
+     (utils/surface_model/src/facet_params.cc))
 
 
 *******************************************************************************/

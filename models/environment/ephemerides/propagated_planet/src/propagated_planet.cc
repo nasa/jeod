@@ -21,29 +21,29 @@ Reference:
   (((TBS)))
 
 LIBRARY DEPENDENCY:
-  ((propagated_planet.o)
-   (dynamics/dyn_manager/initialize_dyn_bodies.o)
-   (dynamics/dyn_body/dyn_body_propagate_state.o)
-   (dynamics/dyn_body/dyn_body_set_state.o)
-   (dynamics/dyn_body/simple_6dof_dyn_body.o)
-   (dynamics/mass/mass_point_state.o)
-   (environment/ephemerides/ephem_interface/ephem_messages.o)
-   (environment/ephemerides/ephem_item/ephem_item.o)
-   (environment/ephemerides/ephem_item/ephem_orient.o)
-   (environment/ephemerides/ephem_item/ephem_point.o)
-   (environment/ephemerides/ephem_manager/ephem_manager.o)
-   (environment/time/time.o)
-   (environment/time/time_dyn.o)
-   (environment/time/time_manager.o)
-   (utils/memory/memory_manager_static.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o)
-   (utils/orientation/orientation.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o)
-   (utils/ref_frames/ref_frame_manager.o)
-   (utils/ref_frames/ref_frame_state.o)
-   (utils/ref_frames/subscription.o))
+  ((propagated_planet.cc)
+   (dynamics/dyn_manager/src/initialize_dyn_bodies.cc)
+   (dynamics/dyn_body/src/dyn_body_propagate_state.cc)
+   (dynamics/dyn_body/src/dyn_body_set_state.cc)
+   (dynamics/dyn_body/src/simple_6dof_dyn_body.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+   (environment/ephemerides/ephem_item/src/ephem_item.cc)
+   (environment/ephemerides/ephem_item/src/ephem_orient.cc)
+   (environment/ephemerides/ephem_item/src/ephem_point.cc)
+   (environment/ephemerides/ephem_manager/src/ephem_manager.cc)
+   (environment/time/src/time.cc)
+   (environment/time/src/time_dyn.cc)
+   (environment/time/src/time_manager.cc)
+   (utils/memory/src/memory_manager_static.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc)
+   (utils/orientation/src/orientation.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc)
+   (utils/ref_frames/src/ref_frame_manager.cc)
+   (utils/ref_frames/src/ref_frame_state.cc)
+   (utils/ref_frames/src/subscription.cc))
 
 
 
@@ -203,19 +203,19 @@ PropagatedEphemerisPlanet::PropagatedEphemerisPlanet (
 PropagatedPlanet::PropagatedPlanet (
    void)
 :
-   planet_name(NULL),
-   parent_name(NULL),
+   planet_name(nullptr),
+   parent_name(nullptr),
    body(),
    commanded_mode(TransFromPlanet_RotFromPlanet),
    initialized(false),
    mode(TransFromPlanet_RotFromPlanet),
-   ident(NULL),
+   ident(nullptr),
    active(true),
    update_time(-99e99),
-   planet(NULL),
-   parent_frame(NULL),
-   dyn_manager(NULL),
-   time_dyn(NULL),
+   planet(nullptr),
+   parent_frame(nullptr),
+   dyn_manager(nullptr),
+   time_dyn(nullptr),
    ephem_planet(body, body.composite_body),
    ephem_orient(body, body.composite_body)
 {
@@ -241,7 +241,7 @@ void
 PropagatedPlanet::shutdown (
    void)
 {
-   if (ident != NULL) {
+   if (ident != nullptr) {
       JEOD_DELETE_ARRAY (ident);
    }
 
@@ -340,7 +340,7 @@ PropagatedPlanet::initialize_model (
 
    // Get pointers to the ephemeris time and dynamic time time objects.
    time_dyn = dynamic_cast<const TimeDyn *> (time_manager.get_time_ptr ("Dyn"));
-   if (time_dyn == NULL) {
+   if (time_dyn == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Could not find the Dynamic Time time object.");
@@ -353,7 +353,7 @@ PropagatedPlanet::initialize_model (
    // Find the parent frame, which must exist.
    parent_frame = dyn_manager->find_integ_frame (parent_name);
 
-   if (parent_frame == NULL) {
+   if (parent_frame == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Frame '%s' has not been registered with the manager.",
@@ -379,7 +379,7 @@ PropagatedPlanet::initialize_model (
    if (body.name.size() == 0) {
       body.name.set_name (planet_name);
    }
-   if (body.integ_frame_name == NULL) {
+   if (body.integ_frame_name == nullptr) {
       body.integ_frame_name = parent_name;
    }
 
@@ -409,7 +409,7 @@ PropagatedPlanet::ephem_initialize (
    // Find the planet, which must exist.
    planet = ephem_manager.find_base_planet (planet_name);
 
-   if (planet == NULL) {
+   if (planet == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Planet '%s' has not been registered with the manager.",

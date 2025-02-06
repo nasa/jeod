@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -108,13 +108,13 @@ public:
    virtual void initialize_checkpointable (
       const void * container,
       const std::type_info & container_type,
-      const std::string elem_name);
+      const std::string & elem_name);
 
    // Prepare for object destruction
    virtual void undo_initialize_checkpointable (
       const void * container,
       const std::type_info & container_type,
-      const std::string elem_name);
+      const std::string & elem_name);
 
    // Return the value of the init action.
    virtual const std::string get_init_value (void);
@@ -334,7 +334,7 @@ inline void
 JeodCheckpointable::initialize_checkpointable (
    const void * container JEOD_UNUSED,
    const std::type_info & container_type JEOD_UNUSED,
-   const std::string elem_name JEOD_UNUSED)
+   const std::string & elem_name JEOD_UNUSED)
 {
    ; // Empty
 }
@@ -353,7 +353,7 @@ inline void
 JeodCheckpointable::undo_initialize_checkpointable (
    const void * container JEOD_UNUSED,
    const std::type_info & container_type JEOD_UNUSED,
-   const std::string elem_name JEOD_UNUSED)
+   const std::string & elem_name JEOD_UNUSED)
 {
    ; // Empty
 }

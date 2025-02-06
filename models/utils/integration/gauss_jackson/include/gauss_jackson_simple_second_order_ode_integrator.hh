@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -139,7 +139,7 @@ public:
    /**
     * Destructor.
     */
-   ~GaussJacksonSimpleSecondOrderODEIntegrator ()
+   ~GaussJacksonSimpleSecondOrderODEIntegrator () override
    {}
 
 
@@ -171,7 +171,7 @@ public:
     * Replicate this.
     * @return Replicate of this.
     */
-   virtual er7_utils::SecondOrderODEIntegrator* create_copy() const
+   er7_utils::SecondOrderODEIntegrator* create_copy() const override
    {
       return er7_utils::alloc::replicate_object (*this);
    }
@@ -180,7 +180,7 @@ public:
    /**
     * Reset the integrator.
     */
-   void reset_integrator ()
+   void reset_integrator () override
    {
       base_reset ();
    }
@@ -202,7 +202,7 @@ public:
       unsigned int target_stage,
       double const * ER7_UTILS_RESTRICT acc,
       double * ER7_UTILS_RESTRICT vel,
-      double * ER7_UTILS_RESTRICT pos)
+      double * ER7_UTILS_RESTRICT pos) override
    {
       return base_integrate (dyn_dt, target_stage, acc,
                              GaussJacksonTwoState (vel, pos));

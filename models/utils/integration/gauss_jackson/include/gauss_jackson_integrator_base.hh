@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -195,8 +195,8 @@ public:
     */
    GaussJacksonIntegratorBase ()
    :
-      coeff (NULL),
-      state_machine (NULL),
+      coeff (nullptr),
+      state_machine (nullptr),
       primer (NULL),
 
       init_state (),
@@ -442,7 +442,7 @@ protected:
             break;
          case GaussJacksonStateMachine::Reset:
          default:
-            assert ("Internal error" == NULL);
+            assert ("Internal error" == nullptr);
             break;
          }
       }
@@ -526,7 +526,7 @@ private:
    void start_cycle (
       double dt,
       const double* ER7_UTILS_RESTRICT acc,
-      State & state)
+      const State & state)
    {
       // Reset: Save the epoch point and the initial acceleration.
       if (fsm_state == GaussJacksonStateMachine::Reset) {

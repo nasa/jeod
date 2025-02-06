@@ -24,7 +24,7 @@ Assumptions and limitations:
   (TBS)
 
 Library dependencies:
-  ((lsode_control_data_interface.o))
+  ((lsode_control_data_interface.cc))
 
  
 *******************************************************************************/
@@ -53,8 +53,8 @@ LsodeControlDataInterface::LsodeControlDataInterface()
    error_control_indicator(CommonAbsCommonRel),
    error_control_vector_copied_over(false),
    num_odes_at_alloc(0),
-   abs_tolerance_error_control(NULL),
-   rel_tolerance_error_control(NULL),
+   abs_tolerance_error_control(nullptr),
+   rel_tolerance_error_control(nullptr),
    num_odes(3),
    integration_method(ImplicitAdamsNonStiff),
    corrector_method(FunctionalIteration),
@@ -115,7 +115,7 @@ LsodeControlDataInterface::check_interface_data()
 // implementation.
 
 // Make sure there is something to solve
-   if (num_odes <= 0) {
+   if (num_odes == 0) {
       er7_utils::MessageHandler::fail (__FILE__, __LINE__,
          er7_utils::IntegrationMessages::invalid_request,
          "Number of equations to solve invalid (num_odes=%u)",

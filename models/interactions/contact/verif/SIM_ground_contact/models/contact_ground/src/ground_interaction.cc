@@ -10,7 +10,7 @@
  ((N/A))
 
  Library dependencies:
- ((ground_interaction.o))
+ ((ground_interaction.cc))
 
  
 
@@ -36,13 +36,13 @@ namespace jeod {
 GroundInteraction::GroundInteraction (
                           void)
 : // Return: -- None
-subject (NULL),
-ground (NULL),
-interaction (NULL),
+subject (nullptr),
+ground (nullptr),
+interaction (nullptr),
 interaction_distance (0.0),
 friction_mag (0.0),
 velocity_mag (0.0),
-terrain (NULL)
+terrain (nullptr)
 {
    Vector3::initialize(ground_normal);
 }

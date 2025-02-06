@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -45,7 +45,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_surface_factory.o)
+    (../src/demo_surface_factory.cc)
 
  
 *******************************************************************************/
@@ -77,9 +77,9 @@ public:
    DemoSurfaceFactory1();
 
    // destructor
-   virtual ~DemoSurfaceFactory1();
+   ~DemoSurfaceFactory1() override;
 
-   virtual void add_facet_params(FacetParams* to_add);
+   void add_facet_params(FacetParams* to_add) override;
 
 
 protected:
@@ -110,9 +110,9 @@ public:
    DemoSurfaceFactory2();
 
    // destructor
-   virtual ~DemoSurfaceFactory2();
+   ~DemoSurfaceFactory2() override;
 
-   virtual void add_facet_params(FacetParams* to_add);
+   void add_facet_params(FacetParams* to_add) override;
 
 
 protected:

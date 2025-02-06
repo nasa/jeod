@@ -185,12 +185,21 @@
 \label{reqt:attach_detach}
 \begin{description}
 \item[Requirement:]\ \newline
-  The \ModelDesc shall provide the ability to attach and detach dynamic
-  bodies in a manner consistent with the conservation laws.
+  \subrequirement{Dynamic Body Attach/Detach}\label{reqt:dyn_attach_detach}.
+    The \ModelDesc shall provide the ability to attach and detach dynamic
+    bodies in a manner consistent with the conservation laws.
+  \subrequirement{Kinematic Body Attach/Detach}\label{reqt:kin_attach_detach}
+    The \ModelDesc shall provide the ability to attach and detach dynamic
+    bodies to any reference frame kinematically.
 
 \item[Rationale:]\ \newline
   The \MASS attach/detach requirements do not mention the
-  conservation laws, so this functionality must be introduced in \ModelDesc in order to provide capabilities for docking, berthing, jettision, etc. operations common to spaceflight missions.
+  conservation laws, so this functionality must be introduced in \ModelDesc in order to provide capabilities for docking,
+  berthing, jettision, etc. operations common to spaceflight missions. \newline \newline
+  Additionally, the ability to attach a dynamic body to a reference frame such that it is rigidly fixed to it is a 
+  valuable simulation capability. In this case, the conservation laws for attach or detach may be ignored because their
+  effects are negligible or the attachment acts as a low-fidelity attachment to constrain the vehicle. This is a feature
+  the user can decide to use and the \ModelDesc should provide this capability.
 
 \item[Verification:]\ \newline
   Inspection, test

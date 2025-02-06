@@ -1,4 +1,4 @@
-state.orbit_init.dyn_subject              = vehicle.dyn_body
+state.orbit_init.set_subject_body(vehicle.dyn_body)
 state.orbit_init.reference_ref_frame_name = "Earth.inertial"
 state.orbit_init.body_frame_id            = "composite_body"
 state.orbit_init.set = trick.DynBodyInitOrbit.SmaEccIncAscnodeArgperTimeperi

@@ -37,12 +37,12 @@ Assumptions and limitations:
     (Errors are fatal))
 
 Library dependency:
-   ((de4xx_file.o)
-    (de4xx_file_init.o)
-    (de4xx_file_update.o)
-    (environment/ephemerides/ephem_interface/ephem_messages.o)
-    (utils/sim_interface/memory_interface.o)
-    (utils/message/message_handler.o))
+   ((de4xx_file.cc)
+    (de4xx_file_init.cc)
+    (de4xx_file_update.cc)
+    (environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+    (utils/sim_interface/src/memory_interface.cc)
+    (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -87,10 +87,9 @@ namespace jeod {
 De4xxFileSpec::De4xxFileSpec (
    void)
 :
-   denum(405)
+   denum(405),
+   ephem_file_dir("build/de4xx_lib")
 {
-
-    ephem_file_dir = "build/de4xx_lib";
     set_model_number(405);
 }
 
@@ -109,17 +108,17 @@ void De4xxFileSpec::set_model_number(int denum_in)
 De4xxFileIO::De4xxFileIO (
    void)
 :
-   metaData(NULL),
-   itemData(NULL),
-   segmentData(NULL),
-   coeffs_segment_starting_addr(NULL),
-   current_record_starting_addr(NULL),
+   metaData(nullptr),
+   itemData(nullptr),
+   segmentData(nullptr),
+   coeffs_segment_starting_addr(nullptr),
+   current_record_starting_addr(nullptr),
    recno(std::numeric_limits<int>::max()),
    segment_index(0),
    segment_recno(0),
    total_num_recs(0),
    max_terms(0),
-   file(0x0)
+   file(nullptr)
 {
    ; // Empty
 }
@@ -205,9 +204,9 @@ De4xxFileCoef::De4xxFileCoef (
 //   ncoef(0),
    chebyterms(0),
    chebyx(-99e99),
-   chebypoly(NULL),
-   chebyderiv(NULL),
-   coef(NULL)
+   chebypoly(nullptr),
+   chebyderiv(nullptr),
+   coef(nullptr)
 {
    ; // Empty
 }
@@ -323,13 +322,14 @@ De4xxFile::open ( // flawfinder: ignore
    void)
 {
    // Clear dlerror
-   char * dlError = dlerror();
+   char * dlError;
+   dlerror();
 
 //   capture_mem_stats();
 
    // Use dynamic loader to load the file but only symbols as needed
    io.file = dlopen(file_spec.pathname.c_str(), RTLD_LAZY | RTLD_LOCAL);
-   if (io.file == NULL) {
+   if (io.file == nullptr) {
       dlError = dlerror();
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
@@ -347,7 +347,7 @@ De4xxFile::open ( // flawfinder: ignore
    }
 
    io.metaData = (jeod::EphemerisDataSetMeta *)dlsym(io.file, "metaData");
-   if (io.metaData == NULL) {
+   if (io.metaData == nullptr) {
       dlError = dlerror();
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
@@ -372,7 +372,7 @@ De4xxFile::open ( // flawfinder: ignore
    }
 
    io.itemData = (jeod::EphemerisDataItemMeta *)dlsym(io.file, "itemData");
-   if (io.itemData == NULL) {
+   if (io.itemData == nullptr) {
       dlError = dlerror();
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
@@ -384,7 +384,7 @@ De4xxFile::open ( // flawfinder: ignore
    }
 
    io.segmentData = (jeod::EphemerisDataSegmentMeta *)dlsym(io.file, "segmentData");
-   if (io.segmentData == NULL) {
+   if (io.segmentData == nullptr) {
       dlError = dlerror();
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::file_error,
@@ -412,9 +412,9 @@ De4xxFile::reopen (
    void)
 {
    // Close the file if it is already open.
-   if (io.file != NULL) {
+   if (io.file != nullptr) {
        dlclose (io.file);
-       io.file = NULL;
+       io.file = nullptr;
    }
 
    // Reopen with the common initialization / restart pre_initialize function.
@@ -436,7 +436,7 @@ De4xxFile::close (
    int rc;
 
    // Nothing to do if file is already closed.
-   if (io.file == NULL) {
+   if (io.file == nullptr) {
       return;
    }
 
@@ -454,8 +454,8 @@ De4xxFile::close (
    }
 
    // Denote that the file is closed.
-   io.file  = NULL;
-   io.metaData = NULL;
+   io.file  = nullptr;
+   io.metaData = nullptr;
 
    // Free allocated memory.
    JEOD_DELETE_ARRAY (coef.chebypoly);

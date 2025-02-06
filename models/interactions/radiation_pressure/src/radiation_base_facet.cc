@@ -21,9 +21,9 @@ ASSUMPTIONS AND LIMITATIONS:
     ((RadiationBaseFacet is non-instantiable))
 
 LIBRARY DEPENDENCY:
-    ((radiation_base_facet.o)
-     (radiation_messages.o)
-     (utils/message/message_handler.o))
+    ((radiation_base_facet.cc)
+     (radiation_messages.cc)
+     (utils/message/src/message_handler.cc))
 
 
 
@@ -76,8 +76,6 @@ void
 RadiationBaseFacet::initialize (
    void)
 {
-   double epsilon = 1.0E-12;
-
    // albedo and albedo_vis are synonymous at initialization.  During runtime,
    // albedo can take the value albedo_vis or albedo_IR, but legacy code had
    // only one albedo (repesenting albedo_vis), called albedo.
@@ -96,6 +94,7 @@ RadiationBaseFacet::initialize (
    }
 
    if (!setequ) {  // So both albedo and albedo_vis were set to legal values.
+      double epsilon = 1.0E-12;
       if ((albedo - albedo_vis) > epsilon ||
           (albedo - albedo_vis) < -epsilon) {
          MessageHandler::fail (

@@ -22,7 +22,7 @@
  ((N/A))
 
  Library dependencies:
- ((point_contact_pair.o))
+ ((point_contact_pair.cc))
 
  
 
@@ -46,8 +46,8 @@ namespace jeod {
 PointContactPair::PointContactPair (
    void)
 : // Return: -- None
-point_subject (NULL),
-point_target (NULL)
+point_subject (nullptr),
+point_target (nullptr)
 {
 
 }
@@ -72,7 +72,6 @@ PointContactPair::in_contact(
    double subject_contact_point[3];
    double target_contact_point[3];
    double vec[3], nvec[3];
-   double rel_velocity[3];
    double target_mag;
 
    // find direction vector to target from relstate
@@ -101,7 +100,7 @@ PointContactPair::in_contact(
 
    // compare length to target point with subject radius
    if (point_subject->radius > target_mag) {
-
+      double rel_velocity[3];
       // find the vector that characterizes the interpenetration
       Vector3::diff(target_contact_point, subject_contact_point, vec);
       // find the relative velocity of the target in subject frame
@@ -126,7 +125,7 @@ void PointContactPair::initialize_pair (
    ContactFacet *target_facet)
 {
    point_subject = dynamic_cast<PointContactFacet*> (subject_facet);
-   if (target_facet != NULL) {
+   if (target_facet != nullptr) {
       point_target = dynamic_cast<PointContactFacet*> (target_facet);
       rel_state.name = NamedItem::construct_name_string (
          point_subject->base_facet->name.c_str(), point_target->base_facet->name);
@@ -140,7 +139,7 @@ void PointContactPair::initialize_pair (
                                              &rel_state.target_frame_name);
    }
    else {
-      point_target = NULL;
+      point_target = nullptr;
    }
    subject = point_subject;
    target = point_target;

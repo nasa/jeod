@@ -17,7 +17,7 @@ Purpose:
   ()
 
 Library dependency:
-  ((quat_to_mat.o))
+  ((quat_to_mat.cc))
 
  
 

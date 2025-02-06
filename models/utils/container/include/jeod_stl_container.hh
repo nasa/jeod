@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -400,7 +400,7 @@ protected:
     * Copy constructor from STL container.
     * @param src Source container to be copied
     */
-   JeodSTLContainer (const ContainerType & src)
+   explicit JeodSTLContainer (const ContainerType & src)
    : contents(src)
    {}
 

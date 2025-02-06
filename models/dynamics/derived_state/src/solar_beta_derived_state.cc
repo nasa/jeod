@@ -19,14 +19,14 @@ ASSUMPTIONS AND LIMITATIONS:
     ((The vehicle must be in orbit about the named planet))
 
 LIBRARY DEPENDENCY:
-    ((solar_beta_derived_state.o)
-     (derived_state.o)
-     (derived_state_messages.o)
-     (dynamics/mass/mass_point_state.o)
-     (utils/sim_interface/memory_interface.o)
-     (utils/message/message_handler.o)
-     (utils/ref_frames/ref_frame.o)
-     (utils/ref_frames/ref_frame_compute_relative_state.o))
+    ((solar_beta_derived_state.cc)
+     (derived_state.cc)
+     (derived_state_messages.cc)
+     (dynamics/mass/src/mass_point_state.cc)
+     (utils/sim_interface/src/memory_interface.cc)
+     (utils/message/src/message_handler.cc)
+     (utils/ref_frames/src/ref_frame.cc)
+     (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 ******************************************************************************/
@@ -59,8 +59,8 @@ namespace jeod {
 SolarBetaDerivedState::SolarBetaDerivedState (
    void)
 :
-   planet (NULL),
-   sun (NULL),
+   planet (nullptr),
+   sun (nullptr),
    solar_beta (0.0),
    active (true)
 {
@@ -111,7 +111,7 @@ SolarBetaDerivedState::update (
 {
 
    // Return if the model is currently inactive or permanently disabled.
-   if ((! active) || (sun == NULL)) {
+   if ((! active) || (sun == nullptr)) {
       return;
    }
 
@@ -171,7 +171,7 @@ SolarBetaDerivedState::~SolarBetaDerivedState (
    void)
 {
    // Remove initialization-time subscriptions.
-   if (sun != NULL) {
+   if (sun != nullptr) {
       planet->inertial.unsubscribe();
       sun->inertial.unsubscribe();
    }

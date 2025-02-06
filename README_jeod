@@ -1,7 +1,7 @@
 ==============================================================================
  Notices:
 
- Copyright © 2022 United States Government as represented by the Administrator
+ Copyright © 2023 United States Government as represented by the Administrator
  of the National Aeronautics and Space Administration.  All Rights Reserved.
 
 
@@ -33,7 +33,7 @@
 
 ==============================================================================
 
-August 2022
+July 2023
 
 Contents
 
@@ -51,27 +51,25 @@ Contents
 This section provides overview information about the Johnson Space Center
 Engineering Orbital Dynamics (JEOD) software package.
 
-This note describes the most recent release of JEOD, JEOD 5.0. The primary
-objectives for 5.0 release of JEOD were to:
+This note describes the most recent release of JEOD, JEOD 5.1. The primary
+objectives for 5.1 release of JEOD were to:
 
-* Official Trick 19 (19.3.0 or later) compatibility. The default version
-  of Trick for this release is Trick 19. While most model in this release are
-  still compatible with older Trick version. One may run into issue with
-  checkpoint/restart with older version of Trick.
-* Remove some spacecraft best estimated data for open source.
-* Remove TCAM model and Atmosphere Interface model for open source.
-* Update checkpoint tag for standard STL containers in JEOD.
-* Include new set of gravitational coefficients for the Moon based on GRAIL
-* Update JEOD tutorial and training sims to version 5.0.
-* Improve internal tools, especially relating to continuous integration.
-  - Code coverage is now a manual job in CI.
-* Comply with NPR 7150.2C, NASA Software Engineering Requirement.
+* Added support for Moon Mean Earth body fixed frame as alternative pfix frame.
+* Added kinematic attachment capability that allow DynBody to be attached to a
+  reference frame, which includes planet.
+* Improved documentation on integration frame override after detach from parent
+  body.
+* Improved ease of use for calculating derivative states for a child body.
+* Enhanced checkpoint-restart for standard STL containers in JEOD.
+* Improved ephemeris data generation using mako template.
 * Fix bugs.
+* Improved code security.
+* Improved verification sims.
 
 The key features of this release are highlighted in section 3 below.
 
 
-The JEOD 5.0 Release
+The JEOD 5.1 Release
 ****************************
 
 The release comprises
@@ -82,12 +80,14 @@ The release comprises
   JEOD models directory. The immediate subdirectory of each model group
   directory contains exactly one JEOD model. Models are accompanied with
   test artifacts to verify that a model satisfies its requirements. For JEOD
-  5.0, there is also an experimental directory containing experimental
+  5.1, there is also an experimental directory containing experimental
   models that are not yet rigorously verified and documented up to typical JEOD
-  standards.
+  standards. Users planning to these experimental models should understand the
+  risk associated with them and there are currently no plan for documentation
+  and verification of these models.
 
 * Test and Analysis Tools. Trick simulations have long been used to test the
-  JEOD models. JEOD 5.0 contains Trick-compatible versions of all
+  JEOD models. JEOD 5.1 contains Trick-compatible versions of all
   previously existing simulations, as well as some new simulations for
   testing new capabilities.
 
@@ -95,16 +95,16 @@ The release comprises
   overview and model documentation can be tough. The JEOD training materials
   are located in the $JEOD_HOME/docs/Training directory. These materials
   systematically show users how to use JEOD via the course lecture notes,
-  lessons covering every extant JEOD model except the SPICE interface model,
-  and tutorial exercises of increasing complexity.
+  lessons covering every extant JEOD model (except the SPICE interface model
+  and experimental models) and tutorial exercises of increasing complexity.
 
 * Verification and Validation Simulations. In addition to the model-level
-  verification testing, JEOD 5.0 has been tested against best estimate of
+  verification testing, JEOD 5.1 has been tested against best estimate of
   trajectory (BET) data from various orbiting vehicles. These documented
   integrated tests not only demonstrate that JEOD properly models the space
   environment, they also serve as additional examples of how to use JEOD in a
-  realistic simulation. For JEOD 5.0, some BET data were removed from the
-  release so that JEOD can be host on NASA Github. However, validation result
+  realistic simulation. For JEOD 5.1, some BET data were removed from the
+  release so that JEOD can be host on Github.com. However, validation result
   are still presented in the top-level JEOD documentation.
 
 * Top-level Documentation. JEOD is well documented from the top-level down.
@@ -130,9 +130,9 @@ Instructions for use in a Trick environment
 *******************************************
 
 The JEOD package is first and foremost a package designed for use in simulations
-developed with the Trick simulation environment. This release of JEOD 5.0
-was tested with Trick 19.3.1, using compiler gcc 4.8.5 on CentOS 7.6, 7.5.0 on
-Ubuntu 18.04, and LLVM version 13.1.6 on Mac.
+developed with the Trick simulation environment. This release of JEOD 5.1
+was tested with Trick 19.6.0, using compiler gcc 4.8.5 on CentOS 7.6, 7.5.0 on
+Ubuntu 18.04, 8.5.0 on Oracle Linux 8, and LLVM version 13.1.6 on Mac.
 
 Required environment variables
 ------------------------------
@@ -170,75 +170,97 @@ compiler via an include path that begins with "er7_utils/integration".
 
 Required Package
 ---------
-JEOD 5.0 requires installation of swig3 and cmake3
+JEOD 5.1 requires installation of swig3 and cmake3
 
 
 ================================================================================
-3. Key changes since the last production release (JEOD 5.0)
+3. Key changes since the last production release (JEOD 5.1)
 ================================================================================
 
-Best Estimated Data and TCAM Removal
+Support for Moon Mean Earth (ME) body fixed frame
 -------------------------
-The primary goal for JEOD v5.0 was to remove TCAM model and all the BED data
-that do not yet have classification from JEOD so that JEOD v5.0 can be host on
-NASA Github for open source release. Some measured data from actual mission
-that was used for validation were removed from this release. TS21 C++ Atmospheric
-Model (TCAM) and Atmosphere Interface model were also removed. The rest models
-remain the same as JEOD v4.0.
+JEOD v5.1 added support for an alternate planet-centered, planet-fixed
+coordinate frame, the Mean Earth/Polar Axis frame (Moon_ME). It is defined such
+that the z-axis is defined as the Moon's mean rotational pole and the prime
+meridian is defined by the mean direction of Earth. Moon_ME frame is the
+alternative body fixed frame that is often used in data collected by LRO
+instrumentation.
 
-Checkpoint Tag Update
+
+Kinematic Attachment
 -------------------------
-Checkpoint tag for standard STL containers in JEOD was updated since newer
-version of Trick now recognize some standard STL. This allow users to create
+A kinematic attachment capability was added for MassBody and DynBody in
+JEOD v5.1. This capability allow users to attach/detach MassBody/DynBody to/from
+another Body object or RefFrame object. This attachment will not have any
+dynamics effect on the parent object when attach/detach. The capability would be
+ideal to attach a dynamic vehicle to a planet before launch or after landing.
+
+
+Integration Frame override after detach
+-------------------------
+Updated the model documentation to explain the expected behavior of child body's
+integration frame when it was detached from the parent body.
+  - "When two bodies attach, the child body takes on the integration frame of
+     the parent body. When the bodies detach, the child body retains the
+     integration frame of the parent body, rather than reverting to its original
+     integration frame. This is because JEOD cannot safely assume that the
+     original integration frame of the child body is still the most appropriate
+     frame. On the contrary, two vehicles that were just attached are in close
+     enough proximity that they would probably be best served by continuing to
+     share the same integration frame."
+
+
+Enhanced checkpoint-restart for standard STL containers
+-------------------------
+Checkpoint-restart for standard STL containers were updated for newer version
+of Trick, which now recognizes some standard STLs. This allow users to create a
 checkpoint of the variables that are type of standard STL, and then load the
-checkpoints during a restart.
+checkpoints during a restart. Verification sim for checkpoint-restart was also
+updated for JEOD v5.1 to test dynamically allocated objects.
 
-Unit Specification Update
--------------------------
-Unit specification for angle was updated to 'rad' instead of 'radian'. Trick
-recognize both 'rad' and 'radian'. However, EDGE 2.4 does not recognize 'radian'.
-Future EDGE release will fix this issue. This update enable compatibilty with
-EDGE v2.4
 
-GRAIL Gravitational Coefficients for Moon
+Improved code security
 -------------------------
-A new set of gravitational coefficients for the Moon was added to JEOD v5.0. It
-is based on the Gravity Recovery and Interior Laboratory (GRAIL) science mission
-that contains a set of two spacecrafts in the same orbit around the Moon.
-Instrument aboard each spacecraft measures the changes in their relative velocity,
-which translated into a high-resolution map of the Moon's gravitational field.
+A number of code security improvements were made based on result from the
+static analysis tools.
 
-Training Material for JEOD v5.0
+
+Improve verification sims
 -------------------------
-Training materials from 2019 for JEOD v3.4 were updated to JEOC v5.0 to provide
-tutorial on the latest release.
+A number of verification sims were improved for JEOD v5.1 release. These
+include the verification sim for SPICE and checkpoint-restart, and training sims
+for the JEOD tutorial
 
 
 ================================================================================
 4. Known issues
 ================================================================================
 
-The issues known to exist with the JEOD 5.0 release are:
+The issues known to exist with the JEOD 5.1 release are:
 
 * Non-Trick demonstration.
   The demonstration of the usability of JEOD outside the Trick environment is
   not currently maintained and may not work with this release.
 
 * Trick support.
-  JEOD 5.0 is officially compatible with Trick 19.3.0 or newer. Backward
+  JEOD 5.1 is officially tested with Trick 19.6.0 or newer. Backward
   compatibility with older versions of Trick are not guarantee, but most models
-  should still work with Trick 17 or newer. Users are strongly encouraged to
+  should still work with Trick 19.0 or newer. Users are strongly encouraged to
   upgrade to a newer version of Trick if their project allows.
 
-* Trickified build works for all the regression test sims on CentOS 7 and
-  Ubuntu 18. However, some sims did not built with Trickified on MacOS during
-  the regression test. All the sims built regularly on MacOS. This issue will be
+* Trickified build works for all the regression test sims on CentOS 7,
+  Ubuntu 18 and Oracle Linux 8. However, some sims did not build with
+  Trickified on M1 MacOS during the regression test. All the sims build 
+  using standard Trick compilation on M1 MacOS. This issue will be 
   investigated in later release
 
 * Experimental models.
-  For this release, there continues to be a directory named
-  $JEOD_HOME/models/experimental. It contains new models that have not yet
-  been rigorously verified and documented up to typical JEOD standards.
+  For this release, there is a directory named $JEOD_HOME/models/experimental.
+  It contains new models that have NOT been rigorously verified or
+  documented up to typical JEOD standards. Users planning to utilize these 
+  experimental models should understand the risks associated with them and 
+  that there are currently NO plans for documentation and verification of 
+  these models.
 
 
 ================================================================================
@@ -268,9 +290,10 @@ to those supplied with the release. The regression tests are located in
 
 Caveats:
 * All regression test data supplied with the release were generated using a
-  64-bit machine running CentOS 7.5 and compiled with gcc 4.8.5. Users should
-  not expect exact numeric matches when using a different machine architecture,
-  a different operating system, or a different compiler.
+  64-bit machine running CentOS 7.5 and compiled with gcc 4.8.5 and Oracle
+  Linux 8 with gcc 8.5.0. Users should not expect exact numeric matches when
+  using a different machine architecture, a different operating system, or a
+  different compiler.
 
   An extreme example of this is the RUN_euler case of the
   utils/integration/verif/SIM_integ sim. The stability of the Euler method
@@ -278,11 +301,42 @@ Caveats:
   results for this case exhibit chaotic system-dependent behavior. Note that
   use of the Euler integration method is generally not recommended.
 
+* Regression test scripts are provided in JEOD v5.1. These scripts are used
+  internally to verify the release behaves as expected. Users planning to use
+  these scripts for their own regression test are free to modify the script
+  to fit their needs. However, no support will be provided for these regression
+  test scripts.
+
 
 
 ================================================================================
 6. Change history
 ================================================================================
+****************************
+JEOD 5.1, July 2023
+****************************
+* Changes to models.
+  - Added support for Moon Mean Earth (Moon_ME) body fixed frame.
+  - Added kinematic attachment capability.
+  - Improved ease of use for calculating derivative states for a child body.
+  - Improved checkpoint-restart for standard STL containers.
+  - Improved ephemeris data generation using mako template.
+
+* Changes to sims and unit tests.
+  - Fixed SIM_spice.
+  - Completed SIM_dyncomp_structure.
+  - Added test cases to verify kinematic attachment.
+  - Improved checkpoint-restart verification sim to test dynamically allocated
+    objects.
+  - Fixed training solution sims.
+
+* Changes to Documentation
+  - JEOD documentations were updated for the JEOD 5.1 release.
+
+* Changes to tools.
+  - Implemented static analysis job (CppCheck and Flawfinder) in CI.
+
+
 ****************************
 JEOD 5.0, August 2022
 ****************************

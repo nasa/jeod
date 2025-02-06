@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,7 +52,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((spice_ephem.o))
+  ((../src/spice_ephem.cc))
 
 
 
@@ -102,7 +102,7 @@ public:
    SpiceEphemeris (void);
 
    // Destructor
-   ~SpiceEphemeris (void);
+   ~SpiceEphemeris (void) override;
 
 
    // S_define-level call to initialize the model (not inherited)
@@ -111,21 +111,21 @@ public:
 
 
    // EphemInterface-inherited housekeeping and accessor methods
-   virtual void activate (void);
-   virtual void deactivate (void);
-   virtual double timestamp (void) const;
-   virtual const char * get_name (void) const;
+   void activate (void) override;
+   void deactivate (void) override;
+   double timestamp (void) const override;
+   const char * get_name (void) const override;
 
 
    // Inherited methods for interacting with EphemeridesManager
-   virtual void ephem_initialize (EphemeridesManager & ephem_manager);
-   virtual void ephem_activate (EphemeridesManager & ephem_manager);
-   virtual void ephem_build_tree (EphemeridesManager & ephem_manager);
-   virtual void ephem_update (void);
+   void ephem_initialize (EphemeridesManager & ephem_manager) override;
+   void ephem_activate (EphemeridesManager & ephem_manager) override;
+   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
+   void ephem_update (void) override;
 
 
    // Ensure object is checkpointable/restartable (is inherited)
-   virtual void simple_restore (void);
+   void simple_restore (void) override;
 
    // Interface method for Trick input deck to add objects to load from SPICE
    void add_planet_name (std::string planet_name)
@@ -246,11 +246,11 @@ private:
    void introduce_item (EphemerisItem & item);
 
    // Populate a generic EphemerisItem
-   void populate_item (EphemerisItem & item, std::string name);
+   void populate_item (EphemerisItem & item, const std::string & name);
 
    // Create and populate basic attributes of a new SPICE ephemeris point
    SpiceEphemPoint * create_new_ephem_point (
-      std::string object_name, std::string spice_name);
+      std::string object_name, const std::string & spice_name);
 
    // Create and populate basic attributes of a SpiceEphemOrientation
    SpiceEphemOrientation * create_new_ephem_orientation (std:: string jeod_name);

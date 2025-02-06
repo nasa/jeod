@@ -4,7 +4,7 @@ Purpose:
   (Define methods for PlanetSite.)
 
 Library dependencies:
-  ((planet_site.o))
+  ((planet_site.cc))
 
 
 
@@ -39,7 +39,7 @@ PlanetSite::PlanetSite ( // Return: -- N/A
    void)
 :
    ned(),
-   site_id(NULL)
+   site_id(nullptr)
 {
    altlatlong_type = NorthEastDown::elliptical;
    return;

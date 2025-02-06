@@ -21,7 +21,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((interaction_surface.o))
+    ((interaction_surface.cc))
 
  
 *******************************************************************************/

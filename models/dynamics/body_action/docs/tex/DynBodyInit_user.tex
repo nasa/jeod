@@ -52,8 +52,8 @@ dynamics.body_action_ptr = &target.orb_init;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
 \end{verbatim}
 
-\subsection{DynBodyInitTranState}
-The DynBodyInitTranState class initializes translational state
+\subsection{DynBodyInitTransState}
+The DynBodyInitTransState class initializes translational state
 given the state relative to some known reference frame.
 The following initializes the chaser relative to the target
 using a point-to-point state specification
@@ -127,7 +127,7 @@ DynBodyInitLvlhRotState derive from DynBodyInitLvlhState and only set
 translational and rotational aspects of the state; DynBodyInitLvlhState
 can set the full state.
 
-The DynBodyInitTranState and DynBodyInitRotState classes cannot
+The DynBodyInitTransState and DynBodyInitRotState classes cannot
 be used with these LVLH frames because derived frames
 are not known at initialization time. If supplied, the DynBodyInitLvlhState class
 uses an existing user-specified LVLH reference frame. Otherwise, it constructs
@@ -189,6 +189,7 @@ launchpad.ned_init.reference_ref_frame_name = "Earth.inertial";
 launchpad.ned_init.body_frame_id = "structure";
 launchpad.ned_init.planet_name = "Earth";
 
+launchpad.ned_init.set_use_alt_pfix(False);
 launchpad.ned_init.ref_point.altitude {M}  =   3.0;
 launchpad.ned_init.ref_point.latitude {d}  =  28.6082;
 launchpad.ned_init.ref_point.longitude {d} = -80.6040;
@@ -220,6 +221,16 @@ chaser.ned_trans_init.velocity[0] {M/s} = 0.0, 0.0, -100.0;
 
 dynamics.body_action_ptr = &chaser.ned_trans_init;
 call dynamics.dynamics.manager.add_body_action (dynamics.body_action_ptr);
+\end{verbatim}
+
+Internally, a planet-centered, planet-fixed frame is used in the
+initialization process. If the planet has an alternate planet-fixed
+frame, the user may choose to use it for these internal calculations.
+In that case, the user may {\tt set\_use\_alt\_pfix()} to true, as is shown in
+the example below.
+
+\begin{verbatim}
+vehicle.ned_init.set_use_alt_pfix(True);
 \end{verbatim}
 
 \section{Integration}

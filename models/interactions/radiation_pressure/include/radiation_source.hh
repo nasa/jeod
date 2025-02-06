@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ ASSUMPTIONS AND LIMITATIONS:
      (All plate information referenced wrt structural frame))
 
 Library dependencies:
-    ((radiation_source.o))
+    ((../src/radiation_source.cc))
 
 
 

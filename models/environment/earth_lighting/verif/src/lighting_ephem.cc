@@ -6,7 +6,7 @@ REFERENCES:
 ASSUMPTIONS AND LIMITATIONS:
     ((None))
 LIBRARY DEPENDENCY:
-    ((lighting_ephem.o))
+    ((lighting_ephem.cc))
 ******************************************************************************/
 
 #include "../include/lighting_ephem.hh"

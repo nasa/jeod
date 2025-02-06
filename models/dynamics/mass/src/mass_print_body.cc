@@ -16,8 +16,8 @@ Purpose:
   ()
 
 Library Dependency:
-  ((mass_print_body.o)
-   (mass.o))
+  ((mass_print_body.cc)
+   (mass.cc))
 
 
 

@@ -45,9 +45,9 @@ namespace jeod {
 SectionedOutputBuffer::SectionedOutputBuffer ()
 :
    std::streambuf(),
-   file_buf(NULL)
+   file_buf(nullptr)
 {
-   setp (0,0);
+   setp (nullptr,nullptr);
 }
 
 
@@ -62,7 +62,7 @@ SectionedOutputBuffer::activate (
    std::ofstream & stream)
 {
    file_buf = stream.rdbuf();
-   setp (0,0);
+   setp (nullptr,nullptr);
 }
 
 
@@ -119,10 +119,10 @@ SectionedOutputStream::SectionedOutputStream ()
 :
    std::ostream  (&sectbuf),
    sectbuf       (),
-   manager       (NULL),
-   stream        (NULL),
-   section_start (NULL),
-   section_end   (NULL),
+   manager       (nullptr),
+   stream        (nullptr),
+   section_start (nullptr),
+   section_end   (nullptr),
    tag           (""),
    is_copy       (false),
    is_active     (false)
@@ -181,12 +181,12 @@ SectionedOutputStream::SectionedOutputStream (
 {
    // No making copies of a copy, an active object, or an invalid object.
    // Oops. Too late now; we just did just that. Undo the copy.
-   if ((source.is_copy) || (source.is_active) || (source.stream == NULL)) {
+   if ((source.is_copy) || (source.is_active) || (source.stream == nullptr)) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::implementation_error,
          "Illegal attempt to copy a SectionedOutputStream.");
-      manager = NULL;
-      stream  = NULL;
+      manager = nullptr;
+      stream  = nullptr;
    }
 }
 
@@ -215,10 +215,8 @@ const
    // - It is an invalid object,
    // - Already active, or
    // - The manager has an active writer on hand.
-   if ((manager == NULL) || (!manager) ||
-       (stream == NULL)  || (!stream)  ||
-       is_active ||
-       manager->have_active_writer()) {
+   if ((manager == nullptr) || (stream == nullptr) ||
+       is_active || manager->have_active_writer()) {
       return false;
    }
    else {
@@ -238,8 +236,7 @@ SectionedOutputStream::activate (
    void)
 {
    // Activating an invalid object is verboten.
-   if ((manager == NULL) || (!manager) ||
-       (stream == NULL)  || (!stream)) {
+   if ((manager == nullptr) || (stream == nullptr)) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::implementation_error,
          "Illegal attempt to activate an invalid SectionedOutputStream.");
@@ -306,8 +303,8 @@ SectionedOutputStream::deactivate (
    sectbuf.deactivate();
 
    // Mark the object as (permanently) inactive.
-   manager = NULL;
-   stream = NULL;
+   manager = nullptr;
+   stream = nullptr;
    is_active = false;
 }
 
@@ -324,7 +321,7 @@ CheckPointOutputManager::CheckPointOutputManager (
    const std::string & end_marker)
 :
    stream         (fname.c_str(), std::ios::out),
-   current_writer (NULL),
+   current_writer (nullptr),
    filename       (fname),
    section_start  (start_marker),
    section_end    (end_marker),
@@ -388,9 +385,9 @@ SectionedOutputStream
 CheckPointOutputManager::create_trick_section_writer (
    void)
 {
-   if (current_writer != NULL) {
+   if (current_writer != nullptr) {
       current_writer->deactivate();
-      current_writer = NULL;
+      current_writer = nullptr;
    }
 
    return create_section_writer (true, "Trick");
@@ -406,7 +403,7 @@ bool
 CheckPointOutputManager::register_writer (
    SectionedOutputStream * writer)
 {
-   if (current_writer != NULL) {
+   if (current_writer != nullptr) {
       return false;
    }
    else {
@@ -423,13 +420,13 @@ CheckPointOutputManager::register_writer (
  */
 bool
 CheckPointOutputManager::deregister_writer (
-   SectionedOutputStream * writer)
+   const SectionedOutputStream * writer)
 {
    if (current_writer != writer) {
       return false;
    }
    else {
-      current_writer = NULL;
+      current_writer = nullptr;
       return true;
    }
 }

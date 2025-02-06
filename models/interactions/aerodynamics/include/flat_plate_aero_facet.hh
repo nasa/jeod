@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
       ((None))
 
 Library dependencies:
-    ((flat_plate_aero_facet.o))
+    ((../src/flat_plate_aero_facet.cc))
 
 
 *******************************************************************************/
@@ -90,14 +90,14 @@ public:
    FlatPlateAeroFacet ();
 
    // destructor
-   virtual ~FlatPlateAeroFacet ();
+   ~FlatPlateAeroFacet () override;
 
    // The flat plate specific implementation of aerodrag_force
-   virtual void aerodrag_force (
+   void aerodrag_force (
       const double velocity_mag,
       const double rel_vel_hat[3],
       AeroDragParameters* aero_drag_param_ptr,
-      double center_grav[3]);
+      double center_grav[3]) override;
 
    /**
     * Flat plate center of pressure (in structural frame). Once the

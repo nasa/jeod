@@ -1,6 +1,6 @@
 
 \section{Lunar Coordinate System} \label{sec:lunar} 
-As noted in section \ref{sec:gen}, all solar system bodies have their inertial coordinate systems center at the body and are co-aligned with the ICRF system. The body fixed system for the Moon is defined in JEOD as principal axis-based lunar coordinate frame to define the directions of the Moon's rotation pole and prime meridian. The transformation from inertial to fixed are provided by the JPL DE421 Ephemerides. 
+As noted in section \ref{sec:gen}, all solar system bodies have their inertial coordinate systems center at the body and are co-aligned with the ICRF system. The body fixed system for the Moon is defined in JEOD as principal axis-based lunar coordinate frame (PA) to define the directions of the Moon's rotation pole and prime meridian. The transformation from inertial to fixed are provided by the JPL DE421 Ephemerides. 
 The numerically integrated physical librations of the Moon are obtained directly from the DE ephemeris file (JPL recommends DE-421, for lunar orientation). The lunar libration paper \cite{LL} defines three (Euler) angles that describe the orientation of the principal axes of the Moon relative to the ICRF reference frame as follows:   
 The three Euler angles are
 \begin{itemize}
@@ -10,12 +10,26 @@ The three Euler angles are
  \end{itemize}
 The three Euler angles (or libration angles) are illustrated in Figure \ref{fig:6}.
 
-\textbf{Coordinate Frame: } The body centered body fixed frame.
+\textbf{Coordinate Frame: } The body centered body fixed frame (PA).
 
 \begin{itemize}
 \item X-axis: Points in the direction of the Moon's prime meridian principal axis (minimum moment of inertia).
 \item Y-axis: Completes a standard, right-handed coordinate frame.
 \item Z-axis: Points in the direction of the Moon's North pole principal axis (maximum moment of inertia).
+\end{itemize}
+
+An alternate planet-centered, planet-fixed coordinate frame often used for the moon, specifically with data collected by LRO instrumentation, is the Mean Earth/Polar Axis frame (ME) defined such that the z-axis is defined as the Moon's mean rotational pole and the prime meridian is defined by the mean direction of Earth. The fixed transformation between PA and ME is defined as:
+
+ME = Rx(-0.30")Ry(-78.56")Rz(-67.92")PA.
+
+This transformation is used to calculate ME using the values for PA provided by the DE ephemeris file.
+
+\textbf{Coordinate Frame: } The alternate body centered body fixed frame (ME).
+
+\begin{itemize}
+\item X-axis: Points in the mean direction of the Earth.
+\item Y-axis: Completes a standard, right-handed coordinate frame.
+\item Z-axis: Points in the direction of the Moon's mean rotational pole.
 \end{itemize}
 
 \begin{figure}[htp]

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -180,7 +180,7 @@ public:
      * Create a TreeLinksAscendRange that walks over the entire path_to_node_
      * from the bottom to the top.
      */
-   TreeLinksAscendRange (
+   explicit TreeLinksAscendRange (
       Links & links)
    :
       TreeLinksRange<ReverseIterator> (
@@ -240,7 +240,7 @@ public:
      * @param start_index  Index of the first node the path_to_node_ vector to
      *   be visited.
      */
-   TreeLinksDescentRange (
+   explicit TreeLinksDescentRange (
       Links & links,
       unsigned int start_index = 0)
    :
@@ -266,7 +266,7 @@ public:
      * Default constructor.
      * Creates a range that will visit all children.
      */
-   TreeLinksChildrenRange (Links & links)
+   explicit TreeLinksChildrenRange (Links & links)
    :
       TreeLinksRange<ForwardIterator> (
          ForwardIterator(links.children_.begin()),

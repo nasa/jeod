@@ -21,11 +21,11 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((radiation_facet.o)
-(interactions/thermal_rider/thermal_facet_rider.o)
-(utils/surface_model/interaction_facet.o)
-(radiation_messages.o)
-(utils/message/message_handler.o))
+((radiation_facet.cc)
+(interactions/thermal_rider/src/thermal_facet_rider.cc)
+(utils/surface_model/src/interaction_facet.cc)
+(radiation_messages.cc)
+(utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -59,7 +59,7 @@ const double RadiationFacet::two_thirds = 2.0 / 3.0;
 RadiationFacet::RadiationFacet (
    void)
 {
-   center_pressure= NULL;
+   center_pressure= nullptr;
    Vector3::initialize(crot_to_cp);
 }
 
@@ -99,7 +99,7 @@ RadiationFacet::initialize(
 void
 RadiationFacet::define_facet_core (
    Facet*,
-   ThermalFacetRider &facet_thermal,
+   const ThermalFacetRider &facet_thermal,
    RadiationParams * params)
 {
 

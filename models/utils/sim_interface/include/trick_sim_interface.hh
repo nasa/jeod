@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,7 +52,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((trick_sim_interface.o))
+  ((../src/trick_sim_interface.cc))
 
  
 
@@ -96,12 +96,12 @@ public:
 
    // Constructor and destructor
    explicit BasicJeodTrickSimInterface (MessageHandler & message_handler);
-   virtual ~BasicJeodTrickSimInterface ();
+   ~BasicJeodTrickSimInterface () override;
 
    /**
     * Set the checkpoint file name.
     */
-   void set_checkpoint_file_name (std::string name)
+   void set_checkpoint_file_name (const std::string & name)
    { checkpoint_file_name = name; }
 
    /**
@@ -121,7 +121,7 @@ public:
 
 
    // Set the mode.
-   virtual void set_mode (JeodSimulationInterface::Mode new_mode);
+   void set_mode (JeodSimulationInterface::Mode new_mode) override;
 
 
    // Record declarations of JEOD_ALLOCed data to the checkpoint file.
@@ -155,22 +155,22 @@ protected:
    // Member functions
 
    // Create an integration interface object.
-   virtual JeodIntegratorInterface * create_integrator_internal (
-      void);
+   JeodIntegratorInterface * create_integrator_internal (
+      void) override;
 
    // Get the currently executing function's cycle time.
-   virtual double get_job_cycle_internal (void);
+   double get_job_cycle_internal (void) override;
 
    // Get the interface with the simulation memory manager.
-   virtual JeodMemoryInterface & get_memory_interface_internal (void);
+   JeodMemoryInterface & get_memory_interface_internal (void) override;
 
    // Get a checkpoint section reader.
-   virtual SectionedInputStream get_checkpoint_reader_internal (
-      const std::string & section_id);
+   SectionedInputStream get_checkpoint_reader_internal (
+      const std::string & section_id) override;
 
    // Get a checkpoint section writer.
-   virtual SectionedOutputStream get_checkpoint_writer_internal (
-      const std::string & section_id);
+   SectionedOutputStream get_checkpoint_writer_internal (
+      const std::string & section_id) override;
 
 
    // Member data
@@ -308,7 +308,7 @@ public:
       /**
     * Destructor.
     */
-   virtual ~JeodTrickSimInterface () {}
+   ~JeodTrickSimInterface () override {}
 
 
 private:

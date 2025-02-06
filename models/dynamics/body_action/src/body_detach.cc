@@ -16,11 +16,11 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_detach.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o))
+  ((body_detach.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc))
 
 
 
@@ -74,7 +74,7 @@ BodyDetach::apply (
    }
    else
    {
-       succeeded = mass_subject->detach ();
+       succeeded = mass_subject->detach();
    }
 
    // Detachment succeeded: Debug.

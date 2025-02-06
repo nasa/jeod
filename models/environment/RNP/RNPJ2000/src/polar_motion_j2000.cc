@@ -30,13 +30,13 @@ Class:
   (PolarMotionJ2000)
 
 Library dependencies:
-  ((polar_motion_j2000.o)
-   (polar_motion_j2000_init.o)
-   (environment/RNP/GenericRNP/RNP_messages.o)
-   (environment/RNP/GenericRNP/planet_rotation.o)
-   (environment/RNP/GenericRNP/planet_rotation_init.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o))
+  ((polar_motion_j2000.cc)
+   (polar_motion_j2000_init.cc)
+   (environment/RNP/GenericRNP/src/RNP_messages.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation.cc)
+   (environment/RNP/GenericRNP/src/planet_rotation_init.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc))
 
  
 *******************************************************************************/
@@ -65,9 +65,9 @@ PolarMotionJ2000::PolarMotionJ2000 (
 :
    xp(0.0),
    yp(0.0),
-   xp_tbl(NULL),
-   yp_tbl(NULL),
-   polar_mjd(NULL),
+   xp_tbl(nullptr),
+   yp_tbl(nullptr),
+   polar_mjd(nullptr),
    override_table(false),
    last_table_index(0),
    warn_table(false)
@@ -81,17 +81,17 @@ PolarMotionJ2000::PolarMotionJ2000 (
 PolarMotionJ2000::~PolarMotionJ2000 (
    void)
 {
-   if (xp_tbl != NULL && JEOD_IS_ALLOCATED(xp_tbl)) {
+   if (xp_tbl != nullptr && JEOD_IS_ALLOCATED(xp_tbl)) {
       JEOD_DELETE_ARRAY (xp_tbl);
-      xp_tbl = NULL;
+      xp_tbl = nullptr;
    }
-   if (yp_tbl != NULL && JEOD_IS_ALLOCATED(yp_tbl)) {
+   if (yp_tbl != nullptr && JEOD_IS_ALLOCATED(yp_tbl)) {
       JEOD_DELETE_ARRAY (yp_tbl);
-      yp_tbl = NULL;
+      yp_tbl = nullptr;
    }
-   if (polar_mjd != NULL && JEOD_IS_ALLOCATED(polar_mjd)) {
+   if (polar_mjd != nullptr && JEOD_IS_ALLOCATED(polar_mjd)) {
       JEOD_DELETE_ARRAY (polar_mjd);
-      polar_mjd = NULL;
+      polar_mjd = nullptr;
    }
 
 
@@ -213,11 +213,12 @@ PolarMotionJ2000::initialize (
    PolarMotionJ2000Init* pm_init =
       dynamic_cast<PolarMotionJ2000Init*> (init);
 
-   if (pm_init == NULL) {
+   if (pm_init == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, RNPMessages::initialization_error,
          "Init object sent to PolarMotionJ2000 was"
          " not of type PolarMotionJ2000Init");
+      return;
    }
 
    override_table   = pm_init->override_table;

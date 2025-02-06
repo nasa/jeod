@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library Dependencies:
-  ((mass_point.o))
+  ((../src/mass_point.cc))
 
 
 
@@ -125,10 +125,10 @@ class MassPoint : public MassPointState {
     { }
 
    // Destructor.
-   virtual ~MassPoint ();
+   ~MassPoint () override;
 
    // Initialize a MassPoint.
-   virtual void initialize_mass_point ();
+   void initialize_mass_point () override;
 
    // Set the name.
    void set_name (std::string name_in)

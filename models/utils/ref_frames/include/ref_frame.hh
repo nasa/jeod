@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,7 +52,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((ref_frame.o))
+  ((../src/ref_frame.cc))
 
  
 
@@ -155,7 +155,7 @@ class RefFrame : public Subscription {
    RefFrame (void);
 
    // Destructor.
-   virtual ~RefFrame (void);
+   ~RefFrame (void) override;
 
    // set_name: Set the frame name (multiple methods provided).
    // The name is formed by conjoining the name items with "."
@@ -216,7 +216,7 @@ class RefFrame : public Subscription {
    virtual RefFrameOwner * get_owner (void) const;
 
    // Change active/inactive state with report to the owner
-   virtual void set_active_status (bool value);
+   void set_active_status (bool value) override;
 
 
    // get_parent: Return the parent frame
@@ -232,7 +232,7 @@ class RefFrame : public Subscription {
    virtual void add_child (RefFrame & frame);
 
    // remove_from_parent: Delete this frame as a child of it's parent frame
-   virtual void remove_from_parent (void);
+   virtual void remove_from_parent (void); //cppcheck-suppress virtualCallInConstructor
 
    // is_progeny_of: Is the subject frame an ancestor of this frame?
    bool is_progeny_of (const RefFrame & frame) const;

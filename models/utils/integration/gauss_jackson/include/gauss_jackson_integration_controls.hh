@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@
 /*
 Purpose: ()
 Library dependencies:
-  ((gauss_jackson_integration_controls.o))
+  ((../src/gauss_jackson_integration_controls.cc))
 */
 
 #ifndef JEOD_GAUSS_JACKSON_INTEGRATION_CONTROLS_HH
@@ -116,7 +116,7 @@ public:
    /**
     * Destructor.
     */
-   ~GaussJacksonIntegrationControls ();
+   ~GaussJacksonIntegrationControls () override;
 
    /**
     * Copy and swap assignment operator.
@@ -133,7 +133,7 @@ public:
     * Create a duplicate of this object.
     * @return Replicated GaussJacksonIntegrationControls.
     */
-   virtual er7_utils::IntegrationControls* create_copy() const;
+   er7_utils::IntegrationControls* create_copy() const override;
 
 
    /**
@@ -176,7 +176,7 @@ public:
    /**
     * Reset the integration controls object.
     */
-   void reset_integrator ();
+   void reset_integrator () override;
 
    /**
     * Make one step in the process that eventually integrates state from
@@ -199,7 +199,7 @@ public:
       double sim_dt,
       er7_utils::TimeInterface & time_interface,
       er7_utils::IntegratorInterface & integ_interface,
-      er7_utils::BaseIntegrationGroup & integ_group);
+      er7_utils::BaseIntegrationGroup & integ_group) override;
 
 protected:
 

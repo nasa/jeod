@@ -3,7 +3,7 @@ PURPOSE:
     (Used for the surface model verification)
 
 Library dependencies:
-    ((demo_interaction_facet.o))
+    ((demo_interaction_facet.cc))
 
  
 *******************************************************************************/
@@ -54,7 +54,7 @@ DemoFacet2::~DemoFacet2 ( // Return: -- void
 
 FlatPlateDemo1::FlatPlateDemo1 (
    void) :
-   shape(NULL)
+   shape(nullptr)
 {
 
 }
@@ -143,7 +143,7 @@ void DemoInteractionFacet1::execute_demo_1 (
 
 DemoInteractionFacet2::DemoInteractionFacet2 (
    void) :
-   color(NULL)
+   color(nullptr)
 {
 
 }

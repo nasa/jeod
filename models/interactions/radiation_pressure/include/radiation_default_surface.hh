@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((radiation_default_surface.o))
+((../src/radiation_default_surface.cc))
 
 
 *******************************************************************************/
@@ -141,13 +141,13 @@ public:
    RadiationDefaultSurface ();
 
    // destructor
-   virtual ~RadiationDefaultSurface ();
+   ~RadiationDefaultSurface () override;
 
-   virtual void initialize (void);
+   void initialize (void) override;
 
-   virtual void incident_radiation ( const double flux_mag,
+   void incident_radiation ( const double flux_mag,
                                      const double flux_struc_hat[3],
-                                     const bool calculate_forces);
+                                     const bool calculate_forces) override;
 
    void thermal_update( void );
 

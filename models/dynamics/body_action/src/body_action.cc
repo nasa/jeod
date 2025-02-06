@@ -16,13 +16,13 @@ Purpose:
   ()
 
 Library dependencies:
-  ((body_action.o)
-   (body_action_messages.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o)
-   (utils/named_item/named_item_demangle.o))
+  ((body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc)
+   (utils/named_item/src/named_item_demangle.cc))
 
 
 
@@ -155,36 +155,47 @@ void BodyAction::set_subject_body(DynBody &dyn_body_in)
     mass_subject = nullptr;
 }
 
-void BodyAction::validate_body_inputs(DynBody *& dyn_body_in, MassBody *& mass_body_in,
-        const std::string & body_base_name)
+bool BodyAction::validate_body_inputs(DynBody *& dyn_body_in, MassBody *& mass_body_in,
+        const std::string & body_base_name, bool allow_failure)
 {
+    bool is_good_body = false;
     // Sanity check: Subject must not be null. Check for bad scoobies
     if( mass_body_in==nullptr && dyn_body_in==nullptr )
     {
-       MessageHandler::fail (
-          __FILE__, __LINE__, BodyActionMessages::null_pointer,
-          "%s failed:\n"
-          "The %s body was not assigned",
-          action_identifier.c_str(), body_base_name.c_str());
+        if(!allow_failure) {
+            MessageHandler::fail (
+               __FILE__, __LINE__, BodyActionMessages::null_pointer,
+               "%s failed:\n"
+               "The %s body was not assigned",
+               action_identifier.c_str(), body_base_name.c_str());
+        }
     }
     else if( mass_body_in!=nullptr && dyn_body_in!=nullptr )
     {
         if(mass_body_in != &dyn_body_in->mass)
         {
-            MessageHandler::fail (
-               __FILE__, __LINE__, BodyActionMessages::fatal_error,
-               "%s failed:\n"
-               "Both mass_%s and dyn_%s are defined,\n"
-               "only one may be set. This should not be able to happen.",
-               action_identifier.c_str(), body_base_name.c_str(), body_base_name.c_str());
+            if(!allow_failure) {
+                MessageHandler::fail (
+                   __FILE__, __LINE__, BodyActionMessages::fatal_error,
+                   "%s failed:\n"
+                   "Both mass_%s and dyn_%s are defined,\n"
+                   "only one may be set. This should not be able to happen.",
+                   action_identifier.c_str(), body_base_name.c_str(), body_base_name.c_str());
+            }
         }
     }
 
-    if(dyn_body_in != nullptr) {
+    if (dyn_body_in != nullptr)
+    {
         mass_body_in = &dyn_body_in->mass;
-    } else {
-        dyn_body_in = mass_body_in->dyn_owner;
+        is_good_body = true;
     }
+    else if (mass_body_in != nullptr)
+    {
+        dyn_body_in = mass_body_in->dyn_owner;
+        is_good_body = true;
+    }
+    return is_good_body;
 }
 
 bool BodyAction::is_same_subject_body(MassBody &mass_body_in)

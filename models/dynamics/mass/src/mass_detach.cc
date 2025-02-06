@@ -16,13 +16,13 @@ Purpose:
    ()
 
 Library Dependencies:
-   ((mass_detach.o)
-    (mass.o)
-    (mass_messages.o)
-    (mass_point.o)
-    (mass_point_state.o)
-    (dynamics/dyn_manager/dyn_manager.o)
-    (utils/math/dm_invert_symm.o))
+   ((mass_detach.cc)
+    (mass.cc)
+    (mass_messages.cc)
+    (mass_point.cc)
+    (mass_point_state.cc)
+    (dynamics/dyn_manager/src/dyn_manager.cc)
+    (utils/math/src/dm_invert_symm.cc))
 
 
 ******************************************************************************/

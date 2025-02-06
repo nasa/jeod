@@ -32,29 +32,29 @@ Class:
 (N/A)
 
 LIBRARY DEPENDENCY:
-((de4xx_ephem.o)
-(de4xx_ephem_dynmanager.o)
-(de4xx_file.o)
-(de4xx_file_init.o)
-(de4xx_file_update.o)
-(environment/ephemerides/ephem_interface/ephem_messages.o)
-(environment/ephemerides/ephem_interface/ephem_ref_frame.o)
-(environment/ephemerides/ephem_item/ephem_item.o)
-(environment/ephemerides/ephem_item/ephem_orient.o)
-(environment/ephemerides/ephem_item/ephem_orient_zxz.o)
-(environment/ephemerides/ephem_item/ephem_point.o)
-(environment/ephemerides/ephem_manager/ephem_manager.o)
-(environment/time/time.o)
-(environment/time/time_dyn.o)
-(environment/time/time_manager.o)
-(environment/time/time_tt.o)
-(utils/memory/memory_manager_static.o)
-(utils/message/message_handler.o)
-(utils/named_item/named_item.o)
-(utils/ref_frames/ref_frame.o)
-(utils/ref_frames/ref_frame_manager.o)
-(utils/ref_frames/ref_frame_set_name.o)
-(utils/ref_frames/subscription.o))
+((de4xx_ephem.cc)
+(de4xx_ephem_dynmanager.cc)
+(de4xx_file.cc)
+(de4xx_file_init.cc)
+(de4xx_file_update.cc)
+(environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+(environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc)
+(environment/ephemerides/ephem_item/src/ephem_item.cc)
+(environment/ephemerides/ephem_item/src/ephem_orient.cc)
+(environment/ephemerides/ephem_item/src/ephem_orient_zxz.cc)
+(environment/ephemerides/ephem_item/src/ephem_point.cc)
+(environment/ephemerides/ephem_manager/src/ephem_manager.cc)
+(environment/time/src/time.cc)
+(environment/time/src/time_dyn.cc)
+(environment/time/src/time_manager.cc)
+(environment/time/src/time_tt.cc)
+(utils/memory/src/memory_manager_static.cc)
+(utils/message/src/message_handler.cc)
+(utils/named_item/src/named_item.cc)
+(utils/ref_frames/src/ref_frame.cc)
+(utils/ref_frames/src/ref_frame_manager.cc)
+(utils/ref_frames/src/ref_frame_set_name.cc)
+(utils/ref_frames/src/subscription.cc))
 
 
 *******************************************************************************/
@@ -92,9 +92,9 @@ namespace jeod {
 De4xxEphemItem::De4xxEphemItem (
    void)
 :
-   item(NULL),
-   enabled_item(NULL),
-   frame(NULL),
+   item(nullptr),
+   enabled_item(nullptr),
+   frame(nullptr),
    name(),
    status(Deselected),
    index(UINT_MAX)
@@ -124,11 +124,11 @@ De4xxEphemeris::De4xxEphemeris (
    file(),
    force_update(false),
    nactive_items(0),
-   ident(NULL),
+   ident(nullptr),
    update_time(-99e99),
-   root_item(NULL),
-   time_tt(NULL),
-   time_dyn(NULL)
+   root_item(nullptr),
+   time_tt(nullptr),
+   time_dyn(nullptr)
 {
    item_data = JEOD_ALLOC_CLASS_ARRAY( De4xxBase::number_jeod_items(999), De4xxEphemItem );
 
@@ -234,7 +234,7 @@ void
 De4xxEphemeris::shutdown (
    void)
 {
-   if (ident != NULL) {
+   if (ident != nullptr) {
       JEOD_DELETE_ARRAY (ident);
    }
    file.shutdown ();
@@ -314,7 +314,7 @@ void
 De4xxEphemeris::initialize_model (
    const TimeManager & time_manager,
    EphemeridesManager & ephem_manager,
-   std::string time_type)
+   const std::string & time_type)
 {
 
    // Nothing to do if the model is inactive.
@@ -344,7 +344,7 @@ De4xxEphemeris::initialize_model (
 void
 De4xxEphemeris::initialize_time (
    const TimeManager & time_manager,
-   std::string time_type)
+   const std::string & time_type)
 {
 
    // Get pointers to the ephemeris time and dynamic time time objects.
@@ -366,7 +366,7 @@ De4xxEphemeris::initialize_time (
    time_dyn = dynamic_cast<const TimeDyn *> (time_manager.get_time_ptr ("Dyn"));
 
    // Check for valid time types
-   if ((time_tt == NULL) || (time_dyn == NULL)) {
+   if ((time_tt == nullptr) || (time_dyn == nullptr)) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
          "Could not find the Terrestrial Time and Dynamic Time time objects.");
@@ -423,8 +423,8 @@ De4xxEphemeris::initialize_items (
    // Process the user-inputable selected_items array.
    for (uint32_t ii = 0; ii < De4xxBase::number_jeod_items(file.file_spec.get_model_number()); ++ii) {
       // Mark deselected items (and items that are not present) as deselected.
-      if ((! selected_items[ii]) || (item_data[ii].item == NULL)) {
-         if (item_data[ii].item != NULL) {
+      if ((! selected_items[ii]) || (item_data[ii].item == nullptr)) {
+         if (item_data[ii].item != nullptr) {
             item_data[ii].item->disable ();
          }
          item_data[ii].status = De4xxEphemItem::Deselected;
@@ -454,14 +454,14 @@ De4xxEphemeris::initialize_items (
    if ((item_data[De4xxBase::De4xx_Ephem_SSbary].status !=
          De4xxEphemItem::Deselected) &&
          (ephem_manager.find_ref_frame (
-             solar_system_barycenter_frame.get_name()) == NULL)) {
+             solar_system_barycenter_frame.get_name()) == nullptr)) {
       ephem_manager.add_integ_frame (solar_system_barycenter_frame);
    }
 
    if ((item_data[De4xxBase::De4xx_Ephem_EMbary].status !=
          De4xxEphemItem::Deselected) &&
          (ephem_manager.find_ref_frame (
-             earth_moon_barycenter_frame.get_name()) == NULL)) {
+             earth_moon_barycenter_frame.get_name()) == nullptr)) {
       ephem_manager.add_integ_frame (earth_moon_barycenter_frame);
    }
 
@@ -504,7 +504,7 @@ De4xxEphemeris::ephem_initialize (
    for (uint32_t ii = 0; ii < De4xxBase::number_jeod_items(file.file_spec.get_model_number()); ++ii) {
 
       // Process all items that currently are handled by the model.
-      if (item_data[ii].item != NULL) {
+      if (item_data[ii].item != nullptr) {
 
          // If the item is in the simulation it will (must) have a target
          // frame by this point.
@@ -512,7 +512,7 @@ De4xxEphemeris::ephem_initialize (
          item_data[ii].frame = item_data[ii].item->get_target_frame();
 
          // Deselect items that don't have a target frame.
-         if (item_data[ii].frame == NULL) {
+         if (item_data[ii].frame == nullptr) {
             item_data[ii].status = De4xxEphemItem::Deselected;
          }
       }
@@ -543,7 +543,7 @@ De4xxEphemeris::activate_nodes (
       De4xxEphemItem & item = item_data[ii];
       if (item.status != De4xxEphemItem::Deselected) {
          item.enabled_item = item.item->get_enabled_item ();
-         if ((item.enabled_item == NULL) ||
+         if ((item.enabled_item == nullptr) ||
                (! item.enabled_item->is_active ())) {
             item.status = De4xxEphemItem::Inactive;
          }
@@ -556,7 +556,7 @@ De4xxEphemeris::activate_nodes (
          }
       }
       else {
-         item.enabled_item = NULL;
+         item.enabled_item = nullptr;
       }
 
       if ((ii < De4xxBase::number_trans_points(file.file_spec.get_model_number())) &&
@@ -613,7 +613,7 @@ De4xxEphemeris::activate_em_nodes (
                "Item '%s' needs to be activated but is deselected",
                item.name);
          }
-         else if (item.enabled_item == NULL) {
+         else if (item.enabled_item == nullptr) {
             item.enabled_item = item.item;
             item.item->enable();
             item.item->activate();
@@ -699,7 +699,7 @@ De4xxEphemeris::determine_root_node (
    }
 
    else {
-      root_item = NULL;
+      root_item = nullptr;
    }
 }
 
@@ -722,7 +722,7 @@ De4xxEphemeris::ephem_activate (
    // Activate nodes based on the activity of the ephemeris points and
    // based on the DE4xx reference frame tree.
    tot_active = activate_nodes ();
-   tot_active = activate_em_nodes (tot_active);
+   activate_em_nodes (tot_active);
 
    // Determine the root point of the reference frame tree.
    determine_root_node ();
@@ -789,9 +789,9 @@ De4xxEphemeris::ephem_build_tree (
    }
 
    // Set the root of the reference frame tree.
-   if ((root_item != NULL) &&
+   if ((root_item != nullptr) &&
          (root_item->item == root_item->enabled_item)) {
-      ephem_manager.add_frame_to_tree (*(root_item->frame), NULL);
+      ephem_manager.add_frame_to_tree (*(root_item->frame), nullptr);
    }
 
    // Add non-root items to the tree.
@@ -800,8 +800,8 @@ De4xxEphemeris::ephem_build_tree (
          ++ii)
    {
       De4xxEphemItem & item = item_data[ii];
-      EphemerisRefFrame * parent_frame;
       if (item.status == De4xxEphemItem::Active) {
+         EphemerisRefFrame * parent_frame;
          if ((ii == De4xxBase::De4xx_Ephem_Earth) ||
                (ii == De4xxBase::De4xx_Ephem_Moon)) {
             parent_frame = item_data[De4xxBase::De4xx_Ephem_EMbary].frame;
@@ -809,7 +809,7 @@ De4xxEphemeris::ephem_build_tree (
          else {
             parent_frame = item_data[De4xxBase::De4xx_Ephem_SSbary].frame;
          }
-         if (parent_frame == NULL) {
+         if (parent_frame == nullptr) {
             MessageHandler::fail (
                __FILE__, __LINE__, EphemeridesMessages::inconsistent_setup,
                "Unable to find parent frame for '%s'",
@@ -845,7 +845,7 @@ De4xxEphemeris::ephem_update (
    force_update = false;
 
    // Update the root if it is owned by this model.
-   if ((root_item != NULL) &&
+   if ((root_item != nullptr) &&
          (root_item->item == root_item->enabled_item)) {
       EphemerisPoint * point = dynamic_cast<EphemerisPoint*>(root_item->item);
       point->update (null_vec, null_vec, update_time);

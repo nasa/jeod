@@ -54,7 +54,7 @@ cast_to_gj_controls (
 {
    GaussJacksonIntegrationControls * gj_controls =
       dynamic_cast<GaussJacksonIntegrationControls*> (&controls);
-   if (gj_controls == NULL) {
+   if (gj_controls == nullptr) {
       er7_utils::MessageHandler::fail (
          __FILE__, __LINE__,
          er7_utils::IntegrationMessages::invalid_request,
@@ -80,7 +80,7 @@ GaussJacksonIntegratorConstructor::GaussJacksonIntegratorConstructor ()
 :
    er7_utils::Er7UtilsDeletable (),
    er7_utils::IntegratorConstructor (),
-   priming_constructor (NULL),
+   priming_constructor (nullptr),
    config ()
 {
 }
@@ -92,10 +92,10 @@ GaussJacksonIntegratorConstructor::GaussJacksonIntegratorConstructor (
 :
    er7_utils::Er7UtilsDeletable (),
    er7_utils::IntegratorConstructor (src),
-   priming_constructor (NULL),
+   priming_constructor (nullptr),
    config (src.config)
 {
-   if (src.priming_constructor != NULL) {
+   if (src.priming_constructor != nullptr) {
       priming_constructor = src.priming_constructor->create_copy ();
    }
 }
@@ -162,7 +162,7 @@ GaussJacksonIntegratorConstructor::create_integration_controls ()
 const
 {
    // Configure this object with the standard config if not already configured.
-   if (priming_constructor == NULL) {
+   if (priming_constructor == nullptr) {
       (const_cast<GaussJacksonIntegratorConstructor*>(this))->configure (GaussJacksonConfig::standard_configuration ());
    }
 
@@ -170,7 +170,7 @@ const
                 GaussJacksonIntegrationControls,
                 const er7_utils::IntegratorConstructor &,
                 const GaussJacksonConfig &> (
-             *priming_constructor, config);
+             *priming_constructor, config); 
 }
 
 

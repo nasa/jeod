@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -54,7 +54,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((simple_ephemerides.o))
+  ((../src/simple_ephemerides.cc))
 
 
 
@@ -93,7 +93,7 @@ public:
 
    // Constructor and destructor
    SinglePointEphemeris (void);
-   virtual ~SinglePointEphemeris (void);
+   ~SinglePointEphemeris (void) override;
 
 
    // Set the names of this object and of the central frame.
@@ -103,20 +103,20 @@ public:
    // Implemented EphemerisInterface methods
 
    // Activate the model. (Null implementation.)
-   virtual void activate (void);
+   void activate (void) override;
 
    // Dectivate the model. (Null implementation.)
-   virtual void deactivate (void);
+   void deactivate (void) override;
 
 
    // Return the last update time.
-   virtual double timestamp (void) const;
+   double timestamp (void) const override;
 
    // Return the identifier.
-   virtual const char * get_name (void) const;
+   const char * get_name (void) const override;
 
    // Update the ephemeris model; nothing to do with a single point ephemeris.
-   virtual void ephem_update (void);
+   void ephem_update (void) override;
 
 
    // Unimplemented SinglePointEphemeris methods
@@ -144,27 +144,27 @@ public:
    /*
     Purpose: (Initialize the ephemerides.)
     */
-   virtual void ephem_initialize (
+   void ephem_initialize (
       EphemeridesManager & manager)
-   = 0;
+   override = 0;
 
 
       /**
     * Activate the model.
     * \param[in,out] manager Ephemerides manager
     */
-   virtual void ephem_activate (
+   void ephem_activate (
       EphemeridesManager & manager)
-   = 0;
+   override = 0;
 
 
       /**
     * Build the model's contribution to the reference frame tree.
     * \param[in,out] manager Ephemerides manager
     */
-   virtual void ephem_build_tree (
+   void ephem_build_tree (
       EphemeridesManager & manager)
-   = 0;
+   override = 0;
 
 
 protected:
@@ -210,18 +210,18 @@ public:
 
    // Constructor and destructor
    EmptySpaceEphemeris (void);
-   virtual ~EmptySpaceEphemeris (void);
+   ~EmptySpaceEphemeris (void) override;
 
    // Set the names of this object and of the central frame.
-   virtual void set_name (const char * frame_name);
+   void set_name (const char * frame_name) override;
 
    // Initialize the model.
-   virtual void initialize_model (EphemeridesManager & ephem_manager);
+   void initialize_model (EphemeridesManager & ephem_manager) override;
 
    // EphemerisInterface methods.
-   virtual void ephem_initialize (EphemeridesManager & ephem_manager);
-   virtual void ephem_activate (EphemeridesManager & ephem_manager);
-   virtual void ephem_build_tree (EphemeridesManager & ephem_manager);
+   void ephem_initialize (EphemeridesManager & ephem_manager) override;
+   void ephem_activate (EphemeridesManager & ephem_manager) override;
+   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
 
 
 protected:
@@ -264,18 +264,18 @@ public:
 
    // Constructor and destructor
    SinglePlanetEphemeris (void);
-   virtual ~SinglePlanetEphemeris (void);
+   ~SinglePlanetEphemeris (void) override;
 
    // Set the names of this object and of the central planet.
-   virtual void set_name (const char * frame_name);
+   void set_name (const char * frame_name) override;
 
    // Initialize the model.
-   virtual void initialize_model (EphemeridesManager & ephem_manager);
+   void initialize_model (EphemeridesManager & ephem_manager) override;
 
    // EphemerisInterface methods.
-   virtual void ephem_initialize (EphemeridesManager & ephem_manager);
-   virtual void ephem_activate (EphemeridesManager & ephem_manager);
-   virtual void ephem_build_tree (EphemeridesManager & ephem_manager);
+   void ephem_initialize (EphemeridesManager & ephem_manager) override;
+   void ephem_activate (EphemeridesManager & ephem_manager) override;
+   void ephem_build_tree (EphemeridesManager & ephem_manager) override;
 
 
  protected:

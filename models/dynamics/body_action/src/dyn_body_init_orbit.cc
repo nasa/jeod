@@ -16,16 +16,16 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_orbit.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dyn_body_init.o)
-   (dyn_body_init_trans_state.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o)
-   (utils/orbital_elements/orbital_elements.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_init_orbit.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dyn_body_init.cc)
+   (dyn_body_init_trans_state.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc)
+   (utils/orbital_elements/src/orbital_elements.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -252,7 +252,7 @@ DynBodyInitOrbit::apply (
    // Compute omega,e,nu from the above.
    case SmaIncAscnodeArglatRadRadvel:
    {
-      double ecosE, esinE, ecc_sq, kcost, ksint;
+      double ecosE, esinE, ecc_sq;
 
       // Compute the eccentricity times the
       // sine and cosine of the eccentric anomaly.
@@ -266,8 +266,8 @@ DynBodyInitOrbit::apply (
 
       // Non-circular orbit: Compute the true anomaly.
       if (eccentricity >= 1.0e-14) {
-         kcost = ecosE - ecc_sq;
-         ksint = std::sqrt (1.0 - ecc_sq) * esinE ;
+         double kcost = ecosE - ecc_sq;
+         double ksint = std::sqrt (1.0 - ecc_sq) * esinE ;
          true_anomaly = std::atan2 (ksint, kcost);
       }
 
@@ -318,7 +318,7 @@ DynBodyInitOrbit::apply (
    if (shape == ShapeSemiMajorAxis) {
       semi_latus_rectum = semi_major_axis *
                           ( 1.0 - eccentricity * eccentricity);
-      shape = ShapeSemiLatusRectum;
+      //shape = ShapeSemiLatusRectum;
    }
 
    // Compute the mean anomaly from the time since periapsis passage.

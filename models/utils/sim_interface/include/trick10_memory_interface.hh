@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,7 +52,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((trick10_memory_interface.o))
+  ((../src/trick10_memory_interface.cc))
 
  
 
@@ -116,52 +116,52 @@ public:
 
    // Constructor and destructor
    JeodTrick10MemoryInterface ();
-   virtual ~JeodTrick10MemoryInterface ();
+   ~JeodTrick10MemoryInterface () override;
 
 
    // Register a JeodCheckpointable object with the simulation engine.
-   virtual void register_container (
+   void register_container (
       const void * owner,
       const JeodMemoryTypeDescriptor & owner_type,
       const char * elem_name,
-      JeodCheckpointable & container);
+      JeodCheckpointable & container) override;
 
    // Revoke registration of a JeodCheckpointable that is about to be deleted.
-   virtual void deregister_container (
+   void deregister_container (
       const void * owner,
       const JeodMemoryTypeDescriptor & owner_type,
       const char * elem_name,
-      JeodCheckpointable & container);
+      JeodCheckpointable & container) override;
 
 
    // Get the simulation name (if any) of the address.
-   virtual const std::string get_name_at_address (
+   const std::string get_name_at_address (
       const void * addr,
-       const JeodMemoryTypeDescriptor * tdesc) const;
+       const JeodMemoryTypeDescriptor * tdesc) const override;
 
    // Get the address (if any) corresponding to the given name.
-   virtual void * get_address_at_name (
-      const std::string & name) const;
+   void * get_address_at_name (
+      const std::string & name) const override;
 
    /**
     * The Trick10 memory interface supports checkpoint/restart.
     */
-   virtual bool is_checkpoint_restart_supported (void) const { return true; }
+   bool is_checkpoint_restart_supported (void) const override { return true; }
 
    // Get the name of the current Trick checkpoint file.
-   virtual const std::string get_trick_checkpoint_file (bool checkpoint);
+   const std::string get_trick_checkpoint_file (bool checkpoint) override;
 
    // Dump the container checkpointable objects to the checkpoint file.
-   virtual void checkpoint_containers (void);
+   void checkpoint_containers (void) override;
 
    // Restore the container checkpointables objects from the checkpoint file.
-   virtual void restore_containers (void);
+   void restore_containers (void) override;
 
    // Dump the allocation information to the checkpoint file.
-   virtual void checkpoint_allocations (void);
+   void checkpoint_allocations (void) override;
 
    // Restore the allocated data per the checkpoint file.
-   virtual void restore_allocations (JeodMemoryManager & memory_manager);
+   void restore_allocations (JeodMemoryManager & memory_manager) override;
 
 
 protected:

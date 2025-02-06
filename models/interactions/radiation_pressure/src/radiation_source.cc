@@ -27,10 +27,10 @@ CLASS:
     (scheduled)
 
 LIBRARY DEPENDENCY:
-   ((radiation_source.o)
-    (radiation_messages.o)
-    (radiation_third_body.o)
-    (utils/message/message_handler.o))
+   ((radiation_source.cc)
+    (radiation_messages.cc)
+    (radiation_third_body.cc)
+    (utils/message/src/message_handler.cc))
 
 
 
@@ -65,9 +65,9 @@ RadiationSource::RadiationSource (
    void)
 :
    solar_luminosity(3.827E+26),
-   solar_radius(6.98E+08)
+   solar_radius(6.98E+08),
+   name("Sun")
 {
-   name            = "Sun";
    Vector3::initialize (flux_hat);
    flux_mag           = 0.0;
    d_source_to_cg     = 0.0;
@@ -80,7 +80,7 @@ RadiationSource::RadiationSource (
    Vector3::initialize (source_to_cg);
    Vector3::initialize (source_to_struc_origin);
    multiple_shadow_bodies = false;
-   inertial_frame_ptr = NULL;
+   inertial_frame_ptr = nullptr;
 }
 
 
@@ -168,7 +168,7 @@ RadiationSource::initialize (
 {
 
    Planet * source_planet = dyn_mgr_ptr->find_planet (name.c_str());
-   if (source_planet != NULL) {
+   if (source_planet != nullptr) {
       inertial_frame_ptr = &(source_planet->inertial);
    }
    else {

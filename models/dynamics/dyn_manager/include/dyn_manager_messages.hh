@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ Assumptions and limitations:
    (This is not an exhaustive list of all the things that can go awry.))
 
 Library dependencies:
-  ((dyn_manager_messages.o))
+  ((../src/dyn_manager_messages.cc))
 
 
 

@@ -16,7 +16,7 @@ Purpose:
   ()
 
 Library Dependencies:
-  ((environment/ephemerides/ephem_item/ephem_orient.o))
+  ((environment/ephemerides/ephem_item/src/ephem_orient.cc))
 
 
 *******************************************************************************/

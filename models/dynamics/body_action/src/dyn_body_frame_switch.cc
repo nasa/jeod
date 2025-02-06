@@ -16,14 +16,14 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_frame_switch.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (dynamics/mass/mass.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_frame_switch.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (dynamics/mass/src/mass.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -125,6 +125,7 @@ DynBodyFrameSwitch::initialize (
          "The integration frame name '%s' does not specify a "
          "valid integration frame.",
          action_identifier.c_str(), integ_frame_name.c_str());
+      return;
    }
 
    // (Temporarily) subscribe to the new integration frame to force it to be

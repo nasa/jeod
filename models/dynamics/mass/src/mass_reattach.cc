@@ -15,10 +15,10 @@ Purpose:
   ()
 
 Library Dependency:
-  ((mass_reattach.o)
-   (mass.o)
-   (mass_messages.o)
-   (utils/quaternion/quat.o))
+  ((mass_reattach.cc)
+   (mass.cc)
+   (mass_messages.cc)
+   (utils/quaternion/src/quat.cc))
 
 
 

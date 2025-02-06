@@ -16,12 +16,12 @@ Purpose:
   ()
 
 Library dependencies:
-  ((gravity_controls.o)
-   (gravity_source.o)
-   (gravity_manager.o)
-   (gravity_messages.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o))
+  ((gravity_controls.cc)
+   (gravity_source.cc)
+   (gravity_manager.cc)
+   (gravity_messages.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 *******************************************************************************/
@@ -70,8 +70,8 @@ GravityControls::GravityControls ()
    perturbing_only(false),
    battin_method(false),
    relativistic(false),
-   body(NULL),
-   grav_manager(NULL),
+   body(nullptr),
+   grav_manager(nullptr),
    subscribed_to_inertial(false),
    subscribed_to_pfix(false),
    skip_spherical(false)
@@ -106,14 +106,14 @@ GravityControls::initialize_control (
 {
 
    // Check if initializing directly or via name
-   if( body != NULL ) // directly
+   if( body != nullptr ) // directly
    {
        source_name = body->name;
    }
    else if( !source_name.empty() ) // by name
    {
        body = grav_man.find_grav_source (source_name);
-       if (body == NULL) {
+       if (body == nullptr) {
            MessageHandler::error (
                    __FILE__, __LINE__, GravityMessages::missing_entry,
                    "Unable to find planet named '%s'",
@@ -130,7 +130,7 @@ GravityControls::initialize_control (
    }
 
    // The grav_source should have an associated inertial frame.
-   if (body->inertial == NULL) {
+   if (body->inertial == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, GravityMessages::missing_entry,
          "Gravity source named '%s' has not been fully initialized.",
@@ -235,7 +235,8 @@ GravityControls::gravitation (
 
    // Compute contributions from non-spherical gravity if requested.
    if (! spherical) {
-      calc_nonspherical (posn, body_grav_accel, dgdx, Pot);
+      calc_nonspherical (integ_pos, posn, grav_source_frame,
+                         body_grav_accel, dgdx, Pot[0]);
    }
 
     // Spherical only: Initialize gradient, accel, and potential to zero.
@@ -287,7 +288,9 @@ GravityControls::gravitation (
 
    // Compute contributions from non-spherical gravity if requested.
    if (! spherical) {
-      calc_nonspherical (rel_pos, body_grav_accel, dgdx, &pot);
+       calc_nonspherical (
+          point_of_interest.state.trans.position, rel_pos, grav_source_frame,
+          body_grav_accel, dgdx, pot);
    }
 
     // Spherical only: Initialize gradient, accel, and potential to zero.

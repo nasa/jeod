@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,7 @@ Assumptions and limitations:
  
 
 Library dependencies:
-  ((time_ut1.o))
+  ((../src/time_ut1.cc))
 ******************************************************************************/
 
 #ifndef JEOD_TIME_UT1_HH
@@ -96,7 +96,7 @@ public:
    TimeUT1 ();
 
   // Destructor
-   ~TimeUT1 ();
+   ~TimeUT1 () override;
 
    double get_days ();
 
@@ -106,7 +106,7 @@ public:
  private:
    TimeUT1 (const TimeUT1&);
    TimeUT1 & operator = (const TimeUT1&);
-   void set_epoch(void);
+   void set_epoch(void) override;  //cppcheck-suppress virtualCallInConstructor
 };
 
 } // End JEOD namespace

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,7 +58,7 @@
      ((N/A))
 
  Library dependencies:
-    ((contact.o))
+    ((../src/contact.cc))
 
  
 
@@ -143,7 +143,7 @@ public:
    /*
     Check contact pair list for duplicates before making a new pair.
     */
-   bool unique_pair ( ContactFacet * facet_1, ContactFacet * facet_2);
+   bool unique_pair ( const ContactFacet * facet_1, const ContactFacet * facet_2);
 
    /*
     Function to check for contact.  Loops through all the created pairs.

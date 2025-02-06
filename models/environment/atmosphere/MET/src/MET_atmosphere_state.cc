@@ -28,8 +28,8 @@ ASSUMPTIONS AND LIMITATIONS:
    ((Too many to enumerate here.))
 
 LIBRARY DEPENDENCY:
-  ((environment/atmosphere/base_atmos/src/atmosphere_messages.o)
-   (utils/message/src/message_handler.o))
+  ((environment/atmosphere/base_atmos/src/atmosphere_messages.cc)
+   (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -55,7 +55,7 @@ Constructor
 METAtmosphereState::METAtmosphereState ()
    :
    METAtmosphereStateVars(),
-   met_atmos(NULL)
+   met_atmos(nullptr)
 { }
 /***************************************************************************/
 METAtmosphereState::METAtmosphereState (
@@ -81,7 +81,7 @@ METAtmosphereState::update_state (
    const PlanetFixedPosition * pfix_pos_)
 {
 
-   if (active && (atmos_model_ != NULL)) {
+   if (active && (atmos_model_ != nullptr)) {
       atmos_model_->update_atmosphere (pfix_pos_, this);
    }
 }
@@ -96,7 +96,7 @@ METAtmosphereState::update_state (
 void
 METAtmosphereState::update_state ()
 {
-   if (active && (met_atmos != NULL)) {
+   if (active && (met_atmos != nullptr)) {
       met_atmos->update_atmosphere (pfix_pos, this);
    }
 }

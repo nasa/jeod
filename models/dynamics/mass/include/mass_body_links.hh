@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -93,7 +93,7 @@ class MassBodyLinks :
     * Non-default constructor.
     * @param container_in The MassBody object that contains this object.
     */
-   MassBodyLinks (MassBody & container_in)
+   explicit MassBodyLinks (MassBody & container_in)
    :
       TreeLinks<MassBodyLinks, MassBody, MassBodyMessages> (
          container_in, default_path_size)
@@ -108,7 +108,7 @@ class MassBodyLinks :
    /**
     * Destructor.
     */
-   virtual ~MassBodyLinks () = default;
+   ~MassBodyLinks () override = default;
 
 
 

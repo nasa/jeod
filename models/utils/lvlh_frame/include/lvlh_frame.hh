@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,7 +53,7 @@ Purpose:
   ()
 
 Library dependencies:
-  ((lvlh_frame.o))
+  ((../src/lvlh_frame.cc))
 
  
 
@@ -139,10 +139,10 @@ class LvlhFrame {
    void update ();
 
    // Specify the defining frame's name
-   void set_subject_name (const std::string new_name);
+   void set_subject_name (const std::string & new_name);
 
    // Specify the reference planet's name
-   void set_planet_name (const std::string new_name);
+   void set_planet_name (const std::string & new_name);
 
    // Specify the defining frame
    void set_subject_frame (RefFrame & new_frame);

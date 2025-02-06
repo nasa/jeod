@@ -10,7 +10,7 @@ Assumptions and limitations:
   ()
 
 Library dependencies:
-  ((terrain.o))
+  ((terrain.cc))
 
 
 *******************************************************************************/
@@ -27,7 +27,7 @@ namespace jeod {
 Terrain::Terrain (
 	void)
 :
-planet (NULL),
+planet (nullptr),
 offset (0.0)
 {
 }

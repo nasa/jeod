@@ -16,9 +16,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_lvlh_state.o)
-   (dynamics/derived_state/lvlh_relative_derived_state.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_init_lvlh_state.cc)
+   (dynamics/derived_state/src/lvlh_relative_derived_state.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 *******************************************************************************/
@@ -115,7 +115,6 @@ DynBodyInitLvlhState::apply (
    DynManager & dyn_manager)
 {
    LvlhFrame lvlh_frame;         // -- Reference vehicle LVLH frame
-   RefFrameItems test_items(set_items); // -- The state components to be set
 
    if (lvlh_object_ptr != nullptr) {
       lvlh_object_ptr->update();

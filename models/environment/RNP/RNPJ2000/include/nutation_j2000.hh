@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -64,7 +64,7 @@ Assumptions and limitations:
   ((Earth specific)(must be initialized))
 
 Library dependencies:
-  ((nutation_j2000.o))
+  ((../src/nutation_j2000.cc))
 
  
 
@@ -195,18 +195,18 @@ public: // public member functions
 
    NutationJ2000 ();
 
-   virtual ~NutationJ2000 ();
+   ~NutationJ2000 () override;
 
    // Specific implemtation of update_rotation, from the polymorphic pure
    // virtual base class PlanetRotation. Before this is called, the
    // current_time parameter must be set to julian centures since J2000,
    // in the terrestrial time format.
-   virtual void update_rotation ();
+   void update_rotation () override;
 
    // Initialize the various coefficients needed for the calculation of
    // nutation. init must be of type NutationJ2000Init or an exec_terminate
    // will occur
-   virtual void initialize (PlanetRotationInit* init);
+   void initialize (PlanetRotationInit* init) override;
 
 private: // private member functions
 

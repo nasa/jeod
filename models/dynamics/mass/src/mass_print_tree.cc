@@ -15,10 +15,10 @@ PURPOSE:
   ()
 
 Library Dependency:
-  ((mass_print_tree.o)
-   (mass.o)
-   (mass_print_body.o)
-   (mass_messages.o))
+  ((mass_print_tree.cc)
+   (mass.cc)
+   (mass_print_body.cc)
+   (mass_messages.cc))
 
 
 
@@ -57,7 +57,7 @@ const
    fptr = std::fopen (file_name, "w"); // flawfinder: ignore
 
    // Failure to do so is a fatal error.
-   if (fptr == NULL) {
+   if (fptr == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, MassBodyMessages::io_error,
          "Could not open file '%s' for output",

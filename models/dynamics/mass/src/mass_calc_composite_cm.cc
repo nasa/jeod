@@ -15,8 +15,8 @@ Purpose:
   ()
 
 Library Dependency:
-  ((mass_calc_composite_cm.o)
-   (mass.o))
+  ((mass_calc_composite_cm.cc)
+   (mass.cc))
 
 
 

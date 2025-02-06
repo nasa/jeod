@@ -10,7 +10,7 @@
  ((N/A))
 
  Library dependencies:
- ((line_ground_interaction.o))
+ ((line_ground_interaction.cc))
 
  
 
@@ -37,7 +37,7 @@ namespace jeod {
 LineGroundInteraction::LineGroundInteraction (
    void)
 : // Return: -- None
-subject_line (NULL)
+subject_line (nullptr)
 {
 
 }
@@ -133,7 +133,7 @@ LineGroundInteraction::in_contact ( // Return: -- void
                     rel_velocity);
 
       // calculate the forces on the facets
-      interaction->calculate_forces(subject, NULL, NULL, vec, rel_velocity);
+      interaction->calculate_forces(subject, nullptr, nullptr, vec, rel_velocity);
 
       contact = true;
       velocity_mag = Vector3::vmag(rel_velocity);

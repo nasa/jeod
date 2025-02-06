@@ -29,15 +29,15 @@ ASSUMPTIONS AND LIMITATIONS:
     The method used is therefore accurate only to 0.1 microseconds.))
 
 LIBRARY DEPENDENCY:
-  ((time_converter_tai_tdb.o)
-   (time_converter.o)
-   (time.o)
-   (time_tai.o)
-   (time_tdb.o)
-   (time_messages.o)
-   (utils/sim_interface/memory_interface.o)
-   (utils/message/message_handler.o)
-   (utils/named_item/named_item.o))
+  ((time_converter_tai_tdb.cc)
+   (time_converter.cc)
+   (time.cc)
+   (time_tai.cc)
+   (time_tdb.cc)
+   (time_messages.cc)
+   (utils/sim_interface/src/memory_interface.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/named_item/src/named_item.cc))
 
  
 ******************************************************************************/
@@ -76,8 +76,8 @@ TimeConverter_TAI_TDB::TimeConverter_TAI_TDB (
    a_to_b_offset         = 0.0;
    prev_tai_seconds      = 0.0;
    prev_tdb_seconds      = 0.0;
-   tai_ptr               = NULL;
-   tdb_ptr               = NULL;
+   tai_ptr               = nullptr;
+   tdb_ptr               = nullptr;
    a_name                = "TAI";
    b_name                = "TDB";
    valid_directions = ANY_DIRECTION;
@@ -179,9 +179,9 @@ void)
                     - (a_to_b_offset - a_to_b_offset_epoch);
         tai_ptr->set_time_by_seconds(tai_ptr->seconds + dtai);
         if (nSteps > 5 || std::abs(dtai/tai_ptr->seconds) < 1.0e-15) {
-            break;
             prev_tdb_seconds = tdb_ptr->seconds;
             prev_tai_seconds = tai_ptr->seconds;
+            break;
         }
     }
 }

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -48,7 +48,7 @@
 
 /*
 Purpose: ()
-Library dependencies: ((dyn_body_pendulum_constraint.o))
+Library dependencies: ((../src/dyn_body_pendulum_constraint.cc))
 */
 
 
@@ -99,18 +99,18 @@ public:
     /**
      * Destructor.
      */
-    virtual ~DynBodyPendulumConstraint() = default;
+    ~DynBodyPendulumConstraint() override = default;
 
 
     /**
      * Activate the constraint.
      */
-    virtual void activate ();
+    void activate () override;
 
     /**
      * Deactivate the constraint.
      */
-    virtual void deactivate ();
+    void deactivate () override;
 
     /**
      * Get the known wrench for this constrained object.
@@ -119,7 +119,7 @@ public:
      *   with the effects of all of the pre-constraint wrenches incorporated
      *   into the non_grav_state argument to that function.
      */
-    virtual const Wrench& get_effector_wrench () const
+    const Wrench& get_effector_wrench () const override
     {
         return pendulum_component.get_effector_wrench();
     }
@@ -129,7 +129,7 @@ public:
      * @return A const reference to the constraint wrench for this object.
      * @note This function is called after the constraint values have been set.
      */
-    virtual const Wrench& get_constraint_wrench () const
+    const Wrench& get_constraint_wrench () const override
     {
         return pendulum_component.get_constraint_wrench();
     }
@@ -141,7 +141,7 @@ public:
      *   The nonlinear aspects are assumed to be small; they are not
      *   taken into account while solving the constraints equation.
      */
-    virtual const Wrench& get_nonlinear_response_wrench () const
+    const Wrench& get_nonlinear_response_wrench () const override
     {
         return pendulum_component.get_nonlinear_response_wrench();
     }
@@ -152,7 +152,7 @@ public:
      *   This is not bounds-checked.
      * @return The indexed component constraint.
      */
-    virtual ConstraintComponent* get_component(unsigned index)
+    ConstraintComponent* get_component(unsigned index) override
     {
         assert (index == 0);
         return &pendulum_component;
@@ -163,8 +163,8 @@ public:
      * and the root DynBody.
      * @param vehicle_properties  Various vehicle properties.
      */
-    virtual void update_attachment (
-        const VehicleProperties& vehicle_properties)
+    void update_attachment (
+        const VehicleProperties& vehicle_properties) override
     {
         DynBodyConstraint::update_attachment (vehicle_properties);
         constrained_mass.update_attachment (vehicle_properties);
@@ -180,9 +180,9 @@ public:
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */
-    virtual void setup_constraint(
+    void setup_constraint(
         const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state)
+        const VehicleNonGravState& non_grav_state) override
     {
         constrained_mass.setup_constraint (vehicle_properties, non_grav_state);
         pendulum_component.setup_constraint (vehicle_properties, non_grav_state);

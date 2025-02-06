@@ -71,3 +71,26 @@
   \item[Verification:]\ \newline
     Inspection, Test
 \end{description}
+
+\requirement{Kinematic Attach DynBody to RefFrame Objects}
+\label{reqt:BodyAttach_Detach:ref_attach}
+\begin{description}
+  \item[Requirement:]\ \newline
+    This sub-model shall provide the ability to cause the subject DynBody
+    object to be attached to a RefFrame object kinematically.
+    \subrequirement{Point-to-point attach}
+    \label{reqt:BodyAttach_Detach:attach_point}
+      Given a mass point on the DynBody and the reference frame to be attached with zero
+      offset between the two point origins and a $180^{\circ}$ yaw
+      between the mass point and RefFrame frames.
+    \subrequirement{Matrix/offset attach}
+    \label{reqt:BodyAttach_Detach:attach_matrix}
+      Given an offset from the parent reference frame origin to the
+      subject body's structural origin and a transformation matrix from
+      the parent reference frame axes to the subject body's structural axes.
+  \item[Rationale:]\ \newline
+    This requirement derives directly from
+    requirement~\ref{reqt:overview:mass_attach}.
+  \item[Verification:]\ \newline
+    Inspection, Test
+\end{description}

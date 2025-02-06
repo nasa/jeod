@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -45,7 +45,7 @@ ASSUMPTIONS AND LIMITATIONS:
       (None)
 
 Library dependencies:
-    (demo_params.o)
+    (../src/demo_params.cc)
 
  
 *******************************************************************************/
@@ -69,7 +69,7 @@ public:
    DemoParams();
 
    // destructor
-   virtual ~DemoParams();
+   ~DemoParams() override;
 
 
 protected:
@@ -92,7 +92,7 @@ public:
    DemoParams1();
 
    // destructor
-   virtual ~DemoParams1();
+   ~DemoParams1() override;
 
    double weight; // (N) a weight, just to have something to do
 
@@ -115,7 +115,7 @@ public:
    DemoParams2();
 
    // destructor
-   virtual ~DemoParams2();
+   ~DemoParams2() override;
 
    char* color; // (--) The color of the thing
 
@@ -138,7 +138,7 @@ public:
    FlatPlateDemoParams1();
 
    // destructor
-   virtual ~FlatPlateDemoParams1();
+   ~FlatPlateDemoParams1() override;
 
    char* shape; // (--) The shape of the thing
 
@@ -161,7 +161,7 @@ public:
    FlatPlateDemoParams2();
 
    // destructor
-   virtual ~FlatPlateDemoParams2();
+   ~FlatPlateDemoParams2() override;
 
    int sides; // (count) The number of sides of the plate
 

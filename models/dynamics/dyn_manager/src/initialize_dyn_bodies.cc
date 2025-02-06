@@ -15,16 +15,16 @@ Purpose:
   ()
 
 Library dependencies:
-  ((initialize_dyn_bodies.o)
-   (dyn_manager_messages.o)
-   (dynamics/body_action/body_action.o)
-   (dynamics/body_action/dyn_body_init.o)
-   (dynamics/body_action/mass_body_init.o)
-   (dynamics/body_action/body_attach.o)
-   (dynamics/dyn_body/dyn_body.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o))
+  ((initialize_dyn_bodies.cc)
+   (dyn_manager_messages.cc)
+   (dynamics/body_action/src/body_action.cc)
+   (dynamics/body_action/src/dyn_body_init.cc)
+   (dynamics/body_action/src/mass_body_init.cc)
+   (dynamics/body_action/src/body_attach.cc)
+   (dynamics/dyn_body/src/dyn_body.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 *******************************************************************************/
@@ -60,7 +60,7 @@ DynManager::initialize_dyn_bodies (
 
    // Initialize mass body mass properties and
    // perform initialization-time attachments.
-   perform_mass_body_initializations (NULL);
+   perform_mass_body_initializations (nullptr);
    perform_mass_attach_initializations ();
 
 
@@ -79,7 +79,7 @@ DynManager::initialize_dyn_bodies (
 
    // Initialize dynamic body states and
    // check that all required states have been initialized.
-   perform_dyn_body_initializations (NULL);
+   perform_dyn_body_initializations (nullptr);
    check_for_uninitialized_states ();
 
 
@@ -91,7 +91,7 @@ DynManager::initialize_dyn_bodies (
       BodyAction * action = *it;
 
       // Initialize the action if it *does not* derives from MassBodyAttach.
-      if (dynamic_cast<BodyAttach *> (action) == NULL) {
+      if (dynamic_cast<BodyAttach *> (action) == nullptr) {
          action->initialize (*this);
       }
    }
@@ -142,8 +142,8 @@ DynManager::perform_mass_body_initializations (
       // Only process instances of MassBodyInit and its derived classes.
       // If MassBody is NULL (default), then process all ready actions.
       // If MassBody is specified, process only the ready associated actions.
-      if (    ( dynamic_cast<MassBodyInit *> (action) != NULL      )
-           && ( (body == NULL) || (action->is_same_subject_body(*body)) )   )
+      if (    ( dynamic_cast<MassBodyInit *> (action) != nullptr      )
+           && ( (body == nullptr) || (action->is_same_subject_body(*body)) )   )
       {
 
          // Initialize the action.
@@ -200,7 +200,7 @@ DynManager::perform_mass_attach_initializations (
       BodyAction * action = *it;
 
       // Only process instances of MassBodyAttach and its derived classes.
-      if (dynamic_cast<BodyAttach *> (action) != NULL) {
+      if (dynamic_cast<BodyAttach *> (action) != nullptr) {
 
          // Initialize the action.
          action->initialize (*this);
@@ -250,11 +250,11 @@ DynManager::perform_dyn_body_initializations (
            ++it) {
        // Initialize the action if it derives from DynBodyInit.
        BodyAction * action = *it;
-       if( dynamic_cast<DynBodyInit*>(action) != NULL )
+       if( dynamic_cast<DynBodyInit*>(action) != nullptr )
        {
            // If body is NULL (default), then initialize any action.
            // If body is specified, initialize only the associated action
-           if(    ( body == NULL )
+           if(    ( body == nullptr )
                || ( action->is_same_subject_body(body->mass) )  )
            {
                // Initialize the action.
@@ -280,8 +280,8 @@ DynManager::perform_dyn_body_initializations (
            BodyAction * action = *it;
 
            // Only process instances of DynBodyInit and its derived classes.
-           if(   ( dynamic_cast<DynBodyInit *>(action) != NULL )
-              && ( (body==NULL) || ( action->is_same_subject_body(body->mass) ) ))
+           if(   ( dynamic_cast<DynBodyInit *>(action) != nullptr )
+              && ( (body==nullptr) || ( action->is_same_subject_body(body->mass) ) ))
            {
 
             // Perform the action if the initializer is ready.
@@ -302,7 +302,7 @@ DynManager::perform_dyn_body_initializations (
                 body_actions.erase (it++);
 
                 // Update the ephemerides if the above did something weird.
-                if ((body == NULL) && regenerate_ref_frame_tree) {
+                if ((body == nullptr) && regenerate_ref_frame_tree) {
                     update_ephemerides ();
                 }
             }
@@ -342,7 +342,7 @@ DynManager::perform_dyn_body_initializations (
          DynBodyInit * body_init = dynamic_cast<DynBodyInit *> (action);
 
          // Action is a DynBodyInit: Report failure to initialize.
-         if ((body_init != NULL) && body_init->active) {
+         if ((body_init != nullptr) && body_init->active) {
             body_init->report_failure ();
             more_inits_to_do = true;
          }

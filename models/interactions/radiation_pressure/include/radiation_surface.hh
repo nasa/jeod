@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ ASSUMPTIONS AND LIMITATIONS:
 ((None))
 
 Library dependencies:
-((radiation_surface.o))
+((../src/radiation_surface.cc))
 
 
 *******************************************************************************/
@@ -138,17 +138,17 @@ public:
    RadiationSurface ();
 
    // destructor
-   virtual ~RadiationSurface ();
+   ~RadiationSurface () override;
 
    void initialize (double center_grav[3]);
 
-   void allocate_array (unsigned int size);
+   void allocate_array (unsigned int size) override;
 
    void allocate_interaction_facet (
       Facet * facet,
       InteractionFacetFactory * factory,
       FacetParams * params,
-      unsigned int index);
+      unsigned int index) override;
 
    void initialize_runtime_values(void);
 
@@ -159,9 +159,9 @@ public:
       RadiationThirdBody * third_body_ptr,
       const bool calculate_forces);
 
-   void accumulate_thermal_sources (void);
+   void accumulate_thermal_sources (void) override;
 
-   void thermal_integrator (void);
+   void thermal_integrator (void) override;
 
    void equalize_absorption_emission (void);
 

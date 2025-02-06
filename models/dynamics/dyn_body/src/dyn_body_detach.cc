@@ -16,9 +16,9 @@ Purpose:
    ()
 
 Library dependencies:
-  ((dyn_body_detach.o)
-   (dynamics/dyn_manager/dyn_manager.o)
-   (dyn_body.o))
+  ((dyn_body_detach.cc)
+   (dynamics/dyn_manager/src/dyn_manager.cc)
+   (dyn_body.cc))
 
 
 
@@ -101,7 +101,7 @@ DynBody::detach (
     std::list<DynBody *>::iterator it;
     for( it  = parent->dyn_children.begin();
          it != parent->dyn_children.end();
-         it++)
+         ++it)
     {
         if (*it == detacher) {
             parent->dyn_children.erase(it);
@@ -138,7 +138,11 @@ bool
 DynBody::detach ( void )
 {
     bool success = false;
-    if(    dyn_parent != nullptr
+    if(frame_attach.isAttached())
+    {
+        frame_attach.clear_attachment();
+    }
+    else if(    dyn_parent != nullptr
         && dyn_parent != this    )
     {
         success = detach(*dyn_parent);
@@ -239,7 +243,7 @@ void DynBody::detach_mass_body_frames( MassBody &subbody )
     std::list<BodyRefFrame*>::iterator veh_pt;
     for(std::list<MassPoint*>::iterator pt = subbody.mass_points.begin();
         pt != subbody.mass_points.end();
-        pt++)
+        ++pt)
     {
         pt_frame = find_body_frame( (*pt)->get_name() );
         if( pt_frame == nullptr )

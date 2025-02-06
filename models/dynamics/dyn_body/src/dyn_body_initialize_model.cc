@@ -16,9 +16,9 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_initialize_model.o)
-   (dyn_body.o)
-   (dyn_body_messages.o))
+  ((dyn_body_initialize_model.cc)
+   (dyn_body.cc)
+   (dyn_body_messages.cc))
 
 
 
@@ -57,18 +57,18 @@ DynBody::initialize_model (
    }
 
    // Setting the integration frame from the input file is not proper.
-   if (integ_frame != NULL) {
+   if (integ_frame != nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, DynBodyMessages::invalid_frame,
          "DynBody '%s' integ_frame member was set in the input file.\n"
          "This is not the recognized interface. "
          "Set the integration frame name (integ_frame_name) instead.",
          name.c_str());
-      integ_frame = NULL;
+      integ_frame = nullptr;
    }
 
    // Sanity check: protect against an empty integration frame name
-   if ((integ_frame_name == NULL) || (integ_frame_name[0] == '\0')) {
+   if ((integ_frame_name == nullptr) || (integ_frame_name[0] == '\0')) {
       MessageHandler::fail (
          __FILE__, __LINE__, DynBodyMessages::invalid_name,
          "DynBody '%s' does not have an integration frame.",

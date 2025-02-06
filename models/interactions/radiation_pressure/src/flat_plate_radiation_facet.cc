@@ -21,11 +21,11 @@ ASSUMPTIONS AND LIMITATIONS:
 ((Facet is a flat plate with no geometry))
 
 LIBRARY DEPENDENCY:
-((flat_plate_radiation_facet.o)
-(radiation_facet.o)
-(radiation_messages.o)
-(interactions/thermal_rider/thermal_facet_rider.o)
-(utils/message/message_handler.o))
+((flat_plate_radiation_facet.cc)
+(radiation_facet.cc)
+(radiation_messages.cc)
+(interactions/thermal_rider/src/thermal_facet_rider.cc)
+(utils/message/src/message_handler.cc))
 
 
 
@@ -54,7 +54,7 @@ namespace jeod {
 FlatPlateRadiationFacet::FlatPlateRadiationFacet
 (
    void) : // Return: -- void
-   normal(NULL)
+   normal(nullptr)
 {
    sin_theta = 0.0;
    Vector3::initialize(incident_flux_hat);

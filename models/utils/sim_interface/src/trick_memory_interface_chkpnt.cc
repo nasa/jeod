@@ -16,9 +16,9 @@ Purpose:
   ()
 
 Library Dependency:
-  ((trick_memory_interface_chkpnt.o)
-   (trick10_memory_interface.o)
-   (utils/container/primitive_serializer.o))
+  ((trick_memory_interface_chkpnt.cc)
+   (trick10_memory_interface.cc)
+   (utils/container/src/primitive_serializer.cc))
 
  
 
@@ -87,14 +87,14 @@ JeodTrick10MemoryInterface::register_container (
 {
 
    // The owner and element name must be non-null.
-   if (owner == NULL) {
+   if (owner == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::interface_error,
          "Invalid call to register_container: owner must be non-null.");
       return;
    }
 
-   if (elem_name == NULL) {
+   if (elem_name == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::interface_error,
          "Invalid call to register_container: elem_name must be non-null.");
@@ -150,14 +150,14 @@ JeodTrick10MemoryInterface::deregister_container (
 {
 
    // The owner and element name must be non-null.
-   if (owner == NULL) {
+   if (owner == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::interface_error,
          "Invalid call to deregister_container: owner must be non-null.");
       return;
    }
 
-   if (elem_name == NULL) {
+   if (elem_name == nullptr) {
       MessageHandler::error (
          __FILE__, __LINE__, SimInterfaceMessages::interface_error,
          "Invalid call to deregister_container: elem_name must be non-null.");
@@ -466,7 +466,7 @@ JeodTrick10MemoryInterface::checkpoint_allocations (
           JeodMemoryManager::get_type_descriptor (typeid_info);
 
       // Record the allocation, but only if we have a valid type descriptor.
-      if (tdesc != NULL) {
+      if (tdesc != nullptr) {
          std::string size_spec;
          if (entry.is_array) {
             sstream.clear ();

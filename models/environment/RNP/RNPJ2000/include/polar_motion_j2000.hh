@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -65,7 +65,7 @@ Assumptions and limitations:
     orthonormal.))
 
 Library dependencies:
-  ((polar_motion_j2000.o))
+  ((../src/polar_motion_j2000.cc))
 
  
 
@@ -134,15 +134,15 @@ public: // public member functions
 
    PolarMotionJ2000 ();
 
-   virtual ~PolarMotionJ2000 ();
+   ~PolarMotionJ2000 () override;
 
    // Before update_rotation is called, the "current_time" variable
    // MUST be set to the modified julian date in the UT1 time standard
-   virtual void update_rotation ();
+   void update_rotation () override;
 
    // How to initialize the PolarMotionJ2000 module with the table information.
    // init must be pointing to a PolarMotionJ2000Init object
-   virtual void initialize (PlanetRotationInit* init);
+   void initialize (PlanetRotationInit* init) override;
 
 
 private: // private member functions

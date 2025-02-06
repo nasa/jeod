@@ -17,7 +17,7 @@ Purpose:
   ()
 
 Library dependency:
-  ((quat_to_eigenrot.o))
+  ((quat_to_eigenrot.cc))
 
  
 

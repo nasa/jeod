@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -114,7 +114,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * This copies the Container contents, but not the Checkpointable contents.
     * @param source Object container to be copied.
     */
-   JeodObjectContainer (
+   explicit JeodObjectContainer (
       const typename ContainerType::stl_container_type & source)
    :
       JeodContainer<ContainerType, ElemType>(source),
@@ -162,7 +162,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * capabilities will checkpoint this array, so all that remains to be done
     * is to associate the array elements with the container.
     */
-   virtual void pre_checkpoint (void)
+   void pre_checkpoint (void) override
    {
       if (this->size() > 0) {
          unsigned int ii = 0;
@@ -179,7 +179,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
    /**
     * Cleanup after performing a checkpoint.
     */
-   virtual void post_checkpoint (void)
+   void post_checkpoint (void) override //cppcheck-suppress virtualCallInConstructor   
    {
       if (copy != NULL) {
          JEOD_DELETE_ARRAY (copy);
@@ -190,7 +190,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
    /**
     * Cleanup after performing a restart.
     */
-   virtual void post_restart (void)
+   void post_restart (void) override
    {
       post_checkpoint ();
    }
@@ -200,7 +200,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * The local checkpoint index is initialized to zero to reflect that the
     * parent class' checkpoint iterator starts at the zeroth element.
     */
-   virtual void start_checkpoint (void)
+   void start_checkpoint (void) override
    {
       index = 0;
       JeodContainer<ContainerType, ElemType>::start_checkpoint();
@@ -211,7 +211,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * The local checkpoint index is advanced to keep in sync with the
     * parent class' checkpoint iterator.
     */
-   virtual void advance_checkpoint (void)
+   void advance_checkpoint (void) override
    {
       ++index;
       JeodContainer<ContainerType, ElemType>::advance_checkpoint();
@@ -222,7 +222,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * For a JeodObjectContainer, the value is the name of the corresponding
     * object in the C-style copy of the object's contents.
     */
-   virtual const std::string get_item_value (void)
+   const std::string get_item_value (void) override
    {
       return JeodSimulationInterface::get_name_at_address (
                 reinterpret_cast<void *> (&copy[index]),
@@ -234,8 +234,9 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * For a JeodObjectContainer, the value should name an element of the
     * C-style copy of the object's contents.
     */
-   virtual void perform_insert_action (
+   void perform_insert_action (
       const std::string & value) // In: -- Value to be added.
+   override
    {
       const ElemType * temp_obj =
          reinterpret_cast<ElemType *> (
@@ -249,7 +250,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * For a JeodObjectContainer, the value is the name of the corresponding
     * object in the C-style copy of the object's contents.
     */
-   virtual const std::string get_final_value (void)
+   const std::string get_final_value (void) override
    {
       return JeodSimulationInterface::get_name_at_address (
                 reinterpret_cast<void *> (copy),
@@ -261,8 +262,7 @@ class JeodObjectContainer : public JeodContainer<ContainerType, ElemType> {
     * Here we delete the temporary array created during checkpoint.
     * @param value String name of cleanup target.
     */
-   virtual void perform_cleanup_action (
-      const std::string & value)
+   void perform_cleanup_action (const std::string & value) override
    {
       ElemType * temp_obj =
          reinterpret_cast<ElemType *> (

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -111,7 +111,7 @@ class JeodContainer :
       JeodCheckpointable(),
       ContainerType(),
       checkpoint_iter(),
-      elem_type_descriptor(NULL)
+      elem_type_descriptor(nullptr)
    {}
 
    /**
@@ -127,7 +127,7 @@ class JeodContainer :
       JeodCheckpointable(),
       ContainerType(source),
       checkpoint_iter(),
-      elem_type_descriptor(NULL)
+      elem_type_descriptor(nullptr)
    {}
 
    /**
@@ -143,7 +143,7 @@ class JeodContainer :
       JeodCheckpointable(),
       ContainerType(source),
       checkpoint_iter(),
-      elem_type_descriptor(NULL)
+      elem_type_descriptor(nullptr)
    {}
 
    /**
@@ -179,7 +179,7 @@ class JeodContainer :
    /**
     * Destructor.
     */
-   virtual ~JeodContainer (void) {}
+   ~JeodContainer (void) override {}
 
 
    /**
@@ -234,12 +234,12 @@ class JeodContainer :
     * In the case of a JeodContainer, this method gets the descriptor for
     * the type of data stored in the container.
     */
-   virtual void initialize_checkpointable (
+   void initialize_checkpointable (
      const void * container JEOD_UNUSED,                // In: -- Not used.
      const std::type_info & container_type JEOD_UNUSED, // In: -- Not used.
-     const std::string elem_name JEOD_UNUSED)           // In: -- Not used.
+     const std::string & elem_name JEOD_UNUSED) override         // In: -- Not used.
    {
-      if (elem_type_descriptor == NULL) {
+      if (elem_type_descriptor == nullptr) {
          elem_type_descriptor =
             JeodMemoryManager::get_type_descriptor (typeid(ElemType));
       }
@@ -252,7 +252,7 @@ class JeodContainer :
     * In the case of a JeodContainer, this method initializes a checkpoint
     * iterator, data member checkpoint_iter, to the start of the contents.
     */
-   virtual void start_checkpoint (void)
+   void start_checkpoint (void) override
    {
       checkpoint_iter = this->begin();
    }
@@ -264,7 +264,7 @@ class JeodContainer :
     * In the case of a JeodContainer, this method simply advances the
     * checkpoint iterator to point to the next item in the contents.
     */
-   virtual void advance_checkpoint (void)
+   void advance_checkpoint (void) override
    {
       ++checkpoint_iter;
    }
@@ -275,7 +275,7 @@ class JeodContainer :
     *
     * In the case of a JeodContainer, the dump is finished when the internal
     * checkpoint iterator points beyond the last item in the contents. */
-   virtual bool is_checkpoint_finished (void)
+   bool is_checkpoint_finished (void) override
    {
       return (checkpoint_iter == this->end());
    }
@@ -286,7 +286,7 @@ class JeodContainer :
     *
     * In the case of a JeodContainer, the init name is always "clear".
     */
-   virtual const std::string get_init_name (void)
+   const std::string get_init_name (void) override
    {
       return "clear";
    }
@@ -296,7 +296,7 @@ class JeodContainer :
     *
     * In the case of a JeodContainer, the action name is always "insert".
     */
-   virtual const std::string get_item_name (void)
+   const std::string get_item_name (void) override
    {
       return "insert";
    }
@@ -307,7 +307,7 @@ class JeodContainer :
     *
     * In the case of a JeodContainer, the init name is always "cleanup".
     */
-   virtual const std::string get_final_name (void)
+   const std::string get_final_name (void) override
    {
       return "cleanup";
    }
@@ -323,9 +323,9 @@ class JeodContainer :
     * object and a "cleanup" entry as the final entry. An "insert" entry is
     * created for each element in the container's contents.
     */
-   virtual int perform_restore_action (
+   int perform_restore_action (
       const std::string & action_name,
-      const std::string & action_value)
+      const std::string & action_value) override
    {
       int return_code;
 

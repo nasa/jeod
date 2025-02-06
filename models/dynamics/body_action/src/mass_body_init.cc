@@ -16,15 +16,15 @@ Purpose:
   ()
 
 Library dependencies:
-  ((mass_body_init.o)
-   (body_action.o)
-   (body_action_messages.o)
-   (dynamics/mass/mass.o)
-   (dynamics/mass/mass_point_state.o)
-   (dynamics/mass/mass_properties_init.o)
-   (environment/ephemerides/ephem_interface/ephem_ref_frame.o)
-   (utils/message/message_handler.o)
-   (utils/ref_frames/ref_frame.o))
+  ((mass_body_init.cc)
+   (body_action.cc)
+   (body_action_messages.cc)
+   (dynamics/mass/src/mass.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (dynamics/mass/src/mass_properties_init.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc)
+   (utils/message/src/message_handler.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -56,7 +56,7 @@ MassBodyInit::MassBodyInit (
    void)
 :
    properties(),
-   points(NULL),
+   points(nullptr),
    num_points(0)
 {
    return;

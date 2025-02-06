@@ -16,12 +16,12 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_init_planet_derived.o)
-   (dyn_body_init.o)
-   (dyn_body_init_wrt_planet.o)
-   (dynamics/mass/mass_point_state.o)
-   (utils/ref_frames/ref_frame.o)
-   (utils/ref_frames/ref_frame_compute_relative_state.o))
+  ((dyn_body_init_planet_derived.cc)
+   (dyn_body_init.cc)
+   (dyn_body_init_wrt_planet.cc)
+   (dynamics/mass/src/mass_point_state.cc)
+   (utils/ref_frames/src/ref_frame.cc)
+   (utils/ref_frames/src/ref_frame_compute_relative_state.cc))
 
 
 
@@ -53,7 +53,7 @@ DynBodyInitPlanetDerived::DynBodyInitPlanetDerived (
 :
    DynBodyInitWrtPlanet(),
    ref_body_name(),
-   ref_body(NULL),
+   ref_body(nullptr),
    required_items(RefFrameItems::Pos_Vel_Att_Rate),
    body_is_required(true)
 {
@@ -114,7 +114,7 @@ DynBodyInitPlanetDerived::is_ready (
    // Externally, the reference body (if any) must have the requisite
    // required_items set before the initializer can run.
    return (DynBodyInitWrtPlanet::is_ready () &&
-           ((ref_body == NULL) ||
+           ((ref_body == nullptr) ||
             ref_body->composite_body.initialized_items.contains (
                required_items)));
 }

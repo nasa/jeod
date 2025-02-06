@@ -3,11 +3,11 @@ Purpose:
   (Define GroundFacet class constructor and destructor)
 
 Library Dependencies:
-  ((ground_facet.o)
-  (interactions/contact/line_contact_facet.o)
-  (interactions/contact/point_contact_facet.o)
-  (line_ground_interaction.o)
-  (point_ground_interaction.o))
+  ((ground_facet.cc)
+  (interactions/contact/src/line_contact_facet.cc)
+  (interactions/contact/src/point_contact_facet.cc)
+  (line_ground_interaction.cc)
+  (point_ground_interaction.cc))
 
 
 *******************************************************************************/
@@ -39,7 +39,7 @@ GroundFacet::GroundFacet (
    : // Return: -- None
    active (true),
    alt_offset (0.0),
-   surface_type (NULL)
+   surface_type (nullptr)
 {
    JEOD_REGISTER_CLASS(LineGroundInteraction);
    JEOD_REGISTER_CLASS(PointGroundInteraction);
@@ -76,27 +76,27 @@ GroundFacet::create_interaction( // Return: -- void
    // attempt to cast the target to a LineContactFacet or PointContactFacet
    temp_line = dynamic_cast<LineContactFacet*> (subject);
    temp_point = dynamic_cast<PointContactFacet*> (subject);
-   if (temp_line == NULL && temp_point == NULL) {
+   if (temp_line == nullptr && temp_point == nullptr) {
       MessageHandler::warn (
          __FILE__, __LINE__, ContactMessages::initialization_warns,
          "The subject ContactFacet passed into GroundFacet::create_interaction was "
          "not of type LineContactFacet or PointContactFacet as required.");
 
-      return NULL;
+      return nullptr;
    }
-   if (temp_line == NULL) {
+   if (temp_line == nullptr) {
       PointGroundInteraction * ground_interaction;
       // Allocate a ContactPair instance
       ground_interaction = JEOD_ALLOC_CLASS_OBJECT (PointGroundInteraction, ());
 
       ground_interaction->interaction = contact->find_interaction(surface_type, temp_point->surface_type);
-      if (ground_interaction->interaction == NULL) {
+      if (ground_interaction->interaction == nullptr) {
          MessageHandler::warn (
             __FILE__, __LINE__, ContactMessages::initialization_warns,
             "No interaction type could be found for the surface types of these ContactFacets.");
 
          JEOD_DELETE_OBJECT(ground_interaction);
-         return NULL;
+         return nullptr;
       }
 
       // set the subject and target of the new pair
@@ -114,13 +114,13 @@ GroundFacet::create_interaction( // Return: -- void
       ground_interaction = JEOD_ALLOC_CLASS_OBJECT (LineGroundInteraction, ());
 
       ground_interaction->interaction = contact->find_interaction(surface_type, temp_line->surface_type);
-      if (ground_interaction->interaction == NULL) {
+      if (ground_interaction->interaction == nullptr) {
          MessageHandler::warn (
             __FILE__, __LINE__, ContactMessages::initialization_warns,
             "No interaction type could be found for the surface types of these ContactFacets.");
 
          JEOD_DELETE_OBJECT(ground_interaction);
-         return NULL;
+         return nullptr;
       }
 
       // set the subject and target of the new pair

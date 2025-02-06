@@ -17,7 +17,7 @@ Purpose:
   ()
 
 Library dependency:
-  ((quat_from_mat.o))
+  ((quat_from_mat.cc))
 
  
 
@@ -121,10 +121,9 @@ Quaternion::left_quat_from_transformation (
    double tr;                   /* Trace of input transformation matrix */
    double tmax;                 /* Max of tr, diagonal elements */
    double qix2;                 /* sqrt(1+max(tr,t_i)) */
-   double di;                   /* a_kj - a_jk */
    double fact;                 /* 0.5/qix2 */
    int meth;                    /* Index of tmax in t (-1 if trace dominates) */
-   int ii, jj, kk;
+   int ii;
 
 
     /* Compute the trace of the matrix. */
@@ -155,10 +154,10 @@ Quaternion::left_quat_from_transformation (
    } else {
 
       ii = meth;
-      jj = (ii+1)%3;
-      kk = (jj+1)%3;
+      int jj = (ii+1)%3;
+      int kk = (jj+1)%3;
 
-      di = T[kk][jj] - T[jj][kk];
+      double di = T[kk][jj] - T[jj][kk]; /* a_kj - a_jk */
       qix2 = sqrt (1.0 + T[ii][ii] - (T[jj][jj] + T[kk][kk]));
       if (di < 0.0) {
          qix2 = -qix2;

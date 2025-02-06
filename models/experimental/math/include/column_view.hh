@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -121,7 +121,7 @@ public:
      * @return Reference to the indexed value of the view, which is the
      *   beg_elem+ielem element of the underlying std::vector.
      */
-    RefType operator[] (unsigned ielem)
+    RefType operator[] (unsigned ielem) override
     {
         return array(beg_row+ielem, the_col);
     }

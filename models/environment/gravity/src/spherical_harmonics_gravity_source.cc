@@ -16,14 +16,14 @@ Purpose:
   ()
 
 Library dependencies:
-  ((spherical_harmonics_gravity_source.o)
-   (gravity_source.o)
-   (spherical_harmonics_delta_coeffs.o)
-   (spherical_harmonics_delta_coeffs_init.o)
-   (gravity_manager.o)
-   (gravity_messages.o)
-   (environment/ephemerides/ephem_interface/ephem_ref_frame.o)
-   (utils/message/message_handler.o))
+  ((spherical_harmonics_gravity_source.cc)
+   (gravity_source.cc)
+   (spherical_harmonics_delta_coeffs.cc)
+   (spherical_harmonics_delta_coeffs_init.cc)
+   (gravity_manager.cc)
+   (gravity_messages.cc)
+   (environment/ephemerides/ephem_interface/src/ephem_ref_frame.cc)
+   (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -62,20 +62,20 @@ SphericalHarmonicsGravitySource::SphericalHarmonicsGravitySource (
    radius(0.0),
    degree(0),
    order(0),
-   Cnm(NULL),
-   Snm(NULL),
+   Cnm(nullptr),
+   Snm(nullptr),
    tide_free(false),
    tide_free_delta(0.0),
 
-   a_by_rad(NULL),
-   alpha(NULL),
-   beta(NULL),
-   xi(NULL),
-   eta(NULL),
-   zeta(NULL),
-   upsilon(NULL),
-   nrdiag(NULL),
-   int_to_double(NULL)
+   a_by_rad(nullptr),
+   alpha(nullptr),
+   beta(nullptr),
+   xi(nullptr),
+   eta(nullptr),
+   zeta(nullptr),
+   upsilon(nullptr),
+   nrdiag(nullptr),
+   int_to_double(nullptr)
 {
    JEOD_REGISTER_CLASS (SphericalHarmonicsGravitySource);
    JEOD_REGISTER_CLASS (SphericalHarmonicsDeltaCoeffs);
@@ -92,7 +92,7 @@ SphericalHarmonicsGravitySource::~SphericalHarmonicsGravitySource (
 {
 
    JEOD_DEREGISTER_CHECKPOINTABLE (this, delta_coeffs);
-   if (xi != NULL) {
+   if (xi != nullptr) {
       for (unsigned int ii = 0; ii <= degree; ++ii) {
          JEOD_DELETE_ARRAY (xi[ii]);
          JEOD_DELETE_ARRAY (eta[ii]);

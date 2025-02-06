@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -98,7 +98,7 @@ public:
    RestartableScalarFirstOrderODEIntegrator ()
    :
       SimpleCheckpointable(),
-      integrator(NULL),
+      integrator(nullptr),
       integrator_manager(integrator)
    {
       JEOD_REGISTER_CLASS (RestartableScalarFirstOrderODEIntegrator);
@@ -107,7 +107,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableScalarFirstOrderODEIntegrator () { }
+   ~RestartableScalarFirstOrderODEIntegrator () override { }
 
    /**
     * Create the integrator to be managed.
@@ -168,7 +168,7 @@ public:
    /**
     * Restore the integrator on restart.
     */
-   virtual void simple_restore ()
+   void simple_restore () override
    {
       integrator_manager.set_integrator_reference (integrator);
       integrator_manager.simple_restore ();
@@ -220,7 +220,7 @@ public:
    RestartableT3SecondOrderODEIntegrator ()
    :
       SimpleCheckpointable(),
-      integrator(NULL),
+      integrator(nullptr),
       integrator_manager(integrator)
    {
       JEOD_REGISTER_CLASS (RestartableT3SecondOrderODEIntegrator);
@@ -229,7 +229,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableT3SecondOrderODEIntegrator () { }
+   ~RestartableT3SecondOrderODEIntegrator () override { }
 
    /**
     * Create the integrator to be managed.
@@ -293,7 +293,7 @@ public:
    /**
     * Restore the integrator on restart.
     */
-   virtual void simple_restore ()
+   void simple_restore () override
    {
       integrator_manager.set_integrator_reference (integrator);
       integrator_manager.simple_restore ();
@@ -347,7 +347,7 @@ public:
    :
       SimpleCheckpointable(),
       technique(GeneralizedSecondOrderODETechnique::Unspecified),
-      integrator(NULL),
+      integrator(nullptr),
       generalized_deriv_integrator_manager(),
       generalized_step_integrator_manager()
    {
@@ -357,7 +357,7 @@ public:
    /**
     * Destructor.
     */
-   virtual ~RestartableSO3SecondOrderODEIntegrator ()
+   ~RestartableSO3SecondOrderODEIntegrator () override
    {
       destroy_integrator();
    }
@@ -449,7 +449,7 @@ public:
    /**
     * Restore the integrator on restart.
     */
-   virtual void simple_restore ()
+   void simple_restore () override
    {
       generalized_step_integrator_manager.clear_integrator_reference ();
       generalized_deriv_integrator_manager.clear_integrator_reference ();

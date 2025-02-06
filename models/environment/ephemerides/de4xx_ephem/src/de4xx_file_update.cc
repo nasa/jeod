@@ -18,10 +18,10 @@ Purpose:
  ()
 
 Library dependency:
- ((de4xx_file_update.o)
-  (de4xx_file.o)
-  (environment/ephemerides/ephem_interface/ephem_messages.o)
-  (utils/message/message_handler.o))
+ ((de4xx_file_update.cc)
+  (de4xx_file.cc)
+  (environment/ephemerides/ephem_interface/src/ephem_messages.cc)
+  (utils/message/src/message_handler.cc))
 
 
 
@@ -147,7 +147,7 @@ De4xxFile::update (
    }
 
     /* Ensure the ephemerides database is open. */
-   if (io.file == NULL) {
+   if (io.file == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EphemeridesMessages::internal_error,
          "Ephemeris file is not open");
@@ -194,7 +194,8 @@ De4xxFile::update (
                     }
                 }
             }
-       } else if(recno < io.recno)
+       }
+       else
        {
             if (recno >= (io.segmentData[0].num_recs))
             {
@@ -224,11 +225,11 @@ De4xxFile::update (
            segment_var_name << "segment_coeffs_" << io.segment_index;
 
            // Clear dlerror
-           char * dlError = dlerror();
+           dlerror();
 
            io.coeffs_segment_starting_addr  = (double *)dlsym(io.file, segment_var_name.str().c_str());
-           if (io.coeffs_segment_starting_addr == NULL) {
-              dlError = dlerror();
+           if (io.coeffs_segment_starting_addr == nullptr) {
+              char * dlError = dlerror();
               MessageHandler::fail (
                  __FILE__, __LINE__, EphemeridesMessages::file_error,
                  "Error obtaining ephemeris file symbol '%s' from '%s' for input: %s",

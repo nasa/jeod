@@ -21,6 +21,17 @@ The instance of \textit{OrbElemDerivedState} needs to be defined, the model init
 \subsection{Generating the Input File}
 The input file (or Modified Data file) must contain the name of the planet, identified as \textit{reference\_name}.
 
+The user may specify which inertial reference frame (default or alternate) to use as the basis of the orbital element calculations. Note: this only works with Planets that have an alternate reference frame defined.
+\begin{verbatim}
+example_of_rel_state_object.example_of_orb_elem_state.set_use_alt_inertial(False);
+
+\end{verbatim}
+or
+\begin{verbatim}
+example_of_rel_state_object.example_of_orb_elem_state.set_use_alt_inertial(True);
+
+\end{verbatim}
+
 See the \textref{Analysis}{sec:orbelemuseranalysis} section for an example of how the input data may appear.
 
 \subsection{Logging the Data}

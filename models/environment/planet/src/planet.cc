@@ -15,11 +15,11 @@ Purpose:
    ()
 
 Library Dependency:
-   ((planet.o)
-    (base_planet.o)
-    (planet_messages.o)
-    (environment/gravity/gravity_source.o)
-    (utils/message/message_handler.o))
+   ((planet.cc)
+    (base_planet.cc)
+    (planet_messages.cc)
+    (environment/gravity/src/gravity_source.cc)
+    (utils/message/src/message_handler.cc))
 
 
 *******************************************************************************/
@@ -124,7 +124,7 @@ Planet::initialize (
    }
 
    // Sanity check: The model must have been registered.
-   if (grav_source == NULL) {
+   if (grav_source == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, PlanetMessages::registration_error,
          "Gravity Source has not been registered.");

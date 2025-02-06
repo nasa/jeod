@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2022 United States Government as represented by the Administrator
+// Copyright © 2023 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,7 +61,7 @@ Assumptions and Limitations:
    ((Central body assumed to be a perfect ellipsoid))
 
 Library Dependency:
-   ((planet.o))
+   ((../src/planet.cc))
 
 
 
@@ -136,7 +136,7 @@ class Planet : public BasePlanet {
    Planet();
 
    // Destructor
-   ~Planet();
+   ~Planet() override;
 
    // Initialization
    void register_model (GravitySource & grav_source, BaseDynManager & dyn_manager);

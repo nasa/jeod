@@ -16,12 +16,12 @@ Purpose:
   ()
 
 Library dependencies:
-  ((dyn_body_find_body_frame.o)
-   (dyn_body.o)
-   (dyn_body_messages.o)
-   (dynamics/mass/mass.o)
-   (utils/named_item/named_item.o)
-   (utils/ref_frames/ref_frame.o))
+  ((dyn_body_find_body_frame.cc)
+   (dyn_body.cc)
+   (dyn_body_messages.cc)
+   (dynamics/mass/src/mass.cc)
+   (utils/named_item/src/named_item.cc)
+   (utils/ref_frames/src/ref_frame.cc))
 
 
 
@@ -56,13 +56,13 @@ const
 
 
    // Sanity check: Ensure the input name is meaningful.
-   if ((frame_id == NULL) || (frame_id[0] == '\0')) {
+   if ((frame_id == nullptr) || (frame_id[0] == '\0')) {
       MessageHandler::fail (
          __FILE__, __LINE__, DynBodyMessages::invalid_name,
          "Invalid frame_id passed to DynBody::find_body_frame.");
 
       // Not reached
-      return NULL;
+      return nullptr;
    }
 
    // Find the reference frame.
@@ -71,24 +71,24 @@ const
 
 
    // Cast to a BodyRefFrame if found.
-   if (found_frame != NULL) {
+   if (found_frame != nullptr) {
       found_body_frame = dynamic_cast <BodyRefFrame*> (found_frame);
 
       // Sanity check: cast failure is a fatal error.
-      if (found_body_frame == NULL) {
+      if (found_body_frame == nullptr) {
          MessageHandler::fail (
             __FILE__, __LINE__, DynBodyMessages::invalid_name,
             "Reference frame '%s' is not a BodyRefFrame.",
             found_frame->get_name());
 
          // Not reached
-         return NULL;
+         return nullptr;
       }
    }
 
    // No RefFrame found => no BodyRefFrame.
    else {
-      found_body_frame = NULL;
+      found_body_frame = nullptr;
    }
 
    return found_body_frame;

@@ -145,6 +145,10 @@ to the desired attach point is calculated. If the child is already a root body, 
 transform or the user-provided transform. The child is told to establish the linkages between
 child-and-parent/parent-and-child while the parent is told to update properties using the \MASS attach mechanisms.
 
+Dynbody objects may also be attached to a RefFrame object kinematically. This capability is primarily for sim
+operations or to assume the capabilities of a low-fidelity attachment model. As a result, momentum and energy
+conservation issues are ignored and the dynamic state is simply held rigid w.r.t. its parent RefFrame.
+
 A detachment proceeds similarly. First there is a check for validity,
 and only then is the child told to sever linkages and the parent is told
 to update properties. The DynBody calls the \MASS detach mechanisms.

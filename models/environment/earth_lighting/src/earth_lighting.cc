@@ -28,9 +28,9 @@ CLASS:
     (scheduled)
 
 LIBRARY DEPENDENCY:
-    ((earth_lighting.o)
-     (earth_lighting_messages.o)
-     (utils/message/message_handler.o))
+    ((earth_lighting.cc)
+     (earth_lighting_messages.cc)
+     (utils/message/src/message_handler.cc))
 
 
 ******************************************************************************/
@@ -149,12 +149,12 @@ EarthLighting::EarthLighting (
    void)
 : /* RETURN: -- No return */
    active(true),
-   earth(NULL),
-   moon(NULL),
-   sun(NULL),
-   earth_frame(NULL),
-   moon_frame(NULL),
-   sun_frame(NULL)
+   earth(nullptr),
+   moon(nullptr),
+   sun(nullptr),
+   earth_frame(nullptr),
+   moon_frame(nullptr),
+   sun_frame(nullptr)
 {
    Vector3::initialize (pos_moon);
    Vector3::initialize (pos_sun);
@@ -202,7 +202,7 @@ EarthLighting::initialize (
 
    earth = manager.find_planet ("Earth");
 
-   if (earth == NULL) {
+   if (earth == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, EarthLightingMessages::initialization_error,
@@ -216,7 +216,7 @@ EarthLighting::initialize (
 
    moon = manager.find_planet ("Moon");
 
-   if (moon == NULL) {
+   if (moon == nullptr) {
 
       MessageHandler::fail (
          __FILE__, __LINE__, EarthLightingMessages::initialization_error,
@@ -230,7 +230,7 @@ EarthLighting::initialize (
 
    sun = manager.find_planet ("Sun");
 
-   if (sun == NULL) {
+   if (sun == nullptr) {
       MessageHandler::fail (
          __FILE__, __LINE__, EarthLightingMessages::initialization_error,
          "No planet named Sun was found in the Dynamics Manager "
@@ -373,7 +373,7 @@ EarthLighting::circle_intersect (
 
 void
 EarthLighting::calc_lighting (
-   double pos_veh[3])
+   const double pos_veh[3])
 {
 
    if (active == false) {

@@ -12,7 +12,7 @@ Assumptions and limitations:
   ((TBS))
 
 Library dependencies:
-  ((angular_variance.o))
+  ((angular_variance.cc))
 
  
 

@@ -60,7 +60,7 @@
 Library dependencies:
     ((../src/line_contact_facet_factory.cc))
 
- 
+
 
 *****************************************************************************/
 
@@ -77,43 +77,30 @@ Library dependencies:
 #include "class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Creates a PointContactFacet from an InteractionFacet.
  */
-class LineContactFacetFactory : public InteractionFacetFactory {
-
-
-   JEOD_MAKE_SIM_INTERFACES (LineContactFacetFactory)
+class LineContactFacetFactory : public InteractionFacetFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LineContactFacetFactory)
 
 public:
+    LineContactFacetFactory();
+    ~LineContactFacetFactory() override = default;
+    LineContactFacetFactory & operator=(const LineContactFacetFactory &) = delete;
+    LineContactFacetFactory(const LineContactFacetFactory &) = delete;
 
-   // constructor
-   LineContactFacetFactory ();
+    InteractionFacet * create_facet(Facet * facet, FacetParams * params) override;
 
-   // destructor
-   ~LineContactFacetFactory () override;
-
-   InteractionFacet* create_facet (Facet* facet, FacetParams* params) override;
-
-   // 'true' if this factory is meant to be used on the type of facet
-   // sent in through the 'facet' pointer. 'false' otherwise
-   bool is_correct_factory (Facet* facet) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   LineContactFacetFactory& operator = (const LineContactFacetFactory & rhs);
-   LineContactFacetFactory (const LineContactFacetFactory & rhs);
-
+    // 'true' if this factory is meant to be used on the type of facet
+    // sent in through the 'facet' pointer. 'false' otherwise
+    bool is_correct_factory(Facet * facet) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "line_contact_facet.hh"

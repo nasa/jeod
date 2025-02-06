@@ -63,10 +63,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_GRAVITY_MODEL_HH
 #define JEOD_GRAVITY_MODEL_HH
-
 
 // System includes
 
@@ -77,99 +75,85 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseDynManager;
 class RefFrame;
 
-
 /**
  * The master gravitational model for a simulation.
  */
-class GravityManager {
+class GravityManager
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GravityManager)
 
- JEOD_MAKE_SIM_INTERFACES (GravityManager)
+public:
+    // No public data
 
- public:
+private:
+    /**
+     * The gravitational bodies
+     */
+    JeodPointerVector<GravitySource>::type sources; //!< trick_io(**)
 
- // No public data
+    // Member functions
 
+public:
+    GravityManager();
+    ~GravityManager();
+    GravityManager(const GravityManager &) = delete;
+    GravityManager & operator=(const GravityManager &) = delete;
 
- private:
+    GravitySource * find_grav_source(const std::string & source_name) const;
 
-   /**
-    * The gravitational bodies
-    */
-   JeodPointerVector<GravitySource>::type sources;  //!< trick_io(**)
+    void add_grav_source(GravitySource & source);
 
+    void initialize_model(BaseDynManager & manager);
 
- // Member functions
+    void initialize_state(const BaseDynManager & manager);
 
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
-   GravityManager (const GravityManager &);
-   GravityManager & operator= (const GravityManager &);
+    /**
+     * Compute the gravitational attraction of gravitational bodies on the
+     * provided dynamic body.
+     *
+     * \par Assumptions and Limitations
+     *   - Only the gravitational bodies specified in the
+     *     dynamic body's gravity controls have a bearing on the dynamic
+     *     body's state.
+     * \warning This overload is deprecated.
+     * \param[in] integ_pos Dyn body location (integ frm)\n Units: M
+     * \param[in,out] grav Gravity interaction
+     */
+    void gravitation(const double integ_pos[3], GravityInteraction & grav);
 
- public:
+    /**
+     * Compute the gravitational attraction of gravitational bodies on the
+     * provided dynamic body.
+     *
+     * \par Assumptions and Limitations
+     *   - Only the gravitational bodies specified in the
+     *     dynamic body's gravity controls have a bearing on the dynamic
+     *     body's state.
+     *   - The supplied reference frame is assumed to be a direct child
+     *     of the dynamic body's integration frame.
+     * \param[in] point  Point of interest, as a reference frame.
+     * \param[in,out] grav Gravity interaction
+     */
+    void gravitation(const RefFrame & point, GravityInteraction & grav);
 
-   GravityManager ();
-
-   ~GravityManager ();
-
-   GravitySource * find_grav_source (const std::string & source_name) const;
-
-   void add_grav_source (GravitySource & source);
-
-   void initialize_model (BaseDynManager & manager);
-
-   void initialize_state (const BaseDynManager & manager);
-
-   /**
-    * Compute the gravitational attraction of gravitational bodies on the
-    * provided dynamic body.
-    *
-    * \par Assumptions and Limitations
-    *   - Only the gravitational bodies specified in the
-    *     dynamic body's gravity controls have a bearing on the dynamic
-    *     body's state.
-    * \warning This overload is deprecated.
-    * \param[in] integ_pos Dyn body location (integ frm)\n Units: M
-    * \param[in,out] grav Gravity interaction
-    */
-   void gravitation (const double integ_pos[3], GravityInteraction & grav);
-
-   /**
-    * Compute the gravitational attraction of gravitational bodies on the
-    * provided dynamic body.
-    *
-    * \par Assumptions and Limitations
-    *   - Only the gravitational bodies specified in the
-    *     dynamic body's gravity controls have a bearing on the dynamic
-    *     body's state.
-    *   - The supplied reference frame is assumed to be a direct child
-    *     of the dynamic body's integration frame.
-    * \param[in] point  Point of interest, as a reference frame.
-    * \param[in,out] grav Gravity interaction
-    */
-   void gravitation (const RefFrame& point, GravityInteraction& grav);
-
-   /**
-    * Get the vector of gravitational bodies.
-    * \warning Do not modify the vector, or elements of it.
-    */
-   const std::vector<GravitySource*>& get_bodies () const
-   {
-      return sources;
-   }
-
-
+    /**
+     * Get the vector of gravitational bodies.
+     * \warning Do not modify the vector, or elements of it.
+     */
+    const std::vector<GravitySource *> & get_bodies() const
+    {
+        return sources;
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -24,28 +24,34 @@ class Planet;
 // Unsupported includes
 #include "../include/moon.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-Planet_moon_default_data::initialize (
-   Planet * Planet_ptr)
+namespace jeod
 {
-   /* Transformation from Moon_PA to Moon_ME */
-   double m[3][3]={
-                   {0.99999987, -0.00032929, 0.00038087},
-                   {0.00032929, 0.99999995, -0.00000145444094},
-                   {-0.00038087, 0.00000157985579, 0.99999993}};
-   
 
-   Planet_ptr->name = "Moon";
+void Planet_moon_default_data::initialize(Planet * Planet_ptr)
+{
+    /*
+        // Transformation from Moon_PA to Moon_ME extracted from pxform_c at full precision from DE421
+        double m[3][3] = {
+            {    0.9999998732547140, -0.0003292854223755712,  0.0003808696186713873},
+            { 0.0003292860002109470,     0.9999999457843058, -1.454440937836270e-06},
+            {-0.0003808691190960780,  1.579855786826908e-06,     0.9999999274681064}
+        };
+    */
 
-   /* GSFC Moon fact sheet */
-   Planet_ptr->flat_coeff = 0.00125;
-   Planet_ptr->r_eq = 1000 * (1738.14);
+    // Transformation from Moon_PA to Moon_ME extracted from pxform_c at full precision from DE440
+    double m[3][3] = {
+        {    0.9999998731138765, -0.0003289586579141938,  0.0003815212082114573},
+        { 0.0003289591969874853,     0.9999999458920105, -1.350206003622702e-06},
+        {-0.0003815207434061568,  1.475710742587233e-06,     0.9999999272198697}
+    };
 
-   Planet_ptr->set_alt_pfix(m);
+    Planet_ptr->name = "Moon";
+
+    /* GSFC Moon fact sheet */
+    Planet_ptr->flat_coeff = 0.00125;
+    Planet_ptr->r_eq = 1000 * (1738.14);
+
+    Planet_ptr->set_alt_pfix(m);
 }
-} // End JEOD namespace
+} // namespace jeod

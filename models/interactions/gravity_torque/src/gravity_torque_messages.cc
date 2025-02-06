@@ -28,7 +28,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -36,14 +35,14 @@ Library dependencies:
 
 #define PATH "interactions/gravity_torque/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
-char const * GravityTorqueMessages::initialization_error = PATH "initialization_error";
+const char * GravityTorqueMessages::initialization_error = PATH "initialization_error";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

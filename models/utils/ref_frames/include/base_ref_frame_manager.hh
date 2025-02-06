@@ -52,135 +52,127 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_BASE_REF_FRAME_MANAGER_HH
 #define JEOD_BASE_REF_FRAME_MANAGER_HH
 
-
 // System includes
+#include <string>
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RefFrame;
-
 
 /**
  * The RefFrameManager class manages the reference frames in a simulation.
  * This class defines the external interfaces to that class.
  */
-class BaseRefFrameManager {
-
-JEOD_MAKE_SIM_INTERFACES(BaseRefFrameManager)
+class BaseRefFrameManager
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BaseRefFrameManager)
 
 public:
+    // Member functions
+    // Note: The default constructor, copy constructor, and assignment operator
+    // for this class are not declared. The C++ defaults are in force.
 
-   // Member functions
-   // Note: The default constructor, copy constructor, and assignment operator
-   // for this class are not declared. The C++ defaults are in force.
+    /**
+     * Destructor.
+     */
+    virtual ~BaseRefFrameManager() = default;
 
-   /**
-    * Destructor.
-    */
-   virtual ~BaseRefFrameManager ()
-   {}
+    /**
+     * Add a reference frame to the list of such.
+     * @param ref_frame Frame to be added.
+     */
+    virtual void add_ref_frame(RefFrame & ref_frame) = 0;
 
+    /**
+     * Remove a reference frame from the list of such.
+     * @param ref_frame Frame to be removed.
+     */
+    virtual void remove_ref_frame(RefFrame & ref_frame) = 0;
 
-   /**
-    * Add a reference frame to the list of such.
-    * @param ref_frame Frame to be added.
-    */
-   virtual void add_ref_frame (RefFrame & ref_frame) = 0;
+    /**
+     * Find a reference frame.
+     * @param name Frame to be found.
+     * @return Found reference frame.
+     */
+    virtual RefFrame * find_ref_frame(const std::string & name) const = 0;
 
-   /**
-    * Remove a reference frame from the list of such.
-    * @param ref_frame Frame to be removed.
-    */
-   virtual void remove_ref_frame (RefFrame & ref_frame) = 0;
+    /**
+     * Find a reference frame.
+     * @param prefix Prefix of frame to be found.
+     * @param suffix Suffix of frame to be found.
+     * @return Found reference frame.
+     */
+    virtual RefFrame * find_ref_frame(const std::string & prefix, const std::string & suffix) const = 0;
 
-   /**
-    * Find a reference frame.
-    * @param name Frame to be found.
-    * @return Found reference frame.
-    */
-   virtual RefFrame * find_ref_frame (const char * name) const = 0;
+    /**
+     * Check whether each reference frame has an owner.
+     */
+    virtual void check_ref_frame_ownership() const = 0;
 
-   /**
-    * Find a reference frame.
-    * @param prefix Prefix of frame to be found.
-    * @param suffix Suffix of frame to be found.
-    * @return Found reference frame.
-    */
-   virtual RefFrame * find_ref_frame (
-      const char * prefix, const char * suffix) const = 0;
+    /**
+     * Reset the root node in anticipation of rebuilding the entire tree.
+     */
+    virtual void reset_tree_root_node() = 0;
 
-   /**
-    * Check whether each reference frame has an owner.
-    */
-   virtual void check_ref_frame_ownership () const = 0;
+    /**
+     * Add a reference frame to the reference frame tree.
+     * @param ref_frame Frame to be added.
+     * @param parent    Parent of the frame.
+     */
+    virtual void add_frame_to_tree(RefFrame & ref_frame, RefFrame * parent) = 0;
 
-   /**
-    * Reset the root node in anticipation of rebuilding the entire tree.
-    */
-   virtual void reset_tree_root_node () = 0;
+    /**
+     * Add a subscription to a reference frame.
+     * @param frame_name Frame to which subscription is to be issued.
+     */
+    virtual void subscribe_to_frame(const std::string & frame_name) = 0;
 
-   /**
-    * Add a reference frame to the reference frame tree.
-    * @param ref_frame Frame to be added.
-    * @param parent    Parent of the frame.
-    */
-   virtual void add_frame_to_tree (RefFrame & ref_frame, RefFrame * parent) = 0;
+    /**
+     * Add a subscription to a reference frame.
+     * @param frame Frame to which subscription is to be issued.
+     */
+    virtual void subscribe_to_frame(RefFrame & frame) = 0;
 
+    /**
+     * Remove a subscription from a reference frame.
+     * @param frame_name Frame from which subscription is to be removed.
+     */
+    virtual void unsubscribe_to_frame(const std::string & frame_name) = 0;
 
-   /**
-    * Add a subscription to a reference frame.
-    * @param frame_name Frame to which subscription is to be issued.
-    */
-   virtual void subscribe_to_frame (const char * frame_name) = 0;
+    /**
+     * Remove a subscription from a reference frame.
+     * @param frame Frame from which subscription is to be removed.
+     */
+    virtual void unsubscribe_to_frame(RefFrame & frame) = 0;
 
-   /**
-    * Add a subscription to a reference frame.
-    * @param frame Frame to which subscription is to be issued.
-    */
-   virtual void subscribe_to_frame (RefFrame & frame) = 0;
+    /**
+     * Check whether a reference frame has subscriptions.
+     * @param frame_name Frame to be checked.
+     * @return True if frame has subscriptions, false otherwise.
+     */
+    virtual bool frame_is_subscribed(const std::string & frame_name) = 0;
 
-   /**
-    * Remove a subscription from a reference frame.
-    * @param frame_name Frame from which subscription is to be removed.
-    */
-   virtual void unsubscribe_to_frame (const char * frame_name) = 0;
-
-   /**
-    * Remove a subscription from a reference frame.
-    * @param frame Frame from which subscription is to be removed.
-    */
-   virtual void unsubscribe_to_frame (RefFrame & frame) = 0;
-
-   /**
-    * Check whether a reference frame has subscriptions.
-    * @param frame_name Frame to be checked.
-    * @return True if frame has subscriptions, false otherwise.
-    */
-   virtual bool frame_is_subscribed (const char * frame_name) = 0;
-
-   /**
-    * Check whether a reference frame has subscriptions.
-    * @param frame Frame to be checked.
-    * @return True if frame has subscriptions, false otherwise.
-    */
-   virtual bool frame_is_subscribed (RefFrame & frame) = 0;
+    /**
+     * Check whether a reference frame has subscriptions.
+     * @param frame Frame to be checked.
+     * @return True if frame has subscriptions, false otherwise.
+     */
+    virtual bool frame_is_subscribed(RefFrame & frame) = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

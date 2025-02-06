@@ -2,20 +2,20 @@
 %
 % Purpose:  Detailed part of Product Spec for the time model
 %
-% 
+%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \subsection{Functional Design} \label{ref:FunctionalDesign}
-See the \href{file:refman.pdf}{Reference Manual} 
-\cite{timebib:ReferenceManual} for a summary of member data and member methods 
-for all classes.  This section describes the functional operation of the 
+See the \href{file:refman.pdf}{Reference Manual}
+\cite{timebib:ReferenceManual} for a summary of member data and member methods
+for all classes.  This section describes the functional operation of the
 methods in each class.
 
 Objects are presented in alphabetical order.
 Methods are presented in alphabetical order within the object in
-which they are located.  
+which they are located.
 Methods that are inherited from a parent class
 are described in that parent class.
 
@@ -28,11 +28,11 @@ are described in that parent class.
 \funcitem{add\_type\_initialize}
 \label{ref:addtypeinitialize}Specific to each time-type.  If not
 specified for a time-type, causes a termination.  This function is
-specified in classes \reftext{TimeUDE}{ref:TimeUDE} and 
+specified in classes \reftext{TimeUDE}{ref:TimeUDE} and
 \reftext{TimeStandard}{ref:TimeStandard}, but
 not in \textit{TimeDyn}.
 
-\funcitem{add\_type\_update} 
+\funcitem{add\_type\_update}
 Recursively adds elements to the update tree. If the
 ``parent'' to a time-type is defined but not
 already in the tree, it calls itself on the
@@ -45,10 +45,10 @@ the tree.  If that search is successful, it adds the
 without change.
 
 \funcitem{initialize\_from\_parent}
-Specific to each time-type.  If not specified for a time-type, this method 
+Specific to each time-type.  If not specified for a time-type, this method
 causes a
-termination.  This method is specified in classes 
-\reftext{TimeUDE}{ref:TimeUDE} and \reftext{TimeStandard}{ref:TimeStandard}, 
+termination.  This method is specified in classes
+\reftext{TimeUDE}{ref:TimeUDE} and \reftext{TimeStandard}{ref:TimeStandard},
 but not in \textit{TimeDyn}.
 
 \funcitem{initialize\_initializer\_time }
@@ -75,7 +75,7 @@ Calls the appropriate converter to update the time from its parent.
 \classitem{TimeConverter} \label{ref:TimeConverter} Base-class
 
 This is the abstract class that describes the basic structure needed by all
-converters.  The different subclasses each describe the conversion process 
+converters.  The different subclasses each describe the conversion process
 between a
 specified pair of time-types.  Only a small subset of potential
 pairings are included in the release of \JEODid, although that small
@@ -84,23 +84,23 @@ subset does provide complete coverage of all the clock representations.
 
 
 \begin{table}[h]
-   \caption{Availability of Converter Functions} 
+   \caption{Availability of Converter Functions}
 \vspace{0.25in}
-\ \ \ \ This table shows which converter functions are available in the 
+\ \ \ \ This table shows which converter functions are available in the
 standard release.
-   
+
 \ \ \ \ 1 -- available for initialization only
 
 \ \ \ \ 2 -- available for updates only
-         
+
 \ \ \ \ 3 -- available for initialization and updates.
-         
+
 \ \ \ \ * -- by inheritance.
 \vspace{0.25in}
-         
-         
+
+
    \centering
-   \label{tab:ConverterFunctions} 
+   \label{tab:ConverterFunctions}
       \begin{tabular}{||l|l|l|l|l|l|l|l|l|l|l|l||} \hline
    \ \ \ \ \ \ \ To: &Dyn &GMST &GPS &MET &STD &TAI &TDB &TT &UDE &UT1 &UTC\\
 From: &~ &~ &~ &~ &~ &~ &~ &~ &~ &~ &~\\ \hline
@@ -117,19 +117,19 @@ UT2 &~ & 3 &~ &~ &~ & 3 &~ &~ &~ &~ &~\\\hline
 UTC &~ &~ &~ &~ &~ & 1 &~ &~ &~ &~ &~\\\hline
 
    \end{tabular}
-   
-   
-   
-   
+
+
+
+
 \end{table}
 
 {\begin{enumerate}
 
 \funcitem{can\_convert}
-Specific to each converter type (not to each instance). Extended classes may  
+Specific to each converter type (not to each instance). Extended classes may
 combine these options using bitwise "OR" when assigning in the constructor.
 
-To check whether the converter can accept any combination of directions, the 
+To check whether the converter can accept any combination of directions, the
 user may utilize the can\_convert() function
 
 NO\_DIRECTION : null, no direction specified
@@ -149,7 +149,7 @@ B\_TO\_A : always able to convert the first time from the second
 ANY\_DIRECTION : always able to convert the two times
 
 
-\funcitem{initialize}\label{ref:TimeConverterinitialize} 
+\funcitem{initialize}\label{ref:TimeConverterinitialize}
 Pure-virtual function.
 
 Each subclass must define its own version of this function, but they
@@ -186,14 +186,14 @@ initialization will then also allow conversions from \textit{xxx }to
 \end{quotation}
 
 \normalsize
-The \textit{verify\_setup} function is called with the same arguments. 
+The \textit{verify\_setup} function is called with the same arguments.
 In order for the verification to proceed, one of the two types --
 \textit{child} or \textit{parent} -- must be already initialized.  This
 type is called the\textit{ master.  }In most cases, the \textit{parent}
 type becomes the \textit{master} type for the verification, but there
 are exceptions.  See
-\reftext{Time\_Converter\_dyn\_tai::initialize}{ref:TimeConverterdyntaiinitialize} 
-for discussion.  
+\reftext{Time\_Converter\_dyn\_tai::initialize}{ref:TimeConverterdyntaiinitialize}
+for discussion.
 
 Next, the \textit{parent\_ptr} and \textit{child\_ptr} are cast into
 their respective time-types, and a check made that they are of the
@@ -205,7 +205,7 @@ which can (in some cases) be used in the \textit{convert\_a\_to\_b} and
 value remains unchanged throughout the simulation.
 
 \funcitem{verify\_setup}
-This function is used by each of the \textit{TimeConverter\_xxx\_yyy} classes 
+This function is used by each of the \textit{TimeConverter\_xxx\_yyy} classes
 to verify that sufficient data exists to allow the converter to be
 initialized.  The following criteria must all be met or the code will
 terminate:
@@ -231,7 +231,7 @@ Has no functionality at this level, simply returns to the calling routine.
 
 {\begin{enumerate}
 \funcitem{initialize}\label{ref:TimeConverterdyntaiinitialize}
-See the base-class version of 
+See the base-class version of
 \textref{initialize}{ref:TimeConverterinitialize} for overall description.
 
 Because \textit{TAI} has an absolute reference, and \textit{dyn-time}
@@ -253,11 +253,11 @@ valid\_directions:
 A\_TO\_B\_UPDATE
 
 For runtime only.  The offset between \textit{time\_dyn} and
-\textit{time\_tai }is constant throughout a simulation. 
+\textit{time\_tai }is constant throughout a simulation.
 Knowledge of this
 offset and of the value \textit{dyn\_time} allows for a trivial calculation of
 \textit{time\_tai}.
-\end{enumerate}} 
+\end{enumerate}}
 
 
 
@@ -267,7 +267,7 @@ offset and of the value \textit{dyn\_time} allows for a trivial calculation of
 
 {\begin{enumerate}
 \funcitem{initialize}\label{ref:TimeConverterdyntdbinitialize}
-See the base-class version of 
+See the base-class version of
 \textref{initialize}{ref:TimeConverterinitialize} for overall description.
 
 Because \textit{TDB} has an absolute reference, and \textit{dyn-time}
@@ -289,7 +289,7 @@ valid\_directions:
 A\_TO\_B
 
 The offset between \textit{time\_dyn} and
-\textit{time\_tdb} is constant throughout a simulation. 
+\textit{time\_tdb} is constant throughout a simulation.
 Knowledge of this
 offset and of the value \textit{dyn\_time} allows for a trivial calculation of
 \textit{time\_tdb}.
@@ -307,7 +307,7 @@ There can be multiple instances of this class.
 
 {\begin{enumerate}
 \funcitem{initialize}
-See the base-class version of 
+See the base-class version of
 \textref{initialize}{ref:TimeConverterinitialize} for overall description.
 
 This function is similar to the \textref{Dynamic Time to TAI initializer}
@@ -332,7 +332,7 @@ valid\_directions:
 A\_TO\_B
 
 The offset between \textit{time\_dyn }and
-\textit{time\_ude }is well known throughout a simulation. 
+\textit{time\_ude }is well known throughout a simulation.
 \textit{time\_ude} can easily be calculated with knowledge of this
 offset and of the value \textit{dyn\_time.}
 
@@ -351,7 +351,7 @@ ANY\_DIRECTION
 For run-time and initialization.
 
 \funcitem{initialize}
-See the base-class \textref{initialize}{ref:TimeConverterinitialize} method 
+See the base-class \textref{initialize}{ref:TimeConverterinitialize} method
 for overall description.
 
 \funcitem{reset\_a\_to\_b\_offset}
@@ -376,10 +376,10 @@ offset remains constant though the simulation.
 valid\_directions:
 ANY\_DIRECTION
 
-For run-time and initialization. 
+For run-time and initialization.
 
 \funcitem{initialize}
-See the base-class \textref{initialize}{ref:TimeConverterinitialize} method 
+See the base-class \textref{initialize}{ref:TimeConverterinitialize} method
 for overall description.
 
 
@@ -397,18 +397,17 @@ is not given an initial value.
 valid\_directions:
 ANY\_DIRECTION
 
-For run-time and initialization. Converter is straightforward, TDB is an 
+For run-time and initialization. Converter is straightforward, TDB is an
 analytic function of TAI. A generalized version of the code is provided below.
 \begin{verbatim}
-void TimeConverter_XXX_YYY::convert_a_to_b (void)
+void TimeConverter_XXX_YYY::convert_a_to_b ()
 {
 	set_a_to_b_offset();
-	yyy_ptr->set_time_by_seconds (xxx_ptr->seconds + a_to_b_offset - 
+	yyy_ptr->set_time_by_seconds (xxx_ptr->seconds + a_to_b_offset -
 				      a_to_b_offset_epoch);
-	return;
 }
 
-void TimeConverter_XXX_YYY::convert_b_to_a (void)
+void TimeConverter_XXX_YYY::convert_b_to_a ()
 {
 	xxx_ptr->set_time_by_seconds(prev_xxx_seconds + (yyy_ptr->seconds - prev_yyy_seconds));
 	while(true) {
@@ -418,7 +417,7 @@ void TimeConverter_XXX_YYY::convert_b_to_a (void)
 		double dXXX = (yyy_ptr->seconds - xxx_ptr->seconds)
 			    - (a_to_b_offse - a_to_b_offset_epoch);
 		xxx_ptr->set_time_by_seconds(xxx_ptr->seconds + dXXX);
-		
+
 		if (nSteps > 5 || std::abs(dXXX/xxx_ptr->seconds) < std::pow(10,-15)) {
 			break;
 			prev_yyy_seconds = yyy_ptr->seconds;
@@ -429,7 +428,7 @@ void TimeConverter_XXX_YYY::convert_b_to_a (void)
 \end{verbatim}
 
 \funcitem{initialize}
-See the base-class \textref{initialize}{ref:TimeConverterinitialize} method 
+See the base-class \textref{initialize}{ref:TimeConverterinitialize} method
 for overall description.
 
 
@@ -448,7 +447,7 @@ valid\_directions:
 ANY\_DIRECTION
 
 \funcitem{initialize}
-See the base-class \textref{initialize}{ref:TimeConverterinitialize} method 
+See the base-class \textref{initialize}{ref:TimeConverterinitialize} method
 for overall description.
 
 \end{enumerate}}
@@ -457,13 +456,13 @@ for overall description.
   \textref{TimeConverter}{ref:TimeConverter}
 
 
-The techniques used in the TAI to UT1 converter are similar to those in 
-\textref{Time\_Converter\_TAI\_UTC}{ref:TimeConverterTAIUTC}.  
+The techniques used in the TAI to UT1 converter are similar to those in
+\textref{Time\_Converter\_TAI\_UTC}{ref:TimeConverterTAIUTC}.
 The main difference is
 that both UT1 and TAI are continuous, and the offset between them is
 calculated by an interpolation between the boundary points of the time
 interval in the \textit{tai\_to\_ut1 }table.  This avoids the problem
-of handling discontinuities that are discussed in the 
+of handling discontinuities that are discussed in the
 \textref{TAI to UTC converter}{ref:TimeConverterTAIUTC}, but introduces another
 concern over interpretation of data.
 
@@ -472,7 +471,7 @@ either TAI or UT1, but that interpretation must be consistent.  The
 arbitrary interpretation is permitted because they differ by so little,
 and that difference changes so slowly.  That difference is typically
 $TAI-UT1 \sim 30 \; s$,
-it changes by  $O(10^{-3}) \; s \cdot day^{-1}$ and is calculated out to 
+it changes by  $O(10^{-3}) \; s \cdot day^{-1}$ and is calculated out to
 $O(10^{-4}) \; s$.  Making a wrong interpretation introduces an error that
 is at most the product of the gradient with the maximum difference,
 equating to  $O(10^{-7})\; s$, which is well within the precision of the
@@ -488,7 +487,7 @@ UT1 updated from TAI; because UT1 is calculated from TAI there would
 first be a UT1-based lookup to generate TAI, then a runtime TAI-based
 lookup to generate UT1.  Not accounting for the difference would result
 in the simulation starting at a time $O(10^{-7}) \; s$ different to when it
-was intended to start.  This leads to a difference in the way the two 
+was intended to start.  This leads to a difference in the way the two
 converters
 function.
 
@@ -506,12 +505,12 @@ in the tables, we have:
 \mathit{UT1}=\mathit{TAI}+\left(\mathit{offset}_{\mathit{prev}}+(\mathit{TAI}-\
 mathit{when}_{\mathit{prev}})\mathit{grad}\right)
 \end{equation}
-where 
+where
 
 $\mathit{offset}_{prev}$ is the most recent entry in the
 TAI-to-UT1 conversion table, giving the value UT1 - TAI,
 
-${when}_{prev}$ is the TAI time corresponding to 
+${when}_{prev}$ is the TAI time corresponding to
 $\mathit{offset}_{prev}$,
 
 and
@@ -531,16 +530,16 @@ obtain TAI, this expression can be rearranged to give a comparable
 \end{equation*}
 
 (Note that  $\mathit{when}_{\mathit{prev}}$ is still TAI time, with a
-corresponding UT1 time of 
+corresponding UT1 time of
 $(\mathit{when}_{\mathit{prev}}+\mathit{offset}_{\mathit{prev}})$)
 
 In most situations, this is sufficient, but a problem occurs when the
 gradient calculated based on the UT1 time input is different to that
 for the TAI time output, i.e. when the TAI and UT1 times are in
-different {\textquotedblleft}boxes{\textquotedblright} in the tables. 
+different {\textquotedblleft}boxes{\textquotedblright} in the tables.
 The gradient in the above equation should be associated with the TAI
 time, but it is first identified from the UT1 time.  To circumvent this
-problem, the value that the UT1 time is compared against is not the 
+problem, the value that the UT1 time is compared against is not the
 interval boundary
 (known in TAI time), but the sum of the interval boundary and the
 offset at that boundary (UT1 time at the boundary).  Because UT1 is
@@ -549,7 +548,7 @@ continuous at the boundaries of each
 inconsistency.
 
 \funcitem{initialize}
-See the base-class \textref{initialize}{ref:TimeConverterinitialize} method 
+See the base-class \textref{initialize}{ref:TimeConverterinitialize} method
 for overall description.
 
 
@@ -559,7 +558,7 @@ for overall description.
 This function is used to initialize the converter from TAI to UT1, and
 set up the tables for future updates.
 
-It has similarities to 
+It has similarities to
 \textref{initialize\_leap\_seconds}{ref:initializeleapseconds} in
 setting up the table.  Unlike the TAI to UTC conversion function, which
 has discontinuities, the TAI to UT1 conversion is a smooth function and
@@ -604,11 +603,11 @@ the boundaries.  If the time has passed through a leap second value,
 the UTC representation is recalculated based on the corrected number of
 leap seconds, and tested again.
 
-The conversion from TAI to UTC has issues at leap seconds. 
+The conversion from TAI to UTC has issues at leap seconds.
 Because UTC is calculated from the previously known offset, it will
 pass through midnight before the new offset is identified.  A typical
 sequence of UTC times, updated every 0.2 seconds may be
-(day:hour:minute:second)  
+(day:hour:minute:second)
 
 {\itshape
 [0:23:59:59.8 ,  0:23:59:60.0 = 1:00:00:00.0 ={\textgreater}
@@ -627,7 +626,7 @@ compared to the recorded boundaries of the current calibration interval
 boundary, then the values of the boundaries and the value of the offset
 between UTC and TAI are adjusted accordingly.  There
 is also verification that the current time has not passed the end of
-the calibrated data.  
+the calibrated data.
 
 The conversion function from UTC to TAI is
 fundamentally flawed at the times where leap seconds are added;
@@ -637,10 +636,10 @@ the Julian representation reads 23:59:60 and 00:00:00 as being the same
 time.  The result is that the UTC value in the new day ticks
 from 0 to 1 second, jumps back to 0, and restarts, causing there to be
 two TAI values for any given UTC time in that
-interval.  The code does not have the capacity to uniquely represent times 
-in the interval  $t\in $\textit{[23:59:60, 23:59:61)} UTC. 
+interval.  The code does not have the capacity to uniquely represent times
+in the interval  $t\in $\textit{[23:59:60, 23:59:61)} UTC.
 The problem really only shows itself at initialization (unless the user
-chooses to declare this converter valid at runtime).  
+chooses to declare this converter valid at runtime).
 Even though 23:59:60.5  UTC may exist in reality,
 the code will interpret that value as being 1 second later, 00:00:00.5.
  Users should therefore avoid initializing a simulation using a
@@ -648,7 +647,7 @@ UTC value during a leap second interval.
 
 
 \funcitem{initialize}
-See the base-class \textref{initialize}{ref:TimeConverterinitialize} method 
+See the base-class \textref{initialize}{ref:TimeConverterinitialize} method
 for overall description.
 
 \funcitem{initialize\_leap\_seconds}\label{ref:initializeleapseconds}
@@ -658,17 +657,17 @@ conjunction with \textit{initialize} above.
 The conversion between TAI and UTC utilizes a lookup table, which
 tabulates when leap seconds were added.  The times used in the table
 are in a UTC representation, and the result is the difference between
-TAI and UTC.  
+TAI and UTC.
 
 Initially, a test is made whether the current UTC time is covered by the
 tables.  If not, the end-value from the table is used; there is no attempt made
 to extrapolate the occurence of leap seconds either into the future, or before
 1972.
 
-In the event that the UTC time is not within the table range and never will 
+In the event that the UTC time is not within the table range and never will
 be, a flag
 \textit{off\_table\_end} is set to true; this has the effect of
-removing the lookup from the subsequent process.  
+removing the lookup from the subsequent process.
 
 If the current UTC time is within the boundaries of the table, then the
 number of leap seconds appropriate for that time is identified and
@@ -695,7 +694,7 @@ valid\_directions:
 A\_TO\_B
 
 For run-time and initialization, this algorithm is based on the
-Astronomical Almanac \cite{timebib:AstronomicalAlmanac}, 
+Astronomical Almanac \cite{timebib:AstronomicalAlmanac},
 with some simplification to account for our
 ability to count in days since J2000.  The algorithm in the
 Astronomical Almanac uses days since noon on January 1, 2000
@@ -719,7 +718,7 @@ Then, the Astronomical Almanac algorithm can be expressed as:
 and this value used to set \textit{GMST} values by days.
 
 \funcitem{initialize}
-See the base-class version of 
+See the base-class version of
 \textref{initialize}{ref:TimeConverterinitialize} for overall description.
 
 
@@ -746,7 +745,7 @@ $t_{d}=\alpha t_{s}+\delta $, where:
 Dynamic Time advances, and the rate at which the Simulator Time/counter
 advances.  This is user-defined, and defaults to 1.0.
 \item  $\delta $ represents the offset between the Simulator Time and
-the Dynamic Time.  This value is auto-generated, and defaults to 0.0. 
+the Dynamic Time.  This value is auto-generated, and defaults to 0.0.
 See \textref{update\_offset}{ref:updateoffset} for description of this value.
 \end{itemize}
 
@@ -769,7 +768,7 @@ can only be changed here.
 Only if the private and public elements disagree has a change been made
 to the public values.  If the public values have changed, the private
 values must be updated, and the offset between Simulator Time and Dynamic Time
-recalculated.  
+recalculated.
 
 In the following illustration, Dynamic Time and Simulator Time advance
 together.  \textit{Offset} retains its default value of 0.0.  At some
@@ -792,7 +791,7 @@ retain a history will have to be reset every time
 \begin{figure}[htp]
 \begin{center}
 \includegraphics[width=3.2736in,height=2.85in]{figures/Timedyntime.jpg}
-\caption{Illustration of how Dynamic Time can vary with Simulator Time, 
+\caption{Illustration of how Dynamic Time can vary with Simulator Time,
 and the resulting effect on the offset between them.}
 \end{center}
 \end{figure}
@@ -875,13 +874,13 @@ seconds since epoch.
 {\begin{enumerate}
 \funcitem{get\_converter\_ptr}
 As each converter is registered, it is stored in a vector and is assigned an
-index value equal to its position within that vector.  
+index value equal to its position within that vector.
 This function returns a pointer to any particular
 converter given its index in that vector.
 
 \funcitem{get\_time\_change\_flag}
 The \textit{time-change-flag} is triggered if the Dynamic Time scale
-factor is changed (see \textref{update\_offset}{ref:updateoffset}).  
+factor is changed (see \textref{update\_offset}{ref:updateoffset}).
 This function simply returns
 the boolean indicating whether the scale factor changed since the last
 time step.
@@ -924,7 +923,7 @@ time-types.
 
 \funcitem{register\_time}
 This function is called from the S\_define for each Standard Time
-representation (Standard Times are already named).  It adds each of these 
+representation (Standard Times are already named).  It adds each of these
 representations into the registry of time-types.
 
 \funcitem{time\_standards\_exist}
@@ -964,7 +963,7 @@ code terminates.
 
 \funcitem{update}
 This function is the master function once the simulation has begun.  It
-is called from the S\_define with the Simulator Time as its argument (i.e., 
+is called from the S\_define with the Simulator Time as its argument (i.e.,
 \textit{sys.exec.out.time}, or its equivalent for non-Trick
 simulations).
 
@@ -977,7 +976,7 @@ between sim-time and TimeDyn will change.
 \end{enumerate}
 
 Note that while steps \textit{i. and ii.} are only followed if the argument is
-different from the previously recorded Simulator Time (\textit{sim\_time}), 
+different from the previously recorded Simulator Time (\textit{sim\_time}),
 step
 \textit{iii.} must be followed with every call.  This is deliberate, and is
 essential due to the way time is updated during the dynamic integration
@@ -989,13 +988,13 @@ causing a delay in its effect if step \textit{iii.} were not processed.
 
 \funcitem{verify\_table\_lookup\_ends}
 This method exists within all time representations, by inheritance from
-\textref{Time}{ref:Time}.  The Time Manager method runs through all registered 
+\textref{Time}{ref:Time}.  The Time Manager method runs through all registered
 time
 representations, calling the respective methods.
 \end{enumerate}}
 
 
-\classitem{ TimeManagerInit}  \label {ref:timemanagerinit} 
+\classitem{ TimeManagerInit}  \label {ref:timemanagerinit}
   Base-class
 
 
@@ -1011,7 +1010,7 @@ sequence of steps occur:
 
 
 \begin{enumerate}
-\item When the method 
+\item When the method
 \textref{TimeManager::time\_lookup}{ref:timetypeslookup}
 is
 called to find the initializer\_index, none will be found and the
@@ -1041,7 +1040,7 @@ Each time-type with status 0 is tested; if the user has carefully
 defined the tree with an
 {\textquotedblleft}initialize\_from{\textquotedblright} assignment for
 this time-type, the method \textit{add\_type\_initialize}(on page
-\pageref{ref:addtypeinitialize}) 
+\pageref{ref:addtypeinitialize})
 specific to
 that time-type is called to add the time-type to the tree.  This
 function is iterative, it tests the parent type, and the
@@ -1065,13 +1064,13 @@ possibilities have not been exhausted, the following steps are taken.
 \item Increment \textit{seeking\_status}
 \begin{itemize}
 \item \textit{seeking\_status} identifies the `level' of the
-tree being tested.  
+tree being tested.
 \item On the first pass, (\textit{seeking\_status = 1}),
-time-types are tested for entry into the tree structure 
+time-types are tested for entry into the tree structure
 directly under the \textit{initializer}.
-\item On the second pass, (\textit{seeking\_status = 2}) the level beneath 
-that is tested, etc.  
-\item If, at some level, nothing can be added (\textit{num\_added\_pass  = 0} 
+\item On the second pass, (\textit{seeking\_status = 2}) the level beneath
+that is tested, etc.
+\item If, at some level, nothing can be added (\textit{num\_added\_pass  = 0}
 at the end of
 the pass) then everything that can be added has been added; the algorithm is
 complete, or it has failed.
@@ -1083,7 +1082,7 @@ complete, or it has failed.
 \item If it has a defined time-type from which to initialize, add it to
 the tree (recursively adding its parent as necessary).
 \item If it does not have a defined time-type from which to initialize,
-test it using status \textit{seeking\_status} 
+test it using status \textit{seeking\_status}
 to determine whether an appropriate converter
 function exists.  If it does, add the type to the tree with status
 \textit{seeking\_status+1}.  If not, wait for the next pass.
@@ -1104,8 +1103,8 @@ the code terminates.
 \funcitem{create\_update\_tree}
 \label{ref:createupdatetree}This function provides much the same
 functionality by the same method as that described in
-\textref{create\_init\_tree}{ref:createinittree}, 
-except that it considers the update tree. 
+\textref{create\_init\_tree}{ref:createinittree},
+except that it considers the update tree.
 The only substantial difference comes in the recording of the tree; the
 initialization tree is recorded within TimeManagerInit, while the
 update tree is recorded in TimeManager.  Also, while the initialization
@@ -1114,16 +1113,16 @@ is introduced and recorded.  This necessitates an additional function,
 \textref{set\_ordered\_update\_list}{ref:setorderedupdatelist}.
 
 \funcitem{organize\_update\_list}
-\label{ref:setorderedupdatelist} While the user may specify times in any 
+\label{ref:setorderedupdatelist} While the user may specify times in any
 order in the S\_define file, the Time Manager must have a record of the
 order in which to update the different representations.  Since Dynamic
-Time updates directly from Simulator Time, it must be updated first. 
+Time updates directly from Simulator Time, it must be updated first.
 Then TAI is typically updated from Dynamic Time, and then the other
-derived times.  While the initializer (\textit{TimeManagerInit}) builds the 
+derived times.  While the initializer (\textit{TimeManagerInit}) builds the
 tree
-for the update procedure, the Time Manager uses this function to reorganize 
+for the update procedure, the Time Manager uses this function to reorganize
 the \textit{time\_vector}, which it then uses to ensure that
-representations are always updated before their respective dependents. 
+representations are always updated before their respective dependents.
 
 \funcitem{get\_conv\_ptr\_index}
 \label{ref:getconvptrindex}As each converter is registered, it is stored
@@ -1137,13 +1136,13 @@ representations.
 
 
 
-Consider the value  $x=Ni_{\text{from}}+i_{\text{to}}$\textit{ , }with 
+Consider the value  $x=Ni_{\text{from}}+i_{\text{to}}$\textit{ , }with
 \textit{N}
 representing the number of time-types,  $i_{\text{from}}$ the index of
-the representation from which the conversion is to be made, and 
+the representation from which the conversion is to be made, and
 $i_{\text{to}}$ the index of the time representation to which the
 conversion is to be made.  Then the
-\textit{x}\textit{\textsuperscript{th}}\textit{ }element in 
+\textit{x}\textit{\textsuperscript{th}}\textit{ }element in
 \textit{converter\_ptrs\_index }is set to be  an integer equal to the
 location of the converter in the converter registry that will convert
 from $i_{\text{from}}$ to  $i_{\text{to}}$.
@@ -1153,7 +1152,7 @@ from $i_{\text{from}}$ to  $i_{\text{to}}$.
 
 This method receives the value \textit{x}, and returns the index in the
 converter registry.  An invalid input, or an input for which there is
-no registered converter causes the method to return a value -1.  
+no registered converter causes the method to return a value -1.
 
 
 
@@ -1167,9 +1166,9 @@ converters, it is also necessary to track the versatility of those
 converters, and in which direction they should be used.  For example,
 the converter between TAI and UTC (\textit{TimeConverter\_TAI\_UTC})
 can be used in either direction.  Sending the value appropriate to a
-conversion from TAI to UTC into 
+conversion from TAI to UTC into
 \textref{get\_conv\_ptr\_index}{ref:getconvptrindex}
- will return information on the index (and hence the memory location) 
+ will return information on the index (and hence the memory location)
  of this converter, but not how to use it.  There are two
 additional tables that provide directional information on usage of the
 converter, one for initialization
@@ -1180,9 +1179,9 @@ converter, one for initialization
 
 
 While \textit{converter\_ptrs\_index }is symmetric,\textit{ }the
-converter direction tables are not.  Passing in 
+converter direction tables are not.  Passing in
 $x=Ni_{\mathit{TAI}}+i_{\mathit{UTC}}$(from TAI to UTC) will return a
-value of +1, while passing in a value of  
+value of +1, while passing in a value of
 $x=Ni_{\mathit{UTC}}+i_{\mathit{TAI}}$(from UTC to TAI) will return a
 value of -1.  If a converter is not valid (e.g. Dynamic Time to TAI is
 valid at run-time, but not at initialization, while TDB to TAI is valid
@@ -1195,22 +1194,22 @@ appropriate table has value 0.
 This method returns the value for the converter at initialization.
 
 \funcitem{get\_conv\_dir\_upd}\label{ref:getconvdirupd}
-See \textref{get\_conv\_dir\_init}{ref:getconvdirinit} for details.  This 
+See \textref{get\_conv\_dir\_init}{ref:getconvdirinit} for details.  This
 method returns the
 value for the converter at run-time.
 
 \funcitem{get\_status}
 During the construction of the initialization and update trees
 (\textref{create\_init\_tree}{ref:createinittree} and
-\textref{create\_update\_tree}{ref:createupdatetree}), each time 
+\textref{create\_update\_tree}{ref:createupdatetree}), each time
 representation has a status
 corresponding to its location in the tree.  This function returns the
 status of any given time representation.
 
 \funcitem{increment\_status}
-During the construction of the initialization and update trees 
+During the construction of the initialization and update trees
 (\textref{create\_init\_tree}{ref:createinittree} and
-\textref{create\_update\_tree}{ref:createupdatetree}), each time 
+\textref{create\_update\_tree}{ref:createupdatetree}), each time
 representation has a status
 corresponding to its location in the tree.  This function sets the
 status of a time-type to be one higher than that of its parent.
@@ -1219,7 +1218,7 @@ status of a time-type to be one higher than that of its parent.
 Sets the references \textit{dyn\_time\_index }and
 \textit{initializer\_index.}
 
-Calls \textref{verify\_times\_setup}{ref:verifytimessetup} to ensure that the 
+Calls \textref{verify\_times\_setup}{ref:verifytimessetup} to ensure that the
 time-type
 settings are mutually consistent.
 
@@ -1242,7 +1241,7 @@ within this class:
 
 \funcitem{initialize\_time\_types}
 This method starts by initializing the head of the initialization tree
-with the appropriate call to \textit{initialize\_initializer\_time. 
+with the appropriate call to \textit{initialize\_initializer\_time.
 }Then, it progresses through the remaining time representations calling
 their respective \textit{initialize\_from\_parent} methods on any time
 types that have not been initialized.  This method is iterative, and
@@ -1252,14 +1251,14 @@ representation (since the head of the tree has been initialized).
 
 \funcitem{populate\_converter\_registry}
 This method sets the values of the converter tables discussed in
-\textref{get\_conv\_ptr\_index}{ref:getconvptrindex}, 
+\textref{get\_conv\_ptr\_index}{ref:getconvptrindex},
 \textref{get\_conv\_dir\_init}{ref:getconvdirinit}, and
 \textref{get\_conv\_dir\_upd}{ref:getconvdirupd}.
 
 \funcitem{set\_status}
 During the construction of the initialization and update trees
 (\textref{create\_init\_tree}{ref:createinittree} and
-\textref{create\_update\_tree}{ref:createupdatetree}), each time 
+\textref{create\_update\_tree}{ref:createupdatetree}), each time
 representation has a status
 corresponding to its location in the tree.  This function sets the
 status of a time-type to some input value.
@@ -1293,30 +1292,30 @@ additional boolean value, \textit{hold}.
 \begin{enumerate}
 
 \funcitem{update}
-MET contains two values that indicate whether a hold is active, \textit{hold} 
-and \textit{previous\_hold}.  The former is set externally, the latter is set 
-within this method and provides a comparison data point to identify when 
+MET contains two values that indicate whether a hold is active, \textit{hold}
+and \textit{previous\_hold}.  The former is set externally, the latter is set
+within this method and provides a comparison data point to identify when
 \textit{hold} has been changed.
 
-If MET has just transitioned to a hold, the regular update method is run to 
-bring MET up-to-date with the time at which the hold was commanded, and 
+If MET has just transitioned to a hold, the regular update method is run to
+bring MET up-to-date with the time at which the hold was commanded, and
 \textit{previous\_hold} is transitioned to \textit{false}.
 
 If MET is in a hold, and was previously in a hold, no action is taken.
 
-If MET is not in a hold, and was not previously in a hold, the inherited 
-update method is called. 
+If MET is not in a hold, and was not previously in a hold, the inherited
+update method is called.
 
-Finally, if MET has just transitioned from a hold, the time converter is 
-updated to reset the offset between this type and its parent.  The actual 
-value of MET does not require updating, because it retains its current value 
+Finally, if MET has just transitioned from a hold, the time converter is
+updated to reset the offset between this type and its parent.  The actual
+value of MET does not require updating, because it retains its current value
 until the next time-step.
 
-Note that when the hold flag is being toggled, it is beneficial to set the 
-Time Manager's \textit{simtime} value to 0. The Time Manager compares that 
-value to the Simulator Time to determine whether to call the individual 
-update methods; setting it to zero forces the update method.  Without this 
-step, this update method may be bypassed, and processed at the time-step after 
+Note that when the hold flag is being toggled, it is beneficial to set the
+Time Manager's \textit{simtime} value to 0. The Time Manager compares that
+value to the Simulator Time to determine whether to call the individual
+update methods; setting it to zero forces the update method.  Without this
+step, this update method may be bypassed, and processed at the time-step after
 it was intended.
 \end{enumerate}
 
@@ -1329,17 +1328,17 @@ it was intended.
 \funcitem{add\_type\_initialize}
 This function is intended to add a time-type to the initialization tree
 if its parent is already in the tree, and to recurse on its parent if
-the parent is not in the tree.  
+the parent is not in the tree.
 
 Initially, two values are set:
 
 
 \begin{enumerate}
 \item The status of the time-type is changed from 0 to -1 for reasons
-explained later.  
-\item Then, the \textref{time\_types\_lookup}{ref:timetypeslookup} function is 
+explained later.
+\item Then, the \textref{time\_types\_lookup}{ref:timetypeslookup} function is
 called to
-obtain the index value of the parent type.  
+obtain the index value of the parent type.
 \end{enumerate}
 
 
@@ -1382,13 +1381,13 @@ the chain until it returns to create\_init\_tree. }
 representation from a Truncated Julian format into a Gregorian calendar
 format.  The algorithm for this conversion is non-trivial.
 
-The calendar format has both regular and irregular cyclical variations: 
+The calendar format has both regular and irregular cyclical variations:
 there are always 60 seconds in a minute, 60 minutes in an hour, and 12
 months in a year.  There are 24 hours in a day, except for the addition
-of leap seconds, although these can be factored in relatively easily. 
+of leap seconds, although these can be factored in relatively easily.
 There are 28-31 days per month, with known predictability.  There are
-365-366 days in a year, with leap years occurring in a known pattern: there is 
-a leap year every 4 years, excepting one every 100 years, excepting one every 
+365-366 days in a year, with leap years occurring in a known pattern: there is
+a leap year every 4 years, excepting one every 100 years, excepting one every
 400
 years (there are 24-25 leap years every 100 years, and always 97 leap
 years in a 400-year period).  There are 146,097 days in any 400-year
@@ -1398,7 +1397,7 @@ The most difficult challenge in converting from Julian to Gregorian is
 in identifying the month number.  This can be achieved through integer
 division (which is faster than a lookup) if care is taken to avoid the
 irregularities associated with the leap-day February 29, and the uneven
-nature of the days-per-month distribution.  
+nature of the days-per-month distribution.
 
 {\itshape
 [A basic application of integer division fails almost immediately: with
@@ -1413,7 +1412,7 @@ time is chosen carefully.  To avoid an
 it makes sense to make the leap-day the last day of the year.  Then, if
 the year requires 366 days, it is added automatically, and if the year
 has only 365 days, there is no February 29 because the date rolls to
-the next year first.  Consequently, the epoch is placed on March 1. 
+the next year first.  Consequently, the epoch is placed on March 1.
 Furthermore, it should be on March 1 immediately after a leap-day so
 that some residual partial day can build until a leap-day is needed
 after 4 years.  The 100-year and 400-year cycles complicate this, and
@@ -1421,25 +1420,25 @@ by the same argument, the epoch should be on March 1 after a 400-year
 leap-day.  It is chosen then that the epoch date be March 1, 1600.
 
 The epoch date for Truncated Julian Time (May 24, 1968) happens to occur
-134,493 days after the March 1, 1600, epoch.  
+134,493 days after the March 1, 1600, epoch.
 
 After obtaining the year information from the Julian Date, the second
 irregularity (uneven nature of days-per-month) is accounted for by
-adjusting the epoch time slightly.  This is explained in step 10 (``x.'') 
+adjusting the epoch time slightly.  This is explained in step 10 (``x.'')
 below.
 
 The algorithm for converting Truncated Julian Time into Gregorian
 calendar then is described by:
 
 \begin{enumerate}
-\item Take the integer part of the Truncated Julian Time  
+\item Take the integer part of the Truncated Julian Time
 $TJT_{int}=int(TJT)$, where \textit{TJT } represents Truncated Julian Time, and
 $TJT_{int}$ the integer part thereof.
 \item The fraction of the current day that has elapsed is first
-represented as a number of minutes. 
+represented as a number of minutes.
 ${min}=1440\left({TJT}-{TJT}_{int}\right)$
 \item The fractional part of the last minute provides the seconds value
-of the clock. 
+of the clock.
 ${seconds}=60\left({min}-int(min)\right)$
 \item An additional term, \textit{clock\_resolution }is used to force
 \textit{seconds } to `tick-over' to 0
@@ -1448,7 +1447,7 @@ more uniform.  If the clock is forced to
 `tick-over', that requires that the
 minutes value be incremented by 1, and a check made as to whether that
 action also caused the day to
-`tick-over'. 
+`tick-over'.
 
 (\textit{e.g. July 7 23:59:59.999999999999 = July 8 0:0:0.0})
 \item The hour of day is found from an integer division, by 60, of the
@@ -1461,20 +1460,20 @@ is equal to the remainder.
 \begin{equation*}
 {minute}={min}_{\text{int}}-60\cdot {hour}.
 \end{equation*}
- 
+
 
 \item If the value \textit{julian\_day }(the integer part of TJT + any
 increment from step iv) has not changed from its previous value, the
 algorithm is completed.  If it has, the more cumbersome task of
 determining the date is undertaken.
 \item Calculate \textit{julian\_day }by adding 134,493 to adjust for
-epoch, 
+epoch,
 
 ${julian}\text{\_}{day}={TJT}_{\text{int}}+134493$.
 
-(134,493 represents the number of days from the conversion epoch to the 
+(134,493 represents the number of days from the conversion epoch to the
 Truncated
-Julian epoch).  
+Julian epoch).
 
 March 1, 1600, is day 0, not day 1; this is not an
 arbitrary decision, but necessitated by the mathematical structure.
@@ -1495,18 +1494,18 @@ r_{400}={day}-146097n_{400}+1 \; \; , \; \; r_{400}\in [1,146097]
 
 \item Calculate \textit{n\_100, }the number of 100-year periods in the
 current 400-year period.  The first three 100-year periods have 36,524 days,
-the fourth has 36,525 days.  
+the fourth has 36,525 days.
 
 In the case that March 1 was represented by day
 0, the last day in the fourth period would be day
-146,096.  A suitable divisor would have to be $x>36524$ to make 
+146,096.  A suitable divisor would have to be $x>36524$ to make
 $(146096/x)<4$.  But then day 36,524 would fall into the first period,
-when it should be the first day in the second period.  
+when it should be the first day in the second period.
 
 In the case that
 March 1 is counted as day 1, then the last day in the
 fourth period is 146,097.  Once again,  $x>36524$, but
-now day 36,524 correctly falls into the first period, as the last day.  
+now day 36,524 correctly falls into the first period, as the last day.
 $x=36524.3$ is an appropriate number such that the last days in each
 period are 36,524; 73,048; 109,572; and 146,097.  Because this divisor is
 non-integer, integer arithmetic cannot be utilized; instead, cast the
@@ -1522,27 +1521,27 @@ days in each of the first three 100-year periods in any 400-year period, so
 subtract the appropriate multiple of 36,524.  In the next step, the last
 period is no larger than earlier periods, and integer arithmetic can be
 utilized if March 1 is counted as day 0.  Hence, the extra day is
-removed again.  
+removed again.
 
 \begin{equation*}
-r_{100}=r_{400}-36524n_{100}-1\; \; , \; \; 
-r_{100}\in[0,36524].  
+r_{100}=r_{400}-36524n_{100}-1\; \; , \; \;
+r_{100}\in[0,36524].
 \end{equation*}
 
 \item Calculate \textit{n\_4}, the number of 4-year periods.  There are
 1,461 days in the first 24 of these, and 1,460 days in the
 25\textsuperscript{th}, unless  $n_{100}=3$ in which case the
-25\textsuperscript{th} period also has 1,461 days.  
+25\textsuperscript{th} period also has 1,461 days.
 
 
 \begin{equation*}
 n_{4}=r_{100}/1461 \; \; , \; \; n_{4}\in [0,24]
 \end{equation*}
- 
-\item Calculate  
+
+\item Calculate
 
 \begin{equation*}
-r_{4}=r_{100}-1461n_{4}+1 \; \; , \; \;  r_{4}\in [1,1461].  
+r_{4}=r_{100}-1461n_{4}+1 \; \; , \; \;  r_{4}\in [1,1461].
 \end{equation*}
 
 The
@@ -1551,10 +1550,10 @@ again, so again add 1 to make March 1 be represented as day 1.
 \item Calculate the number of whole years in the
 current 4-year period.  Again, this real result is cast to an integer.
 \begin{equation*}
-n_{1}=r_{4}/365.3 
+n_{1}=r_{4}/365.3
 \end{equation*}
 
-\item Calculate  
+\item Calculate
 \begin{equation*}
 r_{4}'=r_{4}+2n_{1}+30,
 \end{equation*}
@@ -1565,7 +1564,7 @@ days are added each year, so that February 28, 2001, is day 395, and
 March 1, 2001, is day 398.  This unusual strategy effectively gives
 February 30 days, smoothing out the month-to-month fluctuations.  It
 also puts the epoch on February 1, 1600.
-\item Calculate  
+\item Calculate
 
 \begin{equation*}
 m'=\text{int}\left(\frac{r'}{30.585}\right)
@@ -1575,11 +1574,11 @@ With approximately 30.585 days per month, the number of months in the 4-year
 period can be determined.
 
 
-\item Calculate  
+\item Calculate
 the month
-number.  
+number.
 \begin{equation*}
-m=m'+2-12\left(\frac{m'+1}{12}\right) 
+m=m'+2-12\left(\frac{m'+1}{12}\right)
 \end{equation*}
 This first adjusts \textit{m'} accounting for
 February \textit{(m=2) }being counted \textit{as m' =
@@ -1589,7 +1588,7 @@ years; the integer division in the parentheses
 \textit{(m' = 11, 23,35,47), }reducing the value of
 \textit{m} from its December value.
 \item Calculate \textit{d}, the day number on the current month.  With
-30.585 days per month,  
+30.585 days per month,
 
 \begin{equation*}
 d=r'-\text{int}\left(30.585m'\right)
@@ -1600,7 +1599,7 @@ second term being an integer equal to the cumulative number of days at
 month's end (February -- 30, March -- 61, April -- 91,
 May -- 122, etc.)
 
-\item Calculate \textit{y}, the year.  
+\item Calculate \textit{y}, the year.
 
 \begin{equation*}
 y=1600+400n_{400}+100n_{100}+4n_{4}+\left(\frac{m+1}{12}\right)
@@ -1629,7 +1628,7 @@ status throughout the simulation.  Maintenance of the calendar
 representation is more time-consuming, and is only called as needed on
 a type-by-type basis.  This function checks whether the simulation has
 advanced since the last calendar update.  If it has,
-\textref{calculate\_calendar\_values}{ref:calculatecalendarvalues} 
+\textref{calculate\_calendar\_values}{ref:calculatecalendarvalues}
 is called to convert the
 decimal representation into a calendar representation.
 
@@ -1649,7 +1648,7 @@ The algorithm basically follows the inverse process of that presented in
 
 
 \begin{enumerate}
-\item The number of years since epoch is 
+\item The number of years since epoch is
 \begin{equation*}
 y={year}-1601+\left(\frac{{month}+9}{12}\right)
 \end{equation*}
@@ -1657,7 +1656,7 @@ y={year}-1601+\left(\frac{{month}+9}{12}\right)
 (notice that this integer division term
 {\textquotedblleft}rolls{\textquotedblright} each March)
 \item The value, \textit{y}, can then be divided into a number of
-400-year periods, plus a number of 100-year periods, etc.  
+400-year periods, plus a number of 100-year periods, etc.
 
 \begin{align*}
 n_{400} &=\frac{y}{400} \\
@@ -1673,7 +1672,7 @@ $m$ is the month number in the 4-year period starting March 1.
 \item The Truncated Julian Time can now be calculated:
 
 \begin{enumerate}
-\item The fractional part of the day is\ \ 
+\item The fractional part of the day is\ \
 \begin{equation*}
 {TJT}_{1}=\frac{{second}}{86400.0}+\frac{{minute}}{1440.0}+\frac{{hour}}{24.0}
 \end{equation*}
@@ -1683,8 +1682,8 @@ $m$ is the month number in the 4-year period starting March 1.
 {TJT}_{2}={TJT}_{1}+{day}
 \end{equation*}
 
-\item The month value,\textit{ m}, is complicated.  In 
-\textref{calculate\_calendar\_values}{ref:calculatecalendarvalues} 
+\item The month value,\textit{ m}, is complicated.  In
+\textref{calculate\_calendar\_values}{ref:calculatecalendarvalues}
 the method was developed by which the
 epoch was adjusted by 30 days (actually, by 31, because  1 day had
 already been added to make March 1 day 1 instead of day 0), and 2 days
@@ -1693,15 +1692,15 @@ these modifications, it was possible to carry out integer arithmetic,
 using 30.585 days per month and taking the integer part of the result.
 That same method can be used here: the number of days is calculated
 from\textit{ m, }then the 2 days per year and the 31 day-offset
-removed.  
+removed.
 \begin{equation*}
 {TJT}_{3}={TJT}_{2}+\left({int}\left({30.585 m}\right)-2n_{1}-31\right)
 \end{equation*}
 
 \item By setting the epoch to March 1, 1600, the number of days in each
-completed 4-year, 100-year, and 400-year period is known and fixed. 
+completed 4-year, 100-year, and 400-year period is known and fixed.
 The final step is to remove the 134493 day offset between March 1, 1600,
-and May 24, 1968, the epoch of Truncated Julian Time. 
+and May 24, 1968, the epoch of Truncated Julian Time.
 
 
 
@@ -1737,7 +1736,7 @@ initial time can be presented:
 \item {\bfseries
 calendar}
 
-Calls \textref{convert\_from\_calendar}{ref:convertfromcalendar} to generate 
+Calls \textref{convert\_from\_calendar}{ref:convertfromcalendar} to generate
 the decimal
 representation.
 \item {\bfseries
@@ -1775,34 +1774,34 @@ Simply returns the epoch as a Julian, rather than Truncated Julian
 value.
 
 \funcitem{seconds\_of\_year}
-This method relies on the calendar functionality included with \JEODid.  Two 
-variables are included in the Time Standard class, 
-\textit{seconds\_at\_year\_start}, and \textit{year\_of\_last\_soy}.  The 
-former records the value of the variable \textit{seconds} at the beginning of 
+This method relies on the calendar functionality included with \JEODid.  Two
+variables are included in the Time Standard class,
+\textit{seconds\_at\_year\_start}, and \textit{year\_of\_last\_soy}.  The
+former records the value of the variable \textit{seconds} at the beginning of
 the current year; the latter records to which year
 \textit{seconds\_at\_year\_start} pertains.
 
-First, the calendar is brought up-to-date (if it is not already so).  Then the 
+First, the calendar is brought up-to-date (if it is not already so).  Then the
 code divides into 3 paths:
 
 \begin{enumerate}
-	\item When \textit{calendar\_year = year\_of\_last\_soy} (most 
-	frequent path).  This path simply differences the current value of 
+	\item When \textit{calendar\_year = year\_of\_last\_soy} (most
+	frequent path).  This path simply differences the current value of
 	\textit{seconds} from the value at the start of the year.
 	\item When \textit{calendar\_year = year\_of\_last\_soy + 1} AND
-  $calendar\_month \leqslant 2$ (unusual).  This path requires that the year 
-  has ticked over once since the last time this method was accessed, and the 
-  current month is January or February.  The value \textit{seconds\_of\_year} 
-  is calculated directly, and used to define a new value for 
-  \textit{seconds\_at\_year\_start}; \textit{year\_of\_last\_soy} is also 
+  $calendar\_month \leqslant 2$ (unusual).  This path requires that the year
+  has ticked over once since the last time this method was accessed, and the
+  current month is January or February.  The value \textit{seconds\_of\_year}
+  is calculated directly, and used to define a new value for
+  \textit{seconds\_at\_year\_start}; \textit{year\_of\_last\_soy} is also
   redefined.
-	\item All other cases.  This path is most often accessed during the 
-	first call to this method for any of the time-types.  Otherwise, it 
-	would be a rare circumstance that would lead to this path.  It 
-	temporarily reassigns the current time to be the start of the year, 
-	calculates the \textit{seconds} value there, then returns to current 
-	time.  The calculated value becomes \textit{seconds\_at\_year\_start}, 
-	the current year becomes \textit{year\_of\_last\_soy}, and the 
+	\item All other cases.  This path is most often accessed during the
+	first call to this method for any of the time-types.  Otherwise, it
+	would be a rare circumstance that would lead to this path.  It
+	temporarily reassigns the current time to be the start of the year,
+	calculates the \textit{seconds} value there, then returns to current
+	time.  The calculated value becomes \textit{seconds\_at\_year\_start},
+	the current year becomes \textit{year\_of\_last\_soy}, and the
 	calculation of \textit{seconds\_of\_year} is then trivial.
 \end{enumerate}
 
@@ -1810,11 +1809,11 @@ code divides into 3 paths:
 
 
 \funcitem{set\_time\_by\_seconds}
-Uses the version in \textref{JeodBaseTime}{ref:Time}, and adds conversion to 
+Uses the version in \textref{JeodBaseTime}{ref:Time}, and adds conversion to
 Truncated Julian Time.
 
 \funcitem{set\_time\_by\_days}
-Uses the version in \textref{JeodBaseTime}{ref:Time}, and adds conversion to 
+Uses the version in \textref{JeodBaseTime}{ref:Time}, and adds conversion to
 Truncated Julian Time.
 
 \funcitem{set\_time\_by\_trunc\_julian}
@@ -1861,7 +1860,7 @@ will be updated at run-time is defined and available.
 
 \funcitem{clock\_update}
 Given the decimal representation of time elapsed since epoch, this
-method generates a clock (day::hour:minute:second) representation. 
+method generates a clock (day::hour:minute:second) representation.
 
 
 
@@ -1945,7 +1944,7 @@ representation in which the epoch is defined; in that case the
 exists, the code must terminate.  Note: this step is only carried out
 here in the case that the epoch-defining type is itself a UDE;
 otherwise, this step is more complicated and is carried out in
-\textref{convert\_epoch\_to\_update}{ref:convertepochtoupdate}, 
+\textref{convert\_epoch\_to\_update}{ref:convertepochtoupdate},
 but it must be carried out at some
 point.
 \item If the epoch-defining type has already been initialized, its value
@@ -1953,7 +1952,7 @@ must also be stored off temporarily and overwritten with the value at
 epoch.
 \item  The epoch-defining type is then populated with the epoch
 definition, and converted to the \textit{parent }type using
-\textref{convert\_epoch\_to\_update}{ref:convertepochtoupdate}.  
+\textref{convert\_epoch\_to\_update}{ref:convertepochtoupdate}.
 At this time, the \textit{parent}
 defines the epoch just as well as the epoch-defining type does; the
 epoch-defining type can now be reverted to its former configuration,
@@ -1994,12 +1993,12 @@ This method is used to initialize the UDE time in the case that the UDE
 time is being used to initialize the simulation (i.e., it is at the head
 of the initialization tree).  To properly initialize the UDE in this
 situation, it must have an epoch defined in some other representation,
-and an initial value at simulation-start.  
+and an initial value at simulation-start.
 
 One additional requirement
 on this type of initialization is that the epoch cannot be defined as
 being in some other UDE, and if there are any
-Standard Times in the simulation the epoch must be a Standard Time (the epoch 
+Standard Times in the simulation the epoch must be a Standard Time (the epoch
 can be defined in Dynamic
 Time, but only if there are no Standard Times included).
 

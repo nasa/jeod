@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_ORBIT_HH
 #define JEOD_DYN_BODY_INIT_ORBIT_HH
 
@@ -73,220 +72,214 @@ Library dependencies:
 // Model includes
 #include "dyn_body_init_trans_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize a vehicle's translational state given an orbital specification.
  */
-class DynBodyInitOrbit : public DynBodyInitTransState {
+class DynBodyInitOrbit : public DynBodyInitTransState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitOrbit)
 
- JEOD_MAKE_SIM_INTERFACES(DynBodyInitOrbit)
+    // Enumerations
 
+public:
+    /**
+     * Identifies which orbital elements define the orbit.
+     * The goofy numbering scheme here is intentional.
+     * The numbers map directly to the corresponding orbital_set number in
+     * JEOD 1.4 / 1.5.
+     * NOTE: Orbital sets 4 and 11 are the same options.
+     */
+    enum OrbitalSet
+    {
+        InvalidSet = 0, /*
+          Not a valid choice; the default */
 
- // Enumerations
+        SmaEccIncAscnodeArgperTimeperi = 1, /*
+           Semi-major axis,
+           Eccentricity,
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Argument of periapsis,
+           Time since periapsis passage */
 
- public:
+        SmaEccIncAscnodeArgperManom = 2, /*
+           Semi-major axis,
+           Eccentricity,
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Argument of periapsis,
+           Mean anomaly */
 
-   /**
-    * Identifies which orbital elements define the orbit.
-    * The goofy numbering scheme here is intentional.
-    * The numbers map directly to the corresponding orbital_set number in
-    * JEOD 1.4 / 1.5.
-    * NOTE: Orbital sets 4 and 11 are the same options.
-    */
-   enum OrbitalSet {
-      InvalidSet =  0, /*
-         Not a valid choice; the default */
+        SlrEccIncAscnodeArgperTanom = 3, /*
+           Semi-latus rectum,
+           Eccentricity,
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Argument of periapsis,
+           True anomaly */
 
-      SmaEccIncAscnodeArgperTimeperi =  1, /*
-          Semi-major axis,
-          Eccentricity,
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Argument of periapsis,
-          Time since periapsis passage */
+        IncAscnodeAltperAltapoArgperTanom = 4, /*
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Perifocal altitude,
+           Apofocal altitude,
+           Argument of periapsis,
+           True anomaly */
 
-      SmaEccIncAscnodeArgperManom =  2, /*
-          Semi-major axis,
-          Eccentricity,
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Argument of periapsis,
-          Mean anomaly */
+        IncAscnodeAltperAltapoArgperTimeperi = 5, /*
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Perifocal altitude,
+           Apofocal altitude,
+           Argument of periapsis,
+           Time since periapsis passage */
 
-      SlrEccIncAscnodeArgperTanom =  3, /*
-          Semi-latus rectum,
-          Eccentricity,
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Argument of periapsis,
-          True anomaly */
+        SmaIncAscnodeArglatRadRadvel = 6, /*
+           Semi-major axis,
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Argument of latitude,
+           Radial distance,
+           Radial component of velocity */
 
-      IncAscnodeAltperAltapoArgperTanom =  4, /*
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Perifocal altitude,
-          Apofocal altitude,
-          Argument of periapsis,
-          True anomaly */
+        SmaEccIncAscnodeArgperTanom = 10, /*
+           Semi-major axis,
+           Eccentricity,
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Argument of periapsis,
+           True anomaly */
 
-      IncAscnodeAltperAltapoArgperTimeperi =  5, /*
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Perifocal altitude,
-          Apofocal altitude,
-          Argument of periapsis,
-          Time since periapsis passage */
+        CaseEleven = 11, /*
+           Inclination,
+           Asc. node (right ascension or longitude),
+           Perifocal altitude,
+           Apofocal altitude,
+           Argument of periapsis,
+           True anomaly */
+    };
 
-      SmaIncAscnodeArglatRadRadvel =  6, /*
-          Semi-major axis,
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Argument of latitude,
-          Radial distance,
-          Radial component of velocity */
+    // Member data
 
-      SmaEccIncAscnodeArgperTanom =  10, /*
-          Semi-major axis,
-          Eccentricity,
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Argument of periapsis,
-          True anomaly */
+public:
+    /**
+     * The name of the planet around which the orbit is to be established.
+     * This must be supplied, must name a planet, and the planet must have
+     * a gravity model.
+     */
+    std::string planet_name; //!< trick_units(--)
 
-      CaseEleven =  11, /*
-          Inclination,
-          Asc. node (right ascension or longitude),
-          Perifocal altitude,
-          Apofocal altitude,
-          Argument of periapsis,
-          True anomaly */
-   };
+    /**
+     * Planet reference frame name, optionally dot-prefixed with the planet name.
+     * If this specifies a rotating frame, a non-rotating frame instantaneously
+     * co-aligned with the rotating frame is assumed.
+     */
+    std::string orbit_frame_name; //!< trick_units(--)
 
+    /**
+     * Specifies which set of orbital elements specify the orbit.
+     */
+    OrbitalSet set{InvalidSet}; //!< trick_units(--)
 
- // Member data
+    /**
+     * Semi-major axis
+     */
+    double semi_major_axis{}; //!< trick_units(m)
 
- public:
+    /**
+     * Semi-latus rectum
+     */
+    double semi_latus_rectum{}; //!< trick_units(m)
 
-   /**
-    * The name of the planet around which the orbit is to be established.
-    * This must be supplied, must name a planet, and the planet must have
-    * a gravity model.
-    */
-   std::string planet_name; //!< trick_units(--)
+    /**
+     * Periapsis altitude
+     */
+    double alt_periapsis{}; //!< trick_units(m)
 
-   /**
-    * Planet reference frame name, optionally dot-prefixed with the planet name.
-    * If this specifies a rotating frame, a non-rotating frame instantaneously
-    * co-aligned with the rotating frame is assumed.
-    */
-   std::string orbit_frame_name; //!< trick_units(--)
+    /**
+     * Apoapsis altitude
+     */
+    double alt_apoapsis{}; //!< trick_units(m)
 
-   /**
-    * Specifies which set of orbital elements specify the orbit.
-    */
-   OrbitalSet set; //!< trick_units(--)
+    /**
+     * Distance from center of planet
+     */
+    double orb_radius{}; //!< trick_units(m)
 
-   /**
-    * Semi-major axis
-    */
-   double semi_major_axis; //!< trick_units(m)
+    /**
+     * Time derivative of the orbital radius
+     */
+    double radial_vel{}; //!< trick_units(m/s)
 
-   /**
-    * Semi-latus rectum
-    */
-   double semi_latus_rectum; //!< trick_units(m)
+    /**
+     * Eccentricity
+     */
+    double eccentricity{}; //!< trick_units(--)
 
-   /**
-    * Periapsis altitude
-    */
-   double alt_periapsis; //!< trick_units(m)
+    /**
+     * Inclination
+     */
+    double inclination{}; //!< trick_units(rad)
 
-   /**
-    * Apoapsis altitude
-    */
-   double alt_apoapsis; //!< trick_units(m)
+    /**
+     * Longitude (or right ascension) of ascending node
+     */
+    double ascending_node{}; //!< trick_units(rad)
 
-   /**
-    * Distance from center of planet
-    */
-   double orb_radius; //!< trick_units(m)
+    /**
+     * Argument of periapsis
+     */
+    double arg_periapsis{}; //!< trick_units(rad)
 
-   /**
-    * Time derivative of the orbital radius
-    */
-   double radial_vel; //!< trick_units(m/s)
+    /**
+     * Argument of latitude
+     */
+    double arg_latitude{}; //!< trick_units(rad)
 
-   /**
-    * Eccentricity
-    */
-   double eccentricity; //!< trick_units(--)
+    /**
+     * Time since periapsis passage
+     */
+    double time_periapsis{}; //!< trick_units(s)
 
-   /**
-    * Inclination
-    */
-   double inclination; //!< trick_units(rad)
+    /**
+     * Mean anomaly
+     */
+    double mean_anomaly{}; //!< trick_units(rad)
 
-   /**
-    * Longitude (or right ascension) of ascending node
-    */
-   double ascending_node; //!< trick_units(rad)
+    /**
+     * True anomaly
+     */
+    double true_anomaly{}; //!< trick_units(rad)
 
-   /**
-    * Argument of periapsis
-    */
-   double arg_periapsis; //!< trick_units(rad)
+protected:
+    /**
+     * The planet
+     */
+    Planet * planet{}; //!< trick_io(**)
 
-   /**
-    * Argument of latitude
-    */
-   double arg_latitude; //!< trick_units(rad)
+    /**
+     * The orbit reference frame (ignoring rotation)
+     */
+    EphemerisRefFrame * orbit_frame{}; //!< trick_io(**)
 
-   /**
-    * Time since periapsis passage
-    */
-   double time_periapsis; //!< trick_units(s)
+    // Member functions
 
-   /**
-    * Mean anomaly
-    */
-   double mean_anomaly; //!< trick_units(rad)
+public:
+    DynBodyInitOrbit() = default;
+    ~DynBodyInitOrbit() override = default;
+    DynBodyInitOrbit(const DynBodyInitOrbit &) = delete;
+    DynBodyInitOrbit & operator=(const DynBodyInitOrbit &) = delete;
 
-   /**
-    * True anomaly
-    */
-   double true_anomaly; //!< trick_units(rad)
+    void initialize(DynManager & dyn_manager) override;
 
-
- protected:
-
-   /**
-    * The planet
-    */
-   Planet * planet; //!< trick_io(**)
-
-   /**
-    * The orbit reference frame (ignoring rotation)
-    */
-   EphemerisRefFrame * orbit_frame; //!< trick_io(**)
-
-
- // Member functions
-
- public:
-
-   DynBodyInitOrbit ();
-
-   ~DynBodyInitOrbit () override;
-
-   void initialize (DynManager & dyn_manager) override;
-
-   void apply (DynManager & dyn_manager) override;
+    void apply(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

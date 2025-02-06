@@ -64,7 +64,7 @@ Class:
 Library dependencies:
   ((../src/surface_model_messages.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -79,50 +79,45 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Messages associated with the use of the surface model.
  */
-class SurfaceModelMessages {
+class SurfaceModelMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SurfaceModelMessages)
 
-   JEOD_MAKE_SIM_INTERFACES(SurfaceModelMessages)
-
-   // Static member data
+    // Static member data
 
 public:
+    // Errors
 
-   // Errors
+    /**
+     * Represents an error in initialization
+     */
+    static const char * initialization_error; //!< trick_units(--)
 
-   /**
-    * Represents an error in initialization
-    */
-   static char const * initialization_error;   //!< trick_units(--)
+    /**
+     * Represents an error in setup of the surface model.
+     */
+    static const char * setup_error; //!< trick_units(--)
 
-   /**
-    * Represents an error in setup of the surface model.
-    */
-   static char const * setup_error;   //!< trick_units(--)
+    /**
+     * Represents an error during the runtime of the surface model
+     */
+    static const char * runtime_error; //!< trick_units(--)
 
-   /**
-    * Represents an error during the runtime of the surface model
-    */
-   static char const * runtime_error; //!< trick_units(--)
-
-
-private:
-
-   // Class is not instantiable, operator = and copy constructor are
-   // hidden from use.
-   SurfaceModelMessages (void);
-   SurfaceModelMessages (const SurfaceModelMessages& rhs);
-   SurfaceModelMessages& operator = (const SurfaceModelMessages& rhs);
-
+    // Class is not instantiable, operator = and copy constructor are
+    // hidden from use.
+    SurfaceModelMessages() = delete;
+    SurfaceModelMessages(const SurfaceModelMessages & rhs) = delete;
+    SurfaceModelMessages & operator=(const SurfaceModelMessages & rhs) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

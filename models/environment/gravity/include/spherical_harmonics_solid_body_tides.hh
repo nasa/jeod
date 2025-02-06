@@ -65,10 +65,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SPHERICAL_HARMONICS_SOLID_BODY_TIDES_HH
 #define JEOD_SPHERICAL_HARMONICS_SOLID_BODY_TIDES_HH
-
 
 // System includes
 
@@ -76,48 +74,37 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "spherical_harmonics_tidal_effects.hh"
 #include "class_declarations.hh"
-
+#include "spherical_harmonics_tidal_effects.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseDynManager;
-
 
 /**
  * Models solid body tidal effects.
  */
-class SphericalHarmonicsSolidBodyTides : public SphericalHarmonicsTidalEffects {
+class SphericalHarmonicsSolidBodyTides : public SphericalHarmonicsTidalEffects
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsSolidBodyTides)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsSolidBodyTides)
+    // Member data
+public:
+    // No unique to solid-body tides member data
 
+    // Member functions
+public:
+    SphericalHarmonicsSolidBodyTides() = default;
+    ~SphericalHarmonicsSolidBodyTides() override = default;
 
- // Member data
- public:
+    void initialize(SphericalHarmonicsDeltaCoeffsInit & var_init, BaseDynManager & dyn_manager) override;
 
- // No unique to solid-body tides member data
-
-
- // Member functions
- public:
-
-   // Constructor & Destructor
-   SphericalHarmonicsSolidBodyTides ();
-   ~SphericalHarmonicsSolidBodyTides () override;
-
-   void initialize (
-      SphericalHarmonicsDeltaCoeffsInit & var_init,
-      BaseDynManager& dyn_manager) override;
-
-   void update (SphericalHarmonicsGravityControls & controls) override;
-
-
+    void update(SphericalHarmonicsGravityControls & controls) override;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

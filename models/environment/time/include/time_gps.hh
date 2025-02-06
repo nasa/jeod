@@ -72,75 +72,75 @@ Library dependencies:
 // Model includes
 #include "time_standard.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * To represent the time associated with the Global Positioning System.
  */
-class TimeGPS : public TimeStandard { //Global Positioning Satellite Time
+class TimeGPS : public TimeStandard
+{ // Global Positioning Satellite Time
 
-  JEOD_MAKE_SIM_INTERFACES(TimeGPS)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeGPS)
 
-// Member Data
-//private:
+    // Member Data
 public:
-   /**
-    * Seconds elapsed in last (partial) day.
-    */
-  double seconds_of_day;  //!< trick_units(s)
-   /**
-    * Seconds elapsed in last (partial) week.
-    */
-  double seconds_of_week; //!< trick_units(s)
-   /**
-    * Number of whole days this week.
-    */
-  int day_of_week;        //!< trick_units(day)
-   /**
-    * Number of rollovers (1024 week blocks) since epoch
-    */
-  int rollover_count;     //!< trick_units(--)
-   /**
-    * Number of weeks in current 1024-week block.
-    */
-  int week;               //!< trick_units(--)
-   /**
-    * Number of rollovers (8192 week blocks) since epoch
-    */
-  int rollover_count_13_bit;     //!< trick_units(--)
-   /**
-    * Number of weeks in current 8192-week block.
-    */
-  int week_13_bit;               //!< trick_units(--)
+    /**
+     * Seconds elapsed in last (partial) day.
+     */
+    double seconds_of_day{}; //!< trick_units(s)
 
-// Member functions:
+    /**
+     * Seconds elapsed in last (partial) week.
+     */
+    double seconds_of_week{}; //!< trick_units(s)
+
+    /**
+     * Number of whole days this week.
+     */
+    int day_of_week{}; //!< trick_units(day)
+
+    /**
+     * Number of rollovers (1024 week blocks) since epoch
+     */
+    int rollover_count{}; //!< trick_units(--)
+
+    /**
+     * Number of weeks in current 1024-week block.
+     */
+    int week{}; //!< trick_units(--)
+
+    /**
+     * Number of rollovers (8192 week blocks) since epoch
+     */
+    int rollover_count_13_bit{}; //!< trick_units(--)
+
+    /**
+     * Number of weeks in current 8192-week block.
+     */
+    int week_13_bit{}; //!< trick_units(--)
+
+    // Member functions:
 public:
-  //Constructor
-   TimeGPS ();
-  // Destructor
-   ~TimeGPS () override;
+    TimeGPS();
+    ~TimeGPS() override = default;
+    TimeGPS(const TimeGPS &) = delete;
+    TimeGPS & operator=(const TimeGPS &) = delete;
 
-   void set_time_by_seconds (const double new_seconds) override;
-   void set_time_by_days (const double new_seconds) override;
-   void set_time_by_trunc_julian (const double new_tjt);
+    void set_time_by_seconds(const double new_seconds) override;
+    void set_time_by_days(const double new_seconds) override;
+    void set_time_by_trunc_julian(const double new_tjt);
 
 private:
-
-   void calculate_calendar_values (void) override;
-   void convert_from_calendar (void) override;
-   void set_epoch(void) override; //cppcheck-suppress virtualCallInConstructor
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeGPS (const TimeGPS&);
-   TimeGPS & operator = (const TimeGPS&);
+    void calculate_calendar_values() override;
+    void convert_from_calendar() override;
+    void set_epoch() override; // cppcheck-suppress virtualCallInConstructor
 };
+
 /*----------------------------------------------------------------------------*/
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

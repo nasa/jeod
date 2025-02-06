@@ -46,16 +46,18 @@ Library dependencies:
 #ifndef JEOD_AERODYNAMICDRAG_AERO_MODEL_DEFAULT_DATA_H
 #define JEOD_AERODYNAMICDRAG_AERO_MODEL_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class AerodynamicDrag;
 
-class AerodynamicDrag_aero_model_default_data {
- public:
-   void initialize (AerodynamicDrag*);
+class AerodynamicDrag_aero_model_default_data
+{
+public:
+    void initialize(AerodynamicDrag *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

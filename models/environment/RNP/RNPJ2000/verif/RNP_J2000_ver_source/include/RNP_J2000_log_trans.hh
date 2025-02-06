@@ -51,7 +51,7 @@ Library dependencies:
    ((../src/RNP_J2000_log_trans.cc)
     (../src/matrix_multiply.cc))
 
- 
+
 
 ************************************************************************/
 
@@ -59,46 +59,33 @@ Library dependencies:
 #define RNP_J2000_LOG_TRANS_H
 
 #include "environment/RNP/RNPJ2000/include/rnp_j2000.hh"
+#include "utils/math/include/matrix3x3.hh"
 
-void matrix_multiply(
-   double matrix[3][3],
-   double to_multiply[3],
-   double result[3]);
+void matrix_multiply(double matrix[3][3], double to_multiply[3], double result[3]);
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class J2000RNPLogging {
-
+class J2000RNPLogging
+{
 public:
+    J2000RNPLogging() = default;
+    ~J2000RNPLogging() = default;
+    J2000RNPLogging(const J2000RNPLogging & rhs);
+    J2000RNPLogging & operator=(const J2000RNPLogging & rhs);
 
-   // constructor
-   J2000RNPLogging();
-   // destructor
-   ~J2000RNPLogging();
+    void copy_rotation_transposes(PlanetRotation & precession,
+                                  PlanetRotation & nutation,
+                                  PlanetRotation & rotation,
+                                  PlanetRotation & polar_motion);
 
-   J2000RNPLogging(const J2000RNPLogging& rhs);
-   J2000RNPLogging& operator = (const J2000RNPLogging& rhs);
-
-   void copy_rotation_transposes(
-      PlanetRotation& precession,
-      PlanetRotation& nutation,
-      PlanetRotation& rotation,
-      PlanetRotation& polar_motion);
-
-   double prec_trans[3][3];
-   double nut_trans[3][3];
-   double pm_trans[3][3];
-   double rot_trans[3][3];
-
-
-protected:
-
-private:
-
+    double prec_trans[3][3]{IDENTITY};
+    double nut_trans[3][3]{IDENTITY};
+    double pm_trans[3][3]{IDENTITY};
+    double rot_trans[3][3]{IDENTITY};
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

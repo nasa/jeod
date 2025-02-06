@@ -60,79 +60,64 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_LVLH_STATE_HH
 #define JEOD_DYN_BODY_INIT_LVLH_STATE_HH
 
 // System includes
 
 // JEOD includes
-#include "utils/lvlh_frame/include/lvlh_type.hh"
 #include "utils/lvlh_frame/include/lvlh_frame.hh"
+#include "utils/lvlh_frame/include/lvlh_type.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "dyn_body_init_planet_derived.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize selected aspects of a vehicle's state with respect to some
  * vehicle's LVLH frame.
  */
-class DynBodyInitLvlhState : public DynBodyInitPlanetDerived {
+class DynBodyInitLvlhState : public DynBodyInitPlanetDerived
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitLvlhState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitLvlhState)
-
-
-// Member data
-
-public:
-
-   /**
-    * Indicates type of LVLH coordinates desired. Default is rectilinear.
-    */
-   LvlhType::Type lvlh_type; //!< trick_units(--)
-
-private:
-
-   /**
-    * A pointer to an LvlhFrame which can be supplied by the user.
-    */
-   LvlhFrame * lvlh_object_ptr; //!< trick_units(--)
-
-
-// Member functions
+    // Member data
 
 public:
-
-   DynBodyInitLvlhState ();
-
-   ~DynBodyInitLvlhState () override;
-
-   //set_lvlh_frame_object: Sets a pointer to user-supplied LvlhFrame
-   void set_lvlh_frame_object (LvlhFrame & lvh_frame_object);
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // apply: Apply the state to the subject body.
-   void apply (DynManager & dyn_manager) override;
-
+    /**
+     * Indicates type of LVLH coordinates desired. Default is rectilinear.
+     */
+    LvlhType::Type lvlh_type{LvlhType::Rectilinear}; //!< trick_units(--)
 
 private:
+    /**
+     * A pointer to an LvlhFrame which can be supplied by the user.
+     */
+    LvlhFrame * lvlh_object_ptr{}; //!< trick_units(--)
 
-   // The copy constructor and assignment operator for this class are
-   // declared private and are not implemented.
-   DynBodyInitLvlhState (const DynBodyInitLvlhState&);
-   DynBodyInitLvlhState & operator = (const DynBodyInitLvlhState&);
+    // Member functions
 
+public:
+    DynBodyInitLvlhState();
+    ~DynBodyInitLvlhState() override = default;
+    DynBodyInitLvlhState(const DynBodyInitLvlhState &) = delete;
+    DynBodyInitLvlhState & operator=(const DynBodyInitLvlhState &) = delete;
+
+    // set_lvlh_frame_object: Sets a pointer to user-supplied LvlhFrame
+    void set_lvlh_frame_object(LvlhFrame & lvh_frame_object);
+
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
+
+    // apply: Apply the state to the subject body.
+    void apply(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

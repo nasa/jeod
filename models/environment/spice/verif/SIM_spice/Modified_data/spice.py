@@ -1,5 +1,5 @@
 # Kernel files to use
-env.spice.metakernel_filename = "data/kernels.tm"
+env.spice.metakernel_filename = "data/kernels_440.tm"
 
 # Objects to load from SPICE
 env.spice.add_planet_name("Sun")

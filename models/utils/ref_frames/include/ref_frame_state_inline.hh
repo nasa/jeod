@@ -57,14 +57,12 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
- 
+
 
 *******************************************************************************/
 
-
 #ifndef JEOD_REF_FRAME_STATE_INLINE_HH
 #define JEOD_REF_FRAME_STATE_INLINE_HH
-
 
 // JEOD includes
 #include "utils/math/include/matrix3x3.hh"
@@ -73,156 +71,103 @@ Assumptions and limitations:
 // Model includes
 #include "ref_frame_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Default constructor; initializes state to a null translation.
  */
-inline
-RefFrameTrans::RefFrameTrans (
-   void)
+inline RefFrameTrans::RefFrameTrans()
 {
-   initialize ();
+    initialize();
 }
-
 
 /**
  * Copy constructor; initializes state to that of the source.
  * \param[in] source Source state
  */
-inline
-RefFrameTrans::RefFrameTrans (
-   const RefFrameTrans & source)
+inline RefFrameTrans::RefFrameTrans(const RefFrameTrans & source)
 {
-   copy (source);
+    copy(source);
 }
-
-
-/**
- * Destructor; does nothing.
- */
-inline
-RefFrameTrans::~RefFrameTrans (
-   void)
-{
-   ;
-}
-
 
 /**
  * Initialize a RefFrameTrans to a null offset.
  */
-inline void
-RefFrameTrans::initialize (
-   void)
+inline void RefFrameTrans::initialize()
 {
-   Vector3::initialize (position);
-   Vector3::initialize (velocity);
+    Vector3::initialize(position);
+    Vector3::initialize(velocity);
 }
-
 
 /**
  * Initialize a RefFrameTrans from a source state.
  * \param[in] source Source state
  */
-inline void
-RefFrameTrans::copy (
-   const RefFrameTrans & source)
+inline void RefFrameTrans::copy(const RefFrameTrans & source)
 {
-   Vector3::copy (source.position, position);
-   Vector3::copy (source.velocity, velocity);
+    Vector3::copy(source.position, position);
+    Vector3::copy(source.velocity, velocity);
 }
-
-
 
 /**
  * Default constructor; initializes state to a null rotation.
  */
-inline
-RefFrameRot::RefFrameRot (
-   void)
+inline RefFrameRot::RefFrameRot()
 {
-   initialize ();
+    initialize();
 }
-
 
 /**
  * Copy constructor; initializes state to that of the source.
  * \param[in] source Source state
  */
-inline
-RefFrameRot::RefFrameRot (
-   const RefFrameRot & source)
+inline RefFrameRot::RefFrameRot(const RefFrameRot & source)
 {
-   copy (source);
+    copy(source);
 }
-
-
-/**
- * Destructor; does nothing.
- */
-inline
-RefFrameRot::~RefFrameRot (
-   void)
-{
-   ;
-}
-
 
 /**
  * Initialize a RefFrameRot to a null offset.
  */
-inline void
-RefFrameRot::initialize (
-   void)
+inline void RefFrameRot::initialize()
 {
-   Q_parent_this.make_identity();
-   Matrix3x3::identity (T_parent_this);
-   Vector3::initialize (ang_vel_this);
-   Vector3::initialize (ang_vel_unit);
-   ang_vel_mag = 0.0;
+    Q_parent_this.make_identity();
+    Matrix3x3::identity(T_parent_this);
+    Vector3::initialize(ang_vel_this);
+    Vector3::initialize(ang_vel_unit);
+    ang_vel_mag = 0.0;
 }
-
 
 /**
  * Initialize a RefFrameRot from a source state.
  * \param[in] source Source state
  */
-inline void
-RefFrameRot::copy (
-   const RefFrameRot & source)
+inline void RefFrameRot::copy(const RefFrameRot & source)
 {
-   Q_parent_this = source.Q_parent_this;
-   Matrix3x3::copy (source.T_parent_this, T_parent_this);
-   Vector3::copy (source.ang_vel_this, ang_vel_this);
-   Vector3::copy (source.ang_vel_unit, ang_vel_unit);
-   ang_vel_mag = source.ang_vel_mag;
+    Q_parent_this = source.Q_parent_this;
+    Matrix3x3::copy(source.T_parent_this, T_parent_this);
+    Vector3::copy(source.ang_vel_this, ang_vel_this);
+    Vector3::copy(source.ang_vel_unit, ang_vel_unit);
+    ang_vel_mag = source.ang_vel_mag;
 }
-
 
 /**
  * Compute the transformation matrix from the left quaternion.
  */
-inline void
-RefFrameRot::compute_transformation (
-   void)
+inline void RefFrameRot::compute_transformation()
 {
-   Q_parent_this.left_quat_to_transformation (T_parent_this);
+    Q_parent_this.left_quat_to_transformation(T_parent_this);
 }
-
 
 /**
  * Compute the left quaternion from the transformation matrix.
  */
-inline void
-RefFrameRot::compute_quaternion (
-   void)
+inline void RefFrameRot::compute_quaternion()
 {
-   Q_parent_this.left_quat_from_transformation (T_parent_this);
+    Q_parent_this.left_quat_from_transformation(T_parent_this);
 }
-
 
 /**
  * Compute the angular velocity unit vector.
@@ -230,69 +175,47 @@ RefFrameRot::compute_quaternion (
  * \par Assumptions and Limitations
  *  - Angular velocity magnitude has already been computed.
  */
-inline void
-RefFrameRot::compute_ang_vel_unit (
-   void)
+inline void RefFrameRot::compute_ang_vel_unit()
 {
-   if (std::fpclassify(ang_vel_mag) != FP_ZERO) {
-      Vector3::scale (ang_vel_this, 1.0 / ang_vel_mag, ang_vel_unit);
-   }
-   else {
-      Vector3::initialize (ang_vel_unit);
-   }
+    if(std::fpclassify(ang_vel_mag) != FP_ZERO)
+    {
+        Vector3::scale(ang_vel_this, 1.0 / ang_vel_mag, ang_vel_unit);
+    }
+    else
+    {
+        Vector3::initialize(ang_vel_unit);
+    }
 }
-
 
 /**
  * Compute the angular velocity magnitude and unit vector.
  */
-inline void
-RefFrameRot::compute_ang_vel_products (
-   void)
+inline void RefFrameRot::compute_ang_vel_products()
 {
-   ang_vel_mag = Vector3::vmag (ang_vel_this);
-   compute_ang_vel_unit();
+    ang_vel_mag = Vector3::vmag(ang_vel_this);
+    compute_ang_vel_unit();
 }
-
-
-
-/**
- * Destructor; does nothing.
- */
-inline
-RefFrameState::~RefFrameState (
-   void)
-{
-   ;
-}
-
 
 /**
  * Initialize a RefFrameState to a null offset.
  */
-inline void
-RefFrameState::initialize (
-   void)
+inline void RefFrameState::initialize()
 {
-   trans.initialize();
-   rot.initialize();
+    trans.initialize();
+    rot.initialize();
 }
-
 
 /**
  * Initialize a RefFrameState from a source state.
  * \param[in] source Source state
  */
-inline void
-RefFrameState::copy (
-   const RefFrameState & source)
+inline void RefFrameState::copy(const RefFrameState & source)
 {
-   trans.copy (source.trans);
-   rot.copy (source.rot);
+    trans.copy(source.trans);
+    rot.copy(source.rot);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -64,15 +64,16 @@ Library Dependency:
 // JEOD includes
 #include "environment/ephemerides/ephem_interface/include/ephem_ref_frame.hh"
 #include "environment/gravity/include/gravity_source.hh"
+#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // System includes
 #include <string>
 #include <utility>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseEphemeridesManager;
 
@@ -83,119 +84,95 @@ class BaseEphemeridesManager;
  * Details of the planet's shape and mass are in the Planet class,
  * which derives from BasePlanet.
  */
-class BasePlanet {
+class BasePlanet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BasePlanet)
 
- JEOD_MAKE_SIM_INTERFACES(BasePlanet)
+    // Member Data
+public:
+    /**
+     * Planet name
+     */
+    std::string name{""}; //!< trick_units(--)
 
+    /**
+     * The GravitySource corresponding to the same planet represented by this
+     */
+    GravitySource * grav_source{}; //!< trick_units(--)
 
- // Member Data
- public:
+    /**
+     * The planet-centered J2000 pseudo-inertial frame associated with the
+     * planet represented by this
+     */
+    EphemerisRefFrame inertial; //!< trick_units(--)
 
-   /**
-    * Planet name
-    */
-   std::string name; //!< trick_units(--)
+    /**
+     * A secondary pseudo-inertial frame which can be defined by the user
+     * to be equatorial for this planet
+     */
+    EphemerisRefFrame alt_inertial; //!< trick_units(--)
 
-   /**
-    * The GravitySource corresponding to the same planet represented by this
-    */
-   GravitySource * grav_source; //!< trick_units(--)
+    /**
+     * The planet-centered, planet-fixed Cartesian reference frame associated
+     * with the planet represented by this
+     */
+    EphemerisRefFrame pfix; //!< trick_units(--)
 
-   /**
-    * The planet-centered J2000 pseudo-inertial frame associated with the
-    * planet represented by this
-    */
-   EphemerisRefFrame inertial; //!< trick_units(--)
+    /**
+     * A secondary planet-fixed frame which can be defined by the user.
+     */
+    EphemerisRefFrame alt_pfix; //!< trick_units(--)
 
-   /**
-    * A secondary pseudo-inertial frame which can be defined by the user
-    * to be equatorial for this planet
-    */
-   EphemerisRefFrame alt_inertial; //!< trick_units(--)
+    // Member functions
+public:
+    BasePlanet() = default;
+    virtual ~BasePlanet() = default;
+    BasePlanet(const BasePlanet &) = delete;
+    BasePlanet & operator=(const BasePlanet &) = delete;
 
-   /**
-    * The planet-centered, planet-fixed Cartesian reference frame associated
-    * with the planet represented by this
-    */
-   EphemerisRefFrame pfix; //!< trick_units(--)
+    /**
+     * Setter for the name.
+     */
+    void set_name(const std::string & name_in)
+    {
+        name = name_in;
+    }
 
-   /**
-    * A secondary planet-fixed frame which can be defined by the user.
-    */
-   EphemerisRefFrame alt_pfix; //!< trick_units(--)
+    // Set the fixed transformation from J2000 to alt_inertial
+    virtual void set_alt_inertial(const double trans[3][3]);
 
- // Member functions
- public:
+    // Set the fixed transformation from J2000 to conventional alt_inertial
+    // by using the celestial and ecliptic poles.
+    virtual void set_alt_inertial(const double cp[3], const double ep[3]);
 
-   // Constructor
-   BasePlanet();
+    // Set the fixed transformation from pfix to alt_pfix
+    virtual void set_alt_pfix(const double trans[3][3]);
 
-   // Destructor
-   virtual ~BasePlanet() = default;
+    // Calculate the current transformation from J2000 to alt_pfix
+    // using the fixed transformation between pfix and alt_pfix
+    virtual void calculate_alt_pfix();
 
-   /**
-    * Setter for the name.
-    */
-   void set_name (const std::string & name_in)
-   {
-      name = name_in;
-   }
+    // Register the planet with the ephemerides manager
+    virtual void register_planet(BaseEphemeridesManager & ephem_manager);
 
-   // Set the fixed transformation from J2000 to alt_inertial
-   virtual void set_alt_inertial (const double trans[3][3]);
+protected:
+    /**
+     * Flag to insure the alt_inertial frame is set only once
+     */
+    bool alt_inertial_set{}; //!< trick_units(--)
 
-   // Set the fixed transformation from J2000 to conventional alt_inertial
-   // by using the celestial and ecliptic poles.
-   virtual void set_alt_inertial (const double cp[3], const double ep[3]);
+    /**
+     * The transform from pfix to alt_pfix.
+     */
+    double alt_pfix_transform[3][3]{IDENTITY}; //!< trick_units(--)
 
-   // Set the fixed transformation from pfix to alt_pfix
-   virtual void set_alt_pfix (const double trans[3][3]);
-
-   // Calculate the current transformation from J2000 to alt_pfix
-   // using the fixed transformation between pfix and alt_pfix
-   virtual void calculate_alt_pfix (void);
-
-   // Register the planet with the ephemerides manager
-   virtual void register_planet (
-      BaseEphemeridesManager & ephem_manager);
-
- protected:
-   /**
-    * Flag to insure the alt_inertial frame is set only once
-    */
-   bool alt_inertial_set; //!< trick_units(--)
-  
-   /**
-    * The transform from pfix to alt_pfix.
-    */
-   double alt_pfix_transform[3][3]; //!< trick_units(--)
-
-   /**
-    * Flag to insure the alt_pfix transform never changed
-    */
-   bool alt_pfix_set; //!< trick_units(--)
-
-
-
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
-
-   /**
-    * Not implemented.
-    */
-   BasePlanet (const BasePlanet &);
-
-   /**
-    * Not implemented.
-    */
-
-   BasePlanet & operator= (const BasePlanet &);
-
+    /**
+     * Flag to insure the alt_pfix transform never changed
+     */
+    bool alt_pfix_set{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

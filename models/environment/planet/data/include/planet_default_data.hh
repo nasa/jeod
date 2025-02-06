@@ -42,17 +42,19 @@ Purpose:
 #ifndef JEOD_PLANET_DEFAULT_DATA_H
 #define JEOD_PLANET_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class Planet;
 
-class Planet_default_data {
- public:
-   virtual void initialize (Planet*) = 0;
-   virtual ~Planet_default_data() {}
+class Planet_default_data
+{
+public:
+    virtual void initialize(Planet *) = 0;
+    virtual ~Planet_default_data() = default;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -55,10 +55,9 @@ Purpose:
 Library dependencies:
   ((../src/message_handler.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MESSAGE_HANDLER_HH
 #define JEOD_MESSAGE_HANDLER_HH
@@ -68,14 +67,14 @@ Library dependencies:
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
+#include "utils/sim_interface/include/simulation_interface.hh"
 
 // Model includes
 #include "class_declarations.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The base class for generating JEOD messages.
@@ -105,340 +104,286 @@ namespace jeod {
  *    The constructor ensures that the created object is indeed a singleton.
  *  -
  */
-class MessageHandler {
-JEOD_MAKE_SIM_INTERFACES(MessageHandler)
+class MessageHandler
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MessageHandler)
 
 public:
-   // NOTE: The copy constructor and assignment operator are deleted.
+    // NOTE: The copy constructor and assignment operator are deleted.
 
-   // Static member functions
+    // Static member functions
 
-   // The static member functions fail, error, ..., debug are the intended
-   // public interface for generating messages.
+    // The static member functions fail, error, ..., debug are the intended
+    // public interface for generating messages.
 
-   // fail() generates a message with severity MessageHandler::Failure.
-   // Failures terminate the simulation.
-   static void fail (
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      ...);
+    // fail() generates a message with severity MessageHandler::Failure.
+    // Failures terminate the simulation.
+    static void fail(const char * file, unsigned int line, const char * msg_code, const char * format, ...);
 
-   // error() generates a message with severity MessageHandler::Error.
-   // The intent is to identify severe but non-fatal errors.
-   static void error (
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      ...);
+    // error() generates a message with severity MessageHandler::Error.
+    // The intent is to identify severe but non-fatal errors.
+    static void error(const char * file, unsigned int line, const char * msg_code, const char * format, ...);
 
-   // warn() generates a message with severity MessageHandler::Warning.
-   // The intent is to identify conditions that might be suspect.
-   static void warn (
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      ...);
+    // warn() generates a message with severity MessageHandler::Warning.
+    // The intent is to identify conditions that might be suspect.
+    static void warn(const char * file, unsigned int line, const char * msg_code, const char * format, ...);
 
-   // inform() generates a message with severity MessageHandler::Notice.
-   // The intent is to identify conditions that might be worth reporting.
-   static void inform (
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      ...);
+    // inform() generates a message with severity MessageHandler::Notice.
+    // The intent is to identify conditions that might be worth reporting.
+    static void inform(const char * file, unsigned int line, const char * msg_code, const char * format, ...);
 
-   // debug() generates a message with severity MessageHandler::Debug.
-   // The intent is to trace transactions at a verbose level.
-   static void debug (
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      ...);
+    // debug() generates a message with severity MessageHandler::Debug.
+    // The intent is to trace transactions at a verbose level.
+    static void debug(const char * file, unsigned int line, const char * msg_code, const char * format, ...);
 
-
-   // send_message() generates a message with the supplied severity and prefix.
-   // This is the generic mechanism for generating a message when the
-   // fail(), error(), ..., debug() methods just don't do the trick.
-   static void send_message (
-      int severity,
-      const char * prefix,
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      ...);
+    // send_message() generates a message with the supplied severity and prefix.
+    // This is the generic mechanism for generating a message when the
+    // fail(), error(), ..., debug() methods just don't do the trick.
+    static void send_message(int severity,
+                             const char * prefix,
+                             const char * file,
+                             unsigned int line,
+                             const char * msg_code,
+                             const char * format,
+                             ...);
 
 #ifndef SWIG
-   // va_send_message() is the equivalent of send message, except that the
-   // argument list defined by <stdarg.h> replaces the variadic arguments.
-   static void va_send_message (
-      int severity,
-      const char * prefix,
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      va_list args);
+    // va_send_message() is the equivalent of send message, except that the
+    // argument list defined by <stdarg.h> replaces the variadic arguments.
+    static void va_send_message(int severity,
+                                const char * prefix,
+                                const char * file,
+                                unsigned int line,
+                                const char * msg_code,
+                                const char * format,
+                                va_list args);
 #endif
 
+    // The next set of public interfaces provide the ability to suppress certain
+    // messages and to control the appearance of displayed messages.
 
-   // The next set of public interfaces provide the ability to suppress certain
-   // messages and to control the appearance of displayed messages.
+    // Set the suppression level in the global message handler.
+    // Note: Fatal and serious errors (severity <= 0) cannot be suppressed.
+    static void set_suppression_level(unsigned int suppression_level);
 
-   // Set the suppression level in the global message handler.
-   // Note: Fatal and serious errors (severity <= 0) cannot be suppressed.
-   static void set_suppression_level (
-      unsigned int suppression_level);
+    static unsigned int get_suppression_level();
 
-   static unsigned int get_suppression_level ();
+    // Add a message code to the set of messages that are to be suppressed
+    // for any message with a positive severity level.
+    // Note: Fatal and serious errors (severity <= 0) cannot be suppressed.
+    static void add_suppressed_code(const char * msg_code);
 
+    // Delete a message code to the set of messages that are to be suppressed.
+    static void delete_suppressed_code(const char * msg_code);
 
-   // Add a message code to the set of messages that are to be suppressed
-   // for any message with a positive severity level.
-   // Note: Fatal and serious errors (severity <= 0) cannot be suppressed.
-   static void add_suppressed_code (
-      const char * msg_code);
+    // Clear the set of messages that are to be suppressed.
+    static void clear_suppressed_codes();
 
-   // Delete a message code to the set of messages that are to be suppressed.
-   static void delete_suppressed_code (
-      const char * msg_code);
+    // Set the suppress_id flag in the global message handler.
+    static void set_suppress_id(bool suppress_id);
 
-   // Clear the set of messages that are to be suppressed.
-   static void clear_suppressed_codes ();
+    static bool get_suppress_id();
 
-   // Set the suppress_id flag in the global message handler.
-   static void set_suppress_id (
-      bool suppress_id);
+    // Set the suppress_location flag in the global message handler.
+    static void set_suppress_location(bool suppress_location);
 
-   static bool get_suppress_id ();
+    static bool get_suppress_location();
 
-   // Set the suppress_location flag in the global message handler.
-   static void set_suppress_location (
-      bool suppress_location);
+    // Set the mode. This should only be called from the sim interface.
+    static void set_mode(JeodSimulationInterface::Mode new_mode);
 
-   static bool get_suppress_location ();
+    // Member functions
 
+    // Default constructor
+    // Note: The first instantiated MessageHandler becomes *the* global message
+    // handler.
+    MessageHandler();
 
-   // Member functions
+    // Destructor
+    virtual ~MessageHandler();
 
-   // Default constructor
-   // Note: The first instantiated MessageHandler becomes *the* global message
-   // handler.
-   MessageHandler ();
+    MessageHandler(const MessageHandler &) = delete;
+    MessageHandler & operator=(const MessageHandler &) = delete;
 
-   // Destructor
-   virtual ~MessageHandler();
+    /**
+     * Register the checkpointable contents of the handler with the
+     * simulation interface.
+     * The base MessageHandler has not such content.
+     */
+    virtual void register_contents() {}
 
-   /**
-    * Register the checkpointable contents of the handler with the
-    * simulation interface.
-    * The base MessageHandler has not such content.
-    */
-   virtual void register_contents () {}
+    /**
+     * Deregister the checkpointable contents of the handler with the
+     * simulation interface.
+     * The base MessageHandler has not such content.
+     */
+    virtual void deregister_contents() {}
 
-   /**
-    * Deregister the checkpointable contents of the handler with the
-    * simulation interface.
-    * The base MessageHandler has not such content.
-    */
-   virtual void deregister_contents () {}
+    // Static member data
 
+    /**
+     * The severity value passed by the static public MessageHandler::fail
+     * method to the derived class process_message method.
+     * This is set to -1 in the implementation, representing a fatal error.
+     *
+     * A valid implementation of the process_message method must treat negative
+     * severity levels as fatal; they must not return to the calling procedure.
+     * In other words, failures eventually result in a call to exit.
+     */
+    const static int Failure; //!< trick_io(*o) trick_units(--)
 
-   // Static member data
+    /**
+     * The severity value passed by the static public MessageHandler::error
+     * method to the derived class process_message method.
+     * This is set to 0 in the implementation, representing the most severe
+     * non-fatal error.
+     *
+     * Non-negative severity levels indicate non-fatal conditions for which
+     * messages might nonetheless need to be generated, depending on the
+     * value of the user-settable suppression_level.
+     */
+    const static int Error; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * The severity value passed by the static public MessageHandler::fail
-    * method to the derived class process_message method.
-    * This is set to -1 in the implementation, representing a fatal error.
-    *
-    * A valid implementation of the process_message method must treat negative
-    * severity levels as fatal; they must not return to the calling procedure.
-    * In other words, failures eventually result in a call to exit.
-    */
-   const static int Failure; //!< trick_io(*o) trick_units(--)
+    /**
+     * The severity value passed by the static public MessageHandler::warn
+     * method to the derived class process_message method.
+     * This is set to 9 in the implementation. The intent is to indicate a
+     * condition that might indicate that results are suspect.
+     */
+    const static int Warning; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * The severity value passed by the static public MessageHandler::error
-    * method to the derived class process_message method.
-    * This is set to 0 in the implementation, representing the most severe
-    * non-fatal error.
-    *
-    * Non-negative severity levels indicate non-fatal conditions for which
-    * messages might nonetheless need to be generated, depending on the
-    * value of the user-settable suppression_level.
-    */
-   const static int Error; //!< trick_io(*o) trick_units(--)
+    /**
+     * The severity value passed by the static public MessageHandler::inform
+     * method to the derived class process_message method.
+     * This is set to 99 in the implementation. The intent is to indicate a
+     * non-error condition that might be worthy of a user notification.
+     */
+    const static int Notice; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * The severity value passed by the static public MessageHandler::warn
-    * method to the derived class process_message method.
-    * This is set to 9 in the implementation. The intent is to indicate a
-    * condition that might indicate that results are suspect.
-    */
-   const static int Warning; //!< trick_io(*o) trick_units(--)
+    /**
+     * The severity value passed by the static public MessageHandler::debug
+     * method to the derived class process_message method.
+     * This is set to 999 in the implementation. The intent is to summarize to
+     * the user of some event that the user requested did indeed transpire.
+     * Ideally, JEOD code, particularly initialization code, will be peppered
+     * with calls to MessageHandler::debug.
+     */
+    const static int Debug; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * The severity value passed by the static public MessageHandler::inform
-    * method to the derived class process_message method.
-    * This is set to 99 in the implementation. The intent is to indicate a
-    * non-error condition that might be worthy of a user notification.
-    */
-   const static int Notice; //!< trick_io(*o) trick_units(--)
+protected:
+    // Static member functions
 
-   /**
-    * The severity value passed by the static public MessageHandler::debug
-    * method to the derived class process_message method.
-    * This is set to 999 in the implementation. The intent is to summarize to
-    * the user of some event that the user requested did indeed transpire.
-    * Ideally, JEOD code, particularly initialization code, will be peppered
-    * with calls to MessageHandler::debug.
-    */
-   const static int Debug; //!< trick_io(*o) trick_units(--)
+    // no_handler_error() terminates the simulation for lack of a handler.
+    static void no_handler_error();
 
+    // Member functions
 
- protected:
+    /**
+     * Generate the message.
+     * All of the send_message() methods relay the message to the message
+     * handler in the form of a call to process_message().
+     *
+     * An instantiable derived MessageHandler class must supply this
+     * function.
+     *
+     * @param severity  Severity level
+     * @param prefix    Message prefix (e.g., Error)
+     * @param file      Typically __FILE__
+     * @param line      Typically __LINE__
+     * @param msg_code  Message code
+     * @param format    sprintf format
+     * @param args      Arguments
+     */
+    virtual void process_message(int severity,
+                                 const char * prefix,
+                                 const char * file,
+                                 unsigned int line,
+                                 const char * msg_code,
+                                 const char * format,
+                                 va_list args) const = 0;
 
-   // Static member functions
+    /**
+     * Add a message code to the set of messages that are to be suppressed.
+     * The method add_suppressed_code relays the call to the message
+     * handler as a call to process_add_suppressed_code.
+     *
+     * The default behavior is a no-op. Suppressing messages by the message
+     * code is an optional capability.
+     *
+     * @param msg_code  Message code to be suppressed
+     */
+    virtual void process_add_suppressed_code(const char * msg_code JEOD_UNUSED) {}
 
-   // no_handler_error() terminates the simulation for lack of a handler.
-   static void no_handler_error (void);
+    /**
+     * Delete a message code from the set of suppressed message codes.
+     * The method delete_suppressed_code relays the call to the message
+     * handler as a call to process_delete_suppressed_code.
+     *
+     * As with process_add_suppressed_code, the default for this function is
+     * a no-op; suppressed codes are an optional capability.
+     *
+     * @param msg_code  Message code to be suppressed
+     */
+    virtual void process_delete_suppressed_code(const char * msg_code JEOD_UNUSED) {}
 
-   // Member functions
+    /**
+     * Clear the set of suppressed message codes.
+     * The method clear_suppressed_codes relays the call to the message
+     * handler as a call to process_clear_suppressed_codes.
+     *
+     * As with process_add_suppressed_code, the default for this function is
+     * a no-op; suppressed codes are an optional capability.
+     */
+    virtual void process_clear_suppressed_codes() {}
 
-   /**
-    * Generate the message.
-    * All of the send_message() methods relay the message to the message
-    * handler in the form of a call to process_message().
-    *
-    * An instantiable derived MessageHandler class must supply this
-    * function.
-    *
-    * @param severity  Severity level
-    * @param prefix    Message prefix (e.g., Error)
-    * @param file      Typically __FILE__
-    * @param line      Typically __LINE__
-    * @param msg_code  Message code
-    * @param format    sprintf format
-    * @param args      Arguments
-    */
-   virtual void process_message (
-      int severity,
-      const char * prefix,
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      va_list args)
-   const = 0;
+    // Static member data
 
-   /**
-    * Add a message code to the set of messages that are to be suppressed.
-    * The method add_suppressed_code relays the call to the message
-    * handler as a call to process_add_suppressed_code.
-    *
-    * The default behavior is a no-op. Suppressing messages by the message
-    * code is an optional capability.
-    *
-    * @param msg_code  Message code to be suppressed
-    */
-   virtual void process_add_suppressed_code (
-      const char * msg_code JEOD_UNUSED)
-   {}
+    /**
+     * The MessageHandler instance that generates messages.
+     * The static MessageHandler functions invoked by various models pass the
+     * message on to this instance in the form of a call to process_message.
+     */
+    static MessageHandler * handler; //!< trick_io(*o) trick_units(--)
 
+    // Member data
 
-   /**
-    * Delete a message code from the set of suppressed message codes.
-    * The method delete_suppressed_code relays the call to the message
-    * handler as a call to process_delete_suppressed_code.
-    *
-    * As with process_add_suppressed_code, the default for this function is
-    * a no-op; suppressed codes are an optional capability.
-    *
-    * @param msg_code  Message code to be suppressed
-    */
-   virtual void process_delete_suppressed_code (
-      const char * msg_code JEOD_UNUSED)
-   {}
+    /**
+     * All messages have an associated severity level, with increasingly positive
+     * values indicating warnings of decreasing severity. Fatal errors have a
+     * negative severity level. Messages whose severity exceeds the value of
+     * the global message handler's suppression_level are suppressed.
+     * Note that fatal errors and severe errors cannot be suppressed.
+     *
+     * Default value: MessageHandler::Warning (warnings and non-fatal errors).
+     */
+    unsigned int suppression_level; //!< trick_units(--)
 
+    /**
+     * This flag indicates whether the message ID is printed for unsuppressed
+     * messages. The ID is not printed if this flag is set to true.
+     * The message ID is always printed for fatal errors.
+     */
+    bool suppress_id{}; //!< trick_units(--)
 
-   /**
-    * Clear the set of suppressed message codes.
-    * The method clear_suppressed_codes relays the call to the message
-    * handler as a call to process_clear_suppressed_codes.
-    *
-    * As with process_add_suppressed_code, the default for this function is
-    * a no-op; suppressed codes are an optional capability.
-    */
-   virtual void process_clear_suppressed_codes ()
-   {}
+    /**
+     * This flag indicates whether the message source file and line number
+     * printed for unsuppressed messages. The location is not printed if this
+     * flag is set to true.
+     * The message location is always printed for fatal errors.
+     */
+    bool suppress_location{}; //!< trick_units(--)
 
+private:
+    /**
+     * Simulation interface mode.
+     */
+    JeodSimulationInterface::Mode mode; //!< trick_units(--)
 
-   // Static member data
-
-   /**
-    * The MessageHandler instance that generates messages.
-    * The static MessageHandler functions invoked by various models pass the
-    * message on to this instance in the form of a call to process_message.
-    */
-   static MessageHandler * handler;  //!< trick_io(*o) trick_units(--)
-
-
-   // Member data
-
-   /**
-    * All messages have an associated severity level, with increasingly positive
-    * values indicating warnings of decreasing severity. Fatal errors have a
-    * negative severity level. Messages whose severity exceeds the value of
-    * the global message handler's suppression_level are suppressed.
-    * Note that fatal errors and severe errors cannot be suppressed.
-    *
-    * Default value: MessageHandler::Warning (warnings and non-fatal errors).
-    */
-   unsigned int suppression_level; //!< trick_units(--)
-
-   /**
-    * This flag indicates whether the message ID is printed for unsuppressed
-    * messages. The ID is not printed if this flag is set to true.
-    * The message ID is always printed for fatal errors.
-    *
-    * Default value: false.
-    */
-   bool suppress_id; //!< trick_units(--)
-
-   /**
-    * This flag indicates whether the message source file and line number
-    * printed for unsuppressed messages. The location is not printed if this
-    * flag is set to true.
-    * The message location is always printed for fatal errors.
-    *
-    * Default value: false.
-    */
-   bool suppress_location; //!< trick_units(--)
-
-
- private:
-   // The copy constructor and assignment operator for this class are declared
-   // private and are not implemented.
-
-   /**
-    * Not implemented.
-    */
-   MessageHandler (const MessageHandler &);
-
-   /**
-    * Not implemented.
-    */
-   MessageHandler & operator= (const MessageHandler &);
+    // Set the mode.
+    void set_mode_internal(JeodSimulationInterface::Mode new_mode);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

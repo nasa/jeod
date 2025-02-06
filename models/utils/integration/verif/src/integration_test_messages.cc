@@ -6,10 +6,9 @@ Purpose:
 Library dependencies:
   ((integration_test_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -18,22 +17,18 @@ Library dependencies:
 
 #define PATH "utils/integration/verif/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 
-char const * IntegrationTestMessages::invalid_data =
-    PATH "invalid_data";
+const char * IntegrationTestMessages::invalid_data = PATH "invalid_data";
 
-char const * IntegrationTestMessages::internal_error =
-    PATH "internal_error";
+const char * IntegrationTestMessages::internal_error = PATH "internal_error";
 
-char const * IntegrationTestMessages::debug =
-    PATH "debug";
+const char * IntegrationTestMessages::debug = PATH "debug";
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #undef PATH

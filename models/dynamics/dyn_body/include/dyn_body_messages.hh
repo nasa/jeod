@@ -58,7 +58,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYNBODY_MESSAGES_HH
 #define JEOD_DYNBODY_MESSAGES_HH
 
@@ -67,9 +66,9 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specify the message IDs used in the DynBody model.
@@ -78,73 +77,65 @@ namespace jeod {
  *  - This is a complete catalog of all the messages sent by the DynBody model.
  *  - This is not an exhaustive list of all the things that can go awry.
  */
-class DynBodyMessages {
+class DynBodyMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyMessages)
 
- JEOD_MAKE_SIM_INTERFACES(DynBodyMessages)
+    // Static member data
 
+public:
+    /**
+     * Issued when a body is invalid such as not being initialized.
+     */
+    static const char * invalid_body; //!< trick_units(--)
 
- // Static member data
+    /**
+     * Issued when a group is invalid such as not initialized or NULL.
+     */
+    static const char * invalid_group; //!< trick_units(--)
 
- public:
+    /**
+     * Issued when a name is invalid -- NULL, empty, a duplicate, ...
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
-   /**
-    * Issued when a body is invalid such as not being initialized.
-    */
-   static char const * invalid_body; //!< trick_units(--)
+    /**
+     * Issued when a frame is invalid -- not an integ frame, ...
+     */
+    static const char * invalid_frame; //!< trick_units(--)
 
-   /**
-    * Issued when a group is invalid such as not initialized or NULL.
-    */
-   static char const * invalid_group; //!< trick_units(--)
+    /**
+     * Issued when a attachment is invalid from a state point of view.
+     */
+    static const char * invalid_attachment; //!< trick_units(--)
 
-   /**
-    * Issued when a name is invalid -- NULL, empty, a duplicate, ...
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Issued when an integration technique is invalid.
+     */
+    static const char * invalid_technique; //!< trick_units(--)
 
-   /**
-    * Issued when a frame is invalid -- not an integ frame, ...
-    */
-   static char const * invalid_frame; //!< trick_units(--)
+    /**
+     * Issued when a MassBody is expected to be a DynBody but that is not
+     * the case.
+     */
+    static const char * not_dyn_body; //!< trick_units(--)
 
-   /**
-    * Issued when a attachment is invalid from a state point of view.
-    */
-   static char const * invalid_attachment; //!< trick_units(--)
+    /**
+     * Error issued when some internal error occurred.
+     * These errors should never happen.
+     */
+    static const char * internal_error; //!< trick_units(--)
 
-   /**
-    * Issued when an integration technique is invalid.
-    */
-   static char const * invalid_technique; //!< trick_units(--)
+    // Member functions
 
-   /**
-    * Issued when a MassBody is expected to be a DynBody but that is not
-    * the case.
-    */
-   static char const * not_dyn_body; //!< trick_units(--)
-
-   /**
-    * Error issued when some internal error occurred.
-    * These errors should never happen.
-    */
-   static char const * internal_error; //!< trick_units(--)
-
-
- // Member functions
-
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   DynBodyMessages (void);
-   DynBodyMessages (const DynBodyMessages &);
-   DynBodyMessages & operator= (const DynBodyMessages &);
-
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    DynBodyMessages() = delete;
+    DynBodyMessages(const DynBodyMessages &) = delete;
+    DynBodyMessages & operator=(const DynBodyMessages &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

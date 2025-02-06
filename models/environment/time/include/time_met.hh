@@ -73,49 +73,44 @@ Library dependencies:
 // Model includes
 #include "time_ude.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A type of UDE time that allows for deliberate holds, or pauses.
  */
-class TimeMET : public TimeUDE { // Mission Elapsed Time
+class TimeMET : public TimeUDE
+{ // Mission Elapsed Time
 
-  JEOD_MAKE_SIM_INTERFACES(TimeMET)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeMET)
 
-// Member Data
+    // Member Data
 public:
-   /**
-    * Flags whether to hold time at current value
-    */
-  bool hold;  //!< trick_units(--)
+    /**
+     * Flags whether to hold time at current value
+     */
+    bool hold{}; //!< trick_units(--)
 
 private:
-   /**
-    * Previously known value of hold, used for recalculating converters.
-    */
-  bool previous_hold;  //!< trick_units(--)
+    /**
+     * Previously known value of hold, used for recalculating converters.
+     */
+    bool previous_hold{}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  //Constructor
-   TimeMET ();
-  // Destructor
-   ~TimeMET () override;
+    TimeMET();
+    ~TimeMET() override = default;
+    TimeMET(const TimeMET &) = delete;
+    TimeMET & operator=(const TimeMET &) = delete;
 
-   void update (void) override;
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeMET (const TimeMET&);
-   TimeMET & operator = (const TimeMET&);
+    void update() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

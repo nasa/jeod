@@ -30,9 +30,9 @@ requirements~\ref{reqt:mass_requirements} to~\ref{reqt:attach_detach}.
 \endlastfoot
 
 \ref{reqt:mass_requirements} & Mass &
-  The class DynBody utilizes functionality from the MassBody class through 
+  The class DynBody utilizes functionality from the MassBody class through
   friendship. The friendship is not inheritable, thereby granting DynBody
-  objects full access MassBody functionality while conserving core 
+  objects full access MassBody functionality while conserving core
   behavior for user-derived classes.
 \tabularnewline[4pt]
 \ref{reqt:integ_frame} & Integration Frame &
@@ -77,8 +77,8 @@ requirements~\ref{reqt:mass_requirements} to~\ref{reqt:attach_detach}.
   in section~\ref{sec:detailed_state_prop}.
 \tabularnewline[4pt]
 \ref{reqt:vehicle_points} & Vehicle Points &
-  The DynBody class overrides the MassBody \verb+add_mass_point()+ method.
-  This override creates a BodyRefFrame that corresponds to the MassPoint,
+  The DynBody class mirrors the MassBody \verb+add_mass_point()+ method.
+  This creates a BodyRefFrame that corresponds to the MassPoint,
   thereby making these registered points of interest have a corresponding
   state. State is propagated to all reference frames associated with a DynBody
   object, including these vehicle points. The DynBody method

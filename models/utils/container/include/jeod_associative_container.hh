@@ -55,10 +55,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_ASSOCIATIVE_CONTAINER_H
 #define JEOD_MEMORY_ASSOCIATIVE_CONTAINER_H
@@ -72,15 +71,14 @@ Purpose:
 // System includes
 #include <utility>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // What's missing:
 // Some constructors (probably never)
 // Methods common to sequence and associative containers, and methods unique
 // to associative containers but not common all associative containers.
-
 
 /**
  * This is the base class for the JEOD replacements of the STL associative
@@ -99,273 +97,240 @@ namespace jeod {
  * The above goal is not and never will be fully achieved. Exceptions are:
  *  - The full set of STL associative container constructors is not supplied.
  */
-template <typename ElemType, typename ContainerType>
-class JeodAssociativeContainer :
-   public JeodSTLContainer<ElemType, ContainerType> {
-
+template<typename ElemType, typename ContainerType>
+class JeodAssociativeContainer : public JeodSTLContainer<ElemType, ContainerType>
+{
 public:
+    // Types
 
-   // Types
+    /**
+     * This type
+     */
+    using this_container_type = JeodAssociativeContainer<ElemType, ContainerType>;
 
-   /**
-    * This type
-    */
-   typedef JeodAssociativeContainer<ElemType, ContainerType>
-      this_container_type;
+    /**
+     * The JeodSTLContainer
+     */
+    using base_container_type = JeodSTLContainer<ElemType, ContainerType>;
 
-   /**
-    * The JeodSTLContainer
-    */
-   typedef JeodSTLContainer<ElemType, ContainerType> base_container_type;
+    /**
+     * Import the ContainerType::key_type.
+     */
+    using key_type = typename ContainerType::key_type;
 
+    /**
+     * Import the ContainerType::key_compare.
+     */
+    using key_compare = typename ContainerType::key_compare;
 
-   /**
-    * Import the ContainerType::key_type.
-    */
-   typedef typename ContainerType::key_type key_type;
+    /**
+     * Import the ContainerType::value_compare.
+     */
+    using value_compare = typename ContainerType::value_compare;
 
-   /**
-    * Import the ContainerType::key_compare.
-    */
-   typedef typename ContainerType::key_compare key_compare;
+    // Member functions
 
-   /**
-    * Import the ContainerType::value_compare.
-    */
-   typedef typename ContainerType::value_compare value_compare;
+    // Constructors and destructor.
+    // NOTE: The constructors are not here in the public section.
+    // They are protected. This class and its direct descendants JeodList and
+    // JeodVector do not provide add any functionality to the STL sequences
+    // except that the destructor is now virtual. Making the constructors
+    // protected here forces a further derivation by some other class template
+    // that does provide distinguishing characteristics.
 
+    /**
+     * Destructor.
+     */
+    virtual ~JeodAssociativeContainer() = default;
 
+    // Observers
 
-   // Member functions
+    /**
+     * Returns the key comparison object used to populate the contents.
+     */
+    key_compare key_comp() const
+    {
+        return this->contents.key_comp();
+    }
 
-   // Constructors and destructor.
-   // NOTE: The constructors are not here in the public section.
-   // They are protected. This class and its direct descendants JeodList and
-   // JeodVector do not provide add any functionality to the STL sequences
-   // except that the destructor is now virtual. Making the constructors
-   // protected here forces a further derivation by some other class template
-   // that does provide distinguishing characteristics.
+    /**
+     * Returns the value comparison object used to populate the contents.
+     */
+    value_compare value_comp() const
+    {
+        return this->contents.value_comp();
+    }
 
-   /**
-    * Destructor.
-    */
-   virtual ~JeodAssociativeContainer (void) {}
+    // Operations
 
+    // Comment on the following:
+    // The below is contrary to ISO/IEC 14882:2003 regarding std::set.
+    // That's because the standard itself has bugs regarding std::set.
+    // The implementation is consistent with g++ and many other compilers
+    // that have implemented fixes to the bugs in the standard.
 
-   // Observers
+    /**
+     * Find the number of occurrences of the specified element.
+     */
+    typename base_container_type::size_type count(const key_type & x) const
+    {
+        return this->contents.count(x);
+    }
 
-   /**
-    * Returns the key comparison object used to populate the contents.
-    */
-   key_compare
-   key_comp (void) const
-   {
-      return this->contents.key_comp ();
-   }
+    /**
+     * Find the element specified by the given key.
+     */
+    typename base_container_type::iterator find(const key_type & x)
+    {
+        return this->contents.find(x);
+    }
 
-   /**
-    * Returns the value comparison object used to populate the contents.
-    */
-   value_compare
-   value_comp (void) const
-   {
-      return this->contents.value_comp ();
-   }
+    /**
+     * Find the element specified by the given key.
+     */
+    typename base_container_type::const_iterator find(const key_type & x) const
+    {
+        return this->contents.find(x);
+    }
 
+    /**
+     * Find the start of a sequence specified by the given key.
+     */
+    typename base_container_type::iterator lower_bound(const key_type & x)
+    {
+        return this->contents.lower_bound(x);
+    }
 
-   // Operations
+    /**
+     * Find the start of a sequence specified by the given key.
+     */
+    typename base_container_type::const_iterator lower_bound(const key_type & x) const
+    {
+        return this->contents.lower_bound(x);
+    }
 
-   // Comment on the following:
-   // The below is contrary to ISO/IEC 14882:2003 regarding std::set.
-   // That's because the standard itself has bugs regarding std::set.
-   // The implementation is consistent with g++ and many other compilers
-   // that have implemented fixes to the bugs in the standard.
+    /**
+     * Find the end of a sequence specified by the given key.
+     */
+    typename base_container_type::iterator upper_bound(const key_type & x)
+    {
+        return this->contents.upper_bound(x);
+    }
 
-   /**
-    * Find the number of occurrences of the specified element.
-    */
-   typename base_container_type::size_type
-   count (const key_type & x) const
-   {
-      return this->contents.count (x);
-   }
+    /**
+     * Find the end of a sequence specified by the given key.
+     */
+    typename base_container_type::const_iterator upper_bound(const key_type & x) const
+    {
+        return this->contents.upper_bound(x);
+    }
 
-   /**
-    * Find the element specified by the given key.
-    */
-   typename base_container_type::iterator
-   find (const key_type & x)
-   {
-      return this->contents.find (x);
-   }
+    /**
+     * Find the start and end of a sequence specified by the given key.
+     */
+    std::pair<typename base_container_type::iterator, typename base_container_type::iterator> equal_range(
+        const key_type & x)
+    {
+        return this->contents.equal_range(x);
+    }
 
-   /**
-    * Find the element specified by the given key.
-    */
-   typename base_container_type::const_iterator
-   find (const key_type & x) const
-   {
-      return this->contents.find (x);
-   }
+    /**
+     * Find the start and end of a sequence specified by the given key.
+     */
+    std::pair<typename base_container_type::const_iterator, typename base_container_type::const_iterator> equal_range(
+        const key_type & x) const
+    {
+        return this->contents.equal_range(x);
+    }
 
-   /**
-    * Find the start of a sequence specified by the given key.
-    */
-   typename base_container_type::iterator
-   lower_bound (const key_type & x)
-   {
-      return this->contents.lower_bound (x);
-   }
+    // Modifiers
 
-   /**
-    * Find the start of a sequence specified by the given key.
-    */
-   typename base_container_type::const_iterator
-   lower_bound (const key_type & x) const
-   {
-      return this->contents.lower_bound (x);
-   }
+    // insert: Note that one of the three insert methods is common to all
+    // JEOD containers and hence is implemented in the base case.
+    using base_container_type::insert;
 
-   /**
-    * Find the end of a sequence specified by the given key.
-    */
-   typename base_container_type::iterator
-   upper_bound (const key_type & x)
-   {
-      return this->contents.upper_bound (x);
-   }
+    /**
+     * Insert elements, initializing the
+     * inserted elements from the values pointed to by an iterator.
+     * @param first     Input iterator
+     * @param last      Input iterator
+     */
+    template<class InputIterator> void insert(InputIterator first, InputIterator last)
+    {
+        this->contents.insert(first, last);
+    }
 
-   /**
-    * Find the end of a sequence specified by the given key.
-    */
-   typename base_container_type::const_iterator
-   upper_bound (const key_type & x) const
-   {
-      return this->contents.upper_bound (x);
-   }
+    /**
+     * Inserts the provided value into the associative list.
+     * @param new_elem  Element value to be inserted
+     */
+    std::pair<typename base_container_type::iterator, bool> insert(
+        const typename base_container_type::value_type & new_elem)
+    {
+        return this->contents.insert(new_elem);
+    }
 
-   /**
-    * Find the start and end of a sequence specified by the given key.
-    */
-   std::pair<typename base_container_type::iterator,
-             typename base_container_type::iterator>
-   equal_range (const key_type & x)
-   {
-      return this->contents.equal_range (x);
-   }
+    /**
+     * Erase one item.
+     * @param position Position to be erased
+     */
+    void erase(typename base_container_type::iterator position)
+    {
+        this->contents.erase(position);
+    }
 
-   /**
-    * Find the start and end of a sequence specified by the given key.
-    */
-   std::pair<typename base_container_type::const_iterator,
-             typename base_container_type::const_iterator>
-   equal_range (const key_type & x) const
-   {
-      return this->contents.equal_range (x);
-   }
+    /**
+     * Erase a sequence of items.
+     * @param first First element to be erased
+     * @param last  One past last element to be erased
+     */
+    void erase(typename base_container_type::iterator first, typename base_container_type::iterator last)
+    {
+        this->contents.erase(first, last);
+    }
 
-
-   // Modifiers
-
-   // insert: Note that one of the three insert methods is common to all
-   // JEOD containers and hence is implemented in the base case.
-   using base_container_type::insert;
-
-   /**
-    * Insert elements, initializing the
-    * inserted elements from the values pointed to by an iterator.
-    * @param first     Input iterator
-    * @param last      Input iterator
-    */
-   template <class InputIterator>
-   void
-   insert (
-      InputIterator first,
-      InputIterator last)
-   {
-      this->contents.insert (first, last);
-   }
-
-   /**
-    * Inserts the provided value into the associative list.
-    * @param new_elem  Element value to be inserted
-    */
-   std::pair<typename base_container_type::iterator, bool>
-   insert (
-      const typename base_container_type::value_type & new_elem)
-   {
-      return this->contents.insert (new_elem);
-   }
-
-   /**
-    * Erase one item.
-    * @param position Position to be erased
-    */
-   void
-   erase (
-      typename base_container_type::iterator position)
-   {
-      this->contents.erase (position);
-   }
-
-   /**
-    * Erase a sequence of items.
-    * @param first First element to be erased
-    * @param last  One past last element to be erased
-    */
-   void
-   erase (
-      typename base_container_type::iterator first,
-      typename base_container_type::iterator last)
-   {
-      this->contents.erase (first, last);
-   }
-
-   /**
-    * Erases the item(s) specified by supplied key from the contents.
-    * @param x         Key of item(s) to be erased
-    */
-   typename base_container_type::size_type
-   erase (
-      const key_type & x)
-   {
-      return this->contents.erase (x);
-   }
-
+    /**
+     * Erases the item(s) specified by supplied key from the contents.
+     * @param x         Key of item(s) to be erased
+     */
+    typename base_container_type::size_type erase(const key_type & x)
+    {
+        return this->contents.erase(x);
+    }
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Constructors
 
-   // Constructors
+    /**
+     * Default constructor.
+     * Note: Making this protected precludes someone from declaring an object
+     * to be of type JEODSTLContainer. Access is via some other class that
+     * inherits from this class.
+     */
+    JeodAssociativeContainer() = default;
 
-   /**
-    * Default constructor.
-    * Note: Making this protected precludes someone from declaring an object
-    * to be of type JEODSTLContainer. Access is via some other class that
-    * inherits from this class.
-    */
-   JeodAssociativeContainer (void) {}
+    /**
+     * Copy constructor.
+     * @param src Source container to be copied
+     */
+    JeodAssociativeContainer(const this_container_type & src)
+        : base_container_type(src)
+    {
+    }
 
-   /**
-    * Copy constructor.
-    * @param src Source container to be copied
-    */
-   JeodAssociativeContainer (const this_container_type & src)
-   : base_container_type(src)
-   {}
-
-   /**
-    * Copy constructor from STL container.
-    * @param src Source container to be copied
-    */
-   explicit JeodAssociativeContainer (const ContainerType & src)
-   : base_container_type(src)
-   {}
+    /**
+     * Copy constructor from STL container.
+     * @param src Source container to be copied
+     */
+    explicit JeodAssociativeContainer(const ContainerType & src)
+        : base_container_type(src)
+    {
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -50,10 +50,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/angular_variance.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_ANGULAR_VARIANCE_HH
 #define JEOD_ANGULAR_VARIANCE_HH
@@ -62,151 +61,120 @@ Library dependencies:
 
 // JEOD includes
 #include "utils/math/include/vector3.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/quaternion/include/quat.hh"
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
   Model the accumulated angular deviation from some reference orientation.
  */
-class AngularVariance {
+class AngularVariance
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AngularVariance)
 
-   JEOD_MAKE_SIM_INTERFACES(AngularVariance)
-
-// Member data
+    // Member data
 private:
+    double theta_{}; /* trick_units(rad) @n
+       Accumulated angular variance. */
 
-   double theta_; /* trick_units(rad) @n
-      Accumulated angular variance. */
+    double uhat_[3]{}; /* trick_units(--) @n
+       Eigen axis unit vector. */
 
-   double uhat_[3]; /* trick_units(--) @n
-      Eigen axis unit vector. */
+    int nwrap_{}; /* trick_units(--) @n
+       Number of times angular variance has crossed pi. */
 
+    double t_prev_{}; /* trick_units(rad) @n
+       Previous eigen angle from the eigen rotation decomposition of the
+       previous left transformation quaternions. */
 
-   int nwrap_; /* trick_units(--) @n
-      Number of times angular variance has crossed pi. */
+    double u_prev_[3]{}; /* trick_units(--) @n
+       Previous eigen axis from the eigen rotation decomposition of the
+       previous left transformation quaternions. */
 
+    double w_prev_[3]{}; /* trick_units(rad/s) @n
+       Previous angular rate. */
 
-   double t_prev_; /* trick_units(rad) @n
-      Previous eigen angle from the eigen rotation decomposition of the
-      previous left transformation quaternions. */
-
-   double u_prev_[3]; /* trick_units(--) @n
-      Previous eigen axis from the eigen rotation decomposition of the
-      previous left transformation quaternions. */
-
-   double w_prev_[3]; /* trick_units(rad/s) @n
-      Previous angular rate. */
-
-
-// Member functions
+    // Member functions
 public:
-   // Default constructor
-   AngularVariance (void);
+    // Default constructor
+    AngularVariance() = default;
 
-   // Non-default constructor
-   AngularVariance (
-      const Quaternion & q_init,
-      const double w_init[3]);
+    // Non-default constructor
+    AngularVariance(const Quaternion & q_init, const double w_init[3]);
 
-   // Copy constructor
-   AngularVariance (const AngularVariance &src);
+    // Copy constructor
+    AngularVariance(const AngularVariance & src);
 
-   // Assignment operator
-   AngularVariance & operator= (const AngularVariance &src);
+    // Assignment operator
+    AngularVariance & operator=(const AngularVariance & src);
 
-   // Accessor methods
-   int nwrap (void) const {return nwrap_; }
-   double theta (void) const {return theta_; }
-   const double * uhat (void) const {return uhat_; }
+    // Accessor methods
+    int nwrap() const
+    {
+        return nwrap_;
+    }
 
+    double theta() const
+    {
+        return theta_;
+    }
 
-   // Initialize an AngularVariance instance
-   void initialize (
-      const Quaternion & q_init,
-      const double w_init[3]);
+    const double * uhat() const
+    {
+        return uhat_;
+    }
 
-   // Update an AngularVariance instance (various interfaces)
-   void update (
-      const Quaternion & q,
-      const double w[3]);
+    // Initialize an AngularVariance instance
+    void initialize(const Quaternion & q_init, const double w_init[3]);
 
-   void update (
-      const Quaternion & qprop,
-      const Quaternion & qref,
-      const double w_prop[3]);
+    // Update an AngularVariance instance (various interfaces)
+    void update(const Quaternion & q, const double w[3]);
 
-   void update (
-      const Quaternion & qprop,
-      const Quaternion & qref,
-      const double w_prop[3],
-      const double w_ref[3]);
+    void update(const Quaternion & qprop, const Quaternion & qref, const double w_prop[3]);
+
+    void update(const Quaternion & qprop, const Quaternion & qref, const double w_prop[3], const double w_ref[3]);
 };
 
+/*
+Purpose:
+  (Construct an AngularVariance instance.)
+*/
+inline AngularVariance::AngularVariance( // Return: -- N/A (constructor)
+    const Quaternion & q_init,           // In:     -- Initial quaternion
+    const double w_init[3])              // In:     -- Initial rate
+{
+    initialize(q_init, w_init);
+}
 
 /*
 Purpose:
   (Construct an AngularVariance instance.)
 */
-inline
-AngularVariance::AngularVariance (  // Return: -- N/A (constructor)
-   void)
-:
-   theta_(0.0),
-   nwrap_(0),
-   t_prev_(0.0)
+inline AngularVariance::AngularVariance( // Return: -- N/A (constructor)
+    const AngularVariance & src)         // In:     -- Source variance
 {
-   Vector3::initialize (uhat_);
-   Vector3::initialize (u_prev_);
+    *this = src;
 }
-
-
-/*
-Purpose:
-  (Construct an AngularVariance instance.)
-*/
-inline
-AngularVariance::AngularVariance (  // Return: -- N/A (constructor)
-   const Quaternion & q_init,       // In:     -- Initial quaternion
-   const double w_init[3])          // In:     -- Initial rate
-{
-   initialize (q_init, w_init);
-}
-
-
-/*
-Purpose:
-  (Construct an AngularVariance instance.)
-*/
-inline
-AngularVariance::AngularVariance (  // Return: -- N/A (constructor)
-   const AngularVariance &src)      // In:     -- Source variance
-{
-   *this = src;
-}
-
 
 /*
 Purpose:
   (Copy an AngularVariance instance.)
 */
-inline AngularVariance &
-AngularVariance::operator= (        // Return: -- *this
-   const AngularVariance &src)      // In:     -- Source variance
+inline AngularVariance & AngularVariance::operator=( // Return: -- *this
+    const AngularVariance & src)                     // In:     -- Source variance
 {
-   theta_  = src.theta_;
-   t_prev_ = src.t_prev_;
-   nwrap_  = src.nwrap_;
-   Vector3::copy (src.uhat_, uhat_);
-   Vector3::copy (src.u_prev_, u_prev_);
-   Vector3::copy (src.w_prev_, w_prev_);
-   return *this;
+    theta_ = src.theta_;
+    t_prev_ = src.t_prev_;
+    nwrap_ = src.nwrap_;
+    Vector3::copy(src.uhat_, uhat_);
+    Vector3::copy(src.u_prev_, u_prev_);
+    Vector3::copy(src.w_prev_, w_prev_);
+    return *this;
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -70,40 +70,39 @@ LIBRARY DEPENDENCY:
 #include "environment/atmosphere/base_atmos/include/atmosphere.hh"
 #include "environment/atmosphere/base_atmos/include/atmosphere_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The data variables component of the MET specific implementation
  * of AtmosphereState.
  */
 
-class METAtmosphereStateVars: public AtmosphereState
+class METAtmosphereStateVars : public AtmosphereState
 {
-   JEOD_MAKE_SIM_INTERFACES(METAtmosphereStateVars)
+    JEOD_MAKE_SIM_INTERFACES(jeod, METAtmosphereStateVars)
 
 public:
-   double exo_temp;   /*!< trick_units(K) Exospheric temperature */
-   double log10_dens; /*!< trick_units(--) Log10( total density ) */
-   double mol_weight; /*!< trick_units(--) Average molecular weight */
-   double N2;         /*!< trick_units(--) N2 number density */
-   double Ox2;        /*!< trick_units(--) O2 number density */
-   double Ox;         /*!< trick_units(--) O number density */
-   double A;          /*!< trick_units(--) A number density */
-   double He;         /*!< trick_units(--) He number density */
-   double Hyd;        /*!< trick_units(--) H number density */
+    double exo_temp{};   /*!< trick_units(K) Exospheric temperature */
+    double log10_dens{}; /*!< trick_units(--) Log10( total density ) */
+    double mol_weight{}; /*!< trick_units(--) Average molecular weight */
+    double N2{};         /*!< trick_units(--) N2 number density */
+    double Ox2{};        /*!< trick_units(--) O2 number density */
+    double Ox{};         /*!< trick_units(--) O number density */
+    double A{};          /*!< trick_units(--) A number density */
+    double He{};         /*!< trick_units(--) He number density */
+    double Hyd{};        /*!< trick_units(--) H number density */
 
-   // constructor, destructor, copy-constructor, operator=
-   METAtmosphereStateVars();
-   METAtmosphereStateVars( Atmosphere                & atmos_model,
-                           const PlanetFixedPosition & pfix_pos);
-   ~METAtmosphereStateVars() override;
-   METAtmosphereStateVars ( const METAtmosphereStateVars& rhs);
-   METAtmosphereStateVars& operator = ( const METAtmosphereStateVars& rhs);
+    // constructor, destructor, copy-constructor, operator=
+    METAtmosphereStateVars() = default;
+    METAtmosphereStateVars(Atmosphere & atmos_model, const PlanetFixedPosition & pfix_pos);
+    ~METAtmosphereStateVars() override = default;
+    METAtmosphereStateVars(const METAtmosphereStateVars & rhs);
+    METAtmosphereStateVars & operator=(const METAtmosphereStateVars & rhs);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

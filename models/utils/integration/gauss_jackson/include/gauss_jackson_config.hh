@@ -49,13 +49,11 @@
  * Gauss-Jackson configuration data.
  */
 
-
 /*
 Purpose: ()
 Library dependencies:
   ((../src/gauss_jackson_config.cc))
 */
-
 
 #ifndef JEOD_GAUSS_JACKSON_CONFIG_HH
 #define JEOD_GAUSS_JACKSON_CONFIG_HH
@@ -66,106 +64,105 @@ Library dependencies:
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/integration_technique.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Contains Gauss-Jackson configuration data.
  * All member data are public; this is esentially a struct.
  */
-class GaussJacksonConfig {
-
-JEOD_MAKE_SIM_INTERFACES(GaussJacksonConfig)
+class GaussJacksonConfig
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GaussJacksonConfig)
 
 public:
+    GaussJacksonConfig()
+        : ndoubling_steps((final_order - initial_order) / 2)
+    {
+    }
 
-   // Static member functions.
+    // Static member functions.
 
-   /**
-    * Creates a GaussJacksonConfig with all members set to -1.
-    * This otherwise invalid value has a special meaning to the validation
-    * function. When encountered, the item is silently replaced with
-    * the default for that item.
-    */
-   static GaussJacksonConfig default_configuration();
+    /**
+     * Creates a GaussJacksonConfig with all members set to -1.
+     * This otherwise invalid value has a special meaning to the validation
+     * function. When encountered, the item is silently replaced with
+     * the default for that item.
+     */
+    static GaussJacksonConfig default_configuration();
 
-   /**
-    * Creates a GaussJacksonConfig with all members set to their defaults.
-    */
-   static GaussJacksonConfig standard_configuration();
+    /**
+     * Creates a GaussJacksonConfig with all members set to their defaults.
+     */
+    static GaussJacksonConfig standard_configuration();
 
-   /**
-    * Creates a GaussJacksonConfig based on the supplied configuration.
-    * Values of -1 are replaced with their defaults.
-    * The standard configuration is used if any invalid item is invalid.
-    */
-   static GaussJacksonConfig validate_configuration (
-      const GaussJacksonConfig& config);
+    /**
+     * Creates a GaussJacksonConfig based on the supplied configuration.
+     * Values of -1 are replaced with their defaults.
+     * The standard configuration is used if any invalid item is invalid.
+     */
+    static GaussJacksonConfig validate_configuration(const GaussJacksonConfig & config);
 
+    // Member data.
 
-   // Member data.
+    /**
+     * The integration technique to be used to prime the Gauss-Jackson process.
+     * Defaults to er7_utils::Integration::Unspecified, the interpretation of
+     * which depends on the initial order.
+     */
+    er7_utils::Integration::Technique priming_technique{er7_utils::Integration::Unspecified}; //!< trick_units(--)
 
-   /**
-    * The integration technique to be used to prime the Gauss-Jackson process.
-    * Defaults to er7_utils::Integration::Unspecified, the interpretation of
-    * which depends on the initial order.
-    */
-   er7_utils::Integration::Technique priming_technique; //!< trick_units(--)
+    /**
+     * The order of the Gauss Jackson integrator immediately after priming.
+     * This must be an even number and must be 14 or less.
+     * Defaults to 4.
+     */
+    unsigned int initial_order{4}; //!< trick_units(--)
 
-   /**
-    * The order of the Gauss Jackson integrator immediately after priming.
-    * This must be an even number and must be 14 or less.
-    * Defaults to 4.
-    */
-   unsigned int initial_order; //!< trick_units(--)
+    /**
+     * The order of the Gauss Jackson integrator once it's operational.
+     * This must be an even number between initial_order and 14, inclusive.
+     * Defaults to 12.
+     */
+    unsigned int final_order{12}; //!< trick_units(--)
 
-   /**
-    * The order of the Gauss Jackson integrator once it's operational.
-    * This must be an even number between initial_order and 14, inclusive.
-    * Defaults to 12.
-    */
-   unsigned int final_order; //!< trick_units(--)
+    /**
+     * The number of time doubling steps involved in the bootstrap operation.
+     * Defaults to (final_order - initial_order)/2.
+     */
+    unsigned int ndoubling_steps; //!< trick_units(--)
 
-   /**
-    * The number of time doubling steps involved in the bootstrap operation.
-    * Defaults to (final_order - initial_order)/2.
-    */
-   unsigned int ndoubling_steps; //!< trick_units(--)
+    /**
+     * Maximum number of correction steps allowed before the integrator is
+     * deemed to be not converging.
+     * The algorithm is run in predict-only mode if this limit is zero.
+     * The corrector is applied but once with the limit is one.
+     * A one-time warning is issued if the limit is 2 or more and if the
+     * the algorithm would make more corrections were it not for this limit.
+     * Defaults to 10.
+     */
+    unsigned int max_correction_iterations{10}; //!< trick_units(--)
 
-   /**
-    * Maximum number of correction steps allowed before the integrator is
-    * deemed to be not converging.
-    * The algorithm is run in predict-only mode if this limit is zero.
-    * The corrector is applied but once with the limit is one.
-    * A one-time warning is issued if the limit is 2 or more and if the
-    * the algorithm would make more corrections were it not for this limit.
-    * Defaults to 10.
-    */
-   unsigned int max_correction_iterations; //!< trick_units(--)
+    /**
+     * Number that indicates the allowable relative difference for two
+     * states to be considered converged.
+     * Defaults to 1e-14.
+     */
+    double relative_tolerance{1E-14}; //!< trick_units(--)
 
-   /**
-    * Number that indicates the allowable relative difference for two
-    * states to be considered converged.
-    * Defaults to 1e-14.
-    */
-   double relative_tolerance; //!< trick_units(--)
+    /**
+     * Number that indicates the allowable absolute difference for two
+     * states to be considered converged.
+     * Defaults to 1e-10.
+     */
+    double absolute_tolerance{1E-10}; //!< trick_units(--)
 
-   /**
-    * Number that indicates the allowable absolute difference for two
-    * states to be considered converged.
-    * Defaults to 1e-10.
-    */
-   double absolute_tolerance; //!< trick_units(--)
-
-
-
-   // Note: The implicitly-defined default constructor, copy constructor,
-   // destructor, and assignment operator are exactly what the doctor ordered.
+    // Note: The implicitly-defined default constructor, copy constructor,
+    // destructor, and assignment operator are exactly what the doctor ordered.
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

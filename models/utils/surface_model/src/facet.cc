@@ -35,51 +35,17 @@ Library dependencies:
 // JEOD includes
 #include "dynamics/dyn_manager/include/base_dyn_manager.hh"
 #include "dynamics/mass/include/mass.hh"
-#include "utils/message/include/message_handler.hh"
 #include "utils/math/include/vector3.hh"
+#include "utils/message/include/message_handler.hh"
 #include "utils/named_item/include/named_item.hh"
 
 // Model includes
-#include "../include/surface_model_messages.hh"
 #include "../include/facet.hh"
-
+#include "../include/surface_model_messages.hh"
 
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Default Constructor
- */
-
-Facet::Facet (
-   void)
-: // Return: -- void
-   param_name(nullptr),
-   name(),
-   mass_body_name(nullptr),
-   mass_body_ptr(nullptr),
-   mass_rel_struct(nullptr),
-   connections_initialized(false)
+namespace jeod
 {
-   Vector3::initialize (position);
-   Vector3::initialize (local_position);
-   Vector3::initialize (int_pos);
-   temperature  = 0.0;
-   area = 0.0;
-
-}
-
-/**
- * Destructor
- */
-
-Facet::~Facet (
-   void)
-{
-
-   // empty for now
-
-}
 
 /*******************************************************************************
   function: initialize_mass_connection
@@ -88,33 +54,26 @@ Facet::~Facet (
             the supplied tree of mass bodies)
 *******************************************************************************/
 
-void
-Facet::initialize_mass_connection (
-   BaseDynManager& manager)
-
+void Facet::initialize_mass_connection(BaseDynManager & manager)
 {
+    NamedItem::validate_name(__FILE__, __LINE__, mass_body_name, "Name of the associated mass body", "mass_body_name");
 
-   NamedItem::validate_name(__FILE__, __LINE__, mass_body_name,
-                            "Name of the associated mass body",
-                            "mass_body_name");
+    mass_body_ptr = manager.find_mass_body(mass_body_name);
 
-   mass_body_ptr = manager.find_mass_body(mass_body_name);
+    if(mass_body_ptr == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             SurfaceModelMessages::initialization_error,
+                             "In Facet::initialize_mass_connection, no mass body was found, "
+                             "in the given DynManager, with the name %s. "
+                             "Initialization "
+                             "has failed.\n",
+                             mass_body_name.c_str());
+        return;
+    }
 
-   if(mass_body_ptr == nullptr){
-
-      MessageHandler::fail (
-         __FILE__, __LINE__, SurfaceModelMessages::initialization_error,
-         "In Facet::initialize_mass_connection, no mass body was found, "
-         "in the given DynManager, with the name %s. "
-         "Initialization "
-         "has failed.\n", mass_body_name);
-      return;
-   }
-
-   connections_initialized = true;
-
-   return;
-
+    connections_initialized = true;
 }
 
 /*******************************************************************************
@@ -125,35 +84,28 @@ Facet::initialize_mass_connection (
             situations.)
 *******************************************************************************/
 
-void
-Facet::update_articulation (
-   void)
+void Facet::update_articulation()
 {
+    if(!connections_initialized)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             SurfaceModelMessages::initialization_error,
+                             "In Facet::update_articulation, the invoking Facet has not been "
+                             "properly initialized using initialize_mass_connection. "
+                             "Either the surface model was not initialized or the appropriate "
+                             "mass body "
+                             "was not found. This method has failed\n");
 
-   if(!connections_initialized) {
+        return;
+    }
 
-      MessageHandler::fail (
-         __FILE__, __LINE__, SurfaceModelMessages::initialization_error,
-         "In Facet::update_articulation, the invoking Facet has not been "
-         "properly initialized using initialize_mass_connection. "
-         "Either the surface model was not initialized or the appropriate "
-         "mass body "
-         "was not found. This method has failed\n");
+    // called through this 'this' pointer to insure overriden
+    // virtual function is used. It may not be necessary, but it
+    // also points out very well that what we are calling is
+    // expected to be an overridden virtual function
 
-      return;
-
-   }
-
-
-   // called through this 'this' pointer to insure overriden
-   // virtual function is used. It may not be necessary, but it
-   // also points out very well that what we are calling is
-   // expected to be an overridden virtual function
-
-   this->update_articulation_internal();
-
-   return;
-
+    this->update_articulation_internal();
 }
 
 /*******************************************************************************
@@ -164,13 +116,9 @@ Facet::update_articulation (
             this function will simply return NULL.)
 *******************************************************************************/
 
-MassBody*
-Facet::get_mass_body_ptr(
-   void)
+MassBody * Facet::get_mass_body_ptr()
 {
-
-   return mass_body_ptr;
-
+    return mass_body_ptr;
 }
 
 /*******************************************************************************
@@ -179,41 +127,30 @@ Facet::get_mass_body_ptr(
             FlatPlate)
 *******************************************************************************/
 
-void
-Facet::update_articulation_internal (
-   void)
+void Facet::update_articulation_internal()
 {
+    // mass_rel_struct should now contain the position and orientation
+    // of mass_body's structural, with respect to struct_body's
+    // structural, in struct body's structural. If it doesn't, then
+    // this function shouldn't have been called yet (since it's
+    // protected we'll make that assumption)
 
-   // mass_rel_struct should now contain the position and orientation
-   // of mass_body's structural, with respect to struct_body's
-   // structural, in struct body's structural. If it doesn't, then
-   // this function shouldn't have been called yet (since it's
-   // protected we'll make that assumption)
+    // convert the local position from the local mass body struct
+    // frame to the integrating mass body struct frame (the frame
+    // associated with the mass body named in struct_body_name
+    // first rotate it into that frame
 
-   // convert the local position from the local mass body struct
-   // frame to the integrating mass body struct frame (the frame
-   // associated with the mass body named in struct_body_name
-   // first rotate it into that frame
+    Vector3::transform_transpose(mass_rel_struct->T_parent_this, local_position, int_pos);
 
-   Vector3::transform_transpose(mass_rel_struct->T_parent_this,
-                                local_position,
-                                int_pos);
+    // now add the position of the mass frame w.r.t. the struct
+    // frame, in the struct frame, to the local_position in the
+    // struct frame (contained in int_pos since we just calculated
+    // it)
 
-   // now add the position of the mass frame w.r.t. the struct
-   // frame, in the struct frame, to the local_position in the
-   // struct frame (contained in int_pos since we just calculated
-   // it)
-
-   Vector3::sum(mass_rel_struct->position,
-                int_pos,
-                position);
-
-
-   return;
-
+    Vector3::sum(mass_rel_struct->position, int_pos, position);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

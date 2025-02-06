@@ -52,11 +52,9 @@
  * that corresponds to this header.
  */
 
-
 /*
 Purpose: ()
 */
-
 
 #ifndef JEOD_GAUSS_JACKSON_FIRST_ORDER_ODE_INTEGRATOR_HH
 #define JEOD_GAUSS_JACKSON_FIRST_ORDER_ODE_INTEGRATOR_HH
@@ -70,131 +68,103 @@ Purpose: ()
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/first_order_ode_integrator.hh"
 
-
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Integrates a first order ODE using the summed Adams technique
  * that is embedded within the Gauss-Jackson technique.
  */
-class GaussJacksonFirstOrderODEIntegrator :
-   public er7_utils::FirstOrderODEIntegrator,
-   public  GaussJacksonIntegratorBaseFirst { // changed from private to public to fixed "cannot access private member error when move into namespace"
+class GaussJacksonFirstOrderODEIntegrator : public er7_utils::FirstOrderODEIntegrator,
+                                            public GaussJacksonIntegratorBaseFirst
+{ // changed from private to public to fixed "cannot access private member error when move into namespace"
 
-JEOD_MAKE_SIM_INTERFACES(GaussJacksonFirstOrderODEIntegrator)
+    JEOD_MAKE_SIM_INTERFACES(jeod, GaussJacksonFirstOrderODEIntegrator)
 
 public:
+    GaussJacksonFirstOrderODEIntegrator() = default;
+    ~GaussJacksonFirstOrderODEIntegrator() override = default;
 
-   /**
-    * Default constructor.
-    */
-   GaussJacksonFirstOrderODEIntegrator ()
-   :
-      er7_utils::Er7UtilsDeletable (),
-      er7_utils::FirstOrderODEIntegrator (),
-      GaussJacksonIntegratorBaseFirst ()
-   {}
+    /**
+     * Non-default constructor.
+     * @param  priming_constructor  Integrator constructor for the technique
+     *                              used during priming.
+     * @param  controls             The Gauss-Jackson integration controls that
+     *                              drives this state integrator.
+     * @param  size_in              State size.
+     * @param  priming_controls     Integration controls used during priming.
+     */
+    GaussJacksonFirstOrderODEIntegrator(const er7_utils::IntegratorConstructor & priming_constructor,
+                                        GaussJacksonIntegrationControls & controls,
+                                        unsigned int size_in,
+                                        er7_utils::IntegrationControls & priming_controls)
+        : er7_utils::FirstOrderODEIntegrator(size_in, controls),
+          GaussJacksonIntegratorBaseFirst(priming_constructor, controls, size_in, priming_controls)
+    {
+    }
 
+    /**
+     * Copy constructor.
+     */
+    GaussJacksonFirstOrderODEIntegrator(const GaussJacksonFirstOrderODEIntegrator & src)
+        : er7_utils::FirstOrderODEIntegrator(src),
+          GaussJacksonIntegratorBaseFirst(src)
+    {
+    }
 
-   /**
-    * Non-default constructor.
-    * @param  priming_constructor  Integrator constructor for the technique
-    *                              used during priming.
-    * @param  controls             The Gauss-Jackson integration controls that
-    *                              drives this state integrator.
-    * @param  size_in              State size.
-    * @param  priming_controls     Integration controls used during priming.
-    */
-   GaussJacksonFirstOrderODEIntegrator (
-      const er7_utils::IntegratorConstructor & priming_constructor,
-      GaussJacksonIntegrationControls & controls,
-      unsigned int size_in,
-      er7_utils::IntegrationControls & priming_controls)
-   :
-      er7_utils::Er7UtilsDeletable (),
-      er7_utils::FirstOrderODEIntegrator (size_in, controls),
-      GaussJacksonIntegratorBaseFirst (
-         priming_constructor, controls, size_in, priming_controls)
-   {}
+    /**
+     * Assignment operator.
+     */
+    GaussJacksonFirstOrderODEIntegrator & operator=(GaussJacksonFirstOrderODEIntegrator src)
+    {
+        swap(src);
+        return *this;
+    }
 
+    /**
+     * Non-throwing swap.
+     */
+    void swap(GaussJacksonFirstOrderODEIntegrator & other)
+    {
+        FirstOrderODEIntegrator::swap(other);
+        GaussJacksonIntegratorBaseFirst::swap(other);
+    }
 
-   /**
-    * Copy constructor.
-    */
-   GaussJacksonFirstOrderODEIntegrator (
-      const GaussJacksonFirstOrderODEIntegrator & src)
-   :
-      er7_utils::Er7UtilsDeletable (),
-      er7_utils::FirstOrderODEIntegrator (src),
-      GaussJacksonIntegratorBaseFirst (src)
-   {}
+    /**
+     * Replicate this.
+     */
+    er7_utils::FirstOrderODEIntegrator * create_copy() const override
+    {
+        return er7_utils::alloc::replicate_object(*this);
+    }
 
-   /**
-    * Destructor.
-    */
-   ~GaussJacksonFirstOrderODEIntegrator () override
-   {}
+    /**
+     * Reset the integrator.
+     */
+    void reset_integrator() override
+    {
+        base_reset();
+    }
 
-   /**
-    * Assignment operator.
-    */
-   GaussJacksonFirstOrderODEIntegrator & operator= (
-      GaussJacksonFirstOrderODEIntegrator src)
-   {
-      swap (src);
-      return *this;
-   }
-
-   /**
-    * Non-throwing swap.
-    */
-   void swap (
-      GaussJacksonFirstOrderODEIntegrator & other)
-   {
-      FirstOrderODEIntegrator::swap (other);
-      GaussJacksonIntegratorBaseFirst::swap (other);
-   }
-
-   /**
-    * Replicate this.
-    */
-   er7_utils::FirstOrderODEIntegrator* create_copy() const override
-   {
-      return er7_utils::alloc::replicate_object (*this);
-   }
-
-   /**
-    * Reset the integrator.
-    */
-   void reset_integrator () override
-   {
-      base_reset ();
-   }
-
-   /**
-    * Integrate.
-    */
-   er7_utils::IntegratorResult integrate (
-      double dyn_dt,
-      unsigned int target_stage,
-      double const * ER7_UTILS_RESTRICT deriv,
-      double * ER7_UTILS_RESTRICT state) override
-   {
-      GaussJacksonOneState gjState(state);
-      return base_integrate (dyn_dt, target_stage, deriv, gjState);
-   }
-
+    /**
+     * Integrate.
+     */
+    er7_utils::IntegratorResult integrate(double dyn_dt,
+                                          unsigned int target_stage,
+                                          const double * ER7_UTILS_RESTRICT deriv,
+                                          double * ER7_UTILS_RESTRICT state) override
+    {
+        GaussJacksonOneState gjState(state);
+        return base_integrate(dyn_dt, target_stage, deriv, gjState);
+    }
 
 private:
-
-   using FirstOrderODEIntegrator::swap;
-   using GaussJacksonIntegratorBaseFirst::swap;
+    using FirstOrderODEIntegrator::swap;
+    using GaussJacksonIntegratorBaseFirst::swap;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

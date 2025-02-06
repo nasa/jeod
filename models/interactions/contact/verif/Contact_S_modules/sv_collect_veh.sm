@@ -44,49 +44,30 @@
 // Force collections
 //====================
 // Collect effector forces for vehicle
-vcollect veh1_dyn.body.collect.collect_effector_forc jeod::CollectForce::create {
-   veh1_dyn.force_extern
-};
-vcollect veh2_dyn.body.collect.collect_effector_forc jeod::CollectForce::create {
-   veh2_dyn.force_extern
-};
+vcollect veh1_dyn.body.collect.collect_effector_forc jeod::CollectForce::create{veh1_dyn.force_extern};
+vcollect veh2_dyn.body.collect.collect_effector_forc jeod::CollectForce::create{veh2_dyn.force_extern};
 
 // Collect dynamic environmental forces for vehicle
-vcollect veh1_dyn.body.collect.collect_environ_forc jeod::CollectForce::create {
-         veh1_dyn.contact_surface.contact_force
-};
-vcollect veh2_dyn.body.collect.collect_environ_forc jeod::CollectForce::create {
-         veh2_dyn.contact_surface.contact_force
-};
+vcollect veh1_dyn.body.collect.collect_environ_forc jeod::CollectForce::create{veh1_dyn.contact_surface.contact_force};
+vcollect veh2_dyn.body.collect.collect_environ_forc jeod::CollectForce::create{veh2_dyn.contact_surface.contact_force};
 
 // Collect dynamic non-transmitted forces for vehicle
-vcollect veh1_dyn.body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-};
-vcollect veh2_dyn.body.collect.collect_no_xmit_forc jeod::CollectForce::create {
-};
-
+vcollect veh1_dyn.body.collect.collect_no_xmit_forc jeod::CollectForce::create{};
+vcollect veh2_dyn.body.collect.collect_no_xmit_forc jeod::CollectForce::create{};
 
 //=====================
 // Torque collections
 //=====================
 // Collect effector torques for vehicle
-vcollect veh1_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create {
-         veh1_dyn.torque_extern
-};
-vcollect veh2_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create {
-         veh2_dyn.torque_extern
-};
+vcollect veh1_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create{veh1_dyn.torque_extern};
+vcollect veh2_dyn.body.collect.collect_effector_torq jeod::CollectTorque::create{veh2_dyn.torque_extern};
 
 // Collect dynamic environmental torques for vehicle
-vcollect veh1_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create {
-         veh1_dyn.contact_surface.contact_torque
-};
-vcollect veh2_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create {
-         veh2_dyn.contact_surface.contact_torque
-};
+vcollect veh1_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create{
+    veh1_dyn.contact_surface.contact_torque};
+vcollect veh2_dyn.body.collect.collect_environ_torq jeod::CollectTorque::create{
+    veh2_dyn.contact_surface.contact_torque};
 
 // Collect dynamic non-transmitted torques for vehicle
-vcollect veh1_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-};
-vcollect veh2_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create {
-};
+vcollect veh1_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create{};
+vcollect veh2_dyn.body.collect.collect_no_xmit_torq jeod::CollectTorque::create{};

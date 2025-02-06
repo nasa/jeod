@@ -49,14 +49,15 @@
 /*******************************************************************************
 Purpose:
   ()
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_MAKE_MESSAGE_CODE_HH
 #define JEOD_MAKE_MESSAGE_CODE_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * \def JEOD_MAKE_MESSAGE_CODE(cname,path,id)
@@ -67,9 +68,9 @@ namespace jeod {
  *                  This must be a char* string and shoult terminate in a '/'.
  * \param[in] id    The static member data name to be assigned.
  */
-#define JEOD_MAKE_MESSAGE_CODE(cname,path,id) char const * cname::id = path #id
+#define JEOD_MAKE_MESSAGE_CODE(cname, path, id) char const * cname::id = path #id
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

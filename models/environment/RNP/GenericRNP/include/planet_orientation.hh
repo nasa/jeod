@@ -64,10 +64,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/planet_orientation.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef PLANET_ORIENTATION_HH
 #define PLANET_ORIENTATION_HH
@@ -77,14 +76,14 @@ Library dependencies:
 #include <utility>
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
-#include "utils/ref_frames/include/ref_frame_interface.hh"
 #include "environment/ephemerides/ephem_interface/include/ephem_interface.hh"
 #include "environment/ephemerides/ephem_item/include/ephem_orient.hh"
-
+#include "utils/ref_frames/include/ref_frame_interface.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class DynManager;
 class Planet;
@@ -95,109 +94,92 @@ class TimeManager;
 /**
  * The generic framework for orientation models to interact with a DynManager object
  */
-class PlanetOrientation :
-   public EphemerisInterface, public RefFrameOwner {
-
-   JEOD_MAKE_SIM_INTERFACES(PlanetOrientation)
+class PlanetOrientation : public EphemerisInterface,
+                          public RefFrameOwner
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetOrientation)
 
 public:
+    PlanetOrientation() = default;
+    ~PlanetOrientation() override = default;
+    PlanetOrientation & operator=(const PlanetOrientation & rhs) = delete;
+    PlanetOrientation(const PlanetOrientation & rhs) = delete;
 
-   PlanetOrientation ();
+    //  initializer, goes to the dyn manager given and searches for the the
+    //  planet indicated by the user inputted name, in the given dyn manager.
+    //  Will exec_terminate if the named planet is not found.
+    virtual void initialize(DynManager & dyn_manager);
 
-   ~PlanetOrientation () override;
+    // implementing the virtual functions from ActivateInterface
+    void activate() override;
+    void deactivate() override;
 
-   //  initializer, goes to the dyn manager given and searches for the the
-   //  planet indicated by the user inputted name, in the given dyn manager.
-   //  Will exec_terminate if the named planet is not found.
-   virtual void initialize (DynManager& dyn_manager);
+    /**
+     * Is the orientation model actively updating?  Defaults to true.
+     */
+    bool active{true}; //!< trick_units(--)
 
-   // implementing the virtual functions from ActivateInterface
-   void activate() override;
-   void deactivate() override;
+    /**
+     * The planet the attitude model will be working on
+     */
+    Planet * planet{}; //!< trick_units(--)
 
-   /**
-    * Is the orientation model actively updating?  Defaults to true.
-    */
-   bool active; //!< trick_units(--)
+    /**
+     * Name of the planet the attitude model will be working on. Planet must be
+     * found in the DynManager sent in at initialization
+     */
+    std::string name{""}; //!< trick_units(--)
 
-   /**
-    * The planet the attitude model will be working on
-    */
-   Planet* planet; //!< trick_units(--)
+    /**
+     * The current rotational state of the planet
+     */
+    RefFrameRot * planet_rot_state{}; //!< trick_units(--)
 
-   /**
-    * Name of the planet the attitude model will be working on. Planet must be
-    * found in the DynManager sent in at initialization
-    */
-   std::string name; //!< trick_units(--)
+    /**
+     * Nominal axial velocity of the earth
+     */
+    double planet_omega{}; //!< trick_units(rad/s)
 
-   /**
-    * The current rotational state of the planet
-    */
-   RefFrameRot* planet_rot_state; //!< trick_units(--)
+    // PlanetOrientation specific instantiations of EphemerisInterface virtuals
 
-   /**
-    * Nominal axial velocity of the earth
-    */
-   double planet_omega; //!< trick_units(rad/s)
+    // timestamp is left to inheriting classes
+    // name is left to inheriting classes
 
-   // PlanetOrientation specific instantiations of EphemerisInterface virtuals
+    // Initialize the ephemeris aspect of the class
+    void ephem_initialize(EphemeridesManager & manager) override;
 
-   // timestamp is left to inheriting classes
-   // name is left to inheriting classes
+    // Activate the model
+    void ephem_activate(EphemeridesManager & manager) override;
 
-   // Initialize the ephemeris aspect of the class
-   void ephem_initialize (EphemeridesManager & manager) override;
+    // Build this model's contribution to the reference frame tree.
+    // Nominally does nothing for PlanetOrientation and its inheriters.
+    // This can, obviously, be overridden.
+    void ephem_build_tree(EphemeridesManager & manager) override;
 
-   // Activate the model
-   void ephem_activate (EphemeridesManager& manager) override;
+    // ephem_update is left to the inheriting class.
 
-   // Build this model's contribution to the reference frame tree.
-   // Nominally does nothing for PlanetOrientation and its inheriters.
-   // This can, obviously, be overridden.
-   void ephem_build_tree (EphemeridesManager& manager) override;
+    /**
+     * The ephemeris interface to the in question orientation
+     */
+    EphemerisOrientation orient_interface; //!< trick_units(--)
 
-   // ephem_update is left to the inheriting class.
+    /**
+     * Setter for the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 
-   /**
-    * The ephemeris interface to the in question orientation
-    */
-   EphemerisOrientation orient_interface; //!< trick_units(--)
-
-
-   /**
-    * Setter for the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
-
-   /**
-    * A re-declaration of the pure virtual function in order
-    * to convince trick that yes, this is a pure virtual class.
-    * @return Planet name.
-    */
-   const char* get_name() const override = 0;
-
-private: // private member functions
-
-   // operator = and copy constructor locked from use by being private
-
-   /**
-    * Not implemented.
-    */
-   PlanetOrientation& operator = (const PlanetOrientation& rhs);
-
-   /**
-    * Not implemented.
-    */
-   PlanetOrientation (const PlanetOrientation& rhs);
-
+    /**
+     * A re-declaration of the pure virtual function in order
+     * to convince trick that yes, this is a pure virtual class.
+     * @return Planet name.
+     */
+    std::string get_name() const override = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

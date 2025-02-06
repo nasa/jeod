@@ -50,9 +50,8 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_VECTOR3_INLINE_H
 #define JEOD_VECTOR3_INLINE_H
@@ -61,12 +60,12 @@ Purpose:
 #include <cmath>
 
 // JEOD includes
-#include "vector3.hh"
 #include "numerical.hh"
-
+#include "vector3.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Zero-fill vector,
@@ -74,14 +73,11 @@ namespace jeod {
  * @return Zero-filled vector
  * \param[out] vec Zero-filled vector
  */
-inline double *
-Vector3::initialize (
-   double vec[3])
+inline double * Vector3::initialize(double vec[3])
 {
-   vec[0] = vec[1] = vec[2] = 0.0;
-   return vec;
+    vec[0] = vec[1] = vec[2] = 0.0;
+    return vec;
 }
-
 
 /**
  * Construct unit vector,
@@ -90,16 +86,12 @@ Vector3::initialize (
  * \param[in] index Unit index: 0,1,2=x,y,z hat
  * \param[out] vec Unit vector
  */
-inline double *
-Vector3::unit (
-   unsigned int index,
-   double vec[3])
+inline double * Vector3::unit(unsigned int index, double vec[3])
 {
-   vec[0]     = vec[1] = vec[2] = 0.0;
-   vec[index] = 1.0;
-   return vec;
+    vec[0] = vec[1] = vec[2] = 0.0;
+    vec[index] = 1.0;
+    return vec;
 }
-
 
 /**
  * Construct a vector from scalar,
@@ -108,15 +100,11 @@ Vector3::unit (
  * \param[in] scalar Scalar
  * \param[out] vec Filled vector
  */
-inline double *
-Vector3::fill (
-   double scalar,
-   double vec[3])
+inline double * Vector3::fill(double scalar, double vec[3])
 {
-   vec[0] = vec[1] = vec[2] = scalar;
-   return vec;
+    vec[0] = vec[1] = vec[2] = scalar;
+    return vec;
 }
-
 
 /**
  * Zero-out small components of a vector,
@@ -125,27 +113,25 @@ Vector3::fill (
  * \param[in] limit Limit
  * \param[in,out] vec Truncated vector
  */
-inline double *
-Vector3::zero_small (
-   double limit,
-   double vec[3])
+inline double * Vector3::zero_small(double limit, double vec[3])
 {
+    if(Numerical::fabs(vec[0]) < limit)
+    {
+        vec[0] = 0.0;
+    }
 
-   if (Numerical::fabs (vec[0]) < limit) {
-      vec[0] = 0.0;
-   }
+    if(Numerical::fabs(vec[1]) < limit)
+    {
+        vec[1] = 0.0;
+    }
 
-   if (Numerical::fabs (vec[1]) < limit) {
-      vec[1] = 0.0;
-   }
+    if(Numerical::fabs(vec[2]) < limit)
+    {
+        vec[2] = 0.0;
+    }
 
-   if (Numerical::fabs (vec[2]) < limit) {
-      vec[2] = 0.0;
-   }
-
-   return vec;
+    return vec;
 }
-
 
 /**
  * Copy vector contents,
@@ -154,18 +140,14 @@ Vector3::zero_small (
  * \param[in] vec Source vector
  * \param[out] copy Copied vector
  */
-inline double *
-Vector3::copy (
-   double const vec[3],
-   double copy[3])
+inline double * Vector3::copy(const double vec[3], double copy[3])
 {
-   copy[0] = vec[0];
-   copy[1] = vec[1];
-   copy[2] = vec[2];
+    copy[0] = vec[0];
+    copy[1] = vec[1];
+    copy[2] = vec[2];
 
-   return copy;
+    return copy;
 }
-
 
 /**
  * Compute vector inner product,
@@ -174,16 +156,10 @@ Vector3::copy (
  * \param[in] vec2 Vector 2
  * \param[in] vec1 Vector 1
  */
-inline double
-Vector3::dot (
-   double const vec2[3],
-   double const vec1[3])
+inline double Vector3::dot(const double vec2[3], const double vec1[3])
 {
-   return vec1[0] * vec2[0] +
-          vec1[1] * vec2[1] +
-          vec1[2] * vec2[2];
+    return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
 }
-
 
 /**
  * Compute square of vector magnitude,
@@ -191,13 +167,10 @@ Vector3::dot (
  * @return Inner product
  * \param[in] vec Vector
  */
-inline double
-Vector3::vmagsq (
-   double const vec[3])
+inline double Vector3::vmagsq(const double vec[3])
 {
-    return vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2];
+    return vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
 }
-
 
 /**
  * Compute vector magnitude,
@@ -205,13 +178,10 @@ Vector3::vmagsq (
  * @return Vector magnitude
  * \param[in] vec Vector
  */
-inline double
-Vector3::vmag (
-   double const vec[3])
+inline double Vector3::vmag(const double vec[3])
 {
-   return sqrt (vmagsq (vec));
+    return sqrt(vmagsq(vec));
 }
-
 
 /**
  * Make vector a unit vector in-place,
@@ -219,22 +189,21 @@ Vector3::vmag (
  * @return Normalized vector
  * \param[in,out] vec Vector
  */
-inline double *
-Vector3::normalize (
-   double vec[3])
+inline double * Vector3::normalize(double vec[3])
 {
-   double mag = vmag (vec);
+    double mag = vmag(vec);
 
-   if (mag > 0.0) {
-      scale (1.0 / mag, vec);
-   }
-   else {
-      initialize (vec);
-   }
+    if(mag > 0.0)
+    {
+        scale(1.0 / mag, vec);
+    }
+    else
+    {
+        initialize(vec);
+    }
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Construct unit vector,
@@ -243,16 +212,12 @@ Vector3::normalize (
  * \param[in] vec Vector
  * \param[out] unit_vec Unit vector
  */
-inline double *
-Vector3::normalize (
-   double const vec[3],
-   double unit_vec[3])
+inline double * Vector3::normalize(const double vec[3], double unit_vec[3])
 {
-   normalize (copy (vec, unit_vec));
+    normalize(copy(vec, unit_vec));
 
-   return unit_vec;
+    return unit_vec;
 }
-
 
 /**
  * Scale a vector in-place,
@@ -261,18 +226,14 @@ Vector3::normalize (
  * \param[in] scalar Scalar
  * \param[in,out] vec Scaled vector
  */
-inline double *
-Vector3::scale (
-   double scalar,
-   double vec[3])
+inline double * Vector3::scale(double scalar, double vec[3])
 {
-   vec[0] *= scalar;
-   vec[1] *= scalar;
-   vec[2] *= scalar;
+    vec[0] *= scalar;
+    vec[1] *= scalar;
+    vec[2] *= scalar;
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Scale a vector,
@@ -282,19 +243,14 @@ Vector3::scale (
  * \param[in] scalar Scalar
  * \param[out] prod Scaled vector
  */
-inline double *
-Vector3::scale (
-   double const vec[3],
-   double scalar,
-   double prod[3])
+inline double * Vector3::scale(const double vec[3], double scalar, double prod[3])
 {
-   prod[0] = vec[0] * scalar;
-   prod[1] = vec[1] * scalar;
-   prod[2] = vec[2] * scalar;
+    prod[0] = vec[0] * scalar;
+    prod[1] = vec[1] * scalar;
+    prod[2] = vec[2] * scalar;
 
-   return prod;
+    return prod;
 }
-
 
 /**
  * Negate vector in-place,
@@ -302,17 +258,14 @@ Vector3::scale (
  * @return Negated vector
  * \param[in,out] vec Vector
  */
-inline double *
-Vector3::negate (
-   double vec[3])
+inline double * Vector3::negate(double vec[3])
 {
-   vec[0] = -vec[0];
-   vec[1] = -vec[1];
-   vec[2] = -vec[2];
+    vec[0] = -vec[0];
+    vec[1] = -vec[1];
+    vec[2] = -vec[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Negate vector,
@@ -321,18 +274,14 @@ Vector3::negate (
  * \param[in] vec Source vector
  * \param[out] copy Negated vector
  */
-inline double *
-Vector3::negate (
-   double const vec[3],
-   double copy[3])
+inline double * Vector3::negate(const double vec[3], double copy[3])
 {
-   copy[0] = -vec[0];
-   copy[1] = -vec[1];
-   copy[2] = -vec[2];
+    copy[0] = -vec[0];
+    copy[1] = -vec[1];
+    copy[2] = -vec[2];
 
-   return copy;
+    return copy;
 }
-
 
 /**
  * Transform a column vector,
@@ -342,28 +291,16 @@ Vector3::negate (
  * \param[in] vec Source vector
  * \param[out] prod Transformed vector
  */
-inline double *
-Vector3::transform (
-   double const tmat[3][3],
-   double const vec[3],
-   double prod[3])
+inline double * Vector3::transform(const double tmat[3][3], const double vec[3], double prod[3])
 {
+    prod[0] = tmat[0][0] * vec[0] + tmat[0][1] * vec[1] + tmat[0][2] * vec[2];
 
-   prod[0] = tmat[0][0] * vec[0] +
-             tmat[0][1] * vec[1] +
-             tmat[0][2] * vec[2];
+    prod[1] = tmat[1][0] * vec[0] + tmat[1][1] * vec[1] + tmat[1][2] * vec[2];
 
-   prod[1] = tmat[1][0] * vec[0] +
-             tmat[1][1] * vec[1] +
-             tmat[1][2] * vec[2];
+    prod[2] = tmat[2][0] * vec[0] + tmat[2][1] * vec[1] + tmat[2][2] * vec[2];
 
-   prod[2] = tmat[2][0] * vec[0] +
-             tmat[2][1] * vec[1] +
-             tmat[2][2] * vec[2];
-
-   return prod;
+    return prod;
 }
-
 
 /**
  * Transform a column vector in-place,
@@ -372,19 +309,15 @@ Vector3::transform (
  * \param[in] tmat Transformation matrix
  * \param[in,out] vec Transformed vector
  */
-inline double *
-Vector3::transform (
-   double const tmat[3][3],
-   double vec[3])
+inline double * Vector3::transform(const double tmat[3][3], double vec[3])
 {
-   double temp[3];
+    double temp[3];
 
-   transform (tmat, vec, temp);
-   copy (temp, vec);
+    transform(tmat, vec, temp);
+    copy(temp, vec);
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Transform a column vector with the transpose,
@@ -394,28 +327,16 @@ Vector3::transform (
  * \param[in] vec Source vector
  * \param[out] prod Transformed vector
  */
-inline double *
-Vector3::transform_transpose (
-   double const tmat[3][3],
-   double const vec[3],
-   double prod[3])
+inline double * Vector3::transform_transpose(const double tmat[3][3], const double vec[3], double prod[3])
 {
+    prod[0] = tmat[0][0] * vec[0] + tmat[1][0] * vec[1] + tmat[2][0] * vec[2];
 
-   prod[0] = tmat[0][0] * vec[0] +
-             tmat[1][0] * vec[1] +
-             tmat[2][0] * vec[2];
+    prod[1] = tmat[0][1] * vec[0] + tmat[1][1] * vec[1] + tmat[2][1] * vec[2];
 
-   prod[1] = tmat[0][1] * vec[0] +
-             tmat[1][1] * vec[1] +
-             tmat[2][1] * vec[2];
+    prod[2] = tmat[0][2] * vec[0] + tmat[1][2] * vec[1] + tmat[2][2] * vec[2];
 
-   prod[2] = tmat[0][2] * vec[0] +
-             tmat[1][2] * vec[1] +
-             tmat[2][2] * vec[2];
-
-   return prod;
+    return prod;
 }
-
 
 /**
  * Transform a column vector in-place with the transpose,
@@ -424,19 +345,15 @@ Vector3::transform_transpose (
  * \param[in] tmat Transformation matrix
  * \param[in,out] vec Transformed vector
  */
-inline double *
-Vector3::transform_transpose (
-   double const tmat[3][3],
-   double vec[3])
+inline double * Vector3::transform_transpose(const double tmat[3][3], double vec[3])
 {
-   double temp[3];
+    double temp[3];
 
-   transform_transpose (tmat, vec, temp);
-   copy (temp, vec);
+    transform_transpose(tmat, vec, temp);
+    copy(temp, vec);
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Increment a vector,
@@ -445,18 +362,14 @@ Vector3::transform_transpose (
  * \param[in] addend Increment
  * \param[in,out] vec Vector
  */
-inline double *
-Vector3::incr (
-   double const addend[3],
-   double vec[3])
+inline double * Vector3::incr(const double addend[3], double vec[3])
 {
-   vec[0] += addend[0];
-   vec[1] += addend[1];
-   vec[2] += addend[2];
+    vec[0] += addend[0];
+    vec[1] += addend[1];
+    vec[2] += addend[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Increment a vector,
@@ -466,19 +379,14 @@ Vector3::incr (
  * \param[in] addend2 Increment
  * \param[in,out] vec Vector
  */
-inline double *
-Vector3::incr (
-   double const addend1[3],
-   double const addend2[3],
-   double vec[3])
+inline double * Vector3::incr(const double addend1[3], const double addend2[3], double vec[3])
 {
-   vec[0] += addend1[0] + addend2[0];
-   vec[1] += addend1[1] + addend2[1];
-   vec[2] += addend1[2] + addend2[2];
+    vec[0] += addend1[0] + addend2[0];
+    vec[1] += addend1[1] + addend2[1];
+    vec[2] += addend1[2] + addend2[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Decrement a vector,
@@ -487,18 +395,14 @@ Vector3::incr (
  * \param[in] subtrahend Decrement
  * \param[in,out] vec Vector
  */
-inline double *
-Vector3::decr (
-   double const subtrahend[3],
-   double vec[3])
+inline double * Vector3::decr(const double subtrahend[3], double vec[3])
 {
-   vec[0] -= subtrahend[0];
-   vec[1] -= subtrahend[1];
-   vec[2] -= subtrahend[2];
+    vec[0] -= subtrahend[0];
+    vec[1] -= subtrahend[1];
+    vec[2] -= subtrahend[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Decrement a vector,
@@ -508,19 +412,14 @@ Vector3::decr (
  * \param[in] subtrahend2 Decrement
  * \param[in,out] vec Vector
  */
-inline double *
-Vector3::decr (
-   double const subtrahend1[3],
-   double const subtrahend2[3],
-   double vec[3])
+inline double * Vector3::decr(const double subtrahend1[3], const double subtrahend2[3], double vec[3])
 {
-   vec[0] -= subtrahend1[0] + subtrahend2[0];
-   vec[1] -= subtrahend1[1] + subtrahend2[1];
-   vec[2] -= subtrahend1[2] + subtrahend2[2];
+    vec[0] -= subtrahend1[0] + subtrahend2[0];
+    vec[1] -= subtrahend1[1] + subtrahend2[1];
+    vec[2] -= subtrahend1[2] + subtrahend2[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Compute the sum of two vectors,
@@ -530,19 +429,14 @@ Vector3::decr (
  * \param[in] addend2 Addend
  * \param[out] vec Sum vector
  */
-inline double *
-Vector3::sum (
-   double const addend1[3],
-   double const addend2[3],
-   double vec[3])
+inline double * Vector3::sum(const double addend1[3], const double addend2[3], double vec[3])
 {
-   vec[0] = addend1[0] + addend2[0];
-   vec[1] = addend1[1] + addend2[1];
-   vec[2] = addend1[2] + addend2[2];
+    vec[0] = addend1[0] + addend2[0];
+    vec[1] = addend1[1] + addend2[1];
+    vec[2] = addend1[2] + addend2[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Compute the sum of three vectors,
@@ -553,20 +447,14 @@ Vector3::sum (
  * \param[in] addend3 Addend
  * \param[out] vec Sum vector
  */
-inline double *
-Vector3::sum (
-   double const addend1[3],
-   double const addend2[3],
-   double const addend3[3],
-   double vec[3])
+inline double * Vector3::sum(const double addend1[3], const double addend2[3], const double addend3[3], double vec[3])
 {
-   vec[0] = addend1[0] + addend2[0] + addend3[0];
-   vec[1] = addend1[1] + addend2[1] + addend3[1];
-   vec[2] = addend1[2] + addend2[2] + addend3[2];
+    vec[0] = addend1[0] + addend2[0] + addend3[0];
+    vec[1] = addend1[1] + addend2[1] + addend3[1];
+    vec[2] = addend1[2] + addend2[2] + addend3[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Compute the difference between two vectors,
@@ -576,19 +464,14 @@ Vector3::sum (
  * \param[in] subtrahend Subtrahend
  * \param[out] vec Difference vector
  */
-inline double *
-Vector3::diff (
-   double const minuend[3],
-   double const subtrahend[3],
-   double vec[3])
+inline double * Vector3::diff(const double minuend[3], const double subtrahend[3], double vec[3])
 {
-   vec[0] = minuend[0] - subtrahend[0];
-   vec[1] = minuend[1] - subtrahend[1];
-   vec[2] = minuend[2] - subtrahend[2];
+    vec[0] = minuend[0] - subtrahend[0];
+    vec[1] = minuend[1] - subtrahend[1];
+    vec[2] = minuend[2] - subtrahend[2];
 
-   return vec;
+    return vec;
 }
-
 
 /**
  * Compute the cross product between two vectors,
@@ -598,19 +481,14 @@ Vector3::diff (
  * \param[in] vec_right Right vector
  * \param[out] prod Cross product vector
  */
-inline double *
-Vector3::cross (
-   double const vec_left[3],
-   double const vec_right[3],
-   double prod[3])
+inline double * Vector3::cross(const double vec_left[3], const double vec_right[3], double prod[3])
 {
-   prod[0] = vec_left[1] * vec_right[2] - vec_left[2] * vec_right[1];
-   prod[1] = vec_left[2] * vec_right[0] - vec_left[0] * vec_right[2];
-   prod[2] = vec_left[0] * vec_right[1] - vec_left[1] * vec_right[0];
+    prod[0] = vec_left[1] * vec_right[2] - vec_left[2] * vec_right[1];
+    prod[1] = vec_left[2] * vec_right[0] - vec_left[0] * vec_right[2];
+    prod[2] = vec_left[0] * vec_right[1] - vec_left[1] * vec_right[0];
 
-   return prod;
+    return prod;
 }
-
 
 /**
  * Increment a vector with a scaled vector,
@@ -620,19 +498,14 @@ Vector3::cross (
  * \param[in] scalar Scalar
  * \param[in,out] prod Incremented vector
  */
-inline double *
-Vector3::scale_incr (
-   double const vec[3],
-   double scalar,
-   double prod[3])
+inline double * Vector3::scale_incr(const double vec[3], double scalar, double prod[3])
 {
-   prod[0] += vec[0] * scalar;
-   prod[1] += vec[1] * scalar;
-   prod[2] += vec[2] * scalar;
+    prod[0] += vec[0] * scalar;
+    prod[1] += vec[1] * scalar;
+    prod[2] += vec[2] * scalar;
 
-   return prod;
+    return prod;
 }
-
 
 /**
  * Decrement a vector with a scaled vector,
@@ -642,19 +515,14 @@ Vector3::scale_incr (
  * \param[in] scalar Scalar
  * \param[in,out] prod Decremented vector
  */
-inline double *
-Vector3::scale_decr (
-   double const vec[3],
-   double scalar,
-   double prod[3])
+inline double * Vector3::scale_decr(const double vec[3], double scalar, double prod[3])
 {
-   prod[0] -= vec[0] * scalar;
-   prod[1] -= vec[1] * scalar;
-   prod[2] -= vec[2] * scalar;
+    prod[0] -= vec[0] * scalar;
+    prod[1] -= vec[1] * scalar;
+    prod[2] -= vec[2] * scalar;
 
-   return prod;
+    return prod;
 }
-
 
 /**
  * Increment a vector with the the cross product between two vectors,
@@ -664,19 +532,14 @@ Vector3::scale_decr (
  * \param[in] vec_right Right vector
  * \param[in,out] prod Cross product vector
  */
-inline double *
-Vector3::cross_incr (
-   double const vec_left[3],
-   double const vec_right[3],
-   double prod[3])
+inline double * Vector3::cross_incr(const double vec_left[3], const double vec_right[3], double prod[3])
 {
-   prod[0] += vec_left[1] * vec_right[2] - vec_left[2] * vec_right[1];
-   prod[1] += vec_left[2] * vec_right[0] - vec_left[0] * vec_right[2];
-   prod[2] += vec_left[0] * vec_right[1] - vec_left[1] * vec_right[0];
+    prod[0] += vec_left[1] * vec_right[2] - vec_left[2] * vec_right[1];
+    prod[1] += vec_left[2] * vec_right[0] - vec_left[0] * vec_right[2];
+    prod[2] += vec_left[0] * vec_right[1] - vec_left[1] * vec_right[0];
 
-   return prod;
+    return prod;
 }
-
 
 /**
  * Decrement a vector with the the cross product between two vectors,
@@ -686,19 +549,14 @@ Vector3::cross_incr (
  * \param[in] vec_right Right vector
  * \param[in,out] prod Decremented vector
  */
-inline double *
-Vector3::cross_decr (
-   double const vec_left[3],
-   double const vec_right[3],
-   double prod[3])
+inline double * Vector3::cross_decr(const double vec_left[3], const double vec_right[3], double prod[3])
 {
-   prod[0] -= vec_left[1] * vec_right[2] - vec_left[2] * vec_right[1];
-   prod[1] -= vec_left[2] * vec_right[0] - vec_left[0] * vec_right[2];
-   prod[2] -= vec_left[0] * vec_right[1] - vec_left[1] * vec_right[0];
+    prod[0] -= vec_left[1] * vec_right[2] - vec_left[2] * vec_right[1];
+    prod[1] -= vec_left[2] * vec_right[0] - vec_left[0] * vec_right[2];
+    prod[2] -= vec_left[0] * vec_right[1] - vec_left[1] * vec_right[0];
 
-   return prod;
+    return prod;
 }
-
 
 /**
  * Increment a vector with a transformed column vector,
@@ -708,28 +566,16 @@ Vector3::cross_decr (
  * \param[in] vec Source vector
  * \param[in,out] prod Incremented vector
  */
-inline double *
-Vector3::transform_incr (
-   double const tmat[3][3],
-   double const vec[3],
-   double prod[3])
+inline double * Vector3::transform_incr(const double tmat[3][3], const double vec[3], double prod[3])
 {
+    prod[0] += tmat[0][0] * vec[0] + tmat[0][1] * vec[1] + tmat[0][2] * vec[2];
 
-   prod[0] += tmat[0][0] * vec[0] +
-              tmat[0][1] * vec[1] +
-              tmat[0][2] * vec[2];
+    prod[1] += tmat[1][0] * vec[0] + tmat[1][1] * vec[1] + tmat[1][2] * vec[2];
 
-   prod[1] += tmat[1][0] * vec[0] +
-              tmat[1][1] * vec[1] +
-              tmat[1][2] * vec[2];
+    prod[2] += tmat[2][0] * vec[0] + tmat[2][1] * vec[1] + tmat[2][2] * vec[2];
 
-   prod[2] += tmat[2][0] * vec[0] +
-              tmat[2][1] * vec[1] +
-              tmat[2][2] * vec[2];
-
-   return prod;
+    return prod;
 }
-
 
 /**
  * Decrement a vector with a transformed column vector,
@@ -739,28 +585,16 @@ Vector3::transform_incr (
  * \param[in] vec Source vector
  * \param[in,out] prod Decremented vector
  */
-inline double *
-Vector3::transform_decr (
-   double const tmat[3][3],
-   double const vec[3],
-   double prod[3])
+inline double * Vector3::transform_decr(const double tmat[3][3], const double vec[3], double prod[3])
 {
+    prod[0] -= tmat[0][0] * vec[0] + tmat[0][1] * vec[1] + tmat[0][2] * vec[2];
 
-   prod[0] -= tmat[0][0] * vec[0] +
-              tmat[0][1] * vec[1] +
-              tmat[0][2] * vec[2];
+    prod[1] -= tmat[1][0] * vec[0] + tmat[1][1] * vec[1] + tmat[1][2] * vec[2];
 
-   prod[1] -= tmat[1][0] * vec[0] +
-              tmat[1][1] * vec[1] +
-              tmat[1][2] * vec[2];
+    prod[2] -= tmat[2][0] * vec[0] + tmat[2][1] * vec[1] + tmat[2][2] * vec[2];
 
-   prod[2] -= tmat[2][0] * vec[0] +
-              tmat[2][1] * vec[1] +
-              tmat[2][2] * vec[2];
-
-   return prod;
+    return prod;
 }
-
 
 /**
  * Increment a vector with a transpose-transformed column vector,
@@ -770,28 +604,16 @@ Vector3::transform_decr (
  * \param[in] vec Source vector
  * \param[in,out] prod Incremented vector
  */
-inline double *
-Vector3::transform_transpose_incr (
-   double const tmat[3][3],
-   double const vec[3],
-   double prod[3])
+inline double * Vector3::transform_transpose_incr(const double tmat[3][3], const double vec[3], double prod[3])
 {
+    prod[0] += tmat[0][0] * vec[0] + tmat[1][0] * vec[1] + tmat[2][0] * vec[2];
 
-   prod[0] += tmat[0][0] * vec[0] +
-              tmat[1][0] * vec[1] +
-              tmat[2][0] * vec[2];
+    prod[1] += tmat[0][1] * vec[0] + tmat[1][1] * vec[1] + tmat[2][1] * vec[2];
 
-   prod[1] += tmat[0][1] * vec[0] +
-              tmat[1][1] * vec[1] +
-              tmat[2][1] * vec[2];
+    prod[2] += tmat[0][2] * vec[0] + tmat[1][2] * vec[1] + tmat[2][2] * vec[2];
 
-   prod[2] += tmat[0][2] * vec[0] +
-              tmat[1][2] * vec[1] +
-              tmat[2][2] * vec[2];
-
-   return prod;
+    return prod;
 }
-
 
 /**
  * decrement a vector with a transpose-transformed column vector,
@@ -801,30 +623,18 @@ Vector3::transform_transpose_incr (
  * \param[in] vec Source vector
  * \param[in,out] prod Decremented vector
  */
-inline double *
-Vector3::transform_transpose_decr (
-   double const tmat[3][3],
-   double const vec[3],
-   double prod[3])
+inline double * Vector3::transform_transpose_decr(const double tmat[3][3], const double vec[3], double prod[3])
 {
+    prod[0] -= tmat[0][0] * vec[0] + tmat[1][0] * vec[1] + tmat[2][0] * vec[2];
 
-   prod[0] -= tmat[0][0] * vec[0] +
-              tmat[1][0] * vec[1] +
-              tmat[2][0] * vec[2];
+    prod[1] -= tmat[0][1] * vec[0] + tmat[1][1] * vec[1] + tmat[2][1] * vec[2];
 
-   prod[1] -= tmat[0][1] * vec[0] +
-              tmat[1][1] * vec[1] +
-              tmat[2][1] * vec[2];
+    prod[2] -= tmat[0][2] * vec[0] + tmat[1][2] * vec[1] + tmat[2][2] * vec[2];
 
-   prod[2] -= tmat[0][2] * vec[0] +
-              tmat[1][2] * vec[1] +
-              tmat[2][2] * vec[2];
-
-   return prod;
+    return prod;
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

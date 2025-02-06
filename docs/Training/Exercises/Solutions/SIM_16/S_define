@@ -37,23 +37,24 @@
 //=============================================================================
 // A single vehicle in Earth orbit with lunar, solar perturbations and
 //  solid-body tides.
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
-#define LOW_RATE_ENV  100.0
+#define DYNAMICS 1.0
+#define LOW_RATE_ENV 100.0
 
-
-// Include the default trick object
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
 // Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics.sm"
 #include "environment.sm"
 
@@ -69,47 +70,36 @@
 ##include "environment/gravity/data/include/earth_solid_tides.hh"
 
 #include "Base/earth_GGM05C_baseline.sm"
-class EarthSimObject : public Earth_GGM05C_SimObject {
-
+class EarthSimObject : public Earth_GGM05C_SimObject
+{
 public:
-   jeod::SphericalHarmonicsSolidBodyTidesInit sbtide_init;
-   jeod::SphericalHarmonicsSolidBodyTides sb_tide;
+    jeod::SphericalHarmonicsSolidBodyTidesInit sbtide_init;
+    jeod::SphericalHarmonicsSolidBodyTides sb_tide;
 
-   jeod::SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data    sbtide_init_default_data;
+    jeod::SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data sbtide_init_default_data;
 
-   EarthSimObject( jeod::DynManager   & dyn_manager_in,
+    EarthSimObject(jeod::DynManager & dyn_manager_in,
                    jeod::GravityManager & grav_in,
-                   jeod::TimeTT       & tt_in,
-                   jeod::TimeUT1      & ut1_in,
-                   jeod::TimeGMST     & gmst_in)
-     :
-     Earth_GGM05C_SimObject( dyn_manager_in,
-                             grav_in,
-                             tt_in,
-                             ut1_in,
-                             gmst_in)
-   {
-      ("default_data") sbtide_init_default_data.initialize ( &sbtide_init );
+                   jeod::TimeTT & tt_in,
+                   jeod::TimeUT1 & ut1_in,
+                   jeod::TimeGMST & gmst_in)
+        : Earth_GGM05C_SimObject(dyn_manager_in, grav_in, tt_in, ut1_in, gmst_in)
+    {
+        ("default_data") sbtide_init_default_data.initialize(&sbtide_init);
 
-      //
-      // Initialization jobs
-      //
-      P_EPH  ("initialization") gravity_source.add_deltacoeff (
-          sbtide_init,
-          dyn_manager,
-          sb_tide );
-   }
+        //
+        // Initialization jobs
+        //
+        P_EPH("initialization") gravity_source.add_deltacoeff(sbtide_init, dyn_manager, sb_tide);
+    }
 
- private:
-  EarthSimObject (const EarthSimObject&);
-  EarthSimObject & operator = (const EarthSimObject&);
+private:
+    EarthSimObject(const EarthSimObject &);
+    EarthSimObject & operator=(const EarthSimObject &);
 };
 
-EarthSimObject earth (dynamics.dyn_manager,
-                      env.gravity_manager,
-                      jeod_time.time_tt,
-                      jeod_time.time_ut1,
-                      jeod_time.time_gmst);
+EarthSimObject earth(
+    dynamics.dyn_manager, env.gravity_manager, jeod_time.time_tt, jeod_time.time_ut1, jeod_time.time_gmst);
 
 #include "moon_basic.sm"
 #include "sun_basic.sm"
@@ -124,17 +114,18 @@ EarthSimObject earth (dynamics.dyn_manager,
 #include "Base/vehicle_baseline.sm"
 class VehicleSimObject : public VehicleBasicSimObject
 {
- public:
-  jeod::SphericalHarmonicsDeltaControls sbtide_ctrl;
+public:
+    jeod::SphericalHarmonicsDeltaControls sbtide_ctrl;
 
-  VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {}
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+    }
+
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 };
 VehicleSimObject vehicle(dynamics.dyn_manager);
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

@@ -51,10 +51,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_POINTER_LIST_HH
 #define JEOD_MEMORY_POINTER_LIST_HH
@@ -66,26 +65,24 @@ Purpose:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Defines a registry for defining a checkpointable list of pointers.
  * Usage: JeodPointerList<type>::type variable_name
  */
-template <typename ElemType>
-class JeodPointerList {
+template<typename ElemType> class JeodPointerList
+{
 public:
-   /**
-    * Template typedef for a checkpointable list of pointers.
-    */
-   typedef JeodPointerContainer<JeodList<ElemType*>, ElemType> type;
+    /**
+     * Template typedef for a checkpointable list of pointers.
+     */
+    using type = JeodPointerContainer<JeodList<ElemType *>, ElemType>;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

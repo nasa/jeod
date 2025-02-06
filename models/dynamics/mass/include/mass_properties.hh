@@ -51,16 +51,10 @@
 Purpose:
   ()
 
-Library Dependencies:
- ((../src/mass_properties.cc))
-
-
 *******************************************************************************/
-
 
 #ifndef JEOD_MASS_PROPERTIES_HH
 #define JEOD_MASS_PROPERTIES_HH
-
 
 // Model includes
 #include "class_declarations.hh"
@@ -69,9 +63,9 @@ Library Dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Defines mass properties -- mass and inertia tensor.
@@ -89,57 +83,48 @@ namespace jeod {
  * - Q_parent_this/T_parent_this define the orientation of the body frame
  *   with respect to the structural frame.
  */
-class MassProperties : public MassPoint {
+class MassProperties : public MassPoint
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MassProperties)
 
-   JEOD_MAKE_SIM_INTERFACES(MassProperties)
+    // Member data
+public:
+    /**
+     * Mass of the subject mass element (always >= 0). The core mass element's
+     * mass is set externally while the composite mass element's mass is computed
+     * by the mass model.
+     */
+    double mass{}; //!< trick_units(kg)
 
- // Member data
- public:
+    /**
+     * Inertia tensor of the subject mass element about the subject mass element's
+     * center of mass, expressed in subject mass element body coordinates.
+     * Note: The diagonal elements of the inertia tensor are positive moments
+     * of inertial while the off-diagonal elements are megative
+     * products of inertia.
+     */
+    double inertia[3][3]{}; //!< trick_units(kg*m2)
 
-   /**
-    * Mass of the subject mass element (always >= 0). The core mass element's
-    * mass is set externally while the composite mass element's mass is computed
-    * by the mass model.
-    */
-   double mass; //!< trick_units(kg)
+    /**
+     * The inverse of mass.
+     * Used only for root dynamic bodies composite props.
+     */
+    double inverse_mass{}; //!< trick_units(1/kg)
 
-   /**
-    * Inertia tensor of the subject mass element about the subject mass element's
-    * center of mass, expressed in subject mass element body coordinates.
-    * Note: The diagonal elements of the inertia tensor are positive moments
-    * of inertial while the off-diagonal elements are megative
-    * products of inertia.
-    */
-   double inertia[3][3]; //!< trick_units(kg*m2)
+    /**
+     * The inverse of the composite inertia.
+     * Used only for root dynamic bodies composite props.
+     */
+    double inverse_inertia[3][3]{}; //!< trick_units(1/kg/m2)
 
-   /**
-    * The inverse of mass.
-    * Used only for root dynamic bodies composite props.
-    */
-   double inverse_mass; //!< trick_units(1/kg)
-
-   /**
-    * The inverse of the composite inertia.
-    * Used only for root dynamic bodies composite props.
-    */
-   double inverse_inertia[3][3]; //!< trick_units(1/kg/m2)
-
-
- // Member functions
- public:
-
-   // Constructor.
-   MassProperties (void);
-
- private:
-   // MassPoint has this private...
-   MassProperties (const MassProperties &);
-   MassProperties & operator =(const MassProperties &);
-
+    // Member functions
+public:
+    MassProperties() = default;
+    MassProperties(const MassProperties &) = delete;
+    MassProperties & operator=(const MassProperties &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

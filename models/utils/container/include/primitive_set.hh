@@ -51,9 +51,8 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_MEMORY_PRIMITIVE_SET_HH
 #define JEOD_MEMORY_PRIMITIVE_SET_HH
@@ -65,26 +64,24 @@ Purpose:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Defines a registry for defining a checkpointable set of primitives.
  * Usage: JeodPrimitiveSet<type>::type variable_name
  */
-template <typename ElemType>
-class JeodPrimitiveSet {
+template<typename ElemType> class JeodPrimitiveSet
+{
 public:
-   /**
-    * Template typedef for a checkpointable set of primitives.
-    */
-   typedef JeodPrimitiveContainer<JeodSet<ElemType>, ElemType> type;
+    /**
+     * Template typedef for a checkpointable set of primitives.
+     */
+    using type = JeodPrimitiveContainer<JeodSet<ElemType>, ElemType>;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

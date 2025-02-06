@@ -24,7 +24,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -36,93 +35,92 @@ Library dependencies:
 #include "../include/dyn_body.hh"
 #include "../include/dyn_body_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-// Prepare the body for initialization.
-void
-DynBody::initialize_model (
-   BaseDynManager & dyn_manager_in)
+namespace jeod
 {
 
-   // Sanity check: protect against an empty name for this body
-   if (name.size() == 0) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, DynBodyMessages::invalid_name,
-         "All DynBody instances must have names");
+// Prepare the body for initialization.
+void DynBody::initialize_model(BaseDynManager & dyn_manager_in)
+{
+    // Sanity check: protect against an empty name for this body
+    if(name.size() == 0)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             DynBodyMessages::invalid_name,
+                             "All DynBody instances must have names");
 
-      // Not reached
-      return;
-   }
+        // Not reached
+        return;
+    }
 
-   // Setting the integration frame from the input file is not proper.
-   if (integ_frame != nullptr) {
-      MessageHandler::error (
-         __FILE__, __LINE__, DynBodyMessages::invalid_frame,
-         "DynBody '%s' integ_frame member was set in the input file.\n"
-         "This is not the recognized interface. "
-         "Set the integration frame name (integ_frame_name) instead.",
-         name.c_str());
-      integ_frame = nullptr;
-   }
+    // Setting the integration frame from the input file is not proper.
+    if(integ_frame != nullptr)
+    {
+        MessageHandler::error(__FILE__,
+                              __LINE__,
+                              DynBodyMessages::invalid_frame,
+                              "DynBody '%s' integ_frame member was set in the input file.\n"
+                              "This is not the recognized interface. "
+                              "Set the integration frame name (integ_frame_name) instead.",
+                              name.c_str());
+        integ_frame = nullptr;
+    }
 
-   // Sanity check: protect against an empty integration frame name
-   if ((integ_frame_name == nullptr) || (integ_frame_name[0] == '\0')) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, DynBodyMessages::invalid_name,
-         "DynBody '%s' does not have an integration frame.",
-         name.c_str());
+    // Sanity check: protect against an empty integration frame name
+    if(integ_frame_name.empty())
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             DynBodyMessages::invalid_name,
+                             "DynBody '%s' does not have an integration frame.",
+                             name.c_str());
 
-      // Not reached
-      return;
-   }
+        // Not reached
+        return;
+    }
 
+    // Cache the dynamics manager for later use.
+    dyn_manager = &dyn_manager_in;
 
-   // Cache the dynamics manager for later use.
-   dyn_manager = &dyn_manager_in;
+    // Tell the dynamics manager to manage this DynBody.
+    dyn_manager->add_dyn_body(*this);
 
-   // Tell the dynamics manager to manage this DynBody.
-   dyn_manager->add_dyn_body (*this);
+    // For each reference frame associated with this body,
+    // - Denote that the frame is owned by this body.
+    // - Set the name of the frame based on the body name.
+    // - Tell the dynamics manager that the frame exists.
+    // - Subscribe to the frame (which will mark the frame as active).
 
+    // Core body frame
+    core_body.set_owner(this);
+    core_body.set_name(name.get_name(), "core_body");
+    dyn_manager->add_ref_frame(core_body);
+    core_body.subscribe();
 
-   // For each reference frame associated with this body,
-   // - Denote that the frame is owned by this body.
-   // - Set the name of the frame based on the body name.
-   // - Tell the dynamics manager that the frame exists.
-   // - Subscribe to the frame (which will mark the frame as active).
+    // Composite body frame
+    composite_body.set_owner(this);
+    composite_body.set_name(name.get_name(), "composite_body");
+    dyn_manager->add_ref_frame(composite_body);
+    composite_body.subscribe();
 
-   // Core body frame
-   core_body.set_owner (this);
-   core_body.set_name (name.c_str(), "core_body");
-   dyn_manager->add_ref_frame (core_body);
-   core_body.subscribe ();
+    // Structural frame
+    structure.set_owner(this);
+    structure.set_name(name.get_name(), "structure");
+    dyn_manager->add_ref_frame(structure);
+    structure.subscribe();
 
-   // Composite body frame
-   composite_body.set_owner (this);
-   composite_body.set_name (name.c_str(), "composite_body");
-   dyn_manager->add_ref_frame (composite_body);
-   composite_body.subscribe ();
+    // Mark the body as unitialized.
+    mass.needs_update = true;
+    initialized_states.set(RefFrameItems::No_Items);
 
-   // Structural frame
-   structure.set_owner (this);
-   structure.set_name (name.c_str(), "structure");
-   dyn_manager->add_ref_frame (structure);
-   structure.subscribe ();
-
-
-   // Mark the body as unitialized.
-   mass.needs_update = true;
-   initialized_states.set (RefFrameItems::No_Items);
-
-
-   // Set the integration frame.
-   // Note that this links each of the three primary frames as children of
-   // the integration frame.
-   set_integ_frame (integ_frame_name);
+    // Set the integration frame.
+    // Note that this links each of the three primary frames as children of
+    // the integration frame.
+    set_integ_frame(integ_frame_name);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

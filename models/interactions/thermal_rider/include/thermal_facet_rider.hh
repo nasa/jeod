@@ -72,153 +72,133 @@ Library dependencies:
 #include "thermal_integrable_object.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class InteractionFacet;
-
 
 /**
  * Defining the thermal characteristics of surface facets
  */
-class ThermalFacetRider {
-
-   JEOD_MAKE_SIM_INTERFACES(ThermalFacetRider)
+class ThermalFacetRider
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ThermalFacetRider)
 
 public:
+    // calculated at runtime
+    /**
+     * Time since the last temperature calculation for the particular
+     * model under consideration.
+     */
+    static double cycle_time; //!< trick_units(s)
 
+    /**
+     * Change in temperature.
+     */
+    double d_temperature{}; //!< trick_units(--)
 
-   // calculated at runtime
-   /**
-    * Time since the last temperature calculation for the particular
-    * model under consideration.
-    */
-   static double cycle_time; //!< trick_units(s)
+    /**
+     * Rate at which energy is absorbed from the environment, vehicle, and
+     * surface.
+     */
+    double power_absorb{}; //!< trick_units(--)
 
-   /**
-    * Change in temperature.
-    */
-   double d_temperature; //!< trick_units(--)
+    /**
+     * Rate at which energy is thermally radiated from the facet.
+     */
+    double power_emit{}; //!< trick_units(--)
 
-   /**
-    * Rate at which energy is absorbed from the environment, vehicle, and
-    * surface.
-    */
-   double power_absorb; //!< trick_units(--)
+    // Calculated at initialization if using material parameters.  Or can be defined
+    // straight out if not.
 
-   /**
-    * Rate at which energy is thermally radiated from the facet.
-    */
-   double power_emit; //!< trick_units(--)
+    /**
+     * Heat capacity of the facet.
+     */
+    double heat_capacity{}; //!< trick_units(--)
 
+    // calculated at initialization
 
-   // Calculated at initialization if using material parameters.  Or can be defined
-   // straight out if not.
+    /**
+     * Combination of variables that are held constant for any given facet.
+     */
+    double rad_constant{}; //!< trick_units(--)
 
-   /**
-    * Heat capacity of the facet.
-    */
-   double heat_capacity; //!< trick_units(--)
+    /**
+     * Pointer back to facet that contains this thermal rider.
+     */
+    InteractionFacet * facet{}; //!< trick_units(--)
 
+    // defined for each facet
+    /**
+     * Flag set to indicate whether the facet to which this rider is attached
+     * has a dynamic temperature variability.
+     */
+    bool active{true}; //!< trick_units(--)
 
+    /**
+     * Rate at which thermal energy is transfered to the facet from within the
+     * vehicle.
+     */
+    double thermal_power_dump{}; //!< trick_units(--)
 
-   // calculated at initialization
+    // defined for each material that defines the facet (i.e. parameter list)
 
-   /**
-    * Combination of variables that are held constant for any given facet.
-    */
-   double rad_constant; //!< trick_units(--)
+    /**
+     * Fraction of sigma-T^4 (potential for emissive radiation) that is
+     * actually emitted.
+     */
+    double emissivity{}; //!< trick_units(--)
 
-   /**
-    * Pointer back to facet that contains this thermal rider.
-    */
-   InteractionFacet * facet; //!< trick_units(--)
-
-
-   // defined for each facet
-   /**
-    * Flag set to indicate whether the facet to which this rider is attached
-    * has a dynamic temperature variability.
-    */
-   bool active; //!< trick_units(--)
-
-   /**
-    * Rate at which thermal energy is transfered to the facet from within the
-    * vehicle.
-    */
-   double thermal_power_dump; //!< trick_units(--)
-
-
-
-   // defined for each material that defines the facet (i.e. parameter list)
-
-   /**
-    * Fraction of sigma-T^4 (potential for emissive radiation) that is
-    * actually emitted.
-    */
-   double emissivity; //!< trick_units(--)
-
-   /**
-    * The encapsulation of a first order integrator which can optionally be used
-    * to integrate the temperature
-    */
-   ThermalIntegrableObject integrable_object; //!< trick_units(--)
+    /**
+     * The encapsulation of a first order integrator which can optionally be used
+     * to integrate the temperature
+     */
+    ThermalIntegrableObject integrable_object; //!< trick_units(--)
 
 protected:
-   // set at creation
-   /**
-    * Stefan-Boltzmann constant
-    */
-   const static double stefan_boltzmann; //!< trick_io(*o) trick_units(--)
+    // set at creation
+    /**
+     * Stefan-Boltzmann constant
+     */
+    const static double stefan_boltzmann; //!< trick_io(*o) trick_units(--)
 
 private:
-   /**
-    * The predicted value of temperature at the next time-step.
-    * THIS VALUE IS USED
-    * ONLY BY THE  THERMAL INTEGRATOR, AND SHOULD NOT BE SET EXTERNALLY.
-    */
-   double next_temperature; //!< trick_units(K)
+    /**
+     * The predicted value of temperature at the next time-step.
+     * THIS VALUE IS USED
+     * ONLY BY THE  THERMAL INTEGRATOR, AND SHOULD NOT BE SET EXTERNALLY.
+     */
+    double next_temperature{}; //!< trick_units(K)
 
-   /**
-    * The dynamic value of the facet kinetic temperature. THIS VALUE IS USED
-    * ONLY BY THE  THERMAL INTEGRATOR, AND SHOULD NOT BE SET EXTERNALLY.
-    */
-   double dynamic_temperature; //!< trick_units(K)
+    /**
+     * The dynamic value of the facet kinetic temperature. THIS VALUE IS USED
+     * ONLY BY THE  THERMAL INTEGRATOR, AND SHOULD NOT BE SET EXTERNALLY.
+     */
+    double dynamic_temperature{}; //!< trick_units(K)
 
-   //  static bool conduction_enabled;
-   //  static bool conduction_active;
-   //  int num_contact_facets;
-   //  double * conduction;
-   //  facet ** facet_ptr;
-   //  double cond_calc;/* --
-   //         Power conducted into the facet from a neighboring facet. */
+    //  static bool conduction_enabled;
+    //  static bool conduction_active;
+    //  int num_contact_facets;
+    //  double * conduction;
+    //  facet ** facet_ptr;
+    //  double cond_calc;/* --
+    //         Power conducted into the facet from a neighboring facet. */
 
-
-   // Member methods
+    // Member methods
 public:
-   ThermalFacetRider();
-   virtual ~ThermalFacetRider();
+    ThermalFacetRider() = default;
+    virtual ~ThermalFacetRider() = default;
+    ThermalFacetRider & operator=(const ThermalFacetRider &) = delete;
+    ThermalFacetRider(const ThermalFacetRider &) = delete;
 
+    void initialize(double temperature, double surface_area);
 
-   void initialize( double temperature,
-                    double surface_area );
+    void accumulate_thermal_sources();
 
-   void accumulate_thermal_sources( void );
-
-   double integrate ( void );
-
-   // WTF is this?
-   // Setter for flag to use first order integrator
-   // @param use -- true forces use of first order integrator
-
-private:
-
-   ThermalFacetRider& operator = (const ThermalFacetRider& rhs);
-   ThermalFacetRider(const ThermalFacetRider& rhs);
-
+    double integrate();
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

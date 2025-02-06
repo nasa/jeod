@@ -61,7 +61,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_NED_STATE_HH
 #define JEOD_DYN_BODY_INIT_NED_STATE_HH
 
@@ -69,85 +68,70 @@ Library dependencies:
 
 // JEOD includes
 #include "environment/ephemerides/ephem_interface/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
-#include "utils/planet_fixed/planet_fixed_posn/include/alt_lat_long_state.hh"
 #include "utils/planet_fixed/north_east_down/include/north_east_down.hh"
-
+#include "utils/planet_fixed/planet_fixed_posn/include/alt_lat_long_state.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "dyn_body_init_planet_derived.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
- * Initialize selected aspects of a vehicle's state with respect to eithers
+ * Initialize selected aspects of a vehicle's state with respect to either
  * some vehicle's North-East-Down frame or the North-East-Down frame for a
  * specified location on the planet.
  */
-class DynBodyInitNedState : public DynBodyInitPlanetDerived {
+class DynBodyInitNedState : public DynBodyInitPlanetDerived
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitNedState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitNedState)
+    // Member data
 
+public:
+    /**
+     * Reference point for the local geodetic/geocentric, used only
+     * if the reference body is NULL.
+     */
+    AltLatLongState ref_point; //!< trick_units(--)
 
- // Member data
-
- public:
-
-   /**
-    * Reference point for the local geodetic/geocentric, used only
-    * if the reference body is NULL.
-    */
-   AltLatLongState ref_point; //!< trick_units(--)
-
-   /**
-    * Use spherical or elliptical coordinates?
-    */
-   NorthEastDown::AltLatLongType altlatlong_type; //!< trick_units(--)
+    /**
+     * Use spherical or elliptical coordinates?
+     */
+    NorthEastDown::AltLatLongType altlatlong_type{NorthEastDown::undefined}; //!< trick_units(--)
 
 protected:
+    /**
+     * Use pfix or alt_pfix flag
+     */
+    bool use_alt_pfix{}; //!< trick_units(--)
 
-   /**
-    * Use pfix or alt_pfix flag
-    */
-   bool use_alt_pfix; //!< trick_units(--)
-   
-   /**
-    * Pointer to planet fixed frame to be used, either 
-    * pfix or alt_pfix
-    */
-   EphemerisRefFrame * pfix_ptr; //!< trick_units(--)
+    /**
+     * Pointer to planet fixed frame to be used, either
+     * pfix or alt_pfix
+     */
+    EphemerisRefFrame * pfix_ptr{}; //!< trick_units(--)
 
- // Member functions
+    // Member functions
+public:
+    DynBodyInitNedState();
+    ~DynBodyInitNedState() override = default;
+    DynBodyInitNedState(const DynBodyInitNedState &) = delete;
+    DynBodyInitNedState & operator=(const DynBodyInitNedState &) = delete;
 
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
-   DynBodyInitNedState (const DynBodyInitNedState&);
-   DynBodyInitNedState & operator = (const DynBodyInitNedState&);
+    // apply: Apply the state to the subject body.
+    void apply(DynManager & dyn_manager) override;
 
-
- public:
-
-   DynBodyInitNedState ();
-
-   ~DynBodyInitNedState () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // apply: Apply the state to the subject body.
-   void apply (DynManager & dyn_manager) override;
-
-   // Setter for use_alt_pfix
-   void set_use_alt_pfix (const bool use_alt_pfix_in);
-
+    // Setter for use_alt_pfix
+    void set_use_alt_pfix(const bool use_alt_pfix_in);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

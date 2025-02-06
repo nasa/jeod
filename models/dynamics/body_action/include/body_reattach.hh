@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_BODY_REATTACH_HH
 #define JEOD_MASS_BODY_REATTACH_HH
 
@@ -67,15 +66,15 @@ Library dependencies:
 
 // JEOD includes
 #include "dynamics/dyn_manager/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/orientation/include/orientation.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "body_action.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Alters the nature of an existing attachment.
@@ -88,56 +87,39 @@ namespace jeod {
  * attachment tree. It instead alters the physical relationships between a pair
  * of objects that are already attached.
  */
-class BodyReattach : public BodyAction {
+class BodyReattach : public BodyAction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyReattach)
 
- JEOD_MAKE_SIM_INTERFACES(BodyReattach)
+    // Member data
 
+public:
+    /**
+     * Location of this body's structural origin with respect to the new parent
+     * body's structural origin, specified in structural coordinates of the
+     * new parent body.
+     */
+    double offset_pstr_cstr_pstr[3]{}; //!< trick_units(m)
 
- // Member data
+    /**
+     * Orientation of child's structural frame with respect to that of the
+     * new parent; sense is parent-to-child.
+     */
+    Orientation pstr_cstr; //!< trick_units(--)
 
- public:
+    // Methods
 
-   /**
-    * Location of this body's structural origin with respect to the new parent
-    * body's structural origin, specified in structural coordinates of the
-    * new parent body.
-    */
-   double offset_pstr_cstr_pstr[3];   //!< trick_units(m)
+public:
+    BodyReattach();
+    ~BodyReattach() override = default;
+    BodyReattach(const BodyReattach &) = delete;
+    BodyReattach & operator=(const BodyReattach &) = delete;
 
-   /**
-    * Orientation of child's structural frame with respect to that of the
-    * new parent; sense is parent-to-child.
-    */
-   Orientation pstr_cstr;             //!< trick_units(--)
-
-
- // Methods
-
- public:
-
-   // Default constructor.
-   BodyReattach ();
-
-   // Destructor.
-   ~BodyReattach () override;
-
-   // apply: Attach the specified mass bodies.
-   void apply (DynManager & dyn_manager) override;
-
+    // apply: Attach the specified mass bodies.
+    void apply(DynManager & dyn_manager) override;
 };
 
-
-/**
- * Destructor
- */
-inline
-BodyReattach::~BodyReattach (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

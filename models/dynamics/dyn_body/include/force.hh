@@ -57,13 +57,12 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_FORCE_HH
 #define JEOD_FORCE_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A Force represents a Newtonian force that acts on a DynBody.
@@ -79,55 +78,33 @@ namespace jeod {
  * even if it is a 3-vector. In comparison, Force objects can be turned on and
  * off, and more importantly, they are type-safe.
  */
-class Force {
+class Force
+{
+public:
+    // Member functions
+    Force() = default;
+    virtual ~Force() = default;
+    Force(const Force &) = delete;
+    Force & operator=(const Force &) = delete;
 
- public:
+    // Member data
 
-   // Member functions
+    /**
+     * Is this force active?
+     */
+    bool active{true}; //!< trick_units(--)
 
-   // Constructor and destructor.
-   Force ();
-   virtual ~Force ();
+    /**
+     * Force vector
+     */
+    double force[3]{}; //!< trick_units(N)
 
+    // Operators; listed out-of-order due to Trick07 ICG.
 
-   // Member data
-
-   /**
-    * Is this force active?
-    */
-   bool active; //!< trick_units(--)
-
-   /**
-    * Force vector
-    */
-   double force[3]; //!< trick_units(N)
-
-
-   // Operators; listed out-of-order due to Trick07 ICG.
-
-   // Subscript operator: Access force elements as an lvalue.
-   double & operator[] (const unsigned int index);
-   double operator[] (const unsigned int index) const;
-
-
- private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   Force (const Force &);
-
-   /**
-    * Not implemented.
-    */
-   Force & operator= (const Force &);
-
+    // Subscript operator: Access force elements as an lvalue.
+    double & operator[](const unsigned int index);
+    double operator[](const unsigned int index) const;
 };
-
-
 
 /**
  * A CollectForce represents a collected force that acts on a vehicle.
@@ -146,122 +123,83 @@ class Force {
  * CollectForces should not be used in model code to represent forces.
  * Use the Force class instead.
  */
-class CollectForce {
+class CollectForce
+{
+public:
+    // Static member functions
 
- public:
-
-   // Static member functions
-
-   /* Factory constructors */
-   static CollectForce * create (double * vec);
-   static CollectForce * create (Force & force);
-   static CollectForce * create (CollectForce & force);
-
+    /* Factory constructors */
+    static CollectForce * create(double * vec);
+    static CollectForce * create(Force & force);
+    static CollectForce * create(CollectForce & force);
 
 #ifndef SWIG
 
-   static CollectForce * create (Force * force);
-   static CollectForce * create (CollectForce * force);
+    static CollectForce * create(Force * force);
+    static CollectForce * create(CollectForce * force);
 
 #endif
 
+    // Constructors
+    CollectForce() = default;
+    explicit CollectForce(double vec[3]);
+    explicit CollectForce(Force &);
+    explicit CollectForce(CollectForce &);
 
-   // Constructors
-   CollectForce ();
-   explicit CollectForce (double vec[3]);
-   explicit CollectForce (Force &);
-   explicit CollectForce (CollectForce &);
+    virtual ~CollectForce() = default;
+    CollectForce(const CollectForce &) = delete;
+    CollectForce & operator=(const CollectForce &) = delete;
 
-   // Destructor
-   virtual ~CollectForce ();
+    // Is the force active?
+    bool is_active() const;
 
-   // Is the force active?
-   bool is_active () const;
+    // Subscript operator: Access force elements as an lvalue.
+    double & operator[](const unsigned int index);
+    double operator[](const unsigned int index) const;
 
-   // Subscript operator: Access force elements as an lvalue.
-   double & operator[] (const unsigned int index);
-   double operator[] (const unsigned int index) const;
+    inline bool operator==(const CollectForce & other)
+    {
+        return (force == other.force);
+    }
 
-   inline bool operator==(const CollectForce &other)
-   {
-       return (force == other.force);
-   }
+    // Member data
+    // That these are public is deprecated.
 
+    /**
+     * Is this force active?
+     */
+    bool * active{}; //!< trick_units(--)
 
-   // Member data
-   // That these are public is deprecated.
-
-   /**
-    * Is this force active?
-    */
-   bool * active; //!< trick_units(--)
-
-   /**
-    * Force vector
-    */
-   double * force; //!< trick_units(N)
-
-
- private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   CollectForce (const CollectForce &);
-
-   /**
-    * Not implemented.
-    */
-   CollectForce & operator= (const CollectForce &);
-
+    /**
+     * Force vector
+     */
+    double * force{}; //!< trick_units(N)
 };
-
-
 
 /**
  * This class is deprecated.
  */
-class CInterfaceForce : public CollectForce {
+class CInterfaceForce : public CollectForce
+{
+public:
+    // Member functions.
 
- public:
+    // Constructors.
+    CInterfaceForce() = default;
+    explicit CInterfaceForce(double * vec);
 
- // Member functions.
+    // Destructor
+    ~CInterfaceForce() override;
 
-   // Constructors.
-   CInterfaceForce ();
-   explicit CInterfaceForce (double * vec);
+    // Member data: This class adds no data to CollectForce.
 
-   // Destructor
-   ~CInterfaceForce () override;
-
-   // Member data: This class adds no data to CollectForce.
-
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   CInterfaceForce (const CInterfaceForce &);
-
-   /**
-    * Not implemented.
-    */
-   CInterfaceForce & operator= (const CInterfaceForce &);
-
+    CInterfaceForce(const CInterfaceForce &) = delete;
+    CInterfaceForce & operator=(const CInterfaceForce &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #include "force_inline.hh"
-
 
 #endif
 

@@ -28,22 +28,16 @@ class METAtmosphere;
 // Unsupported includes
 #include "../include/solar_max.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-METAtmosphere_solar_max_default_data::initialize (
-   METAtmosphere * METAtmosphere_ptr)
+namespace jeod
 {
 
-
-   /* Geomagnetic and solar activity parmeters. */
-   METAtmosphere_ptr->geo_index_type = METAtmosphere::ATMOS_MET_GI_AP;
-   METAtmosphere_ptr->geo_index = 25.0;
-   METAtmosphere_ptr->F10 = 250.0;
-   METAtmosphere_ptr->F10B = 250.0;
-
+void METAtmosphere_solar_max_default_data::initialize(METAtmosphere * METAtmosphere_ptr)
+{
+    /* Geomagnetic and solar activity parmeters. */
+    METAtmosphere_ptr->geo_index_type = METAtmosphere::ATMOS_MET_GI_AP;
+    METAtmosphere_ptr->geo_index = 25.0;
+    METAtmosphere_ptr->F10 = 250.0;
+    METAtmosphere_ptr->F10B = 250.0;
 }
-} // End JEOD namespace
+} // namespace jeod

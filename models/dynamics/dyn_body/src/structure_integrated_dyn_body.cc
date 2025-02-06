@@ -29,39 +29,28 @@ Library dependencies:
 
 #include <cstddef>
 
+//! Namespace jeod
+namespace jeod
+{
 
-//! Namespace jeod 
-namespace jeod {
-
-StructureIntegratedDynBody::StructureIntegratedDynBody ()
-:
-    effector_wrench_collection(),
-    constraints_solver(nullptr),
-    effector_wrench(),
-    vehicle_properties (
-        mass.structure_point.position,
-        mass.structure_point.T_parent_this,
-        mass.composite_properties.mass,
-        mass.composite_properties.position,
-        mass.composite_properties.inertia,
-        mass.composite_properties.T_parent_this,
-        mass.composite_properties.inverse_mass,
-        mass.composite_properties.inverse_inertia)
+StructureIntegratedDynBody::StructureIntegratedDynBody()
+    : vehicle_properties(mass.structure_point.position,
+                         mass.structure_point.T_parent_this,
+                         mass.composite_properties.mass,
+                         mass.composite_properties.position,
+                         mass.composite_properties.inertia,
+                         mass.composite_properties.T_parent_this,
+                         mass.composite_properties.inverse_mass,
+                         mass.composite_properties.inverse_inertia)
 {
     // This class integrates the structural frame.
     integrated_frame = &structure;
 
     // Register the checkpointable items.
-    JEOD_REGISTER_CLASS (StructureIntegratedDynBody);
+    JEOD_REGISTER_CLASS(StructureIntegratedDynBody);
 }
 
-
-StructureIntegratedDynBody::~StructureIntegratedDynBody ()
-{
-}
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

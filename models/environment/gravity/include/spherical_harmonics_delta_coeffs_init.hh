@@ -58,70 +58,56 @@ References:
 Assumptions and limitations:
   ((none))
 
-Library dependencies:
-  ((../src/spherical_harmonics_delta_coeffs_init.cc))
-
-
-
 *******************************************************************************/
-
 
 #ifndef JEOD_SPHERICAL_HARMONICS_DELTA_COEFFS_INIT_HH
 #define JEOD_SPHERICAL_HARMONICS_DELTA_COEFFS_INIT_HH
-
 
 // System includes
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialization data for a SphericalHarmonicsDeltaCoeffs instance.
  */
-class SphericalHarmonicsDeltaCoeffsInit {
+class SphericalHarmonicsDeltaCoeffsInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsDeltaCoeffsInit)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsDeltaCoeffsInit)
+    // Member data
+public:
+    /**
+     * Normalized real (cosine) variational spherical harmonic coefficients.
+     */
+    double ** delta_Cnm{}; //!< trick_units(--)
 
+    /**
+     * Normalized imaginary (sine) variational spherical harmonic coeffs.
+     */
+    double ** delta_Snm{}; //!< trick_units(--)
 
- // Member data
- public:
+    /**
+     * Coefficient degree to be used for this SphericalHarmonicsDeltaCoeffs.
+     */
+    unsigned int degree{}; //!< trick_units(--)
 
-   /**
-    * Normalized real (cosine) variational spherical harmonic coefficients.
-    */
-   double ** delta_Cnm; //!< trick_units(--)
+    /**
+     * Coefficient order to be used for this SphericalHarmonicsDeltaCoeffs.
+     */
+    unsigned int order{}; //!< trick_units(--)
 
-   /**
-    * Normalized imaginary (sine) variational spherical harmonic coeffs.
-    */
-   double ** delta_Snm; //!< trick_units(--)
-
-   /**
-    * Coefficient degree to be used for this SphericalHarmonicsDeltaCoeffs.
-    */
-   unsigned int degree; //!< trick_units(--)
-
-   /**
-    * Coefficient order to be used for this SphericalHarmonicsDeltaCoeffs.
-    */
-   unsigned int order; //!< trick_units(--)
-
-
- // Member functions
- public:
-
-   // Constructor & Destructor
-   SphericalHarmonicsDeltaCoeffsInit ();
-   virtual ~SphericalHarmonicsDeltaCoeffsInit ();
-
+    // Member functions
+public:
+    SphericalHarmonicsDeltaCoeffsInit() = default;
+    virtual ~SphericalHarmonicsDeltaCoeffsInit() = default;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

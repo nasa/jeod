@@ -60,7 +60,7 @@
 Library dependencies:
     ((../src/spring_pair_interaction.cc))
 
- 
+
 
 *****************************************************************************/
 
@@ -74,60 +74,46 @@ Library dependencies:
 #include "pair_interaction.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Simple spring contact parameters
  */
-class SpringPairInteraction : public PairInteraction {
-
-
-   JEOD_MAKE_SIM_INTERFACES (SpringPairInteraction)
+class SpringPairInteraction : public PairInteraction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SpringPairInteraction)
 
 public:
-   /**
-    * Spring stiffness constant.
-    */
-   double spring_k;  //!< trick_units(N/m)
+    /**
+     * Spring stiffness constant.
+     */
+    double spring_k{}; //!< trick_units(N/m)
 
-   /**
-    * Spring damping constant.
-    */
-   double damping_b; //!< trick_units(N*s/m)
+    /**
+     * Spring damping constant.
+     */
+    double damping_b{}; //!< trick_units(N*s/m)
 
-   /**
-    * Coefficent of friction.
-    */
-   double mu;        //!< trick_units(--)
+    /**
+     * Coefficent of friction.
+     */
+    double mu{}; //!< trick_units(--)
 
-   // constructor
-   SpringPairInteraction ();
+    SpringPairInteraction() = default;
+    ~SpringPairInteraction() override = default;
+    SpringPairInteraction & operator=(const SpringPairInteraction &) = delete;
+    SpringPairInteraction(const SpringPairInteraction &) = delete;
 
-   // destructor
-   ~SpringPairInteraction () override;
-
-   /* force calculation function */
-   void calculate_forces (
-      ContactFacet * subject,
-      ContactFacet * target,
-      RelativeDerivedState * rel_state,
-      double* penetration_vector,
-      double* rel_velocity) override;
-
-
-
-protected:
-
-private:
-
-   // The operator = and copy constructor locked away from use by being private
-
-   SpringPairInteraction& operator = (const SpringPairInteraction & rhs);
-   SpringPairInteraction (const SpringPairInteraction & rhs);
-
+    /* force calculation function */
+    void calculate_forces(ContactFacet * subject,
+                          ContactFacet * target,
+                          RelativeDerivedState * rel_state,
+                          double * penetration_vector,
+                          double * rel_velocity) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

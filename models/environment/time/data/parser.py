@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os, sys, argparse
 try:
@@ -23,7 +23,7 @@ if not args.skipDownload:
    ccmd = 'wget {0}'.format(leap_second_url)
    ret = os.system(ccmd)
    if ret != 0:
-      print("Unable to download '%s'" % leap_second_url)
+      print("Unable to download {0}".format(leap_second_url))
       sys.exit(-1)
 
 LeapSecond = namedtuple('LeapSecond', ['mjd', 'day', 'month', 'year', 'numSeconds'])
@@ -38,7 +38,7 @@ with open('Leap_Second.dat', 'r') as fpIn, open('src/tai_to_utc.cc', 'w') as fpO
      if len(ss) == 5:
         leapSeconds.append(LeapSecond(float(ss[0]), int(ss[1]), int(ss[2]), int(ss[3]), int(ss[4])))
      else:
-        print("Line: '%s'doesn't have 5 columns. Skipping..." % line)
+        print("Line: {0} doesn't have 5 columns. Skipping...".format(line))
   text = Template(filename='tai_to_utc.mako').render(leapSeconds=leapSeconds)
   fpOut.write(text)
 
@@ -57,7 +57,7 @@ def getLeapSecondsFromMjd(mjd):
            retVal = leapSeconds[lsIndex].numSeconds
            break
   return retVal
-  
+
 
 with open(args.inputFile, 'r') as fpIn, open('src/tai_to_ut1.cc', 'w') as fpOut:
   readPastComments = False
@@ -81,6 +81,6 @@ with open(args.inputFile, 'r') as fpIn, open('src/tai_to_ut1.cc', 'w') as fpOut:
         except ValueError as e:
            print(e)
      elif len(ss) > 1:
-        print("Line: '%s' doesn't have at least 7 columns. Skipping..." % line)
+        print("Line: {0} doesn't have at least 7 columns. Skipping...".format(line))
   text = Template(filename='tai_to_ut1.mako').render(entries=entries, getLeapSecondsFromMjd=getLeapSecondsFromMjd )
   fpOut.write(text)

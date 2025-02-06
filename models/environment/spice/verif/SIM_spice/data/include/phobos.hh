@@ -47,14 +47,16 @@ Library dependencies:
 
 #include "environment/planet/data/include/planet_default_data.hh"
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
-class Planet_phobos_default_data : public Planet_default_data {
- public:
-   void initialize (Planet*) override;
+class Planet_phobos_default_data : public Planet_default_data
+{
+public:
+    void initialize(Planet *) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

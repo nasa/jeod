@@ -70,7 +70,7 @@ Assumptions and limitations:
 Library dependencies:
 ((../src/precession_mars.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -86,90 +86,80 @@ Library dependencies:
 // Model includes
 #include "nutation_mars.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Implements the axial rotation portion of the "Pathfinder" Mars RNP model.
  */
-class PrecessionMars : public PlanetRotation {
+class PrecessionMars : public PlanetRotation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PrecessionMars)
 
-   JEOD_MAKE_SIM_INTERFACES(PrecessionMars)
-
-   // Public data members
+    // Public data members
 public:
-   /**
-    * Pointer to the Mars nutation object, used to access nutation in longitude
-    * information. Will be NULL (automatically) if anything but Full_Term_RNP
-    * is set in the RNPMars object.
-    */
-   NutationMars* nutation; //!< trick_units(--)
+    /**
+     * Pointer to the Mars nutation object, used to access nutation in longitude
+     * information. Will be NULL (automatically) if anything but Full_Term_RNP
+     * is set in the RNPMars object.
+     */
+    NutationMars * nutation{}; //!< trick_units(--)
 
-   /**
-    * The (constant) precession angle of Mars at the J2000 epoch.
-    */
-   double psi_at_j2000; //!< trick_units(rad)
+    /**
+     * The (constant) precession angle of Mars at the J2000 epoch.
+     */
+    double psi_at_j2000{}; //!< trick_units(rad)
 
-   /**
-    * The (constant) simple precession rate of Mars.
-    */
-   double psi_dot; //!< trick_units(rad/s)
+    /**
+     * The (constant) simple precession rate of Mars.
+     */
+    double psi_dot{}; //!< trick_units(rad/s)
 
-   /**
-    * The most recent calculated value of the precession angle for Mars,
-    * measured since J2000 epoch.
-    */
-   double psi_precess; //!< trick_units(rad)
+    /**
+     * The most recent calculated value of the precession angle for Mars,
+     * measured since J2000 epoch.
+     */
+    double psi_precess{}; //!< trick_units(rad)
 
-   /**
-    * The (constant) angle from the J2000 vernal equinox to the node of the
-    * Mars mean orbit and ICRF x-y plane.
-    */
-   double N; //!< trick_units(rad)
+    /**
+     * The (constant) angle from the J2000 vernal equinox to the node of the
+     * Mars mean orbit and ICRF x-y plane.
+     */
+    double N{}; //!< trick_units(rad)
 
-   /**
-    * The (constant) inclination of the Mars mean orbit relative to
-    * the ICRF x-y plane.
-    */
-   double J; //!< trick_units(rad)
+    /**
+     * The (constant) inclination of the Mars mean orbit relative to
+     * the ICRF x-y plane.
+     */
+    double J{}; //!< trick_units(rad)
 
-
-// Private data members
+    // Private data members
 private:
+    /**
+     * The (constant) rotation matrix calculated from N and J
+     */
+    double NJ_matrix[3][3]{}; //!< trick_units(--)
 
-   /**
-    * The (constant) rotation matrix calculated from N and J
-    */
-   double NJ_matrix[3][3]; //!< trick_units(--)
-
-
-// Public member functions
+    // Public member functions
 public:
+    PrecessionMars() = default;
+    ~PrecessionMars() override = default;
+    PrecessionMars & operator=(const PrecessionMars &) = delete;
+    PrecessionMars(const PrecessionMars &) = delete;
 
-   PrecessionMars ();
+    // PrecessionMars specific implementation of update_rotation, inherited
+    // from PlanetRotation. Before this is called, the current_time
+    // parameter must be set to Julian days since standard epoch J2000, per
+    // Konopliv references.
+    void update_rotation() override;
 
-   ~PrecessionMars () override;
-
-   // PrecessionMars specific implementation of update_rotation, inherited
-   // from PlanetRotation. Before this is called, the current_time
-   // parameter must be set to Julian days since standard epoch J2000, per
-   // Konopliv references.
-   void update_rotation () override;
-
-   // Initialize the constant rotation matrices associated with data
-   // members N and J, so they don't have to be calculated repeatedly.
-   void compute_fixed_matrices ();
-
-private: // private member functions
-
-// lock away the copy constructor and operator =
-   PrecessionMars& operator = (const PrecessionMars& rhs);
-   PrecessionMars (const PrecessionMars& rhs);
-
+    // Initialize the constant rotation matrices associated with data
+    // members N and J, so they don't have to be calculated repeatedly.
+    void compute_fixed_matrices();
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

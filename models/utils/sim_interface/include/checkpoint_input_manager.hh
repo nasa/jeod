@@ -50,10 +50,8 @@
  PURPOSE: ()
 */
 
-
 #ifndef JEOD_CHECKPOINTINPUTMANAGER_HH
 #define JEOD_CHECKPOINTINPUTMANAGER_HH
-
 
 // JEOD includes
 #include "utils/sim_interface/include/config.hh"
@@ -61,18 +59,17 @@
 
 // System includes
 #include <cstddef>
-#include <istream>
 #include <fstream>
-#include <string>
+#include <istream>
 #include <map>
+#include <string>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class SectionedInputStream;
 class CheckPointInputManager;
-
 
 /**
  A SectionedInputBuffer is a std::streambuf that reads from a section in a
@@ -86,98 +83,87 @@ class CheckPointInputManager;
  from std::streambuf, *everything* in this class is private.
  This class is not extensible.
  */
-class SectionedInputBuffer : public std::streambuf {
-friend class SectionedInputStream;
+class SectionedInputBuffer : public std::streambuf
+{
+    friend class SectionedInputStream;
 
 public:
+    /**
+     Destructor.
+     For now, this does nothing.
+     */
+    ~SectionedInputBuffer() override = default;
 
-   /**
-    Destructor.
-    For now, this does nothing.
-    */
-   ~SectionedInputBuffer() override {}
+    SectionedInputBuffer(const SectionedInputBuffer &) = delete;
+    SectionedInputBuffer & operator=(const SectionedInputBuffer &) = delete;
 
 #ifndef SWIG
-   /**
-    Conversion to boolean.
-    @return False if object is OK.
-    */
-   bool operator ! () const
-   { return file_buf == nullptr; }
+    /**
+     Conversion to boolean.
+     @return False if object is OK.
+     */
+    bool operator!() const
+    {
+        return file_buf == nullptr;
+    }
 #endif
 
 private:
+    // Member functions
 
-   // Member functions
+    // Default constructor
+    SectionedInputBuffer();
 
-   // Default constructor
-   SectionedInputBuffer (void);
+    // Activate the object
+    void activate(std::ifstream & stream, std::size_t spos, std::size_t epos);
 
-   // Activate the object
-   void activate (std::ifstream & stream, std::size_t spos, std::size_t epos);
+    /**
+     Deactivate the object.
+     Used to force a badly behaving stream to disconnect.
+     */
+    void deactivate()
+    {
+        file_buf = nullptr;
+        at_eof = true;
+    }
 
-   /**
-    Deactivate the object.
-    Used to force a badly behaving stream to disconnect.
-    */
-   void deactivate (void) {
-      file_buf = nullptr;
-      at_eof = true;
-   }
+    // Get a character (future: set of characters) from the file buffer.
+    std::streambuf::int_type underflow() override;
 
-   // Get a character (future: set of characters) from the file buffer.
-   std::streambuf::int_type underflow () override;
+    // Member data
 
+    /**
+     * The file buffer that reads from the checkpoint file.
+     */
+    std::filebuf * file_buf{}; //!< trick_io(**)
 
-   // Member data
+    /**
+     * The position of the start of the contents of the
+     * checkpoint file section being read by this object.
+     */
+    JEOD_SIZE_T start_pos{}; //!< trick_io(**)
 
-   /**
-    * The file buffer that reads from the checkpoint file.
-    */
-   std::filebuf * file_buf; //!< trick_io(**)
+    /**
+     * The position just after the end of the contents of the
+     * checkpoint file section being read by this object.
+     */
+    JEOD_SIZE_T end_pos{}; //!< trick_io(**)
 
-   /**
-    * The position of the start of the contents of the
-    * checkpoint file section being read by this object.
-    */
-   JEOD_SIZE_T start_pos; //!< trick_io(**)
+    /**
+     * The current position of the file_buf reader.
+     */
+    JEOD_SIZE_T curr_pos{}; //!< trick_io(**)
 
-   /**
-    * The position just after the end of the contents of the
-    * checkpoint file section being read by this object.
-    */
-   JEOD_SIZE_T end_pos; //!< trick_io(**)
+    /**
+     * At EOF in the file or in the section?
+     */
+    bool at_eof{true}; //!< trick_io(**)
 
-   /**
-    * The current position of the file_buf reader.
-    */
-   JEOD_SIZE_T curr_pos; //!< trick_io(**)
-
-   /**
-    * At EOF in the file or in the section?
-    */
-   bool at_eof; //!< trick_io(**)
-
-   /**
-    * Input buffer.
-    */
-   char buf; //!< trick_io(**)
-
-
-
-   // Nix to the C++ freebie copy constructor and assignment operator.
-
-   /**
-    Not implemented.
-    */
-   SectionedInputBuffer (const SectionedInputBuffer &);
-
-   /**
-    Not implemented.
-    */
-   SectionedInputBuffer & operator= (const SectionedInputBuffer &);
+    /**
+     * Input buffer.
+     */
+    char buf{}; //!< trick_io(**)
 };
-
 
 /**
  A SectionedInputStream is a std::istream that reads from a section in a
@@ -306,107 +292,106 @@ private:
     As with any other stream, operator >> will mark the stream as failed
     if the operator fails to parse.
  */
-class SectionedInputStream : public std::istream {
-friend class CheckPointInputManager;
+class SectionedInputStream : public std::istream
+{
+    friend class CheckPointInputManager;
+
 public:
+    // Default constructor.
+    SectionedInputStream();
 
-   // Default constructor.
-   SectionedInputStream ();
+    // Copy constructor.
+    SectionedInputStream(const SectionedInputStream &);
 
-   // Copy constructor.
-   SectionedInputStream (const SectionedInputStream &);
+    // Destructor.
+    ~SectionedInputStream() override;
 
-   // Destructor.
-   ~SectionedInputStream () override;
+    SectionedInputStream & operator=(const SectionedInputStream &) = delete;
 
-   // Is the object able to be activated?
-   bool is_activatable () const;
+    // Is the object able to be activated?
+    bool is_activatable() const;
 
-   // Activate the object.
-   bool activate ();
+    // Activate the object.
+    bool activate();
 
-   // Deactivate the object.
-   void deactivate (void);
+    // Deactivate the object.
+    void deactivate();
 
 #ifndef SWIG
-   /**
-    Conversion to boolean.
-    Use the bang-bang trick to determine if the object is OK.
-    @return False if object is OK, true if something is wrong.
-    */
-   bool operator ! () const
-   { return (!is_active || !sectbuf || stream == nullptr); }
+    /**
+     Conversion to boolean.
+     Use the bang-bang trick to determine if the object is OK.
+     @return False if object is OK, true if something is wrong.
+     */
+    bool operator!() const
+    {
+        return (!is_active || !sectbuf || stream == nullptr);
+    }
 
-   /**
-    Conversion to void*.
-    This method provides an alternative to the bang-bang trick to determine
-    if the object is OK.
-    @return this pointer (cast to void*) if object is OK, NULL otherwise.
-    */
-   operator void* () const
-   { return (!*this) ? nullptr : const_cast<SectionedInputStream*>(this); }
+    /**
+     Conversion to void*.
+     This method provides an alternative to the bang-bang trick to determine
+     if the object is OK.
+     @return this pointer (cast to void*) if object is OK, NULL otherwise.
+     */
+    operator void *() const
+    {
+        if(!*this)
+        {
+            return nullptr;
+        }
+        else
+        {
+            return const_cast<SectionedInputStream *>(this);
+        }
+    }
 #endif
 
 private:
+    // Construct a SectionedInputStream (non-default constructor).
+    SectionedInputStream(CheckPointInputManager * mngr, std::ifstream & fstream, std::size_t spos, std::size_t epos);
 
-   // Construct a SectionedInputStream (non-default constructor).
-   SectionedInputStream (
-      CheckPointInputManager * mngr,
-      std::ifstream & fstream,
-      std::size_t spos,
-      std::size_t epos);
+    // Member data
 
+    /**
+     * The std::streambuf that does the reading from the file.
+     */
+    SectionedInputBuffer sectbuf; //!< trick_io(**)
 
-   // Member data
+    /**
+     * The input manager that created this object.
+     */
+    CheckPointInputManager * manager{}; //!< trick_io(**)
 
-   /**
-    * The std::streambuf that does the reading from the file.
-    */
-   SectionedInputBuffer sectbuf; //!< trick_io(**)
+    /**
+     * The C++ file stream that reads from the checkpoint file.
+     */
+    std::ifstream * stream{}; //!< trick_io(**)
 
-   /**
-    * The input manager that created this object.
-    */
-   CheckPointInputManager * manager; //!< trick_io(**)
+    /**
+     * The position of the start of the contents of the
+     * checkpoint file section being read by this object.
+     */
+    JEOD_SIZE_T start_pos{}; //!< trick_io(**)
 
-   /**
-    * The C++ file stream that reads from the checkpoint file.
-    */
-   std::ifstream * stream; //!< trick_io(**)
+    /**
+     * The position just after the end of the contents of the
+     * checkpoint file section being read by this object.
+     */
+    JEOD_SIZE_T end_pos{}; //!< trick_io(**)
 
-   /**
-    * The position of the start of the contents of the
-    * checkpoint file section being read by this object.
-    */
-   JEOD_SIZE_T start_pos; //!< trick_io(**)
+    /**
+     * Is this a copy of some other SectionedInputStream?
+     * Copies of copies are verboten.
+     */
+    bool is_copy{}; //!< trick_io(**)
 
-   /**
-    * The position just after the end of the contents of the
-    * checkpoint file section being read by this object.
-    */
-   JEOD_SIZE_T end_pos; //!< trick_io(**)
-
-   /**
-    * Is this a copy of some other SectionedInputStream?
-    * Copies of copies are verboten.
-    */
-   bool is_copy; //!< trick_io(**)
-
-   /**
-    * Is this an active object?
-    * In the end, there can be only one.
-    */
-   bool is_active; //!< trick_io(**)
-
-
-   // Nix to the C++ freebie assignment operator.
-
-   /**
-    Not implemented.
-    */
-   SectionedInputStream & operator= (const SectionedInputStream &);
+    /**
+     * Is this an active object?
+     * In the end, there can be only one.
+     */
+    bool is_active{}; //!< trick_io(**)
 };
-
 
 /**
  A CheckPointInputManager provides tools for reading a checkpoint file.
@@ -416,150 +401,137 @@ private:
  those checkpoint file sections. The interpretation of the contents of
  a checkpoint file section is the responsibility of those other objects.
  */
-class CheckPointInputManager {
-
+class CheckPointInputManager
+{
 public:
+    // Non-default constructor.
+    CheckPointInputManager(const std::string & fname, const std::string & start_marker, const std::string & end_marker);
 
-   // Non-default constructor.
-   CheckPointInputManager (const std::string & fname,
-                          const std::string & start_marker,
-                          const std::string & end_marker);
+    CheckPointInputManager(const CheckPointInputManager &) = delete;
+    CheckPointInputManager & operator=(const CheckPointInputManager &) = delete;
 
-   /**
-    Create a C++ input stream that reads from a checkpoint file section.
-    @par Error handling
-    A null SectionedInputStream is created when the CheckPointInputManager
-    itself is invalid or when the designated section is not present in the
-    checkpoint file.
-    @param tag Tag that identifies the section to be read.
-    @return    A SectionedInputStream object, which must be used to
-              initialize a local SectionedInputStream variable.
-    */
-   SectionedInputStream create_section_reader (const std::string & tag)
-   { return create_section_reader (false, tag); }
+    /**
+     Create a C++ input stream that reads from a checkpoint file section.
+     @par Error handling
+     A null SectionedInputStream is created when the CheckPointInputManager
+     itself is invalid or when the designated section is not present in the
+     checkpoint file.
+     @param tag Tag that identifies the section to be read.
+     @return    A SectionedInputStream object, which must be used to
+               initialize a local SectionedInputStream variable.
+     */
+    SectionedInputStream create_section_reader(const std::string & tag)
+    {
+        return create_section_reader(false, tag);
+    }
 
 #ifndef SWIG
-   /**
-    Conversion to boolean.
-    @return False if object is OK.
-    */
-   bool operator ! () const
-   { return (!is_open || !stream); }
+    /**
+     Conversion to boolean.
+     @return False if object is OK.
+     */
+    bool operator!() const
+    {
+        return (!is_open || !stream);
+    }
 #endif
 
-   /**
-    Is there an active checkpoint section reader?
-    @return True if there is an active reader, false otherwise.
-    */
-   bool have_active_reader () const
-   { return (current_reader != nullptr); }
+    /**
+     Is there an active checkpoint section reader?
+     @return True if there is an active reader, false otherwise.
+     */
+    bool have_active_reader() const
+    {
+        return (current_reader != nullptr);
+    }
 
-   // Denote a reader as *the* currently active reader.
-   bool register_reader (SectionedInputStream * reader);
+    // Denote a reader as *the* currently active reader.
+    bool register_reader(SectionedInputStream * reader);
 
-   // Denote a reader as no longer being *the* currently active reader.
-   bool deregister_reader (const SectionedInputStream * reader);
-
+    // Denote a reader as no longer being *the* currently active reader.
+    bool deregister_reader(const SectionedInputStream * reader);
 
 private:
+    // Types
 
-   // Types
+    /**
+     A SectionInfo contains the start and end positions of a checkpoint
+     file section.
+     */
+    struct SectionInfo
+    {
+        /**
+         * Position of the first readable character of a section.
+         */
+        JEOD_SIZE_T start_pos; //!< trick_io(**)
 
-   /**
-    A SectionInfo contains the start and end positions of a checkpoint
-    file section.
-    */
-   struct SectionInfo {
-      /**
-       * Position of the first readable character of a section.
-       */
-      JEOD_SIZE_T start_pos; //!< trick_io(**)
+        /**
+         * Position of the first unreadable character after a section.
+         */
+        JEOD_SIZE_T end_pos; //!< trick_io(**)
 
-      /**
-       * Position of the first unreadable character after a section.
-       */
-      JEOD_SIZE_T end_pos; //!< trick_io(**)
+        /**
+         * Non-default constructor.
+         * \param[in] start Start position
+         * \param[in] end End position
+         */
+        SectionInfo(std::size_t start, std::size_t end)
+            : start_pos(start),
+              end_pos(end)
+        {
+        }
+    };
 
-            /**
-       * Non-default constructor.
-       * \param[in] start Start position
-       * \param[in] end End position
-       */
-      SectionInfo (
-         std::size_t start,
-         std::size_t end)
-      : start_pos(start), end_pos(end) {}
-   };
+    // Member functions
 
+    // Record locations of section markers.
+    void initialize();
 
-   // Member functions
+    // Create a C++ input stream that reads from a checkpoint file section.
+    SectionedInputStream create_section_reader(bool trick, const std::string & tag);
 
-   // Record locations of section markers.
-   void initialize (void);
+    // Create a C++ input stream that reads the Trick checkpoint file section.
+    SectionedInputStream create_trick_section_reader(); // cppcheck-suppress unusedPrivateFunction
 
-   // Create a C++ input stream that reads from a checkpoint file section.
-   SectionedInputStream create_section_reader (
-      bool trick,
-      const std::string & tag);
+    // Member data
 
-   // Create a C++ input stream that reads the Trick checkpoint file section.
-   SectionedInputStream create_trick_section_reader (); //cppcheck-suppress unusedPrivateFunction
+    /**
+     * Maps section names to section start/end positions.
+     */
+    std::map<std::string, SectionInfo> sections; //!< trick_io(**)
 
+    /**
+     * The C++ file stream that reads the checkpoint file.
+     */
+    std::ifstream stream; //!< trick_io(**)
 
-   // Member data
+    /**
+     * The reader that currently is active.
+     */
+    SectionedInputStream * current_reader{}; //!< trick_io(**)
 
-   /**
-    * Maps section names to section start/end positions.
-    */
-   std::map<std::string, SectionInfo> sections; //!< trick_io(**)
+    /**
+     * The name of the checkpoint file.
+     */
+    const std::string filename;
 
-   /**
-    * The C++ file stream that reads the checkpoint file.
-    */
-   std::ifstream stream; //!< trick_io(**)
+    /**
+     * The string that indicates the start of a checkpoint file section.
+     */
+    const std::string & section_start;
 
-   /**
-    * The reader that currently is active.
-    */
-   SectionedInputStream * current_reader; //!< trick_io(**)
+    /**
+     * The string that indicates the start of a checkpoint file section.
+     */
+    const std::string & section_end;
 
-   /**
-    * The name of the checkpoint file.
-    */
-   const std::string filename;
-
-   /**
-    * The string that indicates the start of a checkpoint file section.
-    */
-   const std::string & section_start;
-
-   /**
-    * The string that indicates the start of a checkpoint file section.
-    */
-   const std::string & section_end;
-
-   /**
-    * Is the checkpoint file open?
-    */
-   bool is_open; //!< trick_io(**)
-
-
-
-   // Nix to the C++ freebie copy constructor and assignment operator.
-
-   /**
-    Not implemented.
-    */
-   CheckPointInputManager (const CheckPointInputManager &);
-
-   /**
-    Not implemented.
-    */
-   CheckPointInputManager & operator= (const CheckPointInputManager &);
+    /**
+     * Is the checkpoint file open?
+     */
+    bool is_open{true}; //!< trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -55,10 +55,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_SEQUENCE_CONTAINER_H
 #define JEOD_MEMORY_SEQUENCE_CONTAINER_H
@@ -69,15 +68,14 @@ Purpose:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // What's missing:
 // Some constructors (probably never)
 // Methods common to sequence and associative containers, and methods unique
 // to sequence containers but not common all sequence containers.
-
 
 /**
  * This is the base class for the JEOD replacements of the STL sequence
@@ -98,236 +96,204 @@ namespace jeod {
  *    JEOD doesn't use deques.
  *  - The full panoply of STL sequence container constructors is not supplied.
  */
-template <typename ElemType, typename ContainerType>
-class JeodSequenceContainer : public JeodSTLContainer<ElemType, ContainerType> {
-
+template<typename ElemType, typename ContainerType>
+class JeodSequenceContainer : public JeodSTLContainer<ElemType, ContainerType>
+{
 public:
+    // Types
 
-   // Types
+    /**
+     * This type
+     */
+    using this_container_type = JeodSequenceContainer<ElemType, ContainerType>;
 
-   /**
-    * This type
-    */
-   typedef JeodSequenceContainer<ElemType, ContainerType> this_container_type;
+    /**
+     * The JeodSTLContainer
+     */
+    using base_container_type = JeodSTLContainer<ElemType, ContainerType>;
 
-   /**
-    * The JeodSTLContainer
-    */
-   typedef JeodSTLContainer<ElemType, ContainerType> base_container_type;
+    // Member functions
 
+    // Constructors and destructor.
+    // NOTE: The constructors are not here in the public section.
+    // They are protected. This class and its direct descendants JeodList and
+    // JeodVector do not provide add any functionality to the STL sequences
+    // except that the destructor is now virtual. Making the constructors
+    // protected here forces a further derivation by some other class template
+    // that does provide distinguishing characteristics.
 
-   // Member functions
+    /**
+     * Destructor.
+     */
+    virtual ~JeodSequenceContainer() = default;
 
-   // Constructors and destructor.
-   // NOTE: The constructors are not here in the public section.
-   // They are protected. This class and its direct descendants JeodList and
-   // JeodVector do not provide add any functionality to the STL sequences
-   // except that the destructor is now virtual. Making the constructors
-   // protected here forces a further derivation by some other class template
-   // that does provide distinguishing characteristics.
+    // Element access
 
-   /**
-    * Destructor.
-    */
-   virtual ~JeodSequenceContainer (void) {}
+    /**
+     * Get the element at the tail of the contents.
+     */
+    typename base_container_type::reference back()
+    {
+        return this->contents.back();
+    }
 
+    /**
+     * Get the element at the tail of the contents.
+     */
+    typename base_container_type::const_reference back() const
+    {
+        return this->contents.back();
+    }
 
-   // Element access
+    /**
+     * Get the element at the head of the contents.
+     */
+    typename base_container_type::reference front()
+    {
+        return this->contents.front();
+    }
 
-   /**
-    * Get the element at the tail of the contents.
-    */
-   typename base_container_type::reference
-   back (void)
-   {
-      return this->contents.back ();
-   }
+    /**
+     * Get the element at the head of the contents.
+     */
+    typename base_container_type::const_reference front() const
+    {
+        return this->contents.front();
+    }
 
-   /**
-    * Get the element at the tail of the contents.
-    */
-   typename base_container_type::const_reference
-   back (void) const
-   {
-      return this->contents.back ();
-   }
+    // Modifiers
 
-   /**
-    * Get the element at the head of the contents.
-    */
-   typename base_container_type::reference
-   front (void)
-   {
-      return this->contents.front ();
-   }
+    /**
+     * Replace the container's contents with that specified by the iterators.
+     *  @param  first  Input iterator.
+     *  @param  last   Input iterator.
+     */
+    template<class InputIterator> void assign(InputIterator first, InputIterator last)
+    {
+        this->contents.assign(first, last);
+    }
 
-   /**
-    * Get the element at the head of the contents.
-    */
-   typename base_container_type::const_reference
-   front (void) const
-   {
-      return this->contents.front ();
-   }
+    /**
+     * Replace the container's contents with @a new_size copies of @a new_elem.
+     *  @param  new_size  New size of the container.
+     *  @param  new_elem  Element to be replicated to fill the container.
+     */
+    void assign(typename base_container_type::size_type new_size, const ElemType & new_elem)
+    {
+        this->contents.assign(new_size, new_elem);
+    }
 
+    /**
+     * Erase one item.
+     * @param position Position to be erased
+     */
+    typename base_container_type::iterator erase(typename base_container_type::iterator position)
+    {
+        return this->contents.erase(position);
+    }
 
-   // Modifiers
+    /**
+     * Erase a sequence of items.
+     * @param first First element to be erased
+     * @param last  One past last element to be erased
+     */
+    typename base_container_type::iterator erase(typename base_container_type::iterator first,
+                                                 typename base_container_type::iterator last)
+    {
+        return this->contents.erase(first, last);
+    }
 
-   /**
-    * Replace the container's contents with that specified by the iterators.
-    *  @param  first  Input iterator.
-    *  @param  last   Input iterator.
-    */
-   template <class InputIterator>
-   void
-   assign (
-      InputIterator first,
-      InputIterator last)
-   {
-      this->contents.assign (first, last);
-   }
+    // insert: Note that one of the three insert methods is common to all
+    // JEOD containers and hence is implemented in the base case.
+    using base_container_type::insert;
 
-   /**
-    * Replace the container's contents with @a new_size copies of @a new_elem.
-    *  @param  new_size  New size of the container.
-    *  @param  new_elem  Element to be replicated to fill the container.
-    */
-   void
-   assign (
-      typename base_container_type::size_type new_size,
-      const ElemType & new_elem)
-   {
-      this->contents.assign (new_size, new_elem);
-   }
+    /**
+     * Insert elements before iterator @a position, initializing the
+     * inserted elements from the values pointed to by an iterator.
+     * @param position  Insertion position
+     * @param first     Input iterator
+     * @param last      Input iterator
+     */
+    template<class InputIterator>
+    void insert(typename base_container_type::iterator position, InputIterator first, InputIterator last)
+    {
+        this->contents.insert(position, first, last);
+    }
 
-   /**
-    * Erase one item.
-    * @param position Position to be erased
-    */
-   typename base_container_type::iterator
-   erase (
-      typename base_container_type::iterator position)
-   {
-      return this->contents.erase (position);
-   }
+    /**
+     * Extends the list by @a ncopies elements before the iterator @a position,
+     * initializing each newly created element with @a new_elem.
+     * @param position  Insertion position
+     * @param ncopies   Number of elements to be inserted
+     * @param new_elem  Element value to be inserted
+     */
+    void insert(typename base_container_type::iterator position,
+                typename base_container_type::size_type ncopies,
+                const ElemType & new_elem)
+    {
+        this->contents.insert(position, ncopies, new_elem);
+    }
 
-   /**
-    * Erase a sequence of items.
-    * @param first First element to be erased
-    * @param last  One past last element to be erased
-    */
-   typename base_container_type::iterator
-   erase (
-      typename base_container_type::iterator first,
-      typename base_container_type::iterator last)
-   {
-      return this->contents.erase (first, last);
-   }
+    /**
+     * Resizes the container, adding or deleting items as needed.
+     * @param new_size  New size
+     * @param new_elem  Element to be added repetively if object is to grow.
+     */
+    void resize(typename base_container_type::size_type new_size, ElemType new_elem = ElemType())
+    {
+        return this->contents.resize(new_size, new_elem);
+    }
 
-   // insert: Note that one of the three insert methods is common to all
-   // JEOD containers and hence is implemented in the base case.
-   using base_container_type::insert;
+    /**
+     * Add an element to the end of the contents.
+     * @param elem Element to be added.
+     */
+    void push_back(const ElemType & elem)
+    {
+        this->contents.push_back(elem);
+    }
 
-   /**
-    * Insert elements before iterator @a position, initializing the
-    * inserted elements from the values pointed to by an iterator.
-    * @param position  Insertion position
-    * @param first     Input iterator
-    * @param last      Input iterator
-    */
-   template <class InputIterator>
-   void
-   insert (
-      typename base_container_type::iterator position,
-      InputIterator first,
-      InputIterator last)
-   {
-      this->contents.insert (position, first, last);
-   }
-
-   /**
-    * Extends the list by @a ncopies elements before the iterator @a position,
-    * initializing each newly created element with @a new_elem.
-    * @param position  Insertion position
-    * @param ncopies   Number of elements to be inserted
-    * @param new_elem  Element value to be inserted
-    */
-   void
-   insert (
-      typename base_container_type::iterator position,
-      typename base_container_type::size_type ncopies,
-      const ElemType & new_elem)
-   {
-      this->contents.insert (position, ncopies, new_elem);
-   }
-
-   /**
-    * Resizes the container, adding or deleting items as needed.
-    * @param new_size  New size
-    * @param new_elem  Element to be added repetively if object is to grow.
-    */
-   void
-   resize (
-      typename base_container_type::size_type new_size,
-      ElemType new_elem = ElemType())
-   {
-      return this->contents.resize (new_size, new_elem);
-   }
-
-   /**
-    * Add an element to the end of the contents.
-    * @param elem Element to be added.
-    */
-   void
-   push_back (
-      const ElemType & elem)
-   {
-      this->contents.push_back (elem);
-   }
-
-   /**
-    * Deletes the element at the end of the contents.
-    */
-   void
-   pop_back (void)
-   {
-      this->contents.pop_back ();
-   }
-
+    /**
+     * Deletes the element at the end of the contents.
+     */
+    void pop_back()
+    {
+        this->contents.pop_back();
+    }
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Constructors
 
-   // Constructors
+    /**
+     * Default constructor.
+     * Note: Making this protected precludes someone from declaring an object
+     * to be of type JEODSTLContainer. Access is via some other class that
+     * inherits from this class.
+     */
+    JeodSequenceContainer() = default;
 
-   /**
-    * Default constructor.
-    * Note: Making this protected precludes someone from declaring an object
-    * to be of type JEODSTLContainer. Access is via some other class that
-    * inherits from this class.
-    */
-   JeodSequenceContainer (void) {}
+    /**
+     * Copy constructor.
+     * @param src Source container to be copied
+     */
+    explicit JeodSequenceContainer(const this_container_type & src)
+        : base_container_type(src)
+    {
+    }
 
-   /**
-    * Copy constructor.
-    * @param src Source container to be copied
-    */
-   JeodSequenceContainer (const this_container_type & src)
-   : base_container_type(src)
-   {}
-
-   /**
-    * Copy constructor from STL container.
-    * @param src Source container to be copied
-    */
-   explicit JeodSequenceContainer (const ContainerType & src)
-   : base_container_type(src)
-   {}
+    /**
+     * Copy constructor from STL container.
+     * @param src Source container to be copied
+     */
+    explicit JeodSequenceContainer(const ContainerType & src)
+        : base_container_type(src)
+    {
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

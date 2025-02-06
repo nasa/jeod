@@ -41,20 +41,25 @@
 // and orbital dynamics models in Trick.
 
 // Define job calling intervals
-#define DYNAMICS        0.50  // Moon/orbital dynamics interval
-#define ENVIRONMENT   100.00  // Environment update interval
+#define DYNAMICS 0.50      // Moon/orbital dynamics interval
+#define ENVIRONMENT 100.00 // Environment update interval
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics.sm"
-#include "environment.sm"
-#include "sun_basic.sm"
-#include "moon_basic.sm"
 #include "earth_basic.sm"
+#include "environment.sm"
+#include "moon_basic.sm"
+#include "sun_basic.sm"
 
 //***************************************************************
 // CLASS: (VehSimObject)
@@ -69,29 +74,27 @@
 
 class VehSimObject: public VehicleBasicSimObject
 {
+public:
+    jeod::SphericalHarmonicsGravityControls earth_grav_ctrl;
+    jeod::SphericalHarmonicsGravityControls sun_grav_ctrl;
+    jeod::SphericalHarmonicsGravityControls moon_grav_ctrl;
+    jeod::RelativeDerivedState embary;
 
- public:
-  jeod::SphericalHarmonicsGravityControls  earth_grav_ctrl;
-  jeod::SphericalHarmonicsGravityControls  sun_grav_ctrl;
-  jeod::SphericalHarmonicsGravityControls  moon_grav_ctrl;
-  jeod::RelativeDerivedState embary;
+    jeod::DynBodyFrameSwitch frame_switch;
 
-  jeod::DynBodyFrameSwitch frame_switch;
+    // Constructor
+    VehSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
 
-  //Constructor
-  VehSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject(dyn_mngr_in)
+    {
+        P_DYN("initialization") embary.initialize(dyn_body, dyn_manager);
+        (DYNAMICS, "environment") embary.update();
+    }
 
-  {
-    P_DYN  ("initialization") embary.initialize ( dyn_body,
-                                                  dyn_manager);
-    (DYNAMICS, "environment") embary.update ( );
-  }
- private:
-  VehSimObject (const VehSimObject&);
-  VehSimObject & operator = (const VehSimObject&);
+    VehSimObject(const VehSimObject &) = delete;
+    VehSimObject & operator=(const VehSimObject &) = delete;
 };
-VehSimObject veh ( dynamics.dyn_manager);
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics;
+VehSimObject veh(dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

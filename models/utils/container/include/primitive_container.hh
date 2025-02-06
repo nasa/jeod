@@ -51,10 +51,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_PRIMITIVE_CONTAINER_H
 #define JEOD_MEMORY_PRIMITIVE_CONTAINER_H
@@ -69,116 +68,108 @@ Purpose:
 // System includes
 #include <string>
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A JeodPrimitiveContainer is a JeodContainer that contains primitive
  * data of type ElemType.
  */
-template <typename ContainerType, typename ElemType>
-class JeodPrimitiveContainer : public JeodContainer<ContainerType, ElemType> {
-
+template<typename ContainerType, typename ElemType>
+class JeodPrimitiveContainer : public JeodContainer<ContainerType, ElemType>
+{
 public:
+    /**
+     * Construct a JeodPrimitiveContainer.
+     */
+    JeodPrimitiveContainer() = default;
 
-   /**
-    * Construct a JeodPrimitiveContainer.
-    */
-   JeodPrimitiveContainer (void) {}
+    /**
+     * Copy-construct a JeodPrimitiveContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Primitive container to be copied.
+     */
+    JeodPrimitiveContainer(const JeodPrimitiveContainer & source)
+        : JeodContainer<ContainerType, ElemType>(source)
+    {
+    }
 
-   /**
-    * Copy-construct a JeodPrimitiveContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Primitive container to be copied.
-    */
-   JeodPrimitiveContainer (const JeodPrimitiveContainer & source)
-   :
-      JeodContainer<ContainerType, ElemType>(source)
-   {}
+    /**
+     * Copy-construct a JeodPrimitiveContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Primitive container to be copied.
+     */
+    explicit JeodPrimitiveContainer(const typename ContainerType::stl_container_type & source)
+        : JeodContainer<ContainerType, ElemType>(source)
+    {
+    }
 
-   /**
-    * Copy-construct a JeodPrimitiveContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Primitive container to be copied.
-    */
-   explicit JeodPrimitiveContainer (
-      const typename ContainerType::stl_container_type & source)
-   :
-      JeodContainer<ContainerType, ElemType>(source)
-   {}
+    /**
+     * Copy from a JeodPrimitiveContainer.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Primitive container to be copied.
+     */
+    JeodPrimitiveContainer & operator=(const JeodPrimitiveContainer & source)
+    {
+        JeodContainer<ContainerType, ElemType>::operator=(source);
+        return *this;
+    }
 
-   /**
-    * Copy from a JeodPrimitiveContainer.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Primitive container to be copied.
-    */
-   JeodPrimitiveContainer &
-   operator= (const JeodPrimitiveContainer & source)
-   {
-      JeodContainer<ContainerType, ElemType>::operator= (source);
-      return *this;
-   }
+    /**
+     * Copy from an STL container.
+     * @note
+     * This copies the Container contents, but not the Checkpointable contents.
+     * @param source Primitive container to be copied.
+     */
+    JeodPrimitiveContainer & operator=(const typename ContainerType::stl_container_type & source)
+    {
+        JeodContainer<ContainerType, ElemType>::operator=(source);
+        return *this;
+    }
 
-   /**
-    * Copy from an STL container.
-    * @note
-    * This copies the Container contents, but not the Checkpointable contents.
-    * @param source Primitive container to be copied.
-    */
-   JeodPrimitiveContainer &
-   operator= (const typename ContainerType::stl_container_type & source)
-   {
-      JeodContainer<ContainerType, ElemType>::operator= (source);
-      return *this;
-   }
+    /**
+     * Destruct a JeodPrimitiveContainer.
+     */
+    virtual ~JeodPrimitiveContainer() = default;
 
-   /**
-    * Destruct a JeodPrimitiveContainer.
-    */
-   virtual ~JeodPrimitiveContainer (void) {}
+    /**
+     * Return the value of the item to be written to the checkpoint file.
+     * JeodPrimitiveContainer use the serializer to translate values to strings.
+     */
+    const std::string get_item_value() override
+    {
+        return serializer.to_string(*this->checkpoint_iter);
+    }
 
-   /**
-    * Return the value of the item to be written to the checkpoint file.
-    * JeodPrimitiveContainer use the serializer to translate values to strings.
-    */
-   const std::string get_item_value (void) override
-   {
-      return serializer.to_string (*this->checkpoint_iter);
-   }
-
-   /**
-    * Interpret the provided value and insert it at the end of the object.
-    * JeodPrimitiveContainer use the serializer to interpret the input value.
-    */
-   void perform_insert_action (const std::string & value) override
-   {
-      this->insert (this->end(), serializer.from_string (value));
-   }
+    /**
+     * Interpret the provided value and insert it at the end of the object.
+     * JeodPrimitiveContainer use the serializer to interpret the input value.
+     */
+    void perform_insert_action(const std::string & value) override
+    {
+        this->insert(this->end(), serializer.from_string(value));
+    }
 
 protected:
+    // Member data
 
-   // Member data
-
-   /**
-    * Serializer / deserializer
-    */
-   JeodPrimitiveSerializer<ElemType> serializer; //!< trick_io(**)
+    /**
+     * Serializer / deserializer
+     */
+    JeodPrimitiveSerializer<ElemType> serializer; //!< trick_io(**)
 };
-
 
 // DO NOT USE.
 // This is deprecated and will disappear with the next release.
 // Use one of the JeodPrimitiveXxx classes instead.
-#define JEOD_PRIMITIVE_CONTAINER(container_type,elem_type) \
-   JeodPrimitiveContainer<Jeod##container_type<elem_type>,elem_type>
+#define JEOD_PRIMITIVE_CONTAINER(container_type, elem_type)                                                            \
+    JeodPrimitiveContainer<Jeod##container_type<elem_type>, elem_type>
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

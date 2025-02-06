@@ -48,10 +48,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/orientation_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_ORIENTATION_MESSAGES_HH
 #define JEOD_ORIENTATION_MESSAGES_HH
@@ -61,45 +60,37 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
   Purpose:
     (Declares messages associated with the orientation model.)
  */
-class OrientationMessages {
+class OrientationMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, OrientationMessages)
 
+    // Static member data
+public:
+    static const char * invalid_enum; /* trick_units(--) @n
+       Issued when a enum value is not one of the enumerated values. */
 
- JEOD_MAKE_SIM_INTERFACES(OrientationMessages)
+    static const char * invalid_data; /* trick_units(--) @n
+       Issued when an orientation specification is invalid. */
 
+    static const char * invalid_request; /* trick_units(--) @n
+       Issued when an requested is invalid. */
 
- // Static member data
- public:
-
-   static char const * invalid_enum; /* trick_units(--) @n
-      Issued when a enum value is not one of the enumerated values. */
-
-   static char const * invalid_data; /* trick_units(--) @n
-      Issued when an orientation specification is invalid. */
-
-   static char const * invalid_request; /* trick_units(--) @n
-      Issued when an requested is invalid. */
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   OrientationMessages (void);
-   OrientationMessages (const OrientationMessages &);
-   OrientationMessages & operator= (const OrientationMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    OrientationMessages() = delete;
+    OrientationMessages(const OrientationMessages &) = delete;
+    OrientationMessages & operator=(const OrientationMessages &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

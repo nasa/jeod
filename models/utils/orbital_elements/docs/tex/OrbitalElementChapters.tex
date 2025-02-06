@@ -434,14 +434,14 @@ This member function sets the name of the orbiting object.
 
 \begin{itemize}
 \item{return:} void - no return
-\item{IN:}    const char * name - Orbital object name
+\item{IN:}    const std::string \& name - Orbital object name
 \end{itemize}
 
 \paragraph{get\_object\_name}
 
 This member function returns the name of the orbital object.
 \begin{itemize}
-\item{return:} const char* The name of the orbital object
+\item{return:} std::string The name of the orbital object
 \item{IN:}    void -- no inputs
 \end{itemize}
 
@@ -451,14 +451,14 @@ This member function sets the name of the planet.
 
 \begin{itemize}
 \item{return:} void - no return
-\item{IN:}    const char * name - Planet name
+\item{IN:}    const std::string \& name - Planet name
 \end{itemize}
 
 \paragraph{get\_planet\_name}
 
 This member function returns the name of the planet.
 \begin{itemize}
-\item{return:} const char* The name of the planet
+\item{return:} std::string The name of the planet
 \item{IN:}    void -- no inputs
 \end{itemize}
 
@@ -559,7 +559,7 @@ The following are lines from an S\_define file which declare and initialize an \
 
 The test class OrbElemVer contains a single method which exercises the methods of the \OrbitalElement.  It's data consist of public fields for inertial position, velocity, gravitational parameter and a flag to determine which conversion is to be performed.
 \begin{verbatim}
-   Flag   to_cartesian; // --    Flag to determine which direction.
+   bool   to_cartesian; // --    Flag to determine which direction.
    double mu;           // M3/s2 Gravity constant for routine.
    double position[3];  // M     Pos vector for elem conversion.
    double velocity[3];  // M/s   Vel vector for elem conversion.

@@ -34,7 +34,6 @@ LIBRARY DEPENDENCY:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef> // provides NULL
 
@@ -45,27 +44,15 @@ LIBRARY DEPENDENCY:
 #include "../include/MET_atmosphere_state.hh"
 #include "environment/atmosphere/base_atmos/include/atmosphere_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/*****************************************************************************
-Constructor
-*****************************************************************************/
-METAtmosphereState::METAtmosphereState ()
-   :
-   METAtmosphereStateVars(),
-   met_atmos(nullptr)
-{ }
+namespace jeod
+{
 /***************************************************************************/
-METAtmosphereState::METAtmosphereState (
-    METAtmosphere             & met_atmos_,
-    const PlanetFixedPosition & pfix_pos_)
-   :
-   METAtmosphereStateVars(met_atmos_,
-                          pfix_pos_),
-   met_atmos(&met_atmos_)
-{}
+METAtmosphereState::METAtmosphereState(METAtmosphere & met_atmos_, const PlanetFixedPosition & pfix_pos_)
+    : METAtmosphereStateVars(met_atmos_, pfix_pos_),
+      met_atmos(&met_atmos_)
+{
+}
 
 /**
  * Updates the METAtmosphereState from the METAtmosphere pointed to
@@ -75,15 +62,12 @@ METAtmosphereState::METAtmosphereState (
  * \param[in] pfix_pos_ Current vehicle position.
  */
 
-void
-METAtmosphereState::update_state (
-   METAtmosphere             * atmos_model_,
-   const PlanetFixedPosition * pfix_pos_)
+void METAtmosphereState::update_state(METAtmosphere * atmos_model_, const PlanetFixedPosition * pfix_pos_)
 {
-
-   if (active && (atmos_model_ != nullptr)) {
-      atmos_model_->update_atmosphere (pfix_pos_, this);
-   }
+    if(active && (atmos_model_ != nullptr))
+    {
+        atmos_model_->update_atmosphere(pfix_pos_, this);
+    }
 }
 
 /**
@@ -93,15 +77,15 @@ METAtmosphereState::update_state (
  * updating an METAtmosphere when constructed with the pointers set.
  */
 
-void
-METAtmosphereState::update_state ()
+void METAtmosphereState::update_state()
 {
-   if (active && (met_atmos != nullptr)) {
-      met_atmos->update_atmosphere (pfix_pos, this);
-   }
+    if(active && (met_atmos != nullptr))
+    {
+        met_atmos->update_atmosphere(pfix_pos, this);
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

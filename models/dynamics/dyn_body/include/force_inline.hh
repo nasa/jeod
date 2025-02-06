@@ -54,89 +54,68 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_FORCE_INLINE_HH
 #define JEOD_FORCE_INLINE_HH
-
 
 #include "force.hh"
 
 #include <cstddef>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Access a force element, non-const version.
  * @return Force component at specified index\n Units: N
  * \param[in] index Index number
  */
-inline double &
-Force::operator[] (
-   const unsigned int index)
+inline double & Force::operator[](const unsigned int index)
 {
-   return force[index];
+    return force[index];
 }
-
 
 /**
  * Access a force element, const version.
  * @return Force component at specified index\n Units: N
  * \param[in] index Index number
  */
-inline double
-Force::operator[] (
-   const unsigned int index)
-const
+inline double Force::operator[](const unsigned int index) const
 {
-   return force[index];
+    return force[index];
 }
-
-
 
 /**
  * A force is active if it has a non-null force vector and
  * the active pointer is null or the pointed-to boolean is true.
  * @return Is the force active?
  */
-inline bool
-CollectForce::is_active (
-   void)
-const
+inline bool CollectForce::is_active() const
 {
-   return ((force != nullptr) && ((active == nullptr) || *active));
+    return ((force != nullptr) && ((active == nullptr) || *active));
 }
-
 
 /**
  * Access a force element, non-const version.
  * @return Force component at specified index\n Units: N
  * \param[in] index Index number
  */
-inline double &
-CollectForce::operator[] (
-   const unsigned int index)
+inline double & CollectForce::operator[](const unsigned int index)
 {
-   return force[index];
+    return force[index];
 }
-
 
 /**
  * Access a force element, const version.
  * @return Force component at specified index\n Units: N
  * \param[in] index Index number
  */
-inline double
-CollectForce::operator[] (
-   const unsigned int index)
-const
+inline double CollectForce::operator[](const unsigned int index) const
 {
-   return force[index];
+    return force[index];
 }
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

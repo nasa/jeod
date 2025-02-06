@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -60,8 +60,8 @@ class VerifRun:
                                    # containing the verification/regression data
         self.verif_files = []      # VerifFile objects
         self.outcome = 0
-        self.logfile = ''
         self.unique_id = self.full_sim_dir.replace("/", "__")+"__"+self.run_dir
+        self.logName = ''
 
     #*************************************************************************
     # parse_run_info
@@ -81,16 +81,10 @@ class VerifRun:
         if len(run_info) == 3:
             self.outcome = int(run_info[2])
 
+        self.logName = myArgs.logdir+"/03_run_info_"+self.unique_id+".txt"
 
         self.run_base = myArgs.run_base
         self.verif_base = myArgs.verif_base
-        # The first value is the run name, but this may include glob
-        # characters (e.g. "RUN_*").  This has already been expanded in the
-        # VerifSim class, and the run-directory populated at construction.
-        # So do not use run_info[0]
-        self.log_file = os.path.join( myArgs.logdir,
-                                      self.run_dir+'_output.txt')
-
 
         path_wrt_sim = os.path.join( self.run_base,
                                      self.run_dir)
@@ -187,6 +181,8 @@ class VerifRun:
         elif self.status is self.Status.NOT_STARTED:
             color = "DARK_YELLOW"
         tprint("        Run status: "+self.status.name+"  "+self.run_dir, color)
+        if self.status is self.Status.RUN_FAIL:
+            tprint("      See log file {0}".format(self.logName))
 
         for comp in self.verif_files:
             comp.report()

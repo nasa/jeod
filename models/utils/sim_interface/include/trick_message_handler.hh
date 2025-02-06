@@ -61,10 +61,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/trick_message_handler.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_TRICK_MESSAGE_HANDLER_HH
 #define JEOD_TRICK_MESSAGE_HANDLER_HH
@@ -81,74 +80,42 @@ Library dependencies:
 // JEOD includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The MessageHandler class for designed for use in Trick-based simulations.
  */
-class TrickMessageHandler: public SuppressedCodeMessageHandler {
-   JEOD_MAKE_SIM_INTERFACES(TrickMessageHandler)
+class TrickMessageHandler : public SuppressedCodeMessageHandler
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TrickMessageHandler)
 
 public:
-   // Member functions
+    // Member functions
+    TrickMessageHandler() = default;
+    ~TrickMessageHandler() override = default;
 
-   // Default constructor and destructor
+    TrickMessageHandler(const TrickMessageHandler &) = delete;
+    TrickMessageHandler & operator=(const TrickMessageHandler &) = delete;
 
-      /**
-    * Default constructor.
-    */
+    // register_contents() registers the checkpointable contents.
+    void register_contents() override;
 
-   // Default constructor and destructor
+protected:
+    // Member functions
 
-   /*
-    Purpose: (Default constructor.)
-   */
-   TrickMessageHandler (void) {}
-
-      /**
-    * Destructor.
-    */
-   ~TrickMessageHandler (void) override {}
-
-   // register_contents() registers the checkpointable contents.
-   void register_contents (void) override;
-
-
- protected:
-
-   // Member functions
-
-   // process_message() handles all messages.
-   void process_message (
-      int severity,
-      const char * prefix,
-      const char * file,
-      unsigned int line,
-      const char * msg_code,
-      const char * format,
-      va_list args)
-   const override;
-
-
- // The copy constructor and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   /**
-    * Not implemented.
-    */
-   TrickMessageHandler (const TrickMessageHandler &);
-
-   /**
-    * Not implemented.
-    */
-   TrickMessageHandler & operator= (const TrickMessageHandler &);
+    // process_message() handles all messages.
+    void process_message(int severity,
+                         const char * prefix,
+                         const char * file,
+                         unsigned int line,
+                         const char * msg_code,
+                         const char * format,
+                         va_list args) const override;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

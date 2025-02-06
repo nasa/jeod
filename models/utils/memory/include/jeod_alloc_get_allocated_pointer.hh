@@ -51,7 +51,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -66,14 +66,14 @@ Purpose:
 #include <type_traits>
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
  * Internal definitions
  * Do not use any of these outside of this class.
  * Future implementations are free to modify or delete any of these items.
  */
-
 
 /**
  * Class template that provides a static function @a cast that casts a pointer
@@ -89,20 +89,18 @@ namespace jeod {
  * The partial template instantiation that immediately follows provides n
  * an implementation that uses dynamic_cast when @a is_poly is true.
  */
-template <typename T, bool is_poly>
-class JeodAllocHelperAllocatedPointer {
+template<typename T, bool is_poly> class JeodAllocHelperAllocatedPointer
+{
 public:
-
-   /**
-    * Cast a pointer to a non-polymorphic class via an implicit cast.
-    * @return         Input pointer cast to void* via implicit cast.
-    * @param  pointer Pointer
-    */
-   static void * cast (
-      T * pointer)
-   {
-      return pointer;
-   }
+    /**
+     * Cast a pointer to a non-polymorphic class via an implicit cast.
+     * @return         Input pointer cast to void* via implicit cast.
+     * @param  pointer Pointer
+     */
+    static void * cast(T * pointer)
+    {
+        return pointer;
+    }
 };
 
 /**
@@ -111,22 +109,19 @@ public:
  * results in a pointer to the most derived object pointed to by <tt>ptr</tt>.
  * See ISO/IEC 14882:2003 section 5.2.7.7 for details.
  */
-template <typename T>
-class JeodAllocHelperAllocatedPointer<T, true> {
+template<typename T> class JeodAllocHelperAllocatedPointer<T, true>
+{
 public:
-
-   /**
-    * Cast a pointer to a non-class object via dynamic_cast.
-    * @return         Input pointer cast to void* via dynamic_cast.
-    * @param  pointer Pointer
-    */
-   static void * cast (
-      T * pointer)
-   {
-      return dynamic_cast<void*>(pointer);
-   }
+    /**
+     * Cast a pointer to a non-class object via dynamic_cast.
+     * @return         Input pointer cast to void* via dynamic_cast.
+     * @param  pointer Pointer
+     */
+    static void * cast(T * pointer)
+    {
+        return dynamic_cast<void *>(pointer);
+    }
 };
-
 
 /******************************************************************************/
 
@@ -134,7 +129,6 @@ public:
  * Externally-usable definitions
  * The remaining items can be used in derivative products.
  */
-
 
 /**
  * Cast a pointer to some object to a pointer to void* such that a pointer to a
@@ -156,17 +150,13 @@ public:
  *  - @verbatim jeod_alloc_get_allocated_pointer(&array[1]) @endverbatim
  *    does not return a pointer to @verbatim &array[0] @endverbatim.
  */
-template<typename T>
-inline void *
-jeod_alloc_get_allocated_pointer (
-   T* pointer)
+template<typename T> inline void * jeod_alloc_get_allocated_pointer(T * pointer)
 {
-   const bool is_poly = std::is_polymorphic<T>::value;
-   return JeodAllocHelperAllocatedPointer<T, is_poly>::cast (pointer);
+    const bool is_poly = std::is_polymorphic<T>::value;
+    return JeodAllocHelperAllocatedPointer<T, is_poly>::cast(pointer);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

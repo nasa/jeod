@@ -11,238 +11,216 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
    ((demo_factory.cc)
     (demo_interaction_facet.cc)
-    (utils/surface_model/src/flat_plate.cc)
-    (utils/sim_interface/src/memory_interface.cc))
+    (utils/surface_model/src/flat_plate.cc))
 
- 
+
 *******************************************************************************/
-
 
 // System includes
 #include <cstddef>
 #include <typeinfo>
 
 // JEOD includes
-#include "utils/surface_model/include/flat_plate.hh"
 #include "utils/memory/include/jeod_alloc.hh"
+#include "utils/surface_model/include/flat_plate.hh"
 
 // Model includes
-#include "../include/demo_factory.hh"
-#include "../include/demo_params.hh"
-#include "../include/demo_interaction_facet.hh"
 #include "../include/demo_facet.hh"
-
+#include "../include/demo_factory.hh"
+#include "../include/demo_interaction_facet.hh"
+#include "../include/demo_params.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Attributes used in allocations
-JEOD_DECLARE_ATTRIBUTES (FlatPlateDemo1)
-JEOD_DECLARE_ATTRIBUTES (FlatPlateDemo2)
-JEOD_DECLARE_ATTRIBUTES (DemoInteractionFacet1)
-JEOD_DECLARE_ATTRIBUTES (DemoInteractionFacet2)
+JEOD_DECLARE_ATTRIBUTES(FlatPlateDemo1)
+JEOD_DECLARE_ATTRIBUTES(FlatPlateDemo2)
+JEOD_DECLARE_ATTRIBUTES(DemoInteractionFacet1)
+JEOD_DECLARE_ATTRIBUTES(DemoInteractionFacet2)
 
-
-
-FlatPlateDemoFactory1::FlatPlateDemoFactory1(){
-   JEOD_REGISTER_CLASS(FlatPlateDemo1);
+FlatPlateDemoFactory1::FlatPlateDemoFactory1()
+{
+    JEOD_REGISTER_CLASS(FlatPlateDemo1);
 }
 
-FlatPlateDemoFactory1::~FlatPlateDemoFactory1(){
+InteractionFacet * FlatPlateDemoFactory1::create_facet(Facet * facet, FacetParams * params)
+{
+    FlatPlateDemoParams1 * demo_params = nullptr;
+    FlatPlate * flat_plate = nullptr;
 
-   // empty for now
+    demo_params = dynamic_cast<FlatPlateDemoParams1 *>(params);
+    flat_plate = dynamic_cast<FlatPlate *>(facet);
 
+    if(demo_params == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
+    if(flat_plate == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
+
+    FlatPlateDemo1 * inter_facet = JEOD_ALLOC_CLASS_OBJECT(FlatPlateDemo1, ());
+
+    // This is a quick and dirty shallow copy. It is NOT normally
+    // suggested to copy a string like this.
+    inter_facet->shape = demo_params->shape;
+
+    inter_facet->base_facet = facet;
+
+    return inter_facet;
 }
 
-InteractionFacet* FlatPlateDemoFactory1::create_facet(
-   Facet* facet,
-   FacetParams* params){
-
-   FlatPlateDemoParams1* demo_params = nullptr;
-   FlatPlate* flat_plate = nullptr;
-
-   demo_params = dynamic_cast<FlatPlateDemoParams1*>(params);
-   flat_plate = dynamic_cast<FlatPlate*>(facet);
-
-   if(demo_params == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
-   if(flat_plate == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
-
-   FlatPlateDemo1* inter_facet = JEOD_ALLOC_CLASS_OBJECT(FlatPlateDemo1, ());
-
-   // This is a quick and dirty shallow copy. It is NOT normally
-   // suggested to copy a string like this.
-   inter_facet->shape = demo_params->shape;
-
-   inter_facet->base_facet = facet;
-
-   return inter_facet;
-
+bool FlatPlateDemoFactory1::is_correct_factory(Facet * facet)
+{
+    if(typeid(*facet) == typeid(FlatPlate))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-bool FlatPlateDemoFactory1::is_correct_factory(Facet* facet){
-
-   if(typeid(*facet) == typeid(FlatPlate)) {
-      return true;
-   }
-   else {
-      return false;
-   }
-
+FlatPlateDemoFactory2::FlatPlateDemoFactory2()
+{
+    JEOD_REGISTER_CLASS(FlatPlateDemo2);
 }
 
-FlatPlateDemoFactory2::FlatPlateDemoFactory2(){
+InteractionFacet * FlatPlateDemoFactory2::create_facet(Facet * facet, FacetParams * params)
+{
+    FlatPlateDemoParams2 * demo_params = nullptr;
+    FlatPlate * flat_plate = nullptr;
 
-   JEOD_REGISTER_CLASS(FlatPlateDemo2);
+    demo_params = dynamic_cast<FlatPlateDemoParams2 *>(params);
+    flat_plate = dynamic_cast<FlatPlate *>(facet);
 
+    if(demo_params == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
+    if(flat_plate == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
+
+    FlatPlateDemo2 * inter_facet = JEOD_ALLOC_CLASS_OBJECT(FlatPlateDemo2, ());
+
+    inter_facet->sides = demo_params->sides;
+
+    inter_facet->base_facet = facet;
+
+    return inter_facet;
 }
 
-FlatPlateDemoFactory2::~FlatPlateDemoFactory2(){
-
-   // empty for now
-
+bool FlatPlateDemoFactory2::is_correct_factory(Facet * facet)
+{
+    if(typeid(*facet) == typeid(FlatPlate))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-InteractionFacet* FlatPlateDemoFactory2::create_facet(
-   Facet* facet,
-   FacetParams* params){
-
-   FlatPlateDemoParams2* demo_params = nullptr;
-   FlatPlate* flat_plate = nullptr;
-
-   demo_params = dynamic_cast<FlatPlateDemoParams2*>(params);
-   flat_plate = dynamic_cast<FlatPlate*>(facet);
-
-   if(demo_params == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
-   if(flat_plate == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
-
-   FlatPlateDemo2* inter_facet = JEOD_ALLOC_CLASS_OBJECT(FlatPlateDemo2, ());
-
-   inter_facet->sides = demo_params->sides;
-
-   inter_facet->base_facet = facet;
-
-   return inter_facet;
-
+DemoFacetFactory1::DemoFacetFactory1()
+{
+    JEOD_REGISTER_CLASS(DemoInteractionFacet1);
 }
 
-bool FlatPlateDemoFactory2::is_correct_factory(Facet* facet){
+InteractionFacet * DemoFacetFactory1::create_facet(Facet * facet, FacetParams * params)
+{
+    DemoParams1 * demo_params = nullptr;
+    DemoFacet * flat_plate = nullptr;
 
-   if(typeid(*facet) == typeid(FlatPlate)) {
-      return true;
-   }
-   else {
-      return false;
-   }
+    demo_params = dynamic_cast<DemoParams1 *>(params);
+    flat_plate = dynamic_cast<DemoFacet *>(facet);
 
+    if(demo_params == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
+    if(flat_plate == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
+
+    DemoInteractionFacet1 * inter_facet = JEOD_ALLOC_CLASS_OBJECT(DemoInteractionFacet1, ());
+
+    inter_facet->weight = demo_params->weight;
+
+    inter_facet->base_facet = facet;
+
+    return inter_facet;
 }
 
-DemoFacetFactory1::DemoFacetFactory1(){
-
-   JEOD_REGISTER_CLASS(DemoInteractionFacet1);
-
+bool DemoFacetFactory1::is_correct_factory(Facet * facet)
+{
+    if(typeid(*facet) == typeid(DemoFacet))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-DemoFacetFactory1::~DemoFacetFactory1(){
-
-   // empty for now
-
+DemoFacetFactory2::DemoFacetFactory2()
+{
+    JEOD_REGISTER_CLASS(DemoInteractionFacet2);
 }
 
-InteractionFacet* DemoFacetFactory1::create_facet(
-   Facet* facet,
-   FacetParams* params){
+InteractionFacet * DemoFacetFactory2::create_facet(Facet * facet, FacetParams * params)
+{
+    DemoParams2 * demo_params = nullptr;
+    DemoFacet * flat_plate = nullptr;
 
-   DemoParams1* demo_params = nullptr;
-   DemoFacet* flat_plate = nullptr;
+    demo_params = dynamic_cast<DemoParams2 *>(params);
+    flat_plate = dynamic_cast<DemoFacet *>(facet);
 
-   demo_params = dynamic_cast<DemoParams1*>(params);
-   flat_plate = dynamic_cast<DemoFacet*>(facet);
+    if(demo_params == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
+    if(flat_plate == nullptr)
+    {
+        // INSERT ERROR MESSAGE HERE
+        return nullptr;
+    }
 
-   if(demo_params == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
-   if(flat_plate == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
+    DemoInteractionFacet2 * inter_facet = JEOD_ALLOC_CLASS_OBJECT(DemoInteractionFacet2, ());
 
-   DemoInteractionFacet1* inter_facet = JEOD_ALLOC_CLASS_OBJECT(DemoInteractionFacet1, ());
+    // This is a quick and dirty shallow copy. This is not how you should
+    // normally copy a string.
+    inter_facet->color = demo_params->color;
 
-   inter_facet->weight = demo_params->weight;
+    inter_facet->base_facet = facet;
 
-   inter_facet->base_facet = facet;
-
-   return inter_facet;
-
+    return inter_facet;
 }
 
-bool DemoFacetFactory1::is_correct_factory(Facet* facet){
-
-   if(typeid(*facet) == typeid(DemoFacet)) {
-      return true;
-   }
-   else {
-      return false;
-   }
-
+bool DemoFacetFactory2::is_correct_factory(Facet * facet)
+{
+    if(typeid(*facet) == typeid(DemoFacet))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
-
-DemoFacetFactory2::DemoFacetFactory2(){
-
-   JEOD_REGISTER_CLASS(DemoInteractionFacet2);
-
-}
-
-DemoFacetFactory2::~DemoFacetFactory2(){
-
-   // empty for now
-
-}
-
-InteractionFacet* DemoFacetFactory2::create_facet(
-   Facet* facet,
-   FacetParams* params){
-
-   DemoParams2* demo_params = nullptr;
-   DemoFacet* flat_plate = nullptr;
-
-   demo_params = dynamic_cast<DemoParams2*>(params);
-   flat_plate = dynamic_cast<DemoFacet*>(facet);
-
-   if(demo_params == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
-   if(flat_plate == nullptr){
-      // INSERT ERROR MESSAGE HERE
-   }
-
-   DemoInteractionFacet2* inter_facet = JEOD_ALLOC_CLASS_OBJECT(DemoInteractionFacet2, ());
-
-   // This is a quick and dirty shallow copy. This is not how you should
-   // normally copy a string.
-   inter_facet->color = demo_params->color;
-
-   inter_facet->base_facet = facet;
-
-   return inter_facet;
-
-}
-
-bool DemoFacetFactory2::is_correct_factory(Facet* facet){
-
-   if(typeid(*facet) == typeid(DemoFacet)) {
-      return true;
-   }
-   else {
-      return false;
-   }
-
-}
-} // End JEOD namespace
+} // namespace jeod

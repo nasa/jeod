@@ -37,8 +37,8 @@
 //===========================TRICK HEADER=====================
 // PURPOSE:
 //=============================================================================
-// This simulation is a demonstration simulation for the 
-// contact mechanisms between 2 dynamic bodies. 
+// This simulation is a demonstration simulation for the
+// contact mechanisms between 2 dynamic bodies.
 //
 //              sys - Trick runtime executive and data recording routines
 //             time - Universal time
@@ -48,26 +48,26 @@
 //
 //=============================================================================
 
-
 // Define job calling intervals
-#define LOW_RATE_ENV  600.00 // Low-rate environment update interval
-#define DYNAMICS       0.01  // Vehicle and plantary dynamics interval (50Hz)
-
+#define LOW_RATE_ENV 600.00 // Low-rate environment update interval
+#define DYNAMICS 0.01       // Vehicle and plantary dynamics interval (50Hz)
 
 // Define the phase initialization priorities.
 // NOTE: Initialization jobs lacking an assigned phase initialization priority
 // run after all initialization jobs that have assigned phase init priorities.
-#define P_TIME  P10   // Highest priority; these jobs only depend on time
-#define P_MNGR  P20   // Dynamics manager initializations
-#define P_ENV   P30   // Environment initializations
-#define P_BODY  P40   // Orbital body initializations
-#define P_DYN   P50   // State-dependent initializations
+#define P_TIME P10 // Highest priority; these jobs only depend on time
+#define P_MNGR P20 // Dynamics manager initializations
+#define P_ENV P30  // Environment initializations
+#define P_BODY P40 // Orbital body initializations
+#define P_DYN P50  // State-dependent initializations
 
 // Global S_define name definitions.
 #define DYN_MNGR_NAME dynamics.manager
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 //=============================================================================
@@ -96,18 +96,14 @@
 // SIM_OBJECT: veh1_dyn
 //=============================================================================
 // Define the vehicle instance name.
-SvDynSimObject veh1_dyn ( contact,
-                          dynamics);
+SvDynSimObject veh1_dyn(contact, dynamics);
 
 //=============================================================================
 // SIM_OBJECT: veh2_dyn
 //=============================================================================
 // Define the vehicle instance name.
-SvDynSimObject veh2_dyn ( contact,
-                          dynamics);
+SvDynSimObject veh2_dyn(contact, dynamics);
 
 #include "Contact_S_modules/sv_collect_veh.sm"
 
-
- IntegLoop sim_integ_loop  (DYNAMICS) dynamics, contact, veh1_dyn, veh2_dyn;
- 
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, contact, veh1_dyn, veh2_dyn;

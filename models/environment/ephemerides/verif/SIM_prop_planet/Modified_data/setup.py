@@ -53,6 +53,7 @@ def set_setup(init_bodies = False) :
 
 
   # Configure the ephemeris model
+  env.de4xx.set_model_directory('build/de4xx_lib')
   env.de4xx.set_model_number(421)
 
 

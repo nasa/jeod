@@ -59,7 +59,7 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     ((../src/surface_model.cc))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_SURFACE_MODEL_HH
@@ -68,22 +68,21 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
-#include "utils/container/include/pointer_vector.hh"
-#include "utils/container/include/object_vector.hh"
-#include "utils/container/include/object_list.hh"
 #include "dynamics/mass/include/mass_point_state.hh"
+#include "utils/container/include/object_list.hh"
+#include "utils/container/include/object_vector.hh"
+#include "utils/container/include/pointer_vector.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class Facet;
 class MassBody;
 class BaseDynManager;
-
 
 /**
  * This is a structure used only in the surface model to aid in relative
@@ -92,133 +91,118 @@ class BaseDynManager;
  * one of these objects will be instantiated. That way, the relative state
  * information must only be calculated once per mass body.
  */
-struct FacetStateInfo {
+struct FacetStateInfo
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FacetStateInfo)
+    /**
+     * The resulting relative mass point state between the
+     * structural body named in struct_body_name and the
+     * MassBody pointed to in this structure's mass_body
+     */
+    MassPointState mass_state; //!< trick_io(**)
+    /**
+     * The MassBody object whose state, relative and w.r.t.
+     * the MassBody named in struct_body_name, is
+     * being calculated
+     */
+    MassBody * mass_body{}; //!< trick_io(**)
 
-   JEOD_MAKE_SIM_INTERFACES(FacetStateInfo)
-   /**
-    * The resulting relative mass point state between the
-    * structural body named in struct_body_name and the
-    * MassBody pointed to in this structure's mass_body
-    */
-   MassPointState mass_state; //!< trick_io(**)
-   /**
-    * The MassBody object whose state, relative and w.r.t.
-    * the MassBody named in struct_body_name, is
-    * being calculated
-    */
-   MassBody* mass_body; //!< trick_io(**)
+    /**
+     * Default constructor to keep the memory manager happy.
+     */
+    FacetStateInfo() = default;
 
-   /**
-    * Default constructor to keep the memory manager happy.
-    */
-   FacetStateInfo(){}
+    /**
+     * FacetStateInfo non-default constructor.
+     * @param new_mass_body The mass body to which this object will refer.
+     */
+    explicit FacetStateInfo(MassBody * new_mass_body)
+        : mass_body(new_mass_body)
+    {
+    }
 
-   /**
-    * FacetStateInfo non-default constructor.
-    * @param new_mass_body The mass body to which this object will refer.
-    */
-   explicit FacetStateInfo(MassBody* new_mass_body)
-      :
-      mass_body(new_mass_body)
-      {}
+    /**
+     * FacetStateInfo non-default constructor.
+     * @param new_mass_body The mass body to which this object will refer.
+     */
+    explicit FacetStateInfo(MassBody & new_mass_body)
+        : mass_body(&new_mass_body)
+    {
+    }
 
-   /**
-    * FacetStateInfo non-default constructor.
-    * @param new_mass_body The mass body to which this object will refer.
-    */
-   explicit FacetStateInfo(MassBody& new_mass_body)
-      :
-      mass_body(&new_mass_body)
-      {}
-
-   /**
-    * Compare this FacetStateInfo object to another.
-    * The two are 'equal' if they refer to the same mass body.
-    * @param rhs Object to be compared with this object.
-    */
-   bool operator == (const FacetStateInfo& rhs) const {
-      return mass_body == rhs.mass_body;
-   }
+    /**
+     * Compare this FacetStateInfo object to another.
+     * The two are 'equal' if they refer to the same mass body.
+     * @param rhs Object to be compared with this object.
+     */
+    bool operator==(const FacetStateInfo & rhs) const
+    {
+        return mass_body == rhs.mass_body;
+    }
 };
-
 
 /**
  * A general, non-interaction specific surface that can be
  * used to create surfaces suitable for specific interactions.
  */
-class SurfaceModel {
-
-   JEOD_MAKE_SIM_INTERFACES(SurfaceModel)
+class SurfaceModel
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SurfaceModel)
 
 public:
-   // constructor
-   SurfaceModel ();
+    SurfaceModel();
+    ~SurfaceModel();
+    SurfaceModel & operator=(const SurfaceModel &) = delete;
+    SurfaceModel(const SurfaceModel &) = delete;
 
-   // destructor
-   ~SurfaceModel ();
+    /**
+     * Is the articulation active? If yes, facet information will be
+     * updated from the previously supplied mass tree. If not, nothing
+     * will update. This defaults to false
+     */
+    bool articulation_active{}; //!< trick_units(--)
 
+    void add_facets(Facet ** new_facets, unsigned int num_new_facets);
 
-   /**
-    * Is the articulation active? If yes, facet information will be
-    * updated from the previously supplied mass tree. If not, nothing
-    * will update. This defaults to false
-    */
-   bool articulation_active; //!< trick_units(--)
+    void add_facet(Facet * new_facet);
 
-   void add_facets (Facet** new_facets, unsigned int num_new_facets);
+    void initialize_mass_connections(BaseDynManager & manager);
 
-   void add_facet (Facet* new_facet);
+    void update_articulation();
 
-   void initialize_mass_connections (BaseDynManager& manager);
+    /**
+     * The name of the MassBody representing the overall structural
+     * frame of the vehicle associated with this surface model.
+     * All states of all contained facets will be relative to
+     * the structural frame of this MassBody. This name is
+     * only required for specific applications, such as contact and
+     * articulation
+     */
+    std::string struct_body_name; //!< trick_units(--)
 
-   void update_articulation ();
-
-   /**
-    * The name of the MassBody representing the overall structural
-    * frame of the vehicle associated with this surface model.
-    * All states of all contained facets will be relative to
-    * the structural frame of this MassBody. This name is
-    * only required for specific applications, such as contact and
-    * articulation
-    */
-   char* struct_body_name; //!< trick_units(--)
-
-   /**
-    * The facets that make up the surface
-    */
-   JeodPointerVector<Facet>::type facets; //!< trick_io(**)
-
+    /**
+     * The facets that make up the surface
+     */
+    JeodPointerVector<Facet>::type facets; //!< trick_io(**)
 
 protected:
+    /**
+     * A pointer to the MassBody named by struct_body_name. This pointer
+     * will be set, using struct_body_name, by searching the DynManager
+     * object supplied to the initialize_mass_connections function.
+     * This pointer is only used for specific applications, such as contact
+     * and articulation
+     */
+    MassBody * struct_body_ptr{}; //!< trick_units(--)
 
-   /**
-    * A pointer to the MassBody named by struct_body_name. This pointer
-    * will be set, using struct_body_name, by searching the DynManager
-    * object supplied to the initialize_mass_connections function.
-    * This pointer is only used for specific applications, such as contact
-    * and articulation
-    */
-   MassBody* struct_body_ptr; //!< trick_units(--)
-
-   /**
-    * The set of states used to update the articulation of
-    * each facet
-    */
-   JeodObjectList<FacetStateInfo>::type articulation_states; //!< trick_io(**)
-
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   SurfaceModel& operator = (const SurfaceModel& rhs);
-   SurfaceModel (const SurfaceModel& rhs);
-
+    /**
+     * The set of states used to update the articulation of
+     * each facet
+     */
+    JeodObjectList<FacetStateInfo>::type articulation_states; //!< trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

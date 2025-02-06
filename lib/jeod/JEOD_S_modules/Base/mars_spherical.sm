@@ -48,22 +48,18 @@ Purpose:( This sim object models Mars with a spherical gravity model.)
 #include "planet_generic.sm"
 class MarsSphericalSimObject: public PlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_mars_default_data    mars_default_data;
-  jeod::SphericalHarmonicsGravitySource_mars_spherical_default_data    mars_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_mars_default_data mars_default_data;
+    jeod::SphericalHarmonicsGravitySource_mars_spherical_default_data mars_grav_default_data;
 
-  // Constructor
-  MarsSphericalSimObject( jeod::DynManager   & dyn_manager_in,
-                          jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            mars_default_data,
-                            mars_grav_default_data)
-  {}
- private:
-  MarsSphericalSimObject (const MarsSphericalSimObject&);
-  MarsSphericalSimObject & operator = (const MarsSphericalSimObject&);
+    // Constructor
+    MarsSphericalSimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, mars_default_data, mars_grav_default_data)
+    {
+    }
+
+    MarsSphericalSimObject(const MarsSphericalSimObject &) = delete;
+    MarsSphericalSimObject & operator=(const MarsSphericalSimObject &) = delete;
 };
 #endif

@@ -35,7 +35,7 @@ def log_data (logger, log_cycle, run_tests) :
       elif test_name in trans_tests :
          logger.log_set ('test.' + test_name, trans_items)
       else :
-         raise RuntimeError ('Test "%s" is of an unknown type' % (test_name))
+         raise RuntimeError ('Test {0} is of an unknown type'.format(test_name))
 
    # Close the recording group.
    logger.close_group ()

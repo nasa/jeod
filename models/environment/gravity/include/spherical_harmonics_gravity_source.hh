@@ -63,10 +63,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SPHERICAL_HARMONICS_GRAVITY_BODY_HH
 #define JEOD_SPHERICAL_HARMONICS_GRAVITY_BODY_HH
-
 
 // System includes
 #include <vector>
@@ -79,9 +77,9 @@ Library dependencies:
 #include "class_declarations.hh"
 #include "gravity_source.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BaseDynManager;
 class EphemerisRefFrame;
@@ -89,143 +87,124 @@ class EphemerisRefFrame;
 /**
  * Models the gravity for a specific planet using spherical harmonics.
  */
-class SphericalHarmonicsGravitySource : public GravitySource {
+class SphericalHarmonicsGravitySource : public GravitySource
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SphericalHarmonicsGravitySource)
 
- JEOD_MAKE_SIM_INTERFACES(SphericalHarmonicsGravitySource)
+    // Member data
+public:
+    /**
+     * Spherical harmonics distance scale, typically the planet's mean equatorial
+     * radius.
+     */
+    double radius{}; //!< trick_units(m)
 
- // Member data
- public:
-   /**
-    * Spherical harmonics distance scale, typically the planet's mean equatorial
-    * radius.
-    */
-   double radius; //!< trick_units(m)
+    /**
+     * The degree of the spherical harmonics gravity coefficients.
+     */
+    unsigned int degree{}; //!< trick_units(--)
 
-   /**
-    * The degree of the spherical harmonics gravity coefficients.
-    */
-   unsigned int degree; //!< trick_units(--)
+    /**
+     * The order of the spherical harmonics gravity coefficients.
+     */
+    unsigned int order{}; //!< trick_units(--)
 
-   /**
-    * The order of the spherical harmonics gravity coefficients.
-    */
-   unsigned int order; //!< trick_units(--)
+    /**
+     * Normalized real (cosine) spherical harmonic coefficients.
+     */
+    double ** Cnm{}; //!< trick_units(--)
 
-   /**
-    * Normalized real (cosine) spherical harmonic coefficients.
-    */
-   double ** Cnm; //!< trick_units(--)
+    /**
+     * Normalized imaginary (sine) spherical harmonic coefficients.
+     */
+    double ** Snm{}; //!< trick_units(--)
 
-   /**
-    * Normalized imaginary (sine) spherical harmonic coefficients.
-    */
-   double ** Snm; //!< trick_units(--)
+    /**
+     * Is C20 coefficient free of the permanent tide effect?
+     */
+    bool tide_free{}; //!< trick_units(--)
 
-   /**
-    * Is C20 coefficient free of the permanent tide effect?
-    */
-   bool tide_free; //!< trick_units(--)
+    /**
+     * Number to be added to C20 to remove the permanent tide
+     */
+    double tide_free_delta{}; //!< trick_units(--)
 
-   /**
-    * Number to be added to C20 to remove the permanent tide
-    */
-   double tide_free_delta; //!< trick_units(--)
+    /**
+     * (Planet radius/vehicle distance)^n
+     */
+    double * a_by_rad{}; //!< trick_units(--)
 
-   /**
-    * (Planet radius/vehicle distance)^n
-    */
-   double * a_by_rad; //!< trick_units(--)
-   /**
-    * Gottlieb coefficient alpha
-    */
-   double * alpha; //!< trick_units(--)
-   /**
-    * Gottlieb coefficient beta
-    */
-   double * beta; //!< trick_units(--)
-   /**
-    * Gottlieb coefficient xi
-    */
-   double ** xi; //!< trick_units(--)
-   /**
-    * Gottlieb coefficient eta
-    */
-   double ** eta; //!< trick_units(--)
-   /**
-    * Gottlieb coefficient zeta
-    */
-   double ** zeta; //!< trick_units(--)
-   /**
-    * Gottlieb coefficient upsilon
-    */
-   double ** upsilon; //!< trick_units(--)
-   /**
-    * Gottlieb coefficient nrdiag
-    */
-   double * nrdiag; //!< trick_units(--)
-   /**
-    * 0 to degree+1 cast as doubles
-    */
-   double * int_to_double; //!< trick_units(--)
+    /**
+     * Gottlieb coefficient alpha
+     */
+    double * alpha{}; //!< trick_units(--)
 
-   /**
-    * List of all gravity coefficient altering effects such as
-    * solid-body tides
-    */
-   JeodPointerVector<SphericalHarmonicsDeltaCoeffs>::type delta_coeffs; //!< trick_io(**)
+    /**
+     * Gottlieb coefficient beta
+     */
+    double * beta{}; //!< trick_units(--)
 
+    /**
+     * Gottlieb coefficient xi
+     */
+    double ** xi{}; //!< trick_units(--)
 
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
+    /**
+     * Gottlieb coefficient eta
+     */
+    double ** eta{}; //!< trick_units(--)
 
-   /**
-    * Not implemented.
-    */
-   SphericalHarmonicsGravitySource (
-      const SphericalHarmonicsGravitySource &);
+    /**
+     * Gottlieb coefficient zeta
+     */
+    double ** zeta{}; //!< trick_units(--)
 
-   /**
-    * Not implemented.
-    */
-   SphericalHarmonicsGravitySource & operator= (
-      const SphericalHarmonicsGravitySource &);
+    /**
+     * Gottlieb coefficient upsilon
+     */
+    double ** upsilon{}; //!< trick_units(--)
 
- public:
+    /**
+     * Gottlieb coefficient nrdiag
+     */
+    double * nrdiag{}; //!< trick_units(--)
 
-   // Default constructor
-   SphericalHarmonicsGravitySource ();
+    /**
+     * 0 to degree+1 cast as doubles
+     */
+    double * int_to_double{}; //!< trick_units(--)
 
-   // Destructor
-   ~SphericalHarmonicsGravitySource () override;
+    /**
+     * List of all gravity coefficient altering effects such as
+     * solid-body tides
+     */
+    JeodPointerVector<SphericalHarmonicsDeltaCoeffs>::type delta_coeffs; //!< trick_io(**)
 
+public:
+    SphericalHarmonicsGravitySource();
+    ~SphericalHarmonicsGravitySource() override;
+    SphericalHarmonicsGravitySource(const SphericalHarmonicsGravitySource &) = delete;
+    SphericalHarmonicsGravitySource & operator=(const SphericalHarmonicsGravitySource &) = delete;
 
-   // Overloaded methods:
+    // Overloaded methods:
 
-   // Initialize the spherical harmonics model
-   virtual void initialize_body (void);
+    // Initialize the spherical harmonics model
+    virtual void initialize_body();
 
+    // Find the index number for a given set of delta-coeffs;
+    // Returns -1 if coeffs are not in the delta-coeffs vector.
+    int find_deltacoeff(const SphericalHarmonicsDeltaCoeffs & delta_coeff) const;
 
-   // Find the index number for a given set of delta-coeffs;
-   // Returns -1 if coeffs are not in the delta-coeffs vector.
-   int find_deltacoeff (
-      const SphericalHarmonicsDeltaCoeffs & delta_coeff) const;
-
-
-   void add_deltacoeff (
-      SphericalHarmonicsDeltaCoeffsInit & var_init,
-      BaseDynManager & dyn_manager,
-      SphericalHarmonicsDeltaCoeffs & var_effect);
-
+    void add_deltacoeff(SphericalHarmonicsDeltaCoeffsInit & var_init,
+                        BaseDynManager & dyn_manager,
+                        SphericalHarmonicsDeltaCoeffs & var_effect);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "spherical_harmonics_delta_coeffs.hh"
 #endif
-
 
 #endif
 

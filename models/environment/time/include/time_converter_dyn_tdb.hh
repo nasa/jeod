@@ -59,7 +59,7 @@
  no reverse conversion.)
  (There is only one instance of this converter.))
 
- 
+
 
  Library dependencies:
  ((../src/time_converter_dyn_tdb.cc))
@@ -75,58 +75,50 @@
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeDyn;
 class TimeTDB;
 class JeodBaseTime;
 
-
 /**
  * Define class TimeConverter_Dyn_TDB, which converts from simulation dynamic
  * time to Barycentric Dynamic Time.
  */
-class TimeConverter_Dyn_TDB: public TimeConverter {
-
-    JEOD_MAKE_SIM_INTERFACES(TimeConverter_Dyn_TDB)
+class TimeConverter_Dyn_TDB : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_Dyn_TDB)
     // Member Variables
 private:
     /**
      * Converter parent time, always a TimeDyn for this converter
      **/
-    TimeDyn * dyn_ptr; //!< trick_units(--)
+    TimeDyn * dyn_ptr{}; //!< trick_units(--)
 
     /**
      * Converter child time, always a TimeTDB for this converter.
      */
-    TimeTDB * tdb_ptr; //!< trick_units(--)
+    TimeTDB * tdb_ptr{}; //!< trick_units(--)
 
     // Member Functions
 public:
-    // Constructor
-    TimeConverter_Dyn_TDB ();
-    // Destructor
-    ~TimeConverter_Dyn_TDB () override;
+    TimeConverter_Dyn_TDB();
+    ~TimeConverter_Dyn_TDB() override = default;
+    TimeConverter_Dyn_TDB(const TimeConverter_Dyn_TDB &) = delete;
+    TimeConverter_Dyn_TDB & operator=(const TimeConverter_Dyn_TDB &) = delete;
 
     // Initialize the converter
-    void initialize (JeodBaseTime * parent,
-                     JeodBaseTime * child,
-                     const int direction) override;
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
     // convert_a_to_b: Apply the converter in the direction
-    void convert_a_to_b (void) override;
-
-    // Copy constructor and assignment operator for this class are
-    // declared private and not implemented to prevent usage of C++ defaults
-private:
-    TimeConverter_Dyn_TDB (const TimeConverter_Dyn_TDB&);
-    TimeConverter_Dyn_TDB & operator = (const TimeConverter_Dyn_TDB&);
+    void convert_a_to_b() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif /* time_converter_dyn_tdb_h */
 

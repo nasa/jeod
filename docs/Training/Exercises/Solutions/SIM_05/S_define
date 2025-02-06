@@ -37,18 +37,19 @@
 //=============================================================================
 // This simulation provides an example of the most simple of JEOD simulations,
 // and makes use of the available JEOD S_modules.
-//   
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-
-// Include the default trick object
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
 // Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 // Include the most basic time class and object:
@@ -61,4 +62,4 @@
 #include "vehicle_basic.sm"
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

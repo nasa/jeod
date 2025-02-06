@@ -19,10 +19,9 @@ Purpose:
 Library dependencies:
   ((message_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -32,22 +31,19 @@ Library dependencies:
 // Model includes
 #include "../include/message_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-#define MAKE_MESSAGE_MESSAGE_CODE(id) \
-   JEOD_MAKE_MESSAGE_CODE(MessageMessages, "utils/message/", id)
-
+#define MAKE_MESSAGE_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MessageMessages, "utils/message/", id)
 
 // Define MessageMessages static member data
 
-MAKE_MESSAGE_MESSAGE_CODE (singleton_error);
+MAKE_MESSAGE_MESSAGE_CODE(singleton_error);
 
 #undef MAKE_MESSAGE_MESSAGE_CODE
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

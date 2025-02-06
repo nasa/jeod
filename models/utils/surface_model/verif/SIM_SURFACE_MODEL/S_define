@@ -44,15 +44,15 @@
 //
 //==============================================================================
 
-// The default object for all trick sims, nicely wrapped by Trick 10.x
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
-// Define job calling intervals
-#define DEFAULT   1.00   // Default update interval
-
+// Include the default jeod object
 #include "jeod_sys.sm"
 
 
+// Define job calling intervals
+#define DEFAULT 1.00 // Default update interval
 
 // The includes for this verification
 ##include "utils/surface_model/verif/include/demo_facet.hh"
@@ -68,39 +68,30 @@
 
 // Decleration of the sim_object used for this verification.
 
-class SurfaceModelSimObject : public Trick::SimObject {
-
+class SurfaceModelSimObject : public Trick::SimObject
+{
 public:
+    // Constructor
+    SurfaceModelSimObject()
+    {
+        ("initialization") surf_fact1.create_surface(&surface, &inter_surface1);
+        ("initialization") surf_fact2.create_surface(&surface, &inter_surface2);
 
-   // Constructor
-   SurfaceModelSimObject()
-   {
+        (DEFAULT, "scheduled") inter1.run_interaction(inter_surface1);
+        (DEFAULT, "scheduled") inter2.run_interaction(inter_surface2);
+    }
 
-   ("initialization") surf_fact1.create_surface(&surface, &inter_surface1);
-   ("initialization") surf_fact2.create_surface(&surface, &inter_surface2);
+    // Objects
+    jeod::SurfaceModel surface;
+    jeod::DemoSurface1 inter_surface1;
+    jeod::DemoSurface2 inter_surface2;
+    jeod::DemoSurfaceFactory1 surf_fact1;
+    jeod::DemoSurfaceFactory2 surf_fact2;
+    jeod::DemoInteraction1 inter1;
+    jeod::DemoInteraction2 inter2;
 
-   (DEFAULT, "scheduled") inter1.run_interaction(inter_surface1);
-   (DEFAULT, "scheduled") inter2.run_interaction(inter_surface2);
-
-   }
-
-   // Objects
-   jeod::SurfaceModel surface;
-   jeod::DemoSurface1 inter_surface1;
-   jeod::DemoSurface2 inter_surface2;
-   jeod::DemoSurfaceFactory1 surf_fact1;
-   jeod::DemoSurfaceFactory2 surf_fact2;
-   jeod::DemoInteraction1 inter1;
-   jeod::DemoInteraction2 inter2;
-
-
-private:
-   // This object not copyable
-   SurfaceModelSimObject operator = (const SurfaceModelSimObject &);
-   SurfaceModelSimObject(const SurfaceModelSimObject &);
-
-protected:
-
+    SurfaceModelSimObject operator=(const SurfaceModelSimObject &) = delete;
+    SurfaceModelSimObject(const SurfaceModelSimObject &) = delete;
 };
 
 // Instantiate the surface model sim object.

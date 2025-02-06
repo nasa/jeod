@@ -62,7 +62,7 @@
 Library dependencies:
     ((../src/pair_interaction.cc))
 
- 
+
 
 *****************************************************************************/
 
@@ -70,76 +70,64 @@ Library dependencies:
 #define PAIR_INTERACTION_HH
 
 /* JEOD includes */
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "dynamics/derived_state/include/class_declarations.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 /* Model includes */
 #include "../include/class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Simple spring contact parameters
  */
-class PairInteraction {
-
-   JEOD_MAKE_SIM_INTERFACES (PairInteraction)
+class PairInteraction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PairInteraction)
 
 public:
+    /**
+     * contact param type that defines this pair interaction.
+     */
+    std::string params_1; //!< trick_units(--)
 
-   /**
-    * contact param type that defines this pair interaction.
-    */
-   char *params_1; //!< trick_units(--)
-   /**
-    * contact param type that defines this pair interaction.
-    */
-   char *params_2; //!< trick_units(--)
+    /**
+     * contact param type that defines this pair interaction.
+     */
+    std::string params_2; //!< trick_units(--)
 
-   /**
-    * magnitude of the friction force on the contact surfaces.
-    */
-   double friction_mag;  //!< trick_units(N)
+    /**
+     * magnitude of the friction force on the contact surfaces.
+     */
+    double friction_mag{}; //!< trick_units(N)
 
-   // constructor
-   PairInteraction ();
+    PairInteraction() = default;
+    virtual ~PairInteraction() = default;
+    PairInteraction & operator=(const PairInteraction &) = delete;
+    PairInteraction(const PairInteraction &) = delete;
 
-   // destructor
-   virtual ~PairInteraction ();
+    // check a pair of contact params for a match to stored ones.
+    bool is_correct_interaction(ContactParams * subject_params, ContactParams * target_params);
 
-   // check a pair of contact params for a match to stored ones.
-   bool is_correct_interaction(ContactParams *subject_params, ContactParams *target_params);
-
-      /**
-    * Pure virtual function that is defined to calculate forces on facets in
-    * contact.
-    * \param[in,out] subject subject of the relative state
-    * \param[in,out] target target of the relative state
-    * \param[in] rel_state relative state between subject and target in subject frame
-    * \param[in] penetration_vector vector that characterises the interpenetration of the subject and the target
-    * \param[in] rel_velocity relative velocity of the subject and the target in the subject frame
-    */
-   virtual void calculate_forces (
-      ContactFacet * subject,
-      ContactFacet * target,
-      RelativeDerivedState * rel_state,
-      double* penetration_vector,
-      double* rel_velocity)
-   = 0;
-
-
-
-private:
-
-   // The operator = and copy constructor locked away from use by being private
-
-   PairInteraction& operator = (const PairInteraction & rhs);
-   PairInteraction (const PairInteraction & rhs);
-
+    /**
+     * Pure virtual function that is defined to calculate forces on facets in
+     * contact.
+     * \param[in,out] subject subject of the relative state
+     * \param[in,out] target target of the relative state
+     * \param[in] rel_state relative state between subject and target in subject frame
+     * \param[in] penetration_vector vector that characterises the interpenetration of the subject and the target
+     * \param[in] rel_velocity relative velocity of the subject and the target in the subject frame
+     */
+    virtual void calculate_forces(ContactFacet * subject,
+                                  ContactFacet * target,
+                                  RelativeDerivedState * rel_state,
+                                  double * penetration_vector,
+                                  double * rel_velocity) = 0;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

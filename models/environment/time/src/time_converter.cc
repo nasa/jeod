@@ -24,10 +24,9 @@ ASSUMPTIONS AND LIMITATIONS:
 LIBRARY DEPENDENCY:
   ((time_converter.cc)
    (time_messages.cc)
-   (utils/sim_interface/src/memory_interface.cc)
    (utils/message/src/message_handler.cc))
 
- 
+
 ******************************************************************************/
 
 // System includes
@@ -35,36 +34,22 @@ LIBRARY DEPENDENCY:
 #include <cstdlib>
 
 // JEOD includes
-#include "utils/message/include/message_handler.hh"
 #include "utils/memory/include/jeod_alloc.hh"
+#include "utils/message/include/message_handler.hh"
 
 // Model includes
-#include "../include/time_converter.hh"
 #include "../include/time.hh"
+#include "../include/time_converter.hh"
 #include "../include/time_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct a TimeConverter
- */
-TimeConverter::TimeConverter (
-   void)
-:    a_name(""),
-     b_name("")
+namespace jeod
 {
-   initialized           = false;
-   a_to_b_offset         = 0.0;
-   valid_directions = NO_DIRECTION;
-}
 
 /**
  * Return internal initialized status bool
  */
-bool
-TimeConverter::is_initialized( void )
+bool TimeConverter::is_initialized()
 {
     return initialized;
 }
@@ -78,43 +63,42 @@ TimeConverter::is_initialized( void )
  * \param[in] sub_ptr Other time-type associated with the converter
  * \param[in] int_dir +1 a=parent; -1 b=parent; 0 error
  */
-void
-TimeConverter::verify_setup (
-   const JeodBaseTime * master_ptr,
-   const JeodBaseTime * sub_ptr,
-   const int int_dir)
+void TimeConverter::verify_setup(const JeodBaseTime * master_ptr, const JeodBaseTime * sub_ptr, const int int_dir)
 {
-   if (master_ptr == nullptr) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, TimeMessages::invalid_setup_error,
-         "\nThe master pointer is NULL\n");
-      return;
-   }
-   if (sub_ptr == nullptr) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, TimeMessages::invalid_setup_error,
-         "\nThe sub pointer is NULL\n");
-      return;
-   }
-   if (!master_ptr->initialized) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, TimeMessages::initialization_error,
-         "Trying to initialize converter between %s and "
-         "%s, but the parent type (%s) has not been "
-         "initialized. \n",
-         master_ptr->name.c_str(), sub_ptr->name.c_str(), master_ptr->name.c_str());
-      return;
-   }
-   if (std::abs (int_dir) != 1) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, TimeMessages::invalid_setup_error,
-         "\n Failed to initialize converter between %s and "
-         "%s because one or more of the inputs was invalid. \n",
-         master_ptr->name.c_str(), sub_ptr->name.c_str());
-      return;
-   }
-
-   return;
+    if(master_ptr == nullptr)
+    {
+        MessageHandler::fail(__FILE__, __LINE__, TimeMessages::invalid_setup_error, "\nThe master pointer is NULL\n");
+        return;
+    }
+    if(sub_ptr == nullptr)
+    {
+        MessageHandler::fail(__FILE__, __LINE__, TimeMessages::invalid_setup_error, "\nThe sub pointer is NULL\n");
+        return;
+    }
+    if(!master_ptr->initialized)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             TimeMessages::initialization_error,
+                             "Trying to initialize converter between %s and "
+                             "%s, but the parent type (%s) has not been "
+                             "initialized. \n",
+                             master_ptr->name.c_str(),
+                             sub_ptr->name.c_str(),
+                             master_ptr->name.c_str());
+        return;
+    }
+    if(std::abs(int_dir) != 1)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             TimeMessages::invalid_setup_error,
+                             "\n Failed to initialize converter between %s and "
+                             "%s because one or more of the inputs was invalid. \n",
+                             master_ptr->name.c_str(),
+                             sub_ptr->name.c_str());
+        return;
+    }
 }
 
 /**
@@ -124,12 +108,11 @@ TimeConverter::verify_setup (
  * @return whether this converter can do all the conversions
  * \param[in] query converter directions to check
  */
-bool
-TimeConverter::can_convert(Direction query)
+bool TimeConverter::can_convert(Direction query)
 {
-    if( query == NO_DIRECTION )
+    if(query == NO_DIRECTION)
     {
-        if( valid_directions == NO_DIRECTION )
+        if(valid_directions == NO_DIRECTION)
         {
             return true;
         }
@@ -140,54 +123,34 @@ TimeConverter::can_convert(Direction query)
     }
     else
     {
-        return (query&valid_directions)==query;
+        return (query & valid_directions) == query;
     }
 }
-
 
 /**
  * Default converter from time 'a' to time 'b'.
  * This default converter simply terminates the program.
  * A subclass must override this default.
  */
-void
-TimeConverter::convert_a_to_b (
-   void)
+void TimeConverter::convert_a_to_b()
 {
-   MessageHandler::fail (
-      __FILE__, __LINE__, TimeMessages::invalid_setup_error,
-      "\n Converter not available\n");
-   return;
+    MessageHandler::fail(__FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n Converter not available\n");
 }
-
 
 /**
  * Default converter from time 'b' to time 'a'.
  * This default converter simply terminates the program.
  * A subclass must override this default.
  */
-void
-TimeConverter::convert_b_to_a (
-   void)
+void TimeConverter::convert_b_to_a()
 {
-   MessageHandler::fail (
-      __FILE__, __LINE__, TimeMessages::invalid_setup_error,
-      "\n Converter not available.\n");
-   return;
+    MessageHandler::fail(__FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n Converter not available.\n");
 }
-
 
 /**
  * Resets the offset between type a and type b mid-sim
  */
-void
-TimeConverter::reset_a_to_b_offset (
-   void)
-{
-   return;
-}
-
-
+void TimeConverter::reset_a_to_b_offset() {}
 
 /**
  * This function does absolutely nothing.
@@ -200,24 +163,9 @@ TimeConverter::reset_a_to_b_offset (
  * \par Assumptions and Limitations
  *  - None
  */
-void
-TimeConverter::verify_table_lookup_ends (
-   void)
-{
-   return;
-}
+void TimeConverter::verify_table_lookup_ends() {}
 
-/**
- * Destroy a TimeConverter
- */
-TimeConverter::~TimeConverter (
-   void)
-{
-   // Default
-}
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

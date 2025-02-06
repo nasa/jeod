@@ -46,16 +46,18 @@ Library dependencies:
 #ifndef JEOD_RNPMARS_RNP_MARS_DEFAULT_DATA_HH
 #define JEOD_RNPMARS_RNP_MARS_DEFAULT_DATA_HH
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class RNPMars;
 
-class RNPMars_rnp_mars_default_data {
- public:
-   void initialize (RNPMars*);
+class RNPMars_rnp_mars_default_data
+{
+public:
+    void initialize(RNPMars *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

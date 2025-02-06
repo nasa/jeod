@@ -16,7 +16,7 @@ veh_mass_point( vehA)
 veh_mass_alt( vehB)
 veh_mass_point( vehB)
 # Turn the point on vehB on yaw axis.  vehA yaw = 90 deg; vehB yaw = -90 deg.
-vehB.mass_init.points[0].pt_orientation.euler_angles  = \
+vehB.mass_init.get_mass_point(0).pt_orientation.euler_angles  = \
                                     trick.attach_units( "degree",[  -90.0, 0.0, 0.0])
 
 exec(compile(open( "Modified_data/veh_state.py", "rb").read(), "Modified_data/veh_state.py", 'exec'))

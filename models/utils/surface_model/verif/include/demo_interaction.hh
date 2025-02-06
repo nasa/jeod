@@ -41,47 +41,40 @@ PURPOSE:
 Library dependencies:
     (../src/demo_interaction.cc)
 
- 
+
 */
 
 #ifndef JEOD_DEMO_INTERACTION_HH
 #define JEOD_DEMO_INTERACTION_HH
 
-
 #include "demo_surface.hh"
 
-
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class DemoInteraction1 {
+class DemoInteraction1
+{
 public:
+    DemoInteraction1() = default;
+    virtual ~DemoInteraction1() = default;
 
-   DemoInteraction1 ();
-   virtual ~DemoInteraction1 ();
+    void run_interaction(DemoSurface1 & surface);
 
-   void run_interaction(
-      DemoSurface1& surface);
-
-   unsigned int interaction_number;
-
+    unsigned int interaction_number{};
 };
 
-class DemoInteraction2 {
+class DemoInteraction2
+{
 public:
+    DemoInteraction2() = default;
+    virtual ~DemoInteraction2() = default;
 
-   DemoInteraction2 ();
-   virtual ~DemoInteraction2 ();
+    void run_interaction(DemoSurface2 & surface);
 
-   void run_interaction(
-      DemoSurface2& surface);
-
-   char* interaction_name;
-
+    std::string interaction_name;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

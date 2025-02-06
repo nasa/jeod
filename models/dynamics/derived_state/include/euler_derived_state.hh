@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EULER_DERIVED_STATE_HH
 #define JEOD_EULER_DERIVED_STATE_HH
 
@@ -71,97 +70,82 @@ Library dependencies:
 #include "dynamics/dyn_body/include/class_declarations.hh"
 #include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "utils/orientation/include/orientation.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/ref_frames/include/class_declarations.hh"
 #include "utils/ref_frames/include/ref_frame_state.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used for deriving the Euler angle representation
  * of a subject DynBody's attitude.
  */
-class EulerDerivedState : public DerivedState {
+class EulerDerivedState : public DerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EulerDerivedState)
 
- JEOD_MAKE_SIM_INTERFACES(EulerDerivedState)
+    // Member data
 
+public:
+    /**
+     * Euler angle sequence specification.
+     */
+    Orientation::EulerSequence sequence{Orientation::Roll_Pitch_Yaw}; //!< trick_units(--)
 
- // Member data
+    /**
+     * Euler angles from reference frame.
+     */
+    double ref_body_angles[3]{}; //!< trick_units(rad)
 
- public:
+    /**
+     * Euler angles to reference frame.
+     */
+    double body_ref_angles[3]{}; //!< trick_units(rad)
 
-   /**
-    * Euler angle sequence specification.
-    */
-   Orientation::EulerSequence sequence; //!< trick_units(--)
+    /**
+     * The relative state of the body. This is just a copy of the body's
+     * state when the relative frame is the parent frame. This is a computed
+     * relative state when the relative frame is not the parent frame.
+     */
+    RefFrameState rel_state; //!< trick_units(--)
 
-   /**
-    * Euler angles from reference frame.
-    */
-   double ref_body_angles[3];           //!< trick_units(rad)
+protected:
+    /**
+     * Reference frame from which to compute the Euler angle attitude.  If
+     * this is NULL then the body's parent frame is used.
+     */
+    RefFrame * rel_frame{}; //!< trick_units(--)
 
-   /**
-    * Euler angles to reference frame.
-    */
-   double body_ref_angles[3];           //!< trick_units(rad)
+    // Methods
 
-   /**
-    * The relative state of the body. This is just a copy of the body's
-    * state when the relative frame is the parent frame. This is a computed
-    * relative state when the relative frame is not the parent frame.
-    */
-   RefFrameState rel_state; //!< trick_units(--)
+public:
+    EulerDerivedState() = default;
+    ~EulerDerivedState() override;
+    EulerDerivedState(const EulerDerivedState &) = delete;
+    EulerDerivedState & operator=(const EulerDerivedState &) = delete;
 
+    // initialize(): Initialize the DerivedState (but not necessarily the
+    // state itself.)
+    // Rules for derived classes:
+    // All derived classes must forward the initialize() call to the immediate
+    // parent class and then perform class-dependent object initializations.
+    void initialize(DynBody & subject_body, DynManager & dyn_manager) override;
 
- protected:
+    virtual void initialize(RefFrame & ref_frame, DynBody & subject_body, DynManager & dyn_manager);
 
-   /**
-    * Reference frame from which to compute the Euler angle attitude.  If
-    * this is NULL then the body's parent frame is used.
-    */
-   RefFrame * rel_frame; //!< trick_units(--)
-
-
- // Methods
-
- public:
-
-   // Default constructor and destructor
-   EulerDerivedState ();
-   ~EulerDerivedState () override;
-
-   // initialize(): Initialize the DerivedState (but not necessarily the
-   // state itself.)
-   // Rules for derived classes:
-   // All derived classes must forward the initialize() call to the immediate
-   // parent class and then perform class-dependent object initializations.
-   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
-
-   virtual void initialize (
-      RefFrame & ref_frame, DynBody & subject_body, DynManager & dyn_manager);
-
-   // update(): Update the DerivedState representation of the subject DynBody.
-   // Rules for derived classes:
-   // All derived classes must perform class-dependent actions and then
-   // must forward the update() call to the immediate parent class.
-   void update (void) override;
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   EulerDerivedState (const EulerDerivedState&);
-   EulerDerivedState & operator = (const EulerDerivedState&);
-
+    // update(): Update the DerivedState representation of the subject DynBody.
+    // Rules for derived classes:
+    // All derived classes must perform class-dependent actions and then
+    // must forward the update() call to the immediate parent class.
+    void update() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

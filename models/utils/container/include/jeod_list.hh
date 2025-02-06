@@ -51,7 +51,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -67,9 +67,9 @@ Purpose:
 // System includes
 #include <list>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
 Members unique to std::list:
@@ -85,255 +85,222 @@ push_front
 pop_front
 */
 
-
 /**
  * The JEOD replacement for std::list.
  */
-template <typename ElemType>
-class JeodList :
-    public JeodSequenceContainer< ElemType, std::list<ElemType> > {
-
+template<typename ElemType> class JeodList : public JeodSequenceContainer<ElemType, std::list<ElemType>>
+{
 public:
+    // Types
 
-   // Types
+    /**
+     * This particular JeodList type.
+     */
+    using this_container_type = JeodList<ElemType>;
 
-   /**
-    * This particular JeodList type.
-    */
-   typedef JeodList<ElemType> this_container_type;
+    /**
+     * The JeodSequenceContainer type.
+     */
+    using jeod_sequence_container_type = JeodSequenceContainer<ElemType, std::list<ElemType>>;
 
-   /**
-    * The JeodSequenceContainer type.
-    */
-   typedef JeodSequenceContainer< ElemType, std::list<ElemType> >
-      jeod_sequence_container_type;
+    /**
+     * The JeodSTLContainer type.
+     */
+    using jeod_stl_container_type = JeodSTLContainer<ElemType, std::list<ElemType>>;
 
-   /**
-    * The JeodSTLContainer type.
-    */
-   typedef JeodSTLContainer<ElemType, std::list<ElemType> >
-      jeod_stl_container_type;
+    /**
+     * The std::list itself.
+     */
+    using stl_container_type = std::list<ElemType>;
 
-   /**
-    * The std::list itself.
-    */
-   typedef std::list<ElemType> stl_container_type;
+    // Member functions
 
+    // Constructors and destructors
+    // NOTE: The constructors are protected. See jeod_stl_container.hh.
 
-   // Member functions
+    /**
+     * Destructor.
+     */
+    virtual ~JeodList() = default;
 
-   // Constructors and destructors
-   // NOTE: The constructors are protected. See jeod_stl_container.hh.
+    // Assignment operators
 
-   /**
-    * Destructor.
-    */
-   virtual ~JeodList (void) {}
+    /**
+     * Copy contents from the given source.
+     */
+    JeodList & operator=(const this_container_type & src)
+    {
+        jeod_stl_container_type::operator=(src);
+        return *this;
+    }
 
+    /**
+     * Copy contents from the given source.
+     */
+    JeodList & operator=(const stl_container_type & src)
+    {
+        jeod_stl_container_type::operator=(src);
+        return *this;
+    }
 
-   // Assignment operators
+    // Operations
 
-   /**
-    * Copy contents from the given source.
-    */
-   JeodList &
-   operator= (const this_container_type & src)
-   {
-      jeod_stl_container_type::operator= (src);
-      return *this;
-   }
+    /**
+     * Merge the contents of some other list into this list, emptying the
+     * other list.
+     * @param other Other list to be merged into this list.
+     */
+    void merge(stl_container_type & other)
+    {
+        this->contents.merge(other);
+    }
 
-   /**
-    * Copy contents from the given source.
-    */
-   JeodList &
-   operator= (const stl_container_type & src)
-   {
-      jeod_stl_container_type::operator= (src);
-      return *this;
-   }
+    /**
+     * Merge the contents of some other list into this list using the provided
+     * comparator to guide the merge. The other list is emptied.
+     * @param other Other list to be merged into this list.
+     * @param comp  Comparison function.
+     */
+    template<typename Compare> void merge(stl_container_type & other, Compare comp)
+    {
+        this->contents.merge(other, comp);
+    }
 
+    /**
+     * Add an element to the head of the list.
+     * @param elem Element to be added.
+     */
+    void push_front(const ElemType & elem)
+    {
+        this->contents.push_front(elem);
+    }
 
-   // Operations
+    /**
+     * Deletes the element at the head of the list.
+     */
+    void pop_front()
+    {
+        this->contents.pop_front();
+    }
 
-   /**
-    * Merge the contents of some other list into this list, emptying the
-    * other list.
-    * @param other Other list to be merged into this list.
-    */
-   void
-   merge (stl_container_type & other)
-   {
-      this->contents.merge (other);
-   }
+    /**
+     * Remove elements from the list that are equal to the provided value.
+     */
+    void remove(const ElemType & value)
+    {
+        this->contents.remove(value);
+    }
 
-   /**
-    * Merge the contents of some other list into this list using the provided
-    * comparator to guide the merge. The other list is emptied.
-    * @param other Other list to be merged into this list.
-    * @param comp  Comparison function.
-    */
-   template <typename Compare>
-   void
-   merge (stl_container_type & other, Compare comp)
-   {
-      this->contents.merge (other, comp);
-   }
+    /**
+     * Remove elements from the list that pass the provided test.
+     * @param pred Predicate function, which must be able to take a const
+     *             ref to ElemType as an argument and must return a bool.
+     */
+    template<typename Predicate> void remove_if(Predicate pred)
+    {
+        this->contents.remove_if(pred);
+    }
 
-   /**
-    * Add an element to the head of the list.
-    * @param elem Element to be added.
-    */
-   void
-   push_front (const ElemType & elem)
-   {
-      this->contents.push_front (elem);
-   }
+    /**
+     * Reverse the list.
+     */
+    void reverse()
+    {
+        this->contents.reverse();
+    }
 
-   /**
-    * Deletes the element at the head of the list.
-    */
-   void
-   pop_front (void)
-   {
-      this->contents.pop_front ();
-   }
+    /**
+     * Inserts the contents of @a other before @a position, emptying @a other.
+     */
+    void splice(typename jeod_stl_container_type::iterator position, stl_container_type & other)
+    {
+        this->contents.splice(position, other);
+    }
 
-   /**
-    * Remove elements from the list that are equal to the provided value.
-    */
-   void
-   remove (const ElemType & value)
-   {
-      this->contents.remove(value);
-   }
+    /**
+     * Inserts the element @a other_pos of @a other before @a position,
+     * deleting that element from @a other.
+     */
+    void splice(typename jeod_stl_container_type::iterator position,
+                stl_container_type & other,
+                typename jeod_stl_container_type::iterator other_pos)
+    {
+        this->contents.splice(position, other, other_pos);
+    }
 
-   /**
-    * Remove elements from the list that pass the provided test.
-    * @param pred Predicate function, which must be able to take a const
-    *             ref to ElemType as an argument and must return a bool.
-    */
-   template <typename Predicate>
-   void
-   remove_if (Predicate pred)
-   {
-      this->contents.remove_if(pred);
-   }
+    /**
+     * Inserts elements in @a other from @a first up to but not including
+     * @a last before @a position, deleting those element from @a other.
+     */
+    void splice(typename jeod_stl_container_type::iterator position,
+                stl_container_type & other,
+                typename jeod_stl_container_type::iterator first,
+                typename jeod_stl_container_type::iterator last)
+    {
+        this->contents.splice(position, other, first, last);
+    }
 
-   /**
-    * Reverse the list.
-    */
-   void
-   reverse (void)
-   {
-      this->contents.reverse();
-   }
+    /**
+     * Sort using the default comparison operator.
+     */
+    void sort()
+    {
+        this->contents.sort();
+    }
 
-   /**
-    * Inserts the contents of @a other before @a position, emptying @a other.
-    */
-   void
-   splice (
-      typename jeod_stl_container_type::iterator position,
-      stl_container_type & other)
-   {
-      this->contents.splice(position, other);
-   }
+    /**
+     * Sort using the provided comparator.
+     * @param comp Comparison function, which must be able to take a pair of
+     *             ElemType as arguments and must return a bool.
+     */
+    template<typename Compare> void sort(Compare comp)
+    {
+        this->contents.sort(comp);
+    }
 
-   /**
-    * Inserts the element @a other_pos of @a other before @a position,
-    * deleting that element from @a other.
-    */
-   void
-   splice (
-      typename jeod_stl_container_type::iterator position,
-      stl_container_type & other,
-      typename jeod_stl_container_type::iterator other_pos)
-   {
-      this->contents.splice(position, other, other_pos);
-   }
+    /**
+     * Remove duplicates using the default equality operator.
+     */
+    void unique()
+    {
+        this->contents.unique();
+    }
 
-   /**
-    * Inserts elements in @a other from @a first up to but not including
-    * @a last before @a position, deleting those element from @a other.
-    */
-   void
-   splice (
-      typename jeod_stl_container_type::iterator position,
-      stl_container_type & other,
-      typename jeod_stl_container_type::iterator first,
-      typename jeod_stl_container_type::iterator last)
-   {
-      this->contents.splice(position, other, first, last);
-   }
-
-   /**
-    * Sort using the default comparison operator.
-    */
-   void
-   sort (void)
-   {
-      this->contents.sort();
-   }
-
-   /**
-    * Sort using the provided comparator.
-    * @param comp Comparison function, which must be able to take a pair of
-    *             ElemType as arguments and must return a bool.
-    */
-   template <typename Compare>
-   void
-   sort (Compare comp)
-   {
-      this->contents.sort(comp);
-   }
-
-   /**
-    * Remove duplicates using the default equality operator.
-    */
-   void
-   unique (void)
-   {
-      this->contents.unique();
-   }
-
-   /**
-    * Remove duplicates using the provided comparator.
-    * @param comp Comparison function, which must be able to take a pair of
-    *             ElemType as arguments and must return a bool.
-    */
-   template <typename BinaryPredicate>
-   void
-   unique (BinaryPredicate comp)
-   {
-      this->contents.unique(comp);
-   }
+    /**
+     * Remove duplicates using the provided comparator.
+     * @param comp Comparison function, which must be able to take a pair of
+     *             ElemType as arguments and must return a bool.
+     */
+    template<typename BinaryPredicate> void unique(BinaryPredicate comp)
+    {
+        this->contents.unique(comp);
+    }
 
 protected:
+    /**
+     * Default constructor.
+     */
+    JeodList() = default;
 
-   /**
-    * Default constructor.
-    */
-   JeodList (void) {}
+    /**
+     * Copy constructor.
+     */
+    explicit JeodList(const this_container_type & src)
+        : jeod_sequence_container_type(src)
+    {
+    }
 
-   /**
-    * Copy constructor.
-    */
-   JeodList (const this_container_type & src)
-   : jeod_sequence_container_type (src)
-   {}
-
-   /**
-    * Copy constructor from STL container.
-    * @param src Source container to be copied
-    */
-   explicit JeodList (const stl_container_type & src)
-   : jeod_sequence_container_type (src)
-   {}
+    /**
+     * Copy constructor from STL container.
+     * @param src Source container to be copied
+     */
+    explicit JeodList(const stl_container_type & src)
+        : jeod_sequence_container_type(src)
+    {
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

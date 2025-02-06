@@ -71,38 +71,30 @@ Library dependencies:
 
 #include "time_standard.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represents International Atomic Time.
  */
-class TimeTAI : public TimeStandard {   /* Base time unit, International
-                                                  Atomic Time*/
+class TimeTAI : public TimeStandard
+{ /* Base time unit, International Atomic Time*/
 
-  JEOD_MAKE_SIM_INTERFACES(TimeTAI)
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeTAI)
 
-// Member Data
-
-// Member functions
+    // Member functions
 public:
-  // Constructor
-   TimeTAI ();
+    TimeTAI();
+    ~TimeTAI() override = default;
+    TimeTAI(const TimeTAI &) = delete;
+    TimeTAI & operator=(const TimeTAI &) = delete;
 
-  // Destructor
-   ~TimeTAI () override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeTAI (const TimeTAI&);
-   TimeTAI & operator = (const TimeTAI&);
-   void set_epoch(void) override; //cppcheck-suppress virtualCallInConstructor
-
+private:
+    void set_epoch() override; // cppcheck-suppress virtualCallInConstructor
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

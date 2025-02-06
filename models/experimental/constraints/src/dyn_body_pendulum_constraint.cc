@@ -14,37 +14,32 @@
 Purpose: ()
 */
 
-
 #include "../include/dyn_body_pendulum_constraint.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
-
-void
-DynBodyPendulumConstraint::activate ()
+//! Namespace jeod
+namespace jeod
 {
-    if (inactive)
+
+void DynBodyPendulumConstraint::activate()
+{
+    if(inactive)
     {
-        DynBodyConstraint::activate ();
-        pendulum_component.activate ();
+        DynBodyConstraint::activate();
+        pendulum_component.activate();
     }
 }
-
 
 // Mark the constraint as inactive.
-void
-DynBodyPendulumConstraint::deactivate ()
+void DynBodyPendulumConstraint::deactivate()
 {
-    if (!inactive)
+    if(!inactive)
     {
-        DynBodyConstraint::deactivate ();
-        pendulum_component.deactivate ();
+        DynBodyConstraint::deactivate();
+        pendulum_component.deactivate();
     }
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

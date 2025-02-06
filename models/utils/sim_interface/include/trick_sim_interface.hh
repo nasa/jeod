@@ -54,7 +54,7 @@ Purpose:
 Library dependencies:
   ((../src/trick_sim_interface.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -70,15 +70,15 @@ Library dependencies:
 #include "utils/memory/include/memory_manager.hh"
 
 // Model includes
-#include "simulation_interface.hh"
-#include "trick_memory_interface.hh"
-#include "trick10_memory_interface.hh"
-#include "trick_message_handler.hh"
 #include "jeod_class.hh"
-
+#include "simulation_interface.hh"
+#include "trick10_memory_interface.hh"
+#include "trick_memory_interface.hh"
+#include "trick_message_handler.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The BasicJeodTrickSimInterface implements the required capabilities of the
@@ -86,157 +86,138 @@ namespace jeod {
  * By virtue of member data ownership, the class creates the requisite
  * MessageHandler and MemoryManager and does so in the correct order.
  */
-class BasicJeodTrickSimInterface : public JeodSimulationInterface {
-JEOD_MAKE_SIM_INTERFACES(BasicJeodTrickSimInterface)
+class BasicJeodTrickSimInterface : public JeodSimulationInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BasicJeodTrickSimInterface)
 
 public:
+    // Methods
+    // NOTE: The copy constructor or assignment operator are deleted.
 
-   // Methods
-   // NOTE: The copy constructor or assignment operator are deleted.
+    // Constructor and destructor
+    explicit BasicJeodTrickSimInterface(MessageHandler & message_handler);
+    ~BasicJeodTrickSimInterface() override;
 
-   // Constructor and destructor
-   explicit BasicJeodTrickSimInterface (MessageHandler & message_handler);
-   ~BasicJeodTrickSimInterface () override;
+    /**
+     * Set the checkpoint file name.
+     */
+    void set_checkpoint_file_name(const std::string & name)
+    {
+        checkpoint_file_name = name;
+    }
 
-   /**
-    * Set the checkpoint file name.
-    */
-   void set_checkpoint_file_name (const std::string & name)
-   { checkpoint_file_name = name; }
+    /**
+     * Get the checkpoint file name.
+     */
+    std::string get_checkpoint_file_name() const
+    {
+        return checkpoint_file_name;
+    }
 
-   /**
-    * Get the checkpoint file name.
-    */
-   std::string get_checkpoint_file_name () const
-   { return checkpoint_file_name; }
+    // The next set of functions are public because they are called by the
+    // JEODSysSimObject sim object (see).
+    // DO NOT call from Python.
+    // DO NOT call from model code.
+    // DO NOT call from anything but the S_define,
+    // and then only do so with the proper sequencing.
+    // Suggested usage: Use the default JEODSysSimObject.
 
+    // Set the mode.
+    void set_mode(JeodSimulationInterface::Mode new_mode) override;
 
-   // The next set of functions are public because they are called by the
-   // JEODSysSimObject sim object (see).
-   // DO NOT call from Python.
-   // DO NOT call from model code.
-   // DO NOT call from anything but the S_define,
-   // and then only do so with the proper sequencing.
-   // Suggested usage: Use the default JEODSysSimObject.
+    // Record declarations of JEOD_ALLOCed data to the checkpoint file.
+    void checkpoint_allocations();
 
+    // Re-allocate JEOD_ALLOCed data per checkpoint file declarations.
+    void restore_allocations();
 
-   // Set the mode.
-   void set_mode (JeodSimulationInterface::Mode new_mode) override;
+    // Record contents of checkpointable objects to the checkpoint file.
+    void checkpoint_containers();
 
+    // Restore contents of checkpointable objects per checkpoint file contents.
+    void restore_containers();
 
-   // Record declarations of JEOD_ALLOCed data to the checkpoint file.
-   void checkpoint_allocations (void);
+    // Open the checkpoint file.
+    void open_checkpoint_file();
 
-   // Re-allocate JEOD_ALLOCed data per checkpoint file declarations.
-   void restore_allocations (void);
+    // Close the checkpoint file.
+    void close_checkpoint_file();
 
-   // Record contents of checkpointable objects to the checkpoint file.
-   void checkpoint_containers (void);
+    // Open the restart file.
+    void open_restart_file();
 
-   // Restore contents of checkpointable objects per checkpoint file contents.
-   void restore_containers (void);
+    // Close the restart file.
+    void close_restart_file();
 
-
-   // Open the checkpoint file.
-   void open_checkpoint_file (void);
-
-   // Close the checkpoint file.
-   void close_checkpoint_file (void);
-
-   // Open the restart file.
-   void open_restart_file (void);
-
-   // Close the restart file.
-   void close_restart_file (void);
-
+    // The parent SimulationInterface hides the copy constructor and
+    // assignment operator. These are hidden here as well.
+    BasicJeodTrickSimInterface(const BasicJeodTrickSimInterface &) = delete;
+    BasicJeodTrickSimInterface & operator=(const BasicJeodTrickSimInterface &) = delete;
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Create an integration interface object.
+    JeodIntegratorInterface * create_integrator_internal() override;
 
-   // Create an integration interface object.
-   JeodIntegratorInterface * create_integrator_internal (
-      void) override;
+    // Get the currently executing function's cycle time.
+    double get_job_cycle_internal() override;
 
-   // Get the currently executing function's cycle time.
-   double get_job_cycle_internal (void) override;
+    // Get the interface with the simulation memory manager.
+    JeodMemoryInterface & get_memory_interface_internal() override;
 
-   // Get the interface with the simulation memory manager.
-   JeodMemoryInterface & get_memory_interface_internal (void) override;
+    // Get a checkpoint section reader.
+    SectionedInputStream get_checkpoint_reader_internal(const std::string & section_id) override;
 
-   // Get a checkpoint section reader.
-   SectionedInputStream get_checkpoint_reader_internal (
-      const std::string & section_id) override;
+    // Get a checkpoint section writer.
+    SectionedOutputStream get_checkpoint_writer_internal(const std::string & section_id) override;
 
-   // Get a checkpoint section writer.
-   SectionedOutputStream get_checkpoint_writer_internal (
-      const std::string & section_id) override;
+    // Member data
 
+    /**
+     * The global MessageHandler.
+     */
+    MessageHandler & generic_message_handler; //!< trick_units(--)
 
-   // Member data
+    /**
+     * The interface between JEOD and Trick's memory management schemes.
+     */
+    JeodTrick10MemoryInterface trick_memory_interface; //!< trick_units(--)
 
-   /**
-    * The global MessageHandler.
-    */
-   MessageHandler & generic_message_handler; //!< trick_units(--)
+    /**
+     * The global JEOD memory manager.
+     */
+    JeodMemoryManager memory_manager; //!< trick_units(--)
 
-   /**
-    * The interface between JEOD and Trick's memory management schemes.
-    */
-   JeodTrick10MemoryInterface trick_memory_interface; //!< trick_units(--)
+    /**
+     * The name of the segmented checkpoint file used for the next
+     * checkpoint / restart action.
+     * If the name is the empty string (default), the checkpoint / restart
+     * mechanisms will attempt to construct a name from the corresponding
+     * Trick checkpoint file name.
+     */
+    std::string checkpoint_file_name; //!< trick_units(--)
 
-   /**
-    * The global JEOD memory manager.
-    */
-   JeodMemoryManager memory_manager; //!< trick_units(--)
+    /**
+     * String indicating the start of a checkpoint file section.
+     */
+    std::string section_start; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * The name of the segmented checkpoint file used for the next
-    * checkpoint / restart action.
-    * If the name is the empty string (default), the checkpoint / restart
-    * mechanisms will attempt to construct a name from the corresponding
-    * Trick checkpoint file name.
-    */
-   std::string checkpoint_file_name; //!< trick_units(--)
+    /**
+     * String indicating the end of a checkpoint file section.
+     */
+    std::string section_end; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * String indicating the start of a checkpoint file section.
-    */
-   std::string section_start;  //!< trick_io(*o) trick_units(--)
+    /**
+     * The object that manages reading from a checkpoint file.
+     */
+    CheckPointInputManager * checkpoint_reader{}; //!< trick_io(**)
 
-   /**
-    * String indicating the end of a checkpoint file section.
-    */
-   std::string section_end; //!< trick_io(*o) trick_units(--)
-
-   /**
-    * The object that manages reading from a checkpoint file.
-    */
-   CheckPointInputManager * checkpoint_reader;  //!< trick_io(**)
-
-   /**
-    * The object that manages writing to a checkpoint file.
-    */
-   CheckPointOutputManager * checkpoint_writer; //!< trick_io(**)
-
-
-private:
-
-   // The parent SimulationInterface hides the copy constructor and
-   // assignment operator. These are hidden here as well.
-
-   /**
-    * Not implemented.
-    */
-   BasicJeodTrickSimInterface (const BasicJeodTrickSimInterface &);
-
-   /**
-    * Not implemented.
-    */
-   BasicJeodTrickSimInterface & operator= (const BasicJeodTrickSimInterface &);
-
+    /**
+     * The object that manages writing to a checkpoint file.
+     */
+    CheckPointOutputManager * checkpoint_writer{}; //!< trick_io(**)
 };
-
 
 /**
  * The TrickMessageHandlerMixin implements the required capabilities of the
@@ -244,48 +225,34 @@ private:
  * By virtue of member data ownership, the class creates the requisite
  * MessageHandler and MemoryManager and does so in the correct order.
  */
-class TrickMessageHandlerMixin {
-JEOD_MAKE_SIM_INTERFACES(TrickMessageHandlerMixin)
+class TrickMessageHandlerMixin
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TrickMessageHandlerMixin)
 
 public:
+    /**
+     * Default constructor.
+     */
+    TrickMessageHandlerMixin() = default;
 
-      /**
-    * Default constructor.
-    */
-   TrickMessageHandlerMixin () {}
+    /**
+     * Destructor.
+     */
+    virtual ~TrickMessageHandlerMixin() = default;
 
-      /**
-    * Destructor.
-    */
-   virtual ~TrickMessageHandlerMixin () {}
+    // The message handler is a singleton.
+    // There is no reason to have a copy constructor or assignment operator.
+    TrickMessageHandlerMixin(const TrickMessageHandlerMixin &) = delete;
+    TrickMessageHandlerMixin & operator=(const TrickMessageHandlerMixin &) = delete;
 
 protected:
+    // Member data
 
-   // Member data
-
-   /**
-    * The global MessageHandler.
-    */
-   TrickMessageHandler message_handler; //!< trick_units(--)
-
-private:
-
-   // The message handler is a singleton.
-   // There is no reason to have a copy constructor or assignment operator.
-
-   /**
-    * Not implemented.
-    */
-   TrickMessageHandlerMixin (const TrickMessageHandlerMixin &);
-
-   /**
-    * Not implemented.
-    */
-   TrickMessageHandlerMixin & operator= (const TrickMessageHandlerMixin &);
-
+    /**
+     * The global MessageHandler.
+     */
+    TrickMessageHandler message_handler; //!< trick_units(--)
 };
-
-
 
 /**
  * A JEODTrickSimInterface implements the required capabilities of the generic
@@ -293,43 +260,32 @@ private:
  * By virtue of member data ownership, the class creates the requisite
  * MessageHandler and MemoryManager and does so in the correct order.
  */
-class JeodTrickSimInterface :
-  public TrickMessageHandlerMixin, public BasicJeodTrickSimInterface {
-JEOD_MAKE_SIM_INTERFACES(JeodTrickSimInterface)
+class JeodTrickSimInterface : public TrickMessageHandlerMixin,
+                              public BasicJeodTrickSimInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodTrickSimInterface)
 
 public:
+    /**
+     * Non-default constructor.
+     */
+    explicit JeodTrickSimInterface()
+        : BasicJeodTrickSimInterface(message_handler)
+    {
+    }
 
-      /**
-    * Non-default constructor.
-    */
-   explicit JeodTrickSimInterface ()
-   : BasicJeodTrickSimInterface (message_handler) {}
+    /**
+     * Destructor.
+     */
+    ~JeodTrickSimInterface() override = default;
 
-      /**
-    * Destructor.
-    */
-   ~JeodTrickSimInterface () override {}
-
-
-private:
-
-   // The parent SimulationInterface hides the copy constructor and
-   // assignment operator. These are hidden here as well.
-
-   /**
-    * Not implemented.
-    */
-   JeodTrickSimInterface (const JeodTrickSimInterface &);
-
-   /**
-    * Not implemented.
-    */
-   JeodTrickSimInterface & operator= (const JeodTrickSimInterface &);
-
+    // The parent SimulationInterface hides the copy constructor and
+    // assignment operator. These are hidden here as well.
+    JeodTrickSimInterface(const JeodTrickSimInterface &) = delete;
+    JeodTrickSimInterface & operator=(const JeodTrickSimInterface &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "utils/sim_interface/include/jeod_trick_integrator.hh"

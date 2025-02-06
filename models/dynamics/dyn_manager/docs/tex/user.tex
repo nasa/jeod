@@ -59,9 +59,9 @@ members are:\begin{description}
   in these two simple modes. The two differ in that the planet in single
   planet mode presumably has a gravitational field that affects dynamics
   while gravitation is nonexistent in empty space mode.
-\item[{\tt char * central\_point\_name}]
+\item[{\tt std::string central\_point\_name}]
   This parameter names the central point and is used only when the manager
-  operates in empty space or single planet mode. 
+  operates in empty space or single planet mode.
 \item[{\tt IntegratorConstructor * integ\_constructor}]
   The integrator constructor specifies the integration technique that is
   to be used to integrate all of the dynamic bodies in a JEOD simulation.
@@ -212,7 +212,7 @@ desirous to also call the two derivative class jobs as scheduled or
 logging class jobs. Doing so will not affect simulation dynamics, but it
 will make the logged accelerations be consonant with the other logged values.
 
- 
+
 \subsubsection{Scheduled Jobs}\label{sec:user_integration_scheduled}
 The model provides three methods that are expected to be called as
 scheduled jobs. The method \verb+update_ephemerides()+ updates the

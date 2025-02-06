@@ -19,7 +19,7 @@ Purpose:
 Library dependency:
   ((quat_to_mat.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -59,7 +59,6 @@ Library dependency:
  *
  *----------------------------------------------------------------------------*/
 
-
 // System includes
 
 // JEOD includes
@@ -68,9 +67,9 @@ Library dependency:
 // Model includes
 #include "../include/quat.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Compute the parent-to-child transformation matrix from the
@@ -80,48 +79,41 @@ namespace jeod {
  *  - Quaternion is normalized.
  * \param[out] T Transformation matrix
  */
-void
-Quaternion::left_quat_to_transformation (
-   double T[3][3])
-const
+void Quaternion::left_quat_to_transformation(double T[3][3]) const
 {
-   double cost;                 // Cosine of rotation angle
-   double qvx2[3];              // qvx2_i = 2 qv_i (See discussion above)
-   double qsqv2[3];             // qsqv2_i = 2 qs qv_i
-   double qvqv2[3];             // qvqv2_i = 2 qv_j qv_k
+    double cost;     // Cosine of rotation angle
+    double qvx2[3];  // qvx2_i = 2 qv_i (See discussion above)
+    double qsqv2[3]; // qsqv2_i = 2 qs qv_i
+    double qvqv2[3]; // qvqv2_i = 2 qv_j qv_k
 
+    // Compute the cosine of the rotation angle.
+    cost = 2.0 * scalar * scalar - 1.0;
 
-   // Compute the cosine of the rotation angle.
-   cost = 2.0 * scalar * scalar - 1.0;
+    // Form intermediate vectors qvx2, qsqv2, qvqv2.
+    Vector3::sum(vector, vector, qvx2);
+    Vector3::scale(qvx2, scalar, qsqv2);
+    qvqv2[0] = vector[1] * qvx2[2];
+    qvqv2[1] = vector[2] * qvx2[0];
+    qvqv2[2] = vector[0] * qvx2[1];
 
-   // Form intermediate vectors qvx2, qsqv2, qvqv2.
-   Vector3::sum (vector, vector, qvx2);
-   Vector3::scale (qvx2, scalar, qsqv2);
-   qvqv2[0] = vector[1] * qvx2[2];
-   qvqv2[1] = vector[2] * qvx2[0];
-   qvqv2[2] = vector[0] * qvx2[1];
+    // Construct the transformation matrix diagonal:
+    //   T_ii = cost + 2 qv_i^2 = cost + qv_i*qvx2_i
+    T[0][0] = cost + vector[0] * qvx2[0];
+    T[1][1] = cost + vector[1] * qvx2[1];
+    T[2][2] = cost + vector[2] * qvx2[2];
 
-   // Construct the transformation matrix diagonal:
-   //   T_ii = cost + 2 qv_i^2 = cost + qv_i*qvx2_i
-   T[0][0] = cost + vector[0] * qvx2[0];
-   T[1][1] = cost + vector[1] * qvx2[1];
-   T[2][2] = cost + vector[2] * qvx2[2];
-
-
-   // Contruct off-diagonal transformation matrix elements:
-   //   T_ij = 2 (qv_i qv_j - eps_ijk qs qv_k)
-   //        = qvqv2_k - eps_ijk qsqv2_k
-   T[0][1] = qvqv2[2] - qsqv2[2];
-   T[1][0] = qvqv2[2] + qsqv2[2];
-   T[1][2] = qvqv2[0] - qsqv2[0];
-   T[2][1] = qvqv2[0] + qsqv2[0];
-   T[2][0] = qvqv2[1] - qsqv2[1];
-   T[0][2] = qvqv2[1] + qsqv2[1];
-
-   return;
+    // Contruct off-diagonal transformation matrix elements:
+    //   T_ij = 2 (qv_i qv_j - eps_ijk qs qv_k)
+    //        = qvqv2_k - eps_ijk qsqv2_k
+    T[0][1] = qvqv2[2] - qsqv2[2];
+    T[1][0] = qvqv2[2] + qsqv2[2];
+    T[1][2] = qvqv2[0] - qsqv2[0];
+    T[2][1] = qvqv2[0] + qsqv2[0];
+    T[2][0] = qvqv2[1] - qsqv2[1];
+    T[0][2] = qvqv2[1] + qsqv2[1];
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

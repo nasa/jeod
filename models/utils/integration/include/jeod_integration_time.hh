@@ -54,7 +54,7 @@ Purpose:
 Library dependencies:
   ((../src/jeod_integration_time.cc))
 
- 
+
 
 ******************************************************************************/
 
@@ -70,9 +70,9 @@ Library dependencies:
 #include "utils/container/include/pointer_vector.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeChangeSubscriber;
 
@@ -81,71 +81,44 @@ class TimeChangeSubscriber;
  * notification of changes in the nature of time to the ER7 numerical
  * utilities TimeInterface class.
  */
-class JeodIntegrationTime : public er7_utils::TimeInterface {
-
-JEOD_MAKE_SIM_INTERFACES(JeodIntegrationTime)
-
+class JeodIntegrationTime : public er7_utils::TimeInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodIntegrationTime)
 
 public:
+    JeodIntegrationTime();
+    ~JeodIntegrationTime() override;
+    JeodIntegrationTime(const JeodIntegrationTime &) = delete;
+    JeodIntegrationTime & operator=(const JeodIntegrationTime &) = delete;
 
-   // Note: The copy constructor and assignment operator for this class
-   // are private/unimplemented.
+    /**
+     * Get the time used to timestamp some object.
+     */
+    virtual double get_timestamp_time() const = 0;
 
-   // Constructor
-   JeodIntegrationTime ();
+    // Add a time change subscriber.
+    void add_time_change_subscriber(TimeChangeSubscriber & subscriber);
 
-   // Destructor
-   ~JeodIntegrationTime () override;
-
-
-   /**
-    * Get the time used to timestamp some object.
-    */
-   virtual double get_timestamp_time () const = 0;
-
-
-   // Add a time change subscriber.
-   void add_time_change_subscriber (TimeChangeSubscriber & subscriber);
-
-   // Remove a time change subscriber.
-   void remove_time_change_subscriber (TimeChangeSubscriber & subscriber);
-
+    // Remove a time change subscriber.
+    void remove_time_change_subscriber(TimeChangeSubscriber & subscriber);
 
 protected:
+    // Member functions
 
-   // Member functions
-
-   // Notify subscribers that the nature of time has changed.
-   void notify_time_change_subscribers ();
-
+    // Notify subscribers that the nature of time has changed.
+    void notify_time_change_subscribers();
 
 private:
+    // Member data
 
-   // Member data
-
-     /**
-      * List of pointers to objects that wish to be notified of a change
-      * in the nature of time.
-      */
-     JeodPointerVector<TimeChangeSubscriber>::type
-        time_change_subscribers; //!< trick_io(**)
-
-
-   // Deleted member functions
-
-   /**
-    * Not implemented.
-    */
-   JeodIntegrationTime (const JeodIntegrationTime&);
-
-   /**
-    * Not implemented.
-    */
-   JeodIntegrationTime& operator= (const JeodIntegrationTime&);
+    /**
+     * List of pointers to objects that wish to be notified of a change
+     * in the nature of time.
+     */
+    JeodPointerVector<TimeChangeSubscriber>::type time_change_subscribers; //!< trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

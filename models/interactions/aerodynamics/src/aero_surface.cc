@@ -22,13 +22,9 @@ ASSUMPTIONS AND LIMITATIONS:
 
 Library dependencies:
     ((aero_surface.cc)
-     (aero_facet.cc)
      (aerodynamics_messages.cc)
-     (utils/sim_interface/src/memory_interface.cc)
      (utils/message/src/message_handler.cc)
-     (utils/surface_model/src/facet.cc)
-     (utils/surface_model/src/interaction_surface.cc)
-     (utils/surface_model/src/interaction_facet_factory.cc))
+     (utils/surface_model/src/facet.cc))
 
 
 *******************************************************************************/
@@ -38,53 +34,35 @@ Library dependencies:
 
 // JEOD includes
 #include "utils/memory/include/jeod_alloc.hh"
-#include "utils/surface_model/include/interaction_facet_factory.hh"
 #include "utils/surface_model/include/facet.hh"
+#include "utils/surface_model/include/interaction_facet_factory.hh"
 
 // Model includes
-#include "../include/aero_surface.hh"
 #include "../include/aero_facet.hh"
+#include "../include/aero_surface.hh"
 #include "../include/aerodynamics_messages.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Default Constructor
  */
 
-AeroSurface::AeroSurface (
-   void)
-: // Return: -- void
-   aero_facets(nullptr),
-   facets_size(0)
+AeroSurface::AeroSurface()
 {
-   JEOD_REGISTER_CLASS(AeroSurface);
-   JEOD_REGISTER_INCOMPLETE_CLASS(AeroFacet);
+    JEOD_REGISTER_CLASS(AeroSurface);
+    JEOD_REGISTER_INCOMPLETE_CLASS(AeroFacet);
 }
 
 /**
  * Destructor
  */
 
-AeroSurface::~AeroSurface (
-   void)
+AeroSurface::~AeroSurface()
 {
-
-   if (aero_facets != nullptr) {
-
-      for (unsigned int ii = 0; ii < facets_size; ++ii) {
-         if (aero_facets[ii] != nullptr) {
-            JEOD_DELETE_OBJECT (aero_facets[ii]);
-         }
-      }
-
-      JEOD_DELETE_ARRAY (aero_facets);
-
-   }
-
+    JEOD_DELETE_2D(aero_facets, facets_size, false);
 }
 
 /**
@@ -93,42 +71,40 @@ AeroSurface::~AeroSurface (
  * \param[in] size The size of the needed array\n Units: cnt:
  */
 
-void
-AeroSurface::allocate_array (
-   unsigned int size)
+void AeroSurface::allocate_array(unsigned int size)
 {
+    if(aero_facets != nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             AerodynamicsMessages::initialization_error,
+                             "AeroSurfade::allocate_array can not continue as the array "
+                             "aero_facets has already been allocated.");
 
-   if (aero_facets != nullptr) {
+        return;
+    }
 
-      MessageHandler::fail (
-         __FILE__, __LINE__, AerodynamicsMessages::initialization_error,
-         "AeroSurfade::allocate_array can not continue as the array "
-         "aero_facets has already been allocated.");
+    // Allocate the array we want, and set the size
+    if(size == 0)
+    {
+        MessageHandler::warn(__FILE__,
+                             __LINE__,
+                             AerodynamicsMessages::initialization_error,
+                             "AeroSurfade::allocate_array called for a surface with no declared\n"
+                             "facets.  Check configuration if not using a default surface.\n"
+                             "aero-facets array not allocated.\n");
+        facets_size = 0;
+        return;
+    }
 
-      return;
-   }
+    aero_facets = JEOD_ALLOC_CLASS_POINTER_ARRAY(size, AeroFacet);
+    facets_size = size;
 
-   // Allocate the array we want, and set the size
-   if (size == 0) {
-      MessageHandler::warn(
-         __FILE__,__LINE__, AerodynamicsMessages::initialization_error,
-         "AeroSurfade::allocate_array called for a surface with no declared\n"
-         "facets.  Check configuration if not using a default surface.\n"
-         "aero-facets array not allocated.\n");
-      facets_size = 0;
-      return;
-   }
-
-   aero_facets = JEOD_ALLOC_CLASS_POINTER_ARRAY (size, AeroFacet);
-   facets_size = size;
-
-   // Make sure all pointers are NULL so destructor never crashes
-   for (unsigned int ii = 0; ii < facets_size; ++ii) {
-      aero_facets[ii] = nullptr;
-   }
-
-   return;
-
+    // Make sure all pointers are NULL so destructor never crashes
+    for(unsigned int ii = 0; ii < facets_size; ++ii)
+    {
+        aero_facets[ii] = nullptr;
+    }
 }
 
 /**
@@ -144,79 +120,71 @@ AeroSurface::allocate_array (
  * \param[in] index Where the new interaction facet will be placed in the aero_facets array\n Units: cnt
  */
 
-void
-AeroSurface::allocate_interaction_facet (
-   Facet* facet,
-   InteractionFacetFactory* factory,
-   FacetParams* params,
-   unsigned int index)
+void AeroSurface::allocate_interaction_facet(Facet * facet,
+                                             InteractionFacetFactory * factory,
+                                             FacetParams * params,
+                                             unsigned int index)
 {
-   if (facets_size <= index) {
+    if(facets_size <= index)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             AerodynamicsMessages::initialization_error,
+                             "AeroSurface::allocate_interaction_facet was asked to allocate "
+                             "from the Facet at array index %d. This is out of bounds "
+                             "of the array of facets, which is %d long",
+                             index,
+                             facets_size);
 
+        return;
+    }
 
-      MessageHandler::fail (
-         __FILE__, __LINE__, AerodynamicsMessages::initialization_error,
-         "AeroSurface::allocate_interaction_facet was asked to allocate "
-         "from the Facet at array index %d. This is out of bounds "
-         "of the array of facets, which is %d long",
-         index, facets_size);
+    /* need to temporarily save off the InteractionFacet returned before
+       dynamic casting it. If the dynamic cast fails, we want to destroy
+       the InteractionFacet so we don't get a memory leak */
 
-      return;
+    InteractionFacet * temp_facet = nullptr;
 
-   }
+    // attempt to create the facet
+    temp_facet = factory->create_facet(facet, params);
 
-   /* need to temporarily save off the InteractionFacet returned before
-      dynamic casting it. If the dynamic cast fails, we want to destroy
-      the InteractionFacet so we don't get a memory leak */
+    // if the facet is NULL, then we have a problem
+    if(temp_facet == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             AerodynamicsMessages::initialization_error,
+                             "There was an error when attempting to create an interaction "
+                             "facet for the facet found at array index %d",
+                             index);
+    }
 
-   InteractionFacet* temp_facet = nullptr;
+    // Facet is currently an interaction facet. Try to make it an AeroFacet
 
-   // attempt to create the facet
-   temp_facet = factory->create_facet (facet, params);
+    auto * temp_aero_facet = dynamic_cast<AeroFacet *>(temp_facet);
 
-   // if the facet is NULL, then we have a problem
-   if (temp_facet == nullptr) {
+    // If that fails, it doesn't belong in this surface so there is a problem
+    if(temp_aero_facet == nullptr)
+    {
+        // temp_facet can NOT be NULL, since it was already checked for above
+        JEOD_DELETE_OBJECT(temp_facet);
 
-      MessageHandler::fail (
-         __FILE__, __LINE__, AerodynamicsMessages::initialization_error,
-         "There was an error when attempting to create an interaction "
-         "facet for the facet found at array index %d",
-         index);
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             AerodynamicsMessages::initialization_error,
+                             "The InteractionFacet created from the Facet found at array "
+                             "index %d was not of a type that inherits from AeroFacet. "
+                             "This is required",
+                             index);
 
-   }
+        return;
+    }
 
-   // Facet is currently an interaction facet. Try to make it an AeroFacet
-
-   AeroFacet* temp_aero_facet = dynamic_cast<AeroFacet*> (temp_facet);
-
-
-   // If that fails, it doesn't belong in this surface so there is a problem
-   if (temp_aero_facet == nullptr) {
-
-      // temp_facet can NOT be NULL, since it was already checked for above
-      JEOD_DELETE_OBJECT (temp_facet);
-
-      MessageHandler::fail (
-         __FILE__, __LINE__, AerodynamicsMessages::initialization_error,
-         "The InteractionFacet created from the Facet found at array "
-         "index %d was not of a type that inherits from AeroFacet. "
-         "This is required",
-         index);
-
-
-      return;
-
-   }
-
-   // Store the aero_facet into the aero_facets array
-   aero_facets[index] = temp_aero_facet;
-
-   return;
-
+    // Store the aero_facet into the aero_facets array
+    aero_facets[index] = temp_aero_facet;
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

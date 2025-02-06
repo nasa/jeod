@@ -30,111 +30,87 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
 // JEOD includes
-#include "dynamics/mass/include/mass.hh"
-#include "dynamics/dyn_manager/include/dyn_manager.hh"
 #include "dynamics/dyn_body/include/dyn_body.hh"
+#include "dynamics/dyn_manager/include/dyn_manager.hh"
+#include "dynamics/mass/include/mass.hh"
 #include "utils/message/include/message_handler.hh"
 
 // Model includes
 #include "../include/body_action_messages.hh"
 #include "../include/body_attach_aligned.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct a MassBodyAttachAligned.
- */
-BodyAttachAligned::BodyAttachAligned (
-   void)
-:
-   subject_point_name(),
-   parent_point_name()
+namespace jeod
 {
-  ; // Empty
-}
-
 
 /**
  * Initialize a MassBodyAttach.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-BodyAttachAligned::initialize (
-   DynManager & dyn_manager)
+void BodyAttachAligned::initialize(DynManager & dyn_manager)
 {
+    // Forward the request up the chain.
+    BodyAttach::initialize(dyn_manager);
 
-   // Forward the request up the chain.
-   BodyAttach::initialize (dyn_manager);
+    // Sanity check: Names must be supplied.
+    if(subject_point_name.empty())
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             BodyActionMessages::invalid_name,
+                             "%s failed:\n"
+                             "Empty subject_point_name string",
+                             action_identifier.c_str());
+        return;
+    }
 
-   // Sanity check: Names must be supplied.
-   if (subject_point_name.empty()) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, BodyActionMessages::invalid_name,
-         "%s failed:\n"
-         "Empty subject_point_name string",
-         action_identifier.c_str());
-      return;
-   }
-
-   if (parent_point_name.empty()) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, BodyActionMessages::invalid_name,
-         "%s failed:\n"
-         "Empty parent_point_name string",
-         action_identifier.c_str());
-      return;
-   }
-
-   return;
+    if(parent_point_name.empty())
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             BodyActionMessages::invalid_name,
+                             "%s failed:\n"
+                             "Empty parent_point_name string",
+                             action_identifier.c_str());
+        return;
+    }
 }
-
 
 /**
  * Initialize the core mass properties of the subject MassBody.
  * \param[in,out] dyn_manager Jeod manager
  */
-void
-BodyAttachAligned::apply (
-   DynManager & dyn_manager)
+void BodyAttachAligned::apply(DynManager & dyn_manager)
 {
-    if (dyn_parent != nullptr)
+    if(dyn_parent != nullptr)
     {
-        if (dyn_subject != nullptr) // DynBody to DynBody
+        if(dyn_subject != nullptr) // DynBody to DynBody
         {
-            succeeded = dyn_parent->attach_child( parent_point_name.c_str(),
-                                            subject_point_name.c_str(),
-                                            *dyn_subject);
+            succeeded = dyn_parent->attach_child(parent_point_name, subject_point_name, *dyn_subject);
         }
         else // MassBody subbody/subassembly to DynBody
         {
-            succeeded = dyn_parent->add_mass_body( parent_point_name.c_str(),
-                                                   subject_point_name.c_str(),
-                                                   *mass_subject);
+            succeeded = dyn_parent->add_mass_body(parent_point_name, subject_point_name, *mass_subject);
         }
     }
-    else if (mass_parent != nullptr)
+    else if(mass_parent != nullptr)
     {
-        if (dyn_subject != nullptr) // DynBody to MassBody -- ILLEGAL
+        if(dyn_subject != nullptr) // DynBody to MassBody -- ILLEGAL
         {
             succeeded = false;
         }
         else // MassBody/MassBody assembly to MassBody
         {
-            succeeded = mass_subject->attach_to ( subject_point_name.c_str(),
-                                             parent_point_name.c_str(),
-                                             *mass_parent);
+            succeeded = mass_subject->attach_to(subject_point_name, parent_point_name, *mass_parent);
         }
     }
-    else if (ref_parent != nullptr)
+    else if(ref_parent != nullptr)
     {
-        if (dyn_subject != nullptr) // DynBody to RefFrame
+        if(dyn_subject != nullptr) // DynBody to RefFrame
         {
             // Construct the affine transformation from the attach point on the child
             // body to the parent ref frame.
@@ -146,8 +122,7 @@ BodyAttachAligned::apply (
             Matrix3x3::identity(mat);
             mat[0][0] = -1.0;
             mat[1][1] = -1.0;
-            succeeded = dyn_subject->attach_to_frame(subject_point_name.c_str(),
-                                                     parent_point_name.c_str(), vec, mat);
+            succeeded = dyn_subject->attach_to_frame(subject_point_name, parent_point_name, vec, mat);
         }
         else // MassBody to RefFrame -- ILLEGAL
         {
@@ -160,12 +135,10 @@ BodyAttachAligned::apply (
     }
 
     // Forward the action up the chain. The parent class deals with status.
-    BodyAttach::apply (dyn_manager);
-
-    return;
+    BodyAttach::apply(dyn_manager);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

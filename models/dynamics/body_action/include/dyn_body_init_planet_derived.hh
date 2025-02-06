@@ -60,7 +60,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_PLANET_DERIVED_HH
 #define JEOD_DYN_BODY_INIT_PLANET_DERIVED_HH
 
@@ -69,91 +68,76 @@ Library dependencies:
 // JEOD includes
 #include "dynamics/dyn_body/include/class_declarations.hh"
 #include "dynamics/dyn_manager/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/ref_frames/include/ref_frame_items.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "dyn_body_init_wrt_planet.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * (Initialize selected aspects of a vehicle's state with respect to some state
  *  that is derived from some vehicle's state in conjunction with a planet.
  */
-class DynBodyInitPlanetDerived : public DynBodyInitWrtPlanet {
+class DynBodyInitPlanetDerived : public DynBodyInitWrtPlanet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitPlanetDerived)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitPlanetDerived)
+    // Member data
 
+public:
+    /**
+     * The name of the vehicle whose composite body frame is used to build the
+     * derived state with respect to which the vehicle initialization data
+     * are referenced.
+     */
+    std::string ref_body_name{""}; //!< trick_units(--)
 
- // Member data
+protected:
+    /**
+     * The vehicle corresponding to the ref_body_name.
+     * Note that this is not a user-inputtable item.
+     */
+    DynBody * ref_body{}; //!< trick_io(**)
 
- public:
+    /**
+     * The state elements in the reference body's composite body frame that must
+     * be set before this initializer can proceed.
+     * This is not user-inputtable; derived classes should set this item.
+     * The default is to require the full state to be set.
+     */
+    RefFrameItems::Items required_items{RefFrameItems::Pos_Vel_Att_Rate}; //!< trick_io(**)
 
-   /**
-    * The name of the vehicle whose composite body frame is used to build the
-    * derived state with respect to which the vehicle initialization data
-    * are referenced.
-    */
-   std::string ref_body_name; //!< trick_units(--)
+    /**
+     * If true (default), the ref_body cannot be NULL.
+     * If false, the derived class must provide some means other than using a
+     * derived state to set the reference RefFrame.
+     */
+    bool body_is_required{true}; //!< trick_io(**)
 
+    // Member functions
+public:
+    DynBodyInitPlanetDerived() = default;
+    ~DynBodyInitPlanetDerived() override = default;
+    DynBodyInitPlanetDerived(const DynBodyInitPlanetDerived &) = delete;
+    DynBodyInitPlanetDerived & operator=(const DynBodyInitPlanetDerived &) = delete;
 
- protected:
-   /**
-    * The vehicle corresponding to the ref_body_name.
-    * Note that this is not a user-inputtable item.
-    */
-   DynBody * ref_body; //!< trick_io(**)
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
-   /**
-    * The state elements in the reference body's composite body frame that must
-    * be set before this initializer can proceed.
-    * This is not user-inputtable; derived classes should set this item.
-    * The default is to require the full state to be set.
-    */
-   RefFrameItems::Items required_items; //!< trick_io(**)
+    // is_ready: Indicate whether the initializer is ready to be applied.
+    // A DynBodyInitPlanetDerived state initializer is ready when the reference
+    // body's required items have been set.
+    bool is_ready() override;
 
-   /**
-    * If true (default), the ref_body cannot be NULL.
-    * If false, the derived class must provide some means other than using a
-    * derived state to set the reference RefFrame.
-    */
-   bool body_is_required; //!< trick_io(**)
-
-
- // Member functions
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DynBodyInitPlanetDerived (const DynBodyInitPlanetDerived&);
-   DynBodyInitPlanetDerived & operator = (const DynBodyInitPlanetDerived&);
-
-
- public:
-
-   DynBodyInitPlanetDerived ();
-
-   ~DynBodyInitPlanetDerived () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // is_ready: Indicate whether the initializer is ready to be applied.
-   // A DynBodyInitPlanetDerived state initializer is ready when the reference
-   // body's required items have been set.
-   bool is_ready (void) override;
-
-   // apply: Apply the state to the subject body.
-   void apply (DynManager & dyn_manager) override;
-
+    // apply: Apply the state to the subject body.
+    void apply(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

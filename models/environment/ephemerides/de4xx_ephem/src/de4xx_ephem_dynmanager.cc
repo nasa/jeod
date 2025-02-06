@@ -24,7 +24,6 @@ LIBRARY DEPENDENCY:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -36,9 +35,9 @@ LIBRARY DEPENDENCY:
 // Model includes
 #include "../include/de4xx_ephem.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize the De4xxEphemeris model.
@@ -46,17 +45,14 @@ namespace jeod {
  * \param[in,out] dyn_manager Dynamics manager
  * \param[in] time_type time type
  */
-void
-De4xxEphemeris::initialize_model (
-   const TimeManager & time_manager,
-   DynManager & dyn_manager,
-   const std::string & time_type)
+void De4xxEphemeris::initialize_model(const TimeManager & time_manager,
+                                      DynManager & dyn_manager,
+                                      const std::string & time_type)
 {
-   initialize_model (
-      time_manager, static_cast<EphemeridesManager &>(dyn_manager), time_type);
+    initialize_model(time_manager, static_cast<EphemeridesManager &>(dyn_manager), time_type);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_ten_plates/ 
+#  (To define the input data for simulation SET_test/RUN_ten_plates/
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -8,7 +8,7 @@
 
 
 trick.sim_services.exec_set_trap_sigfpe(1)
-dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4;
+dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_4
 
 #############  NUMERICAL DEFAULT DATA  #################
 LOG_CYCLE = 1.0
@@ -18,7 +18,7 @@ exec(compile(open( "Log_data/log_radiation_rec_v2.py", "rb").read(), "Log_data/l
 log_radiation_rec_v2( LOG_CYCLE )
 
 #############  ASSIGNMENTS, CALLS, and CONTROL  #################
-#define LOG_CYCLE 1.0 
+#define LOG_CYCLE 1.0
 
 #/* Default data generated from S_define. */
 #include "S_default.dat"
@@ -26,14 +26,6 @@ log_radiation_rec_v2( LOG_CYCLE )
 #/* Parameters to data record. */
 #include "Log_data/radiation_rec_v2.d"
 
-#FIXME:  sys.exec.in.trap_sigfpe  = Yes
-#FIXME:  sys.exec.in.trap_sigsegv = Yes
-#FIXME:  sys.exec.in.pre_init_checkpoint  = No
-#FIXME:  sys.exec.in.post_init_checkpoint = No
-#FIXME:  sys.exec.in.end_checkpoint       = No
-#FIXME:  sys.exec.in.reduced_checkpoint   = No
-#FIXME:  sys.exec.sim_com.monitor_on      = No
-#FIXME:  sys.exec.rt_log.group[0].record  = No
 
 
 #/******************************************************************************/

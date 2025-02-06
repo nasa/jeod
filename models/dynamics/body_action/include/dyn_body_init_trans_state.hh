@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_TRANS_STATE_HH
 #define JEOD_DYN_BODY_INIT_TRANS_STATE_HH
-
 
 // System includes
 
@@ -73,84 +71,61 @@ Library dependencies:
 #include "class_declarations.hh"
 #include "dyn_body_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize aspects of a vehicle's translational state.
  */
-class DynBodyInitTransState : public DynBodyInit {
+class DynBodyInitTransState : public DynBodyInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitTransState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitTransState)
+    // Enumerations
+public:
+    /**
+     * Identify which of position/velocity is to be initialized.
+     */
+    enum StateItems
+    {
+        Both = 0,     ///< Initialize both position and velocity
+        Position = 1, ///< Initialize position only
+        Velocity = 2  ///< Initialize velocity only
+    };
 
+    // Member data
 
- // Enumerations
- public:
-   /**
-    * Identify which of position/velocity is to be initialized.
-    */
-   enum StateItems {
-      Both      = 0,            ///< Initialize both position and velocity
-      Position  = 1,            ///< Initialize position only
-      Velocity  = 2             ///< Initialize velocity only
-   };
+public:
+    /**
+     * State items to be initialized -- position, velocity, or both.
+     */
+    StateItems state_items{Both}; //!< trick_units(--)
 
+    // Member functions
 
- // Member data
+public:
+    DynBodyInitTransState() = default;
+    ~DynBodyInitTransState() override = default;
+    DynBodyInitTransState(const DynBodyInitTransState &) = delete;
+    DynBodyInitTransState & operator=(const DynBodyInitTransState &) = delete;
 
- public:
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
-   /**
-    * State items to be initialized -- position, velocity, or both.
-    */
-   StateItems state_items; //!< trick_units(--)
+    // apply: Apply the state to the subject body.
+    void apply(DynManager & dyn_manager) override;
 
+    // initializes_what: Indicate what aspect of the state is initialized.
+    // The DynBodyInitTransSate initializes position and velocity.
+    RefFrameItems::Items initializes_what() override;
 
- // Member functions
-
- public:
-
-   // Default constructor.
-   DynBodyInitTransState ();
-
-   // Destructor.
-   ~DynBodyInitTransState () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // apply: Apply the state to the subject body.
-   void apply (DynManager & dyn_manager) override;
-
-   // initializes_what: Indicate what aspect of the state is initialized.
-   // The DynBodyInitTransSate initializes position and velocity.
-   RefFrameItems::Items initializes_what (void) override;
-
-   // is_ready: Indicate whether the initializer is ready to be applied.
-   // The base DynBodyInit is always ready.
-   bool is_ready (void) override;
-
-
- private:
-
-   DynBodyInitTransState (const DynBodyInitTransState&);
-   DynBodyInitTransState & operator = (const DynBodyInitTransState&);
-
+    // is_ready: Indicate whether the initializer is ready to be applied.
+    // The base DynBodyInit is always ready.
+    bool is_ready() override;
 };
 
-
-/**
- * Destructor.
- */
-inline
-DynBodyInitTransState::~DynBodyInitTransState (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -12,7 +12,7 @@
  Library dependencies:
  ((ground_interaction.cc))
 
- 
+
 
  *****************************************************************************/
 
@@ -20,97 +20,63 @@
 #include <cmath>
 
 /* JEOD includes */
-#include "utils/math/include/vector3.hh"
 #include "dynamics/dyn_body/include/body_ref_frame.hh"
+#include "utils/math/include/vector3.hh"
 
 /* Model includes */
 #include "../include/ground_interaction.hh"
 
 //! Namespace jeod
-namespace jeod {
-
-/*******************************************************************************
- Function: GroundInteraction
- Purpose: (Default Constructor)
- *******************************************************************************/
-GroundInteraction::GroundInteraction (
-                          void)
-: // Return: -- None
-subject (nullptr),
-ground (nullptr),
-interaction (nullptr),
-interaction_distance (0.0),
-friction_mag (0.0),
-velocity_mag (0.0),
-terrain (nullptr)
+namespace jeod
 {
-   Vector3::initialize(ground_normal);
-}
-
-
-/*******************************************************************************
- Function: ~GroundInteraction
- Purpose: (Destructor)
- *******************************************************************************/
-GroundInteraction::~GroundInteraction ( // Return: -- void
-                           void)
-{
-
-}
 
 /*******************************************************************************
  Function: initialize
  Purpose: (initialize terrain pointer and planet fixed coordinates)
  *******************************************************************************/
-void
-GroundInteraction::initialize (
-                          Terrain * terrain_in) // Return: -- void
+void GroundInteraction::initialize(Terrain * terrain_in) // Return: -- void
 {
-   terrain = terrain_in;
-   point.initialize(terrain->planet);
-   in_contact();
+    terrain = terrain_in;
+    point.initialize(terrain->planet);
+    in_contact();
 }
 
 /*******************************************************************************
  Function: in_range
  Purpose: (test whether the pair is in range for interaction)
  *******************************************************************************/
-bool
-GroundInteraction::in_range ( // Return: -- bool
-   void)
+bool GroundInteraction::in_range()
 {
-   double mag;
+    double mag;
 
-   mag = fabs(Vector3::vmag(point.cart_coords) -
-      Vector3::vmag(subject->vehicle_point->state.trans.position));
+    mag = fabs(Vector3::vmag(point.cart_coords) - Vector3::vmag(subject->vehicle_point->state.trans.position));
 
-   if (std::fpclassify(interaction_distance) == FP_ZERO || interaction_distance >= mag) {
-      return true;
-   }
-   return false;
+    if(std::fpclassify(interaction_distance) == FP_ZERO || interaction_distance >= mag)
+    {
+        return true;
+    }
+    return false;
 }
 
 /*******************************************************************************
  Function: get_subject
  Purpose: (return a point to the subject of the ground interaction)
  *******************************************************************************/
-ContactFacet *
-GroundInteraction::get_subject ( // Return: -- ContactFacet pointer
-   void)
+ContactFacet * GroundInteraction::get_subject()
 {
-   return subject;
+    return subject;
 }
 
 /*******************************************************************************
  Function: is_active
  Purpose: (deturmine if the subject and ground facets are active)
  *******************************************************************************/
-bool GroundInteraction::is_active ( // Return: -- bool
-   void)
+bool GroundInteraction::is_active()
 {
-   if(subject->active && ground->active) {
-      return true;
-   }
-   return false;
+    if(subject->active && ground->active)
+    {
+        return true;
+    }
+    return false;
 }
-} // End JEOD namespace
+} // namespace jeod

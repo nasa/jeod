@@ -57,7 +57,7 @@ Reference:
 Assumptions and limitations:
   ((None))
 
- 
+
 
 Library dependencies:
   ((../src/time.cc)
@@ -66,7 +66,6 @@ Library dependencies:
 
 #ifndef JEOD_TIME_HH
 #define JEOD_TIME_HH
-
 
 // System includes
 #include <string>
@@ -80,9 +79,9 @@ Library dependencies:
 #include "time_converter.hh"
 #include "time_links.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeManager;
 class TimeManagerInit;
@@ -91,168 +90,156 @@ class TimeManagerInit;
  * JeodBaseTime is an abstract class, containing the basic structure of all
  * clocks that run in JEOD.
  */
-class JeodBaseTime {
+class JeodBaseTime
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodBaseTime)
 
-  JEOD_MAKE_SIM_INTERFACES(JeodBaseTime)
+    friend class TimeConverter;
+    friend class TimeManagerInit;
 
-  friend class TimeConverter;
-  friend class TimeManagerInit;
-
-
-// Member Data
+    // Member Data
 public:
-   /**
-    * Value used to define sim start time.
-    */
-   double initializing_value; //!< trick_units(--)
+    /**
+     * Value used to define sim start time.
+     */
+    double initializing_value{}; //!< trick_units(--)
 
-   /**
-    * Determines which converter function (a_to_b (+1) or b_to_a (-1)) to use.
-    */
-   int update_converter_direction;  //!< trick_units(--)
+    /**
+     * Determines which converter function (a_to_b (+1) or b_to_a (-1)) to use.
+     */
+    int update_converter_direction{}; //!< trick_units(--)
 
-   /**
-    * Elapsed time from epoch
-    */
-   double seconds;          //!< trick_units(s)
+    /**
+     * Elapsed time from epoch
+     */
+    double seconds{}; //!< trick_units(s)
 
-   /**
-    * Name of time-type.
-    */
-   NamedItem name;             //!< trick_units(--)
+    /**
+     * Name of time-type.
+     */
+    NamedItem name; //!< trick_units(--)
 
-   /**
-    * Name of time-type from which initial value is derived
-    */
-   std::string initialize_from_name;  //!< trick_units(--)
+    /**
+     * Name of time-type from which initial value is derived
+     */
+    std::string initialize_from_name{""}; //!< trick_units(--)
 
-   /**
-    * Name of time-type from which update values are derived
-    */
-   std::string update_from_name;      //!< trick_units(--)
+    /**
+     * Name of time-type from which update values are derived
+     */
+    std::string update_from_name{""}; //!< trick_units(--)
 
-   /**
-    * Pointer to the TimeManager
-    */
-   TimeManager * time_manager;          //!< trick_units(--)
-   /**
-    * Pointer to the converter class needed to update the time
-    */
-   TimeConverter * update_converter_ptr;  //!< trick_units(--)
+    /**
+     * Pointer to the TimeManager
+     */
+    TimeManager * time_manager{}; //!< trick_units(--)
+    /**
+     * Pointer to the converter class needed to update the time
+     */
+    TimeConverter * update_converter_ptr{}; //!< trick_units(--)
 
 protected:
-   /**
-    * Index-value of time-type in the registry
-    */
-   int index;               //!< trick_units(--)
-   /**
-    * Whether time has been initialized to a real time.
-    */
-   bool initialized;        //!< trick_units(--)
-   /**
-    * Elapsed time from epoch
-    */
-   double days;             //!< trick_units(day)
+    /**
+     * Index-value of time-type in the registry
+     */
+    int index{}; //!< trick_units(--)
+    /**
+     * Whether time has been initialized to a real time.
+     */
+    bool initialized{}; //!< trick_units(--)
+    /**
+     * Elapsed time from epoch
+     */
+    double days{}; //!< trick_units(day)
 
-   /**
-    * Value of "seconds" at the start of the sim.
-    */
-   double initial_value;    //!< trick_units(s)
+    /**
+     * Value of "seconds" at the start of the sim.
+     */
+    double initial_value{}; //!< trick_units(s)
 
-   /**
-    * The resolution limit when generating clock and calendar-clock values.
-    * Used for forcing a "tick-over" to the next minute if seconds comes
-    * within this value of 60.
-    */
-   double clock_resolution; //!< trick_units(s)
+    /**
+     * The resolution limit when generating clock and calendar-clock values.
+     * Used for forcing a "tick-over" to the next minute if seconds comes
+     * within this value of 60.
+     */
+    double clock_resolution{0.0001}; //!< trick_units(s)
 
-   /**
-    * Linkage to the hierarchy of time conversions. Provides accessors to
-    * parent, siblings and children
-    */
-   TimeLinks links; //!< trick_units(--)
+    /**
+     * Linkage to the hierarchy of time conversions. Provides accessors to
+     * parent, siblings and children
+     */
+    TimeLinks links; //!< trick_units(--)
 
-
-// Member functions:
+    // Member functions:
 public:
-  //Constructor
-   JeodBaseTime ();
-  //Destructor
-   virtual ~JeodBaseTime ();
+    JeodBaseTime();
+    virtual ~JeodBaseTime();
+    JeodBaseTime(const JeodBaseTime &) = delete;
+    JeodBaseTime & operator=(const JeodBaseTime &) = delete;
 
-   virtual bool must_be_singleton (void);
+    virtual bool must_be_singleton();
 
-   virtual void set_time_by_seconds (const double new_seconds);
-   virtual void set_time_by_days (const double new_days);
-   void add_type_update (const int seeking_status,
-                         TimeManagerInit * tm_init);
+    virtual void set_time_by_seconds(const double new_seconds);
+    virtual void set_time_by_days(const double new_days);
+    void add_type_update(const int seeking_status, TimeManagerInit * tm_init);
 
-   /**
-    * Setter for the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
+    /**
+     * Setter for the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 
-  /**
-   * Setter for the index (force user to be carefule)
-   */
-  void set_index(int idx)
-  {
-    index = idx;
-  }
+    /**
+     * Setter for the index (force user to be carefule)
+     */
+    void set_index(int idx)
+    {
+        index = idx;
+    }
 
-  /**
-   * Getter for the index
-   */
-  int get_index()
-  {
-    return index;
-  }
+    /**
+     * Getter for the index
+     */
+    int get_index()
+    {
+        return index;
+    }
 
-  /**
-   * Force reset the initialization status
-   */
-  void override_initialized(bool init)
-  {
-    initialized = init;
-  }
+    /**
+     * Force reset the initialization status
+     */
+    void override_initialized(bool init)
+    {
+        initialized = init;
+    }
 
- /**
-   * Read the initialization status
-   */
-  bool is_initialized()
-  {
-    return initialized;
-  }
+    /**
+     * Read the initialization status
+     */
+    bool is_initialized()
+    {
+        return initialized;
+    }
 
-  /**
-   * Initialize the time class that is used for initialization of the
-   * simulation.
-   * @param tm_init Time initializer.
-   */
-  virtual void initialize_initializer_time (
-      TimeManagerInit * tm_init) = 0;
+    /**
+     * Initialize the time class that is used for initialization of the
+     * simulation.
+     * @param tm_init Time initializer.
+     */
+    virtual void initialize_initializer_time(TimeManagerInit * tm_init) = 0;
 
-   virtual void add_type_initialize (const int seeking_status,
-                                     TimeManagerInit * tm_init);
-   virtual void initialize_from_parent (TimeManagerInit * tm_init);
+    virtual void add_type_initialize(const int seeking_status, TimeManagerInit * tm_init);
+    virtual void initialize_from_parent(TimeManagerInit * tm_init);
 
-   virtual void update (void);
+    virtual void update();
 
 protected:
-   void add_parent( JeodBaseTime& parent );
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   JeodBaseTime (const JeodBaseTime&);
-   JeodBaseTime & operator = (const JeodBaseTime&);
+    void add_parent(JeodBaseTime & parent);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

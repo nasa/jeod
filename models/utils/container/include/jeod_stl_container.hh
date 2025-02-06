@@ -55,10 +55,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MEMORY_STL_CONTAINER_H
 #define JEOD_MEMORY_STL_CONTAINER_H
@@ -66,14 +65,13 @@ Purpose:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // What's missing:
 // Some constructors (probably never)
 // Operators not common to deque, vector, and list (implemented elsewhere).
-
 
 /**
  * This is the base class for the JEOD replacements of the STL containers.
@@ -97,348 +95,315 @@ namespace jeod {
  *    concept. The swap method is eventually exposed as the swap_stl_contents
  *    method to make it clear that that method is not a true swap.
  */
-template <typename ElemType, typename ContainerType>
-class JeodSTLContainer {
-
+template<typename ElemType, typename ContainerType> class JeodSTLContainer
+{
 public:
+    // Types
 
-   // Types
+    /**
+     * This particular JeodSTLContainer type.
+     */
+    using this_container_type = JeodSTLContainer<ElemType, ContainerType>;
 
-   /**
-    * This particular JeodSTLContainer type.
-    */
-   typedef JeodSTLContainer<ElemType, ContainerType> this_container_type;
+    /**
+     * Import the ContainerType::allocator_type
+     */
+    using allocator_type = typename ContainerType::allocator_type;
 
+    /**
+     * Import the ContainerType::reference
+     */
+    using reference = typename ContainerType::reference;
 
-   /**
-    * Import the ContainerType::allocator_type
-    */
-   typedef typename ContainerType::allocator_type allocator_type;
+    /**
+     * Import the ContainerType::const_reference
+     */
+    using const_reference = typename ContainerType::const_reference;
 
-   /**
-    * Import the ContainerType::reference
-    */
-   typedef typename ContainerType::reference reference;
+    /**
+     * Import the ContainerType::iterator.
+     */
+    using iterator = typename ContainerType::iterator;
 
-   /**
-    * Import the ContainerType::const_reference
-    */
-   typedef typename ContainerType::const_reference const_reference;
+    /**
+     * Import the ContainerType::const_iterator.
+     */
+    using const_iterator = typename ContainerType::const_iterator;
 
+    /**
+     * Import the ContainerType::reverse_iterator.
+     */
+    using reverse_iterator = typename ContainerType::reverse_iterator;
 
-   /**
-    * Import the ContainerType::iterator.
-    */
-   typedef typename ContainerType::iterator iterator;
+    /**
+     * Import the ContainerType::const_reverse_iterator.
+     */
+    using const_reverse_iterator = typename ContainerType::const_reverse_iterator;
 
-   /**
-    * Import the ContainerType::const_iterator.
-    */
-   typedef typename ContainerType::const_iterator const_iterator;
+    /**
+     * Import the ContainerType::difference_type.
+     */
+    using difference_type = typename ContainerType::difference_type;
 
-   /**
-    * Import the ContainerType::reverse_iterator.
-    */
-   typedef typename ContainerType::reverse_iterator reverse_iterator;
+    /**
+     * Import the ContainerType::size_type.
+     */
+    using size_type = typename ContainerType::size_type;
 
-   /**
-    * Import the ContainerType::const_reverse_iterator.
-    */
-   typedef typename ContainerType::const_reverse_iterator
-      const_reverse_iterator;
+    /**
+     * Import the ContainerType::value_type.
+     */
+    using value_type = typename ContainerType::value_type;
 
+    // Member functions
 
-   /**
-    * Import the ContainerType::difference_type.
-    */
-   typedef typename ContainerType::difference_type difference_type;
+    // Constructors and destructor.
+    // NOTE: The constructors are not here in the public section.
+    // They are protected. This class and its direct descendants JeodList and
+    // JeodVector do not provide add any functionality to the STL sequences
+    // except that the destructor is now virtual. Making the constructors
+    // protected here forces a further derivation by some other class template
+    // that does provide distinguishing characteristics.
 
-   /**
-    * Import the ContainerType::size_type.
-    */
-   typedef typename ContainerType::size_type size_type;
+    /**
+     * Destructor.
+     */
+    virtual ~JeodSTLContainer() = default;
 
-   /**
-    * Import the ContainerType::value_type.
-    */
-   typedef typename ContainerType::value_type value_type;
+    // Conversion operators
 
+    /**
+     * Returns the contents as an lvalue.
+     */
+    operator ContainerType &()
+    {
+        return contents;
+    }
 
-   // Member functions
+    /**
+     * Returns the contents as a const rvalue.
+     */
+    operator const ContainerType &() const
+    {
+        return contents;
+    }
 
-   // Constructors and destructor.
-   // NOTE: The constructors are not here in the public section.
-   // They are protected. This class and its direct descendants JeodList and
-   // JeodVector do not provide add any functionality to the STL sequences
-   // except that the destructor is now virtual. Making the constructors
-   // protected here forces a further derivation by some other class template
-   // that does provide distinguishing characteristics.
+    // Assignment operator
 
-   /**
-    * Destructor.
-    */
-   virtual ~JeodSTLContainer (void) {}
+    /**
+     * Assignment operator.
+     * @param src Source container to be copied
+     */
+    this_container_type & operator=(const this_container_type & src)
+    {
+        if(&src != this)
+        {
+            clear();
+            contents = src.contents;
+        }
+        return *this;
+    }
 
+    /**
+     * Assignment operator.
+     * @param src Source container to be copied
+     */
+    this_container_type & operator=(const ContainerType & src)
+    {
+        if(&src != &contents)
+        {
+            clear();
+            contents = src;
+        }
+        return *this;
+    }
 
-   // Conversion operators
+    // Allocator operators
 
-   /**
-    * Returns the contents as an lvalue.
-    */
-   operator ContainerType & (void)
-   {
-      return contents;
-   }
+    /**
+     * Returns the allocator object used to construct the contents.
+     */
+    allocator_type get_allocator() const
+    {
+        return contents.get_allocator();
+    }
 
-   /**
-    * Returns the contents as a const rvalue.
-    */
-   operator const ContainerType & (void) const
-   {
-      return contents;
-   }
+    // Iterators
 
+    /**
+     * Returns an iterator that points to the first element.
+     */
+    iterator begin()
+    {
+        return contents.begin();
+    }
 
-   // Assignment operator
+    /**
+     * Returns a const iterator that points to the first element.
+     */
+    const_iterator begin() const
+    {
+        return contents.begin();
+    }
 
-   /**
-    * Assignment operator.
-    * @param src Source container to be copied
-    */
-   this_container_type &
-   operator= (const this_container_type & src)
-   {
-      if (&src != this) {
-         clear();
-         contents = src.contents;
-      }
-      return *this;
-   }
+    /**
+     * Returns an iterator that points past the last element.
+     */
+    iterator end()
+    {
+        return contents.end();
+    }
 
-   /**
-    * Assignment operator.
-    * @param src Source container to be copied
-    */
-   this_container_type &
-   operator= (const ContainerType & src)
-   {
-      if (&src != &contents) {
-         clear();
-         contents = src;
-      }
-      return *this;
-   }
+    /**
+     * Returns a const iterator that points past the last element.
+     */
+    const_iterator end() const
+    {
+        return contents.end();
+    }
 
+    /**
+     * Returns a reverse iterator that points to the last element.
+     */
+    reverse_iterator rbegin()
+    {
+        return contents.rbegin();
+    }
 
-   // Allocator operators
+    /**
+     * Returns a const reverse iterator that points to the last element.
+     */
+    const_reverse_iterator rbegin() const
+    {
+        return contents.rbegin();
+    }
 
-   /**
-    * Returns the allocator object used to construct the contents.
-    */
-   allocator_type
-   get_allocator (void) const
-   {
-      return contents.get_allocator();
-   }
+    /**
+     * Returns a reverse iterator that points before the first element.
+     */
+    reverse_iterator rend()
+    {
+        return contents.rend();
+    }
 
+    /**
+     * Returns a const reverse iterator that points before the first element.
+     */
+    const_reverse_iterator rend() const
+    {
+        return contents.rend();
+    }
 
-   // Iterators
+    // Capacity
 
-   /**
-    * Returns an iterator that points to the first element.
-    */
-   iterator
-   begin (void)
-   {
-      return contents.begin();
-   }
+    /**
+     * Returns true if the contents are empty, false otherwise.
+     */
+    bool empty() const
+    {
+        return contents.empty();
+    }
 
-   /**
-    * Returns a const iterator that points to the first element.
-    */
-   const_iterator
-   begin (void) const
-   {
-      return contents.begin();
-   }
+    /**
+     * Returns the implementation's limit on the number of elements.
+     */
+    size_type max_size() const
+    {
+        return contents.max_size();
+    }
 
-   /**
-    * Returns an iterator that points past the last element.
-    */
-   iterator
-   end (void)
-   {
-      return contents.end();
-   }
+    /**
+     * Returns the number of elements.
+     */
+    size_type size() const
+    {
+        return contents.size();
+    }
 
-   /**
-    * Returns a const iterator that points past the last element.
-    */
-   const_iterator
-   end (void) const
-   {
-      return contents.end();
-   }
+    // Modifiers
 
-   /**
-    * Returns a reverse iterator that points to the last element.
-    */
-   reverse_iterator
-   rbegin (void)
-   {
-      return contents.rbegin();
-   }
+    /**
+     * Clear the contents.
+     */
+    void clear()
+    {
+        contents.clear();
+    }
 
-   /**
-    * Returns a const reverse iterator that points to the last element.
-    */
-   const_reverse_iterator
-   rbegin (void) const
-   {
-      return contents.rbegin();
-   }
-
-   /**
-    * Returns a reverse iterator that points before the first element.
-    */
-   reverse_iterator
-   rend (void)
-   {
-      return contents.rend();
-   }
-
-   /**
-    * Returns a const reverse iterator that points before the first element.
-    */
-   const_reverse_iterator
-   rend (void) const
-   {
-      return contents.rend();
-   }
-
-
-   // Capacity
-
-   /**
-    * Returns true if the contents are empty, false otherwise.
-    */
-   bool
-   empty (void) const
-   {
-      return contents.empty ();
-   }
-
-   /**
-    * Returns the implementation's limit on the number of elements.
-    */
-   size_type
-   max_size (void) const
-   {
-      return contents.max_size ();
-   }
-
-   /**
-    * Returns the number of elements.
-    */
-   size_type
-   size (void) const
-   {
-      return contents.size ();
-   }
-
-
-   // Modifiers
-
-   /**
-    * Clear the contents.
-    */
-   void
-   clear (void)
-   {
-      contents.clear ();
-   }
-
-   /**
-    * Insert a new element initialized with @a new_elem before the
-    * iterator @a position.
-    * @param position  Insertion position
-    * @param new_elem  Element value to be inserted
-    * @return          Iterator that points to the newly-inserted element
-    */
-   iterator
-   insert (
-      iterator position,
-      const value_type & new_elem)
-   {
-      return contents.insert (position, new_elem);
-   }
-
+    /**
+     * Insert a new element initialized with @a new_elem before the
+     * iterator @a position.
+     * @param position  Insertion position
+     * @param new_elem  Element value to be inserted
+     * @return          Iterator that points to the newly-inserted element
+     */
+    iterator insert(iterator position, const value_type & new_elem)
+    {
+        return contents.insert(position, new_elem);
+    }
 
 protected:
+    // Member functions
 
-   // Member functions
+    // Constructors
 
-   // Constructors
+    /**
+     * Default constructor.
+     * Note: Making this protected precludes someone from declaring an object
+     * to be of type JEODSTLContainer. Access is via some other class that
+     * inherits from this class.
+     */
+    JeodSTLContainer() = default;
 
-   /**
-    * Default constructor.
-    * Note: Making this protected precludes someone from declaring an object
-    * to be of type JEODSTLContainer. Access is via some other class that
-    * inherits from this class.
-    */
-   JeodSTLContainer (void) {}
+    /**
+     * Copy constructor.
+     * @param src Source container to be copied
+     */
+    explicit JeodSTLContainer(const this_container_type & src)
+        : contents(src.contents)
+    {
+    }
 
-   /**
-    * Copy constructor.
-    * @param src Source container to be copied
-    */
-   JeodSTLContainer (const this_container_type & src)
-   : contents(src.contents)
-   {}
+    /**
+     * Copy constructor from STL container.
+     * @param src Source container to be copied
+     */
+    explicit JeodSTLContainer(const ContainerType & src)
+        : contents(src)
+    {
+    }
 
-   /**
-    * Copy constructor from STL container.
-    * @param src Source container to be copied
-    */
-   explicit JeodSTLContainer (const ContainerType & src)
-   : contents(src)
-   {}
+    // Swap. Protected because making these public would make it look
+    // like the checkpointable extensions have a real swap.
+    // (These are real swap operations.)
 
+    /**
+     * Swap contents.
+     * @param other Other JEOD container with contents are to be swapped.
+     */
+    void swap(this_container_type & other)
+    {
+        contents.swap(other.contents);
+    }
 
-   // Swap. Protected because making these public would make it look
-   // like the checkpointable extensions have a real swap.
-   // (These are real swap operations.)
+    /**
+     * Swap contents.
+     * @param other Other STL container with contents are to be swapped.
+     */
+    void swap(ContainerType & other)
+    {
+        contents.swap(other);
+    }
 
-   /**
-    * Swap contents.
-    * @param other Other JEOD container with contents are to be swapped.
-    */
-   void
-   swap (this_container_type & other)
-   {
-      contents.swap (other.contents);
-   }
+    // Member data
 
-   /**
-    * Swap contents.
-    * @param other Other STL container with contents are to be swapped.
-    */
-   void
-   swap (ContainerType & other)
-   {
-      contents.swap (other);
-   }
-
-
-   // Member data
-
-   /**
-    * The STL container.
-    */
-   ContainerType contents; //!< trick_io(**)
+    /**
+     * The STL container.
+     */
+    ContainerType contents; //!< trick_io(**)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 // Delayed includes
 #include "jeod_container_compare.hh"

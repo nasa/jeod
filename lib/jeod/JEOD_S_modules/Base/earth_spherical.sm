@@ -47,21 +47,17 @@ Purpose:( This sim object models Earth with a spherical gravity model.)
 #include "planet_generic.sm"
 class EarthSphericalSimObject: public PlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_earth_default_data  earth_default_data;
-  jeod::SphericalHarmonicsGravitySource_earth_spherical_default_data earth_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_earth_default_data earth_default_data;
+    jeod::SphericalHarmonicsGravitySource_earth_spherical_default_data earth_grav_default_data;
 
-  EarthSphericalSimObject( jeod::DynManager   & dyn_manager_in,
-                           jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            earth_default_data,
-                            earth_grav_default_data)
-  { }
- private:
-  EarthSphericalSimObject (const EarthSphericalSimObject&);
-  EarthSphericalSimObject & operator = (const EarthSphericalSimObject&);
+    EarthSphericalSimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, earth_default_data, earth_grav_default_data)
+    {
+    }
+
+    EarthSphericalSimObject(const EarthSphericalSimObject &) = delete;
+    EarthSphericalSimObject & operator=(const EarthSphericalSimObject &) = delete;
 };
 #endif

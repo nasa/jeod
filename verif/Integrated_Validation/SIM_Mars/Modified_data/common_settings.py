@@ -7,10 +7,10 @@ dawn.dyn_body.integ_frame_name = "Mars.inertial"
 dawn.dyn_body.translational_dynamics = True
 dawn.dyn_body.rotational_dynamics = True
 
-# Turn off Mars RNP polar motion. 
-mars.rnp.enable_polar = False;
+# Turn off Mars RNP polar motion.
+mars.rnp.enable_polar = False
 
-# Configure the derived reference frames. 
+# Configure the derived reference frames.
 dawn.orb_elem.reference_name = "Mars"
 dawn.lvlh.reference_name     = "Mars"
 

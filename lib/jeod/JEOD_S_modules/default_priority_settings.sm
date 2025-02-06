@@ -34,13 +34,13 @@
 //=============================================================================
 //
 //
-#define P_TIME  P10   // Highest priority; these jobs only depend on time
-#define P_MNGR  P20   // Dynamics manager initialization
-#define P_ENV   P30   // Environment initializations
-#define P_EPH   P35   // Environment initializations
+#define P_TIME P10          // Highest priority; these jobs only depend on time
+#define P_MNGR P20          // Dynamics manager initialization
+#define P_ENV P30           // Environment initializations
+#define P_EPH P35           // Environment initializations
 #define P_MNGR_INIT_SIM P39 // Reserved for DynManager::initialize_simulation.
-#define P_BODY  P40   // Orbital body initializations
-#define P_DYN   P50   // State-dependent initializations
-#define P_GRAV  P100  // Gravitation derivatives
-#define P_PGRAV P110  // Post-Gravitation derivatives
-#define P_ILOOP P65500// priority on the integ-loop collect-derivatives job
+#define P_BODY P40          // Orbital body initializations
+#define P_DYN P50           // State-dependent initializations
+#define P_GRAV P100         // Gravitation derivatives
+#define P_PGRAV P110        // Post-Gravitation derivatives
+#define P_ILOOP P65500      // priority on the integ-loop collect-derivatives job

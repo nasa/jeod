@@ -24,61 +24,43 @@ LIBRARY DEPENDENCY:
   ((time_tt.cc)
    (time.cc)
    (time_standard.cc)
-   (utils/sim_interface/src/memory_interface.cc)
    (utils/named_item/src/named_item.cc))
 
- 
-******************************************************************************/
 
+******************************************************************************/
 
 // System includes
 #include <cstddef>
 
 // JEOD includes
-#include "utils/named_item/include/named_item.hh"
 #include "utils/memory/include/jeod_alloc.hh"
+#include "utils/named_item/include/named_item.hh"
 
 // Model includes
 #include "../include/time_tt.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Construct a Time_TT
  */
-TimeTT::TimeTT (
-   void)
+TimeTT::TimeTT()
 {
-   name         = "TT";
-   set_epoch();
+    name = "TT";
+    set_epoch();
 }
-
 
 /**
  * Sets the epoch for TT time
  */
-void
-TimeTT::set_epoch(
-   void)
+void TimeTT::set_epoch()
 {
-   tjt_at_epoch = 11544.5; // J2000, Jan 1, 2000:: 12:00:00.0
-   return;
+    tjt_at_epoch = 11544.5; // J2000, Jan 1, 2000:: 12:00:00.0
 }
 
-
-
-/**
- * Destroy a Time_TT
- */
-TimeTT::~TimeTT (
-   void)
-{
-}
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

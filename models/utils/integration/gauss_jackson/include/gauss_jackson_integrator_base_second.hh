@@ -49,7 +49,6 @@
  * for a first order ODE.
  */
 
-
 /*
 Purpose: ()
 */
@@ -62,322 +61,264 @@ Purpose: ()
 #include "gauss_jackson_two_state.hh"
 
 // ER7 utilities includes
-#include "er7_utils/integration/core/include/second_order_ode_integrator.hh"
 #include "er7_utils/integration/core/include/integrator_constructor.hh"
+#include "er7_utils/integration/core/include/second_order_ode_integrator.hh"
 #include "er7_utils/interface/include/alloc.hh"
 
 // System includes
 #include <algorithm>
 #include <cmath>
 
+//! Namespace jeod
+namespace jeod
+{
 
-//! Namespace jeod 
-namespace jeod {
-
-#ifndef TRICK_ICG  // Grrr.
+#ifndef TRICK_ICG // Grrr.
 /**
  * Alias for a second order Gauss Jackson integrator.
  */
-typedef GaussJacksonIntegratorBase <
-      GaussJacksonTwoState,
-      er7_utils::SecondOrderODEIntegrator>
-      GaussJacksonIntegratorBaseSecond;
+using GaussJacksonIntegratorBaseSecond = GaussJacksonIntegratorBase<GaussJacksonTwoState,
+                                                                    er7_utils::SecondOrderODEIntegrator>;
 #else
-#define GaussJacksonIntegratorBaseSecond \
-      GaussJacksonIntegratorBase < \
-      GaussJacksonTwoState, \
-      er7_utils::SecondOrderODEIntegrator>
+#define GaussJacksonIntegratorBaseSecond                                                                               \
+    GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>
 #endif
 
+/**
+ */
+template<>
+inline er7_utils::SecondOrderODEIntegrator *
+GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::create_primer(
+    const er7_utils::IntegratorConstructor & priming_constructor,
+    unsigned int size,
+    er7_utils::IntegrationControls & priming_controls)
+{
+    return priming_constructor.create_second_order_ode_integrator(size, priming_controls);
+}
 
 /**
  */
 template<>
-inline er7_utils::SecondOrderODEIntegrator*
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::create_primer (
-   const er7_utils::IntegratorConstructor & priming_constructor,
-   unsigned int size,
-   er7_utils::IntegrationControls & priming_controls)
+inline er7_utils::SecondOrderODEIntegrator *
+GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::replicate_primer(
+    const er7_utils::SecondOrderODEIntegrator * src)
 {
-   return priming_constructor.create_second_order_ode_integrator (
-             size, priming_controls);
+    if(src == nullptr)
+    {
+        return nullptr;
+    }
+    else
+    {
+        return src->create_copy();
+    }
 }
-
-
-/**
- */
-template<>
-inline er7_utils::SecondOrderODEIntegrator*
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::replicate_primer (
-   const er7_utils::SecondOrderODEIntegrator * src)
-{
-   if (src == nullptr) {
-      return nullptr;
-   }
-   else {
-      return src->create_copy();
-   }
-}
-
 
 /**
  * Integrate with the primer.
  */
 template<>
 inline er7_utils::IntegratorResult
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::integrate_primer (
-   double dyn_dt,
-   unsigned int target_stage,
-   double const * deriv,
-   GaussJacksonTwoState & state)
+GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::integrate_primer(
+    double dyn_dt, unsigned int target_stage, const double * deriv, GaussJacksonTwoState & state)
 {
-   return primer->integrate (dyn_dt, target_stage, deriv,
-                             state.first, state.second);
+    return primer->integrate(dyn_dt, target_stage, deriv, state.first, state.second);
 }
-
 
 /**
  * Save epoch data.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::save_epoch_data (
-   const double* ER7_UTILS_RESTRICT acc,
-   const GaussJacksonTwoState & state)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::save_epoch_data(
+    const double * ER7_UTILS_RESTRICT acc, const GaussJacksonTwoState & state)
 {
-   er7_utils::integ_utils::two_state_copy_array (
-      state.first, state.second, size, init_state.first, init_state.second);
-   er7_utils::integ_utils::two_state_copy_array (
-      state.second, acc, size, pos_hist[0], acc_hist[0]);
+    er7_utils::integ_utils::two_state_copy_array(state.first, state.second, size, init_state.first, init_state.second);
+    er7_utils::integ_utils::two_state_copy_array(state.second, acc, size, pos_hist[0], acc_hist[0]);
 }
 
 /**
  * Save comparison data.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::save_comparison_data (
-   const GaussJacksonTwoState & state,
-   double* ER7_UTILS_RESTRICT pos_hist_elem)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::save_comparison_data(
+    const GaussJacksonTwoState & state, double * ER7_UTILS_RESTRICT pos_hist_elem)
 {
-   er7_utils::integ_utils::copy_array (state.second, size, pos_hist_elem);
+    er7_utils::integ_utils::copy_array(state.second, size, pos_hist_elem);
 }
 
 /**
  * Initialize the integration constants (i.e., delinv).
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::initialize_edit_integration_constants (
-   double dt)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::
+    initialize_edit_integration_constants(double dt)
 {
-   double dtsq = dt*dt;
+    double dtsq = dt * dt;
 
-   coeff->corrector[0].apply (size, order+1, acc_hist, delinv);
+    coeff->corrector[0].apply(size, order + 1, acc_hist, delinv);
 
-   for (unsigned int ii = 0; ii < size; ++ii) {
-      delinv.first[ii]  = init_state.first[ii] / dt - delinv.first[ii];
-      delinv.second[ii] = init_state.second[ii] / dtsq - delinv.second[ii];
-   }
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        delinv.first[ii] = init_state.first[ii] / dt - delinv.first[ii];
+        delinv.second[ii] = init_state.second[ii] / dtsq - delinv.second[ii];
+    }
 }
 
 /**
  * Advance the integration constants by one cycle.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::advance_edit_integration_constants (
-   unsigned int index)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::
+    advance_edit_integration_constants(unsigned int index)
 {
-   for (unsigned int ii = 0; ii < size; ++ii) {
-      delinv.second[ii] += delinv.first[ii];
-      delinv.first[ii]  += acc_hist[index][ii];
-   }
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        delinv.second[ii] += delinv.first[ii];
+        delinv.first[ii] += acc_hist[index][ii];
+    }
 }
 
 /**
  * Initialize the integration constants (i.e., delinv).
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::initialize_predictor_integration_constants (
-   double dt)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::
+    initialize_predictor_integration_constants(double dt)
 {
-   initialize_edit_integration_constants (dt);
+    initialize_edit_integration_constants(dt);
 
-   for (unsigned int ii = 1; ii < order; ++ii) {
-      advance_edit_integration_constants (ii);
-   }
+    for(unsigned int ii = 1; ii < order; ++ii)
+    {
+        advance_edit_integration_constants(ii);
+    }
 
-   for (unsigned int ii = 0; ii < size; ++ii) {
-      delinv.second[ii] += delinv.first[ii];
-   }
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        delinv.second[ii] += delinv.first[ii];
+    }
 }
 
 /**
  * Advance the integration constants by one cycle.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::advance_predictor_integration_constants (
-   unsigned int index)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::
+    advance_predictor_integration_constants(unsigned int index)
 {
-   for (unsigned int ii = 0; ii < size; ++ii) {
-      delinv.first[ii]  += acc_hist[index][ii];
-      delinv.second[ii] += delinv.first[ii];
-   }
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        delinv.first[ii] += acc_hist[index][ii];
+        delinv.second[ii] += delinv.first[ii];
+    }
 }
 
 /**
  * Apply a mid-corrector.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::mid_correct (
-   unsigned int coeff_idx,
-   double dt,
-   GaussJacksonTwoState & state)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::mid_correct(
+    unsigned int coeff_idx, double dt, GaussJacksonTwoState & state)
 {
-   double dtsq = dt*dt;
+    double dtsq = dt * dt;
 
-   coeff->corrector[coeff_idx].apply (size, order+1, acc_hist, state);
+    coeff->corrector[coeff_idx].apply(size, order + 1, acc_hist, state);
 
-   for (unsigned int ii = 0; ii < size; ++ii) {
-      state.first[ii] = dt * (delinv.first[ii] + state.first[ii]);
-      state.second[ii] = dtsq * (delinv.second[ii] + state.second[ii]);
-   }
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        state.first[ii] = dt * (delinv.first[ii] + state.first[ii]);
+        state.second[ii] = dtsq * (delinv.second[ii] + state.second[ii]);
+    }
 }
 
 /**
  * Apply the predictor.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::predict (
-   double dt,
-   double const * const * ER7_UTILS_RESTRICT ahist,
-   GaussJacksonTwoState & state)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::predict(
+    double dt, const double * const * ER7_UTILS_RESTRICT ahist, GaussJacksonTwoState & state)
 {
-   double dtsq = dt*dt;
-   double* ER7_UTILS_RESTRICT first_dinv = delinv.first;
-   double* ER7_UTILS_RESTRICT second_dinv = delinv.second;
-   double* ER7_UTILS_RESTRICT velocity = state.first;
-   double* ER7_UTILS_RESTRICT position = state.second;
+    double dtsq = dt * dt;
+    double * ER7_UTILS_RESTRICT first_dinv = delinv.first;
+    double * ER7_UTILS_RESTRICT second_dinv = delinv.second;
+    double * ER7_UTILS_RESTRICT velocity = state.first;
+    double * ER7_UTILS_RESTRICT position = state.second;
 
-   coeff->predictor.apply (size, order+1, ahist, state);
+    coeff->predictor.apply(size, order + 1, ahist, state);
 
-   for (unsigned int ii = 0; ii < size; ++ii) {
-      velocity[ii] = dt * (first_dinv[ii] + velocity[ii]);
-      position[ii] = dtsq * (second_dinv[ii] + position[ii]);
-   }
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        velocity[ii] = dt * (first_dinv[ii] + velocity[ii]);
+        position[ii] = dtsq * (second_dinv[ii] + position[ii]);
+    }
 }
 
 /**
  * Apply the corrector.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::correct (
-   double dt,
-   const double* ER7_UTILS_RESTRICT acc,
-   GaussJacksonTwoState & state)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::correct(
+    double dt, const double * ER7_UTILS_RESTRICT acc, GaussJacksonTwoState & state)
 {
-   double dtsq = dt*dt;
-   double* ER7_UTILS_RESTRICT first_csum = corrector_sum.first;
-   double* ER7_UTILS_RESTRICT second_csum = corrector_sum.second;
-   double* ER7_UTILS_RESTRICT first_dinv = delinv.first;
-   double* ER7_UTILS_RESTRICT second_dinv = delinv.second;
-   double* ER7_UTILS_RESTRICT velocity = state.first;
-   double* ER7_UTILS_RESTRICT position = state.second;
-   double vfact = velocity_corrector;
-   double pfact = position_corrector;
+    double dtsq = dt * dt;
+    double * ER7_UTILS_RESTRICT first_csum = corrector_sum.first;
+    double * ER7_UTILS_RESTRICT second_csum = corrector_sum.second;
+    double * ER7_UTILS_RESTRICT first_dinv = delinv.first;
+    double * ER7_UTILS_RESTRICT second_dinv = delinv.second;
+    double * ER7_UTILS_RESTRICT velocity = state.first;
+    double * ER7_UTILS_RESTRICT position = state.second;
+    double vfact = velocity_corrector;
+    double pfact = position_corrector;
 
-   for (unsigned int ii = 0; ii < size; ++ii) {
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        double temp = first_csum[ii] + vfact * acc[ii];
+        velocity[ii] = dt * (first_dinv[ii] + temp);
 
-      double temp = first_csum[ii] + vfact*acc[ii];
-      velocity[ii] = dt * (first_dinv[ii] + temp);
-
-      temp = second_csum[ii] + pfact*acc[ii];
-      position[ii] = dtsq * (second_dinv[ii] + temp);
-   }
+        temp = second_csum[ii] + pfact * acc[ii];
+        position[ii] = dtsq * (second_dinv[ii] + temp);
+    }
 }
 
 /**
  * Test for convergence.
  */
 template<>
-inline bool
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::test_for_convergence (
-   const GaussJacksonTwoState & state,
-   double* ER7_UTILS_RESTRICT hist_data)
+inline bool GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::test_for_convergence(
+    const GaussJacksonTwoState & state, double * ER7_UTILS_RESTRICT hist_data)
 {
-   const double* ER7_UTILS_RESTRICT new_data = state.second;
-   bool passed = true;
-   for (unsigned int ii = 0; ii < size; ++ii) {
-      double error = std::abs(new_data[ii] - hist_data[ii]);
-      if ((error > absolute_tolerance) &&
-          (error > relative_tolerance*std::abs(new_data[ii]))) {
-         passed = false;
-      }
-      hist_data[ii] = new_data[ii];
-   }
-   return passed;
+    const double * ER7_UTILS_RESTRICT new_data = state.second;
+    bool passed = true;
+    for(unsigned int ii = 0; ii < size; ++ii)
+    {
+        double error = std::abs(new_data[ii] - hist_data[ii]);
+        if((error > absolute_tolerance) && (error > relative_tolerance * std::abs(new_data[ii])))
+        {
+            passed = false;
+        }
+        hist_data[ii] = new_data[ii];
+    }
+    return passed;
 }
 
 /**
  * Swap state data with another of the same.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::swap_state (
-   GaussJacksonTwoState & item,
-   GaussJacksonTwoState & other_item)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::swap_state(
+    GaussJacksonTwoState & item, GaussJacksonTwoState & other_item)
 {
-   std::swap (item.first, other_item.first);
-   std::swap (item.second, other_item.second);
+    std::swap(item.first, other_item.first);
+    std::swap(item.second, other_item.second);
 }
 
 /**
  * Replicate state data.
  */
 template<>
-inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::replicate_state (
-   GaussJacksonTwoState const & source,
-   GaussJacksonTwoState & target)
+inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::replicate_state(
+    const GaussJacksonTwoState & source, GaussJacksonTwoState & target)
 {
-   target.first = er7_utils::alloc::replicate_array (size, source.first);
-   target.second = er7_utils::alloc::replicate_array (size, source.second);
+    target.first = er7_utils::alloc::replicate_array(size, source.first);
+    target.second = er7_utils::alloc::replicate_array(size, source.second);
 }
 
 /**
@@ -385,13 +326,11 @@ er7_utils::SecondOrderODEIntegrator>::replicate_state (
  */
 template<>
 inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::allocate_state_contents (
-   GaussJacksonTwoState & item)
+GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::allocate_state_contents(
+    GaussJacksonTwoState & item)
 {
-   item.first = er7_utils::alloc::allocate_array<double> (size);
-   item.second = er7_utils::alloc::allocate_array<double> (size);
+    item.first = er7_utils::alloc::allocate_array<double>(size);
+    item.second = er7_utils::alloc::allocate_array<double>(size);
 }
 
 /**
@@ -399,17 +338,14 @@ er7_utils::SecondOrderODEIntegrator>::allocate_state_contents (
  */
 template<>
 inline void
-GaussJacksonIntegratorBase <
-GaussJacksonTwoState,
-er7_utils::SecondOrderODEIntegrator>::deallocate_state_contents (
-   GaussJacksonTwoState & item)
+GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::deallocate_state_contents(
+    GaussJacksonTwoState & item)
 {
-   er7_utils::alloc::deallocate_array (item.first);
-   er7_utils::alloc::deallocate_array (item.second);
+    er7_utils::alloc::deallocate_array(item.first);
+    er7_utils::alloc::deallocate_array(item.second);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

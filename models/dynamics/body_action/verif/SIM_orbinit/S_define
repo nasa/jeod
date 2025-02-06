@@ -53,24 +53,24 @@ Purpose:
    - chaser   Another orbiting vehicle.
 *******************************************************************************/
 
-
 // This is an initialization-only sim, but the time model doesn't know that ...
 #define DYNAMICS 1.0
 #define LOW_RATE_ENV 1.0
 
-
-// Include standard S_modules:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
-// Include the JEOD basic sim objects
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 // Include standard sim-objects
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics_init_only.sm"
 #include "environment_sans_de405.sm"
-
 
 //***************************************************************
 // CLASS: (EarthSimObject)
@@ -85,32 +85,28 @@ Purpose:
 
 class EarthSimObject: public Earth_GGM05C_SimObject
 {
- public:
-   jeod::PlanetSite pad_39a;
+public:
+    jeod::PlanetSite pad_39a;
 
-   //Constructor
-   EarthSimObject (
-      JeodTimeSimObject & time_sim_object,
-      jeod::DynManager & dyn_manager,
-      jeod::GravityManager & gravity_manager)
-     :
-     Earth_GGM05C_SimObject ( dyn_manager,
-                              gravity_manager,
-                              time_sim_object.time_tt,
-                              time_sim_object.time_ut1,
-                              time_sim_object.time_gmst)
-   {
-     P_DYN  ("initialization") pad_39a.initialize (
-          planet, dyn_manager);
-   }
- private:
-   // Unimplemented copy constructor and assignment operator
-   EarthSimObject (const EarthSimObject&);
-   EarthSimObject & operator = (const EarthSimObject&);
+    // Constructor
+    EarthSimObject(JeodTimeSimObject & time_sim_object,
+                   jeod::DynManager & dyn_manager,
+                   jeod::GravityManager & gravity_manager)
+        : Earth_GGM05C_SimObject(dyn_manager,
+                                 gravity_manager,
+                                 time_sim_object.time_tt,
+                                 time_sim_object.time_ut1,
+                                 time_sim_object.time_gmst)
+    {
+        P_DYN("initialization") pad_39a.initialize(planet, dyn_manager);
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    EarthSimObject(const EarthSimObject &) = delete;
+    EarthSimObject & operator=(const EarthSimObject &) = delete;
 };
-EarthSimObject earth ( jeod_time,
-                       dynamics.dyn_manager,
-                       env.gravity_manager);
+
+EarthSimObject earth(jeod_time, dynamics.dyn_manager, env.gravity_manager);
 
 //***************************************************************
 // CLASS: (BaseVehicleSimObject)
@@ -131,40 +127,39 @@ EarthSimObject earth ( jeod_time,
 ##include "dynamics/body_action/include/dyn_body_init_ned_rot_state.hh"
 ##include "environment/gravity/include/spherical_harmonics_gravity_controls.hh"
 
-class BaseVehicleSimObject  : public Trick::SimObject {
-
+class BaseVehicleSimObject  : public Trick::SimObject
+{
 public:
-   jeod::DynBody dyn_body;
-   jeod::MassBodyInit mass_init;
-   jeod::DynBodyInitTransState trans_init;
-   jeod::DynBodyInitRotState att_init;
-   jeod::DynBodyInitRotState rate_init;
-   jeod::DynBodyInitLvlhState lvlh_init;
-   jeod::DynBodyInitLvlhTransState lvlh_trans_init;
-   jeod::DynBodyInitLvlhRotState lvlh_att_init;
-   jeod::DynBodyInitLvlhRotState lvlh_rate_init;
-   jeod::DynBodyInitNedState ned_init;
-   jeod::DynBodyInitNedTransState ned_trans_init;
-   jeod::DynBodyInitNedRotState ned_att_init;
-   jeod::DynBodyInitNedRotState ned_rate_init;
+    jeod::DynBody dyn_body;
+    jeod::MassBodyInit mass_init;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState att_init;
+    jeod::DynBodyInitRotState rate_init;
+    jeod::DynBodyInitLvlhState lvlh_init;
+    jeod::DynBodyInitLvlhTransState lvlh_trans_init;
+    jeod::DynBodyInitLvlhRotState lvlh_att_init;
+    jeod::DynBodyInitLvlhRotState lvlh_rate_init;
+    jeod::DynBodyInitNedState ned_init;
+    jeod::DynBodyInitNedTransState ned_trans_init;
+    jeod::DynBodyInitNedRotState ned_att_init;
+    jeod::DynBodyInitNedRotState ned_rate_init;
 
-   jeod::SphericalHarmonicsGravityControls  earth_grav_ctrl;
+    jeod::SphericalHarmonicsGravityControls earth_grav_ctrl;
 
-   //Constructor
-   BaseVehicleSimObject (
-      jeod::DynManager & dyn_manager_in)
-   :
-      dyn_manager(dyn_manager_in)
-   {
-     P_ENV  ("initialization") dyn_body.initialize_model ( dyn_manager);
-   }
+    // Constructor
+    BaseVehicleSimObject(jeod::DynManager & dyn_manager_in)
+        : dyn_manager(dyn_manager_in)
+    {
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    BaseVehicleSimObject(const BaseVehicleSimObject &) = delete;
+    BaseVehicleSimObject & operator=(const BaseVehicleSimObject &) = delete;
+
 protected:
-   // References to items from other sim objects
-   jeod::DynManager & dyn_manager;
-private:
-   // Unimplemented copy constructor and assignment operator
-   BaseVehicleSimObject (const BaseVehicleSimObject&);
-   BaseVehicleSimObject & operator = (const BaseVehicleSimObject&);
+    // References to items from other sim objects
+    jeod::DynManager & dyn_manager;
 };
 
 //***************************************************************
@@ -179,43 +174,40 @@ private:
 ##include "utils/orbital_elements/include/orbital_elements.hh"
 ##include "utils/ref_frames/include/ref_frame_state.hh"
 
-class TargetSimObject: public BaseVehicleSimObject {
+class TargetSimObject: public BaseVehicleSimObject
+{
 public:
-   jeod::DynBodyInitOrbit orb_init;
-   jeod::LvlhDerivedState lvlh;
-   jeod::NedDerivedState ned;
-   jeod::OrbitalElements orb_elem;
-   jeod::RefFrameState expected_state;
+    jeod::DynBodyInitOrbit orb_init;
+    jeod::LvlhDerivedState lvlh;
+    jeod::NedDerivedState ned;
+    jeod::OrbitalElements orb_elem;
+    jeod::RefFrameState expected_state;
 
-   //Constructor
-   TargetSimObject (
-      jeod::DynManager & dyn_manager_in,
-      jeod::GravitySource & grav_source_in)
-   :
-      BaseVehicleSimObject(dyn_manager_in),
-      planet_mu(grav_source_in.mu)
-   {
-     P_DYN  ("initialization") lvlh.initialize ( dyn_body,
-                                                 dyn_manager);
-     P_DYN  ("initialization") lvlh.update ( );
-     P_DYN  ("initialization") ned.initialize ( dyn_body,
-                                                dyn_manager);
-     P_DYN  ("initialization") ned.update ( );
-     P_DYN  ("initialization") orb_elem.from_cartesian (
-                                 planet_mu,
-                                 dyn_body.composite_body.state.trans.position,
-                                 dyn_body.composite_body.state.trans.velocity);
-   }
+    // Constructor
+    TargetSimObject(jeod::DynManager & dyn_manager_in, jeod::GravitySource & grav_source_in)
+        : BaseVehicleSimObject(dyn_manager_in),
+          planet_mu(grav_source_in.mu)
+    {
+        P_DYN("initialization") lvlh.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") lvlh.update();
+        P_DYN("initialization") ned.initialize(dyn_body, dyn_manager);
+        P_DYN("initialization") ned.update();
+        P_DYN("initialization")
+        orb_elem.from_cartesian(planet_mu,
+                                dyn_body.composite_body.state.trans.position,
+                                dyn_body.composite_body.state.trans.velocity);
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    TargetSimObject(const TargetSimObject &) = delete;
+    TargetSimObject & operator=(const TargetSimObject &) = delete;
 
 private:
-   // References to items from other sim objects
-   const double & planet_mu;
-
-   // Unimplemented copy constructor and assignment operator
-   TargetSimObject (const TargetSimObject&);
-   TargetSimObject & operator = (const TargetSimObject&);
+    // References to items from other sim objects
+    const double & planet_mu;
 };
-TargetSimObject target (dynamics.dyn_manager, earth.gravity_source);
+
+TargetSimObject target(dynamics.dyn_manager, earth.gravity_source);
 
 //***************************************************************
 // CLASS: (ChaserSimObject)
@@ -226,23 +218,23 @@ TargetSimObject target (dynamics.dyn_manager, earth.gravity_source);
 // Include headers for classes that this class contains:
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_trans_state.hh"
 
-class ChaserSimObject: public BaseVehicleSimObject {
+class ChaserSimObject: public BaseVehicleSimObject
+{
 public:
-   jeod::DynBodyInitLvlhTransState lvlh_trans_init;
+    jeod::DynBodyInitLvlhTransState lvlh_trans_init;
 
-   //Constructor
-   ChaserSimObject (
-      jeod::DynManager & dyn_manager_in)
-   :
-      BaseVehicleSimObject(dyn_manager_in)
-   { }
+    // Constructor
+    ChaserSimObject(jeod::DynManager & dyn_manager_in)
+        : BaseVehicleSimObject(dyn_manager_in)
+    {
+    }
 
-private:
-   // Unimplemented copy constructor and assignment operator
-   ChaserSimObject (const ChaserSimObject&);
-   ChaserSimObject & operator = (const ChaserSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    ChaserSimObject(const ChaserSimObject &) = delete;
+    ChaserSimObject & operator=(const ChaserSimObject &) = delete;
 };
-ChaserSimObject chaser (dynamics.dyn_manager);
+
+ChaserSimObject chaser(dynamics.dyn_manager);
 
 //***************************************************************
 // CLASS: (TargetRelStateSimObject)
@@ -253,53 +245,43 @@ ChaserSimObject chaser (dynamics.dyn_manager);
 // Include headers for classes that this class contains:
 ##include "dynamics/derived_state/include/relative_derived_state.hh"
 
-class TargetRelStateSimObject: public Trick::SimObject {
-
+class TargetRelStateSimObject: public Trick::SimObject
+{
 public:
-   jeod::RelativeDerivedState tstruct_wrt_pad39a;
-   jeod::RelativeDerivedState tbody_wrt_pfix;
-   jeod::RelativeDerivedState tbody_wrt_tlvlh;
-   jeod::RelativeDerivedState tbody_wrt_tned;
+    jeod::RelativeDerivedState tstruct_wrt_pad39a;
+    jeod::RelativeDerivedState tbody_wrt_pfix;
+    jeod::RelativeDerivedState tbody_wrt_tlvlh;
+    jeod::RelativeDerivedState tbody_wrt_tned;
 
-   // Constructor
-   TargetRelStateSimObject (
-      jeod::DynManager & dyn_manager_in,
-      jeod::DynBody & target_body_in)
-   :
-      dyn_manager(dyn_manager_in),
-      target_body(target_body_in)
-   {
-
-      //
-      // Initialization jobs
-      //
-      P_DYN  ("initialization") tstruct_wrt_pad39a.initialize (
-           target_body, dyn_manager);
-      P_DYN  ("initialization") tstruct_wrt_pad39a.update ( );
-      P_DYN  ("initialization") tbody_wrt_pfix.initialize (
-           target_body, dyn_manager);
-      P_DYN  ("initialization") tbody_wrt_pfix.update ( );
-      P_DYN  ("initialization") tbody_wrt_tlvlh.initialize (
-           target_body, dyn_manager);
-      P_DYN  ("initialization") tbody_wrt_tlvlh.update ( );
-      P_DYN  ("initialization") tbody_wrt_tned.initialize (
-           target_body, dyn_manager);
-      P_DYN  ("initialization") tbody_wrt_tned.update ( );
+    // Constructor
+    TargetRelStateSimObject(jeod::DynManager & dyn_manager_in, jeod::DynBody & target_body_in)
+        : dyn_manager(dyn_manager_in),
+          target_body(target_body_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") tstruct_wrt_pad39a.initialize(target_body, dyn_manager);
+        P_DYN("initialization") tstruct_wrt_pad39a.update();
+        P_DYN("initialization") tbody_wrt_pfix.initialize(target_body, dyn_manager);
+        P_DYN("initialization") tbody_wrt_pfix.update();
+        P_DYN("initialization") tbody_wrt_tlvlh.initialize(target_body, dyn_manager);
+        P_DYN("initialization") tbody_wrt_tlvlh.update();
+        P_DYN("initialization") tbody_wrt_tned.initialize(target_body, dyn_manager);
+        P_DYN("initialization") tbody_wrt_tned.update();
     }
 
+    // Unimplemented copy constructor and assignment operator
+    TargetRelStateSimObject(const TargetRelStateSimObject &) = delete;
+    TargetRelStateSimObject & operator=(const TargetRelStateSimObject &) = delete;
+
 private:
-
-   // References to items from other sim objects
-   jeod::DynManager & dyn_manager;
-   jeod::DynBody & target_body;
-
-   // Unimplemented copy constructor and assignment operator
-   TargetRelStateSimObject (const TargetRelStateSimObject&);
-   TargetRelStateSimObject & operator = (const TargetRelStateSimObject&);
+    // References to items from other sim objects
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & target_body;
 };
-TargetRelStateSimObject target_rel_state (
-   dynamics.dyn_manager, target.dyn_body);
 
+TargetRelStateSimObject target_rel_state(dynamics.dyn_manager, target.dyn_body);
 
 //***************************************************************
 // CLASS: (ChaserRelStateSimObject)
@@ -311,63 +293,53 @@ TargetRelStateSimObject target_rel_state (
 // Include headers for classes that this class contains:
 ##include "dynamics/derived_state/include/relative_derived_state.hh"
 
-class ChaserRelStateSimObject: public Trick::SimObject {
-
+class ChaserRelStateSimObject: public Trick::SimObject
+{
 public:
-   jeod::RelativeDerivedState cbody_wrt_tbody;
-   jeod::RelativeDerivedState cbody_wrt_tlvlh;
-   jeod::RelativeDerivedState cbody_wrt_tned;
-   jeod::RelativeDerivedState cstruct_wrt_tbody;
-   jeod::RelativeDerivedState cstruct_wrt_tstruct;
-   jeod::RelativeDerivedState cstruct_wrt_tned;
-   jeod::RelativeDerivedState cpoint_wrt_tpoint;
+    jeod::RelativeDerivedState cbody_wrt_tbody;
+    jeod::RelativeDerivedState cbody_wrt_tlvlh;
+    jeod::RelativeDerivedState cbody_wrt_tned;
+    jeod::RelativeDerivedState cstruct_wrt_tbody;
+    jeod::RelativeDerivedState cstruct_wrt_tstruct;
+    jeod::RelativeDerivedState cstruct_wrt_tned;
+    jeod::RelativeDerivedState cpoint_wrt_tpoint;
 
-//Constructor
+    // Constructor
 
-   // Constructor
-   ChaserRelStateSimObject (
-      jeod::DynManager & dyn_manager_in,
-      jeod::DynBody & chaser_body_in)
-   :
-      dyn_manager(dyn_manager_in),
-      chaser_body(chaser_body_in)
-   {
-
-      //
-      // Initialization jobs
-      //
-      P_DYN  ("initialization") cbody_wrt_tbody.initialize (
-         chaser_body, dyn_manager);
-      P_DYN  ("initialization") cbody_wrt_tbody.update ( );
-      P_DYN  ("initialization") cbody_wrt_tlvlh.initialize (
-         chaser_body, dyn_manager);
-      P_DYN  ("initialization") cbody_wrt_tlvlh.update ( );
-      P_DYN  ("initialization") cbody_wrt_tned.initialize (
-         chaser_body, dyn_manager);
-      P_DYN  ("initialization") cbody_wrt_tned.update ( );
-      P_DYN  ("initialization") cstruct_wrt_tbody.initialize (
-         chaser_body, dyn_manager);
-      P_DYN  ("initialization") cstruct_wrt_tbody.update ( );
-      P_DYN  ("initialization") cstruct_wrt_tstruct.initialize (
-         chaser_body, dyn_manager);
-      P_DYN  ("initialization") cstruct_wrt_tstruct.update ( );
-      P_DYN  ("initialization") cstruct_wrt_tned.initialize (
-         chaser_body, dyn_manager);
-      P_DYN  ("initialization") cstruct_wrt_tned.update ( );
-      P_DYN  ("initialization") cpoint_wrt_tpoint.initialize (
-         chaser_body, dyn_manager);
-      P_DYN  ("initialization") cpoint_wrt_tpoint.update ( );
+    // Constructor
+    ChaserRelStateSimObject(jeod::DynManager & dyn_manager_in, jeod::DynBody & chaser_body_in)
+        : dyn_manager(dyn_manager_in),
+          chaser_body(chaser_body_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_DYN("initialization") cbody_wrt_tbody.initialize(chaser_body, dyn_manager);
+        P_DYN("initialization") cbody_wrt_tbody.update();
+        P_DYN("initialization") cbody_wrt_tlvlh.initialize(chaser_body, dyn_manager);
+        P_DYN("initialization") cbody_wrt_tlvlh.update();
+        P_DYN("initialization") cbody_wrt_tned.initialize(chaser_body, dyn_manager);
+        P_DYN("initialization") cbody_wrt_tned.update();
+        P_DYN("initialization") cstruct_wrt_tbody.initialize(chaser_body, dyn_manager);
+        P_DYN("initialization") cstruct_wrt_tbody.update();
+        P_DYN("initialization") cstruct_wrt_tstruct.initialize(chaser_body, dyn_manager);
+        P_DYN("initialization") cstruct_wrt_tstruct.update();
+        P_DYN("initialization") cstruct_wrt_tned.initialize(chaser_body, dyn_manager);
+        P_DYN("initialization") cstruct_wrt_tned.update();
+        P_DYN("initialization") cpoint_wrt_tpoint.initialize(chaser_body, dyn_manager);
+        P_DYN("initialization") cpoint_wrt_tpoint.update();
     }
 
+    // Unimplemented copy constructor and assignment operator
+    ChaserRelStateSimObject(const ChaserRelStateSimObject &) = delete;
+    ChaserRelStateSimObject & operator=(const ChaserRelStateSimObject &) = delete;
+
 private:
-
-   // References to items from other sim objects
-   jeod::DynManager & dyn_manager;
-   jeod::DynBody & chaser_body;
-
-   // Unimplemented copy constructor and assignment operator
-   ChaserRelStateSimObject (const ChaserRelStateSimObject&);
-   ChaserRelStateSimObject & operator = (const ChaserRelStateSimObject&);
+    // References to items from other sim objects
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & chaser_body;
 };
-ChaserRelStateSimObject chaser_rel_state (
-   dynamics.dyn_manager, chaser.dyn_body);
+
+ChaserRelStateSimObject chaser_rel_state(dynamics.dyn_manager, chaser.dyn_body);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

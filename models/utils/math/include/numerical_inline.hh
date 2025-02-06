@@ -50,9 +50,8 @@
 Purpose:
   ()
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_NUMERICAL_INLINE_H
 #define JEOD_NUMERICAL_INLINE_H
@@ -60,47 +59,45 @@ Purpose:
 // JEOD includes
 #include "numerical.hh"
 
-// FIXME: This should be a constant.
-#ifdef GSL_SQRT_DBL_MIN
-#undef GSL_SQRT_DBL_MIN
-#endif
-#define GSL_SQRT_DBL_MIN 1.4916681462400413e-154
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
+
+static constexpr double SQRT_DBL_MIN{1.4916681462400413e-154};
 
 /**
  * Absolute value
  * @return Absolute value of x
  * \param[in] x x
  */
-inline double
-Numerical::fabs (
-   double x)
+inline double Numerical::fabs(double x)
 {
-   return (x < 0.0) ? -x : x;
+    if(x < 0.0)
+    {
+        return -x;
+    }
+    else
+    {
+        return x;
+    }
 }
-
 
 /**
  * Compute the square of a number, protecting against undeflow
  * @return value^2 or zero if too small
  * \param[in] value Value
  */
-inline double
-Numerical::square (
-   double value)
+inline double Numerical::square(double value)
 {
-
-   if (fabs (value) > GSL_SQRT_DBL_MIN) {
-      return value * value;
-   }
-   else {
-      return 0.0;
-   }
+    if(fabs(value) > SQRT_DBL_MIN)
+    {
+        return value * value;
+    }
+    else
+    {
+        return 0.0;
+    }
 }
-
 
 /**
  * Add number squared to accumulator, protecting against undeflow
@@ -108,17 +105,14 @@ Numerical::square (
  * \param[in] value Value
  * \param[in,out] sum Accumulator
  */
-inline double
-Numerical::square_incr (
-   double value,
-   double & sum)
+inline double Numerical::square_incr(double value, double & sum)
 {
-   if (fabs (value) > GSL_SQRT_DBL_MIN) {
-      sum += value * value;
-   }
-   return sum;
+    if(fabs(value) > SQRT_DBL_MIN)
+    {
+        sum += value * value;
+    }
+    return sum;
 }
-
 
 /**
  * Compare two doubles for exact equality
@@ -126,16 +120,12 @@ Numerical::square_incr (
  * \param[in] x Value1
  * \param[in] y Value2
  */
-inline bool
-Numerical::compare_exact (
-   double x,
-   double y)
+inline bool Numerical::compare_exact(double x, double y)
 {
-   return *((long long *)&x)==*((long long *)&y); // cppcheck-suppress invalidPointerCast
+    return *((long long *)&x) == *((long long *)&y); // cppcheck-suppress invalidPointerCast
 }
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

@@ -52,17 +52,16 @@
 // Define job calling intervals
 #define DYNAMICS       0.5
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
-
-#include "default_priority_settings.sm"
-
-// Include default jeod class:
+// Include the default jeod object
 #include "jeod_sys.sm"
 
-#include "time_dyntime_only.sm"
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
 
+#include "time_dyntime_only.sm"
 
 // Include headers for classes that this class contains:
 ##include "dynamics/dyn_manager/include/dyn_manager.hh"
@@ -72,63 +71,54 @@
 ##include "er7_utils/integration/abm4/include/abm4_integrator_constructor.hh"
 ##include "er7_utils/integration/euler/include/euler_integrator_constructor.hh"
 
-class DynamicsSimObject: public Trick::SimObject {
-
+class DynamicsSimObject: public Trick::SimObject
+{
 public:
-   jeod::DynManager             dyn_manager;
-   jeod::DynManagerInit         dyn_manager_init;
-   er7_utils::EulerIntegratorConstructor euler_integrator;
+    jeod::DynManager dyn_manager;
+    jeod::DynManagerInit dyn_manager_init;
+    er7_utils::EulerIntegratorConstructor euler_integrator;
 
-   // Constructor
-   DynamicsSimObject (
-      jeod::TimeManager & time_manager_in)
-   :
-      time_manager (time_manager_in)
-   {
+    // Constructor
+    DynamicsSimObject(jeod::TimeManager & time_manager_in)
+        : time_manager(time_manager_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_MNGR("initialization") dyn_manager.initialize_model(dyn_manager_init, time_manager);
+        P_MNGR_INIT_SIM("initialization") dyn_manager.initialize_simulation();
 
-      //
-      // Initialization jobs
-      //
-      P_MNGR  ("initialization") dyn_manager.initialize_model (
-         dyn_manager_init, time_manager);
-      P_MNGR_INIT_SIM ("initialization") dyn_manager.initialize_simulation ( );
+        //
+        // Environment class jobs
+        //
+        (DYNAMICS, "environment") dyn_manager.update_ephemerides();
+        (DYNAMICS, "environment") dyn_manager.perform_actions();
 
+        //
+        // Derivative class jobs
+        //
+        P_GRAV("derivative") dyn_manager.gravitation();
+        ("derivative") dyn_manager.compute_derivatives();
 
-      //
-      // Environment class jobs
-      //
-      (DYNAMICS, "environment") dyn_manager.update_ephemerides ( );
-      (DYNAMICS, "environment") dyn_manager.perform_actions ( );
-
-      //
-      // Derivative class jobs
-      //
-      P_GRAV ("derivative") dyn_manager.gravitation ( );
-      ("derivative") dyn_manager.compute_derivatives ( );
-
-      //
-      // Integration jobs
-      //
-      ("integration", &dyn_manager.sim_integrator) trick_ret =
-      dyn_manager.integrate (
-         exec_get_sim_time(),
-         time_manager);
-   }
+        //
+        // Integration jobs
+        //
+        ("integration", &dyn_manager.sim_integrator)
+            trick_ret = dyn_manager.integrate(exec_get_sim_time(), time_manager);
+    }
 
 private:
-   // Reference to the external time manager.
-   jeod::TimeManager & time_manager;
+    // Reference to the external time manager.
+    jeod::TimeManager & time_manager;
 
-   // Unimplemented copy constructor and assignment operator
-   DynamicsSimObject (const DynamicsSimObject&);
-   DynamicsSimObject & operator = (const DynamicsSimObject&);
-
+    // Unimplemented copy constructor and assignment operator
+    DynamicsSimObject(const DynamicsSimObject &);
+    DynamicsSimObject & operator=(const DynamicsSimObject &);
 };
 
-DynamicsSimObject dynamics (jeod_time.time_manager);
-
+DynamicsSimObject dynamics(jeod_time.time_manager);
 
 // Include a basic vehicle class and object
 #include "vehicle_basic.sm"
 
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

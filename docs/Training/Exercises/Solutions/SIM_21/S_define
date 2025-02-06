@@ -36,18 +36,23 @@
 //
 //=============================================================================
 // A two-vehicle simulation in Earth orbit, attach and detach the two vehicles
-//   
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-// Include the default objects
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "vehicle_basic.sm"
 VehicleSimObject vehicleB(dynamics.dyn_manager);
@@ -56,4 +61,4 @@ VehicleSimObject vehicleB(dynamics.dyn_manager);
 ##include "dynamics/body_action/include/body_detach.hh"
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

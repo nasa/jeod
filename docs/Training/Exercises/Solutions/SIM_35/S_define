@@ -36,19 +36,25 @@
 //
 //=============================================================================
 // Two vehicles in Earth orbit with LVLH frames
-// 
+//
 //=============================================================================
 
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
-#include "jeod_sys.sm"
-#include "default_priority_settings.sm"
-#include "time_dyntime_only.sm"
-#include "dynamics.sm"
-#include "environment_sans_de405.sm"
-#include "earth_basic.sm"
 
+// Include the default jeod object
+#include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
+
+#include "time_dyntime_only.sm"
+
+#include "dynamics.sm"
+#include "earth_basic.sm"
+#include "environment_sans_de405.sm"
 
 //***************************************************************
 // CLASS: (VehicleSimObject)
@@ -63,62 +69,57 @@
 ##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
 ##include "dynamics/body_action/include/mass_body_init.hh"
 
-class VehicleSimObject : public Trick::SimObject {
+class VehicleSimObject : public Trick::SimObject
+{
+public:
+    jeod::DynBody dyn_body;
+    jeod::SphericalHarmonicsGravityControls grav_control;
 
-  public:
-   jeod::DynBody     dyn_body;
-   jeod::SphericalHarmonicsGravityControls  grav_control;
+    jeod::DynBodyInitOrbit orb_init;
+    jeod::DynBodyInitLvlhRotState lvlh_rot_init;
+    jeod::DynBodyInitLvlhTransState lvlh_trans_init;
+    jeod::MassBodyInit mass_init;
 
-   jeod::DynBodyInitOrbit          orb_init;
-   jeod::DynBodyInitLvlhRotState   lvlh_rot_init;
-   jeod::DynBodyInitLvlhTransState lvlh_trans_init;
-   jeod::MassBodyInit              mass_init;
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : dyn_manager(dyn_mngr_in)
+    {
+        P_ENV("initialization") dyn_body.initialize_model(dyn_manager);
+    }
 
-   VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
-     :
-       dyn_manager(dyn_mngr_in)
-   {
-     P_ENV ("initialization") dyn_body.initialize_model(dyn_manager );
-   };
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 
-  private:
-
-   VehicleSimObject (const VehicleSimObject&);
-   VehicleSimObject & operator = (const VehicleSimObject&);
-
-   jeod::DynManager & dyn_manager;
-
+    jeod::DynManager & dyn_manager;
 };
+
 VehicleSimObject vehicleA(dynamics.dyn_manager);
 VehicleSimObject vehicleB(dynamics.dyn_manager);
 
-
-
 ##include "dynamics/derived_state/include/relative_derived_state.hh"
-class RelativeStateSimObject : public Trick::SimObject {
-   private:
-   jeod::DynManager        & dyn_manager;
-   jeod::DynBody & vehB_body;
-   public:
-   jeod::RelativeDerivedState  vehicleB_wrt_vehicleA_bodyA;
+class RelativeStateSimObject : public Trick::SimObject
+{
+private:
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & vehB_body;
 
+public:
+    jeod::RelativeDerivedState vehicleB_wrt_vehicleA_bodyA;
 
-   RelativeStateSimObject( jeod::DynManager        & dyn_manager_in,
-                           jeod::DynBody & vehB_body_in)
-     :
-     dyn_manager( dyn_manager_in),
-     vehB_body(   vehB_body_in)
-   {
-     P_DYN  ("initialization") vehicleB_wrt_vehicleA_bodyA.initialize (
-                                               vehB_body,
-                                               dyn_manager);
-     (DYNAMICS, "environment") vehicleB_wrt_vehicleA_bodyA.update ( );
-   };
-   private:
-   RelativeStateSimObject (const RelativeStateSimObject&);
-   RelativeStateSimObject & operator = (const RelativeStateSimObject&);
+    RelativeStateSimObject(jeod::DynManager & dyn_manager_in, jeod::DynBody & vehB_body_in)
+        : dyn_manager(dyn_manager_in),
+          vehB_body(vehB_body_in)
+    {
+        P_DYN("initialization") vehicleB_wrt_vehicleA_bodyA.initialize(vehB_body, dyn_manager);
+        (DYNAMICS, "environment") vehicleB_wrt_vehicleA_bodyA.update();
+    }
+
+private:
+    RelativeStateSimObject(const RelativeStateSimObject &);
+    RelativeStateSimObject & operator=(const RelativeStateSimObject &);
 };
-RelativeStateSimObject rel_state( dynamics.dyn_manager, vehicleB.dyn_body);
+
+RelativeStateSimObject rel_state(dynamics.dyn_manager, vehicleB.dyn_body);
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

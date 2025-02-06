@@ -51,10 +51,8 @@ Purpose: ()
 Library dependencies: ((../src/dyn_body_attached_body_constraint.cc))
 */
 
-
 #ifndef JEOD_DYN_BODY_ATTACHED_BODY_CONSTRAINT_HH
 #define JEOD_DYN_BODY_ATTACHED_BODY_CONSTRAINT_HH
-
 
 #include "dyn_body_constraint.hh"
 
@@ -66,22 +64,19 @@ Library dependencies: ((../src/dyn_body_attached_body_constraint.cc))
 
 #include <cassert>
 
-
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class DynBodyAttachedBodyConstraint : public DynBodyConstraint
 {
-
-    JEOD_MAKE_SIM_INTERFACES(DynBodyAttachedBodyConstraint)
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyAttachedBodyConstraint)
 
 public:
-
     /**
      * Default constructor.
      */
-    DynBodyAttachedBodyConstraint ();
+    DynBodyAttachedBodyConstraint();
 
     /**
      * Destructor.
@@ -95,7 +90,7 @@ public:
      *   with the effects of all of the pre-constraint wrenches incorporated
      *   into the non_grav_state argument to that function.
      */
-    const Wrench& get_effector_wrench () const override
+    const Wrench & get_effector_wrench() const override
     {
         return null_wrench;
     }
@@ -105,7 +100,7 @@ public:
      * @return A const reference to the constraint wrench for this object.
      * @note This function is called after the constraint values have been set.
      */
-    const Wrench& get_constraint_wrench () const override
+    const Wrench & get_constraint_wrench() const override
     {
         return constraint_wrench;
     }
@@ -117,7 +112,7 @@ public:
      *   The nonlinear aspects are assumed to be small; they are not
      *   taken into account while solving the constraints equation.
      */
-    const Wrench& get_nonlinear_response_wrench () const override
+    const Wrench & get_nonlinear_response_wrench() const override
     {
         return null_wrench;
     }
@@ -128,16 +123,16 @@ public:
      *   This is not bounds-checked.
      * @return The indexed component constraint.
      */
-    ConstraintComponent* get_component(unsigned index) override
+    ConstraintComponent * get_component(unsigned index) override
     {
-        assert (index < 6);
-        if (index < 3)
+        assert(index < 6);
+        if(index < 3)
         {
             return &force_constraints[index];
         }
         else
         {
-            return &torque_constraints[index-3];
+            return &torque_constraints[index - 3];
         }
     }
 
@@ -146,12 +141,11 @@ public:
      * and the root DynBody.
      * @param vehicle_properties  Various vehicle properties.
      */
-    void update_attachment (
-        const VehicleProperties& vehicle_properties) override
+    void update_attachment(const VehicleProperties & vehicle_properties) override
     {
-        DynBodyConstraint::update_attachment (vehicle_properties);
-        constrained_mass.update_attachment (vehicle_properties);
-        update_component_attachment (vehicle_properties);
+        DynBodyConstraint::update_attachment(vehicle_properties);
+        constrained_mass.update_attachment(vehicle_properties);
+        update_component_attachment(vehicle_properties);
     }
 
     /**
@@ -163,9 +157,8 @@ public:
      * @note This function is called prior to the calls to set_self_coeff(),
      *   set_cross_coeff(), and set_r_h_s().
      */
-    void setup_constraint(
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) override;
+    void setup_constraint(const VehicleProperties & vehicle_properties,
+                          const VehicleNonGravState & non_grav_state) override;
 
     /**
      * Set this constrained object's constraint values.
@@ -175,22 +168,19 @@ public:
      * @note This function is called after the matrix constraint equation has
      *   been formulated and solved.
      */
-    void set_constraint_values (
-        const VectorView<double, double>& solution_slice) override;
+    void set_constraint_values(const VectorView<double, double> & solution_slice) override;
 
     /**
      * Determine whether the integrator needs to be reset, which occurs
      * on transition between modes.
      * This should be called as a scheduled job at the dynamics rate.
      */
-    bool check_for_reset ()
+    bool check_for_reset()
     {
         return false;
     }
 
-
 protected:
-
     /**
      * The body as a constrained mass.
      */
@@ -209,7 +199,7 @@ protected:
     /**
      * A wrench that is always zero and inactive.
      */
-    Wrench null_wrench; //!< trick_units(--)
+    Wrench null_wrench{true}; //!< trick_units(--)
 
     /**
      * The total wrench on the vehicle from this constrained object.
@@ -217,11 +207,9 @@ protected:
     Wrench constraint_wrench; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

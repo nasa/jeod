@@ -24,10 +24,9 @@ Library Dependency:
 
 *******************************************************************************/
 
-
 // System includes
-#include <cstdio>
 #include <cstddef>
+#include <cstdio>
 
 // JEOD includes
 #include "utils/message/include/message_handler.hh"
@@ -36,49 +35,45 @@ Library Dependency:
 #include "../include/mass.hh"
 #include "../include/mass_messages.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Print out the MassTree members' data to a given file.
  * \param[in] file_name Desired output file name
  * \param[in,out] levels Max desired recursion level
  */
-void
-MassBody::print_tree (
-   const char * file_name,
-   int levels)
-const
+void MassBody::print_tree(const char * file_name, int levels) const
 {
-   FILE * fptr;
+    FILE * fptr;
 
-   // Open the file for output.
-   fptr = std::fopen (file_name, "w"); // flawfinder: ignore
+    // Open the file for output.
+    fptr = std::fopen(file_name, "w"); // flawfinder: ignore
 
-   // Failure to do so is a fatal error.
-   if (fptr == nullptr) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, MassBodyMessages::io_error,
-         "Could not open file '%s' for output",
-         file_name);
+    // Failure to do so is a fatal error.
+    if(fptr == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             MassBodyMessages::io_error,
+                             "Could not open file '%s' for output",
+                             file_name);
 
-      // Not reached
-      return;
-   }
+        // Not reached
+        return;
+    }
 
-   // Get a pointer to the root of this's tree
-   const MassBody * root_ptr = get_root_body();
+    // Get a pointer to the root of this's tree
+    const MassBody * root_ptr = get_root_body();
 
-   // Print out info for each MassBody in current tree to given depth
-   root_ptr->print_body(fptr, levels);
+    // Print out info for each MassBody in current tree to given depth
+    root_ptr->print_body(fptr, levels);
 
-   std::fclose (fptr);
-
-   return;
+    std::fclose(fptr);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -64,20 +64,19 @@ Assumptions and limitations:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_ITEM_FORWARD_HH
 #define JEOD_EPHEM_ITEM_FORWARD_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class EphemerisItem;
 class EphemerisOrientation;
 class EphemerisOrientationZXZ;
 class EphemerisPoint;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

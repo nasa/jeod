@@ -33,7 +33,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -47,86 +46,65 @@ Library dependencies:
 #include "../include/body_action_messages.hh"
 #include "../include/dyn_body_init_lvlh_rot_state.hh"
 
-
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * DynBodyInitLvlhRotState default constructor.
  */
-DynBodyInitLvlhRotState::DynBodyInitLvlhRotState (
-   void)
-:
-   DynBodyInitLvlhState()
+DynBodyInitLvlhRotState::DynBodyInitLvlhRotState()
 {
-   set_items = RefFrameItems::Att_Rate;
-
-   return;
+    set_items = RefFrameItems::Att_Rate;
 }
-
-
-/**
- * DynBodyInitLvlhRotState destructor.
- */
-DynBodyInitLvlhRotState::~DynBodyInitLvlhRotState (
-   void)
-{
-
-   return;
-}
-
 
 /**
  * Initialize the initializer.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitLvlhRotState::initialize (
-   DynManager & dyn_manager)
+void DynBodyInitLvlhRotState::initialize(DynManager & dyn_manager)
 {
-   RefFrameItems test_items(set_items);
+    RefFrameItems test_items(set_items);
 
-   // Check for an invalid user-override of the to-be-initialized states.
-   // Warn (but do not die) if this is the case.
-   if (test_items.contains (RefFrameItems::Pos) ||
-       test_items.contains (RefFrameItems::Vel)) {
+    // Check for an invalid user-override of the to-be-initialized states.
+    // Warn (but do not die) if this is the case.
+    if(test_items.contains(RefFrameItems::Pos) || test_items.contains(RefFrameItems::Vel))
+    {
+        MessageHandler::warn(__FILE__,
+                             __LINE__,
+                             BodyActionMessages::illegal_value,
+                             "%s warning:\n"
+                             "set_items contains translational aspects. Removing them.",
+                             action_identifier.c_str());
 
-      MessageHandler::warn (
-         __FILE__, __LINE__, BodyActionMessages::illegal_value,
-         "%s warning:\n"
-         "set_items contains translational aspects. Removing them.",
-         action_identifier.c_str());
+        test_items.remove(RefFrameItems::Pos_Vel);
+        set_items = test_items.get();
+    }
 
-      test_items.remove (RefFrameItems::Pos_Vel);
-      set_items = test_items.get();
-   }
+    // A null reference vehicle name means the reference vehicle is the
+    // subject vehicle.
+    if((ref_body == nullptr) && (ref_body_name.empty()))
+    {
+        ref_body = get_subject_dyn_body();
 
-   // A null reference vehicle name means the reference vehicle is the
-   // subject vehicle.
-   if ( ( ref_body == nullptr ) && ( ref_body_name.empty() ) )
-   {
-       ref_body = get_subject_dyn_body();
+        if(ref_body == nullptr)
+        {
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 BodyActionMessages::null_pointer,
+                                 "%s failed:\n"
+                                 "The subject body was not assigned",
+                                 action_identifier.c_str());
+            return;
+        }
+    }
 
-       if( ref_body == nullptr )
-       {
-           MessageHandler::fail (
-                    __FILE__, __LINE__, BodyActionMessages::null_pointer,
-                    "%s failed:\n"
-                    "The subject body was not assigned",
-                    action_identifier.c_str());
-       }
-   }
-
-   // Pass the message up the chain. This will initialize the base
-   // characteristics of the instance.
-   DynBodyInitLvlhState::initialize (dyn_manager);
-
-   return;
+    // Pass the message up the chain. This will initialize the base
+    // characteristics of the instance.
+    DynBodyInitLvlhState::initialize(dyn_manager);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

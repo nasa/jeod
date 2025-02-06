@@ -36,24 +36,26 @@
 //
 //=============================================================================
 // A single vehicle in Moon orbit with Earth and Solar perturbations.
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-// Include the default trick object
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
 // Include the default jeod object
 #include "jeod_sys.sm"
 
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT.sm"
+
 #include "dynamics.sm"
-#include "environment.sm"
 #include "earth_basic.sm"
+#include "environment.sm"
 #include "moon_basic.sm"
 #include "sun_basic.sm"
 //***************************************************************
@@ -63,23 +65,25 @@
 //***************************************************************
 
 #include "Base/vehicle_baseline.sm"
+
 class VehicleSimObject : public VehicleBasicSimObject
 {
- public:
-  jeod::SphericalHarmonicsGravityControls  earth_grav_control;
-  jeod::SphericalHarmonicsGravityControls  moon_grav_control;
-  jeod::SphericalHarmonicsGravityControls  sun_grav_control;
+public:
+    jeod::SphericalHarmonicsGravityControls earth_grav_control;
+    jeod::SphericalHarmonicsGravityControls moon_grav_control;
+    jeod::SphericalHarmonicsGravityControls sun_grav_control;
 
-  VehicleSimObject( jeod::DynManager   &dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  { }
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+    }
 
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+private:
+    VehicleSimObject(const VehicleSimObject &);
+    VehicleSimObject & operator=(const VehicleSimObject &);
 };
+
 VehicleSimObject vehicle(dynamics.dyn_manager);
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

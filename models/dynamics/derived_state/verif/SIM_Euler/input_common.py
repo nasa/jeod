@@ -21,4 +21,6 @@ veh.euler_yrp_lvlh.sequence = trick.Orientation.Yaw_Roll_Pitch
 
 veh.lvlh.reference_name = "Earth"
 
+earth.rnp.enable_polar = False 
+
 trick.stop(86400)

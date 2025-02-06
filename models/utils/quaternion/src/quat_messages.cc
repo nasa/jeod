@@ -24,10 +24,9 @@ Assumptions and limitations:
 Library dependencies:
   ((quat.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -36,14 +35,18 @@ Library dependencies:
 
 #define PATH "utils/quaternion/"
 
+//! Namespace jeod
+namespace jeod
+{
 
 // Static member data
 
-char const * QuatMessages::undefined =
-   PATH "undefined";
+const char * QuatMessages::undefined = PATH "undefined";
 
-char const * QuatMessages::invalid_entry =
-   PATH "invalid_entry";
+const char * QuatMessages::invalid_entry = PATH "invalid_entry";
+
+} // namespace jeod
+
 /**
  * @}
  * @}

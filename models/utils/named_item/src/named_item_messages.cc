@@ -24,10 +24,9 @@ Assumptions and limitations:
 Library dependencies:
   ((named_item_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -36,17 +35,17 @@ Library dependencies:
 
 #define PATH "utils/named_item/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 
-char const * NamedItemMessages::bad_args     = PATH "bad_args";
-char const * NamedItemMessages::invalid_name = PATH "invalid_name";
-char const * NamedItemMessages::frozen_name  = PATH "frozen_name";
+const char * NamedItemMessages::bad_args = PATH "bad_args";
+const char * NamedItemMessages::invalid_name = PATH "invalid_name";
+const char * NamedItemMessages::frozen_name = PATH "frozen_name";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

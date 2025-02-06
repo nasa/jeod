@@ -51,25 +51,23 @@ Purpose: ()
 Library dependencies: ((../src/constraint_frame.cc))
 */
 
-
 #ifndef JEOD_CONSTRAINT_FRAME_HH
 #define JEOD_CONSTRAINT_FRAME_HH
 
-
 #include "dynamics/dyn_body/include/vehicle_properties.hh"
 #include "dynamics/dyn_body/include/wrench.hh"
+#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 #include <utility>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class DynBodyConstraintsSolver;
 class VehicleProperties;
 class VehicleNonGravState;
-
 
 /**
  * A constraint frame is directly connected to a vehicle structural frame, which
@@ -79,64 +77,52 @@ class VehicleNonGravState;
  */
 class ConstraintFrame
 {
-
-    JEOD_MAKE_SIM_INTERFACES(ConstraintFrame)
+    JEOD_MAKE_SIM_INTERFACES(jeod, ConstraintFrame)
 
 public:
-
     // Instances of this class are assumed to be protected members of
     // a DynBodyConstraint object, so all member data are public.
 
     /**
      * The solver associated with the root DynBody object.
      */
-    DynBodyConstraintsSolver* solver; //!< trick_units(--)
+    DynBodyConstraintsSolver * solver{}; //!< trick_units(--)
 
     /**
      * The transformation from the immediate structural frame to the
      * preferred frame for this constraint.
      */
-    double T_struct_constraint[3][3]; //!< trick_units(--)
+    double T_struct_constraint[3][3]{IDENTITY}; //!< trick_units(--)
 
     /**
      * The offset from the origin of the immediate structural frame to the
      * origin of the preferred frame for this constraint, in immediate
      * structure frame coordinates.
      */
-    double origin_position_struct[3]; //!< trick_units(m)
+    double origin_position_struct[3]{}; //!< trick_units(m)
 
     /**
      * The transformation from the root body's structural frame to the
      * preferred frame for this constraint.
      */
-    double T_root_constraint[3][3]; //!< trick_units(--)
+    double T_root_constraint[3][3]{IDENTITY}; //!< trick_units(--)
 
     /**
      * The offset from the origin of the root body's structural frame to the
      * origin of the preferred frame for this constraint, in root body
      * structure frame coordinates.
      */
-    double origin_position_root[3]; //!< trick_units(m)
-
+    double origin_position_root[3]{}; //!< trick_units(m)
 
     // Member functions
-
-    /**
-     * Default constructor.
-     */
-    ConstraintFrame ();
-
-    /**
-     * Destructor.
-     */
-    virtual ~ConstraintFrame()  = default;
-
+    ConstraintFrame() = default;
+    virtual ~ConstraintFrame() = default;
     // Copying a constraint would be handy, but is fraught with issues.
     // For now, copying and assigning is verboten.
-    ConstraintFrame (const ConstraintFrame&) = default;
-    ConstraintFrame (ConstraintFrame&&) = default;
-    ConstraintFrame& operator= (const ConstraintFrame&) = default;
-    ConstraintFrame& operator= (ConstraintFrame&&) = default;
+    ConstraintFrame(const ConstraintFrame &) = default;
+    ConstraintFrame(ConstraintFrame &&) = default;
+    ConstraintFrame & operator=(const ConstraintFrame &) = default;
+    ConstraintFrame & operator=(ConstraintFrame &&) = default;
 
 #ifndef SWIG
     /**
@@ -146,15 +132,13 @@ public:
      * @param offset_in  The position of the constraint frame origin, in
      *   structural frame coordinates.
      */
-    virtual void set_struct_to_constraint_frame (
-        SolverTypes::ConstDecayedMatrix3x3T transform_in,
-        SolverTypes::ConstDecayedVector3T offset_in);
+    virtual void set_struct_to_constraint_frame(SolverTypes::ConstDecayedMatrix3x3T transform_in,
+                                                SolverTypes::ConstDecayedVector3T offset_in);
 
     /**
      * Get the structure to constraint frame transform.
      */
-    virtual SolverTypes::ConstMatrix3x3RefT
-    get_struct_to_constraint_transform () const
+    virtual SolverTypes::ConstMatrix3x3RefT get_struct_to_constraint_transform() const
     {
         return T_struct_constraint;
     }
@@ -162,8 +146,7 @@ public:
     /**
      * Get the structure to constrame frame offset.
      */
-    virtual SolverTypes::ConstDecayedVector3T
-    get_struct_to_constraint_offset () const
+    virtual SolverTypes::ConstDecayedVector3T get_struct_to_constraint_offset() const
     {
         return origin_position_struct;
     }
@@ -171,8 +154,7 @@ public:
     /**
      * Get the root structure to constraint frame transform.
      */
-    virtual SolverTypes::ConstMatrix3x3RefT
-    get_root_to_constraint_transform () const
+    virtual SolverTypes::ConstMatrix3x3RefT get_root_to_constraint_transform() const
     {
         return T_root_constraint;
     }
@@ -180,20 +162,18 @@ public:
     /**
      * Get the root structure to constraint frame offset.
      */
-    virtual SolverTypes::ConstDecayedVector3T
-    get_root_to_constraint_offset () const
+    virtual SolverTypes::ConstDecayedVector3T get_root_to_constraint_offset() const
     {
         return origin_position_root;
     }
 #endif
-
 
     /**
      * Update information about the relation between this constraint
      * and the root DynBody.
      * @param vehicle_properties  Various vehicle properties (not used).
      */
-    virtual void update_attachment (const VehicleProperties& vehicle_properties JEOD_UNUSED)
+    virtual void update_attachment(const VehicleProperties & vehicle_properties JEOD_UNUSED)
     {
         update_root_to_constraint_frame();
     }
@@ -202,15 +182,12 @@ public:
      * Update the root to constraint frame transformation matrix and
      * offset.
      */
-    void update_root_to_constraint_frame ();
-
+    void update_root_to_constraint_frame();
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

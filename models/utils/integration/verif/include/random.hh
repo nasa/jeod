@@ -49,22 +49,20 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/random.cc))
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_RANDOM_HH
 #define JEOD_RANDOM_HH
-
 
 // System includes
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RandomSeedGenerator;
 
@@ -75,206 +73,141 @@ Purpose:
    public methods for generating random numbers.
    Providing public methods is the job of derived classes.)
 */
-class RandomBase {
-
- JEOD_MAKE_SIM_INTERFACES(RandomBase)
+class RandomBase
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RandomBase)
 
 #ifdef JEOD_RANDOM_FRIEND
-   friend class JEOD_RANDOM_FRIEND;
+    friend class JEOD_RANDOM_FRIEND;
 #endif
 
+    // Member functions
+public:
+    // Default constructor.
+    RandomBase(unsigned int nskip = 0, bool initialize = true);
 
- // Member functions
- public:
-   // Default constructor.
-   RandomBase (unsigned int nskip = 0,
-               bool initialize = true);
+    // Non-default constructor that uses a seed generator to set the seed.
+    RandomBase(RandomSeedGenerator & seed_gen, unsigned int nskip = 0, bool initialize = true);
 
-   // Non-default constructor that uses a seed generator to set the seed.
-   RandomBase (RandomSeedGenerator & seed_gen,
-               unsigned int nskip = 0,
-               bool initialize = true);
+    // Destructor
+    virtual ~RandomBase() = default;
 
-   // Destructor
-   virtual ~RandomBase (void);
+    // Protected methods, for use by derived classes.
+protected:
+    // Reset the generator
+    void reset();
 
+    // Get a random long.
+    long random_long();
 
- // Protected methods, for use by derived classes.
- protected:
+    // Get a random number from [0,1)
+    double random_u01_scalar();
 
-   // Reset the generator
-   void reset (void);
+    // Visible to the JEOD_RANDOM_FRIEND, for testing.
+private:
+    // Deferred initializer.
+    void reseed(RandomSeedGenerator & seed_gen);
 
-   // Get a random long.
-   long random_long (void);
+    // Setters; override defaults. Not recommended, but here they are.
+    void set_xsubi_init(unsigned short new_xsubi[3]);
+    void set_skip_count(unsigned int nskip);
 
-   // Get a random number from [0,1)
-   double random_u01_scalar (void);
-
-
- // Visible to the JEOD_RANDOM_FRIEND, for testing.
- private:
-
-   // Deferred initializer.
-   void reseed (RandomSeedGenerator & seed_gen);
-
-   // Setters; override defaults. Not recommended, but here they are.
-   void set_xsubi_init (unsigned short new_xsubi[3]);
-   void set_skip_count (unsigned int nskip);
-
-
- // Member data
- // Should be private but implemented as protected, #@$%it
- protected:
-   bool seeded;
-   unsigned int skip_count;
-   unsigned int use_count;
-   unsigned short xsubi[3];
-   unsigned short xsubi_init[3];
-
+    // Member data
+    // Should be private but implemented as protected, #@$%it
+protected:
+    bool seeded{};
+    unsigned int skip_count;
+    unsigned int use_count{};
+    unsigned short xsubi[3];
+    unsigned short xsubi_init[3];
 };
-
 
 /*
 Purpose:
   (Instances of this class reproducibly and reentrantly generate uniform random
    numbers between 0 and 1, inclusive of 0 but exclusive of 1.)
 */
-class RandomSeedGenerator : public RandomBase {
-
- JEOD_MAKE_SIM_INTERFACES(RandomSeedGenerator)
+class RandomSeedGenerator : public RandomBase
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RandomSeedGenerator)
 
 #ifdef JEOD_RANDOM_FRIEND
-   friend class JEOD_RANDOM_FRIEND;
+    friend class JEOD_RANDOM_FRIEND;
 #endif
 
- // Member functions
- public:
-   // Default constructor
-   RandomSeedGenerator (
-      unsigned int nskip = 0,
-      bool initialize = true);
+    // Member functions
+public:
+    // Default constructor
+    RandomSeedGenerator(unsigned int nskip = 0, bool initialize = true);
 
-   // Destructor
-   ~RandomSeedGenerator (void) override;
+    // Destructor
+    ~RandomSeedGenerator() override = default;
 
-   // Get a seed for initializing some RandomBase derivative class. */
-   void get_seed (unsigned short seed[3]);
+    // Get a seed for initializing some RandomBase derivative class. */
+    void get_seed(unsigned short seed[3]);
 
-
- // Visible to the JEOD_RANDOM_FRIEND, for testing.
- private:
-
-   // Reset the generator
-   void reset (void);
+    // Visible to the JEOD_RANDOM_FRIEND, for testing.
+private:
+    // Reset the generator
+    void reset();
 };
-
 
 /*
 Purpose:
   (Base class for generating random numbers.)
 */
-class RandomGenerator : public RandomBase {
-
- JEOD_MAKE_SIM_INTERFACES(RandomGenerator)
+class RandomGenerator : public RandomBase
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RandomGenerator)
 
 #ifdef JEOD_RANDOM_FRIEND
-   friend class JEOD_RANDOM_FRIEND;
+    friend class JEOD_RANDOM_FRIEND;
 #endif
 
- // Member functions
- public:
-   // Default constructor: There is none.
+    // Member functions
+public:
+    // Default constructor: There is none.
 
-   // Non-default constructor. Note that the seed generator is required.
-   RandomGenerator (RandomSeedGenerator & seed_gen,
-                    unsigned int nskip = 0,
-                    bool initialize = true);
+    // Non-default constructor. Note that the seed generator is required.
+    RandomGenerator(RandomSeedGenerator & seed_gen, unsigned int nskip = 0, bool initialize = true);
 
-   // Destructor
-   ~RandomGenerator (void) override;
-
+    // Destructor
+    ~RandomGenerator() override = default;
 };
-
 
 /*
 Purpose:
   (Generates random n-vectors with each element indepdently drawn from U[0,1).)
 */
-class RandomVectorUniform01 : public RandomGenerator {
-
- JEOD_MAKE_SIM_INTERFACES(RandomVectorUniform01)
+class RandomVectorUniform01 : public RandomGenerator
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RandomVectorUniform01)
 
 #ifdef JEOD_RANDOM_FRIEND
-   friend class JEOD_RANDOM_FRIEND;
+    friend class JEOD_RANDOM_FRIEND;
 #endif
 
+    // Member functions
+public:
+    // Default constructor: There is none.
 
- // Member functions
- public:
-   // Default constructor: There is none.
-
-   // Non-default constructor; initializes immediately.
-   RandomVectorUniform01 (RandomSeedGenerator & seed_gen,
+    // Non-default constructor; initializes immediately.
+    RandomVectorUniform01(RandomSeedGenerator & seed_gen,
                           unsigned int vsize = 3,
                           unsigned int nskip = 0,
                           bool initialize = true);
 
-   // Destructor
-   ~RandomVectorUniform01 (void) override;
+    // Destructor
+    ~RandomVectorUniform01() override = default;
 
-   // Get a random vector, overridable.
-   // This class returns a uniform vector with elements drawn from U[0,1).
-   virtual void random_vector (double *vec);
+    // Get a random vector, overridable.
+    // This class returns a uniform vector with elements drawn from U[0,1).
+    virtual void random_vector(double * vec);
 
- // Member data
- protected:
-   const unsigned int vector_size;
-
+    // Member data
+protected:
+    const unsigned int vector_size;
 };
-
-
-/*******************************************************************************
- * Destructors.
- * None of the above classes allocate resources; the destructors are no-ops.
- ******************************************************************************/
-
-
-/*
-Purpose: (Destructor.)
-*/
-inline
-RandomBase::~RandomBase (
-   void)
-{}
-
-
-/*
-Purpose: (Destructor.)
-*/
-inline
-RandomSeedGenerator::~RandomSeedGenerator (
-   void)
-{}
-
-
-/*
-Purpose: (Destructor.)
-*/
-inline
-RandomGenerator::~RandomGenerator (
-   void)
-{}
-
-
-/*
-Purpose: (Destructor.)
-*/
-inline
-RandomVectorUniform01::~RandomVectorUniform01 (
-   void)
-{}
-
 
 /*******************************************************************************
  * Other inlined methods; none of these have any library dependencies.
@@ -283,58 +216,47 @@ RandomVectorUniform01::~RandomVectorUniform01 (
 /*
 Purpose: (Override the default values for xsubi_init.)
 */
-inline void
-RandomBase::set_xsubi_init (
-   unsigned short new_xsubi[3]) // In: -- New seed
+inline void RandomBase::set_xsubi_init(unsigned short new_xsubi[3]) // In: -- New seed
 {
-   xsubi_init[0] = new_xsubi[0];
-   xsubi_init[1] = new_xsubi[1];
-   xsubi_init[2] = new_xsubi[2];
+    xsubi_init[0] = new_xsubi[0];
+    xsubi_init[1] = new_xsubi[1];
+    xsubi_init[2] = new_xsubi[2];
 
-   seeded = false;
+    seeded = false;
 }
-
 
 /*
 Purpose: (Reset the number of skips.)
 */
-inline void
-RandomBase::set_skip_count (
-   unsigned int nskip)          // In: -- New skip count
+inline void RandomBase::set_skip_count(unsigned int nskip) // In: -- New skip count
 {
-   skip_count = nskip;
+    skip_count = nskip;
 
-   seeded = false;
+    seeded = false;
 }
-
 
 /*
 Purpose: (Reseed the generator.)
 */
-inline void
-RandomBase::reseed (
-   RandomSeedGenerator & seed_gen)
+inline void RandomBase::reseed(RandomSeedGenerator & seed_gen)
 {
-   // Use the seed generator to initialize the seed.
-   seed_gen.get_seed (xsubi_init);
+    // Use the seed generator to initialize the seed.
+    seed_gen.get_seed(xsubi_init);
 
-   seeded = false;
+    seeded = false;
 }
-
 
 /*
 Purpose: (Get a random uniform n-vector, each element between 0 and 1.)
 */
-inline void
-RandomVectorUniform01::random_vector (
-   double * vec)                // -- Out: Random vector from U[0,1)
+inline void RandomVectorUniform01::random_vector(double * vec) // -- Out: Random vector from U[0,1)
 {
-   for (unsigned int ii = 0; ii < vector_size; ++ii) {
-      vec[ii] = random_u01_scalar ();
-   }
+    for(unsigned int ii = 0; ii < vector_size; ++ii)
+    {
+        vec[ii] = random_u01_scalar();
+    }
 }
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

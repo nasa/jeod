@@ -36,16 +36,23 @@
 //
 //=============================================================================
 // Two vehicles in Earth orbit with contact model
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
+
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "vehicle_basic.sm"
 VehicleSimObject vehicleB(dynamics.dyn_manager);
@@ -62,66 +69,54 @@ Purpose:(Contact model simulation)
 ##include "interactions/contact/include/contact.hh"
 class InteractionSimObject : public Trick::SimObject
 {
+public:
+    jeod::SurfaceModel veh_surface;
+    jeod::SurfaceModel vehB_surface;
+    jeod::FlatPlateCircular * flat_plate;
+    jeod::SpringPairInteraction * pair_interact;
 
-  public:
-  jeod::SurfaceModel  veh_surface;
-  jeod::SurfaceModel  vehB_surface;
-  jeod::FlatPlateCircular    * flat_plate;
-  jeod::SpringPairInteraction * pair_interact;
+    jeod::ContactSurface veh_contact_surface;
+    jeod::ContactSurface vehB_contact_surface;
+    jeod::ContactSurfaceFactory contact_surface_factory;
+    jeod::Contact contact;
 
-  jeod::ContactSurface          veh_contact_surface;
-  jeod::ContactSurface          vehB_contact_surface;
-  jeod::ContactSurfaceFactory   contact_surface_factory;
-  jeod::Contact                 contact;
+    InteractionSimObject(jeod::DynManager & dyn_mngr_in)
+        : dyn_mngr(dyn_mngr_in)
+    {
+        P_BODY("initialization") veh_surface.initialize_mass_connections(dyn_mngr);
+        P_BODY("initialization") vehB_surface.initialize_mass_connections(dyn_mngr);
+        P_BODY("initialization") contact_surface_factory.create_surface(&veh_surface, &veh_contact_surface);
+        P_BODY("initialization") contact_surface_factory.create_surface(&vehB_surface, &vehB_contact_surface);
+        P_DYN("initialization") contact.initialize_contact(&dyn_mngr);
+        P_DYN("initialization")
+        contact.register_contact(veh_contact_surface.contact_facets[0], vehB_contact_surface.contact_facets[0]);
 
-  InteractionSimObject( jeod::DynManager      & dyn_mngr_in)
-     :
-       dyn_mngr(dyn_mngr_in)
-  {
-      P_BODY ("initialization") veh_surface.initialize_mass_connections(
-                                                               dyn_mngr );
-      P_BODY ("initialization") vehB_surface.initialize_mass_connections(
-                                                               dyn_mngr );
-      P_BODY ("initialization") contact_surface_factory.create_surface(
-                                                       & veh_surface,
-                                                       & veh_contact_surface);
-      P_BODY ("initialization") contact_surface_factory.create_surface(
-                                                     & vehB_surface,
-                                                     & vehB_contact_surface);
-      P_DYN  ("initialization") contact.initialize_contact(&dyn_mngr);
-      P_DYN  ("initialization") contact.register_contact(
-                                      veh_contact_surface.contact_facets[0],
-                                      vehB_contact_surface.contact_facets[0]);
+        /////////////////////////////////////////
+        ("derivative") contact.check_contact();
+        ("derivative") veh_contact_surface.collect_forces_torques();
+        ("derivative") vehB_contact_surface.collect_forces_torques();
+    }
 
-      /////////////////////////////////////////
-      ("derivative")  contact.check_contact();
-      ("derivative")  veh_contact_surface.collect_forces_torques();
-      ("derivative")  vehB_contact_surface.collect_forces_torques();
-   };
-   private:
-   InteractionSimObject (const InteractionSimObject&);
-   InteractionSimObject & operator = (const InteractionSimObject&);
+private:
+    InteractionSimObject(const InteractionSimObject &);
+    InteractionSimObject & operator=(const InteractionSimObject &);
 
-   jeod::DynManager     & dyn_mngr;
+    jeod::DynManager & dyn_mngr;
 };
-InteractionSimObject interactions( dynamics.dyn_manager);
 
+InteractionSimObject interactions(dynamics.dyn_manager);
 
 /*****************************************************************************
 Purpose:(Collect forces/torques)
 *****************************************************************************/
-vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
-                                  interactions.veh_contact_surface.contact_force
-};
-vcollect vehicleB.dyn_body.collect.collect_environ_forc jeod::CollectForce::create {
-                                  interactions.vehB_contact_surface.contact_force
-};
-vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create {
-                                  interactions.veh_contact_surface.contact_torque
-};
-vcollect vehicleB.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create {
-                                  interactions.vehB_contact_surface.contact_torque
-};
+vcollect vehicle.dyn_body.collect.collect_environ_forc jeod::CollectForce::create{
+    interactions.veh_contact_surface.contact_force};
+vcollect vehicleB.dyn_body.collect.collect_environ_forc jeod::CollectForce::create{
+    interactions.vehB_contact_surface.contact_force};
+vcollect vehicle.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create{
+    interactions.veh_contact_surface.contact_torque};
+vcollect vehicleB.dyn_body.collect.collect_environ_torq jeod::CollectTorque::create{
+    interactions.vehB_contact_surface.contact_torque};
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, interactions;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, interactions;

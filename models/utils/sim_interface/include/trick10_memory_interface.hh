@@ -54,23 +54,22 @@ Purpose:
 Library dependencies:
   ((../src/trick10_memory_interface.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_TRICK10_MEMORY_INTERFACE_HH
 #define JEOD_TRICK10_MEMORY_INTERFACE_HH
 
 #ifdef TRICK_VER
-#if (TRICK_VER >= 10)
+#if(TRICK_VER >= 10)
 
 // System includes
 #include <cstddef>
+#include <cstdint>
 #include <cstring>
 #include <list>
 #include <map>
-#include <stdint.h>
 #include <string>
 
 // JEOD includes
@@ -82,124 +81,102 @@ Library dependencies:
 #include "simulation_interface.hh"
 #include "trick_memory_interface.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Forward declarations
 class JeodCheckpointable;
 class JeodMemoryManager;
 class JeodMemoryTypeDescriptor;
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * Namespace Trick furnishes several standard functions for use in the Trick environment.
  */
-namespace Trick { class ClassicCheckPointAgent; }
-
+namespace Trick
+{
+class ClassicCheckPointAgent;
+} // namespace Trick
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A TrickMemoryInterface implements the two required methods needed to register
  * and deregister memory with the simulation engine, Trick in this case.
  */
-class JeodTrick10MemoryInterface : public JeodTrickMemoryInterface {
-
- JEOD_MAKE_SIM_INTERFACES(JeodTrick10MemoryInterface)
+class JeodTrick10MemoryInterface : public JeodTrickMemoryInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodTrick10MemoryInterface)
 
 public:
+    // Member functions
+    JeodTrick10MemoryInterface();
+    ~JeodTrick10MemoryInterface() override = default;
+    JeodTrick10MemoryInterface(const JeodTrick10MemoryInterface &) = delete;
+    JeodTrick10MemoryInterface & operator=(const JeodTrick10MemoryInterface &) = delete;
 
-   // Member functions
+    // Register a JeodCheckpointable object with the simulation engine.
+    void register_container(const void * owner,
+                            const JeodMemoryTypeDescriptor & owner_type,
+                            const std::string & elem_name,
+                            JeodCheckpointable & container) override;
 
-   // Constructor and destructor
-   JeodTrick10MemoryInterface ();
-   ~JeodTrick10MemoryInterface () override;
+    // Revoke registration of a JeodCheckpointable that is about to be deleted.
+    void deregister_container(const void * owner,
+                              const JeodMemoryTypeDescriptor & owner_type,
+                              const std::string & elem_name,
+                              JeodCheckpointable & container) override;
 
+    // Get the simulation name (if any) of the address.
+    const std::string get_name_at_address(const void * addr, const JeodMemoryTypeDescriptor * tdesc) const override;
 
-   // Register a JeodCheckpointable object with the simulation engine.
-   void register_container (
-      const void * owner,
-      const JeodMemoryTypeDescriptor & owner_type,
-      const char * elem_name,
-      JeodCheckpointable & container) override;
+    // Get the address (if any) corresponding to the given name.
+    void * get_address_at_name(const std::string & name) const override;
 
-   // Revoke registration of a JeodCheckpointable that is about to be deleted.
-   void deregister_container (
-      const void * owner,
-      const JeodMemoryTypeDescriptor & owner_type,
-      const char * elem_name,
-      JeodCheckpointable & container) override;
+    /**
+     * The Trick10 memory interface supports checkpoint/restart.
+     */
+    bool is_checkpoint_restart_supported() const override
+    {
+        return true;
+    }
 
+    // Get the name of the current Trick checkpoint file.
+    const std::string get_trick_checkpoint_file(bool checkpoint) override;
 
-   // Get the simulation name (if any) of the address.
-   const std::string get_name_at_address (
-      const void * addr,
-       const JeodMemoryTypeDescriptor * tdesc) const override;
+    // Dump the container checkpointable objects to the checkpoint file.
+    void checkpoint_containers() override;
 
-   // Get the address (if any) corresponding to the given name.
-   void * get_address_at_name (
-      const std::string & name) const override;
+    // Restore the container checkpointables objects from the checkpoint file.
+    void restore_containers() override;
 
-   /**
-    * The Trick10 memory interface supports checkpoint/restart.
-    */
-   bool is_checkpoint_restart_supported (void) const override { return true; }
+    // Dump the allocation information to the checkpoint file.
+    void checkpoint_allocations() override;
 
-   // Get the name of the current Trick checkpoint file.
-   const std::string get_trick_checkpoint_file (bool checkpoint) override;
-
-   // Dump the container checkpointable objects to the checkpoint file.
-   void checkpoint_containers (void) override;
-
-   // Restore the container checkpointables objects from the checkpoint file.
-   void restore_containers (void) override;
-
-   // Dump the allocation information to the checkpoint file.
-   void checkpoint_allocations (void) override;
-
-   // Restore the allocated data per the checkpoint file.
-   void restore_allocations (JeodMemoryManager & memory_manager) override;
-
+    // Restore the allocated data per the checkpoint file.
+    void restore_allocations(JeodMemoryManager & memory_manager) override;
 
 protected:
+    // Member functions
 
-   // Member functions
+    std::string get_container_id(const ContainerListEntry & entry) const;
 
-   std::string get_container_id (const ContainerListEntry & entry) const;
+    std::string translate_addr_to_name(const void * addr, const ATTRIBUTES * attr) const;
 
-   std::string translate_addr_to_name (
-      const void * addr,
-      const ATTRIBUTES * attr) const;
+    void * translate_name_to_addr(const std::string & spec) const;
 
-   void * translate_name_to_addr (const std::string & spec) const;
-
-   // Member data
-   /**
-    * Trick checkpoint agent.
-    */
-   Trick::ClassicCheckPointAgent * trick_checkpoint_agent; //!< trick_io(**)
-
-
-private:
-   // The parent JeodTrickMemoryInterface hides the copy constructor and
-   // assignment operator. These are hidden here as well.
-
-   /**
-    * Not implemented.
-    */
-   JeodTrick10MemoryInterface (const JeodTrick10MemoryInterface &);
-
-   /**
-    * Not implemented.
-    */
-   JeodTrick10MemoryInterface & operator= (const JeodTrick10MemoryInterface &);
+    // Member data
+    /**
+     * Trick checkpoint agent.
+     */
+    Trick::ClassicCheckPointAgent * trick_checkpoint_agent; //!< trick_io(**)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 #endif

@@ -9,13 +9,15 @@ vector<string> split(const string s, char c)
 
     do
     {
-        const char *begin = str;
+        const char * begin = str;
 
         while(*str != c && *str)
+        {
             str++;
+        }
 
-        result.push_back(string(begin, str));
-    } while (0 != *str++);
+        result.emplace_back(begin, str);
+    } while(0 != *str++);
 
     return result;
 }

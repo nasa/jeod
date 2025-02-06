@@ -67,164 +67,141 @@ Library dependencies:
 #ifndef JEOD_RADIATION_PRESSURE_HH
 #define JEOD_RADIATION_PRESSURE_HH
 
-
 // JEOD includes
+#include "interactions/thermal_rider/include/thermal_model_rider.hh"
 #include "utils/container/include/pointer_vector.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
-#include "interactions/thermal_rider/include/thermal_model_rider.hh"
 
 // Model includes
 #include "radiation_source.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RadiationThirdBody;
 class RadiationSurface;
 class RadiationDefaultSurface;
 class DynManager;
 
-
-
 /**
  * Radiation pressure top-level definition
  */
-class RadiationPressure          /*------DYNAMIC RADIATION MODEL ------------- */ {
+class RadiationPressure
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationPressure)
 
-    JEOD_MAKE_SIM_INTERFACES(RadiationPressure)
-
-// Member data
+    // Member data
 public:
+    /**
+     * Is radiation pressure desired?
+     */
+    bool active{true}; //!< trick_units(--)
 
-   /**
-    * Is radiation pressure desired?
-    */
-  bool active; //!< trick_units(--)
+    /**
+     * Net force due to radiation
+     */
+    double force[3]{}; //!< trick_units(N)
 
-   /**
-    * Net force due to radiation
-    */
-  double force[3]; //!< trick_units(N)
+    /**
+     * Net torque due to radiation
+     */
+    double torque[3]{}; //!< trick_units(N*m)
 
-   /**
-    * Net torque due to radiation
-    */
-  double torque[3]; //!< trick_units(N*m)
+    /**
+     * fraction of primary flux that is not eclipsed
+     */
+    double illum_factor{}; //!< trick_units(--)
 
-   /**
-    * fraction of primary flux that is not eclipsed
-    */
-  double illum_factor; //!< trick_units(--)
+    /**
+     * Collection of data for radiation source
+     */
+    RadiationSource source; //!< trick_units(--)
 
-   /**
-    * Collection of data for radiation source
-    */
-  RadiationSource source; //!< trick_units(--)
-
-   /**
-    * Rider to allow dynamic thermal variation on facets in this model.
-    */
-  ThermalModelRider thermal; //!< trick_units(--)
-
+    /**
+     * Rider to allow dynamic thermal variation on facets in this model.
+     */
+    ThermalModelRider thermal; //!< trick_units(--)
 
 protected:
-   /**
-    * Has model been initialized?
-    */
-  bool initialized; //!< trick_units(--)
+    /**
+     * Has model been initialized?
+     */
+    bool initialized{}; //!< trick_units(--)
 
-   /**
-    * Flag to indicate whether forces and torques should be calculated.
-    */
-  bool calculate_forces; //!< trick_units(--)
+    /**
+     * Flag to indicate whether forces and torques should be calculated.
+     */
+    bool calculate_forces{true}; //!< trick_units(--)
 
-   /**
-    * Flag indicates whether there are any of the third bodies currently
-    * active.
-    */
-  bool third_bodies_active; //!< trick_units(--)
+    /**
+     * Flag indicates whether there are any of the third bodies currently
+     * active.
+     */
+    bool third_bodies_active{}; //!< trick_units(--)
 
-   /**
-    * Number of ThirdBodies available.
-    */
-  unsigned int num_third_bodies; //!< trick_units(count)
+    /**
+     * Number of ThirdBodies available.
+     */
+    unsigned int num_third_bodies{}; //!< trick_units(count)
 
-   /**
-    * Planetary bodies that provide shadowing or indirect, reflected,
-    * illumination.
-    */
-   JeodPointerVector<RadiationThirdBody>::type third_bodies; //!< trick_io(**)
+    /**
+     * Planetary bodies that provide shadowing or indirect, reflected,
+     * illumination.
+     */
+    JeodPointerVector<RadiationThirdBody>::type third_bodies; //!< trick_io(**)
 
-   /**
-    * The surface over which the radiation pressure will be collected.
-    * If this is NULL, use the default radiation surface (which is a whole
-    * separate entity from a RadiationSurface.
-    */
-  RadiationSurface * surface_ptr; //!< trick_units(--)
+    /**
+     * The surface over which the radiation pressure will be collected.
+     * If this is NULL, use the default radiation surface (which is a whole
+     * separate entity from a RadiationSurface.
+     */
+    RadiationSurface * surface_ptr{}; //!< trick_units(--)
 
-   /**
-    * If no surface is defined, use a DefaultSurface; this is the pointer to
-    * that default surface,
-    */
-  RadiationDefaultSurface * default_surface_ptr; //!< trick_units(--)
+    /**
+     * If no surface is defined, use a DefaultSurface; this is the pointer to
+     * that default surface,
+     */
+    RadiationDefaultSurface * default_surface_ptr{}; //!< trick_units(--)
 
-   /**
-    * Pointer to the Dynamics Manager.
-    */
-  DynManager * dyn_manager_ptr; //!< trick_units(--)
+    /**
+     * Pointer to the Dynamics Manager.
+     */
+    DynManager * dyn_manager_ptr{}; //!< trick_units(--)
 
-
-// Member functions
+    // Member functions
 
 public:
-   RadiationPressure ();
-   virtual ~RadiationPressure ();
+    RadiationPressure();
+    virtual ~RadiationPressure();
+    RadiationPressure(const RadiationPressure &) = delete;
+    RadiationPressure & operator=(const RadiationPressure &) = delete;
 
-   void initialize (
-      DynManager & dyn_manager,
-      RadiationSurface * surf_ptr,
-      double center_grav[3]);
+    void initialize(DynManager & dyn_manager, RadiationSurface * surf_ptr, double center_grav[3]);
 
-   void initialize (
-      DynManager & dyn_manager,
-      RadiationDefaultSurface * surf_ptr);
+    void initialize(DynManager & dyn_manager, RadiationDefaultSurface * surf_ptr);
 
-   void update (
-      RefFrame& vehicle_structural_frame,
-      double center_grav[3],
-      double scale_factor,
-      double time);
+    void update(RefFrame & vehicle_structural_frame, double center_grav[3], double scale_factor, double time);
 
-   void add_third_body (RadiationThirdBody * third_body_ptr);
-   void set_third_body_active (const char * third_body_name);
-   void set_third_body_inactive (const char * third_body_name);
-   void set_calculate_forces (bool calc_forces);
+    void add_third_body(RadiationThirdBody * third_body_ptr);
+    void set_third_body_active(const std::string & third_body_name);
+    void set_third_body_inactive(const std::string & third_body_name);
+    void set_calculate_forces(bool calc_forces);
 
 protected:
-   void update_default_surface (void);
+    void update_default_surface();
 
-   void update_facet_surface (void);
-   void initialize_environment (DynManager * dyn_mgr_ptr);
-   void third_body_adjustments (double time,
-                                RefFrame & vehicle_structural_frame);
-   int find_third_body (const char * third_body_name);
-
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   RadiationPressure (const RadiationPressure&);
-   RadiationPressure & operator = (const RadiationPressure&);
+    void update_facet_surface();
+    void initialize_environment(DynManager * dyn_mgr_ptr);
+    void third_body_adjustments(double time, RefFrame & vehicle_structural_frame);
+    int find_third_body(const std::string & third_body_name);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
-#include "radiation_surface.hh"
 #include "radiation_default_surface.hh"
+#include "radiation_surface.hh"
 #endif
 
 #endif

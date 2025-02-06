@@ -7,7 +7,7 @@
 exec(compile(open("Log_data/log_state.py", "rb").read(), "Log_data/log_state.py", 'exec'))
 log_state(0.1)
 
-# Configure the dynamics manager to operate in empty space mode 
+# Configure the dynamics manager to operate in empty space mode
 dynamics.dyn_manager_init.mode = trick.DynManagerInit.EphemerisMode_SinglePlanet
 dynamics.dyn_manager_init.central_point_name = "Earth"
 
@@ -18,4 +18,4 @@ set_veh_state(vehicle3, "veh3")
 
 trick.add_read(400.0, "med.integ_loop.add_sim_object(vehicle)")
 
-trick.sim_services.exec_set_terminate_time(500.0);
+trick.sim_services.exec_set_terminate_time(500.0)

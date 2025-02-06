@@ -70,15 +70,15 @@ Library dependencies:
 #include <utility>
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "interactions/thermal_rider/include/thermal_facet_rider.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "radiation_base_facet.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RadiationThirdBody;
 class DynBody;
@@ -86,90 +86,74 @@ class DynBody;
 /**
  * The default spherical surface for radiation pressure
  */
-class RadiationDefaultSurface : public RadiationBaseFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(RadiationDefaultSurface)
-
-public:
-
-   //  Must be defined in input or Modified_data file
-
-   /**
-    * The radiation-equivalent of a drag coefficient.  It is the value by
-    * which the area must be multiplied in order to generate the same force
-    * if the reflecting surface were considered a perfectly absorbing
-    * surface.  For a sphere, this has a value between 1.0 (perfectly
-    * absorbing, or perfect specular reflection) to 1.4444 (all diffuse
-    * reflection). Specify either:  rad_coeff OR (albedo AND diffuse).
-    * NOTE 1 - this value is used at initialization only; changes to its
-    * value mid-simulation cannot be effected.
-    * NOTE 2 - the values albedo and diffuse are inherited from
-    * RadiationBaseFacet.
-    */
-   double rad_coeff;  //!< trick_units(--)
-
-   /**
-    * The value of the surface kinetic temperature.
-    */
-   double temperature; //!< trick_units(K)
-
-   /**
-    * The name of the surface. This is optional.
-    */
-   std::string name;  //!< trick_units(--)
-
-
-   //  Either surface_area, or cx_area, but not both, must be defined.
-   //  Spherical geometry is assumed, so surface_area = 4 * cx_area.
-   //  cx_area is inherited from RadiationBaseFacet.
-
-   /**
-    * surface area of the default sphere.
-    */
-   double surface_area; //!< trick_units(m2)
-
-   // run-time values, not defined prior to simulation.
-
-protected:
-
-
-   // Member methods
+class RadiationDefaultSurface : public RadiationBaseFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationDefaultSurface)
 
 public:
+    //  Must be defined in input or Modified_data file
 
-   // constructor
-   RadiationDefaultSurface ();
+    /**
+     * The radiation-equivalent of a drag coefficient.  It is the value by
+     * which the area must be multiplied in order to generate the same force
+     * if the reflecting surface were considered a perfectly absorbing
+     * surface.  For a sphere, this has a value between 1.0 (perfectly
+     * absorbing, or perfect specular reflection) to 1.4444 (all diffuse
+     * reflection). Specify either:  rad_coeff OR (albedo AND diffuse).
+     * NOTE 1 - this value is used at initialization only; changes to its
+     * value mid-simulation cannot be effected.
+     * NOTE 2 - the values albedo and diffuse are inherited from
+     * RadiationBaseFacet.
+     */
+    double rad_coeff{-1.0}; //!< trick_units(--)
 
-   // destructor
-   ~RadiationDefaultSurface () override;
+    /**
+     * The value of the surface kinetic temperature.
+     */
+    double temperature{}; //!< trick_units(K)
 
-   void initialize (void) override;
+    /**
+     * The name of the surface. This is optional.
+     */
+    std::string name; //!< trick_units(--)
 
-   void incident_radiation ( const double flux_mag,
-                                     const double flux_struc_hat[3],
-                                     const bool calculate_forces) override;
+    //  Either surface_area, or cx_area, but not both, must be defined.
+    //  Spherical geometry is assumed, so surface_area = 4 * cx_area.
+    //  cx_area is inherited from RadiationBaseFacet.
 
-   void thermal_update( void );
+    /**
+     * surface area of the default sphere.
+     */
+    double surface_area{}; //!< trick_units(m2)
 
-   void add_thermal_integrator_to (DynBody * dyn_body);
+    // run-time values, not defined prior to simulation.
 
+public:
+    RadiationDefaultSurface() = default;
+    ~RadiationDefaultSurface() override = default;
+    RadiationDefaultSurface & operator=(const RadiationDefaultSurface &) = delete;
+    RadiationDefaultSurface(const RadiationDefaultSurface &) = delete;
 
-   /**
-    * Setter for the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
+    void initialize() override;
 
+    void incident_radiation(const double flux_mag,
+                            const double flux_struc_hat[3],
+                            const bool calculate_forces) override;
 
-private:
-   RadiationDefaultSurface& operator = (const RadiationDefaultSurface& rhs);
-   RadiationDefaultSurface (const RadiationDefaultSurface& rhs);
+    void thermal_update();
 
+    void add_thermal_integrator_to(DynBody * dyn_body);
+
+    /**
+     * Setter for the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

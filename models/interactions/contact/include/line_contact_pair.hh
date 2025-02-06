@@ -60,7 +60,7 @@
  Library dependencies:
  ((../src/line_contact_pair.cc))
 
- 
+
 
  *****************************************************************************/
 
@@ -71,54 +71,44 @@
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "contact_pair.hh"
 #include "class_declarations.hh"
+#include "contact_pair.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An point to point contact pair for use in the contact model.
  */
-class LineContactPair : public ContactPair{
-
-   JEOD_MAKE_SIM_INTERFACES(LineContactPair)
+class LineContactPair : public ContactPair
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LineContactPair)
 
 public:
-   /**
-    * pointer to the contact facet that is the subject of the associated relative states.
-    */
-   LineContactFacet * line_subject;  //!< trick_units(--)
+    /**
+     * pointer to the contact facet that is the subject of the associated relative states.
+     */
+    LineContactFacet * line_subject{}; //!< trick_units(--)
 
-   /**
-    * pointer to the contact facet that is the target of the associated relative states.
-    */
-   LineContactFacet *line_target; //!< trick_units(--)
+    /**
+     * pointer to the contact facet that is the target of the associated relative states.
+     */
+    LineContactFacet * line_target{}; //!< trick_units(--)
 
-   // constructor
-   LineContactPair();
+    LineContactPair() = default;
+    ~LineContactPair() override = default;
+    LineContactPair & operator=(const LineContactPair &) = delete;
+    LineContactPair(const LineContactPair &) = delete;
 
-   // destructor
-   ~LineContactPair() override;
+    // function that determines of a if the facets are in contact.
+    void in_contact() override;
 
-   // function that determines of a if the facets are in contact.
-   void in_contact() override;
-
-   // initialize the contact pair, creating relstates if possible.
-   void initialize_pair(
-      ContactFacet * subject_facet,
-      ContactFacet * target_facet) override;
-
-private:
-
-   /* Operator = and copy constructor hidden from use by being private */
-   LineContactPair& operator = (const LineContactPair & rhs);
-   LineContactPair (const LineContactPair & rhs);
-
+    // initialize the contact pair, creating relstates if possible.
+    void initialize_pair(ContactFacet * subject_facet, ContactFacet * target_facet) override;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

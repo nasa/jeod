@@ -72,57 +72,53 @@ Library dependencies:
 #ifndef JEOD_AERODYNAMICS_MESSAGES_HH
 #define JEOD_AERODYNAMICS_MESSAGES_HH
 
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/message/include/message_handler.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Messages associated with use of the aerodynamics model.
  */
-class AerodynamicsMessages {
+class AerodynamicsMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AerodynamicsMessages)
 
-   JEOD_MAKE_SIM_INTERFACES(AerodynamicsMessages)
-
-   // Static member data
+    // Static member data
 
 public:
+    // Errors
 
-   // Errors
+    /**
+     * Associated with errors during initialization of the drag model
+     */
+    static const char * initialization_error; //!< trick_units(--)
+    /**
+     * Associated with errors during the runtime of the drag model
+     */
+    static const char * runtime_error; //!< trick_units(--)
+    /**
+     * Associated with errors during the setup of the system, before runtime
+     */
+    static const char * pre_initialization_error; //!< trick_units(--)
 
-   /**
-    * Associated with errors during initialization of the drag model
-    */
-   static char const * initialization_error; //!< trick_units(--)
-   /**
-    * Associated with errors during the runtime of the drag model
-    */
-   static char const * runtime_error; //!< trick_units(--)
-   /**
-    * Associated with errors during the setup of the system, before runtime
-    */
-   static char const * pre_initialization_error; //!< trick_units(--)
+    // Warnings
 
-   // Warnings
+    /**
+     * Associated with warnings given at runtime
+     */
+    static const char * runtime_warns; //!< trick_units(--)
 
-   /**
-    * Associated with warnings given at runtime
-    */
-   static char const * runtime_warns; //!< trick_units(--)
-
-
-private:
-
-   // Class is not instantiable, operator = and copy constructor are
-   // hidden from use.
-   AerodynamicsMessages (void);
-   AerodynamicsMessages (const AerodynamicsMessages& rhs);
-   AerodynamicsMessages& operator = (const AerodynamicsMessages& rhs);
-
+    // Class is not instantiable, operator = and copy constructor are
+    // hidden from use.
+    AerodynamicsMessages() = delete;
+    AerodynamicsMessages(const AerodynamicsMessages & rhs) = delete;
+    AerodynamicsMessages & operator=(const AerodynamicsMessages & rhs) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

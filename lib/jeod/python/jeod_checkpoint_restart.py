@@ -84,10 +84,10 @@ def restore_from_checkpoint (checkpoint_dir, checkpoint_file) :
      if line.startswith('trick_anon_local_'):
         allocName, _, varStr = line.split(' ')
         trailingChars = len(varStr.partition(checkpoint_run_name)[2])+5
-        subprocess.check_call('sed -i"" -e "s/^char {0}\[.*/char {0}[{1}];/" {2}'.format(allocName, 
+        subprocess.check_call(r'sed -i"" -e "s/^char {0}\[.*/char {0}[{1}];/" {2}'.format(allocName, 
                               len(restart_dir_full)+trailingChars, checkpoint_file), shell=True, cwd='{0}'.format(restart_dir_full))
-  p = subprocess.check_call('sed -i"" -e "s/{0}/{1}/g" *chkpnt*'.format(checkpoint_run_name, restart_run_name), shell=True, cwd='{0}'.format(restart_dir_full))
-  p = subprocess.check_call('sed -i"" -e "s/char\* trick_inject_injector_executor_so_names.*//g" *chkpnt*', shell=True, cwd='{0}'.format(restart_dir_full))
+  p = subprocess.check_call(r'sed -i"" -e "s/{0}/{1}/g" *chkpnt*'.format(checkpoint_run_name, restart_run_name), shell=True, cwd='{0}'.format(restart_dir_full))
+  p = subprocess.check_call(r'sed -i"" -e "s/char\* trick_inject_injector_executor_so_names.*//g" *chkpnt*', shell=True, cwd='{0}'.format(restart_dir_full))
 
   action = textwrap.dedent(string.Template("""
     trick.load_checkpoint("$dir/$file")

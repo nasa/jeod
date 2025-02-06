@@ -56,8 +56,7 @@
  *    Some of the jeod_alloc.hh memory macros allocate memory while others
  *    delete it. With one exception, the allocation/delete nature of a macro
  *    is explicit in the macro name. Allocation macros start with JEOD_ALLOC.
- *    Macros that address deleting memory start with JEOD_DELETE. The one
- *    exception to this naming scheme is JEOD_STRDUP.
+ *    Macros that address deleting memory start with JEOD_DELETE.
  *  - Operating on objects versus arrays.@n
  *    The memory management macros come in two basic forms: ARRAY and OBJECT.
  *    Memory allocated with an ARRAY allocator macro must be freed with
@@ -89,14 +88,14 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
 #ifndef JEOD_ALLOC_HH
 #define JEOD_ALLOC_HH
 
-// System includes -- See usage notes on JEOD_STRDUP.
+// System includes
 #include <cstddef>
 #include <new>
 
@@ -122,7 +121,6 @@ Purpose:
  *    The memory model classes are the workhorses of the JEOD memory model.
  */
 
-
 /**
  * \ingroup external
  * \def JEOD_MEMORY_DEBUG
@@ -136,8 +134,6 @@ Purpose:
 #define JEOD_MEMORY_DEBUG 2
 #endif
 
-
-
 /*******************************************************************************
  * Internal memory management macros
  ******************************************************************************/
@@ -146,7 +142,6 @@ Purpose:
  * \addtogroup internal
  * @{
  */
-
 
 /**
  * \def JEOD_ALLOC_OBJECT_FILL
@@ -157,7 +152,6 @@ Purpose:
  */
 #define JEOD_ALLOC_OBJECT_FILL 0xdf
 
-
 /**
  * \def JEOD_ALLOC_PRIMITIVE_FILL
  *   Fill pattern for primitive types.
@@ -165,7 +159,6 @@ Purpose:
  *   Primitive types are initialized to all zero.
  */
 #define JEOD_ALLOC_PRIMITIVE_FILL 0
-
 
 /**
  * \def JEOD_ALLOC_POINTER_FILL
@@ -177,7 +170,6 @@ Purpose:
  */
 #define JEOD_ALLOC_POINTER_FILL 0
 
-
 /**
  * \def JEOD_CREATE_MEMORY (is_array,nelem,fill,tentry)
  *   Allocate and register memory to be populated via placement new.
@@ -186,11 +178,8 @@ Purpose:
  * \param fill     Fill pattern.
  * \param tentry   JEOD type descriptor entry.
  */
-#define JEOD_CREATE_MEMORY(is_array,nelem,fill,tentry) \
-   jeod::JeodMemoryManager::create_memory ( \
-      is_array, nelem, fill, tentry, \
-      __FILE__, __LINE__)
-
+#define JEOD_CREATE_MEMORY(is_array, nelem, fill, tentry)                                                              \
+    jeod::JeodMemoryManager::create_memory(is_array, nelem, fill, tentry, __FILE__, __LINE__)
 
 /**
  * \def JEOD_ALLOC_ARRAY_INTERNAL(type,nelem,fill,tentry)
@@ -201,9 +190,8 @@ Purpose:
  * \param fill     Fill pattern.
  * \param tentry   JEOD type descriptor entry.
  */
-#define JEOD_ALLOC_ARRAY_INTERNAL(type,nelem,fill,tentry) \
-   new (JEOD_CREATE_MEMORY (true, nelem, fill, tentry)) type[nelem]
-
+#define JEOD_ALLOC_ARRAY_INTERNAL(type, nelem, fill, tentry)                                                           \
+    new(JEOD_CREATE_MEMORY(true, nelem, fill, tentry)) type[nelem]
 
 /**
  * \def JEOD_ALLOC_OBJECT_INTERNAL(type,fill,constr,tentry)
@@ -214,9 +202,8 @@ Purpose:
  * \param constr   Constructor arguments, enclosed in parentheses.
  * \param tentry   JEOD type descriptor entry.
  */
-#define JEOD_ALLOC_OBJECT_INTERNAL(type,fill,constr,tentry) \
-   new (JEOD_CREATE_MEMORY (false, 1, fill, tentry) ) type constr
-
+#define JEOD_ALLOC_OBJECT_INTERNAL(type, fill, constr, tentry)                                                         \
+    new(JEOD_CREATE_MEMORY(false, 1, fill, tentry)) type constr
 
 /**
  * \def JEOD_DELETE_INTERNAL(ptr,is_array)
@@ -228,21 +215,22 @@ Purpose:
  * \param ptr      Memory to be released.
  * \param is_array True for DELETE_ARRAY, false for DELETE_OBJECT.
  */
-#define JEOD_DELETE_INTERNAL(ptr,is_array) \
-   do { \
-      if (ptr != nullptr) { \
-         jeod::JeodMemoryManager::destroy_memory ( \
-            jeod::jeod_alloc_get_allocated_pointer (ptr), \
-            is_array, \
-            __FILE__, __LINE__); \
-         ptr = nullptr; \
-      } \
-   } while (0)
+#define JEOD_DELETE_INTERNAL(ptr, is_array)                                                                            \
+    do                                                                                                                 \
+    {                                                                                                                  \
+        if(ptr != nullptr && JEOD_IS_ALLOCATED(ptr))                                                                   \
+        {                                                                                                              \
+            jeod::JeodMemoryManager::destroy_memory(jeod::jeod_alloc_get_allocated_pointer(ptr),                       \
+                                                    is_array,                                                          \
+                                                    __FILE__,                                                          \
+                                                    __LINE__);                                                         \
+            ptr = nullptr;                                                                                             \
+        }                                                                                                              \
+    } while(0)
 
 /**
  * @}
  */
-
 
 /******************************************************************************
  * JEOD externally-usable memory management macros
@@ -253,16 +241,13 @@ Purpose:
  * @{
  */
 
-
 /**
  * \def JEOD_REGISTER_CLASS (type)
  *   Register the type @a type with the memory manager.
  * \param type      Data type (C token, not a string).
  */
-#define JEOD_REGISTER_CLASS(type) \
-   jeod::JeodMemoryManager::register_class ( \
-      jeod::JeodMemoryTypePreDescriptorDerived<type>(true).get_ref())
-
+#define JEOD_REGISTER_CLASS(type)                                                                                      \
+    jeod::JeodMemoryManager::register_class(jeod::JeodMemoryTypePreDescriptorDerived<type>(true).get_ref())
 
 // Deprecated.
 /**
@@ -272,9 +257,7 @@ Purpose:
  *   This macro is deprecated.
  * \param type      Data type (C token, not a string).
  */
-#define JEOD_REGISTER_INCOMPLETE_CLASS(type) \
-   JEOD_REGISTER_CLASS (type)
-
+#define JEOD_REGISTER_INCOMPLETE_CLASS(type) JEOD_REGISTER_CLASS(type)
 
 /**
  * \def JEOD_REGISTER_NONEXPORTED_CLASS (type)
@@ -284,10 +267,8 @@ Purpose:
  *   will not be registered with the simulation engine.
  * \param type      Data type (C token, not a string).
  */
-#define JEOD_REGISTER_NONEXPORTED_CLASS(type) \
-   jeod::JeodMemoryManager::register_class ( \
-      jeod::JeodMemoryTypePreDescriptorDerived<type>(false).get_ref())
-
+#define JEOD_REGISTER_NONEXPORTED_CLASS(type)                                                                          \
+    jeod::JeodMemoryManager::register_class(jeod::JeodMemoryTypePreDescriptorDerived<type>(false).get_ref())
 
 /**
  * \def JEOD_REGISTER_CHECKPOINTABLE (owner,elem_name)
@@ -304,11 +285,11 @@ Purpose:
  * \param owner      The object that contains the Checkpointable object.
  * \param elem_name  The Checkpointable object.
  */
-#define JEOD_REGISTER_CHECKPOINTABLE(owner,elem_name) \
-   jeod::JeodMemoryManager::register_container ( \
-      jeod::jeod_alloc_get_allocated_pointer(owner), typeid(*owner), \
-      #elem_name, elem_name)
-
+#define JEOD_REGISTER_CHECKPOINTABLE(owner, elem_name)                                                                 \
+    jeod::JeodMemoryManager::register_container(jeod::jeod_alloc_get_allocated_pointer(owner),                         \
+                                                typeid(*owner),                                                        \
+                                                #elem_name,                                                            \
+                                                elem_name)
 
 /**
  * \def JEOD_DEREGISTER_CHECKPOINTABLE (owner,elem_name)
@@ -325,11 +306,11 @@ Purpose:
  * \param owner      The object that contains the Checkpointable object.
  * \param elem_name  The Checkpointable object.
  */
-#define JEOD_DEREGISTER_CHECKPOINTABLE(owner,elem_name) \
-   jeod::JeodMemoryManager::deregister_container ( \
-      jeod::jeod_alloc_get_allocated_pointer(owner), typeid(*owner), \
-      #elem_name, elem_name)
-
+#define JEOD_DEREGISTER_CHECKPOINTABLE(owner, elem_name)                                                               \
+    jeod::JeodMemoryManager::deregister_container(jeod::jeod_alloc_get_allocated_pointer(owner),                       \
+                                                  typeid(*owner),                                                      \
+                                                  #elem_name,                                                          \
+                                                  elem_name)
 
 // Not needed yet.
 #if 0
@@ -352,14 +333,13 @@ Purpose:
  * \param owner      The object that contains the function pointer.
  * \param elem_name  The function pointer.
  */
-#define JEOD_REGISTER_FUNCTION_POINTER(owner,elem_name) \
-   jeod::JeodMemoryManager::register_function_pointer ( \
-      reinterpret_cast<void*>(owner), typeid(*owner), \
-      #elem_name, \
-      reinterpret_cast<char**>(&elem_name), \
-      reinterpret_cast<void*>(elem_name))
+#define JEOD_REGISTER_FUNCTION_POINTER(owner, elem_name)                                                               \
+    jeod::JeodMemoryManager::register_function_pointer(reinterpret_cast<void *>(owner),                                \
+                                                       typeid(*owner),                                                 \
+                                                       #elem_name,                                                     \
+                                                       reinterpret_cast<char **>(&elem_name),                          \
+                                                       reinterpret_cast<void *>(elem_name))
 #endif
-
 
 /**
  * \def JEOD_ALLOC_CLASS_MULTI_POINTER_ARRAY(nelem,type,asters)
@@ -378,11 +358,8 @@ Purpose:
  *   Note that this does not allocate either the Foo objects or pointers to
  *   the Foo objects.
  */
-#define JEOD_ALLOC_CLASS_MULTI_POINTER_ARRAY(nelem,type,asters) \
-   JEOD_ALLOC_ARRAY_INTERNAL( \
-      type asters, nelem, JEOD_ALLOC_POINTER_FILL, \
-      JEOD_REGISTER_CLASS(type asters))
-
+#define JEOD_ALLOC_CLASS_MULTI_POINTER_ARRAY(nelem, type, asters)                                                      \
+    JEOD_ALLOC_ARRAY_INTERNAL(type asters, nelem, JEOD_ALLOC_POINTER_FILL, JEOD_REGISTER_CLASS(type asters))
 
 /**
  * \def JEOD_ALLOC_CLASS_POINTER_ARRAY(nelem,type)
@@ -398,9 +375,7 @@ Purpose:
  *   This allocates two pointers to the class Foo.
  *   Note that this does not allocate the Foo objects themselves.
  */
-#define JEOD_ALLOC_CLASS_POINTER_ARRAY(nelem,type) \
-   JEOD_ALLOC_CLASS_MULTI_POINTER_ARRAY(nelem,type,*)
-
+#define JEOD_ALLOC_CLASS_POINTER_ARRAY(nelem, type) JEOD_ALLOC_CLASS_MULTI_POINTER_ARRAY(nelem, type, *)
 
 /**
  * \def JEOD_ALLOC_CLASS_ARRAY(nelem,type)
@@ -416,11 +391,8 @@ Purpose:
  *   </tt>\n\n
  *   This allocates two objects of the class Foo.
  */
-#define JEOD_ALLOC_CLASS_ARRAY(nelem,type) \
-   JEOD_ALLOC_ARRAY_INTERNAL( \
-      type, nelem, JEOD_ALLOC_OBJECT_FILL, \
-      JEOD_REGISTER_CLASS(type))
-
+#define JEOD_ALLOC_CLASS_ARRAY(nelem, type)                                                                            \
+    JEOD_ALLOC_ARRAY_INTERNAL(type, nelem, JEOD_ALLOC_OBJECT_FILL, JEOD_REGISTER_CLASS(type))
 
 /**
  * \def JEOD_ALLOC_PRIM_ARRAY(nelem,type)
@@ -435,11 +407,8 @@ Purpose:
  *   </tt>\n\n
  *   This allocates an array of two doubles.
  */
-#define JEOD_ALLOC_PRIM_ARRAY(nelem,type) \
-   JEOD_ALLOC_ARRAY_INTERNAL( \
-      type, nelem, JEOD_ALLOC_PRIMITIVE_FILL, \
-      JEOD_REGISTER_CLASS(type))
-
+#define JEOD_ALLOC_PRIM_ARRAY(nelem, type)                                                                             \
+    JEOD_ALLOC_ARRAY_INTERNAL(type, nelem, JEOD_ALLOC_PRIMITIVE_FILL, JEOD_REGISTER_CLASS(type))
 
 /**
  * \def JEOD_ALLOC_CLASS_OBJECT(type,constr)
@@ -459,11 +428,8 @@ Purpose:
  *   This allocates a new object of type Foo, invoking the
  *   <tt>Foo::Foo(bar,baz)</tt> constructor.
  */
-#define JEOD_ALLOC_CLASS_OBJECT(type,constr) \
-   JEOD_ALLOC_OBJECT_INTERNAL( \
-      type, JEOD_ALLOC_OBJECT_FILL, constr, \
-      JEOD_REGISTER_CLASS(type))
-
+#define JEOD_ALLOC_CLASS_OBJECT(type, constr)                                                                          \
+    JEOD_ALLOC_OBJECT_INTERNAL(type, JEOD_ALLOC_OBJECT_FILL, constr, JEOD_REGISTER_CLASS(type))
 
 /**
  * \def JEOD_ALLOC_PRIM_OBJECT(type, initial)
@@ -478,36 +444,8 @@ Purpose:
  *   </tt>\n\n
  *   This allocates a double and initializes it to pi.
  */
-#define JEOD_ALLOC_PRIM_OBJECT(type,initial) \
-   JEOD_ALLOC_OBJECT_INTERNAL( \
-      type, JEOD_ALLOC_PRIMITIVE_FILL, (initial), \
-      JEOD_REGISTER_CLASS(type))
-
-
-/**
- * \def JEOD_STRDUP(string)
- *    Create a copy of the input @a string.
- * \details
- *    This macro invokes std::strcpy but this header file intentionally does not
- *    @#include @<cstring@>. The macro JEOD_STRDUP is used rather infrequently;
- *    there is little reason to drag in the @a cstring capability everywhere for
- *    the benefit of the few that do use JEOD_STRDUP.@n
- *    Bottom line: Those who do use JEOD_STRDUP must @#include @<cstring@> as
- *    well as @#including "utils/memory/include/jeod_alloc.hh".
- * \note The @a string should not be a computed item.
- * \return        Pointer to duplicated string.
- * \param string  String to be duplicated.
- * \par Example:
- *   <tt>
- *   char * foo = JEOD_STRDUP("Hello, world");
- *   </tt>\n\n
- *   This allocates a <tt>char*</tt> array large enough to hold the
- *   string "Hello, world" (plus the null character)  and copies the
- *   string into the allocated array.
- */
-#define JEOD_STRDUP(string) \
-   std::strcpy (JEOD_ALLOC_PRIM_ARRAY (strlen((string))+1, char), (string))
-
+#define JEOD_ALLOC_PRIM_OBJECT(type, initial)                                                                          \
+    JEOD_ALLOC_OBJECT_INTERNAL(type, JEOD_ALLOC_PRIMITIVE_FILL, (initial), JEOD_REGISTER_CLASS(type))
 
 /**
  * \def JEOD_IS_ALLOCATED(ptr)
@@ -527,11 +465,8 @@ Purpose:
  *   The above deletes the memory at @a name, but only if that memory was
  *   allocated by the JEOD memory management module.
  */
-#define JEOD_IS_ALLOCATED(ptr) \
-   jeod::JeodMemoryManager::is_allocated ( \
-      jeod::jeod_alloc_get_allocated_pointer (ptr), \
-      __FILE__, __LINE__)
-
+#define JEOD_IS_ALLOCATED(ptr)                                                                                         \
+    jeod::JeodMemoryManager::is_allocated(jeod::jeod_alloc_get_allocated_pointer(ptr), __FILE__, __LINE__)
 
 /**
  * \def JEOD_DELETE_ARRAY(ptr)
@@ -546,8 +481,7 @@ Purpose:
  *   </tt>\n\n
  *   The above allocates a chunk of memory and then frees it.
  */
-#define JEOD_DELETE_ARRAY(ptr) JEOD_DELETE_INTERNAL(ptr,true)
-
+#define JEOD_DELETE_ARRAY(ptr) JEOD_DELETE_INTERNAL(ptr, true)
 
 /**
  * \def JEOD_DELETE_OBJECT(ptr)
@@ -562,13 +496,28 @@ Purpose:
  *   </tt>\n\n
  *   The above allocates a chunk of memory and then frees it.
  */
-#define JEOD_DELETE_OBJECT(ptr) JEOD_DELETE_INTERNAL(ptr,false)
+#define JEOD_DELETE_OBJECT(ptr) JEOD_DELETE_INTERNAL(ptr, false)
 
+#define JEOD_DELETE_2D(ptr, size, is_array)                                                                            \
+    if(ptr != nullptr)                                                                                                 \
+    {                                                                                                                  \
+        for(unsigned int ii = 0; ii < size; ++ii)                                                                      \
+        {                                                                                                              \
+            if(is_array)                                                                                               \
+            {                                                                                                          \
+                JEOD_DELETE_ARRAY(ptr[ii]);                                                                            \
+            }                                                                                                          \
+            else                                                                                                       \
+            {                                                                                                          \
+                JEOD_DELETE_OBJECT(ptr[ii]);                                                                           \
+            }                                                                                                          \
+        }                                                                                                              \
+    }                                                                                                                  \
+    JEOD_DELETE_ARRAY(ptr);
 
 /**
  * @}
  */
-
 
 #endif
 

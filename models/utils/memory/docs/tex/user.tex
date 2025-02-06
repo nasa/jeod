@@ -2,7 +2,7 @@
 % user.tex
 % User guide for the Memory Model
 %
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------
@@ -69,10 +69,8 @@ MyModel::initialize (
    double_arr    = JEOD_ALLOC_PRIM_ARRAY (2, double *);
    double_arr[0] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
    double_arr[1] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
-   
-   // Populate double_arr (not shown)
 
-   return;
+   // Populate double_arr (not shown)
 }
 
 void
@@ -81,7 +79,6 @@ MyModel::cleanup ()
    JEOD_DELETE_ARRAY (double_arr[0]);
    JEOD_DELETE_ARRAY (double_arr[1]);
    JEOD_DELETE_ARRAY (double_arr);
-   return;
 }
 \end{verbatim}
 
@@ -115,13 +112,11 @@ MyModel::initialize (
    double_arr    = JEOD_ALLOC_PRIM_ARRAY (2, double *);
    double_arr[0] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
    double_arr[1] = JEOD_ALLOC_PRIM_ARRAY (nelem, double);
-   
+
    // Populate double_arr (not shown)
 
    // Allocate and construct the Foo object.
    foo = JEOD_ALLOC_CLASS_OBJECT (Foo, (*this));
-   
-   return;
 }
 
 void
@@ -131,7 +126,6 @@ MyModel::cleanup ()
    JEOD_DELETE_ARRAY (double_arr[0]);
    JEOD_DELETE_ARRAY (double_arr[1]);
    JEOD_DELETE_ARRAY (double_arr);
-   return;
 }
 \end{verbatim}
 
@@ -258,25 +252,6 @@ double * foo = JEOD_ALLOC_PRIM_OBJECT(double, 3.14159265358979323846);
 \end{verbatim}
 \end{description}
 
-\subsubsection{Macro {\tt JEOD\_STRDUP(string)}}
-\begin{description}
-\item[Purpose]
-Create a copy of the input {\tt string}.
-\item[Note] The {\tt string} should not be a computed item.
-\item[Returns] Pointer to duplicated string.
-\item[Arguments] \ \\
-\begin{tabular}{@{}ll}
-{\tt string} &  String to be duplicated.
-\end{tabular}
-\item[Example]
-Allocate a \verb|char*| array large enough to hold the
-string "Hello, world" (plus the null character) and copy the
-string into the allocated array.
-\begin{verbatim}
-char * foo = JEOD_STRDUP("Hello, world");
-\end{verbatim}
-\end{description}
-
 \subsubsection{Macro {\tt JEOD\_IS\_ALLOCATED (ptr)}}
 \begin{description}
 \item[Purpose]
@@ -291,7 +266,7 @@ true if {\tt ptr} was allocated by the model, false otherwise.
 \item[Example]
 Check that memory was allocated by JEOD before freeing it.
 \begin{verbatim}
-if ((name != NULL) && JEOD_IS_ALLOCATED (name)) {
+if (JEOD_IS_ALLOCATED (name)) {
    JEOD_DELETE_ARRAY(name);
 }
 \end{verbatim}

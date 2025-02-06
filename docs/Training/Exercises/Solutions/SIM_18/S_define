@@ -37,19 +37,23 @@
 //=============================================================================
 // A two-vehicle simulation in Earth orbit, with local user-defined points on
 //  each vehicle.
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
-
-// Include the default objects
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "vehicle_basic.sm"
 VehicleSimObject vehicle2(dynamics.dyn_manager);
@@ -58,21 +62,20 @@ VehicleSimObject vehicle2(dynamics.dyn_manager);
 ##include "utils/ref_frames/include/ref_frame_state.hh"
 class AdditionalSimObject  : public Trick::SimObject
 {
-  public:
-  jeod::MassPointState point_state;
-  jeod::RefFrameState  frame_state;
+public:
+    jeod::MassPointState point_state;
+    jeod::RefFrameState frame_state;
 
-  AdditionalSimObject()
-  { }
+    AdditionalSimObject() {}
 
-  private:
-  // This object is not copyable
-  AdditionalSimObject (const AdditionalSimObject&);
-  AdditionalSimObject & operator = (const AdditionalSimObject&);
+private:
+    // This object is not copyable
+    AdditionalSimObject(const AdditionalSimObject &);
+    AdditionalSimObject & operator=(const AdditionalSimObject &);
 };
 
 AdditionalSimObject no_particular_name;
 
 ##include "utils/memory/include/jeod_alloc.hh"
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

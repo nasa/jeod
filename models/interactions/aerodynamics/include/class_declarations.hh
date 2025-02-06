@@ -61,14 +61,12 @@
 
 *****************************************************************************/
 
-
-
 #ifndef JEOD_AERO_DRAG_FORWARD_HH
 #define JEOD_AERO_DRAG_FORWARD_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class AeroDragEnum;
 class AeroDragParameters;
@@ -83,7 +81,7 @@ class FlatPlateAeroFacet;
 class FlatPlateAeroFactory;
 class FlatPlateAeroParams;
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

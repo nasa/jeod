@@ -55,20 +55,18 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_MANAGER_CLASS_DECL_HH
 #define JEOD_DYN_MANAGER_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class DynManagerInit;
 class DynManager;
 class DynamicsIntegrationGroup;
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

@@ -18,10 +18,9 @@ Purpose:
 Library dependencies:
   ((lvlh_frame_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -30,36 +29,28 @@ Library dependencies:
 
 #define PATH "utils/lvlh_frame/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
-char const * LvlhFrameMessages::fatal_error =
-    PATH "fatal_error";
+const char * LvlhFrameMessages::fatal_error = PATH "fatal_error";
 
-char const * LvlhFrameMessages::illegal_value =
-    PATH "illegal_value";
+const char * LvlhFrameMessages::illegal_value = PATH "illegal_value";
 
-char const * LvlhFrameMessages::invalid_name =
-    PATH "invalid_name";
+const char * LvlhFrameMessages::invalid_name = PATH "invalid_name";
 
-char const * LvlhFrameMessages::invalid_configuration =
-    PATH "invalid_configuration";
+const char * LvlhFrameMessages::invalid_configuration = PATH "invalid_configuration";
 
-char const * LvlhFrameMessages::invalid_object =
-    PATH "invalid_object";
+const char * LvlhFrameMessages::invalid_object = PATH "invalid_object";
 
-char const * LvlhFrameMessages::null_pointer =
-    PATH "null_pointer";
+const char * LvlhFrameMessages::null_pointer = PATH "null_pointer";
 
-char const * LvlhFrameMessages::trace =
-    PATH "trace";
+const char * LvlhFrameMessages::trace = PATH "trace";
 
-char const * LvlhFrameMessages::divide_by_zero =
-   PATH "divide_by_zero";
+const char * LvlhFrameMessages::divide_by_zero = PATH "divide_by_zero";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

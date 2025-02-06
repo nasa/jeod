@@ -51,7 +51,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -67,107 +67,97 @@ Purpose:
 // System includes
 #include <set>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
 Members unique to std::set: There are none.
 */
 
-
 /**
  * The JEOD replacement for std::set.
  */
-template <typename ElemType>
-class JeodSet :
-    public JeodAssociativeContainer< ElemType, std::set<ElemType> > {
-
+template<typename ElemType> class JeodSet : public JeodAssociativeContainer<ElemType, std::set<ElemType>>
+{
 public:
+    // Types
 
-   // Types
+    /**
+     * This particular JeodSet type.
+     */
+    using this_container_type = JeodSet<ElemType>;
 
-   /**
-    * This particular JeodSet type.
-    */
-   typedef JeodSet<ElemType> this_container_type;
+    /**
+     * The JeodAssociativeContainer type.
+     */
+    using jeod_associative_container_type = JeodAssociativeContainer<ElemType, std::set<ElemType>>;
 
-   /**
-    * The JeodAssociativeContainer type.
-    */
-   typedef JeodAssociativeContainer< ElemType, std::set<ElemType> >
-      jeod_associative_container_type;
+    /**
+     * The JeodSTLContainer type.
+     */
+    using jeod_stl_container_type = JeodSTLContainer<ElemType, std::set<ElemType>>;
 
-   /**
-    * The JeodSTLContainer type.
-    */
-   typedef JeodSTLContainer<ElemType, std::set<ElemType> >
-      jeod_stl_container_type;
+    /**
+     * The std::set itself.
+     */
+    using stl_container_type = std::set<ElemType>;
 
-   /**
-    * The std::set itself.
-    */
-   typedef std::set<ElemType> stl_container_type;
+    // Member functions
 
+    // Constructors and destructors
+    // NOTE: The constructors are protected. See jeod_stl_container.hh.
 
-   // Member functions
+    /**
+     * Destructor.
+     */
+    virtual ~JeodSet() = default;
 
-   // Constructors and destructors
-   // NOTE: The constructors are protected. See jeod_stl_container.hh.
+    // Assignment operators
 
-   /**
-    * Destructor.
-    */
-   virtual ~JeodSet (void) {}
+    /**
+     * Copy contents from the given source.
+     */
+    JeodSet & operator=(const this_container_type & src)
+    {
+        jeod_stl_container_type::operator=(src);
+        return *this;
+    }
 
-
-   // Assignment operators
-
-   /**
-    * Copy contents from the given source.
-    */
-   JeodSet &
-   operator= (const this_container_type & src)
-   {
-      jeod_stl_container_type::operator= (src);
-      return *this;
-   }
-
-   /**
-    * Copy contents from the given source.
-    */
-   JeodSet &
-   operator= (const stl_container_type & src)
-   {
-      jeod_stl_container_type::operator= (src);
-      return *this;
-   }
+    /**
+     * Copy contents from the given source.
+     */
+    JeodSet & operator=(const stl_container_type & src)
+    {
+        jeod_stl_container_type::operator=(src);
+        return *this;
+    }
 
 protected:
+    /**
+     * Default constructor.
+     */
+    JeodSet() = default;
 
-   /**
-    * Default constructor.
-    */
-   JeodSet (void) {}
+    /**
+     * Copy constructor.
+     */
+    JeodSet(const this_container_type & src)
+        : jeod_associative_container_type(src)
+    {
+    }
 
-   /**
-    * Copy constructor.
-    */
-   JeodSet (const this_container_type & src)
-   : jeod_associative_container_type (src)
-   {}
-
-   /**
-    * Copy constructor from STL container.
-    * @param src Source container to be copied
-    */
-   explicit JeodSet (const stl_container_type & src)
-   : jeod_associative_container_type (src)
-   {}
+    /**
+     * Copy constructor from STL container.
+     * @param src Source container to be copied
+     */
+    explicit JeodSet(const stl_container_type & src)
+        : jeod_associative_container_type(src)
+    {
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

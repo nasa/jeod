@@ -61,13 +61,12 @@ Assumptions and limitations:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_CLASS_DECL_HH
 #define JEOD_DYN_BODY_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class BodyForceCollect;
 class BodyRefFrame;
@@ -80,8 +79,7 @@ class Force;
 class FrameDerivs;
 class Torque;
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

@@ -43,18 +43,22 @@ This sim is used to verify the JEOD gravity model
 *******************************************************************************/
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 // Include the standard S-modules:
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "environment_sans_de405.sm"
-
 
 /*****************************************************************************
 Earth Sim Object
@@ -68,30 +72,21 @@ Purpose:(Provides a planet called "Earth", but it is only loosely based on
 ##include "environment/planet/data/include/earth.hh"
 ##include "environment/gravity/verif/data/include/grav_verif.hh"
 
-class EarthSimObject: public PlanetGenericSimObject{
- public:
-  jeod::Planet_earth_default_data  earth_default_data;
-  jeod::SphericalHarmonicsGravitySource_grav_verif_default_data grav_default_data;
+class EarthSimObject: public PlanetGenericSimObject
+{
+public:
+    jeod::Planet_earth_default_data earth_default_data;
+    jeod::SphericalHarmonicsGravitySource_grav_verif_default_data grav_default_data;
 
-  EarthSimObject( jeod::DynManager   & dyn_manager_in,
-                  jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            earth_default_data,
-                            grav_default_data)
-  {
-  };
- private:
-  // Unimplemented copy constructor and assignment operator
-  EarthSimObject (const EarthSimObject&);
-  EarthSimObject & operator = (const EarthSimObject&);
+    EarthSimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, earth_default_data, grav_default_data){};
+
+    // Unimplemented copy constructor and assignment operator
+    EarthSimObject(const EarthSimObject &) = delete;
+    EarthSimObject & operator=(const EarthSimObject &) = delete;
 };
 
-EarthSimObject earth( dynamics.dyn_manager,
-                      env.gravity_manager);
-
-
+EarthSimObject earth(dynamics.dyn_manager, env.gravity_manager);
 
 /*****************************************************************************
 VehicleSimObject
@@ -107,30 +102,28 @@ Purpose:(Models the vehicle)
 
 class VehicleSimObject: public VehicleBasicSimObject
 {
- protected:
-  jeod::DynManager & dyn_manager;
- public:
-  jeod::DynBodyInitLvlhRotState lvlh_init;
+protected:
+    jeod::DynManager & dyn_manager;
 
-  jeod::GravityVerification grav_verif;
+public:
+    jeod::DynBodyInitLvlhRotState lvlh_init;
 
+    jeod::GravityVerification grav_verif;
 
-  //Constructor
-  VehicleSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in),
-    dyn_manager( dyn_mngr_in)
-  {
-    (DYNAMICS, "environment") dyn_manager.gravitation();
-    (DYNAMICS, "environment") grav_verif.verify_grav_accel(
-         dyn_body.composite_body.state.trans.position,
-         dyn_body.grav_interaction.grav_accel);
-  }
+    // Constructor
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in),
+          dyn_manager(dyn_mngr_in)
+    {
+        (DYNAMICS, "environment") dyn_manager.gravitation();
+        (DYNAMICS, "environment") grav_verif.verify_grav_accel(dyn_body.composite_body.state.trans.position,
+                                                               dyn_body.grav_interaction.grav_accel);
+    }
 
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
-VehicleSimObject vehicle ( dynamics.dyn_manager);
 
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+VehicleSimObject vehicle(dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

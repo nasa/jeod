@@ -54,59 +54,39 @@ Purpose:
 Library dependencies:
   ((../src/message_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_MESSAGE_MESSAGES_HH
 #define JEOD_MESSAGE_MESSAGES_HH
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the message handler model.
  */
-class MessageMessages {
+class MessageMessages
+{
+    // Static member data
+public:
+    /**
+     * Error issued when multiple instance of a class that should be a singleton
+     * are created or when no such instance exists (but should).
+     */
+    static const char * singleton_error; //!< trick_units(--)
 
- // Static member data
- public:
-
-   /**
-    * Error issued when multiple instance of a class that should be a singleton
-    * are created or when no such instance exists (but should).
-    */
-   static char const * singleton_error; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   /**
-    * Not implemented.
-    */
-   MessageMessages (void);
-
-   /**
-    * Not implemented.
-    */
-   MessageMessages (const MessageMessages &);
-
-   /**
-    * Not implemented.
-    */
-   MessageMessages & operator= (const MessageMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    MessageMessages() = delete;
+    MessageMessages(const MessageMessages &) = delete;
+    MessageMessages & operator=(const MessageMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

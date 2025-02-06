@@ -54,14 +54,14 @@
 #define CALENDAR_INTERVAL 1.0
 
 
- // Include the default system classes:
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
 
-
-#include "default_priority_settings.sm"
-
-// Include default jeod class:
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
+#include "default_priority_settings.sm"
 
 
 //============================================================================
@@ -80,79 +80,64 @@
 ##include "environment/time/data/include/tai_to_ut1.hh"
 
 
-class JeodTimeSimObject: public Trick::SimObject {
-
+class JeodTimeSimObject: public Trick::SimObject
+{
 public:
+    // Member data
 
-   // Member data
+    // The time manager and its initializer
+    jeod::TimeManager time_manager;
+    jeod::TimeManagerInit time_manager_init;
 
-   // The time manager and its initializer
-   jeod::TimeManager time_manager;
-   jeod::TimeManagerInit time_manager_init;
+    // TAI and dynamic time to TAI converter
+    jeod::TimeTAI time_tai;
+    jeod::TimeConverter_Dyn_TAI time_converter_dyn_tai;
 
-   // TAI and dynamic time to TAI converter
-   jeod::TimeTAI time_tai;
-   jeod::TimeConverter_Dyn_TAI time_converter_dyn_tai;
+    // UT1, TAI to UT1 converter, and UT1 default data
+    jeod::TimeUT1 time_ut1;
+    jeod::TimeConverter_TAI_UT1 time_converter_tai_ut1;
+    jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data time_converter_tai_ut1_default_data;
 
-   // UT1, TAI to UT1 converter, and UT1 default data
-   jeod::TimeUT1 time_ut1;
-   jeod::TimeConverter_TAI_UT1 time_converter_tai_ut1;
-   jeod::TimeConverter_TAI_UT1_tai_to_ut1_default_data
-      time_converter_tai_ut1_default_data;
+    // Member functions
 
+    // Constructor
+    JeodTimeSimObject()
+    {
+        //
+        // Default data and initialization jobs
+        //
+        P_TIME("initialization") time_manager.register_time(time_tai);
+        P_TIME("initialization") time_manager.register_converter(time_converter_dyn_tai);
 
-   // Member functions
+        ("default_data") time_converter_tai_ut1_default_data.initialize(&time_converter_tai_ut1);
+        P_TIME("initialization") time_manager.register_time(time_ut1);
+        P_TIME("initialization") time_manager.register_converter(time_converter_tai_ut1);
 
-   // Constructor
-   JeodTimeSimObject () {
+        P_TIME("initialization") time_manager.initialize(&time_manager_init);
 
-      //
-      // Default data and initialization jobs
-      //
-      P_TIME  ("initialization") time_manager.register_time (
-          time_tai);
-      P_TIME  ("initialization") time_manager.register_converter (
-          time_converter_dyn_tai);
+        //
+        // Scheduled jobs
+        //
+        (DYNAMICS, "environment") time_manager.update(exec_get_sim_time());
 
-      ("default_data") time_converter_tai_ut1_default_data.initialize (
-         &time_converter_tai_ut1);
-      P_TIME  ("initialization") time_manager.register_time (
-          time_ut1);
-      P_TIME  ("initialization") time_manager.register_converter (
-          time_converter_tai_ut1);
+        //
+        // Initialization and scheduled jobs for calendar updates
+        // The UT1 calendar representation is initialized and updated.
+        //
+        P_TIME("initialization") time_ut1.calendar_update(exec_get_sim_time());
 
-      P_TIME  ("initialization") time_manager.initialize (
-          &time_manager_init);
-
-      //
-      // Scheduled jobs
-      //
-      (DYNAMICS, "environment") time_manager.update (
-          exec_get_sim_time());
-
-      //
-      // Initialization and scheduled jobs for calendar updates
-      // The UT1 calendar representation is initialized and updated.
-      //
-      P_TIME ("initialization") time_ut1.calendar_update (
-          exec_get_sim_time());
-
-      (CALENDAR_INTERVAL, "environment") time_ut1.calendar_update (
-          exec_get_sim_time());
-   }
+        (CALENDAR_INTERVAL, "environment") time_ut1.calendar_update(exec_get_sim_time());
+    }
 
 private:
-   JeodTimeSimObject (const JeodTimeSimObject&);
-   JeodTimeSimObject & operator = (const JeodTimeSimObject&);
-
+    JeodTimeSimObject(const JeodTimeSimObject &);
+    JeodTimeSimObject & operator=(const JeodTimeSimObject &);
 };
 
 JeodTimeSimObject jeod_time;
 
-
 // Include the most basic dynamics class and object
 #include "dynamics_init_only.sm"
-
 
 // Include a basic vehicle class and object
 #include "vehicle_basic.sm"

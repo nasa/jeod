@@ -72,59 +72,50 @@ Library dependencies:
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeGMST;
 class TimeUT1;
 class JeodBaseTime;
 
-
 /**
  * Converts between Universal Time and Greenwich Mean Sidereal Time.
  */
-class TimeConverter_UT1_GMST : public TimeConverter {
+class TimeConverter_UT1_GMST : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_UT1_GMST)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_UT1_GMST)
-
-// Member Data
+    // Member Data
 private:
-   /**
-    * Converter parent time, always a TimeUT1 for this converter.
-    */
-  TimeUT1 * ut1_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeUT1 for this converter.
+     */
+    TimeUT1 * ut1_ptr{}; //!< trick_units(--)
 
-   /**
-    * Converter parent time, always a TimeGMST for this converter.
-    */
-  TimeGMST * gmst_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeGMST for this converter.
+     */
+    TimeGMST * gmst_ptr{}; //!< trick_units(--)
 
-// Member functions:
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_UT1_GMST ();
-  // Destructor
-   ~TimeConverter_UT1_GMST () override;
+    TimeConverter_UT1_GMST();
+    ~TimeConverter_UT1_GMST() override = default;
+    TimeConverter_UT1_GMST(const TimeConverter_UT1_GMST &) = delete;
+    TimeConverter_UT1_GMST & operator=(const TimeConverter_UT1_GMST &) = delete;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeConverter_UT1_GMST (const TimeConverter_UT1_GMST&);
-   TimeConverter_UT1_GMST & operator = (const TimeConverter_UT1_GMST&);
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

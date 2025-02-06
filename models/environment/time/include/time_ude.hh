@@ -57,7 +57,7 @@ Reference:
 Assumptions and limitations:
   ((None))
 
- 
+
 
 Library dependencies:
   ((../src/time_ude.cc))
@@ -70,13 +70,13 @@ Library dependencies:
 #include <string>
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "time.hh"
 #include "time_enum.hh"
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeManagerInit;
 class TimeStandard;
@@ -86,173 +86,163 @@ class TimeDyn;
  * Represents all instances of times with a user-defined epoch, accepting that
  * Mission Elapsed Time requires some further definition.
  */
-class TimeUDE : public JeodBaseTime {
-
-  JEOD_MAKE_SIM_INTERFACES(TimeUDE)
-
-public:
-
-   /**
-    * Gregorian calendar year number at epoch.
-    */
-  int epoch_year;         //!< trick_units(--)
-   /**
-    * Gregorian calendar month number at epoch.
-    */
-  int epoch_month;        //!< trick_units(--)
-   /**
-    * Gregorian calendar day number at epoch.
-    */
-  int epoch_day;          //!< trick_units(day)
-   /**
-    * 24-hour clock hour number at epoch.
-    */
-  int epoch_hour;         //!< trick_units(hr)
-   /**
-    * Clock minute number at epoch.
-    */
-  int epoch_minute;       //!< trick_units(min)
-   /**
-    * Clock seconds value at epoch.
-    */
-  double epoch_second;    //!< trick_units(s)
-
-   /**
-    * Whole number of days since epoch, in clock format.
-    */
-  int clock_day;     //!< trick_units(--)
-
-   /**
-    * Whole number of hours since epoch, in clock format.
-    */
-  int clock_hour;    //!< trick_units(--)
-
-   /**
-    * Whole number of minutes since epoch, in clock format.
-    */
-  int clock_minute; //!< trick_units(--)
-
-   /**
-    * Number of seconds since epoch, in clock format.
-    */
-  double clock_second; //!< trick_units(s)
-
-   /**
-    * Simtime at the last time the clock was updated
-    */
-  double last_clock_update; //!< trick_units(s)
-
-   /**
-    * Format for expressing the epoch of this type (calendar, julian, etc)
-    */
-  TimeEnum::TimeFormat epoch_format; //!< trick_units(--)
-   /**
-    * Format for expressing the initial value of this type (calendar, julian,
-    * etc )
-    */
-  TimeEnum::TimeFormat initial_value_format;  //!< trick_units(--)
-
-   /**
-    * Name of time type in which epoch defined
-    */
-  std::string epoch_defined_in_name;  //!< trick_units(--)
-
-protected:
-   /**
-    * Value of epoch in appropriate format.
-    */
-  double epoch_initializing_value;//!< trick_units(--)
-
-   /**
-    * Whether initializing data is present.
-    */
-  bool initializing_data_present;  //!< trick_units(--)
-
-   /**
-    * Whether epoch data is present.
-    */
-  bool epoch_data_present;  //!< trick_units(--)
-
-   /**
-    * Whether there is some numerical input that could set epoch.
-    */
-  bool epoch_value_is_set_number; //!< trick_units(--)
-
-   /**
-    * Whether there is some calendar input that could set epoch.
-    */
-  bool epoch_value_is_set_calendar; //!< trick_units(--)
-
-   /**
-    * Whether there is some clock input that could set epoch.
-    */
-  bool epoch_value_is_set_clock;  //!< trick_units(--)
-
-   /**
-    * The index of the time-type from which this one is updated.
-    */
-  int update_index; //!< trick_units(--)
-
-   /**
-    * The index of the time-type in which this one's epoch is defined.
-    */
-  int epoch_index; //!< trick_units(--)
-
+class TimeUDE : public JeodBaseTime
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeUDE)
 
 public:
+    /**
+     * Gregorian calendar year number at epoch.
+     */
+    int epoch_year{}; //!< trick_units(--)
 
-  // constructor
-   TimeUDE ();
+    /**
+     * Gregorian calendar month number at epoch.
+     */
+    int epoch_month{}; //!< trick_units(--)
 
-  // destructor
-   ~TimeUDE () override;
+    /**
+     * Gregorian calendar day number at epoch.
+     */
+    int epoch_day{}; //!< trick_units(day)
 
-   void initialize_initializer_time (TimeManagerInit * tm_init) override;
-   void add_type_initialize (const int seeking_status,
-                             TimeManagerInit * tm_init) override;
-   void initialize_from_parent (TimeManagerInit * tm_init) override;
-   void set_time_by_clock (void);
-   void set_time_by_seconds (const double new_seconds) override;
-   void set_time_by_days (const double new_days) override;
-   void set_epoch_initializing_value (const double simtime,
-                                      const double epoch_initializing_value);
+    /**
+     * 24-hour clock hour number at epoch.
+     */
+    int epoch_hour{}; //!< trick_units(hr)
+
+    /**
+     * Clock minute number at epoch.
+     */
+    int epoch_minute{}; //!< trick_units(min)
+
+    /**
+     * Clock seconds value at epoch.
+     */
+    double epoch_second{}; //!< trick_units(s)
+
+    /**
+     * Whole number of days since epoch, in clock format.
+     */
+    int clock_day{}; //!< trick_units(--)
+
+    /**
+     * Whole number of hours since epoch, in clock format.
+     */
+    int clock_hour{}; //!< trick_units(--)
+
+    /**
+     * Whole number of minutes since epoch, in clock format.
+     */
+    int clock_minute{}; //!< trick_units(--)
+
+    /**
+     * Number of seconds since epoch, in clock format.
+     */
+    double clock_second{}; //!< trick_units(s)
+
+    /**
+     * Simtime at the last time the clock was updated
+     */
+    double last_clock_update{}; //!< trick_units(s)
+
+    /**
+     * Format for expressing the epoch of this type (calendar, julian, etc)
+     */
+    TimeEnum::TimeFormat epoch_format{TimeEnum::undefined}; //!< trick_units(--)
+
+    /**
+     * Format for expressing the initial value of this type (calendar, julian,
+     * etc )
+     */
+    TimeEnum::TimeFormat initial_value_format{TimeEnum::undefined}; //!< trick_units(--)
+
+    /**
+     * Name of time type in which epoch defined
+     */
+    std::string epoch_defined_in_name{""}; //!< trick_units(--)
 
 protected:
-   // All TimeUDE objects default to NOT requiring singletons.
-   bool must_be_singleton () override;
+    /**
+     * Value of epoch in appropriate format.
+     */
+    double epoch_initializing_value{}; //!< trick_units(--)
 
-   void convert_epoch_to_update (JeodBaseTime * epoch_ptr,
-                                 JeodBaseTime * update_ptr,
-                                 TimeManagerInit * tm_init);
+    /**
+     * Whether initializing data is present.
+     */
+    bool initializing_data_present{}; //!< trick_units(--)
 
-   void set_epoch_dyn (TimeDyn * epoch_ptr);
+    /**
+     * Whether epoch data is present.
+     */
+    bool epoch_data_present{}; //!< trick_units(--)
 
-   void set_epoch_times (JeodBaseTime * epoch_ptr);
+    /**
+     * Whether there is some numerical input that could set epoch.
+     */
+    bool epoch_value_is_set_number{}; //!< trick_units(--)
 
-   void set_epoch_ude (TimeUDE * epoch_ptr);
+    /**
+     * Whether there is some calendar input that could set epoch.
+     */
+    bool epoch_value_is_set_calendar{}; //!< trick_units(--)
 
-   void set_epoch_std (TimeStandard * epoch_ptr);
+    /**
+     * Whether there is some clock input that could set epoch.
+     */
+    bool epoch_value_is_set_clock{}; //!< trick_units(--)
 
-   void set_initial_times (void);
+    /**
+     * The index of the time-type from which this one is updated.
+     */
+    int update_index{}; //!< trick_units(--)
 
+    /**
+     * The index of the time-type in which this one's epoch is defined.
+     */
+    int epoch_index{}; //!< trick_units(--)
 
-   void clock_update ();
+public:
+    TimeUDE() = default;
+    ~TimeUDE() override = default;
+    TimeUDE(const TimeUDE &) = delete;
+    TimeUDE & operator=(const TimeUDE &) = delete;
 
-   void verify_epoch (void);
+    void initialize_initializer_time(TimeManagerInit * tm_init) override;
+    void add_type_initialize(const int seeking_status, TimeManagerInit * tm_init) override;
+    void initialize_from_parent(TimeManagerInit * tm_init) override;
+    void set_time_by_clock();
+    void set_time_by_seconds(const double new_seconds) override;
+    void set_time_by_days(const double new_days) override;
+    void set_epoch_initializing_value(const double simtime, const double epoch_initializing_value);
 
-   void verify_init (void);
+protected:
+    // All TimeUDE objects default to NOT requiring singletons.
+    bool must_be_singleton() override;
 
-   void verify_update (void);
+    void convert_epoch_to_update(JeodBaseTime * epoch_ptr, JeodBaseTime * update_ptr, TimeManagerInit * tm_init);
 
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeUDE (const TimeUDE&);
-   TimeUDE & operator = (const TimeUDE&);
+    void set_epoch_dyn(TimeDyn * epoch_ptr);
+
+    void set_epoch_times(JeodBaseTime * epoch_ptr);
+
+    void set_epoch_ude(TimeUDE * epoch_ptr);
+
+    void set_epoch_std(TimeStandard * epoch_ptr);
+
+    void set_initial_times();
+
+    void clock_update();
+
+    void verify_epoch();
+
+    void verify_init();
+
+    void verify_update();
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

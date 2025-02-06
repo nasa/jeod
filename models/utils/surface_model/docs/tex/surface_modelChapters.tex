@@ -39,11 +39,11 @@ This chapter will describe the requirements for the \ModelDesc.
   \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
   document}.
 \item[Rationale:]\ \newline
-  This model shall, at a minimum,  meet all external and internal requirements 
+  This model shall, at a minimum,  meet all external and internal requirements
   applied to the \JEODid\ release.
 \item[Verification:]\ \newline
      Inspection
-\end{description}   
+\end{description}
 
 
 \requirement{Geometric Modeling}\label{reqt:surfacemodel_geom_modeling}
@@ -57,7 +57,7 @@ of a vehicle, and this representation is useful in orbital simulations.
 \item[Verification:]\ \newline
 The verification for this item shall be done by inspection.
 \end{description}
- 
+
  \requirement{Environmental Interaction}\label{reqt:surfacemodel_inter_modeling}
  \begin{description}
  \item[Requirement:]\ \newline
@@ -70,7 +70,7 @@ The verification for this item shall be done by inspection.
  \item[Verification:]\ \newline
  The verification for this item shall be done by a demonstration test.
  \end{description}
- 
+
  \requirement{Extensible Geometrical Modeling}\label{reqt:surfacemodel_exten_geom_modeling}
  \begin{description}
  \item[Requirement:]\ \newline
@@ -82,7 +82,7 @@ The verification for this item shall be done by inspection.
  \item[Verification:]\ \newline
  The verification for this item shall be done by a demonstration test.
  \end{description}
- 
+
  \requirement{Extensible to Environmental Interactions }\label{reqt:surfacemodel_interaction_extension}
  \begin{description}
  \item[Requirement:]\ \newline
@@ -94,7 +94,7 @@ The verification for this item shall be done by inspection.
  \item[Verification:]\ \newline
  The verification for this item shall be done by a demonstration test.
  \end{description}
- 
+
  \requirement{Re-use of Models}\label{reqt:surfacemodel_surface_reuse}
  \begin{description}
  \item[Requirement:]\ \newline
@@ -122,23 +122,23 @@ geometry consistent with the geometry embodied in a mass tree.
  The verification for this item shall be done testing.
  \end{description}
 
-%% Format for the model Requirements is open.  It should include requirements for this model 
+%% Format for the model Requirements is open.  It should include requirements for this model
 %% only and use requirment tags like the one below.
 % \requirement{...}
 % \label{reqt:...}
 % \begin{description}
 %   \item[...]\ \newline
 %     The documentation for the model shall include
-% 
+%
 %     \subrequirement{}
 %     \label{reqt:...}
 %       Software requirements specification.
-%       
+%
 %     ...
-%    
+%
 %   \item[title]\ \newline
 %     text
-% 
+%
 %   ...
 %
 %\end{description}
@@ -151,9 +151,9 @@ geometry consistent with the geometry embodied in a mass tree.
 
 The JEOD \ModelDesc is designed to give an extensible framework
 for both describing the geometry of a vehicle, as well as calculating
-environmental interactions with that geometry. 
+environmental interactions with that geometry.
 
-First, a geometry only surface is specified, using 
+First, a geometry only surface is specified, using
 what this model refers to as ``facets". These facets are
 a very general concept and can accomodate any user defined
 representation of a part of a vehicle. One example is the FlatPlate
@@ -182,7 +182,7 @@ Each facet found in a surface model will - in an interaction specific
 surface model created from that geometric model - have an interaction
 specific equivalent facet. This equivalent will know everything about
 the original geometric Facet, but will also have the ability to
-calculate a specific interaction's effects on itself. 
+calculate a specific interaction's effects on itself.
 
 This interaction specific facet is created from the original facet,
 using interaction facet specific parameters specified by the
@@ -203,7 +203,7 @@ using a set of facet parameters}
 The process shown in Figure \ref{fig:facet_flow} is encapsulated within
 an interaction surface factory, which creates an interaction
 specific surface from a general surface. This interaction surface factory
-will be loaded  at runtime by the user with the 
+will be loaded  at runtime by the user with the
 appropriate interaction facet factories and facet parameter objects
 necessary to fully create the interaction specific surface
 from the original geometry only surface model. An illustration of
@@ -241,7 +241,7 @@ A Facet specifies actual geometry of a vehicle. How big of a slice of geometry
 a Facet represents is up to the user; a single
 facet can be a complete representation of a
 vehicle, or just a small component. This gives flexibility to the end user in how
-they wish to represent the geometry of the vehicle. 
+they wish to represent the geometry of the vehicle.
 
 Facet geometry can be described in two ways. One option is the specifying the
 geometry directly in the user desired structural frame of the vehicle.
@@ -278,7 +278,7 @@ this way is the suggested usage when using the
 The SurfaceModel class represents the complete geometry of a vehicle. It
 contains a list of pointers to Facet objects (pointers in order to take advantage
 of types inheriting from Facet and that allow multiple types of facets
-to be used within the same SurfaceModel object). These individual facets 
+to be used within the same SurfaceModel object). These individual facets
 make up the
 complete geometry of the surface model, and SurfaceModel is thus a containing
 class for a list of Facet derived objects.
@@ -322,7 +322,7 @@ The InteractionFacet is the interaction specific equivalent of the Facet class.
 For any particular interaction desiring to use the Surface Model, an
 InteractionFacet inheriting class will be created. Interaction specific
 equivalent classes for facet types (classes inheriting from the Facet
-class) can then be created. 
+class) can then be created.
 
 For example, the JEOD Aerodynamics model
 \cite{dynenv:AERODYNAMICS} creates an InteractionFacet inheriting class
@@ -337,7 +337,7 @@ equivalent for each FlatPlate object found in the original SurfaceModel.
 \subsubsection{InteractionSurface}
 
 The InteractionSurface class is a pure virtual base class that defines
-the interface for interaction specific surface models. 
+the interface for interaction specific surface models.
 Any new interaction that is meant to interact with the \ModelDesc will
 create an interaction specific class inheriting from InteractionSurface.
 This inheriting class will then contain an
@@ -360,7 +360,7 @@ specific parameters that are necessary when creating an interaction specific
 facet. A user will inherit from FacetParams, populating the
 class with parameters necessary for the specific facet type and interaction
 in question. These parameters will then be used to create the
-InteractionFacet from the Facet, and will be matched to facets in 
+InteractionFacet from the Facet, and will be matched to facets in
 a SurfaceModel object by name lookup. These parameters are especially
 useful for values associated with a specific type of interaction facet
 that need to be specified by the user at runtime.
@@ -386,7 +386,7 @@ SurfaceModel object.
 The InteractionFacetFactory is a pure virtual class. It creates an interface
 for classes which will take a specific Facet type (such as FlatPlate), and
 create from it an interaction specific version of that Facet (for
-the aerodynamics interaction, a FlatPlate will be turned into a 
+the aerodynamics interaction, a FlatPlate will be turned into a
 FlatPlateAeroFacet, an aerodynamic specific version of FlatPlate).
 These classes will be vital utility classes for the InteractionSurfaceFactory, which will create an interaction specific surface from a basic
 geometric surface by creating interaction specific facets from
@@ -403,7 +403,7 @@ Surface Model.
 \section{Mathematical Formulations}
 
 There is no accompanying mathematical formulation for the \ModelDesc.
-All mathematical formulations will occur in interaction specific 
+All mathematical formulations will occur in interaction specific
 implementations of the surface model. Examples of this can be seen in
 the Aerodynamics Model \cite{dynenv:AERODYNAMICS} and the Radiation Pressure
 Model \cite{dynenv:RADIATIONPRESSURE}.
@@ -420,25 +420,25 @@ in the  \href{file:refman.pdf} {\em Reference Manual}
 %----------------------------------
 \chapter{User Guide}\hyperdef{part}{user}{}\label{ch:user}
 %----------------------------------
-The Instructions for Simulation Users section of the user guide is intended primarily for users of pre-existing simulations.  
-It contains: 
+The Instructions for Simulation Users section of the user guide is intended primarily for users of pre-existing simulations.
+It contains:
 \begin{itemize}
-\item A description of how to modify \ModelDesc variables after the simulation 
+\item A description of how to modify \ModelDesc variables after the simulation
 has compiled, including an in-depth discussion of the input file,
 \item An overview of how to interpret (but not edit) the S\_define file,
 \item A sample of some of the typical variables that may be logged.
 \end{itemize}
 
-The Instructions for Simulation Developers section of the user guide is intended for simulation developers.  
-It describes the necessary configuration of the \ModelDesc within an 
-S\_define file, and the creation of standard run directories.  The latter 
+The Instructions for Simulation Developers section of the user guide is intended for simulation developers.
+It describes the necessary configuration of the \ModelDesc within an
+S\_define file, and the creation of standard run directories.  The latter
 component assumes a thorough understanding of the preceding Analysis section of the user guide.
 Where applicable, the user may be directed to selected portions of Product Specification (Chapter \ref{ch:spec}).
 
-The Instructions for Model Developers section of the user guide is intended primarily for developers 
-needing to extend the capability of the \ModelDesc.  Such users should have a 
-thorough understanding of how the model is used in the preceding 
-Integration section, and of the model 
+The Instructions for Model Developers section of the user guide is intended primarily for developers
+needing to extend the capability of the \ModelDesc.  Such users should have a
+thorough understanding of how the model is used in the preceding
+Integration section, and of the model
 specification (described in Chapter \ref{ch:spec}).
 
 \section{Instructions for Simulation Users}
@@ -447,7 +447,7 @@ For this section, the following S\_define object will be
 assumed:
 
 \begin{verbatim}
-sim_object { 
+sim_object {
 
    utils/surface_model: SurfaceModel surface;
    utils/surface_model: DemoSurface inter_surface;
@@ -501,11 +501,11 @@ to interact with a theoretical interaction class,
 \item{DemoSurfaceFactory}, a class inheriting from InteractionSurfaceFactory,
 \item{DemoFacet}, a class inheriting from Facet,
 \item{DemoFacetFactory}, a class inheriting from InteractionFacetFactory
-that creates an interaction facet (DemoInteractionFacet), 
+that creates an interaction facet (DemoInteractionFacet),
 representing the theoretical
 interaction specific version of DemoFacet,
 \item{DemoParams}, a FacetParams derived object used to create
-a DemoInteractionFacet from a DemoFacet through use of a DemoFacetFactory. 
+a DemoInteractionFacet from a DemoFacet through use of a DemoFacetFactory.
 \end{itemize}
 
 Note that, for JEOD supplied interaction models such as Aerodynamics
@@ -684,14 +684,14 @@ public:
    DemoSurfaceFactory surf_fact;
 
    // Pointers used for dynamic allocation
-   DemoFacet* demo_facet; 
+   DemoFacet* demo_facet;
    DemoParams* demo_params;
    DemoFactory* demo_factory;
 
 
-   SurfaceModelSimObject() 
+   SurfaceModelSimObject()
    {
-      
+
    ("initialization") surf_fact.create_surface(&surface, &inter_surface);
 
    }
@@ -710,7 +710,7 @@ of any type of facet intended to be allocated through a Trick `\#\#include' decl
 If the allocated facets need to be checkpointable, the following Python code can be used for allocation:
 
 \begin{verbatim}
-surface_model.demo_facet = trick.alloc_type(1, "DemoFacet")
+surface_model.demo_facet = trick.TMM_declare_var_s("DemoFacet surface_model_demo_facet")
 # A temporary reference to the facet to save typing
 temp_facet = surface_model.demo_facet
 temp_facet.parameter = demo_value
@@ -737,11 +737,11 @@ temp_facet.param_name = "demo_params"
 surface_model.surface.add_facet(temp_facet)
 \end{verbatim}
 
-A similar pattern is followed to allocate the facet parameter objects and 
+A similar pattern is followed to allocate the facet parameter objects and
 the interaction surface factories. For the case where checkpointing is required:
 
 \begin{verbatim}
-surface_model.demo_params = trick_alloc_type(1, "DemoParams")
+surface_model.demo_params = trick.TMM_declare_var_s("DemoParams surface_model_demo_params")
 # A temporary reference to the params to save typing
 temp_params = surface_model.demo_params
 temp_params.parameter = example_value
@@ -761,7 +761,7 @@ Similarly, allocating checkpointable interaction facet factories can be
 done using the following code:
 
 \begin{verbatim}
-surface_model.demo_factory = trick.alloc_type(1, "DemoFactory")
+surface_model.demo_factory = trick.TMM_declare_var_s("DemoFactory surface_model_demo_factory")
 # A temporary reference to the factory to save typing
 temp_factory = surface_model.demo_factory
 surface_model.surface.add_factory(temp_factory)
@@ -802,7 +802,7 @@ can be specified directly by setting the parameters ``position" and
 FlatPlate flat_plate;
 
 flat_plate.position[0] {M} = 5.0,  2.0,   1.0;
-flat_plate.normal[0] = 1.0 , 0.0 , 0.0; 
+flat_plate.normal[0] = 1.0 , 0.0 , 0.0;
 \end{verbatim}
 
 This command places the flat plate at the position noted,
@@ -810,7 +810,7 @@ with a normal completely in the ``X" direction, with respect to
 the frame implicitely chosen by the user.
 
 Note that the variables being set are ``position" and ``normal".
-These are fundamentally different than the corresponding 
+These are fundamentally different than the corresponding
 ``local\_position" and ``local\_normal". These ``local\_" versions
 of the variables are only for use when the articulation
 capability is in use. If the user wishes
@@ -859,12 +859,12 @@ variables:
 FlatPlate flat_plate;
 
 flat_plate.local_position[0] {M} = 5.0,  2.0,   1.0;
-flat_plate.local_normal[0] = 1.0 , 0.0 , 0.0; 
+flat_plate.local_normal[0] = 1.0 , 0.0 , 0.0;
 \end{verbatim}
 
 Note that this is different than the previous example, as instead of
 ``position" and ``normal," the variables being set are
-``local\_position" and ``local\_normal". 
+``local\_position" and ``local\_normal".
 
 The specified position and normal
 is relative to the structural frame of a particular mass body. The
@@ -881,7 +881,7 @@ on making sure this name is correct, as usual, see the
 MassBody documentation \cite{dynenv:MASS}.
 
 Next, the user must tell the surface model which mass body
-structural frame will be the ``global" frame, by naming the 
+structural frame will be the ``global" frame, by naming the
 associated mass body in the following manner:
 
 \begin{verbatim}
@@ -939,7 +939,7 @@ one for Trick 10.
 This section will use the following S\_define object as an example:
 
 \begin{verbatim}
-sim_object { 
+sim_object {
 
    utils/surface_model: SurfaceModel surface;
    utils/surface_model: DemoSurface inter_surface;
@@ -1008,7 +1008,7 @@ Next, the hooks for dynamically allocating the Facet derived objects
 and adding them to the SurfaceModel object through an input file are
 added:
 
-\begin{verbatim}  
+\begin{verbatim}
 
    unsigned int integer;
 
@@ -1020,7 +1020,7 @@ added:
    surface_model.surface.add_facets(
       In Facet** new_facets = surface_model.facet_ptr,
       In unsigned int num_new_facets = surface_model.integer);
-    
+
 \end{verbatim}
 
 Note that the DemoFacet pointer ``demo\_facet" is never legitimately
@@ -1080,7 +1080,7 @@ the following code:
       Out InteractionSurface* inter_surface = &surface_model.inter_surface);
 \end{verbatim}
 
-The DemoSurface has now been populated and is ready for use 
+The DemoSurface has now been populated and is ready for use
 with the appropriate interaction model.
 
 
@@ -1110,14 +1110,14 @@ public:
    DemoSurfaceFactory surf_fact;
 
    // Pointers used for dynamic allocation, when checkpointing is necessary
-   DemoFacet* demo_facet; 
+   DemoFacet* demo_facet;
    DemoParams* demo_params;
    DemoFactory* demo_factory;
 
 
-   SurfaceModelSimObject() 
+   SurfaceModelSimObject()
    {
-      
+
    ("initialization") surf_fact.create_surface(&surface, &inter_surface);
 
    }
@@ -1160,7 +1160,7 @@ any allocable types must have an intermediate pointer declared for them in the S
 in this code snippet:
 
 \begin{verbatim}
-   DemoFacet* demo_facet; 
+   DemoFacet* demo_facet;
    DemoParams* demo_params;
    DemoFactory* demo_factory;
 \end{verbatim}
@@ -1252,7 +1252,7 @@ When this method is called, the member variable:
 MassPointState mass_rel_struct;
 \end{verbatim}
 
-also inherited from the Facet class, will be populated with the relative state between the 
+also inherited from the Facet class, will be populated with the relative state between the
 structural frame of the mass body associated
 with this particular facet, and the structural frame of the ``global" mass body associated with
 the entire surface model, from the global frame to the facet frame. For details of this class,
@@ -1295,7 +1295,7 @@ The first step is to create a subclass of InteractionFacet particular to the
 new interaction. This subclass is what will actually be contained
 in the eventual NewInteraction specific InteractionSurfaceModel class, and
 will, through virtual functionality, dictate the API for the calculation
-of ``NewInteraction". An example of this is the class AeroFacet 
+of ``NewInteraction". An example of this is the class AeroFacet
 \cite{dynenv:AERODYNAMICS}, which inherits from InteractionFacet and adds
 the pure virtual function shown below:
 
@@ -1303,7 +1303,7 @@ the pure virtual function shown below:
 virtual void aerodrag_force(
    const double velocity_mag,
    const double rel_vel_hat[3],
-   AeroDragParameters* aero_drag_param_ptr, 
+   AeroDragParameters* aero_drag_param_ptr,
    double center_grav[3]) = 0;
 \end{verbatim}
 
@@ -1315,17 +1315,17 @@ function that will be responsible for calculating the new interaction's effects
 on all interaction facets contained in the model.
 
 Next, the user must create a specific subclass of InteractionSurfaceModel
-for the new interaction. This new class, hypothetically called 
+for the new interaction. This new class, hypothetically called
 ``NewInteractionSurfaceModel," will contain an array of pointers to the
 previously created ``NewInteractionFacet." An example of this
 inheritance is the AeroSurface class found in the Aerodynamics Model
 \cite{dynenv:AERODYNAMICS}.
 
-Additionally, two functions must be implemented in the 
+Additionally, two functions must be implemented in the
 ``NewInteractionSurfaceModel" class; ``allocate\_array" and
 ``allocate\_interaction\_facet." These are pure virtual functions
 in the InteractionSurface class, and there is standard code that can
-be used to implement them in a ``NewInteractionSurfaceModel" class. 
+be used to implement them in a ``NewInteractionSurfaceModel" class.
 The follow code snippet, intended for a header file, will help illustrate
 this concept.
 
@@ -1413,7 +1413,7 @@ AeroSurface::allocate_interaction_facet ( // Return: -- void
    // Facet is currently an interaction facet. Try to make it a
    // NewInteractionFacet
 
-   NewInteractionFacet* temp_inter_facet = 
+   NewInteractionFacet* temp_inter_facet =
       dynamic_cast<NewInteractionFacet*> (temp_facet);
 
 
@@ -1452,23 +1452,11 @@ can be seen below:
 NewInteractionSurface::~NewInteractionSurface (
    void)
 {
-
-   if (inter_facets != nullptr) {
-
-      for (unsigned int ii = 0; ii < facets_size; ++ii) {
-         if (inter_facets[ii] != nullptr) {
-            JEOD_DELETE_OBJECT (aero_facets[ii]);
-         }
-      }
-
-      JEOD_DELETE_ARRAY (inter_facets);
-
-   }
-
+   JEOD_DELETE_2D(inter_facets, facets_size, false);
 }
 \end{verbatim}
 
-Note that references are made in these code snippets 
+Note that references are made in these code snippets
 to the JEOD Message Handler
 \cite{dynenv:MESSAGE}. These messages will involve interaction model
 specific messages, and need to be written by the user themself. Additional
@@ -1506,7 +1494,7 @@ NewInteractionSurfaceFactory::add_facet_params (
    FacetParams* to_add)
 {
 
-   if ((to_add->name == NULL) || (to_add->name[0] == '\0')) {
+   if ((to_add->name == nullptr) || (to_add->name[0] == '\0')) {
 
       // SEND A FAILUTRE MESSAGE THROUGH THE MESSAGE HANDLER
 
@@ -1702,7 +1690,7 @@ as described above in the Analysis and Intergration sections.
 \section{Verification}
 %%% code imported from old template structure
 %\inspection{<Name of Inspection>}\label{inspect:<label>}
-% <description> to satisfy  
+% <description> to satisfy
 % requirement \ref{reqt:<label>}.
 
 \inspection{Top-level inspection}\label{inspect:TLI}
@@ -1742,8 +1730,8 @@ interactions.}
 \end{itemize}
 
 \item[Requirements:]\ \newline
-%By passing this test, the universal time module 
-%partially satisfies requirement~\ref{reqt:<label1>} and 
+%By passing this test, the universal time module
+%partially satisfies requirement~\ref{reqt:<label1>} and
 %completely satisfies requirement~\ref{reqt:<label2>}.
 By passing this test, the \ModelDesc satisfies requirement
 \traceref{reqt:surfacemodel_inter_modeling}, requirement
@@ -1813,7 +1801,7 @@ which declares the pure virtual function:
 
 \begin{verbatim}
 virtual void execute_demo_2(
-   char* interaction_name
+   std::string interaction_name
    ) = 0;
 \end{verbatim}
 
@@ -1829,7 +1817,7 @@ to demonstrate the extensibility of the \ModelDesc.
 The DemoFacet contains the following parameters:
 
 \begin{verbatim}
-char* name;
+std::string name;
 int some_int;
 \end{verbatim}
 
@@ -1843,7 +1831,7 @@ runtime.
 The FlatPlateDemo1 (DemoInteraction1 specific FlatPlate) contains:
 
 \begin{verbatim}
-char* shape;
+std::string shape;
 \end{verbatim}
 
 The FlatPlateDemo2 (DemoInteraction2 specific FlatPlate) contains:
@@ -1861,7 +1849,7 @@ double weight;
 The DemoInteractionFacet2 (DemoInteraction2 specific DemoFacet) contains:
 
 \begin{verbatim}
-char* color;
+std::string color;
 \end{verbatim}
 
 Both FlatPlateDemo1 and DemoInteractionFacet1 implement the pure
@@ -1881,8 +1869,6 @@ void FlatPlateDemo1::execute_demo_1 (
       base_plate->normal[0],
       base_plate->normal[1],
       base_plate->normal[2]);
-
-   return;
 }
 
 void DemoInteractionFacet1::execute_demo_1 (
@@ -1910,7 +1896,7 @@ virtual function ``execute\_demo\_2." Their implementations are:
 
 \begin{verbatim}
 void FlatPlateDemo2::execute_demo_2 (
-   char* interaction_name){
+   std::string interaction_name){
    FlatPlate* base_plate = dynamic_cast<FlatPlate*> (base_facet);
    printf("\n\n\n");
    printf("FlatPlateDemo2::execute_demo_2\n");
@@ -1925,7 +1911,7 @@ void FlatPlateDemo2::execute_demo_2 (
 }
 
 void DemoInteractionFacet2::execute_demo_2 (
-   char* interaction_name){
+   std::string interaction_name){
    DemoFacet* base_plate = dynamic_cast<DemoFacet*> (base_facet);
    printf("\n\n\n");
    printf("DemoInteractionFacet2::execute_demo_2\n");
@@ -1938,7 +1924,7 @@ void DemoInteractionFacet2::execute_demo_2 (
 }
 \end{verbatim}
 
-Like the implementations of ``execute\_demo\_1," 
+Like the implementations of ``execute\_demo\_1,"
 both implementations print out information supplied
 by the interaction itself, the original geometric facet the
 interaction facet was created from, and from the interaction facet
@@ -1990,9 +1976,9 @@ call surface_model.surface_model.surface.add_facets(
 
  FlatPlateDemoFactory1* fpf1_ptr;
  fpf1_ptr = new FlatPlateDemoFactory1;
- 
+
  surface_model.facet_factory = fpf1_ptr;
- 
+
 call surface_model.surface_model.surf_fact1.add_facet_factory(
    surface_model.facet_factory);
 
@@ -2012,17 +1998,17 @@ DemoFacetFactory1* dff1;
 dff1 = new DemoFacetFactory1;
 
 surface_model.facet_factory = dff1;
- 
+
 call surface_model.surface_model.surf_fact1.add_facet_factory(
    surface_model.facet_factory);
- 
+
  // Add the factory to create a DemoINteractionFacet2 from a DemoFacet
- 
+
  DemoFacetFactory2* dff2;
  dff2 = new DemoFacetFactory2;
- 
+
  surface_model.facet_factory = dff2;
- 
+
 call surface_model.surface_model.surf_fact2.add_facet_factory(
    surface_model.facet_factory);
 
@@ -2140,7 +2126,7 @@ of the utility of the \ModelDesc.
 SIM directory: SIM\_ARTICULATION
 RUN directory: SET\_test/RUN\_articulation\_0
 
-The purpose of this test is to qualitatively demonstrate the 
+The purpose of this test is to qualitatively demonstrate the
 basic functionality of the articulation feature.
 
 \item[Requirements:] \ \newline
@@ -2334,79 +2320,79 @@ The following relative positions and orientations were input for MassBodys
 B, C and D, and for all FlatPlates, configured as shown in
 \ref{fig:artic_config_1}.
 
-$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179 
+$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179
 \end{array} \right)\\ \\$
 
-$T_{A:B}$ = $\left( \begin{array} {ccc} 
-   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\ 
-   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\ 
+$T_{A:B}$ = $\left( \begin{array} {ccc}
+   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\
+   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\
    -0.468906104490421 & 0.2941811022962542 & 0.8328172333852003 \\
 \end{array} \right)\\ \\$
 
-$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571 
+$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571
 \end{array} \right)\\ \\$
 
-$T_{B:C}$ = $\left( \begin{array} {ccc} 
-   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\ 
-   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\ 
+$T_{B:C}$ = $\left( \begin{array} {ccc}
+   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\
+   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\
    0.2227983897489432 & -0.9650682304751009 & 0.137855678348538 \\
 \end{array} \right)\\ \\$
 
-$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395 
+$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395
 \end{array} \right)\\ \\$
 
-$T_{A:D}$ = $\left( \begin{array} {ccc} 
-   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\ 
-   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\ 
+$T_{A:D}$ = $\left( \begin{array} {ccc}
+   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\
+   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\
    -0.3345558386869913 & -0.2200457687990501 & 0.9163254064108879 \\
 \end{array} \right)\\ \\$
 
-$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175 
+$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175
 \end{array} \right)\\ \\$
 
-$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726 
+$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726
 \end{array} \right)\\ \\$
 
-$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221 
+$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221
 \end{array} \right)\\ \\$
 
-$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143 
+$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143
 \end{array} \right)\\ \\$
 
-$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073 
+$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073
 \end{array} \right)\\ \\$
 
-$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487 
+$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487
 \end{array} \right)\\ \\$
 
-$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691 
+$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691
 \end{array} \right)\\ \\$
 
-$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227 
+$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938 
+$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498 
+$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555 
+$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275 
+$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615 
+$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162 
+$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406 
+$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667 
+$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667
 \end{array} \right)\\ \\$
 
 For this test, all FlatPlate positions and normals will be determined in
@@ -2425,7 +2411,7 @@ $\hat{x}_{A:F1}$  = $\left( \begin{array} {ccc} -0.760258000000000 \\ 0.28258700
 $x_{A:F2}$  = $\left( \begin{array} {ccc} -1.705620000000000 \\ 3.036950000000000 \\ -0.958726000000000
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F2}$  = $\left( \begin{array} {ccc} 0.694490000000000 \\ -0.396341000000000 \\ 0.600498000000000                                                        
+$\hat{x}_{A:F2}$  = $\left( \begin{array} {ccc} 0.694490000000000 \\ -0.396341000000000 \\ 0.600498000000000
 \end{array} \right)\\ \\$
 
 $x_{A:F3}$  = $\left( \begin{array} {ccc} -3.524783758257438 \\ -4.923159938915734 \\ -0.823513103480981
@@ -2495,27 +2481,27 @@ B, C and D, and for all FlatPlates, configured as shown in
 $x_{A:B}$ = $\left( \begin{array} {ccc}  0.0978881 \\    1.65429 \\   -2.12155
 \end{array} \right)\\ \\$
 
-$T_{A:B}$ = $\left( \begin{array} {ccc} 
-   0.1908098464799607 & -0.6966135920642235 & -0.6916076241899547 \\ 
-   0.04030743089433808 & 0.7095182653790713 & -0.703533326934959 \\ 
+$T_{A:B}$ = $\left( \begin{array} {ccc}
+   0.1908098464799607 & -0.6966135920642235 & -0.6916076241899547 \\
+   0.04030743089433808 & 0.7095182653790713 & -0.703533326934959 \\
    0.9807991198512527 & 0.1063641595879615 & 0.1634617755138939 \\
 \end{array} \right)\\ \\$
 
 $x_{B:C}$ = $\left( \begin{array} {ccc}   -1.88698 \\    1.08009 \\   -3.95204
 \end{array} \right)\\ \\$
 
-$T_{B:C}$ = $\left( \begin{array} {ccc} 
-   -0.7361133641239929 & -0.5508618941680473 & -0.3933043207385965 \\ 
-   -0.4364024092758288 & -0.05791070693348288 & 0.897886010137543 \\ 
+$T_{B:C}$ = $\left( \begin{array} {ccc}
+   -0.7361133641239929 & -0.5508618941680473 & -0.3933043207385965 \\
+   -0.4364024092758288 & -0.05791070693348288 & 0.897886010137543 \\
    -0.517387719545323 & 0.8325848446711333 & -0.197768612493578 \\
 \end{array} \right)\\ \\$
 
 $x_{A:D}$ = $\left( \begin{array} {ccc}    4.42141 \\    2.94013 \\  -0.773762
 \end{array} \right)\\ \\$
 
-$T_{A:D}$ = $\left( \begin{array} {ccc} 
-   0.8222190420975497 & -0.3626722656735943 & 0.4386623696231186 \\ 
-   0.04304325740965631 & 0.808117347462562 & 0.5874467045797761 \\ 
+$T_{A:D}$ = $\left( \begin{array} {ccc}
+   0.8222190420975497 & -0.3626722656735943 & 0.4386623696231186 \\
+   0.04304325740965631 & 0.808117347462562 & 0.5874467045797761 \\
    -0.5675412978839106 & -0.4641284094313281 & 0.6800600670198124 \\
 \end{array} \right)\\ \\$
 
@@ -2654,54 +2640,54 @@ B, C and D, and for all FlatPlates, configured as shown in
 $x_{A:B}$ = $\left( \begin{array} {ccc}  -0.126141 \\    4.21103 \\    2.79516
 \end{array} \right)\\ \\$
 
-$T_{A:B}$ = $\left( \begin{array} {ccc} 
+$T_{A:B}$ = $\left( \begin{array} {ccc}
    0.997369704807009 & 0.06997143703733257 & 0.01891216360204106 \\
    -0.07007880132551818 & 0.9975285522158546 & 0.005074358966393988 \\
    -0.01851036298829154 & -0.006386353660100277 & 0.99980827209469 \\
 \end{array} \right)\\ \\$
-             
+
 $x_{B:C}$ = $\left( \begin{array} {ccc}    2.69991 \\    3.53459 \\    4.99746
 \end{array} \right)\\ \\$
 
-$T_{B:C}$ = $\left( \begin{array} {ccc} 
+$T_{B:C}$ = $\left( \begin{array} {ccc}
    -0.07082185013447745 & 0.9972707676557767 & 0.02086340151527186 \\
    0.9728231355161533 & 0.06443288212731174 & 0.2224040258297676 \\
    0.2204527444783792 & 0.03604746426623952 & -0.9747313310712469 \\
 \end{array} \right)\\ \\$
-             
+
 $x_{A:D}$ = $\left( \begin{array} {ccc}   -1.67924 \\  -0.878345 \\    1.04473
 \end{array} \right)\\ \\$
 
-$T_{A:D}$ = $\left( \begin{array} {ccc} 
-   0.2629583935566351 & 0.4849501785352546 & -0.8340720637910962 \\ 
+$T_{A:D}$ = $\left( \begin{array} {ccc}
+   0.2629583935566351 & 0.4849501785352546 & -0.8340720637910962 \\
    -0.2381525060753064 & -0.8051199041282633 & -0.5431991566879935 \\
    -0.9349525480515922 & 0.3414751298632461 & -0.09622093627020228 \\
 \end{array} \right)\\ \\$
-             
+
 $x_{A:F1}$ = $\left( \begin{array} {ccc}   -1.49968 \\   0.670615 \\    1.06301
 \end{array} \right)\\ \\$
-              
+
 $x_{A:F2}$ = $\left( \begin{array} {ccc}    2.28029 \\   0.508347 \\    4.97695
 \end{array} \right)\\ \\$
-              
+
 $x_{B:F3}$ = $\left( \begin{array} {ccc}     3.8862 \\   -4.52567 \\    2.66886
 \end{array} \right)\\ \\$
-              
+
 $x_{B:F4}$ = $\left( \begin{array} {ccc}    3.64855 \\   -3.53627 \\   -3.90689
 \end{array} \right)\\ \\$
-              
+
 $x_{C:F5}$ = $\left( \begin{array} {ccc}  -0.639442 \\    -2.7477 \\   -2.42615
 \end{array} \right)\\ \\$
-              
+
 $x_{C:F6}$ = $\left( \begin{array} {ccc}   -3.61362 \\   0.551767 \\  -0.587464
 \end{array} \right)\\ \\$
-             
+
 $x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.431173 \\   -1.83218 \\   -1.84599
 \end{array} \right)\\ \\$
-              
+
 $x_{D:F8}$ = $\left( \begin{array} {ccc}    1.14477 \\    -3.2097 \\     2.4224
 \end{array} \right)\\ \\$
-       
+
 $\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.496347 \\  -0.260678 \\  -0.828062
 \end{array} \right)\\ \\$
 
@@ -2806,79 +2792,79 @@ the requirement \traceref{reqt:surfacemodel_artic}
 
 \item[Procedure:] \ \newline
 
-$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179 
+$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179
 \end{array} \right)\\ \\$
 
-$T_{A:B}$ = $\left( \begin{array} {ccc} 
-   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\ 
-   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\ 
+$T_{A:B}$ = $\left( \begin{array} {ccc}
+   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\
+   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\
    -0.468906104490421 & 0.2941811022962542 & 0.8328172333852003 \\
 \end{array} \right)\\ \\$
 
-$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571 
+$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571
 \end{array} \right)\\ \\$
 
-$T_{B:C}$ = $\left( \begin{array} {ccc} 
-   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\ 
-   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\ 
+$T_{B:C}$ = $\left( \begin{array} {ccc}
+   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\
+   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\
    0.2227983897489432 & -0.9650682304751009 & 0.137855678348538 \\
 \end{array} \right)\\ \\$
 
-$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395 
+$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395
 \end{array} \right)\\ \\$
 
-$T_{A:D}$ = $\left( \begin{array} {ccc} 
-   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\ 
-   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\ 
+$T_{A:D}$ = $\left( \begin{array} {ccc}
+   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\
+   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\
    -0.3345558386869913 & -0.2200457687990501 & 0.9163254064108879 \\
 \end{array} \right)\\ \\$
 
-$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175 
+$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175
 \end{array} \right)\\ \\$
 
-$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726 
+$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726
 \end{array} \right)\\ \\$
 
-$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221 
+$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221
 \end{array} \right)\\ \\$
 
-$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143 
+$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143
 \end{array} \right)\\ \\$
 
-$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073 
+$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073
 \end{array} \right)\\ \\$
 
-$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487 
+$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487
 \end{array} \right)\\ \\$
 
-$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691 
+$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691
 \end{array} \right)\\ \\$
 
-$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227 
+$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938 
+$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498 
+$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555 
+$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275 
+$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615 
+$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162 
+$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406 
+$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667 
+$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667
 \end{array} \right)\\ \\$
 
 The following relative positions and orientations were input for MassBodys
@@ -2969,79 +2955,79 @@ The following relative positions and orientations were input for MassBodys
 B, C and D, and for all FlatPlates, configured as shown in
 \ref{fig:artic_config_1}.
 
-$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179 
+$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179
 \end{array} \right)\\ \\$
 
-$T_{A:B}$ = $\left( \begin{array} {ccc} 
-   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\ 
-   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\ 
+$T_{A:B}$ = $\left( \begin{array} {ccc}
+   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\
+   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\
    -0.468906104490421 & 0.2941811022962542 & 0.8328172333852003 \\
 \end{array} \right)\\ \\$
 
-$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571 
+$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571
 \end{array} \right)\\ \\$
 
-$T_{B:C}$ = $\left( \begin{array} {ccc} 
-   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\ 
-   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\ 
+$T_{B:C}$ = $\left( \begin{array} {ccc}
+   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\
+   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\
    0.2227983897489432 & -0.9650682304751009 & 0.137855678348538 \\
 \end{array} \right)\\ \\$
 
-$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395 
+$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395
 \end{array} \right)\\ \\$
 
-$T_{A:D}$ = $\left( \begin{array} {ccc} 
-   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\ 
-   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\ 
+$T_{A:D}$ = $\left( \begin{array} {ccc}
+   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\
+   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\
    -0.3345558386869913 & -0.2200457687990501 & 0.9163254064108879 \\
 \end{array} \right)\\ \\$
 
-$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175 
+$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175
 \end{array} \right)\\ \\$
 
-$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726 
+$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726
 \end{array} \right)\\ \\$
 
-$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221 
+$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221
 \end{array} \right)\\ \\$
 
-$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143 
+$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143
 \end{array} \right)\\ \\$
 
-$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073 
+$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073
 \end{array} \right)\\ \\$
 
-$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487 
+$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487
 \end{array} \right)\\ \\$
 
-$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691 
+$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691
 \end{array} \right)\\ \\$
 
-$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227 
+$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938 
+$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498 
+$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555 
+$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275 
+$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615 
+$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162 
+$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406 
+$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667 
+$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667
 \end{array} \right)\\ \\$
 
 For this test, all FlatPlate positions and normals will be determined in
@@ -3133,79 +3119,79 @@ The following relative positions and orientations were input for MassBodys
 B, C and D, and for all FlatPlates, configured as shown in
 \ref{fig:artic_config_1}.
 
-$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179 
+$x_{A:B}$ = $\left( \begin{array} {ccc}    -2.0381 \\   -4.09991 \\    3.59179
 \end{array} \right)\\ \\$
 
-$T_{A:B}$ = $\left( \begin{array} {ccc} 
-   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\ 
-   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\ 
+$T_{A:B}$ = $\left( \begin{array} {ccc}
+   0.5738961762045672 & -0.6152633149134586 & 0.5404574287207816 \\
+   0.6713942538549126 & 0.7313744132614041 & 0.119671314512468 \\
    -0.468906104490421 & 0.2941811022962542 & 0.8328172333852003 \\
 \end{array} \right)\\ \\$
 
-$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571 
+$x_{B:C}$ = $\left( \begin{array} {ccc}    1.40503 \\   -2.20043 \\   -2.63571
 \end{array} \right)\\ \\$
 
-$T_{B:C}$ = $\left( \begin{array} {ccc} 
-   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\ 
-   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\ 
+$T_{B:C}$ = $\left( \begin{array} {ccc}
+   0.1200730155375398 & 0.1674994268654244 & 0.9785327858275759 \\
+   -0.9674416511940138 & -0.2014627819906493 & 0.1531972552221103 \\
    0.2227983897489432 & -0.9650682304751009 & 0.137855678348538 \\
 \end{array} \right)\\ \\$
 
-$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395 
+$x_{A:D}$ = $\left( \begin{array} {ccc}     3.4757 \\  -0.339964 \\   -1.27395
 \end{array} \right)\\ \\$
 
-$T_{A:D}$ = $\left( \begin{array} {ccc} 
-   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\ 
-   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\ 
+$T_{A:D}$ = $\left( \begin{array} {ccc}
+   0.8775360833103077 & 0.2816997479818719 & 0.3880408154760973 \\
+   -0.3435153756221815 & 0.9339299286459263 & 0.0988538066569347 \\
    -0.3345558386869913 & -0.2200457687990501 & 0.9163254064108879 \\
 \end{array} \right)\\ \\$
 
-$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175 
+$x_{A:F1}$ = $\left( \begin{array} {ccc} 0.00575529 \\   -2.31225 \\    2.12175
 \end{array} \right)\\ \\$
 
-$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726 
+$x_{A:F2}$ = $\left( \begin{array} {ccc}   -1.70562 \\    3.03695 \\  -0.958726
 \end{array} \right)\\ \\$
 
-$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221 
+$x_{B:F3}$ = $\left( \begin{array} {ccc}   -2.73297 \\   -2.12864 \\   -3.22221
 \end{array} \right)\\ \\$
 
-$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143 
+$x_{B:F4}$ = $\left( \begin{array} {ccc}    2.29363 \\   -3.30972 \\    3.85143
 \end{array} \right)\\ \\$
 
-$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073 
+$x_{C:F5}$ = $\left( \begin{array} {ccc}    -1.3239 \\   -1.59037 \\   0.596073
 \end{array} \right)\\ \\$
 
-$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487 
+$x_{C:F6}$ = $\left( \begin{array} {ccc}    1.09338 \\   0.528991 \\   0.548487
 \end{array} \right)\\ \\$
 
-$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691 
+$x_{D:F7}$ = $\left( \begin{array} {ccc}  -0.694371 \\   -3.48133 \\    -0.4691
 \end{array} \right)\\ \\$
 
-$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227 
+$x_{D:F8}$ = $\left( \begin{array} {ccc}   -2.93046 \\    1.31073 \\    0.22227
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938 
+$\hat{x}_{A:F1}$ = $\left( \begin{array} {ccc}  -0.760258 \\   0.282587 \\  -0.584938
 \end{array} \right)\\ \\$
 
-$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498 
+$\hat{x}_{A:F2}$ = $\left( \begin{array} {ccc}    0.69449 \\  -0.396341 \\   0.600498
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555 
+$\hat{x}_{B:F3}$ = $\left( \begin{array} {ccc}  -0.273795 \\   0.820658 \\   0.501555
 \end{array} \right)\\ \\$
 
-$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275 
+$\hat{x}_{B:F4}$ = $\left( \begin{array} {ccc}   0.046571 \\   -0.84212 \\   0.537275
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615 
+$\hat{x}_{C:F5}$ = $\left( \begin{array} {ccc}     0.2905 \\    0.71079 \\   0.640615
 \end{array} \right)\\ \\$
 
-$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162 
+$\hat{x}_{C:F6}$ = $\left( \begin{array} {ccc} -0.0100222 \\  -0.542243 \\   0.840162
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406 
+$\hat{x}_{D:F7}$ = $\left( \begin{array} {ccc}   0.959905 \\   0.192204 \\    0.20406
 \end{array} \right)\\ \\$
 
-$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667 
+$\hat{x}_{D:F8}$ = $\left( \begin{array} {ccc}   0.401064 \\   0.648818 \\   -0.64667
 \end{array} \right)\\ \\$
 
 For this test, all FlatPlate positions and normals will be determined in

@@ -36,20 +36,26 @@
 //
 //=============================================================================
 // two vehicles in Earth orbit, state initialized using LVLH.
-//   
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
-#include "environment_sans_de405.sm"
 #include "earth_basic.sm"
+#include "environment_sans_de405.sm"
 #include "vehicle_basic.sm"
 
 VehicleSimObject vehicle2(dynamics.dyn_manager);
@@ -58,4 +64,4 @@ VehicleSimObject vehicle2(dynamics.dyn_manager);
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_trans_state.hh"
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

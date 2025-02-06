@@ -59,11 +59,11 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DERIVED_STATE_HH
 #define JEOD_DERIVED_STATE_HH
 
 // System includes
+#include <string>
 
 // JEOD includes
 #include "dynamics/dyn_body/include/class_declarations.hh"
@@ -74,96 +74,75 @@ Library dependencies:
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The base class used for deriving a state representation
  * of some subject DynBody.
  */
-class DerivedState {
+class DerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DerivedState)
 
-   JEOD_MAKE_SIM_INTERFACES(DerivedState)
+    // Member data
 
+public:
+    /**
+     * The body that is the subject of the derived state.
+     */
+    DynBody * subject{}; //!< trick_units(--)
 
- // Member data
+    /**
+     * The name of the object with respect to which the subject state is
+     * assessed.
+     */
+    std::string reference_name; //!< trick_units(--)
 
- public:
+protected:
+    /**
+     * An identifier for this derived state, constructed at initialization time
+     * from the class name, the subject body name, and the reference name.
+     * This is used for generating error and debug messages.
+     */
+    std::string state_identifier; //!< trick_units(--)
 
-   /**
-    * The body that is the subject of the derived state.
-    */
-   DynBody * subject; //!< trick_units(--)
+    // Methods
+public:
+    DerivedState() = default;
+    virtual ~DerivedState() = default;
+    DerivedState(const DerivedState &) = delete;
+    DerivedState & operator=(const DerivedState &) = delete;
 
-   /**
-    * The name of the object with respect to which the subject state is
-    * assessed.
-    */
-   char * reference_name; //!< trick_units(--)
+    // set_reference_name(): Set the reference name to the supplied name (copy).
+    void set_reference_name(const std::string & new_name);
 
+    // initialize(): Initialize the DerivedState (but not necessarily the
+    // state itself.)
+    // Rules for derived classes:
+    // All derived classes must forward the initialize() call to the immediate
+    // parent class and then perform class-dependent object initializations.
+    virtual void initialize(DynBody & subject_body, DynManager & dyn_manager);
 
- protected:
+    // update(): Update the DerivedState representation of the subject DynBody.
+    // Rules for derived classes:
+    // All derived classes must perform class-dependent actions and then
+    // must forward the update() call to the immediate parent class.
+    virtual void update();
 
-   /**
-    * An identifier for this derived state, constructed at initialization time
-    * from the class name, the subject body name, and the reference name.
-    * This is used for generating error and debug messages.
-    */
-   char * state_identifier; //!< trick_units(--)
-
-
- // Methods
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DerivedState (const DerivedState&);
-   DerivedState & operator = (const DerivedState&);
-
-
- public:
-
-   // Default constructor
-   DerivedState ();
-
-   // Destructor
-   virtual ~DerivedState ();
-
-   // set_reference_name(): Set the reference name to the supplied name (copy).
-   void set_reference_name (const char * new_name);
-
-   // initialize(): Initialize the DerivedState (but not necessarily the
-   // state itself.)
-   // Rules for derived classes:
-   // All derived classes must forward the initialize() call to the immediate
-   // parent class and then perform class-dependent object initializations.
-   virtual void initialize (DynBody & subject_body, DynManager & dyn_manager);
-
-   // update(): Update the DerivedState representation of the subject DynBody.
-   // Rules for derived classes:
-   // All derived classes must perform class-dependent actions and then
-   // must forward the update() call to the immediate parent class.
-   virtual void update (void);
-
-
- protected:
-
-   // find_planet: Find specified Planet, failing if not found.
-   Planet * find_planet (
-      const DynManager & dyn_manager,
-      const char * planet_name,
-      const char * variable_name);
-
+protected:
+    // find_planet: Find specified Planet, failing if not found.
+    Planet * find_planet(const DynManager & dyn_manager,
+                         const std::string & planet_name,
+                         const std::string & variable_name);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "dynamics/dyn_body/include/dyn_body.hh"
 #endif
-
 
 #endif
 

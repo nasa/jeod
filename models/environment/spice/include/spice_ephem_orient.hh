@@ -59,85 +59,65 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SPICE_EPHEM_ORIENT_HH
 #define JEOD_SPICE_EPHEM_ORIENT_HH
-
 
 // System includes
 #include <string>
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "environment/ephemerides/ephem_item/include/ephem_orient.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A SpiceEphemOrientation minimally extends EphemerisOrientation to include
  * the JEOD and SPICE names and an update method
  * for the target ephemeris reference frame.
  */
-class SpiceEphemOrientation : public EphemerisOrientation {
-JEOD_MAKE_SIM_INTERFACES(SpiceEphemOrientation)
+class SpiceEphemOrientation : public EphemerisOrientation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SpiceEphemOrientation)
 
 public:
+    // Member functions
+    SpiceEphemOrientation();
+    ~SpiceEphemOrientation() override = default;
+    SpiceEphemOrientation(const SpiceEphemOrientation &) = delete;
+    SpiceEphemOrientation & operator=(const SpiceEphemOrientation &) = delete;
 
+    // Update the rotational state of the target frame.
+    void update(double time_tdb, double time_dyn);
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // Confirm that the target frame exists in the loaded kernels.
+    void validate(double time_tdb);
 
-   // Constructor and destructor.
-   SpiceEphemOrientation ();
-   ~SpiceEphemOrientation () override;
+    // Populate the SPICE 6 x 6 matrix via sxform_c().
+    void get_spice_transformation(double time_tdb, double trans6x6[6][6]);
 
-   // Update the rotational state of the target frame.
-   void update (double time_tdb, double time_dyn);
-
-   // Confirm that the target frame exists in the loaded kernels.
-   void validate (double time_tdb);
-
-   // Populate the SPICE 6 x 6 matrix via sxform_c().
-   void get_spice_transformation (double time_tdb, double trans6x6[6][6]);
-
-   /**
-    * Setter for the name of the SPICE frame.
-    * \param new_name  Name of the SPICE frame
-    */
-   void set_spice_frame_name (const std::string & new_name) {
-      spice_frame_name = new_name;
-   }
-
+    /**
+     * Setter for the name of the SPICE frame.
+     * \param new_name  Name of the SPICE frame
+     */
+    void set_spice_frame_name(const std::string & new_name)
+    {
+        spice_frame_name = new_name;
+    }
 
 private:
-
-   // Member data
-   /**
-    * SPICE name of the target reference frame
-    */
-   std::string spice_frame_name; //!< trick_units(--)
-
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   SpiceEphemOrientation (const SpiceEphemOrientation &);
-
-   /**
-    * Not implemented.
-    */
-   SpiceEphemOrientation & operator= (const SpiceEphemOrientation &);
+    // Member data
+    /**
+     * SPICE name of the target reference frame
+     */
+    std::string spice_frame_name; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

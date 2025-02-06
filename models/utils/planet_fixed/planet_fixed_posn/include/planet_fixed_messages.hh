@@ -61,10 +61,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/planet_fixed_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_PLANET_FIXED_MESSAGES_HH
 #define JEOD_PLANET_FIXED_MESSAGES_HH
@@ -74,47 +73,38 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the gravity model.
  */
-class PlanetFixedMessages {
+class PlanetFixedMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetFixedMessages)
 
+    // Static member data
+public:
+    /**
+     * Issued when a selection such as an enum value is invalid.
+     */
+    static const char * invalid_request; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(PlanetFixedMessages)
+    /**
+     * Issued when a value is invalid such as an overly small radius.
+     */
+    static const char * domain_error; //!< trick_units(--)
 
-
- // Static member data
- public:
-
-   /**
-    * Issued when a selection such as an enum value is invalid.
-    */
-   static char const * invalid_request; //!< trick_units(--)
-
-   /**
-    * Issued when a value is invalid such as an overly small radius.
-    */
-   static char const * domain_error; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   PlanetFixedMessages (void);
-   PlanetFixedMessages (const PlanetFixedMessages &);
-   PlanetFixedMessages & operator= (const PlanetFixedMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    PlanetFixedMessages() = delete;
+    PlanetFixedMessages(const PlanetFixedMessages &) = delete;
+    PlanetFixedMessages & operator=(const PlanetFixedMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

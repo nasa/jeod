@@ -19,15 +19,15 @@ components.parent_init.properties.pt_orientation.trans[0]  = [ 1.0, 0.0, 0.0]
 components.parent_init.properties.pt_orientation.trans[1]  = [ 0.0, 1.0, 0.0]
 components.parent_init.properties.pt_orientation.trans[2]  = [ 0.0, 0.0, 1.0]
 
-components.parent_init.num_points = 1
-components.parent_init.points = trick.sim_services.alloc_type( 1 , "jeod::MassPointInit" )
-components.parent_init.points[0].set_name("back_to_front")
-components.parent_init.points[0].position  = trick.attach_units( "m",[ 0.5, 0.0, 0.0])
-components.parent_init.points[0].pt_orientation.data_source =    trick.Orientation.InputEulerRotation
+components.parent_init.allocate_points(1)
+
+components.parent_init.get_mass_point(0).set_name("back_to_front")
+components.parent_init.get_mass_point(0).position  = trick.attach_units( "m",[ 0.5, 0.0, 0.0])
+components.parent_init.get_mass_point(0).pt_orientation.data_source =    trick.Orientation.InputEulerRotation
 
 
-components.parent_init.points[0].pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
-components.parent_init.points[0].pt_orientation.euler_angles  = trick.attach_units( "degree",[    0.0, 0.0, 0.0])
+components.parent_init.get_mass_point(0).pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
+components.parent_init.get_mass_point(0).pt_orientation.euler_angles  = trick.attach_units( "degree",[    0.0, 0.0, 0.0])
 
 
 
@@ -56,24 +56,24 @@ components.child1_init.properties.pt_orientation.trans[0]  = [ 1.0, 0.0, 0.0]
 components.child1_init.properties.pt_orientation.trans[1]  = [ 0.0, 1.0, 0.0]
 components.child1_init.properties.pt_orientation.trans[2]  = [ 0.0, 0.0, 1.0]
 
-components.child1_init.num_points = 2
-components.child1_init.points = trick.sim_services.alloc_type( 2 , "jeod::MassPointInit" )
-components.child1_init.points[0].set_name("front_to_back")
-components.child1_init.points[0].position  = trick.attach_units( "m",[ -0.5, 0.0, 0.0])
-components.child1_init.points[0].pt_orientation.data_source =    trick.Orientation.InputEulerRotation
+components.child1_init.allocate_points(2)
+
+components.child1_init.get_mass_point(0).set_name("front_to_back")
+components.child1_init.get_mass_point(0).position  = trick.attach_units( "m",[ -0.5, 0.0, 0.0])
+components.child1_init.get_mass_point(0).pt_orientation.data_source =    trick.Orientation.InputEulerRotation
 
 
-components.child1_init.points[0].pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
-components.child1_init.points[0].pt_orientation.euler_angles  = trick.attach_units( "degree",[   180.0, 0.0, 0.0])
+components.child1_init.get_mass_point(0).pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
+components.child1_init.get_mass_point(0).pt_orientation.euler_angles  = trick.attach_units( "degree",[   180.0, 0.0, 0.0])
 
 
-components.child1_init.points[1].set_name("back_to_front")
-components.child1_init.points[1].position  = trick.attach_units( "m",[ 0.5, 0.0, 0.0])
-components.child1_init.points[1].pt_orientation.data_source =    trick.Orientation.InputEulerRotation
+components.child1_init.get_mass_point(1).set_name("back_to_front")
+components.child1_init.get_mass_point(1).position  = trick.attach_units( "m",[ 0.5, 0.0, 0.0])
+components.child1_init.get_mass_point(1).pt_orientation.data_source =    trick.Orientation.InputEulerRotation
 
 
-components.child1_init.points[1].pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
-components.child1_init.points[1].pt_orientation.euler_angles  = trick.attach_units( "degree",[    0.0, 0.0, 0.0])
+components.child1_init.get_mass_point(1).pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
+components.child1_init.get_mass_point(1).pt_orientation.euler_angles  = trick.attach_units( "degree",[    0.0, 0.0, 0.0])
 
 
 
@@ -102,15 +102,15 @@ components.child2_init.properties.pt_orientation.trans[0]  = [ 1.0, 0.0, 0.0]
 components.child2_init.properties.pt_orientation.trans[1]  = [ 0.0, 1.0, 0.0]
 components.child2_init.properties.pt_orientation.trans[2]  = [ 0.0, 0.0, 1.0]
 
-components.child2_init.num_points = 1
-components.child2_init.points = trick.sim_services.alloc_type( 1 , "jeod::MassPointInit" )
-components.child2_init.points[0].set_name("front_to_back")
-components.child2_init.points[0].position  = trick.attach_units( "m",[ -0.5, 0.0, 0.0])
-components.child2_init.points[0].pt_orientation.data_source =    trick.Orientation.InputEulerRotation
+components.child2_init.allocate_points(1)
+
+components.child2_init.get_mass_point(0).set_name("front_to_back")
+components.child2_init.get_mass_point(0).position  = trick.attach_units( "m",[ -0.5, 0.0, 0.0])
+components.child2_init.get_mass_point(0).pt_orientation.data_source =    trick.Orientation.InputEulerRotation
 
 
-components.child2_init.points[0].pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
-components.child2_init.points[0].pt_orientation.euler_angles  = trick.attach_units( "degree",[    180.0, 0.0, 0.0])
+components.child2_init.get_mass_point(0).pt_orientation.euler_sequence = trick.Orientation.Yaw_Pitch_Roll
+components.child2_init.get_mass_point(0).pt_orientation.euler_angles  = trick.attach_units( "degree",[    180.0, 0.0, 0.0])
 
 
 

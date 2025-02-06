@@ -73,133 +73,131 @@ Library dependencies:
 // Model includes
 #include "time_enum.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeManager;
 
 /**
  * To initialize the Time Manager.
  */
-class TimeManagerInit {
+class TimeManagerInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeManagerInit)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeManagerInit)
-
-// Member Data
+    // Member Data
 public:
+    /**
+     * Count of the total number of time-types placed in the update tree
+     * or in the initialization tree.
+     */
+    int num_added_total{}; //!< trick_units(--)
 
-   /**
-    * Count of the total number of time-types placed in the update tree
-    * or in the initialization tree.
-    */
-  int num_added_total; //!< trick_units(--)
-   /**
-    * Calendar, truncated_julian, etc.
-    */
-  TimeEnum::TimeFormat sim_start_format; //!< trick_units(--)
-   /**
-    * Pointer to the Time Manager. Automatically linked during init routines.
-    */
-   TimeManager * time_manager; //!< trick_units(--)
+    /**
+     * Calendar, truncated_julian, etc.
+     */
+    TimeEnum::TimeFormat sim_start_format{TimeEnum::undefined}; //!< trick_units(--)
 
-   /**
-    * Name of the time-type used for initialization
-    */
-  std::string initializer;   //!< trick_units(--)
+    /**
+     * Pointer to the Time Manager. Automatically linked during init routines.
+     */
+    TimeManager * time_manager{}; //!< trick_units(--)
+
+    /**
+     * Name of the time-type used for initialization
+     */
+    std::string initializer{""}; //!< trick_units(--)
 protected:
-   /**
-    * Index-value of the initializer
-    */
-  int initializer_index;//!< trick_units(--)
+    /**
+     * Index-value of the initializer
+     */
+    int initializer_index{-1}; //!< trick_units(--)
 
-   /**
-    * Index-value of the type dyn-time
-    */
-  int dyn_time_index;   //!< trick_units(--)
-   /**
-    * Count of number of time-types placed in the update tree
-    * or in the initialization tree in any given pass.
-    */
-  int num_added_pass; //!< trick_units(--)
-  // num_types * num_types elements in these vectors
-   /**
-    * List of the indices (in the TimeManager->time_converter_ptrs vector) of
-    * all registered converters, sorted by the indices of the time-types the
-    * converters act upon (most pairs of time-types have no converter
-    * registered; the value of these indices is -1)
-    */
-  int * converter_ptrs_index;//!< trick_units(--)
-   /**
-    * List of directions available for initialization for each of the converters
-    * listed in converter_class_ptrs
-    */
-  int * init_converter_dir_table; //!< trick_units(--)
-   /**
-    * List of directions available for run-time updates for each of the converters
-    * listed in converter_class_ptrs
-    */
-  int * update_converter_dir_table; //!< trick_units(--)
-   /**
-    * A running ledger of properly linked times during update tree and
-    * initialization tree construction. Entries correspond to times of shared
-    * indexes in time_vector
-    * ( e.g. status[2] : status of time_manager->time_vector[2] )
-    * Update tree encoding:
-    * -2: undefined. Requires auto-assignment or causes error.
-    * -1: definitive error. Process will terminate.
-    *  0: uninitialized
-    *  1: THE 1st generation (root) time. dyn_time for update tree.
-    *  2: a 2nd generation time, converted from root time.
-    *  n: a nth gen time, converted from (n-1)th gen time.
-    */
-  int * status;//!< trick_units(--)
+    /**
+     * Index-value of the type dyn-time
+     */
+    int dyn_time_index{-1}; //!< trick_units(--)
 
-// Member functions:
+    /**
+     * Count of number of time-types placed in the update tree
+     * or in the initialization tree in any given pass.
+     */
+    int num_added_pass{-1}; //!< trick_units(--)
+
+    // num_types * num_types elements in these vectors
+
+    /**
+     * List of the indices (in the TimeManager->time_converter_ptrs vector) of
+     * all registered converters, sorted by the indices of the time-types the
+     * converters act upon (most pairs of time-types have no converter
+     * registered; the value of these indices is -1)
+     */
+    int * converter_ptrs_index{}; //!< trick_units(--)
+
+    /**
+     * List of directions available for initialization for each of the converters
+     * listed in converter_class_ptrs
+     */
+    int * init_converter_dir_table{}; //!< trick_units(--)
+
+    /**
+     * List of directions available for run-time updates for each of the converters
+     * listed in converter_class_ptrs
+     */
+    int * update_converter_dir_table{}; //!< trick_units(--)
+
+    /**
+     * A running ledger of properly linked times during update tree and
+     * initialization tree construction. Entries correspond to times of shared
+     * indexes in time_vector
+     * ( e.g. status[2] : status of time_manager->time_vector[2] )
+     * Update tree encoding:
+     * -2: undefined. Requires auto-assignment or causes error.
+     * -1: definitive error. Process will terminate.
+     *  0: uninitialized
+     *  1: THE 1st generation (root) time. dyn_time for update tree.
+     *  2: a 2nd generation time, converted from root time.
+     *  n: a nth gen time, converted from (n-1)th gen time.
+     */
+    int * status{}; //!< trick_units(--)
+
+    // Member functions:
 public:
-  //Constructor
-   TimeManagerInit ();
-  // Destructor
-   ~TimeManagerInit ();
+    TimeManagerInit() = default;
+    ~TimeManagerInit();
+    TimeManagerInit(const TimeManagerInit &) = delete;
+    TimeManagerInit & operator=(const TimeManagerInit &) = delete;
 
-   int get_conv_ptr_index (const int conv_index);
-   int get_conv_dir_init (const int conv_index);
-   int get_conv_dir_upd (const int conv_index);
-   int get_status (const int index);
-   void set_status (const int index, const int status_value);
-   void increment_status (const int slave_index, const int master_index);
+    int get_conv_ptr_index(const int conv_index);
+    int get_conv_dir_init(const int conv_index);
+    int get_conv_dir_upd(const int conv_index);
+    int get_status(const int index);
+    void set_status(const int index, const int status_value);
+    void increment_status(const int slave_index, const int master_index);
 
-   void initialize_manager (TimeManager * time_mgr);
-   void organize_update_list();
-
-
+    void initialize_manager(TimeManager * time_mgr);
+    void organize_update_list();
 
 private:
+    void initialize();
 
-   void initialize (void);
+    void verify_times_setup();
 
-   void verify_times_setup (void);
+    void populate_converter_registry();
 
-   void populate_converter_registry (void);
+    void verify_converter_setup();
 
-   void verify_converter_setup (void);
+    void initialize_time_types();
 
-   void initialize_time_types (void);
+    void create_init_tree();
 
-   void create_init_tree (void);
-
-   void create_update_tree (void);
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeManagerInit (const TimeManagerInit&);
-   TimeManagerInit & operator = (const TimeManagerInit&);
+    void create_update_tree();
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -57,13 +57,12 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_TORQUE_HH
 #define JEOD_TORQUE_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A Torque represents a Newtonian torque that acts on a DynBody.
@@ -79,53 +78,32 @@ namespace jeod {
  * torque, or even if it is a 3-vector. In comparison, Torque objects can be
  * turned on and off, and more importantly, they are type-safe.
  */
-class Torque {
+class Torque
+{
+public:
+    // Member functions
+    Torque() = default;
+    virtual ~Torque() = default;
+    Torque(const Torque &) = delete;
+    Torque & operator=(const Torque &) = delete;
 
- public:
+    // Member data
 
-   // Member functions
+    /**
+     * Is this torque active?
+     */
+    bool active{true}; //!< trick_units(--)
+    /**
+     * Torque vector
+     */
+    double torque[3]{}; //!< trick_units(N*m)
 
-   // Constructor and destructor.
-   Torque ();
-   virtual ~Torque ();
+    // Operators; listed out-of-order due to Trick07 ICG.
 
-   // Member data
-
-   /**
-    * Is this torque active?
-    */
-   bool active; //!< trick_units(--)
-   /**
-    * Torque vector
-    */
-   double torque[3]; //!< trick_units(N*m)
-
-
-   // Operators; listed out-of-order due to Trick07 ICG.
-
-   // Subscript operator: Access torque elements as an lvalue.
-   double & operator[] (const unsigned int index);
-   double operator[] (const unsigned int index) const;
-
-
- private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   Torque (const Torque &);
-
-   /**
-    * Not implemented.
-    */
-   Torque & operator= (const Torque &);
-
+    // Subscript operator: Access torque elements as an lvalue.
+    double & operator[](const unsigned int index);
+    double operator[](const unsigned int index) const;
 };
-
-
 
 /**
  * A CollectTorque represents a collected torque that acts on a vehicle.
@@ -144,119 +122,80 @@ class Torque {
  * CollectTorques should not be used in model code to represent torques.
  * Use the Torque class instead.
  */
-class CollectTorque {
+class CollectTorque
+{
+public:
+    // Static member functions
 
- public:
-
-   // Static member functions
-
-   /* Factory constructors */
-   static CollectTorque * create (double * vec);
-   static CollectTorque * create (Torque & torque);
-   static CollectTorque * create (CollectTorque & torque);
+    /* Factory constructors */
+    static CollectTorque * create(double * vec);
+    static CollectTorque * create(Torque & torque);
+    static CollectTorque * create(CollectTorque & torque);
 
 #ifndef SWIG
 
-   static CollectTorque * create (Torque * torque);
-   static CollectTorque * create (CollectTorque * torque);
+    static CollectTorque * create(Torque * torque);
+    static CollectTorque * create(CollectTorque * torque);
 
 #endif
 
-   // Constructors
-   CollectTorque ();
-   explicit CollectTorque (double vec[3]);
-   explicit CollectTorque (Torque &);
-   explicit CollectTorque (CollectTorque &);
+    // Constructors
+    CollectTorque() = default;
+    explicit CollectTorque(double vec[3]);
+    explicit CollectTorque(Torque &);
+    explicit CollectTorque(CollectTorque &);
 
-   // Destructor
-   virtual ~CollectTorque ();
+    // Destructor
+    virtual ~CollectTorque() = default;
+    CollectTorque(const CollectTorque &) = delete;
+    CollectTorque & operator=(const CollectTorque &) = delete;
 
-   // Is the torque active?
-   bool is_active () const;
+    // Is the torque active?
+    bool is_active() const;
 
-   // Subscript operator: Access torque elements as an lvalue.
-   double & operator[] (const unsigned int index);
-   double operator[] (const unsigned int index) const;
-   inline bool operator==(const CollectTorque &other)
-   {
-       return (torque == other.torque);
-   }
+    // Subscript operator: Access torque elements as an lvalue.
+    double & operator[](const unsigned int index);
+    double operator[](const unsigned int index) const;
 
+    inline bool operator==(const CollectTorque & other)
+    {
+        return (torque == other.torque);
+    }
 
-   // Member data
-   // That these are public is deprecated.
+    // Member data
+    // That these are public is deprecated.
 
-   /**
-    * Is this torque active?
-    */
-   bool * active; //!< trick_units(--)
+    /**
+     * Is this torque active?
+     */
+    bool * active{}; //!< trick_units(--)
 
-   /**
-    * Torque vector
-    */
-   double * torque; //!< trick_units(N*m)
-
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   CollectTorque (const CollectTorque &);
-
-   /**
-    * Not implemented.
-    */
-   CollectTorque & operator= (const CollectTorque &);
-
+    /**
+     * Torque vector
+     */
+    double * torque{}; //!< trick_units(N*m)
 };
-
-
 
 /**
  * This class is deprecated.
  */
-class CInterfaceTorque : public CollectTorque {
+class CInterfaceTorque : public CollectTorque
+{
+public:
+    // Member functions.
 
- public:
+    // Constructors.
+    CInterfaceTorque() = default;
+    explicit CInterfaceTorque(double * vec);
 
-   // Member functions.
-
-   // Constructors.
-   CInterfaceTorque ();
-   explicit CInterfaceTorque (double * vec);
-
-   // Destructor
-   ~CInterfaceTorque () override;
-
-   // Member data: This class adds no data to CollectTorque.
-
-
- private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   CInterfaceTorque (const CInterfaceTorque &);
-
-   /**
-    * Not implemented.
-    */
-   CInterfaceTorque & operator= (const CInterfaceTorque &);
-
+    ~CInterfaceTorque() override;
+    CInterfaceTorque(const CInterfaceTorque &) = delete;
+    CInterfaceTorque & operator=(const CInterfaceTorque &) = delete;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #include "torque_inline.hh"
-
 
 #endif
 

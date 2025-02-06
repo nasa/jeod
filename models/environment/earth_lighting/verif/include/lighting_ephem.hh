@@ -52,57 +52,51 @@ LIBRARY DEPENDENCY:
 
 #include "environment/ephemerides/ephem_item/include/ephem_point.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // This is a very simple ephemeris to make the dynamics manager
 // happy in the earth lighting sim. It is extremelly non-functional.
-class LightingEphem : public EphemerisInterface {
-
-   JEOD_MAKE_SIM_INTERFACES(LightingEphem)
+class LightingEphem : public EphemerisInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LightingEphem)
 
 public:
+    LightingEphem();
+    ~LightingEphem() override = default;
+    LightingEphem(const LightingEphem &) = delete;
+    LightingEphem & operator=(const LightingEphem &) = delete;
 
-   LightingEphem();
-   ~LightingEphem() override;
+    double timestamp() const override;
 
-   double timestamp(void) const override;
+    std::string get_name() const override;
 
-   const char * get_name (void) const override;
+    void ephem_initialize(EphemeridesManager & manager) override;
 
-   void ephem_initialize (
-      EphemeridesManager& manager) override;
+    void ephem_activate(EphemeridesManager & manager) override;
 
-   void ephem_activate (
-      EphemeridesManager& manager) override;
+    void ephem_build_tree(EphemeridesManager & manager) override;
 
-   void ephem_build_tree(
-      EphemeridesManager& manager) override;
+    void ephem_update() override;
 
-   void ephem_update(void) override;
+    void activate() override
+    {
+        return;
+    }
 
-   void activate() override{return;}
-   void deactivate() override{return;}
+    void deactivate() override
+    {
+        return;
+    }
 
-   EphemerisPoint sun;
-   EphemerisPoint moon;
-   EphemerisPoint earth;
+    EphemerisPoint sun;
+    EphemerisPoint moon;
+    EphemerisPoint earth;
 
-   char ident[6];
-
-
-protected:
-
-
-private:
-   LightingEphem (const LightingEphem&);
-   LightingEphem & operator = (const LightingEphem&);
-
-
+    std::string ident{"ephem"};
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

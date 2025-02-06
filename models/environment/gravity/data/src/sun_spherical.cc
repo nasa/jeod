@@ -18,9 +18,11 @@ Assumptions and Limitations:
 /* Sun default data, see Seidelmann pages 696, 697, 700 */
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 class SphericalHarmonicsGravitySource;
-}
+} // namespace jeod
+
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_sun_spherical_default_data
 
 // JEOD includes
@@ -31,17 +33,15 @@ class SphericalHarmonicsGravitySource;
 // Unsupported includes
 #include "../include/sun_spherical.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-SphericalHarmonicsGravitySource_sun_spherical_default_data::initialize (
-   SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+namespace jeod
 {
-   SphericalHarmonicsGravitySource_ptr->name = "Sun";
-   SphericalHarmonicsGravitySource_ptr->mu = 1.32712440E+20;
-   SphericalHarmonicsGravitySource_ptr->radius = 1000 * (696000.0);
+
+void SphericalHarmonicsGravitySource_sun_spherical_default_data::initialize(
+    SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+{
+    SphericalHarmonicsGravitySource_ptr->name = "Sun";
+    SphericalHarmonicsGravitySource_ptr->mu = 1.32712440E+20;
+    SphericalHarmonicsGravitySource_ptr->radius = 1000 * (696000.0);
 }
-} // End JEOD namespace
+} // namespace jeod

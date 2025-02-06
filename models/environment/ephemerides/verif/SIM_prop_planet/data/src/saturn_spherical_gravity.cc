@@ -15,7 +15,6 @@ ASSUMPTIONS AND LIMITATIONS:
 
 *******************************************************************************/
 
-
 class SphericalHarmonicsGravitySource;
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_saturn_spherical_default_data
 
@@ -26,18 +25,16 @@ class SphericalHarmonicsGravitySource;
 // Unsupported includes
 #include "../include/saturn_spherical_gravity.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-SphericalHarmonicsGravitySource_saturn_spherical_default_data::initialize (
-   SphericalHarmonicsGravitySource * sphericalHarmonicsGravitySource_ptr)
+namespace jeod
 {
-   sphericalHarmonicsGravitySource_ptr->name = "Saturn";
-   sphericalHarmonicsGravitySource_ptr->mu = 3.7931187e+16;
-   sphericalHarmonicsGravitySource_ptr->radius = 1000 * (60268);
+
+void SphericalHarmonicsGravitySource_saturn_spherical_default_data::initialize(
+    SphericalHarmonicsGravitySource * sphericalHarmonicsGravitySource_ptr)
+{
+    sphericalHarmonicsGravitySource_ptr->name = "Saturn";
+    sphericalHarmonicsGravitySource_ptr->mu = 3.7931187e+16;
+    sphericalHarmonicsGravitySource_ptr->radius = 1000 * (60268);
 }
 
-} // End JEOD namespace
+} // namespace jeod

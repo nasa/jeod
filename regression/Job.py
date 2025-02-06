@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -59,7 +59,8 @@ class Job(object):
         """
         self.name = name
         self._command = command
-        self._log_file = open(log_file, 'w')
+        self._log_file_name = log_file
+        self._log_file = None
         self._process = None
         self._start_time = None
         self._stop_time = None
@@ -72,6 +73,9 @@ class Job(object):
         """
         logging.debug('Executing command: ' + self._command)
         self._start_time = time.time()
+        self._log_file = open(self._log_file_name, 'w', buffering=16)
+        self._log_file.write('Output file for Command : {0}\n'.format(self._command))
+        self._log_file.flush()
         self._process = subprocess.Popen(
           self._command, executable='/bin/bash', stdout=self._log_file, stderr=self._log_file,
           stdin=open(os.devnull, 'r'), shell=True, preexec_fn=os.setsid,
@@ -101,6 +105,7 @@ class Job(object):
             return self.Status.RUNNING
 
         if self._stop_time is None:
+            self._log_file.close()
             self._stop_time = time.time()
 
         return self.Status.SUCCESS if self._exit_status is self._expected_exit_status else self.Status.FAILED
@@ -214,5 +219,6 @@ class Job(object):
         try:
             os.killpg(os.getpgid(self._process.pid), signal.SIGKILL)
             self._process.wait()
+            self._log_file.close()
         except:
             pass

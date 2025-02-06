@@ -24,7 +24,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -38,88 +37,47 @@ Library dependencies:
 #include "../include/body_action_messages.hh"
 #include "../include/dyn_body_init_wrt_planet.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * DynBodyInitWrtPlanet default constructor.
- * Note that by default, this class will try to set the whole enchilada.
- */
-DynBodyInitWrtPlanet::DynBodyInitWrtPlanet (
-   void)
-:
-   DynBodyInit(),
-   planet_name(),
-   set_items(RefFrameItems::Pos_Vel_Att_Rate),
-   planet(nullptr)
+namespace jeod
 {
-   return;
-}
-
-
-/**
- * DynBodyInitWrtPlanet destructor.
- */
-DynBodyInitWrtPlanet::~DynBodyInitWrtPlanet (
-   void)
-{
-
-   return;
-}
-
 
 /**
  * Initialize the initializer.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitWrtPlanet::initialize (
-   DynManager & dyn_manager)
+void DynBodyInitWrtPlanet::initialize(DynManager & dyn_manager)
 {
+    // Find the planet, with error checking.
+    planet = find_planet(dyn_manager, planet_name, "planet_name");
 
-   // Find the planet, with error checking.
-   planet = find_planet (dyn_manager, planet_name, "planet_name");
+    // Initially set the reference ref_frame to the planet-centered inertial
+    // frame to ensure that the planet's state is computed.
+    reference_ref_frame = &planet->inertial;
 
-   // Initially set the reference ref_frame to the planet-centered inertial
-   // frame to ensure that the planet's state is computed.
-   reference_ref_frame = &planet->inertial;
-
-   // Pass the message up the chain. This will initialize the base
-   // characteristics of the instance.
-   DynBodyInit::initialize (dyn_manager);
-
-   return;
+    // Pass the message up the chain. This will initialize the base
+    // characteristics of the instance.
+    DynBodyInit::initialize(dyn_manager);
 }
-
 
 /**
  * Indicate what parts of the vehicle state this object initializes.
  * @return States initialized
  */
-RefFrameItems::Items
-DynBodyInitWrtPlanet::initializes_what (
-   void)
+RefFrameItems::Items DynBodyInitWrtPlanet::initializes_what()
 {
-   return (set_items);
+    return (set_items);
 }
-
-
 
 /**
  * Indicate whether the initializer is ready to run.
  * This particular implementation is just a pass-through.
  * @return Is initializer ready?
  */
-bool
-DynBodyInitWrtPlanet::is_ready (
-   void)
+bool DynBodyInitWrtPlanet::is_ready()
 {
-
-   // Defer the query to the parent class, DynBodyInit.
-   return (DynBodyInit::is_ready ());
+    // Defer the query to the parent class, DynBodyInit.
+    return (DynBodyInit::is_ready());
 }
-
 
 /**
  * Apply the initializer.
@@ -127,18 +85,13 @@ DynBodyInitWrtPlanet::is_ready (
  * Some derived class must do the actual work.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitWrtPlanet::apply (
-   DynManager & dyn_manager)
+void DynBodyInitWrtPlanet::apply(DynManager & dyn_manager)
 {
-
-   // Pass the message up the chain.
-   DynBodyInit::apply (dyn_manager);
-
-   return;
+    // Pass the message up the chain.
+    DynBodyInit::apply(dyn_manager);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

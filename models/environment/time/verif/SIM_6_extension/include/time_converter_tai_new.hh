@@ -45,7 +45,7 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
- 
+
 
 Library dependencies:
   ((../src/time_converter_tai_new.cc)
@@ -63,44 +63,40 @@ Library dependencies:
 #include "environment/time/include/time_converter.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeTAI;
 class TimeNew;
 
 /*----------------------------------------------------------------------------*/
-class TimeConverter_TAI_New : public TimeConverter {
+class TimeConverter_TAI_New : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_TAI_New)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_TAI_New)
-
-// Member Data
+    // Member Data
 private:
-  TimeTAI * tai_ptr; /* trick_io(**) @n
-    Converter parent time, always a TimeTAI for this converter. */
+    TimeTAI * tai_ptr{}; /* trick_io(**) @n
+      Converter parent time, always a TimeTAI for this converter. */
 
-  TimeNew * new_ptr; /* trick_io(**) @n
-    Converter parent time, always a TimeTT for this converter. */
+    TimeNew * new_ptr{}; /* trick_io(**) @n
+      Converter parent time, always a TimeTT for this converter. */
 
-// Member functions:
+    // Member functions:
 public:
-  // Constructor
-  TimeConverter_TAI_New();
-  // Destructor
-  ~TimeConverter_TAI_New() override;
+    TimeConverter_TAI_New();
+    ~TimeConverter_TAI_New() override = default;
+    TimeConverter_TAI_New(const TimeConverter_TAI_New &) = delete;
+    TimeConverter_TAI_New & operator=(const TimeConverter_TAI_New &) = delete;
 
 private:
-  // Initialize the converter
-  void initialize( JeodBaseTime * parent,
-                   JeodBaseTime * child,
-                  const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the forward direction
-  void convert_a_to_b(void) override;
-
-
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

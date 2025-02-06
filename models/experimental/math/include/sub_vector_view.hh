@@ -51,22 +51,20 @@ Purpose: ()
 SWIG: (No)
 */
 
-
 #ifndef JEOD_SUB_VECTOR_VIEW_HH
 #define JEOD_SUB_VECTOR_VIEW_HH
-
 
 #ifndef SWIG
 
 #include "forward_view.hh"
-#include "vector_view.hh"
 #include "solver_types.hh"
+#include "vector_view.hh"
 
 #include <stdexcept>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Provides a view into a part of a vector.
@@ -81,22 +79,15 @@ namespace jeod {
  *   This should also be ElemType in the case of a const SubVectorView so
  *   as to preclude alterations of the underlying object.
  */
-template<
-    class UnderlyingType,
-    typename ElemType,
-    typename RefType,
-    typename BaseRefType>
+template<class UnderlyingType, typename ElemType, typename RefType, typename BaseRefType>
 class SubVectorView : public VectorView<ElemType, BaseRefType>
 {
 public:
-
     /**
      * A const-correct SubVectorView must not provide any operations that
      * modify the underlying object.
      */
-    typedef SubVectorView<const UnderlyingType, ElemType, ElemType, ElemType>
-        SubVectorViewToConst;
-
+    using SubVectorViewToConst = SubVectorView<const UnderlyingType, ElemType, ElemType, ElemType>;
 
     /**
      * Non-default constructor.
@@ -108,33 +99,26 @@ public:
      *   and must not be greater than the underlying vector's size.
      * @throw std::out_of_range if the range is invalid.
      */
-    SubVectorView(
-        UnderlyingType& obj_in,
-        const SolverTypes::IndexPairT& range)
-    :
-        VectorView<ElemType, BaseRefType>(range.second-range.first),
-        obj(obj_in),
-        beg_elem(range.first)
+    SubVectorView(UnderlyingType & obj_in, const SolverTypes::IndexPairT & range)
+        : VectorView<ElemType, BaseRefType>(range.second - range.first),
+          obj(obj_in),
+          beg_elem(range.first)
     {
-        if ((range.second <  range.first) ||
-            (range.second >  obj.size()))
+        if((range.second < range.first) || (range.second > obj.size()))
         {
-            throw std::out_of_range(
-                "Attempt to create an invalid slice of a vector");
+            JEOD_THROW(std::out_of_range("Attempt to create an invalid slice of a vector"));
         }
     }
-
 
     /**
      * Conversion operator to the equivalent const-correct view.
      * @return const SubVectorView that does not allow the underlying
      * object to be modified.
      */
-    operator const SubVectorViewToConst& () const
+    operator const SubVectorViewToConst &() const
     {
-        return *reinterpret_cast<const SubVectorViewToConst*> (this);
+        return *reinterpret_cast<const SubVectorViewToConst *>(this);
     }
-
 
     /**
      * Non-const index operator.
@@ -142,18 +126,16 @@ public:
      * @return Reference to the indexed value of the view, which is the
      *   beg_elem+i_elem element of the underlying std::vector.
      */
-    virtual RefType operator[] (unsigned i_elem) override
+    RefType operator[](unsigned i_elem) override
     {
-        return obj[beg_elem+i_elem];
+        return obj[beg_elem + i_elem];
     }
 
-
 protected:
-
     /**
      * The underlying object.
      */
-    UnderlyingType& obj; //!< trick_units(--)
+    UnderlyingType & obj; //!< trick_units(--)
 
     /**
      * The vector element that corresponds to the zeroth view element.
@@ -161,12 +143,11 @@ protected:
     const unsigned beg_elem; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 
 #endif
-
 
 /**
  * @}

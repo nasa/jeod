@@ -52,14 +52,12 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
-
 #ifndef JEOD_LVLH_TYPE_HH
 #define JEOD_LVLH_TYPE_HH
-
 
 // System includes
 
@@ -68,61 +66,56 @@ Purpose:
 
 // Model includes
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used to identify the type of LVLH desired.
  */
-class LvlhType {
+class LvlhType
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LvlhType)
 
- JEOD_MAKE_SIM_INTERFACES(LvlhType)
+    // Enumerations
+public:
+    /**
+     * An enumeration to specify the type of LVLH coordinates to use,
+     * whether rectilinear, circular curvilinear, or elliptical
+     * curvilinear. As of March 2015, elliptical is not implemented.
+     */
+    enum Type
+    {
+        Rectilinear = 0, /*
+           Compute relative LVLH state using rectilinear coordinates; default. */
 
+        CircularCurvilinear = 1, /*
+           Compute relative LVLH state using circular curvilinear coordinates. */
 
- // Enumerations
- public:
+        EllipticalCurvilinear = 2 /*
+           Compute relative LVLH state using elliptical curvilinear coordinates;
+           option not yet implemented as of March 2015. */
+    };
 
-   /**
-    * An enumeration to specify the type of LVLH coordinates to use,
-    * whether rectilinear, circular curvilinear, or elliptical
-    * curvilinear. As of March 2015, elliptical is not implemented.
-    */
-   enum Type {
-      Rectilinear = 0, /*
-         Compute relative LVLH state using rectilinear coordinates; default. */
+    // Member data
+public:
+    /**
+     * Indicates type of LVLH coordinates desired. Default is rectilinear.
+     */
+    Type value; //!< trick_units(--)
 
-      CircularCurvilinear = 1, /*
-         Compute relative LVLH state using circular curvilinear coordinates. */
-
-      EllipticalCurvilinear = 2 /*
-         Compute relative LVLH state using elliptical curvilinear coordinates;
-         option not yet implemented as of March 2015. */
-   };
-
-
- // Member data
- public:
-
-   /**
-    * Indicates type of LVLH coordinates desired. Default is rectilinear.
-    */
-   Type value; //!< trick_units(--)
-
-
- // Methods
- public:
-
-   /**
-    * Default constructor.
-    */
-   LvlhType (void) {value = LvlhType::Rectilinear;}
-
+    // Methods
+public:
+    /**
+     * Default constructor.
+     */
+    LvlhType()
+    {
+        value = LvlhType::Rectilinear;
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

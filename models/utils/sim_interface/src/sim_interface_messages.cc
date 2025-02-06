@@ -24,10 +24,9 @@ Assumptions and limitations:
 Library dependencies:
   ((sim_interface_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 // System includes
 
@@ -38,9 +37,9 @@ Library dependencies:
 #define CLASS SimInterfaceMessages
 #define MAKE_MESSAGE_CODE(id) char const * CLASS::id = PATH #id
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Static member data
 
@@ -50,7 +49,7 @@ MAKE_MESSAGE_CODE(phasing_error);
 MAKE_MESSAGE_CODE(integration_error);
 MAKE_MESSAGE_CODE(implementation_error);
 
-} // End JEOD namespace
+} // namespace jeod
 
 #undef MAKE_MESSAGE_CODE
 #undef CLASS

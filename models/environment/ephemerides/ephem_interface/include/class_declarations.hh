@@ -64,12 +64,12 @@ Assumptions and limitations:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_INTERFACE_FORWARD_HH
 #define JEOD_EPHEM_INTERFACE_FORWARD_HH
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class EmptySpaceEphemeris;
 class EphemeridesMessages;
@@ -78,8 +78,7 @@ class EphemerisRefFrame;
 class SinglePlanetEphemeris;
 class SinglePointEphemeris;
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

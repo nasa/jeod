@@ -59,7 +59,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_BODY_ACTION_MESSAGES_HH
 #define JEOD_BODY_ACTION_MESSAGES_HH
 
@@ -69,7 +68,8 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies the message IDs used in the BodyAction model.
@@ -78,67 +78,59 @@ namespace jeod {
  *  - This is a complete catalog of all messages sent by the BodyAction model.
  *  - This is not an exhaustive list of all the things that can go awry.
  */
-class BodyActionMessages {
+class BodyActionMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyActionMessages)
 
+    // Static member data
 
- JEOD_MAKE_SIM_INTERFACES(BodyActionMessages)
+public:
+    /**
+     * Issued when performing an action results in an error return from the
+     * method performing the action.
+     */
+    static const char * fatal_error; //!< trick_units(--)
 
+    /**
+     * Issued when a simple type (e.g. an enum) has an illegal value.
+     */
+    static const char * illegal_value; //!< trick_units(--)
 
- // Static member data
+    /**
+     * Issued when a name is invalid (NULL, empty, or does not name an object
+     * of the specified type).
+     */
+    static const char * invalid_name; //!< trick_units(--)
 
- public:
+    /**
+     * Issued when a pointer points to an object of the wrong type.
+     */
+    static const char * invalid_object; //!< trick_units(--)
 
-   /**
-    * Issued when performing an action results in an error return from the
-    * method performing the action.
-    */
-   static char const * fatal_error; //!< trick_units(--)
+    /**
+     * Error issued when a pointer is required but was not provided.
+     */
+    static const char * null_pointer; //!< trick_units(--)
 
-   /**
-    * Issued when a simple type (e.g. an enum) has an illegal value.
-    */
-   static char const * illegal_value; //!< trick_units(--)
+    /**
+     * Issued when a BodyAction cannot be run.
+     */
+    static const char * not_performed; //!< trick_units(--)
 
-   /**
-    * Issued when a name is invalid (NULL, empty, or does not name an object
-    * of the specified type).
-    */
-   static char const * invalid_name; //!< trick_units(--)
+    /**
+     * Debug message issued to trace BodyAction actions.
+     */
+    static const char * trace; //!< trick_units(--)
 
-   /**
-    * Issued when a pointer points to an object of the wrong type.
-    */
-   static char const * invalid_object; //!< trick_units(--)
-
-   /**
-    * Error issued when a pointer is required but was not provided.
-    */
-   static char const * null_pointer; //!< trick_units(--)
-
-   /**
-    * Issued when a BodyAction cannot be run.
-    */
-   static char const * not_performed; //!< trick_units(--)
-
-   /**
-    * Debug message issued to trace BodyAction actions.
-    */
-   static char const * trace; //!< trick_units(--)
-
-
- // Member functions
- // This class is not instantiable.
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-
-   BodyActionMessages (void);
-   BodyActionMessages (const BodyActionMessages &);
-   BodyActionMessages & operator= (const BodyActionMessages &);
-
+    // Member functions
+    // This class is not instantiable.
+    // The constructors and assignment operator for this class are deleted.
+    BodyActionMessages() = delete;
+    BodyActionMessages(const BodyActionMessages &) = delete;
+    BodyActionMessages & operator=(const BodyActionMessages &) = delete;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

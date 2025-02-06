@@ -54,7 +54,6 @@ Purpose:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_BODY_REF_FRAME_HH
 #define JEOD_BODY_REF_FRAME_HH
 
@@ -63,88 +62,46 @@ Purpose:
 
 // JEOD includes
 #include "dynamics/mass/include/class_declarations.hh"
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/ref_frames/include/ref_frame.hh"
 #include "utils/ref_frames/include/ref_frame_items.hh"
-
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Extend RefFrame to add coupling between the reference frame tree and the
  * mass tree and to keep track of which state items have been set.
  */
-class BodyRefFrame : public RefFrame {
+class BodyRefFrame : public RefFrame
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyRefFrame)
 
-  JEOD_MAKE_SIM_INTERFACES(BodyRefFrame)
+    // Member data
 
+public:
+    /**
+     * Specifies which state elements (position, velocity, attitude, and rate)
+     * have been initialized.
+     */
+    RefFrameItems initialized_items; //!< trick_units(--)
 
- // Member data
+    /**
+     * Pointer to the mass point that defines the origin and orientation of this
+     * frame, but with respect to the mass tree rather than with respect to
+     * the reference frame tree.
+     */
+    MassPoint * mass_point{}; //!< trick_units(--)
 
- public:
-
-   /**
-    * Specifies which state elements (position, velocity, attitude, and rate)
-    * have been initialized.
-    */
-   RefFrameItems initialized_items; //!< trick_units(--)
-
-   /**
-    * Pointer to the mass point that defines the origin and orientation of this
-    * frame, but with respect to the mass tree rather than with respect to
-    * the reference frame tree.
-    */
-   MassPoint * mass_point; //!< trick_units(--)
-
-
- // Member functions
-
- // Make the copy constructor and assignment operator private
- // (and unimplemented) to avoid erroneous copies
- private:
-
-   BodyRefFrame (const BodyRefFrame &);
-   BodyRefFrame & operator= (const BodyRefFrame &);
-
-
- // Constructor and destructor
- public:
-
-   BodyRefFrame (void);
-   ~BodyRefFrame (void) override;
-
+    // Member functions
+    BodyRefFrame() = default;
+    ~BodyRefFrame() override = default;
+    BodyRefFrame(const BodyRefFrame &) = delete;
+    BodyRefFrame & operator=(const BodyRefFrame &) = delete;
 };
 
-
-
-/**
- * Default constructor.
- */
-inline
-BodyRefFrame::BodyRefFrame (
-   void)
-:
-   initialized_items(),
-   mass_point(nullptr)
-{
-   ; // Empty
-}
-
-
-/**
- * Destructor.
- */
-inline
-BodyRefFrame::~BodyRefFrame (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

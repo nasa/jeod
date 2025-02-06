@@ -40,11 +40,15 @@
  *---------------------------------------------------------------------------*
  ****************************************************************************/
 
-#define DYNAMICS      0.1
+#define DYNAMICS 0.1
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 //***************************************************************
@@ -60,38 +64,35 @@
 ##include "environment/gravity/include/spherical_harmonics_gravity_source.hh"
 ##include "environment/earth_lighting/verif/include/lighting_ephem.hh"
 
-class MngrSimObject : public Trick::SimObject {
-
+class MngrSimObject : public Trick::SimObject
+{
 public:
-   jeod::DynManager             dyn_manager;
-   jeod::DynManagerInit         dyn_manager_init;
+    jeod::DynManager dyn_manager;
+    jeod::DynManagerInit dyn_manager_init;
 
-   jeod::Planet sun;
-   jeod::Planet earth;
-   jeod::Planet moon;
-   jeod::SphericalHarmonicsGravitySource earth_grav;
-   jeod::SphericalHarmonicsGravitySource sun_grav;
-   jeod::SphericalHarmonicsGravitySource moon_grav;
-   jeod::LightingEphem ephem;
+    jeod::Planet sun;
+    jeod::Planet earth;
+    jeod::Planet moon;
+    jeod::SphericalHarmonicsGravitySource earth_grav;
+    jeod::SphericalHarmonicsGravitySource sun_grav;
+    jeod::SphericalHarmonicsGravitySource moon_grav;
+    jeod::LightingEphem ephem;
 
+    MngrSimObject()
+    {
+        P_ENV("initialization") ephem.ephem_initialize(dyn_manager);
+        P_ENV("initialization") sun.register_model(sun_grav, dyn_manager);
+        P_ENV("initialization") earth.register_model(earth_grav, dyn_manager);
+        P_ENV("initialization") moon.register_model(moon_grav, dyn_manager);
 
-    MngrSimObject() {
-
-      P_ENV ("initialization") ephem.ephem_initialize (dyn_manager);
-      P_ENV ("initialization") sun.register_model(sun_grav, dyn_manager);
-      P_ENV ("initialization") earth.register_model(earth_grav, dyn_manager);
-      P_ENV ("initialization") moon.register_model(moon_grav, dyn_manager);
-
-      P_ENV ("initialization") connect_planets(earth, moon, sun);
+        P_ENV("initialization") connect_planets(earth, moon, sun);
     }
 
-private:
-   MngrSimObject (const MngrSimObject&);
-   MngrSimObject & operator = (const MngrSimObject&);
-
+    MngrSimObject(const MngrSimObject &) = delete;
+    MngrSimObject & operator=(const MngrSimObject &) = delete;
 };
-MngrSimObject mngr;
 
+MngrSimObject mngr;
 
 /*****************************************************************************
 LightSimObject
@@ -100,33 +101,32 @@ Purpose:(Earth-lighting sim object)
 ##include "environment/earth_lighting/include/earth_lighting.hh"
 ##include "environment/earth_lighting/verif/include/lighting_sim_verif.hh"
 
-class LightSimObject : public Trick::SimObject {
-
+class LightSimObject : public Trick::SimObject
+{
 protected:
-   MngrSimObject & mngr;
+    MngrSimObject & mngr;
+
 public:
-   jeod::EarthLighting lighting;
+    jeod::EarthLighting lighting;
 
-   /* Define the circle_intersect input parameters*/
-   double r_bottom;  /* (m) radius of the circle underneath*/
-   double r_top;     /* (m) radius of the circle that is on top*/
-   double d_centers; /* (m) distance between the circle centers*/
-   double area;      /* (m2) Output area of intersection*/
+    /* Define the circle_intersect input parameters*/
+    double r_bottom;  /* (m) radius of the circle underneath*/
+    double r_top;     /* (m) radius of the circle that is on top*/
+    double d_centers; /* (m) distance between the circle centers*/
+    double area;      /* (m2) Output area of intersection*/
 
-   double position[3]; /* (m) spacecraft position */
+    double position[3]; /* (m) spacecraft position */
 
-   LightSimObject(MngrSimObject & ext_mngr)
-      :
-      mngr(ext_mngr)
-   {
-      P_ENV ("initialization") lighting.initialize(mngr.dyn_manager);
+    LightSimObject(MngrSimObject & ext_mngr)
+        : mngr(ext_mngr)
+    {
+        P_ENV("initialization") lighting.initialize(mngr.dyn_manager);
 
-      (DYNAMICS, "scheduled") lighting.calc_lighting(position);
+        (DYNAMICS, "scheduled") lighting.calc_lighting(position);
+    }
 
-   }
-private:
-   LightSimObject (const LightSimObject&);
-   LightSimObject & operator = (const LightSimObject&);
+    LightSimObject(const LightSimObject &) = delete;
+    LightSimObject & operator=(const LightSimObject &) = delete;
 };
 
 LightSimObject light(mngr);

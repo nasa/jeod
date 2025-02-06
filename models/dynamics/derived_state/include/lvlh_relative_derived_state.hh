@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_LVLH_RELATIVE_DERIVED_STATE_HH
 #define JEOD_LVLH_RELATIVE_DERIVED_STATE_HH
-
 
 // System includes
 
@@ -78,71 +76,57 @@ Library dependencies:
 // Model includes
 #include "relative_derived_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The class used for calculating the LVLH state of a subject DynBody
  * relative to some LVLH reference frame.
  */
-class LvlhRelativeDerivedState : public RelativeDerivedState {
+class LvlhRelativeDerivedState : public RelativeDerivedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, LvlhRelativeDerivedState)
 
- JEOD_MAKE_SIM_INTERFACES(LvlhRelativeDerivedState)
+    // Member data
 
+public:
+    /**
+     * Indicates type of LVLH coordinates desired. Default is rectilinear.
+     */
+    LvlhType::Type lvlh_type{LvlhType::Rectilinear}; //!< trick_units(--)
 
- // Member data
+    /**
+     * Indicates whether or not to correct for changing phase angle in
+     * curvilinear coordinates. Default is false.
+     */
+    bool use_theta_dot_correction{}; //!< trick_units(--)
 
- public:
+    // Methods
 
-   /**
-    * Indicates type of LVLH coordinates desired. Default is rectilinear.
-    */
-   LvlhType::Type lvlh_type; //!< trick_units(--)
+public:
+    // Default constructor and destructor
+    LvlhRelativeDerivedState();
+    ~LvlhRelativeDerivedState() override = default;
+    LvlhRelativeDerivedState(const LvlhRelativeDerivedState &) = delete;
+    LvlhRelativeDerivedState & operator=(const LvlhRelativeDerivedState &) = delete;
 
-   /**
-    * Indicates whether or not to correct for changing phase angle in
-    * curvilinear coordinates. Default is false.
-    */
-   bool use_theta_dot_correction; //!< trick_units(--)
+    // initialize(): Initialize the LvlhRelativeDerivedState instance
+    void initialize(DynBody & subject_body, DynManager & dyn_manager) override;
 
+    // update(): Compute the LVLH relative state
+    void update() override;
 
- // Methods
+    // Convert between types of LVLH coordinates
+    void convert_rect_to_circ(const RefFrameState & rect_rel_state);
+    void convert_circ_to_rect(const RefFrameState & circ_rel_state);
 
- public:
-
-   // Default constructor and destructor
-   LvlhRelativeDerivedState (void);
-   /**
-    * Destructor; defined because it's virtual.
-    */
-   ~LvlhRelativeDerivedState (void) override {return;}
-
-   // initialize(): Initialize the LvlhRelativeDerivedState instance
-   void initialize (DynBody & subject_body, DynManager & dyn_manager) override;
-
-   // update(): Compute the LVLH relative state
-   void update (void) override;
-
-   // Convert between types of LVLH coordinates
-   void convert_rect_to_circ (const RefFrameState & rect_rel_state);
-   void convert_circ_to_rect (const RefFrameState & circ_rel_state);
-
-
- private:
-
-   // Method to correct omega for variable phase angle
-   void do_theta_dot_correction(double omega[3], const RefFrameState &state,
-                                const double r, bool c2r);
-
-   // The copy constructor and assignment operator for this class are
-   // declared private and are not implemented.
-   LvlhRelativeDerivedState (const LvlhRelativeDerivedState&);
-   LvlhRelativeDerivedState & operator = (const LvlhRelativeDerivedState&);
-
+private:
+    // Method to correct omega for variable phase angle
+    void do_theta_dot_correction(double omega[3], const RefFrameState & state, const double r, bool c2r);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #endif

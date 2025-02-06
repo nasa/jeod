@@ -41,15 +41,20 @@ This sim is used to verify the JEOD gravity-torque model
 *******************************************************************************/
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 // Include the standard S-modules:
 #include "time_dyntime_only.sm"
+
 #include "dynamics.sm"
 #include "environment_sans_de405.sm"
 
@@ -65,29 +70,21 @@ Purpose:(Provides a planet called "Earth", but it is only loosely based on
 ##include "environment/planet/data/include/earth.hh"
 ##include "environment/gravity/verif/data/include/grav_verif.hh"
 
-class EarthSimObject: public PlanetGenericSimObject{
- public:
-  jeod::Planet_earth_default_data  earth_default_data;
-  jeod::SphericalHarmonicsGravitySource_grav_verif_default_data grav_default_data;
+class EarthSimObject: public PlanetGenericSimObject
+{
+public:
+    jeod::Planet_earth_default_data earth_default_data;
+    jeod::SphericalHarmonicsGravitySource_grav_verif_default_data grav_default_data;
 
-  EarthSimObject( jeod::DynManager   & dyn_manager_in,
-                  jeod::GravityManager & grav_in)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            grav_in,
-                            earth_default_data,
-                            grav_default_data)
-  {
-  };
- private:
-  // Unimplemented copy constructor and assignment operator
-  EarthSimObject (const EarthSimObject&);
-  EarthSimObject & operator = (const EarthSimObject&);
+    EarthSimObject(jeod::DynManager & dyn_manager_in, jeod::GravityManager & grav_in)
+        : PlanetGenericSimObject(dyn_manager_in, grav_in, earth_default_data, grav_default_data){};
+
+    // Unimplemented copy constructor and assignment operator
+    EarthSimObject(const EarthSimObject &) = delete;
+    EarthSimObject & operator=(const EarthSimObject &) = delete;
 };
 
-EarthSimObject earth( dynamics.dyn_manager,
-                      env.gravity_manager);
-
+EarthSimObject earth(dynamics.dyn_manager, env.gravity_manager);
 
 /*****************************************************************************
 VehicleSimObject
@@ -103,33 +100,29 @@ Purpose:(Models the vehicle)
 
 class VehicleSimObject: public VehicleBasicSimObject
 {
- public:
-  jeod::DynBodyInitLvlhRotState lvlh_init;
-  jeod::GravityTorque grav_torque;
+public:
+    jeod::DynBodyInitLvlhRotState lvlh_init;
+    jeod::GravityTorque grav_torque;
 
-  jeod::GravityVerification grav_verif;
+    jeod::GravityVerification grav_verif;
 
-  double attitude_PYR[3]; // (degree) spacecraft attitude ( PYR euler angles)
-  double position[3];
+    double attitude_PYR[3]; // (degree) spacecraft attitude ( PYR euler angles)
+    double position[3];
 
-  //Constructor
-  VehicleSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {
-    ("initialization") grav_torque.initialize( dyn_body );
+    // Constructor
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+        ("initialization") grav_torque.initialize(dyn_body);
 
-    (DYNAMICS, "environment") grav_torque.update();
-    (DYNAMICS, "environment") grav_verif.verify_grav_torque(
-                                                         attitude_PYR,
-                                                         position,
-                                                         grav_torque.torque);
-  }
+        (DYNAMICS, "environment") grav_torque.update();
+        (DYNAMICS, "environment") grav_verif.verify_grav_torque(attitude_PYR, position, grav_torque.torque);
+    }
 
- private:
-  VehicleSimObject (const VehicleSimObject&);
-  VehicleSimObject & operator = (const VehicleSimObject&);
+    VehicleSimObject(const VehicleSimObject &) = delete;
+    VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
-VehicleSimObject vehicle ( dynamics.dyn_manager );
 
-IntegLoop sim_integ_loop (DYNAMICS) dynamics;
+VehicleSimObject vehicle(dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics;

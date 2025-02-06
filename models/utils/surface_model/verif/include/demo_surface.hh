@@ -47,93 +47,68 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     (../src/demo_surface.cc)
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_DEMO_SURFACES_HH
 #define JEOD_DEMO_SURFACES_HH
 
+#include "demo_interaction_facet.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/surface_model/include/facet.hh"
-#include "utils/surface_model/include/interaction_surface.hh"
 #include "utils/surface_model/include/interaction_facet_factory.hh"
-#include "demo_interaction_facet.hh"
+#include "utils/surface_model/include/interaction_surface.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class DemoSurface1 : public InteractionSurface {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoSurface1)
-
-public:
-
-   // constructor
-   DemoSurface1();
-
-   // destructor
-   ~DemoSurface1() override;
-
-   DemoFacet1** demo_facets; /* trick_units(--) @n
-      Array of facets to be tested */
-
-   unsigned int facets_size; /* trick_units(count) @n
-      Size of the demo_facets array */
-
-   void allocate_array(unsigned int size) override;
-   void allocate_interaction_facet(Facet* facet,
-                                       InteractionFacetFactory* factory,
-                                       FacetParams* params,
-                                       unsigned int index) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   DemoSurface1& operator = (const DemoSurface1& rhs);
-   DemoSurface1(const DemoSurface1& rhs);
-
-};
-
-class DemoSurface2 : public InteractionSurface {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoSurface2)
+class DemoSurface1 : public InteractionSurface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoSurface1)
 
 public:
+    DemoSurface1();
+    ~DemoSurface1() override;
+    DemoSurface1 & operator=(const DemoSurface1 &) = delete;
+    DemoSurface1(const DemoSurface1 &) = delete;
 
-   // constructor
-   DemoSurface2();
+    DemoFacet1 ** demo_facets{}; /* trick_units(--) @n
+        Array of facets to be tested */
 
-   // destructor
-   ~DemoSurface2() override;
+    unsigned int facets_size{}; /* trick_units(count) @n
+       Size of the demo_facets array */
 
-   DemoFacet2** demo_facets; /* trick_units(--) @n
-      Array of facets to be tested */
-
-   unsigned int facets_size; /* trick_units(count) @n
-      Size of the demo_facets array */
-
-   void allocate_array(unsigned int size) override;
-   void allocate_interaction_facet(Facet* facet,
-                                       InteractionFacetFactory* factory,
-                                       FacetParams* params,
-                                       unsigned int index) override;
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   DemoSurface2& operator = (const DemoSurface2& rhs);
-   DemoSurface2(const DemoSurface2& rhs);
-
+    void allocate_array(unsigned int size) override;
+    void allocate_interaction_facet(Facet * facet,
+                                    InteractionFacetFactory * factory,
+                                    FacetParams * params,
+                                    unsigned int index) override;
 };
 
-} // End JEOD namespace
+class DemoSurface2 : public InteractionSurface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoSurface2)
+
+public:
+    DemoSurface2();
+    ~DemoSurface2() override;
+    DemoSurface2 & operator=(const DemoSurface2 &) = delete;
+    DemoSurface2(const DemoSurface2 &) = delete;
+
+    DemoFacet2 ** demo_facets{}; /* trick_units(--) @n
+        Array of facets to be tested */
+
+    unsigned int facets_size{}; /* trick_units(count) @n
+       Size of the demo_facets array */
+
+    void allocate_array(unsigned int size) override;
+    void allocate_interaction_facet(Facet * facet,
+                                    InteractionFacetFactory * factory,
+                                    FacetParams * params,
+                                    unsigned int index) override;
+};
+
+} // namespace jeod
 
 #endif

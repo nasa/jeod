@@ -25,45 +25,39 @@ LIBRARY DEPENDENCY:
    (time.cc)
    (time_manager.cc)
    (time_messages.cc)
-   (utils/sim_interface/src/memory_interface.cc)
    (utils/message/src/message_handler.cc)
    (utils/named_item/src/named_item.cc))
 
- 
+
 ******************************************************************************/
 
 // System includes
 #include <cstddef>
 
 // JEOD includes
+#include "utils/math/include/numerical.hh"
+#include "utils/memory/include/jeod_alloc.hh"
 #include "utils/message/include/message_handler.hh"
 #include "utils/named_item/include/named_item.hh"
-#include "utils/memory/include/jeod_alloc.hh"
-#include "utils/math/include/numerical.hh"
 
 // Model includes
 #include "../include/time_dyn.hh"
 #include "../include/time_manager.hh"
 #include "../include/time_manager_init.hh"
-#include "../include/time_standard.hh"
 #include "../include/time_messages.hh"
-
+#include "../include/time_standard.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Construct a Time_Dyn
  */
-TimeDyn::TimeDyn (
-   void)
+TimeDyn::TimeDyn()
 {
-   name = "Dyn";
-   links.make_root();
-
-   scale_factor = 1.0;
-   ref_scale    = 1.0;
-   offset       = 0.0;
+    name = "Dyn";
+    links.make_root();
 }
 
 /**
@@ -78,25 +72,22 @@ TimeDyn::TimeDyn (
  *     inherit the one in TimeDerived
  * \param[in] time_manager_init TM initializer
  */
-void
-TimeDyn::initialize_initializer_time (
-   TimeManagerInit * time_manager_init JEOD_UNUSED)
+void TimeDyn::initialize_initializer_time(TimeManagerInit * time_manager_init JEOD_UNUSED)
 {
-   // cannot use TimeDyn as the initializer when there are time-types with
-   // absolute values in the simulation.
-   if (time_manager->time_standards_exist()) {
-      MessageHandler::fail (
-         __FILE__, __LINE__, TimeMessages::invalid_setup_error, "\n"
-         "Cannot use TimeDyn as the initializer when there are time-types \n"
-         "with absolute values in the simulation.");
-   }
-   seconds     = 0.0;
-   initialized = true;
-
-   return;
+    // cannot use TimeDyn as the initializer when there are time-types with
+    // absolute values in the simulation.
+    if(time_manager->time_standards_exist())
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             TimeMessages::invalid_setup_error,
+                             "\n"
+                             "Cannot use TimeDyn as the initializer when there are time-types \n"
+                             "with absolute values in the simulation.");
+    }
+    seconds = 0.0;
+    initialized = true;
 }
-
-
 
 /**
  * TimeDyn updates directly from simtime, and everything else from
@@ -106,53 +97,39 @@ TimeDyn::initialize_initializer_time (
  *  - ref_scale is positive for forward-pregoressing sims, and negative
  *                for reverse-progressing sims.
  */
-void
-TimeDyn::update (
-   void)
+void TimeDyn::update()
 {
-   seconds = time_manager->simtime * ref_scale + offset;
-   return;
+    seconds = time_manager->simtime * ref_scale + offset;
 }
-
-
 
 /**
  * Changeing time direction and/or scale factor
  * @return Void
  */
-bool
-TimeDyn::update_offset (
-   void)
+bool TimeDyn::update_offset()
 {
-   /* The scale-factor can be changed mid-sim.
-      TimeDyn uses this value to determine the rate and direction in which time
-      propagates with respect to simtime.
-      ref_scale is the recorded scale, testing scale_factor against ref-scale
-      identifies whether scale_factor has been externally modified. */
-   if (!Numerical::compare_exact(ref_scale,scale_factor)) {
-      offset    = seconds - (scale_factor * time_manager->simtime);
-      if (ref_scale * scale_factor < 0) { // if there is a direction change
-         time_manager->verify_table_lookup_ends(); // adjusts end-of-table settings
-      }
-      ref_scale = scale_factor;
-      return true;
-   }
-   else {
-      return false;
-   }
+    /* The scale-factor can be changed mid-sim.
+       TimeDyn uses this value to determine the rate and direction in which time
+       propagates with respect to simtime.
+       ref_scale is the recorded scale, testing scale_factor against ref-scale
+       identifies whether scale_factor has been externally modified. */
+    if(!Numerical::compare_exact(ref_scale, scale_factor))
+    {
+        offset = seconds - (scale_factor * time_manager->simtime);
+        if(ref_scale * scale_factor < 0)
+        {                                             // if there is a direction change
+            time_manager->verify_table_lookup_ends(); // adjusts end-of-table settings
+        }
+        ref_scale = scale_factor;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-
-/**
- * Destroy a Time_Dyn
- */
-TimeDyn::~TimeDyn (
-   void)
-{
-}
-
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

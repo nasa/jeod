@@ -46,16 +46,18 @@ Library dependencies:
 #ifndef JEOD_SPHERICALHARMONICSSOLIDBODYTIDESINIT_EARTH_SOLID_TIDES_DEFAULT_DATA_H
 #define JEOD_SPHERICALHARMONICSSOLIDBODYTIDESINIT_EARTH_SOLID_TIDES_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class SphericalHarmonicsSolidBodyTidesInit;
 
-class SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data {
- public:
-   void initialize (SphericalHarmonicsSolidBodyTidesInit*);
+class SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data
+{
+public:
+    void initialize(SphericalHarmonicsSolidBodyTidesInit *);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

@@ -51,18 +51,23 @@ The following simulation objects are defined in this sim:
 ==============================================================================*/
 
 // Define job calling intervals
-#define DYNAMICS        1.00  // Moon/orbital dynamics interval
-#define LOW_RATE_ENV 5400.00  // Ephemeris update frequency
+#define DYNAMICS 1.00        // Moon/orbital dynamics interval
+#define LOW_RATE_ENV 5400.00 // Ephemeris update frequency
 
 // Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics.sm"
-#include "environment.sm"
 #include "earth_GGM05C.sm"
+#include "environment.sm"
 
 /*****************************************************************************
 VehSimObject
@@ -72,27 +77,24 @@ Purpose:(Models the vehicle)
 ##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
 ##include "dynamics/derived_state/include/planetary_derived_state.hh"
-class VehSimObject: public VehicleBasicSimObject {
+class VehSimObject: public VehicleBasicSimObject
+{
+public:
+    jeod::DynBodyInitOrbit init_orbit;
+    jeod::DynBodyInitLvlhRotState init_lvlh;
+    jeod::PlanetaryDerivedState pfix;
 
- public:
-  jeod::DynBodyInitOrbit  init_orbit;
-  jeod::DynBodyInitLvlhRotState init_lvlh;
-  jeod::PlanetaryDerivedState pfix;
+    VehSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
+    {
+        P_DYN("initialization") pfix.initialize(dyn_body, dyn_manager);
+        (DYNAMICS, "environment") pfix.update();
+    }
 
-  VehSimObject( jeod::DynManager & dyn_mngr_in)
-    :
-    VehicleBasicSimObject( dyn_mngr_in)
-  {
-    P_DYN  ("initialization") pfix.initialize ( dyn_body,
-                                               dyn_manager);
-    (DYNAMICS, "environment") pfix.update ( );
-  }
-
- private:
-  VehSimObject (const VehSimObject&);
-  VehSimObject & operator = (const VehSimObject&);
-
+    VehSimObject(const VehSimObject &) = delete;
+    VehSimObject & operator=(const VehSimObject &) = delete;
 };
-VehSimObject veh ( dynamics.dyn_manager);
 
-IntegLoop sim_integ_loop  (DYNAMICS) dynamics, earth;
+VehSimObject veh(dynamics.dyn_manager);
+
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

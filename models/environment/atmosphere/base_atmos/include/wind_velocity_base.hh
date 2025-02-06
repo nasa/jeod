@@ -64,9 +64,9 @@ Library dependencies:
 
 /* A base class for wind velocity objects */
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * The generic base class for wind velocity classes.
@@ -74,29 +74,20 @@ namespace jeod {
  * capability but is left here for backward compatibility.  It should not be
  * used.
  */
-class WindVelocityBase {
-
-   JEOD_MAKE_SIM_INTERFACES(WindVelocityBase)
+class WindVelocityBase
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, WindVelocityBase)
 
 public:
+    WindVelocityBase() = default;
+    virtual ~WindVelocityBase() = default;
+    WindVelocityBase(const WindVelocityBase &) = delete;
+    WindVelocityBase & operator=(const WindVelocityBase &) = delete;
 
-   // Consructor
-   WindVelocityBase ();
-
-   // Destructor
-   virtual ~WindVelocityBase ();
-
-   virtual void update_wind (
-      double position[3], double altitude, double wind_inertial[3]);
-
-private:
-
-   // operator = and copy constructor locked from use by being private
-   WindVelocityBase (const WindVelocityBase& rhs);
-   WindVelocityBase& operator = (const WindVelocityBase& rhs);
+    virtual void update_wind(double position[3], double altitude, double wind_inertial[3]);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

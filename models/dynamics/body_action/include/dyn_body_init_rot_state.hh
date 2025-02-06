@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_ROT_STATE_HH
 #define JEOD_DYN_BODY_INIT_ROT_STATE_HH
-
 
 // System includes
 
@@ -73,87 +71,61 @@ Library dependencies:
 #include "class_declarations.hh"
 #include "dyn_body_init.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize aspects of a vehicle's rotational state.
  */
-class DynBodyInitRotState : public DynBodyInit {
+class DynBodyInitRotState : public DynBodyInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitRotState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitRotState)
+    // Enumerations
 
+public:
+    /**
+     * Identify which of attitude/rate is to be initialized.
+     */
+    enum StateItems
+    {
+        Both = 0,     ///< Initialize both attitude and rate
+        Attitude = 1, ///< Initialize attitude only
+        Rate = 2      ///< Initialize rate only
+    };
 
- // Enumerations
+    // Member data
 
- public:
+public:
+    /**
+     * State items to be initialized -- attitude, rate, or both.
+     */
+    StateItems state_items{Both}; //!< trick_units(--)
 
-   /**
-    * Identify which of attitude/rate is to be initialized.
-    */
-   enum StateItems {
-      Both      = 0, ///< Initialize both attitude and rate
-      Attitude  = 1, ///< Initialize attitude only
-      Rate      = 2  ///< Initialize rate only
-   };
+    // Member functions
+public:
+    DynBodyInitRotState() = default;
+    ~DynBodyInitRotState() override = default;
+    DynBodyInitRotState(const DynBodyInitRotState &) = delete;
+    DynBodyInitRotState & operator=(const DynBodyInitRotState &) = delete;
 
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
- // Member data
+    // apply: Apply the state to the subject body.
+    void apply(DynManager & dyn_manager) override;
 
- public:
+    // initializes_what: Indicate what aspect of the state is initialized.
+    // The DynBodyInitRotSate initializes position and velocity.
+    RefFrameItems::Items initializes_what() override;
 
-   /**
-    * State items to be initialized -- attitude, rate, or both.
-    */
-   StateItems state_items; //!< trick_units(--)
-
-
- // Member functions
-
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DynBodyInitRotState (const DynBodyInitRotState&);
-   DynBodyInitRotState & operator = (const DynBodyInitRotState&);
-
-
- public:
-
-   DynBodyInitRotState ();
-
-   ~DynBodyInitRotState () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // apply: Apply the state to the subject body.
-   void apply (DynManager & dyn_manager) override;
-
-   // initializes_what: Indicate what aspect of the state is initialized.
-   // The DynBodyInitRotSate initializes position and velocity.
-   RefFrameItems::Items initializes_what (void) override;
-
-   // is_ready: Indicate whether the initializer is ready to be applied.
-   // The base DynBodyInit is always ready.
-   bool is_ready (void) override;
-
+    // is_ready: Indicate whether the initializer is ready to be applied.
+    // The base DynBodyInit is always ready.
+    bool is_ready() override;
 };
 
-
-/**
- * Destructor.
- */
-inline
-DynBodyInitRotState::~DynBodyInitRotState (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

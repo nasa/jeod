@@ -65,7 +65,6 @@ Library dependencies:
 
 */
 
-
 #ifndef JEOD_AERO_DRAG_HH
 #define JEOD_AERO_DRAG_HH
 
@@ -76,157 +75,147 @@ Library dependencies:
 #include "default_aero.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class AtmosphereState;
 class AeroSurface;
 
-
-
-
 /**
  * Contains enumerations associated with aerodynamic drag
  */
-class AeroDragEnum {
+class AeroDragEnum
+{
 public:
-
-
-   /**
-    * Dictates how the coefficients of drag will be
-    * calculated when using a flat plate model.
-    */
-  enum CoefCalcMethod {
-    Specular = 0 , /*
-       Molecules "bounce" producing forces in the normal-direction only */
-    Diffuse ,      /*
-       Molecules "stick" to the plate, producing forces in the direction of
-       the relative velocity */
-    Mixed ,        /*
-       A method that combines the specular and diffuse methods */
-    Calc_coef      /*
-       Drag coefficients are calculated for direct pressure (normal to the
-       surface) and slip-friction (tangential to the surface) based on
-       angle of attack, material diffuse/specular properties, wall temperature,
-       altitude and gas constant */
-  };
+    /**
+     * Dictates how the coefficients of drag will be
+     * calculated when using a flat plate model.
+     */
+    enum CoefCalcMethod
+    {
+        Specular = 0, /*
+          Molecules "bounce" producing forces in the normal-direction only */
+        Diffuse,      /*
+          Molecules "stick" to the plate, producing forces in the direction of
+          the relative velocity */
+        Mixed,        /*
+          A method that combines the specular and diffuse methods */
+        Calc_coef     /*
+          Drag coefficients are calculated for direct pressure (normal to the
+          surface) and slip-friction (tangential to the surface) based on
+          angle of attack, material diffuse/specular properties, wall temperature,
+          altitude and gas constant */
+    };
 };
-
-
 
 /**
  * Contains parameters associated with aerodynamic drag.
  */
-class AeroDragParameters {
+class AeroDragParameters
+{
 public:
-   /**
-    * dynamic pressure, 0.5 * density * velocity^2
-    */
-  double dynamic_pressure; //!< trick_units(N/m2)
+    /**
+     * dynamic pressure, 0.5 * density * velocity^2
+     */
+    double dynamic_pressure{}; //!< trick_units(N/m2)
 
-   /**
-    * gas constant, ala PV = mRT; R = 287 for air.
-    */
-  double gas_const;        //!< trick_units(N*m/kg/K)
+    /**
+     * gas constant, ala PV = mRT; R = 287 for air.
+     */
+    double gas_const{}; //!< trick_units(N*m/kg/K)
 
-   /**
-    * temperature of the incident stream of free molecular flow.
-    */
-  double temp_free_stream; //!< trick_units(K)
+    /**
+     * temperature of the incident stream of free molecular flow.
+     */
+    double temp_free_stream{}; //!< trick_units(K)
 };
-
 
 /**
  * The main class for calculating aerodynamic drag.
  */
-class AerodynamicDrag {
+class AerodynamicDrag
+{
 public:
-   /**
-    * On = aerodynamics enabled
-    */
-   bool   active ;     //!< trick_units(--)
+    /**
+     * On = aerodynamics enabled
+     */
+    bool active{true}; //!< trick_units(--)
 
-   /**
-    * Use constant density for aero drag?
-    */
-   bool constant_density; //!< trick_units(--)
+    /**
+     * Use constant density for aero drag?
+     */
+    bool constant_density{}; //!< trick_units(--)
 
-   /**
-    * Density of the last time AerodynamicDrag was
-    * used. If constant_density is set true,
-    * then this is the density that will be used
-    */
-   double density; //!< trick_units(kg/m3)
+    /**
+     * Density of the last time AerodynamicDrag was
+     * used. If constant_density is set true,
+     * then this is the density that will be used
+     */
+    double density{}; //!< trick_units(kg/m3)
 
-   /**
-    * Total Force due to aero drag, resulting from all plates combined
-    */
-   double aero_force[3];        //!< trick_units(N)
+    /**
+     * Total Force due to aero drag, resulting from all plates combined
+     */
+    double aero_force[3]{}; //!< trick_units(N)
 
-   /**
-    * Total torque due to aero drag, resulting from all plates combined
-    */
-   double aero_torque[3];       //!< trick_units(N*m)
+    /**
+     * Total torque due to aero drag, resulting from all plates combined
+     */
+    double aero_torque[3]{}; //!< trick_units(N*m)
 
-   /**
-    * parameters shared with plate model
-    */
-   AeroDragParameters param;  //!< trick_units(--)
+    /**
+     * parameters shared with plate model
+     */
+    AeroDragParameters param; //!< trick_units(--)
 
-   /**
-    * Use the default behavior?
-    */
-   bool use_default_behavior; //!< trick_units(--)
+    /**
+     * Use the default behavior?
+     */
+    bool use_default_behavior{true}; //!< trick_units(--)
 
-   /**
-    * Pointer to the current aero surface
-    */
-   AeroSurface* aero_surface_ptr; //!< trick_units(--)
+    /**
+     * Pointer to the current aero surface
+     */
+    AeroSurface * aero_surface_ptr{}; //!< trick_units(--)
 
-   /**
-    * Pointer to an object that defines the default aero behavior.
-    * This is used if the AeroSurface pointer in aero_drag is set to NULL.
-    * Defaults to ballistic drag, but can be overridden
-    */
-   DefaultAero* default_behavior; //!< trick_units(--)
+    /**
+     * Pointer to an object that defines the default aero behavior.
+     * This is used if the AeroSurface pointer in aero_drag is set to NULL.
+     * Defaults to ballistic drag, but can be overridden
+     */
+    DefaultAero * default_behavior; //!< trick_units(--)
 
-   /**
-    * Spherical, ballistic drag.
-    * The default, default behavior. Can be overridden by resetting
-    * the "default_behavior" pointer
-    */
-   DefaultAero ballistic_drag; //!< trick_units(--)
+    /**
+     * Spherical, ballistic drag.
+     * The default, default behavior. Can be overridden by resetting
+     * the "default_behavior" pointer
+     */
+    DefaultAero ballistic_drag; //!< trick_units(--)
 
+    AerodynamicDrag();
+    virtual ~AerodynamicDrag() = default;
+    AerodynamicDrag(const AerodynamicDrag &) = delete;
+    AerodynamicDrag & operator=(const AerodynamicDrag &) = delete;
 
+    void aero_drag(double inertial_velocity[3],
+                   AtmosphereState * atmos_ptr,
+                   double T_inertial_struct[3][3],
+                   double mass,
+                   double center_grav[3]);
 
-   AerodynamicDrag ();
-   virtual ~AerodynamicDrag ();
-   void aero_drag (
-      double inertial_velocity[3],
-      AtmosphereState* atmos_ptr,
-      double T_inertial_struct[3][3],
-      double mass,
-      double center_grav[3]);
+    // Set the variable aero_surface_ptr.
+    void set_aero_surface(AeroSurface & to_set);
 
-   // Set the variable aero_surface_ptr.
-   void set_aero_surface(AeroSurface& to_set);
-
-   // clears the AeroSurface used for calculation.
-   void clear_aero_surface();
-
-private:
-    // The DefaultAero object is not copyable, therefore this object is not copyable.
-    AerodynamicDrag (const AerodynamicDrag &);
-    AerodynamicDrag & operator =(const AerodynamicDrag &);
-
+    // clears the AeroSurface used for calculation.
+    void clear_aero_surface();
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "aero_surface.hh"
 #endif
 #endif
-
 
 /**
  * @}

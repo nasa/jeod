@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_UTC_initialized/ 
+#  (To define the input data for simulation SET_test/RUN_UTC_initialized/
 ####################################################################################
 
 
@@ -17,13 +17,6 @@ log_rec( LOG_CYCLE )
 
 #############  ASSIGNMENTS, CALLS, and CONTROL  #################
 
-#sys.exec.in.trap_sigfpe          = 1;
-#sys.exec.in.pre_init_checkpoint  = 0;
-#sys.exec.in.post_init_checkpoint = 0;
-#sys.exec.in.end_checkpoint       = 0;
-#sys.exec.in.reduced_checkpoint   = 0;
-#sys.exec.sim_com.monitor_on      = 0;
-#sys.exec.rt_log.group[0].record  = 0;
 
 jeod_time.manager_init.initializer = "UTC"
 jeod_time.manager_init.sim_start_format = trick.TimeEnum.calendar
@@ -39,23 +32,23 @@ jeod_time.utc.calendar_second = 50.0
 #// These three blocks should be equivalent                         //
 #// (but only because 50 UTC seconds = 50 TAI seconds at this time)://
 #/////////////////////////////////////////////////////////////////////
-jeod_time.metveh1.epoch_defined_in_name = "UTC"                    
-jeod_time.metveh1.epoch_format = trick.TimeEnum.calendar            
-jeod_time.metveh1.epoch_year = 1998                                
-jeod_time.metveh1.epoch_month = 12                                 
-jeod_time.metveh1.epoch_day = 31                                   
-jeod_time.metveh1.epoch_hour = 23                                  
-jeod_time.metveh1.epoch_minute = 59                                
-jeod_time.metveh1.epoch_second = 0.0                               
+jeod_time.metveh1.epoch_defined_in_name = "UTC"
+jeod_time.metveh1.epoch_format = trick.TimeEnum.calendar
+jeod_time.metveh1.epoch_year = 1998
+jeod_time.metveh1.epoch_month = 12
+jeod_time.metveh1.epoch_day = 31
+jeod_time.metveh1.epoch_hour = 23
+jeod_time.metveh1.epoch_minute = 59
+jeod_time.metveh1.epoch_second = 0.0
 #///////////////////////////////////////////////////////////////////////
-#//time.metveh1.initial_value_format = TimeEnum::calendar;
-#//time.metveh1.clock_day = 0;                            
-#//time.metveh1.clock_hour = 0;                           
-#//time.metveh1.clock_minute = 0;                         
-#//time.metveh1.clock_second = 50.0;                      
+#//time.metveh1.initial_value_format = TimeEnum::calendar
+#//time.metveh1.clock_day = 0
+#//time.metveh1.clock_hour = 0
+#//time.metveh1.clock_minute = 0
+#//time.metveh1.clock_second = 50.0
 #///////////////////////////////////////////////////////////////////////
-#//time.metveh1.initial_value_format = TimeEnum::seconds_since_epoch;
-#//time.metveh1.initializing_value = 50.0;                           
+#//time.metveh1.initial_value_format = TimeEnum::seconds_since_epoch
+#//time.metveh1.initializing_value = 50.0
 #///////////////////////////////////////////////////////////////////////
 
 
@@ -66,9 +59,9 @@ jeod_time.metveh1.epoch_second = 0.0
 jeod_time.metveh2.initial_value_format = trick.TimeEnum.seconds_since_epoch
 jeod_time.metveh2.initializing_value = -5.0
 #/////////////////////////////////////////////////////////////////////////
-#//time.metveh2.epoch_defined_in_name = "met_veh1";          
-#//time.metveh2.epoch_format = TimeEnum::seconds_since_epoch;
-#//time.metveh2.epoch_initializing_value = 55.0;             
+#//time.metveh2.epoch_defined_in_name = "met_veh1"
+#//time.metveh2.epoch_format = TimeEnum::seconds_since_epoch
+#//time.metveh2.epoch_initializing_value = 55.0
 #/////////////////////////////////////////////////////////////////////////
 
 

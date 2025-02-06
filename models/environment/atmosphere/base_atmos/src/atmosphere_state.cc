@@ -22,71 +22,38 @@ PURPOSE:
 
 // JEOD includes
 
-#include "utils/math/include/vector3.hh"
-
 // Model includes
 #include "../include/atmosphere_state.hh"
 #include "../include/wind_velocity.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/*****************************************************************************
-Constructors
-*****************************************************************************/
-AtmosphereState::AtmosphereState ()
-   :
-   active(true),
-   temperature(0.0),
-   density(0.0),
-   pressure(0.0),
-   atmos(nullptr),
-   pfix_pos(nullptr)
+namespace jeod
 {
-   Vector3::initialize (wind);
-}
+
 /****************************************************************************/
-AtmosphereState::AtmosphereState (
-   Atmosphere                & atmos_,
-   const PlanetFixedPosition & pfix_pos_)
-   :
-   active(true),
-   temperature(0.0),
-   density(0.0),
-   pressure(0.0),
-   atmos(    &atmos_),
-   pfix_pos( &pfix_pos_)
+AtmosphereState::AtmosphereState(Atmosphere & atmos_, const PlanetFixedPosition & pfix_pos_)
+    : atmos(&atmos_),
+      pfix_pos(&pfix_pos_)
 {
-   Vector3::initialize (wind);
 }
-
-/*****************************************************************************
-destructor
-*****************************************************************************/
-AtmosphereState::~AtmosphereState ()
-{ }
-
-
 
 /**
  * Copy Constructor
  * \param[in] rhs The AtmosphereState to copy from
  */
 
-AtmosphereState::AtmosphereState (
-   const AtmosphereState& rhs)
+AtmosphereState::AtmosphereState(const AtmosphereState & rhs)
 {
+    temperature = rhs.temperature;
+    density = rhs.density;
+    pressure = rhs.pressure;
 
-   temperature = rhs.temperature;
-   density     = rhs.density;
-   pressure    = rhs.pressure;
-
-   for (unsigned int ii = 0; ii < 3; ++ii) {
-      wind[ii] = rhs.wind[ii];
-   }
-   atmos       = rhs.atmos;
-   pfix_pos    = rhs.pfix_pos;
+    for(unsigned int ii = 0; ii < 3; ++ii)
+    {
+        wind[ii] = rhs.wind[ii];
+    }
+    atmos = rhs.atmos;
+    pfix_pos = rhs.pfix_pos;
 }
 
 /**
@@ -95,21 +62,19 @@ AtmosphereState::AtmosphereState (
  * \param[in] rhs The AtmosphereState to copy
  */
 
-
-AtmosphereState&
-AtmosphereState::operator = ( // cppcheck-suppress operatorEqVarError
-   const AtmosphereState& rhs)
+AtmosphereState & AtmosphereState::operator=( // cppcheck-suppress operatorEqVarError
+    const AtmosphereState & rhs)
 {
+    if(this == &rhs)
+    {
+        return *this;
+    }
 
-   if (this == &rhs) {
-      return *this;
-   }
+    temperature = rhs.temperature;
+    density = rhs.density;
+    pressure = rhs.pressure;
 
-   temperature = rhs.temperature;
-   density     = rhs.density;
-   pressure    = rhs.pressure;
-
-   return *this;
+    return *this;
 }
 
 /**
@@ -121,15 +86,13 @@ AtmosphereState::operator = ( // cppcheck-suppress operatorEqVarError
  * \param[in] pfix_pos_ Planetary fixed position.
  */
 
-void
-AtmosphereState::update_state (
-   Atmosphere          * atmos_model_,
-   PlanetFixedPosition * pfix_pos_)
+void AtmosphereState::update_state(Atmosphere * atmos_model_, PlanetFixedPosition * pfix_pos_)
 {
-   // Only call this update routine if model is set and active.
-   if (active && (atmos_model_ != nullptr)) {
-      atmos_model_->update_atmosphere (pfix_pos_, this);
-   }
+    // Only call this update routine if model is set and active.
+    if(active && (atmos_model_ != nullptr))
+    {
+        atmos_model_->update_atmosphere(pfix_pos_, this);
+    }
 }
 
 /**
@@ -141,15 +104,14 @@ AtmosphereState::update_state (
  * copied back out.
  */
 
-void
-AtmosphereState::update_state ()
+void AtmosphereState::update_state()
 {
-   // Only call this update routine if model is set and active.
-   if (active && (atmos != nullptr)) {
-      atmos->update_atmosphere (pfix_pos, this);
-   }
+    // Only call this update routine if model is set and active.
+    if(active && (atmos != nullptr))
+    {
+        atmos->update_atmosphere(pfix_pos, this);
+    }
 }
-
 
 /**
  * Updates the wind portion of the invoking atmosphere state,
@@ -160,22 +122,16 @@ AtmosphereState::update_state ()
  * \param[in] altitude Geodetic (elliptic) altitude.\n Units: M
  */
 
-void
-AtmosphereState::update_wind (
-   WindVelocity * wind_vel,
-   double         inrtl_pos[3],
-   double         altitude)
+void AtmosphereState::update_wind(WindVelocity * wind_vel, double inrtl_pos[3], double altitude)
 {
-
-   // Only call this update routine if model is set and active.
-   if (active && (wind_vel != nullptr)) {
-      wind_vel->update_wind (inrtl_pos, altitude, wind);
-   }
-   return;
-
+    // Only call this update routine if model is set and active.
+    if(active && (wind_vel != nullptr))
+    {
+        wind_vel->update_wind(inrtl_pos, altitude, wind);
+    }
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

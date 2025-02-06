@@ -75,103 +75,89 @@
 #include "contact_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An base contact pair class for use in the contact model.
  */
-class ContactPair {
-
-   JEOD_MAKE_SIM_INTERFACES(ContactPair)
+class ContactPair
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, ContactPair)
 
 public:
-   /**
-    * Parameters that define the force calculation function between the subjec and target
-    */
-   PairInteraction *interaction; //!< trick_units(--)
+    /**
+     * Parameters that define the force calculation function between the subjec and target
+     */
+    PairInteraction * interaction{}; //!< trick_units(--)
 
-   /**
-    * rel_state distance at which in_contact should be called
-    */
-   double interaction_distance; //!< trick_units(m)
+    /**
+     * rel_state distance at which in_contact should be called
+     */
+    double interaction_distance{}; //!< trick_units(m)
 
-   // constructor
-   ContactPair();
+    ContactPair() = default;
+    virtual ~ContactPair() = default;
+    ContactPair & operator=(const ContactPair &) = delete;
+    ContactPair(const ContactPair &) = delete;
 
-   // destructor
-   virtual ~ContactPair();
+    // test whether the pair is in range for interaction
+    bool in_range();
 
-   // test whether the pair is in range for interaction
-   bool in_range();
+    // check to make sure the pair is valid for contact.
+    bool is_active();
 
-   // check to make sure the pair is valid for contact.
-   bool is_active();
+    // determine if the pair is complete, target not NULL
+    bool is_complete();
 
-   // determine if the pair is complete, target not NULL
-   bool is_complete(void);
+    // return the subject of the pair
+    ContactFacet * get_subject();
 
-   // return the subject of the pair
-   ContactFacet * get_subject(void);
+    // return the target of the pair
+    ContactFacet * get_target();
 
-   // return the target of the pair
-   ContactFacet * get_target(void);
+    /**
+     * Virtual funtion to determine if the pair is in contact.  Contact
+     * depends on specific geometry so implementation has to wait for a derived
+     * class.
+     */
+    virtual void in_contact() = 0;
 
-      /**
-    * Virtual funtion to determine if the pair is in contact.  Contact
-    * depends on specific geometry so implementation has to wait for a derived
-    * class.
-    */
-   virtual void in_contact(
-      void)
-   = 0;
+    /**
+     * Initialize the contact pair by setting the subject, target, and creating
+     * the relstate if possible.
+     * \param[in,out] subject_facet subject ContactFacet
+     * \param[in,out] target_facet target ContactFacet
+     */
+    virtual void initialize_pair(ContactFacet * subject_facet, ContactFacet * target_facet) = 0;
 
+    /**
+     Initialize the relative state between the facets and register with
+     the dynamics manager.
+     */
+    virtual void initialize_relstate(DynManager * dyn_manager);
 
-      /**
-    * Initialize the contact pair by setting the subject, target, and creating
-    * the relstate if possible.
-    * \param[in,out] subject_facet subject ContactFacet
-    * \param[in,out] target_facet target ContactFacet
-    */
-   virtual void initialize_pair (
-      ContactFacet *subject_facet,
-      ContactFacet *target_facet)
-   = 0;
-
-   /**
-    Initialize the relative state between the facets and register with
-    the dynamics manager.
-    */
-   virtual void initialize_relstate(DynManager * dyn_manager);
-
-   // check the pair and make sure they are on different mass trees.
-   virtual bool check_tree();
+    // check the pair and make sure they are on different mass trees.
+    virtual bool check_tree();
 
 protected:
-   /**
-    * Current relative state between the subject and the target in the subject frame.
-    */
-   RelativeDerivedState rel_state;  //!< trick_units(--)
+    /**
+     * Current relative state between the subject and the target in the subject frame.
+     */
+    RelativeDerivedState rel_state; //!< trick_units(--)
 
-   /**
-    * pointer to the contact facet that is the subject of the associated relative states.
-    */
-   ContactFacet * subject; //!< trick_units(--)
+    /**
+     * pointer to the contact facet that is the subject of the associated relative states.
+     */
+    ContactFacet * subject{}; //!< trick_units(--)
 
-   /**
-    * pointer to the contact facet that is the target of the associated relative states.
-    */
-   ContactFacet * target;  //!< trick_units(--)
-
-private:
-
-   /* Operator = and copy constructor hidden from use by being private */
-   ContactPair& operator = (const ContactPair & rhs);
-   ContactPair (const ContactPair & rhs);
-
+    /**
+     * pointer to the contact facet that is the target of the associated relative states.
+     */
+    ContactFacet * target{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

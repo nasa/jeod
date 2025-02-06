@@ -40,7 +40,7 @@
          without including the header. The header includes unique timestamps
          which prevents comparing against verification output on a one-to-one
          basis.)
-     
+
     Library dependencies:
         ((../src/message_subscriber_verif.cc))
 */
@@ -49,32 +49,33 @@
 #define MESSAGEFILEVERIF_HH
 
 // System includes
-#include <string>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <string>
 
 // JEOD includes
 
 // Trick includes
 #include "trick/MessageFile.hh"
 
-namespace jeod {
+namespace jeod
+{
+
+/**
+ * This MessageFile is a class that inherits from MessageSubscriber.
+ * This class overrides only the update function, similar to PlaybackFile.
+ */
+class MessageFileVerif : public Trick::MessageFile
+{
+public:
+    MessageFileVerif() = default;
+    ~MessageFileVerif() override = default;
 
     /**
-     * This MessageFile is a class that inherits from MessageSubscriber.
-     * This class overrides only the update function, similar to PlaybackFile.
+     @brief Output message to the file excluding the header.
      */
-    class MessageFileVerif : public Trick::MessageFile {
-        public:
-            MessageFileVerif()  = default;
-            ~MessageFileVerif() override = default;
-
-            /**
-             @brief Output message to the file excluding the header.
-             */
-            void update( unsigned int level, std::string header, std::string message ) override;
-
-    };
-}
+    void update(unsigned int level, std::string header, std::string message) override;
+};
+} // namespace jeod
 
 #endif /* MESSAGEFILEVERIF_HH */

@@ -52,10 +52,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/integration_test.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_INTEGRATION_TEST_HH
 #define JEOD_INTEGRATION_TEST_HH
@@ -70,8 +69,8 @@ Library dependencies:
 #include "sim_services/Integrator/include/Integrator.hh"
 
 // ER7 utilities includes
-#include "er7_utils/integration/core/include/second_order_ode_integrator.hh"
 #include "er7_utils/integration/core/include/integrable_object.hh"
+#include "er7_utils/integration/core/include/second_order_ode_integrator.hh"
 
 // JEOD includes
 #include "utils/math/include/matrix3x3.hh"
@@ -81,233 +80,219 @@ Library dependencies:
 // Model includes
 #include "random_orientation.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class IntegrationTestManager;
-
 
 /*
 Purpose:
   (Base class for testing state propagation.)
 */
-class IntegrationTest : public er7_utils::IntegrableObject {
-JEOD_MAKE_SIM_INTERFACES(IntegrationTest)
+class IntegrationTest : public er7_utils::IntegrableObject
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, IntegrationTest)
 
 public:
+    // Member functions
 
-   // Member functions
-
-   /**
-     Default constructor.
-   */
-   IntegrationTest (void);
-
-   /**
-     Copy constructor.
-     Creates a partial copy, with the source providing data reasonably assigned
-     from the input file but all other members initialized to pre-initialization
-     values.
-   */
-   IntegrationTest (const IntegrationTest & source,
-                    unsigned int test_incr = 0);
-
-   /**
-     Destructor.
-   */
-   ~IntegrationTest (void) override;
-
-   // Final methods
-
-   // Getter for the time scale.
-   double get_time_scale (void) const;
-
-   // Getters for state integrator properties.
-   const std::type_info & integrator_id (void) const;
-
-   /**
-    * Is the test active?
+    /**
+      Default constructor.
     */
-   bool get_active (void) const
-   {
-      return active;
-   }
+    IntegrationTest();
 
-   /**
-    * Tell the item to use the deprecated propagation mode.
+    /**
+      Copy constructor.
+      Creates a partial copy, with the source providing data reasonably assigned
+      from the input file but all other members initialized to pre-initialization
+      values.
     */
-   void set_deprecated_rotation_integration (bool val = true)
-   {
-      deprecated_rotation_integration = val;
-   }
+    IntegrationTest(const IntegrationTest & source, unsigned int test_incr = 0);
 
-   // Configure the test.
-   void configure (bool randomize, unsigned int caseno);
-
-   // Initialize the test.
-   void initialize (
-      int option,
-      er7_utils::IntegratorConstructor * integ_constructor,
-      double sim_dt);
-
-
-   /**
-     Reset the integrators.
-   */
-   void reset_integrators (void) override
-   {
-      if (state_integrator != nullptr) {
-         state_integrator->reset_integrator ();
-      }
-   }
-
-
-   // Implemented virtual methods
-
-   // Initialize the test.
-   // The pre_initialize method performs early initializations.
-   // The post_initialize method performs later initializations.
-   // Derived classes should override both the pre_ and post_initialize
-   // methods and should forward the call to their parent class.
-   // The forwarding should be performed *first* in the pre_initialize
-   // method, *last* in the post_initialize method.
-   virtual void pre_initialize (void);
-   virtual void post_initialize (void);
-
-   // Generate end-of-simulation report.
-   // Derived classes should forward the shutdown call to their parent
-   // class on entry to shutdown.
-   virtual void shutdown (double sim_time, double dyn_time, FILE * report);
-
-
-   // Pure virtual methods
-
-   /**
-     Make sure that the integration can be performed.
+    /**
+      Destructor.
     */
-   virtual void validate_integrability (
-      const er7_utils::IntegratorConstructor & generator) = 0;
+    ~IntegrationTest() override;
 
-   /**
-     Create a copy of the object.
-     \return Constructed IntegrationTest object
-   */
-   virtual IntegrationTest * replicate (unsigned int test_incr) = 0;
+    // Final methods
 
-   /**
-     Propagate the true state to the specified dynamic time and
-     evaluate the errors in the integrated state.
-     \param[in] dyn_time Simulation dynamic time \\
-     Units: s
-   */
-   virtual void propagate (double dyn_time, bool update_errors) = 0;
+    // Getter for the time scale.
+    double get_time_scale() const;
 
-   /**
-     Propagate the integrated state via state integration over the
-     specified dynamic time interval.
-     \return Integration status
-     \param[in] dyn_dt Dynamic time step \\
-     Units: s
-     \param[in] target_state Integration stage to be achieved
-     Units: s
-   */
-   er7_utils::IntegratorResult integrate (
-      double dyn_dt,
-      unsigned int target_stage) override = 0;
+    // Getters for state integrator properties.
+    const std::type_info & integrator_id() const;
 
-   /**
-     Compute state derivatives.
-   */
-   virtual void compute_derivatives (void) = 0;
+    /**
+     * Is the test active?
+     */
+    bool get_active() const
+    {
+        return active;
+    }
 
+    /**
+     * Tell the item to use the deprecated propagation mode.
+     */
+    void set_deprecated_rotation_integration(bool val = true)
+    {
+        deprecated_rotation_integration = val;
+    }
 
-   // Member data
+    // Configure the test.
+    void configure(bool randomize, unsigned int caseno);
 
-   double omega_dt; /* trick_units(rad) @n
-      User input characteristic angle.
-      Product of characteristic frequency and dynamic time.
-      This value determines the dynamics characteristics of the system. */
+    // Initialize the test.
+    void initialize(int option, er7_utils::IntegratorConstructor * integ_constructor, double sim_dt);
 
+    /**
+      Reset the integrators.
+    */
+    void reset_integrators() override
+    {
+        if(state_integrator != nullptr)
+        {
+            state_integrator->reset_integrator();
+        }
+    }
+
+    // Implemented virtual methods
+
+    // Initialize the test.
+    // The pre_initialize method performs early initializations.
+    // The post_initialize method performs later initializations.
+    // Derived classes should override both the pre_ and post_initialize
+    // methods and should forward the call to their parent class.
+    // The forwarding should be performed *first* in the pre_initialize
+    // method, *last* in the post_initialize method.
+    virtual void pre_initialize();
+    virtual void post_initialize();
+
+    // Generate end-of-simulation report.
+    // Derived classes should forward the shutdown call to their parent
+    // class on entry to shutdown.
+    virtual void shutdown(double sim_time, double dyn_time, FILE * report);
+
+    // Pure virtual methods
+
+    /**
+      Make sure that the integration can be performed.
+     */
+    virtual void validate_integrability(const er7_utils::IntegratorConstructor & generator) = 0;
+
+    /**
+      Create a copy of the object.
+      \return Constructed IntegrationTest object
+    */
+    virtual IntegrationTest * replicate(unsigned int test_incr) = 0;
+
+    /**
+      Propagate the true state to the specified dynamic time and
+      evaluate the errors in the integrated state.
+      \param[in] dyn_time Simulation dynamic time \\
+      Units: s
+    */
+    virtual void propagate(double dyn_time, bool update_errors) = 0;
+
+    /**
+      Propagate the integrated state via state integration over the
+      specified dynamic time interval.
+      \return Integration status
+      \param[in] dyn_dt Dynamic time step \\
+      Units: s
+      \param[in] target_state Integration stage to be achieved
+      Units: s
+    */
+    er7_utils::IntegratorResult integrate(double dyn_dt, unsigned int target_stage) override = 0;
+
+    /**
+      Compute state derivatives.
+    */
+    virtual void compute_derivatives() = 0;
+
+    // Member data
+
+    double omega_dt{}; /* trick_units(rad) @n
+       User input characteristic angle.
+       Product of characteristic frequency and dynamic time.
+       This value determines the dynamics characteristics of the system. */
 
 protected:
+    // Member data
 
-   // Member data
+    bool random_orientations{true}; /* trick_units(--) @n
+       When set, the orientation between canonical and integration frames will
+       be set randomly per the test_case member datum.
+       Making this non-volatile leads to some very funky behavior when
+       compiled optimized. */
 
-   bool random_orientations; /* trick_units(--) @n
-      When set, the orientation between canonical and integration frames will
-      be set randomly per the test_case member datum.
-      Making this non-volatile leads to some very funky behavior when
-      compiled optimized. */
+    bool initialized{}; /* trick_units(--) @n
+       Several options cannot be changed once the object has been initialized. */
 
-   bool initialized; /* trick_units(--) @n
-      Several options cannot be changed once the object has been initialized. */
+    bool deprecated_rotation_integration{}; /* trick_units(--) @n
+       Should the antiquated rotational integration scheme be used?
+       This data member has effect only when set prior to the creation of the
+       body's integrators. The body's rotational integrator will use the JEOD 2.0
+       rotation integration scheme if this member is set, but will use a scheme
+       that better models rotational motion if this member is clear.
 
-   bool deprecated_rotation_integration; /* trick_units(--) @n
-      Should the antiquated rotational integration scheme be used?
-      This data member has effect only when set prior to the creation of the
-      body's integrators. The body's rotational integrator will use the JEOD 2.0
-      rotation integration scheme if this member is set, but will use a scheme
-      that better models rotational motion if this member is clear.
+       As indicated by the member's name, this old-style integration scheme is
+       deprecated. */
 
-      As indicated by the member's name, this old-style integration scheme is
-      deprecated. */
+    bool active{true}; /* trick_units(--) @n
+       Is the test active? */
 
-   bool active; /* trick_units(--) @n
-      Is the test active? */
+    unsigned int test_case{}; /* trick_units(--) @n
+       User input test case number.
+       Value initializes the random number generators. */
 
-   unsigned int test_case; /* trick_units(--) @n
-      User input test case number.
-      Value initializes the random number generators. */
+    int integ_opt{-1}; /* trick_units(--) @n
+       Trick integrator structure integration option. */
 
-   int integ_opt; /* trick_units(--) @n
-      Trick integrator structure integration option. */
+    double delta_t{}; /* trick_units(s) @n
+       Dynamic time step. */
 
-   double delta_t; /* trick_units(s) @n
-      Dynamic time step. */
+    double omega{}; /* trick_units(rad/s) @n
+       Characteristic frequency; omega_dt/delta_t. */
 
-   double omega; /* trick_units(rad/s) @n
-      Characteristic frequency; omega_dt/delta_t. */
+    double time_scale{1}; /* trick_units(--) @n
+       Time scale factor; dyn_time = sim_time * time_scale. */
 
-   double time_scale; /* trick_units(--) @n
-      Time scale factor; dyn_time = sim_time * time_scale. */
-
-   er7_utils::SecondOrderODEIntegrator * state_integrator;  /* trick_io(**) @n
+    er7_utils::SecondOrderODEIntegrator * state_integrator{}; /* trick_io(**) @n
       State integrator created by the integrator constructor. */
 
-   RandomSeedGenerator seed_gen; /* trick_units(--) @n
-      Random seed generator. */
+    RandomSeedGenerator seed_gen; /* trick_units(--) @n
+       Random seed generator. */
 
-   RandomOrientation iinteg_icanon; /* trick_units(--) @n
-      Integration inertial frame to canonical inertial frame orientation. */
+    RandomOrientation iinteg_icanon; /* trick_units(--) @n
+       Integration inertial frame to canonical inertial frame orientation. */
 
-   Quaternion Q_iinteg_icanon; /* trick_units(--) @n
-      Inertial integration to canonical left transformation quaternion. */
+    Quaternion Q_iinteg_icanon; /* trick_units(--) @n
+       Inertial integration to canonical left transformation quaternion. */
 
-   double T_iinteg_icanon[3][3]; /* trick_units(--) @n
-      Inertial integration to canonical transformation matrix. */
+    double T_iinteg_icanon[3][3]{IDENTITY}; /* trick_units(--) @n
+       Inertial integration to canonical transformation matrix. */
 
-   RandomOrientation bcanon_binteg; /* trick_units(--) @n
-      Canonical body frame to integration body frame orientation. */
+    RandomOrientation bcanon_binteg; /* trick_units(--) @n
+       Canonical body frame to integration body frame orientation. */
 
-   Quaternion Q_bcanon_binteg; /* trick_units(--) @n
-      Body canonical to integration left transformation quaternion. */
+    Quaternion Q_bcanon_binteg; /* trick_units(--) @n
+       Body canonical to integration left transformation quaternion. */
 
-   double T_bcanon_binteg[3][3]; /* trick_units(--) @n
-      Body canonical to integration transformation matrix. */
-
+    double T_bcanon_binteg[3][3]{IDENTITY}; /* trick_units(--) @n
+       Body canonical to integration transformation matrix. */
 
 private:
-
-   /**
-    * Assignment operator is private but is implemented.
-    * Nobody calls (tested w/ debugger), but an implementation is needed.
-    */
-   IntegrationTest & operator = (const IntegrationTest & source __attribute__ ((unused)) )
-   { return *this; }
+    /**
+     * Assignment operator is private but is implemented.
+     * Nobody calls (tested w/ debugger), but an implementation is needed.
+     */
+    IntegrationTest & operator=(const IntegrationTest & source __attribute__((unused)))
+    {
+        return *this;
+    }
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif

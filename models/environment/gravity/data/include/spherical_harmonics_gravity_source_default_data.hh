@@ -42,17 +42,19 @@ Purpose:
 #ifndef JEOD_SPHERICALHARMONICSGRAVITYBODY_DEFAULT_DATA_H
 #define JEOD_SPHERICALHARMONICSGRAVITYBODY_DEFAULT_DATA_H
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class SphericalHarmonicsGravitySource;
 
-class SphericalHarmonicsGravitySource_default_data {
- public:
-   virtual void initialize (SphericalHarmonicsGravitySource*) = 0;
-   virtual ~SphericalHarmonicsGravitySource_default_data() {};
+class SphericalHarmonicsGravitySource_default_data
+{
+public:
+    virtual void initialize(SphericalHarmonicsGravitySource *) = 0;
+    virtual ~SphericalHarmonicsGravitySource_default_data() = default;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

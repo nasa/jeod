@@ -29,48 +29,32 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
-#include "dynamics/mass/include/mass.hh"
-#include "dynamics/dyn_manager/include/dyn_manager.hh"
 #include "dynamics/dyn_body/include/dyn_body.hh"
-#include "utils/math/include/vector3.hh"
+#include "dynamics/dyn_manager/include/dyn_manager.hh"
+#include "dynamics/mass/include/mass.hh"
 
 // Model includes
 #include "../include/body_attach_matrix.hh"
 
-
 //! Namespace jeod
-namespace jeod {
-
-/**
- * Construct a MassBodyAttachMatrix.
- */
-BodyAttachMatrix::BodyAttachMatrix (
-   void)
-:
-   pstr_cstr()
+namespace jeod
 {
-   Vector3::initialize (offset_pstr_cstr_pstr);
-}
-
 
 /**
  * Initialize the core mass properties of the subject MassBody.
  * \param[in,out] dyn_manager Jeod manager
  */
-void
-BodyAttachMatrix::apply (
-   DynManager & dyn_manager)
+void BodyAttachMatrix::apply(DynManager & dyn_manager)
 {
     // Convert user-specified orientation to transformation matrix.
-    pstr_cstr.compute_transform ();
+    pstr_cstr.compute_transform();
 
-    if (dyn_parent != nullptr)
+    if(dyn_parent != nullptr)
     {
-        if (dyn_subject != nullptr) // DynBody to DynBody
+        if(dyn_subject != nullptr) // DynBody to DynBody
         {
             succeeded = dyn_parent->attach_child(offset_pstr_cstr_pstr, pstr_cstr.trans, *dyn_subject);
         }
@@ -79,20 +63,20 @@ BodyAttachMatrix::apply (
             succeeded = dyn_parent->add_mass_body(offset_pstr_cstr_pstr, pstr_cstr.trans, *mass_subject);
         }
     }
-    else if (mass_parent != nullptr)
+    else if(mass_parent != nullptr)
     {
-        if (dyn_subject != nullptr) // DynBody to MassBody -- ILLEGAL
+        if(dyn_subject != nullptr) // DynBody to MassBody -- ILLEGAL
         {
             succeeded = false;
         }
         else // MassBody/MassBody assembly to MassBody
         {
-            succeeded = mass_subject->attach_to (offset_pstr_cstr_pstr, pstr_cstr.trans, *mass_parent);
+            succeeded = mass_subject->attach_to(offset_pstr_cstr_pstr, pstr_cstr.trans, *mass_parent);
         }
     }
-    else if (ref_parent != nullptr)
+    else if(ref_parent != nullptr)
     {
-        if (dyn_subject != nullptr) // DynBody to RefFrame
+        if(dyn_subject != nullptr) // DynBody to RefFrame
         {
             succeeded = dyn_subject->attach_to_frame(offset_pstr_cstr_pstr, pstr_cstr.trans, *ref_parent);
         }
@@ -107,12 +91,10 @@ BodyAttachMatrix::apply (
     }
 
     // Forward the action up the chain. The parent class deals with status.
-    BodyAttach::apply (dyn_manager);
-
-    return;
+    BodyAttach::apply(dyn_manager);
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

@@ -73,10 +73,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/planet_rnp.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef PLANET_RNP_HH
 #define PLANET_RNP_HH
@@ -84,13 +83,15 @@ Library dependencies:
 // System includes
 
 // JEOD includes
+#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "planet_orientation.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RefFrameRot;
 class Planet;
@@ -101,120 +102,105 @@ class PlanetRotation;
 /**
  * The generic framework for orientation models based on the RNP paradigm.
  */
-class PlanetRNP : public PlanetOrientation {
+class PlanetRNP : public PlanetOrientation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PlanetRNP)
 
-   JEOD_MAKE_SIM_INTERFACES(PlanetRNP)
+public: // public member variables
+    // An enumeration that dictates the complexity of the RNP.
 
-public: //public member variables
+    /**
+     * Specifies the initialization fidelity of the RNP model.
+     */
+    enum RNPFidelity
+    {
+        FullRNP = 0,      ///< Full fidelity RNP matrix. Formerly Full_Term_RNP
+        RotationOnly = 1, ///< Identity NP matrix, then rotation calculates linearly
+                          // in time. Formerly Identity_RNP
+        ConstantNP = 2    ///< Once calculated NP matrix (at the start), then rotation
+                          // calculates linearly in time. Formerly Identity_NP
+    };
 
-// An enumeration that dictates the complexity of the RNP.
+    // These are pointers to the models used in this particular RNP for
+    // nutation, precession, polar_motion and the rotation model for the planet.
+    // Any of these can be left as NULL, and will then be ignored
+    // in the total calculation
 
-   /**
-    * Specifies the initialization fidelity of the RNP model.
-    */
-   enum RNPFidelity {
+    /**
+     * Pointer to the nutation model
+     */
+    PlanetRotation * nutation{}; //!< trick_units(--)
 
-      FullRNP = 0, ///< Full fidelity RNP matrix. Formerly Full_Term_RNP
-      RotationOnly = 1, ///< Identity NP matrix, then rotation calculates linearly
-                        // in time. Formerly Identity_RNP
-      ConstantNP = 2 ///< Once calculated NP matrix (at the start), then rotation
-                     // calculates linearly in time. Formerly Identity_NP
-   };
+    /**
+     * Pointer to the precession model
+     */
+    PlanetRotation * precession{}; //!< trick_units(--)
 
-   // These are pointers to the models used in this particular RNP for
-   // nutation, precession, polar_motion and the rotation model for the planet.
-   // Any of these can be left as NULL, and will then be ignored
-   // in the total calculation
+    /**
+     * Pointer to the polar_motion model
+     */
+    PlanetRotation * polar_motion{}; //!< trick_units(--)
 
-   /**
-    * Pointer to the nutation model
-    */
-   PlanetRotation* nutation; //!< trick_units(--)
-   /**
-    * Pointer to the precession model
-    */
-   PlanetRotation* precession; //!< trick_units(--)
-   /**
-    * Pointer to the polar_motion model
-    */
-   PlanetRotation* polar_motion; //!< trick_units(--)
-   /**
-    * Pointer to the rotation model
-    */
-   PlanetRotation* rotation; //!< trick_units(--)
+    /**
+     * Pointer to the rotation model
+     */
+    PlanetRotation * rotation{}; //!< trick_units(--)
 
-   /**
-    * The fidelity of the RNP model
-    */
-   RNPFidelity rnp_type; //!< trick_units(--)
-   /**
-    * Gives the option of turning on or off polar motion
-    */
-   bool enable_polar; //!< trick_units(--)
+    /**
+     * The fidelity of the RNP model
+     */
+    RNPFidelity rnp_type{FullRNP}; //!< trick_units(--)
 
-   /**
-    * Rotation Matrix representing:
-    * transpose(nutation->rotation) * transpose(precession->rotation)
-    */
-   double NP_matrix[3][3]; //!< trick_units(--)
+    /**
+     * Gives the option of turning on or off polar motion
+     */
+    bool enable_polar{true}; //!< trick_units(--)
+
+    /**
+     * Rotation Matrix representing:
+     * transpose(nutation->rotation) * transpose(precession->rotation)
+     */
+    double NP_matrix[3][3]{IDENTITY}; //!< trick_units(--)
 
 protected: // private member variables
-
-   /**
-    * A transformation matrix used for intermediate math steps
-    */
-   double scratch_matrix[3][3]; //!< trick_units(--)
+    /**
+     * A transformation matrix used for intermediate math steps
+     */
+    double scratch_matrix[3][3]{}; //!< trick_units(--)
 
 public: // public member functions
+    PlanetRNP() = default;
+    ~PlanetRNP() override = default;
+    PlanetRNP & operator=(const PlanetRNP & rhs) = delete;
+    PlanetRNP(const PlanetRNP & rhs) = delete;
 
-   PlanetRNP ();
+    // Invokes the calculation for all rotation models contained in the RNP,
+    // based on the last time set in each model through
+    // PlanetRotation::set_time . Then multiplies out and updates the attitude
+    // of the planet found in the given dyn manager.
+    void update_rnp();
 
-   ~PlanetRNP () override;
+    // Invokes the calculation for the axial rotation model (the largest
+    // contributor to rotation, the axial Z-rotation that causes days)
+    // and then multiples out the RNP with the most recent calculations done
+    // for nutation, precession and polar motion
+    void update_axial_rotation();
 
-   // Invokes the calculation for all rotation models contained in the RNP,
-   // based on the last time set in each model through
-   // PlanetRotation::set_time . Then multiplies out and updates the attitude
-   // of the planet found in the given dyn manager.
-   void update_rnp ();
+    // Multiples out the (up to) four planet rotation models (nutation,
+    // precession, polar motion and rotation, based on
+    // initialization options) and feeds it to the planet attitude found
+    // in the dyn manager the RNP was initialized from
+    void propagate_rnp();
 
-   // Invokes the calculation for the axial rotation model (the largest
-   // contributor to rotation, the axial Z-rotation that causes days)
-   // and then multiples out the RNP with the most recent calculations done
-   // for nutation, precession and polar motion
-   void update_axial_rotation ();
-
-   // Multiples out the (up to) four planet rotation models (nutation,
-   // precession, polar motion and rotation, based on
-   // initialization options) and feeds it to the planet attitude found
-   // in the dyn manager the RNP was initialized from
-   void propagate_rnp ();
-
-   /**
-    * A re-declaration of the pure virtual function in order
-    * to convince trick that yes, this is a pure virtual class.
-    * @return Planet name.
-    */
-   const char* get_name() const override = 0;
-
-
-private: // private member functions
-
-   // operator = and copy constructor locked from use by being private
-
-   /**
-    * Not implemented.
-    */
-   PlanetRNP& operator = (const PlanetRNP& rhs);
-
-   /**
-    * Not implemented.
-    */
-   PlanetRNP (const PlanetRNP& rhs);
-
+    /**
+     * A re-declaration of the pure virtual function in order
+     * to convince trick that yes, this is a pure virtual class.
+     * @return Planet name.
+     */
+    std::string get_name() const override = 0;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

@@ -64,7 +64,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_TIME_MESSAGES_HH
 #define JEOD_TIME_MESSAGES_HH
 
@@ -73,95 +72,88 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specify the message IDs used in the Time model.
  */
-class TimeMessages {
+class TimeMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeMessages)
 
+    // Static member data
+public:
+    // Errors
+    /**
+     * Error issued when intialization fails due to some non-obvious cause.  This
+     * error is likely due to an algorithm flaw.
+     */
+    static const char * initialization_error; //!< trick_units(--)
 
- JEOD_MAKE_SIM_INTERFACES(TimeMessages)
+    /**
+     * Error issued when system fails because something is not where it should
+     * be, or has a value other than its assumed value.
+     */
+    static const char * memory_error; //!< trick_units(--)
 
+    /**
+     * Error issued when user tries to use something that doesn't exist in the
+     * model.  This is usually a user error.  Note the distinction between
+     * invalid and incomplete
+     */
+    static const char * invalid_setup_error; //!< trick_units(--)
 
- // Static member data
- public:
-   // Errors
-   /**
-    * Error issued when intialization fails due to some non-obvious cause.  This
-    * error is likely due to an algorithm flaw.
-    */
-   static char const * initialization_error; //!< trick_units(--)
+    /**
+     * Error issued when a variable is found with an illegal value.  This is
+     * usually a user error, having set some value externally to some
+     * unrecognizable value.
+     */
+    static const char * invalid_data_error; //!< trick_units(--)
 
-   /**
-    * Error issued when system fails because something is not where it should
-    * be, or has a value other than its assumed value.
-    */
-   static char const * memory_error; //!< trick_units(--)
+    /**
+     * Issued when a TimeLinks node is improperly linked
+     */
+    static const char * invalid_node; //!< trick_units(--)
 
-   /**
-    * Error issued when user tries to use something that doesn't exist in the
-    * model.  This is usually a user error.  Note the distinction between
-    * invalid and incomplete
-    */
-   static char const * invalid_setup_error; //!< trick_units(--)
+    /**
+     * Error issued when user tries to use something that doesn't exist.n the
+     * simulation  This is usually a user error, brought about by not having
+     * registered something that is later needed (e.g. not registering a TAI-UTC
+     * converter, but specifying that UTC updates from TAI).  Note the
+     * distinction between invalid (typically, cannot exist) and incomplete
+     * (typically, did not define)
+     */
+    static const char * incomplete_setup_error; //!< trick_units(--)
 
-   /**
-    * Error issued when a variable is found with an illegal value.  This is
-    * usually a user error, having set some value externally to some
-    * unrecognizable value.
-    */
-   static char const * invalid_data_error; //!< trick_units(--)
+    /**
+     * Error issued when some value is multiply defined, and the code cannot
+     * determine which value to use.  Usually a user-error, from attempting to
+     * use too many of the initialization options simultaneously.
+     */
+    static const char * redundancy_error; //!< trick_units(--)
 
-   /**
-    * Issued when a TimeLinks node is improperly linked
-    */
-   static char const * invalid_node; //!< trick_units(--)
+    /**
+     * Informational only.  Issued when there are multiple equivalent methods for
+     * doing something, and one method is chosen over another.  Wherever the code
+     * fills in data to accommodate, it sends this informational broadcast.
+     */
+    static const char * duplicate_methods; //!< trick_units(--)
 
-   /**
-    * Error issued when user tries to use something that doesn't exist.n the
-    * simulation  This is usually a user error, brought about by not having
-    * registered something that is later needed (e.g. not registering a TAI-UTC
-    * converter, but specifying that UTC updates from TAI).  Note the
-    * distinction between invalid (typically, cannot exist) and incomplete
-    * (typically, did not define)
-    */
-   static char const * incomplete_setup_error; //!< trick_units(--)
+    /**
+     * Issued when some functionality relies heavily on the release architecture,
+     * and is likely to break with inconsistent extensions.
+     */
+    static const char * extension_error; //!< trick_units(--)
 
-   /**
-    * Error issued when some value is multiply defined, and the code cannot
-    * determine which value to use.  Usually a user-error, from attempting to
-    * use too many of the initialization options simultaneously.
-    */
-   static char const * redundancy_error; //!< trick_units(--)
-
-   /**
-    * Informational only.  Issued when there are multiple equivalent methods for
-    * doing something, and one method is chosen over another.  Wherever the code
-    * fills in data to accommodate, it sends this informational broadcast.
-    */
-   static char const * duplicate_methods; //!< trick_units(--)
-
-   /**
-    * Issued when some functionality relies heavily on the release architecture,
-    * and is likely to break with inconsistent extensions.
-    */
-   static char const * extension_error; //!< trick_units(--)
-
- // The constructors and assignment operator for this class are declared
- // private and are not implemented.
- private:
-   TimeMessages (void);
-   TimeMessages (const TimeMessages &);
-   TimeMessages & operator= (const TimeMessages &);
-
+    // The constructors and assignment operator for this class are deleted.
+    TimeMessages() = delete;
+    TimeMessages(const TimeMessages &) = delete;
+    TimeMessages & operator=(const TimeMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

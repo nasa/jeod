@@ -43,7 +43,7 @@
  * @{
  *
  * @file models/dynamics/body_action/include/body_attach_aligned.hh
- * Define the class MassBodyAttachAligned, which causes one MassBody to be
+ * Define the class BodyAttachAligned, which causes one MassBody to be
  * attached to another at a pair of MassPoints.
  */
 
@@ -59,9 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
-#ifndef JEOD_MASS_BODY_ATTACH_ALIGNED_HH
-#define JEOD_MASS_BODY_ATTACH_ALIGNED_HH
+#ifndef JEOD_BODY_ATTACH_ALIGNED_HH
+#define JEOD_BODY_ATTACH_ALIGNED_HH
 
 // System includes
 
@@ -69,12 +68,12 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "class_declarations.hh"
 #include "body_attach.hh"
-
+#include "class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Attaches a pair of MassBody objects at a pair of MassPoints.
@@ -84,66 +83,43 @@ namespace jeod {
  * - The orientation between the two reference frames associated with the
  *   two attach points is a 180 degree yaw.
  */
-class BodyAttachAligned : public BodyAttach {
+class BodyAttachAligned : public BodyAttach
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyAttachAligned)
 
- JEOD_MAKE_SIM_INTERFACES(BodyAttachAligned)
+    // Member data
 
+public:
+    /**
+     * The name of the mass point on the subject mass body to be attached to
+     * to the parent_point_name mass point on the parent mass body. The supplied
+     * name can omit the subject mass body name dot prefix if desired.
+     */
+    std::string subject_point_name{""}; //!< trick_units(--)
 
- // Member data
+    /**
+     * The name of the mass point on the parent mass body to be attached to
+     * to the mass pointed named subject_point_name on the subject mass body. The
+     * supplied name can omit the parent mass body name dot prefix if desired.
+     */
+    std::string parent_point_name{""}; //!< trick_units(--)
 
- public:
+    // Methods
 
-   /**
-    * The name of the mass point on the subject mass body to be attached to
-    * to the parent_point_name mass point on the parent mass body. The supplied
-    * name can omit the subject mass body name dot prefix if desired.
-    */
-   std::string subject_point_name; //!< trick_units(--)
+public:
+    BodyAttachAligned() = default;
+    ~BodyAttachAligned() override = default;
+    BodyAttachAligned(const BodyAttachAligned &) = delete;
+    BodyAttachAligned & operator=(const BodyAttachAligned &) = delete;
 
-   /**
-    * The name of the mass point on the parent mass body to be attached to
-    * to the mass pointed named subject_point_name on the subject mass body. The
-    * supplied name can omit the parent mass body name dot prefix if desired.
-    */
-   std::string parent_point_name; //!< trick_units(--)
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
-
- // Methods
-
- public:
-
-   // Default constructor.
-   BodyAttachAligned ();
-
-   // Destructor.
-   ~BodyAttachAligned () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // apply: Attach the specified mass bodies.
-   void apply (DynManager & dyn_manager) override;
-
-
- private:
-
-   BodyAttachAligned (const BodyAttachAligned&);
-   BodyAttachAligned & operator = (const BodyAttachAligned&);
-
+    // apply: Attach the specified mass bodies.
+    void apply(DynManager & dyn_manager) override;
 };
 
-
-/**
- * Destructor
- */
-inline
-BodyAttachAligned::~BodyAttachAligned (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

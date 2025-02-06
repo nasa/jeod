@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_LVLH_TRANS_STATE_HH
 #define JEOD_DYN_BODY_INIT_LVLH_TRANS_STATE_HH
-
 
 // System includes
 
@@ -73,44 +71,32 @@ Library dependencies:
 // Model includes
 #include "dyn_body_init_lvlh_state.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * initialize a vehicle's translational state with respect to some other
  * vehicle's LVLH frame.
  */
-class DynBodyInitLvlhTransState : public DynBodyInitLvlhState {
+class DynBodyInitLvlhTransState : public DynBodyInitLvlhState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitLvlhTransState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitLvlhTransState)
+    // No member data. This class adds no member data to DynBodyInitLvlhState.
 
+    // Member functions
+public:
+    DynBodyInitLvlhTransState();
+    ~DynBodyInitLvlhTransState() override = default;
+    DynBodyInitLvlhTransState(const DynBodyInitLvlhTransState &) = delete;
+    DynBodyInitLvlhTransState & operator=(const DynBodyInitLvlhTransState &) = delete;
 
- // No member data. This class adds no member data to DynBodyInitLvlhState.
-
-
- // Member functions
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DynBodyInitLvlhTransState (const DynBodyInitLvlhTransState&);
-   DynBodyInitLvlhTransState & operator = (const DynBodyInitLvlhTransState&);
-
-
- public:
-   DynBodyInitLvlhTransState ();
-
-   ~DynBodyInitLvlhTransState () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

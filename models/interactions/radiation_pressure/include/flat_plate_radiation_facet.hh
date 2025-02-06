@@ -65,17 +65,17 @@ Library dependencies:
 #ifndef JEOD_FLAT_PLATE_RADIATION_FACET_HH
 #define JEOD_FLAT_PLATE_RADIATION_FACET_HH
 
-
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "radiation_facet.hh"
-//#include "radiation_base_facet.hh"
 
+// #include "radiation_base_facet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RadiationThirdBody;
 class FlatPlate;
@@ -83,62 +83,50 @@ class FlatPlate;
 /**
  * A flat plate facet to be used for radiation interaction
  */
-class FlatPlateRadiationFacet : public RadiationFacet {
+class FlatPlateRadiationFacet : public RadiationFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, FlatPlateRadiationFacet)
 
-   JEOD_MAKE_SIM_INTERFACES(FlatPlateRadiationFacet)
-
-
-   // Member data
+    // Member data
 
 public:
-   /**
-    * Unit vector normal to the plate surface, pointing outward
-    * (structural frame). once the radiation surface is initialized,
-    * it points to the normal found in FlatPlate
-    */
-   double* normal; //!< trick_units(--)
+    /**
+     * Unit vector normal to the plate surface, pointing outward
+     * (structural frame). once the radiation surface is initialized,
+     * it points to the normal found in FlatPlate
+     */
+    double * normal{}; //!< trick_units(--)
 
-   /**
-    * Temporary value.
-    */
-   double incident_flux_hat[3]; //!< trick_units(--)
+    /**
+     * Temporary value.
+     */
+    double incident_flux_hat[3]{}; //!< trick_units(--)
 
 private:
-   /**
-    * Theta is the angle between the plate and the radiation vector
-    */
-   double sin_theta; //!< trick_units(--)
+    /**
+     * Theta is the angle between the plate and the radiation vector
+     */
+    double sin_theta{}; //!< trick_units(--)
 
-
-   //Member methods
+    // Member methods
 public:
-   // constructor
-   FlatPlateRadiationFacet ();
+    FlatPlateRadiationFacet() = default;
+    ~FlatPlateRadiationFacet() override = default;
+    FlatPlateRadiationFacet & operator=(const FlatPlateRadiationFacet &) = delete;
+    FlatPlateRadiationFacet(const FlatPlateRadiationFacet &) = delete;
 
-   // destructor
-   ~FlatPlateRadiationFacet () override;
+    void incident_radiation(const double flux_mag,
+                            const double flux_struct_hat[3],
+                            const bool calculate_forces) override;
 
-   void incident_radiation (
-      const double flux_mag,
-      const double flux_struct_hat[3],
-      const bool calculate_forces) override;
+    void initialize_geom(double center_grav[3]) override;
 
-   void initialize_geom (double center_grav[3]) override;
+    void define_facet(FlatPlate * flat_plate);
 
-   void define_facet (FlatPlate * flat_plate);
-
-   void radiation_pressure (void) override;
-
-protected:
-
-private:
-
-   FlatPlateRadiationFacet& operator = (const FlatPlateRadiationFacet& rhs);
-   FlatPlateRadiationFacet (const FlatPlateRadiationFacet& rhs);
-
+    void radiation_pressure() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

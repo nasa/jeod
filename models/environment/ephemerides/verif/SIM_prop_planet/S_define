@@ -39,23 +39,21 @@
 //   (This simulation demonstrates the use of the PropagatedPlanet submodel.)
 //==============================================================================
 
-
 // Define job calling intervals
-#define FAST_DYNAMICS  864000.00    // Fast orbital dynamics interval; 10 days
-#define SLOW_DYNAMICS 1728000.00    // Slow orbital dynamics interval; 20 days
-#define LOGGING       SLOW_DYNAMICS // Logging interval
+#define FAST_DYNAMICS 864000.00  // Fast orbital dynamics interval; 10 days
+#define SLOW_DYNAMICS 1728000.00 // Slow orbital dynamics interval; 20 days
+#define LOGGING SLOW_DYNAMICS    // Logging interval
 
-#define DYNAMICS      FAST_DYNAMICS
+#define DYNAMICS FAST_DYNAMICS
 
-
-// Include the Trick system sim objects
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
+#include "jeod_sys.sm"
 
 // Define the phase initialization priorities.
 #include "default_priority_settings.sm"
-
-// Include the JEOD system sim object
-#include "jeod_sys.sm"
 
 // Include the JEOD time sim object with TAI, UTC, UT1, and TT enabled
 #define TIME_MODEL_UTC
@@ -96,62 +94,50 @@ Purpose:(Provides baseline definition for a planet with capability for state
 
 class PropagatedPlanetGenericSimObject: public PlanetGenericSimObject
 {
- protected:
-  // Additional references to items from other sim objects
-  jeod::TimeManager & time_manager;
+protected:
+    // Additional references to items from other sim objects
+    jeod::TimeManager & time_manager;
 
- public:
-  jeod::PropagatedPlanet prop_planet;
-  jeod::SphericalHarmonicsGravityControls gravity_controls[9];
-  jeod::RelativeDerivedState relative;
+public:
+    jeod::PropagatedPlanet prop_planet;
+    jeod::SphericalHarmonicsGravityControls gravity_controls[9];
+    jeod::RelativeDerivedState relative;
 
-  jeod::MassBodyInit mass_init;
-  jeod::DynBodyInitTransState trans_init;
-  jeod::DynBodyInitRotState rot_init;
+    jeod::MassBodyInit mass_init;
+    jeod::DynBodyInitTransState trans_init;
+    jeod::DynBodyInitRotState rot_init;
 
-  // Constructor
-  PropagatedPlanetGenericSimObject (
-                       jeod::TimeManager & time_manager_in,
-                       jeod::DynManager & dyn_manager_in,
-                       jeod::GravityManager & gravity_manager_in,
-                       jeod::Planet_default_data & planet_dd,
-                       jeod::SphericalHarmonicsGravitySource_default_data & gravity_dd)
-    :
-    PlanetGenericSimObject( dyn_manager_in,
-                            gravity_manager_in,
-                            planet_dd,
-                            gravity_dd),
-    time_manager(time_manager_in)
+    // Constructor
+    PropagatedPlanetGenericSimObject(jeod::TimeManager & time_manager_in,
+                                     jeod::DynManager & dyn_manager_in,
+                                     jeod::GravityManager & gravity_manager_in,
+                                     jeod::Planet_default_data & planet_dd,
+                                     jeod::SphericalHarmonicsGravitySource_default_data & gravity_dd)
+        : PlanetGenericSimObject(dyn_manager_in, gravity_manager_in, planet_dd, gravity_dd),
+          time_manager(time_manager_in)
 
-  {
+    {
+        P_EPH("initialization") prop_planet.initialize_model(time_manager, dyn_manager);
 
-    P_EPH  ("initialization") prop_planet.initialize_model ( time_manager,
-                                                             dyn_manager);
+        P_DYN("initialization") relative.initialize(prop_planet.body, dyn_manager);
 
-    P_DYN   ("initialization") relative.initialize ( prop_planet.body,
-                                                     dyn_manager);
+        (LOGGING, "environment") relative.update();
+    }
 
-    (LOGGING, "environment") relative.update ( );
-  }
+    void switch_to_propagated()
+    {
+        if(planet.name == "Mercury")
+        {
+            jeod::EphemerisRefFrame * sun_inertial = dyn_manager.find_integ_frame("Sun.inertial");
+            prop_planet.body.switch_integration_frames(*sun_inertial);
+        }
+        prop_planet.commanded_mode = jeod::PropagatedPlanet::TransFromBody_RotFromBody;
+    }
 
-  void switch_to_propagated () {
-     if (std::strcmp (planet.name.c_str(), "Mercury") == 0) {
-        jeod::EphemerisRefFrame * sun_inertial =
-           dyn_manager.find_integ_frame ("Sun.inertial");
-        prop_planet.body.switch_integration_frames (*sun_inertial);
-     }
-     prop_planet.commanded_mode =
-        jeod::PropagatedPlanet::TransFromBody_RotFromBody;
-  }
-
- private:
-  // Unimplemented copy constructor and assignment operator
-  PropagatedPlanetGenericSimObject (const PropagatedPlanetGenericSimObject&);
-  PropagatedPlanetGenericSimObject & operator = (
-                                    const PropagatedPlanetGenericSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    PropagatedPlanetGenericSimObject(const PropagatedPlanetGenericSimObject &) = delete;
+    PropagatedPlanetGenericSimObject & operator=(const PropagatedPlanetGenericSimObject &) = delete;
 };
-
-
 
 /***************************************************************
 SunSimObject
@@ -161,29 +147,27 @@ SunSimObject
 
 class SunSphericalSimObject: public PropagatedPlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_sun_default_data    sun_default_data;
-  jeod::SphericalHarmonicsGravitySource_sun_spherical_default_data sun_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_sun_default_data sun_default_data;
+    jeod::SphericalHarmonicsGravitySource_sun_spherical_default_data sun_grav_default_data;
 
-  SunSphericalSimObject( jeod::TimeManager  & time_manager_in,
-                         jeod::DynManager   & dyn_manager_in,
-                         jeod::GravityManager & grav_in)
-    :
-    PropagatedPlanetGenericSimObject( time_manager_in,
-                                      dyn_manager_in,
-                                      grav_in,
-                                      sun_default_data,
-                                      sun_grav_default_data)
-  { }
+    SunSphericalSimObject(jeod::TimeManager & time_manager_in,
+                          jeod::DynManager & dyn_manager_in,
+                          jeod::GravityManager & grav_in)
+        : PropagatedPlanetGenericSimObject(time_manager_in,
+                                           dyn_manager_in,
+                                           grav_in,
+                                           sun_default_data,
+                                           sun_grav_default_data)
+    {
+    }
 
- private:
-  SunSphericalSimObject (const SunSphericalSimObject&);
-  SunSphericalSimObject & operator = (const SunSphericalSimObject&);
+    SunSphericalSimObject(const SunSphericalSimObject &) = delete;
+    SunSphericalSimObject & operator=(const SunSphericalSimObject &) = delete;
 };
-SunSphericalSimObject sun( jeod_time.time_manager,
-                           dynamics.dyn_manager,
-                           env.gravity_manager);
+
+SunSphericalSimObject sun(jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager);
 
 /***************************************************************
 JupiterSimObject
@@ -193,30 +177,27 @@ JupiterSimObject
 
 class JupiterSphericalSimObject: public PropagatedPlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_jupiter_default_data    jupiter_default_data;
-  jeod::SphericalHarmonicsGravitySource_jupiter_spherical_default_data
-                                       jupiter_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_jupiter_default_data jupiter_default_data;
+    jeod::SphericalHarmonicsGravitySource_jupiter_spherical_default_data jupiter_grav_default_data;
 
-  JupiterSphericalSimObject( jeod::TimeManager  & time_manager_in,
-                             jeod::DynManager   & dyn_manager_in,
-                             jeod::GravityManager & grav_in)
-    :
-    PropagatedPlanetGenericSimObject( time_manager_in,
-                                      dyn_manager_in,
-                                      grav_in,
-                                      jupiter_default_data,
-                                      jupiter_grav_default_data)
-  { }
+    JupiterSphericalSimObject(jeod::TimeManager & time_manager_in,
+                              jeod::DynManager & dyn_manager_in,
+                              jeod::GravityManager & grav_in)
+        : PropagatedPlanetGenericSimObject(time_manager_in,
+                                           dyn_manager_in,
+                                           grav_in,
+                                           jupiter_default_data,
+                                           jupiter_grav_default_data)
+    {
+    }
 
- private:
-  JupiterSphericalSimObject (const JupiterSphericalSimObject&);
-  JupiterSphericalSimObject & operator = (const JupiterSphericalSimObject&);
+    JupiterSphericalSimObject(const JupiterSphericalSimObject &) = delete;
+    JupiterSphericalSimObject & operator=(const JupiterSphericalSimObject &) = delete;
 };
-JupiterSphericalSimObject jupiter( jeod_time.time_manager,
-                                   dynamics.dyn_manager,
-                                   env.gravity_manager);
+
+JupiterSphericalSimObject jupiter(jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager);
 
 /***************************************************************
 SaturnSimObject
@@ -226,31 +207,27 @@ SaturnSimObject
 
 class SaturnSphericalSimObject: public PropagatedPlanetGenericSimObject
 {
- public:
-  // Default data
-  jeod::Planet_saturn_default_data    saturn_default_data;
-  jeod::SphericalHarmonicsGravitySource_saturn_spherical_default_data
-                                      saturn_grav_default_data;
+public:
+    // Default data
+    jeod::Planet_saturn_default_data saturn_default_data;
+    jeod::SphericalHarmonicsGravitySource_saturn_spherical_default_data saturn_grav_default_data;
 
-  SaturnSphericalSimObject( jeod::TimeManager  & time_manager_in,
-                            jeod::DynManager   & dyn_manager_in,
-                            jeod::GravityManager & grav_in)
-    :
-    PropagatedPlanetGenericSimObject( time_manager_in,
-                                      dyn_manager_in,
-                                      grav_in,
-                                      saturn_default_data,
-                                      saturn_grav_default_data)
-  { }
+    SaturnSphericalSimObject(jeod::TimeManager & time_manager_in,
+                             jeod::DynManager & dyn_manager_in,
+                             jeod::GravityManager & grav_in)
+        : PropagatedPlanetGenericSimObject(time_manager_in,
+                                           dyn_manager_in,
+                                           grav_in,
+                                           saturn_default_data,
+                                           saturn_grav_default_data)
+    {
+    }
 
- private:
-  SaturnSphericalSimObject (const SaturnSphericalSimObject&);
-  SaturnSphericalSimObject & operator = (const SaturnSphericalSimObject&);
+    SaturnSphericalSimObject(const SaturnSphericalSimObject &) = delete;
+    SaturnSphericalSimObject & operator=(const SaturnSphericalSimObject &) = delete;
 };
-SaturnSphericalSimObject saturn( jeod_time.time_manager,
-                                 dynamics.dyn_manager,
-                                 env.gravity_manager);
 
+SaturnSphericalSimObject saturn(jeod_time.time_manager, dynamics.dyn_manager, env.gravity_manager);
 
 /***************************************************************
 BarycenterSimObject
@@ -258,68 +235,58 @@ BarycenterSimObject
 ##include <cmath>
 class BarycenterSimObject: public Trick::SimObject
 {
- private:
-  // References to items from other sim objects
-  jeod::Planet & sun;
-  jeod::Planet & jupiter;
-  jeod::Planet & saturn;
+private:
+    // References to items from other sim objects
+    jeod::Planet & sun;
+    jeod::Planet & jupiter;
+    jeod::Planet & saturn;
 
- public:
-  jeod::RefFrameTrans barycenter;
-  double rms_position;
-  double rms_velocity;
+public:
+    jeod::RefFrameTrans barycenter;
+    double rms_position;
+    double rms_velocity;
 
-  // Constructor
-  BarycenterSimObject ( jeod::Planet & sun_in,
-                        jeod::Planet & jupiter_in,
-                        jeod::Planet & saturn_in)
-  :
-     sun(sun_in),
-     jupiter(jupiter_in),
-     saturn(saturn_in)
-  {
-     (LOGGING, "environment") compute_barycenter ();
-  }
-
-  void
-  compute_barycenter (void)
-  {
-    double sun_mu = sun.grav_source->mu;
-    double jupiter_mu = jupiter.grav_source->mu;
-    double saturn_mu = saturn.grav_source->mu;
-
-    double mu_tot = sun_mu + jupiter_mu + saturn_mu;
-    rms_position = 0.0;
-    rms_velocity = 0.0;
-    for (int ii = 0; ii < 3; ++ii) {
-      barycenter.position[ii] =
-          (sun_mu * sun.inertial.state.trans.position[ii] +
-           jupiter_mu * jupiter.inertial.state.trans.position[ii] +
-           saturn_mu * saturn.inertial.state.trans.position[ii]) /
-          mu_tot;
-      rms_position += barycenter.position[ii]*barycenter.position[ii];
-      barycenter.velocity[ii] =
-          (sun_mu * sun.inertial.state.trans.velocity[ii] +
-           jupiter_mu * jupiter.inertial.state.trans.velocity[ii] +
-           saturn_mu * saturn.inertial.state.trans.velocity[ii]) /
-          mu_tot;
-      rms_velocity += barycenter.velocity[ii]*barycenter.velocity[ii];
+    // Constructor
+    BarycenterSimObject(jeod::Planet & sun_in, jeod::Planet & jupiter_in, jeod::Planet & saturn_in)
+        : sun(sun_in),
+          jupiter(jupiter_in),
+          saturn(saturn_in)
+    {
+        (LOGGING, "environment") compute_barycenter();
     }
-    rms_position = std::sqrt(rms_position);
-    rms_velocity = std::sqrt(rms_velocity);
-  }
 
+    void compute_barycenter()
+    {
+        double sun_mu = sun.grav_source->mu;
+        double jupiter_mu = jupiter.grav_source->mu;
+        double saturn_mu = saturn.grav_source->mu;
 
- private:
-  // Unimplemented copy constructor and assignment operator
-  BarycenterSimObject (const BarycenterSimObject&);
-  BarycenterSimObject & operator = (const BarycenterSimObject&);
+        double mu_tot = sun_mu + jupiter_mu + saturn_mu;
+        rms_position = 0.0;
+        rms_velocity = 0.0;
+        for(int ii = 0; ii < 3; ++ii)
+        {
+            barycenter.position[ii] = (sun_mu * sun.inertial.state.trans.position[ii] +
+                                       jupiter_mu * jupiter.inertial.state.trans.position[ii] +
+                                       saturn_mu * saturn.inertial.state.trans.position[ii]) /
+                                      mu_tot;
+            rms_position += barycenter.position[ii] * barycenter.position[ii];
+            barycenter.velocity[ii] = (sun_mu * sun.inertial.state.trans.velocity[ii] +
+                                       jupiter_mu * jupiter.inertial.state.trans.velocity[ii] +
+                                       saturn_mu * saturn.inertial.state.trans.velocity[ii]) /
+                                      mu_tot;
+            rms_velocity += barycenter.velocity[ii] * barycenter.velocity[ii];
+        }
+        rms_position = std::sqrt(rms_position);
+        rms_velocity = std::sqrt(rms_velocity);
+    }
+
+    // Unimplemented copy constructor and assignment operator
+    BarycenterSimObject(const BarycenterSimObject &) = delete;
+    BarycenterSimObject & operator=(const BarycenterSimObject &) = delete;
 };
 
-BarycenterSimObject barycenter (sun.planet,
-                                jupiter.planet,
-                                saturn.planet);
-
+BarycenterSimObject barycenter(sun.planet, jupiter.planet, saturn.planet);
 
 /******************************************************************************
 IntegConstructorSimObject
@@ -341,79 +308,80 @@ This sim-object provides:
 
 class IntegConstructorSimObject: public Trick::SimObject
 {
- public:
-  er7_utils::Integration::Technique technique;
-  er7_utils::IntegratorConstructor * constructor;
-  jeod::GaussJacksonIntegratorConstructor gj_constructor;
-  jeod::DynamicsIntegrationGroup group;
-  bool constructor_allocated;
+public:
+    er7_utils::Integration::Technique technique;
+    er7_utils::IntegratorConstructor * constructor;
+    jeod::GaussJacksonIntegratorConstructor gj_constructor;
+    jeod::DynamicsIntegrationGroup group;
+    bool constructor_allocated;
 
-  IntegConstructorSimObject ()
-  :
-    technique (er7_utils::Integration::AdamsBashforthMoulton4),
-    constructor (NULL),
-    constructor_allocated (false)
-  {
-    P0 ("initialization") create_integrator_constructor ();
-    ("shutdown") destroy_integrator_constructor ();
-  }
-
-  // FIXME Turner Nov 2018
-  //       having SWIG issues setting "technique" directly, so creating
-  //       switch_integ_to_* methods to allow switching between integration
-  //       techniques.  These can be removed when technique can be set directly
-  //       in the input file.  Do not need one for GJ because we have a local
-  //       instance of a GJ constructor.
-  void switch_integ_to_RKF78()
-  { technique = er7_utils::Integration::RKFehlberg78; }
-  void switch_integ_to_Euler()
-  { technique = er7_utils::Integration::Euler; }
-
-  void create_integrator_constructor ()
-  {
-    if ((constructor == NULL) &&
-        (technique != er7_utils::Integration::Unspecified)) {
-      constructor_allocated = true;
-      constructor = er7_utils::IntegratorConstructorFactory::create (technique);
+    IntegConstructorSimObject()
+        : technique(er7_utils::Integration::AdamsBashforthMoulton4),
+          constructor(nullptr),
+          constructor_allocated(false)
+    {
+        P0("initialization") create_integrator_constructor();
+        ("shutdown") destroy_integrator_constructor();
     }
-  }
 
-  void destroy_integrator_constructor ()
-  {
-    if (constructor_allocated) {
-      er7_utils::Er7UtilsDeletable::delete_instance (constructor);
+    // FIXME Turner Nov 2018
+    //       having SWIG issues setting "technique" directly, so creating
+    //       switch_integ_to_* methods to allow switching between integration
+    //       techniques.  These can be removed when technique can be set directly
+    //       in the input file.  Do not need one for GJ because we have a local
+    //       instance of a GJ constructor.
+    void switch_integ_to_RKF78()
+    {
+        technique = er7_utils::Integration::RKFehlberg78;
     }
-  }
 
- private:
-  IntegConstructorSimObject (const IntegConstructorSimObject&);
-  IntegConstructorSimObject & operator=(const IntegConstructorSimObject&);
+    void switch_integ_to_Euler()
+    {
+        technique = er7_utils::Integration::Euler;
+    }
+
+    void create_integrator_constructor()
+    {
+        if((constructor == nullptr) && (technique != er7_utils::Integration::Unspecified))
+        {
+            constructor_allocated = true;
+            constructor = er7_utils::IntegratorConstructorFactory::create(technique);
+        }
+    }
+
+    void destroy_integrator_constructor()
+    {
+        if(constructor_allocated)
+        {
+            er7_utils::Er7UtilsDeletable::delete_instance(constructor);
+        }
+    }
+
+    IntegConstructorSimObject(const IntegConstructorSimObject &) = delete;
+    IntegConstructorSimObject & operator=(const IntegConstructorSimObject &) = delete;
 };
 
 IntegConstructorSimObject integ_constructor;
-
 
 // Create 2 integration groups with different integration rates.
 // By default, assign sun, jupiter, and saturn to the high-rate group
 // and leave the low-rate group empty
 #include "integ_loop.sm"
-JeodIntegLoopSimObject fast_integ_loop (
-   FAST_DYNAMICS,
-   integ_constructor.constructor,
-   integ_constructor.group,
-   jeod_time.time_manager,
-   dynamics.dyn_manager,
-   env.gravity_manager,
-   &sun,
-   &jupiter,
-   &saturn,
-   NULL);
+JeodIntegLoopSimObject fast_integ_loop(FAST_DYNAMICS,
+                                       integ_constructor.constructor,
+                                       integ_constructor.group,
+                                       jeod_time.time_manager,
+                                       dynamics.dyn_manager,
+                                       env.gravity_manager,
+                                       &sun,
+                                       &jupiter,
+                                       &saturn,
+                                       nullptr);
 
-JeodIntegLoopSimObject slow_integ_loop (
-   SLOW_DYNAMICS,
-   integ_constructor.constructor,
-   integ_constructor.group,
-   jeod_time.time_manager,
-   dynamics.dyn_manager,
-   env.gravity_manager,
-   NULL);
+JeodIntegLoopSimObject slow_integ_loop(SLOW_DYNAMICS,
+                                       integ_constructor.constructor,
+                                       integ_constructor.group,
+                                       jeod_time.time_manager,
+                                       dynamics.dyn_manager,
+                                       env.gravity_manager,
+                                       nullptr);

@@ -67,11 +67,10 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/rotation_j2000.cc))
 
- 
+
 *******************************************************************************/
 #ifndef ROTATION_J2000_HH
 #define ROTATION_J2000_HH
-
 
 // System includes
 
@@ -82,75 +81,66 @@ Library dependencies:
 // Model includes
 #include "nutation_j2000.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Implements the axial rotation portion of J2000 RNP.
  */
-class RotationJ2000 : public PlanetRotation {
-
-   JEOD_MAKE_SIM_INTERFACES(RotationJ2000)
+class RotationJ2000 : public PlanetRotation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RotationJ2000)
 
 public: // public data members
+    /**
+     * The nominal axial rotational velocity of the earth
+     */
+    double planet_rotational_velocity{}; //!< trick_units(rad/s)
 
-   /**
-    * The nominal axial rotational velocity of the earth
-    */
-   double planet_rotational_velocity; //!< trick_units(rad/s)
-   /**
-    * Pointer to the J2000 nutation object, used
-    * for get obliquity information out. Will be
-    * NULL (automatically) if anything but
-    * Full_Term_RNP is set in the RNPJ2000 object
-    */
-   NutationJ2000* nutation; //!< trick_units(--)
+    /**
+     * Pointer to the J2000 nutation object, used
+     * for get obliquity information out. Will be
+     * NULL (automatically) if anything but
+     * Full_Term_RNP is set in the RNPJ2000 object
+     */
+    NutationJ2000 * nutation{}; //!< trick_units(--)
 
-   /**
-    * Tells the rotation object if it should use a full
-    * blown rotation formulation, or just use the time
-    * passed multiplied by the rotational velocity.
-    * Used with the different intialization options
-    * for the main RNP class
-    */
-   bool use_full_rnp; //!< trick_units(--)
+    /**
+     * Tells the rotation object if it should use a full
+     * blown rotation formulation, or just use the time
+     * passed multiplied by the rotational velocity.
+     * Used with the different intialization options
+     * for the main RNP class
+     */
+    bool use_full_rnp{true}; //!< trick_units(--)
 
-   /**
-    * The last theta_gast (angle the earth had axially
-    * rotated) calculated.
-    */
-   double theta_gast; //!< trick_units(rad)
+    /**
+     * The last theta_gast (angle the earth had axially
+     * rotated) calculated.
+     */
+    double theta_gast{}; //!< trick_units(rad)
 
-   /**
-    * GMST, currently saved for logging purposes
-    */
-   double GMST; //!< trick_units(--)
-
-private: // private data members
+    /**
+     * GMST, currently saved for logging purposes
+     */
+    double GMST{}; //!< trick_units(--)
 
 public: // public member functions
+    RotationJ2000() = default;
+    ~RotationJ2000() override = default;
+    RotationJ2000 & operator=(const RotationJ2000 &) = delete;
+    RotationJ2000(const RotationJ2000 &) = delete;
 
-   RotationJ2000 ();
+    // RotationJ2000 specific implementation of update rotation
+    // Before this is called, the
+    // current_time parameter must be set to seconds since standard epoch
+    // J2000, in the GMST time standard.
 
-   ~RotationJ2000 () override;
-
-   // RotationJ2000 specific implementation of update rotation
-   // Before this is called, the
-   // current_time parameter must be set to seconds since standard epoch
-   // J2000, in the GMST time standard.
-
-   void update_rotation () override;
-
-private: // private member functions
-
-   // lock away the copy constructor and operator = by making them private
-   RotationJ2000& operator = (const RotationJ2000& rhs);
-   RotationJ2000 (const RotationJ2000& rhs);
-
+    void update_rotation() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

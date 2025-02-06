@@ -7,7 +7,7 @@
 exec(compile(open("Log_data/log_state.py", "rb").read(), "Log_data/log_state.py", 'exec'))
 log_state(1.0)
 
-# Configure the dynamics manager to operate in single planet mode 
+# Configure the dynamics manager to operate in single planet mode
 dynamics.dyn_manager_init.mode = trick.DynManagerInit.EphemerisMode_SinglePlanet
 dynamics.dyn_manager_init.central_point_name = "Earth"
 
@@ -35,4 +35,4 @@ mass_props(vehicle)
 mass_props(vehicle2)
 
 
-trick.sim_services.exec_set_terminate_time(18000.0);
+trick.sim_services.exec_set_terminate_time(18000.0)

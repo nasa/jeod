@@ -51,25 +51,22 @@ Purpose: ()
 Library dependencies: ((../src/constraint_component.cc))
 */
 
-
 #ifndef JEOD_CONSTRAINT_COMPONENT_HH
 #define JEOD_CONSTRAINT_COMPONENT_HH
-
 
 #include "dynamics/dyn_body/include/wrench.hh"
 #include "experimental/math/include/solver_types.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 class ConstraintFrame;
 class DynBody;
 class DynBodyConstraintsSolver;
 class VehicleProperties;
 class VehicleNonGravState;
-
 
 /**
  * Represents a single scalar constraint, either a pure force in a specific
@@ -92,47 +89,37 @@ class VehicleNonGravState;
  */
 class ConstraintComponent
 {
-
-    JEOD_MAKE_SIM_INTERFACES(ConstraintComponent)
+    JEOD_MAKE_SIM_INTERFACES(jeod, ConstraintComponent)
 
 public:
-
-
     // Member functions
 
     /**
      * Default constructor.
      */
-    ConstraintComponent (
-        ConstraintFrame* constraint_frame_in = nullptr);
+    ConstraintComponent(ConstraintFrame * constraint_frame_in = nullptr);
 
     /**
      * Destructor.
      */
-   virtual ~ConstraintComponent() = default;
+    virtual ~ConstraintComponent() = default;
 
-
-   ConstraintComponent (const ConstraintComponent&) = default;
-   ConstraintComponent& operator= (const ConstraintComponent&) = default;
-   ConstraintComponent (ConstraintComponent&&) = default;
-   ConstraintComponent& operator= (ConstraintComponent&&) = default;
-
+    ConstraintComponent(const ConstraintComponent &) = default;
+    ConstraintComponent & operator=(const ConstraintComponent &) = default;
+    ConstraintComponent(ConstraintComponent &&) = default;
+    ConstraintComponent & operator=(ConstraintComponent &&) = default;
 
     /**
      * Perform actions related to the just-performed addition of this constraint
      * to a constraints solver.
      */
-    virtual void attach_to_solver (
-        DynBodyConstraintsSolver* solver,
-        DynBody* dyn_body) = 0;
+    virtual void attach_to_solver(DynBodyConstraintsSolver * solver, DynBody * dyn_body) = 0;
 
     /**
      * Perform actions related to the just-performed removal of this constraint
      * from a constraints solver.
      */
-    virtual void detach_from_solver (
-        DynBodyConstraintsSolver* solver,
-        DynBody* dyn_body) = 0;
+    virtual void detach_from_solver(DynBodyConstraintsSolver * solver, DynBody * dyn_body) = 0;
 
     /**
      * Update information about the relation between this constraint
@@ -140,10 +127,9 @@ public:
      * @note This method needs to be called after the root structure frame
      * to root constraint frame relationship has been updated.
      */
-    virtual void update_attachment (
-        const VehicleProperties&)
+    virtual void update_attachment(const VehicleProperties &)
     {
-        compute_root_direction ();
+        compute_root_direction();
     }
 
     /**
@@ -153,24 +139,21 @@ public:
      *   root body to non-constraint forces and torques, including
      *   the pre-constraint wrenches.
      */
-    virtual void setup_constraint (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) = 0;
+    virtual void setup_constraint(const VehicleProperties & vehicle_properties,
+                                  const VehicleNonGravState & non_grav_state) = 0;
 
 #ifndef SWIG
-   /**
+    /**
      * Set the direction in which the constraint acts on the vehicle.
      * @param constraint_direction  Constraint direction, in constraint frame
      * coordinates.
      */
-    void set_constraint_direction (
-        SolverTypes::ConstVector3T constraint_direction);
+    void set_constraint_direction(SolverTypes::ConstVector3T constraint_direction);
 
     /**
      * Compute the constraint direction in root structural coordinates.
      */
-    void compute_root_direction ();
-
+    void compute_root_direction();
 
     /**
      * Get the vehicle's unit translational response to this constraint at a
@@ -184,10 +167,9 @@ public:
      *    due to a unitary value of the specified component of this constraint.
      * @return The response vector.
      */
-    virtual SolverTypes::DecayedVector3T get_translational_response (
-        const VehicleProperties& vehicle_properties,
-        SolverTypes::ConstVector3T point,
-        SolverTypes::Vector3T response) const = 0;
+    virtual SolverTypes::DecayedVector3T get_translational_response(const VehicleProperties & vehicle_properties,
+                                                                    SolverTypes::ConstVector3T point,
+                                                                    SolverTypes::Vector3T response) const = 0;
 
     /**
      * Get the vehicle's unit rotational response to this constraint.
@@ -195,8 +177,8 @@ public:
      * @return  The rotational accleration by the vehicle due to a unit
      *    value of this constraint.
      */
-    virtual SolverTypes::ConstDecayedVector3T get_rotational_response (
-        const VehicleProperties& vehicle_properties) const;
+    virtual SolverTypes::ConstDecayedVector3T get_rotational_response(
+        const VehicleProperties & vehicle_properties) const;
 
     /**
      * Get the vehicle's unit rotational response to this constraint.
@@ -206,15 +188,14 @@ public:
      *    this constraint.
      * @return The response vector.
      */
-    virtual SolverTypes::DecayedVector3T get_rotational_response (
-        const VehicleProperties& vehicle_properties,
-        SolverTypes::Vector3T response) const;
+    virtual SolverTypes::DecayedVector3T get_rotational_response(const VehicleProperties & vehicle_properties,
+                                                                 SolverTypes::Vector3T response) const;
 #endif
 
     /**
      * Set the right hand side of the constraint equation for this constraint.
      */
-    virtual void set_right_hand_side (double rhs_value)
+    virtual void set_right_hand_side(double rhs_value)
     {
         right_hand_side = rhs_value;
     }
@@ -222,7 +203,7 @@ public:
     /**
      * Get the right hand side of the constraint equation for this constraint.
      */
-    virtual double get_right_hand_side () const
+    virtual double get_right_hand_side() const
     {
         return right_hand_side;
     }
@@ -234,9 +215,8 @@ public:
      * @param other   The other constrained object.
      * @return  Interaction coefficient.
      */
-    virtual double get_cross_coeff (
-        const VehicleProperties& vehicle_properties,
-        const ConstraintComponent& other) const = 0;
+    virtual double get_cross_coeff(const VehicleProperties & vehicle_properties,
+                                   const ConstraintComponent & other) const = 0;
 
     /**
      * Computes the coefficient of the solver A matrix that represents the
@@ -244,8 +224,7 @@ public:
      * @param vehicle_properties  Various vehicle properties.
      * @return  Interaction coefficient.
      */
-    virtual double get_self_coeff (
-        const VehicleProperties& vehicle_properties) const
+    virtual double get_self_coeff(const VehicleProperties & vehicle_properties) const
     {
         return 1.0 + get_cross_coeff(vehicle_properties, *this);
     }
@@ -255,14 +234,14 @@ public:
      * @param value  The solution to the matrix constraint equation
      *   for this constrained object.
      */
-    virtual void set_constraint_value (double value) = 0;
+    virtual void set_constraint_value(double value) = 0;
 
     /**
      * Get the wrench this constrained object exerts on the vehicle.
      * @return A const reference to the constraint wrench for this object.
      * @note This function is called after the constraint values have been set.
      */
-    virtual const Wrench& get_constraint_wrench () const
+    virtual const Wrench & get_constraint_wrench() const
     {
         return constraint_wrench;
     }
@@ -274,17 +253,14 @@ public:
      * @param non_grav_state  The non-gravitational response of the
      *   root body to external forces and torques, including the constraints.
      */
-    virtual void compute_constraint_response (
-        const VehicleProperties& vehicle_properties,
-        const VehicleNonGravState& non_grav_state) = 0;
-
+    virtual void compute_constraint_response(const VehicleProperties & vehicle_properties,
+                                             const VehicleNonGravState & non_grav_state) = 0;
 
 protected:
-
     /**
      * The reference frame associated with this constraint.
      */
-    ConstraintFrame* constraint_frame; //!< trick_units(--)
+    ConstraintFrame * constraint_frame; //!< trick_units(--)
 
     /**
      * The indeterminate part of the wrench due to this constraint.
@@ -295,43 +271,38 @@ protected:
      * The direction in which the constraint acts on the vehicle,
      * in constraint frame coordinates.
      */
-    double constraint_direction_constraint_frame[3]; //!< trick_units(--)
+    double constraint_direction_constraint_frame[3]{}; //!< trick_units(--)
 
     /**
      * The direction in which the constraint acts on the vehicle,
      * in root body structural coordinates.
      */
-    double constraint_direction_root[3]; //!< trick_units(--)
+    double constraint_direction_root[3]{}; //!< trick_units(--)
 
     /**
      * The contribution of this constraint to the rotational acceleration
      * of the root body, in root structural components.
      */
-    double constraint_omega_dot_root[3]; //!< trick_units(1/s^2)
+    double constraint_omega_dot_root[3]{}; //!< trick_units(1/s^2)
 
     /**
      * The right hand side of the constraint equation pertaining to this
      * constraint. This has units of force for a force constraint, torque
      * for a torque constraint, etc.
      */
-    double right_hand_side; //!< trick_units(--)
-
+    double right_hand_side{}; //!< trick_units(--)
 
     /**
      * Compute the vehicle's rotational response to a torque.
      * @param vehicle_properties  Various vehicle properties.
      * @param torque  The torque for which the response is to be calculated.
      */
-    void compute_rotational_response (
-        const VehicleProperties& vehicle_properties,
-        const double torque[3]);
+    void compute_rotational_response(const VehicleProperties & vehicle_properties, const double torque[3]);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

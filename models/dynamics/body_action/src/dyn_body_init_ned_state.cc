@@ -33,7 +33,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 #include <cstddef>
 
@@ -50,177 +49,147 @@ Library dependencies:
 #include "../include/body_action_messages.hh"
 #include "../include/dyn_body_init_ned_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * DynBodyInitNedState default constructor.
  */
-DynBodyInitNedState::DynBodyInitNedState (
-   void)
-:
-   DynBodyInitPlanetDerived(),
-   ref_point(),
-   altlatlong_type(NorthEastDown::undefined),
-   use_alt_pfix(false),
-   pfix_ptr(nullptr)
+DynBodyInitNedState::DynBodyInitNedState()
 {
-   required_items = RefFrameItems::Pos;
-   body_is_required = false;
-
-   return;
+    required_items = RefFrameItems::Pos;
+    body_is_required = false;
 }
-
-
-/**
- * DynBodyInitNedState destructor.
- */
-DynBodyInitNedState::~DynBodyInitNedState (
-   void)
-{
-   return;
-}
-
 
 /**
  * Setter for use_alt_pfix
  */
-void
-DynBodyInitNedState::set_use_alt_pfix (
-   const bool use_alt_pfix_in)
+void DynBodyInitNedState::set_use_alt_pfix(const bool use_alt_pfix_in)
 {
-   use_alt_pfix = use_alt_pfix_in;
+    use_alt_pfix = use_alt_pfix_in;
 }
 
 /**
  * Initialize the initializer.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitNedState::initialize (
-   DynManager & dyn_manager)
+void DynBodyInitNedState::initialize(DynManager & dyn_manager)
 {
+    if(!ref_body_name.empty())
+    {
+        body_is_required = true;
+    }
 
-   if (!ref_body_name.empty()) {
-      body_is_required = true;
-   }
+    // Pass the message up the chain. This will initialize the base
+    // characteristics of the instance.
+    DynBodyInitPlanetDerived::initialize(dyn_manager);
 
-   // Pass the message up the chain. This will initialize the base
-   // characteristics of the instance.
-   DynBodyInitPlanetDerived::initialize (dyn_manager);
-
-   // Choose the planet fixed frame to be used
-   if (use_alt_pfix) {
-      planet->calculate_alt_pfix();
-      pfix_ptr = &(planet->alt_pfix);
-   } else {
-      pfix_ptr = &(planet->pfix);
-   }
+    // Choose the planet fixed frame to be used
+    if(use_alt_pfix)
+    {
+        planet->calculate_alt_pfix();
+        pfix_ptr = &(planet->alt_pfix);
+    }
+    else
+    {
+        pfix_ptr = &(planet->pfix);
+    }
 }
-
 
 /**
  * Apply the initializer.
  * \param[in,out] dyn_manager Dynamics manager
  */
-void
-DynBodyInitNedState::apply (
-   DynManager & dyn_manager)
+void DynBodyInitNedState::apply(DynManager & dyn_manager)
 {
+    NorthEastDown ned_state;             // --  North-East-Down frame vehicle state
+    RefFrameItems test_items(set_items); // -- The state components to be set
 
-   NorthEastDown ned_state;             // --  North-East-Down frame vehicle state
-   RefFrameItems test_items(set_items); // -- The state components to be set
+    // Initialize the N-E-D's planet reference to the specified planet.
+    ned_state.initialize(planet);
 
+    // Populate the planet-fixed state.
+    // No reference body: Use the reference point as the basis for the state.
+    if(ref_body == nullptr)
+    {
+        // The point is stationary wrt the rotating planet.
+        Vector3::initialize(ned_state.ned_frame.state.trans.velocity);
 
-   // Initialize the N-E-D's planet reference to the specified planet.
-   ned_state.initialize (planet);
+        // Set the state with the supplied point, interpreted as geocentric
+        // or geodetic per the altlatlong_type enum.
+        switch(altlatlong_type)
+        {
+            case NorthEastDown::spherical:
+                ned_state.update_from_spher(ref_point);
+                break;
 
-   // Populate the planet-fixed state.
-   // No reference body: Use the reference point as the basis for the state.
-   if (ref_body == nullptr) {
+            case NorthEastDown::elliptical:
+                ned_state.update_from_ellip(ref_point);
+                break;
 
-      // The point is stationary wrt the rotating planet.
-      Vector3::initialize (ned_state.ned_frame.state.trans.velocity);
+            case NorthEastDown::undefined:
+            default:
+                MessageHandler::fail(__FILE__,
+                                     __LINE__,
+                                     BodyActionMessages::illegal_value,
+                                     "%s failed:\n"
+                                     "AltLatLong type option not recognized",
+                                     action_identifier.c_str());
 
-      // Set the state with the supplied point, interpreted as geocentric
-      // or geodetic per the altlatlong_type enum.
-      switch (altlatlong_type) {
-      case NorthEastDown::spherical:
-         ned_state.update_from_spher (ref_point);
-         break;
+                // Not reached
+                return;
+        }
 
-      case NorthEastDown::elliptical:
-         ned_state.update_from_ellip (ref_point);
-         break;
+        // Set the frame name based on the reference body.
+        ned_state.ned_frame.set_name("ref_point", planet_name, "ned");
+    }
 
-      case NorthEastDown::undefined:
-      default:
-         MessageHandler::fail (
-            __FILE__, __LINE__, BodyActionMessages::illegal_value,
-            "%s failed:\n"
-            "AltLatLong type option not recognized",
-            action_identifier.c_str());
+    // Reference body supplied: Use its translational state as the basis for
+    // the planet-fixed state.
+    else
+    {
+        RefFrameState rel_state;
 
-         // Not reached
-         return;
-      }
+        // Compute the state of the reference body to the planet fixed frame.
+        ref_body->composite_body.compute_relative_state(*pfix_ptr, rel_state);
 
-      // Set the frame name based on the reference body.
-      ned_state.ned_frame.set_name ("ref_point", planet_name.c_str(), "ned");
-   }
+        // Set the north-east-down frame's translational states.
+        ned_state.set_ned_trans_states(rel_state.trans.position, rel_state.trans.velocity);
 
-   // Reference body supplied: Use its translational state as the basis for
-   // the planet-fixed state.
-   else {
-      RefFrameState rel_state;
+        // Set the frame name based on the reference body.
+        ned_state.ned_frame.set_name(ref_body->name.get_name(), planet_name, "ned");
+    }
 
-      // Compute the state of the reference body to the planet fixed frame.
-      ref_body->composite_body.compute_relative_state (*pfix_ptr, rel_state);
+    // Construct the N-E-D frame's orientation.
+    ned_state.altlatlong_type = altlatlong_type;
+    ned_state.build_ned_orientation();
 
-      // Set the north-east-down frame's translational states.
-      ned_state.set_ned_trans_states (
-         rel_state.trans.position, rel_state.trans.velocity);
+    /* (Temporarily) attach the north-east-down frame to the planet-centered,
+       planet-fixed frame. */
+    pfix_ptr->add_child(ned_state.ned_frame);
 
-      // Set the frame name based on the reference body.
-      ned_state.ned_frame.set_name (ref_body->name.c_str(), planet_name.c_str(), "ned");
-   }
+    // The position/velocity/attitude/rate data pertain to this newly
+    // constructed N-E-D frame.
+    reference_ref_frame = &ned_state.ned_frame;
 
+    // Compute the state relative to the parent given the user inputs
+    // relative to the reference reference frame.
+    apply_user_inputs();
 
-   // Construct the N-E-D frame's orientation.
-   ned_state.altlatlong_type = altlatlong_type;
-   ned_state.build_ned_orientation();
+    /* Pass the message up the chain, with the reference frame for the
+       state set to this newly-constructed N-E-D frame */
+    DynBodyInitPlanetDerived::apply(dyn_manager);
 
+    // Remove the temporary connection established above.
+    ned_state.ned_frame.remove_from_parent();
 
-   /* (Temporarily) attach the north-east-down frame to the planet-centered,
-      planet-fixed frame. */
-   pfix_ptr->add_child (ned_state.ned_frame);
-
-
-   // The position/velocity/attitude/rate data pertain to this newly
-   // constructed N-E-D frame.
-   reference_ref_frame = &ned_state.ned_frame;
-
-   // Compute the state relative to the parent given the user inputs
-   // relative to the reference reference frame.
-   apply_user_inputs ();
-
-   /* Pass the message up the chain, with the reference frame for the
-      state set to this newly-constructed N-E-D frame */
-   DynBodyInitPlanetDerived::apply (dyn_manager);
-
-
-   // Remove the temporary connection established above.
-   ned_state.ned_frame.remove_from_parent();
-
-   // The N-E-D frame will go out of scope on returning from this function.
-   // The reference_ref_frame should no longer refer to this frame.
-   reference_ref_frame = nullptr;
-
-   return;
+    // The N-E-D frame will go out of scope on returning from this function.
+    // The reference_ref_frame should no longer refer to this frame.
+    reference_ref_frame = nullptr;
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

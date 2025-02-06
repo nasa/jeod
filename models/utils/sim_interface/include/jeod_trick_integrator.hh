@@ -52,10 +52,9 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_TRICK10_INTEGRATOR_HH
 #define JEOD_TRICK10_INTEGRATOR_HH
@@ -72,194 +71,177 @@ Purpose:
 #include "jeod_class.hh"
 #include "jeod_integrator_interface.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A TrickJeodIntegrator specializes the Trick::Integrator to provide
  * the Trick side of the integration interface between Trick and JEOD.
  */
-class TrickJeodIntegrator : public ::Trick::Integrator {
-
+class TrickJeodIntegrator : public Trick::Integrator
+{
 public:
+    // Methods
 
-   // Methods
+    // Note:
+    // The default constructor, copy constructor, and assignment operator
+    // for this class are not declared. The C++ defaults are in force.
 
-   // Note:
-   // The default constructor, copy constructor, and assignment operator
-   // for this class are not declared. The C++ defaults are in force.
+    /**
+     * Destructor
+     */
+    ~TrickJeodIntegrator() override = default;
 
-   /**
-    * Destructor
-    */
-   ~TrickJeodIntegrator () override {}
+    // Trick::Integrator methods
+    // The pure virtual methods required by Trick::Integrator are supplied
+    // as required but do nothing. They should not be called.
 
+    /**
+     * Does nothing.
+     */
+    int integrate() override
+    {
+        return -1;
+    }
 
-   // Trick::Integrator methods
-   // The pure virtual methods required by Trick::Integrator are supplied
-   // as required but do nothing. They should not be called.
-
-   /**
-    * Does nothing.
-    */
-   int integrate () override {return -1;}
-
-   /**
-    * Does nothing.
-    */
-   void initialize (int, double) override {}
+    /**
+     * Does nothing.
+     */
+    void initialize(int, double) override {}
 };
-
 
 /**
  * A JeodTrickIntegrator specializes the JeodIntegratorInterface for use
  * with Trick as the simulation engine.
-*/
-class JeodTrickIntegrator: public JeodIntegratorInterface {
-JEOD_MAKE_SIM_INTERFACES(JeodTrickIntegrator)
+ */
+class JeodTrickIntegrator : public JeodIntegratorInterface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodTrickIntegrator)
 
 public:
+    // Methods
 
-   // Methods
+    /**
+     * Default constructor
+     */
+    JeodTrickIntegrator()
+        : JeodIntegratorInterface(),
+          trick_integrator()
 
-   /**
-    * Default constructor
-    */
-   JeodTrickIntegrator ()
-   :
-      JeodIntegratorInterface(),
-      trick_integrator(),
-      default_first_step_deriv(false)
-   {}
+    {
+    }
 
+    /**
+     * Destructor.
+     */
+    ~JeodTrickIntegrator() override = default;
 
-   /**
-    * Destructor.
-    */
-   ~JeodTrickIntegrator () override {}
+    /**
+     * Interpret the integration technique
+     */
+    er7_utils::Integration::Technique interpret_integration_type(int integ_technique) const override
+    {
+        return er7_utils::translate_trick_integrator_type(static_cast<Integrator_type>(integ_technique));
+    }
 
-   /**
-    * Interpret the integration technique
-    */
-   er7_utils::Integration::Technique interpret_integration_type (
-      int integ_technique)
-   const override
-   {
-      return er7_utils::translate_trick_integrator_type (
-                static_cast<Integrator_type> (integ_technique));
-   }
+    /**
+     * Get the simulation engine's integrator.
+     * @return Pointer to the simulation engine's integrator.
+     */
+    Trick::Integrator * get_integrator() override
+    {
+        return &trick_integrator;
+    }
 
-   /**
-    * Get the simulation engine's integrator.
-    * @return Pointer to the simulation engine's integrator.
-    */
-   virtual ::Trick::Integrator* get_integrator () //cppcheck-suppress missingOverride
-   {
-      return &trick_integrator;
-   }
+    /**
+     * Get the integration cycle time step.
+     * @return                Simulation time delta t, in seconds
+     */
+    double get_dt() const override
+    {
+        return trick_integrator.dt;
+    }
 
-   /**
-    * Get the integration cycle time step.
-    * @return                Simulation time delta t, in seconds
-    */
-   double get_dt () const override
-   {
-      return trick_integrator.dt;
-   }
+    /**
+     * Get the flag that tells the simulation engine to compute derivatives
+     * on the initial step of each integration cycle.
+     * @return Value of the first step derivatives flag
+     */
+    bool get_first_step_derivs_flag() const override
+    {
+        return trick_integrator.first_step_deriv;
+    }
 
-   /**
-    * Get the flag that tells the simulation engine to compute derivatives
-    * on the initial step of each integration cycle.
-    * @return Value of the first step derivatives flag
-    */
-   bool get_first_step_derivs_flag () const override
-   {
-      return trick_integrator.first_step_deriv;
-   }
+    /**
+     * Set the flag that tells the simulation engine to compute derivatives
+     * on the initial step of each integration cycle.
+     * @param[in] value       Value of the first step derivatives flag
+     */
+    void set_first_step_derivs_flag(bool value) override
+    {
+        trick_integrator.first_step_deriv = value;
+    }
 
-   /**
-    * Set the flag that tells the simulation engine to compute derivatives
-    * on the initial step of each integration cycle.
-    * @param[in] value       Value of the first step derivatives flag
-    */
-   void set_first_step_derivs_flag (bool value) override
-   {
-      trick_integrator.first_step_deriv = value;
-   }
+    /**
+     * Reset the flag that tells the simulation engine to compute derivatives
+     * on the initial step of each integration cycle. Derivatives are always
+     * needed just after a reset. The behavior should revert to nominal after
+     * the reset has been performed.
+     */
+    void reset_first_step_derivs_flag() override
+    {
+        default_first_step_deriv = trick_integrator.first_step_deriv;
+        trick_integrator.first_step_deriv = true;
+    }
 
-   /**
-    * Reset the flag that tells the simulation engine to compute derivatives
-    * on the initial step of each integration cycle. Derivatives are always
-    * needed just after a reset. The behavior should revert to nominal after
-    * the reset has been performed.
-    */
-   void reset_first_step_derivs_flag () override
-   {
-      default_first_step_deriv = trick_integrator.first_step_deriv;
-      trick_integrator.first_step_deriv = true;
-   }
+    /**
+     * Restore the flag that tells the simulation engine to compute derivatives
+     * on the initial step of each integration cycle to it's value prior to
+     * the most recent call to reset_first_step_derivs_flag.
+     */
+    void restore_first_step_derivs_flag() override
+    {
+        trick_integrator.first_step_deriv = default_first_step_deriv;
+    }
 
-   /**
-    * Restore the flag that tells the simulation engine to compute derivatives
-    * on the initial step of each integration cycle to it's value prior to
-    * the most recent call to reset_first_step_derivs_flag.
-    */
-   void restore_first_step_derivs_flag () override
-   {
-      trick_integrator.first_step_deriv = default_first_step_deriv;
-   }
+    /**
+     * Set the step number within an integration cycle.
+     * @param[in] stepno      Step number
+     */
+    void set_step_number(unsigned int stepno) override
+    {
+        trick_integrator.intermediate_step = stepno;
+    }
 
-   /**
-    * Set the step number within an integration cycle.
-    * @param[in] stepno      Step number
-    */
-   void set_step_number (unsigned int stepno) override
-   {
-      trick_integrator.intermediate_step = stepno;
-   }
+    /**
+     * Update the time model given the simulation time.
+     * @param[in] sim_time Simulation time
+     */
+    void set_time(double sim_time) override
+    {
+        trick_integrator.time = sim_time;
+    }
 
-   /**
-    * Update the time model given the simulation time.
-    * @param[in] sim_time Simulation time
-    */
-   void set_time (double sim_time) override
-   {
-      trick_integrator.time = sim_time;
-   }
-
+    // Deleted methods: copy constructor and assignment operator
+    JeodTrickIntegrator(const JeodTrickIntegrator &) = delete;
+    JeodTrickIntegrator & operator=(const JeodTrickIntegrator &) = delete;
 
 private:
+    // Member data
 
-   // Member data
+    /**
+     * Trick integration structure.
+     */
+    TrickJeodIntegrator trick_integrator; //!< trick_units(--)
 
-   /**
-    * Trick integration structure.
-    */
-   TrickJeodIntegrator trick_integrator; //!< trick_units(--)
-
-   /**
-    * Default value of trick_integrator.first_step_deriv.
-    */
-   bool default_first_step_deriv; //!< trick_units(--)
-
-
-   // Deleted methods: copy constructor and assignment operator
-
-   /**
-    * Not implemented.
-    */
-   JeodTrickIntegrator (const JeodTrickIntegrator &);
-
-   /**
-    * Not implemented.
-    */
-   JeodTrickIntegrator & operator= (const JeodTrickIntegrator &);
-
+    /**
+     * Default value of trick_integrator.first_step_deriv.
+     */
+    bool default_first_step_deriv{}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 #endif

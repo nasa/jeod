@@ -30,7 +30,7 @@ jeod_time.time_tt.update_from_name  = "TAI"
 
 
 
-vehicle.dyn_body.set_name("vehicle");
+vehicle.dyn_body.set_name("vehicle")
 vehicle.dyn_body.integ_frame_name = "Earth.inertial"
 vehicle.dyn_body.translational_dynamics = True
 vehicle.dyn_body.rotational_dynamics = False

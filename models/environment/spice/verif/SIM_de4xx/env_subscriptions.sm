@@ -43,41 +43,37 @@
 //     subscriptions required for the ref frame tree to build.)
 //***************************************************************
 
-class SubscriptionsEnvSimObject: public Trick::SimObject {
+class SubscriptionsEnvSimObject : public Trick::SimObject
+{
 private: // external references
     jeod::Planet & sun;
     jeod::Planet & earth;
     jeod::Planet & moon;
     jeod::Planet & mars;
-public:
 
-   // Constructor
-   SubscriptionsEnvSimObject( jeod::Planet & sun_in,
+public:
+    // Constructor
+    SubscriptionsEnvSimObject(jeod::Planet & sun_in,
                               jeod::Planet & earth_in,
                               jeod::Planet & moon_in,
                               jeod::Planet & mars_in)
-      :
-      sun(sun_in),
-      earth(earth_in),
-      moon(moon_in),
-      mars(mars_in)
-   {
-      P_EPH  ("initialization") sun.inertial.subscribe ();
-      P_EPH  ("initialization") earth.inertial.subscribe ();
-      P_EPH  ("initialization") moon.inertial.subscribe ();
-      P_EPH  ("initialization") mars.inertial.subscribe ();
+        : sun(sun_in),
+          earth(earth_in),
+          moon(moon_in),
+          mars(mars_in)
+    {
+        P_EPH("initialization") sun.inertial.subscribe();
+        P_EPH("initialization") earth.inertial.subscribe();
+        P_EPH("initialization") moon.inertial.subscribe();
+        P_EPH("initialization") mars.inertial.subscribe();
 
-      P_EPH  ("initialization") earth.pfix.subscribe ();
-      P_EPH  ("initialization") moon.pfix.subscribe ();
-   }
+        P_EPH("initialization") earth.pfix.subscribe();
+        P_EPH("initialization") moon.pfix.subscribe();
+    }
 
-private:
-   // Unimplemented copy constructor and assignment operator
-   SubscriptionsEnvSimObject (const SubscriptionsEnvSimObject&);
-   SubscriptionsEnvSimObject & operator = (const SubscriptionsEnvSimObject&);
+    // Unimplemented copy constructor and assignment operator
+    SubscriptionsEnvSimObject(const SubscriptionsEnvSimObject &) = delete;
+    SubscriptionsEnvSimObject & operator=(const SubscriptionsEnvSimObject &) = delete;
 };
 
-SubscriptionsEnvSimObject env_subscribe (sun.planet,
-                                         earth.planet,
-                                         moon.planet,
-                                         mars.planet);
+SubscriptionsEnvSimObject env_subscribe(sun.planet, earth.planet, moon.planet, mars.planet);

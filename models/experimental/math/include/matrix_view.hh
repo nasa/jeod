@@ -51,19 +51,17 @@ Purpose: ()
 SWIG: (No)
 */
 
-
 #ifndef JEOD_MATRIX_VIEW_HH
 #define JEOD_MATRIX_VIEW_HH
-
 
 #include "forward_view.hh"
 #include "solver_types.hh"
 
 #include <stdexcept>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Encapsulates a collection of values of the underlying type that can
@@ -76,22 +74,19 @@ namespace jeod {
  *
  * @tparam ElemType The matrix element type, assumed to be a primitive type.
  */
-template<typename ElemType, typename RefType>
-class MatrixView
+template<typename ElemType, typename RefType> class MatrixView
 {
 public:
-
     /**
      * Non-default constructor.
      * @param n_rows_in  The number of rows in the view.
      * @param n_cols_in  The number of columns in the view.
      */
-    MatrixView (unsigned n_rows_in, unsigned n_cols_in)
-    :
-        n_rows(n_rows_in),
-        n_cols(n_cols_in)
-    { }
-
+    MatrixView(unsigned n_rows_in, unsigned n_cols_in)
+        : n_rows(n_rows_in),
+          n_cols(n_cols_in)
+    {
+    }
 
     /**
      * Destructor. There's nothing to destruct here.
@@ -106,22 +101,22 @@ public:
      * @throw std::length_error if this view and the source view are
      * incompatibly sized.
      */
-    virtual MatrixView& operator= (MatrixView& src)
+    virtual MatrixView & operator=(MatrixView & src)
     {
-        if ((src.n_rows != n_rows) || (src.n_cols != n_cols))
+        if((src.n_rows != n_rows) || (src.n_cols != n_cols))
         {
-            throw std::length_error ("Incompatible sizes");
+            JEOD_THROW(std::length_error("Incompatible sizes"));
         }
 
-        //To make cppcheck happy
+        // To make cppcheck happy
         n_rows = src.n_rows;
         n_cols = src.n_cols;
 
-        for (unsigned ii = 0; ii < n_rows; ++ii)
+        for(unsigned ii = 0; ii < n_rows; ++ii)
         {
-            for (unsigned jj = 0; jj < n_cols; ++jj)
+            for(unsigned jj = 0; jj < n_cols; ++jj)
             {
-                (*this)(ii,jj) = src(ii,jj);
+                (*this)(ii, jj) = src(ii, jj);
             }
         }
 
@@ -134,9 +129,7 @@ public:
      * @param i_col Column number of element to be indexed.
      * @return Reference to the indexed value.
      */
-    virtual RefType operator() (
-        unsigned int i_row,
-        unsigned int i_col) = 0;
+    virtual RefType operator()(unsigned int i_row, unsigned int i_col) = 0;
 
     /**
      * Const function call operator, as an index operator.
@@ -144,11 +137,9 @@ public:
      * @param i_col Column number of element to be indexed.
      * @return The indexed value.
      */
-    virtual ElemType  operator() (
-        unsigned int i_row,
-        unsigned int i_col) const
+    virtual ElemType operator()(unsigned int i_row, unsigned int i_col) const
     {
-        return const_cast<MatrixView&>(*this)(i_row,i_col);
+        return const_cast<MatrixView &>(*this)(i_row, i_col);
     }
 
     /**
@@ -158,11 +149,11 @@ public:
      * @return Reference to the indexed value.
      * @throw std::out_of_range if index is outside the range of the view.
      */
-    virtual RefType at (unsigned int i_row, unsigned int i_col)
+    virtual RefType at(unsigned int i_row, unsigned int i_col)
     {
-        if ((i_row >= n_rows) || (i_col >= n_cols))
+        if((i_row >= n_rows) || (i_col >= n_cols))
         {
-            throw std::out_of_range ("Illegal element access");
+            JEOD_THROW(std::out_of_range("Illegal element access"));
         }
         return (*this)(i_row, i_col);
     }
@@ -174,9 +165,9 @@ public:
      * @return The indexed value.
      * @throw std::out_of_range if index is outside the range of the view.
      */
-    virtual ElemType at (unsigned int i_row, unsigned int i_col) const
+    virtual ElemType at(unsigned int i_row, unsigned int i_col) const
     {
-        return const_cast<MatrixView&>(*this).at(i_row,i_col);
+        return const_cast<MatrixView &>(*this).at(i_row, i_col);
     }
 
     /**
@@ -196,9 +187,8 @@ public:
      * item plus one.
      * @return The created view, as a sub array.
      */
-    SubArrayView<MatrixView<ElemType, RefType>, ElemType, RefType> make_view (
-        const SolverTypes::IndexPairT& row_range,
-        const SolverTypes::IndexPairT& col_range);
+    SubArrayView<MatrixView<ElemType, RefType>, ElemType, RefType> make_view(const SolverTypes::IndexPairT & row_range,
+                                                                             const SolverTypes::IndexPairT & col_range);
 
     /**
      * Create a view of a NxM submatrix of this view.
@@ -208,10 +198,8 @@ public:
      * item plus one.
      * @return The created view, as a sub array.
      */
-    SubArrayView<const MatrixView<ElemType, RefType>, ElemType, ElemType>
-    make_view (
-        const SolverTypes::IndexPairT& row_range,
-        const SolverTypes::IndexPairT& col_range) const;
+    SubArrayView<const MatrixView<ElemType, RefType>, ElemType, ElemType> make_view(
+        const SolverTypes::IndexPairT & row_range, const SolverTypes::IndexPairT & col_range) const;
 
     /**
      * Create a view of a portion of a row of this view.
@@ -221,9 +209,8 @@ public:
      * item plus one.
      * @return The created view, as a sub vector.
      */
-    RowView<MatrixView<ElemType, RefType>, ElemType, RefType> make_view (
-        unsigned the_row,
-        const SolverTypes::IndexPairT& col_range);
+    RowView<MatrixView<ElemType, RefType>, ElemType, RefType> make_view(unsigned the_row,
+                                                                        const SolverTypes::IndexPairT & col_range);
 
     /**
      * Create a view of a portion of a row of this view.
@@ -233,9 +220,8 @@ public:
      * item plus one.
      * @return The created view, as a sub vector.
      */
-    RowView<const MatrixView<ElemType, RefType>, ElemType, ElemType> make_view (
-        unsigned the_row,
-        const SolverTypes::IndexPairT& col_range) const;
+    RowView<const MatrixView<ElemType, RefType>, ElemType, ElemType> make_view(
+        unsigned the_row, const SolverTypes::IndexPairT & col_range) const;
 
     /**
      * Create a view of a portion of a column of this view.
@@ -245,9 +231,8 @@ public:
      * item plus one.
      * @return The created view, as a sub vector.
      */
-    ColumnView<MatrixView<ElemType, RefType>, ElemType, RefType> make_view (
-        const SolverTypes::IndexPairT& row_range,
-        unsigned the_col);
+    ColumnView<MatrixView<ElemType, RefType>, ElemType, RefType> make_view(const SolverTypes::IndexPairT & row_range,
+                                                                           unsigned the_col);
 
     /**
      * Create a view of a portion of a column of this view.
@@ -257,14 +242,10 @@ public:
      * item plus one.
      * @return The created view, as a sub vector.
      */
-    ColumnView<const MatrixView<ElemType, RefType>, ElemType, ElemType> make_view (
-        const SolverTypes::IndexPairT& row_range,
-        unsigned the_col) const;
-
-
+    ColumnView<const MatrixView<ElemType, RefType>, ElemType, ElemType> make_view(
+        const SolverTypes::IndexPairT & row_range, unsigned the_col) const;
 
 private:
-
     /**
      * The number of rows in the view.
      */
@@ -276,93 +257,61 @@ private:
     unsigned n_cols; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
-
-#include "row_view.hh"
 #include "column_view.hh"
+#include "row_view.hh"
 #include "sub_array_view.hh"
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 template<typename ElemType, typename RefType>
-inline
-SubArrayView<MatrixView<ElemType, RefType>, ElemType, RefType>
-MatrixView<ElemType, RefType>::make_view (
-    const SolverTypes::IndexPairT& row_range,
-    const SolverTypes::IndexPairT& col_range)
+inline SubArrayView<MatrixView<ElemType, RefType>, ElemType, RefType> MatrixView<ElemType, RefType>::make_view(
+    const SolverTypes::IndexPairT & row_range, const SolverTypes::IndexPairT & col_range)
 {
-    return SubArrayView<MatrixView<ElemType, RefType>, ElemType, RefType> (
-        *this, row_range, col_range);
+    return SubArrayView<MatrixView<ElemType, RefType>, ElemType, RefType>(*this, row_range, col_range);
 }
-
 
 template<typename ElemType, typename RefType>
-inline
-SubArrayView<const MatrixView<ElemType, RefType>, ElemType, ElemType>
-MatrixView<ElemType, RefType>::make_view (
-    const SolverTypes::IndexPairT& row_range,
-    const SolverTypes::IndexPairT& col_range) const
+inline SubArrayView<const MatrixView<ElemType, RefType>, ElemType, ElemType> MatrixView<ElemType, RefType>::make_view(
+    const SolverTypes::IndexPairT & row_range, const SolverTypes::IndexPairT & col_range) const
 {
-    return SubArrayView<const MatrixView<ElemType, RefType>, ElemType, ElemType>
-        (*this, row_range, col_range);
+    return SubArrayView<const MatrixView<ElemType, RefType>, ElemType, ElemType>(*this, row_range, col_range);
 }
-
 
 template<typename ElemType, typename RefType>
-inline
-RowView<MatrixView<ElemType, RefType>, ElemType, RefType>
-MatrixView<ElemType, RefType>::make_view (
-    unsigned the_row,
-    const SolverTypes::IndexPairT& col_range)
+inline RowView<MatrixView<ElemType, RefType>, ElemType, RefType> MatrixView<ElemType, RefType>::make_view(
+    unsigned the_row, const SolverTypes::IndexPairT & col_range)
 {
-    return RowView<MatrixView<ElemType, RefType>, ElemType, RefType> (
-        *this, the_row, col_range);
+    return RowView<MatrixView<ElemType, RefType>, ElemType, RefType>(*this, the_row, col_range);
 }
-
 
 template<typename ElemType, typename RefType>
-inline
-RowView<const MatrixView<ElemType, RefType>, ElemType, ElemType>
-MatrixView<ElemType, RefType>::make_view (
-    unsigned the_row,
-    const SolverTypes::IndexPairT& col_range) const
+inline RowView<const MatrixView<ElemType, RefType>, ElemType, ElemType> MatrixView<ElemType, RefType>::make_view(
+    unsigned the_row, const SolverTypes::IndexPairT & col_range) const
 {
-    return RowView<const MatrixView<ElemType, RefType>, ElemType, ElemType> (
-        *this, the_row, col_range);
+    return RowView<const MatrixView<ElemType, RefType>, ElemType, ElemType>(*this, the_row, col_range);
 }
-
 
 template<typename ElemType, typename RefType>
-inline
-ColumnView<MatrixView<ElemType, RefType>, ElemType, RefType>
-MatrixView<ElemType, RefType>::make_view (
-    const SolverTypes::IndexPairT& row_range,
-    unsigned the_col)
+inline ColumnView<MatrixView<ElemType, RefType>, ElemType, RefType> MatrixView<ElemType, RefType>::make_view(
+    const SolverTypes::IndexPairT & row_range, unsigned the_col)
 {
-    return ColumnView<MatrixView<ElemType, RefType>, ElemType, RefType> (
-        *this, row_range, the_col);
+    return ColumnView<MatrixView<ElemType, RefType>, ElemType, RefType>(*this, row_range, the_col);
 }
-
 
 template<typename ElemType, typename RefType>
-inline
-ColumnView<const MatrixView<ElemType, RefType>, ElemType, ElemType>
-MatrixView<ElemType, RefType>::make_view (
-    const SolverTypes::IndexPairT& row_range,
-    unsigned the_col) const
+inline ColumnView<const MatrixView<ElemType, RefType>, ElemType, ElemType> MatrixView<ElemType, RefType>::make_view(
+    const SolverTypes::IndexPairT & row_range, unsigned the_col) const
 {
-    return ColumnView<const MatrixView<ElemType, RefType>, ElemType, ElemType> (
-        *this, row_range, the_col);
+    return ColumnView<const MatrixView<ElemType, RefType>, ElemType, ElemType>(*this, row_range, the_col);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

@@ -56,7 +56,7 @@ Library dependencies:
    (../src/memory_manager_protected.cc)
    (../src/memory_manager_static.cc))
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_MEMORY_MANAGER_HH
@@ -77,9 +77,9 @@ Library dependencies:
 #include <list>
 #include <map>
 #include <ostream>
+#include <pthread.h>
 #include <string>
 #include <typeinfo>
-#include <pthread.h>
 
 // JEOD includes
 #include "utils/container/include/checkpointable.hh"
@@ -93,10 +93,9 @@ Library dependencies:
 #include "memory_table.hh"
 #include "memory_type.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * This class provides the interface between the macros in jeod_alloc.hh and
@@ -210,424 +209,346 @@ namespace jeod {
  *    an object of type JeodTrickSimInterface near the top of an S_define file.
  *    The recommended placement is just after the Trick system sim object.
  */
-class JeodMemoryManager {
-JEOD_MAKE_SIM_INTERFACES(JeodMemoryManager)
+class JeodMemoryManager
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, JeodMemoryManager)
 
 public:
+    JeodMemoryManager() = delete;
+    explicit JeodMemoryManager(const JeodMemoryManager &) = delete;
+    JeodMemoryManager & operator=(const JeodMemoryManager &) = delete;
 
-   // Types
+    // Types
 
-   /**
-    * The memory manager as a whole and individual operations have a debug
-    * level. The debug levels and the message handler must be set to a
-    * sufficiently high level to enable and see the debugging output.
-    */
-   enum DebugLevel {
-      Debug_off     = 0, ///< Debugging is off.
-      Summary_only  = 1, ///< Summary information; Allocation data are not stored.
-      Error_details = 2, ///< Allocation data stored and used with error messages.
-      Full_details  = 3  ///< Blow-by-blow accounting of all transactions.
-   };
+    /**
+     * The memory manager as a whole and individual operations have a debug
+     * level. The debug levels and the message handler must be set to a
+     * sufficiently high level to enable and see the debugging output.
+     */
+    enum DebugLevel
+    {
+        Debug_off = 0,     ///< Debugging is off.
+        Summary_only = 1,  ///< Summary information; Allocation data are not stored.
+        Error_details = 2, ///< Allocation data stored and used with error messages.
+        Full_details = 3   ///< Blow-by-blow accounting of all transactions.
+    };
 
-   /**
-    * The type lookup by type name needs to know whether the provided name
-    * is a typeid name or a demangled name.
-    */
-   enum NameType {
-      Typeid_type_name = 0,    ///< Name is from a std::type_info.name()
-      Demangled_type_name = 1  ///< Name is what people might use
-   };
+    /**
+     * The type lookup by type name needs to know whether the provided name
+     * is a typeid name or a demangled name.
+     */
+    enum NameType
+    {
+        Typeid_type_name = 0,   ///< Name is from a std::type_info.name()
+        Demangled_type_name = 1 ///< Name is what people might use
+    };
 
-   /**
-    * The type table is indexed by an integer and contains type descriptors.
-    * This class bundles the two together.
-    */
-   struct TypeEntry {
-      /**
-       * Type table index number
-       */
-      uint32_t index; //!< trick_io(**)
+    /**
+     * The type table is indexed by an integer and contains type descriptors.
+     * This class bundles the two together.
+     */
+    struct TypeEntry
+    {
+        /**
+         * Type table index number
+         */
+        uint32_t index; //!< trick_io(**)
 
-      /**
-       * Type descriptor
-       */
-      const JeodMemoryTypeDescriptor * tdesc; //!< trick_io(**)
+        /**
+         * Type descriptor
+         */
+        const JeodMemoryTypeDescriptor * tdesc; //!< trick_io(**)
 
-      /**
-       * Pair constructor.
-       */
-      TypeEntry (uint32_t num, const JeodMemoryTypeDescriptor * desc)
-      : index(num), tdesc(desc)
-      {}
-   };
+        /**
+         * Pair constructor.
+         */
+        TypeEntry(uint32_t num, const JeodMemoryTypeDescriptor * desc)
+            : index(num),
+              tdesc(desc)
+        {
+        }
+    };
 
+    // Static functions
+    // The bulk of the external interface to the memory manager is through these
+    // static member functions.
 
-   // Static functions
-   // The bulk of the external interface to the memory manager is through these
-   // static member functions.
+    // Register a class with the manager
+    static const TypeEntry register_class(JeodMemoryTypePreDescriptor & tdesc);
 
-   // Register a class with the manager
-   static const TypeEntry register_class (
-      JeodMemoryTypePreDescriptor & tdesc);
+    // Get the type descriptor by typeid
+    static const JeodMemoryTypeDescriptor * get_type_descriptor(const std::type_info & typeid_info);
 
-   // Get the type descriptor by typeid
-   static const JeodMemoryTypeDescriptor * get_type_descriptor (
-      const std::type_info & typeid_info);
+    // Get the type descriptor by name
+    static const JeodMemoryTypeDescriptor * get_type_descriptor(NameType name_type, const std::string & name);
 
-   // Get the type descriptor by name
-   static const JeodMemoryTypeDescriptor * get_type_descriptor (
-      NameType name_type,
-      const std::string & name);
+    // Allocate and register memory for use with placement new
+    static void * create_memory(
+        bool is_array, unsigned int nelems, int fill, const TypeEntry & tentry, const char * file, unsigned int line);
 
-   // Allocate and register memory for use with placement new
-   static void * create_memory (
-      bool is_array,
-      unsigned int nelems,
-      int fill,
-      const TypeEntry & tentry,
-      const char * file,
-      unsigned int line);
+    // Query whether memory was allocated by JEOD.
+    static bool is_allocated(const void * addr, const char * file, unsigned int line);
 
-   // Query whether memory was allocated by JEOD.
-   static bool is_allocated (
-      const void * addr,
-      const char * file,
-      unsigned int line);
+    // Common standard new / placement new deletion method.
+    static void destroy_memory(void * addr, bool delete_array, const char * file, unsigned int line);
 
-   // Common standard new / placement new deletion method.
-   static void destroy_memory (
-      void * addr,
-      bool delete_array,
-      const char * file,
-      unsigned int line);
+    // Add a checkpointable object to the list of such.
+    static void register_container(const void * container,
+                                   const std::type_info & container_type,
+                                   const std::string & elem_name,
+                                   JeodCheckpointable & checkpointable);
 
-   // Add a checkpointable object to the list of such.
-   static void register_container (
-      const void * container,
-      const std::type_info & container_type,
-      const char * elem_name,
-      JeodCheckpointable & checkpointable);
+    // Remove a checkpointable object from the list of such.
+    static void deregister_container(const void * container,
+                                     const std::type_info & container_type,
+                                     const std::string & elem_name,
+                                     JeodCheckpointable & checkpointable);
 
-   // Remove a checkpointable object from the list of such.
-   static void deregister_container (
-      const void * container,
-      const std::type_info & container_type,
-      const char * elem_name,
-      JeodCheckpointable & checkpointable);
+    // Set the mode. This should only be called from the sim interface.
+    static void set_mode(JeodSimulationInterface::Mode new_mode);
 
-   // Set the mode. This should only be called from the sim interface.
-   static void set_mode (
-      JeodSimulationInterface::Mode new_mode);
+    // Set the debug level.
+    static void set_debug_level(unsigned int level);
+    static void set_debug_level(DebugLevel level);
 
-   // Set the debug level.
-   static void set_debug_level (unsigned int level);
-   static void set_debug_level (DebugLevel level);
+    // Enable/disable guard words
+    static void set_guard_enabled(bool value);
 
-   // Enable/disable guard words
-   static void set_guard_enabled (bool value);
+    // Testing interfaces
 
-   // Testing interfaces
+    // Query whether all allocated memory has been freed.
+    static bool is_table_empty();
 
-   // Query whether all allocated memory has been freed.
-   static bool is_table_empty ();
+    // Member functions
 
+    // Note: The default constructor, copy constructor, and assignment operator
+    // are deleted. This class is a singleton constructed solely by a
+    // non-default constructor.
 
-   // Member functions
+    // Constructor (non-default) and destructor.
+    explicit JeodMemoryManager(JeodMemoryInterface &);
+    virtual ~JeodMemoryManager();
 
-   // Note: The default constructor, copy constructor, and assignment operator
-   // are deleted. This class is a singleton constructed solely by a
-   // non-default constructor.
+    // The next two members are public for the sake of the simulation interface.
+    // These are mondo dangerous. The sim interface knows what it is doing.
+    // Everyone else: You do not know what you are doing. Do not call these.
+    // Never! Never ever ever ever ever ever ever call these functions! Never!
 
-   // Constructor (non-default) and destructor.
-   explicit JeodMemoryManager (JeodMemoryInterface &);
-   virtual ~JeodMemoryManager();
-
-
-   // The next two members are public for the sake of the simulation interface.
-   // These are mondo dangerous. The sim interface knows what it is doing.
-   // Everyone else: You do not know what you are doing. Do not call these.
-   // Never! Never ever ever ever ever ever ever call these functions! Never!
-
-   // Wipe out allocated memory. Every single bit of it.
-   void restart_clear_memory ();
+    // Wipe out allocated memory. Every single bit of it.
+    void restart_clear_memory();
 
     // Restore an allocation as recorded in a checkpoint file.
-   void restart_reallocate (
-      const std::string & mangled_type_name,
-      uint32_t unique_id,
-      uint32_t nelements,
-      bool is_array);
-
+    void restart_reallocate(const std::string & mangled_type_name,
+                            uint32_t unique_id,
+                            uint32_t nelements,
+                            bool is_array);
 
 private:
+    // Types
 
-   // Types
+    /**
+     * An AllocTable maps memory addresses to memory descriptions.
+     */
+    using AllocTable = std::map<const void *, JeodMemoryItem>;
 
-   /**
-    * An AllocTable maps memory addresses to memory descriptions.
-    */
-   typedef std::map <const void *, JeodMemoryItem> AllocTable;
+    /**
+     * The type type itself is a memory table with copy implemented by clone().
+     */
+    using TypeTable = JeodMemoryTableClonable<JeodMemoryTypeDescriptor>;
 
-   /**
-    * The type type itself is a memory table with copy implemented by clone().
-    */
-   typedef JeodMemoryTableClonable<JeodMemoryTypeDescriptor> TypeTable;
+    // Static functions
 
+    // Check for a non-null Master memory manager.
+    static bool check_master(bool error_is_fatal, int line);
 
-   // Static functions
+    // Static data
 
-   // Check for a non-null Master memory manager.
-   static bool check_master (bool error_is_fatal, int line);
+    /**
+     * The singleton instance of the JeodMemoryManager class.
+     * The constructor sets this pointer.
+     */
+    static JeodMemoryManager * Master; //!< trick_io(*o) trick_units(--)
 
+    // Member functions
 
-   // Static data
+    // Methods called by the public interfaces
 
-   /**
-    * The singleton instance of the JeodMemoryManager class.
-    * The constructor sets this pointer.
-    */
-   static JeodMemoryManager * Master; //!< trick_io(*o) trick_units(--)
+    // Generate a shutdown report.
+    void generate_shutdown_report();
 
+    // Create and register memory.
+    void * create_memory_internal(
+        bool is_array, unsigned int nelems, int fill, const TypeEntry & tentry, const char * file, unsigned int line);
 
-   // Member functions
+    // Register allocated memory.
+    void register_memory_internal(const void * addr,
+                                  uint32_t unique_id,
+                                  bool placement_new,
+                                  bool is_array,
+                                  unsigned int nelems,
+                                  const TypeEntry & tentry,
+                                  const char * file,
+                                  unsigned int line);
 
-   // Methods called by the public interfaces
+    // Query whether memory was allocated by JEOD.
+    bool is_allocated_internal(const void * addr, const char * file, unsigned int line);
 
-   // Generate a shutdown report.
-   void generate_shutdown_report (void);
+    // Common standard new / placement new deletion method.
+    void destroy_memory_internal(void * addr, bool delete_array, const char * file, unsigned int line);
 
-   // Create and register memory.
-   void * create_memory_internal (
-      bool is_array,
-      unsigned int nelems,
-      int fill,
-      const TypeEntry & tentry,
-      const char * file,
-      unsigned int line);
+    // Set the mode.
+    void set_mode_internal(JeodSimulationInterface::Mode new_mode);
 
-   // Register allocated memory.
-   void register_memory_internal (
-      const void * addr,
-      uint32_t unique_id,
-      bool placement_new,
-      bool is_array,
-      unsigned int nelems,
-      const TypeEntry & tentry,
-      const char * file,
-      unsigned int line);
+    // Even more private methods
 
-   // Query whether memory was allocated by JEOD.
-   bool is_allocated_internal (
-      const void * addr,
-      const char * file,
-      unsigned int line);
+    // Atomic operations
 
-   // Common standard new / placement new deletion method.
-   void destroy_memory_internal (
-      void * addr,
-      bool delete_array,
-      const char * file,
-      unsigned int line);
+    // Prepare for a set of atomic operations. See usage.
+    void begin_atomic_block() const;
 
-   // Set the mode.
-   void set_mode_internal (
-      JeodSimulationInterface::Mode new_mode);
+    // End a set of atomic operations.
+    void end_atomic_block(bool ignore_errors) const;
 
+    // type_table accessors
 
-   // Even more private methods
+    // Get the entry for a type given a type descriptor.
+    const TypeEntry get_type_entry_atomic(JeodMemoryTypePreDescriptor & tdesc);
 
+    // Get the entry for a type given a mangled or demangled name.
+    const TypeEntry get_type_entry_atomic(NameType name_type, const std::string & type_name) const;
 
-   // Atomic operations
+    // Retrieve the index for the specified type from the type table.
+    bool get_type_index_nolock(const JeodMemoryTypeDescriptor & tdesc, uint32_t * idx);
 
-   // Prepare for a set of atomic operations. See usage.
-   void begin_atomic_block (void) const;
+    // Get the descriptor for a type given its typeid.
+    const JeodMemoryTypeDescriptor * get_type_descriptor_atomic(const std::type_info & typeid_info) const;
 
-   // End a set of atomic operations.
-   void end_atomic_block (bool ignore_errors) const;
+    // Get the descriptor for a type given its index.
+    const JeodMemoryTypeDescriptor & get_type_descriptor_atomic(unsigned int idx) const;
 
+    // Get the descriptor for a type.
+    const JeodMemoryTypeDescriptor & get_type_descriptor_nolock(const JeodMemoryItem & item) const;
 
-   // type_table accessors
+    // string_table accessors
 
-   // Get the entry for a type given a type descriptor.
-   const TypeEntry get_type_entry_atomic (
-      JeodMemoryTypePreDescriptor & tdesc);
+    // Retrieve a string from the string table.
+    const std::string & get_string_atomic(unsigned int idx) const;
 
-   // Get the entry for a type given a mangled or demangled name.
-   const TypeEntry get_type_entry_atomic (
-      NameType name_type,
-      const std::string & type_name) const;
+    // Add a string to the string table.
+    unsigned int add_string_atomic(const std::string & str);
 
-   // Retrieve the index for the specified type from the type table.
-   bool get_type_index_nolock (
-      const JeodMemoryTypeDescriptor & tdesc,
-      uint32_t * idx);
-
-   // Get the descriptor for a type given its typeid.
-   const JeodMemoryTypeDescriptor * get_type_descriptor_atomic (
-      const std::type_info & typeid_info) const;
-
-   // Get the descriptor for a type given its index.
-   const JeodMemoryTypeDescriptor & get_type_descriptor_atomic (
-      unsigned int idx) const;
-
-   // Get the descriptor for a type.
-   const JeodMemoryTypeDescriptor & get_type_descriptor_nolock (
-      const JeodMemoryItem & item) const;
-
-
-   // string_table accessors
-
-   // Retrieve a string from the string table.
-   const std::string & get_string_atomic (
-      unsigned int idx) const;
-
-   // Add a string to the string table.
-   unsigned int add_string_atomic (const std::string & str);
-
-
-   // alloc_table accessors
-
-   // Create a unique identifier for an allocation
-   uint32_t get_alloc_id_atomic (
-      const char * file,
-      unsigned int line);
-
-   // Reset the allocation id for restart
-   void reset_alloc_id_atomic (
-      uint32_t unique_id);
-
-   // Find and maybe delete an entry from the table
-   void find_alloc_entry_atomic (
-      const void * addr,
-      bool delete_entry,
-      const char * file,
-      unsigned int line,
-      void *& found_addr,
-      JeodMemoryItem & found_item,
-      const JeodMemoryTypeDescriptor *& found_type);
-
-   // Record allocation of memory.
-   void add_allocation_atomic (
-      const void * addr,
-      const JeodMemoryItem & item,
-      const JeodMemoryTypeDescriptor & tdesc,
-      const char * file,
-      unsigned int line);
-
-   // Delete the oldest entry in the table.
-   void delete_oldest_alloc_entry_atomic (
-      void *& addr,
-      JeodMemoryItem & item,
-      const JeodMemoryTypeDescriptor *& type);
-
-
-   // Memory allocation/deallocation
-
-   // Low-level allocation method.
-   void * allocate_memory (
-      std::size_t nelems, std::size_t elem_size, bool guard, int fill) const;
-
-   // Low level deallocation method.
-   void free_memory (
-      void * addr,
-      std::size_t length,
-      bool guard,
-      unsigned int alloc_idx,
-      const char * file,
-      unsigned int line) const;
-
-
-   // Member data
-
-   /**
-    * The interface to the simulation engine's memory manager.
-    */
-   JeodMemoryInterface & sim_interface; //!< trick_io(*o) trick_units(--)
-
-   /**
-    * Debugging level.
-    * - 0 = Minimal output, errors only.
-    * - 1 = Summary report, generated just before exit(0).
-    * - 2 = Report unfreed memory as well.
-    * - 3 = Blow-by-blow report of each allocation and deallocation.
-    */
-   DebugLevel debug_level; //!< trick_units(--)
-
-   /**
-    * Number of allocated user bytes (excludes management overhead).
-    */
-   JEOD_SIZE_T cur_data_size; //!< trick_io(*o) trick_units(--)
-
-   /**
-    * Maximum value attained by cur_data_size.
-    */
-   JEOD_SIZE_T max_data_size; //!< trick_io(*o) trick_units(--)
-
-   /**
-    * Maximum value attained by alloc_table.size().
-    */
-   unsigned int max_table_size; //!< trick_io(*o) trick_units(--)
-
-   /**
-    * Number of allocations.
-    * This always increments and can be adjusted upward on restarts.
-    */
-   unsigned int allocation_number; //!< trick_io(*o) trick_units(--)
-
-
-   // Several of the remaining are hidden from Trick.
-   // The memory model is not Trick-checkpointable.
-   // It bootstraps itself instead.
-
-   /**
-    * Maps memory addresses to the descriptions of those addresses.
-    */
-   AllocTable alloc_table; //!< trick_io(**)
-
-   /**
-    * Maps typeid names to type descriptors.
-    */
-   TypeTable type_table; //!< trick_io(**)
-
-   /**
-    * Maps unique strings to themselves.
-    */
-   JeodMemoryReflectiveTable string_table; //!< trick_io(**)
-
-
-   /**
-    * Mutex that synchronizes access to the tables.
-    */
-   mutable pthread_mutex_t mutex; //!< trick_io(**)
-
-   /**
-    * Simulation interface mode.
-    */
-   JeodSimulationInterface::Mode mode; //!< trick_units(--)
-
-   /**
-    * Data can be guarded if this is set.
-    * If not set, guards will never be established.
-    */
-   bool guard_enabled; //!< trick_units(--)
-
-
-   // Deleted automagic content:
-   // Default constructor, copy constructor, assignment operator.
-
-   ///
-   /// Not implemented.
-   JeodMemoryManager ();
-
-   ///
-   /// Not implemented.
-   explicit JeodMemoryManager(const JeodMemoryManager&);
-
-   ///
-   /// Not implemented.
-   JeodMemoryManager & operator = (const JeodMemoryManager &);
+    // alloc_table accessors
+
+    // Create a unique identifier for an allocation
+    uint32_t get_alloc_id_atomic(const char * file, unsigned int line);
+
+    // Reset the allocation id for restart
+    void reset_alloc_id_atomic(uint32_t unique_id);
+
+    // Find and maybe delete an entry from the table
+    void find_alloc_entry_atomic(const void * addr,
+                                 bool delete_entry,
+                                 const char * file,
+                                 unsigned int line,
+                                 void *& found_addr,
+                                 JeodMemoryItem & found_item,
+                                 const JeodMemoryTypeDescriptor *& found_type);
+
+    // Record allocation of memory.
+    void add_allocation_atomic(const void * addr,
+                               const JeodMemoryItem & item,
+                               const JeodMemoryTypeDescriptor & tdesc,
+                               const char * file,
+                               unsigned int line);
+
+    // Delete the oldest entry in the table.
+    void delete_oldest_alloc_entry_atomic(void *& addr, JeodMemoryItem & item, const JeodMemoryTypeDescriptor *& type);
+
+    // Memory allocation/deallocation
+
+    // Low-level allocation method.
+    void * allocate_memory(std::size_t nelems, std::size_t elem_size, bool guard, int fill) const;
+
+    // Low level deallocation method.
+    void free_memory(void * addr,
+                     std::size_t length,
+                     bool guard,
+                     unsigned int alloc_idx,
+                     const char * file,
+                     unsigned int line) const;
+
+    // Member data
+
+    /**
+     * The interface to the simulation engine's memory manager.
+     */
+    JeodMemoryInterface & sim_interface; //!< trick_io(*o) trick_units(--)
+
+    /**
+     * Debugging level.
+     * - 0 = Minimal output, errors only.
+     * - 1 = Summary report, generated just before exit(0).
+     * - 2 = Report unfreed memory as well.
+     * - 3 = Blow-by-blow report of each allocation and deallocation.
+     */
+    DebugLevel debug_level{Error_details}; //!< trick_units(--)
+
+    /**
+     * Number of allocated user bytes (excludes management overhead).
+     */
+    JEOD_SIZE_T cur_data_size{}; //!< trick_io(*o) trick_units(--)
+
+    /**
+     * Maximum value attained by cur_data_size.
+     */
+    JEOD_SIZE_T max_data_size{}; //!< trick_io(*o) trick_units(--)
+
+    /**
+     * Maximum value attained by alloc_table.size().
+     */
+    unsigned int max_table_size{}; //!< trick_io(*o) trick_units(--)
+
+    /**
+     * Number of allocations.
+     * This always increments and can be adjusted upward on restarts.
+     */
+    unsigned int allocation_number{}; //!< trick_io(*o) trick_units(--)
+
+    // Several of the remaining are hidden from Trick.
+    // The memory model is not Trick-checkpointable.
+    // It bootstraps itself instead.
+
+    /**
+     * Maps memory addresses to the descriptions of those addresses.
+     */
+    AllocTable alloc_table; //!< trick_io(**)
+
+    /**
+     * Maps typeid names to type descriptors.
+     */
+    TypeTable type_table; //!< trick_io(**)
+
+    /**
+     * Maps unique strings to themselves.
+     */
+    JeodMemoryReflectiveTable string_table; //!< trick_io(**)
+
+    /**
+     * Mutex that synchronizes access to the tables.
+     */
+    mutable pthread_mutex_t mutex{}; //!< trick_io(**)
+
+    /**
+     * Simulation interface mode.
+     */
+    JeodSimulationInterface::Mode mode{JeodSimulationInterface::Construction}; //!< trick_units(--)
+
+    /**
+     * Data can be guarded if this is set.
+     * If not set, guards will never be established.
+     */
+    bool guard_enabled{true}; //!< trick_units(--)
 };
-
 
 /**
  * Retrieve the descriptor for the specified type from the type table.
@@ -639,23 +560,18 @@ private:
  * @return Type descriptor
  * \param[in] item Memory descriptor
  */
-inline const JeodMemoryTypeDescriptor &
-JeodMemoryManager::get_type_descriptor_nolock (
-   const JeodMemoryItem & item)
-const
+inline const JeodMemoryTypeDescriptor & JeodMemoryManager::get_type_descriptor_nolock(const JeodMemoryItem & item) const
 {
-   return *(type_table.get (item.get_descriptor_index()));
+    return *(type_table.get(item.get_descriptor_index()));
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}
  */
 
 #endif // End of #ifndef SWIG: Needed to keep SWIG processing sane.
-
 
 #endif
 

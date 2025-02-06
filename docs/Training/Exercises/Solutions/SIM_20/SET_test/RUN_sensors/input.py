@@ -7,7 +7,7 @@
 exec(compile(open("Log_data/log_state.py", "rb").read(), "Log_data/log_state.py", 'exec'))
 log_state(1.0)
 
-# Configure the dynamics manager to operate in empty space mode 
+# Configure the dynamics manager to operate in empty space mode
 dynamics.dyn_manager_init.mode = trick.DynManagerInit.EphemerisMode_EmptySpace
 dynamics.dyn_manager_init.central_point_name = "Space"
 
@@ -44,29 +44,29 @@ trick.add_read(0, """
 vehicle2.dyn_body.find_vehicle_point("reflector").compute_relative_state (
                                   vehicle.dyn_body.find_vehicle_point("lidar-case"),
                                   states.reflector_state)
-vehicle.dyn_body.integ_frame.compute_relative_state (
+vehicle.dyn_body.get_integ_frame().compute_relative_state (
                                   vehicle.dyn_body.find_vehicle_point("sun-sensor-case"),
                                   states.sun_state)
 vehicle.dyn_body.find_vehicle_point("imu-case").compute_relative_state (
                                   vehicle.dyn_body.core_body,
                                   states.imu_body_state)
 vehicle.dyn_body.find_vehicle_point("imu-case").compute_relative_state (
-                                  vehicle.dyn_body.integ_frame,
+                                  vehicle.dyn_body.get_integ_frame(),
                                   states.imu_inrtl_state)
 """)
 trick.add_read(5, """
 vehicle2.dyn_body.find_vehicle_point("reflector").compute_relative_state (
                                   vehicle.dyn_body.find_vehicle_point("lidar-case"),
                                   states.reflector_state)
-vehicle.dyn_body.integ_frame.compute_relative_state (
+vehicle.dyn_body.get_integ_frame().compute_relative_state (
                                   vehicle.dyn_body.find_vehicle_point("sun-sensor-case"),
                                   states.sun_state)
 vehicle.dyn_body.find_vehicle_point("imu-case").compute_relative_state (
                                   vehicle.dyn_body.core_body,
                                   states.imu_body_state)
 vehicle.dyn_body.find_vehicle_point("imu-case").compute_relative_state (
-                                  vehicle.dyn_body.integ_frame,
+                                  vehicle.dyn_body.get_integ_frame(),
                                   states.imu_inrtl_state)
 """)
 
-trick.sim_services.exec_set_terminate_time(10.0);
+trick.sim_services.exec_set_terminate_time(10.0)

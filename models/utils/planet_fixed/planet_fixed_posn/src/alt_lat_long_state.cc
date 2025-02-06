@@ -19,7 +19,7 @@ PURPOSE:
 LIBRARY DEPENDENCY:
    ((alt_lat_long_state.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -28,21 +28,19 @@ LIBRARY DEPENDENCY:
 // JEOD includes
 #include "../include/alt_lat_long_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Construct an AltLatLongState object.
  */
-AltLatLongState::AltLatLongState(
-   void)
+AltLatLongState::AltLatLongState()
 {
-   altitude = 0.0;
-   latitude = 0.0;
-   longitude = 0.0;
+    altitude = 0.0;
+    latitude = 0.0;
+    longitude = 0.0;
 }
-
 
 /**
  * Allow user to set member data.
@@ -50,17 +48,13 @@ AltLatLongState::AltLatLongState(
  * \param[in] lat Longitude\n Units: r
  * \param[in] lon Latitude\n Units: r
  */
-void AltLatLongState::set_data(
-   double alt,
-   double lat,
-   double lon)
+void AltLatLongState::set_data(double alt, double lat, double lon)
 {
-   // Set class data to user inputs
-   altitude = alt;
-   latitude = lat;
-   longitude = lon;
+    // Set class data to user inputs
+    altitude = alt;
+    latitude = lat;
+    longitude = lon;
 }
-
 
 /**
  * Allow user to get member data.
@@ -68,18 +62,15 @@ void AltLatLongState::set_data(
  * \param[out] lat_out Longitude\n Units: r
  * \param[out] lon_out Latitude\n Units: r
  */
-void AltLatLongState::get_data(
-   double &alt_out,
-   double &lat_out,
-   double &lon_out)
+void AltLatLongState::get_data(double & alt_out, double & lat_out, double & lon_out)
 {
-   // Get class data from user inputs
-   alt_out = altitude;
-   lat_out = latitude;
-   lon_out = longitude;
+    // Get class data from user inputs
+    alt_out = altitude;
+    lat_out = latitude;
+    lon_out = longitude;
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

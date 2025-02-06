@@ -116,7 +116,7 @@ been specified.  That is only relevant under one of the following situations:
  \item The absolute orientation of the body is useful in some sense; in this
  case, the body needs a state, and so should be a DynBody.  The initialization
  of a DynBody does include orientation of its reference frames (which a
- MassBaody does not have) with respect to their parent (which is the inertial
+ MassBody does not have) with respect to their parent (which is the inertial
  reference frame).  By orienting the DynBody reference frames, the MassBody
  axes (which are aligned with the respective DynBody reference frames) also
  get aligned.
@@ -222,17 +222,15 @@ sim_object_A.mass_init.points[0].pt_orientation.eigen_axis[0]   = 0.0, 0.0,
 
 \paragraph{Trick10}
 \begin{verbatim}
- sim_object_A.mass_init.num_points = 1
- sim_object_A.mass_init.points =
-                            trick.sim_services.alloc_type( 1, "jeod::MassPointInit" )
- sim_object_A.mass_init.points[0].set_name( "interesting_name" )
- sim_object_A.mass_init.points[0].position  =
+ sim_object_A.mass_init.allocate_points(1)
+ sim_object_A.mass_init.get_mass_point(0).set_name( "interesting_name" )
+ sim_object_A.mass_init.get_mass_point(0).position  =
                                       trick.attach_units( "m",[ 2.0, 0.0, 0.0])
- sim_object_A.mass_init.points[0].pt_orientation.data_source =
+ sim_object_A.mass_init.get_mass_point(0).pt_orientation.data_source =
                                                   trick.Orientation.InputMatrix
- sim_object_A.mass_init.points[0].pt_orientation.trans[0]  = [ -1.0,  0.0, 0.0]
- sim_object_A.mass_init.points[0].pt_orientation.trans[1]  = [  0.0, -1.0, 0.0]
- sim_object_A.mass_init.points[0].pt_orientation.trans[2]  = [  0.0,  0.0, 1.0]
+ sim_object_A.mass_init.get_mass_point(0).pt_orientation.trans[0]  = [ -1.0,  0.0, 0.0]
+ sim_object_A.mass_init.get_mass_point(0).pt_orientation.trans[1]  = [  0.0, -1.0, 0.0]
+ sim_object_A.mass_init.get_mass_point(0).pt_orientation.trans[2]  = [  0.0,  0.0, 1.0]
 
 \end{verbatim}
 

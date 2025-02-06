@@ -48,16 +48,16 @@ Library dependencies:
 
 #include "spherical_harmonics_gravity_source_default_data.hh"
 
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
-class SphericalHarmonicsGravitySource_sun_spherical_default_data :
-   public SphericalHarmonicsGravitySource_default_data {
-
- public:
-   void initialize (SphericalHarmonicsGravitySource*) override;
+class SphericalHarmonicsGravitySource_sun_spherical_default_data : public SphericalHarmonicsGravitySource_default_data
+{
+public:
+    void initialize(SphericalHarmonicsGravitySource *) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

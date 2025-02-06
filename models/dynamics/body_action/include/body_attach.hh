@@ -59,26 +59,25 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_BODY_ATTACH_HH
 #define JEOD_MASS_BODY_ATTACH_HH
 
 // System includes
 
 // JEOD includes
-#include "utils/ref_frames/include/class_declarations.hh"
 #include "dynamics/dyn_body/include/class_declarations.hh"
 #include "dynamics/dyn_manager/include/class_declarations.hh"
 #include "dynamics/mass/include/class_declarations.hh"
+#include "utils/ref_frames/include/class_declarations.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "class_declarations.hh"
 #include "body_action.hh"
-
+#include "class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides the basic ability to attach one MassBody to another.
@@ -92,99 +91,72 @@ namespace jeod {
  * that are not ready at initialization time remain in the pending actions
  * queue until the active flag is set.
  */
-class BodyAttach : public BodyAction {
+class BodyAttach : public BodyAction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyAttach)
 
- JEOD_MAKE_SIM_INTERFACES(BodyAttach)
+    // Member data
 
+public:
+    /**
+     * Set the parent mass body of this action. Resets dyn_parent, frame_parent to null
+     */
+    void set_parent_body(MassBody & mass_body_in);
 
- // Member data
+    /**
+     * Set the parent dyn body of this action. Resets mass_parent, frame_parent to null
+     */
+    void set_parent_body(DynBody & dyn_body_in);
 
- public:
+    /**
+     * Set the parent ref frame of this action. Resets mass_parent, dyn_parent to null
+     */
+    void set_parent_frame(RefFrame & ref_parent_in);
 
-   /**
-    * Set the parent mass body of this action. Resets dyn_parent, frame_parent to null
-    */
-   void set_parent_body(MassBody & mass_body_in);
+    /**
+     * Did the attachment succeed?
+     */
+    bool succeeded{}; //!< trick_units(--)
 
-   /**
-    * Set the parent dyn body of this action. Resets mass_parent, frame_parent to null
-    */
-   void set_parent_body(DynBody & dyn_body_in);
+protected:
+    /**
+     * The MassBody corresponding to which the subject body is to be attached,
+     * directly if the subject body is a root body, and indirectly by attaching
+     * the subject body's root body to the parent body otherwise.
+     * This pointer is one of ithe 3 possible pointers that must be supplied.
+     */
+    MassBody * mass_parent{}; //!< trick_units(--)
 
-   /**
-    * Set the parent ref frame of this action. Resets mass_parent, dyn_parent to null
-    */
-   void set_parent_frame(RefFrame & ref_parent_in);
+    /**
+     * The DynBody corresponding to which the subject body is to be attached,
+     * directly if the subject body is a root body, and indirectly by attaching
+     * the subject body's root body to the parent body otherwise.
+     * This pointer is one of ithe 3 possible pointers that must be supplied.
+     */
+    DynBody * dyn_parent{}; //!< trick_units(--)
 
-   /**
-    * Did the attachment succeed?
-    */
-   bool succeeded; //!< trick_units(--)
+    /**
+     * The RefFrame corresponding to which the subject body is to be attached,
+     * directly if the subject body is a root body, and indirectly by attaching
+     * the subject body's root body to the parent RefFrame otherwise.
+     * This pointer is one of ithe 3 possible pointers that must be supplied.
+     */
+    RefFrame * ref_parent{}; //!< trick_units(--)
 
+public:
+    BodyAttach() = default;
+    ~BodyAttach() override = default;
+    BodyAttach(const BodyAttach &) = delete;
+    BodyAttach & operator=(const BodyAttach &) = delete;
 
- protected:
-   /**
-    * The MassBody corresponding to which the subject body is to be attached,
-    * directly if the subject body is a root body, and indirectly by attaching
-    * the subject body's root body to the parent body otherwise.
-    * This pointer is one of ithe 3 possible pointers that must be supplied.
-    */
-   MassBody * mass_parent; //!< trick_units(--)
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
-   /**
-    * The DynBody corresponding to which the subject body is to be attached,
-    * directly if the subject body is a root body, and indirectly by attaching
-    * the subject body's root body to the parent body otherwise.
-    * This pointer is one of ithe 3 possible pointers that must be supplied.
-    */
-   DynBody * dyn_parent; //!< trick_units(--)
-
-   /**
-    * The RefFrame corresponding to which the subject body is to be attached,
-    * directly if the subject body is a root body, and indirectly by attaching
-    * the subject body's root body to the parent RefFrame otherwise.
-    * This pointer is one of ithe 3 possible pointers that must be supplied.
-    */
-   RefFrame * ref_parent; //!< trick_units(--)
-
- // Member functions
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   BodyAttach (const BodyAttach&);
-   BodyAttach & operator = (const BodyAttach&);
-
-
- public:
-
-   // Default constructor.
-   BodyAttach ();
-
-   // Destructor.
-   ~BodyAttach () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // apply: Forward the apply call up the class heirarchy.
-   void apply (DynManager & dyn_manager) override;
-
+    // apply: Forward the apply call up the class heirarchy.
+    void apply(DynManager & dyn_manager) override;
 };
 
-
-/**
- * Destructor
- */
-inline
-BodyAttach::~BodyAttach (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

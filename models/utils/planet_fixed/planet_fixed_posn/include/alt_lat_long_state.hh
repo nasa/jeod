@@ -55,7 +55,7 @@ Purpose:
 Library Dependency:
    ((../src/alt_lat_long_state.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -67,57 +67,52 @@ Library Dependency:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Specifies positional state in planetary altitude, latitude, and longitude.
  */
-class AltLatLongState {
+class AltLatLongState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AltLatLongState)
 
- JEOD_MAKE_SIM_INTERFACES(AltLatLongState)
+    // Member Data
+public:
+    /**
+     * An object's height above the reference surface of the local GravBody
+     */
+    double altitude; //!< trick_units(m)
 
+    /**
+     * An object's north-south angular offset from the local GravBody's
+     * reference equator
+     */
+    double latitude; //!< trick_units(rad)
 
- // Member Data
- public:
+    /**
+     * An object's east-west angular offset from the local GravBody's
+     * reference prime meridian
+     */
+    double longitude; //!< trick_units(rad)
 
-   /**
-    * An object's height above the reference surface of the local GravBody
-    */
-   double altitude; //!< trick_units(m)
+    // Member functions
+public:
+    // Constructor
+    AltLatLongState();
 
-   /**
-    * An object's north-south angular offset from the local GravBody's
-    * reference equator
-    */
-   double latitude; //!< trick_units(rad)
+    /**
+     * Destructor
+     */
+    virtual ~AltLatLongState() = default;
 
-   /**
-    * An object's east-west angular offset from the local GravBody's
-    * reference prime meridian
-    */
-   double longitude; //!< trick_units(rad)
-
- // Member functions
- public:
-
-   // Constructor
-   AltLatLongState();
-
-   /**
-    * Destructor
-    */
-   virtual ~AltLatLongState() {}
-
-   // Data accessor methods
-   void set_data (double alt, double lat, double lon);
-   void get_data (double &alt, double &lat, double &lon);
-
+    // Data accessor methods
+    void set_data(double alt, double lat, double lon);
+    void get_data(double & alt, double & lat, double & lon);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

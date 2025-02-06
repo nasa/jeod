@@ -48,11 +48,9 @@ LIBRARY DEPENDENCY:
 #include "environment/planet/include/planet.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-void connect_planets(
-   Planet& earth,
-   Planet& moon,
-   Planet& sun );
+void connect_planets(Planet & earth, Planet & moon, Planet & sun);
 
-} // End JEOD namespace
+} // namespace jeod

@@ -81,35 +81,35 @@ Barycentric coordinates)
 ##include "dynamics/dyn_manager/include/dyn_manager.hh"
 ##include "utils/ref_frames/include/ref_frame.hh"
 
-class InSSBSimObject : public Trick::SimObject {
-public :
-  jeod::RefFrameState state;
+class InSSBSimObject : public Trick::SimObject
+{
+public:
+    jeod::RefFrameState state;
 
-// Constructor
-  InSSBSimObject (jeod::DynManager & dyn_manager_in, jeod::RefFrame &target_in)
-:
-  dyn_manager ( dyn_manager_in),
-  target (target_in)
-  {
-    ("initialization") initialize ();
-    (DYNAMICS, "environment") update ();
-  }
+    // Constructor
+    InSSBSimObject(jeod::DynManager & dyn_manager_in, jeod::RefFrame & target_in)
+        : dyn_manager(dyn_manager_in),
+          target(target_in)
+    {
+        ("initialization") initialize();
+        (DYNAMICS, "environment") update();
+    }
 
-private :
-  const jeod::DynManager & dyn_manager;
-  jeod::RefFrame * ss_bary;
-  const jeod::RefFrame & target;
+    InSSBSimObject(InSSBSimObject &) = delete;
+    InSSBSimObject & operator=(InSSBSimObject &) = delete;
 
-  void initialize () {
-    ss_bary = dyn_manager.find_ref_frame ("SSBary.inertial");
-  }
+private:
+    const jeod::DynManager & dyn_manager;
+    jeod::RefFrame * ss_bary;
+    const jeod::RefFrame & target;
 
-  void update () {
-    target.compute_relative_state (*ss_bary, state);
-  }
+    void initialize()
+    {
+        ss_bary = dyn_manager.find_ref_frame("SSBary.inertial");
+    }
 
-// Delete the copy constructor and assignment operator
-
-  InSSBSimObject (InSSBSimObject &);
-  InSSBSimObject & operator = (InSSBSimObject &);
+    void update()
+    {
+        target.compute_relative_state(*ss_bary, state);
+    }
 };

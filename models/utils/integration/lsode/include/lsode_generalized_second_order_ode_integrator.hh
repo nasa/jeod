@@ -60,10 +60,9 @@ Library dependencies:
   ((../src/lsode_generalized_second_order_ode_integrator.cc)
    (../src/lsode_second_order_ode_integrator.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_LSODE_GENERALIZED_DERIV_SECOND_ORDER_ODE_INTEGRATOR_HH
 #define JEOD_LSODE_GENERALIZED_DERIV_SECOND_ORDER_ODE_INTEGRATOR_HH
@@ -84,86 +83,72 @@ namespace jeod
 
 class LsodeControlDataInterface;
 
-
 /**
  * JEOD-compatible version of the Livermore ODE solver, LSODE, capable of
  * integrating second-order ODEs.
  */
 class LsodeGeneralizedDerivSecondOrderODEIntegrator : public LsodeSecondOrderODEIntegrator
 {
-JEOD_MAKE_SIM_INTERFACES(LsodeGeneralizedDerivSecondOrderODEIntegrator)
+    JEOD_MAKE_SIM_INTERFACES(jeod, LsodeGeneralizedDerivSecondOrderODEIntegrator)
 
-
-// Methods:
+    // Methods:
 public:
+    // Constructors
 
-   // Constructors
+    /**
+     * LsodeGeneralizedDerivSecondOrderODEIntegrator default constructor.
+     */
+    LsodeGeneralizedDerivSecondOrderODEIntegrator() = default;
 
-   /**
-    * LsodeGeneralizedDerivSecondOrderODEIntegrator default constructor.
-    */
-   LsodeGeneralizedDerivSecondOrderODEIntegrator(void);
+    /**
+     * LsodeGeneralizedDerivSecondOrderODEIntegrator copy constructor.
+     * @param[in] src  Item to be copied.
+     */
+    LsodeGeneralizedDerivSecondOrderODEIntegrator(const LsodeGeneralizedDerivSecondOrderODEIntegrator & src);
 
-   /**
-    * LsodeGeneralizedDerivSecondOrderODEIntegrator copy constructor.
-    * @param[in] src  Item to be copied.
-    */
-   LsodeGeneralizedDerivSecondOrderODEIntegrator(const LsodeGeneralizedDerivSecondOrderODEIntegrator & src);
+    LsodeGeneralizedDerivSecondOrderODEIntegrator(const LsodeControlDataInterface & data_in,
+                                                  er7_utils::IntegrationControls & controls,
+                                                  const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
+                                                  unsigned int position_size,
+                                                  unsigned int velocity_size);
 
-   LsodeGeneralizedDerivSecondOrderODEIntegrator (
-      const LsodeControlDataInterface & data_in,
-      er7_utils::IntegrationControls & controls,
-      const er7_utils::GeneralizedPositionDerivativeFunctions & deriv_funs,
-      unsigned int position_size,
-      unsigned int velocity_size);
+    /**
+     * LsodeGeneralizedDerivSecondOrderODEIntegrator destructor.
+     */
+    ~LsodeGeneralizedDerivSecondOrderODEIntegrator() override;
 
-   /**
-    * LsodeGeneralizedDerivSecondOrderODEIntegrator destructor.
-    */
-   ~LsodeGeneralizedDerivSecondOrderODEIntegrator() override;
+    LsodeGeneralizedDerivSecondOrderODEIntegrator * create_copy() const override;
 
-   LsodeGeneralizedDerivSecondOrderODEIntegrator * create_copy () const override;
+    /**
+     * Propagate state via Lsode's method.
+     * @param[in] dyn_dt        Integration interval step, dynamic time seconds.
+     * @param[in] target_stage  The stage of the integration process
+     *                          that the integrator should try to attain.
+     * @param[in] accel         Generalized acceleration vector.
+     * @param[in,out] velocity  Generalized velocity vector.
+     * @param[in,out] position  Generalized position vector.
+     *
+     * @return The status (time advance, pass/fail status) of the integration.
+     */
+    er7_utils::IntegratorResult integrate(double dyn_dt,
+                                          unsigned int target_stage,
+                                          const double * ER7_UTILS_RESTRICT accel,
+                                          double * ER7_UTILS_RESTRICT velocity,
+                                          double * ER7_UTILS_RESTRICT position) override;
 
-   /**
-    * Propagate state via Lsode's method.
-    * @param[in] dyn_dt        Integration interval step, dynamic time seconds.
-    * @param[in] target_stage  The stage of the integration process
-    *                          that the integrator should try to attain.
-    * @param[in] accel         Generalized acceleration vector.
-    * @param[in,out] velocity  Generalized velocity vector.
-    * @param[in,out] position  Generalized position vector.
-    *
-    * @return The status (time advance, pass/fail status) of the integration.
-    */
-   er7_utils::IntegratorResult integrate (
-      double dyn_dt,
-      unsigned int target_stage,
-      double const * ER7_UTILS_RESTRICT accel,
-      double * ER7_UTILS_RESTRICT velocity,
-      double * ER7_UTILS_RESTRICT position) override;
+    LsodeGeneralizedDerivSecondOrderODEIntegrator & operator=(const LsodeGeneralizedDerivSecondOrderODEIntegrator &) =
+        delete;
 
-
-private:
-
-   /**
-    * LsodeGeneralizedDerivSecondOrderODEIntegrator assignment operator.  not implemented.
-    * @param src  Item to be copied.
-    */
-   LsodeGeneralizedDerivSecondOrderODEIntegrator & operator=(
-                const  LsodeGeneralizedDerivSecondOrderODEIntegrator & src);
-
-// Variables
+    // Variables
 
 public:
-
-   /**
-    * Stash space for the result of the computation of the derivative of the
-    * zeroth-derivative.  Used with the Generalized derivative form, in which
-    * the deriviative of the zeroth derivative is not equal to the
-    * first-derivative.
-    */
-   double * posdot; //!< trick_units(--)
-
+    /**
+     * Stash space for the result of the computation of the derivative of the
+     * zeroth-derivative.  Used with the Generalized derivative form, in which
+     * the deriviative of the zeroth derivative is not equal to the
+     * first-derivative.
+     */
+    double * posdot{}; //!< trick_units(--)
 };
 
 } // namespace jeod

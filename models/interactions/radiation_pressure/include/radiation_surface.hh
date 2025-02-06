@@ -71,9 +71,9 @@ Library dependencies:
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RadiationThirdBody;
 class RadiationFacet;
@@ -82,107 +82,87 @@ class InteractionFacetFactory;
 class FacetParams;
 class DynBody;
 
-
 /**
  * The surface of the vehicle that interacts with the incident flux.
  */
-class RadiationSurface : public InteractionSurface {
-
-   JEOD_MAKE_SIM_INTERFACES(RadiationSurface)
+class RadiationSurface : public InteractionSurface
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationSurface)
 
 public:
+    /**
+     * Array of pointers to the Radiation Facets.
+     */
+    RadiationFacet ** facets{}; //!< trick_units(--)
 
-   /**
-    * Array of pointers to the Radiation Facets.
-    */
-   RadiationFacet ** facets;  //!< trick_units(--)
+    /**
+     * number of facets in this surface.
+     */
+    unsigned int num_facets{}; //!< trick_units(--)
 
-   /**
-    * number of facets in this surface.
-    */
-   unsigned int num_facets;  //!< trick_units(--)
+    /**
+     * Flag to instruct model to include conduction between plates in the
+     * thermal calculation.  Requires a thermal_conduction matrix.
+     */
+    bool include_conduction{}; //!< trick_units(--)
 
-   /**
-    * Flag to instruct model to include conduction between plates in the
-    * thermal calculation.  Requires a thermal_conduction matrix.
-    */
-   bool include_conduction;  //!< trick_units(--)
+    /**
+     * Conductivity values (Watts per Kelvin) between facets.  Assumed
+     * symmetric, only the values [small][large] will be considered
+     * (e.g. thermal_conduction[2][3] gives the conduction between facets 2
+     * and 3, whereas thermal_conduction[3][2] will never be seen.
+     */
+    double ** thermal_conduction{}; //!< trick_units(--)
 
-   /**
-    * Conductivity values (Watts per Kelvin) between facets.  Assumed
-    * symmetric, only the values [small][large] will be considered
-    * (e.g. thermal_conduction[2][3] gives the conduction between facets 2
-    * and 3, whereas thermal_conduction[3][2] will never be seen.
-    */
-   double ** thermal_conduction;  //!< trick_units(--)
+    /**
+     * Force resulting from all radiative interactions
+     */
+    double force[3]{}; //!< trick_units(--)
 
-   /**
-    * Force resulting from all radiative interactions
-    */
-   double force[3];  //!< trick_units(--)
+    /**
+     * Torque resulting from all radiative interactions
+     */
+    double torque[3]{}; //!< trick_units(--)
 
-   /**
-    * Torque resulting from all radiative interactions
-    */
-   double torque[3]; //!< trick_units(--)
+    /**
+     * Simple counter, used repeatedly.
+     */
+    unsigned int ii_facet{}; //!< trick_units(--)
 
-   /**
-    * Simple counter, used repeatedly.
-    */
-   unsigned int ii_facet; //!< trick_units(--)
-
-   // Member functions
+    // Member functions
 public:
+    RadiationSurface();
+    ~RadiationSurface() override;
+    RadiationSurface & operator=(const RadiationSurface &) = delete;
+    RadiationSurface(const RadiationSurface &) = delete;
 
-   // constructor
-   RadiationSurface ();
+    void initialize(double center_grav[3]);
 
-   // destructor
-   ~RadiationSurface () override;
+    void allocate_array(unsigned int size) override;
 
-   void initialize (double center_grav[3]);
+    void allocate_interaction_facet(Facet * facet,
+                                    InteractionFacetFactory * factory,
+                                    FacetParams * params,
+                                    unsigned int index) override;
 
-   void allocate_array (unsigned int size) override;
+    void initialize_runtime_values();
 
-   void allocate_interaction_facet (
-      Facet * facet,
-      InteractionFacetFactory * factory,
-      FacetParams * params,
-      unsigned int index) override;
+    void incident_radiation(double flux_mag, const double flux_struc_hat[3], bool calculate_forces);
 
-   void initialize_runtime_values(void);
+    void interact_with_third_body(RadiationThirdBody * third_body_ptr, const bool calculate_forces);
 
-   void incident_radiation (
-      double flux_mag, const double flux_struc_hat[3], bool calculate_forces);
+    void accumulate_thermal_sources() override;
 
-   void interact_with_third_body(
-      RadiationThirdBody * third_body_ptr,
-      const bool calculate_forces);
+    void thermal_integrator() override;
 
-   void accumulate_thermal_sources (void) override;
+    void equalize_absorption_emission();
 
-   void thermal_integrator (void) override;
+    void radiation_pressure();
 
-   void equalize_absorption_emission (void);
-
-   void radiation_pressure (void);
-
-   void add_thermal_integrators_to (DynBody *dyn_body);
-
-protected:
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   RadiationSurface& operator = (const RadiationSurface& rhs);
-   RadiationSurface (const RadiationSurface& rhs);
-
+    void add_thermal_integrators_to(DynBody * dyn_body);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "radiation_facet.hh"

@@ -57,137 +57,103 @@ Reference:
 Assumptions and limitations:
   ((TBS))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_REF_FRAME_ITEMS_INLINE_HH
 #define JEOD_REF_FRAME_ITEMS_INLINE_HH
 
 #include "ref_frame_items.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Get the value of a RefFrameItems.
  * @return Current value
  */
-inline RefFrameItems::Items
-RefFrameItems::get (
-   void)
-const
+inline RefFrameItems::Items RefFrameItems::get() const
 {
-   return (value);
+    return (value);
 }
-
 
 /**
  * Determine if specified aspects of a RefFrameItems are set.
  * @return Are specified items set?
  * \param[in] test_items Test items
  */
-inline bool
-RefFrameItems::contains (
-   RefFrameItems::Items test_items)
-const
+inline bool RefFrameItems::contains(RefFrameItems::Items test_items) const
 {
-   return ((static_cast<unsigned int> (value) &
-            static_cast<unsigned int> (test_items)) ==
-           static_cast<unsigned int> (test_items));
+    return ((static_cast<unsigned int>(value) & static_cast<unsigned int>(test_items)) ==
+            static_cast<unsigned int>(test_items));
 }
-
 
 /**
  * Determine whether a RefFrameItems equals the specified aspects.
  * @return Exact equality?
  * \param[in] test_items Test items
  */
-inline bool
-RefFrameItems::equals (
-   RefFrameItems::Items test_items)
-const
+inline bool RefFrameItems::equals(RefFrameItems::Items test_items) const
 {
-   return (value == test_items);
+    return (value == test_items);
 }
-
 
 /**
  * Determine whether a RefFrameItems has nothing set.
  * @return Nothing set?
  */
-inline bool
-RefFrameItems::is_empty (
-   void)
-const
+inline bool RefFrameItems::is_empty() const
 {
-   return (value == No_Items);
+    return (value == No_Items);
 }
-
 
 /**
  * Determine whether a RefFrameItems has all bits set.
  * @return Fully set?
  */
-inline bool
-RefFrameItems::is_full (
-   void)
-const
+inline bool RefFrameItems::is_full() const
 {
-   return (value == Pos_Vel_Att_Rate);
+    return (value == Pos_Vel_Att_Rate);
 }
-
 
 /**
  * Set the value of a RefFrameItems.
  * @return Updated value
  * \param[in] new_value New value
  */
-inline RefFrameItems::Items
-RefFrameItems::set (
-   RefFrameItems::Items new_value)
+inline RefFrameItems::Items RefFrameItems::set(RefFrameItems::Items new_value)
 {
-   value = new_value;
-   return (value);
+    value = new_value;
+    return (value);
 }
-
 
 /**
  * Set aspects of a RefFrameItems.
  * @return Updated value
  * \param[in] new_items Items to add
  */
-inline RefFrameItems::Items
-RefFrameItems::add (
-   RefFrameItems::Items new_items)
+inline RefFrameItems::Items RefFrameItems::add(RefFrameItems::Items new_items)
 {
-   value = static_cast<RefFrameItems::Items> (
-      static_cast<unsigned int> (value) |
-      static_cast<unsigned int> (new_items));
-   return (value);
+    value = static_cast<RefFrameItems::Items>(static_cast<unsigned int>(value) | static_cast<unsigned int>(new_items));
+    return (value);
 }
-
 
 /**
  * Clear aspects of a RefFrameItems.
  * @return Updated value
  * \param[in] old_items Items to remove
  */
-inline RefFrameItems::Items
-RefFrameItems::remove (
-   RefFrameItems::Items old_items)
+inline RefFrameItems::Items RefFrameItems::remove(RefFrameItems::Items old_items)
 {
-   value = static_cast<RefFrameItems::Items> (
-      static_cast<unsigned int> (value) &
-      ((~static_cast<unsigned int> (old_items)) &
-       static_cast<unsigned int> (Pos_Vel_Att_Rate)));
-   return (value);
+    value = static_cast<RefFrameItems::Items>(
+        static_cast<unsigned int>(value) &
+        ((~static_cast<unsigned int>(old_items)) & static_cast<unsigned int>(Pos_Vel_Att_Rate)));
+    return (value);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

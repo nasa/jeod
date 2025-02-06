@@ -47,17 +47,17 @@ ASSUMPTIONS AND LIMITATIONS:
 Library dependencies:
     (../src/demo_surface_factory.cc)
 
- 
+
 *******************************************************************************/
 
 #ifndef JEOD_DEMO_SURFACE_FACTORY_HH
 #define JEOD_DEMO_SURFACE_FACTORY_HH
 
-#include "utils/surface_model/include/interaction_surface_factory.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
-#include "utils/surface_model/include/surface_model.hh"
-#include "utils/surface_model/include/interaction_surface.hh"
 #include "utils/surface_model/include/interaction_facet_factory.hh"
+#include "utils/surface_model/include/interaction_surface.hh"
+#include "utils/surface_model/include/interaction_surface_factory.hh"
+#include "utils/surface_model/include/surface_model.hh"
 
 // Need to do something with this?
 // #include "flat_plate_aero_factory.hh"
@@ -65,74 +65,35 @@ Library dependencies:
 #include <vector>
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class DemoSurfaceFactory1 : public InteractionSurfaceFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoSurfaceFactory1)
-
-public:
-
-   // constructor
-   DemoSurfaceFactory1();
-
-   // destructor
-   ~DemoSurfaceFactory1() override;
-
-   void add_facet_params(FacetParams* to_add) override;
-
-
-protected:
-
-  // Included so JEOD can include all default facet factories that
-  // it knows about. For extensibility the user can add
-  // factories with add_facet_factory
-  // probably can be taken out....
-  // FlatPlateAeroFactory flat_plate_aero_factory;
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   DemoSurfaceFactory1& operator = (const DemoSurfaceFactory1& rhs);
-   DemoSurfaceFactory1(const DemoSurfaceFactory1& rhs);
-
-};
-
-class DemoSurfaceFactory2 : public InteractionSurfaceFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoSurfaceFactory2)
+class DemoSurfaceFactory1 : public InteractionSurfaceFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoSurfaceFactory1)
 
 public:
+    DemoSurfaceFactory1() = default;
+    ~DemoSurfaceFactory1() override = default;
+    DemoSurfaceFactory1 & operator=(const DemoSurfaceFactory1 &) = delete;
+    DemoSurfaceFactory1(const DemoSurfaceFactory1 &) = delete;
 
-   // constructor
-   DemoSurfaceFactory2();
-
-   // destructor
-   ~DemoSurfaceFactory2() override;
-
-   void add_facet_params(FacetParams* to_add) override;
-
-
-protected:
-
-  // Included so JEOD can include all default facet factories that
-  // it knows about. For extensibility the user can add
-  // factories with add_facet_factory
-  // probably can be taken out....
-  // FlatPlateAeroFactory flat_plate_aero_factory;
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   DemoSurfaceFactory2& operator = (const DemoSurfaceFactory2& rhs);
-   DemoSurfaceFactory2(const DemoSurfaceFactory2& rhs);
-
+    void add_facet_params(FacetParams * to_add) override;
 };
 
-} // End JEOD namespace
+class DemoSurfaceFactory2 : public InteractionSurfaceFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoSurfaceFactory2)
+
+public:
+    DemoSurfaceFactory2() = default;
+    ~DemoSurfaceFactory2() override = default;
+    DemoSurfaceFactory2 & operator=(const DemoSurfaceFactory2 &) = delete;
+    DemoSurfaceFactory2(const DemoSurfaceFactory2 &) = delete;
+
+    void add_facet_params(FacetParams * to_add) override;
+};
+
+} // namespace jeod
 
 #endif

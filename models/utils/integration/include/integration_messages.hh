@@ -60,10 +60,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/integration_messages.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_INTEGRATION_MESSAGES_HH
 #define JEOD_INTEGRATION_MESSAGES_HH
@@ -73,68 +72,51 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Declares messages associated with the integration test model.
  */
-class IntegrationMessages {
-JEOD_MAKE_SIM_INTERFACES(IntegrationMessages)
-
+class IntegrationMessages
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, IntegrationMessages)
 
 public:
+    // Static member data
 
-   // Static member data
+    /**
+     * Issued when some user input is invalid.
+     */
+    static const char * unsupported_option; //!< trick_units(--)
 
-   /**
-    * Issued when some user input is invalid.
-    */
-   static char const * unsupported_option; //!< trick_units(--)
+    /**
+     * Issued when an item is somehow invalid; a duplicate entry for example.
+     */
+    static const char * invalid_item; //!< trick_units(--)
 
-   /**
-    * Issued when an item is somehow invalid; a duplicate entry for example.
-    */
-   static char const * invalid_item; //!< trick_units(--)
+    /**
+     * Issued when the JEOD programmer messed up.
+     */
+    static const char * internal_error; //!< trick_units(--)
 
-   /**
-    * Issued when the JEOD programmer messed up.
-    */
-   static char const * internal_error; //!< trick_units(--)
+    /**
+     * Issued when a non-JEOD programmer messed up.
+     */
+    static const char * invalid_request; //!< trick_units(--)
 
-   /**
-    * Issued when a non-JEOD programmer messed up.
-    */
-   static char const * invalid_request; //!< trick_units(--)
+    /**
+     * Issued in non-error messages.
+     */
+    static const char * information; //!< trick_units(--)
 
-   /**
-    * Issued in non-error messages.
-    */
-   static char const * information; //!< trick_units(--)
-
-
-private:
-
-   /**
-    * Not implemented.
-    */
-   IntegrationMessages (void);
-
-   /**
-    * Not implemented.
-    */
-   IntegrationMessages (const IntegrationMessages &);
-
-   /**
-    * Not implemented.
-    */
-   IntegrationMessages & operator= (const IntegrationMessages &);
-
+    IntegrationMessages() = delete;
+    IntegrationMessages(const IntegrationMessages &) = delete;
+    IntegrationMessages & operator=(const IntegrationMessages &) = delete;
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

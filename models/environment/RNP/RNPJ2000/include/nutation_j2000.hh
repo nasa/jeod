@@ -66,10 +66,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/nutation_j2000.cc))
 
- 
+
 
 *****************************************************************************/
-
 
 #ifndef NUTATION_J2000_HH
 #define NUTATION_J2000_HH
@@ -77,147 +76,147 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "environment/RNP/GenericRNP/include/planet_rotation.hh"
-
-
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Models the nutation component of the J2000 model
 /**
  * Implements the nutation portion of the J2000 RNP.
  */
-class NutationJ2000 : public PlanetRotation {
-
-   JEOD_MAKE_SIM_INTERFACES(NutationJ2000)
+class NutationJ2000 : public PlanetRotation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, NutationJ2000)
 
 public: // public data members
+    /**
+     * The number of coefficients in the 9 arrays
+     * directly following this decleration
+     */
+    unsigned int num_coeffs{}; //!< trick_units(count)
 
+    /**
+     * The coefficients to calculate mean anomaly of the moon
+     */
+    double * L_coeffs{}; //!< trick_units(--)
 
-   /**
-    * The number of coefficients in the 9 arrays
-    * directly following this decleration
-    */
-   unsigned int num_coeffs; //!< trick_units(count)
+    /**
+     * The coefficients to calculate mean anomaly of the sun
+     */
+    double * M_coeffs{}; //!< trick_units(--)
 
-   /**
-    * The coefficients to calculate mean anomaly of the moon
-    */
-   double* L_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate mean anomaly of the sun
-    */
-   double* M_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate mean argument of lattitude of the moon
-    */
-   double* F_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate mean elongation from the sun
-    */
-   double* D_coeffs; //!< trick_units(--)
-   /**
-    * The coefficients to calculate the right
-    * ascension of the ascending node of the mean
-    * mean lunar orbit
-    */
-   double* omega_coeffs; //!< trick_units(--)
+    /**
+     * The coefficients to calculate mean argument of lattitude of the moon
+     */
+    double * F_coeffs{}; //!< trick_units(--)
 
-   /**
-    * Zero order (in time) coefficients for
-    * calculating the nutation in longitude
-    */
-   double* long_coeffs; //!< trick_units(--)
-   /**
-    * The first order (in time) coefficients for
-    * calculating the nutation in longitude
-    */
-   double* long_t_coeffs; //!< trick_units(--)
-   /**
-    * Zero order coefficients for calculating the
-    * nutation in obliquity
-    */
-   double* obliq_coeffs; //!< trick_units(--)
-   /**
-    * First order coefficnets for calculating the
-    * nutation in obliquity
-    */
-   double* obliq_t_coeffs; //!< trick_units(--)
+    /**
+     * The coefficients to calculate mean elongation from the sun
+     */
+    double * D_coeffs{}; //!< trick_units(--)
 
-   /**
-    * The nutation in longitude from the last
-    * call of update
-    */
-   double nutation_in_longitude; //!< trick_units(--)
-   /**
-    * The nutation in obliquity from the last
-    * call of update
-    */
-   double nutation_in_obliquity; //!< trick_units(--)
+    /**
+     * The coefficients to calculate the right
+     * ascension of the ascending node of the mean
+     * mean lunar orbit
+     */
+    double * omega_coeffs{}; //!< trick_units(--)
 
-   /**
-    * Last calculated mean anomaly of the moon
-    */
-   double L; //!< trick_units(--)
-   /**
-    * Last calculated mean anomaly of the sun
-    */
-   double M; //!< trick_units(--)
-   /**
-    * Last calculated mean argument of latitude of the moon
-    */
-   double F; //!< trick_units(--)
-   /**
-    * Last calculated mean elongation from the sun
-    */
-   double D; //!< trick_units(--)
-   /**
-    * Last calculated ascension of the ascending node of the
-    * mean lunar orbit
-    */
-   double omega; //!< trick_units(--)
+    /**
+     * Zero order (in time) coefficients for
+     * calculating the nutation in longitude
+     */
+    double * long_coeffs{}; //!< trick_units(--)
 
-   /**
-    * Last calculated mean obliqutiy of the ecliptic
-    */
-   double epsilon_bar; //!< trick_units(--)
+    /**
+     * The first order (in time) coefficients for
+     * calculating the nutation in longitude
+     */
+    double * long_t_coeffs{}; //!< trick_units(--)
 
-   /**
-    * Last calculated equations of the equinox
-    */
-   double equa_of_equi; //!< trick_units(--)
+    /**
+     * Zero order coefficients for calculating the
+     * nutation in obliquity
+     */
+    double * obliq_coeffs{}; //!< trick_units(--)
+
+    /**
+     * First order coefficnets for calculating the
+     * nutation in obliquity
+     */
+    double * obliq_t_coeffs{}; //!< trick_units(--)
+
+    /**
+     * The nutation in longitude from the last
+     * call of update
+     */
+    double nutation_in_longitude{}; //!< trick_units(--)
+
+    /**
+     * The nutation in obliquity from the last
+     * call of update
+     */
+    double nutation_in_obliquity{}; //!< trick_units(--)
+
+    /**
+     * Last calculated mean anomaly of the moon
+     */
+    double L{}; //!< trick_units(--)
+
+    /**
+     * Last calculated mean anomaly of the sun
+     */
+    double M{}; //!< trick_units(--)
+
+    /**
+     * Last calculated mean argument of latitude of the moon
+     */
+    double F{}; //!< trick_units(--)
+
+    /**
+     * Last calculated mean elongation from the sun
+     */
+    double D{}; //!< trick_units(--)
+
+    /**
+     * Last calculated ascension of the ascending node of the
+     * mean lunar orbit
+     */
+    double omega{}; //!< trick_units(--)
+
+    /**
+     * Last calculated mean obliqutiy of the ecliptic
+     */
+    double epsilon_bar{}; //!< trick_units(--)
+
+    /**
+     * Last calculated equations of the equinox
+     */
+    double equa_of_equi{}; //!< trick_units(--)
 
 private: // private data members
+public:  // public member functions
+    NutationJ2000() = default;
+    ~NutationJ2000() override;
+    NutationJ2000 & operator=(const NutationJ2000 &) = delete;
+    NutationJ2000(const NutationJ2000 &) = delete;
 
-public: // public member functions
+    // Specific implemtation of update_rotation, from the polymorphic pure
+    // virtual base class PlanetRotation. Before this is called, the
+    // current_time parameter must be set to julian centures since J2000,
+    // in the terrestrial time format.
+    void update_rotation() override;
 
-   NutationJ2000 ();
-
-   ~NutationJ2000 () override;
-
-   // Specific implemtation of update_rotation, from the polymorphic pure
-   // virtual base class PlanetRotation. Before this is called, the
-   // current_time parameter must be set to julian centures since J2000,
-   // in the terrestrial time format.
-   void update_rotation () override;
-
-   // Initialize the various coefficients needed for the calculation of
-   // nutation. init must be of type NutationJ2000Init or an exec_terminate
-   // will occur
-   void initialize (PlanetRotationInit* init) override;
-
-private: // private member functions
-
-   // lock away the copy constructor and operator = by making them private
-
-   NutationJ2000& operator = (const NutationJ2000& rhs);
-   NutationJ2000 (const NutationJ2000& rhs);
-
+    // Initialize the various coefficients needed for the calculation of
+    // nutation. init must be of type NutationJ2000Init or an exec_terminate
+    // will occur
+    void initialize(PlanetRotationInit * init) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

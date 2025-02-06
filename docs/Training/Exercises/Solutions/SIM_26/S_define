@@ -36,21 +36,27 @@
 //
 //=============================================================================
 // Single vehicle in Earth orbit with atmosphere interaction and a srface model
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
-#define LOW_RATE_ENV  100.0
+#define DYNAMICS 1.0
+#define LOW_RATE_ENV 100.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
+
 #include "dynamics.sm"
-#include "environment_sans_de405.sm"
 #include "earth_GGM05C_MET_RNP.sm"
+#include "environment_sans_de405.sm"
 #include "vehicle_atmosphere.sm"
 
 ##include "utils/surface_model/include/flat_plate.hh"
@@ -59,17 +65,19 @@
 // CLASS: (VehicleSurfaceSimObject)
 // PURPOSE: //  ( This sim object models a vehicular surface.)
 //***************************************************************
-class VehicleSurfaceSimObject : public Trick::SimObject {
-  public:
-   jeod::SurfaceModel          surface;
+class VehicleSurfaceSimObject : public Trick::SimObject
+{
+public:
+    jeod::SurfaceModel surface;
 
-   VehicleSurfaceSimObject()
-   {};
-  private:
-   VehicleSurfaceSimObject (const VehicleSurfaceSimObject&);
-   VehicleSurfaceSimObject & operator = (const VehicleSurfaceSimObject&);
+    VehicleSurfaceSimObject(){};
+
+private:
+    VehicleSurfaceSimObject(const VehicleSurfaceSimObject &);
+    VehicleSurfaceSimObject & operator=(const VehicleSurfaceSimObject &);
 };
+
 VehicleSurfaceSimObject vehicle_surf;
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

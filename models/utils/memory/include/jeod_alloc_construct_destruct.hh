@@ -59,7 +59,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -76,16 +76,15 @@ Purpose:
 #include <cstring>
 #include <type_traits>
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
  * Internal definitions
  * Do not use any of these outside of this class.
  * Future implementations are free to modify or delete any of these items.
  */
-
 
 /**
  * Class template that provides static functions @a construct and @a destruct
@@ -100,108 +99,91 @@ namespace jeod {
  * This template provides do-nothing implementations, which is about all one
  * can do for arrays of abstract objects (which can't exist).
  */
-template <typename T, bool is_class, bool is_abstract>
-class JeodAllocHelperConstructDestruct {
+template<typename T, bool is_class, bool is_abstract> class JeodAllocHelperConstructDestruct
+{
 public:
+    /**
+     * Construct an array of objects.
+     * @return         Constructed array.
+     * @param  nelem   Number of elements in the array
+     * @param  addr    Address to be constructed
+     */
+    static void * construct(std::size_t nelem JEOD_UNUSED, void * addr)
+    {
+        return addr;
+    }
 
-   /**
-    * Construct an array of objects.
-    * @return         Constructed array.
-    * @param  nelem   Number of elements in the array
-    * @param  addr    Address to be constructed
-    */
-   static void * construct (
-      std::size_t nelem JEOD_UNUSED,
-      void * addr)
-   {
-      return addr;
-   }
-
-   /**
-    * Destruct an array of objects.
-    * @param  nelem   Number of elements in the array
-    * @param  addr    Address to be destructed
-    */
-   static void destruct (
-      std::size_t nelem JEOD_UNUSED,
-      void * addr JEOD_UNUSED)
-   {
-      ; // Nothing to do.
-   }
+    /**
+     * Destruct an array of objects.
+     * @param  nelem   Number of elements in the array
+     * @param  addr    Address to be destructed
+     */
+    static void destruct(std::size_t nelem JEOD_UNUSED, void * addr JEOD_UNUSED)
+    {
+        ; // Nothing to do.
+    }
 };
-
 
 /**
  * Partial instantiation for non-classes.
  */
-template <typename T, bool is_abstract>
-class JeodAllocHelperConstructDestruct<T, false, is_abstract> {
+template<typename T, bool is_abstract> class JeodAllocHelperConstructDestruct<T, false, is_abstract>
+{
 public:
+    /**
+     * Construct an array of objects.
+     * @return         Constructed array.
+     * @param  nelem   Number of elements in the array
+     * @param  addr    Address to be constructed
+     */
+    static void * construct(std::size_t nelem, void * addr)
+    {
+        std::memset(addr, 0, sizeof(T) * nelem);
+        return addr;
+    }
 
-   /**
-    * Construct an array of objects.
-    * @return         Constructed array.
-    * @param  nelem   Number of elements in the array
-    * @param  addr    Address to be constructed
-    */
-   static void * construct (
-      std::size_t nelem,
-      void * addr)
-   {
-      std::memset (addr, 0, sizeof(T) * nelem);
-      return addr;
-   }
-
-   /**
-    * Destruct an array of objects.
-    * @param  nelem   Number of elements in the array
-    * @param  addr    Address to be destructed
-    */
-   static void destruct (
-      std::size_t nelem JEOD_UNUSED,
-      void * addr JEOD_UNUSED)
-   {
-      ; // Nothing to do for non-class objects.
-   }
+    /**
+     * Destruct an array of objects.
+     * @param  nelem   Number of elements in the array
+     * @param  addr    Address to be destructed
+     */
+    static void destruct(std::size_t nelem JEOD_UNUSED, void * addr JEOD_UNUSED)
+    {
+        ; // Nothing to do for non-class objects.
+    }
 };
-
 
 /**
  * Partial instantiation for non-abstract classes.
  */
-template <typename T>
-class JeodAllocHelperConstructDestruct<T, true, false> {
+template<typename T> class JeodAllocHelperConstructDestruct<T, true, false>
+{
 public:
+    /**
+     * Construct an array of objects.
+     * @return         Constructed array.
+     * @param  nelem   Number of elements in the array
+     * @param  addr    Address to be constructed
+     */
+    static void * construct(std::size_t nelem, void * addr)
+    {
+        return new(addr) T[nelem];
+    }
 
-   /**
-    * Construct an array of objects.
-    * @return         Constructed array.
-    * @param  nelem   Number of elements in the array
-    * @param  addr    Address to be constructed
-    */
-   static void * construct (
-      std::size_t nelem,
-      void * addr)
-   {
-      return new (addr) T[nelem];
-   }
-
-   /**
-    * Destruct an array of objects.
-    * @param  nelem   Number of elements in the array
-    * @param  addr    Address to be destructed
-    */
-   static void destruct (
-      std::size_t nelem,
-      void * addr)
-   {
-      T * array = reinterpret_cast<T *>(addr);
-      for (unsigned int ii = 0; ii < nelem; ++ii) {
-         array[ii].~T();
-      }
-   }
+    /**
+     * Destruct an array of objects.
+     * @param  nelem   Number of elements in the array
+     * @param  addr    Address to be destructed
+     */
+    static void destruct(std::size_t nelem, void * addr)
+    {
+        auto * array = reinterpret_cast<T *>(addr);
+        for(unsigned int ii = 0; ii < nelem; ++ii)
+        {
+            array[ii].~T();
+        }
+    }
 };
-
 
 /******************************************************************************/
 
@@ -210,7 +192,6 @@ public:
  * The remaining items can be used in derivative products.
  */
 
-
 /**
  * Construct an array of objects of type @a T.
  * @tparam T       Pointed-to type.
@@ -218,20 +199,11 @@ public:
  * @param  addr    Address to be constructed
  * @return         Constructed array.
  */
-template<typename T>
-inline void *
-jeod_alloc_construct_array (
-   std::size_t nelem,
-   void * addr)
+template<typename T> inline void * jeod_alloc_construct_array(std::size_t nelem, void * addr)
 {
-   typedef JeodAllocHelperConstructDestruct <
-              T,
-              std::is_class<T>::value,
-              std::is_abstract<T>::value>
-      ConstructDestruct;
-   return ConstructDestruct::construct (nelem, addr);
+    using ConstructDestruct = JeodAllocHelperConstructDestruct<T, std::is_class<T>::value, std::is_abstract<T>::value>;
+    return ConstructDestruct::construct(nelem, addr);
 }
-
 
 /**
  * Destruct an array of objects of type @a T.
@@ -239,22 +211,13 @@ jeod_alloc_construct_array (
  * @param  nelem   Number of elements in the array
  * @param  addr    Address to be destructed
  */
-template<typename T>
-inline void
-jeod_alloc_destruct_array (
-   std::size_t nelem,
-   void * addr)
+template<typename T> inline void jeod_alloc_destruct_array(std::size_t nelem, void * addr)
 {
-   typedef JeodAllocHelperConstructDestruct <
-              T,
-              std::is_class<T>::value,
-              std::is_abstract<T>::value>
-      ConstructDestruct;
-   ConstructDestruct::destruct (nelem, addr);
+    using ConstructDestruct = JeodAllocHelperConstructDestruct<T, std::is_class<T>::value, std::is_abstract<T>::value>;
+    ConstructDestruct::destruct(nelem, addr);
 }
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

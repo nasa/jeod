@@ -59,106 +59,84 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_SPICE_EPHEM_POINT_HH
 #define JEOD_SPICE_EPHEM_POINT_HH
-
 
 // System includes
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "environment/ephemerides/ephem_item/include/ephem_point.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A SpiceEphemPoint minimally extends EphemerisPoint, primarily in order to
  * contain the ID of the SPICE object that will be used to update the state
  * of the target ephemeris reference frame.
  */
-class SpiceEphemPoint : public EphemerisPoint {
-JEOD_MAKE_SIM_INTERFACES(SpiceEphemPoint)
+class SpiceEphemPoint : public EphemerisPoint
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, SpiceEphemPoint)
 
 public:
+    // Data types
 
-   // Data types
+    /**
+     * Enumerates the status values of a SpiceEphemPoint.
+     */
+    enum Status
+    {
+        IsRoot = 0, /**< The target reference frame is extant, active, and
+                       is the root of the reference frame tree. Hence its
+                       state is the trivial state. */
+        InTree = 1, /**< The target reference frame is extant and active.
+                       However, present responsibility for updating the
+                       frame lies with some other ephemeris model. */
+        Active = 2, /**< The target reference frame is extant, active, and
+                       is to be updated by this ephemeris model. */
+    };
 
-   /**
-    * Enumerates the status values of a SpiceEphemPoint.
-    */
-   enum Status {
-      IsRoot     = 0,  /**< The target reference frame is extant, active, and
-                          is the root of the reference frame tree. Hence its
-                          state is the trivial state. */
-      InTree     = 1,  /**< The target reference frame is extant and active.
-                          However, present responsibility for updating the
-                          frame lies with some other ephemeris model. */
-      Active     = 2,  /**< The target reference frame is extant, active, and
-                          is to be updated by this ephemeris model. */
-   };
+    // Member functions
+    SpiceEphemPoint();
+    ~SpiceEphemPoint() override = default;
+    SpiceEphemPoint(const SpiceEphemPoint &) = delete;
+    SpiceEphemPoint & operator=(const SpiceEphemPoint &) = delete;
 
+    // Status and SPICE ID accessors.
+    virtual void set_status(SpiceEphemPoint::Status new_status);
+    virtual SpiceEphemPoint::Status get_status() const;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    virtual void set_spice_id(int new_id);
+    virtual int get_spice_id() const;
 
-   // Constructor and destructor.
-   SpiceEphemPoint ();
-   ~SpiceEphemPoint () override;
-
-
-   // Status and SPICE ID accessors.
-   virtual void set_status (SpiceEphemPoint::Status new_status);
-   virtual SpiceEphemPoint::Status get_status (void) const;
-
-   virtual void set_spice_id (int new_id);
-   virtual int get_spice_id (void) const;
-
-   virtual void set_parent_id (int new_id);
-   virtual int get_parent_id (void) const;
-
+    virtual void set_parent_id(int new_id);
+    virtual int get_parent_id() const;
 
 protected:
+    // Member data
 
-   // Member data
+    /**
+     * The status for the ephemeris reference frame associated with this item.
+     */
+    Status status{Active}; //!< trick_units(--)
 
-   /**
-    * The status for the ephemeris reference frame associated with this item.
-    */
-   Status status; //!< trick_units(--)
+    /**
+     * The SPICE kernel object to be used to maintain the target frame's state.
+     */
+    int spice_id{32767}; //!< trick_units(--)
 
-   /**
-    * The SPICE kernel object to be used to maintain the target frame's state.
-    */
-   int spice_id; //!< trick_units(--)
-
-   /**
-    * The SPICE ID of the parent to this object.
-    */
-   int parent_id; //!< trick_units(--)
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   /**
-    * Not implemented.
-    */
-   SpiceEphemPoint (const SpiceEphemPoint &);
-
-   /**
-    * Not implemented.
-    */
-   SpiceEphemPoint & operator= (const SpiceEphemPoint &);
+    /**
+     * The SPICE ID of the parent to this object.
+     */
+    int parent_id{32767}; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

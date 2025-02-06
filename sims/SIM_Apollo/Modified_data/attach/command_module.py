@@ -12,24 +12,24 @@ def set_command_module(sv_dyn_reference) :
   sv_dyn_reference.mass_init.set_subject_body( sv_dyn_reference.dyn_body.mass )
 
   #/* Allocate the mass point initilization objects. */
-  sv_dyn_reference.mass_init.num_points = 2
-  sv_dyn_reference.mass_init.points = trick.sim_services.alloc_type(sv_dyn_reference.mass_init.num_points, "jeod::MassPointInit")
+  sv_dyn_reference.mass_init.allocate_points(2)
+
 
   #/* Set the mass point interface position and orientation. */
-  sv_dyn_reference.mass_init.points[0].set_name("SM interface")
-  sv_dyn_reference.mass_init.points[0].pt_frame_spec    = trick.MassPointInit.StructToBody
-  sv_dyn_reference.mass_init.points[0].position  = trick.attach_units( "ft",[ 11.6, 0.0, 0.0])
-  sv_dyn_reference.mass_init.points[0].pt_orientation.data_source     =    trick.Orientation.InputEigenRotation
+  sv_dyn_reference.mass_init.get_mass_point(0).set_name("SM interface")
+  sv_dyn_reference.mass_init.get_mass_point(0).pt_frame_spec    = trick.MassPointInit.StructToBody
+  sv_dyn_reference.mass_init.get_mass_point(0).position  = trick.attach_units( "ft",[ 11.6, 0.0, 0.0])
+  sv_dyn_reference.mass_init.get_mass_point(0).pt_orientation.data_source     =    trick.Orientation.InputEigenRotation
 
 
-  sv_dyn_reference.mass_init.points[0].pt_orientation.eigen_angle  = trick.attach_units( "degree",0.0)
-  sv_dyn_reference.mass_init.points[0].pt_orientation.eigen_axis    = [ 0.0, 0.0, 1.0]
+  sv_dyn_reference.mass_init.get_mass_point(0).pt_orientation.eigen_angle  = trick.attach_units( "degree",0.0)
+  sv_dyn_reference.mass_init.get_mass_point(0).pt_orientation.eigen_axis    = [ 0.0, 0.0, 1.0]
 
-  sv_dyn_reference.mass_init.points[1].set_name("CM docking port")
-  sv_dyn_reference.mass_init.points[1].pt_frame_spec    = trick.MassPointInit.StructToBody
-  sv_dyn_reference.mass_init.points[1].position  = trick.attach_units( "ft",[ 4.0, 0.0, 0.0])
-  sv_dyn_reference.mass_init.points[1].pt_orientation.data_source     =    trick.Orientation.InputEigenRotation
+  sv_dyn_reference.mass_init.get_mass_point(1).set_name("CM docking port")
+  sv_dyn_reference.mass_init.get_mass_point(1).pt_frame_spec    = trick.MassPointInit.StructToBody
+  sv_dyn_reference.mass_init.get_mass_point(1).position  = trick.attach_units( "ft",[ 4.0, 0.0, 0.0])
+  sv_dyn_reference.mass_init.get_mass_point(1).pt_orientation.data_source     =    trick.Orientation.InputEigenRotation
 
 
-  sv_dyn_reference.mass_init.points[1].pt_orientation.eigen_angle  = trick.attach_units( "degree",180.0)
-  sv_dyn_reference.mass_init.points[1].pt_orientation.eigen_axis    = [ 0.0, 0.0, 1.0]
+  sv_dyn_reference.mass_init.get_mass_point(1).pt_orientation.eigen_angle  = trick.attach_units( "degree",180.0)
+  sv_dyn_reference.mass_init.get_mass_point(1).pt_orientation.eigen_axis    = [ 0.0, 0.0, 1.0]

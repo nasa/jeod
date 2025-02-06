@@ -55,26 +55,26 @@ Library dependencies:
   ((../src/named_item.cc)
    (../src/named_item_demangle.cc))
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_NAMED_ITEM_HH
 #define JEOD_NAMED_ITEM_HH
-
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // System includes
-#include <cstdarg>              // Variable arguments
-#include <string>               // std::string
-#include <typeinfo>             // std::type_info
-#include <utility>              // std::forward, std::move
-#include <vector>               // std::vector
+#include <array>
+#include <cstdarg>  // Variable arguments
+#include <string>   // std::string
+#include <typeinfo> // std::type_info
+#include <utility>  // std::forward, std::move
+#include <vector>   // std::vector
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Provides a set of static methods for constructing dot-conjoined names.
@@ -87,493 +87,277 @@ namespace jeod {
  * with the name being a std::string. The construct_name functions and
  & related functions that allocate a C-style string are deprecated.
  */
-class NamedItem {
-
-   JEOD_MAKE_SIM_INTERFACES(NamedItem)
+class NamedItem
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, NamedItem)
 
 public:
+    /**
+     * The size type used in std::string.
+     */
+    using size_type = std::string::size_type;
 
-   /**
-    * The size type used in std::string.
-    */
-   using size_type = std::string::size_type;
+    /**
+     * Construct a name from the given input, as a string.
+     * The input must not be the empty string or the null pointer.
+     */
+    static std::string construct_name(const std::string & nameIn)
+    {
+        validate_name(__FILE__, __LINE__, nameIn, "Label", "arg");
+        return nameIn;
+    }
 
+    /**
+     * Construct a name as a dot-conjoined string of the given inputs.
+     * Each input must not be the empty string or the null pointer.
+     * @tparam Type Types of the remaining arguments to construct_name.
+     * @param nameIn  First argument to construct_name.
+     * @param namesIn Remaining arguments to construct_name.
+     * @return The given inputs as a dot-conjoined string.
+     */
+    template<typename... Type> static std::string construct_name(const std::string & nameIn, Type... namesIn)
+    {
+        validate_name(__FILE__, __LINE__, nameIn, "Label", "arg");
+        return nameIn + "." + construct_name(namesIn...);
+    }
 
-   /**
-    * Create a copy of the provided name.
-    * @return The constructed name
-    * \param[in] name_item1 First part of the name
-    */
-   static char * construct_name (const char * name_item1)
-   {
-      return vconstruct_name (name_item1,
-                              (const char *)NULL);
-   }
+    /**
+     * Given a prefix and a dot-conjoined name, find the part of the name
+     * that follows the prefix. For names of the form "prefix.suffix",
+     * this function returns a pointer to "suffix". The function returns
+     * the input name if the name does not start with "prefix.".
+     * @return Suffix
+     * \param[in] prefix Prefix
+     * \param[in] name Name, possibly prefixed
+     */
+    static std::string suffix(const std::string & prefix, const std::string & name);
 
-   /**
-    * Construct a name as a dot-conjoined string.
-    * @return The constructed name
-    * \param[in] name_item1 First part of the name
-    * \param[in] name_item2 Second part of the name
-    */
-   static char * construct_name (
-      const char * name_item1,
-      const char * name_item2)
-   {
-      return vconstruct_name (name_item1,
-                              name_item2,
-                              (const char *)NULL);
-   }
+    /**
+     * Demangle a C++ name.
+     * @return Demangled name
+     * \param[in] info Typeinfo to be demangled
+     */
+    static const std::string demangle(const std::type_info & info);
 
-   /**
-    * Construct a name as a dot-conjoined string.
-    * @return The constructed name
-    * \param[in] name_item1 First part of the name
-    * \param[in] name_item2 Second part of the name
-    * \param[in] name_item3 Third part of the name
-    */
-   static char * construct_name (
-      const char * name_item1,
-      const char * name_item2,
-      const char * name_item3)
-   {
-      return vconstruct_name (name_item1,
-                              name_item2,
-                              name_item3,
-                              (const char *)NULL);
-   }
+    /**
+     * Checks whether a name is trivially invalid, failing if it is.
+     * \param[in] file Usually __FILE__
+     * \param[in] line Usually __LINE__
+     * \param[in] variable_value Value to check
+     * \param[in] variable_type Variable description
+     * \param[in] variable_name Variable name
+     */
+    static void validate_name(const char * file,
+                              unsigned int line,
+                              const std::string & variable_value,
+                              const std::string & variable_type,
+                              const std::string & variable_name);
 
-   /**
-    * Construct a name as a dot-conjoined string.
-    * @return The constructed name
-    * \param[in] name_item1 First part of the name
-    * \param[in] name_item2 Second part of the name
-    * \param[in] name_item3 Third part of the name
-    * \param[in] name_item4 Fourth part of the name
-    */
-   static char * construct_name (
-      const char * name_item1,
-      const char * name_item2,
-      const char * name_item3,
-      const char * name_item4)
-   {
-      return vconstruct_name (name_item1,
-                              name_item2,
-                              name_item3,
-                              name_item4,
-                              (const char *)NULL);
-   }
+    /**
+     * Default constructor.
+     * This is the default constructor by virtue of the defaults.
+     * @param name_in  Initial value of the name, defaults to the empty string.
+     * @param frozen_in  Initial value of is_frozen, defaults to false.
+     */
+    NamedItem(std::string name_in = std::string(), bool frozen_in = false)
+        : name{std::move(name_in)},
+          is_frozen{frozen_in}
+    {
+    }
 
-   /**
-    * Construct a name as a dot-conjoined string.
-    * @return The constructed name
-    * \param[in] name_item1 First part of the name
-    * \param[in] name_item2 Second part of the name
-    * \param[in] name_item3 Third part of the name
-    * \param[in] name_item4 Fourth part of the name
-    * \param[in] name_item5 Fifth part of the name
-    */
-   static char * construct_name (
-      const char * name_item1,
-      const char * name_item2,
-      const char * name_item3,
-      const char * name_item4,
-      const char * name_item5)
-   {
-      return vconstruct_name (name_item1,
-                              name_item2,
-                              name_item3,
-                              name_item4,
-                              name_item5,
-                              (const char *)NULL);
-   }
-
-   /**
-    * Construct a name as a dot-conjoined string.
-    * @return The constructed name
-    * \param[in] name_item1 First part of the name
-    * \param[in] name_item2 Second part of the name
-    * \param[in] name_item3 Third part of the name
-    * \param[in] name_item4 Fourth part of the name
-    * \param[in] name_item5 Fifth part of the name
-    * \param[in] name_item6 Sixth part of the name
-    */
-   static char * construct_name (
-      const char * name_item1,
-      const char * name_item2,
-      const char * name_item3,
-      const char * name_item4,
-      const char * name_item5,
-      const char * name_item6)
-   {
-      return vconstruct_name (name_item1,
-                              name_item2,
-                              name_item3,
-                              name_item4,
-                              name_item5,
-                              name_item6,
-                              (const char *)NULL);
-   }
-
-   /**
-    * Construct a name as a dot-conjoined string.
-    * @return The constructed name
-    * \param[in] name_item1 First part of the name
-    * \param[in] name_item2 Second part of the name
-    * \param[in] name_item3 Third part of the name
-    * \param[in] name_item4 Fourth part of the name
-    * \param[in] name_item5 Fifth part of the name
-    * \param[in] name_item6 Sixth part of the name
-    * \param[in] name_item7 Seventh part of the name
-    */
-   static char * construct_name (
-      const char * name_item1,
-      const char * name_item2,
-      const char * name_item3,
-      const char * name_item4,
-      const char * name_item5,
-      const char * name_item6,
-      const char * name_item7)
-   {
-      return vconstruct_name (name_item1,
-                              name_item2,
-                              name_item3,
-                              name_item4,
-                              name_item5,
-                              name_item6,
-                              name_item7,
-                              (const char *)NULL);
-   }
-
-
-   /**
-    * Construct a name as a dot-conjoined string.
-    * Note that this is a varargs function. The last argument must be
-    * (const char *)NULL to signal the end of the argument list.
-    * @return The constructed name
-    * \param[in] name_item First part of the name
-    * \param[in] ... Rest of the name
-    */
-   static char * vconstruct_name (const char * name_item, ...);
+    /**
+     * Copy constructor. The default implementation works fine.
+     */
+    NamedItem(const NamedItem &) = default;
 
 #ifndef SWIG
-   /**
-    * Construct a name as a dot-conjoined string.
-    * Notes --
-    * - This function takes a va_list argument that contains any
-    *   additional strings to be appended.
-    * - The calling function must form the args argument by invoking
-    *   va_start().
-    * - The calling function should not invoke va_end(); this is done
-    *   inside va_construct_name().
-    * - The last argument embodied in the args argument must be a NULL
-    *   to signal the end of the argument list.
-    * @return The constructed name
-    * \param[in] name_item First part of the name
-    * \param[in] args Rest of the name
-    */
-   static char * va_construct_name (const char * name_item, va_list args);
+    /**
+     * Move constructor. The default implementation works fine.
+     */
+    NamedItem(NamedItem &&) = default;
 #endif
 
-
-   /**
-    * Given a prefix and a dot-conjoined name, find the part of the name
-    * that follows the prefix. For names of the form "prefix.suffix",
-    * this function returns a pointer to "suffix". The function returns
-    * the input name if the name does not start with "prefix.".
-    * @return Suffix
-    * \param[in] prefix Prefix
-    * \param[in] name Name, possibly prefixed
-    */
-   static const char * suffix (const char * prefix, const char * name);
-
-
-   /**
-    * Demangle a C++ name.
-    * @return Demangled name
-    * \param[in] info Typeinfo to be demangled
-    */
-   static const std::string demangle (const std::type_info & info);
-
-
-   /**
-    * Checks whether a name is trivially invalid, failing if it is.
-    * \param[in] file Usually __FILE__
-    * \param[in] line Usually __LINE__
-    * \param[in] variable_value Value to check
-    * \param[in] variable_type Variable description
-    * \param[in] variable_name Variable name
-    */
-   static void validate_name (
-      const char * file,
-      unsigned int line,
-      const char * variable_value,
-      const char * variable_type,
-      const char * variable_name);
-
-
-  /**
-   * Construct a name from the given input, as a string.
-   * The input must not be the empty string or the null pointer.
-   * @tparam Arg  Type of the argument to construct_name_string.
-   * @param arg  Argument to construct_name_string.
-   * @return std::string that is conceptually equal to (==) arg.
-   */
-   template <typename Arg>
-   static std::string construct_name_string (Arg&& arg)
-   {
-      std::string result { std::forward<Arg>(arg) };
-      validate_name (__FILE__, __LINE__, result.c_str(), "Label", "arg");
-      return result;
-   }
-
-  /**
-   * Construct a name as a dot-conjoined string of the given inputs.
-   * Each input must not be the empty string or the null pointer.
-   * @tparam First  Type of the first argument to construct_name_string.
-   * @tparam Rest  Types of the remaining arguments to construct_name_string.
-   * @param first  First argument to construct_name_string.
-   * @param rest  Remaining arguments to construct_name_string.
-   * @return The given inputs as a dot-conjoined string.
-   */
-   template <typename First, typename... Rest>
-   static std::string construct_name_string (First&& first, Rest&&... rest)
-   {
-      std::string result { std::forward<First>(first) };
-      validate_name (__FILE__, __LINE__, result.c_str(), "Label", "arg");
-      std::vector<std::string> rest_vec { { std::forward<Rest>(rest)... } };
-      for (auto& elem : rest_vec)
-      {
-         result += '.';
-         validate_name (__FILE__, __LINE__, elem.c_str(), "Elem", "elem");
-         result += elem;
-      }
-      return result;
-   }
-
-
-   /**
-    * Default constructor.
-    * This is the default constructor by virtue of the defaults.
-    * @param name_in  Initial value of the name, defaults to the empty string.
-    * @param frozen_in  Initial value of is_frozen, defaults to false.
-    */
-   NamedItem (std::string name_in=std::string(), bool frozen_in=false)
-   :
-      name {std::move(name_in)},
-      is_frozen {frozen_in}
-   { }
-
-   /**
-    * Copy constructor. The default implementation works fine.
-    */
-   NamedItem (const NamedItem&) = default;
-
-#ifndef SWIG
-   /**
-    * Move constructor. The default implementation works fine.
-    */
-   NamedItem (NamedItem&&) = default;
-#endif
-
-   /**
-    * Destructor. The default implementation virtually works fine.
-    */
-   virtual ~NamedItem() = default;
+    /**
+     * Destructor. The default implementation virtually works fine.
+     */
+    virtual ~NamedItem() = default;
 
 #ifdef SWIG
    NamedItem& operator= (const NamedItem&) = delete;
    NamedItem& operator= (const NamedItem&&) = delete;
 #else
-   /**
-    * Copy assignment.
-    * Only the name is copied, and only if the name isn't frozen.
-    */
-   NamedItem& operator= (const NamedItem& src)
-   {
-      verify_unfrozen_name ();
-      name = src.name;
-      return *this;
-   }
+    /**
+     * Copy assignment.
+     * Only the name is copied, and only if the name isn't frozen.
+     */
+    NamedItem & operator=(const NamedItem & src)
+    {
+        verify_unfrozen_name();
+        name = src.name;
+        return *this;
+    }
 
-   /**
-    * Move assignment. The default implementation works fine.
-    */
-   NamedItem& operator= (NamedItem&& src)
-   {
-      verify_unfrozen_name ();
-      name = std::move(src.name);
-      return *this;
-   }
+    /**
+     * Move assignment. The default implementation works fine.
+     */
+    NamedItem & operator=(NamedItem && src)
+    {
+        verify_unfrozen_name();
+        name = std::move(src.name);
+        return *this;
+    }
 #endif
 
-   /**
-    * Assignment from a string.
-    */
-   NamedItem& operator= (const std::string& name_in)
-   {
-      verify_unfrozen_name ();
-      name = name_in;
-      return *this;
-   }
+    /**
+     * Assignment from a string.
+     */
+    NamedItem & operator=(const std::string & name_in)
+    {
+        verify_unfrozen_name();
+        name = name_in;
+        return *this;
+    }
 
-   /**
-    * Comparison of names
-    */
-   bool operator== (const NamedItem& rhs)
-   {
-      return (name == rhs.get_name());
-   }
+    /**
+     * Comparison of names
+     */
+    bool operator==(const NamedItem & rhs)
+    {
+        return (name == rhs.get_name());
+    }
 
-   /**
-    * Getter for name.
-    */
-   const std::string& get_name () const
-   {
-      return name;
-   }
+    /**
+     * Getter for name.
+     */
+    std::string get_name() const
+    {
+        return name;
+    }
 
-   /**
-    * Getter for name, as a C-style string.
-    */
-   const char* c_str () const
-   {
-      return name.c_str();
-   }
+    /**
+     * Getter for name, as a C-style string.
+     */
+    const char * c_str() const
+    {
+        return name.c_str();
+    }
 
-   /**
-    * Getter for the length of the name.
-    */
-   size_type size () const
-   {
-      return name.size();
-   }
+    /**
+     * Getter for the length of the name.
+     */
+    size_type size() const
+    {
+        return name.size();
+    }
 
-   /**
-    * Getter for is_frozen.
-    */
-   bool get_is_frozen () const
-   {
-      return is_frozen;
-   }
+    /**
+     * Getter for is_frozen.
+     */
+    bool get_is_frozen() const
+    {
+        return is_frozen;
+    }
 
-   /**
-    * Compare the end of this string to a C-style string.
-    * See std::string::compare.
-    * @param pos1 The start index in the name.
-    * @param other The C-style null-terminated string.
-    * @return True if the end part of the name equals the given C-style string.
-    */
-   bool ends_with (size_type pos1, const char* other) const
-   {
-      return name.compare(pos1, name.size()-pos1, other) == 0;
-   }
+    /**
+     * Compare the end of this string to a C-style string.
+     * See std::string::compare.
+     * @param pos1 The start index in the name.
+     * @param other The C-style null-terminated string.
+     * @return True if the end part of the name equals the given C-style string.
+     */
+    bool ends_with(size_type pos1, const std::string & other) const
+    {
+        return name.compare(pos1, std::string::npos, other) == 0;
+    }
 
-   /**
-    * Given a dot-conjoined test name, find the part of the test name
-    * that follows this name, as a prefix. For names of the form "prefix.suffix",
-    * this function returns a pointer to "suffix". The function returns
-    * the input name if the name does not start with "prefix.".
-    * @return Suffix
-    * \param[in] test_name Test name, possibly prefixed
-    */
-   const char * suffix (const char * test_name) const
-   {
-      return suffix (name.c_str(), test_name);
-   }
+    /**
+     * Given a dot-conjoined test name, find the part of the test name
+     * that follows this name, as a prefix. For names of the form "prefix.suffix",
+     * this function returns a pointer to "suffix". The function returns
+     * the input name if the name does not start with "prefix.".
+     * @return Suffix
+     * \param[in] test_name Test name, possibly prefixed
+     */
+    std::string suffix(const std::string & test_name) const
+    {
+        return suffix(name, test_name);
+    }
 
-  /**
-   * Set the name from the given input, as a string.
-   * The input must not be the empty string or the null pointer.
-   * @tparam Arg  Type of the argument to construct_name_string.
-   * @param arg  Argument to construct_name_string.
-   */
-   template <typename Arg>
-   void set_name (Arg&& arg)
-   {
-      verify_unfrozen_name ();
-      name = std::move(construct_name_string(std::forward<Arg>(arg)));
-   }
+    void set_name(const std::string & nameIn)
+    {
+        name = nameIn;
+    }
 
-  /**
-   * Set the name as a dot-conjoined string of the given inputs.
-   * Each input must not be the empty string or the null pointer.
-   * @tparam First  Type of the first argument to construct_name_string.
-   * @tparam Rest  Types of the remaining arguments to construct_name_string.
-   * @param first  First argument to construct_name_string.
-   * @param rest  Remaining arguments to construct_name_string.
-   */
-   template <typename First, typename... Rest>
-   void set_name (First&& first, Rest&&... rest)
-   {
-      verify_unfrozen_name ();
-      name = std::move(construct_name_string(
-         std::forward<First>(first), std::forward<Rest>(rest)...));
-   }
+    /**
+     * Set the name as a dot-conjoined string of the given inputs.
+     * Each input must not be the empty string or the null pointer.
+     * @tparam Type  Types of the remaining arguments to construct_name.
+     * @param nameIn  First argument to construct_name.
+     * @param namesIn  Remaining arguments to construct_name.
+     */
+    template<typename... Type> void set_name(const std::string & nameIn, Type... namesIn)
+    {
+        verify_unfrozen_name();
+        name = std::move(construct_name(nameIn, namesIn...));
+    }
 
-   /**
-    * Verify that the name is not frozen.
-    */
-   void verify_unfrozen_name () const;
+    /**
+     * Verify that the name is not frozen.
+     */
+    void verify_unfrozen_name() const;
 
-   /**
-    * Checks whether a name is trivially invalid, failing if it is.
-    * \param[in] file Usually __FILE__
-    * \param[in] line Usually __LINE__
-    * \param[in] variable_type Variable description
-    * \param[in] variable_name Variable name
-    */
-   void validate_name (
-      const char * file,
-      unsigned int line,
-      const char * variable_type,
-      const char * variable_name)
-   {
-       validate_name (file, line, name.c_str(), variable_type, variable_name);
-   }
+    /**
+     * Checks whether a name is trivially invalid, failing if it is.
+     * \param[in] file Usually __FILE__
+     * \param[in] line Usually __LINE__
+     * \param[in] variable_type Variable description
+     * \param[in] variable_name Variable name
+     */
+    void validate_name(const char * file,
+                       unsigned int line,
+                       const std::string & variable_type,
+                       const std::string & variable_name)
+    {
+        validate_name(file, line, name, variable_type, variable_name);
+    }
 
-   /**
-    * Freeze the name -- i.e., denote that the name as no longer settable.
-    */
-   void freeze_name ()
-   {
-      is_frozen = true;
-   }
-
+    /**
+     * Freeze the name -- i.e., denote that the name as no longer settable.
+     */
+    void freeze_name()
+    {
+        is_frozen = true;
+    }
 
 protected:
-
-   /**
-    * Unfreeze the name -- i.e., denote that the name is now settable.
-    * This exists solely to parallel freeze_name().
-    */
-   void unfreeze_name ()
-   {
-      is_frozen = false;
-   }
-
+    /**
+     * Unfreeze the name -- i.e., denote that the name is now settable.
+     * This exists solely to parallel freeze_name().
+     */
+    void unfreeze_name()
+    {
+        is_frozen = false;
+    }
 
 private:
+    /**
+     * The item's name.
+     */
+    std::string name; //!< trick_units(--)
 
-   /**
-    * The item's name.
-    */
-   std::string name; //!< trick_units(--)
-
-   /**
-    * Indicates whether the name is frozen.
-    */
-   bool is_frozen; //!< trick_units(--)
-
+    /**
+     * Indicates whether the name is frozen.
+     */
+    bool is_frozen; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * Comparison to string
  */
-bool operator== (const jeod::NamedItem& lhs, const std::string& rhs);
-bool operator== (const std::string& lhs, const jeod::NamedItem& rhs);
+bool operator==(const jeod::NamedItem & lhs, const std::string & rhs);
+bool operator==(const std::string & lhs, const jeod::NamedItem & rhs);
 
 #endif
 

@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_BODY_DETACH_SPECIFIC_HH
 #define JEOD_MASS_BODY_DETACH_SPECIFIC_HH
-
 
 // System includes
 
@@ -71,12 +69,12 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
-#include "class_declarations.hh"
 #include "body_action.hh"
-
+#include "class_declarations.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Causes the subject body to detach from a specific body by severing the link
@@ -91,82 +89,63 @@ namespace jeod {
  * Specifing a detach_from body that is not a parent (direct or indirect) body
  * of the subject body is an error.
  */
-class BodyDetachSpecific : public BodyAction {
+class BodyDetachSpecific : public BodyAction
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, BodyDetachSpecific)
 
- JEOD_MAKE_SIM_INTERFACES(BodyDetachSpecific)
+    // Member data
 
-
- // Member data
-
- public:
-
-   /**
+public:
+    /**
      * Set the subject mass body of this action. Resets dyn_subject to null
      */
-   void set_detach_from_body(MassBody & mass_body_in);
+    void set_detach_from_body(MassBody & mass_body_in);
 
-   /**
+    /**
      * Set the subject mass body of this action. Resets dyn_subject to null
      */
-   void set_detach_from_body(DynBody & dyn_body_in);
+    void set_detach_from_body(DynBody & dyn_body_in);
 
- protected:
+protected:
+    /**
+     * The mass body from the subject of this action is to detach.
+     * This pointer must be supplied for pure MassBody detachments.
+     * The initialize method will attempt to determine if this MassBody refers
+     * to a DynBody. The detachment is performed between the mass_detach_from object
+     * and the direct descendant of the detach_from object that is in the
+     * parental lineage from the subject body to the detach_from body.
+     */
+    MassBody * mass_detach_from{}; //!< trick_units(--)
 
+    /**
+     * The dynamic body from the subject of this action is to detach.
+     * This pointer or the detach_from member must be supplied for dynamic body
+     * detachment.
+     * The detachment is performed between the mass_detach_from object and the
+     * direct descendant of the mass_detach_from object that is in the parental
+     * lineage from the subject body to the mass_detach_from body.
+     */
+    DynBody * dyn_detach_from{}; //!< trick_units(--)
 
-   /**
-    * The mass body from the subject of this action is to detach.
-    * This pointer must be supplied for pure MassBody detachments.
-    * The initialize method will attempt to determine if this MassBody refers
-    * to a DynBody. The detachment is performed between the mass_detach_from object
-    * and the direct descendant of the detach_from object that is in the
-    * parental lineage from the subject body to the detach_from body.
-    */
-   MassBody * mass_detach_from; //!< trick_units(--)
+    // Member functions
 
-   /**
-    * The dynamic body from the subject of this action is to detach.
-    * This pointer or the detach_from member must be supplied for dynamic body
-    * detachment.
-    * The detachment is performed between the mass_detach_from object and the
-    * direct descendant of the mass_detach_from object that is in the parental
-    * lineage from the subject body to the mass_detach_from body.
-    */
-   DynBody * dyn_detach_from; //!< trick_units(--)
+public:
+    BodyDetachSpecific();
+    ~BodyDetachSpecific() override = default;
+    BodyDetachSpecific(const BodyDetachSpecific &) = delete;
+    BodyDetachSpecific & operator=(const BodyDetachSpecific &) = delete;
 
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 
- // Member functions
+    // apply: Detach the body from its parent body.
+    void apply(DynManager & dyn_manager) override;
 
- public:
-
-   // Default constructor.
-   BodyDetachSpecific ();
-
-   // Destructor.
-   ~BodyDetachSpecific () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
-   // apply: Detach the body from its parent body.
-   void apply (DynManager & dyn_manager) override;
-
-   // is_ready: Is the action ready? (In this case, is the active flag set?)
-   bool is_ready (void) override;
-
+    // is_ready: Is the action ready? (In this case, is the active flag set?)
+    bool is_ready() override;
 };
 
-
-/**
- * Destructor
- */
-inline
-BodyDetachSpecific::~BodyDetachSpecific (
-   void)
-{
-   ; // Empty
-}
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

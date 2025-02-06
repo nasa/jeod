@@ -44,61 +44,45 @@ REFERENCE:
 ASSUMPTIONS AND LIMITATIONS:
       (None)
 
-Library dependencies:
-    (../src/demo_facet.cc)
-
- 
 *******************************************************************************/
 
 #ifndef DEMO_FACET_HH
 #define DEMO_FACET_HH
 
-
 // System includes
 #include <string>
 #include <utility>
 
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "../../include/facet.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-class DemoFacet : public Facet {
-
-   JEOD_MAKE_SIM_INTERFACES(DemoFacet)
+class DemoFacet : public Facet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DemoFacet)
 
 public:
+    DemoFacet() = default;
+    ~DemoFacet() override = default;
+    DemoFacet & operator=(const DemoFacet &) = delete;
+    DemoFacet(const DemoFacet &) = delete;
 
-   // constructor
-   DemoFacet();
+    std::string name; // -- Name the facet
 
-   // destructor
-   ~DemoFacet() override;
+    int some_int{}; // -- Give the interaction more to do
 
-   std::string name; // -- Name the facet
-
-   int some_int; // -- Give the interaction more to do
-
-
-   /**
-    * Setter for the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
-
-
-protected:
-
-private:
-
-   DemoFacet& operator = (const DemoFacet& rhs);
-   DemoFacet(const DemoFacet& rhs);
-
+    /**
+     * Setter for the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

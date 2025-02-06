@@ -14,11 +14,12 @@ Assumptions and Limitations:
 
 *******************************************************************************/
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 class SphericalHarmonicsGravitySource;
-}
+} // namespace jeod
+
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_earth_spherical_default_data
 
 // JEOD includes
@@ -29,19 +30,17 @@ class SphericalHarmonicsGravitySource;
 // Unsupported includes
 #include "../include/earth_spherical.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
-
-void
-SphericalHarmonicsGravitySource_earth_spherical_default_data::initialize (
-   SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+namespace jeod
 {
-   SphericalHarmonicsGravitySource_ptr->name = "Earth";
-   SphericalHarmonicsGravitySource_ptr->degree = 0;
-   SphericalHarmonicsGravitySource_ptr->order = 0;
-   SphericalHarmonicsGravitySource_ptr->mu = 3.986004415E+14;
-   SphericalHarmonicsGravitySource_ptr->radius = 6378136.3;
+
+void SphericalHarmonicsGravitySource_earth_spherical_default_data::initialize(
+    SphericalHarmonicsGravitySource * SphericalHarmonicsGravitySource_ptr)
+{
+    SphericalHarmonicsGravitySource_ptr->name = "Earth";
+    SphericalHarmonicsGravitySource_ptr->degree = 0;
+    SphericalHarmonicsGravitySource_ptr->order = 0;
+    SphericalHarmonicsGravitySource_ptr->mu = 3.986004415E+14;
+    SphericalHarmonicsGravitySource_ptr->radius = 6378136.3;
 }
-} // End JEOD namespace
+} // namespace jeod

@@ -66,7 +66,7 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/precession_j2000.cc))
 
- 
+
 
 *******************************************************************************/
 #ifndef PRECESSION_J2000_HH
@@ -78,43 +78,32 @@ Library dependencies:
 #include "environment/RNP/GenericRNP/include/planet_rotation.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Class to model the precession portion of the J2000 RNP model
 /**
  * Implements the precession portion of the J2000 RNP.
  */
-class PrecessionJ2000 : public PlanetRotation {
-
-   JEOD_MAKE_SIM_INTERFACES(PrecessionJ2000)
-
-public: // public data members
-
-private: // private data members
+class PrecessionJ2000 : public PlanetRotation
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, PrecessionJ2000)
 
 public: // public member functions
+    PrecessionJ2000() = default;
+    ~PrecessionJ2000() override = default;
+    PrecessionJ2000 & operator=(const PrecessionJ2000 &) = delete;
+    PrecessionJ2000(const PrecessionJ2000 &) = delete;
 
-   PrecessionJ2000 ();
-
-   ~PrecessionJ2000 () override;
-
-   // precession J2000 specific implementation of update_rotation, inherited
-   // from PlanetRotation. Before this is called, the
-   // current_time parameter must be set to julian centures since J2000,
-   // in the terrestrial time format.
-   void update_rotation () override;
-
-private: // private member functions
-
-   // lock away the copy constructor and operator =
-   PrecessionJ2000& operator = (const PrecessionJ2000& rhs);
-   PrecessionJ2000 (const PrecessionJ2000& rhs);
-
+    // precession J2000 specific implementation of update_rotation, inherited
+    // from PlanetRotation. Before this is called, the
+    // current_time parameter must be set to julian centures since J2000,
+    // in the terrestrial time format.
+    void update_rotation() override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

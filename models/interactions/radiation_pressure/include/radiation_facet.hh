@@ -66,16 +66,16 @@ Library dependencies:
 #define JEOD_RADIATION_FACET_HH
 
 // JEOD includes
+#include "interactions/thermal_rider/include/thermal_facet_rider.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/surface_model/include/interaction_facet.hh"
-#include "interactions/thermal_rider/include/thermal_facet_rider.hh"
 
 // Model includes
 #include "radiation_base_facet.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RadiationParams;
 class Facet;
@@ -84,86 +84,72 @@ class RadiationThirdBody;
 /**
  * Generic type of facet for radiation pressure
  */
-class RadiationFacet : public InteractionFacet, public RadiationBaseFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(RadiationFacet)
+class RadiationFacet : public InteractionFacet,
+                       public RadiationBaseFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationFacet)
 
 public:
+    // run-time values, typically not defined prior to simulation.
 
-   // run-time values, typically not defined prior to simulation.
+    /**
+     * position of center of pressure w.r.t. center of rotation (usually
+     * center of mass, or center of gravity), expressed in
+     * structural reference frame.  Potentially variable, depending on the
+     * topology of the facet and the configuration of the vehicle.
+     */
+    double crot_to_cp[3]{}; //!< trick_units(m)
 
-   /**
-    * position of center of pressure w.r.t. center of rotation (usually
-    * center of mass, or center of gravity), expressed in
-    * structural reference frame.  Potentially variable, depending on the
-    * topology of the facet and the configuration of the vehicle.
-    */
-   double crot_to_cp[3]; //!< trick_units(m)
-
-   /**
-    * Center of pressure (in structural frame). Potentially
-    * variable, depending on the topology of the facet.  For a flat plate
-    * facet, this just points to the position found in FlatPlate
-    */
-   double* center_pressure; //!< trick_units(m)
+    /**
+     * Center of pressure (in structural frame). Potentially
+     * variable, depending on the topology of the facet.  For a flat plate
+     * facet, this just points to the position found in FlatPlate
+     */
+    double * center_pressure{}; //!< trick_units(m)
 
 protected:
+    // shared between plates
 
-   // shared between plates
+    /**
+     * quite literally, 2/3.  Occurs frequently with diffuse reflection and
+     * emission, so it is calculated once.
+     */
+    const static double two_thirds; //!< trick_io(*o) trick_units(--)
 
-   /**
-    * quite literally, 2/3.  Occurs frequently with diffuse reflection and
-    * emission, so it is calculated once.
-    */
-   const static double two_thirds; //!< trick_io(*o) trick_units(--)
-
-
-
-   // Member methods
+    // Member methods
 
 public:
+    RadiationFacet() = default;
+    ~RadiationFacet() override = default;
+    RadiationFacet & operator=(const RadiationFacet &) = delete;
+    RadiationFacet(const RadiationFacet &) = delete;
 
-   // constructor
-   RadiationFacet ();
+    /**
+     * Calculates the effect of radiation pressure on the facet.
+     */
+    virtual void radiation_pressure() = 0;
 
-   // destructor
-   ~RadiationFacet () override;
+    /**
+     * Initialize the facet geometry.
+     * @param cg Center of mass.
+     */
+    virtual void initialize_geom(double cg[3]) = 0;
 
-   /**
-    * Calculates the effect of radiation pressure on the facet.
-    */
-   virtual void radiation_pressure() = 0;
+    void initialize() override;
 
-   /**
-    * Initialize the facet geometry.
-    * @param cg Center of mass.
-    */
-   virtual void initialize_geom (double cg[3]) = 0;
+    void define_facet_core(Facet * facet, const ThermalFacetRider & facet_thermal, RadiationParams * params);
 
-   void initialize() override;
-
-   void define_facet_core (
-      Facet * facet,
-      const ThermalFacetRider &facet_thermal,
-      RadiationParams * params);
-
-   /**
-    * Get the integrator for thermal characteristics.
-    * @return Integrable object that integrates temperature.
-    */
-   ThermalIntegrableObject & get_thermal_integrator() {
-      return thermal.integrable_object;
-   }
-
-
-private:
-   RadiationFacet& operator = (const RadiationFacet& rhs);
-   RadiationFacet (const RadiationFacet& rhs);
-
+    /**
+     * Get the integrator for thermal characteristics.
+     * @return Integrable object that integrates temperature.
+     */
+    ThermalIntegrableObject & get_thermal_integrator()
+    {
+        return thermal.integrable_object;
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "utils/surface_model/include/facet.hh"

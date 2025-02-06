@@ -65,9 +65,8 @@ Library dependencies:
    (../src/quat_to_eigenrot.cc)
    (../src/quat_messages.cc))
 
- 
-*******************************************************************************/
 
+*******************************************************************************/
 
 #ifndef JEOD_QUATERNION_HH
 #define JEOD_QUATERNION_HH
@@ -77,168 +76,153 @@ Library dependencies:
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Implement quaternions to the extent needed to represent orientations.
  */
-class Quaternion {
-
-  JEOD_MAKE_SIM_INTERFACES(Quaternion)
+class Quaternion
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, Quaternion)
 
 public:
+    // Member data
+    /**
+     * The scalar, or real, part of the quaternion.
+     */
+    double scalar{1.0}; //!< trick_units(--)
 
-   // Member data
-   /**
-    * The scalar, or real, part of the quaternion.
-    */
-   double scalar; //!< trick_units(--)
+    /**
+     * The vectorial, or imaginary, part of the quaternion.
+     */
+    double vector[3]{}; //!< trick_units(--)
 
-   /**
-    * The vectorial, or imaginary, part of the quaternion.
-    */
-   double vector[3]; //!< trick_units(--)
+    // Member functions
+    // Note: This class allocates no resources. The defaults for the
+    // destructor, copy constructor, and assignment operator are correct.
 
+    // Default constructor: Construct pure real unit quaternion
+    Quaternion();
 
-   // Member functions
-   // Note: This class allocates no resources. The defaults for the
-   // destructor, copy constructor, and assignment operator are correct.
+    // Non-default constructor: Construct pure real quaternion
+    explicit Quaternion(const double s);
 
-   // Default constructor: Construct pure real unit quaternion
-   Quaternion (void);
+    // Non-default constructor: Construct from a scalar and a vector.
+    Quaternion(const double s, const double v[3]);
 
-   // Non-default constructor: Construct pure real quaternion
-   explicit Quaternion (const double s);
+    // Non-default constructor: Construct from a double[4] array.
+    explicit Quaternion(const double arr[4]);
 
-   // Non-default constructor: Construct from a scalar and a vector.
-   Quaternion (const double s, const double v[3]);
+    // Non-default constructor: Construct quaternion as a left transformation
+    // quaternion given a transformation matrix
+    explicit Quaternion(const double T[3][3]);
 
-   // Non-default constructor: Construct from a double[4] array.
-   explicit Quaternion (const double arr[4]);
-
-   // Non-default constructor: Construct quaternion as a left transformation
-   // quaternion given a transformation matrix
-   explicit Quaternion (const double T[3][3]);
-
-
-   // Simple methods to make a pure zero, identity quaternion
-   void set_to_zero (void);
-   void make_identity (void);
+    // Simple methods to make a pure zero, identity quaternion
+    void set_to_zero();
+    void make_identity();
 
 #ifndef SWIG
-      /**
-    * Make a quaternion look like a double array.
-    */
-   operator double* (
-      void)
-   { return & scalar; }
+    /**
+     * Make a quaternion look like a double array.
+     */
+    operator double *()
+    {
+        return &scalar;
+    }
 #endif
 
-   // Copy a quaternion to/from a double[4] array.
-   void copy_to (double arr[4]) const;
-   void copy_from (const double arr[4]);
+    // Copy a quaternion to/from a double[4] array.
+    void copy_to(double arr[4]) const;
+    void copy_from(const double arr[4]);
 
-   // Scale a quaternion by a real.
-   void scale (const double scale);
-   void scale (const double scale, Quaternion & quat) const;
+    // Scale a quaternion by a real.
+    void scale(const double scale);
+    void scale(const double scale, Quaternion & quat) const;
 
-   // Square of the norm of a quaternion
-   double norm_sq (void) const;
+    // Square of the norm of a quaternion
+    double norm_sq() const;
 
-   // Normalize a quaternion (scale to form a unit quaternion),
-   // in place and with seperate output.
-   void normalize (void);
-   void normalize (Quaternion & quat) const;
+    // Normalize a quaternion (scale to form a unit quaternion),
+    // in place and with seperate output.
+    void normalize();
+    void normalize(Quaternion & quat) const;
 
-   void normalize_integ (void);
-   void normalize_integ (Quaternion & quat) const;
-   static void normalize_integ (double arr[4]);
+    void normalize_integ();
+    void normalize_integ(Quaternion & quat) const;
+    static void normalize_integ(double arr[4]);
 
-   // Conjugate a quaternion,
-   // in place and with seperate output.
-   void conjugate (void);
-   void conjugate (Quaternion & quat) const;
+    // Conjugate a quaternion,
+    // in place and with seperate output.
+    void conjugate();
+    void conjugate(Quaternion & quat) const;
 
-   // Multiply a quaternion with another, various forms.
-   void multiply (const Quaternion & quat, Quaternion & prod) const;
-   void multiply (const Quaternion & quat);
+    // Multiply a quaternion with another, various forms.
+    void multiply(const Quaternion & quat, Quaternion & prod) const;
+    void multiply(const Quaternion & quat);
 
-   void conjugate_multiply (const Quaternion & quat, Quaternion & prod) const;
-   void conjugate_multiply (const Quaternion & quat);
+    void conjugate_multiply(const Quaternion & quat, Quaternion & prod) const;
+    void conjugate_multiply(const Quaternion & quat);
 
-   void multiply_conjugate (const Quaternion & quat, Quaternion & prod) const;
-   void multiply_conjugate (const Quaternion & quat);
+    void multiply_conjugate(const Quaternion & quat, Quaternion & prod) const;
+    void multiply_conjugate(const Quaternion & quat);
 
-   void multiply_left (const Quaternion & quat, Quaternion & prod) const;
-   void multiply_left (const Quaternion & quat);
+    void multiply_left(const Quaternion & quat, Quaternion & prod) const;
+    void multiply_left(const Quaternion & quat);
 
-   void multiply_left_conjugate (
-      const Quaternion & quat, Quaternion & prod) const;
-   void multiply_left_conjugate (const Quaternion & quat);
+    void multiply_left_conjugate(const Quaternion & quat, Quaternion & prod) const;
+    void multiply_left_conjugate(const Quaternion & quat);
 
-   // Multiply a quaternion with a pure imaginary quaterion, various forms.
-   void multiply_vector_left (const double vec[3], Quaternion & prod) const;
+    // Multiply a quaternion with a pure imaginary quaterion, various forms.
+    void multiply_vector_left(const double vec[3], Quaternion & prod) const;
 
-   void multiply_vector_right (const double vec[3], Quaternion & prod) const;
+    void multiply_vector_right(const double vec[3], Quaternion & prod) const;
 
-   // Conversion to/from transformation matrices.
-   // Note: JEOD exclusively uses left transformation quaternions. To avoid
-   // confusion, this usage is explicitly part of the method names.
-   void left_quat_from_transformation (const double T[3][3]);
+    // Conversion to/from transformation matrices.
+    // Note: JEOD exclusively uses left transformation quaternions. To avoid
+    // confusion, this usage is explicitly part of the method names.
+    void left_quat_from_transformation(const double T[3][3]);
 
-   void left_quat_to_transformation (double T[3][3]) const;
+    void left_quat_to_transformation(double T[3][3]) const;
 
-   // Conversion to/from eigen rotations.
-   void left_quat_from_eigen_rotation (
-      double eigen_angle, const double eigen_axis[3]);
+    // Conversion to/from eigen rotations.
+    void left_quat_from_eigen_rotation(double eigen_angle, const double eigen_axis[3]);
 
-   void left_quat_to_eigen_rotation (double * eigen_angle, double eigen_axis[3])
-   const;
+    void left_quat_to_eigen_rotation(double * eigen_angle, double eigen_axis[3]) const;
 
-   // Angular displacement between frames in sense of eigen rotation
-   void eigen_compare (
-      const Quaternion & compare_to, double * eigen_angle, double eigen_axis[3])
-   const;
+    // Angular displacement between frames in sense of eigen rotation
+    void eigen_compare(const Quaternion & compare_to, double * eigen_angle, double eigen_axis[3]) const;
 
-   // Transform a vector.
-   void left_quat_transform (const double vec_in[3], double vec_out[3])
-   const;
+    // Transform a vector.
+    void left_quat_transform(const double vec_in[3], double vec_out[3]) const;
 
-   // Compute the quaternion derivative given an angular velocity.
-   void compute_left_quat_deriv (const double ang_vel[3], Quaternion & qdot)
-   const;
+    // Compute the quaternion derivative given an angular velocity.
+    void compute_left_quat_deriv(const double ang_vel[3], Quaternion & qdot) const;
 
-   // Compute the quaternion derivative given an angular velocity.
-   void compute_left_quat_second_deriv (
-      const double ang_vel[3], const double ang_acc[3], Quaternion & qdot)
-   const;
+    // Compute the quaternion derivative given an angular velocity.
+    void compute_left_quat_second_deriv(const double ang_vel[3], const double ang_acc[3], Quaternion & qdot) const;
 
-   // Compute the quaternion derivative given an angular velocity,
-   // with the quaternion and its derivative expressed as four-vectors.
-   static void compute_left_quat_deriv (
-      const double quat[4], const double ang_vel[3], double qdot[4]);
+    // Compute the quaternion derivative given an angular velocity,
+    // with the quaternion and its derivative expressed as four-vectors.
+    static void compute_left_quat_deriv(const double quat[4], const double ang_vel[3], double qdot[4]);
 
-   // Compute the quaternion second derivative given an angular velocity and
-   // angular acceleration, with the quaternion and its second derivative
-   // expressed as four-vectors.
-   static void compute_left_quat_second_deriv (
-      const double quat[4], const double ang_vel[3], const double ang_acc[3],
-      double qddot[4]);
+    // Compute the quaternion second derivative given an angular velocity and
+    // angular acceleration, with the quaternion and its second derivative
+    // expressed as four-vectors.
+    static void compute_left_quat_second_deriv(const double quat[4],
+                                               const double ang_vel[3],
+                                               const double ang_acc[3],
+                                               double qddot[4]);
 
-   // SLERP Algorithm - interpolates the shortest and straightest (minimum)
-   // geodescic between two quaternions.
-   static Quaternion compute_slerp (
-      Quaternion & q1, Quaternion & q2, const double T);
-
+    // SLERP Algorithm - interpolates the shortest and straightest (minimum)
+    // geodescic between two quaternions.
+    static Quaternion compute_slerp(Quaternion & q1, Quaternion & q2, const double T);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #include "quat_inline.hh"
-
 
 #endif
 

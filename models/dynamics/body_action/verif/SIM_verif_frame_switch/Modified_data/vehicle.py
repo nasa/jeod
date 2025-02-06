@@ -8,7 +8,7 @@ veh.mass_init.action_name = "veh_mass_init"
 veh.mass_init.set_subject_body( veh.dyn_body.mass )
 veh.mass_init.properties.pt_orientation.data_source = \
   trick.Orientation.InputEigenRotation
-veh.mass_init.properties.pt_orientation.eigen_angle  = 0.0 
+veh.mass_init.properties.pt_orientation.eigen_angle  = 0.0
 veh.mass_init.properties.pt_orientation.eigen_axis = [ 1, 0, 0]
 veh.mass_init.properties.mass = 91589.71
 veh.mass_init.properties.position = \
@@ -39,25 +39,25 @@ veh.rot_init.reference_ref_frame_name = "Moon.inertial"
 veh.rot_init.body_frame_id = "composite_body"
 veh.rot_init.set_subject_body( veh.dyn_body )
 veh.rot_init.orientation.data_source = trick.Orientation.InputEulerRotation
-veh.rot_init.orientation.eigen_angle  = 0.0
-veh.rot_init.orientation.eigen_axis  = [ 0, 1, 0]
+veh.rot_init.orientation.euler_sequence = trick.Orientation.Pitch_Yaw_Roll
+veh.rot_init.orientation.euler_angles  = trick.attach_units( "degree",[ 0.0, 0.0, 0.0])
 dynamics.dyn_manager.add_body_action (veh.rot_init)
 
 # Specify the objects toward which the vehicle gravitates.
 veh.sun_grav_ctrl.source_name   = "Sun"
 veh.sun_grav_ctrl.active        = True
 veh.sun_grav_ctrl.spherical     = True
-veh.dyn_body.grav_interaction.add_control(veh.sun_grav_ctrl);
+veh.dyn_body.grav_interaction.add_control(veh.sun_grav_ctrl)
 
 veh.earth_grav_ctrl.source_name   = "Earth"
 veh.earth_grav_ctrl.active        = True
 veh.earth_grav_ctrl.spherical     = True
-veh.dyn_body.grav_interaction.add_control(veh.earth_grav_ctrl);
+veh.dyn_body.grav_interaction.add_control(veh.earth_grav_ctrl)
 
 veh.moon_grav_ctrl.source_name   = "Moon"
 veh.moon_grav_ctrl.active        = True
 veh.moon_grav_ctrl.spherical     = True
-veh.dyn_body.grav_interaction.add_control(veh.moon_grav_ctrl);
+veh.dyn_body.grav_interaction.add_control(veh.moon_grav_ctrl)
 
 
 # Configure the relative state.

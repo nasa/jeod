@@ -27,7 +27,7 @@ Class:
 Library dependencies:
   ((surface_model_messages.cc))
 
- 
+
 
 *******************************************************************************/
 
@@ -35,20 +35,17 @@ Library dependencies:
 
 #define PATH "utils/surface_model/"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
-char const * SurfaceModelMessages::initialization_error =
-   PATH "initialization_error";
+const char * SurfaceModelMessages::initialization_error = PATH "initialization_error";
 
-char const * SurfaceModelMessages::setup_error =
-   PATH "setup_error";
+const char * SurfaceModelMessages::setup_error = PATH "setup_error";
 
-char const * SurfaceModelMessages::runtime_error =
-   PATH "runtime_error";
+const char * SurfaceModelMessages::runtime_error = PATH "runtime_error";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

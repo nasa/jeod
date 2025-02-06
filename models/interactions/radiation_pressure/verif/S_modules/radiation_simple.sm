@@ -35,7 +35,4 @@
 //
 //
 #include "../S_modules/radiation_simple_no_decl.sm"
-Radiation_simpleSimObject radiation_simple ( dynamics.dyn_manager,
-                                             vehicle.dyn_body,
-                                             jeod_time.time_manager.dyn_time);
-
+Radiation_simpleSimObject radiation_simple(dynamics.dyn_manager, vehicle.dyn_body, jeod_time.time_manager.dyn_time);

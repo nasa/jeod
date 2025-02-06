@@ -22,7 +22,6 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 // System includes
 
 // JEOD includes
@@ -31,32 +30,25 @@ Library dependencies:
 #define PATH "dynamics/body_action/"
 
 //! Namespace jeod
-namespace jeod {
-
+namespace jeod
+{
 
 // Static member data
-char const * BodyActionMessages::fatal_error =
-    PATH "fatal_error";
+const char * BodyActionMessages::fatal_error = PATH "fatal_error";
 
-char const * BodyActionMessages::illegal_value =
-    PATH "illegal_value";
+const char * BodyActionMessages::illegal_value = PATH "illegal_value";
 
-char const * BodyActionMessages::invalid_name =
-    PATH "invalid_name";
+const char * BodyActionMessages::invalid_name = PATH "invalid_name";
 
-char const * BodyActionMessages::invalid_object =
-    PATH "invalid_object";
+const char * BodyActionMessages::invalid_object = PATH "invalid_object";
 
-char const * BodyActionMessages::null_pointer =
-    PATH "null_pointer";
+const char * BodyActionMessages::null_pointer = PATH "null_pointer";
 
-char const * BodyActionMessages::not_performed =
-    PATH "not_performed";
+const char * BodyActionMessages::not_performed = PATH "not_performed";
 
-char const * BodyActionMessages::trace =
-    PATH "trace";
+const char * BodyActionMessages::trace = PATH "trace";
 
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

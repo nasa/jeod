@@ -36,47 +36,55 @@
 //
 //=============================================================================
 // single vehicle in Earth orbit, state initialized with Orbital Elements.
-// 
+//
 //=============================================================================
 
 // Define job calling intervals
-#define DYNAMICS      1.0
+#define DYNAMICS 1.0
 #define LOW_RATE_ENV 100.0
 
+// Include the default system classes:
 #include "sim_objects/default_trick_sys.sm"
+
+// Include the default jeod object
 #include "jeod_sys.sm"
+
+// Define the phase initialization priorities.
 #include "default_priority_settings.sm"
 
 #include "time_TAI_UTC_UT1_TT_GMST.sm"
-#include "dynamics.sm"
-#include "environment_sans_de405.sm"
-#include "earth_GGM05C.sm"
-#include "vehicle_basic.sm"
 
+#include "dynamics.sm"
+#include "earth_GGM05C.sm"
+#include "environment_sans_de405.sm"
+#include "vehicle_basic.sm"
 
 ##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
 ##include "dynamics/derived_state/include/orb_elem_derived_state.hh"
-class StateSimObject : public Trick::SimObject {
-   private:
-   jeod::DynManager        & dyn_manager;
-   jeod::DynBody & dyn_body;
-   public:
-   jeod::DynBodyInitOrbit    orbit_init;
-   jeod::OrbElemDerivedState orb_elem;
-   StateSimObject( jeod::DynManager        & dyn_manager_in,
-                   jeod::DynBody & dyn_body_in)
-     :
-     dyn_manager( dyn_manager_in),
-     dyn_body(    dyn_body_in)
-   {
-     P_DYN ("initialization") orb_elem.initialize(dyn_body, dyn_manager);
-     (DYNAMICS, "environment") orb_elem.update();
-   };
-   private:
-   StateSimObject (const StateSimObject&);
-   StateSimObject & operator = (const StateSimObject&);
+class StateSimObject : public Trick::SimObject
+{
+private:
+    jeod::DynManager & dyn_manager;
+    jeod::DynBody & dyn_body;
+
+public:
+    jeod::DynBodyInitOrbit orbit_init;
+    jeod::OrbElemDerivedState orb_elem;
+
+    StateSimObject(jeod::DynManager & dyn_manager_in, jeod::DynBody & dyn_body_in)
+        : dyn_manager(dyn_manager_in),
+          dyn_body(dyn_body_in)
+    {
+        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
+        (DYNAMICS, "environment") orb_elem.update();
+    }
+
+private:
+    StateSimObject(const StateSimObject &);
+    StateSimObject & operator=(const StateSimObject &);
 };
-StateSimObject state( dynamics.dyn_manager, vehicle.dyn_body);
+
+StateSimObject state(dynamics.dyn_manager, vehicle.dyn_body);
 
 // Set the integration
-IntegLoop sim_integ_loop (DYNAMICS) dynamics, earth;
+IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth;

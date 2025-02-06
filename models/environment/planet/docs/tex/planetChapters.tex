@@ -6,17 +6,17 @@
 
 \section{Purpose and Objectives of the \planetDesc}
 %%% Incorporate the intro paragraph that used to begin this Chapter here.
-%%% This is location of the true introduction where you explain why this 
+%%% This is location of the true introduction where you explain why this
 %%% document exists and what it hopes to accomplish.
 
 Modeling planets is an integral part of the functionality of \JEODid, as
 many scenarios likely to be modeled using the package involve
-a vehicle or vehicles in orbit about some planetary body. The purpose of 
-the \planetDesc\ is to provide a single, consolidated location for the 
-storage of, and connection to, all the related elements that can be 
+a vehicle or vehicles in orbit about some planetary body. The purpose of
+the \planetDesc\ is to provide a single, consolidated location for the
+storage of, and connection to, all the related elements that can be
 considered to ``define'' a given planet mathematically.
 For an ellipsoidal planetary body, its shape constants are stored directly
-in the \planetDesc\, along with a pointer to the gravity model for the 
+in the \planetDesc\, along with a pointer to the gravity model for the
 same planet.  For all planetary bodies, ellipsoidal or otherwise,
 the \planetDesc\ houses the inertial and planet-fixed reference frames
 associated with it--though the \planetDesc\ plays no role in updating
@@ -37,7 +37,7 @@ models/\ModelClass/planet.
 
 
 \section{Document History}
-%%% Status of this and only this document.  Any date should be relevant to when 
+%%% Status of this and only this document.  Any date should be relevant to when
 %%% this document was last updated and mention the reason (release, bug fix, etc.)
 %%% Mention previous history aka JEOD 1.4-5 heritage in this section.
 
@@ -45,10 +45,10 @@ models/\ModelClass/planet.
 \DocumentChangeHistory
 \end{tabular}
 \\ \\ \\ %%% forced extra space because Latex was formatting oddly.
-The \planetDesc\ is a model that is new for JEOD v2.0.x, though it is partly 
+The \planetDesc\ is a model that is new for JEOD v2.0.x, though it is partly
 derived from the Miscellaneous Transformations and Planetary Functions model
 released as part of JEOD v1.5.x.  Thus, this document derives lightly from that
-model's documentation, entitled JSC Engineering Orbital Dynamics Miscellaneous 
+model's documentation, entitled JSC Engineering Orbital Dynamics Miscellaneous
 Transformations and Planetary Functions, most recently released with
 JEOD v1.5.2.
 
@@ -103,7 +103,7 @@ This chapter identifies the requirements for the \planetDesc.
   \hyperref{file:\JEODHOME/docs/JEOD.pdf}{part1}{reqt}{ top-level
   document}.
 \item[Rationale:]\ \newline
-  This model shall, at a minimum, meet all external and internal requirements 
+  This model shall, at a minimum, meet all external and internal requirements
   applied to the \JEODid\ release.
 \item[Verification:]\ \newline
      Inspection
@@ -111,7 +111,7 @@ This chapter identifies the requirements for the \planetDesc.
 
 \section{Data Requirements}\label{sec:data_reqts}
 This section identifies requirements on the data represented by the \planetDesc.
-These as-built requirements are based on the \planetDesc\ data definition header 
+These as-built requirements are based on the \planetDesc\ data definition header
 files.
 
 \requirement{Basic Planetary Body Data Encapsulation}
@@ -158,8 +158,8 @@ files.
 
 
 \section{Functional Requirements}\label{sec:func_reqts}
-This section identifies requirements on the functional 
-capabilities provided by the \planetDesc.  
+This section identifies requirements on the functional
+capabilities provided by the \planetDesc.
 These as-built requirements are based on the \planetDesc\ source files.
 
 \requirement{Basic Model Registration}
@@ -190,7 +190,7 @@ These as-built requirements are based on the \planetDesc\ source files.
     The \planetDesc\ shall perform the following additional actions
     when commanded to register, for ellipsoidal bodies:
   \subrequirement{Connect to Gravity Model}
-    Find the gravity model corresponding to the same planet, then 
+    Find the gravity model corresponding to the same planet, then
     correctly cross-connect itself and the gravity manager together.
 
   \item[Rationale:]\ \newline
@@ -211,14 +211,14 @@ These as-built requirements are based on the \planetDesc\ source files.
     radius, ellipsoid eccentricity, the square of the ellipsoid eccentricity,
     flattening coefficient, and the inverse of the flattening coefficient.
   \item[Rationale:]\ \newline
-    These values must be set for proper operation of any simulation 
+    These values must be set for proper operation of any simulation
     that includes the ellipsoidal planet derived class of the \planetDesc.
 
   \item[Verification:]\ \newline
     Inspection, Test
 \end{description}
 
-%%% Format for the model Requirements is open.  It should include requirements for this model 
+%%% Format for the model Requirements is open.  It should include requirements for this model
 %%% only and use requirment tags like the one below.
 %\requirement{...}
 %\label{reqt:...}
@@ -229,9 +229,9 @@ These as-built requirements are based on the \planetDesc\ source files.
 %    \subrequirement{}
 %    \label{reqt:...}
 %      Software requirements specification.
-%      
+%
 %    ...
-%   
+%
 %  \item[title]\ \newline
 %    text
 %
@@ -312,12 +312,12 @@ planetary bodies:
 object type EphemerisRefFrame, associated with this object,
 
 \item{alt\_inertial:} A secondary pseudo-inertial reference frame, of
-object type EphemerisRefFrame, associated with this object, 
+object type EphemerisRefFrame, associated with this object,
 
 \item{pfix:} The planet-centered, planet-fixed Cartesian reference frame, of
 object type EphemerisRefFrame, associated with this planet, and
 
-\item{alt\_pfix:} A secondary planet-centered, planet-fixed Cartesian 
+\item{alt\_pfix:} A secondary planet-centered, planet-fixed Cartesian
 reference frame, of object type EphemerisRefFrame, associated with this planet.
 \end{itemize}
 
@@ -341,7 +341,7 @@ This member function sets the name of the planetary body being represented.
 
 \begin{itemize}
 \item{Return:} void - no returned value.
-\item{In:} const char * new\_name - new name to be applied
+\item{In:} const std::string \& new\_name - new name to be applied
 \end{itemize}
 
 \paragraph{set\_alt\_inertial}
@@ -514,7 +514,7 @@ sim_object {
 } mngr;
 
 
-sim_object { 
+sim_object {
 
    environment/gravity:       SphericalHarmonicsGravitySource   gravity_source
       (environment/gravity/data/earth_GGM02C.d);
@@ -692,7 +692,7 @@ creating any new types of planetary body containers that should be needed.
 \section{Verification}
 %%% code imported from old template structure
 %\inspection{<Name of Inspection>}\label{inspect:<label>}
-% <description> to satisfy  
+% <description> to satisfy
 % requirement \ref{reqt:<label>}.
 
 \inspection{Top-level Inspection}\label{inspect:TLI}
@@ -700,7 +700,7 @@ This document structure, the code, and associated files have been inspected,
 and together completely satisfy requirement \ref{reqt:toplevel}.
 
 \inspection{Data Requirements Inspection}\label{inspect:data_reqts}
-By inspection, the data structures of the \planetDesc\ completely satisfy 
+By inspection, the data structures of the \planetDesc\ completely satisfy
 requirements \ref{reqt:base_planet_data_encapsulation} and
 \ref{reqt:ellip_planet_data_encapsulation}.
 
@@ -1020,12 +1020,12 @@ passed this test, partially satisfying requirement
 \begin{longtable}[c]{||p{3in}|p{3in}|}
 \caption{Requirements Traceability} \\[6pt]
 \hline
-{\bf Requirement} & {\bf Inspection and Testing} \\ 
+{\bf Requirement} & {\bf Inspection and Testing} \\
 \hline \hline
 \endhead
 
 \ref{reqt:toplevel} - Top-level Requirement &
-  Insp.~\ref{inspect:TLI} \\ 
+  Insp.~\ref{inspect:TLI} \\
   \hline
 
 \ref{reqt:base_planet_data_encapsulation} - Basic Data Encapsulation &
@@ -1038,22 +1038,22 @@ passed this test, partially satisfying requirement
 
 \ref{reqt:func_base_register_model} - Basic Model Registration &
    Insp.~\ref{inspect:func_reqts} \\
-   &Test~\ref{test:init_eellip} \\ 
+   &Test~\ref{test:init_eellip} \\
 \hline
 
 \ref{reqt:func_ellip_register_model} - Ellipsoidal Model Registration &
    Insp.~\ref{inspect:func_reqts} \\
-   &Test~\ref{test:init_eellip} \\ 
+   &Test~\ref{test:init_eellip} \\
 \hline
 
 \ref{reqt:func_init_ellip_constants} - Initialize Ellipsoidal Constants &
    Insp.~\ref{inspect:func_reqts} \\
-   &Test~\ref{test:init_eellip} \\ 
-   &Test~\ref{test:init_eellipsq} \\ 
-   &Test~\ref{test:init_flatcoeff} \\ 
-   &Test~\ref{test:init_invflat} \\ 
-   &Test~\ref{test:init_rpol} \\ 
-   &Test~\ref{test:init_spherical} \\ 
+   &Test~\ref{test:init_eellip} \\
+   &Test~\ref{test:init_eellipsq} \\
+   &Test~\ref{test:init_flatcoeff} \\
+   &Test~\ref{test:init_invflat} \\
+   &Test~\ref{test:init_rpol} \\
+   &Test~\ref{test:init_spherical} \\
 \hline
 
 \end{longtable}

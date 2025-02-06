@@ -51,7 +51,7 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
 
@@ -63,7 +63,6 @@ Purpose:
  * @{
  */
 
-
 // Model includes
 
 // JEOD includes
@@ -72,11 +71,12 @@ Purpose:
 #include "utils/sim_interface/include/simulation_interface.hh"
 
 // System includes
-#include <typeinfo>
 #include <type_traits>
+#include <typeinfo>
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Class template to construct a simulation engine attributes object
@@ -88,94 +88,88 @@ namespace jeod {
  * @tparam Type      The type for which an attributes is to be constructed.
  * @tparam is_class  True if the type is a class, false otherwise.
  */
-template<typename Type, bool is_class>
-class JeodSimEngineAttributes {
+template<typename Type, bool is_class> class JeodSimEngineAttributes
+{
 public:
-
-   /**
-    * Construct a JEOD_ATTRIBUTES_TYPE that represents a primitive type.
-    * @return Constructed attributes object.
-    */
-   static JEOD_ATTRIBUTES_TYPE attributes (bool)
-   {
-      const JeodMemoryInterface & memory_interface =
-         JeodSimulationInterface::get_memory_interface();
-      return memory_interface.primitive_attributes (typeid(Type));
-   }
+    /**
+     * Construct a JEOD_ATTRIBUTES_TYPE that represents a primitive type.
+     * @return Constructed attributes object.
+     */
+    static JEOD_ATTRIBUTES_TYPE attributes(bool)
+    {
+        const JeodMemoryInterface & memory_interface = JeodSimulationInterface::get_memory_interface();
+        return memory_interface.primitive_attributes(typeid(Type));
+    }
 };
-
 
 /**
  * Partial template instantiation of JeodSimEngineAttributes for
  * a pointer type.
  * @tparam Type      The pointed-to type.
  */
-template<typename Type>
-class JeodSimEngineAttributes<Type*, false> {
+template<typename Type> class JeodSimEngineAttributes<Type *, false>
+{
 public:
-
-   /**
-    * Construct a JEOD_ATTRIBUTES_TYPE that represents a pointer type.
-    * @param is_exportable  True => type is exportable.
-    * @return Constructed attributes object.
-    */
-   static JEOD_ATTRIBUTES_TYPE attributes (bool is_exportable = true)
-   {
-      const JeodMemoryInterface & memory_interface =
-         JeodSimulationInterface::get_memory_interface();
-      const bool type_is_class = std::is_class<Type>::value;
-      return memory_interface.pointer_attributes (
-         JeodSimEngineAttributes<Type, type_is_class>::attributes(
-            is_exportable));
-   }
+    /**
+     * Construct a JEOD_ATTRIBUTES_TYPE that represents a pointer type.
+     * @param is_exportable  True => type is exportable.
+     * @return Constructed attributes object.
+     */
+    static JEOD_ATTRIBUTES_TYPE attributes(bool is_exportable = true)
+    {
+        const JeodMemoryInterface & memory_interface = JeodSimulationInterface::get_memory_interface();
+        const bool type_is_class = std::is_class<Type>::value;
+        return memory_interface.pointer_attributes(
+            JeodSimEngineAttributes<Type, type_is_class>::attributes(is_exportable));
+    }
 };
-
 
 /**
  * Template specialization of JeodSimEngineAttributes for void*.
  */
-template<>
-class JeodSimEngineAttributes<void*, false> {
+template<> class JeodSimEngineAttributes<void *, false>
+{
 public:
-
-   /**
-    * Construct a JEOD_ATTRIBUTES_TYPE that represents a void pointer.
-    * @return Constructed attributes object.
-    */
-   static JEOD_ATTRIBUTES_TYPE attributes (bool)
-   {
-      const JeodMemoryInterface & memory_interface =
-         JeodSimulationInterface::get_memory_interface();
-      return memory_interface.void_pointer_attributes ();
-   }
+    /**
+     * Construct a JEOD_ATTRIBUTES_TYPE that represents a void pointer.
+     * @return Constructed attributes object.
+     */
+    static JEOD_ATTRIBUTES_TYPE attributes(bool)
+    {
+        const JeodMemoryInterface & memory_interface = JeodSimulationInterface::get_memory_interface();
+        return memory_interface.void_pointer_attributes();
+    }
 };
-
 
 /**
  * Partial template instantiation of JeodSimEngineAttributes for a class.
  * @tparam Type      The class.
  */
-template<typename Type>
-class JeodSimEngineAttributes<Type, true> {
+template<typename Type> class JeodSimEngineAttributes<Type, true>
+{
 public:
-
-   /**
-    * Construct a JEOD_ATTRIBUTES_TYPE that represents a structured type.
-    * @param is_exportable  True => type is exportable.
-    * @return Constructed attributes object.
-    */
-   static JEOD_ATTRIBUTES_TYPE attributes (bool is_exportable = true)
-   {
-      const JeodMemoryInterface & memory_interface =
-         JeodSimulationInterface::get_memory_interface();
-      const JEOD_ATTRIBUTES_POINTER_TYPE attr = is_exportable ?
-         memory_interface.find_attributes (typeid(Type)) : nullptr;
-      return memory_interface.structure_attributes (attr, sizeof (Type));
-   }
+    /**
+     * Construct a JEOD_ATTRIBUTES_TYPE that represents a structured type.
+     * @param is_exportable  True => type is exportable.
+     * @return Constructed attributes object.
+     */
+    static JEOD_ATTRIBUTES_TYPE attributes(bool is_exportable = true)
+    {
+        const JeodMemoryInterface & memory_interface = JeodSimulationInterface::get_memory_interface();
+        const JEOD_ATTRIBUTES_POINTER_TYPE attr;
+        if(is_exportable)
+        {
+            attr = memory_interface.find_attributes(typeid(Type));
+        }
+        else
+        {
+            attr = nullptr;
+        }
+        return memory_interface.structure_attributes(attr, sizeof(Type));
+    }
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 /**
  * @}

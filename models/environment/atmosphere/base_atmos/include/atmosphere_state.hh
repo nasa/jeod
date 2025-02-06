@@ -66,8 +66,8 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 #include "environment/time/include/time_standard.hh"
+#include "utils/planet_fixed/planet_fixed_posn/include/planet_fixed_posn.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Local includes
@@ -75,63 +75,57 @@ Library dependencies:
 #include "wind_velocity.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * A generic base class for atmosphere state, containing common
  * atmosphere state parameters,
  * i.e. pressure, density, temperature, wind velocity
  */
-class AtmosphereState {
+class AtmosphereState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AtmosphereState)
 
-   JEOD_MAKE_SIM_INTERFACES(AtmosphereState)
+public:                // public member variables
+    bool active{true}; /*!< trick_units(--) Activation flag for computing state.*/
 
-  public: // public member variables
+    double temperature{}; /*!< trick_units(K) Temperature at altitude*/
 
-   bool   active;      /*!< trick_units(--)
-      Activation flag for computing state.*/
-   double temperature; /*!< trick_units(K)
-      Temperature at altitude*/
-   double density;     /*!< trick_units(kg/m3)
-      total density at altitude*/
-   double pressure;    /*!< trick_units(N/m2)
-      Total pressure*/
-   double wind[3];     /*!< trick_units(m/s)
-      Wind velocity*/
+    double density{}; /*!< trick_units(kg/m3) total density at altitude*/
 
-  protected:
-   Atmosphere                * atmos;
-   const PlanetFixedPosition * pfix_pos;
+    double pressure{}; /*!< trick_units(N/m2) Total pressure*/
 
-  public: // public member functions
+    double wind[3]{}; /*!< trick_units(m/s) Wind velocity*/
 
-   // Constructors
-   AtmosphereState ();
-   AtmosphereState ( Atmosphere                & atmos,
-                     const PlanetFixedPosition & pfix_pos);
+protected:
+    Atmosphere * atmos{};
+    const PlanetFixedPosition * pfix_pos{};
 
+public: // public member functions
+    // Constructors
+    AtmosphereState() = default;
+    AtmosphereState(Atmosphere & atmos, const PlanetFixedPosition & pfix_pos);
 
-   // destructor
-   virtual ~AtmosphereState ();
+    // destructor
+    virtual ~AtmosphereState() = default;
 
-   // Operator = for AtmosphereState
-   AtmosphereState& operator = (const AtmosphereState& rhs);
+    // Operator = for AtmosphereState
+    AtmosphereState & operator=(const AtmosphereState & rhs);
 
-   // Copy constructor for AtmosphereState
-   AtmosphereState (const AtmosphereState& rhs);
+    // Copy constructor for AtmosphereState
+    AtmosphereState(const AtmosphereState & rhs);
 
-   /* Updates this particular atmosphere state from a particular atmosphere.*/
-   void update_state (Atmosphere * atmos_model_, PlanetFixedPosition * pfix_pos_);
-   virtual void update_state ();
+    /* Updates this particular atmosphere state from a particular atmosphere.*/
+    void update_state(Atmosphere * atmos_model_, PlanetFixedPosition * pfix_pos_);
+    virtual void update_state();
 
-   /* Updates this particular atmosphere state from a particular wind model. */
+    /* Updates this particular atmosphere state from a particular wind model. */
 
-   void update_wind (
-      WindVelocity * wind_vel, double inrtl_pos[3], double altitude);
-
+    void update_wind(WindVelocity * wind_vel, double inrtl_pos[3], double altitude);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

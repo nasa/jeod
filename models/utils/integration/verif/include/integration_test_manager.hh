@@ -52,10 +52,9 @@ Assumptions and limitations:
 Library dependencies:
   ((../src/integration_test_manager.cc))
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_INTEGRATION_TEST_MANAGER_HH
 #define JEOD_INTEGRATION_TEST_MANAGER_HH
@@ -74,192 +73,181 @@ Library dependencies:
 #include "utils/integration/include/jeod_integration_group.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 // Forward declarations
 class IntegrationTest;
 class TimeManager;
 
-
 /*
 Purpose:
   (Perform multiple tests.)
 */
-class IntegrationTestManager : public JeodIntegrationGroupOwner {
-JEOD_MAKE_SIM_INTERFACES(IntegrationTestManager)
+class IntegrationTestManager : public JeodIntegrationGroupOwner
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, IntegrationTestManager)
 
 public:
-   // Member functions
+    // Member functions
 
-   // Default constructor.
-   IntegrationTestManager (void);
+    // Default constructor.
+    IntegrationTestManager();
 
-   // Destructor
-   ~IntegrationTestManager (void) override;
+    // Destructor
+    ~IntegrationTestManager() override;
 
-   // Initialize tests.
-   void initialize (
-      TimeManager & time_manager,
-      double sim_dt);
+    // Initialize tests.
+    void initialize(TimeManager & time_manager, double sim_dt);
 
-   // Reset integrators that store past history.
-   void reset_integrators (const TimeManager & time_manager);
+    // Reset integrators that store past history.
+    void reset_integrators(const TimeManager & time_manager);
 
-   // Compute second derivatives.
-   void compute_derivatives (void);
+    // Compute second derivatives.
+    void compute_derivatives();
 
-   // Integrate time and state.
-   int integrate (
-      double sim_begtime,
-      TimeManager & time_manager);
+    // Integrate time and state.
+    int integrate(double sim_begtime, TimeManager & time_manager);
 
-   // Propagate true states and compute errors.
-   void propagate (double dyn_time);
+    // Propagate true states and compute errors.
+    void propagate(double dyn_time);
 
-   // Generate reports.
-   void shutdown (double sim_time, double dyn_time);
+    // Generate reports.
+    void shutdown(double sim_time, double dyn_time);
 
+    // Setters for the template_items and integrator constructor
 
-   // Setters for the template_items and integrator constructor
+    /**
+     * Set the nth template item.
+     * @param index Template item number
+     * @param test  Reference to the test object.
+     */
+    void set_template_item(unsigned int index, IntegrationTest & test)
+    {
+        template_items[index] = &test;
+    }
 
-   /**
-    * Set the nth template item.
-    * @param index Template item number
-    * @param test  Reference to the test object.
-    */
-   void set_template_item (unsigned int index, IntegrationTest& test) {
-      template_items[index] = &test;
-   }
+    /**
+     * Set the integrator constructor.
+     * @param integ_cotr Reference to the integrator constructor to be used.
+     */
+    void set_integ_constructor(er7_utils::IntegratorConstructor & integ_cotr)
+    {
+        integ_constructor = integ_cotr.create_copy();
+    }
 
-   /**
-    * Set the integrator constructor.
-    * @param integ_cotr Reference to the integrator constructor to be used.
-    */
-   void set_integ_constructor (er7_utils::IntegratorConstructor& integ_cotr) {
-      integ_constructor = integ_cotr.create_copy();
-   }
+    /**
+     * Tell the test to use the deprecated propagation mode.
+     */
+    void set_deprecated_rotation_integration(bool val = true)
+    {
+        deprecated_rotation_integration = val;
+    }
 
-   /**
-    * Tell the test to use the deprecated propagation mode.
-    */
-   void set_deprecated_rotation_integration (bool val = true) {
-      deprecated_rotation_integration = val;
-   }
+    /**
+     * Update an integration group; does nothing.
+     */
+    void update_integration_group(JeodIntegrationGroup &) override {}
 
-   /**
-    * Update an integration group; does nothing.
-    */
-   void update_integration_group (JeodIntegrationGroup&) override {
-   }
+    // Member data
 
+    bool generate_report{true}; /* trick_units(--) @n
+       Generate a report at the end.
+       This exists only to help find the nasty memory problem. */
 
-   // Member data
+    bool debug{}; /* trick_units(--) @n
+       Print integration status. */
 
-   bool generate_report; /* trick_units(--) @n
-      Generate a report at the end.
-      This exists only to help find the nasty memory problem. */
+    bool regression_test{}; /* trick_units(--) @n
+       When set, orientations are not random and num_tests is forced to be 1. */
 
-   bool debug; /* trick_units(--) @n
-      Print integration status. */
+    unsigned int base_case{}; /* trick_units(--) @n
+       User input base case number. */
 
-   bool regression_test; /* trick_units(--) @n
-      When set, orientations are not random and num_tests is forced to be 1. */
+    unsigned int num_tests{1}; /* trick_units(--) @n
+       Number of test cases per template item. */
 
-   unsigned int base_case; /* trick_units(--) @n
-      User input base case number. */
+    unsigned int total_tests{1}; /* trick_units(--) @n
+       Total number of tests. */
 
-   unsigned int num_tests; /* trick_units(--) @n
-      Number of test cases per template item. */
+    unsigned int cycle_count{}; /* trick_units(--) @n
+       Number of integration cycles. */
 
-   unsigned int total_tests; /* trick_units(--) @n
-      Total number of tests. */
+    unsigned int nskip{}; /* trick_units(--) @n
+       Number of integration cycles to skip before taking statistics. */
 
-   unsigned int cycle_count; /* trick_units(--) @n
-      Number of integration cycles. */
+    int report_fid{1}; /* trick_units(--) @n
+       Report file ID. */
 
-   unsigned int nskip; /* trick_units(--) @n
-      Number of integration cycles to skip before taking statistics. */
+    double end_time{-1}; /* trick_units(s) @n
+       Expected simulation end time. */
 
-   int report_fid; /* trick_units(--) @n
-      Report file ID. */
+    JEOD_SIM_INTEGRATOR_POINTER_TYPE sim_integrator{}; /* trick_units(--) @n
+       Pointer to the integration object used by the simulation engine itself. */
 
-   double end_time; /* trick_units(s) @n
-      Expected simulation end time. */
-
-   JEOD_SIM_INTEGRATOR_POINTER_TYPE sim_integrator; /* trick_units(--) @n
-      Pointer to the integration object used by the simulation engine itself. */
-
-   er7_utils::Integration::Technique integ_option; /* trick_units(--) @n
-      The integration technique. */
-   int integ_option_int; /* trick_units(--) @n
-      Used for JEOD-based integration options.*/
-
+    er7_utils::Integration::Technique integ_option{er7_utils::Integration::Unspecified}; /* trick_units(--) @n
+       The integration technique. */
+    int integ_option_int{};                                                              /* trick_units(--) @n
+                                                                    Used for JEOD-based integration options.*/
 
 protected:
+    // Member data
 
-   // Member data
+    IntegrationTest ** template_items{}; /* trick_units(--) @n
+       Template items. */
 
-   IntegrationTest ** template_items; /* trick_units(--) @n
-      Template items. */
+    IntegrationTest ** test_items{}; /* trick_units(--) @n
+       Test items. */
 
-   IntegrationTest ** test_items; /* trick_units(--) @n
-      Test items. */
+    double time_scale{1}; /* trick_units(--) @n
+       Time scale factor; dyn_time = sim_time * time_scale. */
 
-   double time_scale; /* trick_units(--) @n
-      Time scale factor; dyn_time = sim_time * time_scale. */
+    bool deprecated_rotation_integration{}; /* trick_units(--) @n
+       Should the antiquated rotational integration scheme be used?
+       This data member has effect only when set prior to the creation of the
+       body's integrators. The body's rotational integrator will use the JEOD 2.0
+       rotation integration scheme if this member is set, but will use a scheme
+       that better models rotational motion if this member is clear.
 
-   bool deprecated_rotation_integration; /* trick_units(--) @n
-      Should the antiquated rotational integration scheme be used?
-      This data member has effect only when set prior to the creation of the
-      body's integrators. The body's rotational integrator will use the JEOD 2.0
-      rotation integration scheme if this member is set, but will use a scheme
-      that better models rotational motion if this member is clear.
+       As indicated by the member's name, this old-style integration scheme is
+       deprecated. */
 
-      As indicated by the member's name, this old-style integration scheme is
-      deprecated. */
+    bool initialized{}; /* trick_units(--) @n
+       Set when initialization is complete. */
 
-   bool initialized; /* trick_units(--) @n
-      Set when initialization is complete. */
+    er7_utils::IntegratorConstructor * integ_constructor{}; /* trick_units(--) @n
+        Integrator generator; typically created based on the integration
+        option in the Trick integrator structure. */
 
-  er7_utils::IntegratorConstructor * integ_constructor; /* trick_units(--) @n
-      Integrator generator; typically created based on the integration
-      option in the Trick integrator structure. */
+    JeodIntegratorInterface * integ_interface{}; /* trick_units(--) @n
+       Interface with the simulation integration structure. */
 
-   JeodIntegratorInterface * integ_interface; /* trick_units(--) @n
-      Interface with the simulation integration structure. */
+    JeodIntegrationGroup * integ_group{}; /* trick_units(--) @n
+       The integration group that integrates state and time. */
 
-   JeodIntegrationGroup * integ_group; /* trick_units(--) @n
-      The integration group that integrates state and time. */
-
-   std::string * state_integrator_id; /* trick_units(--) @n
-      State integrator identifier. */
+    std::string * state_integrator_id{}; /* trick_units(--) @n
+       State integrator identifier. */
 
 public:
-
-
 private:
+    // Static member data
 
-   // Static member data
-
-   static const unsigned int template_items_size; /* trick_io(*o) trick_units(--) @n
-      Size of the template_items. */
+    static const unsigned int template_items_size; /* trick_io(*o) trick_units(--) @n
+       Size of the template_items. */
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #ifdef TRICK_VER
 #include "environment/time/include/time_manager.hh"
-#include "utils/integration/gauss_jackson/include/gauss_jackson_integrator_constructor.hh"
-#include "utils/integration/lsode/include/lsode_integrator_constructor.hh"
 #include "er7_utils/integration/core/include/integrator_constructor.hh"
 #include "er7_utils/integration/core/include/integrator_constructor_factory.hh"
 #include "er7_utils/integration/core/include/second_order_ode_integrator.hh"
-#include "utils/sim_interface/include/jeod_trick_integrator.hh"
 #include "integration_test.hh"
+#include "utils/integration/gauss_jackson/include/gauss_jackson_integrator_constructor.hh"
+#include "utils/integration/lsode/include/lsode_integrator_constructor.hh"
+#include "utils/sim_interface/include/jeod_trick_integrator.hh"
 #endif
-
 
 #endif

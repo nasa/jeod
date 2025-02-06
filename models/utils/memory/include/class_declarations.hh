@@ -51,22 +51,20 @@
 Purpose:
   ()
 
- 
+
 
 *******************************************************************************/
-
 
 #ifndef JEOD_UTILS_MEMORY_CLASS_DECL_HH
 #define JEOD_UTILS_MEMORY_CLASS_DECL_HH
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class MemoryManager;
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

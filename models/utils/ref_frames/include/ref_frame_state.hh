@@ -54,9 +54,8 @@ Purpose:
 Library dependencies:
   ((../src/ref_frame_state.cc))
 
- 
-******************************************************************************/
 
+******************************************************************************/
 
 #ifndef JEOD_KERNEL_REF_FRAME_STATE_HH
 #define JEOD_KERNEL_REF_FRAME_STATE_HH
@@ -64,197 +63,176 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
+#include "utils/math/include/matrix3x3.hh"
 #include "utils/quaternion/include/quat.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "class_declarations.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Represent the translational aspects of a reference frame's state.
  */
-class RefFrameTrans {
+class RefFrameTrans
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RefFrameTrans)
 
-   JEOD_MAKE_SIM_INTERFACES(RefFrameTrans)
+    // Member data
+public:
+    /**
+     * Position of the subject reference frame origin with respect to the parent
+     * frame origin and expressed in parent reference frame coordinates
+     */
+    double position[3]{}; //!< trick_units(m)
 
+    /**
+     * Velocity of the subject reference frame origin with respect to the parent
+     * frame origin and expressed in parent reference frame coordinates
+     */
+    double velocity[3]{}; //!< trick_units(m/s)
 
- // Member data
- public:
+    // Member functions
+public:
+    RefFrameTrans();
+    ~RefFrameTrans() = default;
 
-   /**
-    * Position of the subject reference frame origin with respect to the parent
-    * frame origin and expressed in parent reference frame coordinates
-    */
-   double position[3]; //!< trick_units(m)
+    // Copy constructor
+    RefFrameTrans(const RefFrameTrans & source);
 
-   /**
-    * Velocity of the subject reference frame origin with respect to the parent
-    * frame origin and expressed in parent reference frame coordinates
-    */
-   double velocity[3]; //!< trick_units(m/s)
+    // Assignment operator
+    RefFrameTrans & operator=(const RefFrameTrans & source);
 
+    // Initialize: Set position, velocity to zero.
+    void initialize();
 
- // Member functions
- public:
-   // Default constructor
-   RefFrameTrans (void);
-
-   // Copy constructor
-   RefFrameTrans (const RefFrameTrans & source);
-
-   // Assignment operator
-   RefFrameTrans & operator = (const RefFrameTrans & source);
-
-   // Destructor.
-   ~RefFrameTrans (void);
-
-
-   // Initialize: Set position, velocity to zero.
-   void initialize ();
-
-   // Copy: Copy reference position, velocity.
-   void copy (const RefFrameTrans & source);
+    // Copy: Copy reference position, velocity.
+    void copy(const RefFrameTrans & source);
 };
-
 
 /**
  * Represent the rotational aspects of a reference frame's state.
  */
-class RefFrameRot {
+class RefFrameRot
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RefFrameRot)
 
-   JEOD_MAKE_SIM_INTERFACES(RefFrameRot)
+    // Member data
+public:
+    /**
+     * Left transformation quaternion from the parent reference frame to the
+     * subject reference frame
+     */
+    Quaternion Q_parent_this; //!< trick_units(--)
 
+    /**
+     * Transformation matrix from the parent reference frame to the
+     * subject reference frame
+     */
+    double T_parent_this[3][3]{IDENTITY}; //!< trick_units(--)
 
- // Member data
- public:
-   /**
-    * Left transformation quaternion from the parent reference frame to the
-    * subject reference frame
-    */
-   Quaternion  Q_parent_this; //!< trick_units(--)
+    /**
+     * Angular velocity of the subject reference frame with respect to the
+     * parent reference frame expressed in subject reference frame coordinates
+     */
+    double ang_vel_this[3]{}; //!< trick_units(rad/s)
 
-   /**
-    * Transformation matrix from the parent reference frame to the
-    * subject reference frame
-    */
-   double T_parent_this[3][3]; //!< trick_units(--)
+    /**
+     * Magnitude of ang_vel_this
+     */
+    double ang_vel_mag{}; //!< trick_units(rad/s)
 
-   /**
-    * Angular velocity of the subject reference frame with respect to the
-    * parent reference frame expressed in subject reference frame coordinates
-    */
-   double ang_vel_this[3]; //!< trick_units(rad/s)
+    /**
+     * Unit vector in the direction of ang_vel_this
+     */
+    double ang_vel_unit[3]{}; //!< trick_units(--)
 
-   /**
-    * Magnitude of ang_vel_this
-    */
-   double ang_vel_mag; //!< trick_units(rad/s)
+    // Member functions
+public:
+    RefFrameRot();
+    ~RefFrameRot() = default;
 
-   /**
-    * Unit vector in the direction of ang_vel_this
-    */
-   double ang_vel_unit[3]; //!< trick_units(--)
+    // Copy constructor
+    RefFrameRot(const RefFrameRot & source);
 
+    // Assignment operator
+    RefFrameRot & operator=(const RefFrameRot & source);
 
- // Member functions
- public:
-   // Default constructor
-   RefFrameRot (void);
+    // initialize: Set transformation to identity, rate to zero.
+    void initialize();
 
-   // Copy constructor
-   RefFrameRot (const RefFrameRot & source);
+    // copy: Copy reference attitude, rate.
+    void copy(const RefFrameRot & source);
 
-   // Assignment operator
-   RefFrameRot & operator = (const RefFrameRot & source);
+    // compute_transformation: Compute transformation matrix from quaternion
+    void compute_transformation();
 
-   // Destructor.
-   ~RefFrameRot (void);
+    // compute_quaternion: Compute quaternion from transformation matrix
+    void compute_quaternion();
 
+    // compute_ang_vel_unit: Compute angular velocity unit vector
+    void compute_ang_vel_unit();
 
-   // initialize: Set transformation to identity, rate to zero.
-   void initialize ();
-
-   // copy: Copy reference attitude, rate.
-   void copy (const RefFrameRot & source);
-
-   // compute_transformation: Compute transformation matrix from quaternion
-   void compute_transformation ();
-
-   // compute_quaternion: Compute quaternion from transformation matrix
-   void compute_quaternion ();
-
-   // compute_ang_vel_unit: Compute angular velocity unit vector
-   void compute_ang_vel_unit ();
-
-   // compute_ang_vel_products: Compute angular velocity magnitude, unit vector
-   void compute_ang_vel_products ();
+    // compute_ang_vel_products: Compute angular velocity magnitude, unit vector
+    void compute_ang_vel_products();
 };
-
 
 /**
  * Represent a reference frame's state.
  */
-class RefFrameState {
+class RefFrameState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RefFrameState)
 
-   JEOD_MAKE_SIM_INTERFACES(RefFrameState)
+    // Member data
+public:
+    /**
+     * Translation state
+     */
+    RefFrameTrans trans; //!< trick_units(--)
 
- // Member data
- public:
-   /**
-    * Translation state
-    */
-   RefFrameTrans trans; //!< trick_units(--)
+    /**
+     * Rotational state
+     */
+    RefFrameRot rot; //!< trick_units(--)
 
-   /**
-    * Rotational state
-    */
-   RefFrameRot rot; //!< trick_units(--)
+    // Member functions
+public:
+    RefFrameState();
+    ~RefFrameState() = default;
 
+    // Copy constructor
+    RefFrameState(const RefFrameState & source);
 
- // Member functions
- public:
+    // Assignment operator
+    RefFrameState & operator=(const RefFrameState & source);
 
-   // Default constructor
-   RefFrameState ();
+    // initialize: Set transformation to identity, rate to zero.
+    void initialize();
 
-   // Copy constructor
-   RefFrameState (const RefFrameState & source);
+    // copy: Copy reference state.
+    void copy(const RefFrameState & source);
 
-   // Assignment operator
-   RefFrameState & operator = (const RefFrameState & source);
+    // copy: Copy and negate reference state.
+    void negate(const RefFrameState & source);
 
-   // Destructor.
-   ~RefFrameState (void);
+    // incr_left: 'Add' another frame, left operand
+    void incr_left(const RefFrameState & s_ab);
 
+    // incr_right: 'Add' another frame, right operand
+    void incr_right(const RefFrameState & s_bc);
 
-   // initialize: Set transformation to identity, rate to zero.
-   void initialize ();
+    // decr_left: 'Subtract' another frame, left operand
+    void decr_left(const RefFrameState & s_ab);
 
-   // copy: Copy reference state.
-   void copy (const RefFrameState & source);
-
-   // copy: Copy and negate reference state.
-   void negate (const RefFrameState & source);
-
-   // incr_left: 'Add' another frame, left operand
-   void incr_left (const RefFrameState & s_ab);
-
-   // incr_right: 'Add' another frame, right operand
-   void incr_right (const RefFrameState & s_bc);
-
-   // decr_left: 'Subtract' another frame, left operand
-   void decr_left (const RefFrameState & s_ab);
-
-   // decr_right: 'Subtract' another frame, right operand
-   void decr_right (const RefFrameState & s_bc);
+    // decr_right: 'Subtract' another frame, right operand
+    void decr_right(const RefFrameState & s_bc);
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #include "ref_frame_state_inline.hh"
 

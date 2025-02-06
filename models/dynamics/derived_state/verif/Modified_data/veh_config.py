@@ -12,10 +12,7 @@ def veh_config( veh, suffix = ""):
   veh.grav_control.spherical     = 1
   veh.grav_control.degree        = 8
   veh.grav_control.order         = 8
-  veh.dyn_body.grav_interaction.add_control(veh.grav_control);
-
-  earth.rnp.enable_polar = False #FIXME doesn't go here!!
-
+  veh.dyn_body.grav_interaction.add_control(veh.grav_control)
 
 def veh_config_alt( veh, suffix, base_frame):
   veh.dyn_body.set_name("vehicle"+suffix)

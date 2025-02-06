@@ -26,20 +26,20 @@ def set_veh_properties( vehicle, name) :
   vehicle.mass_init.properties.pt_orientation.eigen_angle =  0.0
   vehicle.mass_init.properties.pt_orientation.eigen_axis  = [0.0, 1.0, 0.0]
 
-  vehicle.mass_init.num_points = 2
-  vehicle.mass_init.points = trick.sim_services.alloc_type( 2 , "jeod::MassPointInit" )
-  vehicle.mass_init.points[0].set_name ("attach1")
-  vehicle.mass_init.points[0].position  = [ 10, 0, 0]
-  vehicle.mass_init.points[0].pt_orientation.data_source = \
+  vehicle.mass_init.allocate_points(2)
+
+  vehicle.mass_init.get_mass_point(0).set_name ("attach1")
+  vehicle.mass_init.get_mass_point(0).position  = [ 10, 0, 0]
+  vehicle.mass_init.get_mass_point(0).pt_orientation.data_source = \
                                      trick.Orientation.InputQuaternion
-  
-  vehicle.mass_init.points[1].set_name ("attach2")
-  vehicle.mass_init.points[1].position  = [ 5, 0, -5]
-  vehicle.mass_init.points[1].pt_orientation.data_source = \
+
+  vehicle.mass_init.get_mass_point(1).set_name ("attach2")
+  vehicle.mass_init.get_mass_point(1).position  = [ 5, 0, -5]
+  vehicle.mass_init.get_mass_point(1).pt_orientation.data_source = \
                                   trick.Orientation.InputEulerRotation
-  vehicle.mass_init.points[1].pt_orientation.euler_sequence  = \
+  vehicle.mass_init.get_mass_point(1).pt_orientation.euler_sequence  = \
                                   trick.Orientation.Yaw_Pitch_Roll
-  vehicle.mass_init.points[1].pt_orientation.euler_angles  = \
+  vehicle.mass_init.get_mass_point(1).pt_orientation.euler_angles  = \
                                   trick.attach_units( "degree",[ 0.0, 90.0, 0.0])
 
 

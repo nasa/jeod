@@ -75,9 +75,9 @@ Library dependencies:
 
 // Model includes
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class JeodBaseTime;
 
@@ -86,118 +86,110 @@ class JeodBaseTime;
  * all the methods used by the converter objects; converters are the
  * objects that specify the conversion algorithms between time-types.
  */
-class TimeConverter {
+class TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter)
-
-  friend class JeodBaseTime;
-// Member Data
+    friend class JeodBaseTime;
+    // Member Data
 public:
-  /**
-   * Possible conversion directions
-   */
-  enum Direction
-  {
-      NO_DIRECTION  = 0x0000,
-      A_TO_B_INIT   = 0x0001,
-      B_TO_A_INIT   = 0x0010,
-      A_TO_B_UPDATE = 0x0100,
-      B_TO_A_UPDATE = 0x1000,
-      A_TO_B        = 0x0101,
-      B_TO_A        = 0x1010,
-      ANY_DIRECTION = 0x1111
-  };
+    /**
+     * Possible conversion directions
+     */
+    enum Direction
+    {
+        NO_DIRECTION = 0x0000,
+        A_TO_B_INIT = 0x0001,
+        B_TO_A_INIT = 0x0010,
+        A_TO_B_UPDATE = 0x0100,
+        B_TO_A_UPDATE = 0x1000,
+        A_TO_B = 0x0101,
+        B_TO_A = 0x1010,
+        ANY_DIRECTION = 0x1111
+    };
 
 public:
+    /**
+     * name of time-type "a".
+     */
+    std::string a_name{""}; //!< trick_units(--)
 
-   /**
-    * name of time-type "a".
-    */
-   std::string a_name;  //!< trick_units(--)
-   /**
-    * name of time-type "b".
-    */
-   std::string b_name;  //!< trick_units(--)
+    /**
+     * name of time-type "b".
+     */
+    std::string b_name{""}; //!< trick_units(--)
 
 protected:
+    /**
+     * whether converter has been initialized.
+     */
+    bool initialized{}; //!< trick_units(--)
 
-   /**
-    * whether converter has been initialized.
-    */
-   bool initialized;      //!< trick_units(--)
-   /**
-    * Difference between the two time-types
-    */
-   double a_to_b_offset;  //!< trick_units(--)
-   /**
-    * Bit packed flag specifying whether how a converter can be used
-    */
-   Direction valid_directions;
+    /**
+     * Difference between the two time-types
+     */
+    double a_to_b_offset{}; //!< trick_units(--)
 
+    /**
+     * Bit packed flag specifying whether how a converter can be used
+     */
+    Direction valid_directions{NO_DIRECTION};
 
-// Member functions
+    // Member functions
 public:
-   // Destructor
-   virtual ~TimeConverter ();
+    virtual ~TimeConverter() = default;
+    TimeConverter(const TimeConverter &) = delete;
+    TimeConverter & operator=(const TimeConverter &) = delete;
 
-   /**
-    * Initialize the converter
-    * \param[in] parent parent-type
-    * \param[in] child child-type
-    * \param[in] direction L-R, or R-L
-    */
-   virtual void initialize(
-      JeodBaseTime * parent,
-      JeodBaseTime * child,
-      const int direction)
-      = 0;
+    /**
+     * Initialize the converter
+     * \param[in] parent parent-type
+     * \param[in] child child-type
+     * \param[in] direction L-R, or R-L
+     */
+    virtual void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) = 0;
 
-   // Return initialized bool
-   virtual bool is_initialized(void);
+    // Return initialized bool
+    virtual bool is_initialized();
 
-   // Return initialized bool
-   void override_initialized(bool init)
-   {
-     initialized = init;
-   }
+    // Return initialized bool
+    void override_initialized(bool init)
+    {
+        initialized = init;
+    }
 
-   // Return whether supplied conversion is possible
-   bool can_convert(Direction query);
+    // Return whether supplied conversion is possible
+    bool can_convert(Direction query);
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   virtual void convert_a_to_b (void);
+    // convert_a_to_b: Apply the converter in the forward direction
+    virtual void convert_a_to_b();
 
-  // convert_b_to_a: Apply the converter in the reverse direction
-   virtual void convert_b_to_a (void);
+    // convert_b_to_a: Apply the converter in the reverse direction
+    virtual void convert_b_to_a();
 
-  // resets the offset value mid-sim.
-   virtual void reset_a_to_b_offset (void);
+    // resets the offset value mid-sim.
+    virtual void reset_a_to_b_offset();
 
-  // used at time reversals to verify the ends of the lookup table
-   virtual void verify_table_lookup_ends (void);
+    // used at time reversals to verify the ends of the lookup table
+    virtual void verify_table_lookup_ends();
 
-   /**
-    * Return the offset from the parent time object to this object.
-    * @return a_to_b_offset member.
-    */
-   inline double get_a_to_b_offset(void) {return a_to_b_offset;}
+    /**
+     * Return the offset from the parent time object to this object.
+     * @return a_to_b_offset member.
+     */
+    inline double get_a_to_b_offset()
+    {
+        return a_to_b_offset;
+    }
 
 protected:
-   // Constructor
-   TimeConverter ();
+    // Constructor
+    TimeConverter() = default;
 
-  // verify_setup: Verifies that the initializer function can run
-   void verify_setup ( const JeodBaseTime * parent,
-                       const JeodBaseTime * child,
-                       const int direction);
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeConverter (const TimeConverter&);
-   TimeConverter & operator = (const TimeConverter&);
-
+    // verify_setup: Verifies that the initializer function can run
+    void verify_setup(const JeodBaseTime * parent, const JeodBaseTime * child, const int direction);
 };
+
 /*----------------------------------------------------------------------------*/
 
 /**
@@ -205,10 +197,10 @@ protected:
  */
 inline TimeConverter::Direction operator|(TimeConverter::Direction a, TimeConverter::Direction b)
 {
-    return static_cast<TimeConverter::Direction>(static_cast<int>(a)|static_cast<int>(b));
+    return static_cast<TimeConverter::Direction>(static_cast<int>(a) | static_cast<int>(b));
 }
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

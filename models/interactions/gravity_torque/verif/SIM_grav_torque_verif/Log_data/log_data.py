@@ -3,7 +3,7 @@ def log_3_vec( var):
     dr_group.add_variable(var + "[" + str(ii) + "]" )
 
 
-dr_group = trick.sim_services.DRAscii("State")
+dr_group = trick.sim_services.DRBinary("State")
 dr_group.set_cycle(1.0)
 dr_group.freq = trick.sim_services.DR_Always
 log_3_vec("vehicle.grav_torque.torque")

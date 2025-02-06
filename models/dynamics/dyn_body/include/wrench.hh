@@ -50,10 +50,8 @@
 Purpose: ()
 */
 
-
 #ifndef JEOD_WRENCH_SCREW_THEORY_HH
 #define JEOD_WRENCH_SCREW_THEORY_HH
-
 
 #include "dynamics/mass/include/mass_point_state.hh"
 #include "utils/math/include/vector3.hh"
@@ -61,9 +59,9 @@ Purpose: ()
 
 #include <vector>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * A wrench comprises a torque and a force applied at a point on a DynBody.
@@ -80,10 +78,9 @@ namespace jeod {
  */
 class Wrench
 {
-    JEOD_MAKE_SIM_INTERFACES(Wrench)
+    JEOD_MAKE_SIM_INTERFACES(jeod, Wrench)
 
 public:
-
     // Member functions
 
     /**
@@ -94,14 +91,9 @@ public:
      * (a boolean) whose value is false.
      * @param active_in  True (default) indicates the wrench is active.
      */
-    explicit Wrench (
-        bool active_in = true)
-    :
-        active(active_in)
+    explicit Wrench(bool active_in = true)
+        : active(active_in)
     {
-        Vector3::initialize (torque);
-        Vector3::initialize (force);
-        Vector3::initialize (point);
     }
 
     /**
@@ -111,17 +103,15 @@ public:
      * @param point_in     The point at which forces are applied.
      * @param active_in    True (default) indicates the wrench is active.
      */
-    explicit Wrench (
-        const double torque_in[3],
-        const double force_in[3],
-        const double point_in[3],
-        bool active_in = true)
-    :
-        active(active_in)
+    explicit Wrench(const double torque_in[3],
+                    const double force_in[3],
+                    const double point_in[3],
+                    bool active_in = true)
+        : active(active_in)
     {
-        Vector3::copy (torque_in, torque);
-        Vector3::copy (force_in, force);
-        Vector3::copy (point_in, point);
+        Vector3::copy(torque_in, torque);
+        Vector3::copy(force_in, force);
+        Vector3::copy(point_in, point);
     }
 
     /**
@@ -130,45 +120,20 @@ public:
      * @param point_in     The point at which forces are applied.
      * @param active_in    True (default) indicates the wrench is active.
      */
-    explicit Wrench (
-        const double point_in[3],
-        bool active_in = true)
-    :
-        active(active_in)
+    explicit Wrench(const double point_in[3], bool active_in = true)
+        : active(active_in)
     {
-        Vector3::initialize (torque);
-        Vector3::initialize (force);
-        Vector3::copy (point_in, point);
+        Vector3::copy(point_in, point);
     }
 
-
-    /**
-     * Destructor.
-     */
-    virtual ~Wrench () = default;
-
-    /**
-     * Copy constructor.
-     */
-    Wrench (const Wrench&) = default;
-
-    /**
-     * Copy assignment operator.
-     */
-    Wrench& operator= (const Wrench&) = default;
+    virtual ~Wrench() = default;
+    Wrench(const Wrench &) = default;
+    Wrench & operator=(const Wrench &) = default;
 
 #ifndef SWIG
-    /**
-     * Move constructor.
-     */
-    Wrench (Wrench&&) = default;
-
-    /**
-     * Move assignment operator.
-     */
-    Wrench& operator= (Wrench&&) = default;
+    Wrench(Wrench &&) = default;
+    Wrench & operator=(Wrench &&) = default;
 #endif
-
 
     /**
      * Increment this wrench by the other, but only if both are active.
@@ -177,84 +142,76 @@ public:
      * @param other  Wrench with which this wrench is to be incremented.
      * @return *this.
      */
-    Wrench& operator+= (const Wrench& other)
+    Wrench & operator+=(const Wrench & other)
     {
-        if ((active) && (other.active))
+        if((active) && (other.active))
         {
             double delta_pos[3];
-            Vector3::diff (other.point, point, delta_pos);
-            Vector3::incr (other.force, force);
-            Vector3::incr (other.torque, torque);
-            Vector3::cross_incr (delta_pos, other.force, torque);
+            Vector3::diff(other.point, point, delta_pos);
+            Vector3::incr(other.force, force);
+            Vector3::incr(other.torque, torque);
+            Vector3::cross_incr(delta_pos, other.force, torque);
         }
 
         return *this;
     }
 
-
     /**
      * Mark this wrench as active.
      */
-    void activate ()
+    void activate()
     {
         active = true;
     }
 
-
     /**
      * Mark this wrench as inactive.
      */
-    void deactivate ()
+    void deactivate()
     {
         active = false;
     }
 
-
     /**
      * Is this wrench active?
      */
-    bool is_active () const
+    bool is_active() const
     {
         return active;
     }
-
 
     /**
      * Set the force and torque to zero. The point remains unaltered.
      */
     void reset_force_and_torque()
     {
-        Vector3::initialize (torque);
-        Vector3::initialize (force);
+        Vector3::initialize(torque);
+        Vector3::initialize(force);
     }
-
 
     /**
      * Set the torque to zero. The force and point remain unaltered.
      */
     void reset_torque()
     {
-        Vector3::initialize (torque);
+        Vector3::initialize(torque);
     }
-
 
     /**
      * Set the force to zero. The torque and point remain unaltered.
      */
     void reset_force()
     {
-        Vector3::initialize (force);
+        Vector3::initialize(force);
     }
-
 
     /**
      * Set the point to zero. The torque and force remain unaltered.
      */
     void reset_point()
     {
-        Vector3::initialize (point);
+        Vector3::initialize(point);
     }
-
 
     /**
      * Set all vector elements of the wrench.
@@ -262,124 +219,106 @@ public:
      * @param force_in     The force applied at the point.
      * @param point_in     The point at which forces are applied.
      */
-    void set (
-        const double torque_in[3],
-        const double force_in[3],
-        const double point_in[3])
+    void set(const double torque_in[3], const double force_in[3], const double point_in[3])
     {
-        Vector3::copy (torque_in, torque);
-        Vector3::copy (force_in, force);
-        Vector3::copy (point_in, point);
+        Vector3::copy(torque_in, torque);
+        Vector3::copy(force_in, force);
+        Vector3::copy(point_in, point);
     }
-
 
     /**
      * Set the torque to the specified value.
      * The force and point of application remain unaltered.
      */
-    void set_torque (const double torque_in[3])
+    void set_torque(const double torque_in[3])
     {
-        Vector3::copy (torque_in, torque);
+        Vector3::copy(torque_in, torque);
     }
-
 
     /**
      * Set the force to the specified value.
      * The torque and point of application remain unchanged.
      */
-    void set_force (const double force_in[3])
+    void set_force(const double force_in[3])
     {
-        Vector3::copy (force_in, force);
+        Vector3::copy(force_in, force);
     }
-
 
     /**
      * Set the force and the point of application to the specified values.
      * The torque remain unchanged.
      */
-    void set_force (
-        const double force_in[3],
-        const double point_in[3])
+    void set_force(const double force_in[3], const double point_in[3])
     {
-        Vector3::copy (force_in, force);
-        Vector3::copy (point_in, point);
+        Vector3::copy(force_in, force);
+        Vector3::copy(point_in, point);
     }
-
 
     /**
      * Set the point of application to the specified value.
      * The force and torque remain unchanged.
      */
-    void set_point (
-        const double point_in[3])
+    void set_point(const double point_in[3])
     {
-        Vector3::copy (point_in, point);
+        Vector3::copy(point_in, point);
     }
-
 
     /**
      * Scale the torque by the specified value.
      * The force and point of application remain unaltered.
      */
-    void scale_torque (double scale)
+    void scale_torque(double scale)
     {
-        Vector3::scale (scale, torque);
+        Vector3::scale(scale, torque);
     }
-
 
     /**
      * Scale the force by the specified value.
      * The torque and point of application remain unchanged.
      */
-    void scale_force (double scale)
+    void scale_force(double scale)
     {
-        Vector3::scale (scale, force);
+        Vector3::scale(scale, force);
     }
-
 
     /**
      * Const getter of the torque vector.
      */
-    const double* get_torque() const
+    const double * get_torque() const
     {
         return torque;
     }
 
-
     /**
      * Const getter of the force vector.
      */
-    const double* get_force() const
+    const double * get_force() const
     {
         return force;
     }
 
-
     /**
      * Const getter of the point vector.
      */
-    const double* get_point() const
+    const double * get_point() const
     {
         return point;
     }
-
 
     /**
      * Accumulate the wrenches in the collection to form a combined wrench
      * about the current wrench point, which remains unchanged.
      * @param collection  The wrenches to be accumulated.
      */
-    Wrench& accumulate (
-        const std::vector<Wrench*>& collection)
+    Wrench & accumulate(const std::vector<Wrench *> & collection)
     {
         reset_force_and_torque();
-        for (const Wrench* wrench : collection)
+        for(const Wrench * wrench : collection)
         {
             *this += *wrench;
         }
         return *this;
     }
-
 
     /**
      * Accumulate the wrenches in the collection to form a combined wrench
@@ -387,27 +326,23 @@ public:
      * @param collection  The wrenches to be accumulated.
      * @param new_point    The point about which the wrenches to be accumulated.
      */
-    Wrench& accumulate (
-        const std::vector<Wrench*>& collection,
-        const double new_point[3])
+    Wrench & accumulate(const std::vector<Wrench *> & collection, const double new_point[3])
     {
         set_point(new_point);
-        return accumulate (collection);
+        return accumulate(collection);
     }
-
 
     /**
      * Construct an equivalent Wrench about the specified point.
      * @param new_point  The point about which this is to be represented.
      * @return Equivalent wrench about the specified point.
      */
-    Wrench transform_to_point (
-        const double new_point[3]) const
+    Wrench transform_to_point(const double new_point[3]) const
     {
         Wrench result{torque, force, new_point, active};
         double delta_pos[3];
-        Vector3::diff (point, new_point, delta_pos);
-        Vector3::cross_incr (delta_pos, force, result.torque);
+        Vector3::diff(point, new_point, delta_pos);
+        Vector3::cross_incr(delta_pos, force, result.torque);
         return result;
     }
 
@@ -418,23 +353,17 @@ public:
      *                    frame in the parent frame.
      * @return Equivalent wrench in the parent frame.
      */
-    Wrench transform_to_parent (
-        const MassPointState& point_state) const
+    Wrench transform_to_parent(const MassPointState & point_state) const
     {
         Wrench result;
-        Vector3::transform_transpose (point_state.T_parent_this, torque,
-            result.torque);
-        Vector3::transform_transpose (point_state.T_parent_this, force,
-            result.force);
-        Vector3::transform_transpose (point_state.T_parent_this, point,
-            result.point);
-        Vector3::incr (point_state.position, result.point);
+        Vector3::transform_transpose(point_state.T_parent_this, torque, result.torque);
+        Vector3::transform_transpose(point_state.T_parent_this, force, result.force);
+        Vector3::transform_transpose(point_state.T_parent_this, point, result.point);
+        Vector3::incr(point_state.position, result.point);
         return result;
     }
 
-
 private:
-
     // Member data
 
     /**
@@ -446,18 +375,18 @@ private:
      * should have the torque set to zero. On the other hand, a Hall effect
      * thruster will have a non-zero torque due to the swirling of the exhaust.
      */
-    double torque[3]; //!< trick_units(N*m)
+    double torque[3]{}; //!< trick_units(N*m)
 
     /**
      * The force exerted on the DynBody by the force/torque agent, expressed
      * in structural coordinates.
      */
-    double force[3]; //!< trick_units(N)
+    double force[3]{}; //!< trick_units(N)
 
     /**
      * The structural coordinates of the point at which the force is applied.
      */
-    double point[3]; //!< trick_units(m)
+    double point[3]{}; //!< trick_units(m)
 
     /**
      * Indicated whether the wrench is active (true) or inactive (false).
@@ -466,11 +395,9 @@ private:
     bool active; //!< trick_units(--)
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
-
 
 /**
  * @}

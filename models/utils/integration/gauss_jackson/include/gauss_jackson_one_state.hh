@@ -48,7 +48,6 @@
  * Defines the class GaussJacksonOneState, which contains a double* pointer.
  */
 
-
 /*
 Purpose: ()
 */
@@ -62,45 +61,39 @@ Purpose: ()
 // System includes
 #include <cstddef>
 
-
-//! Namespace jeod 
-namespace jeod {
+//! Namespace jeod
+namespace jeod
+{
 
 /**
  * Essentially just a double*.
  */
-class GaussJacksonOneState {
-
-  JEOD_MAKE_SIM_INTERFACES(GaussJacksonOneState)
+class GaussJacksonOneState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GaussJacksonOneState)
 
 public:
+    /**
+     * The pointed-to data.
+     */
+    double * first{}; //!< trick_units(--)
 
-   /**
-    * The pointed-to data.
-    */
-   double* first; //!< trick_units(--)
+    /**
+     * Default constructor.
+     */
+    GaussJacksonOneState() = default;
 
-
-   /**
-    * Default constructor.
-    */
-   GaussJacksonOneState ()
-   :
-      first (nullptr)
-   {}
-
-   /**
-    * Conversion constructor.
-    * @param  first_in   The pointed-to data.
-    */
-   explicit GaussJacksonOneState (
-      double* first_in)
-   :
-      first (first_in)
-   {}
+    /**
+     * Conversion constructor.
+     * @param  first_in   The pointed-to data.
+     */
+    explicit GaussJacksonOneState(double * first_in)
+        : first(first_in)
+    {
+    }
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

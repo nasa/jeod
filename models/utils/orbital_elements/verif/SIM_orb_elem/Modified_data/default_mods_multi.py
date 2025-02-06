@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the method set_default_mods_multi 
+#  (To define the method set_default_mods_multi
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -37,9 +37,9 @@ def set_default_mods_multi(orb_elem_test) :
   orb_elem_test.orb_elem_ver.mu                 = 3.986012E14
   orb_elem_test.orb_elem_ver.position         = [ 7378145, 0, 0]
   orb_elem_test.orb_elem_ver.velocity         = [ 0, 7.350141635341643e+03, 0]
-  orb_elem_test.orb_elem_ver.to_cartesian       = 0
+  orb_elem_test.orb_elem_ver.to_cartesian       = False
 
-  orb_elem_test.orb_elem_multi_ver.multi_use    = 0
+  orb_elem_test.orb_elem_multi_ver.multi_use    = False
   orb_elem_test.orb_elem_multi_ver.mu           = 3.986012E14
   orb_elem_test.orb_elem_multi_ver.data_row     = 0
 

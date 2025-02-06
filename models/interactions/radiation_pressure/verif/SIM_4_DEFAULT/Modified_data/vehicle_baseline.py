@@ -3,7 +3,7 @@
 #  (To define the method set_vehicle_baseline
 ####################################################################################
 
-vehicle.dyn_body.set_name("vehicle");
+vehicle.dyn_body.set_name("vehicle")
 vehicle.dyn_body.integ_frame_name = "Sun.inertial"
 vehicle.dyn_body.translational_dynamics = True
 vehicle.dyn_body.rotational_dynamics = True

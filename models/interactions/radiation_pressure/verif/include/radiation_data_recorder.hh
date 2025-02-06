@@ -55,7 +55,6 @@ Library dependencies:
 #ifndef JEOD_RADIATION_DATA_RECORDER_HH
 #define JEOD_RADIATION_DATA_RECORDER_HH
 
-
 #define JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS 10
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"
@@ -63,36 +62,33 @@ Library dependencies:
 // Model includes
 #include "interactions/radiation_pressure/include/flat_plate_radiation_facet.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class RadiationSurface;
 
-class RadiationDataRecorder  {
-
-   JEOD_MAKE_SIM_INTERFACES(RadiationDataRecorder)
+class RadiationDataRecorder
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, RadiationDataRecorder)
 
 public:
-  double F_absorption[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3];
-  double F_specular[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3];
-  double F_diffuse[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3];
-  double F_emission[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3];
-  double force[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3];
-  double torque[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3];
-  double temperature[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS];
-  double power_absorb[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS];
-  double power_emit[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS];
+    double F_absorption[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3]{};
+    double F_specular[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3]{};
+    double F_diffuse[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3]{};
+    double F_emission[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3]{};
+    double force[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3]{};
+    double torque[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS][3]{};
+    double temperature[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS]{};
+    double power_absorb[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS]{};
+    double power_emit[JEOD_RADIATION_DATA_RECORDER_HH_NUM_FACETS]{};
 
+    RadiationDataRecorder() = default;
+    virtual ~RadiationDataRecorder() = default;
 
-  RadiationDataRecorder();
-  virtual ~RadiationDataRecorder();
-
-  void record_data (RadiationSurface * surf_ptr);
-
-
+    void record_data(RadiationSurface * surf_ptr);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif

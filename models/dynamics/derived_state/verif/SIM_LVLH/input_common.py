@@ -32,5 +32,6 @@ rel_state.vehB_wrt_vehA.target_frame_name = "vehicleA.Earth.lvlh"
 rel_state.vehB_wrt_vehA.direction_sense = \
                     trick.RelativeDerivedState.ComputeSubjectStateinTarget
 
+earth.rnp.enable_polar = False 
 
 trick.stop(86400)

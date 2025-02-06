@@ -59,10 +59,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_DYN_BODY_INIT_NED_ROT_STATE_HH
 #define JEOD_DYN_BODY_INIT_NED_ROT_STATE_HH
-
 
 // System includes
 
@@ -73,44 +71,32 @@ Library dependencies:
 // Model includes
 #include "dyn_body_init_ned_state.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Initialize a vehicle's rotational state wrt some vehicle's
  * North-East-Down frame.
  */
-class DynBodyInitNedRotState : public DynBodyInitNedState {
+class DynBodyInitNedRotState : public DynBodyInitNedState
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, DynBodyInitNedRotState)
 
-   JEOD_MAKE_SIM_INTERFACES(DynBodyInitNedRotState)
+    // No member data. This class adds no member data to DynBodyInitNedState.
 
+    // Member functions
+public:
+    DynBodyInitNedRotState();
+    ~DynBodyInitNedRotState() override = default;
+    DynBodyInitNedRotState(const DynBodyInitNedRotState &) = delete;
+    DynBodyInitNedRotState & operator=(const DynBodyInitNedRotState &) = delete;
 
- // No member data. This class adds no member data to DynBodyInitNedState.
-
-
- // Member functions
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-
-   DynBodyInitNedRotState (const DynBodyInitNedRotState&);
-   DynBodyInitNedRotState & operator = (const DynBodyInitNedRotState&);
-
-
- public:
-
-   // Default constructor, destructor
-   DynBodyInitNedRotState ();
-   ~DynBodyInitNedRotState () override;
-
-   // initialize: Initialize the initializer.
-   void initialize (DynManager & dyn_manager) override;
-
+    // initialize: Initialize the initializer.
+    void initialize(DynManager & dyn_manager) override;
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

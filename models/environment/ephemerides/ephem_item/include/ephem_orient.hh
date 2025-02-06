@@ -61,10 +61,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_EPHEM_ORIENT_HH
 #define JEOD_EPHEM_ORIENT_HH
-
 
 // System includes
 
@@ -77,70 +75,53 @@ Library dependencies:
 #include "class_declarations.hh"
 #include "ephem_item.hh"
 
-
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * An EphemerisOrientation object updates the rotational state of an ephemeris
  * reference frame.
  */
-class EphemerisOrientation : public EphemerisItem {
-JEOD_MAKE_SIM_INTERFACES(EphemerisOrientation)
+class EphemerisOrientation : public EphemerisItem
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, EphemerisOrientation)
 
 public:
+    // Member functions
+    EphemerisOrientation() = default;
+    ~EphemerisOrientation() override = default;
+    EphemerisOrientation(const EphemerisOrientation &) = delete;
+    EphemerisOrientation & operator=(const EphemerisOrientation &) = delete;
 
-   // Member functions
-   // Note: The copy constructor and assignment operator are deleted.
+    // EphemerisOrientation objects modify the rotational state.
+    TargetAspect updates_what() const override;
 
-   // Constructor and destructor
-   EphemerisOrientation ();
-   ~EphemerisOrientation () override;
+    // Enable the item.
+    void enable() override;
 
-   // EphemerisOrientation objects modify the rotational state.
-   TargetAspect updates_what (void) const override;
+    // Note that the planet-fixed frame's active status has changed
+    void note_frame_status_change(RefFrame * frame) override;
 
-   // Enable the item.
-   void enable () override;
+    // Default suffix, "pfix" in the case of an orientation.
+    std::string default_suffix() const override;
 
-   // Note that the planet-fixed frame's active status has changed
-   void note_frame_status_change (RefFrame * frame) override;
-
-   // Default suffix, "pfix" in the case of an orientation.
-   const char * default_suffix () const override;
-
-   // Disconnect (no-op for an orientation)
-   void disconnect_from_tree () override;
-
+    // Disconnect (no-op for an orientation)
+    void disconnect_from_tree() override;
 
 protected:
+    // Member data
 
-   // Member data
-
-   /**
-    * A subscription to the planet's inertial frame is issued whenever
-    * the planet's planet-fixed frame is active to ensure that the
-    * the planet-fixed frame is a part of the ref frame tree.
-    * This flag is set when such a subscription is made.
-    */
-   bool subscribed_to_inertial; //!< trick_units(--)
-
-
-private:
-
-   // Make the copy constructor and assignment operator private
-   // (and unimplemented) to avoid erroneous copies
-
-   ///
-   /// Not implemented.
-   EphemerisOrientation (const EphemerisOrientation &);
-   ///
-   /// Not implemented.
-   EphemerisOrientation & operator= (const EphemerisOrientation &);
+    /**
+     * A subscription to the planet's inertial frame is issued whenever
+     * the planet's planet-fixed frame is active to ensure that the
+     * the planet-fixed frame is a part of the ref frame tree.
+     * This flag is set when such a subscription is made.
+     */
+    bool subscribed_to_inertial{}; //!< trick_units(--)
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

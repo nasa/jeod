@@ -55,4 +55,4 @@ dynamics.dyn_manager.add_body_action( vehicle.rot_init )
 
 #forces_object.extern_forc = [5.0, 0, 0]
 
-trick.stop(1000.0);
+trick.stop(1000.0)

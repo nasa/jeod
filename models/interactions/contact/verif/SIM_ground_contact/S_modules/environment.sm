@@ -46,33 +46,28 @@
 // Include headers for classes that this class contains:
 ##include "environment/gravity/include/gravity_manager.hh"
 
-class EnvSimObject: public Trick::SimObject {
-
+class EnvSimObject: public Trick::SimObject
+{
 public:
-   jeod::GravityManager gravity_manager;
+    jeod::GravityManager gravity_manager;
 
+    // Constructor
+    EnvSimObject(jeod::DynManager & dyn_manager_in)
+        : dyn_manager(dyn_manager_in)
+    {
+        //
+        // Initialization jobs
+        //
+        P_EPH("initialization") gravity_manager.initialize_model(dyn_manager);
+    }
 
-   // Constructor
-   EnvSimObject(
-      jeod::DynManager & dyn_manager_in)
-   :
-      dyn_manager(dyn_manager_in)
-   {
-
-      //
-      // Initialization jobs
-      //
-      P_EPH  ("initialization") gravity_manager.initialize_model (
-         dyn_manager);
-   }
+    // Unimplemented copy constructor and assignment operator
+    EnvSimObject(const EnvSimObject &) = delete;
+    EnvSimObject & operator=(const EnvSimObject &) = delete;
 
 private:
-   // References to the external time and dynamics managers
-   jeod::DynManager & dyn_manager;
-
-   // Unimplemented copy constructor and assignment operator
-   EnvSimObject (const EnvSimObject&);
-   EnvSimObject & operator = (const EnvSimObject&);
+    // References to the external time and dynamics managers
+    jeod::DynManager & dyn_manager;
 };
 
-EnvSimObject env (dynamics.dyn_manager);
+EnvSimObject env(dynamics.dyn_manager);

@@ -2,7 +2,7 @@
 %
 % Purpose:  Extension part of User's Guide for the time model
 %
-% 
+%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -33,7 +33,7 @@ document.  The code to support this verification is found at
 \item{Add it to a header file in the format:}
 
 \begin{verbatim}
-  class TimeABC : public TimeStandard 
+  class TimeABC : public TimeStandard
 {
   TimeABC( );
   ~TimeABC( );
@@ -55,9 +55,9 @@ The \textit{name} is required, any other values are optional
 \end{verbatim}
 
 \item{Make a destructor for it}
-\item{Add a new converter class(optional)} 
+\item{Add a new converter class(optional)}
 
-Presumably, if this is a new time-type, a new converter will be needed. 
+Presumably, if this is a new time-type, a new converter will be needed.
 See the next section on how to add a new TimeConverter Class.
 
 \item{Add it to the S\_define in 2 places}
@@ -66,11 +66,11 @@ First, declare it
 \begin{verbatim}
   class YourTimeSimObject : public Trick::SimObject
   {
-    
+
     ...
 
     TimeABC  abc;
-    
+
     ...
 
     YourTimeSimObject()
@@ -85,7 +85,7 @@ First, declare it
 Second, register it.
 
 \begin{verbatim}
-  P_TIME (initialization) environment/time:     time.manager.register_time( 
+  P_TIME (initialization) environment/time:     time.manager.register_time(
            In        JeodBaseTime  & time_reg = time.abc);
 \end{verbatim}
 
@@ -125,7 +125,7 @@ converter is only available at runtime.  Then the following flags should be set:
 \subsubsection{Add the function}
 Further down in this file, you will find the code for the defined
 converter function
-(\textit{TimeConverter\_XXX\_YYY::convert\_a\_to\_b()}), 
+(\textit{TimeConverter\_XXX\_YYY::convert\_a\_to\_b()}),
 
 and for the reverse function
 (\textit{TimeConverter\_XXX\_YYY::convert\_b\_to\_a()}).
@@ -145,7 +145,7 @@ line:
 
 \begin{verbatim}
  // convert_b_to_a: Apply the converter in the reverse direction
-    void convert_b_to_a(void);
+    void convert_b_to_a();
 \end{verbatim}
 
 The function is now ready to go; to use it, add it to the definition of
@@ -167,18 +167,18 @@ In the format
 
 \begin{verbatim}
 class TimeConverter_XYZ_ABC : public TimeConverter {
- 
-   JEOD_MAKE_SIM_INTERFACES(TimeConverter_TAI_GPS)
- 
+
+   JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_TAI_GPS)
+
 // Member Data
-private: 
- TimeXYZ * xyz_ptr; /* ** 
+private:
+ TimeXYZ * xyz_ptr; /* **
   Converter parent time, always a TimeXYZ for this converter. */
- TimeABC * abc_ptr; /* ** 
+ TimeABC * abc_ptr; /* **
   Converter parent time, always a TimeABC for this converter. */
 
 // Member functions:
-public: 
+public:
 // Constructor
   TimeConverter_TAI_GPS();
 // Destructor
@@ -189,12 +189,12 @@ private:
   void initialize( JeodBaseTime * parent, JeodBaseTime * child, const int direction);
 
 // convert_a_to_b: Apply the converter in the forward direction
-  void convert_a_to_b(void);  // optional
+  void convert_a_to_b();  // optional
 
 // convert_b_to_a: Apply the converter in the reverse direction
-  void convert_b_to_a(void);  // optional
+  void convert_b_to_a();  // optional
 }
-\end{verbatim} 
+\end{verbatim}
 
 Either or both of the converter functions may be included.  Having
 neither is not illegal, but is redundant (the converter has no
@@ -204,7 +204,7 @@ intended for use during initialization and the other during updates.
 \subsubsection[\ Write the source code:]{ Write the source code:}
 The \textit{initializer} function must be defined, along with
 \textit{convert\_a\_to\_b( ) }and \textit{convert\_b\_to\_a( ) } if
-included in the header file.  
+included in the header file.
 
 
 
@@ -228,13 +228,13 @@ A simple example may look like:
 
 \begin{verbatim}
 void TimeConverter_XYZ_ABC::initializer( // Return: -- Void
-   JeodBaseTime * const parent_ptr, 
-   JeodBaseTime * const child_ptr,  
-   const int int_dir)  
-{ 
+   JeodBaseTime * const parent_ptr,
+   JeodBaseTime * const child_ptr,
+   const int int_dir)
+{
  verify_setup(parent_ptr,child_ptr,int_dir);
 
- if (int_dir == 1) { 
+ if (int_dir == 1) {
    xyz_ptr = dynamic_cast<TimeXYZ *> (parent_ptr);
    abc_ptr = dynamic_cast<TimeABC *> (child_ptr);
  }
@@ -244,8 +244,8 @@ void TimeConverter_XYZ_ABC::initializer( // Return: -- Void
    abc_ptr = dynamic_cast<TimeABC *> (parent_ptr);
  }
  a_to_b_offset = some_value_or_function;
- initialized = true;  
- return; 
+ initialized = true;
+ return;
 }
 \end{verbatim}
 
@@ -259,7 +259,7 @@ and \textit{initialized = false. } These values are inherited by
 default; \textit{initialized} will be reset to t\textit{rue} in the
 initialization function, and \textit{a\_to\_b\_offset} may be
 calculated in the initialization function if necessary.  The
-functionality flags, \textit{a\_to\_b\_initialization, 
+functionality flags, \textit{a\_to\_b\_initialization,
 a\_to\_b\_runtime, b\_to\_a\_initialization,} and
 \textit{b\_to\_a\_runtime} should be set in the specific class
 constructor.  The two time-type pointers should be initialized to NULL
@@ -282,11 +282,11 @@ it to the S\_define in 2 places}
 \begin{verbatim}
   class YourTimeSimObject : public Trick::SimObject
   {
-    
+
     ...
 
     TimeConverter_XYZ_ABC xyz_abc;
-    
+
     ...
 
     YourTimeSimObject()
@@ -294,7 +294,7 @@ it to the S\_define in 2 places}
        ...
 
        P_TIME ("initialization") manager.register_converter( xyz_abc );
-      
+
        ...
     }
   };

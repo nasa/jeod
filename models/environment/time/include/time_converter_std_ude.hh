@@ -74,71 +74,63 @@ Library dependencies:
 
 #include "time_converter.hh"
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class TimeStandard;
 class TimeUDE;
 class JeodBaseTime;
-
 
 /**
  * Define class TimeConverter_STD_UDE, which converts from any specific
  * example of the generic Standard Time to any specific example of the
  * generic User-Defined-Epoch Time.
  */
-class TimeConverter_STD_UDE : public TimeConverter {
+class TimeConverter_STD_UDE : public TimeConverter
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, TimeConverter_STD_UDE)
 
-  JEOD_MAKE_SIM_INTERFACES(TimeConverter_STD_UDE)
-
-// Member Data
+    // Member Data
 private:
-   /**
-    * Initializing converter could be done in one of two ways.  If it fails the
-    * first time, this flag is set.  If it fails a second time, it terminates.
-    */
-  bool failed_null_test;  //!< trick_units(--)
-   /**
-    * Converter parent time, always a TimeSTD for this converter.
-    */
-  TimeStandard * std_ptr; //!< trick_units(--)
+    /**
+     * Initializing converter could be done in one of two ways.  If it fails the
+     * first time, this flag is set.  If it fails a second time, it terminates.
+     */
+    bool failed_null_test{}; //!< trick_units(--)
 
-   /**
-    * Converter parent time, always a TimeUDE for this converter.
-    */
-  TimeUDE * ude_ptr; //!< trick_units(--)
+    /**
+     * Converter parent time, always a TimeSTD for this converter.
+     */
+    TimeStandard * std_ptr{}; //!< trick_units(--)
 
-// Member functions:
+    /**
+     * Converter parent time, always a TimeUDE for this converter.
+     */
+    TimeUDE * ude_ptr{}; //!< trick_units(--)
+
+    // Member functions:
 public:
-  // Constructor
-   TimeConverter_STD_UDE ();
-  // Destructor
-   ~TimeConverter_STD_UDE () override;
+    TimeConverter_STD_UDE();
+    ~TimeConverter_STD_UDE() override = default;
+    TimeConverter_STD_UDE(const TimeConverter_STD_UDE &) = delete;
+    TimeConverter_STD_UDE & operator=(const TimeConverter_STD_UDE &) = delete;
 
-   void reset_a_to_b_offset (void) override;
+    void reset_a_to_b_offset() override;
 
-  // Initialize the converter
-   void initialize (JeodBaseTime * parent,
-                    JeodBaseTime * child,
-                    const int direction) override;
+    // Initialize the converter
+    void initialize(JeodBaseTime * parent, JeodBaseTime * child, const int direction) override;
 
-  // convert_a_to_b: Apply the converter in the forward direction
-   void convert_a_to_b (void) override;
+    // convert_a_to_b: Apply the converter in the forward direction
+    void convert_a_to_b() override;
 
-  // convert_b_to_a: Apply the converter in the reverse direction
-   void convert_b_to_a (void) override;
-
- // The copy constructor and assignment operator for this class are
- // declared private and are not implemented.
- private:
-   TimeConverter_STD_UDE (const TimeConverter_STD_UDE&);
-   TimeConverter_STD_UDE & operator = (const TimeConverter_STD_UDE&);
+    // convert_b_to_a: Apply the converter in the reverse direction
+    void convert_b_to_a() override;
 };
+
 /*----------------------------------------------------------------------------*/
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

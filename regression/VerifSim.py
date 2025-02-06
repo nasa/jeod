@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright © 2023 United States Government as represented by the Administrator
+# Copyright 2023 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -57,6 +57,7 @@ class VerifSim:
         self.status = self.Status.NOT_STARTED
         self.compile_command = ''
         self.unique_id = ''
+        self.logName = ''
 
     #*************************************************************************
     # parse_sim_info
@@ -84,6 +85,8 @@ class VerifSim:
                                myArgs.prerun_cmd + \
                                './'+myArgs.sim_binary + \
                                ' '+myArgs.run_base+'/'
+
+        self.logName = myArgs.logdir+"/02_build_info_"+self.unique_id+".txt"
 
         for run_info in sim_info[1]:
             # The first value in sim_info is the run name, but this may
@@ -120,6 +123,8 @@ class VerifSim:
         elif self.status is self.Status.RUN_FAIL:
             color = "DARK_CYAN"
         tprint("    Sim status: "+self.status.name+"  "+self.sim_dir, color)
+        if self.status is self.Status.NO_EXECUTIVE:
+            tprint("      See log file {0}".format(self.logName))
 
         for run in self.runs:
             run.report()

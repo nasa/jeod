@@ -75,7 +75,8 @@ Library dependencies:
 #include "flat_plate_thermal_aero_factory.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 class FacetParams;
 
@@ -83,50 +84,36 @@ class FacetParams;
  * The surface factory that creates an aerodynamic specific surface from a
  * general surface. Used with the surface model.
  */
-class AeroSurfaceFactory : public InteractionSurfaceFactory {
-
-   JEOD_MAKE_SIM_INTERFACES(AeroSurfaceFactory)
+class AeroSurfaceFactory : public InteractionSurfaceFactory
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, AeroSurfaceFactory)
 
 public:
+    AeroSurfaceFactory();
+    ~AeroSurfaceFactory() override = default;
+    AeroSurfaceFactory & operator=(const AeroSurfaceFactory &) = delete;
+    AeroSurfaceFactory(const AeroSurfaceFactory &) = delete;
 
-   // constructor
-   AeroSurfaceFactory ();
-
-   // destructor
-   ~AeroSurfaceFactory () override;
-
-   // Add a set of facet params to the AeroSurfaceFactory.
-   // The type of FacetParams MUST be AeroParams, or the function
-   // will fail.
-   void add_facet_params (FacetParams* to_add) override;
-
+    // Add a set of facet params to the AeroSurfaceFactory.
+    // The type of FacetParams MUST be AeroParams, or the function
+    // will fail.
+    void add_facet_params(FacetParams * to_add) override;
 
 protected:
-
-  // Included so JEOD can include all default facet factories that
-  // it knows about. For extensibility the user can add
-  // factories with add_facet_factory
-   /**
-    * A factory that can create a flat plate aero facet from a flat plate.
-    */
-  FlatPlateAeroFactory flat_plate_aero_factory;   //!< trick_units(--)
-   /**
-    * A factory that can create a flat plate aero facet from a flat plate.
-    */
-  FlatPlateThermalAeroFactory flat_plate_thermal_aero_factory;   //!< trick_units(--)
-
-private:
-
-   // operator = and copy constructor locked from use because they
-   // are declared private
-
-   AeroSurfaceFactory& operator = (const AeroSurfaceFactory& rhs);
-   AeroSurfaceFactory (const AeroSurfaceFactory& rhs);
-
+    // Included so JEOD can include all default facet factories that
+    // it knows about. For extensibility the user can add
+    // factories with add_facet_factory
+    /**
+     * A factory that can create a flat plate aero facet from a flat plate.
+     */
+    FlatPlateAeroFactory flat_plate_aero_factory;                //!< trick_units(--)
+                                                                 /**
+                                                                  * A factory that can create a flat plate aero facet from a flat plate.
+                                                                  */
+    FlatPlateThermalAeroFactory flat_plate_thermal_aero_factory; //!< trick_units(--)
 };
 
-
-} // End JEOD namespace
+} // namespace jeod
 
 #endif
 

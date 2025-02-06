@@ -59,7 +59,6 @@ Library Dependencies:
 
 *******************************************************************************/
 
-
 #ifndef JEOD_MASS_POINT_INIT_HH
 #define JEOD_MASS_POINT_INIT_HH
 
@@ -67,8 +66,8 @@ Library Dependencies:
 #include "class_declarations.hh"
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "utils/orientation/include/orientation.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 // System includes
 #include <string>
@@ -78,88 +77,79 @@ Library Dependencies:
 %include "std_string.i"
 #endif
 
-
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /**
  * Contains data used to initialize a MassPoint.
  */
-class MassPointInit {
+class MassPointInit
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, MassPointInit)
 
-   JEOD_MAKE_SIM_INTERFACES(MassPointInit)
+public:
+    /**
+     * Specifies sense of the input point orientation data.
+     * The overloading of names is intentional.
+     */
+    enum FrameSpec
+    {
+        StructToBody = 0,  ///< Orientation specifies structure-to-body transform
+        StructToCase = 0,  ///< Orientation specifies structure-to-case transform
+        StructToPoint = 0, ///< Orientation specifies structure-to-point transform
+        StructToChild = 0, ///< Orientation specifies structure-to-child transform
+        BodyToStruct = 1,  ///< Orientation specifies body-to-structure transform
+        CaseToStruct = 1,  ///< Orientation specifies case-to-structure transform
+        PointToStruct = 1, ///< Orientation specifies point-to-structure transform
+        ChildToStruct = 1  ///< Orientation specifies child-to-structure transform
+    };
 
- public:
+    // Member data
 
-   /**
-    * Specifies sense of the input point orientation data.
-    * The overloading of names is intentional.
-    */
-   enum FrameSpec {
-      StructToBody  = 0,  ///< Orientation specifies structure-to-body transform
-      StructToCase  = 0,  ///< Orientation specifies structure-to-case transform
-      StructToPoint = 0,  ///< Orientation specifies structure-to-point transform
-      StructToChild = 0,  ///< Orientation specifies structure-to-child transform
-      BodyToStruct  = 1,  ///< Orientation specifies body-to-structure transform
-      CaseToStruct  = 1,  ///< Orientation specifies case-to-structure transform
-      PointToStruct = 1,  ///< Orientation specifies point-to-structure transform
-      ChildToStruct = 1   ///< Orientation specifies child-to-structure transform
-   };
+    /**
+     * Mass point location expressed in mass element structural coordinates.
+     */
+    double position[3]{}; //!< trick_units(m)
 
+    /**
+     * Mass point frame orientation specification.
+     */
+    Orientation pt_orientation; //!< trick_units(--)
 
-   // Member data
+    /**
+     * Indicates whether user orientation input defines the structure-to-body
+     * or body-to-structure transformation matrix.
+     */
+    FrameSpec pt_frame_spec{StructToPoint}; //!< trick_units(--)
 
-   /**
-    * Mass point location expressed in mass element structural coordinates.
-    */
-   double position[3]; //!< trick_units(m)
+    /**
+     * Item name, with the following semantics for items that have a name:
+     * - The mass point name will always be of the form "mass_name.point_name".
+     * - If the supplied name does not begin with "mass_name.", this prefix
+     *   will be applied to the supplied name in naming the mass point.
+     *
+     * This can be left as the empty string for items that don't have a name.
+     */
+    std::string name{""}; //!< trick_units(--)
 
-   /**
-    * Mass point frame orientation specification.
-    */
-   Orientation pt_orientation; //!< trick_units(--)
+    // Member functions
+    MassPointInit();
+    virtual ~MassPointInit() = default;
 
-   /**
-    * Indicates whether user orientation input defines the structure-to-body
-    * or body-to-structure transformation matrix.
-    */
-   FrameSpec pt_frame_spec; //!< trick_units(--)
+    // Initialize a mass point.
+    void initialize_mass_point(MassPoint & mass_point) const;
 
-   /**
-    * Item name, with the following semantics for items that have a name:
-    * - The mass point name will always be of the form "mass_name.point_name".
-    * - If the supplied name does not begin with "mass_name.", this prefix
-    *   will be applied to the supplied name in naming the mass point.
-    *
-    * This can be left as the empty string for items that don't have a name.
-    */
-   std::string name; //!< trick_units(--)
-
-
-   // Member functions
-
-   // Constructor.
-   MassPointInit ();
-
-   /**
-    * Destructor.
-    */
-   virtual ~MassPointInit () = default;
-
-   // Initialize a mass point.
-   void initialize_mass_point (MassPoint & mass_point) const;
-
-   /**
-    * Set the name.
-    */
-   void set_name (std::string name_in)
-   {
-      name = std::move(name_in);
-   }
+    /**
+     * Set the name.
+     */
+    void set_name(std::string name_in)
+    {
+        name = std::move(name_in);
+    }
 };
 
-} // End JEOD namespace
-
+} // namespace jeod
 
 #endif
 

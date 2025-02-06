@@ -48,7 +48,7 @@
  Library dependencies:
     ((../src/ground_facet.cc))
 
- 
+
 
 *****************************************************************************/
 
@@ -56,61 +56,54 @@
 #define GROUND_FACET_HH
 
 // JEOD includes
-#include "utils/sim_interface/include/jeod_class.hh"
 #include "interactions/contact/include/class_declarations.hh"
+#include "utils/sim_interface/include/jeod_class.hh"
 
 #include "ground_interaction.hh"
 
 //! Namespace jeod
-namespace jeod {
+namespace jeod
+{
 
 /*
   Purpose:
     (An contact interaction specific facet for use in the surface model.)
  */
-class GroundFacet {
-
-   JEOD_MAKE_SIM_INTERFACES(GroundFacet)
+class GroundFacet
+{
+    JEOD_MAKE_SIM_INTERFACES(jeod, GroundFacet)
 
 public:
-   bool active; /* trick_units(--) @n
-      toggles this contact facet on and off, true=on false=off */
+    bool active{true}; /* trick_units(--) @n
+       toggles this contact facet on and off, true=on false=off */
 
-   double alt_offset; /* trick_units(m) @n
-      altitude offset used to positioning objects for dynamics effect and
-      graphics sync. */
+    double alt_offset{}; /* trick_units(m) @n
+       altitude offset used to positioning objects for dynamics effect and
+       graphics sync. */
 
-   ContactParams * surface_type; /* trick_units(--) @n
-      Stores the name of surface material that the facet is constructed of.  This
-      information is used to deturmine the contact parameters used when pairs
-      are constructed. */
+    ContactParams * surface_type{}; /* trick_units(--) @n
+       Stores the name of surface material that the facet is constructed of.  This
+       information is used to deturmine the contact parameters used when pairs
+       are constructed. */
 
-   // constructor
-   GroundFacet ();
+    GroundFacet();
+    virtual ~GroundFacet() = default;
+    GroundFacet & operator=(const GroundFacet &) = delete;
+    GroundFacet(const GroundFacet &) = delete;
 
-   // destructor
-   virtual ~GroundFacet ();
-
-   /*
-    Overloaded function to create a GroundInteraction of the appropriate type and return
-    a pointer to the Contact class.
-    */
-   virtual GroundInteraction * create_interaction(ContactFacet * subject, Contact * contact);
-
-private:
-   /* Operator = and copy constructor hidden from use by being private */
-
-   GroundFacet& operator = (const GroundFacet& rhs);
-   GroundFacet (const GroundFacet& rhs);
-
+    /*
+     Overloaded function to create a GroundInteraction of the appropriate type and return
+     a pointer to the Contact class.
+     */
+    virtual GroundInteraction * create_interaction(ContactFacet * subject, Contact * contact);
 };
 
-} // End JEOD namespace
+} // namespace jeod
 
-#if (defined TRICK_VER)// && (TRICK_VER < 10)
+#if(defined TRICK_VER) // && (TRICK_VER < 10)
 #include "interactions/contact/include/contact_params.hh"
-#include "point_ground_interaction.hh"
 #include "line_ground_interaction.hh"
+#include "point_ground_interaction.hh"
 
 #endif
 

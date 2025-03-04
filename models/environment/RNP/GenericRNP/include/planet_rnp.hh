@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -83,11 +83,13 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "planet_orientation.hh"
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -160,7 +162,7 @@ public: // public member variables
      * Rotation Matrix representing:
      * transpose(nutation->rotation) * transpose(precession->rotation)
      */
-    double NP_matrix[3][3]{IDENTITY}; //!< trick_units(--)
+    double NP_matrix[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
 protected: // private member variables
     /**
@@ -201,6 +203,8 @@ public: // public member functions
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif
 

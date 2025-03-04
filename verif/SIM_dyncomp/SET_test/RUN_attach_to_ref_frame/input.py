@@ -30,10 +30,13 @@
 #*****************************************************************************/
 
 # Import the JEOD checkpoint/restart module.
-import sys 
+import sys
 import math
 import os
-sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
+JEOD_HOME = os.getenv("JEOD_HOME")
+if JEOD_HOME is None:
+    JEOD_HOME = os.path.abspath(os.path.join(os.getcwd(),"../../"))
+sys.path.append ('/'.join([JEOD_HOME, "lib/jeod/python"]))
 import jeod_checkpoint_restart
 
 exec(compile(open( "SET_test/common_input.py", "rb").read(), "SET_test/common_input.py", 'exec'))

@@ -21,7 +21,6 @@ Library dependencies:
 
 class PointMass;
 #define JEOD_FRIEND_CLASS PointMass_grav_verif_default_data
-#define ptmass_mu 3.986004415E+14 // gravitational parameter (m3/s2)
 
 // JEOD includes
 
@@ -32,6 +31,8 @@ class PointMass;
 //! Namespace jeod
 namespace jeod
 {
+
+static constexpr double ptmass_mu = 3.986004415E+14; // gravitational parameter (m3/s2)
 
 void PointMass_grav_verif_default_data::initialize(PointMass * PointMass_ptr)
 {

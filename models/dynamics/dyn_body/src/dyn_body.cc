@@ -26,7 +26,7 @@ Library dependencies:
    (dyn_body_propagate_state.cc)
    (dyn_body_set_state.cc)
    (dyn_body_vehicle_point.cc)
-   (aux_classes.cc)
+   (body_force_collect.cc)
    (force.cc)
    (torque.cc)
    (dynamics/dyn_manager/src/dynamics_integration_group.cc)

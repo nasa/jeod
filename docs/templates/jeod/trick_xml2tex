@@ -32,7 +32,14 @@
 #
 
 use strict ;
-use lib $ENV{"TRICK_HOME"} . "/bin/pm" ;
+
+my $TRICK_HOME = $ENV{TRICK_HOME};
+unless (defined $TRICK_HOME) {
+    $TRICK_HOME = `trick-config --prefix`;
+    $TRICK_HOME = chomp($TRICK_HOME);
+}
+
+use lib ${TRICK_HOME} . "/bin/pm" ;
 
 use XML::Parser ;
 use XML::Simple ;
@@ -87,7 +94,7 @@ sub fix_xml($$@) {
        }
        else {
           warn "Unexpected ref $rref for $key" ;
-          $ref->{$key} = [] ; 
+          $ref->{$key} = [] ;
        }
     }
 }
@@ -305,16 +312,16 @@ foreach my $file ( @ARGV ) {
         ( $tex = $file ) =~ s/\.xml$/.tex/ ;
     }
     open FILE, ">$tex" or die "Could not open output file $tex for writing" ;
-    
+
     $xml = XMLin($file) ;
     if ( $args{v} > 0 ) {
         print Dumper($xml) ;
     }
-    
+
     $file_name = transform($$xml{file_name}) ;
     print FILE "{\\bf File:} {\\tt $file_name}
     \\vspace{0.125in}\n\n" ;
-    
+
     #--------------------------------------------------------------
     # Common trick header processing
     #--------------------------------------------------------------
@@ -366,8 +373,8 @@ foreach my $file ( @ARGV ) {
             print_list( *FILE , \$$dependencies{library_dependency}) ;
         }
     }
-    
-    
+
+
     #--------------------------------------------------------------
     # Header specific enums and structs
     #--------------------------------------------------------------
@@ -390,7 +397,7 @@ foreach my $file ( @ARGV ) {
             print FILE "\\end{itemize}\n\n" ;
         }
     }
-    
+
     # list out structures
     if ( exists $$xml{structures} ) {
         my $structs = $$xml{structures} ;
@@ -410,7 +417,7 @@ foreach my $file ( @ARGV ) {
             print FILE "\\end{itemize}\n\n" ;
         }
     }
-    
+
     # write out details of enums
     if ( exists $$xml{enumerations} ) {
         my $enums = $$xml{enumerations} ;
@@ -420,7 +427,7 @@ foreach my $file ( @ARGV ) {
             }
         }
     }
-    
+
     # write out details of structs
     if ( exists $$xml{structures} ) {
         my $structs = $$xml{structures} ;
@@ -430,18 +437,18 @@ foreach my $file ( @ARGV ) {
             }
         }
     }
-    
+
     #--------------------------------------------------------------
     # Module specific includes and jobs
     #--------------------------------------------------------------
-    
+
     if ( exists $$xml{includes} ) {
         my $includes = $$xml{includes} ;
         print FILE "\n{\\bf Include Files:}\n" ;
         fix_xml $includes, '', 'file';
         print_list( *FILE , \$$includes{file}) ;
     }
-    
+
     if ( exists $$xml{jobs} ) {
         my $jobs = $$xml{jobs} ;
         print FILE "\n{\\bf Functions:}

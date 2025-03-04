@@ -30,19 +30,23 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/thermal_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/thermal_rider/"
+// Model includes
+#include "../include/thermal_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_THERMAL_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(ThermalMessages, "utils/thermal_rider/", id)
+
 // Static member data
 // Errors and warnings
-const char * ThermalMessages::incomplete_setup_error = PATH "incomplete_setup_error";
+MAKE_THERMAL_MESSAGE_CODE(incomplete_setup_error);
+MAKE_THERMAL_MESSAGE_CODE(invalid_integration_operation);
 
-const char * ThermalMessages::invalid_integration_operation = PATH "invalid_integration_operation";
+#undef MAKE_THERMAL_MESSAGE_CODE
 
 } // namespace jeod
 

@@ -31,35 +31,30 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/time_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "environment/time/"
+// Model includes
+#include "../include/time_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-// ENTRY POINT //
+#define MAKE_TIME_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(TimeMessages, "environment/time/", id)
 
 // Static member data
 // Errors and warnings
-const char * TimeMessages::initialization_error = PATH "initialization_error";
+MAKE_TIME_MESSAGE_CODE(initialization_error);
+MAKE_TIME_MESSAGE_CODE(memory_error);
+MAKE_TIME_MESSAGE_CODE(invalid_setup_error);
+MAKE_TIME_MESSAGE_CODE(invalid_data_error);
+MAKE_TIME_MESSAGE_CODE(incomplete_setup_error);
+MAKE_TIME_MESSAGE_CODE(redundancy_error);
+MAKE_TIME_MESSAGE_CODE(duplicate_methods);
+MAKE_TIME_MESSAGE_CODE(extension_error);
+MAKE_TIME_MESSAGE_CODE(invalid_node);
 
-const char * TimeMessages::memory_error = PATH "memory_error";
-
-const char * TimeMessages::invalid_setup_error = PATH "invalid_setup_error";
-
-const char * TimeMessages::invalid_data_error = PATH "invalid_data_error";
-
-const char * TimeMessages::incomplete_setup_error = PATH "incomplete_setup_error";
-
-const char * TimeMessages::redundancy_error = PATH "redundancy_error";
-
-const char * TimeMessages::duplicate_methods = PATH "duplicate_methods";
-
-const char * TimeMessages::extension_error = PATH "extension_error";
-
-const char * TimeMessages::invalid_node = PATH "invalid_node";
+#undef MAKE_TIME_MESSAGE_CODE
 
 } // namespace jeod
 

@@ -1,3 +1,5 @@
+JEOD_HOME ?= $(realpath $(CURDIR)/../../../../../)
+
 # Set additional Trick compilation flags
 TRICK_CFLAGS += -I${JEOD_HOME}/models ${OPTLEVEL}
 TRICK_CXXFLAGS += -I${JEOD_HOME}/models ${OPTLEVEL}

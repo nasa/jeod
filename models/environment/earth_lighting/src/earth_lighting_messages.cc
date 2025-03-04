@@ -31,16 +31,22 @@ Library dependencies:
 
 *******************************************************************************/
 
-#include "../include/earth_lighting_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "environment/earth_lighting/"
+// Model includes
+#include "../include/earth_lighting_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_EARTHLIGHTING_MESSAGE_CODE(id)                                                                            \
+    JEOD_MAKE_MESSAGE_CODE(EarthLightingMessages, "environment/earth_lighting/", id)
+
 // Errors
-const char * EarthLightingMessages::initialization_error = PATH "initialization_error";
+MAKE_EARTHLIGHTING_MESSAGE_CODE(initialization_error);
+
+#undef MAKE_EARTHLIGHTING_MESSAGE_CODE
 
 } // namespace jeod
 

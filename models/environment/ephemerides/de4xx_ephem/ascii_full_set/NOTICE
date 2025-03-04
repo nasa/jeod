@@ -1,6 +1,0 @@
-This directory contains the ascii JPL ephemeris data files but is not provided 
-for open-source. The JEOD build rules as of JEOD v5.0.1 to v5.2.0 does not 
-account for the possibility of having the generated source files but not these 
-ascii files. Only the names of the files were required so this directory has 
-empty versions of the ascii files so that the *.cc files get built. JEOD v5.3.0 
-will have a fix for this.

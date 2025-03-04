@@ -8,6 +8,7 @@
 
 ifndef jeod_compile_directory_unoptimized
 
+JEOD_HOME ?= $(dirname $(dirname $(dirname "$0")))
 
 ###
 # \def jeod_compile_directory_unoptimized (directory)

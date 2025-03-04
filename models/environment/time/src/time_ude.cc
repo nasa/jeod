@@ -253,7 +253,7 @@ void TimeUDE::convert_epoch_to_update(JeodBaseTime * epoch_ptr,
     {
         update_from_ptr->override_initialized(false);
         converter_ptr->initialize(epoch_ptr, update_from_ptr, conv_dir);
-        converter_ptr->override_initialized(false); // FIXME: poor practice.
+        converter_ptr->override_initialized(false);
     }
 
     // overwrite the parent values (don't worry, they are recorded elsewhere)

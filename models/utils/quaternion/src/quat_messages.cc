@@ -31,19 +31,22 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/quat_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/quaternion/"
+// Model includes
+#include "../include/quat_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_QUAT_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(QuatMessages, "utils/quaternion/", id)
+
 // Static member data
+MAKE_QUAT_MESSAGE_CODE(undefined);
+MAKE_QUAT_MESSAGE_CODE(invalid_entry);
 
-const char * QuatMessages::undefined = PATH "undefined";
-
-const char * QuatMessages::invalid_entry = PATH "invalid_entry";
+#undef MAKE_QUAT_MESSAGE_CODE
 
 } // namespace jeod
 

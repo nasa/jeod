@@ -10,7 +10,6 @@
 #
 #Description:
 #The purpose of this test is to verify that the output of the NASA simulation
-#MET atmosphere model.
 #
 #Run Scenario:
 #   Model Setup -
@@ -19,11 +18,6 @@
 #         Planetary ephemeris = On
 #         Third body perturbations = On
 #      Gravity Gradient Torque: On
-#      Atmosphere Model: On
-#         F10.7 = 128.8
-#         Geomagnetic Index = 15.7
-#      Aerodynamic Drag Model: On
-#         Coefficient of drag = 0.02
 #
 #   Simulation Duration - 28800 sec (8 hrs)
 #
@@ -31,7 +25,6 @@
 #
 #
 #*****************************************************************************/
-
 
 trick.sim_services.exec_set_trap_sigfpe(1)
 
@@ -51,18 +44,12 @@ exec(compile(open( "Modified_data/time.py", "rb").read(), "Modified_data/time.py
 #/*---------------------------------------------
 # * Set up planetary bodies.
 # *---------------------------------------------*/
-
 # Turn off polar motion.
 earth.rnp.enable_polar = 0
-
-# Configure atmosphere.
-exec(compile(open( "Modified_data/solar_flux_mean.py", "rb").read(), "Modified_data/solar_flux_mean.py", 'exec'))
-exec(compile(open( "Modified_data/uniform_wind.py", "rb").read(), "Modified_data/uniform_wind.py", 'exec'))
 
 #/*---------------------------------------------
 # * Configure the vehicle.
 # *---------------------------------------------*/
-
 # Set the vehicle name.
 sv_dyn.dyn_body.set_name("iss")
 
@@ -73,8 +60,6 @@ sv_dyn.dyn_body.rotational_dynamics = True
 
 # Configure the derived reference frames.
 sv_dyn.pfix.reference_name     = "Earth"
-sv_dyn.lvlh.reference_name     = "Earth"
-sv_dyn.orb_elem.reference_name = "Earth"
 
 # Set up the gravity controls for the Earth.
 sv_dyn.earth_grav_ctrl.source_name     = "Earth"
@@ -113,19 +98,8 @@ sv_dyn.moon_grav_ctrl.gradient        = True
 
 sv_dyn.dyn_body.grav_interaction.add_control(sv_dyn.moon_grav_ctrl)
 
-
 # Configure gravity gradient torque.
 sv_dyn.grav_torque.active = True
-
-# Configure the atmosphere.
-sv_dyn.atmos_state.active = True
-
-# Configure aerodynamics (~ISS Aerodynamic Parameters).
-# This is the value for Cd = 2.0 and Area = 1400.0
-sv_dyn.aero_drag.active = True
-sv_dyn.aero_drag.ballistic_drag.option = trick.DefaultAero.DRAG_OPT_CD
-sv_dyn.aero_drag.ballistic_drag.Cd = 2.0
-sv_dyn.aero_drag.ballistic_drag.area = 1400.0
 
 # Configuration vehicle mass properties.
 exec(compile(open( "Modified_data/mass.py", "rb").read(), "Modified_data/mass.py", 'exec'))
@@ -133,6 +107,5 @@ exec(compile(open( "Modified_data/mass.py", "rb").read(), "Modified_data/mass.py
 # Configuration vehicle initial state.
 exec(compile(open( "Modified_data/state.py", "rb").read(), "Modified_data/state.py", 'exec'))
 state_iss_highly_elliptical()
-
 
 trick.stop(28800)

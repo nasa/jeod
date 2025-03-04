@@ -158,7 +158,6 @@ Trick::SimObject * JeodDynbodyIntegrationLoop::find_containing_sim_object(
 // Add the specified integrable object to the integration group.
 void JeodDynbodyIntegrationLoop::add_integrable_object(er7_utils::IntegrableObject & integrable_object)
 {
-    // The object must not be a DynBody.
     if(dynamic_cast<DynBody *>(&integrable_object))
     {
         Trick::SimObject * sim_obj = find_containing_sim_object(integrable_object);

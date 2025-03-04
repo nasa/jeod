@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -71,6 +71,9 @@ Library dependencies:
 // Local includes
 #include "jeod_trick_integrator.hh"
 
+// ER7 utilities includes
+#include "er7_utils/integration/core/include/integrable_object.hh"
+
 // JEOD includes
 #include "dynamics/dyn_manager/include/dynamics_integration_group.hh"
 #include "utils/integration/include/jeod_integration_group.hh"
@@ -96,14 +99,6 @@ namespace Trick
 {
 class SimObject;
 } // namespace Trick
-
-/**
- * Namespace er7_utils contains the state integration models used by JEOD.
- */
-namespace er7_utils
-{
-class IntegrableObject;
-} // namespace er7_utils
 
 //! Namespace jeod
 namespace jeod

@@ -6,8 +6,12 @@
 #########################################################################
 
 if (! $?JEOD_HOME) then
-   echo 
-   echo "Environment Variable JEOD_HOME is not set"
+   set FILE_PATH=`readlink -f "$0"`
+   set FILE_DIR=`dirname $FILE_PATH`
+   set JEOD_HOME=`dirname $FILE_DIR`
+
+   echo
+   echo "Environment Variable JEOD_HOME is not set. Using relative location."
    echo
 endif
 

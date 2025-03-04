@@ -1,8 +1,7 @@
 #include "../../../include/gauss_quadrature.hh"
 // #include "utils/math/include/gauss_quadrature.hh"
-#include <iostream>
-#define _USE_MATH_DEFINES_
 #include <cmath>
+#include <iostream>
 
 double poly(size_t order, double var)
 {

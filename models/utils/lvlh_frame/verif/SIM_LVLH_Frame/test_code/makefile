@@ -1,4 +1,6 @@
- run_test: read_trk_csv.o quat.o quat_from_mat.o main.o
+export JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../../../../../../)
+
+run_test: read_trk_csv.o quat.o quat_from_mat.o main.o
 	g++ read_trk_csv.o quat.o quat_from_mat.o main.o -o run_test
 
 read_trk_csv.o : read_trk_csv.cc read_trk_csv.hh

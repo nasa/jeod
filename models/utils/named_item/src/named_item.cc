@@ -43,8 +43,6 @@ Library Dependency:
 #include "../include/named_item.hh"
 #include "../include/named_item_messages.hh"
 
-#define MAX_NAME_ITEMS 8
-
 //! Namespace jeod
 namespace jeod
 {

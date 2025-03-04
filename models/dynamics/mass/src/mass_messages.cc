@@ -31,30 +31,28 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/mass_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "dynamics/mass/"
+// Model includes
+#include "../include/mass_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_MASSBODY_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MassBodyMessages, "dynamics/mass/", id)
+
 // Static member data
-const char * MassBodyMessages::attach_info = PATH "attach_info";
+MAKE_MASSBODY_MESSAGE_CODE(attach_info);
+MAKE_MASSBODY_MESSAGE_CODE(invalid_attach);
+MAKE_MASSBODY_MESSAGE_CODE(invalid_detach);
+MAKE_MASSBODY_MESSAGE_CODE(invalid_node);
+MAKE_MASSBODY_MESSAGE_CODE(invalid_name);
+MAKE_MASSBODY_MESSAGE_CODE(invalid_enum);
+MAKE_MASSBODY_MESSAGE_CODE(io_error);
+MAKE_MASSBODY_MESSAGE_CODE(internal_error);
 
-const char * MassBodyMessages::invalid_attach = PATH "invalid_attach";
-
-const char * MassBodyMessages::invalid_detach = PATH "invalid_detach";
-
-const char * MassBodyMessages::invalid_node = PATH "invalid_node";
-
-const char * MassBodyMessages::invalid_name = PATH "invalid_name";
-
-const char * MassBodyMessages::invalid_enum = PATH "invalid_enum";
-
-const char * MassBodyMessages::io_error = PATH "io_error";
-
-const char * MassBodyMessages::internal_error = PATH "internal_error";
+#undef MAKE_MASSBODY_MESSAGE_CODE
 
 } // namespace jeod
 

@@ -49,11 +49,11 @@ LIBRARY DEPENDENCY:
 #include "../include/earth_lighting.hh"
 #include "../include/earth_lighting_messages.hh"
 
-#define EPSILON 1.0e-12
-
 //! Namespace jeod
 namespace jeod
 {
+
+static constexpr double epsilon = 1.0e-12;
 
 /* Initialize the EarthLighting object with the applicable DynManager */
 
@@ -141,7 +141,7 @@ PURPOSE:
 
 
 ASSUMPTIONS AND LIMITATIONS:
-    ((EPSILON comparison in if test help protect against a numerical
+    ((epsilon comparison in if test help protect against a numerical
       singularity for d_centers = 0.0 ))
 
 ******************************************************************************/
@@ -176,7 +176,7 @@ int EarthLighting::circle_intersect(double r_bottom, double r_top, double d_cent
     if(r_bottom > r_top)
     {
         /* Check to see if top circle is completely inside bottom circle. */
-        if(d_centers < (r_bottom - r_top) + EPSILON)
+        if(d_centers < (r_bottom - r_top) + epsilon)
         {
             /* Area of intersection is entire top circle. */
             *area = M_PI * r_top * r_top;
@@ -188,7 +188,7 @@ int EarthLighting::circle_intersect(double r_bottom, double r_top, double d_cent
     else
     {
         /* Check to see if top circle completely covers bottom circle. */
-        if(d_centers < (r_top - r_bottom) + EPSILON)
+        if(d_centers < (r_top - r_bottom) + epsilon)
         {
             /* Area of intersection is entire bottom circle. */
             *area = M_PI * r_bottom * r_bottom;

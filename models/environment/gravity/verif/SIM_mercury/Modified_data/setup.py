@@ -39,8 +39,11 @@ def _is_modern_trick () :
     import os
     import os.path
 
-    trick_ver_exec = \
-        '/'.join((os.getenv("TRICK_HOME"), 'bin/trick-version'))
+    TRICK_HOME = os.getenv("TRICK_HOME")
+    if TRICK_HOME is None:
+        TRICK_HOME = os.popen("trick-config --prefix").read().strip()
+
+    trick_ver_exec = '/'.join((TRICK_HOME, 'bin/trick-version'))
     result = os.path.isfile(trick_ver_exec)
     return result
 

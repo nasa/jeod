@@ -13,20 +13,23 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/orientation_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/integration/verif/"
+// Model includes
+#include "../include/orientation_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_ORIENTATION_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(OrientationMessages, "utils/integration/verif/", id)
+
 // Static member data
-const char * OrientationMessages::invalid_enum = PATH "invalid_enum";
+MAKE_ORIENTATION_MESSAGE_CODE(invalid_enum);
+MAKE_ORIENTATION_MESSAGE_CODE(invalid_data);
+MAKE_ORIENTATION_MESSAGE_CODE(invalid_request);
 
-const char * OrientationMessages::invalid_data = PATH "invalid_data";
-
-const char * OrientationMessages::invalid_request = PATH "invalid_request";
+#undef MAKE_ORIENTATION_MESSAGE_CODE
 
 } // namespace jeod
 

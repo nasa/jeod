@@ -4,7 +4,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright 2023 United States Government as represented by the Administrator
+# Copyright 2025 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -50,9 +50,14 @@ startupDir = os.getcwd()
 argv = sys.argv[1:]
 
 def getArgs():
+
+    TRICK_HOME = os.getenv("TRICK_HOME")
+    if TRICK_HOME is None:
+        TRICK_HOME = os.popen("trick-config --prefix").read().strip()
+
     parser = ArgumentParser(description='Build, run, and compare all \
     validation/verification sims as specified in verif_sim_list.py. \
-    Returns zero if all tests pass, nonzero otherwise.')
+    Returns zero if all tests pass, nonzero otherwise.'                                                                                                              )
 
     parser.add_argument( "-a",
                          "--analyze",
@@ -69,7 +74,7 @@ def getArgs():
     parser.add_argument( "-b",
                          "--build-command",
                          dest="build_command",
-                         default="$TRICK_HOME/bin/trick-CP",
+                         default="{0}/bin/trick-CP".format(TRICK_HOME),
                          help="Command to build the simulation.")
 
     parser.add_argument( "--build-none",
@@ -215,14 +220,14 @@ def main():
 
     tprint (header, 'DARK_CYAN')
 
-  ############################################################################
-  # Create a list of sims that need building, and those which do not.
-  # Flags passed in with arguments:
-  # - build_none. Do not build even in cases where executable files do not exist
-  # - build-all.  Build (or rebuild) all sims, overwriting existing executables
-  # - <default>.  Use existing executables where they exist, build sims where
-  #                executables do not exist
-  ############################################################################
+    ############################################################################
+    # Create a list of sims that need building, and those which do not.
+    # Flags passed in with arguments:
+    # - build_none. Do not build even in cases where executable files do not exist
+    # - build-all.  Build (or rebuild) all sims, overwriting existing executables
+    # - <default>.  Use existing executables where they exist, build sims where
+    #                executables do not exist
+    ############################################################################
     all_sims = [sim for model in verif_package.models
                     for sim in model.sims]
     build_sims = []
@@ -239,13 +244,13 @@ def main():
             else:
                 build_sims.append(sim)
 
-  ############################################################################
-  # Build all sims identified in the build_sims list in parallel
-  # Set the status of *every* sim (including those not in the build_sims
-  #   list) according to whether it has an executable.
-  ############################################################################
+    ############################################################################
+    # Build all sims identified in the build_sims list in parallel
+    # Set the status of *every* sim (including those not in the build_sims
+    #   list) according to whether it has an executable.
+    ############################################################################
     exec_jobs = [ Job ( "Build "+ sim.full_sim_dir,
-                        "pushd $JEOD_HOME/"+sim.full_sim_dir+"; "+myArgs.build_command+"; ret=$?; popd; exit $ret",
+                        "pushd " + myArgs.repo_path + "/"+sim.full_sim_dir+"; "+myArgs.build_command+"; ret=$?; popd; exit $ret",
                         myArgs.logdir+"/02_build_info_"+sim.unique_id+".txt",
                         0)
                   for sim in build_sims]
@@ -262,15 +267,15 @@ def main():
 
 
 
-  ############################################################################
-  # - Generate a set of run-commands for all runs associated with those sims
-  #   that now have an executable.  Skip sims that failed to build.
-  # - Create a list of executable jobs,  with each job representing one run and
-  # - Execute them in parallel.
-  # - Adjust the status of the VerifRun instances according to the status of
-  #   the completed corresponding Job instances.
-  # - launch the data comparison on all runs that have completed.
-  ############################################################################
+    ############################################################################
+    # - Generate a set of run-commands for all runs associated with those sims
+    #   that now have an executable.  Skip sims that failed to build.
+    # - Create a list of executable jobs,  with each job representing one run and
+    # - Execute them in parallel.
+    # - Adjust the status of the VerifRun instances according to the status of
+    #   the completed corresponding Job instances.
+    # - launch the data comparison on all runs that have completed.
+    ############################################################################
     all_runs = [run for sim in all_sims
                     for run in sim.runs]
     if myArgs.run_none:
@@ -290,14 +295,12 @@ def main():
     parallel_runs( exec_jobs, myArgs.cpus)
 
 
-    excludedFiles = [
-        "/builds/JEOD/jeod-dev/regression/logs/03_run_info_models__dynamics__dyn_body__verif__SIM_verif_shutdown__RUN_shutdown_without_detach.txt",
-        "/builds/JEOD/jeod-dev/regression/logs/03_run_info_verif__SIM_dyncomp__RUN_checkpoint_create.txt",
-        "/builds/JEOD/jeod-dev/regression/logs/03_run_info_verif__SIM_dyncomp__RUN_checkpoint_restart.txt"]
+    filesWithExtraTextAtEnd = ["/builds/JEOD/jeod-dev/regression/logs/03_run_info_models__dynamics__dyn_body__verif__SIM_verif_shutdown__RUN_shutdown_without_detach.txt"]
+    rowsOfExtraTextAtEnd = [4]
 
     # assign the status exec_jobs and the corresponding all_exec_runs have
     # matching indices so can use enumerate capability.
-    for ii,job in enumerate(exec_jobs):
+    for ii, job in enumerate(exec_jobs):
         run = all_exec_runs[ii]
         if job.get_status() is job.Status.NOT_STARTED:
             run.status = run.Status.NOT_STARTED
@@ -305,24 +308,27 @@ def main():
             run.status = run.Status.RUN_FAIL
         elif job.get_status() is job.Status.SUCCESS:
             run.status = run.Status.RUN_SUCCESS
-            if job._log_file_name not in excludedFiles:
-                file = open(job._log_file_name, 'r')
-                fileList = list(file)
-                expectedText = "(External program RAM usage not included!)"
-                if expectedText not in fileList[-7]:
-                    run.status = run.Status.RUN_FAIL
-                    print("Check contents of " + job._log_file_name)
+            file = open(job._log_file_name, 'r')
+            fileList = list(file)
+            expectedText = "(External program RAM usage not included!)"
+            textRowIndex = 7
+            if job._log_file_name in filesWithExtraTextAtEnd:
+                index = filesWithExtraTextAtEnd.index(job._log_file_name)
+                textRowIndex = textRowIndex + rowsOfExtraTextAtEnd[index]
+            if expectedText not in fileList[-textRowIndex]:
+                run.status = run.Status.RUN_FAIL
+                print("Check contents of " + job._log_file_name)
             # perform the data verification on all successful runs
             # note - this will push the status to either COMP_FAIL or SUCCESS
             run.compare_data()
 
 
 
-  ############################################################################
-  # Start collecting the metadata
-  # Need counts of what has been succesful and what has not.
-  # Work from fine detail (file comparison success) to coarse (model success)
-  ############################################################################
+    ############################################################################
+    # Start collecting the metadata
+    # Need counts of what has been succesful and what has not.
+    # Work from fine detail (file comparison success) to coarse (model success)
+    ############################################################################
 
     ####
     # Generate 4 counts of all file comparisons that:
@@ -422,11 +428,11 @@ def main():
                                        if model.status is model.Status.SUCCESS])
 
 
-  ############################################################################
-  # Create the report and print out the metadata.
-  # - The report descends through the layers adding information at each layer.
-  # - The summary goes to stdout
-  ############################################################################
+    ############################################################################
+    # Create the report and print out the metadata.
+    # - The report descends through the layers adding information at each layer.
+    # - The summary goes to stdout
+    ############################################################################
     verif_package.report()
 
     # Print a summary
@@ -523,9 +529,9 @@ def main():
                 'DARK_RED' if count_comp_failures > 0 else 'DARK_YELLOW',
                 indent = 1)
 
-  ############################################################################
-  # Add optional calls to data analysis
-  ############################################################################
+    ############################################################################
+    # Add optional calls to data analysis
+    ############################################################################
     if myArgs.analyze_data_deltas:
         tprint( "ANALYZING DATA",'DARK_CYAN')
         if count_model == count_model_success:
@@ -543,12 +549,12 @@ def main():
                                         myArgs.run_base,
                                         myArgs.verif_base)
 
-  ############################################################################
-  # return:
-  # - 1 : something failed
-  # - 0 : everything passed
-  # - 6/10/2019: Morris reversed the 0/1 to reflect what CI expects
-  ############################################################################
+    ############################################################################
+    # return:
+    # - 1 : something failed
+    # - 0 : everything passed
+    # - 6/10/2019: Morris reversed the 0/1 to reflect what CI expects
+    ############################################################################
     return not all(model.status is model.Status.SUCCESS
                    for model in verif_package.models)
 

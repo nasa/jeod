@@ -6,14 +6,16 @@ include($ENV{JEOD_HOME}/bin/jeod/common_config.cmake)
 
 include($ENV{JEOD_HOME}/models/utils/integration/verif/er7_utils_stubs/mock_config.cmake)
 
-set(UNIT_TEST_SRC  
+set(UNIT_TEST_SRC
 derived_state_ut.cc
 euler_derived_state_ut.cc
-relative_derived_state_ut.cc
 lvlh_derived_state_ut.cc
 lvlh_relative_derived_state_ut.cc
-solar_beta_derived_state_ut.cc
+ned_derived_state_ut.cc
+orb_elem_derived_state_ut.cc
 planetary_derived_state_ut.cc
+relative_derived_state_ut.cc
+solar_beta_derived_state_ut.cc
 ${ER7_STUB_SRCS}
 )
 set(UNIT_TEST_NAME test_program)

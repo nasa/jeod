@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -117,6 +117,11 @@ private:
      * A local pointer to the dynamics manager needed for clean-up
      */
     DynManager * local_dm{}; //!< trick_units(--)
+
+    /*
+     * Indicates whether frame has already been initialized.
+     */
+    bool initialized{}; //!< trick_units(--)
 
     // Methods
 public:

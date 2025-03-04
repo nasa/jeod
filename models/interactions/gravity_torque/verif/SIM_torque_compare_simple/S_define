@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -234,8 +234,6 @@ public:
         //
 
         //
-        //
-        //
         // Initialization jobs
         //
         P_ENV("initialization") de4xx.initialize_model(internal_jeod_time->manager, internal_dynamics->manager);
@@ -292,8 +290,6 @@ public:
         ("default_data") planet_default_data.initialize(&planet);
         ("default_data") gravity_default_data.initialize(&gravity_source);
 
-        //
-        //
         //
         // Initialization jobs
         //
@@ -366,8 +362,6 @@ public:
         ("default_data") pm_init_default_data.initialize(&pm_init);
 
         //
-        //
-        //
         // Initialization jobs
         //
         P_ENV("initialization") gravity_source.initialize_body();
@@ -435,8 +429,6 @@ public:
         ("default_data") planet_default_data.initialize(&planet);
         ("default_data") gravity_default_data.initialize(&gravity_source);
 
-        //
-        //
         //
         // Initialization jobs
         //

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -135,82 +135,45 @@ EarthSimObject earth(dynamics.dyn_manager,
 //***************************************************************
 
 // Include headers for classes that this class contains:
-##include "dynamics/body_action/include/dyn_body_init_orbit.hh"
 ##include "dynamics/body_action/include/dyn_body_init_lvlh_rot_state.hh"
-##include "dynamics/derived_state/include/euler_derived_state.hh"
-##include "dynamics/derived_state/include/lvlh_derived_state.hh"
-##include "dynamics/derived_state/include/euler_derived_state.hh"
-##include "dynamics/derived_state/include/orb_elem_derived_state.hh"
+##include "dynamics/derived_state/include/planetary_derived_state.hh"
 ##include "interactions/gravity_torque/include/gravity_torque.hh"
-##include "interactions/aerodynamics/include/aero_drag.hh"
 ##include "environment/gravity/include/spherical_harmonics_delta_controls.hh"
 
-// Include default data classes:
-##include "interactions/aerodynamics/data/include/aero_model.hh"
-
-#include "Base/vehicle_atmosphere.sm"
-class VehicleSimObject: public VehicleAtmSimObject
+#include "Base/vehicle_baseline.sm"
+class VehicleSimObject: public VehicleBasicSimObject
 {
 public:
-    jeod::DynBodyInitOrbit orb_init;
     jeod::DynBodyInitLvlhRotState lvlh_init;
-    jeod::EulerDerivedState euler;
-    jeod::LvlhDerivedState lvlh;
-    jeod::EulerDerivedState lvlh_euler;
-    jeod::OrbElemDerivedState orb_elem;
+    jeod::PlanetaryDerivedState pfix;
     jeod::GravityTorque grav_torque;
-    jeod::AerodynamicDrag aero_drag;
     jeod::SphericalHarmonicsGravityControls earth_grav_ctrl;
     jeod::SphericalHarmonicsGravityControls earth_spherical_grav_ctrl;
     jeod::SphericalHarmonicsGravityControls sun_grav_ctrl;
     jeod::SphericalHarmonicsGravityControls moon_grav_ctrl;
     jeod::SphericalHarmonicsDeltaControls sbtide_ctrl;
 
-    // Instances for default data:
-    jeod::AerodynamicDrag_aero_model_default_data aero_drag_default_data;
-
     // Constructor
-    VehicleSimObject(jeod::DynManager & dyn_mngr_in, jeod::METAtmosphere & atmos_in, jeod::WindVelocity & wind_in)
-        : VehicleAtmSimObject(dyn_mngr_in, atmos_in, wind_in)
+    VehicleSimObject(jeod::DynManager & dyn_mngr_in)
+        : VehicleBasicSimObject(dyn_mngr_in)
     {
-        // Default data jobs
-        ("default_data") aero_drag_default_data.initialize(&aero_drag);
-
-        P_DYN("initialization") euler.initialize(dyn_body, dyn_manager);
-        P_DYN("initialization") lvlh.initialize(dyn_body, dyn_manager);
-        P_DYN("initialization") lvlh_euler.initialize(lvlh.lvlh_frame, dyn_body, dyn_manager);
-        P_DYN("initialization") orb_elem.initialize(dyn_body, dyn_manager);
-        ("initialization") euler.update();
-        ("initialization") lvlh.update();
-        ("initialization") lvlh_euler.update();
-        ("initialization") orb_elem.update();
+        P_DYN("initialization") pfix.initialize(dyn_body, dyn_manager);
+        ("initialization") pfix.update();
         ("initialization") grav_torque.initialize(dyn_body);
 
         // Environment class jobs
-        (DYNAMICS, "environment") euler.update();
         (DYNAMICS, "environment") pfix.update();
-        (DYNAMICS, "environment") lvlh.update();
-        (DYNAMICS, "environment") lvlh_euler.update();
-        (DYNAMICS, "environment") orb_elem.update();
         (MID_RATE_ENV, "environment") dyn_body.sort_controls();
 
         // Derivative class jobs
-        P_BODY("derivative")
-        aero_drag.aero_drag(dyn_body.composite_body.state.trans.velocity,
-                            &atmos_state,
-                            dyn_body.structure.state.rot.T_parent_this,
-                            dyn_body.mass.composite_properties.mass,
-                            dyn_body.mass.composite_properties.position);
         P_PGRAV("derivative") grav_torque.update();
     }
 
     VehicleSimObject(const VehicleSimObject &) = delete;
     VehicleSimObject & operator=(const VehicleSimObject &) = delete;
 };
-VehicleSimObject sv_dyn(dynamics.dyn_manager, earth.atmos, earth.wind_velocity);
+VehicleSimObject sv_dyn(dynamics.dyn_manager);
 
-vcollect sv_dyn.dyn_body.collect.collect_no_xmit_forc jeod::CollectForce::create{sv_dyn.aero_drag.aero_force};
-vcollect sv_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{sv_dyn.aero_drag.aero_torque,
-                                                                                  sv_dyn.grav_torque.torque};
+vcollect sv_dyn.dyn_body.collect.collect_no_xmit_torq jeod::CollectTorque::create{sv_dyn.grav_torque.torque};
 
 IntegLoop sim_integ_loop(DYNAMICS) dynamics, earth, sv_dyn;

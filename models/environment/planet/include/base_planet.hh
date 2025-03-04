@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -64,12 +64,14 @@ Library Dependency:
 // JEOD includes
 #include "environment/ephemerides/ephem_interface/include/ephem_ref_frame.hh"
 #include "environment/gravity/include/gravity_source.hh"
-#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // System includes
 #include <string>
 #include <utility>
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -164,7 +166,7 @@ protected:
     /**
      * The transform from pfix to alt_pfix.
      */
-    double alt_pfix_transform[3][3]{IDENTITY}; //!< trick_units(--)
+    double alt_pfix_transform[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     /**
      * Flag to insure the alt_pfix transform never changed
@@ -173,6 +175,8 @@ protected:
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif
 

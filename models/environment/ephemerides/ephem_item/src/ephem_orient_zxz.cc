@@ -53,12 +53,16 @@ Library dependencies:
 // Model includes
 #include "../include/ephem_orient_zxz.hh"
 
-// EPSILON_TIME
+//! Namespace jeod
+namespace jeod
+{
+
+// epsilon_time
 // Limit designating an overly small time step, which typically result from
 // numerical errors.
-#define EPSILON_TIME 1e-12
+static constexpr double epsilon_time = 1e-12;
 
-// TAYLOR_CUTOFF:
+// taylor_cutoff:
 // Limit for approximating the quaternion exponential Q_rot = e^(phi*uhat) via a
 // normalized two-term Taylor expansion. The error in this normalized expansion
 // is bounded by phi^5/30.
@@ -66,11 +70,7 @@ Library dependencies:
 // quaternion Q_prop = Q_rot^T Q will be more than 1e-12 for even very small
 // angles. Keeping the error in Q_rot smaller than 1 part in 1e-12 means
 // that phi^5/30 <= 1e-12, or phi = 30e-12^0.2 = 0.00786.
-#define TAYLOR_CUTOFF 0.00786
-
-//! Namespace jeod
-namespace jeod
-{
+static constexpr double taylor_cutoff = 0.00786;
 
 /**
  * Return the Euler angles.
@@ -131,7 +131,7 @@ void EphemerisZXZOrientation::propagate(double to_time)
 
     // Calculate the time change and return if too small.
     deltat = to_time - update_time;
-    if((deltat > -EPSILON_TIME) && (deltat < EPSILON_TIME))
+    if((deltat > -epsilon_time) && (deltat < epsilon_time))
     {
         return;
     }
@@ -143,7 +143,7 @@ void EphemerisZXZOrientation::propagate(double to_time)
     // Approximate cos(wmag*dt/2), sin(wmag*wdt/2) via 2-term Taylor expansions
     // for small deltat.
     hwdt = 0.5 * ref_state->ang_vel_mag * deltat;
-    if(hwdt < TAYLOR_CUTOFF)
+    if(hwdt < taylor_cutoff)
     {
         double hwdtsq = hwdt * hwdt;
         coshwdt = 1.0 - 0.5 * hwdtsq;

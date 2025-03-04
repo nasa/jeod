@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -99,7 +99,7 @@ public:
       Purpose:
         (Adds all thermal sources together.)
      */
-    virtual void accumulate_thermal_sources(){};
+    virtual void accumulate_thermal_sources() {};
     // Used to integrate thermal sources over time to get temperature
     /**
      * Integrates thermal sources to get temperature.
@@ -108,7 +108,7 @@ public:
       Purpose:
         (Integrates thermal sources to get temperature.)
      */
-    virtual void thermal_integrator(){};
+    virtual void thermal_integrator() {};
 
     /**
      * A pure virtual function that will allocate the array of

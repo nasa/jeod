@@ -19,8 +19,15 @@
 
 use warnings;
 use strict;
+use File::Basename;
+use File::Spec;
 
-my $Dyncomp = "$ENV{JEOD_HOME}/verif/SIM_dyncomp";
+my $JEOD_HOME = $ENV{JEOD_HOME};
+unless (defined $JEOD_HOME) {
+    $JEOD_HOME = dirname(dirname(dirname(dirname(dirname(dirname(File::Spec->rel2abs($0)))))));
+}
+
+my $Dyncomp = "${JEOD_HOME}/verif/SIM_dyncomp";
 chomp (my $Trick_host_cpu = `trick-gte TRICK_HOST_CPU`);
 my $S_main = "S_main_$Trick_host_cpu.exe";
 

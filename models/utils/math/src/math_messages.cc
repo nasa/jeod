@@ -31,19 +31,18 @@ Library dependencies:
 // Model includes
 #include "../include/math_messages.hh"
 
-#define MAKE_MATH_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MathMessages, "utils/math/", id)
-
 //! Namespace jeod
 namespace jeod
 {
 
-// Define MathMessages static member data
+#define MAKE_MATH_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MathMessages, "utils/math/", id)
 
+// Define MathMessages static member data
 MAKE_MATH_MESSAGE_CODE(ill_conditioned);
 
-} // namespace jeod
-
 #undef MAKE_MATH_MESSAGE_CODE
+
+} // namespace jeod
 
 /**
  * @}

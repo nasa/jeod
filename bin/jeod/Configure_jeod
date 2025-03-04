@@ -21,6 +21,8 @@ if 0;
 use strict;
 use Getopt::Long;
 use Pod::Usage;
+use File::Basename;
+use File::Spec;
 ## use lib "$ENV{JEOD_HOME}/bin/jeod";
 ## use JeodConfig;
 
@@ -86,12 +88,18 @@ $Non_trick && $Trick
    and die "Flags -trick and -nontrick are incompatible\n";
 
 unless (defined $Er7_utils) {
+   my $TRICK_HOME = $ENV{TRICK_HOME};
+   unless (defined $TRICK_HOME) {
+      $TRICK_HOME = `trick-config --prefix`;
+      $TRICK_HOME = chomp($TRICK_HOME);
+   }
+
    if (defined $ENV{ER7_UTILS_HOME}) {
       $Er7_utils = "$ENV{ER7_UTILS_HOME}";
    }
-   elsif (defined $ENV{TRICK_HOME}) {
+   elsif (defined $TRICK_HOME) {
       warn "ER7_UTILS_HOME is not defined. Using \$TRICK_HOME/trick_source\n";
-      $Er7_utils = "$ENV{TRICK_HOME}/trick_source";
+      $Er7_utils = "$TRICK_HOME/trick_source";
    }
    else {
       die 'Neither ER7_UTILS_HOME nor TRICK_HOME is defined';
@@ -122,8 +130,12 @@ push @Install_options, '-trick'                  if $Trick;
 @Make_options = ('-f', $Makefile);
 push @Make_options, '-k' if $Keep_going;
 
+my $JEOD_HOME = $ENV{JEOD_HOME};
+unless (defined $JEOD_HOME) {
+    $JEOD_HOME = dirname(dirname(dirname(File::Spec->rel2abs($0))));
+}
 
-chdir $ENV{JEOD_HOME} or die;
+chdir $JEOD_HOME or die;
 
 system 'perl',
        "bin/jeod/install_makefile.pl",

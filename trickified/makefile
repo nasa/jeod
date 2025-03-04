@@ -1,10 +1,17 @@
-ifndef TRICK_HOME
+ifeq (, ${TRICK_HOME})
+export TRICK_HOME := $(shell trick-config --prefix)
+endif
+
+ifeq (, ${TRICK_HOME})
     $(error TRICK_HOME must be set)
 endif
 
 TRICKIFY := $(TRICK_HOME)/share/trick/makefiles/trickify.mk
 export TRICK_HOST_CPU := $(shell TRICK_FORCE_32BIT=$(TRICK_FORCE_32BIT) $(TRICK_HOME)/bin/trick-gte TRICK_HOST_CPU)
+
+ifeq (, ${JEOD_HOME})
 export JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
+endif
 
 ifeq ($(wildcard $(TRICKIFY)),)
     $(error This makefile requires at least Trick 17.1)

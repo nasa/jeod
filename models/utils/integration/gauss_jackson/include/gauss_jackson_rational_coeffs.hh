@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -62,20 +62,11 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Math utilities
+#include "er7_utils/math/include/n_choose_m.hh"
 #include "er7_utils/math/include/ratio128.hh"
 
 // System includes
 #include <vector>
-
-// Forward declarations
-
-/**
- * Namespace er7_utils contains the state integration models used by JEOD.
- */
-namespace er7_utils
-{
-class NChooseM;
-} // namespace er7_utils
 
 //! Namespace jeod
 namespace jeod

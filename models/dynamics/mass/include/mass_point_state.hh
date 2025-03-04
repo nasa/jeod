@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -71,6 +71,9 @@ Library Dependencies:
 #include "utils/quaternion/include/quat.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
+// Define macros
+#include "utils/math/include/macro_def.hh"
+
 //! Namespace jeod
 namespace jeod
 {
@@ -102,7 +105,7 @@ public:
      * NOTE: The MassPointState infrastructure ensures that the quaternion
      * and matrix representations are equivalent.
      */
-    double T_parent_this[3][3]{IDENTITY}; //!< trick_units(--)
+    double T_parent_this[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     // Member functions
 public:
@@ -213,6 +216,8 @@ inline void MassPointState::copy_state(const MassPointState & source)
 }
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif
 

@@ -6,7 +6,14 @@
 # -------------------------------------------------------------------------
 
 use strict ;
-use lib $ENV{"TRICK_HOME"} . "/bin/pm" ;
+
+my $TRICK_HOME = $ENV{TRICK_HOME};
+unless (defined $TRICK_HOME) {
+    $TRICK_HOME = `trick-config --prefix`;
+    $TRICK_HOME = chomp($TRICK_HOME);
+}
+
+use lib ${TRICK_HOME} . "/bin/pm" ;
 
 use XML::Parser ;
 use XML::Simple ;

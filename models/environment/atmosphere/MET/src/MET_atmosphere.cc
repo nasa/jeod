@@ -33,11 +33,10 @@ LIBRARY DEPENDENCY:
 *****************************************************************************/
 
 // System includes
-#include <algorithm>       // std::min
-#include <cstddef>         // provides NULL
-#include <cstring>         // memset
-#define _USE_MATH_DEFINES_ // for M_PI and the likes
-#include <cmath>           // for M_PI and math functions
+#include <algorithm> // std::min
+#include <cmath>     // for M_PI and math functions
+#include <cstddef>   // provides NULL
+#include <cstring>   // memset
 
 // JEOD includes
 #include "environment/time/include/time_utc.hh"

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -79,6 +79,9 @@ Library dependencies:
 
 // Model includes
 #include "random_orientation.hh"
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -270,7 +273,7 @@ protected:
     Quaternion Q_iinteg_icanon; /* trick_units(--) @n
        Inertial integration to canonical left transformation quaternion. */
 
-    double T_iinteg_icanon[3][3]{IDENTITY}; /* trick_units(--) @n
+    double T_iinteg_icanon[3][3]{IDENTITY_3X3}; /* trick_units(--) @n
        Inertial integration to canonical transformation matrix. */
 
     RandomOrientation bcanon_binteg; /* trick_units(--) @n
@@ -279,7 +282,7 @@ protected:
     Quaternion Q_bcanon_binteg; /* trick_units(--) @n
        Body canonical to integration left transformation quaternion. */
 
-    double T_bcanon_binteg[3][3]{IDENTITY}; /* trick_units(--) @n
+    double T_bcanon_binteg[3][3]{IDENTITY_3X3}; /* trick_units(--) @n
        Body canonical to integration transformation matrix. */
 
 private:
@@ -294,5 +297,7 @@ private:
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif

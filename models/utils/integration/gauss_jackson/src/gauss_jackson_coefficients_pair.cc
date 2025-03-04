@@ -107,7 +107,7 @@ void GaussJacksonCoefficientsPair::apply(int nelem,
     }
 }
 
-void GaussJacksonCoefficientsPair::print(int order, std::ostream & stream) const
+void GaussJacksonCoefficientsPair::printOut(int order, std::ostream & stream) const
 {
     stream << "summed_adams\n";
     for(int ii = 0; ii <= order; ++ii)

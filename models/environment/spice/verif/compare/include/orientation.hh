@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,8 +58,8 @@ public:
                     prod[i][j] += (m[i][k] * mt[j][k]);
                 }
             } // end for j
-        }     // end for i
-    }         // end mxmt
+        } // end for i
+    } // end mxmt
 
     static void matrix_delta(double m1[3][3], double m2[3][3], double * angle, double eigen_axis[3])
     {

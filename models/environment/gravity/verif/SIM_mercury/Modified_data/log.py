@@ -1,9 +1,12 @@
 def log_arg_peri (log_cycle) :
 
    # Import the JEOD logger
-   import sys 
+   import sys
    import os
-   sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
+   JEOD_HOME = os.getenv("JEOD_HOME")
+   if JEOD_HOME is None:
+      JEOD_HOME = os.path.abspath(os.path.join(os.getcwd(),"../../../../../"))
+   sys.path.append ('/'.join([JEOD_HOME, "lib/jeod/python"]))
    import jeod_log
 
    # Create and initialize the logger.

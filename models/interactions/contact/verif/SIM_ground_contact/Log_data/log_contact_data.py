@@ -1,13 +1,16 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the elements to be logged in the logging of log_contact_data) 
+#  (To define the elements to be logged in the logging of log_contact_data)
 ####################################################################################
 
 def log_contact_data ( log_cycle ) :
    # Import the JEOD logger
    import sys
    import os
-   sys.path.append ('/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]))
+   JEOD_HOME = os.getenv("JEOD_HOME")
+   if JEOD_HOME is None:
+      JEOD_HOME = os.path.abspath(os.path.join(os.getcwd(),"../../../../../"))
+   sys.path.append ('/'.join([JEOD_HOME, "lib/jeod/python"]))
    import jeod_log
 
    # Create the logger.
@@ -18,7 +21,7 @@ def log_contact_data ( log_cycle ) :
    logger.log_scalar(
       ("veh1_dyn.body.mass.composite_properties.mass",
        "veh2_dyn.body.mass.composite_properties.mass"))
-   
+
    logger.log_vector(
       ("veh1_dyn.body.composite_body.state.trans.position",
        "veh1_dyn.body.composite_body.state.trans.velocity",

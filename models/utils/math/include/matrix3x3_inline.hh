@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -53,8 +53,8 @@ Purpose:
 
 *******************************************************************************/
 
-#ifndef JEOD_MATRIX_INLINE_H
-#define JEOD_MATRIX_INLINE_H
+#ifndef JEOD_MATRIX_INLINE_HH
+#define JEOD_MATRIX_INLINE_HH
 
 // System includes
 #include <cstdio>

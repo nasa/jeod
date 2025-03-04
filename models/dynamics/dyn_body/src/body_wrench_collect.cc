@@ -6,7 +6,7 @@
  * @addtogroup DynBody
  * @{
  *
- * @file
+ * @file models/dynamics/dyn_body/src/body_wrench_collect.cc
  * Define BodyWrenchCollect member functions.
  */
 

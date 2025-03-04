@@ -7,8 +7,10 @@
 #########################################################################
 
 if [ -z "$JEOD_HOME" ]; then
+   JEOD_HOME=$(dirname $(dirname $(realpath "${BASH_SOURCE[0]}")))
+
    echo
-   echo "Environment Variable JEOD_HOME is not set"
+   echo "Environment Variable JEOD_HOME is not set. Using relative location."
    echo
 fi
 

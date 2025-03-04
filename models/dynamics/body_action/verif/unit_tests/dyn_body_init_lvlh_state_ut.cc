@@ -152,16 +152,11 @@ TEST(DynBodyInitLvlhState, apply)
     mockDynBody.set_name("mockDynBody");
     mockDynBody.composite_body.set_name("mockDynBody", "composite_body");
     mockDynBody.composite_body.set_owner(&mockDynBody);
-    LvlhFrame lvlhFrame;
     Planet testPlanet;
     testPlanet.set_name("testPlanet");
     testPlanet.inertial.set_name("testPlanet", "inertial");
     testPlanet.inertial.set_ephem_manager(&mockDynManager);
     testPlanet.inertial.add_child(mockDynBody.composite_body);
-    testPlanet.inertial.add_child(lvlhFrame.frame);
-
-    lvlhFrame.set_subject_frame(mockDynBody.composite_body);
-    lvlhFrame.set_planet(testPlanet);
 
     Mock::VerifyAndClear(&mockMessageHandler);
     {
@@ -185,7 +180,10 @@ TEST(DynBodyInitLvlhState, apply)
         Mock::VerifyAndClear(&mockDynBody);
     }
     {
-        // valid lvlh_object_ptr, CircularCurvilinear, no orientation sequence NoSequence
+        // valid lvlh_object_ptr, CircularCurvilinear, no orientation sequence
+        LvlhFrame lvlhFrame;
+        lvlhFrame.set_subject_frame(mockDynBody.composite_body);
+        lvlhFrame.set_planet(testPlanet);
         DynBodyInitLvlhStateTest dynInst;
         dynInst.lvlh_type = LvlhType::CircularCurvilinear;
         dynInst.set_lvlh_frame_object(lvlhFrame);
@@ -193,6 +191,8 @@ TEST(DynBodyInitLvlhState, apply)
         dynInst.set_body_ref_frame(&mockDynBody.composite_body);
         dynInst.set_ref_body(&mockDynBody);
         dynInst.set_planet(&testPlanet);
+        EXPECT_CALL(mockDynManager, ephem_note_tree_status_change()).Times(1);
+        EXPECT_CALL(mockDynManager, add_ref_frame(_)).Times(1);
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         EXPECT_CALL(mockDynManager, unsubscribe_to_frame(_)).Times(1);
         EXPECT_CALL(mockDynBody, get_integ_frame()).Times(1).WillOnce(Return(&testPlanet.inertial));
@@ -202,9 +202,14 @@ TEST(DynBodyInitLvlhState, apply)
         Mock::VerifyAndClear(&mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
         Mock::VerifyAndClear(&mockDynBody);
+        EXPECT_CALL(mockDynManager, remove_ref_frame(_)).Times(1);
+        EXPECT_CALL(mockDynManager, ephem_note_tree_status_change()).Times(1);
     }
     {
-        // valid lvlh_object_ptr, CircularCurvilinear, no orientation sequence Roll_Pitch_Yaw
+        // valid lvlh_object_ptr, CircularCurvilinear, orientation sequence Roll_Pitch_Yaw
+        LvlhFrame lvlhFrame;
+        lvlhFrame.set_subject_frame(mockDynBody.composite_body);
+        lvlhFrame.set_planet(testPlanet);
         DynBodyInitLvlhStateTest dynInst;
         dynInst.lvlh_type = LvlhType::CircularCurvilinear;
         dynInst.orientation.euler_sequence = Orientation::Roll_Pitch_Yaw;
@@ -213,6 +218,8 @@ TEST(DynBodyInitLvlhState, apply)
         dynInst.set_body_ref_frame(&mockDynBody.composite_body);
         dynInst.set_ref_body(&mockDynBody);
         dynInst.set_planet(&testPlanet);
+        EXPECT_CALL(mockDynManager, add_ref_frame(_)).Times(1);
+        EXPECT_CALL(mockDynManager, ephem_note_tree_status_change()).Times(1);
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         EXPECT_CALL(mockDynManager, unsubscribe_to_frame(_)).Times(1);
         EXPECT_CALL(mockDynBody, get_integ_frame()).Times(1).WillOnce(Return(&testPlanet.inertial));
@@ -222,23 +229,33 @@ TEST(DynBodyInitLvlhState, apply)
         Mock::VerifyAndClear(&mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
         Mock::VerifyAndClear(&mockDynBody);
+        EXPECT_CALL(mockDynManager, remove_ref_frame(_)).Times(1);
+        EXPECT_CALL(mockDynManager, ephem_note_tree_status_change()).Times(1);
     }
     {
-        // valid lvlh_object_ptr, CircularCurvilinear, no orientation sequence Roll_Pitch_Yaw
+        // valid lvlh_object_ptr, EllipticalCurvilinear
+        LvlhFrame lvlhFrame;
+        lvlhFrame.set_subject_frame(mockDynBody.composite_body);
+        lvlhFrame.set_planet(testPlanet);
         DynBodyInitLvlhStateTest dynInst;
         dynInst.lvlh_type = LvlhType::EllipticalCurvilinear;
+        testPlanet.inertial.add_child(lvlhFrame.frame);
         dynInst.set_lvlh_frame_object(lvlhFrame);
         dynInst.set_dyn_subject(&mockDynBody);
         dynInst.set_body_ref_frame(&mockDynBody.composite_body);
         dynInst.set_ref_body(&mockDynBody);
         dynInst.set_planet(&testPlanet);
-        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
+        EXPECT_CALL(mockDynManager, add_ref_frame(_)).Times(1);
+        EXPECT_CALL(mockDynManager, ephem_note_tree_status_change()).Times(1);
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(2);
 
         dynInst.apply(mockDynManager);
 
         Mock::VerifyAndClear(&mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
         Mock::VerifyAndClear(&mockDynBody);
+        EXPECT_CALL(mockDynManager, remove_ref_frame(_)).Times(1);
+        EXPECT_CALL(mockDynManager, ephem_note_tree_status_change()).Times(1);
     }
     EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
 }

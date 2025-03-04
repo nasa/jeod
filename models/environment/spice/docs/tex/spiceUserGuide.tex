@@ -62,12 +62,13 @@ Kernels for planetary ephemerides which describe translational motion of
 astronomical objects are referred generically in SPICE as ``spk''
 (SPICE Planetary Kernel) files. There are special high-fidelity versions of
 such files which are in binary format and have the extension ``.bsp''.
-The spk file used in SIM\_spice for ephemerides of the Sun and planets is
-named ``de421.bsp'' and can be found in the directory
+The spk file that used to be used in SIM\_spice for ephemerides of the Sun and
+planets is named ``de421.bsp'' and can be found in the directory
 spk/planets/a\_old\_versions. The DE421 ephemeris file was used in order to
-provide a consistent comparison with what is available with the classic JEOD
+provide a consistent comparison with what was available with the classic JEOD
 ephemerides model, but any other file containing analogous data could have
-been used.
+been used. The spk file currently used in SIM\_spice is ``de440.bsp'' in order to
+come into alignment with other models being used for lunar operations using DE440.
 
 Kernel files for natural satellites of other planets can be found in the
 folder spk/satellites. For example, data for Phobos and Deimos, the moons of
@@ -83,17 +84,20 @@ the~\href{http://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck}
 {``pck'' directory} on the ``Generic Kernels'' page.  The specific files
 used are ``earth\_000101\_171024\_170805.bpc'' and
 ``moon\_pa\_de421\_1900-2050.bpc.'' These files provide the high-fidelity
-orientation models for Earth and Moon. The directory contains other versions
-which may be a better match for some situations.  The file ``aareadme.txt'
-contains descriptions of each file which can aid in determining which best
-suits the desired application. The files used with SIM\_spice were chosen
-because they provide capabilities similar to JEOD's existing RNP model.
+orientation models for Earth and Moon. When using DE440, the files used are
+ ``earth\_000101\_240604\_240312.bpc'' and ``moon\_pa\_de440\_200625.bpc.''
+The directory contains other versions which may be a better match for some
+situations.  The file ``aareadme.txt' contains descriptions of each file which
+can aid in determining which best suits the desired application. The files used
+with SIM\_spice were chosen because they provide capabilities similar to JEOD's
+existing RNP model.
 
 Note that the text kernels
-``pck00010.tpc'' and ``moon\_080317.tf'' are also found in this directory.
-``moon\_080317.tf '' includes definitions for 
+``pck00010.tpc'' and ``moon\_080317.tf'' are also found in this directory,
+for use with DE421. For DE440, the files used are ``pck00011.tpc'' and
+``moon\_de440\_220930.tf.'' ``moon\_080317.tf '' includes definitions for
 standard lunar reference frames while ``pck00010.tpc'' contains
-low fidelity (IAU) orientation models for planets and natural satellites in the 
+low fidelity (IAU) orientation models for planets and natural satellites in the
 solar system. The orientation model for Mars that SPICE offers is one of these
 relatively low fidelity IAU models; however, it agrees reasonably well with
 the JEOD model for Mars orientation.
@@ -143,7 +147,7 @@ The standard RUN case delivered with SIM\_spice is named ``RUN\_01''. That run
 will create files that log the position and velocity of Sun, Earth, Moon and
 Mars in Solar System Barycenter coordinates. The rotational states of Earth,
 Moon, and Mars are also logged in their respective files. The exact same
-information is logged by SIM\_de4xx and can be used for comparison. 
+information is logged by SIM\_de4xx and can be used for comparison.
 
 The generalized version of SIM\_spice includes two bodies, Phobos and Itokawa,
 which are not part of the JEOD DE4xx model. In order to run the generalized sim,
@@ -234,11 +238,12 @@ which instantiates a SimObject named ``env'' containing the data member
 First, introduce the kernel files downloaded from NAIF, containing data
 for Sun, Earth, Moon, and Mars:
 \begin{verbatim}
-env.spice.metakernel_filename = "data/kernels.tm"
+env.spice.metakernel_filename = "data/kernels_440.tm"
 \end{verbatim}
-The file kernels.tm is a so-called ``metakernel'' file, meaning it contains
+The file kernels\_440.tm is a so-called ``metakernel'' file, meaning it contains
 a list of kernels for SPICE to load. This file can be used as a template for
-tailoring to one's own needs.  For the generalized sim containing Phobos and
+tailoring to one's own needs. The previous DE421 configuration can be accessed
+by using kernels\_421.tm instead. For the generalized sim containing Phobos and
 Itokawa, please refer to the file data/more\_kernels.tm.
 
 Next, load the planetary ephemerides (see Modified\_data/spice.py):

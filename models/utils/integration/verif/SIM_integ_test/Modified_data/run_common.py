@@ -34,7 +34,11 @@ def set_run_common(options) :
    import os
 
    # Add the JEOD python library and the Log_data directory to the search path
-   sys.path.extend (['/'.join([os.getenv("JEOD_HOME"), "lib/jeod/python"]),
+
+   JEOD_HOME = os.getenv("JEOD_HOME")
+   if JEOD_HOME is None:
+      JEOD_HOME = os.path.abspath(os.path.join(os.getcwd(),"../../../../../"))
+   sys.path.extend (['/'.join([JEOD_HOME, "lib/jeod/python"]),
                      '/'.join([os.getcwd(), "Log_data"])])
 
    # Now import the JEOD logger and the test-specific loggers.

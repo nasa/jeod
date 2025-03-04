@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -76,7 +76,7 @@ public:
     TimeNew(const TimeNew &) = delete;
     TimeNew & operator=(const TimeNew &) = delete;
 
-    void set_epoch() override{};
+    void set_epoch() override {};
 };
 
 /*----------------------------------------------------------------------------*/

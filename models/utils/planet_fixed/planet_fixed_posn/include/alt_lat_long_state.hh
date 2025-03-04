@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -83,28 +83,23 @@ public:
     /**
      * An object's height above the reference surface of the local GravBody
      */
-    double altitude; //!< trick_units(m)
+    double altitude{}; //!< trick_units(m)
 
     /**
      * An object's north-south angular offset from the local GravBody's
      * reference equator
      */
-    double latitude; //!< trick_units(rad)
+    double latitude{}; //!< trick_units(rad)
 
     /**
      * An object's east-west angular offset from the local GravBody's
      * reference prime meridian
      */
-    double longitude; //!< trick_units(rad)
+    double longitude{}; //!< trick_units(rad)
 
     // Member functions
 public:
-    // Constructor
-    AltLatLongState();
-
-    /**
-     * Destructor
-     */
+    AltLatLongState() = default;
     virtual ~AltLatLongState() = default;
 
     // Data accessor methods

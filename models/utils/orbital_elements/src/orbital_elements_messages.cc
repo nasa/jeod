@@ -31,18 +31,23 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/orbital_elements_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/orbital_elements/"
+// Model includes
+#include "../include/orbital_elements_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-// Static member data
+#define MAKE_ORBITALELEMENTS_MESSAGE_CODE(id)                                                                          \
+    JEOD_MAKE_MESSAGE_CODE(OrbitalElementsMessages, "utils/orbital_elements/", id)
 
-const char * OrbitalElementsMessages::domain_error = PATH "domain_error";
-const char * OrbitalElementsMessages::convergence_error = PATH "convergence_error";
+// Static member data
+MAKE_ORBITALELEMENTS_MESSAGE_CODE(domain_error);
+MAKE_ORBITALELEMENTS_MESSAGE_CODE(convergence_error);
+
+#undef MAKE_ORBITALELEMENTS_MESSAGE_CODE
 
 } // namespace jeod
 

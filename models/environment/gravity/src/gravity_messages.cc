@@ -31,24 +31,28 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/gravity_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "environment/gravity/"
+// Model includes
+#include "../include/gravity_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_GRAVITY_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(GravityMessages, "environment/gravity/", id)
+
 // Static member data
 
-const char * GravityMessages::duplicate_entry = PATH "duplicate_entry";
-const char * GravityMessages::missing_entry = PATH "missing_entry";
-const char * GravityMessages::invalid_name = PATH "invalid_name";
-const char * GravityMessages::invalid_object = PATH "invalid_object";
+MAKE_GRAVITY_MESSAGE_CODE(duplicate_entry);
+MAKE_GRAVITY_MESSAGE_CODE(missing_entry);
+MAKE_GRAVITY_MESSAGE_CODE(invalid_name);
+MAKE_GRAVITY_MESSAGE_CODE(invalid_object);
+MAKE_GRAVITY_MESSAGE_CODE(invalid_limit);
+MAKE_GRAVITY_MESSAGE_CODE(domain_error);
+MAKE_GRAVITY_MESSAGE_CODE(null_pointer);
 
-const char * GravityMessages::invalid_limit = PATH "invalid_limit";
-const char * GravityMessages::domain_error = PATH "domain_error";
-const char * GravityMessages::null_pointer = PATH "null_pointer";
+#undef MAKE_GRAVITY_MESSAGE_CODE
 
 } // namespace jeod
 

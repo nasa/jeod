@@ -1,7 +1,4 @@
-
 // Local definitions
-#define NUM_CASES 40
-#define STRING_LENGTH 1024
 #define JEOD_CLASS_FRIEND_CLASS Tester
 
 // System includes
@@ -24,6 +21,8 @@
 
 using namespace std;
 
+static constexpr unsigned int NUM_CASES = 40;
+static constexpr unsigned int STRING_LENGTH = 1024;
 static bool verbose = false;
 
 using my_string = char[STRING_LENGTH];
@@ -238,7 +237,7 @@ int Tester::readTestRecs()
             fclose(f);
             return 1;
         } // end if
-    }     // end while
+    } // end while
     fclose(f);
 
     return 0;
@@ -265,7 +264,7 @@ void Tester::calcGradientNumerically(SphericalHarmonicsGravityControls & gc, dou
                 tempPlus[i] += 0.5;
                 tempMinus[i] -= 0.5;
             } // end if
-        }     // end for i
+        } // end for i
         gc.gravitation(tempPlus, 0, accelPlus, gradDummy, potDummy);
         gc.gravitation(tempMinus, 0, accelMinus, gradDummy, potDummy);
         for(int i = 0; i < 3; i++)
@@ -273,7 +272,7 @@ void Tester::calcGradientNumerically(SphericalHarmonicsGravityControls & gc, dou
             gPlus[i][j] = accelPlus[i];
             gMinus[i][j] = accelMinus[i];
         } // end for i
-    }     // end for j
+    } // end for j
     Matrix3x3::subtract(gPlus, gMinus, result);
 } // end calcGradientNumerically
 

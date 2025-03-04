@@ -34,6 +34,7 @@ LIBRARY DEPENDENCY:
 #include <cstddef>
 
 // JEOD includes
+#include "dynamics/dyn_body/include/dyn_body.hh"
 #include "dynamics/dyn_manager/include/dyn_manager.hh"
 #include "environment/planet/include/planet.hh"
 #include "utils/math/include/vector3.hh"
@@ -64,7 +65,6 @@ void RadiationThirdBody::initialize(DynManager * dyn_mgr_ptr)
                              "Tried to initialize a Third Body with an empty name.\n"
                              "Name must be specified in order to identify the body.\n"
                              "Unable to proceed.  Terminating.\n");
-        // fail out at this point.  DO NOT PROCEED.
         return;
     }
 
@@ -82,7 +82,6 @@ void RadiationThirdBody::initialize(DynManager * dyn_mgr_ptr)
                              "Check documentation on how to configure this model.\n"
                              "Unable to proceed.  Terminating.\n",
                              name.c_str());
-        // fail out at this point.  DO NOT PROCEED.
         return;
     }
 
@@ -97,7 +96,6 @@ void RadiationThirdBody::initialize(DynManager * dyn_mgr_ptr)
                              "(inertial_frame_ptr) has not been set.  This pointer must be\n"
                              "set before the RadiationThirdBody can be initialized.\n",
                              name.c_str());
-        // fail out at this point.  DO NOT PROCEED.
         return;
     }
 
@@ -112,57 +110,56 @@ void RadiationThirdBody::initialize(DynManager * dyn_mgr_ptr)
                              "This radius must be positive and must be set\n"
                              "before the RadiationThirdBody can be initialized.\n",
                              name.c_str());
-        // fail out at this point.  DO NOT PROCEED.
         return;
     }
 
     planet_link = dyn_mgr_ptr->find_planet(name);
-    if(planet_link == nullptr)
+    if(planet_link != nullptr)
     {
-        MessageHandler::fail(__FILE__,
-                             __LINE__,
-                             RadiationMessages::invalid_setup_error,
-                             "\n"
-                             "Tried to initialize a Third Body with a name (%s) that is not\n"
-                             "recognized in the Dynamics Manager's list of planetary bodies or\n"
-                             "dynamic bodies.\nUnable to proceed.  Terminating.\n",
-                             name.c_str());
-        // fail out at this point.  DO NOT PROCEED.
-        return;
+        local_frame_ptr = &(planet_link->pfix);
+        radius = planet_link->r_eq;
+        if(active)
+        {
+            dyn_mgr_ptr->subscribe_to_frame(planet_link->inertial);
+        }
+    }
+    else
+    {
+        DynBody * dyn_body_link = dyn_mgr_ptr->find_dyn_body(name);
+        if(dyn_body_link != nullptr)
+        {
+            local_frame_ptr = &(dyn_body_link->composite_body);
+            if(active)
+            {
+                dyn_mgr_ptr->subscribe_to_frame(dyn_body_link->composite_body);
+            }
+        }
+        else
+        {
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 RadiationMessages::invalid_setup_error,
+                                 "\n"
+                                 "Tried to initialize a Third Body with a name (%s) that is not\n"
+                                 "recognized in the Dynamics Manager's list of planetary bodies or\n"
+                                 "dynamic bodies.\nUnable to proceed.  Terminating.\n",
+                                 name.c_str());
+            return;
+        }
     }
 
-    //  TODO STUB:  This section allows for assignment of a RadiationThirdBody
-    //  tag to a DynBody.  That is not necessary at this time.
-    //  Replace failure outcome above by providing option to test "name" for being
-    //  the name of a DynBody:
-    //   if (planet_link == nullptr) {
-    //      DynBody * dyn_body_link = dyn_mgr_ptr->find_dyn_body (name);
-    //      if (dyn_body_link == nullptr) {
-    //         FAIL_OUT (both cases failed)
-    //      }
-    //      local_frame_ptr = &(dyn_body_link->composite_body);
-    //      radius = ...
-    //      subscribe_to_frame = ...
-    //   }
-    //   else {
-    //       local_frame_ptr = &(planet_link->pfix);
-    //       radius  = planet_link->r_eq;
-    //       subscribe_to_frame = planet_link->inertial;
-    //   }
-    local_frame_ptr = &(planet_link->pfix);
     if(local_frame_ptr == nullptr)
     {
         MessageHandler::fail(__FILE__,
                              __LINE__,
                              RadiationMessages::invalid_setup_error,
                              "\n"
-                             "Could not find a pfix frame associated with planet (%s)\n"
+                             "Could not find a local frame associated with body (%s)\n"
                              "Unable to proceed.  Terminating.\n",
                              name.c_str());
-        // fail out at this point.  DO NOT PROCEED.
+        return;
     }
 
-    radius = planet_link->r_eq;
     if(radius <= 0.0)
     {
         MessageHandler::fail(__FILE__,
@@ -171,14 +168,12 @@ void RadiationThirdBody::initialize(DynManager * dyn_mgr_ptr)
                              "\n"
                              "RadiationThirdBody Object idenitified by name (%s) has a radius "
                              "of %f on record.\nThis is not a valid value; radius must be "
-                             "positive.\nUnable to proceed.  Terminating.\n",
+                             "positive.\nIf this name is associated with a DynBody, the radius "
+                             "must be set before the RadiationThirdBody can be initialized.\n "
+                             "Unable to proceed.  Terminating.\n",
                              name.c_str(),
                              radius);
-    }
-
-    if(active)
-    {
-        dyn_mgr_ptr->subscribe_to_frame(planet_link->inertial);
+        return;
     }
 
     r_plus = radius + primary_source_ptr->radius;
@@ -191,29 +186,9 @@ void RadiationThirdBody::initialize(DynManager * dyn_mgr_ptr)
 
 /**
  * Calculates the effect of shadowing by a third body.
- * NOTE -
- *      This method is intended to be an internal call so should be protected
- *      However, doing so would be a change to the API.  Delay for JEOD4.0.
  */
 void RadiationThirdBody::calculate_shadow()
 {
-    // NOTE - this check would not be needed if this method were protected
-    //        because it would already be guaranteed by passing the same check
-    //        at the entry to process_third_body()
-    //        Likewise, the d_source_to_third check below must have been
-    //        checked in update_body_state().
-    if(!initialized)
-    {
-        MessageHandler::error(__FILE__,
-                              __LINE__,
-                              RadiationMessages::invalid_setup_error,
-                              "\n"
-                              "RadiationThirdBody::calculate_shadow() called without the model "
-                              "being initialized.\nAborting.\n"
-                              "Check documentation for required configuration.\n");
-        return;
-    }
-
     Vector3::diff(primary_source_ptr->source_to_cg, source_to_third_inrtl, third_to_cg_inrtl);
 
     // r_par is the component of that vector aligned with the sun-body vector
@@ -275,9 +250,7 @@ void RadiationThirdBody::calculate_shadow()
         {
             illum_factor = 1;
         }
-        // done, return
     }
-
     else if(shadow_geometry == Conical || shadow_geometry == Con)
     {
         // Conical shadow
@@ -298,23 +271,6 @@ void RadiationThirdBody::calculate_shadow()
         //        etc.
         //       which would require replicating code in the respective "else"
         //       blocks
-
-        if(d_source_to_third <= 0.0)
-        {
-            MessageHandler::error(__FILE__,
-                                  __LINE__,
-                                  RadiationMessages::invalid_setup_error,
-                                  "\n"
-                                  "The distance between the source-body and the third-body has an\n"
-                                  "illegal value (%20.16f) for RadiationThirdBody (%s).\n"
-                                  "This is a major configuration problem.\n"
-                                  "Deactivating this body.\n",
-                                  d_source_to_third,
-                                  name.c_str());
-            active = false;
-            illum_factor = 1.0;
-            return;
-        }
 
         double r_perp_x_d = r_perp * d_source_to_third;
         double radius_x_d = radius * d_source_to_third;
@@ -359,9 +315,7 @@ void RadiationThirdBody::calculate_shadow()
             illum_factor = 1 -
                            ang_ratio_2 * generate_alpha(ang_ratio, delta / (2 * radius * (d_source_to_third + r_par)));
         }
-        // done, return
     }
-
     else
     {
         illum_factor = 1;
@@ -429,7 +383,7 @@ double RadiationThirdBody::process_third_body(double real_time, RefFrame & veh_s
                               __LINE__,
                               RadiationMessages::invalid_setup_error,
                               "\n"
-                              "RadiationThirdBody::calculate_shadow() called without the model "
+                              "RadiationThirdBody::process_third_body() called without the model "
                               "being initialized for body (%s).\nAborting procedure.\n"
                               "Check documentation for required configuration.\n"
                               "Deactivating this RadiationThirdBody as a precautionary measure.\n",

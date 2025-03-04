@@ -130,11 +130,11 @@ void GaussJacksonCoeffs::compute_coeffs(unsigned int order_in)
 std::ostream & operator<<(std::ostream & stream, const GaussJacksonCoeffs & coeff)
 {
     stream << "predictor\n";
-    coeff.predictor.print(coeff.order, stream);
+    coeff.predictor.printOut(coeff.order, stream);
     for(unsigned int ii = 0; ii <= coeff.order; ++ii)
     {
         stream << "corrector[" << ii << "]\n";
-        coeff.corrector[ii].print(coeff.order, stream);
+        coeff.corrector[ii].printOut(coeff.order, stream);
     }
 
     return stream;

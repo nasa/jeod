@@ -30,8 +30,6 @@ LIBRARY DEPENDENCY:
 
 ******************************************************************************/
 
-#define EPSILON 0.0000001
-
 // System includes
 #include <cstddef>
 
@@ -51,6 +49,9 @@ LIBRARY DEPENDENCY:
 //! Namespace jeod
 namespace jeod
 {
+
+static constexpr double epsilon = 0.0000001;
+
 /**
  * Begin initialization of a SolarBetaDerivedState.
  * The initialize method for all subclasses of DerivedState *must* pass
@@ -113,7 +114,7 @@ void SolarBetaDerivedState::update()
     double h_mag_sq = Vector3::vmagsq(ang_momentum);
     double s_mag_sq = Vector3::vmagsq(sun_wrt_planet);
 
-    if(h_mag_sq < EPSILON)
+    if(h_mag_sq < epsilon)
     {
         MessageHandler::fail(__FILE__,
                              __LINE__,
@@ -124,7 +125,7 @@ void SolarBetaDerivedState::update()
         return;
     }
 
-    if(s_mag_sq < EPSILON)
+    if(s_mag_sq < epsilon)
     {
         MessageHandler::fail(__FILE__,
                              __LINE__,

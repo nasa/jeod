@@ -41,11 +41,11 @@ Library dependencies:
 #include "../include/integration_test.hh"
 #include "../include/integration_test_messages.hh"
 
-#define PIx2 6.28318530717958647692528676655900577
-
 //! Namespace jeod
 namespace jeod
 {
+
+static constexpr double PIx2 = 6.28318530717958647692528676655900577;
 
 /*
 Purpose: (Default constructor.)

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -79,6 +79,8 @@
 #include "moon_basic.sm"
 #include "sun_basic.sm"
 #include "vehicle_basic.sm"
+
+VehicleBasicSimObject vehicle2(dynamics.dyn_manager);
 
 // Include the model modules
 #include "../S_modules/radiation.sm"

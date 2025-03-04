@@ -20,7 +20,6 @@ using testing::ByRef;
 using testing::Mock;
 using testing::Return;
 using testing::ReturnRef;
-// using testing::Throw;
 
 using namespace jeod;
 

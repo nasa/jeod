@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,12 +59,14 @@ Library dependencies: ((../src/dyn_body_constraints_solver.cc))
 #include "utils/container/include/object_vector.hh"
 #include "utils/container/include/pointer_vector.hh"
 #include "utils/container/include/primitive_vector.hh"
-#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 #include "experimental/math/include/linear_system_solver.hh"
 
 #include <functional>
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -332,7 +334,7 @@ private:
      * The transformation matrix from the root DynBody object's structural
      * frame to the DynBody object immediately associated with this solver.
      */
-    double root_to_this_transform[3][3]{IDENTITY}; //!< trick_units(--)
+    double root_to_this_transform[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     /**
      * The origin of the structural frame of the DynBody object immediately
@@ -483,6 +485,8 @@ private:
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,6 +60,10 @@ Library dependencies:
 
 #ifndef JEOD_NAMED_ITEM_HH
 #define JEOD_NAMED_ITEM_HH
+
+#ifdef SWIG
+%rename(equalTo) operator==; // cppcheck-suppress syntaxError
+#endif
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"

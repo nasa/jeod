@@ -18,14 +18,14 @@ TRICK_SFLAGS +=-I${JEOD_HOME}/lib/jeod
 ifdef JEOD_SPICE_DIR
 TRICK_CFLAGS += -I${JEOD_SPICE_DIR}/include
 TRICK_CXXFLAGS += -I${JEOD_SPICE_DIR}/include
-TRICK_USER_LINK_LIBS = ${JEOD_SPICE_DIR}/lib/cspice.a
+TRICK_USER_LINK_LIBS += ${JEOD_SPICE_DIR}/lib/cspice.a
 endif
 
 # Set up build and install directories
 JEOD_BUILD_DIR ?= ${JEOD_HOME}/build_${TRICK_HOST_CPU}
 JEOD_INSTALL_DIR ?= ${JEOD_HOME}/lib_jeod_${TRICK_HOST_CPU}
 DE4XX_DEST:=build/de4xx_lib
-DE4XX_SRC:=${JEOD_HOME}/lib_jeod_${TRICK_HOST_CPU}/de4xx_lib
+DE4XX_SRC:=${JEOD_INSTALL_DIR}/de4xx_lib
 
 
 #Trickified vars
@@ -118,12 +118,16 @@ ifeq (${JEOD_BUILD_TYPE},)
    endif
 endif
 
+JEOD_BUILD_EXISTS:=$(shell if [ -e ${JEOD_INSTALL_DIR} ]; then echo 1; else echo 0; fi)
+ifeq ($(JEOD_BUILD_EXISTS),1)
+JEOD_LIB_WRITEABLE:=$(shell if [ -w ${JEOD_INSTALL_DIR} ]; then echo 1; else echo 0; fi)
+else
+PARENT_DIR:=$(dir ${JEOD_INSTALL_DIR})
+JEOD_LIB_WRITEABLE:=$(shell if [ -w ${PARENT_DIR} ]; then echo 1; else echo 0; fi)
+endif
 
 # Process TRICKIFIED option
 ifeq ($(TRICKIFIED),1)
-  #Check if build directory is writeable
-  TRICKIFIED_WRITEABLE:=$(shell if [ -w ${JEOD_TRICKIFIED} ]; then echo 1; else echo 0; fi)
-
   # Find all model header files except those in verif directories,
   # as a sorted, colon-separated list.
   JEOD_INC_DIRS := \
@@ -147,7 +151,7 @@ ifeq ($(TRICKIFIED),1)
   TRICK_LDFLAGS += $(TRICKIFIED_JEOD_LIB) $(JEOD_TRICKBUILD_LIB)
 
 ifeq (${TRICKIFIED_EXISTS},0)
-   ifeq (${TRICKIFIED_WRITEABLE},1)
+   ifeq (${JEOD_LIB_WRITEABLE},1)
      $(DE4XX_SRC): $(JEOD_TRICKBUILD_LIB)
 
      # Add dependencies for the trickified JEOD and the JEOD library.
@@ -156,7 +160,7 @@ ifeq (${TRICKIFIED_EXISTS},0)
      $(error Trickified JEOD library doesn't exist and the source directory isn't writeable...)
    endif
 else
-   ifeq (${TRICKIFIED_WRITEABLE},1)
+   ifeq (${JEOD_LIB_WRITEABLE},1)
      # Add dependencies for the trickified JEOD and the JEOD library.
      $(SWIG_SRC): $(TRICKIFIED_JEOD_LIB) $(JEOD_TRICKBUILD_LIB)
    else
@@ -164,11 +168,29 @@ else
    endif
 endif
 
+else # - TRICKIFIED else
+
+DE4XX_EXISTS:=$(shell if [ -e ${DE4XX_SRC} ]; then echo 1; else echo 0; fi)
+ifeq (${DE4XX_EXISTS},0)
+   ifeq (${JEOD_LIB_WRITEABLE},1)
+      #Check if build directory is writeable
+      $(DE4XX_SRC):
+		@ echo "Building JPL DE4XX ephemeris files" ;\
+		$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} DE4XX_ONLY=1 TRICK_BUILD=1
+   else
+      $(error JEOD DE4XX library doesn't exist and the source directory isn't writeable...)
+   endif
 else
-  $(DE4XX_SRC):
-	@ echo "Building JPL DE4XX ephemeris files" ;\
-	$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} DE4XX_ONLY=1 TRICK_BUILD=1
+   ifeq (${JEOD_LIB_WRITEABLE},1)
+      $(DE4XX_SRC):
+		@ echo "Building JPL DE4XX ephemeris files" ;\
+		$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} DE4XX_ONLY=1 TRICK_BUILD=1
+   else
+      $(info JEOD DE4XX library is read-only. Skipping any attempt to update the libs...)
+   endif
 endif
+
+endif # - TRICKIFIED endif
 
 .PHONY: $(JEOD_TRICKBUILD_LIB) $(TRICKIFIED_JEOD_LIB) jeod_clean jeod_spotless
 
@@ -179,7 +201,9 @@ jeod_clean:
 jeod_spotless: jeod_clean
 	-rm -rf ${JEOD_BUILD_DIR}
 
+ifeq (${JEOD_LIB_WRITEABLE},1)
 apocalypse: jeod_spotless
+endif
 
 # Build the trickified JEOD library and JEOD model library if needed.
 $(JEOD_TRICKBUILD_LIB):

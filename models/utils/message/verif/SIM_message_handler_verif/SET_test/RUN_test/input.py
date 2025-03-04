@@ -199,11 +199,11 @@ read = 21
 trick.add_read(read, '''
 outPut("""
 *************************************************
-Tests 21-25: Suppress utils/message/verif/Message
+Tests 21-25: Suppress utils/message/verif/message
 
 Test 21: send_message() (Message suppressed)
 """)
-trick.MessageHandler_add_suppressed_code("utils/message/verif/Message")
+trick.MessageHandler_add_suppressed_code("utils/message/verif/message")
 trick.MessageHandler_set_suppression_level(trick.MessageHandler.Warning)
 verif.driver.message_number = 6
 ''')
@@ -214,7 +214,7 @@ outPut("""Test 22: custom error() (Not suppressed)
 """)
 trick.MessageHandler_error(
    "input.py", 201,
-   "utils/message/verif/Message",
+   "utils/message/verif/message",
    "MessageHandler::error() called from input file")
 ''')
 

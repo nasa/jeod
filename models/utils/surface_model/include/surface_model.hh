@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -71,6 +71,7 @@ Library dependencies:
 #include "dynamics/mass/include/mass_point_state.hh"
 #include "utils/container/include/object_list.hh"
 #include "utils/container/include/object_vector.hh"
+#include "utils/container/include/pointer_list.hh"
 #include "utils/container/include/pointer_vector.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
@@ -91,9 +92,11 @@ class BaseDynManager;
  * one of these objects will be instantiated. That way, the relative state
  * information must only be calculated once per mass body.
  */
-struct FacetStateInfo
+class FacetStateInfo
 {
     JEOD_MAKE_SIM_INTERFACES(jeod, FacetStateInfo)
+
+public:
     /**
      * The resulting relative mass point state between the
      * structural body named in struct_body_name and the
@@ -199,7 +202,7 @@ protected:
      * The set of states used to update the articulation of
      * each facet
      */
-    JeodObjectList<FacetStateInfo>::type articulation_states; //!< trick_io(**)
+    JeodPointerList<FacetStateInfo>::type articulation_states; //!< trick_io(**)
 };
 
 } // namespace jeod

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -59,7 +59,9 @@ Library dependencies:
 #define RNP_J2000_LOG_TRANS_H
 
 #include "environment/RNP/RNPJ2000/include/rnp_j2000.hh"
-#include "utils/math/include/matrix3x3.hh"
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 void matrix_multiply(double matrix[3][3], double to_multiply[3], double result[3]);
 
@@ -80,12 +82,14 @@ public:
                                   PlanetRotation & rotation,
                                   PlanetRotation & polar_motion);
 
-    double prec_trans[3][3]{IDENTITY};
-    double nut_trans[3][3]{IDENTITY};
-    double pm_trans[3][3]{IDENTITY};
-    double rot_trans[3][3]{IDENTITY};
+    double prec_trans[3][3]{IDENTITY_3X3};
+    double nut_trans[3][3]{IDENTITY_3X3};
+    double pm_trans[3][3]{IDENTITY_3X3};
+    double rot_trans[3][3]{IDENTITY_3X3};
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif

@@ -52,9 +52,6 @@ void PendulumConstraintComponent::create_integrators(const er7_utils::Integrator
                                                      er7_utils::IntegrationControls & controls,
                                                      const er7_utils::TimeInterface &)
 {
-    // FIXME: JEOD bug:
-    // This is something that should be done by
-    // JeodIntegrationGroup::add_integrable_object.
     er7_utils::BaseIntegrationGroup * integ_group = dyn_body->get_integration_group();
     if(integ_group == nullptr)
     {

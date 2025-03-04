@@ -31,21 +31,24 @@ Library dependencies:
 
 *******************************************************************************/
 
-#include "../include/aerodynamics_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "interactions/aerodynamics/"
+// Model includes
+#include "../include/aerodynamics_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-const char * AerodynamicsMessages::initialization_error = PATH "initialization_error";
+#define MAKE_AERODYNAMICS_MESSAGE_CODE(id)                                                                             \
+    JEOD_MAKE_MESSAGE_CODE(AerodynamicsMessages, "interactions/aerodynamics/", id)
 
-const char * AerodynamicsMessages::runtime_error = PATH "runtime_error";
+MAKE_AERODYNAMICS_MESSAGE_CODE(initialization_error);
+MAKE_AERODYNAMICS_MESSAGE_CODE(runtime_error);
+MAKE_AERODYNAMICS_MESSAGE_CODE(pre_initialization_error);
+MAKE_AERODYNAMICS_MESSAGE_CODE(runtime_warns);
 
-const char * AerodynamicsMessages::pre_initialization_error = PATH "pre_initialization_error";
-
-const char * AerodynamicsMessages::runtime_warns = PATH "runtime_warns";
+#undef MAKE_AERODYNAMICS_MESSAGE_CODE
 
 } // namespace jeod
 

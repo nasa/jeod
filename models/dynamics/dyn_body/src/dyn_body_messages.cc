@@ -31,30 +31,28 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/dyn_body_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "dynamics/dyn_body/"
+// Model includes
+#include "../include/dyn_body_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_DYNBODY_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(DynBodyMessages, "dynamics/dyn_body/", id)
+
 // Static member data
-const char * DynBodyMessages::invalid_body = PATH "invalid_body";
+MAKE_DYNBODY_MESSAGE_CODE(invalid_body);
+MAKE_DYNBODY_MESSAGE_CODE(invalid_group);
+MAKE_DYNBODY_MESSAGE_CODE(invalid_name);
+MAKE_DYNBODY_MESSAGE_CODE(invalid_frame);
+MAKE_DYNBODY_MESSAGE_CODE(invalid_attachment);
+MAKE_DYNBODY_MESSAGE_CODE(invalid_technique);
+MAKE_DYNBODY_MESSAGE_CODE(not_dyn_body);
+MAKE_DYNBODY_MESSAGE_CODE(internal_error);
 
-const char * DynBodyMessages::invalid_group = PATH "invalid_group";
-
-const char * DynBodyMessages::invalid_name = PATH "invalid_name";
-
-const char * DynBodyMessages::invalid_frame = PATH "invalid_frame";
-
-const char * DynBodyMessages::invalid_attachment = PATH "invalid_attachment";
-
-const char * DynBodyMessages::invalid_technique = PATH "invalid_technique";
-
-const char * DynBodyMessages::not_dyn_body = PATH "not_dyn_body";
-
-const char * DynBodyMessages::internal_error = PATH "internal_error";
+#undef MAKE_DYNBODY_MESSAGE_CODE
 
 } // namespace jeod
 

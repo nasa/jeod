@@ -4,19 +4,27 @@
 # Purpose:
 #   (Establish a relative path link to the template model makefile.
 #
-#  
+#
 #
 ################################################################################
 
 use strict;
 use Cwd;
+use File::Basename;
+use File::Spec;
 
 my $cwd = getcwd;
 my ($type, $name);
+
+my $JEOD_HOME = $ENV{JEOD_HOME};
+unless (defined $JEOD_HOME) {
+    $ENV{JEOD_HOME} = dirname(dirname(dirname(File::Spec->rel2abs($0))));
+}
 if ($cwd =~ /^\Q$ENV{JEOD_HOME}\E\/models\/([^\/]+)\/([^\/]+)\/docs\/tex$/) {
    ($type, $name) = ($1, $2);
 }
 else {
+   die "cws is $cwd.\n";
    die "Working directory is not a JEOD model document directory.\n";
 }
 

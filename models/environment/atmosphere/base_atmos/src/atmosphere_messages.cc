@@ -23,22 +23,25 @@ Assumptions and limitations:
 
 *******************************************************************************/
 
-#include "../include/atmosphere_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "environment/atmosphere/base_atmos"
+// Model includes
+#include "../include/atmosphere_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_ATMOSPHERE_MESSAGE_CODE(id)                                                                               \
+    JEOD_MAKE_MESSAGE_CODE(AtmosphereMessages, "environment/atmosphere/base_atmos", id)
+
 // Errors
-const char * AtmosphereMessages::initialization_error = PATH "initialization_error";
+MAKE_ATMOSPHERE_MESSAGE_CODE(initialization_error);
+MAKE_ATMOSPHERE_MESSAGE_CODE(framework_error);
+MAKE_ATMOSPHERE_MESSAGE_CODE(framework_warning);
+MAKE_ATMOSPHERE_MESSAGE_CODE(numerical_warning);
 
-const char * AtmosphereMessages::framework_error = PATH "framework_error";
-
-const char * AtmosphereMessages::framework_warning = PATH "framework_warning";
-
-const char * AtmosphereMessages::numerical_warning = PATH "numerical_warning";
+#undef MAKE_ATMOSPHERE_MESSAGE_CODE
 
 } // namespace jeod
 

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -43,6 +43,11 @@ Library dependencies:
 
 #ifndef CONTAINER_VERIF_TEST_HH
 #define CONTAINER_VERIF_TEST_HH
+
+#ifdef SWIG
+%rename(streamOut) operator<<; // cppcheck-suppress syntaxError
+%rename(lessThan) operator<; // cppcheck-suppress syntaxError
+#endif
 
 #include "utils/container/include/object_list.hh"
 #include "utils/container/include/object_set.hh"

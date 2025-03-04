@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -67,6 +67,7 @@ Library dependencies:
 // JEOD includes
 #include "dynamics/dyn_body/include/class_declarations.hh"
 #include "dynamics/dyn_manager/include/class_declarations.hh"
+#include "environment/ephemerides/ephem_interface/include/ephem_ref_frame.hh"
 #include "environment/planet/include/class_declarations.hh"
 #include "utils/orbital_elements/include/orbital_elements.hh"
 #include "utils/ref_frames/include/ref_frame_state.hh"

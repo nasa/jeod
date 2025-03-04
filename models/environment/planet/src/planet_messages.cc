@@ -31,18 +31,23 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/planet_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "environment/planet/"
+// Model includes
+#include "../include/planet_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_PLANET_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(PlanetMessages, "environment/planet/", id)
+
 // Static member data
-const char * PlanetMessages::name_error = PATH "name_error";
-const char * PlanetMessages::registration_error = PATH "registration_error";
-const char * PlanetMessages::domain_error = PATH "domain_error";
+MAKE_PLANET_MESSAGE_CODE(name_error);
+MAKE_PLANET_MESSAGE_CODE(registration_error);
+MAKE_PLANET_MESSAGE_CODE(domain_error);
+
+#undef MAKE_PLANET_MESSAGE_CODE
 
 } // namespace jeod
 

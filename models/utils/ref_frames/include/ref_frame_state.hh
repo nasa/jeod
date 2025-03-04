@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -63,12 +63,14 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "utils/math/include/matrix3x3.hh"
 #include "utils/quaternion/include/quat.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Model includes
 #include "class_declarations.hh"
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -132,7 +134,7 @@ public:
      * Transformation matrix from the parent reference frame to the
      * subject reference frame
      */
-    double T_parent_this[3][3]{IDENTITY}; //!< trick_units(--)
+    double T_parent_this[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     /**
      * Angular velocity of the subject reference frame with respect to the
@@ -235,6 +237,7 @@ public:
 } // namespace jeod
 
 #include "ref_frame_state_inline.hh"
+#include "utils/math/include/macro_undef.hh"
 
 #endif
 

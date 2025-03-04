@@ -31,21 +31,23 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/rel_kin_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "dynamics/rel_kin/"
+// Model includes
+#include "../include/rel_kin_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_RELKIN_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(RelKinMessages, "dynamics/rel_kin/", id)
+
 // Static member data
+MAKE_RELKIN_MESSAGE_CODE(duplicate_entry);
+MAKE_RELKIN_MESSAGE_CODE(entry_not_found);
+MAKE_RELKIN_MESSAGE_CODE(invalid_entry);
 
-const char * RelKinMessages::duplicate_entry = PATH "duplicate_entry";
-
-const char * RelKinMessages::entry_not_found = PATH "entry_not_found";
-
-const char * RelKinMessages::invalid_entry = PATH "invalid_entry";
+#undef MAKE_RELKIN_MESSAGE_CODE
 
 } // namespace jeod
 

@@ -25,28 +25,27 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/body_action_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "dynamics/body_action/"
+// Model includes
+#include "../include/body_action_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_BODYACTION_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(BodyActionMessages, "dynamics/body_action/", id)
+
 // Static member data
-const char * BodyActionMessages::fatal_error = PATH "fatal_error";
+MAKE_BODYACTION_MESSAGE_CODE(fatal_error);
+MAKE_BODYACTION_MESSAGE_CODE(illegal_value);
+MAKE_BODYACTION_MESSAGE_CODE(invalid_name);
+MAKE_BODYACTION_MESSAGE_CODE(invalid_object);
+MAKE_BODYACTION_MESSAGE_CODE(null_pointer);
+MAKE_BODYACTION_MESSAGE_CODE(not_performed);
+MAKE_BODYACTION_MESSAGE_CODE(trace);
 
-const char * BodyActionMessages::illegal_value = PATH "illegal_value";
-
-const char * BodyActionMessages::invalid_name = PATH "invalid_name";
-
-const char * BodyActionMessages::invalid_object = PATH "invalid_object";
-
-const char * BodyActionMessages::null_pointer = PATH "null_pointer";
-
-const char * BodyActionMessages::not_performed = PATH "not_performed";
-
-const char * BodyActionMessages::trace = PATH "trace";
+#undef MAKE_BODYACTION_MESSAGE_CODE
 
 } // namespace jeod
 

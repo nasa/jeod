@@ -49,12 +49,23 @@ jeod_time.time_tt.update_from_name = "TAI"
 
 vehicle.dyn_body.set_name("vehicle")
 vehicle.dyn_body.integ_frame_name = "Sun.inertial"
-vehicle.dyn_body.composite_body.state.trans.position  = [ 0.0, 0.0, 0.0]
+vehicle.dyn_body.composite_body.state.trans.position  = [ 1.5E+11, 0.0, 0.0]
 vehicle.dyn_body.structure.state.trans.position  = [  1.5E+11, 0.0, 0.0]
 vehicle.dyn_body.structure.state.rot.T_parent_this[0]  = [ 1, 0, 0]
 vehicle.dyn_body.structure.state.rot.T_parent_this[1]  = [ 0, 1, 0]
 vehicle.dyn_body.structure.state.rot.T_parent_this[2]  = [ 0, 0, 1]
 
+#/******************************************************************************/
+#/* Set up the vehicle2 object:                                                 */
+#/******************************************************************************/
+
+vehicle2.dyn_body.set_name("vehicle2")
+vehicle2.dyn_body.integ_frame_name = "Sun.inertial"
+vehicle2.dyn_body.composite_body.state.trans.position  = [ 1.4999999E+11, 0.0, 0.0]
+vehicle2.dyn_body.structure.state.trans.position  = [  1.4999999E+11, 0.0, 0.0]
+vehicle2.dyn_body.structure.state.rot.T_parent_this[0]  = [ 1, 0, 0]
+vehicle2.dyn_body.structure.state.rot.T_parent_this[1]  = [ 0, 1, 0]
+vehicle2.dyn_body.structure.state.rot.T_parent_this[2]  = [ 0, 0, 1]
 
 #/******************************************************************************/
 #/* Set up the radiation object (the one with the surface model surface)       */

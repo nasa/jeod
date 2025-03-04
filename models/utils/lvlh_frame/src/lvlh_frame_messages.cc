@@ -25,30 +25,28 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/lvlh_frame_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/lvlh_frame/"
+// Model includes
+#include "../include/lvlh_frame_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_LVLHFRAME_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(LvlhFrameMessages, "utils/lvlh_frame/", id)
+
 // Static member data
-const char * LvlhFrameMessages::fatal_error = PATH "fatal_error";
+MAKE_LVLHFRAME_MESSAGE_CODE(fatal_error);
+MAKE_LVLHFRAME_MESSAGE_CODE(illegal_value);
+MAKE_LVLHFRAME_MESSAGE_CODE(invalid_name);
+MAKE_LVLHFRAME_MESSAGE_CODE(invalid_configuration);
+MAKE_LVLHFRAME_MESSAGE_CODE(invalid_object);
+MAKE_LVLHFRAME_MESSAGE_CODE(null_pointer);
+MAKE_LVLHFRAME_MESSAGE_CODE(trace);
+MAKE_LVLHFRAME_MESSAGE_CODE(divide_by_zero);
 
-const char * LvlhFrameMessages::illegal_value = PATH "illegal_value";
-
-const char * LvlhFrameMessages::invalid_name = PATH "invalid_name";
-
-const char * LvlhFrameMessages::invalid_configuration = PATH "invalid_configuration";
-
-const char * LvlhFrameMessages::invalid_object = PATH "invalid_object";
-
-const char * LvlhFrameMessages::null_pointer = PATH "null_pointer";
-
-const char * LvlhFrameMessages::trace = PATH "trace";
-
-const char * LvlhFrameMessages::divide_by_zero = PATH "divide_by_zero";
+#undef MAKE_LVLHFRAME_MESSAGE_CODE
 
 } // namespace jeod
 

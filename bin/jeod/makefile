@@ -22,7 +22,10 @@ TRICK_BUILD:=1
 endif
 
 ifneq (0,${TRICK_BUILD})
-   ifndef TRICK_HOME
+   ifeq (, ${TRICK_HOME})
+      export TRICK_HOME := $(shell trick-config --prefix)
+   endif
+   ifeq (, ${TRICK_HOME})
       $(error "TRICK_BUILD is set to 1 but TRICK_HOME is not defined")
    endif
    ifndef BUILD_DIR
@@ -89,7 +92,7 @@ endif
 
 
 ifeq (${REDO_CMAKE},1)
-ifneq "$(MAKECMDGOALS)" "help" 
+ifneq "$(MAKECMDGOALS)" "help"
 ifneq (,$(wildcard $(BUILD_DIR)/CMakeCache.txt))
 $(warning Make option for JEOD $(BUILD_DIR) has changed. Re-configuring using options)
 $(warning "TRICK_BUILD=${TRICK_BUILD} ENABLE_UNIT_TESTS=${ENABLE_UNIT_TESTS} REGEN_DE4XX_DATA=${REGEN_DE4XX_DATA} DE4XX_ONLY=${DE4XX_ONLY} CMAKE_BUILD_TYPE=${BUILD_TYPE}")

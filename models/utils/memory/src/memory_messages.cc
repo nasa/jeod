@@ -36,14 +36,13 @@ Library dependencies:
 // Model includes
 #include "../include/memory_messages.hh"
 
-#define MAKE_MEMORY_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MemoryMessages, "utils/memory/", id)
-
 //! Namespace jeod
 namespace jeod
 {
 
-// Static member data
+#define MAKE_MEMORY_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(MemoryMessages, "utils/memory/", id)
 
+// Static member data
 MAKE_MEMORY_MESSAGE_CODE(singleton_error);
 MAKE_MEMORY_MESSAGE_CODE(out_of_memory);
 MAKE_MEMORY_MESSAGE_CODE(lock_error);
@@ -55,11 +54,9 @@ MAKE_MEMORY_MESSAGE_CODE(registration_error);
 MAKE_MEMORY_MESSAGE_CODE(internal_error);
 MAKE_MEMORY_MESSAGE_CODE(debug);
 
-} // namespace jeod
-
 #undef MAKE_MEMORY_MESSAGE_CODE
-#undef CLASS
-#undef PATH
+
+} // namespace jeod
 
 /**
  * @}

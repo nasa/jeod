@@ -9,7 +9,6 @@ Purpose:
 #include "utils/math/include/matrix3x3.hh"
 #include "utils/math/include/vector3.hh"
 
-#define _USE_MATH_DEFINES_ // M_PI
 #include <iostream>
 
 //! Namespace jeod

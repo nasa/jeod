@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -103,7 +103,7 @@ public:
                    //      1970: 1.289E-5
                    //      1971: 6.1471E-6
         0.0        // H
-    };             /* !<trick_units(--) The fraction of the atmosphere by volume represented by each species.*/
+    }; /* !<trick_units(--) The fraction of the atmosphere by volume represented by each species.*/
 
     double mol_weight[num_species]{
         28.0134, // N2
@@ -112,7 +112,7 @@ public:
         39.948,  // Ar
         4.0026,  // He
         1.00797  // H
-    };           /* !<trick_units(g/mol) Nominal molecular weight, or molar mass for each species.*/
+    }; /* !<trick_units(g/mol) Nominal molecular weight, or molar mass for each species.*/
 
     const double nominal_mol_weight{28.96}; /* !<trick_units(g/mol) Nominal molecular weight,
                                                or molar mass for each species.*/

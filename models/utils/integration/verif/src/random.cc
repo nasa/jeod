@@ -16,15 +16,15 @@ Library dependencies:
 // JEOD includes
 #include "../include/random.hh"
 
-// Numbers pulled out of a hat.
-#define RANDOM_SEED_0 26550
-#define RANDOM_SEED_1 47345
-#define RANDOM_SEED_2 29358
-#define RANDOM_SEED_3 51636
-
 //! Namespace jeod
 namespace jeod
 {
+
+// Numbers pulled out of a hat.
+static constexpr unsigned int RANDOM_SEED_0 = 26550;
+static constexpr unsigned int RANDOM_SEED_1 = 47345;
+static constexpr unsigned int RANDOM_SEED_2 = 29358;
+static constexpr unsigned int RANDOM_SEED_3 = 51636;
 
 /*
 Purpose: (Constructor, with seed set from numbers pulled out of a hat.)
@@ -147,9 +147,6 @@ void RandomSeedGenerator::get_seed(unsigned short seed[3]) // Out: -- Seed
     seed[2] = RANDOM_SEED_3;
 }
 
-/*
-Purpose: (Constructor.)
-*/
 RandomGenerator::RandomGenerator(RandomSeedGenerator & seed_gen, // Inout: -- Random seed generator
                                  unsigned int nskip,             // In:    -- Skip count
                                  bool initialize)                // In:    -- Complete initialization?
@@ -157,9 +154,6 @@ RandomGenerator::RandomGenerator(RandomSeedGenerator & seed_gen, // Inout: -- Ra
 {
 }
 
-/*
-Purpose: (Constructor.)
-*/
 RandomVectorUniform01::RandomVectorUniform01(RandomSeedGenerator & seed_gen,
                                              unsigned int vsize,
                                              unsigned int nskip,
@@ -169,8 +163,4 @@ RandomVectorUniform01::RandomVectorUniform01(RandomSeedGenerator & seed_gen,
 {
 }
 
-#undef RANDOM_SEED_0
-#undef RANDOM_SEED_1
-#undef RANDOM_SEED_2
-#undef RANDOM_SEED_3
 } // namespace jeod

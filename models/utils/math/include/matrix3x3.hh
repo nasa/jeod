@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -58,8 +58,8 @@ Library dependencies:
 
 *******************************************************************************/
 
-#ifndef JEOD_MATRIX3X3_H
-#define JEOD_MATRIX3X3_H
+#ifndef JEOD_MATRIX3X3_HH
+#define JEOD_MATRIX3X3_HH
 
 //! Namespace jeod
 namespace jeod
@@ -176,12 +176,6 @@ public:
     static void print(const double mat[3][3]);
 #endif
 };
-
-#define IDENTITY                                                                                                       \
-    {1.0, 0.0, 0.0}, {0.0, 1.0, 0.0},                                                                                  \
-    {                                                                                                                  \
-        0.0, 0.0, 1.0                                                                                                  \
-    }
 
 } // namespace jeod
 

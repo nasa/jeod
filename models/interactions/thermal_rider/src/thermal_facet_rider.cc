@@ -285,6 +285,8 @@ double ThermalFacetRider::integrate()
     power_emit = power_absorb - (heat_capacity * d_temperature / cycle_time);
 
     return dynamic_temperature;
+
+#undef pow4
 }
 
 } // namespace jeod

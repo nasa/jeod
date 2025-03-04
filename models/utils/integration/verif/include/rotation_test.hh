@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -82,6 +82,9 @@ Library dependencies:
 #include "integration_test_messages.hh"
 #include "random_orientation.hh"
 
+// Define macros
+#include "utils/math/include/macro_def.hh"
+
 //! Namespace jeod
 namespace jeod
 {
@@ -127,7 +130,7 @@ protected:
     /**
      * Inertial-to-body transformation.
      */
-    double T_inertial_body[3][3]{IDENTITY}; //!< trick_units(--)
+    double T_inertial_body[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     /**
      * Body rate wrt inertial in body frame.
@@ -572,5 +575,7 @@ protected:
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif

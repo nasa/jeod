@@ -32,7 +32,7 @@ Purpose:
 
 using namespace jeod;
 
-#define STEPS_PER_2PI 32
+static constexpr unsigned int STEPS_PER_2PI = 32;
 
 unsigned int ntests = 0;
 unsigned int npassed = 0;

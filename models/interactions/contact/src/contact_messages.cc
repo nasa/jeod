@@ -31,25 +31,25 @@ Library dependencies:
 
 *******************************************************************************/
 
-#include "../include/contact_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "interactions/contact"
+// Model includes
+#include "../include/contact_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-const char * ContactMessages::initialization_error = PATH "initialization_error";
+#define MAKE_CONTACT_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(ContactMessages, "interactions/contact", id)
 
-const char * ContactMessages::initialization_warns = PATH "initialization_warns";
+MAKE_CONTACT_MESSAGE_CODE(initialization_error);
+MAKE_CONTACT_MESSAGE_CODE(initialization_warns);
+MAKE_CONTACT_MESSAGE_CODE(runtime_error);
+MAKE_CONTACT_MESSAGE_CODE(pre_initialization_error);
+MAKE_CONTACT_MESSAGE_CODE(runtime_warns);
+MAKE_CONTACT_MESSAGE_CODE(runtime_inform);
 
-const char * ContactMessages::runtime_error = PATH "runtime_error";
-
-const char * ContactMessages::pre_initialization_error = PATH "pre_initialization_error";
-
-const char * ContactMessages::runtime_warns = PATH "runtime_warns";
-
-const char * ContactMessages::runtime_inform = PATH "runtime_warns";
+#undef MAKE_CONTACT_MESSAGE_CODE
 
 } // namespace jeod
 

@@ -19,7 +19,7 @@ control systems. More than one spacecraft can be simulated about one central
 body or separate spacecraft about separate central bodies.
 
 ## Copyright:
-Copyright 2023 United States Government as represented by the Administrator
+Copyright 2025 United States Government as represented by the Administrator
 of the National Aeronautics and Space Administration.  All Rights Reserved.
 
 ## Disclaimer:
@@ -51,7 +51,7 @@ AGREEMENT.
 JEOD is released under the [NASA Open Source Agreement Version 1.3](https://github.com/nasa/jeod/blob/main/LICENSE).
 
 ## Responsible Organization
-Simulation and Graphics Branch, Mail Code ER7  
-Software, Robotics & Simulation Division  
-NASA, Johnson Space Center  
-2101 NASA Parkway, Houston, TX  77058  
+Simulation and Graphics Branch, Mail Code ER7
+Software, Robotics & Simulation Division
+NASA, Johnson Space Center
+2101 NASA Parkway, Houston, TX  77058

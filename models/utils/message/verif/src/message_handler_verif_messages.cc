@@ -19,20 +19,25 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/message_handler_verif_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/message/verif/"
+// Model includes
+#include "../include/message_handler_verif_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-// Static member data
+#define MAKE_MESSAGEHANDLERVERIF_MESSAGE_CODE(id)                                                                      \
+    JEOD_MAKE_MESSAGE_CODE(MessageHandlerVerifMessages, "utils/message/verif/", id)
 
-const char * MessageHandlerVerifMessages::error = PATH "Error";
-const char * MessageHandlerVerifMessages::warning = PATH "Warning";
-const char * MessageHandlerVerifMessages::inform = PATH "Information";
-const char * MessageHandlerVerifMessages::debug = PATH "Debug";
-const char * MessageHandlerVerifMessages::message = PATH "Message";
+// Static member data
+MAKE_MESSAGEHANDLERVERIF_MESSAGE_CODE(error);
+MAKE_MESSAGEHANDLERVERIF_MESSAGE_CODE(warning);
+MAKE_MESSAGEHANDLERVERIF_MESSAGE_CODE(inform);
+MAKE_MESSAGEHANDLERVERIF_MESSAGE_CODE(debug);
+MAKE_MESSAGEHANDLERVERIF_MESSAGE_CODE(message);
+
+#undef MAKE_MESSAGEHANDLERVERIF_MESSAGE_CODE
 
 } // namespace jeod

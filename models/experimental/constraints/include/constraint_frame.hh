@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -56,10 +56,12 @@ Library dependencies: ((../src/constraint_frame.cc))
 
 #include "dynamics/dyn_body/include/vehicle_properties.hh"
 #include "dynamics/dyn_body/include/wrench.hh"
-#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 #include <utility>
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -92,7 +94,7 @@ public:
      * The transformation from the immediate structural frame to the
      * preferred frame for this constraint.
      */
-    double T_struct_constraint[3][3]{IDENTITY}; //!< trick_units(--)
+    double T_struct_constraint[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     /**
      * The offset from the origin of the immediate structural frame to the
@@ -105,7 +107,7 @@ public:
      * The transformation from the root body's structural frame to the
      * preferred frame for this constraint.
      */
-    double T_root_constraint[3][3]{IDENTITY}; //!< trick_units(--)
+    double T_root_constraint[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     /**
      * The offset from the origin of the root body's structural frame to the
@@ -186,6 +188,8 @@ public:
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif
 

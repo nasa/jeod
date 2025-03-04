@@ -31,16 +31,22 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/gravity_torque_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "interactions/gravity_torque/"
+// Model includes
+#include "../include/gravity_torque_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_GRAVITYTORQUE_MESSAGE_CODE(id)                                                                            \
+    JEOD_MAKE_MESSAGE_CODE(GravityTorqueMessages, "interactions/gravity_torque/", id)
+
 // Static member data
-const char * GravityTorqueMessages::initialization_error = PATH "initialization_error";
+MAKE_GRAVITYTORQUE_MESSAGE_CODE(initialization_error);
+
+#undef MAKE_GRAVITYTORQUE_MESSAGE_CODE
 
 } // namespace jeod
 

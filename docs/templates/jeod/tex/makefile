@@ -63,6 +63,10 @@ DOCUMENTS  = dynenv
 ######################################################
 # Specify template, source and document directories. #
 ######################################################
+ifeq (, ${JEOD_HOME})
+export JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../../../../)
+endif
+
 TEMPLATE_DIR = ${JEOD_HOME}/docs/templates/jeod
 
 # INST_DIR: directory in which the generated pdf files will be installed

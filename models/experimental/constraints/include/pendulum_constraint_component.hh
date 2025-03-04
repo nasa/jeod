@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,13 +61,15 @@ Library dependencies: ((../src/pendulum_constraint_component.cc))
 
 #include "utils/integration/include/restartable_2d_second_order_integrator.hh"
 #include "utils/integration/include/restartable_state_integrator.hh"
-#include "utils/math/include/matrix3x3.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/integrable_object.hh"
 #include "er7_utils/integration/core/include/integrator_result.hh"
 #include "er7_utils/integration/core/include/integrator_result_merger_container.hh"
+
+// Define macros
+#include "utils/math/include/macro_def.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -351,7 +353,7 @@ protected:
     /**
      * Local spherical transformation matrix.
      */
-    double constraint_to_spherical_transform[3][3]{IDENTITY}; //!< trick_units(--)
+    double constraint_to_spherical_transform[3][3]{IDENTITY_3X3}; //!< trick_units(--)
 
     /**
      * Vehicle angular velocity expressed in the constraint frame.
@@ -457,6 +459,8 @@ private:
 };
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif
 

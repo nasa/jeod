@@ -36,6 +36,12 @@ BEGIN {
          or die "Can't parse working directory = $JEOD_HOME";
       warn "Using $JEOD_HOME.\n"
    }
+   unless (defined $TRICK_HOME) {
+      warn "Environment variable TRICK_HOME not set.\n";
+      $TRICK_HOME = `trick-config --prefix`;
+      $TRICK_HOME = chomp($TRICK_HOME);
+      warn "Using $TRICK_HOME.\n"
+   }
 }
 
 use lib "$JEOD_HOME/bin/jeod";

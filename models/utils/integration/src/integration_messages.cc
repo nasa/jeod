@@ -25,29 +25,27 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/integration_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/integration/"
-#define CLASS IntegrationMessages
-#define MAKE_MESSAGE_CODE(id) char const * CLASS::id = PATH #id
+// Model includes
+#include "../include/integration_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-// Static member data
+#define MAKE_INTEGRATION_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(IntegrationMessages, "utils/integration/", id)
 
-MAKE_MESSAGE_CODE(unsupported_option);
-MAKE_MESSAGE_CODE(invalid_item);
-MAKE_MESSAGE_CODE(internal_error);
-MAKE_MESSAGE_CODE(invalid_request);
-MAKE_MESSAGE_CODE(information);
+// Static member data
+MAKE_INTEGRATION_MESSAGE_CODE(unsupported_option);
+MAKE_INTEGRATION_MESSAGE_CODE(invalid_item);
+MAKE_INTEGRATION_MESSAGE_CODE(internal_error);
+MAKE_INTEGRATION_MESSAGE_CODE(invalid_request);
+MAKE_INTEGRATION_MESSAGE_CODE(information);
+
+#undef MAKE_INTEGRATION_MESSAGE_CODE
 
 } // namespace jeod
-
-#undef MAKE_MESSAGE_CODE
-#undef CLASS
-#undef PATH
 
 /**
  * @}

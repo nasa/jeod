@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -68,14 +68,7 @@ Library dependencies:
 
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/integration_controls.hh"
-
-/**
- * Namespace er7_utils contains the state integration models used by JEOD.
- */
-namespace er7_utils
-{
-class IntegratorConstructor;
-} // namespace er7_utils
+#include "er7_utils/integration/core/include/integrator_constructor.hh"
 
 //! Namespace jeod
 namespace jeod

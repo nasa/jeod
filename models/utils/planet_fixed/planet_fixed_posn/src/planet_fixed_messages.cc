@@ -32,19 +32,23 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/planet_fixed_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "environment/planet_fixed/"
+// Model includes
+#include "../include/planet_fixed_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_PLANETFIXED_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(PlanetFixedMessages, "environment/planet_fixed/", id)
+
 // Static member data
 // Errors
+MAKE_PLANETFIXED_MESSAGE_CODE(invalid_request);
+MAKE_PLANETFIXED_MESSAGE_CODE(domain_error);
 
-const char * PlanetFixedMessages::invalid_request = PATH "invalid_request";
-const char * PlanetFixedMessages::domain_error = PATH "domain_error";
+#undef MAKE_PLANETFIXED_MESSAGE_CODE
 
 } // namespace jeod
 

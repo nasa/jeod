@@ -31,25 +31,27 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/radiation_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "interactions/radiation_pressure/"
+// Model includes
+#include "../include/radiation_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_RADIATION_MESSAGE_CODE(id)                                                                                \
+    JEOD_MAKE_MESSAGE_CODE(RadiationMessages, "interactions/radiation_pressure/", id)
+
 // Static member data
 // Errors and warnings
-const char * RadiationMessages::incomplete_setup_error = PATH "incomplete_setup_error";
+MAKE_RADIATION_MESSAGE_CODE(incomplete_setup_error);
+MAKE_RADIATION_MESSAGE_CODE(invalid_setup_error);
+MAKE_RADIATION_MESSAGE_CODE(operational_setup_error);
+MAKE_RADIATION_MESSAGE_CODE(invalid_function_call);
+MAKE_RADIATION_MESSAGE_CODE(unknown_numerical_error);
 
-const char * RadiationMessages::invalid_setup_error = PATH "invalid_setup_error";
-
-const char * RadiationMessages::operational_setup_error = PATH "operational_setup_error";
-
-const char * RadiationMessages::invalid_function_call = PATH "invalid_function_call";
-
-const char * RadiationMessages::unknown_numerical_error = PATH "unknown_numerical_error";
+#undef MAKE_RADIATION_MESSAGE_CODE
 
 } // namespace jeod
 

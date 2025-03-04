@@ -124,7 +124,6 @@ TEST(BodyDetachSpecific, apply)
     MockDynBody mockDynBody;
     MockDynBody mockDynBody2;
     MockMassBody mockMassBody;
-    //	MockMassBody mockMassBody2;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
         // Test detach dyn_subject from DynBody parent. Succeeds

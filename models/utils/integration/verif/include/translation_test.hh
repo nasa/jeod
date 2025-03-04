@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -81,6 +81,9 @@ Library dependencies:
 #include "integration_test_messages.hh"
 #include "random_orientation.hh"
 
+// Define macros
+#include "utils/math/include/macro_def.hh"
+
 //! Namespace jeod
 namespace jeod
 {
@@ -108,7 +111,7 @@ protected:
     Quaternion Q_inertial_body; /* trick_units(--) @n
        Inertial-to-body quaternion */
 
-    double T_inertial_body[3][3]{IDENTITY}; /* trick_units(--) @n
+    double T_inertial_body[3][3]{IDENTITY_3X3}; /* trick_units(--) @n
        Inertial-to-body transformation */
 
     double position[3]{}; /* trick_units(m) @n
@@ -468,5 +471,7 @@ v = -Aa(exp(-at)-exp(-bt))
 */
 
 } // namespace jeod
+
+#include "utils/math/include/macro_undef.hh"
 
 #endif

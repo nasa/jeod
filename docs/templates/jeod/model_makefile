@@ -39,6 +39,12 @@
 #
 ################################################################################
 
+####################################################################################
+## JEOD_HOME must be set using MAKEFILE_LIST before including any other makefiles ##
+####################################################################################
+ifeq (, ${JEOD_HOME})
+export JEOD_HOME := $(abspath $(dir $(realpath $(lastword $(MAKEFILE_LIST))))/../../../)
+endif
 
 ####################
 ## Non Parallel.   #
@@ -122,6 +128,10 @@ MODEL_CLASS = 3
 MODEL_TITLE_DEFAULT = ""
 endif
 endif
+endif
+
+ifeq (, ${TRICK_HOME})
+export TRICK_HOME := $(shell trick-config --prefix)
 endif
 
 ifndef TRICK_VER

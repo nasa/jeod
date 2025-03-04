@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright 2023 United States Government as represented by the Administrator
+# Copyright 2025 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -157,6 +157,10 @@ class VerifPackage:
                       run_base = '',
                       verif_base = ''):
 
+        JEOD_HOME = os.getenv("JEOD_HOME")
+        if JEOD_HOME is None:
+            JEOD_HOME = os.path.abspath(os.path.join(os.path.dirname(__file__),"../"))
+
         analysis_jobs = [] # list of Job instances
         for sim in [sim for model in self.models
                         for sim in model.sims
@@ -167,7 +171,7 @@ class VerifPackage:
             verif_path = os.path.join( sim.full_sim_dir,
                                        verif_base)
             #logfile = logdir+"/04_analysis_logging_"+sim.unique_id+".txt"
-            command = "$JEOD_HOME/regression/regressionCompare.py "+ \
+            command = JEOD_HOME + "/regression/regressionCompare.py "+ \
                       " -r "+verif_path + \
                       " -t "+test_path  + \
                       " -l "+logdir+"/04_data_comp_log_"+sim.unique_id+".txt"+ \

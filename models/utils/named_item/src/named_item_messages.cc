@@ -31,19 +31,23 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/named_item_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/named_item/"
+// Model includes
+#include "../include/named_item_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-// Static member data
+#define MAKE_NAMEDITEM_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(NamedItemMessages, "utils/named_item/", id)
 
-const char * NamedItemMessages::bad_args = PATH "bad_args";
-const char * NamedItemMessages::invalid_name = PATH "invalid_name";
-const char * NamedItemMessages::frozen_name = PATH "frozen_name";
+// Static member data
+MAKE_NAMEDITEM_MESSAGE_CODE(bad_args);
+MAKE_NAMEDITEM_MESSAGE_CODE(invalid_name);
+MAKE_NAMEDITEM_MESSAGE_CODE(frozen_name);
+
+#undef MAKE_NAMEDITEM_MESSAGE_CODE
 
 } // namespace jeod
 

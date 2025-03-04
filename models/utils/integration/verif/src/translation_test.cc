@@ -38,7 +38,7 @@ JEOD_DECLARE_ATTRIBUTES(TranslationTestOrbit)
 JEOD_DECLARE_ATTRIBUTES(TranslationTestSpringDamper)
 
 // Local definitions
-#define PIx2 6.28318530717958647692528676655900577
+static constexpr double PIx2 = 6.28318530717958647692528676655900577;
 
 /*
 Purpose:

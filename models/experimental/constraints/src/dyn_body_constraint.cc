@@ -25,7 +25,6 @@ Library dependencies: (
 
 #include "experimental/math/include/matrix_view.hh"
 #include "experimental/math/include/vector_view.hh"
-#include "utils/math/include/matrix3x3.hh"
 #include "utils/math/include/vector3.hh"
 
 #include <utility>

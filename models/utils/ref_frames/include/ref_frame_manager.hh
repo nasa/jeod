@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -88,7 +88,6 @@ class RefFrameManager : virtual public BaseRefFrameManager
 
 public:
     // Member functions
-    // Note: The copy constructor and assignment operator are deleted.
 
     // Constructor and destructor
     RefFrameManager();
@@ -138,10 +137,6 @@ protected:
                        const std::string & variable_type,
                        const std::string & variable_name) const;
 
-    // Member data
-    // NOTE WELL: These are protected rather than private because of simulation
-    // engine limitations. Inheriting classes should treat these as private
-    // and use access methods.
     // Member data
     // NOTE WELL: These are protected rather than private because of simulation
     // engine limitations. Inheriting classes should treat these as private

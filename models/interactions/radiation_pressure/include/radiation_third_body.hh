@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -235,8 +235,6 @@ public:
 
     virtual void initialize(DynManager * dyn_mgr_ptr);
 
-    void calculate_shadow();
-
     void convert_shadow_from_int(int geometry);
 
     virtual double process_third_body(double real_time, RefFrame & veh_struc_frame);
@@ -255,7 +253,7 @@ public:
      * @param calculate_forces pass-through flag.
      */
     virtual void accumulate_refl_flux(RadiationBaseFacet * veh_surf_elem JEOD_UNUSED,
-                                      bool calculate_forces JEOD_UNUSED){};
+                                      bool calculate_forces JEOD_UNUSED) {};
 
     /**
      * To provide base class null implementation
@@ -263,7 +261,7 @@ public:
      * @param calculate_forces pass-through flag.
      */
     virtual void accumulate_rad_flux(RadiationBaseFacet * veh_surf_elem JEOD_UNUSED,
-                                     bool calculate_forces JEOD_UNUSED){};
+                                     bool calculate_forces JEOD_UNUSED) {};
 
     /**
      * Identifies this class as one that does not produce a radiaiton field
@@ -297,6 +295,7 @@ public:
 protected:
     double generate_alpha(double rho_adj, double delta);
     bool test_for_state_update(double time);
+    void calculate_shadow();
     virtual bool update_third_body_state();
 };
 

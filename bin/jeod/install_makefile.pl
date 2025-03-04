@@ -4,13 +4,15 @@
 # Purpose:
 #   (Generate a makefile in a JEOD subdirectory or model directory)
 #
-#  
+#
 #
 ################################################################################
 
 use strict;
 use Getopt::Long;
 use Cwd qw(abs_path cwd);
+use File::Basename;
+use File::Spec;
 
 sub get_directories();
 sub parse_overrides();
@@ -53,7 +55,12 @@ my ($Cwd,
     @Final_overrides,
     %Override_targets);
 
-die 'JEOD_HOME not defined' unless defined $ENV{JEOD_HOME};
+my $JEOD_HOME = $ENV{JEOD_HOME};
+unless (defined $JEOD_HOME) {
+    $JEOD_HOME = dirname(dirname(dirname(File::Spec->rel2abs($0))));
+}
+
+die 'JEOD_HOME not defined' unless defined ${JEOD_HOME};
 die 'ER7_UTILS_HOME not defined' unless defined $ENV{ER7_UTILS_HOME};
 
 $Cwd  = cwd();
@@ -113,7 +120,7 @@ if ($Reldir !~ /\//) {
 push @Install_options, '-gcov'  if $Gcov;
 push @Install_options, '-trick' if $Trick;
 
-$JEOD_models = abs_path("$ENV{JEOD_HOME}/models");
+$JEOD_models = abs_path("${JEOD_HOME}/models");
 $JEOD_libdir = "\${JEOD_HOME}/lib${Suffix}";
 $JEOD_objdir = "obj${Suffix}";
 
@@ -384,6 +391,11 @@ sub generate_cflags_options () {
    my $gcov_cflags = $Gcov ? '-fprofile-arcs -ftest-coverage' : '';
    my $config_cflags = '';
    if ($Trick) {
+      my $TRICK_HOME = $ENV{TRICK_HOME};
+      unless (defined ${TRICK_HOME}) {
+         $TRICK_HOME = `trick-config --prefix`;
+         $TRICK_HOME = chomp($TRICK_HOME);
+      }
       my (@trick_ver, $trick_major, $trick_minor, $trick_source);
       @trick_ver = split /\./, $ENV{TRICK_VER};
       $trick_source = "\$(TRICK_HOME)/trick_source";

@@ -33,24 +33,26 @@ Library dependencies:
 
 *******************************************************************************/
 
-#include "../include/RNP_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "environment/RNP/"
+// Model includes
+#include "../include/RNP_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_RNP_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(RNPMessages, "environment/RNP/", id)
+
 // Errors
-const char * RNPMessages::initialization_error = PATH "initialization_error";
-
-const char * RNPMessages::fidelity_error = PATH "fidelity_error";
-
-const char * RNPMessages::setup_error = PATH "setup_error";
+MAKE_RNP_MESSAGE_CODE(initialization_error);
+MAKE_RNP_MESSAGE_CODE(fidelity_error);
+MAKE_RNP_MESSAGE_CODE(setup_error);
 
 // Warnings
+MAKE_RNP_MESSAGE_CODE(polar_motion_table_warning);
 
-const char * RNPMessages::polar_motion_table_warning = PATH "polar_motion_table_warning";
+#undef MAKE_RNP_MESSAGE_CODE
 
 } // namespace jeod
 

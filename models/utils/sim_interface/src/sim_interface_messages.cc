@@ -31,29 +31,28 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/sim_interface_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/sim_interface/"
-#define CLASS SimInterfaceMessages
-#define MAKE_MESSAGE_CODE(id) char const * CLASS::id = PATH #id
+// Model includes
+#include "../include/sim_interface_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_SIMINTERFACE_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(SimInterfaceMessages, "utils/sim_interface/", id)
+
 // Static member data
 
-MAKE_MESSAGE_CODE(singleton_error);
-MAKE_MESSAGE_CODE(interface_error);
-MAKE_MESSAGE_CODE(phasing_error);
-MAKE_MESSAGE_CODE(integration_error);
-MAKE_MESSAGE_CODE(implementation_error);
+MAKE_SIMINTERFACE_MESSAGE_CODE(singleton_error);
+MAKE_SIMINTERFACE_MESSAGE_CODE(interface_error);
+MAKE_SIMINTERFACE_MESSAGE_CODE(phasing_error);
+MAKE_SIMINTERFACE_MESSAGE_CODE(integration_error);
+MAKE_SIMINTERFACE_MESSAGE_CODE(implementation_error);
+
+#undef MAKE_SIMINTERFACE_MESSAGE_CODE
 
 } // namespace jeod
-
-#undef MAKE_MESSAGE_CODE
-#undef CLASS
-#undef PATH
 
 /**
  * @}

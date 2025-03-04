@@ -13,21 +13,24 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/integration_test_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/integration/verif/"
+// Model includes
+#include "../include/integration_test_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_INTEGRATIONTEST_MESSAGE_CODE(id)                                                                          \
+    JEOD_MAKE_MESSAGE_CODE(IntegrationTestMessages, "utils/integration/verif/", id)
+
 // Static member data
+MAKE_INTEGRATIONTEST_MESSAGE_CODE(invalid_data);
+MAKE_INTEGRATIONTEST_MESSAGE_CODE(internal_error);
+MAKE_INTEGRATIONTEST_MESSAGE_CODE(debug);
 
-const char * IntegrationTestMessages::invalid_data = PATH "invalid_data";
-
-const char * IntegrationTestMessages::internal_error = PATH "internal_error";
-
-const char * IntegrationTestMessages::debug = PATH "debug";
+#undef MAKE_INTEGRATIONTEST_MESSAGE_CODE
 
 } // namespace jeod
 

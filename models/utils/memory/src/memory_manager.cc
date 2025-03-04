@@ -48,12 +48,12 @@ Library dependencies:
 #include "../include/memory_manager.hh"
 #include "../include/memory_messages.hh"
 
-#define MAGIC0 0x2203992c
-#define MAGIC1 0x6c052d84
-
 //! Namespace jeod
 namespace jeod
 {
+
+static constexpr uint32_t MAGIC0 = 0x2203992c;
+static constexpr uint32_t MAGIC1 = 0x6c052d84;
 
 /**
  * Construct a MemoryManager object.

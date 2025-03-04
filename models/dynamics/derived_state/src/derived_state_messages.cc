@@ -25,28 +25,27 @@ Library dependencies:
 // System includes
 
 // JEOD includes
-#include "../include/derived_state_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "dynamics/derived_state/"
+// Model includes
+#include "../include/derived_state_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
+#define MAKE_DERIVEDSTATE_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(DerivedStateMessages, "dynamics/derived_state/", id)
+
 // Static member data
-const char * DerivedStateMessages::fatal_error = PATH "fatal_error";
+MAKE_DERIVEDSTATE_MESSAGE_CODE(fatal_error);
+MAKE_DERIVEDSTATE_MESSAGE_CODE(illegal_value);
+MAKE_DERIVEDSTATE_MESSAGE_CODE(invalid_name);
+MAKE_DERIVEDSTATE_MESSAGE_CODE(invalid_object);
+MAKE_DERIVEDSTATE_MESSAGE_CODE(null_pointer);
+MAKE_DERIVEDSTATE_MESSAGE_CODE(trace);
+MAKE_DERIVEDSTATE_MESSAGE_CODE(divide_by_zero);
 
-const char * DerivedStateMessages::illegal_value = PATH "illegal_value";
-
-const char * DerivedStateMessages::invalid_name = PATH "invalid_name";
-
-const char * DerivedStateMessages::invalid_object = PATH "invalid_object";
-
-const char * DerivedStateMessages::null_pointer = PATH "null_pointer";
-
-const char * DerivedStateMessages::trace = PATH "trace";
-
-const char * DerivedStateMessages::divide_by_zero = PATH "divide_by_zero";
+#undef MAKE_DERIVEDSTATE_MESSAGE_CODE
 
 } // namespace jeod
 

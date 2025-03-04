@@ -19,6 +19,9 @@ Purpose:
 #include "test_harness/include/color_text.hh"
 #include "test_harness/include/test_sim_interface.hh"
 
+// Define macros
+#include "utils/math/include/macro_def.hh"
+
 using namespace jeod;
 
 bool verbose;
@@ -54,7 +57,7 @@ public:
                   const double eigen_axis_in[3],
                   const double euler_angles_in[12][3]);
 
-    double trans[3][3]{IDENTITY};
+    double trans[3][3]{IDENTITY_3X3};
     Quaternion quat;
     double eigen_rot{};
     double eigen_axis[3]{};
@@ -577,3 +580,5 @@ TruthData::TruthData()
     quat_in.left_quat_from_eigen_rotation(M_PI * 2.0 / 3.0, uhat);
     set_data(trans_in, quat_in, M_PI * 2.0 / 3.0, uhat, euler_angles_in);
 }
+
+#include "utils/math/include/macro_undef.hh"

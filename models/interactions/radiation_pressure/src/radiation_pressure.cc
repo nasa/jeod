@@ -53,14 +53,6 @@ LIBRARY DEPENDENCY:
 namespace jeod
 {
 
-/******************************************************************************/
-/******************************************************************************/
-
-/**
- * Constructor for RadiationPressure
- */
-/******************************************************************************/
-
 /******************************************************************************
   Purpose:
     (Constructor for RadiationPressure)
@@ -70,6 +62,14 @@ RadiationPressure::RadiationPressure()
     JEOD_REGISTER_CLASS(RadiationPressure);
     JEOD_REGISTER_CLASS(RadiationThirdBody);
     JEOD_REGISTER_CHECKPOINTABLE(this, third_bodies);
+}
+
+/**
+ * Destructor for RadiationPressure
+ */
+RadiationPressure::~RadiationPressure()
+{
+    JEOD_DEREGISTER_CHECKPOINTABLE(this, third_bodies);
 }
 
 /**
@@ -387,14 +387,6 @@ void RadiationPressure::set_calculate_forces(bool value)
         Vector3::initialize(force);
         Vector3::initialize(torque);
     }
-}
-
-/**
- * Destructor for RadiationPressure
- */
-RadiationPressure::~RadiationPressure()
-{
-    JEOD_DEREGISTER_CHECKPOINTABLE(this, third_bodies);
 }
 
 } // namespace jeod

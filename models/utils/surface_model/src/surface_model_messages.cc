@@ -31,19 +31,22 @@ Library dependencies:
 
 *******************************************************************************/
 
-#include "../include/surface_model_messages.hh"
+#include "utils/message/include/make_message_code.hh"
 
-#define PATH "utils/surface_model/"
+// Model includes
+#include "../include/surface_model_messages.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
-const char * SurfaceModelMessages::initialization_error = PATH "initialization_error";
+#define MAKE_SURFACEMODEL_MESSAGE_CODE(id) JEOD_MAKE_MESSAGE_CODE(SurfaceModelMessages, "utils/surface_model/", id)
 
-const char * SurfaceModelMessages::setup_error = PATH "setup_error";
+MAKE_SURFACEMODEL_MESSAGE_CODE(initialization_error);
+MAKE_SURFACEMODEL_MESSAGE_CODE(setup_error);
+MAKE_SURFACEMODEL_MESSAGE_CODE(runtime_error);
 
-const char * SurfaceModelMessages::runtime_error = PATH "runtime_error";
+#undef MAKE_SURFACEMODEL_MESSAGE_CODE
 
 } // namespace jeod
 

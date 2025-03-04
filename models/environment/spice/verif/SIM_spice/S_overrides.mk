@@ -1,3 +1,5 @@
+JEOD_HOME ?= $(realpath $(CURDIR)/../../../../../)
+
 ifndef JEOD_HOME
     $(Error: JEOD_HOME environment variable is undefined.)
 endif

@@ -1,3 +1,5 @@
+JEOD_HOME ?= $(realpath $(CURDIR)/../../../)
+
 # Set additional Trick compile flags
 TRICK_SFLAGS +=-I${JEOD_HOME}/lib/jeod
 

@@ -69,6 +69,13 @@ SurfaceModel::SurfaceModel()
 SurfaceModel::~SurfaceModel()
 {
     JEOD_DEREGISTER_CHECKPOINTABLE(this, facets);
+
+    while(!articulation_states.empty())
+    {
+        JEOD_DELETE_OBJECT(articulation_states.back());
+        articulation_states.pop_back();
+    }
+
     JEOD_DEREGISTER_CHECKPOINTABLE(this, articulation_states);
 }
 
@@ -158,8 +165,6 @@ void SurfaceModel::initialize_mass_connections(BaseDynManager & manager)
     // relative states over and over again, so for each "attached to"
     // mass body we see, create a new FacetStateInfo for it.
 
-    // create an iterator to search the vector of FacetStateInfos.
-    std::list<FacetStateInfo>::iterator it;
     for(unsigned int ii = 0; ii < facets.size(); ++ii)
     {
         facets[ii]->initialize_mass_connection(manager);
@@ -167,19 +172,22 @@ void SurfaceModel::initialize_mass_connections(BaseDynManager & manager)
         // the facet should now have something in it's mass body ptr.
         // search for it in the vector of FacetStateInfos. If it doesn't
         // appear, create a new one for that mass body.
+        MassBody * massBodyPtr = facets[ii]->get_mass_body_ptr();
+        auto shares_this_mass_body = [&massBodyPtr](FacetStateInfo * facetStateInfo)
+        {
+            return facetStateInfo->mass_body == massBodyPtr;
+        };
 
-        it = find(articulation_states.begin(),
-                  articulation_states.end(),
-                  FacetStateInfo(facets[ii]->get_mass_body_ptr()));
+        auto it = std::find_if(articulation_states.begin(), articulation_states.end(), shares_this_mass_body);
 
         if(it == articulation_states.end())
         {
-            articulation_states.push_back(FacetStateInfo(facets[ii]->get_mass_body_ptr()));
-            facets[ii]->mass_rel_struct = &articulation_states.back().mass_state;
+            articulation_states.push_back(JEOD_ALLOC_CLASS_OBJECT(FacetStateInfo, (massBodyPtr)));
+            facets[ii]->mass_rel_struct = &articulation_states.back()->mass_state;
         }
         else
         {
-            facets[ii]->mass_rel_struct = &(it->mass_state);
+            facets[ii]->mass_rel_struct = &((*it)->mass_state);
         }
 
     } // for(unsigned int ii)
@@ -204,7 +212,7 @@ void SurfaceModel::update_articulation()
     // for(unsigned int ii = 0; ii < articulation_states.size(); ++ii) {
     for(auto & current_state : articulation_states)
     {
-        if(struct_body_ptr->get_root_body() != current_state.mass_body->get_root_body())
+        if(struct_body_ptr->get_root_body() != current_state->mass_body->get_root_body())
         {
             MessageHandler::fail(__FILE__,
                                  __LINE__,
@@ -214,13 +222,13 @@ void SurfaceModel::update_articulation()
                                  "points are not contained within the same mass tree, and "
                                  "thus update_articulation has failed\n",
                                  struct_body_name.c_str(),
-                                 current_state.mass_body->name.c_str());
+                                 current_state->mass_body->name.c_str());
 
             return;
         }
 
-        current_state.mass_body->structure_point.compute_relative_state(struct_body_ptr->structure_point,
-                                                                        current_state.mass_state);
+        current_state->mass_body->structure_point.compute_relative_state(struct_body_ptr->structure_point,
+                                                                         current_state->mass_state);
     }
 
     for(unsigned int ii = 0; ii < facets.size(); ++ii)

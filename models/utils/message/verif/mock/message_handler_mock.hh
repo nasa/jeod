@@ -9,6 +9,7 @@
 #define JEOD_MODELS_UTILS_MESSAGE_VERIF_MOCK_MESSAGE_HANDLER_MOCK_HH_
 
 #include "gmock/gmock.h"
+#include <cstring>
 
 #include "utils/message/include/message_handler.hh"
 

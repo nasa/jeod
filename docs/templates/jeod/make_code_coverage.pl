@@ -238,7 +238,7 @@ in the model document.
 
 sub make_table ($) {
    my ($vertlines) = @_;
-   my $bar = $vertlines ? '|' : ''; 
+   my $bar = $vertlines ? '|' : '';
    my $dbar = "${bar}${bar}";
    my @results = get_coverage;
    my $table_format = "${dbar}p\{2in\}${bar}r\@\{\/\}lr${bar}";
@@ -556,21 +556,21 @@ sub expand_local_sim_spec ($) {
 
 
 sub expand_extern_sim_spec ($) {
-   my ($sim_spec) = @_; 
+   my ($sim_spec) = @_;
 
    if ((-d "$ENV{JEOD_HOME}/models/$sim_spec") &&
        (-f "$ENV{JEOD_HOME}/models/$sim_spec/S_define")) {
       return {
          type => EXTERN_SIM,
          targets => [$sim_spec],
-         trick_ver => +(($sim_spec =~ /_T10$/) ? 10 : 7), 
+         trick_ver => +(($sim_spec =~ /_T10$/) ? 10 : 7),
          run => '*'};
-   }   
+   }
 
    else {
       warn "Illegal external sim spec '$sim_spec'\n";
       return undef;
-   }   
+   }
 }
 
 
@@ -660,7 +660,12 @@ sub remove_detritus ($) {
 
 
 sub build_coverage () {
-   my $CP = "$ENV{TRICK_HOME}/bin/CP";
+   my $TRICK_HOME = $ENV{TRICK_HOME};
+   unless (defined $TRICK_HOME) {
+      $TRICK_HOME = `trick-config --prefix`;
+      $TRICK_HOME = chomp($TRICK_HOME);
+   }
+   my $CP = "$TRICK_HOME/bin/CP";
    my $gcov = "perl \$JEOD_HOME/dgh_scripts/gcov.pl";
 
    if ($have_unit_tests) {

@@ -39,11 +39,6 @@ Library dependencies:
 #include "sim_services/Executive/include/exec_proto.h"
 #include "sim_services/Message/include/message_proto.h"
 
-// not defined in Trick 10
-#ifndef MAX_MSG_SIZE
-#define MAX_MSG_SIZE 4096
-#endif
-
 // JEOD includes
 #include "utils/memory/include/jeod_alloc.hh"
 
@@ -53,6 +48,8 @@ Library dependencies:
 //! Namespace jeod
 namespace jeod
 {
+
+static constexpr unsigned int MAX_MSG_SIZE = 4096;
 
 /**
  * Register the TrickMessageHandler's checkpointable contents.

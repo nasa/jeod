@@ -26,9 +26,6 @@ Library dependencies:
 // System includes
 #include <cstddef>
 
-// ER7 utilities includes
-#include "er7_utils/integration/core/include/integrator_constructor.hh"
-
 // JEOD includes
 #include "utils/message/include/message_handler.hh"
 

@@ -89,6 +89,8 @@ MAKE_TEMPLATE_MESSAGE_CODE(big_negnum);
 MAKE_TEMPLATE_MESSAGE_CODE(zero);
 MAKE_TEMPLATE_MESSAGE_CODE(big_posnum);
 
+#undef MAKE_TEMPLATE_MESSAGE_CODE
+
 } // namespace jeod
 
 /**

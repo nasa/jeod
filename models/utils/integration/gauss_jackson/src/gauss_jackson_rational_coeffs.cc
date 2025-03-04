@@ -21,10 +21,6 @@ Library dependencies:
 // Local includes
 #include "../include/gauss_jackson_rational_coeffs.hh"
 
-// ER7 utilities
-#include "er7_utils/math/include/n_choose_m.hh"
-#include "er7_utils/math/include/ratio128.hh"
-
 // System includes
 #include <cassert>
 

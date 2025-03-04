@@ -13,7 +13,14 @@ else
    CMAKE_CMD:=cmake3
 endif
 
+ifeq (, ${JEOD_HOME})
 export JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../../../../../)
+endif
+
+ifeq (, ${TRICK_HOME})
+export TRICK_HOME := $(shell trick-config --prefix)
+endif
+
 ifneq (, ${TRICK_HOME})
 export ER7_UTILS_HOME := ${TRICK_HOME}/trick_source
 endif

@@ -36,8 +36,8 @@ Library Dependency:
 #include <sstream>
 
 // Trick includes
-#include <iosfwd>   // Grrr!
-using std::ostream; // Double grrr!
+#include <iosfwd>
+using std::ostream;
 #include "sim_services/CheckPointAgent/include/ClassicCheckPointAgent.hh"
 #include "sim_services/MemoryManager/include/MemoryManager.hh"
 extern Trick::MemoryManager * trick_MM;

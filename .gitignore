@@ -1,12 +1,3 @@
-# development scripts (only ignore in 'main' branch for release)
-dgh_scripts/
-docker/
-regression/
-tools/
-bin/jeod_cm/
-.gitlab-ci.yml
-
-
 # build products
 *.[oa]
 *.so
@@ -29,6 +20,9 @@ build*
 artifacts
 
 #documentation build products
+doc_error
+docs/templates/jeod/tex/make_labels.pl
+docs/templates/jeod/tex/relpath.pl
 **/tex/coarse_metrics.tex
 **/tex/metrix_metrics.tex
 metrixpp.db

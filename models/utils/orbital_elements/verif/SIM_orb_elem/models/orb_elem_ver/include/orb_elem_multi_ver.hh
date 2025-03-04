@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -51,8 +51,6 @@ LIBRARY DEPENDENCY:
 
 ************************************************************************/
 
-#define DATA_POINTS 5001
-
 // JEOD includes.
 #include "utils/orbital_elements/include/orbital_elements.hh"
 
@@ -62,6 +60,8 @@ LIBRARY DEPENDENCY:
 //! Namespace jeod
 namespace jeod
 {
+
+static constexpr unsigned int DATA_POINTS = 5001;
 
 class OrbElemMultiVer
 {

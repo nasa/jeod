@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2023 United States Government as represented by the Administrator
+// Copyright © 2025 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -109,8 +109,6 @@ class MessageHandler
     JEOD_MAKE_SIM_INTERFACES(jeod, MessageHandler)
 
 public:
-    // NOTE: The copy constructor and assignment operator are deleted.
-
     // Static member functions
 
     // The static member functions fail, error, ..., debug are the intended

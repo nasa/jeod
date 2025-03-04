@@ -33,16 +33,6 @@ namespace jeod
 {
 
 /**
- * Construct an AltLatLongState object.
- */
-AltLatLongState::AltLatLongState()
-{
-    altitude = 0.0;
-    latitude = 0.0;
-    longitude = 0.0;
-}
-
-/**
  * Allow user to set member data.
  * \param[in] alt Altitude\n Units: M
  * \param[in] lat Longitude\n Units: r

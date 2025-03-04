@@ -12,7 +12,7 @@ dyn_body_initialize_model.cc
 dyn_body_messages.cc
 body_wrench_collect.cc
 dyn_body_propagate_state.cc
-aux_classes.cc
+body_force_collect.cc
 dyn_body_vehicle_point.cc
 dyn_body_set_state.cc
 dyn_body.cc

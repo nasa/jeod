@@ -150,6 +150,9 @@ public:
     // Set the fixed transformation from pfix to alt_pfix
     virtual void set_alt_pfix(const double trans[3][3]);
 
+    // Get the fixed transformation from pfix to alt_pfix
+    virtual void get_alt_pfix(double alt_pfix_trans[3][3]);
+
     // Calculate the current transformation from J2000 to alt_pfix
     // using the fixed transformation between pfix and alt_pfix
     virtual void calculate_alt_pfix();

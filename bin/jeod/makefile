@@ -8,14 +8,7 @@
 
 export JEOD_HOME := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../..)
 
-CMAKE_CMD:=cmake
-ifeq (, $(shell which cmake3))
-   ifeq (0, $(shell cmake --version | grep "version 3" -c))
-      $(error "No cmake version 3 in $(PATH), consider doing yum install cmake3")
-   endif
-else
-   CMAKE_CMD:=cmake3
-endif
+CMAKE_CMD?=cmake
 
 ifndef TRICK_BUILD
 TRICK_BUILD:=1

@@ -56,19 +56,12 @@ endif
 # Build ephemeris binary files
 #=============================================================================
 
-CMAKE_CMD:=cmake
-ifeq (, $(shell which cmake3))
-   ifeq (0, $(shell cmake --version | grep "version 3" -c))
-      $(error "No cmake version 3 in $(PATH), consider doing yum install cmake3")
-   endif
-else
-   CMAKE_CMD:=cmake3
-endif
+CMAKE_CMD?=cmake
 
-PYTHON_CMD:=python
+PYTHON_CMD?=python
 ifeq (, $(shell which python3))
-   ifeq (0, $(shell python -V | grep "Python 3." -c))
-      $(error "No python version 3 in $(PATH), consider doing yum install python3")
+   ifeq (0, $(shell ${PYTHON_CMD} -V | grep "Python 3." -c))
+      $(error "No python version 3 in $(PATH) or specified with PYTHON_CMD variables.")
    endif
 else
    PYTHON_CMD:=python3
@@ -192,7 +185,7 @@ endif
 
 endif # - TRICKIFIED endif
 
-.PHONY: $(JEOD_TRICKBUILD_LIB) $(TRICKIFIED_JEOD_LIB) jeod_clean jeod_spotless
+.PHONY: jeod_clean jeod_spotless
 
 jeod_clean:
 	-rm -rf ${JEOD_INSTALL_DIR};

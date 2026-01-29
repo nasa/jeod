@@ -21,7 +21,7 @@ Purpose:
 
 #include <cmath>
 
-#include "trick_utils/math/include/trick_math.h"
+#include "trick/trick_math.h"
 
 #include "utils/math/include/matrix3x3.hh"
 #include "utils/orientation/include/orientation.hh"

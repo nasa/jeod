@@ -238,10 +238,7 @@ void EphemerisZXZOrientation::update(const double * angles, const double * deriv
     ref_state->ang_vel_this[0] = phidot * sintheta * sinpsi + thetadot * cospsi;
     ref_state->ang_vel_this[1] = phidot * sintheta * cospsi - thetadot * sinpsi;
     ref_state->ang_vel_this[2] = phidot * costheta + psidot;
-
-    // Compute data needed for propagating the lunar RNP between updates.
-    ref_state->ang_vel_mag = Vector3::vmag(ref_state->ang_vel_this);
-    Vector3::scale(ref_state->ang_vel_this, 1.0 / ref_state->ang_vel_mag, ref_state->ang_vel_unit);
+    ref_state->compute_ang_vel_products();
 
     // Construct the inertial to planet-fixed left transformation quaternion as
     // a * yaw-roll-yaw Euler rotation:

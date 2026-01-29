@@ -58,14 +58,14 @@ ContactGround::~ContactGround()
 
     for(gi = ground_interactions.begin(); gi != ground_interactions.end(); ++gi)
     {
-        JEOD_DELETE_OBJECT((*gi));
+        JEOD_DELETE_OBJECT(*gi);
     }
 
     std::list<GroundFacet *>::iterator gf;
 
     for(gf = ground_facets.begin(); gf != ground_facets.end(); ++gf)
     {
-        JEOD_DELETE_OBJECT((*gf));
+        JEOD_DELETE_OBJECT(*gf);
     }
 
     JEOD_DEREGISTER_CHECKPOINTABLE(this, ground_interactions);
@@ -193,4 +193,5 @@ void ContactGround::register_ground_facet(                            /* Return:
 {
     ground_facets.push_back(ground_facet);
 }
+
 } // namespace jeod

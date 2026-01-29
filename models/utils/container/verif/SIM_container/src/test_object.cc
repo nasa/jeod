@@ -14,6 +14,16 @@ Purpose:
 namespace jeod
 {
 
+std::ostream * demoOutputStr = &std::cout;
+
+void set_demo_output_file(const std::string & fname)
+{
+    if(!fname.empty())
+    {
+        demoOutputStr = new std::ofstream(fname.c_str());
+    }
+}
+
 std::ostream & operator<<(std::ostream & out, const TestObject & obj)
 {
     return (out << "ival=" << obj.ival << " dval=" << obj.dval);
@@ -53,7 +63,9 @@ template<typename Type> std::string test_container_serialize(Type & val)
 
 template<typename ElemType> struct PrintItem
 {
-    std::ostream & print(std::ostream & out, const ElemType & elem)
+    std::ostream & print(TestContainer & parentObject __attribute__((unused)),
+                         std::ostream & out,
+                         const ElemType & elem)
     {
         return (out << elem);
     }
@@ -61,7 +73,7 @@ template<typename ElemType> struct PrintItem
 
 template<> struct PrintItem<float>
 {
-    std::ostream & print(std::ostream & out, const float & elem)
+    std::ostream & print(TestContainer & parentObject __attribute__((unused)), std::ostream & out, const float & elem)
     {
         return (out << test_container_serialize(elem));
     }
@@ -69,34 +81,44 @@ template<> struct PrintItem<float>
 
 template<> struct PrintItem<double>
 {
-    std::ostream & print(std::ostream & out, const double & elem)
+    std::ostream & print(TestContainer & parentObject __attribute__((unused)), std::ostream & out, const double & elem)
     {
         return (out << test_container_serialize(elem));
     }
 };
 
+template<class T> struct PrintItem<T *>
+{
+    std::ostream & print(TestContainer & parentObject, std::ostream & out, const T * elem)
+    {
+        size_t addrOfElem = reinterpret_cast<size_t>(elem);
+        size_t addrOfParentObject = reinterpret_cast<size_t>(&parentObject);
+        return (out << "&parentObject + " << (addrOfElem - addrOfParentObject));
+    }
+};
+
 template<typename ContainerType, typename ElemType> struct PrintContainer
 {
-    void print(const std::string & id, const ContainerType & container)
+    void print(TestContainer & parentObject, const std::string & id, const ContainerType & container)
     {
-        std::cout << "Container " << id << " contents:\n";
+        (*demoOutputStr) << "Container " << id << " contents:\n";
         for(auto it = container.begin(); it != container.end(); ++it)
         {
             const ElemType & elem = *it;
-            (item_printer.print((std::cout << "Q("), elem)) << ")\n";
+            (item_printer.print(parentObject, (*demoOutputStr) << "Q(", elem)) << ")\n";
         }
-        std::cout << "\n";
+        (*demoOutputStr) << std::endl;
     }
 
     PrintItem<ElemType> item_printer;
 };
 
 template<typename ContainerType, typename ElemType>
-inline void print_container(const std::string & id, const ContainerType & container)
+inline void print_container(TestContainer & parentObject, const std::string & id, const ContainerType & container)
 {
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
     PrintContainer<ContainerType, ElemType> printer{};
-    printer.print(id, container);
+    printer.print(parentObject, id, container);
 }
 
 /**
@@ -181,33 +203,33 @@ Shutdown.
 */
 void TestContainer::shutdown()
 {
-    print_container<JeodObjectList<TestObject>::type, TestObject>("object_list", object_list);
-    print_container<JeodObjectVector<TestObject>::type, TestObject>("object_vec", object_vec);
-    print_container<JeodObjectSet<TestObject>::type, TestObject>("object_set", object_set);
+    print_container<JeodObjectList<TestObject>::type, TestObject>(*this, "object_list", object_list);
+    print_container<JeodObjectVector<TestObject>::type, TestObject>(*this, "object_vec", object_vec);
+    print_container<JeodObjectSet<TestObject>::type, TestObject>(*this, "object_set", object_set);
 
-    print_container<JeodPointerList<TestObject>::type, TestObject *>("pointer_list", pointer_list);
-    print_container<JeodPointerVector<TestObject>::type, TestObject *>("pointer_vec", pointer_vec);
-    print_container<JeodPointerSet<TestObject>::type, TestObject *>("pointer_set", pointer_set);
+    print_container<JeodPointerList<TestObject>::type, TestObject *>(*this, "pointer_list", pointer_list);
+    print_container<JeodPointerVector<TestObject>::type, TestObject *>(*this, "pointer_vec", pointer_vec);
+    print_container<JeodPointerSet<TestObject>::type, TestObject *>(*this, "pointer_set", pointer_set);
 
-    print_container<JeodPrimitiveList<double>::type, double>("double_list", double_list);
-    print_container<JeodPrimitiveVector<double>::type, double>("double_vec", double_vec);
-    print_container<JeodPrimitiveSet<double>::type, double>("double_set", double_set);
+    print_container<JeodPrimitiveList<double>::type, double>(*this, "double_list", double_list);
+    print_container<JeodPrimitiveVector<double>::type, double>(*this, "double_vec", double_vec);
+    print_container<JeodPrimitiveSet<double>::type, double>(*this, "double_set", double_set);
 
-    print_container<JeodPrimitiveList<float>::type, float>("float_list", float_list);
-    print_container<JeodPrimitiveVector<float>::type, float>("float_vec", float_vec);
-    print_container<JeodPrimitiveSet<float>::type, float>("float_set", float_set);
+    print_container<JeodPrimitiveList<float>::type, float>(*this, "float_list", float_list);
+    print_container<JeodPrimitiveVector<float>::type, float>(*this, "float_vec", float_vec);
+    print_container<JeodPrimitiveSet<float>::type, float>(*this, "float_set", float_set);
 
-    print_container<JeodPrimitiveList<int>::type, int>("int_list", int_list);
-    print_container<JeodPrimitiveVector<int>::type, int>("int_vec", int_vec);
-    print_container<JeodPrimitiveSet<int>::type, int>("int_set", int_set);
+    print_container<JeodPrimitiveList<int>::type, int>(*this, "int_list", int_list);
+    print_container<JeodPrimitiveVector<int>::type, int>(*this, "int_vec", int_vec);
+    print_container<JeodPrimitiveSet<int>::type, int>(*this, "int_set", int_set);
 
-    print_container<JeodPrimitiveList<bool>::type, bool>("bool_list", bool_list);
-    print_container<JeodPrimitiveVector<bool>::type, bool>("bool_vec", bool_vec);
-    print_container<JeodPrimitiveSet<bool>::type, bool>("bool_set", bool_set);
+    print_container<JeodPrimitiveList<bool>::type, bool>(*this, "bool_list", bool_list);
+    print_container<JeodPrimitiveVector<bool>::type, bool>(*this, "bool_vec", bool_vec);
+    print_container<JeodPrimitiveSet<bool>::type, bool>(*this, "bool_set", bool_set);
 
-    print_container<JeodPrimitiveList<std::string>::type, std::string>("string_list", string_list);
-    print_container<JeodPrimitiveVector<std::string>::type, std::string>("string_vec", string_vec);
-    print_container<JeodPrimitiveSet<std::string>::type, std::string>("string_set", string_set);
+    print_container<JeodPrimitiveList<std::string>::type, std::string>(*this, "string_list", string_list);
+    print_container<JeodPrimitiveVector<std::string>::type, std::string>(*this, "string_vec", string_vec);
+    print_container<JeodPrimitiveSet<std::string>::type, std::string>(*this, "string_set", string_set);
 
     simple.print_contents();
 }
@@ -292,4 +314,5 @@ void TestContainer::test1()
 
     simple.assign(42);
 }
+
 } // namespace jeod

@@ -183,7 +183,7 @@ std::string JeodSimulationInterface::get_name_at_address(const void * addr, cons
                              __LINE__,
                              SimInterfaceMessages::singleton_error,
                              "The master simulation interface has not been established.");
-        return nullptr;
+        return "";
     }
 
     // Nominal case: Pass the call on to the sim interface object.
@@ -271,17 +271,17 @@ SectionedOutputStream JeodSimulationInterface::get_checkpoint_writer(const std::
 void JeodSimulationInterface::set_mode(Mode new_mode)
 {
     static const int allowed_transitions[NumModes][NumModes] = {
-  /* The commentary to the side of the table below uses the abbreviations:
-  Construction   =  0 => Cotr
-  PreCheckpoint  =  1 => Prec
-  Checkpoint     =  2 => Ckpt
-  PostCheckpoint =  3 => Post
-  Restart        =  4 => Redo
-  Restore        =  5 => Rtor
-  Initialization =  6 => Init
-  Operational    =  7 => Oper
-  Shutdown       =  8 => Shut
-  Dead           =  9 => Dead. */
+        /* The commentary to the side of the table below uses the abbreviations:
+        Construction   =  0 => Cotr
+        PreCheckpoint  =  1 => Prec
+        Checkpoint     =  2 => Ckpt
+        PostCheckpoint =  3 => Post
+        Restart        =  4 => Redo
+        Restore        =  5 => Rtor
+        Initialization =  6 => Init
+        Operational    =  7 => Oper
+        Shutdown       =  8 => Shut
+        Dead           =  9 => Dead. */
         {0, 0, 0, 0, 1, 0, 1, 0, 1, 0}, // Cotr -> Init, Redo, Shut
         {0, 0, 1, 0, 0, 0, 0, 0, 1, 0}, // Prec -> Ckpt, Shut
         {0, 0, 0, 1, 0, 1, 0, 0, 1, 0}, // Ckpt -> Post, Rtor, Shut

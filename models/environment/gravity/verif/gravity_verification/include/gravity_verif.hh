@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -101,14 +101,14 @@ class GravityVerification
 {
     // Member data
 public:
-    static const unsigned int num_pts = 12;    /* trick_units(count) @n
+    static const unsigned int num_pts{12};    /* trick_units(count) @n
           Number of point gravity-masses */
-    static const unsigned int num_veh_pts = 3; /* trick_units(count) @n
+    static const unsigned int num_veh_pts{3}; /* trick_units(count) @n
           Number of point masses in the vehicle */
-    double rad_per_deg{M_PI / 180.0};          /* trick_units(--) @n
-          For conversion from degrees to radians */
-    double G{6.673E-11};                       /* trick_units( m3/kg/s2) @n
-          universal gravitation constant */
+    double rad_per_deg{M_PI / 180.0};         /* trick_units(--) @n
+         For conversion from degrees to radians */
+    double G{6.673E-11};                      /* trick_units( m3/kg/s2) @n
+         universal gravitation constant */
 
     PointMassProperties gravity_pt[num_pts]{}; /* trick_units(--) @n
           Point mass properties */
@@ -134,6 +134,7 @@ public:
                             const double veh_pos_pfix[3], // pos of veh in pfix
                             const double grav_torque[3]);
 };
+
 } // namespace jeod
 
 #endif

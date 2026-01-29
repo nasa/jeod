@@ -34,9 +34,9 @@ Library dependencies:
 // System includes
 
 // Trick includes
-#include "sim_services/CommandLineArguments/include/command_line_protos.h"
-#include "sim_services/Executive/include/exec_proto.h"
-#include "sim_services/Message/include/message_proto.h"
+#include "trick/command_line_protos.h"
+#include "trick/exec_proto.h"
+#include "trick/message_proto.h"
 
 // JEOD includes
 #include "utils/memory/include/jeod_alloc.hh"

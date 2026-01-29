@@ -213,7 +213,7 @@ void MassPoint::compute_state_wrt_pred(unsigned int ref_point_index, MassPointSt
             // Q_A:C = Q_B:C * Q_A:B
             rel_state.Q_parent_this.multiply(node.Q_parent_this);
             rel_state.Q_parent_this.normalize();
-            rel_state.Q_parent_this.left_quat_to_transformation(rel_state.T_parent_this);
+            rel_state.compute_transformation();
         }
     }
 }
@@ -284,7 +284,7 @@ void MassPoint::compute_pred_rel_state(unsigned int ref_point_index, MassPointSt
             // Q_C:A = Q_B:A * Q_C:B = Q_A:B^T * Q_C:B
             rel_state.Q_parent_this.multiply_left_conjugate(node.Q_parent_this);
             rel_state.Q_parent_this.normalize();
-            rel_state.Q_parent_this.left_quat_to_transformation(rel_state.T_parent_this);
+            rel_state.compute_transformation();
 
             // r_C->A:C = r_C->B:C + r_B->A:C
             //   = r_C->B:C - r_A->B:C

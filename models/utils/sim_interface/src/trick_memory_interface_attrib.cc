@@ -30,7 +30,7 @@ Library Dependency:
 #include <dlfcn.h>
 
 // Trick includes
-#include "sim_services/MemoryManager/include/attributes.h"
+#include "trick/attributes.h"
 
 // JEOD includes
 #include "utils/memory/include/memory_type.hh"

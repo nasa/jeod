@@ -36,4 +36,5 @@ void Planet_jupiter_default_data::initialize(Planet * Planet_ptr)
     Planet_ptr->flat_coeff = 0.06487;
     Planet_ptr->r_eq = 1000 * (71492);
 }
+
 } // namespace jeod

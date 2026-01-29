@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -95,12 +95,12 @@ public:
     /**
      * Solar Luminosity.
      */
-    const double solar_luminosity{3.827E+26}; //!< trick_units(--)
+    static constexpr double solar_luminosity{3.827E+26}; //!< trick_units(--)
 
     /**
      * Mean solar radius.
      */
-    const double solar_radius{6.98E+08}; //!< trick_units(m)
+    static constexpr double solar_radius{6.98E+08}; //!< trick_units(m)
 
     /**
      * The name of the source of the illumination (usually Sun)

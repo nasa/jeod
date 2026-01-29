@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -114,7 +114,7 @@ protected:
      * quite literally, 2/3.  Occurs frequently with diffuse reflection and
      * emission, so it is calculated once.
      */
-    const static double two_thirds; //!< trick_io(*o) trick_units(--)
+    static constexpr double two_thirds{2.0 / 3.0}; //!< trick_io(*o) trick_units(--)
 
     // Member methods
 

@@ -15,7 +15,7 @@ capabilities, though it will be demonstrated how to expand SIM\_spice to
 provide capabilities not available from the DE4xx model. Both simulations
 should basically run ``out-of-the-box'', except that the SPICE simulation
 (``SIM\_spice'') requires the C implementation of SPICE library, named CSPICE,
-in order to run.
+in order to run. Note that the current version of SPICE used by JEOD is N0067.
 
 
 \section {The CSPICE Library}
@@ -31,15 +31,6 @@ ${JEOD_SPICE_DIR}/lib/cspice.a.
 \end{verbatim}
 SIM\_spice includes a file containing make overrides (S\_overrides.mk) which
 uses the environment variable \verb|$JEOD_SPICE_DIR| to locate the SPICE library.
-Unfortunately, the default build process for SPICE does not prepend the ``lib''
-prefix to the name of the library file cspice.a.  To fix this, either rename
-the file or provide an appropriately named symbolic link. The shell commands
-for each alternative are given below.
-\begin{verbatim}
-mv ${JEOD_SPICE_DIR}/lib/cspice.a ${JEOD_SPICE_DIR}/lib/libcspice.a
-
-ln -s ${JEOD_SPICE_DIR}/lib/cspice.a ${JEOD_SPICE_DIR}/lib/libcspice.a
-\end{verbatim}
 
 
 \section{Obtaining SPICE kernels}

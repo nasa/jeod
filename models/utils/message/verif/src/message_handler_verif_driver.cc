@@ -105,4 +105,5 @@ void MessageHandlerVerifDriver::generate_messages() // Return: N/A
 
     message_number = 0;
 }
+
 } // namespace jeod

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -57,7 +57,7 @@ class WindVelocity;
 class WindVelocity_wind_velocity_default_data
 {
 public:
-    const static int num_layers = 12; /* trick_units(--) @n The number of layers in this default data set. */
+    static constexpr int num_layers{12}; /* trick_units(--) @n The number of layers in this default data set. */
 
     double omega_scale_fac[num_layers]{
         1.0, 1.1, 1.16, 1.21, 1.25, 1.3, 1.34, 1.38, 1.4, 1.405, 1.41, 1.4142136}; /* trick_units(--) @n Default

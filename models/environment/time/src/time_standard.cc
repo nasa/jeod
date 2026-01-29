@@ -98,6 +98,26 @@ void TimeStandard::set_time_by_trunc_julian(const double new_tjt)
 }
 
 /**
+ * Sets the Gregorian calendar date and time.
+ *
+ * \param[in] year new value for calendar_year\n
+ * \param[in] month new value for calendar_month\n
+ * \param[in] day new value for calendar_day\n Units: day
+ * \param[in] hour new value for calendar_hour\n Units: hr
+ * \param[in] minute new value for calendar_minute\n Units: min
+ * \param[in] second new value for calendar_second\n Units: s
+ */
+void TimeStandard::set_date_and_time(int year, int month, int day, int hour, int minute, double second)
+{
+    calendar_year = year;
+    calendar_month = month;
+    calendar_day = day;
+    calendar_hour = hour;
+    calendar_minute = minute;
+    calendar_second = second;
+}
+
+/**
  * Returns the full Julian date at epoch, rather than the Truncated
  * Julian Time
  * @return Truncated Julian Time at the epoch of the time-type.\n Units: day
@@ -453,7 +473,7 @@ void TimeStandard::initialize_initializer_time(TimeManagerInit * time_manager_in
             }
             //   else
             if((std::fpclassify(seconds) != FP_ZERO) && (std::fpclassify(days) != FP_ZERO) &&
-               (!Numerical::compare_exact(seconds, (days * 86400))))
+               (!Numerical::compare_exact(seconds, days * 86400)))
             {
                 MessageHandler::fail(__FILE__,
                                      __LINE__,
@@ -711,11 +731,7 @@ double TimeStandard::seconds_of_year()
     double temp_seconds = seconds;
 
     // set the time to be at year-start
-    calendar_month = 1;
-    calendar_day = 1;
-    calendar_hour = 0;
-    calendar_minute = 0;
-    calendar_second = 0.0;
+    set_date_and_time(calendar_year, 1, 1, 0, 0, 0.0);
 
     // convert to decimal, save off appropriate values
     convert_from_calendar();
@@ -723,11 +739,7 @@ double TimeStandard::seconds_of_year()
     year_of_last_soy = calendar_year;
 
     // revert to proper time
-    calendar_month = temp_c_month;
-    calendar_day = temp_c_day;
-    calendar_hour = temp_c_hour;
-    calendar_minute = temp_c_minute;
-    calendar_second = temp_c_second;
+    set_date_and_time(calendar_year, temp_c_month, temp_c_day, temp_c_hour, temp_c_minute, temp_c_second);
     trunc_julian_time = temp_tjt;
     days = temp_days;
     seconds = temp_seconds;

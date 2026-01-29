@@ -28,7 +28,7 @@ Library dependencies:
 #include <typeinfo>
 
 // Trick includes
-#include "sim_services/include/exec_proto.h"
+#include "trick/exec_proto.h"
 
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/integrator_constructor.hh"
@@ -268,4 +268,5 @@ void IntegrationTest::shutdown( // Return: -- Void
             dyn_time,
             omega * dyn_time / PIx2);
 }
+
 } // namespace jeod

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -66,8 +66,8 @@ LIBRARY DEPENDENCY:
 #include <cmath>
 
 /* Trick includes. */
-#include "trick_utils/math/include/matrix_macros.h"
-#include "trick_utils/math/include/vector_macros.h"
+#include "trick/matrix_macros.h"
+#include "trick/vector_macros.h"
 
 //! Namespace jeod
 namespace jeod

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,7 +61,7 @@ LIBRARY DEPENDENCY:
 namespace jeod
 {
 
-static constexpr unsigned int DATA_POINTS = 5001;
+static constexpr unsigned int DATA_POINTS{5001};
 
 class OrbElemMultiVer
 {

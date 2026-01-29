@@ -435,7 +435,7 @@ void METAtmosphere::compute_solar_angles()
     const double B2 = 0.0335;
     const double B3 = 1.407;
 
-    double celestial_longitude = std::fmod((B1 * fmjd + B2 * sin(0.017202 * (fmjd - 3.0)) - B3), two_pi);
+    double celestial_longitude = std::fmod(B1 * fmjd + B2 * sin(0.017202 * (fmjd - 3.0)) - B3, two_pi);
 
     // Compute solar declination angle in radians, range [-pi/2, pi/2]:
     const double dec_angle_const = (23.4523 - 0.013 * century_frac) * deg_to_rad;
@@ -495,8 +495,8 @@ void METAtmosphere::compute_solar_angles()
     const double A2 = 36000.76892;
     const double A3 = 0.00038708;
     const double A4 = 0.250684477;
-    double greenwich_mean_position = std::fmod((A1 + (A2 * century_frac) + (A3 * century_frac * century_frac) +
-                                                (A4 * minutes_of_day)),
+    double greenwich_mean_position = std::fmod(A1 + (A2 * century_frac) + (A3 * century_frac * century_frac) +
+                                                   (A4 * minutes_of_day),
                                                360.0);
 
     // previous algorithm's application of constraints on right ascension
@@ -835,8 +835,8 @@ void METAtmosphere::jacchia()
         //  5.5   as documented
         //  documented values from Kockarts and Nicolet (1962, 1963)
         species.num_density[5] = std::pow(10.0,
-                                          (79.13 - (39.4 * log_temperature_500) +
-                                           (5.5 * log_temperature_500 * log_temperature_500))) *
+                                          79.13 - (39.4 * log_temperature_500) +
+                                              (5.5 * log_temperature_500 * log_temperature_500)) *
                                  (temperature_500 / state.temperature) *
                                  std::exp(-species.mol_weight[5] * integral_g_RT);
     }
@@ -1038,8 +1038,8 @@ void METAtmosphere::atmos_MET_FAIR5()
     //                = 10 ^ (log-post-slvh) * 10 ^ (CZI * log-pre-slvh) /
     //                                         10 ^ (CZI * log-post-slvh)
     //                = post-slvh * (pre-slvh / post-slvh) ^ (CZI)
-    state.density *= std::pow((mass_density_pre_slvh / state.density), CZI);
-    species.num_density[4] *= std::pow((He_num_density_pre_slvh / species.num_density[4]), CZI);
+    state.density *= std::pow(mass_density_pre_slvh / state.density, CZI);
+    species.num_density[4] *= std::pow(He_num_density_pre_slvh / species.num_density[4], CZI);
 }
 
 /*****************************************************************************

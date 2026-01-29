@@ -196,8 +196,10 @@ void PlanetRNP::propagate_rnp()
         Matrix3x3::transpose(rotation->rotation, planet_rot_state->T_parent_this);
         // set the rotational velocity components, and calculate the quaternion
         // from the already set transformation matrix
-        planet_rot_state->ang_vel_mag = planet_omega;
+        planet_rot_state->ang_vel_this[0] = 0;
+        planet_rot_state->ang_vel_this[1] = 0;
         planet_rot_state->ang_vel_this[2] = planet_omega;
+        planet_rot_state->compute_ang_vel_products();
         planet_rot_state->compute_quaternion();
         return;
     }
@@ -240,8 +242,10 @@ void PlanetRNP::propagate_rnp()
 
     // set the rotational velocity components, and calculate the quaternion
     // from the already set transformation matrix
-    planet_rot_state->ang_vel_mag = planet_omega;
+    planet_rot_state->ang_vel_this[0] = 0;
+    planet_rot_state->ang_vel_this[1] = 0;
     planet_rot_state->ang_vel_this[2] = planet_omega;
+    planet_rot_state->compute_ang_vel_products();
     planet_rot_state->compute_quaternion();
 }
 

@@ -48,9 +48,6 @@ namespace jeod
 {
 
 // Static default values.
-
-const double ThermalFacetRider::stefan_boltzmann = 5.6704004E-08;
-
 double ThermalFacetRider::cycle_time = 0.0;
 
 /**

@@ -8,7 +8,7 @@ Reference:
 
 Library dependencies:
   ((new_orientation.cc)
-   (orientation_messages.cc)
+   (utils/orientation/src/orientation_messages.cc)
    (utils/message/src/message_handler.cc)
    (utils/quaternion/src/quat.cc)
    (utils/quaternion/src/quat_from_mat.cc)
@@ -29,8 +29,8 @@ Library dependencies:
 
 // Model includes
 #include "../include/new_orientation.hh"
-#include "../include/orientation_messages.hh"
 #include "../include/random_orientation.hh"
+#include "utils/orientation/include/orientation_messages.hh"
 
 //! Namespace jeod
 namespace jeod
@@ -363,4 +363,5 @@ void RandomOrientation::initialize()
     }
     VectorOrientation::initialize();
 }
+
 } // namespace jeod

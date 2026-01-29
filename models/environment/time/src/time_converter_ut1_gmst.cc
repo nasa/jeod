@@ -114,9 +114,6 @@ void TimeConverter_UT1_GMST::convert_a_to_b()
     double dd3 = dd * dd2;
 
     gmst_ptr->set_time_by_days(0.7790572733 + 1.002737909350795 * dd + 8.0775E-16 * dd2 - 1.5E-24 * dd3);
-    // gmst_ptr->days =  0.7790572733 + 1.002737909350795 * dd +
-    //                  8.0775E-16 * dd2 - 1.5E-24 * dd3;
-    // gmst_ptr->seconds = gmst_ptr->days * 86400;
 }
 
 // NOTE: no reverse converter available

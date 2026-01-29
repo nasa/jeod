@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -110,7 +110,7 @@ public:
     int update_converter_direction{}; //!< trick_units(--)
 
     /**
-     * Elapsed time from epoch
+     * Elapsed time since epoch
      */
     double seconds{}; //!< trick_units(s)
 
@@ -148,7 +148,7 @@ protected:
      */
     bool initialized{}; //!< trick_units(--)
     /**
-     * Elapsed time from epoch
+     * Elapsed time since epoch
      */
     double days{}; //!< trick_units(day)
 

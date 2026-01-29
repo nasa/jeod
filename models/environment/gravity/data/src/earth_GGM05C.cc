@@ -1,4 +1,3 @@
-
 /*******************************************************************************
 
 Purpose:
@@ -11,7 +10,9 @@ Purpose:
 //! Namespace jeod
 namespace jeod
 {
+
 class SphericalHarmonicsGravitySource;
+
 } // namespace jeod
 
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_earth_GGM05C_default_data
@@ -131442,4 +131443,5 @@ void SphericalHarmonicsGravitySource_earth_GGM05C_default_data::initialize(
     SphericalHarmonicsGravitySource_ptr->Snm[360][359] = 1.9691701932149E-11;
     SphericalHarmonicsGravitySource_ptr->Snm[360][360] = -9.4739182337526E-11;
 }
+
 } // namespace jeod

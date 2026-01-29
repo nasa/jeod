@@ -12,7 +12,7 @@ Purpose:
 #include "test_harness/include/color_text.hh"
 #include "test_harness/include/test_sim_interface.hh"
 
-#include "trick_utils/math/include/trick_math.h"
+#include "trick/trick_math.h"
 
 #include <cstdio>
 #include <string>

@@ -40,6 +40,7 @@ Library dependencies:
 //! Namespace jeod
 namespace jeod
 {
+
 /**
  * Destruct a EulerDerivedState object.
  */

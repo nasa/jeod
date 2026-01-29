@@ -94,4 +94,5 @@ void SphericalHarmonicsGravitySource_grav_verif_default_data::initialize(
     SphericalHarmonicsGravitySource_ptr->Snm[5][4] = -6.131745252702638E-19;
     SphericalHarmonicsGravitySource_ptr->Snm[5][5] = 1.485405551920983E-19;
 }
+
 } // namespace jeod

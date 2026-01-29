@@ -20,12 +20,7 @@ def set_date_n_time_11Nov2007(jeod_time) :
 
   #// Time initialization data.
   #// Midnight on November 20, 2007.
-  jeod_time.utc.calendar_year   = 2007
-  jeod_time.utc.calendar_month  =   11
-  jeod_time.utc.calendar_day    =   20
-  jeod_time.utc.calendar_hour   =    0
-  jeod_time.utc.calendar_minute =    0
-  jeod_time.utc.calendar_second =  0.0
+  jeod_time.utc.set_date_and_time(2007, 11, 20, 0, 0, 0.0)
 
   jeod_time.tai.initialize_from_name = "UTC"
   jeod_time.ut1.initialize_from_name = "TAI"

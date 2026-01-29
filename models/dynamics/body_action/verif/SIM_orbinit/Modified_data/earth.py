@@ -22,12 +22,7 @@ def set_earth(jeod_time, earth, dynamics) :
   jeod_time.time_manager_init.initializer = "UT1"
   jeod_time.time_manager_init.sim_start_format = trick.TimeEnum.calendar
 
-  jeod_time.time_ut1.calendar_year   = 2005
-  jeod_time.time_ut1.calendar_month  =  7
-  jeod_time.time_ut1.calendar_day    = 28
-  jeod_time.time_ut1.calendar_hour   = 10
-  jeod_time.time_ut1.calendar_minute =  9
-  jeod_time.time_ut1.calendar_second = 59.000
+  jeod_time.time_ut1.set_date_and_time(2005, 7, 28, 10, 9, 59.0)
 
   jeod_time.time_tai.initialize_from_name = "UT1"
   jeod_time.time_utc.initialize_from_name = "TAI"

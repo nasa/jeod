@@ -333,6 +333,18 @@ void SphericalHarmonicsGravityControls::check_validity()
 
     if(!spherical)
     {
+        if(degree == 0)
+        {
+            MessageHandler::error(__FILE__,
+                                  __LINE__,
+                                  GravityMessages::invalid_limit,
+                                  "Gravity field degree for %s is "
+                                  "set to zero but non-spherical gravity requested.\n"
+                                  "Setting the gravity field to spherical.",
+                                  harmonics_source->name.c_str());
+            spherical = true;
+            return;
+        }
         // Check if maximum degree to be used for computations is greater than
         // degree of gravity field
         if(degree > harmonics_source->degree)
@@ -385,15 +397,15 @@ void SphericalHarmonicsGravityControls::check_validity()
             // check if gradient degree exceeds accel degree
             if(gradient_degree > degree)
             {
-                MessageHandler::fail(__FILE__,
-                                     __LINE__,
-                                     GravityMessages::invalid_limit,
-                                     "Gravity gradient degree (%i) for %s is "
-                                     "greater than gravity degree (%i).\n"
-                                     "Setting the gradient degree to the gravity degree.",
-                                     gradient_degree,
-                                     harmonics_source->name.c_str(),
-                                     degree);
+                MessageHandler::error(__FILE__,
+                                      __LINE__,
+                                      GravityMessages::invalid_limit,
+                                      "Gravity gradient degree (%i) for %s is "
+                                      "greater than gravity degree (%i).\n"
+                                      "Setting the gradient degree to the gravity degree.",
+                                      gradient_degree,
+                                      harmonics_source->name.c_str(),
+                                      degree);
                 gradient_degree = degree;
             }
 

@@ -216,4 +216,5 @@ void GravityVerification::verify_grav_torque(const double sc_attitude[3],  // PY
     printf("y %20.15f%20.15f%25.15E \n", grav_torque[1], verif_grav_torque[1], torque_error[1]);
     printf("z %20.15f%20.15f%25.15E \n", grav_torque[2], verif_grav_torque[2], torque_error[2]);
 }
+
 } // namespace jeod

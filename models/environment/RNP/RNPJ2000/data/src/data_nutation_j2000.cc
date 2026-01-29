@@ -1008,4 +1008,5 @@ void NutationJ2000Init_nutation_j2000_default_data::initialize(NutationJ2000Init
     NutationJ2000Init_ptr->obliq_t_coeffs[0 + 104] = 0.0;
     NutationJ2000Init_ptr->obliq_t_coeffs[0 + 105] = 0.0;
 }
+
 } // namespace jeod

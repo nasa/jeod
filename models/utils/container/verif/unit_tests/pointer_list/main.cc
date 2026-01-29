@@ -55,7 +55,7 @@ void compare_foo_list(const std::string & name1, const Type1 & arg1, const std::
     std::cout << name1 << " <  " << name2 << " -> " << trueFalseStrings[index] << "\n";
 
     index = 1;
-    if((arg1 > arg2))
+    if(arg1 > arg2)
     {
         index = 0;
     }

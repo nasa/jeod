@@ -10,5 +10,5 @@ exec(compile(open( "Modified_data/common_input.py", "rb").read(), "Modified_data
 # Set up parameters to record
 log_rnp_verif(86400.0)
 
-set_utc_time( 1999, 3, 3, 0, 0, 0.0)
+jeod_time.time_utc.set_date_and_time(1999, 3, 3, 0, 0, 0.0)
 trick.stop(86400)

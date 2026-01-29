@@ -139,8 +139,8 @@ void SphericalHarmonicsGravityControls::calc_nonspherical(const double integ_pos
 
     // Set up first values to enable recursive calculation of normalized
     // coefficients with modification for underflow near poles
-    double cos_mlambda[degree + 1];
-    double sin_mlambda[degree + 1];
+    std::vector<double> cos_mlambda(degree + 1);
+    std::vector<double> sin_mlambda(degree + 1);
     cos_mlambda[0] = 1.0;
     sin_mlambda[0] = 0.0;
     if(rho_sq > 0.0)
@@ -189,8 +189,8 @@ void SphericalHarmonicsGravityControls::calc_nonspherical(const double integ_pos
     double Sumh_grad_N = 0.0;
     double Sumgam_grad_N = 0.0;
 
-    double C_tilde[degree + 1];
-    double S_tilde[degree + 1];
+    std::vector<double> C_tilde(degree + 1);
+    std::vector<double> S_tilde(degree + 1);
 
     double Lambda = 0.0;
 

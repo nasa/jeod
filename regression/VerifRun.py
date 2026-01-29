@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright 2025 United States Government as represented by the Administrator
+# Copyright 2026 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -62,6 +62,7 @@ class VerifRun:
         self.outcome = 0
         self.unique_id = self.full_sim_dir.replace("/", "__")+"__"+self.run_dir
         self.logName = ''
+        self.noCompData=True
 
     #*************************************************************************
     # parse_run_info
@@ -113,14 +114,16 @@ class VerifRun:
     # Add instances of VerifFile to this instance of VerifRun
     #*************************************************************************
     def add_file_comparisons( self, filename):
-
+        if filename:
+            self.noCompData = False
         # filename may include glob characters (e.g. "RUN_*").
         # Construct the full path to allow expansion of the glob and process
         # all matches.
-        for full_verif_file in glob.glob( os.path.join( self.full_sim_dir,
-                                                        self.verif_base,
-                                                        self.run_dir,
-                                                        filename)):
+        JEOD_HOME = os.getenv("JEOD_HOME")
+        if JEOD_HOME is None:
+            JEOD_HOME = os.path.abspath(os.path.join(os.path.dirname(__file__),"../"))
+        fileComp = f'{JEOD_HOME}/regression/data/{self.verif_base}/{self.full_sim_dir}/SET_test_val/{self.run_dir}'
+        for full_verif_file in glob.glob( os.path.join( fileComp, filename) ):
 
             # extract the the glob-expanded filenames one at a time from
             # the set of glob-expanded full-paths
@@ -130,9 +133,7 @@ class VerifRun:
                                                               self.run_base,
                                                               self.run_dir,
                                                               verif_file),
-                                                os.path.join( self.full_sim_dir,
-                                                              self.verif_base,
-                                                              self.run_dir,
+                                                os.path.join( fileComp,
                                                               verif_file)))
 
 
@@ -156,6 +157,12 @@ class VerifRun:
             tprint( "ERROR: called compare_data on a non-successful run.",
                     'DARK_RED')
             return # with existing status.
+
+        if not self.noCompData and not self.verif_files:
+            tprint( f'ERROR: No comparison data found for {os.path.join( self.full_sim_dir, self.run_base, self.run_dir)}.',
+                    'DARK_RED')
+            self.status = self.Status.COMP_FAIL
+            return
 
         for comp in self.verif_files:
             comp.compare_data()

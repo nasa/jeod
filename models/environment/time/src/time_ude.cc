@@ -386,6 +386,16 @@ void TimeUDE::initialize_from_parent(TimeManagerInit * time_manager_init)
                 }
             }
 
+            if(epoch_ptr == nullptr)
+            {
+                MessageHandler::fail(__FILE__,
+                                     __LINE__,
+                                     TimeMessages::initialization_error,
+                                     "\n"
+                                     "epoch_ptr returned from the time manager is nullptr");
+                return;
+            }
+
             // If epoch is already initialized, those values are going to
             // be overridden; if not, it will have to appear as though it is in order
             // to initialize the converters.
@@ -649,6 +659,26 @@ void TimeUDE::initialize_initializer_time(TimeManagerInit * time_manager_init)
     // If the time-type does not update from Dyn, have a little extra work to do.
     if(!updates_from_dyn)
     {
+        if(epoch_ptr == nullptr)
+        {
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 TimeMessages::initialization_error,
+                                 "\n"
+                                 "epoch_ptr returned from the time manager is nullptr");
+            return;
+        }
+
+        if(update_from_ptr == nullptr)
+        {
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 TimeMessages::initialization_error,
+                                 "\n"
+                                 "update_from_ptr returned from the time manager is nullptr");
+            return;
+        }
+
         // set the time at epoch in the epoch-type
         set_epoch_times(epoch_ptr);
         epoch_ptr->override_initialized(true);
@@ -916,12 +946,7 @@ void TimeUDE::set_epoch_std(TimeStandard * epoch_ptr)
             }
 
             // calendar defined and workable
-            epoch_ptr->calendar_year = epoch_year;
-            epoch_ptr->calendar_month = epoch_month;
-            epoch_ptr->calendar_day = epoch_day;
-            epoch_ptr->calendar_hour = epoch_hour;
-            epoch_ptr->calendar_minute = epoch_minute;
-            epoch_ptr->calendar_second = epoch_second;
+            epoch_ptr->set_date_and_time(epoch_year, epoch_month, epoch_day, epoch_hour, epoch_minute, epoch_second);
             epoch_ptr->convert_from_calendar();
             break;
 

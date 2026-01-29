@@ -55,6 +55,7 @@ LIBRARY DEPENDENCY:
 //! Namespace jeod
 namespace jeod
 {
+
 /**
  * The master program behind the initialization of the time types and
  * the time converters

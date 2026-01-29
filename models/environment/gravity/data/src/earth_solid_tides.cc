@@ -17,7 +17,9 @@ Assumptions and Limitations:
 //! Namespace jeod
 namespace jeod
 {
+
 class SphericalHarmonicsSolidBodyTidesInit;
+
 } // namespace jeod
 
 #define JEOD_FRIEND_CLASS SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data
@@ -44,4 +46,5 @@ void SphericalHarmonicsSolidBodyTidesInit_earth_solid_tides_default_data::initia
     SphericalHarmonicsSolidBodyTidesInit_ptr->tidal_body_names.push_back("Sun");
     SphericalHarmonicsSolidBodyTidesInit_ptr->tidal_body_names.push_back("Moon");
 }
+
 } // namespace jeod

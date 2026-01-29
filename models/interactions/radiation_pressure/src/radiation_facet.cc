@@ -46,10 +46,6 @@ Library dependencies:
 namespace jeod
 {
 
-// Static default values.
-
-const double RadiationFacet::two_thirds = 2.0 / 3.0;
-
 /**
  * Run sanity checks on input variables
  */

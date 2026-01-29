@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright 2025 United States Government as represented by the Administrator
+# Copyright 2026 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -35,6 +35,7 @@
 
 import os
 import sys
+import pathlib
 from VerifModel import VerifModel
 from verif_utilities import tprint, parallel_runs
 from Job  import Job
@@ -45,6 +46,7 @@ from CodeCoverage import CodeCoverage
 # a configuration file.
 #*****************************************************************************
 class VerifPackage:
+    log_extensions= ['.trk','.csv', '.h5']
 
     def __init__( self, sim_binary, name = '', run_base = '', verif_base = ''):
         self.name       = name
@@ -154,12 +156,14 @@ class VerifPackage:
                       logdir,
                       file_pattern,
                       num_cpus,
+                      koviz_path = 'koviz',
                       run_base = '',
                       verif_base = ''):
 
         JEOD_HOME = os.getenv("JEOD_HOME")
         if JEOD_HOME is None:
             JEOD_HOME = os.path.abspath(os.path.join(os.path.dirname(__file__),"../"))
+        topRegrDir = f'{JEOD_HOME}/regression/data/{verif_base}'
 
         analysis_jobs = [] # list of Job instances
         for sim in [sim for model in self.models
@@ -168,20 +172,35 @@ class VerifPackage:
                           for run in sim.runs)]:
             test_path = os.path.join( sim.full_sim_dir,
                                       run_base)
-            verif_path = os.path.join( sim.full_sim_dir,
-                                       verif_base)
-            #logfile = logdir+"/04_analysis_logging_"+sim.unique_id+".txt"
-            command = JEOD_HOME + "/regression/regressionCompare.py "+ \
-                      " -r "+verif_path + \
-                      " -t "+test_path  + \
-                      " -l "+logdir+"/04_data_comp_log_"+sim.unique_id+".txt"+ \
-                      " -i "+file_pattern
+            verif_path = f'{topRegrDir}/{sim.full_sim_dir}/SET_test_val'
+            anyLogFiles = False
+            for run in sim.runs:
+                for verif_file in run.verif_files:
+                    path_wrt_sim = pathlib.Path(run.run_dir, pathlib.Path(verif_file.test_file).name)
+                    if path_wrt_sim.suffix in VerifPackage.log_extensions:
+                        anyLogFiles = True
+                    else:
+                        spath=pathlib.Path(verif_file.test_file).stem
+                        fpath=f'{run.run_dir}_{spath}'
+                        command = f'diff {verif_file.baseline_file} {verif_file.test_file}'
+                        job  = Job( f'DATA_COMP_{sim.unique_id}_{fpath}.txt',
+                            command,
+                            logdir+f'/04_data_comp_std_{sim.unique_id}_{fpath}.txt',
+                            0)
+                        analysis_jobs.append( job)
 
-            job  = Job( "DATA_COMP_"+sim.unique_id,
-                        command,
-                        logdir+"/04_data_comp_std_"+sim.unique_id+".txt",
-                        0)
-            analysis_jobs.append( job)
+            if anyLogFiles:
+                command = JEOD_HOME + "/bin/jeod_cm/run_compare.py "+ \
+                          " -r "+verif_path + \
+                          " -s "+test_path  + \
+                          " -o "+logdir+"/04_data_comp_log_"+sim.unique_id+".txt" + \
+                          " -k " + koviz_path
+
+                job  = Job( "DATA_COMP_"+sim.unique_id,
+                            command,
+                            logdir+"/04_data_comp_std_"+sim.unique_id+".txt",
+                            0)
+                analysis_jobs.append( job)
 
         parallel_runs( analysis_jobs, num_cpus)
 

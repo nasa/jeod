@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -160,7 +160,7 @@ protected:
     /**
      * Stefan-Boltzmann constant
      */
-    const static double stefan_boltzmann; //!< trick_io(*o) trick_units(--)
+    static constexpr double stefan_boltzmann{5.6704004E-08}; //!< trick_io(*o) trick_units(--)
 
 private:
     /**

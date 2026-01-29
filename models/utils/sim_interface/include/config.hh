@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,11 +60,11 @@ Purpose:
 
 // For Trick-based applications,
 // Use the version-specific configuration for Trick-based builds.
-#if(defined TRICK_VER)
+#if (defined TRICK_VER)
 #include "config_trick10.hh"
 
 // Standalone JEOD unit tests use the test harness configuration.
-#elif(defined JEOD_UNIT_TEST)
+#elif (defined JEOD_UNIT_TEST)
 #include "config_test_harness.hh"
 
 #define JEOD_THROW(x)
@@ -74,7 +74,7 @@ Purpose:
 // Non-Trick installations should consolidate requisite configuration
 // information in a single header file and compile JEOD with
 // JEOD_CONFIG_HEADER defined to be this config file.
-#elif(defined JEOD_CONFIG_HEADER)
+#elif (defined JEOD_CONFIG_HEADER)
 #include JEOD_CONFIG_HEADER
 
 #else
@@ -84,7 +84,7 @@ Purpose:
 // Define macros that enable the package to take advantage of extensions
 // to c++, if possible.
 
-#if(!defined SWIG) && ((defined __GNUC__) || (defined __llvm__) || (defined __clang__))
+#if (!defined SWIG) && ((defined __GNUC__) || (defined __llvm__) || (defined __clang__))
 
 /**
  * @def JEOD_UNUSED

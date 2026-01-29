@@ -528,4 +528,5 @@ void TranslationTestSpringDamper::compute_true_state(double dyn_time)
 
     true_canon_state.potential_energy = -omega_sq * Vector3::vmagsq(true_canon_state.position);
 }
+
 } // namespace jeod

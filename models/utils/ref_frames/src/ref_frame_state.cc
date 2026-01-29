@@ -222,6 +222,7 @@ void RefFrameState::negate(const RefFrameState & source)
     Vector3::negate(trans.position);
     Vector3::negate(trans.velocity);
     Vector3::negate(rot.ang_vel_this);
+    rot.compute_ang_vel_products();
 }
 
 /**

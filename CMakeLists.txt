@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 project(JEOD CXX C)
 
@@ -110,3 +110,14 @@ endif()
 foreach(DE_TGT ${DE_TGTS})
    install(TARGETS ${DE_TGT} DESTINATION ${INSTALL_DIR}/de4xx_lib)
 endforeach()
+
+#Output source files to a deps file
+set(DEPSTR "JEOD_SRCS := \\\n")
+foreach(JSRC ${JEOD_SRC_FILES} ${JEOD_DATA_SRC_FILES})
+string(APPEND DEPSTR " ${JSRC} \\\n")
+endforeach()
+string(LENGTH ${DEPSTR} DEPSTRORIGLEN)
+math(EXPR DEPSTRDESIREDLEN "${DEPSTRORIGLEN}-2")
+string(SUBSTRING "${DEPSTR}" 0 ${DEPSTRDESIREDLEN} DEPSTR)
+string(APPEND DEPSTR "\n\n$(JEOD_TRICKBUILD_LIB): $(JEOD_SRCS)\n\n")
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/libjeod.d  ${DEPSTR})

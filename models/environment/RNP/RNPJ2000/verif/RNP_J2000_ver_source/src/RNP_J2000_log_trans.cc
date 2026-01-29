@@ -56,4 +56,5 @@ void J2000RNPLogging::copy_rotation_transposes(PlanetRotation & precession,
     rotation.get_rotation_transpose(rot_trans);
     polar_motion.get_rotation_transpose(pm_trans);
 }
+
 } // namespace jeod

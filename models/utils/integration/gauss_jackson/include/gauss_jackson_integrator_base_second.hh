@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -149,8 +149,9 @@ inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOr
  * Initialize the integration constants (i.e., delinv).
  */
 template<>
-inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::
-    initialize_edit_integration_constants(double dt)
+inline void
+GaussJacksonIntegratorBase<GaussJacksonTwoState,
+                           er7_utils::SecondOrderODEIntegrator>::initialize_edit_integration_constants(double dt)
 {
     double dtsq = dt * dt;
 
@@ -167,8 +168,9 @@ inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOr
  * Advance the integration constants by one cycle.
  */
 template<>
-inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::
-    advance_edit_integration_constants(unsigned int index)
+inline void
+GaussJacksonIntegratorBase<GaussJacksonTwoState,
+                           er7_utils::SecondOrderODEIntegrator>::advance_edit_integration_constants(unsigned int index)
 {
     for(unsigned int ii = 0; ii < size; ++ii)
     {
@@ -181,8 +183,9 @@ inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOr
  * Initialize the integration constants (i.e., delinv).
  */
 template<>
-inline void GaussJacksonIntegratorBase<GaussJacksonTwoState, er7_utils::SecondOrderODEIntegrator>::
-    initialize_predictor_integration_constants(double dt)
+inline void
+GaussJacksonIntegratorBase<GaussJacksonTwoState,
+                           er7_utils::SecondOrderODEIntegrator>::initialize_predictor_integration_constants(double dt)
 {
     initialize_edit_integration_constants(dt);
 

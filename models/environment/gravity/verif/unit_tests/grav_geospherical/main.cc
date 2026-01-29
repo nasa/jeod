@@ -325,6 +325,7 @@ void Tester::doTest(int caseNum,
     gc.set_grad_degree(trptr->degree);
     gc.set_order(trptr->order);
     gc.set_grad_order(trptr->order);
+    gc.spherical = false;
     gc.gravitation(trptr->pos, 0, accel, dgdx, pot);
 
     if(verbose)

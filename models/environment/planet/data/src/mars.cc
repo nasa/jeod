@@ -48,4 +48,5 @@ void Planet_mars_default_data::initialize(Planet * Planet_ptr)
     //       Planet_ptr->set_alt_inertial(m);
     Planet_ptr->set_alt_inertial(celestial_pole, ecliptic_pole);
 }
+
 } // namespace jeod

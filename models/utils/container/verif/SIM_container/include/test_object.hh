@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -67,6 +67,9 @@ Library dependencies:
 namespace jeod
 {
 
+extern std::ostream * demoOutputStr;
+void set_demo_output_file(const std::string & fname);
+
 /**
  * A simple object used to test JeodObjectContainer capabilities.
  */
@@ -114,15 +117,15 @@ public:
     {
         if(hidden_value != value + 42)
         {
-            std::cout << "Restoring in TestSimple::simple_restore()\n\n";
+            (*demoOutputStr) << "Restoring in TestSimple::simple_restore()\n\n";
             hidden_value = value + 42;
         }
     }
 
     void print_contents()
     {
-        std::cout << "Test_simple contents:"
-                  << " value=" << value << " hidden_value=" << hidden_value << "\n\n";
+        (*demoOutputStr) << "Test_simple contents:"
+                         << " value=" << value << " hidden_value=" << hidden_value << "\n\n";
     }
 
     TestSimple(const TestSimple &) = delete;

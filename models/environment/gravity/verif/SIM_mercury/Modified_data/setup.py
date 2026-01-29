@@ -89,12 +89,7 @@ def configure_time (trick, time, base="TAI") :
     time.time_manager_init.sim_start_format = trick.TimeEnum.calendar
 
     time.time_tdb.send_warning_pre_1968 = False
-    time.time_tdb.calendar_year   = 1600
-    time.time_tdb.calendar_month  =    1
-    time.time_tdb.calendar_day    =    1
-    time.time_tdb.calendar_hour   =   12
-    time.time_tdb.calendar_minute =    0
-    time.time_tdb.calendar_second =   0.0
+    time.time_tdb.set_date_and_time(1600, 1, 1, 12, 0, 0.0)
 
     time.time_tai.initialize_from_name = "TDB"
     time.time_tt.initialize_from_name = "TAI"

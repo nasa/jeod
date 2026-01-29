@@ -18,7 +18,7 @@ Purpose:
      5. Comparing the results of steps (4) and (2) versus those from step (1).)
 */
 
-#include "trick_utils/math/include/trick_math.h"
+#include "trick/trick_math.h"
 #include <cmath>
 #include <cstdio>
 

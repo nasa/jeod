@@ -2,7 +2,7 @@
 %
 % Purpose: Provide Chapter 4 User Guide for the Contact Model
 %
-%  
+%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -108,8 +108,8 @@ Logging the internal details of the \ModelDesc, such as the forces a specific fa
      logger.open_group (1, "contact_data")
 
      logger.log_scalar(
-        ("veh1_dyn.body.composite_properties.mass",
-         "veh2_dyn.body.composite_properties.mass"))
+        ("veh1_dyn.body.mass.composite_properties.mass",
+         "veh2_dyn.body.mass.composite_properties.mass"))
 
      logger.log_vector(
         ("veh1_dyn.body.composite_body.state.trans.position",

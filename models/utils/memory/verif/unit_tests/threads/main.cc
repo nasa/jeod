@@ -510,7 +510,7 @@ public:
 
     // Non-default constructor.
     TypeTestThread(unsigned int nrep)
-        : TestThread((JEOD_ALLOC_CLASS_OBJECT(AllocatorType, ())), nrep)
+        : TestThread(JEOD_ALLOC_CLASS_OBJECT(AllocatorType, ()), nrep)
     {
     }
 

@@ -79,4 +79,5 @@ bool GroundInteraction::is_active()
     }
     return false;
 }
+
 } // namespace jeod

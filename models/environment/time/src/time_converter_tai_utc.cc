@@ -277,7 +277,6 @@ void TimeConverter_TAI_UTC::convert_a_to_b()
                     is more efficient. */
                 a_to_b_offset = -val_vec[index] / 86400.0;
                 utc_ptr->set_time_by_trunc_julian(tai_ptr->trunc_julian_time + a_to_b_offset);
-                // utc_ptr->trunc_julian_time = tai_ptr->trunc_julian_time + a_to_b_offset;
 
                 prev_when = next_when;
 
@@ -337,9 +336,6 @@ void TimeConverter_TAI_UTC::convert_a_to_b()
        if an update was needed, it has already been recalculated.
        Either way, do not need to do it again here.  Done. */
     utc_ptr->set_time_by_trunc_julian(tai_ptr->trunc_julian_time + a_to_b_offset);
-
-    //  utc_ptr->days = utc_ptr->trunc_julian_time - utc_ptr->tjt_at_epoch;
-    //  utc_ptr->seconds = utc_ptr->days * 86400;
 }
 
 /**

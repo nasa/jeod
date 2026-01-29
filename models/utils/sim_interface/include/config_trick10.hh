@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -97,7 +97,7 @@ Assumptions and Limitations:
 // is not providing an alternate implementation.
 #ifndef JEOD_ATTRIBUTES_IMPLEMENTATION_HEADER
 
-#define JEOD_ATTRIBUTES_SIM_ENGINE_HEADER "sim_services/MemoryManager/include/attributes.h"
+#define JEOD_ATTRIBUTES_SIM_ENGINE_HEADER "trick/attributes.h"
 #define JEOD_ATTRIBUTES_TYPE struct ATTRIBUTES_tag
 #define JEOD_ATTRIBUTES_POINTER_TYPE JEOD_ATTRIBUTES_TYPE *
 
@@ -108,11 +108,13 @@ Assumptions and Limitations:
 // is not providing an alternate implementation.
 #ifndef JEOD_SIM_INTEGRATOR_IMPLEMENTATION_HEADER
 
-#define JEOD_SIM_INTEGRATOR_SIM_ENGINE_HEADER "sim_services/Integrator/include/Integrator.hh"
+#define JEOD_SIM_INTEGRATOR_SIM_ENGINE_HEADER "trick/Integrator.hh"
 #define JEOD_SIM_INTEGRATOR_FORWARD                                                                                    \
     namespace Trick                                                                                                    \
     {                                                                                                                  \
+                                                                                                                       \
     class Integrator;                                                                                                  \
+                                                                                                                       \
     }
 #define JEOD_SIM_INTEGRATOR_POINTER_TYPE Trick::Integrator *
 #define JEOD_SIM_INTEGRATOR_ENUM Integrator_type

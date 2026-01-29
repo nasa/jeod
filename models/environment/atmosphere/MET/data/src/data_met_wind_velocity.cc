@@ -58,4 +58,5 @@ void WindVelocity_wind_velocity_default_data::initialize(WindVelocity & wind_vel
     wind_velocity.omega = omega;
     wind_velocity.set_omega_scale_table(num_layers, omega_scale_alt, omega_scale_fac);
 }
+
 } // namespace jeod

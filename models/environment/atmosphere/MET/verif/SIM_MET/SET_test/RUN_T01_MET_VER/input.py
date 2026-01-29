@@ -1,10 +1,7 @@
 exec(compile(open("SET_test/input_core.py", "rb").read(), "SET_test/input_core.py", 'exec'))
 log_add_met(dr_group)
 
-jeod_time.time_utc.calendar_year  = 1995
-jeod_time.time_utc.calendar_hour  = 0
-jeod_time.time_utc.calendar_minute   = 0
-jeod_time.time_utc.calendar_second = 1.0
+jeod_time.time_utc.set_date_and_time(1995, 1, 1, 0, 0, 1.0)
 
 vehicle.pos.ellip_coords.altitude = set_units("km", 140.00)
 vehicle.pos.ellip_coords.latitude = set_units("degree", 28.45)

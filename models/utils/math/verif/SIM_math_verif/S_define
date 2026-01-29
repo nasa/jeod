@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -50,6 +50,7 @@
 
 ##include "utils/math/verif/SIM_math_verif/models/math_verif/include/math_verif.hh"
 
+##include "trick/command_line_protos.h"
 
 class Math_testSimObject: public Trick::SimObject
 {
@@ -66,7 +67,13 @@ public:
     // Constructor
     Math_testSimObject()
     {
+        ("initialization") init_outfile();
         (1.0, "environment") jeod::math_verif(A, B, C, f, g, s);
+    }
+
+    void init_outfile()
+    {
+        jeod::set_demo_output_file(std::string(command_line_args_get_output_dir()) + "/demo_out.txt");
     }
 
     Math_testSimObject(const Math_testSimObject &) = delete;

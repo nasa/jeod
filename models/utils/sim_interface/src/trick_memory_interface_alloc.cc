@@ -36,9 +36,9 @@ Library Dependency:
 #include <typeinfo>
 
 // Trick includes
-#include "sim_services/MemoryManager/include/ADefParseContext.hh"
-#include "sim_services/MemoryManager/include/MemoryManager.hh"
-#include "sim_services/MemoryManager/include/attributes.h"
+#include "trick/ADefParseContext.hh"
+#include "trick/MemoryManager.hh"
+#include "trick/attributes.h"
 extern Trick::MemoryManager * trick_MM;
 
 // JEOD includes

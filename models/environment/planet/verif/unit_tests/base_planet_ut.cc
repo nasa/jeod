@@ -20,8 +20,6 @@ TEST(BasePlanet, set_alt_inertial) {}
 
 TEST(BasePlanet, set_alt_pfix) {}
 
-TEST(BasePlanet, get_alt_pfix) {}
-
 TEST(BasePlanet, calculate_alt_pfix) {}
 
 TEST(BasePlanet, register_planet) {}

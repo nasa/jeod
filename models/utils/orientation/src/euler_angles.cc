@@ -94,7 +94,7 @@ struct EulerInfo
  * enumeration items.
  */
 static const EulerInfo Euler_info[12] = {
-  //  seq       altx  altz  right    aero
+    //  seq       altx  altz  right    aero
     {{0, 1, 2}, 0, 2,  true,  true}, // EulerXYZ
     {{0, 2, 1}, 0, 1, false,  true}, // EulerXZY
     {{1, 2, 0}, 1, 0,  true,  true}, // EulerYZX

@@ -4,7 +4,7 @@ exec(compile(open( "Modified_data/common_input.py", "rb").read(), "Modified_data
 log_rnp_verif(1.0)
 
 # Configure base date
-set_utc_time( 1991, 4, 6, 7, 51, 28.386009)
+jeod_time.time_utc.set_date_and_time(1991, 4, 6, 7, 51, 28.386009)
 
 jeod_time.time_converter_tai_ut1.override_data_table = True
 # old DUT: .402521    old leap seconds: 26

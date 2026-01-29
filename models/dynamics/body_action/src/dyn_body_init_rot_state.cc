@@ -96,13 +96,22 @@ bool DynBodyInitRotState::is_ready()
     // problematic. The initialization will proceed, but ...
     if((body_frame == nullptr) && (dynamic_cast<EphemerisRefFrame *>(reference_ref_frame) == nullptr))
     {
+        std::string output;
+        if(reference_ref_frame == nullptr)
+        {
+            output = "nullptr";
+        }
+        else
+        {
+            output = reference_ref_frame->get_name();
+        }
         MessageHandler::error(__FILE__,
                               __LINE__,
                               BodyActionMessages::invalid_object,
                               "%s is suspect:\n"
                               "Reference frame '%s' is of a unknown derived type.",
                               action_identifier.c_str(),
-                              reference_ref_frame->get_name().c_str());
+                              output.c_str());
     }
 
     // Determine the items needed from the reference reference frame.

@@ -49,10 +49,10 @@ Library Dependencies:
 #include "../include/spice_ephem.hh"
 
 // Set sizes of SPICE character strings and upper bound on total number of IDs.
-const static int MAX_PATH_LENGTH = 129;
-const static int MAX_NAME_LENGTH = 33;
-const static int MAX_MSG_LENGTH = 1841;
-const static int MAX_IDS = 1000;
+static constexpr int MAX_PATH_LENGTH = 129;
+static constexpr int MAX_NAME_LENGTH = 33;
+static constexpr int MAX_MSG_LENGTH = 1841;
+static constexpr int MAX_IDS = 1000;
 
 //! Namespace jeod
 namespace jeod

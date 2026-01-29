@@ -47,6 +47,7 @@ LIBRARY DEPENDENCY:
 //! Namespace jeod
 namespace jeod
 {
+
 /***************************************************************************/
 METAtmosphereState::METAtmosphereState(METAtmosphere & met_atmos_, const PlanetFixedPosition & pfix_pos_)
     : METAtmosphereStateVars(met_atmos_, pfix_pos_),

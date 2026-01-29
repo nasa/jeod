@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -69,7 +69,7 @@ namespace jeod
 class GaussQuadrature
 {
 public:
-    static const int max_order = 8;
+    static constexpr int max_order{8};
     static const double gauss_weights[max_order + 1][max_order];
     static const double gauss_xvalues[max_order + 1][max_order];
 };

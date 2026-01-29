@@ -1,4 +1,3 @@
-
 // System includes
 #include <cmath>
 #include <cstdint>

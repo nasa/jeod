@@ -17,16 +17,10 @@ log_rec( LOG_CYCLE )
 
 #############  ASSIGNMENTS, CALLS, and CONTROL  #################
 
-
 jeod_time.manager_init.initializer = "UTC"
 jeod_time.manager_init.sim_start_format = trick.TimeEnum.calendar
 
-jeod_time.utc.calendar_year = 1998
-jeod_time.utc.calendar_month = 12
-jeod_time.utc.calendar_day = 31
-jeod_time.utc.calendar_hour = 23
-jeod_time.utc.calendar_minute = 59
-jeod_time.utc.calendar_second = 50.0
+jeod_time.utc.set_date_and_time(1998, 12, 31, 23, 59, 50.0)
 
 #/////////////////////////////////////////////////////////////////////
 #// These three blocks should be equivalent                         //
@@ -51,8 +45,6 @@ jeod_time.metveh1.epoch_second = 0.0
 #//time.metveh1.initializing_value = 50.0
 #///////////////////////////////////////////////////////////////////////
 
-
-
 #///////////////////////////////////////////////////////////////////////
 #// These two blocks are equivalent:                                  //
 #///////////////////////////////////////////////////////////////////////
@@ -63,8 +55,6 @@ jeod_time.metveh2.initializing_value = -5.0
 #//time.metveh2.epoch_format = TimeEnum::seconds_since_epoch
 #//time.metveh2.epoch_initializing_value = 55.0
 #/////////////////////////////////////////////////////////////////////////
-
-
 
 jeod_time.gmst.initialize_from_name = "UT1"
 jeod_time.gmst.update_from_name = "UT1"
@@ -90,20 +80,14 @@ jeod_time.utc.update_from_name = "TAI"
 jeod_time.ut1.initialize_from_name = "TAI"
 jeod_time.ut1.update_from_name = "TAI"
 
-
-
 trick.add_read(10,  """
 jeod_time.metveh2.hold = True
 jeod_time.manager.simtime = 0
-
 """)
-
 
 trick.add_read(20,  """
 jeod_time.metveh2.hold = False
 jeod_time.manager.simtime = 0
-
 """)
-
 
 trick.sim_services.exec_set_terminate_time(25)

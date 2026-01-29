@@ -31,7 +31,7 @@ Library Dependency:
 #ifndef __has_include
 #define __has_include(x) 0
 #endif
-#if(defined __GNUC__) || __has_include(<cxxabi.h>)
+#if (defined __GNUC__) || __has_include(<cxxabi.h>)
 #define HAVE_ABI
 #endif
 

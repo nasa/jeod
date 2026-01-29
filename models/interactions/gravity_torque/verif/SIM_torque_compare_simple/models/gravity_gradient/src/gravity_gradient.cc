@@ -105,4 +105,5 @@ int gravity_gradient(                       /* RETURN: --  Always return zero.  
     /* Always return zero. */
     return (0);
 }
+
 } // namespace jeod

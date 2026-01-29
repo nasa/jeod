@@ -10,6 +10,7 @@
 
 namespace er7_utils
 {
+
 IntegrationControls::IntegrationControls() {}
 
 IntegrationControls::~IntegrationControls() {}

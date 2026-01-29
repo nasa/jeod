@@ -1,4 +1,3 @@
-
 /*******************************************************************************
 
 Purpose:
@@ -37,4 +36,5 @@ void SphericalHarmonicsGravitySource_phobos_spherical_default_data::initialize(
     SphericalHarmonicsGravitySource_ptr->name = "Phobos";
     SphericalHarmonicsGravitySource_ptr->mu = 7.07E+05;
 }
+
 } // namespace jeod

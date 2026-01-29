@@ -78,14 +78,23 @@ InteractionFacet * FlatPlateAeroFactory::create_facet(Facet * facet, FacetParams
 
     if(aero_params == nullptr)
     {
+        std::string output;
+        if(params == nullptr)
+        {
+            output = "null";
+        }
+        else
+        {
+            output = "named " + params->name;
+        }
         MessageHandler::fail(__FILE__,
                              __LINE__,
                              AerodynamicsMessages::initialization_error,
                              "The FacetParams supplied to "
-                             "FlatPlateAeroFactory::create_facet, named (%s), "
-                             "was not of type "
+                             "FlatPlateAeroFactory::create_facet was (%s), "
+                             "and was not of type "
                              "FlatPlateAeroParams.",
-                             params->name.c_str());
+                             output.c_str());
         return nullptr;
     }
     if(flat_plate == nullptr)

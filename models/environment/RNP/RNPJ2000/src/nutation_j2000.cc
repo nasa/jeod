@@ -111,9 +111,9 @@ void NutationJ2000::update_rotation()
         double api = L_coeffs[i] * L + M_coeffs[i] * M + F_coeffs[i] * F + D_coeffs[i] * D + omega_coeffs[i] * omega;
         api *= DEGTORAD;
 
-        nutation_in_longitude += ((long_coeffs[i] + long_t_coeffs[i] * time)) * sin(api);
+        nutation_in_longitude += (long_coeffs[i] + long_t_coeffs[i] * time) * sin(api);
 
-        nutation_in_obliquity += ((obliq_coeffs[i] + obliq_t_coeffs[i] * time)) * cos(api);
+        nutation_in_obliquity += (obliq_coeffs[i] + obliq_t_coeffs[i] * time) * cos(api);
 
     } // for(unsigned int i = 0)
 

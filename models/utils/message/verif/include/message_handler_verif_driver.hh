@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -60,7 +60,7 @@ Library dependencies:
 // System includes
 
 // Trick includes
-#include "sim_services/Integrator/include/Integrator.hh"
+#include "trick/Integrator.hh"
 
 // JEOD includes
 #include "utils/sim_interface/include/jeod_class.hh"

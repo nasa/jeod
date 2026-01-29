@@ -91,13 +91,10 @@ void PlanetOrientation::initialize(DynManager & dyn_manager)
     planet->pfix.set_owner(this);
     planet_rot_state = &(planet->pfix.state.rot);
 
-    planet_rot_state->ang_vel_unit[0] = 0;
-    planet_rot_state->ang_vel_unit[1] = 0;
-    planet_rot_state->ang_vel_unit[2] = 1;
     planet_rot_state->ang_vel_this[0] = 0;
     planet_rot_state->ang_vel_this[1] = 0;
     planet_rot_state->ang_vel_this[2] = planet_omega;
-    planet_rot_state->ang_vel_mag = planet_omega;
+    planet_rot_state->compute_ang_vel_products();
 
     // Initialize the lunar orientation
     orient_interface.set_name(name, "pfix");

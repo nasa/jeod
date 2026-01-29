@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -147,7 +147,7 @@ public:
 
 #ifndef SWIG
     // va_send_message() is the equivalent of send message, except that the
-    // argument list defined by <stdarg.h> replaces the variadic arguments.
+    // argument list defined by <cstdarg> replaces the variadic arguments.
     static void va_send_message(int severity,
                                 const char * prefix,
                                 const char * file,
@@ -228,7 +228,7 @@ public:
      * severity levels as fatal; they must not return to the calling procedure.
      * In other words, failures eventually result in a call to exit.
      */
-    const static int Failure; //!< trick_io(*o) trick_units(--)
+    static constexpr int Failure{-1}; //!< trick_io(*o) trick_units(--)
 
     /**
      * The severity value passed by the static public MessageHandler::error
@@ -240,7 +240,7 @@ public:
      * messages might nonetheless need to be generated, depending on the
      * value of the user-settable suppression_level.
      */
-    const static int Error; //!< trick_io(*o) trick_units(--)
+    static constexpr int Error{0}; //!< trick_io(*o) trick_units(--)
 
     /**
      * The severity value passed by the static public MessageHandler::warn
@@ -248,7 +248,7 @@ public:
      * This is set to 9 in the implementation. The intent is to indicate a
      * condition that might indicate that results are suspect.
      */
-    const static int Warning; //!< trick_io(*o) trick_units(--)
+    static constexpr int Warning{9}; //!< trick_io(*o) trick_units(--)
 
     /**
      * The severity value passed by the static public MessageHandler::inform
@@ -256,7 +256,7 @@ public:
      * This is set to 99 in the implementation. The intent is to indicate a
      * non-error condition that might be worthy of a user notification.
      */
-    const static int Notice; //!< trick_io(*o) trick_units(--)
+    static constexpr int Notice{99}; //!< trick_io(*o) trick_units(--)
 
     /**
      * The severity value passed by the static public MessageHandler::debug
@@ -266,7 +266,7 @@ public:
      * Ideally, JEOD code, particularly initialization code, will be peppered
      * with calls to MessageHandler::debug.
      */
-    const static int Debug; //!< trick_io(*o) trick_units(--)
+    static constexpr int Debug{999}; //!< trick_io(*o) trick_units(--)
 
 protected:
     // Static member functions

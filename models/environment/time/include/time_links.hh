@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -97,7 +97,7 @@ private:
     /**
      * Default allocated number of entries in linkage container
      */
-    const static unsigned int default_path_size = 8; //!< trick_units(--)
+    static constexpr unsigned int default_path_size{8}; //!< trick_units(--)
 };
 
 } // namespace jeod

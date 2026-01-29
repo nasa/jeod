@@ -31,7 +31,6 @@ Library dependencies:
 *******************************************************************************/
 
 // System includes
-#include <cmath> //std
 #include <cmath> // pow
 
 // Interface includes
@@ -203,7 +202,7 @@ void LsodeFirstOrderODEIntegrator::integrator_core()
         double ddn = magnitude_of_weighted_array(arrays.save) / test_coeffs_complete[0][num_nordsiek_cols];
         double exdn = 1.0 / num_nordsiek_cols;
 
-        // FIXME **power and magic numbers
+        // FIXME explain magic numbers
         double step_ratio_order_dec = 1.0 / (1.3 * pow(ddn, exdn) + 0.0000013);
 
         data_stode.step_ratio = std::min(step_ratio_order_dec, 1.0);
@@ -256,7 +255,7 @@ void LsodeFirstOrderODEIntegrator::integrator_reset_method_coeffs()
     else if(data_stode.iret == 2)
     {
         // 170
-        data_stode.step_ratio = std::max(data_stode.step_ratio, (control_data.min_step_size / (std::abs(step_size))));
+        data_stode.step_ratio = std::max(data_stode.step_ratio, control_data.min_step_size / (std::abs(step_size)));
         integrator_reset_yh(); // go to 175
     }
     else if(data_stode.iret == 3)
@@ -735,7 +734,7 @@ void LsodeFirstOrderODEIntegrator::integrator_compute_new_order_prep()
         }
         double dup = magnitude_of_weighted_array(arrays.save) / test_coeffs_complete[2][method_order_current - 1];
         double exup = 1.0 / (num_nordsiek_cols + 1);
-        data_stode.step_ratio_order_inc = 1.0 / (1.4 * pow(dup, exup) + 0.0000014); // FIXME power fn, magic nums
+        data_stode.step_ratio_order_inc = 1.0 / (1.4 * pow(dup, exup) + 0.0000014); // FIXME explain magic numbers
     }
     integrator_compute_new_order();
 }

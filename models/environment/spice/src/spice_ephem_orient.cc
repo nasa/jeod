@@ -84,7 +84,7 @@ void SpiceEphemOrientation::update(double time_tdb, double time_dyn)
     target_frame->state.rot.ang_vel_this[0] = -omega_b_wrt_a_in_b[1][2];
     target_frame->state.rot.ang_vel_this[1] = omega_b_wrt_a_in_b[0][2];
     target_frame->state.rot.ang_vel_this[2] = -omega_b_wrt_a_in_b[0][1];
-
+    target_frame->state.rot.compute_ang_vel_products();
     target_frame->state.rot.compute_quaternion();
 
     // Update timestamps for both this model and the target frame

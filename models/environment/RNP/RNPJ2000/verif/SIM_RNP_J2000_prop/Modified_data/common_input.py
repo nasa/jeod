@@ -26,12 +26,3 @@ dynamics.dyn_manager_init.central_point_name = "Earth"
 dynamics.dyn_manager_init.sim_integ_opt = trick.sim_services.Runge_Kutta_2
 
 trick.stop(1.0)
-
-#***************************************************************
-def set_utc_time( year, month, day, hour, minute, seconds) :
-  jeod_time.time_utc.calendar_year  = year
-  jeod_time.time_utc.calendar_month = month
-  jeod_time.time_utc.calendar_day   = day
-  jeod_time.time_utc.calendar_hour  = hour
-  jeod_time.time_utc.calendar_minute   = minute
-  jeod_time.time_utc.calendar_second   = seconds

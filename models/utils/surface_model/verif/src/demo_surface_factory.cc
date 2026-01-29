@@ -54,4 +54,5 @@ void DemoSurfaceFactory2::add_facet_params(FacetParams * to_add)
 
     InteractionSurfaceFactory::add_facet_params(to_add);
 }
+
 } // namespace jeod

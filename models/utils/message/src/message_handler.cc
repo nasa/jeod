@@ -44,15 +44,6 @@ namespace jeod
 {
 
 /*
- Define message severity levels. See the header for documentation.
-*/
-const int MessageHandler::Failure = -1;
-const int MessageHandler::Error = 0;
-const int MessageHandler::Warning = 9;
-const int MessageHandler::Notice = 99;
-const int MessageHandler::Debug = 999;
-
-/*
 Purpose:
   (Define and initialize the global message handler.)
 */

@@ -138,7 +138,7 @@ void DynBody::compute_ref_point_transform(const BodyRefFrame & source_frame,
 
                 rel_state.Q_parent_this.multiply_conjugate(mass.composite_properties.Q_parent_this);
                 rel_state.Q_parent_this.normalize();
-                rel_state.Q_parent_this.left_quat_to_transformation(rel_state.T_parent_this);
+                rel_state.compute_transformation();
             }
         }
     }

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -52,6 +52,7 @@ Test sim object.
 This object tests that each of the publicly-defined STL replacements
 can be checkpointed and restarted.
 */
+##include "trick/command_line_protos.h"
 
 class TestSimObject: public Trick::SimObject
 {
@@ -59,8 +60,14 @@ public:
     // Constructor
     TestSimObject()
     {
+        ("initialization") init_outfile();
         (1.0, "scheduled") do_nothing();
         ("shutdown") container.shutdown();
+    }
+
+    void init_outfile()
+    {
+        jeod::set_demo_output_file(std::string(command_line_args_get_output_dir()) + "/demo_out.txt");
     }
 
     void do_nothing() {}

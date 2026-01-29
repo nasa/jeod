@@ -54,4 +54,5 @@ void Planet_moon_default_data::initialize(Planet * Planet_ptr)
 
     Planet_ptr->set_alt_pfix(m);
 }
+
 } // namespace jeod

@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -50,9 +50,13 @@ LIBRARY DEPENDENCY:
 #ifndef JEOD_MATH_VERIF_HH
 #define JEOD_MATH_VERIF_HH
 
+#include <string>
+
 //! Namespace jeod
 namespace jeod
 {
+
+void set_demo_output_file(const std::string & fname);
 
 int math_verif(                /* RETURN: --             */
                double A[3][3], /* IN: -- input matrix */

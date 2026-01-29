@@ -2,7 +2,7 @@
 %
 % Purpose:  Verification part of V&V for the time model
 %
-% 
+%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -12,26 +12,26 @@
 
 %%% code imported from old template structure
 \inspection{Top-level inspection}\label{inspect:TLI}
- This document structure, the code, and associated files have been inspected, 
+ This document structure, the code, and associated files have been inspected,
  and together satisfy requirement \ref{reqt:toplevel}.
- 
+
 \subsection{Verification of Dynamic Time}
 \test{SIM\_1\_dyn\_only}\label{test:1dynonly}
 \begin{description}
 \item[Purpose:]\ \newline
-To verify that the Dynamic Time functions as a stand-alone implementation of 
+To verify that the Dynamic Time functions as a stand-alone implementation of
 time that can be used for integration purposes.
 
 \item[Requirement:]\ \newline
-Satisfactory conclusion of this test satisfies requirement 
+Satisfactory conclusion of this test satisfies requirement
 \ref{reqt:timeinitializationbypass}.
 
-Satisfactory conclusion of this test, along with test 
+Satisfactory conclusion of this test, along with test
 \ref{test:sim2scalefactor} satisfies requirement \ref{reqt:physicaltime}
 
 \item[Procedure:]\ \newline
-A simulation was created with no additional time registrations, and set to run 
-such that Dynamic Time = Simulator Time.  No specific time was set, and no 
+A simulation was created with no additional time registrations, and set to run
+such that Dynamic Time = Simulator Time.  No specific time was set, and no
 initialization of any time-types was required.
 
 \item[Predictions:]\ \newline
@@ -40,44 +40,44 @@ Dynamic Time should progress with Simulator Time.
 \item[Results:]\ \newline
 Dynamic Time progressed with Simulator Time.
 \end{description}
- 
- 
- 
- 
+
+
+
+
 \test{SIM\_2\_dyn\_plus\_STD/RUN\_scale\_factor\_changes/}
 \label{test:sim2scalefactor}
 \begin{description}
 \item[Purpose:]\ \newline
 \begin{enumerate}
-	\item To test whether Dynamic Time can also operate at some scaled 
+	\item To test whether Dynamic Time can also operate at some scaled
 	version of Simulator Time.
-	\item To test whether that scale factor can be changed mid-simulation, 
+	\item To test whether that scale factor can be changed mid-simulation,
 	and have Dynamic Time retain its smooth flow.
 \end{enumerate}
 
 \item[Requirement:]\ \newline
-Satisfactory conclusion of this test, and that of \ref{test:1dynonly}, 
+Satisfactory conclusion of this test, and that of \ref{test:1dynonly},
 satisfies requirement \ref{reqt:physicaltime}.
 
 \item[Procedure:]\ \newline
-A simulation was set running, in which Dynamic Time started synchronized to 
-Simulator Time.  At $Simulator Time = 5$, the scale-factor was changed to -1.0 
-(corresponding to a time-reversal).  At $Simulator Time = 10$, the scale-factor 
-was changed again, to 0.5.  Then, at $Simulator Time = 20$, the scale-factor 
+A simulation was set running, in which Dynamic Time started synchronized to
+Simulator Time.  At $Simulator Time = 5$, the scale-factor was changed to -1.0
+(corresponding to a time-reversal).  At $Simulator Time = 10$, the scale-factor
+was changed again, to 0.5.  Then, at $Simulator Time = 20$, the scale-factor
 was changed to -2.0.
-A Standard Time was also added to this simulation to ensure that the changes to 
+A Standard Time was also added to this simulation to ensure that the changes to
 Dynamic Time were propagated to Derived Times.
 
 \item[Predictions:]\ \newline
 Dynamic Time should increase from 0 seconds to 5 seconds, then fall back to 0
 seconds, then increase back to 5 seconds again (but over a longer Simulator Time
-interval), then decrease to -5 seconds before the simulation ends at $Simulator 
-Time = 25$.  The Standard Time (in this case, TAI) should show the same 
-pattern, only over a different range (Standard Times do not typically start at 
+interval), then decrease to -5 seconds before the simulation ends at $Simulator
+Time = 25$.  The Standard Time (in this case, TAI) should show the same
+pattern, only over a different range (Standard Times do not typically start at
 0).
 
 \item[Results:]\ \newline
-The following three graphs show the progression of Dynamic Time and TAI, as 
+The following three graphs show the progression of Dynamic Time and TAI, as
 expected.
 
 \begin{figure}[htp]
@@ -132,20 +132,20 @@ Some key observations from this plot:
 	\item After kicking down to 0 seconds (at the end of the minute), UTC holds for 1 second.  This is an effect of the leap second that was added there.
 	\item MET1 is initialized in such a way that the respective values of UTC and MET1 are equivalent up to the addition of the leap second.  Since MET1 is scheduled to update from TAI (and therefore ticks with TAI), it will not have a leap second and will be offset from UTC for all time after the leap second.
 	\item MET2 is scheduled to start with a negative value, and to hold during the middle of the simulation.
-	\item UT1 advances a little behind UTC; after the leap second, it is a little ahead. 
+	\item UT1 advances a little behind UTC; after the leap second, it is a little ahead.
 	\item TDB is not shown; on this scale, it is an overlay of TT.
 	\item Data is recorded every second; the last value recorded before the minute ticks over in UTC, UT1, and TT  is the last value in the range [59,60) s, which is not consistent between clocks (as expected).
-	
+
 \end{itemize}
-  
+
 \begin{figure}[htp]
 \begin{center}
 \includegraphics[width=3.2736in,height=2.85in]{figures/sim5_seconds.jpg}
 \caption{Variation with Dynamic Time of Derived Times.}\label{fig:sim5}
 \end{center}
 \end{figure}
-  
-  
+
+
 
 \end{description}
 
@@ -185,12 +185,7 @@ The following entries in the input file were changed:
 	LOG_CYCLE = 1.0
 	execfile( "Log_data/log_rec_tdb.py" )
 
-	jeod_time.utc.calendar_year = 2017
-	jeod_time.utc.calendar_month = 10
-	jeod_time.utc.calendar_day = 28
-	jeod_time.utc.calendar_hour = 01.0
-	jeod_time.utc.calendar_minute = 23.0
-	jeod_time.utc.calendar_second = 45.0
+	jeod_time.utc.set_date_and_time(2017, 10, 28, 01, 23, 45.0)
 \end{verbatim}
 to change the initialization time to match the initialization time of a results comparison python script.
 \begin{verbatim}
@@ -238,7 +233,7 @@ All data consistent with expectations.
 \test{SIM\_5\_all\_inclusive}  \label{test:STDinitbytype}
 \begin{description}
 \item[Purpose:]\ \newline
-To demonstrate that changes to the identification of which type is the \textit{initializer}, coupled with associated changes to the initialization and update trees, and declaration of appropriate initial values, will result in the simulation being initialized in whichever time-type is desired. 
+To demonstrate that changes to the identification of which type is the \textit{initializer}, coupled with associated changes to the initialization and update trees, and declaration of appropriate initial values, will result in the simulation being initialized in whichever time-type is desired.
 
 \item[Requirement:]\ \newline
 Satisfactory conclusion of this test, and that of \ref{test:UDEinitbyval}, satisfies requirement \ref{reqt:timeinitializationrep}.
@@ -247,12 +242,7 @@ Satisfactory conclusion of this test, and that of \ref{test:UDEinitbyval}, satis
 The following entries in the input file were changed:
 \begin{verbatim}
 	time.manager_init.initializer = "UTC";
-	time.utc.calendar_year = 1998;
-  time.utc.calendar_month = 12; 
-  time.utc.calendar_day = 31; 
-  time.utc.calendar_hour = 23; 
-  time.utc.calendar_minute = 59; 
-  time.utc.calendar_second = 50.0;
+	time.utc.set_date_and_time(1998, 12, 31, 23, 59, 50.0);
 \end{verbatim}
 by replacing reference to UTC with reference to the desired class.
 
@@ -260,12 +250,12 @@ The initialization and update tree definitions were changed, e.g. from
 \begin{verbatim}
   time.tai.initialize_from_name = "UTC";
 \end{verbatim}
-to 
+to
 \begin{verbatim}
   time.utc.initialize_from_name = "TAI";
 \end{verbatim}
 to change from a UTC-initialized simulation to a TAI-initialized simulation.
-  
+
 \item[Predictions:]\ \newline
 All clocks should still initialize, but with different values because the initialization time has changed (it is numerically the same, but now on a different clock).
 All clocks should progress as before.
@@ -287,26 +277,26 @@ To test the initialization routines, to ensure that a Standard Time can be initi
 Satisfactory conclusion of this test, together with test \ref{test:STDinitbycal}, and test \ref{test:UDEinitbyval} satisfy requirements \ref{reqt:timeinitializationbyformat} and \ref{reqt:formattimerepresentation}.
 
 \item[Procedure:]\ \newline
-The input file for the run identified as \textit{RUN\_initialize\_by\_value} contains several lines of options.  Each option was tested, one at a time, and the resulting data considered. 
+The input file for the run identified as \textit{RUN\_initialize\_by\_value} contains several lines of options.  Each option was tested, one at a time, and the resulting data considered.
 
 For each option, the simulation was initialized to a value of 10,000 (units correspond to the option).  For each option, the output was plotted as a Truncated Julian Time representation.
 
 \item[Predictions:]\ \newline
 \begin{itemize}
 	\item {Truncated Julian Time}
-	
+
 	The output should have a value of $10,000$ days.
 	\item {Modified Julian Time}
-	
+
 	Modified Julian Time differs from truncated Julian Time by 40,000 days.  If Modified Julian Time = $10,000$ days, then Truncated Julian Time = $-30,000$ days.
 	\item {Julian Time}
-	
+
 	Julian Time differs from Truncated Julian Time by 2,440,000.5 days.  If Julian Time = $10,000$ days, then Truncated Julian Time = $-2.4300005 \times 10^6 $ days.
 	\item {seconds\_since\_epoch}
-	
+
 	The TAI epoch is set to J2000, corresponding to a Truncated Julian Time of $11544.4996275$ days in TAI.  $10,000$ seconds (or $0.11574$ days) after this point gives Truncated Julian Time = $11544.61536824074$ days.
 	\item {days\_since\_epoch}
-	
+
 	10,000 days after the TAI epoch has a Truncated Julian Time of $21544.4996275$ days.
 \end{itemize}
 
@@ -328,7 +318,7 @@ Satisfactory conclusion of this test, together with test \ref{test:STDinitbyval}
 
 
 \item[Procedure:]\ \newline
-A simulation was created comprising Dynamic Time and TAI.  The initialization was set to a calendar value of 2005/12/31::23:59:50.0 TAI. 
+A simulation was created comprising Dynamic Time and TAI.  The initialization was set to a calendar value of 2005/12/31::23:59:50.0 TAI.
 
 \item[Predictions:]\ \newline
 The calendar value should correspond to a Truncated Julian Time of 13735.9998842593
@@ -388,9 +378,9 @@ Running through the known instant of a leap second will produce no effect on UTC
 The data are as expected.
 In the following figure legends, ``***-1'' refers to the JEOD1.x compatible
 data, and ``***-2'' refers to the data obtained with the default settings in \JEODid.
-Figure \ref{fig:sim4all} shows the relation between TAI, UTC, and UT1 at a time near the end of the simulation.  
+Figure \ref{fig:sim4all} shows the relation between TAI, UTC, and UT1 at a time near the end of the simulation.
 
-Figure \ref{fig:sim4leap} represents a small part of figure \ref{fig:sim4all}, zoomed in. It shows the separation of the two UTC values at the point at which a leap second is encountered (Note that the leap second is added to the \JEODid\ version of UTC, and the JEOD1 version of UTC keeps ticking right through it).  
+Figure \ref{fig:sim4leap} represents a small part of figure \ref{fig:sim4all}, zoomed in. It shows the separation of the two UTC values at the point at which a leap second is encountered (Note that the leap second is added to the \JEODid\ version of UTC, and the JEOD1 version of UTC keeps ticking right through it).
 
 Figure \ref{fig:sim4ut1} represents a further zoom in, and shows the difference between the two UT1 times.
 

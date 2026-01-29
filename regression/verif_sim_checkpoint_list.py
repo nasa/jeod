@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright 2025 United States Government as represented by the Administrator
+# Copyright 2026 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -67,37 +67,37 @@ verif_sim_list = [
   # and should be executed with less cpu thread
   ["models/environment/ephemerides", [
       ["verif/SIM_prop_planet", [
-          ["RUN_ephem", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_switch_integ", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_prop", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_prop_gj", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_ephem_checkpoint", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_switch_integ_checkpoint", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_prop_checkpoint", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_ephem_restart", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_switch_integ_restart", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_prop_restart", ["input.py", "*.csv", "*.trk"]]]]]
+          ["RUN_ephem", ["*.csv", "*.trk"]],
+          ["RUN_switch_integ", ["*.csv", "*.trk"]],
+          ["RUN_prop", ["*.csv", "*.trk"]],
+          ["RUN_prop_gj", ["*.csv", "*.trk"]],
+          ["RUN_ephem_checkpoint", ["*.csv", "*.trk"]],
+          ["RUN_switch_integ_checkpoint", ["*.csv", "*.trk"]],
+          ["RUN_prop_checkpoint", ["*.csv", "*.trk"]],
+          ["RUN_ephem_restart", ["*.csv", "*.trk"]],
+          ["RUN_switch_integ_restart", ["*.csv", "*.trk"]],
+          ["RUN_prop_restart", ["*.csv", "*.trk"]]]]]
   ],
 
   ["models/utils/container", [
       ["verif/SIM_container", [
-          ["RUN_full", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_empty", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_empty_restart", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_full_restart", ["input.py", "*.csv", "*.trk"]]]]]
+          ["RUN_full", ["demo_out.txt"]],
+          ["RUN_empty", ["demo_out.txt"]],
+          ["RUN_empty_restart", ["demo_out.txt"]],
+          ["RUN_full_restart", ["demo_out.txt"]]]]]
   ],
 
   ["models/utils/memory", [
       ["verif/SIM_memory", [
-          ["RUN_checkpoint", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_restart", ["input.py", "*.csv", "*.trk"]]]]]
+          ["RUN_checkpoint", [""]],
+          ["RUN_restart", [""]]]]]
   ],
 
   ["verif", [
       ["SIM_dyncomp", [
-          ["RUN_checkpoint_baseline", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_checkpoint_create", ["input.py", "*.csv", "*.trk"]],
-          ["RUN_checkpoint_restart", ["input.py", "*.csv", "*.trk"]]]]]
+          ["RUN_checkpoint_baseline", ["*.csv", "*.trk"]],
+          ["RUN_checkpoint_create", ["*.csv", "*.trk"]],
+          ["RUN_checkpoint_restart", ["*.csv", "*.trk"]]]]]
   ]
 
 

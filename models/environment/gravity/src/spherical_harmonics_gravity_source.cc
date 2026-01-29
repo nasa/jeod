@@ -216,7 +216,7 @@ int SphericalHarmonicsGravitySource::find_deltacoeff(const SphericalHarmonicsDel
 
     for(unsigned int ii = 0; ii < n_deltacoeffs; ++ii)
     {
-        if(std::strcmp(typeid(delta_coeff).name(), typeid(delta_coeffs[ii]).name()) == 0)
+        if(typeid(delta_coeff).name() == typeid(delta_coeffs[ii]).name())
         {
             found_deltacoeff = 1;
             deltacoeff_idx = ii;

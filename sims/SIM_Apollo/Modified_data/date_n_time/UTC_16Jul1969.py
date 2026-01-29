@@ -9,18 +9,13 @@
 #ASSUMPTIONS AND LIMITATIONS:
 #   ((Time is input in UTC.))
 #
-# 
+#
 #*/
 
 def set_date_n_time_UTC_16Jul1969(jeod_time) :
 
   #// Time initialization data.
-  jeod_time.time_utc.calendar_year   = 1969
-  jeod_time.time_utc.calendar_month  =    7
-  jeod_time.time_utc.calendar_day    =   16
-  jeod_time.time_utc.calendar_hour   =   13
-  jeod_time.time_utc.calendar_minute =   44
-  jeod_time.time_utc.calendar_second =  0.0
+  jeod_time.time_utc.set_date_and_time(1969, 7, 16, 13, 44, 0.0)
 
   #// Override the time computation parameters.
   #//The value here is from USNO historical data

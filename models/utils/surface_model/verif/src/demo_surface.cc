@@ -168,4 +168,5 @@ void DemoSurface2::allocate_interaction_facet(Facet * facet,
 
     demo_facets[index] = temp_demo_facet;
 }
+
 } // namespace jeod

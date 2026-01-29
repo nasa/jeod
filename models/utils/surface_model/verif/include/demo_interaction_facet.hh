@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -61,6 +61,8 @@ Library dependencies:
 //! Namespace jeod
 namespace jeod
 {
+
+void set_demo_output_file(const std::string & fname);
 
 class DemoFacet1 : public InteractionFacet
 {

@@ -17,7 +17,9 @@ Assumptions and Limitations:
 //! Namespace jeod
 namespace jeod
 {
+
 class SphericalHarmonicsGravitySource;
+
 } // namespace jeod
 
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_mars_spherical_default_data
@@ -41,4 +43,5 @@ void SphericalHarmonicsGravitySource_mars_spherical_default_data::initialize(
     SphericalHarmonicsGravitySource_ptr->mu = 1000000000 * (42828.375214);
     SphericalHarmonicsGravitySource_ptr->radius = 1000 * (3396.0);
 }
+
 } // namespace jeod

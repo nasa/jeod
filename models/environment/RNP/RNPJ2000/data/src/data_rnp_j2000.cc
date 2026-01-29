@@ -41,4 +41,5 @@ void RNPJ2000_rnp_j2000_default_data::initialize(RNPJ2000 * RNPJ2000_ptr)
     RNPJ2000_ptr->planet_omega = 7.292115146706388e-5;
     /* FROM GEM-T1 Gravity model */
 }
+
 } // namespace jeod

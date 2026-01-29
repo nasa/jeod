@@ -113,7 +113,7 @@ TEST(BodyAttachMatrix, apply)
         BodyAttachMatrixTest dynInst;
         dynInst.set_dyn_parent(&mockDynParent);
         dynInst.set_dyn_subject(&mockDynBody);
-        EXPECT_CALL(mockDynParent, attach_child(An<const double *>(), An<const double(*)[3]>(), Ref(mockDynBody)))
+        EXPECT_CALL(mockDynParent, attach_child(An<const double *>(), An<const double (*)[3]>(), Ref(mockDynBody)))
             .Times(1)
             .WillOnce(Return(true));
         dynInst.apply(mockDynManager);
@@ -126,7 +126,7 @@ TEST(BodyAttachMatrix, apply)
         dynInst.set_dyn_parent(&mockDynParent);
         dynInst.set_mass_subject(&mockMassBody);
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
-        EXPECT_CALL(mockDynParent, add_mass_body(An<const double *>(), An<const double(*)[3]>(), Ref(mockMassBody)))
+        EXPECT_CALL(mockDynParent, add_mass_body(An<const double *>(), An<const double (*)[3]>(), Ref(mockMassBody)))
             .Times(1)
             .WillOnce(Return(true));
         dynInst.apply(mockDynManager);
@@ -149,7 +149,7 @@ TEST(BodyAttachMatrix, apply)
         BodyAttachMatrixTest dynInst;
         dynInst.set_mass_parent(&mockMassParent);
         dynInst.set_mass_subject(&mockMassBody);
-        EXPECT_CALL(mockMassBody, attach_to(An<double *>(), An<double(*)[3]>(), _)).Times(1).WillOnce(Return(true));
+        EXPECT_CALL(mockMassBody, attach_to(An<double *>(), An<double (*)[3]>(), _)).Times(1).WillOnce(Return(true));
         dynInst.apply(mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
         Mock::VerifyAndClear(&mockMassBody);

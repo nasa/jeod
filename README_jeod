@@ -1,7 +1,7 @@
 ==============================================================================
  Notices:
 
- Copyright © 2025 United States Government as represented by the Administrator
+ Copyright © 2026 United States Government as represented by the Administrator
  of the National Aeronautics and Space Administration.  All Rights Reserved.
 
 
@@ -33,7 +33,7 @@
 
 ==============================================================================
 
-February 2025
+January 2026
 
 Contents
 
@@ -52,21 +52,18 @@ Contents
 This section provides overview information about the Johnson Space Center
 Engineering Orbital Dynamics (JEOD) software package.
 
-This note describes the most recent release of JEOD, JEOD 5.3. The primary
-objectives for 5.3 release of JEOD were to:
+This note describes the most recent release of JEOD, JEOD 5.4. The primary
+objectives for 5.4 release of JEOD were to:
 
-* Github repo size reduction
-* Update for Trick 19.7.3
+* Update for Trick 25.0.2
 * Models improvements
-* Resolved build issue on MacOS
-* Resolved build warnings in the verification simulations
-* Resolved FIXME and TODO items in the code (see section 4 for detail)
+* Updated documentation
 * Fixed bugs
 
 The key features of this release are highlighted in section 4 below.
 
 
-The JEOD 5.3 Release
+The JEOD 5.4 Release
 ****************************
 
 The release comprises
@@ -77,14 +74,14 @@ The release comprises
   JEOD models directory. The immediate subdirectory of each model group
   directory contains exactly one JEOD model. Models are accompanied with
   test artifacts to verify that a model satisfies its requirements. For JEOD
-  5.3, there is also an experimental directory containing experimental
+  5.4, there is also an experimental directory containing experimental
   models that are not yet rigorously verified and documented up to typical JEOD
   standards. Users planning to these experimental models should understand the
   risk associated with them and there are currently no plan for documentation
   and verification of these models.
 
 * Test and Analysis Tools. Trick simulations have long been used to test the
-  JEOD models. JEOD 5.3 contains Trick-compatible versions of all
+  JEOD models. JEOD 5.4 contains Trick-compatible versions of all
   previously existing simulations.
 
 * Training Materials. Getting a picture of how JEOD works by reading the
@@ -95,7 +92,7 @@ The release comprises
   and experimental models) and tutorial exercises of increasing complexity.
 
 * Verification and Validation Simulations. In addition to the model-level
-  verification testing, JEOD 5.3 has been tested against best estimate of
+  verification testing, JEOD 5.4 has been tested against best estimate of
   trajectory (BET) data from various orbiting vehicles. These documented
   integrated tests not only demonstrate that JEOD properly models the space
   environment, they also serve as additional examples of how to use JEOD in a
@@ -142,14 +139,15 @@ Therefore, CentOS 7 is no longer actively supported starting JEOD 5.2
 Instructions for use in a Trick environment
 *******************************************
 The JEOD package is first and foremost a package designed for use in simulations
-developed with the Trick simulation environment. This release of JEOD 5.3
-was tested with Trick 19.7.3, using compiler gcc 4.8.5 on CentOS 7.6, 7.5.0 on
-Ubuntu 18.04, 8.5.0 on Oracle Linux 8, and LLVM version 19.1.7 on Mac.
+developed with the Trick simulation environment. This release of JEOD 5.4
+was tested with Trick 25.0.2, using compiler gcc 7.5.0 on
+Ubuntu 22.04, 8.5.0 on Oracle Linux 8, and LLVM version 19.1.7 on Mac.
 
 Required environment variables
 ------------------------------
 The following environment variables must be set to use JEOD in conjunction
-with the Trick simulation environment.
+with the Trick simulation environment. Most environment variables are handled
+via the includion of bin/jeod/generic_S_overrides.mk.
 
   JEOD_HOME             The JEOD_HOME environment variable must point to the
                         top-level JEOD directory (i.e., the directory that
@@ -182,83 +180,63 @@ compiler via an include path that begins with "er7_utils/integration".
 
 Required Package
 ---------
-JEOD 5.3 requires installation of swig3 and cmake3
+JEOD 5.4 requires installation of swig3 and cmake>=3
 
 
 ================================================================================
 4. Key changes since the last production release (JEOD 5.3)
 ================================================================================
 
-GitHub Repo Size Reduction
--------------------------
-To address ticket #14 submitted by user ddj116 on GitHub (URL: https://github.com/nasa/jeod/issues/14)
-The following files are removed from the GitHub repo and will be provided as
-part of assets in each release:
-- Regression test data in each verficiation simulation
-  (SET_test_val and SET_test_val_rh8)
-- JEOD HTML API
-- Large spice kernel files in $JEOD_HOME/models/environment/spice/verif/SIM_spice/data
-  directory
-Commit history of GitHub repo was re-written for the size reduction. Commit
-hashes for each release were updated.
-
-The following files are removed from the repo
-- Ephemeris ASCII full set files ($JEOD_HOME/models/environment/ephemerides/de4xx_ephem/ascii_full_set)
-Note that C++ source files generated based on the ephemeris ascii full set are
-provided in the repo
-
 
 Model Improvements
 -------------------------
-- Improved failures in radiation third body to better handle a fail out of the
-  code. This also added DynBody as a valid RadiationThirdBody if a radius is
-  provided.
-- Added check for read-only de4xx libraries and skip JEOD build in
-  generic_S_overrides.mk if the libraries exist to reduce build time and
-  potential parallel build errors
-- Eliminated reliance on TRICK_HOME and JEOD_HOME environment variables in
-  JEOD verification simulations
-- Added capability to use defined but uninitialized LVLH frames for
-  DynBodyInitLvlhState. This allows LvlhFrames instance defined wrt MassPoints
-  to be used in the simulation.
-- Protected RadiationThirdBody::calculate_shadow. Users should now use
-  RadiationThirdBody::process_third_body.
+- Removed variable-length arrays as they are not a part of the c++ standard
+  and are only available via clang and gcc extensions.
+- Made Protected struct_derivs public to make extracting state derivates
+  of the structure frame being integrated easier. In response to github issue #35
+  (URL: https://github.com/nasa/jeod/issues/35) 
+- Updated options in .clang-format
+- Updated trick include paths to new file locations
+- Simplified setting date and time. Users can use set_date_and_time(YYYY, MM, DD, HH, MM, SS)
 
 
-Resolved FIXME and TODO Items in the Code
+Updated Documentation
 -------------------------
-- Closed two FIXME/TODO items that are no longer valid.
-- Resolved one FIXME/TODO item
-
+- Logging section of DynBody docs updated to show composite_properties is a member of MassBody
+  (addresses github issue #33 URL: https://github.com/nasa/jeod/issues/33)
+- Fixed typos in JEOD.pdf (addresses github issue #31 URL:https://github.com/nasa/jeod/issues/31)
+- Updated time model documentation for clarity (in response to github issue #34 https://github.com/nasa/jeod/issues/34)
+- Added SPICE version to documentation
 
 Bug Fixes
 -------------------------
-- Fixed FacetStateInfo allocation issue in SurfaceModel
-- Fixed IDENTITY macro collision issue that was introduced in JEOD v5.2
-- Fixed member name error in JeodMemoryTypePreDescriptorDerived template
-  (models/utils/memory/include/memory_type.hh)
-- Resolved build issues on MacOS
-- Resolved build warnings in the verifications simulations
+- Fixed ang_vel_mag being zero despite nonzero ang_vel_this which addresses ticket #32 
+  submitted on Github (URL: https://github.com/nasa/jeod/issues/32)
+- Fixed issue where buffer overflow is degree 0 but non-spherical set
+- Fixed potential nullptr dereference
+- Fixed compilation error when using cmake > 3 which addresses github issue #26
+  (https://github.com/nasa/jeod/issues/26)
+- Fixed MemoryManager warning in SIM_verif_shutdown
 
 
 ================================================================================
 5. Known issues
 ================================================================================
 
-The issues known to exist with the JEOD 5.3 release are:
+The issues known to exist with the JEOD 5.4 release are:
 
 * Non-Trick demonstration.
   The demonstration of the usability of JEOD outside the Trick environment is
   not currently maintained and may not work with this release.
 
 * Trick support.
-  JEOD 5.3 is officially tested with Trick 19.7.3 or newer. Backward
+  JEOD 5.4 is officially tested with Trick 25.0.2 or newer. Backward
   compatibility with older versions of Trick are not guarantee, but most models
   should still work with Trick 19.0 or newer. Users are strongly encouraged to
   upgrade to a newer version of Trick if their project allows.
 
 * Trickified build works for all the regression test sims on CentOS 7,
-  Ubuntu 18, Oracle Linux 8, and MacOS with Apple silicon.
+  Ubuntu 22, Oracle Linux 8, and MacOS with Apple silicon.
   - However, Observed on Mac but could be a cmake version issue (cmake v3.30.3)
     building sims in parallel using TRICKIFIED=1 may cause problems due to cmake
     updating a file despite nothing to update. This does not rebuild any objects
@@ -313,10 +291,9 @@ to those supplied with the release. The regression tests are located in
 
 Caveats:
 * All regression test data supplied with the release were generated using a
-  64-bit machine running CentOS 7.5 and compiled with gcc 4.8.5 and Oracle
-  Linux 8 with gcc 8.5.0. Users should not expect exact numeric matches when
-  using a different machine architecture, a different operating system, or a
-  different compiler.
+  64-bit machine running Oracle Linux 8 compiled with gcc 8.5.0. Users should
+  not expect exact numeric matches when using a different machine architecture,
+  a different operating system, or a different compiler.
 
   An extreme example of this is the RUN_euler case of the
   utils/integration/verif/SIM_integ sim. The stability of the Euler method
@@ -335,6 +312,31 @@ Caveats:
 ================================================================================
 7. Change history
 ================================================================================
+
+
+****************************
+JEOD 5.4, January 2026
+****************************
+* Changes to models
+  - Removed variable-length arrays
+  - Made struct_derivs public
+  - Simplified setting date and time. Users can use set_date_and_time(YYYY, MM, DD, HH, MM, SS)
+  - Fixed ang_vel_mag being zero despite nonzero ang_vel_this
+  - Fixed issue where buffer overflow is degree 0 but non-spherical set
+
+* Changes in sims and unit tests
+  - Updated mock matchers to be compatible with newer gmock
+  - Generalized verification.py to work for local testing
+  - Fixed MemoryManager warning in SIM_verif_shutdown
+  - Updated trick include paths to new file locations
+
+* Changes to Documentation
+  - Logging section of DynBody docs updated to show composite_properties is a member of MassBody
+  - Fixed typos in JEOD.pdf
+  - Updated time model documentation for clarity
+  - Added SPICE version to documentation
+  - JEOD documents were updated for JEOD 5.4 release
+
 
 ****************************
 JEOD 5.3, February 2025

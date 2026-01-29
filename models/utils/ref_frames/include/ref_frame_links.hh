@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -114,7 +114,7 @@ public:
     void operator=(const RefFrameLinks &) = delete;
 
 private:
-    const static unsigned int default_path_size = 4; /* trick_units(--) @n
+    static constexpr unsigned int default_path_size{4}; /* trick_units(--) @n
        The default length of a RefFrameLinks object's path_to_node_ array. */
 };
 

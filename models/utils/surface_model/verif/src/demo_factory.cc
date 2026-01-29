@@ -223,4 +223,5 @@ bool DemoFacetFactory2::is_correct_factory(Facet * facet)
         return false;
     }
 }
+
 } // namespace jeod

@@ -15,7 +15,7 @@ dep_jeod_*
 .icg_no_found
 *.pyc
 trickified/python*
-regression/logs
+regression/logs*
 build*
 artifacts
 
@@ -138,7 +138,10 @@ trick-catalog/
 trick/
 trick.zip
 errorlog.txt
+jeod_hs
 
 # ephemeris artifacts
 JPL-DE*.bin
 **/de4xx_ephem/ascii
+verif_docs
+demo_out.txt

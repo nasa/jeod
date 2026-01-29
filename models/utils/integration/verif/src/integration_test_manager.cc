@@ -53,11 +53,6 @@ JEOD_DECLARE_ATTRIBUTES(TrickIntegrator)
 JEOD_DECLARE_ATTRIBUTES(IntegrationTest)
 JEOD_DECLARE_ATTRIBUTES(std::string)
 
-/**
- * Maximum number of template items under test.
- */
-const unsigned int IntegrationTestManager::template_items_size = 6;
-
 /*
  Purpose: (Default constructor.)
 */
@@ -188,18 +183,18 @@ void IntegrationTestManager::initialize( // Return: -- Void
             }
             if(integ_option_int == 146)
             {
-                lsode_integ_constructor.data_interface
-                    .integration_method = LsodeControlDataInterface::ImplicitBackDiffStiff;
+                lsode_integ_constructor.data_interface.integration_method =
+                    LsodeControlDataInterface::ImplicitBackDiffStiff;
             }
             if(integ_option_int == 147)
             {
-                lsode_integ_constructor.data_interface
-                    .corrector_method = LsodeControlDataInterface::NewtonIterInternalJac;
+                lsode_integ_constructor.data_interface.corrector_method =
+                    LsodeControlDataInterface::NewtonIterInternalJac;
             }
             if(integ_option_int == 148)
             {
-                lsode_integ_constructor.data_interface
-                    .corrector_method = LsodeControlDataInterface::JacobiNewtonInternalJac;
+                lsode_integ_constructor.data_interface.corrector_method =
+                    LsodeControlDataInterface::JacobiNewtonInternalJac;
             }
             if(integ_option_int == 149)
             {
@@ -452,4 +447,5 @@ void IntegrationTestManager::shutdown( // Return: -- Void
         fclose(report);
     }
 }
+
 } // namespace jeod

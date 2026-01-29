@@ -9,12 +9,7 @@ set_units = trick.sim_services.attach_units
 jeod_time.time_manager_init.initializer = "UTC"
 jeod_time.time_manager_init.sim_start_format = trick.TimeEnum.calendar
 # Configure base date
-jeod_time.time_utc.calendar_year  = 2000
-jeod_time.time_utc.calendar_month = 1
-jeod_time.time_utc.calendar_day   = 1
-jeod_time.time_utc.calendar_hour  = 1
-jeod_time.time_utc.calendar_minute   = 31
-jeod_time.time_utc.calendar_second = 48.0
+jeod_time.time_utc.set_date_and_time(2000, 1, 1, 1, 31, 48.0)
 jeod_time.time_utc.true_utc = False
 jeod_time.time_utc.update_from_name = "TAI"
 

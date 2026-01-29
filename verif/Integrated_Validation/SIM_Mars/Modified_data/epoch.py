@@ -15,17 +15,7 @@ jeod_time.time_gmst.update_from_name  = "UT1"
 
 def set_dawn_epoch():
   # Time initialization data.
-  jeod_time.time_utc.calendar_year   = 2009
-  jeod_time.time_utc.calendar_month  =    2
-  jeod_time.time_utc.calendar_day    =   17
-  jeod_time.time_utc.calendar_hour   =   23
-  jeod_time.time_utc.calendar_minute =    0
-  jeod_time.time_utc.calendar_second =    0.0
+  jeod_time.time_utc.set_date_and_time(2009, 2, 17, 23, 0, 0.0)
 
 def set_phobos_epoch():
-  jeod_time.time_utc.calendar_year   = 2010
-  jeod_time.time_utc.calendar_month  =    9
-  jeod_time.time_utc.calendar_day    =   10
-  jeod_time.time_utc.calendar_hour   =    0
-  jeod_time.time_utc.calendar_minute =    0
-  jeod_time.time_utc.calendar_second =    0.0
+  jeod_time.time_utc.set_date_and_time(2010, 9, 10, 0, 0, 0.0)

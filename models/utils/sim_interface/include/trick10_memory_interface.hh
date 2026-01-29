@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -62,7 +62,7 @@ Library dependencies:
 #define JEOD_TRICK10_MEMORY_INTERFACE_HH
 
 #ifdef TRICK_VER
-#if(TRICK_VER >= 10)
+#if (TRICK_VER >= 10)
 
 // System includes
 #include <cstddef>
@@ -97,7 +97,9 @@ class JeodMemoryTypeDescriptor;
  */
 namespace Trick
 {
+
 class ClassicCheckPointAgent;
+
 } // namespace Trick
 
 //! Namespace jeod

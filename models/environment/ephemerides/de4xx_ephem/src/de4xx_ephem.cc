@@ -552,7 +552,7 @@ unsigned int De4xxEphemeris::activate_em_nodes(unsigned int tot_active)
 void De4xxEphemeris::determine_root_node()
 {
     int root_index;
-    unsigned int active_nodes[De4xxBase::number_trans_points(file.file_spec.get_model_number())];
+    std::vector<unsigned int> active_nodes(De4xxBase::number_trans_points(file.file_spec.get_model_number()));
     unsigned int tot_active;
 
     // Build a list of active planetary nodes.

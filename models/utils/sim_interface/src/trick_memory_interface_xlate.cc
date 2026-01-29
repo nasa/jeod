@@ -33,17 +33,17 @@ Library Dependency:
 // Trick includes
 #include <iosfwd>
 using std::ostream;
-#include "sim_services/CheckPointAgent/include/ClassicCheckPointAgent.hh"
-#include "sim_services/MemoryManager/include/MemoryManager.hh"
-#include "sim_services/MemoryManager/include/attributes.h"
-#include "sim_services/MemoryManager/include/memorymanager_c_intf.h"
+#include "trick/ClassicCheckPointAgent.hh"
+#include "trick/MemoryManager.hh"
+#include "trick/attributes.h"
+#include "trick/memorymanager_c_intf.h"
 extern Trick::MemoryManager * trick_MM;
-#if((TRICK_VER > 13) || (TRICK_VER == 13 && TRICK_MINOR >= 3))
+#if ((TRICK_VER > 13) || (TRICK_VER == 13 && TRICK_MINOR >= 3))
 // New API as of Trick 13.3.
-#include "sim_services/CheckPointRestart/include/CheckPointRestart_c_intf.hh"
+#include "trick/CheckPointRestart_c_intf.hh"
 #else
 // Trick versions <= 13.2
-#include "sim_services/MemoryManagerWrapper/include/MemoryManagerWrapper_c_intf.hh"
+#include "trick/MemoryManagerWrapper_c_intf.hh"
 #endif
 
 // JEOD includes
@@ -217,7 +217,7 @@ void * JeodTrick10MemoryInterface::translate_name_to_addr(const std::string & sp
         position = name.find_first_of('+');
         if(position < name.length())
         {
-            offset = std::strtoul(name.substr(position + 1).c_str(), nullptr, 0);
+            offset = std::stoul(name.substr(position + 1));
             name.erase(position);
         }
 

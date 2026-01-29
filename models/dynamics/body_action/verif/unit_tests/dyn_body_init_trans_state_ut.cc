@@ -284,6 +284,15 @@ TEST(DynBodyInitTransState, is_ready)
         dynInst.set_reference_ref_frame(&ephemRefFrame);
         dynInst.is_ready();
     }
+    {
+        // reference_ref_frame is nullptr
+        DynBodyInitTransStateTest dynInst;
+        dynInst.set_body_ref_frame(&bodyRefFrame);
+        dynInst.set_reference_ref_frame(nullptr);
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Error, _, _, _, _, _, _)).Times(1);
+        dynInst.is_ready();
+        Mock::VerifyAndClear(&mockMessageHandler);
+    }
 }
 
 TEST(DynBodyInitTransState, apply)

@@ -37,7 +37,7 @@ Library dependencies:
 #include "utils/message/include/message_handler.hh"
 
 // Trick includes
-#include "sim_services/Executive/include/exec_proto.h"
+#include "trick/exec_proto.h"
 
 // System includes
 #include <cstddef>

@@ -38,8 +38,8 @@ Library Dependency:
 // Trick includes
 #include <iosfwd>
 using std::ostream;
-#include "sim_services/CheckPointAgent/include/ClassicCheckPointAgent.hh"
-#include "sim_services/MemoryManager/include/MemoryManager.hh"
+#include "trick/ClassicCheckPointAgent.hh"
+#include "trick/MemoryManager.hh"
 extern Trick::MemoryManager * trick_MM;
 
 // JEOD includes

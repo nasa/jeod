@@ -1,12 +1,7 @@
 jeod_time.time_manager_init.initializer = "UTC"
 jeod_time.time_manager_init.sim_start_format = trick.TimeEnum.calendar
 
-jeod_time.time_utc.calendar_year   = 1991
-jeod_time.time_utc.calendar_month  =    1
-jeod_time.time_utc.calendar_day    =    1
-jeod_time.time_utc.calendar_hour   =    0
-jeod_time.time_utc.calendar_minute =    0
-jeod_time.time_utc.calendar_second =   0.0
+jeod_time.time_utc.set_date_and_time(1991, 1, 1, 0, 0, 0.0)
 
 jeod_time.time_tai.initialize_from_name = "UTC"
 jeod_time.time_ut1.initialize_from_name = "TAI"

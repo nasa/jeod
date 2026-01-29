@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -252,16 +252,18 @@ public:
      * @param veh_surf_elem The facet of the vehicle.
      * @param calculate_forces pass-through flag.
      */
-    virtual void accumulate_refl_flux(RadiationBaseFacet * veh_surf_elem JEOD_UNUSED,
-                                      bool calculate_forces JEOD_UNUSED) {};
+    virtual void accumulate_refl_flux(RadiationBaseFacet * veh_surf_elem JEOD_UNUSED, bool calculate_forces JEOD_UNUSED)
+    {
+    }
 
     /**
      * To provide base class null implementation
      * @param veh_surf_elem The facet of the vehicle.
      * @param calculate_forces pass-through flag.
      */
-    virtual void accumulate_rad_flux(RadiationBaseFacet * veh_surf_elem JEOD_UNUSED,
-                                     bool calculate_forces JEOD_UNUSED) {};
+    virtual void accumulate_rad_flux(RadiationBaseFacet * veh_surf_elem JEOD_UNUSED, bool calculate_forces JEOD_UNUSED)
+    {
+    }
 
     /**
      * Identifies this class as one that does not produce a radiaiton field

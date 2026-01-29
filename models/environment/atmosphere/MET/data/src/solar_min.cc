@@ -40,4 +40,5 @@ void METAtmosphere_solar_min_default_data::initialize(METAtmosphere * METAtmosph
     METAtmosphere_ptr->F10 = 70.0;
     METAtmosphere_ptr->F10B = 70.0;
 }
+
 } // namespace jeod

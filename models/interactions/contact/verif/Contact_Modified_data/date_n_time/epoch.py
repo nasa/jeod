@@ -19,12 +19,6 @@ def set_date_n_time_epoch(jeod_time) :
   jeod_time.manager_init.initializer = "TAI"
   jeod_time.manager_init.sim_start_format = trick.TimeEnum.calendar
 
-  jeod_time.tai.calendar_year = 2005
-  jeod_time.tai.calendar_month = 12
-  jeod_time.tai.calendar_day = 31
-  jeod_time.tai.calendar_hour = 23
-  jeod_time.tai.calendar_minute = 59
-  jeod_time.tai.calendar_second = 50.0
-
+  jeod_time.tai.set_date_and_time(2005, 12, 31, 23, 59, 50.0)
 
   return

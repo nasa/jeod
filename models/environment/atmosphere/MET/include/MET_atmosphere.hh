@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -89,7 +89,7 @@ class METAtmosphereChemical
     JEOD_MAKE_SIM_INTERFACES(jeod, METAtmosphereChemical)
 
 public:
-    static const int num_species = 6; /* !<trick_units(--) Number of chemical species to track.*/
+    static constexpr int num_species{6}; /* !<trick_units(--) Number of chemical species to track.*/
 
     double num_density[num_species]{}; /* !<trick_units(1/m3) Particle density of the particular species */
 
@@ -114,7 +114,7 @@ public:
         1.00797  // H
     }; /* !<trick_units(g/mol) Nominal molecular weight, or molar mass for each species.*/
 
-    const double nominal_mol_weight{28.96}; /* !<trick_units(g/mol) Nominal molecular weight,
+    static constexpr double nominal_mol_weight{28.96}; /* !<trick_units(g/mol) Nominal molecular weight,
                                                or molar mass for each species.*/
 
     METAtmosphereChemical() = default;
@@ -147,20 +147,20 @@ private:
     /**
      * Temperature coefficients.
      */
-    const double k_1{0.054285714}; /*!< trick_units(1/m)
+    static constexpr double k_1{0.054285714}; /*!< trick_units(1/m)
                       parameter used to obtain the first coefficient of the
                       temperature polynomial, which is also the temperature
                       gradient at 125km. */
 
-    const double k_3{-3.96501457725948E-5}; /*!< trick_units(1/m3)
+    static constexpr double k_3{-3.96501457725948E-5}; /*!< trick_units(1/m3)
                        parameter used to obtain the 3rd coefficient of the
                        temperature polynomial. */
 
-    const double k_4{-5.3311120366514E-7}; /*!< trick_units(1/m4)
+    static constexpr double k_4{-5.3311120366514E-7}; /*!< trick_units(1/m4)
                        parameter used to obtain the 4th coefficient of the
                        temperature polynomial. */
 
-    const double T_90{183.0}; /*!< trick_units(K)
+    static constexpr double T_90{183.0}; /*!< trick_units(K)
                          Temperature at 90km reference point.*/
 
     double T_125{}; /*!< trick_units(K)
@@ -240,51 +240,51 @@ private:                  // private member variables
     METAtmosphereThermal thermal; /*!< trick_units(--) Thermal aspect of the model */
 
     // Physical Constants.
-    const double R_gas_constant{8.31432};  /*!< trick_units(J/(mol*K)) R */
-                                           // Note: This is not an accurate value for R
-                                           //       But it is the value used by Jacchia
-                                           //       See Jacchia(1971), p9, eq 5.
-    const double days_per_year{365.2422};  /*!< trick_units(day) days per year */
-    const double Avogadro{6.02257E23};     /*!< trick_units(--)  Avogadros number */
-                                           // Note: This is not Avogadro's number!
-                                           //       But it is the number used by Jacchia.
-                                           //       See Jacchia(1971) p 7, eq(4)
-    const double two_pi{6.28318531};       /*!< trick_units(--)  2 pi */
-    const double three_pi_two{4.71238898}; /*!< trick_units(--)  1.5 pi */
-    const double deg_to_rad{0.017453293};  /*!< trick_units(degree/rad) degree-to-radian conversion */
-    const int days_per_century{36525};     /*!< trick_units(count) days per century */
-    const int minutes_per_day{1440};       /*!< trick_units(count) minutes per day */
+    static constexpr double R_gas_constant{8.31432};  /*!< trick_units(J/(mol*K)) R */
+                                                      // Note: This is not an accurate value for R
+                                                      //       But it is the value used by Jacchia
+                                                      //       See Jacchia(1971), p9, eq 5.
+    static constexpr double days_per_year{365.2422};  /*!< trick_units(day) days per year */
+    static constexpr double Avogadro{6.02257E23};     /*!< trick_units(--)  Avogadros number */
+                                                      // Note: This is not Avogadro's number!
+                                                      //       But it is the number used by Jacchia.
+                                                      //       See Jacchia(1971) p 7, eq(4)
+    static constexpr double two_pi{6.28318531};       /*!< trick_units(--)  2 pi */
+    static constexpr double three_pi_two{4.71238898}; /*!< trick_units(--)  1.5 pi */
+    static constexpr double deg_to_rad{0.017453293};  /*!< trick_units(degree/rad) degree-to-radian conversion */
+    static constexpr int days_per_century{36525};     /*!< trick_units(count) days per century */
+    static constexpr int minutes_per_day{1440};       /*!< trick_units(count) minutes per day */
 
     // Model constants
-    const double mol_weight_barometric_ceiling{27.72594278125}; /*!< trick_units(g/mol) mean molar mass at
+    static constexpr double mol_weight_barometric_ceiling{27.72594278125}; /*!< trick_units(g/mol) mean molar mass at
                                                      barometric-ceiling and higher.*/
-                                                                // see Jacchia(1970) eqn(1).
-                                                                // Jacchia(1971): 27.6398
-    const double base_fairing_height{440.0};                    /*!< trick_units(km)
+                                                                           // see Jacchia(1970) eqn(1).
+                                                                           // Jacchia(1971): 27.6398
+    static constexpr double base_fairing_height{440.0};                    /*!< trick_units(km)
                                         Altitude at which to start fairing between the lower altitude which has
                                         no seasonal-latitude Helium density variation, and the upper atmosphere
                                         -- starting at 500km -- which does. */
-    const double fairing_k;                                     /*!< trick_units(rad/km)
-                                                                  Factor which, when multiplied by the altitude delta above the
-                                                                  base-fairing-height provides an angle.  The square of the cosine of
-                                                                  that angle indicates how much of the seasonal-variation in Helium
-                                                                  density to apply.
-                                                                  density = corrected-density *
-                                                                              (non-corrected-density / corrected-density) ^
-                                                                                                  (cos^2 ( fairing_k * delta-altitude))
-                                                                  At base-fairing-height, none gets applied.  By 500km, it all gets
-                                                                  applied. */
+    const double fairing_k;                                                /*!< trick_units(rad/km)
+                                                                             Factor which, when multiplied by the altitude delta above the
+                                                                             base-fairing-height provides an angle.  The square of the cosine of
+                                                                             that angle indicates how much of the seasonal-variation in Helium
+                                                                             density to apply.
+                                                                             density = corrected-density *
+                                                                                         (non-corrected-density / corrected-density) ^
+                                                                                                             (cos^2 ( fairing_k * delta-altitude))
+                                                                             At base-fairing-height, none gets applied.  By 500km, it all gets
+                                                                             applied. */
 
     // Molecular weight coefficients
-    static const int num_mol_wt_coeffs = 7; /*!< trick_units(count) the number of polynomial coefficients.*/
+    static constexpr int num_mol_wt_coeffs{7}; /*!< trick_units(count) the number of polynomial coefficients.*/
     static const double mol_wt_coeffs[num_mol_wt_coeffs]; /*!< trick_units(--)
         polynomial coefficients for computing the molecular weights in the
         region where the barometric equation is used.*/
 
     // Gauss Quadrature (integration) values:
-    static const int num_integ_divisions = 8;                     /*!< trick_units(count)
-                                               the number of altitude bins used for dividing the atmosphere into
-                                               manageable pieces.*/
+    static const int num_integ_divisions{8};                      /*!< trick_units(count)
+                                                the number of altitude bins used for dividing the atmosphere into
+                                                manageable pieces.*/
     static const double gauss_altitudes[num_integ_divisions + 1]; /*!< trick_units(--)
            The boundaries of the cells that are used to break down the
            integration over the atmosphere into more manaegable pieces.

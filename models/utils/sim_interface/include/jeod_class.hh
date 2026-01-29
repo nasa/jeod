@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -97,7 +97,7 @@ Assumptions and Limitations:
  *
  * @param class_name Name of the class being defined.
  */
-#if(defined JEOD_CLASS_ESTABLISH_FRIENDS)
+#if (defined JEOD_CLASS_ESTABLISH_FRIENDS)
 #define JEOD_MAKE_SIM_INTERFACES(...) JEOD_CLASS_ESTABLISH_FRIENDS(__VA_ARGS__);
 
 #elif defined(JEOD_CLASS_FRIEND_CLASS)
@@ -122,7 +122,7 @@ Assumptions and Limitations:
  * parallel call to this macro at file scope in the global namespace.
  * @param class_name Name of the class defined later in the header in question.
  */
-#if(defined JEOD_CLASS_DECLARE_FRIENDS)
+#if (defined JEOD_CLASS_DECLARE_FRIENDS)
 #define JEOD_DECLARE_SIM_INTERFACES(class_name) JEOD_CLASS_DECLARE_FRIENDS(class_name)
 
 #elif defined(JEOD_CLASS_FRIEND_CLASS_FORWARD)

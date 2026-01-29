@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -113,6 +113,11 @@ public:
      */
     BodyWrenchCollect effector_wrench_collection; //!< trick_units(--)
 
+    /**
+     * Translational/rotational accelerations of the structural frame.
+     */
+    FrameDerivs struct_derivs; //!< trick_units(--)
+
     // Member functions.
     StructureIntegratedDynBody();
     ~StructureIntegratedDynBody() override = default;
@@ -184,11 +189,6 @@ protected:
      * Wrench into which the effector wrenches are accumulated.
      */
     Wrench effector_wrench; //!< trick_units(--)
-
-    /**
-     * Translational/rotational accelerations of the structural frame.
-     */
-    FrameDerivs struct_derivs; //!< trick_units(--)
 
     /**
      * Various properties of the vehicle, for the constraints solver.

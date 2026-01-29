@@ -110,4 +110,5 @@ void RNPMars_rnp_mars_default_data::initialize(RNPMars * RNPMars_ptr)
     RNPMars_ptr->NMars.int_to_double[8] = 8.0;
     RNPMars_ptr->NMars.int_to_double[9] = 9.0;
 }
+
 } // namespace jeod

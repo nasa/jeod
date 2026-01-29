@@ -169,10 +169,10 @@ sub get_scalar($$) {
 sub get_nvec($$$) {
    my ($self, $vname, $dim) = @_;
    my @vec = ();
-   foreach my $ii (0 .. $dim-1) { 
+   foreach my $ii (0 .. $dim-1) {
       $vec[$ii] = $self->get_scalar ("$vname\[$ii\]");
    }
-   return [@vec]; 
+   return [@vec];
 }
 
 # $logfile->get_vec($vname, $dim) - Return logged 3-vector variable value.
@@ -186,22 +186,22 @@ sub get_quat($$) {
    my ($self, $vname) = @_;
    $self->get_nvec ($vname, 4);
 }
- 
+
 # $logfile->get_mat($vname, $dim) - Return logged 3x3 matrix variable value.
 sub get_mat($$) {
    my ($self, $vname) = @_;
    my @mat = ();
-   foreach my $ii (0 .. 2) { 
+   foreach my $ii (0 .. 2) {
       $mat[$ii] = $self->get_vec ("$vname\[$ii\]");
    }
-   return [@mat]; 
+   return [@mat];
 }
 
 
 ################################################################################
 # Internal methods and functions
 ################################################################################
-   
+
 
 # $logfile->read_log_header - Read the log header.
 sub read_log_header($) {
@@ -232,7 +232,7 @@ sub read_log_header($) {
     # FIXME: Verify the Endian mode.
 
     # The next four bytes contain the number of parameters recorded.
-   $nparams = $self->read_input (4, 0, "l", "number parameters"); 
+   $nparams = $self->read_input (4, 0, "l", "number parameters");
 
     # Read the parameter descriptions: name, units, type, size.
    $blksize = 0;
@@ -247,7 +247,7 @@ sub read_log_header($) {
    $format = '';
    foreach my $param (@params) {
 
-       # See Trick source file sim_services/include/parameter_types.h
+       # See Trick source file include/trick/parameter_types.h
       my $ref = $self->{logfile_format}->{$param->{type}};
       if ((! defined $ref) ||
           ((defined $ref) &&
@@ -271,7 +271,7 @@ sub read_log_header($) {
    $self->{vars}  = [ map {$_->{name}}  @{$self->{params}} ];
    $self->{vals}  = { map {($_, undef)} @{$self->{vars}}   };
 }
-   
+
 
 # $logfile->dup_log_info - Generate a log file info based on another log file
 sub dup_log_info($$) {
@@ -290,7 +290,7 @@ sub dup_log_info($$) {
    $self->{blksize}     = $blksize;
    $self->{params}      = [ @params ];
 }
-   
+
 
 # $logfile->write_log_header - Write the log header.
 sub write_log_header($) {
@@ -383,7 +383,7 @@ sub write_output ($$$$$) {
    if ($format ne '') {
       $buff = pack $format, $buff;
       $len = length $buff;
-   } 
+   }
 
    $chars_written = syswrite $self->{handle}, $buff, $len;
    if ($chars_written < $len) {

@@ -13,7 +13,7 @@ exec(compile(open( "Modified_data/common_input.py", "rb").read(), "Modified_data
 # Set up parameters to record
 log_rnp_verif(1.0)
 
-set_utc_time( 1999, 3, 4, 0, 0, 0.0)
+jeod_time.time_utc.set_date_and_time(1999, 3, 4, 0, 0, 0.0)
 
 jeod_time.time_converter_tai_ut1.override_data_table = True
 # tai to ut1 is (UT1 - UTC) - (Leap Seconds)

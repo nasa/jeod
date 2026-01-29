@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -80,16 +80,18 @@ Library dependencies:
 #include "utils/sim_interface/include/jeod_class.hh"
 
 // Trick includes
-#include "sim_services/Integrator/include/IntegLoopScheduler.hh"
+#include "trick/IntegLoopScheduler.hh"
 
 //! Namespace jeod
 namespace jeod
 {
+
 // Forward declarations
 class DynManager;
 class DynamicsIntegrationGroup;
 class TimeManager;
 class GravityManager;
+
 } // namespace jeod
 
 /**
@@ -97,7 +99,9 @@ class GravityManager;
  */
 namespace Trick
 {
+
 class SimObject;
+
 } // namespace Trick
 
 //! Namespace jeod

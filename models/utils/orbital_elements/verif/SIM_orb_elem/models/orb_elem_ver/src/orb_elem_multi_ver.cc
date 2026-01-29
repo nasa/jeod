@@ -64,4 +64,5 @@ void OrbElemMultiVer::update(   // RETURN: -- None.
         data_row++;
     }
 }
+
 } // namespace jeod

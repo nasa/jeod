@@ -65,14 +65,14 @@ Contact::~Contact()
 
     for(cp = contact_pairs.begin(); cp != contact_pairs.end(); ++cp)
     {
-        JEOD_DELETE_OBJECT((*cp));
+        JEOD_DELETE_OBJECT(*cp);
     }
 
     std::list<PairInteraction *>::iterator pint;
 
     for(pint = pair_interactions.begin(); pint != pair_interactions.end(); ++pint)
     {
-        JEOD_DELETE_OBJECT((*pint));
+        JEOD_DELETE_OBJECT(*pint);
     }
 
     JEOD_DEREGISTER_CHECKPOINTABLE(this, contact_pairs);

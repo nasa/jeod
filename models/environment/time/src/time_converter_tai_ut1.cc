@@ -259,9 +259,6 @@ void TimeConverter_TAI_UT1::convert_a_to_b()
     if(off_table_end || !ut1_ptr->true_ut1)
     { // a_to_b_offset does not change
         ut1_ptr->set_time_by_trunc_julian(tai_ptr->trunc_julian_time + a_to_b_offset);
-        // ut1_ptr->trunc_julian_time = tai_time + a_to_b_offset;
-        // ut1_ptr->days = ut1_ptr->trunc_julian_time - ut1_ptr->tjt_at_epoch;
-        // ut1_ptr->seconds = ut1_ptr->days * 86400;
         return;
     } // else
       // for conventional (forward-time) simulations:
@@ -335,9 +332,6 @@ void TimeConverter_TAI_UT1::convert_a_to_b()
     a_to_b_offset = (prev_value + (tai_time - prev_when) * gradient) / 86400.0;
 
     ut1_ptr->set_time_by_trunc_julian(tai_ptr->trunc_julian_time + a_to_b_offset);
-    // ut1_ptr->trunc_julian_time = tai_time + a_to_b_offset;
-    // ut1_ptr->days = ut1_ptr->trunc_julian_time - ut1_ptr->tjt_at_epoch;
-    // ut1_ptr->seconds = ut1_ptr->days * 86400;
 }
 
 /**
@@ -357,9 +351,6 @@ void TimeConverter_TAI_UT1::convert_b_to_a()
     if(off_table_end || !ut1_ptr->true_ut1)
     { // a_to_b_offset does not change
         tai_ptr->set_time_by_trunc_julian(ut1_ptr->trunc_julian_time - a_to_b_offset);
-        // tai_ptr->trunc_julian_time = ut1_time - a_to_b_offset;
-        // tai_ptr->days = tai_ptr->trunc_julian_time - tai_ptr->tjt_at_epoch;
-        // tai_ptr->seconds = tai_ptr->days * 86400;
         return;
     } // else
       // for conventional (forward-time) simulations:
@@ -432,9 +423,6 @@ void TimeConverter_TAI_UT1::convert_b_to_a()
     a_to_b_offset = (prev_value + (ut1_time - prev_when) * gradient) / (86400.0 + gradient);
 
     tai_ptr->set_time_by_trunc_julian(ut1_ptr->trunc_julian_time - a_to_b_offset);
-    // tai_ptr->trunc_julian_time = ut1_time - a_to_b_offset;
-    // tai_ptr->days = tai_ptr->trunc_julian_time - tai_ptr->tjt_at_epoch;
-    // tai_ptr->seconds = tai_ptr->days * 86400;
 }
 
 /**

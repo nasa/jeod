@@ -48,6 +48,7 @@ Library dependencies:
 //! Namespace jeod
 namespace jeod
 {
+
 /**
  * Set the reference_name to a copy of the supplied value.
  * \param[in] new_name new name of reference.

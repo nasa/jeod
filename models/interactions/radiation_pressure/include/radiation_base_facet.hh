@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -195,11 +195,7 @@ public:
      * \param[in] flux_hat unit vector associated with the incident flux vector
      * \param[in] calc_forc true/false, do forces get calculated
      */
-    virtual void incident_radiation(const double flux_mag,
-
-                                    const double flux_hat[3],
-
-                                    const bool calc_forc) = 0;
+    virtual void incident_radiation(const double flux_mag, const double flux_hat[3], const bool calc_forc) = 0;
 };
 
 } // namespace jeod

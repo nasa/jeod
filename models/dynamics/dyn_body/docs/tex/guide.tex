@@ -26,9 +26,9 @@ Earth is not a good choice for integration frames.
   veh_object.rotational_dynamics = true;
 \end{verbatim}
 
-In a situation where multiple bodies are connected, the default is such that translational 
-and rotational accelerations are not computed for any child bodies.  However instances 
-where a body is, for example, a sensor and requires these values in order to provide 
+In a situation where multiple bodies are connected, the default is such that translational
+and rotational accelerations are not computed for any child bodies.  However instances
+where a body is, for example, a sensor and requires these values in order to provide
 properly modeled data, the option exists to force the computation of these derivatives for any child bodies of interest.
 \begin{verbatim}
   veh_object.compute_point_derivative = true;
@@ -78,8 +78,8 @@ will log a vehicle's mass, the position of its composite center of mass
 with respect to structure, and the composite state:
 
 \begin{verbatim}
-  veh_object.body.composite_properties.mass
-  veh_object.body.composite_properties.position[0-2]
+  veh_object.body.mass.composite_properties.mass
+  veh_object.body.mass.composite_properties.position[0-2]
   veh_object.body.composite_body.state.trans.position[0-2]
   veh_object.body.composite_body.state.trans.velocity[0-2]
   veh_object.body.composite_body.state.rot.Q_parent_this.scalar
@@ -99,7 +99,7 @@ Given the complexity of the \ModelDesc, integrating it into an \Sdefine file
 is a relatively simple task.
 
 The first step is to declare a DynBody derivative as an element of some
-simulation object. At the very minimum, the object needs to be prepared for 
+simulation object. At the very minimum, the object needs to be prepared for
 initialization in order to be used during simulation:
 \begin{verbatim}
 ##include "dynamics/dyn_body/include/dyn_body.hh"
@@ -118,11 +118,11 @@ class VehicleSimObject : public Trick::SimObject
     ...
 };
 \end{verbatim}
-Note well: The above \verb+DynBody::initialize_model()+ call must take place 
-(in time) between the call to the dyn\_manager's \verb+DynManager::initialize_model()+ 
+Note well: The above \verb+DynBody::initialize_model()+ call must take place
+(in time) between the call to the dyn\_manager's \verb+DynManager::initialize_model()+
 method and \verb+DynManager::initialize_simulation()+ method.
-This constraint is best satisfied using Trick's job prioritization scheme, as 
-shown, using the "P\_ENV" phase defined in 
+This constraint is best satisfied using Trick's job prioritization scheme, as
+shown, using the "P\_ENV" phase defined in
 "lib/jeod/JEOD\_S\_modules/default\_priority\_settings.sm."
 
 Real vehicles change in mass as they burn fuel. To make the state integration
@@ -259,7 +259,7 @@ table~\ref{tab:important_user_methods}.
         \verb+DynBody::attach_child()+ \\
         \verb+DynBody::attach_to_frame()+ \\
         \verb+DynBody::attach()+ \\
-        \verb+DynBody::add_mass_body()+ 
+        \verb+DynBody::add_mass_body()+
     \end{tabular} &
   If you as a model developer know that two bodies or a body and a RefFrame are to be attached,
   and know they are to be attached immediately, invoke the attach
@@ -268,18 +268,18 @@ table~\ref{tab:important_user_methods}.
     \begin{tabular}[t]{@{}l@{}}
         \verb+MassBody::detach()+ \\
         \verb+DynBody::detach()+ \\
-        \verb+DynBody::remove_mass_body()+ 
+        \verb+DynBody::remove_mass_body()+
     \end{tabular} &
   Detach is similar to attach in the sense that if you as a model developer
   know that one body is to detach from another, immediately, simply invoke
   the detach method in your model code. \\[6 pt]
 \verb+DynBody::set_state()+ &
   You need to override state in a distributed multi-vehicle simulation?
-  This method, or one of its kin (e.g., \verb+set_attitude_rate()+), is the 
+  This method, or one of its kin (e.g., \verb+set_attitude_rate()+), is the
   method to call. \\[6 pt]
 \verb+DynBody::propagate_state()+ &
   Always make sure to end a sequence of state overrides with a call to
-  \verb+propagate_state()+ to pass the updated state along to child bodies. 
+  \verb+propagate_state()+ to pass the updated state along to child bodies.
   Failure to do so will result in states inconsistent
   with geometry. \\
 \hline

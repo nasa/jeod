@@ -9,6 +9,7 @@
 
 #include "dyn_body_mock.hh"
 #include "dyn_manager_mock.hh"
+#include "dynamics/body_action/include/body_action_messages.hh"
 #include "dynamics/body_action/include/body_attach.hh"
 #include "mass_mock.hh"
 #include "message_handler_mock.hh"
@@ -197,7 +198,7 @@ TEST(BodyAttach, apply)
         expStringArgs[1] = mockDynBody.mass.name.c_str();
         expStringArgs[2] = mockDynBody2.mass.name.c_str();
         EXPECT_CALL(mockMessageHandler,
-                    process_message(MessageHandler::Debug, _, _, _, _, _, AreVarArgumentsEqual(expStringArgs)))
+                    process_message(MessageHandler::Debug, _, _, _, BodyActionMessages::trace, _, _))
             .Times(1);
         staticInst.apply(mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
@@ -214,7 +215,7 @@ TEST(BodyAttach, apply)
         expStringArgs[1] = mockMassBody.name.c_str();
         expStringArgs[2] = mockMassBody2.name.c_str();
         EXPECT_CALL(mockMessageHandler,
-                    process_message(MessageHandler::Failure, _, _, _, _, _, AreVarArgumentsEqual(expStringArgs)))
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::fatal_error, _, _))
             .Times(1);
         staticInst.apply(mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
@@ -230,7 +231,7 @@ TEST(BodyAttach, apply)
         expStringArgs[1] = "Unknown";
         expStringArgs[2] = refFrame.get_name();
         EXPECT_CALL(mockMessageHandler,
-                    process_message(MessageHandler::Error, _, _, _, _, _, AreVarArgumentsEqual(expStringArgs)))
+                    process_message(MessageHandler::Error, _, _, _, BodyActionMessages::not_performed, _, _))
             .Times(1);
         staticInst.apply(mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
@@ -245,7 +246,7 @@ TEST(BodyAttach, apply)
         expStringArgs[1] = "Unknown";
         expStringArgs[2] = "Unknown";
         EXPECT_CALL(mockMessageHandler,
-                    process_message(MessageHandler::Error, _, _, _, _, _, AreVarArgumentsEqual(expStringArgs)))
+                    process_message(MessageHandler::Error, _, _, _, BodyActionMessages::not_performed, _, _))
             .Times(1);
         staticInst.apply(mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);

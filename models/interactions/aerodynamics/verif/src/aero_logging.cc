@@ -17,7 +17,7 @@ ASSUMPTIONS:
 
 #include "../include/aero_logging.hh"
 #include "interactions/aerodynamics/include/aero_surface.hh"
-#include "trick_utils/math/include/trick_math.h"
+#include "trick/trick_math.h"
 
 //! Namespace jeod
 namespace jeod
@@ -83,4 +83,5 @@ void AeroLogging::aero_logging(double inert_vel[3], double mass, double force[3]
         accel_ratio = 0.0;
     }
 }
+
 } // namespace jeod

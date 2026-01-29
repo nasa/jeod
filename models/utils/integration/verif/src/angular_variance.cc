@@ -124,4 +124,5 @@ void AngularVariance::update(const Quaternion & q_prop,
 
     update(q_err, w_err);
 }
+
 } // namespace jeod

@@ -37,4 +37,5 @@ void Planet_itokawa_default_data::initialize(Planet * Planet_ptr)
     Planet_ptr->r_eq = 396.6;
     Planet_ptr->r_pol = 209.0;
 }
+
 } // namespace jeod

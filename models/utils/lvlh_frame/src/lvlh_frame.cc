@@ -278,8 +278,10 @@ void LvlhFrame::compute_lvlh_frame(const RefFrameTrans & rel_trans)
     frame.state.rot.compute_quaternion();
 
     // Update the angular velocity.
-    lvlh_rot.ang_vel_mag = wmag;
+    lvlh_rot.ang_vel_this[0] = 0;
     lvlh_rot.ang_vel_this[1] = -wmag;
+    lvlh_rot.ang_vel_this[2] = 0;
+    lvlh_rot.compute_ang_vel_products();
 }
 
 } // namespace jeod

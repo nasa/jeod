@@ -40,4 +40,5 @@ void Planet_sun_default_data::initialize(Planet * Planet_ptr)
     /* GSFC Sun fact sheet */
     Planet_ptr->flat_coeff = 5e-5;
 }
+
 } // namespace jeod

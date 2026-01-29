@@ -6,7 +6,7 @@ Purpose:
    the error handling.)
 */
 
-#include "trick_utils/math/include/trick_math.h"
+#include "trick/trick_math.h"
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>

@@ -33,7 +33,9 @@ Assumptions and Limitations:
 //! Namespace jeod
 namespace jeod
 {
+
 class SphericalHarmonicsGravitySource;
+
 } // namespace jeod
 
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_earth_GGM02C_default_data
@@ -41065,4 +41067,5 @@ void SphericalHarmonicsGravitySource_earth_GGM02C_default_data::initialize(
     SphericalHarmonicsGravitySource_ptr->Snm[200][199] = -9.3602159634289E-10;
     SphericalHarmonicsGravitySource_ptr->Snm[200][200] = -1.5420369949549E-10;
 }
+
 } // namespace jeod

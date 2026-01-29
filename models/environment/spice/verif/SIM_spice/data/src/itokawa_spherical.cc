@@ -36,4 +36,5 @@ void SphericalHarmonicsGravitySource_itokawa_spherical_default_data::initialize(
     SphericalHarmonicsGravitySource_ptr->name = "Itokawa";
     SphericalHarmonicsGravitySource_ptr->mu = 2.34;
 }
+
 } // namespace jeod

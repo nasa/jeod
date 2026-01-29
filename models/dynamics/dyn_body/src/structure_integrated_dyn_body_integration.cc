@@ -59,21 +59,13 @@ er7_utils::IntegratorResult StructureIntegratedDynBody::rot_integ(double dyn_dt,
     rot_state.Q_parent_this.normalize_integ();
 
     // Compute the corresponding transformation matrix.
-    rot_state.Q_parent_this.left_quat_to_transformation(rot_state.T_parent_this);
+    rot_state.compute_transformation();
 
     // Compute the quaternion derivative.
     rot_state.Q_parent_this.compute_left_quat_deriv(rot_state.ang_vel_this, derivs.Qdot_parent_this);
 
     // Compute the angular velocity magnitude and unit vector.
-    rot_state.ang_vel_mag = Vector3::vmag(rot_state.ang_vel_this);
-    if(std::fpclassify(rot_state.ang_vel_mag) != FP_ZERO)
-    {
-        Vector3::scale(rot_state.ang_vel_this, 1.0 / rot_state.ang_vel_mag, rot_state.ang_vel_unit);
-    }
-    else
-    {
-        Vector3::initialize(rot_state.ang_vel_unit);
-    }
+    rot_state.compute_ang_vel_products();
 
     return status;
 }

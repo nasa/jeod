@@ -77,7 +77,7 @@ $(DE4XX_DEST): $(DE4XX_SRC)
 
 DE4XX_LIB := $(DE4XX_DEST)
 
-# Process non-TRICKIFIED build which only compiles the ephemeris data libs
+# Process non-TRICKIFIED build which only compiles the ephemeris data lib
 .PHONY: $(DE4XX_SRC)
 
 # If JEOD_BUILD_TYPE isn't specified, try to deduce from the TRICK_CXXFLAGS variable
@@ -145,17 +145,40 @@ ifeq ($(TRICKIFIED),1)
 
 ifeq (${TRICKIFIED_EXISTS},0)
    ifeq (${JEOD_LIB_WRITEABLE},1)
-     $(DE4XX_SRC): $(JEOD_TRICKBUILD_LIB)
+     .PHONY: $(TRICKIFIED_JEOD_LIB) $(JEOD_TRICKBUILD_LIB)
 
      # Add dependencies for the trickified JEOD and the JEOD library.
-     $(SWIG_SRC): $(TRICKIFIED_JEOD_LIB) $(JEOD_TRICKBUILD_LIB)
+     $(S_MAIN): $(JEOD_TRICKBUILD_LIB)
+
+     $(SWIG_SRC): $(TRICKIFIED_JEOD_LIB)
+
+     # Build the trickified JEOD library and JEOD model library if needed.
+     $(JEOD_TRICKBUILD_LIB):
+	$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_TYPE=${JEOD_BUILD_TYPE} BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} TRICK_BUILD=1
+
+     $(TRICKIFIED_JEOD_LIB):
+	$(MAKE) -s -C $(JEOD_TRICKIFIED)
+
    else
      $(error Trickified JEOD library doesn't exist and the source directory isn't writeable...)
    endif
 else
    ifeq (${JEOD_LIB_WRITEABLE},1)
      # Add dependencies for the trickified JEOD and the JEOD library.
-     $(SWIG_SRC): $(TRICKIFIED_JEOD_LIB) $(JEOD_TRICKBUILD_LIB)
+     $(S_MAIN): $(JEOD_TRICKBUILD_LIB)
+
+     $(SWIG_SRC): $(TRICKIFIED_JEOD_LIB)
+
+     -include ${JEOD_BUILD_DIR}/libjeod.d
+     -include ${JEOD_TRICKIFIED}/build/S_source.d
+
+     # Build the trickified JEOD library and JEOD model library if needed.
+     $(JEOD_TRICKBUILD_LIB): ${JEOD_TRICKIFIED}/build/S_source.d
+	$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_TYPE=${JEOD_BUILD_TYPE} BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} TRICK_BUILD=1
+
+     $(TRICKIFIED_JEOD_LIB) ${JEOD_TRICKIFIED}/build/S_source.d:
+	$(MAKE) -s -C $(JEOD_TRICKIFIED)
+
    else
      $(info Trickified JEOD library is read-only. Skipping any attempt to update the libs...)
    endif
@@ -190,6 +213,7 @@ endif # - TRICKIFIED endif
 jeod_clean:
 	-rm -rf ${JEOD_INSTALL_DIR};
 	-$(MAKE) -C ${JEOD_BUILD_DIR} clean;
+	-$(MAKE) -C ${JEOD_TRICKIFIED} clean;
 
 jeod_spotless: jeod_clean
 	-rm -rf ${JEOD_BUILD_DIR}
@@ -197,10 +221,3 @@ jeod_spotless: jeod_clean
 ifeq (${JEOD_LIB_WRITEABLE},1)
 apocalypse: jeod_spotless
 endif
-
-# Build the trickified JEOD library and JEOD model library if needed.
-$(JEOD_TRICKBUILD_LIB):
-	$(MAKE) -C ${JEOD_HOME} -f bin/jeod/makefile BUILD_TYPE=${JEOD_BUILD_TYPE} BUILD_DIR=${JEOD_BUILD_DIR} INSTALL_DIR=${JEOD_INSTALL_DIR} TRICK_BUILD=1
-
-$(TRICKIFIED_JEOD_LIB):
-	$(MAKE) -s -C $(JEOD_TRICKIFIED)

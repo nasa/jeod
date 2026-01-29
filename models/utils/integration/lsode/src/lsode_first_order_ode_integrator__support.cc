@@ -31,7 +31,6 @@ Library dependencies:
 *******************************************************************************/
 
 // System includes
-#include <cmath> //std
 #include <cmath> //sqrt
 
 // Interface includes
@@ -59,7 +58,7 @@ void LsodeFirstOrderODEIntegrator::calculate_epsilon()
 {
     epsilon = 1.0;
     // 10
-    while(!Numerical::compare_exact((1.0 + epsilon), 1.0))
+    while(!Numerical::compare_exact(1.0 + epsilon, 1.0))
     {
         epsilon /= 2.0;
     }
@@ -420,7 +419,7 @@ void LsodeFirstOrderODEIntegrator::jacobian_prep_init()
             // J=1
             data_prepj.index_max = control_data.num_odes;
             data_prepj.yj = y[0]; // jj = 0 this time around, this is first-time only.
-            r = std::max((arrays.lin_alg_1 * std::abs(data_prepj.yj)), (data_prepj.r0 / arrays.error_weight[0]));
+            r = std::max(arrays.lin_alg_1 * std::abs(data_prepj.yj), data_prepj.r0 / arrays.error_weight[0]);
             y[0] += r;
             data_prepj.fac = -data_prepj.hl0 / r;
             break;
@@ -430,7 +429,7 @@ void LsodeFirstOrderODEIntegrator::jacobian_prep_init()
             // 300
             // arrays.lin_alg is a  1*n matrix
             arrays.lin_alg_2 = data_prepj.hl0;
-            r = method_coeff_first * 0.1; // FIXME magic number
+            r = method_coeff_first * 0.1; // FIXME explain magic numbers
 
             for(unsigned int ii = 0; ii < control_data.num_odes; ii++) // do 310
             {
@@ -538,8 +537,8 @@ bool LsodeFirstOrderODEIntegrator::jacobian_prep_loop()
                 // Prepare for next call to generate derivatives.
                 jj = data_prepj.index;
                 data_prepj.yj = y[jj];
-                double r = std::max((arrays.lin_alg_1 * std::abs(data_prepj.yj)),
-                                    (data_prepj.r0 / arrays.error_weight[jj]));
+                double r = std::max(arrays.lin_alg_1 * std::abs(data_prepj.yj),
+                                    data_prepj.r0 / arrays.error_weight[jj]);
                 y[jj] += r;
                 data_prepj.fac = -data_prepj.hl0 / r;
                 return false; // re-cycle

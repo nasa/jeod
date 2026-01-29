@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -128,12 +128,12 @@ public:
     /**
      * Difference between Truncated Julian and Modified Julian.
      */
-    const double tjt_mjt_offset{40000.0}; //!< trick_units(day)
+    static constexpr double tjt_mjt_offset{40000.0}; //!< trick_units(day)
 
     /**
      * Difference between Julian and Truncated Julian.
      */
-    const double tjt_jd_offset{2440000.5}; //!< trick_units(day)
+    static constexpr double tjt_jd_offset{2440000.5}; //!< trick_units(day)
 
     /**
      * Truncated Julian time for this time-type.
@@ -198,6 +198,7 @@ public:
     void set_time_by_seconds(const double new_seconds) override;
     void set_time_by_days(const double new_days) override;
     void set_time_by_trunc_julian(const double new_tjt);
+    void set_date_and_time(int year, int month, int day, int hour, int minute, double second);
 
     double julian_date_at_epoch();
 

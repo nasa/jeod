@@ -2,7 +2,7 @@
 %
 % Purpose:  Analysis part of User's Guide for the ModelName model
 %
-% 
+%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -459,12 +459,7 @@ In this case, calendar was chosen, it is now necessary to fully define
 the mission start time in a calendar format on a UTC clock.
 
 \begin{verbatim}
-time.utc.calendar_year = 1998;
-time.utc.calendar_month = 12;
-time.utc.calendar_day = 31;
-time.utc.calendar_hour = 23;
-time.utc.calendar_minute = 59;
-time.utc.calendar_second = 50.0;
+time.utc.set_date_and_time(1998, 12, 31, 23, 59, 50.0);
 \end{verbatim}
 
 If the start time were known in a Truncated Julian format on the UT1

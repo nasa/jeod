@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -151,8 +151,9 @@ inline void GaussJacksonIntegratorBase<GaussJacksonOneState, er7_utils::FirstOrd
  * Initialize the integration constants (i.e., delinv).
  */
 template<>
-inline void GaussJacksonIntegratorBase<GaussJacksonOneState, er7_utils::FirstOrderODEIntegrator>::
-    initialize_edit_integration_constants(double dt)
+inline void
+GaussJacksonIntegratorBase<GaussJacksonOneState,
+                           er7_utils::FirstOrderODEIntegrator>::initialize_edit_integration_constants(double dt)
 {
     coeff->corrector[0].apply(size, order + 1, acc_hist, delinv);
 
@@ -166,8 +167,9 @@ inline void GaussJacksonIntegratorBase<GaussJacksonOneState, er7_utils::FirstOrd
  * Advance the integration constants by one cycle.
  */
 template<>
-inline void GaussJacksonIntegratorBase<GaussJacksonOneState, er7_utils::FirstOrderODEIntegrator>::
-    advance_edit_integration_constants(unsigned int index)
+inline void
+GaussJacksonIntegratorBase<GaussJacksonOneState,
+                           er7_utils::FirstOrderODEIntegrator>::advance_edit_integration_constants(unsigned int index)
 {
     double * ER7_UTILS_RESTRICT first_dinv = delinv.first;
     double * ER7_UTILS_RESTRICT ahist_idx = acc_hist[index];
@@ -182,8 +184,9 @@ inline void GaussJacksonIntegratorBase<GaussJacksonOneState, er7_utils::FirstOrd
  * Initialize the integration constants (i.e., delinv).
  */
 template<>
-inline void GaussJacksonIntegratorBase<GaussJacksonOneState, er7_utils::FirstOrderODEIntegrator>::
-    initialize_predictor_integration_constants(double dt)
+inline void
+GaussJacksonIntegratorBase<GaussJacksonOneState,
+                           er7_utils::FirstOrderODEIntegrator>::initialize_predictor_integration_constants(double dt)
 {
     initialize_edit_integration_constants(dt);
 

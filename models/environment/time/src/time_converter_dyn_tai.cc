@@ -174,11 +174,7 @@ void TimeConverter_Dyn_TAI::initialize(JeodBaseTime * parent_ptr, JeodBaseTime *
  */
 void TimeConverter_Dyn_TAI::convert_a_to_b()
 {
-    // 86400 seconds in a day
-
     tai_ptr->set_time_by_seconds(dyn_ptr->seconds + a_to_b_offset);
-    //  tai_ptr->days = tai_ptr->seconds / 86400;
-    //  tai_ptr->trunc_julian_time = tai_ptr->days + tai_ptr->tjt_at_epoch;
 }
 
 } // namespace jeod

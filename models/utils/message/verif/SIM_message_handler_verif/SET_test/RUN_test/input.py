@@ -71,7 +71,7 @@ Tests 6-10: Suppression level set to 6
 
 Test 6: send_message() (Not suppressed)
 """)
-trick.MessageHandler_set_suppression_level(6)
+trick.MessageHandler.set_suppression_level(6)
 verif.driver.message_number = 6
 ''')
 
@@ -111,7 +111,7 @@ Tests 11-12: Supression level set to trick.MessageHandler.Error
 
 Test 11: send_message() (Message suppressed)
 """)
-trick.MessageHandler_set_suppression_level(trick.MessageHandler.Error)
+trick.MessageHandler.set_suppression_level(trick.MessageHandler.Error)
 verif.driver.message_number = 6
 ''')
 
@@ -130,8 +130,8 @@ Tests 13-15: Tests of suppressing ID, location
 
 Test 13: error() (ID suppressed)
 """)
-trick.MessageHandler_set_suppression_level(1)
-trick.MessageHandler_set_suppress_id(True)
+trick.MessageHandler.set_suppression_level(1)
+trick.MessageHandler.set_suppress_id(True)
 verif.driver.message_number = 2
 ''')
 
@@ -139,8 +139,8 @@ read = 14
 trick.add_read(read, '''
 outPut("""Test 14: error() (location suppressed)
 """)
-trick.MessageHandler_set_suppress_id(False)
-trick.MessageHandler_set_suppress_location(True)
+trick.MessageHandler.set_suppress_id(False)
+trick.MessageHandler.set_suppress_location(True)
 verif.driver.message_number = 2
 ''')
 
@@ -148,8 +148,8 @@ read = 15
 trick.add_read(read, '''
 outPut("""Test 15: error() (ID and location suppressed)
 """)
-trick.MessageHandler_set_suppress_id(True)
-trick.MessageHandler_set_suppress_location(True)
+trick.MessageHandler.set_suppress_id(True)
+trick.MessageHandler.set_suppress_location(True)
 verif.driver.message_number = 2
 ''')
 
@@ -161,9 +161,9 @@ Tests 16-20: Suppression level set to 9999
 
 Test 16: send_message() (Not suppressed)
 """)
-trick.MessageHandler_set_suppression_level(trick.MessageHandler.Debug)
-trick.MessageHandler_set_suppress_id(False)
-trick.MessageHandler_set_suppress_location(False)
+trick.MessageHandler.set_suppression_level(trick.MessageHandler.Debug)
+trick.MessageHandler.set_suppress_id(False)
+trick.MessageHandler.set_suppress_location(False)
 verif.driver.message_number = 6
 ''')
 
@@ -203,8 +203,8 @@ Tests 21-25: Suppress utils/message/verif/message
 
 Test 21: send_message() (Message suppressed)
 """)
-trick.MessageHandler_add_suppressed_code("utils/message/verif/message")
-trick.MessageHandler_set_suppression_level(trick.MessageHandler.Warning)
+trick.MessageHandler.add_suppressed_code("utils/message/verif/message")
+trick.MessageHandler.set_suppression_level(trick.MessageHandler.Warning)
 verif.driver.message_number = 6
 ''')
 
@@ -212,7 +212,7 @@ read = 22
 trick.add_read(read, '''
 outPut("""Test 22: custom error() (Not suppressed)
 """)
-trick.MessageHandler_error(
+trick.MessageHandler.error(
    "input.py", 201,
    "utils/message/verif/message",
    "MessageHandler::error() called from input file")

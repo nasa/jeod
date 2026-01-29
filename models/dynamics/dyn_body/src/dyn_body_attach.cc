@@ -56,19 +56,18 @@ namespace jeod
 // point of view.
 bool DynBody::attach_validate_parent(const DynBody & parent, bool generate_message) const
 {
-    bool is_valid = true;
-
     // Sanity check: This body itself must be valid.
     if((dyn_manager == nullptr) || !dyn_manager->is_dyn_body_registered(this))
     {
-        is_valid = false;
         MessageHandler::fail(__FILE__,
                              __LINE__,
                              DynBodyMessages::invalid_body,
                              "DynBody '%s' has not been initialized.\n",
                              name.c_str());
+        return false; // The code should terminate before it reaches this return.
     }
 
+    bool is_valid = true;
     // Perform mass compatibility checks.
     if(get_root_body() == parent.get_root_body())
     {
@@ -345,7 +344,7 @@ bool DynBody::attach_to_frame(const std::string & this_point_name,
         RefFrameState X_pframe_to_cpt;
         Vector3::copy(offset_pframe_cpt_pframe, X_pframe_to_cpt.trans.position);
         Matrix3x3::copy(T_pframe_cpt, X_pframe_to_cpt.rot.T_parent_this);
-        X_pframe_to_cpt.rot.Q_parent_this.left_quat_from_transformation(T_pframe_cpt);
+        X_pframe_to_cpt.rot.compute_quaternion();
 
         MassPointState MP_struct_to_cpt;
         subject_pt->compute_state_wrt_pred(*(root_body->structure.mass_point), MP_struct_to_cpt);
@@ -1104,6 +1103,7 @@ void DynBody::process_dynamic_attachment(const double offset_pstr_cstr_pstr[3],
     Vector3::transform(root_body.mass.composite_properties.inverse_inertia,
                        angular_momentum,
                        root_body.composite_body.state.rot.ang_vel_this);
+    root_body.composite_body.state.rot.compute_ang_vel_products();
 
     // Propagate state down through the tree:
     // Tell the function where to obtain the data from.

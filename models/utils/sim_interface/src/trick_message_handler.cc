@@ -36,8 +36,8 @@ Library dependencies:
 #include <cstdio>
 
 // Trick includes
-#include "sim_services/Executive/include/exec_proto.h"
-#include "sim_services/Message/include/message_proto.h"
+#include "trick/exec_proto.h"
+#include "trick/message_proto.h"
 
 // JEOD includes
 #include "utils/memory/include/jeod_alloc.hh"
@@ -83,8 +83,7 @@ void TrickMessageHandler::process_message(int severity,
                                           const char * format,
                                           va_list args) const
 {
-    int buffer_length = MAX_MSG_SIZE - strlen(prefix) - strlen(msg_code);
-    char buffer[buffer_length];
+    char buffer[MAX_MSG_SIZE - 4]; // 4 for the additional characters added in the snprintf
 
     // *Safely* generate the message proper.
     std::vsnprintf(buffer, sizeof(buffer), format, args); // flawfinder: ignore

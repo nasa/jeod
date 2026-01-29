@@ -17,7 +17,9 @@ Assumptions and Limitations:
 //! Namespace jeod
 namespace jeod
 {
+
 class SphericalHarmonicsGravitySource;
+
 } // namespace jeod
 
 #define JEOD_FRIEND_CLASS SphericalHarmonicsGravitySource_earth_spherical_default_data
@@ -43,4 +45,5 @@ void SphericalHarmonicsGravitySource_earth_spherical_default_data::initialize(
     SphericalHarmonicsGravitySource_ptr->mu = 3.986004415E+14;
     SphericalHarmonicsGravitySource_ptr->radius = 6378136.3;
 }
+
 } // namespace jeod

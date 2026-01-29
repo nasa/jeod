@@ -31,4 +31,5 @@ void AerodynamicDrag_aero_model_default_data::initialize(AerodynamicDrag * Aerod
     AerodynamicDrag_ptr->param.temp_free_stream = 1487;
     AerodynamicDrag_ptr->active = true;
 }
+
 } // namespace jeod

@@ -888,8 +888,8 @@ int OrbitalElements::KepEqtnB(double M, double * B)
     }
 
     // Compute the parabolic anomaly
-    s = 0.5 * atan2(1.0, (1.5 * M_in));
-    w = atan2(pow(tan(s), (1.0 / 3.0)), 1);
+    s = 0.5 * atan2(1.0, 1.5 * M_in);
+    w = atan2(pow(tan(s), 1.0 / 3.0), 1);
     *B = 2.0 / tan(2.0 * w);
 
     return (0);

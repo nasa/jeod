@@ -546,12 +546,13 @@ int LsodeFirstOrderODEIntegrator::manager_check_stop_conditions()
     // ##-----------------------------------------------------------------------
     //  200
     prior_num_steps = num_steps_taken;
+    double timePassed = (stage_target_time - cycle_target_time) * step_size;
     switch(calculation_task)
     {
         case Normal: // Normal
             // if have not overshot target, integrate it.  note -
             // stage_target_time is from previous stage.
-            if((stage_target_time - cycle_target_time) * step_size < 0.0)
+            if(timePassed < 0.0)
             {
                 return 1; // go to 250
             }
@@ -724,7 +725,7 @@ void LsodeFirstOrderODEIntegrator::manager_integration_loop_part2()
         return;
     }
     // 280
-    if(Numerical::compare_exact((stage_target_time + step_size), stage_target_time))
+    if(Numerical::compare_exact(stage_target_time + step_size, stage_target_time))
     {
         num_small_step_warnings++;
         if(num_small_step_warnings <= control_data.max_num_small_step_warnings)
@@ -801,6 +802,8 @@ void LsodeFirstOrderODEIntegrator::manager_integration_loop_part3()
     // The following block handles the case of a successful return from the
     // core integrator (step_error = 0).  Test for stop conditions.;
 
+    // double tnext = stage_target_time + step_size * (1.0 + 4.0 * epsilon);
+    double timePassed = (stage_target_time - cycle_target_time) * step_size;
     // 300
     initialized = true;
     switch(calculation_task)
@@ -808,10 +811,8 @@ void LsodeFirstOrderODEIntegrator::manager_integration_loop_part3()
         // ## ITASK = 1.  If TOUT has been reached, interpolate. -------------------;
         //  310
         case Normal:
-            //
-            // if ((stage_target_time - cycle_target_time)*step_size < 0.0),
             // stay in loop, otherwise perform actions and quit out.
-            if((stage_target_time - cycle_target_time) * step_size < 0.0)
+            if(timePassed < 0.0)
             {
                 // go to 250, stay in loop
                 manager_integration_loop_part1();
@@ -820,62 +821,64 @@ void LsodeFirstOrderODEIntegrator::manager_integration_loop_part3()
             {
                 interpolate_y();
                 // return with re_entry_point = CycleStartFinish still -
-                //    indicates that cycle is complete.
+                // indicates that cycle is complete.
             }
             break;
 
             // See Implementation-Notes #2.
         case OneStep:
-            //      manager_set_calculation_phase_eq_2_reload(); // go to 400
-            //      break;
-            //   // 330
+            // manager_set_calculation_phase_eq_2_reload(); // go to 400
+            // break;
+
+            // // 330
         case CompleteCycle:
-            //      if ((stage_target_time - cycle_target_time)*step_size >= 0.0) {
-            //         manager_set_calculation_phase_eq_2_reload(); // go to 400 => return
-            //      }
-            //      else {
-            //         // else, stay in loop,  go to 250
-            //         manager_integration_loop_part1();
-            //      }
-            //      break;
-            //
-            //   // 340
+            // if(timePassed >= 0.0)
+            // {
+            //     manager_set_calculation_phase_eq_2_reload(); // go to 400 => return
+            // }
+            // else
+            // {
+            //     // else, stay in loop,  go to 250
+            //     manager_integration_loop_part1();
+            // }
+            // break;
+
+            // // 340
         case NormalWithSingularity:
-            //      if ((stage_target_time - cycle_target_time)*step_size >= 0.0) {
-            //                                                       // inverse go to 345
-            //         interpolate_y ();
-            //         current_time = cycle_target_time;
-            //         // go to 420
-            //         break;
-            //      }
-            //      // 345
-            //      t_crit_hit = ( std::abs(stage_target_time - t_crit) <=
-            //         (100.0*epsilon*
-            //            ( std::abs(stage_target_time) + std::abs(step_size))));
-            //      if (t_crit_hit) {
-            //         manager_set_calculation_phase_eq_2_reload(); // go to 400
-            //         break;
-            //      }
-            //
-            //      FIXME declare tnext outside the switch, but not while this is commented
-            //      or it will be "unused"
-            //      double tnext = stage_target_time + step_size*(1.0 + 4.0*epsilon);
-            //      if ((tnext - t_crit)*step_size > 0.0) {
-            //         step_size = (t_crit - stage_target_time)*(1.0 - 4.0*epsilon);
-            //         internal_state = -2;
-            //      }
-            //      // stay in loop, go to 250
-            //      manager_integration_loop_part1();
-            //      break;
-            //
-            ////   # ITASK = 5.  See if TCRIT was reached and jump to exit. ---------------;
-            //   // 350
+            // if(timePassed >= 0.0)
+            // {
+            //     // inverse go to 345
+            //     interpolate_y();
+            //     current_time = cycle_target_time;
+            //     // go to 420
+            //     break;
+            // }
+
+            // // 345
+            // t_crit_hit = (std::abs(stage_target_time - t_crit) <=
+            //               (100.0 * epsilon * (std::abs(stage_target_time) + std::abs(step_size))));
+            // if(t_crit_hit)
+            // {
+            //     manager_set_calculation_phase_eq_2_reload(); // go to 400
+            //     break;
+            // }
+
+            // if((tnext - t_crit) * step_size > 0.0)
+            // {
+            //     step_size = (t_crit - stage_target_time) * (1.0 - 4.0 * epsilon);
+            //     internal_state = -2;
+            // }
+            // // stay in loop, go to 250
+            // manager_integration_loop_part1();
+            // break;
+
+            // //# ITASK = 5.  See if TCRIT was reached and jump to exit. ---------------;
+            // // 350
         case OneStepWithSingularity:
-            //      t_crit_hit = ( std::abs(stage_target_time - t_crit) <=
-            //           (100.0*epsilon*
-            //               (std::abs(stage_target_time) + std::abs(step_size))));
-            //      manager_set_calculation_phase_eq_2_reload();  // continues to 400
-            //      break;
+            // t_crit_hit = (std::abs(stage_target_time - t_crit) <=
+            //               (100.0 * epsilon * (std::abs(stage_target_time) + std::abs(step_size))));
+            // manager_set_calculation_phase_eq_2_reload(); // continues to 400
+            // break;
         default:
             er7_utils::MessageHandler::fail(__FILE__,
                                             __LINE__,

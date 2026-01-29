@@ -108,7 +108,7 @@ void TimeConverter_STD_UDE::initialize(JeodBaseTime * parent_ptr, JeodBaseTime *
                              parent_ptr->name.c_str(),
                              child_ptr->name.c_str());
 
-        initialize(parent_ptr, child_ptr, (int_dir * -1));
+        initialize(parent_ptr, child_ptr, int_dir * -1);
         failed_null_test = true;
         return;
     }

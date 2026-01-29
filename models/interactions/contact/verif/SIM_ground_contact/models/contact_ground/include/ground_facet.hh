@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -100,7 +100,7 @@ public:
 
 } // namespace jeod
 
-#if(defined TRICK_VER) // && (TRICK_VER < 10)
+#if (defined TRICK_VER) // && (TRICK_VER < 10)
 #include "interactions/contact/include/contact_params.hh"
 #include "line_ground_interaction.hh"
 #include "point_ground_interaction.hh"

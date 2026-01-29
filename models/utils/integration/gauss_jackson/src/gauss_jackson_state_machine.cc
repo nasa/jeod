@@ -123,7 +123,7 @@ void GaussJacksonStateMachine::perform_step()
     {
         cycle_start_time = double(steps_since_reset) / double(tour_count);
         steps_since_reset += step_increment;
-        assert((steps_since_reset == history_length * step_increment));
+        assert(steps_since_reset == history_length * step_increment);
         at_end_of_tour = (steps_since_reset % tour_count) == 0;
     }
 }

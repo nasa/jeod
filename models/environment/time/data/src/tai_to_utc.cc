@@ -18,7 +18,9 @@ ASSUMPTIONS AND LIMITATIONS:
 
 namespace jeod
 {
+
 class TimeConverter_TAI_UTC;
+
 } // namespace jeod
 
 #define JEOD_FRIEND_CLASS TimeConverter_TAI_UTC_tai_to_utc_default_data

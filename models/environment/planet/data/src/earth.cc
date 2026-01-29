@@ -36,4 +36,5 @@ void Planet_earth_default_data::initialize(Planet * Planet_ptr)
     Planet_ptr->flat_inv = 298.257223563;
     Planet_ptr->r_eq = 1000 * (6378.137);
 }
+
 } // namespace jeod

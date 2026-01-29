@@ -31,7 +31,6 @@ Library dependencies:
 *******************************************************************************/
 
 // System includes
-#include <cmath> //std
 #include <cmath> // sqrt
 
 // Interface includes

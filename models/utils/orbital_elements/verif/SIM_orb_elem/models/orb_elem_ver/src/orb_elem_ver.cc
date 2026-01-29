@@ -39,4 +39,5 @@ void OrbElemVer::update(        // RETURN: --  None.
         orb_elem->from_cartesian(mu, position, velocity);
     }
 }
+
 } // namespace jeod

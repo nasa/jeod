@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -64,7 +64,7 @@ Library dependencies:
 #include <string>
 
 // Trick includes
-#include "sim_services/Integrator/include/Integrator.hh"
+#include "trick/Integrator.hh"
 
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/integrator_constructor.hh"
@@ -233,7 +233,7 @@ public:
 private:
     // Static member data
 
-    static const unsigned int template_items_size; /* trick_io(*o) trick_units(--) @n
+    static const unsigned int template_items_size{6}; /* trick_io(*o) trick_units(--) @n
        Size of the template_items. */
 };
 

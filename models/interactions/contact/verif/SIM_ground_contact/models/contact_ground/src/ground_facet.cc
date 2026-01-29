@@ -121,4 +121,5 @@ GroundInteraction * GroundFacet::create_interaction( // Return: -- void
         return ground_interaction;
     }
 }
+
 } // namespace jeod

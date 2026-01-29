@@ -90,7 +90,8 @@ void TimeConverter_TAI_TT::initialize(JeodBaseTime * parent_ptr, JeodBaseTime * 
                              "Illegal value of int_dir in TAI->TT initializer");
     }
 
-    a_to_b_offset = 0.0003725; // 32.184 seconds difference.
+    a_to_b_offset = 0.0; // The offset since the epoch is 0 because they tick at the same rate.
+                         // This is unused and is only listed here for completeness.
 
     initialized = true;
 }
@@ -100,6 +101,11 @@ void TimeConverter_TAI_TT::initialize(JeodBaseTime * parent_ptr, JeodBaseTime * 
  */
 void TimeConverter_TAI_TT::convert_a_to_b()
 {
+    // Note that the offset between tai and tt is captured in "tjt_at_epoch".
+    // "seconds" captures the time elapsed since the shared instant of the epoch,
+    // and because TT and TAI tick at the same rate, "seconds" is identical.
+    // "set_time_by_seconds" calculates "seconds", "days", "trunc_julian_time", etc.,
+    // so it is still vital that it is called, even though "seconds" is identical.
     tt_ptr->set_time_by_seconds(tai_ptr->seconds);
 }
 
@@ -112,6 +118,11 @@ void TimeConverter_TAI_TT::convert_a_to_b()
  */
 void TimeConverter_TAI_TT::convert_b_to_a()
 {
+    // Note that the offset between tai and tt is captured in "tjt_at_epoch".
+    // "seconds" captures the time elapsed since the shared instant of the epoch,
+    // and because TT and TAI tick at the same rate, "seconds" is identical.
+    // "set_time_by_seconds" calculates "seconds", "days", "trunc_julian_time", etc.,
+    // so it is still vital that it is called, even though "seconds" is identical.
     tai_ptr->set_time_by_seconds(tt_ptr->seconds);
 }
 

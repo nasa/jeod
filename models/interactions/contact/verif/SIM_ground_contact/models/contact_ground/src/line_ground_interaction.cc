@@ -119,4 +119,5 @@ void LineGroundInteraction::in_contact()
         friction_mag = 0.0;
     }
 }
+
 } // namespace jeod

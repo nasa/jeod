@@ -1,6 +1,6 @@
 ################TRICK HEADER#######################################
 #PURPOSE:
-#  (To define the input data for simulation SET_test/RUN_scale_factor_changes/ 
+#  (To define the input data for simulation SET_test/RUN_scale_factor_changes/
 ####################################################################################
 
 #Auto-generated from the data file with this header:
@@ -30,13 +30,7 @@ log_rec( LOG_CYCLE )
 jeod_time.time_manager_init.initializer = "TAI"
 jeod_time.time_manager_init.sim_start_format = trick.TimeEnum.calendar
 
-jeod_time.time_tai.calendar_year = 2005
-jeod_time.time_tai.calendar_month = 12
-jeod_time.time_tai.calendar_day = 31
-jeod_time.time_tai.calendar_hour = 23
-jeod_time.time_tai.calendar_minute = 59
-jeod_time.time_tai.calendar_second = 50.0
-
+jeod_time.time_tai.set_date_and_time(2005, 12, 31, 23, 59, 50.0)
 
 trick.add_read(5,  """
 jeod_time.time_manager.dyn_time.scale_factor = -1.0

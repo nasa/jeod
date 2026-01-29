@@ -40,4 +40,5 @@ void JobCycleDriver::update()
     total_job_cycle_time += delta;
     std::cout << "get_job_cycle returned " << delta << "\n";
 }
+
 } // namespace jeod

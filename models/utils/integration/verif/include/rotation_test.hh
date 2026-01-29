@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -62,7 +62,7 @@ Library dependencies:
 #include <cmath>
 
 // Trick includes
-#include "sim_services/Integrator/include/Integrator.hh"
+#include "trick/Integrator.hh"
 
 // ER7 utilities includes
 #include "er7_utils/integration/core/include/integrator_constructor.hh"

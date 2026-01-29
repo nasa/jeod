@@ -603,4 +603,5 @@ void RotationTestSHOSphere::compute_torque()
     ang_var.update(prop_integ_state.Q_inertial_body, Q_ref, prop_integ_state.body_rate);
     Vector3::scale(ang_var.uhat(), -k_sho * ang_var.theta(), torq_body);
 }
+
 } // namespace jeod

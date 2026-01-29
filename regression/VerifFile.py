@@ -1,7 +1,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright 2025 United States Government as represented by the Administrator
+# Copyright 2026 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -85,7 +85,7 @@ class VerifFile:
             # take the 1st word and remove extraneous whitespace.
             md5_cmd = "md5sum "
             if sys.platform == 'darwin':
-                md5_cmd = "md5 "
+                md5_cmd = "md5 -r "
 
             md5_test = sys_cmd(md5_cmd+self.test_file).split(' ')[0].strip()
             md5_base = sys_cmd(md5_cmd+self.baseline_file).split(' ')[0].strip()

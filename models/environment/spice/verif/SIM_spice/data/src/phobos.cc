@@ -37,4 +37,5 @@ void Planet_phobos_default_data::initialize(Planet * Planet_ptr)
     Planet_ptr->r_eq = 12173.74;
     Planet_ptr->r_pol = 9100.0;
 }
+
 } // namespace jeod

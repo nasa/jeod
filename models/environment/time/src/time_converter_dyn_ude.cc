@@ -145,7 +145,6 @@ void TimeConverter_Dyn_UDE::initialize(JeodBaseTime * parent_ptr, JeodBaseTime *
 void TimeConverter_Dyn_UDE::convert_a_to_b()
 {
     ude_ptr->set_time_by_seconds(dyn_ptr->seconds + a_to_b_offset);
-    // ude_ptr->days = ude_ptr->seconds / 86400;
 }
 
 /**

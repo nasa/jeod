@@ -40,4 +40,5 @@ void METAtmosphere_solar_mean_default_data::initialize(METAtmosphere * METAtmosp
     METAtmosphere_ptr->F10 = 128.8;
     METAtmosphere_ptr->F10B = 128.8;
 }
+
 } // namespace jeod

@@ -9,7 +9,7 @@
 #ASSUMPTIONS AND LIMITATIONS:
 #   ((Time is input in UTC.))
 #
-# 
+#
 #*/
 
 def set_Time_epoch(jeod_time) :
@@ -20,26 +20,11 @@ def set_Time_epoch(jeod_time) :
 
   #// Time initialization data.
   #//
-  jeod_time.utc.calendar_year   = 2010
-  jeod_time.utc.calendar_month  =   9
-  jeod_time.utc.calendar_day    =   10
-  jeod_time.utc.calendar_hour   =    0
-  jeod_time.utc.calendar_minute =    0
-  jeod_time.utc.calendar_second =    0.0
+  jeod_time.utc.set_date_and_time(2010, 9, 10, 0, 0, 0.0)
 
-#  jeod_time.utc.calendar_year   = 2000
-#  jeod_time.utc.calendar_month  =   1
-#  jeod_time.utc.calendar_day    =   1
-#  jeod_time.utc.calendar_hour   =    11
-#  jeod_time.utc.calendar_minute =    58
-#  jeod_time.utc.calendar_second =    55.8160000119824
+#  jeod_time.utc.set_date_and_time(2000, 1, 1, 11, 58, 55.8160000119824)
 
-#  jeod_time.utc.calendar_year   = 2005
-#  jeod_time.utc.calendar_month  =   1
-#  jeod_time.utc.calendar_day    =   1
-#  jeod_time.utc.calendar_hour   =    0
-#  jeod_time.utc.calendar_minute =    0
-#  jeod_time.utc.calendar_second =    0
+#  jeod_time.utc.set_date_and_time(2005, 1, 1, 0, 0, 0)
 
   jeod_time.tai.initialize_from_name = "UTC"
   jeod_time.ut1.initialize_from_name = "TAI"

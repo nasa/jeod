@@ -147,7 +147,7 @@ radiation.rad_pressure.initialize(
        In  DynManager       & dyn_mgr        = mngr.dyn_manager,
        In  RadiationSurface * surf_ptr       = &radiation.rad_surface,
        In  double  center_grav[3] =
-                      vehicle.dyn_body.composite_properties.position);
+                      vehicle.dyn_body.mass.composite_properties.position);
 \end{verbatim}
               \item{Default Surface}
 \begin{verbatim}
@@ -168,7 +168,7 @@ radiation.rad_pressure.initialize(
 radiation_simple.rad_pressure.update(
        In  RefFrame & veh_struc_frame = vehicle.dyn_body.structure,
        In  double     center_grav[3]  =
-                             vehicle.dyn_body.composite_properties.position,
+                             vehicle.dyn_body.mass.composite_properties.position,
        In  double     scale_factor    = time.manager.dyn_time.scale_factor);
 \end{verbatim}
 

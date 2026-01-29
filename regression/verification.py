@@ -4,7 +4,7 @@
 #=============================================================================
 # Notices:
 #
-# Copyright 2025 United States Government as represented by the Administrator
+# Copyright 2026 United States Government as represented by the Administrator
 # of the National Aeronautics and Space Administration.  All Rights Reserved.
 #
 #
@@ -57,7 +57,7 @@ def getArgs():
 
     parser = ArgumentParser(description='Build, run, and compare all \
     validation/verification sims as specified in verif_sim_list.py. \
-    Returns zero if all tests pass, nonzero otherwise.'                                                                                                              )
+    Returns zero if all tests pass, nonzero otherwise.')
 
     parser.add_argument( "-a",
                          "--analyze",
@@ -101,6 +101,12 @@ def getArgs():
                          dest="config_file",
                          default=str(os.path.join("regression","verif_sim_list.py")),
                          help="file providing the verification configuration data.")
+
+    parser.add_argument( "-k", 
+                         "--koviz",
+                         dest="kovizPath",
+                         default="koviz",
+                         help="Path to koviz executable")
 
     parser.add_argument( "-L",
                          "--log-dir",
@@ -294,8 +300,9 @@ def main():
     # execute them in parallel
     parallel_runs( exec_jobs, myArgs.cpus)
 
-
-    filesWithExtraTextAtEnd = ["/builds/JEOD/jeod-dev/regression/logs/03_run_info_models__dynamics__dyn_body__verif__SIM_verif_shutdown__RUN_shutdown_without_detach.txt"]
+    filesWithExtraTextAtEnd = [
+        "03_run_info_models__dynamics__dyn_body__verif__SIM_verif_shutdown__RUN_shutdown_without_detach.txt"
+    ]
     rowsOfExtraTextAtEnd = [4]
 
     # assign the status exec_jobs and the corresponding all_exec_runs have
@@ -312,9 +319,9 @@ def main():
             fileList = list(file)
             expectedText = "(External program RAM usage not included!)"
             textRowIndex = 7
-            if job._log_file_name in filesWithExtraTextAtEnd:
-                index = filesWithExtraTextAtEnd.index(job._log_file_name)
-                textRowIndex = textRowIndex + rowsOfExtraTextAtEnd[index]
+            for index, fileName in enumerate(filesWithExtraTextAtEnd):
+                if fileName in job._log_file_name:
+                    textRowIndex = textRowIndex + rowsOfExtraTextAtEnd[index]
             if expectedText not in fileList[-textRowIndex]:
                 run.status = run.Status.RUN_FAIL
                 print("Check contents of " + job._log_file_name)
@@ -546,6 +553,7 @@ def main():
             verif_package.analyze_data( myArgs.logdir,
                                         myArgs.analysis_pattern,
                                         myArgs.cpus,
+                                        myArgs.kovizPath,
                                         myArgs.run_base,
                                         myArgs.verif_base)
 

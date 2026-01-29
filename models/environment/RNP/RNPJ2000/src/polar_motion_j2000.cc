@@ -121,7 +121,7 @@ void PolarMotionJ2000::update_rotation()
                     index_in_table = i;
                     break;
                 } // if(time < polar_mjd)
-            }     // for(unsigned int i = 0)
+            } // for(unsigned int i = 0)
 
             xp = xp_tbl[index_in_table] +
                  (xp_tbl[index_in_table + 1] - xp_tbl[index_in_table]) *
@@ -132,7 +132,7 @@ void PolarMotionJ2000::update_rotation()
                      ((time - polar_mjd[index_in_table]) / (polar_mjd[index_in_table + 1] - polar_mjd[index_in_table]));
 
         } // else
-    }     // if(!override_table)
+    } // if(!override_table)
 
     /* The original version which used small angle approximations
     has been replaced by the exact trigonometric solution per #713 */

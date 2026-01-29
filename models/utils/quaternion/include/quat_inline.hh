@@ -1,7 +1,7 @@
 //=============================================================================
 // Notices:
 //
-// Copyright © 2025 United States Government as represented by the Administrator
+// Copyright © 2026 United States Government as represented by the Administrator
 // of the National Aeronautics and Space Administration.  All Rights Reserved.
 //
 //
@@ -496,9 +496,9 @@ inline void Quaternion::compute_left_quat_deriv(const double quat[4], const doub
 {
     double mhang_vel[3]; // r/s -0.5 * ang_vel
     Vector3::scale(ang_vel, -0.5, mhang_vel);
-    qdot[0] = -Vector3::dot((quat + 1), mhang_vel);
-    Vector3::scale(mhang_vel, quat[0], (qdot + 1));
-    Vector3::cross_incr(mhang_vel, (quat + 1), (qdot + 1));
+    qdot[0] = -Vector3::dot(quat + 1, mhang_vel);
+    Vector3::scale(mhang_vel, quat[0], qdot + 1);
+    Vector3::cross_incr(mhang_vel, quat + 1, qdot + 1);
 }
 
 /**
@@ -518,10 +518,10 @@ inline void Quaternion::compute_left_quat_second_deriv(const double quat[4],
 
     Vector3::scale(ang_acc, -0.5, mhacc);
 
-    qddot[0] = mhwsq * quat[0] - Vector3::dot(mhacc, (quat + 1));
-    Vector3::scale((quat + 1), mhwsq, (qddot + 1));
-    Vector3::scale_incr(mhacc, quat[0], (qddot + 1));
-    Vector3::cross_incr(mhacc, (quat + 1), (qddot + 1));
+    qddot[0] = mhwsq * quat[0] - Vector3::dot(mhacc, quat + 1);
+    Vector3::scale(quat + 1, mhwsq, qddot + 1);
+    Vector3::scale_incr(mhacc, quat[0], qddot + 1);
+    Vector3::cross_incr(mhacc, quat + 1, qddot + 1);
 }
 
 } // namespace jeod

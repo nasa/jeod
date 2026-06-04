@@ -91,6 +91,8 @@ surface_model.surf_fact2.add_facet_params(fpparams2)
 surface_model.inter1.interaction_number = 24601
 surface_model.inter2.interaction_name = "demonstration interaction"
 
+trick.terminate_on_event_parse_error(True)
+trick.add_read(0.0,"surface_model.inter_surface1.demo_facets[0][0]") # For testing
+trick.add_read(0.0,"surface_model.inter_surface2.demo_facets[0][0]") # For testing
 
 trick.exec_set_terminate_time(0.1)
-

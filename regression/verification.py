@@ -102,7 +102,7 @@ def getArgs():
                          default=str(os.path.join("regression","verif_sim_list.py")),
                          help="file providing the verification configuration data.")
 
-    parser.add_argument( "-k", 
+    parser.add_argument( "-k",
                          "--koviz",
                          dest="kovizPath",
                          default="koviz",
@@ -166,6 +166,13 @@ def getArgs():
                          dest="cidiff_file",
                          default="",
                          help="CI diff file. if this argument is defined, the models to be tested will be overwritten by the information in the file.")
+
+    parser.add_argument( "-d",
+                         "--data-store",
+                         dest = "data_store",
+                         help = "Store data with diffs in artifacts.",
+                         action = "store_true",
+                         default = False)
 
     return parser, parser.parse_args()
 
@@ -555,7 +562,8 @@ def main():
                                         myArgs.cpus,
                                         myArgs.kovizPath,
                                         myArgs.run_base,
-                                        myArgs.verif_base)
+                                        myArgs.verif_base,
+                                        myArgs.data_store)
 
     ############################################################################
     # return:

@@ -158,7 +158,8 @@ class VerifPackage:
                       num_cpus,
                       koviz_path = 'koviz',
                       run_base = '',
-                      verif_base = ''):
+                      verif_base = '',
+                      data_store = False):
 
         JEOD_HOME = os.getenv("JEOD_HOME")
         if JEOD_HOME is None:
@@ -195,7 +196,8 @@ class VerifPackage:
                           " -s "+test_path  + \
                           " -o "+logdir+"/04_data_comp_log_"+sim.unique_id+".txt" + \
                           " -k " + koviz_path
-
+                if data_store:
+                    command = command + " -d "
                 job  = Job( "DATA_COMP_"+sim.unique_id,
                             command,
                             logdir+"/04_data_comp_std_"+sim.unique_id+".txt",

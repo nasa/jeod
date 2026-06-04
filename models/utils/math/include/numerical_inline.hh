@@ -56,6 +56,9 @@ Purpose:
 #ifndef JEOD_NUMERICAL_INLINE_H
 #define JEOD_NUMERICAL_INLINE_H
 
+// System includes
+#include <cstring>
+
 // JEOD includes
 #include "numerical.hh"
 
@@ -122,7 +125,11 @@ inline double Numerical::square_incr(double value, double & sum)
  */
 inline bool Numerical::compare_exact(double x, double y)
 {
-    return *((long long *)&x) == *((long long *)&y); // cppcheck-suppress invalidPointerCast
+    long long xll;
+    long long yll;
+    std::memcpy(&xll, &x, sizeof(x));
+    std::memcpy(&yll, &y, sizeof(y));
+    return xll == yll;
 }
 
 } // namespace jeod

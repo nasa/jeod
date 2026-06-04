@@ -121,8 +121,7 @@ void DynBodyInitLvlhState::apply(DynManager & dyn_manager)
         Vector3::copy(velocity, circ_rel_state.trans.velocity);
 
         orientation.compute_transform();
-        Matrix3x3::copy(orientation.trans, circ_rel_state.rot.T_parent_this);
-        circ_rel_state.rot.compute_quaternion();
+        circ_rel_state.rot.update_orientation(orientation.trans);
 
         Vector3::copy(ang_velocity, circ_rel_state.rot.ang_vel_this);
         circ_rel_state.rot.compute_ang_vel_products();
@@ -136,9 +135,7 @@ void DynBodyInitLvlhState::apply(DynManager & dyn_manager)
         Vector3::copy(lvlh_state.rel_state.trans.velocity, velocity);
         Vector3::copy(lvlh_state.rel_state.rot.ang_vel_this, ang_velocity);
 
-        Matrix3x3::copy(lvlh_state.rel_state.rot.T_parent_this, orientation.trans);
-
-        orientation.quat = lvlh_state.rel_state.rot.Q_parent_this;
+        orientation.copy_orientation(lvlh_state.rel_state.rot);
 
         if(orientation.euler_sequence == Orientation::NoSequence)
         {

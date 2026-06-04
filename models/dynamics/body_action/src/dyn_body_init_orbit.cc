@@ -238,11 +238,10 @@ void DynBodyInitOrbit::apply(DynManager & dyn_manager)
                 double ksint = std::sqrt(1.0 - ecc_sq) * esinE;
                 true_anomaly = std::atan2(ksint, kcost);
             }
-
-            // Circular orbit: Set the true anomaly to zero.
+            // Circular orbit: Set the true anomaly to the argument of latitude, per convention (Vallado).
             else
             {
-                true_anomaly = 0.0;
+                true_anomaly = arg_latitude;
             }
 
             // Compute the argument of periapsis.

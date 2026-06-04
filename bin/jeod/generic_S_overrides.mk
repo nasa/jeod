@@ -1,5 +1,5 @@
 # Generic S_overrides makefile for all sims
-# This sets the trick compilation flags with C++11 and builds the JEOD libs
+# This sets the trick compilation flags and builds the JEOD libs
 # as needed or utilizes the 'trickified' simulation option.
 # To invoke this option, build with
 #   trick-CP TRICKIFIED=1 [other options]
@@ -11,7 +11,7 @@
 
 # Set Trick compilation flags
 TRICK_CFLAGS += -Wall -I${JEOD_HOME}/models
-TRICK_CXXFLAGS += -std=c++11 -Wall -I${JEOD_HOME}/models
+TRICK_CXXFLAGS += -Wall -I${JEOD_HOME}/models
 TRICK_SFLAGS +=-I${JEOD_HOME}/lib/jeod/JEOD_S_modules
 TRICK_SFLAGS +=-I${JEOD_HOME}/lib/jeod
 

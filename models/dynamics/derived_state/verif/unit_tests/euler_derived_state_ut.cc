@@ -134,13 +134,9 @@ TEST(EulerDerivedState, update)
         };
         EulerDerivedStateTest staticInst;
         staticInst.subject = &mockDynBody;
-        for(int ii = 0; ii < 3; ++ii)
-        {
-            for(int jj = 0; jj < 3; ++jj)
-            {
-                mockDynBody.composite_body.state.rot.T_parent_this[ii][jj] = matrix[ii][jj];
-            }
-        }
+
+        Matrix3x3::copy(matrix, mockDynBody.composite_body.state.rot.T_parent_this);
+
         staticInst.update();
         for(int ii = 0; ii < 3; ++ii)
         {
@@ -177,13 +173,8 @@ TEST(EulerDerivedState, update)
 
         refFrame.add_child(mockDynBody.composite_body);
 
-        for(int ii = 0; ii < 3; ++ii)
-        {
-            for(int jj = 0; jj < 3; ++jj)
-            {
-                mockDynBody.composite_body.state.rot.T_parent_this[ii][jj] = matrix[ii][jj];
-            }
-        }
+        Matrix3x3::copy(matrix, mockDynBody.composite_body.state.rot.T_parent_this);
+
         staticInst.update();
         for(int ii = 0; ii < 3; ++ii)
         {
@@ -222,13 +213,8 @@ TEST(EulerDerivedState, update)
         refFrame.add_child(refFrame2);
         refFrame2.add_child(mockDynBody.composite_body);
 
-        for(int ii = 0; ii < 3; ++ii)
-        {
-            for(int jj = 0; jj < 3; ++jj)
-            {
-                mockDynBody.composite_body.state.rot.T_parent_this[ii][jj] = matrix[ii][jj];
-            }
-        }
+        Matrix3x3::copy(matrix, mockDynBody.composite_body.state.rot.T_parent_this);
+
         staticInst.update();
         for(int ii = 0; ii < 3; ++ii)
         {

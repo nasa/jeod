@@ -57,15 +57,7 @@ void BasePlanet::set_alt_inertial(const double trans[3][3])
     }
     alt_inertial_set = true;
 
-    for(unsigned ii = 0; ii < 3; ++ii)
-    {
-        for(unsigned jj = 0; jj < 3; ++jj)
-        {
-            alt_inertial.state.rot.T_parent_this[ii][jj] = trans[ii][jj];
-        }
-    }
-
-    alt_inertial.state.rot.compute_quaternion();
+    alt_inertial.state.rot.update_orientation(trans);
 }
 
 /**
@@ -128,9 +120,9 @@ void BasePlanet::get_alt_pfix(double alt_pfix_trans[3][3])
  */
 void BasePlanet::calculate_alt_pfix()
 {
-    Matrix3x3::product(alt_pfix_transform, pfix.state.rot.T_parent_this, alt_pfix.state.rot.T_parent_this);
-
-    alt_pfix.state.rot.compute_quaternion();
+    double T_temp[3][3];
+    Matrix3x3::product(alt_pfix_transform, pfix.state.rot.T_parent_this, T_temp);
+    alt_pfix.state.rot.update_orientation(T_temp);
 }
 
 /**

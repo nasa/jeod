@@ -38,6 +38,7 @@ Library dependencies:
 #include "utils/math/include/matrix3x3.hh"
 #include "utils/math/include/vector3.hh"
 #include "utils/message/include/message_handler.hh"
+#include "utils/ref_frames/include/ref_frame_state.hh"
 
 // Model includes
 #include "../include/orientation.hh"
@@ -714,6 +715,15 @@ void Orientation::clear_euler_sequence()
 
     have_euler_angles_ = false;
     euler_sequence = NoSequence;
+}
+
+/**
+ * Copy the orientation of the RefFrameRot source to this.
+ */
+void Orientation::copy_orientation(const RefFrameRot & source)
+{
+    Matrix3x3::copy(source.T_parent_this, trans);
+    quat = source.Q_parent_this;
 }
 
 } // namespace jeod

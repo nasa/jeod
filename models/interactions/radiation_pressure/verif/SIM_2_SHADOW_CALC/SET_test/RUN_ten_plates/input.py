@@ -56,4 +56,7 @@ vehicle.dyn_body.structure.state.rot.T_parent_this[2]  = [ 0, 0, 1]
 exec(compile(open( "Modified_data/radiation_surface_v2.py", "rb").read(), "Modified_data/radiation_surface_v2.py", 'exec'))
 exec(compile(open( "Modified_data/third_bodies.py", "rb").read(), "Modified_data/third_bodies.py", 'exec'))
 
+trick.terminate_on_event_parse_error(True)
+trick.add_read(0.0,"radiation.rad_surface.facets[0][0]") # For testing
+
 trick.sim_services.exec_set_terminate_time(1000)

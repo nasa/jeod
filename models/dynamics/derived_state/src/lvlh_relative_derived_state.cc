@@ -173,13 +173,14 @@ void LvlhRelativeDerivedState::convert_rect_to_circ(const RefFrameState & rect_r
 
     // Adjust subject_vehicle's RLVLH attitude by
     // the phase angle as well to get the corresponding CLVLH values
-    Matrix3x3::product_right_transpose(rect_rel_state.rot.T_parent_this, xform_rect2curvi, rel_state.rot.T_parent_this);
+    double T_temp[3][3];
+    Matrix3x3::product_right_transpose(rect_rel_state.rot.T_parent_this, xform_rect2curvi, T_temp);
+    rel_state.rot.update_orientation(T_temp);
 
     // Account for the rotation of the rectilinear LVLH frame
     Vector3::copy(rect_rel_state.rot.ang_vel_this, rel_state.rot.ang_vel_this);
     // Correct the angular velocity to account for theta dot
     do_theta_dot_correction(rel_state.rot.ang_vel_this, rect_rel_state, reference_radius, false);
-    rel_state.rot.compute_quaternion();
     rel_state.rot.compute_ang_vel_products();
 }
 
@@ -251,12 +252,11 @@ void LvlhRelativeDerivedState::convert_circ_to_rect(const RefFrameState & curvi_
 
     // Adjust subject_vehicle's CLVLH attitude by
     // the phase angle as well to get the corresponding RLVLH value
-    Matrix3x3::product_right_transpose(curvi_rel_state.rot.T_parent_this,
-                                       xform_curvi2rect,
-                                       rel_state.rot.T_parent_this);
+    double T_temp[3][3];
+    Matrix3x3::product_right_transpose(curvi_rel_state.rot.T_parent_this, xform_curvi2rect, T_temp);
+    rel_state.rot.update_orientation(T_temp);
     Vector3::copy(curvi_rel_state.rot.ang_vel_this, rel_state.rot.ang_vel_this);
     do_theta_dot_correction(rel_state.rot.ang_vel_this, rel_state, reference_radius, true);
-    rel_state.rot.compute_quaternion();
     rel_state.rot.compute_ang_vel_products();
 }
 

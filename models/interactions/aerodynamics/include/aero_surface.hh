@@ -70,13 +70,13 @@ Library dependencies:
 #include "utils/surface_model/include/interaction_surface.hh"
 
 // Model includes
+#include "../include/aero_facet.hh"
 
 //! Namespace jeod
 namespace jeod
 {
 
 class Facet;
-class AeroFacet;
 class InteractionFacetFactory;
 
 /**

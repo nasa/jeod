@@ -98,7 +98,7 @@ MassBody::MassBody()
     // Note: This statement could be omitted as the MassPointState constructor
     // initializes the transformation matrix to identity.
     // The initialization is intentionally replicated here intentionally.
-    Matrix3x3::identity(core_wrt_composite.T_parent_this);
+    core_wrt_composite.init_orientation();
 }
 
 /**
@@ -131,7 +131,7 @@ MassBody::MassBody(DynBody & owner)
     // Note: This statement could be omitted as the MassPointState constructor
     // initializes the transformation matrix to identity.
     // The initialization is intentionally replicated here intentionally.
-    Matrix3x3::identity(core_wrt_composite.T_parent_this);
+    core_wrt_composite.init_orientation();
 }
 
 /**
@@ -199,8 +199,7 @@ void MassBody::initialize_mass(const MassPropertiesInit & properties, const std:
     mass_properties_initialized = true;
 
     // The core and composite frames have the same alignment wrt structure.
-    composite_properties.Q_parent_this = core_properties.Q_parent_this;
-    Matrix3x3::copy(core_properties.T_parent_this, composite_properties.T_parent_this);
+    composite_properties.copy_orientation(core_properties);
 
     // Add the mass points.
     for(size_t ii = 0; ii < points.size(); ii++)

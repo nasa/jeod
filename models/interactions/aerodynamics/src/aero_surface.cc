@@ -38,7 +38,6 @@ Library dependencies:
 #include "utils/surface_model/include/interaction_facet_factory.hh"
 
 // Model includes
-#include "../include/aero_facet.hh"
 #include "../include/aero_surface.hh"
 #include "../include/aerodynamics_messages.hh"
 

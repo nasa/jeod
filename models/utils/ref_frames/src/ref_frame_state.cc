@@ -27,6 +27,7 @@
 #include <cmath>
 
 // JEOD includes
+#include "dynamics/mass/include/mass_point_state.hh"
 #include "utils/math/include/matrix3x3.hh"
 #include "utils/math/include/numerical.hh"
 #include "utils/math/include/vector3.hh"
@@ -187,8 +188,8 @@ void RefFrameState::negate(const RefFrameState & source)
     // This only needs to be performed for nontrivial transformation matrices.
     if(!Numerical::compare_exact(source.rot.Q_parent_this.scalar, 1.0))
     {
-        source.rot.Q_parent_this.conjugate(rot.Q_parent_this);
         Matrix3x3::transpose(source.rot.T_parent_this, rot.T_parent_this);
+        source.rot.Q_parent_this.conjugate(rot.Q_parent_this);
         Vector3::transform_transpose(rot.T_parent_this, source.trans.position, trans.position);
         Vector3::transform_transpose(rot.T_parent_this, source.trans.velocity, trans.velocity);
     }
@@ -267,11 +268,9 @@ void RefFrameState::incr_left(const RefFrameState & s_ab)
     if(!Numerical::compare_exact(s_ab.rot.Q_parent_this.scalar, 1.0))
     {
         // Compute Q_A:C = Q_B:C * Q_A:B (and then normalize result)
-        rot.Q_parent_this.multiply(s_ab.rot.Q_parent_this);
-        rot.Q_parent_this.normalize();
-
-        // Compute the corresponding transformation matrix.
-        rot.compute_transformation();
+        Quaternion Q_temp = rot.Q_parent_this;
+        Q_temp.multiply(s_ab.rot.Q_parent_this);
+        rot.update_orientation(Q_temp);
 
         // Compute v_B->C:A = T_A:B^T * (v_B:C + w_a:B X x_B:C)
         // Note: This must be performed prior to computing the position
@@ -365,11 +364,9 @@ void RefFrameState::incr_right(const RefFrameState & s_bc)
         Vector3::transform_transpose_incr(rot.T_parent_this, v_bc_in_b_obs_a, trans.velocity);
 
         // Compute Q_A:C = Q_B:C * Q_A:B (and then normalize result)
-        rot.Q_parent_this.multiply_left(s_bc.rot.Q_parent_this);
-        rot.Q_parent_this.normalize();
-
-        // Compute the corresponding transformation matrix.
-        rot.compute_transformation();
+        Quaternion Q_temp = rot.Q_parent_this;
+        Q_temp.multiply_left(s_bc.rot.Q_parent_this);
+        rot.update_orientation(Q_temp);
     }
 
     // Shortcuts for the case T_A:B is identity.
@@ -411,11 +408,9 @@ void RefFrameState::decr_left(const RefFrameState & s_ab)
     if(!Numerical::compare_exact(s_ab.rot.Q_parent_this.scalar, 1.0))
     {
         // Compute Q_B:C = Q_A:C * Q_A:B^Q
-        rot.Q_parent_this.multiply_conjugate(s_ab.rot.Q_parent_this);
-        rot.Q_parent_this.normalize();
-
-        // Compute the corresponding transformation matrix.
-        rot.compute_transformation();
+        Quaternion Q_temp = rot.Q_parent_this;
+        Q_temp.multiply_conjugate(s_ab.rot.Q_parent_this);
+        rot.update_orientation(Q_temp);
 
         // Compute x_B:C and v_B:C.
         // Note that x_B:C must be computed before v_B:C as V_B:C depends on
@@ -474,9 +469,9 @@ void RefFrameState::decr_right(const RefFrameState & s_bc)
     // Shortcut: only do the transformations if T_B:C is not the identity matrix.
     if(!Numerical::compare_exact(s_bc.rot.Q_parent_this.scalar, 1.0))
     {
-        rot.Q_parent_this.multiply_left_conjugate(s_bc.rot.Q_parent_this);
-        rot.Q_parent_this.normalize();
-        rot.compute_transformation();
+        Quaternion Q_temp = rot.Q_parent_this;
+        Q_temp.multiply_left_conjugate(s_bc.rot.Q_parent_this);
+        rot.update_orientation(Q_temp);
 
         Vector3::decr(s_bc.rot.ang_vel_this, rot.ang_vel_this);
         Vector3::transform_transpose(s_bc.rot.T_parent_this, rot.ang_vel_this);
@@ -512,6 +507,26 @@ void RefFrameState::decr_right(const RefFrameState & s_bc)
         Vector3::decr(s_bc.trans.position, trans.position);
         Vector3::decr(v_bc_in_b_obs_a, trans.velocity);
     }
+}
+
+/**
+ * Copy the orientation of a source MassPointState.
+ * \param[in] source Source state
+ */
+void RefFrameRot::copy_orientation(const MassPointState & source)
+{
+    Matrix3x3::copy(source.T_parent_this, T_parent_this);
+    Q_parent_this = source.Q_parent_this;
+}
+
+/**
+ * Copy the position and orientation of a source MassPointState.
+ * \param[in] source Source state
+ */
+void RefFrameState::copy_position_orientation(const MassPointState & source)
+{
+    Vector3::copy(source.position, trans.position);
+    rot.copy_orientation(source);
 }
 
 } // namespace jeod

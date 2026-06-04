@@ -193,14 +193,13 @@ void PlanetRNP::propagate_rnp()
     // that into the final number and return the function
     if(rnp_type == RotationOnly)
     {
-        Matrix3x3::transpose(rotation->rotation, planet_rot_state->T_parent_this);
-        // set the rotational velocity components, and calculate the quaternion
-        // from the already set transformation matrix
+        double T_temp[3][3]{};
+        Matrix3x3::transpose(rotation->rotation, T_temp);
+        planet_rot_state->update_orientation(T_temp);
         planet_rot_state->ang_vel_this[0] = 0;
         planet_rot_state->ang_vel_this[1] = 0;
         planet_rot_state->ang_vel_this[2] = planet_omega;
         planet_rot_state->compute_ang_vel_products();
-        planet_rot_state->compute_quaternion();
         return;
     }
     // If it's a full fidelity RNP, calculate NP
@@ -237,7 +236,9 @@ void PlanetRNP::propagate_rnp()
     // in "update_rnp"
     if((rnp_type == FullRNP) || (rnp_type == ConstantNP))
     {
-        Matrix3x3::product(scratch_matrix, NP_matrix, planet_rot_state->T_parent_this);
+        double T_temp[3][3];
+        Matrix3x3::product(scratch_matrix, NP_matrix, T_temp);
+        planet_rot_state->update_orientation(T_temp);
     }
 
     // set the rotational velocity components, and calculate the quaternion
@@ -246,7 +247,6 @@ void PlanetRNP::propagate_rnp()
     planet_rot_state->ang_vel_this[1] = 0;
     planet_rot_state->ang_vel_this[2] = planet_omega;
     planet_rot_state->compute_ang_vel_products();
-    planet_rot_state->compute_quaternion();
 }
 
 } // namespace jeod

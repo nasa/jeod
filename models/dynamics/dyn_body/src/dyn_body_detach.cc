@@ -141,6 +141,7 @@ bool DynBody::detach()
     if(frame_attach.isAttached())
     {
         frame_attach.clear_attachment();
+        success = true;
     }
     else if(dyn_parent != nullptr && dyn_parent != this)
     {

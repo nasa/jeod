@@ -114,16 +114,17 @@ void NorthEastDown::build_ned_orientation()
     }
 
     // Construct the NED frame's orientation
-    ned_frame.state.rot.T_parent_this[0][0] = -sinlat * coslon;
-    ned_frame.state.rot.T_parent_this[0][1] = -sinlat * sinlon;
-    ned_frame.state.rot.T_parent_this[0][2] = coslat;
-    ned_frame.state.rot.T_parent_this[1][0] = -sinlon;
-    ned_frame.state.rot.T_parent_this[1][1] = coslon;
-    ned_frame.state.rot.T_parent_this[1][2] = 0;
-    ned_frame.state.rot.T_parent_this[2][0] = -coslat * coslon;
-    ned_frame.state.rot.T_parent_this[2][1] = -coslat * sinlon;
-    ned_frame.state.rot.T_parent_this[2][2] = -sinlat;
-    ned_frame.state.rot.compute_quaternion();
+    double T_temp[3][3];
+    T_temp[0][0] = -sinlat * coslon;
+    T_temp[0][1] = -sinlat * sinlon;
+    T_temp[0][2] = coslat;
+    T_temp[1][0] = -sinlon;
+    T_temp[1][1] = coslon;
+    T_temp[1][2] = 0;
+    T_temp[2][0] = -coslat * coslon;
+    T_temp[2][1] = -coslat * sinlon;
+    T_temp[2][2] = -sinlat;
+    ned_frame.state.rot.update_orientation(T_temp);
     Vector3::initialize(ned_frame.state.rot.ang_vel_this);
     ned_frame.state.rot.ang_vel_mag = 0.0;
 }

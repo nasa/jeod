@@ -171,5 +171,7 @@ veh2_dyn.rot_init.ang_velocity            = [ 0.0,   0.0,   0.0]
 dynamics.dyn_manager.add_body_action(veh2_dyn.trans_init)
 dynamics.dyn_manager.add_body_action(veh2_dyn.rot_init)
 
+trick.terminate_on_event_parse_error(True)
+trick.add_read(0.0,"veh1_dyn.contact_surface.contact_facets[0][0]") # For testing
 
 trick.sim_services.exec_set_terminate_time(10)

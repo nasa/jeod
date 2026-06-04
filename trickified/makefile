@@ -21,8 +21,7 @@ export TRICKIFY_PYTHON_DIR := python_${TRICK_HOST_CPU}
 export TRICKIFY_OBJECT_NAME := trickified_jeod_${TRICK_HOST_CPU}.o
 export TRICKIFY_CXX_FLAGS := \
     -I${JEOD_HOME}/models \
-    -I${TRICK_HOME}/trick_source \
-    -std=c++11
+    -I${TRICK_HOME}/trick_source
 
 ifdef JEOD_SPICE_DIR
     TRICKIFY_CXX_FLAGS += -DJEOD_SPICE_DIR=${JEOD_SPICE_DIR}

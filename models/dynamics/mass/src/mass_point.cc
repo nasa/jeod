@@ -195,9 +195,7 @@ void MassPoint::compute_state_wrt_pred(unsigned int ref_point_index, MassPointSt
         //   r_B->C:B = vector from frame B origin to frame C origin
         //   T_B:C    = transform from frame B to frame C
         // Frame B = parent, frame C = point frame
-        Vector3::copy(position, rel_state.position);
-        Matrix3x3::copy(T_parent_this, rel_state.T_parent_this);
-        rel_state.Q_parent_this = Q_parent_this;
+        rel_state.copy_state(*this);
 
         // Walk up the tree, accumulating offsets and transforms.
         for(auto * link :
@@ -211,9 +209,9 @@ void MassPoint::compute_state_wrt_pred(unsigned int ref_point_index, MassPointSt
 
             // T_A:C = T_B:C * T_A:B
             // Q_A:C = Q_B:C * Q_A:B
-            rel_state.Q_parent_this.multiply(node.Q_parent_this);
-            rel_state.Q_parent_this.normalize();
-            rel_state.compute_transformation();
+            Quaternion Q_temp = rel_state.Q_parent_this;
+            Q_temp.multiply(node.Q_parent_this);
+            rel_state.update_orientation(Q_temp);
         }
     }
 }
@@ -269,10 +267,7 @@ void MassPoint::compute_pred_rel_state(unsigned int ref_point_index, MassPointSt
         // Reverse the current state to form the parent state wrt the point.
         //   T_C:B    = T_B:C^T
         //   r_C->B:C = - r_B->C:C = - T_B:C * r_B->C:B
-        Vector3::transform(T_parent_this, position, rel_state.position);
-        Vector3::negate(rel_state.position);
-        Matrix3x3::transpose(T_parent_this, rel_state.T_parent_this);
-        Q_parent_this.conjugate(rel_state.Q_parent_this);
+        rel_state.negate(*this);
 
         // Walk up the tree, accumulating offsets and transforms.
         for(auto * link :
@@ -282,9 +277,9 @@ void MassPoint::compute_pred_rel_state(unsigned int ref_point_index, MassPointSt
 
             // T_C:A = T_B:A * T_C:B = T_A:B^T * T_C:B
             // Q_C:A = Q_B:A * Q_C:B = Q_A:B^T * Q_C:B
-            rel_state.Q_parent_this.multiply_left_conjugate(node.Q_parent_this);
-            rel_state.Q_parent_this.normalize();
-            rel_state.compute_transformation();
+            Quaternion Q_temp = rel_state.Q_parent_this;
+            Q_temp.multiply_left_conjugate(node.Q_parent_this);
+            rel_state.update_orientation(Q_temp);
 
             // r_C->A:C = r_C->B:C + r_B->A:C
             //   = r_C->B:C - r_A->B:C

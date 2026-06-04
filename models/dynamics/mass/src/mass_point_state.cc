@@ -53,8 +53,7 @@ void MassPointState::initialize_mass_point()
 {
     // Set location is the zero vector, transformation to the identity matrix.
     Vector3::initialize(position);
-    Matrix3x3::identity(T_parent_this);
-    Q_parent_this.make_identity();
+    init_orientation();
 }
 
 /*******************************************************************************
@@ -123,25 +122,67 @@ void MassPointState::negate(const MassPointState & source)
     //   T_B:A =   T_A:B^T
     //   x_B:A = - (T_A:B * x_A:B)
 
-    // Transform the matrix and translational state to the alternate frame.
+    negate_orientation(source);
+
+    // Transform the translational state to the alternate frame.
     // This only needs to be performed for nontrivial transformation matrices.
     if(!Numerical::compare_exact(source.Q_parent_this.scalar, 1.0))
     {
-        source.Q_parent_this.conjugate(Q_parent_this);
-        Matrix3x3::transpose(source.T_parent_this, T_parent_this);
         Vector3::transform_transpose(T_parent_this, source.position, position);
     }
-
-    // Identity transform: Just copy position.
     else
     {
-        Matrix3x3::identity(T_parent_this);
-        Q_parent_this.make_identity();
         Vector3::copy(source.position, position);
     }
 
     // The above made the position have the wrong sign. Fix that.
     Vector3::negate(position);
+}
+
+/*******************************************************************************
+  Function: negate_orientation
+  Purpose: (Copy an orientation, negated.)
+  Class: (N/A)
+*******************************************************************************/
+void MassPointState::negate_orientation(const MassPointState & source)
+{
+    // Relevant equations:
+    //   T_B:A =   T_A:B^T
+
+    // Transform the matrix.
+    // This only needs to be performed for nontrivial transformation matrices.
+    if(!Numerical::compare_exact(source.Q_parent_this.scalar, 1.0))
+    {
+        Matrix3x3::transpose(source.T_parent_this, T_parent_this);
+        source.Q_parent_this.conjugate(Q_parent_this);
+    }
+    else
+    {
+        init_orientation();
+    }
+}
+
+/*******************************************************************************
+  Function: negate_orientation
+  Purpose: (Copy an orientation, negated.)
+  Class: (N/A)
+*******************************************************************************/
+void MassPointState::negate_orientation(const Orientation & source)
+{
+    // Relevant equations:
+    //   T_B:A =   T_A:B^T
+
+    // Transform the matrix.
+    // This only needs to be performed for nontrivial transformation matrices.
+    if(!Numerical::compare_exact(source.quat.scalar, 1.0))
+    {
+        Matrix3x3::transpose(source.trans, T_parent_this);
+        source.quat.conjugate(Q_parent_this);
+    }
+    else
+    {
+        init_orientation();
+    }
 }
 
 /**
@@ -169,11 +210,9 @@ void MassPointState::incr_left(const MassPointState & s_ab)
     if(!Numerical::compare_exact(s_ab.Q_parent_this.scalar, 1.0))
     {
         // Compute Q_A:C = Q_B:C * Q_A:B (and then normalize result)
-        Q_parent_this.multiply(s_ab.Q_parent_this);
-        Q_parent_this.normalize();
-
-        // Compute the corresponding transformation matrix.
-        compute_transformation();
+        Quaternion Q_temp = Q_parent_this;
+        Q_temp.multiply(s_ab.Q_parent_this);
+        update_orientation(Q_temp);
 
         // Transform x_B:C to frame A.
         Vector3::transform_transpose(s_ab.T_parent_this, position);
@@ -214,18 +253,14 @@ void MassPointState::incr_right(const MassPointState & s_bc)
         Vector3::transform_transpose_incr(T_parent_this, s_bc.position, position);
 
         // Compute Q_A:C = Q_B:C * Q_A:B (and then normalize result)
-        Q_parent_this.multiply_left(s_bc.Q_parent_this);
-        Q_parent_this.normalize();
-
-        // Compute the corresponding transformation matrix.
-        compute_transformation();
+        Quaternion Q_temp = Q_parent_this;
+        Q_temp.multiply_left(s_bc.Q_parent_this);
+        update_orientation(Q_temp);
     }
-
     // Shortcuts for the case T_A:B is identity.
     else
     {
-        Q_parent_this = s_bc.Q_parent_this;
-        Matrix3x3::copy(s_bc.T_parent_this, T_parent_this);
+        copy_orientation(s_bc);
         Vector3::incr(s_bc.position, position);
     }
 }
@@ -255,11 +290,9 @@ void MassPointState::decr_left(const MassPointState & s_ab)
     if(!Numerical::compare_exact(s_ab.Q_parent_this.scalar, 1.0))
     {
         // Compute Q_B:C = Q_A:C * Q_A:B^Q
-        Q_parent_this.multiply_conjugate(s_ab.Q_parent_this);
-        Q_parent_this.normalize();
-
-        // Compute the corresponding transformation matrix.
-        compute_transformation();
+        Quaternion Q_temp = Q_parent_this;
+        Q_temp.multiply_conjugate(s_ab.Q_parent_this);
+        update_orientation(Q_temp);
 
         // Compute x_B:C.
         Vector3::decr(s_ab.position, position);
@@ -296,9 +329,9 @@ void MassPointState::decr_right(const MassPointState & s_bc)
     // Shortcut: only do the transformations if T_B:C is not the identity matrix.
     if(!Numerical::compare_exact(s_bc.Q_parent_this.scalar, 1.0))
     {
-        Q_parent_this.multiply_left_conjugate(s_bc.Q_parent_this);
-        Q_parent_this.normalize();
-        compute_transformation();
+        Quaternion Q_temp = Q_parent_this;
+        Q_temp.multiply_left_conjugate(s_bc.Q_parent_this);
+        update_orientation(Q_temp);
 
         // No else. T_A:B = T_A:C as T_B:C is identity.
     }

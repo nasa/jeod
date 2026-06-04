@@ -129,12 +129,20 @@ inline RefFrameRot::RefFrameRot(const RefFrameRot & source)
 }
 
 /**
+ * Initialize a RefFrameRot orientation to identity.
+ */
+inline void RefFrameRot::init_orientation()
+{
+    Matrix3x3::identity(T_parent_this);
+    Q_parent_this.make_identity();
+}
+
+/**
  * Initialize a RefFrameRot to a null offset.
  */
 inline void RefFrameRot::initialize()
 {
-    Q_parent_this.make_identity();
-    Matrix3x3::identity(T_parent_this);
+    init_orientation();
     Vector3::initialize(ang_vel_this);
     Vector3::initialize(ang_vel_unit);
     ang_vel_mag = 0.0;
@@ -146,11 +154,20 @@ inline void RefFrameRot::initialize()
  */
 inline void RefFrameRot::copy(const RefFrameRot & source)
 {
-    Q_parent_this = source.Q_parent_this;
-    Matrix3x3::copy(source.T_parent_this, T_parent_this);
+    copy_orientation(source);
     Vector3::copy(source.ang_vel_this, ang_vel_this);
     Vector3::copy(source.ang_vel_unit, ang_vel_unit);
     ang_vel_mag = source.ang_vel_mag;
+}
+
+/**
+ * Copy the orientation of a RefFrameRot from a source RefFrameRot.
+ * \param[in] source RefFrameRot state
+ */
+inline void RefFrameRot::copy_orientation(const RefFrameRot & source)
+{
+    Matrix3x3::copy(source.T_parent_this, T_parent_this);
+    Q_parent_this = source.Q_parent_this;
 }
 
 /**
@@ -197,6 +214,41 @@ inline void RefFrameRot::compute_ang_vel_products()
 }
 
 /**
+ * Set the transformation matrix and update the quaternion.
+ * \param[in] source transformation matrix
+ */
+inline void RefFrameRot::update_orientation(const double transformation[3][3])
+{
+    Matrix3x3::copy(transformation, T_parent_this);
+    compute_quaternion();
+}
+
+/**
+ * Set the quaternion and update the transformation matrix.
+ * \param[in] source Quaternion
+ */
+inline void RefFrameRot::update_orientation(const Quaternion & left_quat)
+{
+    // Save the new structure-to-point transformation quaternion.
+    Q_parent_this = left_quat;
+    Q_parent_this.normalize();
+    compute_transformation();
+}
+
+/**
+ * Set the quaternion and update the transformation matrix.
+ * Normalize the quaternion using normalize_integ.
+ * \param[in] source Quaternion
+ */
+inline void RefFrameRot::update_orientation_integ(const Quaternion & left_quat)
+{
+    // Save the new structure-to-point transformation quaternion.
+    Q_parent_this = left_quat;
+    Q_parent_this.normalize_integ();
+    compute_transformation();
+}
+
+/**
  * Initialize a RefFrameState to a null offset.
  */
 inline void RefFrameState::initialize()
@@ -213,6 +265,16 @@ inline void RefFrameState::copy(const RefFrameState & source)
 {
     trans.copy(source.trans);
     rot.copy(source.rot);
+}
+
+/**
+ * Copy the position and orientation from a source state.
+ * \param[in] source Source state
+ */
+inline void RefFrameState::copy_position_orientation(const RefFrameState & source)
+{
+    Vector3::copy(source.trans.position, trans.position);
+    rot.copy_orientation(source.rot);
 }
 
 } // namespace jeod

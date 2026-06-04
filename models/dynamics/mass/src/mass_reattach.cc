@@ -73,8 +73,9 @@ bool MassBody::reattach(double offset[3], double T_pstr_cstr[3][3])
     // Construct the transformation from the parent body's structural frame
     // to child body's composite body frame:
     //   T_pstr_cbdy = T_cstr_cbdy * T_pstr_cstr
-    composite_properties.Q_parent_this.multiply(structure_point.Q_parent_this, composite_wrt_pstr.Q_parent_this);
-    composite_wrt_pstr.compute_transformation();
+    Quaternion Q_temp;
+    composite_properties.Q_parent_this.multiply(structure_point.Q_parent_this, Q_temp);
+    composite_wrt_pstr.update_orientation(Q_temp);
 
     // Compute the displace from the parent body's structural origin to the
     // child body's composite CoM in the parent body's structural frame:
@@ -86,9 +87,8 @@ bool MassBody::reattach(double offset[3], double T_pstr_cstr[3][3])
 
     // Construct the transformation from the parent body's body frame
     // to child body's composite body frame.
-    composite_wrt_pstr.Q_parent_this.multiply_conjugate(parent->composite_properties.Q_parent_this,
-                                                        composite_wrt_pbdy.Q_parent_this);
-    composite_wrt_pbdy.compute_transformation();
+    composite_wrt_pstr.Q_parent_this.multiply_conjugate(parent->composite_properties.Q_parent_this, Q_temp);
+    composite_wrt_pbdy.update_orientation(Q_temp);
 
     // Update the parent's mass properties.
     // Note that this sets composite_wrt_pbdy.position.

@@ -48,18 +48,15 @@ er7_utils::IntegratorResult StructureIntegratedDynBody::rot_integ(double dyn_dt,
 {
     RefFrameRot & rot_state = structure.state.rot;
 
+    Quaternion Q_temp = rot_state.Q_parent_this;
     // Integrate the rotational state.
     er7_utils::IntegratorResult status = rot_integrator.integrate(dyn_dt,
                                                                   target_stage,
                                                                   struct_derivs.rot_accel,
                                                                   rot_state.ang_vel_this,
-                                                                  rot_state.Q_parent_this);
+                                                                  Q_temp);
 
-    // Normalize the integrated quaternion.
-    rot_state.Q_parent_this.normalize_integ();
-
-    // Compute the corresponding transformation matrix.
-    rot_state.compute_transformation();
+    rot_state.update_orientation_integ(Q_temp);
 
     // Compute the quaternion derivative.
     rot_state.Q_parent_this.compute_left_quat_deriv(rot_state.ang_vel_this, derivs.Qdot_parent_this);

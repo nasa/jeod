@@ -269,13 +269,14 @@ void LvlhFrame::compute_lvlh_frame(const RefFrameTrans & rel_trans)
     //   zhat = -r/rmag
     //   yhat = -h/hmag
     //   xhat = yhat cross zhat
-    Vector3::scale(rel_trans.position, -1.0 / rmag, lvlh_rot.T_parent_this[2]);
-    Vector3::scale(angmom, -1.0 / hmag, lvlh_rot.T_parent_this[1]);
-    Vector3::cross(lvlh_rot.T_parent_this[1], lvlh_rot.T_parent_this[2], lvlh_rot.T_parent_this[0]);
-    Vector3::normalize(lvlh_rot.T_parent_this[0]);
+    double T_temp[3][3];
+    Vector3::scale(rel_trans.position, -1.0 / rmag, T_temp[2]);
+    Vector3::scale(angmom, -1.0 / hmag, T_temp[1]);
+    Vector3::cross(T_temp[1], T_temp[2], T_temp[0]);
+    Vector3::normalize(T_temp[0]);
 
     // Compute the quaternion from the transformation matrix.
-    frame.state.rot.compute_quaternion();
+    frame.state.rot.update_orientation(T_temp);
 
     // Update the angular velocity.
     lvlh_rot.ang_vel_this[0] = 0;

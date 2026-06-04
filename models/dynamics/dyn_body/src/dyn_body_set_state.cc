@@ -106,8 +106,7 @@ void DynBody::set_state(RefFrameItems::Items set_items, const RefFrameState & st
     if((set_items & RefFrameItems::Att) != 0)
     {
         root_body->set_state_source_internal(RefFrameItems::Att, subject_frame);
-        subject_frame.state.rot.Q_parent_this = state.rot.Q_parent_this;
-        state.rot.Q_parent_this.left_quat_to_transformation(subject_frame.state.rot.T_parent_this);
+        subject_frame.state.rot.update_orientation(state.rot.Q_parent_this);
     }
 
     // Attitude rate:
@@ -211,8 +210,7 @@ void DynBody::set_attitude_left_quaternion(const Quaternion & left_quat, BodyRef
 
     // Set the attitude source frame and set the attitude of that frame.
     root_body->set_state_source_internal(RefFrameItems::Att, subject_frame);
-    subject_frame.state.rot.Q_parent_this = left_quat;
-    subject_frame.state.rot.compute_transformation();
+    subject_frame.state.rot.update_orientation(left_quat);
 }
 
 // Set the attitude of the vehicle.
@@ -225,8 +223,9 @@ void DynBody::set_attitude_right_quaternion(const Quaternion & right_quat, BodyR
 
     // Set the attitude source frame and set the attitude of that frame.
     root_body->set_state_source_internal(RefFrameItems::Att, subject_frame);
-    right_quat.conjugate(subject_frame.state.rot.Q_parent_this);
-    subject_frame.state.rot.compute_transformation();
+    Quaternion Q_temp;
+    right_quat.conjugate(Q_temp);
+    subject_frame.state.rot.update_orientation(Q_temp);
 }
 
 // Set the attitude of the vehicle.
@@ -239,8 +238,7 @@ void DynBody::set_attitude_matrix(const double matrix[3][3], BodyRefFrame & subj
 
     // Set the attitude source frame and set the attitude of that frame.
     root_body->set_state_source_internal(RefFrameItems::Att, subject_frame);
-    Matrix3x3::copy(matrix, subject_frame.state.rot.T_parent_this);
-    subject_frame.state.rot.compute_quaternion();
+    subject_frame.state.rot.update_orientation(matrix);
 }
 
 // Set the attitude rate of the vehicle.

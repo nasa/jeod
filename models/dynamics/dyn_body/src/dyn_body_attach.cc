@@ -343,16 +343,13 @@ bool DynBody::attach_to_frame(const std::string & this_point_name,
         DynBody * root_body = get_root_body_internal();
         RefFrameState X_pframe_to_cpt;
         Vector3::copy(offset_pframe_cpt_pframe, X_pframe_to_cpt.trans.position);
-        Matrix3x3::copy(T_pframe_cpt, X_pframe_to_cpt.rot.T_parent_this);
-        X_pframe_to_cpt.rot.compute_quaternion();
+        X_pframe_to_cpt.rot.update_orientation(T_pframe_cpt);
 
         MassPointState MP_struct_to_cpt;
         subject_pt->compute_state_wrt_pred(*(root_body->structure.mass_point), MP_struct_to_cpt);
 
         RefFrameState X_struct_to_cpt;
-        Vector3::copy(MP_struct_to_cpt.position, X_struct_to_cpt.trans.position);
-        Matrix3x3::copy(MP_struct_to_cpt.T_parent_this, X_struct_to_cpt.rot.T_parent_this);
-        X_struct_to_cpt.rot.Q_parent_this = MP_struct_to_cpt.Q_parent_this;
+        X_struct_to_cpt.copy_position_orientation(MP_struct_to_cpt);
 
         RefFrameState X_pframe_to_struct(X_pframe_to_cpt);
         X_pframe_to_struct.decr_right(X_struct_to_cpt);
@@ -372,7 +369,7 @@ bool DynBody::attach_to_frame(const double offset_pframe_cstr_pframe[3],
 
     RefFrameState offset_init;
     Vector3::copy(offset_pframe_cstr_pframe, offset_init.trans.position);
-    Matrix3x3::copy(T_pframe_cstr, offset_init.rot.T_parent_this);
+    offset_init.rot.update_orientation(T_pframe_cstr);
 
     root_body->frame_attach.initialize_attachment(parent, offset_init);
     return true;
@@ -458,10 +455,7 @@ bool DynBody::attach_child(const std::string & this_point_name, const std::strin
     // frame of the attach point on child body to child body's structural
     // origin and frame (i.e.: the inverse of the mass point specification
     // within its own body)
-    Vector3::transform(child_point->T_parent_this, child_point->position, child_struct_wrt_child_point.position);
-    Vector3::negate(child_struct_wrt_child_point.position);
-    Matrix3x3::transpose(child_point->T_parent_this, child_struct_wrt_child_point.T_parent_this);
-    child_point->Q_parent_this.conjugate(child_struct_wrt_child_point.Q_parent_this);
+    child_struct_wrt_child_point.negate(*child_point);
 
     // Construct the affine transformation from the attach point on the child
     // body to the attach point on the parent dynamic body.
@@ -637,10 +631,7 @@ bool DynBody::add_mass_body(const std::string & this_point_name, const std::stri
     // frame of the attach point on child body to child body's structural
     // origin and frame (i.e.: the inverse of the mass point specification
     // within its own body)
-    Vector3::transform(child_point->T_parent_this, child_point->position, child_struct_wrt_child_point.position);
-    Vector3::negate(child_struct_wrt_child_point.position);
-    Matrix3x3::transpose(child_point->T_parent_this, child_struct_wrt_child_point.T_parent_this);
-    child_point->Q_parent_this.conjugate(child_struct_wrt_child_point.Q_parent_this);
+    child_struct_wrt_child_point.negate(*child_point);
 
     // Construct the affine transformation from the attach point on the child
     // body to the attach point on the parent dynamic body.

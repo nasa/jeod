@@ -68,6 +68,7 @@ Library Dependencies:
 // JEOD includes
 #include "utils/math/include/matrix3x3.hh"
 #include "utils/math/include/vector3.hh"
+#include "utils/orientation/include/orientation.hh"
 #include "utils/quaternion/include/quat.hh"
 #include "utils/sim_interface/include/jeod_class.hh"
 
@@ -137,8 +138,21 @@ public:
     // Copy reference state.
     void copy_state(const MassPointState & source);
 
+    // Copy reference orientation
+    void copy_orientation(const MassPointState & source);
+
+    void copy_orientation(const Orientation & source);
+
+    // Initialize orientation
+    void init_orientation();
+
     // Copy and negate reference state.
     void negate(const MassPointState & source);
+
+    // Copy and negate reference orientation.
+    void negate_orientation(const MassPointState & source);
+
+    void negate_orientation(const Orientation & source);
 
     // 'Add' another frame, left operand
     void incr_left(const MassPointState & s_ab);
@@ -172,7 +186,7 @@ inline void MassPointState::update_orientation(const double transformation[3][3]
 {
     // Save the new structure-to-point transformation matrix.
     Matrix3x3::copy(transformation, T_parent_this);
-    Q_parent_this.left_quat_from_transformation(T_parent_this);
+    compute_quaternion();
 }
 
 /**
@@ -184,7 +198,8 @@ inline void MassPointState::update_orientation(const Quaternion & left_quat)
 {
     // Save the new structure-to-point transformation quaternion.
     Q_parent_this = left_quat;
-    Q_parent_this.left_quat_to_transformation(T_parent_this);
+    Q_parent_this.normalize();
+    compute_transformation();
 }
 
 /**
@@ -210,9 +225,37 @@ inline void MassPointState::compute_transformation()
  */
 inline void MassPointState::copy_state(const MassPointState & source)
 {
-    Q_parent_this = source.Q_parent_this;
+    copy_orientation(source);
+    update_point(source.position);
+}
+
+/**
+ * Copy the provided orientation to this.
+ * \param[in] source Source MassPointState
+ */
+inline void MassPointState::copy_orientation(const MassPointState & source)
+{
     Matrix3x3::copy(source.T_parent_this, T_parent_this);
-    Vector3::copy(source.position, position);
+    Q_parent_this = source.Q_parent_this;
+}
+
+/**
+ * Copy the provided orientation to this.
+ * \param[in] source Source Orientation
+ */
+inline void MassPointState::copy_orientation(const Orientation & source)
+{
+    Matrix3x3::copy(source.trans, T_parent_this);
+    Q_parent_this = source.quat;
+}
+
+/**
+ * Initialize the orientation.
+ */
+inline void MassPointState::init_orientation()
+{
+    Matrix3x3::identity(T_parent_this);
+    Q_parent_this.make_identity();
 }
 
 } // namespace jeod

@@ -101,10 +101,7 @@ bool MassBody::attach_to(const std::string & this_point_name, const std::string 
     // Construct the affine transformation from the mass point location and
     // frame of the attach point on this body to this body's structural origin
     // and frame; the inverse of the mass point specification.
-    Vector3::transform(this_point->T_parent_this, this_point->position, this_struct_wrt_this_point.position);
-    Vector3::negate(this_struct_wrt_this_point.position);
-    Matrix3x3::transpose(this_point->T_parent_this, this_struct_wrt_this_point.T_parent_this);
-    this_point->Q_parent_this.conjugate(this_struct_wrt_this_point.Q_parent_this);
+    this_struct_wrt_this_point.negate(*this_point);
 
     // Construct the affine transformation from the attach point on this body
     // to the attach point on the new parent body.
@@ -502,9 +499,9 @@ void MassBody::attach_update_properties(const double offset_pstr_cstr_pstr[3],
     // Construct the transformation from the parent body's structural frame
     // to child body's composite body frame:
     //   T_pstr_cbdy = T_cstr_cbdy * T_pstr_cstr
-    child.composite_properties.Q_parent_this.multiply(child.structure_point.Q_parent_this,
-                                                      child.composite_wrt_pstr.Q_parent_this);
-    child.composite_wrt_pstr.compute_transformation();
+    Quaternion Q_temp;
+    child.composite_properties.Q_parent_this.multiply(child.structure_point.Q_parent_this, Q_temp);
+    child.composite_wrt_pstr.update_orientation(Q_temp);
 
     // Compute the displace from the parent body's structural origin to the
     // child body's composite CoM in the parent body's structural frame:
@@ -516,9 +513,8 @@ void MassBody::attach_update_properties(const double offset_pstr_cstr_pstr[3],
 
     // Construct the transformation from the parent body's body frame
     // to child body's composite body frame.
-    child.composite_wrt_pstr.Q_parent_this.multiply_conjugate(composite_properties.Q_parent_this,
-                                                              child.composite_wrt_pbdy.Q_parent_this);
-    child.composite_wrt_pbdy.compute_transformation();
+    child.composite_wrt_pstr.Q_parent_this.multiply_conjugate(composite_properties.Q_parent_this, Q_temp);
+    child.composite_wrt_pbdy.update_orientation(Q_temp);
 
     // Update this body's mass properties.
     // Note that this sets child.composite_wrt_pbdy.position.

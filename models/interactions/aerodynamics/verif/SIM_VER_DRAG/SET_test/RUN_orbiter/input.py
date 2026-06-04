@@ -20,3 +20,6 @@ six_plate_orbiter( calc_coeff = trick.AeroDragEnum.Calc_coef)
 # so we need to do the (perfect, by definition) conversion here
 aero_test.center_grav  =[ 1098.0 * .0254, 0.0, 372.0 * .0254]
 aero_test.mass = 91589.71
+
+trick.terminate_on_event_parse_error(True)
+trick.add_read(1.0,"aero_test.aero_surface.aero_facets[0][0]") # For testing

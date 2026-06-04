@@ -136,9 +136,9 @@ void DynBody::compute_ref_point_transform(const BodyRefFrame & source_frame,
                 Vector3::decr(mass.composite_properties.position, rel_state.position);
                 Vector3::transform(mass.composite_properties.T_parent_this, rel_state.position);
 
-                rel_state.Q_parent_this.multiply_conjugate(mass.composite_properties.Q_parent_this);
-                rel_state.Q_parent_this.normalize();
-                rel_state.compute_transformation();
+                Quaternion Q_temp = rel_state.Q_parent_this;
+                Q_temp.multiply_conjugate(mass.composite_properties.Q_parent_this);
+                rel_state.update_orientation(Q_temp);
             }
         }
     }
@@ -167,9 +167,9 @@ void DynBody::compute_derived_state_forward(const BodyRefFrame & source_frame,
     // C = derived frame
 
     // T_A->C = T_B->C * T_A->B
-    rel_state.Q_parent_this.multiply(source_frame.state.rot.Q_parent_this, derived_frame.state.rot.Q_parent_this);
-    derived_frame.state.rot.Q_parent_this.normalize();
-    derived_frame.state.rot.compute_transformation();
+    Quaternion Q_temp;
+    rel_state.Q_parent_this.multiply(source_frame.state.rot.Q_parent_this, Q_temp);
+    derived_frame.state.rot.update_orientation(Q_temp);
 
     // w_A->C:C = T_B->C w_A->B:B
     Vector3::transform(rel_state.T_parent_this,
@@ -210,9 +210,9 @@ void DynBody::compute_state_elements_forward(const BodyRefFrame & source_frame,
     // T_A->C = T_B->C * T_A->B
     if(state_items.contains(RefFrameItems::Att))
     {
-        rel_state.Q_parent_this.multiply(source_frame.state.rot.Q_parent_this, derived_frame.state.rot.Q_parent_this);
-        derived_frame.state.rot.Q_parent_this.normalize();
-        derived_frame.state.rot.compute_transformation();
+        Quaternion Q_temp;
+        rel_state.Q_parent_this.multiply(source_frame.state.rot.Q_parent_this, Q_temp);
+        derived_frame.state.rot.update_orientation(Q_temp);
     }
 
     // w_A->C:C = T_B->C w_A->B:B
@@ -265,10 +265,9 @@ void DynBody::compute_derived_state_reverse(const BodyRefFrame & source_frame,
     // C = derived frame
 
     // T_A->C = T_B->C * T_A->B = T_C->B^T * T_A->B
-    rel_state.Q_parent_this.conjugate_multiply(source_frame.state.rot.Q_parent_this,
-                                               derived_frame.state.rot.Q_parent_this);
-    derived_frame.state.rot.Q_parent_this.normalize();
-    derived_frame.state.rot.compute_transformation();
+    Quaternion Q_temp;
+    rel_state.Q_parent_this.conjugate_multiply(source_frame.state.rot.Q_parent_this, Q_temp);
+    derived_frame.state.rot.update_orientation(Q_temp);
 
     // w_A->C:C = T_B->C w_A->B:B = T_C->B^T * w_A->B:B
     Vector3::transform_transpose(rel_state.T_parent_this,
@@ -309,10 +308,9 @@ void DynBody::compute_state_elements_reverse(const BodyRefFrame & source_frame,
     // T_A->C = T_B->C * T_A->B
     if(state_items.contains(RefFrameItems::Att))
     {
-        rel_state.Q_parent_this.conjugate_multiply(source_frame.state.rot.Q_parent_this,
-                                                   derived_frame.state.rot.Q_parent_this);
-        derived_frame.state.rot.Q_parent_this.normalize();
-        derived_frame.state.rot.compute_transformation();
+        Quaternion Q_temp;
+        rel_state.Q_parent_this.conjugate_multiply(source_frame.state.rot.Q_parent_this, Q_temp);
+        derived_frame.state.rot.update_orientation(Q_temp);
     }
 
     // w_A->C:C = T_B->C w_A->B:B
@@ -409,10 +407,9 @@ void DynBody::update_integrated_state()
         //   T_A->C = T_C->B^T * T_A->B
         // Calculation is done with left transformation quaternions, which chain
         // like transformation matrices.
-        rel_state.Q_parent_this.conjugate_multiply(attitude_source->state.rot.Q_parent_this,
-                                                   integrated_frame->state.rot.Q_parent_this);
-        integrated_frame->state.rot.Q_parent_this.normalize();
-        integrated_frame->state.rot.compute_transformation();
+        Quaternion Q_temp;
+        rel_state.Q_parent_this.conjugate_multiply(attitude_source->state.rot.Q_parent_this, Q_temp);
+        integrated_frame->state.rot.update_orientation(Q_temp);
 
         // Mark attitude as initialized and transfer attitude ownership to the
         // integrated frame.

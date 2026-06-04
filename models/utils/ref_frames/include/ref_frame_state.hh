@@ -76,6 +76,8 @@ Library dependencies:
 namespace jeod
 {
 
+class MassPointState;
+
 /**
  * Represent the translational aspects of a reference frame's state.
  */
@@ -163,11 +165,20 @@ public:
     // Assignment operator
     RefFrameRot & operator=(const RefFrameRot & source);
 
+    // initialize: Set transformation to identity
+    void init_orientation();
+
     // initialize: Set transformation to identity, rate to zero.
     void initialize();
 
     // copy: Copy reference attitude, rate.
     void copy(const RefFrameRot & source);
+
+    // copy: Copy reference attitude.
+    void copy_orientation(const RefFrameRot & source);
+
+    // copy: Copy reference attitude.
+    void copy_orientation(const MassPointState & source);
 
     // compute_transformation: Compute transformation matrix from quaternion
     void compute_transformation();
@@ -180,6 +191,15 @@ public:
 
     // compute_ang_vel_products: Compute angular velocity magnitude, unit vector
     void compute_ang_vel_products();
+
+    // set transformation matrix and quaternion
+    void update_orientation(const double transformation[3][3]);
+
+    // set transformation matrix and quaternion
+    void update_orientation(const Quaternion & left_quat);
+
+    // set transformation matrix and quaternion for integ
+    void update_orientation_integ(const Quaternion & left_quat);
 };
 
 /**
@@ -217,6 +237,12 @@ public:
 
     // copy: Copy reference state.
     void copy(const RefFrameState & source);
+
+    // copy: Copy position and orientation of RefFrameState.
+    void copy_position_orientation(const RefFrameState & source);
+
+    // copy: Copy position and orientation of MassPointState.
+    void copy_position_orientation(const MassPointState & source);
 
     // copy: Copy and negate reference state.
     void negate(const RefFrameState & source);

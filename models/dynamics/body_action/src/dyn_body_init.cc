@@ -298,8 +298,7 @@ void DynBodyInit::apply_user_inputs()
     if(set_items.contains(RefFrameItems::Att))
     {
         orientation.compute_transform();
-        Matrix3x3::copy(orientation.trans, user_frame.state.rot.T_parent_this);
-        user_frame.state.rot.compute_quaternion();
+        user_frame.state.rot.update_orientation(orientation.trans);
     }
     if(set_items.contains(RefFrameItems::Rate))
     {

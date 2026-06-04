@@ -70,13 +70,11 @@ void MassPointInit::initialize_mass_point(MassPoint & mass_point) const
     switch(pt_frame_spec)
     {
         case StructToPoint:
-            Matrix3x3::copy(orientation.trans, mass_point.T_parent_this);
-            mass_point.Q_parent_this = orientation.quat;
+            mass_point.copy_orientation(orientation);
             break;
 
         case PointToStruct:
-            Matrix3x3::transpose(orientation.trans, mass_point.T_parent_this);
-            orientation.quat.conjugate(mass_point.Q_parent_this);
+            mass_point.negate_orientation(orientation);
             break;
 
         default:

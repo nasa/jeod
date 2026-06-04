@@ -65,27 +65,26 @@ void SpiceEphemOrientation::update(double time_tdb, double time_dyn)
     // matrix returned by get_spice_transformation(). In this case, these are
     // respectively the transformation from J2000 to planet-fixed, and its
     // time derivative.
+    double T_temp[3][3];
     double t_dot[3][3]; // derivative of T_parent_this
 
     for(unsigned ii = 0; ii < 3; ++ii)
     {
         for(unsigned jj = 0; jj < 3; ++jj)
         {
-            target_frame->state.rot.T_parent_this[ii][jj] = trans6x6[ii][jj];
+            T_temp[ii][jj] = trans6x6[ii][jj];
             t_dot[ii][jj] = trans6x6[3 + ii][jj];
         }
     }
+    target_frame->state.rot.update_orientation(T_temp);
 
     // Calculate and store the target frame's angular velocity
     double omega_b_wrt_a_in_b[3][3]; // skew-symmetric ang-vel matrix
-
     Matrix3x3::product_right_transpose(target_frame->state.rot.T_parent_this, t_dot, omega_b_wrt_a_in_b);
-
     target_frame->state.rot.ang_vel_this[0] = -omega_b_wrt_a_in_b[1][2];
     target_frame->state.rot.ang_vel_this[1] = omega_b_wrt_a_in_b[0][2];
     target_frame->state.rot.ang_vel_this[2] = -omega_b_wrt_a_in_b[0][1];
     target_frame->state.rot.compute_ang_vel_products();
-    target_frame->state.rot.compute_quaternion();
 
     // Update timestamps for both this model and the target frame
     update_time = time_dyn;

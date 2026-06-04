@@ -91,9 +91,7 @@ public:
     {
         active = true;
         rigid_attach_parent = &parent_frame;
-        Vector3::copy(attach_state.trans.position, rigid_attach_state.trans.position);
-        Matrix3x3::copy(attach_state.rot.T_parent_this, rigid_attach_state.rot.T_parent_this);
-        rigid_attach_state.rot.Q_parent_this = attach_state.rot.Q_parent_this;
+        rigid_attach_state.copy_position_orientation(attach_state);
     }
 
     void clear_attachment()

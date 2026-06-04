@@ -43,7 +43,6 @@ Library dependencies:
 #include "utils/surface_model/include/interaction_facet_factory.hh"
 
 // Model includes
-#include "../include/radiation_facet.hh"
 #include "../include/radiation_messages.hh"
 #include "../include/radiation_surface.hh"
 

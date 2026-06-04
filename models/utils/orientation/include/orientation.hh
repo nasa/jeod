@@ -72,6 +72,8 @@ Library dependencies:
 namespace jeod
 {
 
+class RefFrameRot;
+
 /**
  * Specifies the orientiation of one reference frame with respect to another.
  * There are many competing charts on the rotation group.
@@ -203,6 +205,8 @@ public:
     EulerSequence get_euler_sequence();
     void set_euler_sequence(EulerSequence sequence);
     void clear_euler_sequence();
+
+    void copy_orientation(const RefFrameRot & source);
 
 protected:
     void mark_input_as_available();

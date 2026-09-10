@@ -7,6 +7,7 @@
 
 #include "dyn_body_mock.hh"
 #include "dyn_manager_mock.hh"
+#include "dynamics/body_action/include/body_action_messages.hh"
 #include "dynamics/body_action/include/mass_body_init.hh"
 #include "mass_mock.hh"
 #include "memory_interface_mock.hh"
@@ -28,6 +29,14 @@ using namespace jeod;
 class MassBodyInitTest : public MassBodyInit
 {
 public:
+    unsigned int shutdown_count{};
+
+    void shutdown() override
+    {
+        ++shutdown_count;
+        BodyAction::shutdown();
+    }
+
     void set_mass_subject(MassBody * in)
     {
         mass_subject = in;
@@ -148,4 +157,98 @@ TEST(MassBodyInit, get_mass_point)
 
         EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
     }
+}
+
+TEST(MassBodyInit, apply_dyn_subject_without_initialize)
+{
+    MockMessageHandler mockMessageHandler;
+    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    MockDynManager dynManager;
+    DynBody subject;
+    MassBodyInitTest action;
+    action.properties.mass = 42.0;
+    action.set_subject_body(subject);
+    ASSERT_EQ(nullptr, action.get_mass_subject());
+
+    action.apply(dynManager);
+
+    EXPECT_EQ(&subject.mass, action.get_mass_subject());
+    EXPECT_DOUBLE_EQ(42.0, subject.mass.core_properties.mass);
+    EXPECT_EQ(1u, action.shutdown_count);
+}
+
+TEST(MassBodyInit, apply_reassigned_dyn_subject)
+{
+    MockMessageHandler mockMessageHandler;
+    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    MockDynManager dynManager;
+    MassBody original;
+    DynBody replacement;
+    MassBodyInitTest action;
+    original.core_properties.mass = 7.0;
+    action.set_subject_body(original);
+    action.initialize(dynManager);
+    action.set_subject_body(replacement);
+    action.properties.mass = 21.0;
+
+    action.apply(dynManager);
+
+    EXPECT_EQ(&replacement.mass, action.get_mass_subject());
+    EXPECT_DOUBLE_EQ(7.0, original.core_properties.mass);
+    EXPECT_DOUBLE_EQ(21.0, replacement.mass.core_properties.mass);
+    EXPECT_EQ(1u, action.shutdown_count);
+}
+
+TEST(MassBodyInit, apply_mass_subject_without_initialize)
+{
+    MockMessageHandler mockMessageHandler;
+    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    MockDynManager dynManager;
+    MassBody subject;
+    MassBodyInitTest action;
+    action.properties.mass = 14.0;
+    action.set_subject_body(subject);
+
+    action.apply(dynManager);
+
+    EXPECT_DOUBLE_EQ(14.0, subject.core_properties.mass);
+    EXPECT_EQ(1u, action.shutdown_count);
+}
+
+TEST(MassBodyInit, apply_missing_subject)
+{
+    MockMessageHandler mockMessageHandler;
+    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    MockDynManager dynManager;
+    MassBodyInitTest action;
+    EXPECT_CALL(mockMessageHandler,
+                process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+        .Times(1);
+
+    action.apply(dynManager);
+
+    EXPECT_EQ(nullptr, action.get_mass_subject());
+    EXPECT_EQ(0u, action.shutdown_count);
+}
+
+TEST(MassBodyInit, apply_mismatched_subjects)
+{
+    MockMessageHandler mockMessageHandler;
+    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    MockDynManager dynManager;
+    DynBody dynSubject;
+    MassBody massSubject;
+    MassBodyInitTest action;
+    massSubject.core_properties.mass = 8.0;
+    action.properties.mass = 16.0;
+    action.set_subject_body(dynSubject);
+    action.set_mass_subject(&massSubject);
+    EXPECT_CALL(mockMessageHandler,
+                process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::fatal_error, _, _))
+        .Times(1);
+
+    action.apply(dynManager);
+
+    EXPECT_DOUBLE_EQ(8.0, massSubject.core_properties.mass);
+    EXPECT_EQ(0u, action.shutdown_count);
 }

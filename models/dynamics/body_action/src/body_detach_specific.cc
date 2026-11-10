@@ -71,6 +71,13 @@ void BodyDetachSpecific::initialize(DynManager & dyn_manager)
  */
 void BodyDetachSpecific::apply(DynManager & dyn_manager)
 {
+    // Validate and resolve both bodies before selecting a detach operation.
+    if(!validate_body_inputs(dyn_subject, mass_subject, "subject") ||
+       !validate_body_inputs(dyn_detach_from, mass_detach_from, "detach_from"))
+    {
+        return;
+    }
+
     bool succeeded = false;
     std::string name_detach = "(?detach_from)";
     std::string name_subject = "(?subject)";

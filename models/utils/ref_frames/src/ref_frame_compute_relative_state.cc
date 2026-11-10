@@ -54,7 +54,7 @@ namespace jeod
  *
  * \par Assumptions and Limitations
  *  - The two frames are in the same tree.
- * \param[in] wrt_frame The frame with respect to which the state is to be expressed
+ * \param[in] wrt_frame Reference frame relative to which this frame's state is computed
  * \param[out] rel_state The relative state
  */
 void RefFrame::compute_relative_state(const RefFrame & wrt_frame, RefFrameState & rel_state) const
@@ -140,24 +140,30 @@ void RefFrame::compute_relative_state(const RefFrame & wrt_frame, RefFrameState 
  * the simpler two argument form of RefFrame::compute_relative_state.
  * If reverse_sense is true, the results from the two
  * argument form are transformed as follows:
- *   - The position and velocity are those the invoking frame with respect to the
- *     supplied wrt_frame, but expressed in invoking frame coordinates.
+ *   - The position is that of the invoking frame origin relative to the
+ *     supplied wrt_frame origin, expressed in invoking frame coordinates.
+ *   - The velocity is that of the invoking frame origin relative to the
+ *     supplied wrt_frame origin, observed in wrt_frame and expressed in
+ *     invoking frame coordinates.
  *   - The angular velocity of the invoking frame with respect to the
  *     supplied wrt_frame, expressed in the coordinates of supplied wrt_frame.
  *   - The transformation (as a matrix and a quaternion) from the invoking
  *     frame to the supplied wrt_frame.
+ * The origins are not exchanged, and the velocity observation frame remains
+ * wrt_frame. This is not a full inversion of the relative state.
  *
  * \par Assumptions and Limitations
  *  - The two frames are in the same tree.
- * \param[in] wrt_frame The frame with respect to which the state is to be expressed
- * \param[in] reverse_sense Express position and velocity in this frame,
- *    angular velocity in the wrt_frame, and the transformations from this
- *    frame to the wrt_frame.
+ * \param[in] wrt_frame Reference frame relative to which this frame's state is computed
+ * \param[in] reverse_sense If true, express position and velocity in this frame,
+ *    angular velocity in wrt_frame, and transformations from this frame to
+ *    wrt_frame, without exchanging the origins or changing the velocity
+ *    observation frame.
  * \param[out] rel_state The relative state
  */
 void RefFrame::compute_relative_state(const RefFrame & wrt_frame, bool reverse_sense, RefFrameState & rel_state) const
 {
-    // Compute the relative state as if express_in_wrt_frame is true.
+    // Compute the relative state with reverse_sense false.
     compute_relative_state(wrt_frame, rel_state);
 
     // Reverse the sense of the computed state if so indicated.
@@ -184,7 +190,7 @@ void RefFrame::compute_relative_state(const RefFrame & wrt_frame, bool reverse_s
  *
  * \par Assumptions and Limitations
  *  - The predecessor frame is a predecessor.
- * \param[in] pred_frame The frame with respect to which the state is to be expressed
+ * \param[in] pred_frame Predecessor relative to which this frame's state is computed
  * \param[out] rel_state The relative state
  */
 void RefFrame::compute_state_wrt_pred(const RefFrame & pred_frame, RefFrameState & rel_state) const
@@ -216,7 +222,7 @@ void RefFrame::compute_state_wrt_pred(const RefFrame & pred_frame, RefFrameState
  *
  * \par Assumptions and Limitations
  *  - The predecessor frame is a predecessor.
- * \param[in] pred_frame_index  The frame with respect to which the state is to be expressed
+ * \param[in] pred_frame_index  Index of the predecessor in this frame's root-to-node path
  * \param[out] rel_state        The relative state
  */
 void RefFrame::compute_state_wrt_pred(unsigned int pred_frame_index, RefFrameState & rel_state) const
@@ -246,13 +252,13 @@ void RefFrame::compute_state_wrt_pred(unsigned int pred_frame_index, RefFrameSta
 }
 
 /**
- * Compute the complete state of the invoking reference
- * frame with respect to the supplied reference frame, which *must*
- * be a predecessor of the invoking frame.
+ * Compute the complete state of the supplied reference frame
+ * with respect to the invoking reference frame. The supplied frame
+ * must be a predecessor of the invoking frame.
  *
  * \par Assumptions and Limitations
  *  - The predecessor frame is a predecessor.
- * \param[in] pred_frame The frame with respect to which the state is to be expressed
+ * \param[in] pred_frame Predecessor whose state relative to this frame is computed
  * \param[out] rel_state The relative state
  */
 void RefFrame::compute_pred_rel_state(const RefFrame & pred_frame, RefFrameState & rel_state) const
@@ -284,31 +290,25 @@ void RefFrame::compute_pred_rel_state(const RefFrame & pred_frame, RefFrameState
  *
  * \par Assumptions and Limitations
  *  - The predecessor frame is a predecessor.
- * \param[in] pred_frame_index  The frame with respect to which the state is to be expressed
+ * \param[in] pred_frame_index  Index of the predecessor in this frame's root-to-node path
  * \param[out] rel_state        The relative state
  */
 void RefFrame::compute_pred_rel_state(unsigned int pred_frame_index, RefFrameState & rel_state) const
 {
-    // Initialize the relative state as the negative of state of the invoking
-    // frame wrt its immediate parent.
+    // Initialize the relative state as that of the immediate parent
+    // with respect to the invoking frame.
     rel_state.negate(state);
 
-    // Compute the state of this frame with respect to the common node by
-    // successive computing the state of this frame with respect to frames in
-    // this frame's link path from the bottom up.
-    // The loop below starts just above the last entry in the link path (note
-    // that rel_state was initialized above to be the state with respect to
-    // this frame's immediate parent) and ends one shy of the common node.
-    // For each step, the state is re-represented with respect to the link
-    // frame's parent frame.
-    // Note: This loop will not be executed if the common node is this frame
-    // (the relative state is a null transformation) or if the common node
-    // is the immediate parent (relative state already has desired contents).
+    // Accumulate the state of successive ancestor frames with respect to
+    // the invoking frame, working upward toward the requested predecessor.
+    // Each iteration replaces the current ancestor with its parent by
+    // composing the inverse of that ancestor's state on the right.
+    // No iterations are needed when the predecessor is the immediate parent.
     for(auto * link : TreeLinksAscendRange<const RefFrameLinks>(links, links.path_length() - 1, pred_frame_index + 1))
     {
         // Update the relative state by adding (on the right) the state of the
         // current node's parent with respect to the current node. This is
-        // the equivalent of subtracting (on the left) the state of the current
+        // the equivalent of subtracting (on the right) the state of the current
         // node wrt its parent. Conceptually,
         //   rel_state = rel_state - link_frame->state;
         rel_state.decr_right(link->container().state);

@@ -107,7 +107,7 @@ public:
     static double * normalize(const double vec[3], double unit_vec[3]);
 
     // Scale a vector in-place :
-    // vec[i] = scalar
+    // vec[i] *= scalar
     static double * scale(double scalar, double vec[3]);
 
     // Scale a vector :

@@ -92,6 +92,32 @@ void BodyAttach::set_parent_frame(RefFrame & ref_parent_in)
     mass_parent = nullptr;
 }
 
+bool BodyAttach::validate_attachment_inputs()
+{
+    if(!validate_body_inputs(dyn_subject, mass_subject, "subject"))
+    {
+        return false;
+    }
+
+    // A reference-frame parent is an alternative to a body parent.
+    if(ref_parent != nullptr)
+    {
+        if(dyn_parent != nullptr || mass_parent != nullptr)
+        {
+            MessageHandler::fail(__FILE__,
+                                 __LINE__,
+                                 BodyActionMessages::fatal_error,
+                                 "%s failed:\n"
+                                 "Both a parent body and a parent frame are assigned.",
+                                 action_identifier.c_str());
+            return false;
+        }
+        return true;
+    }
+
+    return validate_body_inputs(dyn_parent, mass_parent, "parent");
+}
+
 /**
  * A derived class presumably has performed the attachment, which may
  * not have worked, and forwarded the apply call to this method.

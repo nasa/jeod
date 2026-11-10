@@ -159,7 +159,32 @@ TEST(DynBodyInit, initialize)
     MockRefFrame mockRefFrame;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // Null dyn_subject. Error
+        SCOPED_TRACE("Missing subject stops initialization");
+
+        DynBodyInitTest dynInst;
+        dynInst.body_frame_id = "composite_body";
+        dynInst.reference_ref_frame_name = "ref_frame";
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+        EXPECT_CALL(mockDynManager, is_dyn_body_registered(_)).Times(0);
+        EXPECT_CALL(mockDynBody, find_body_frame(_)).Times(0);
+        EXPECT_CALL(mockDynManager, find_ref_frame(_)).Times(0);
+        EXPECT_CALL(mockDynManager, subscribe_to_frame(_)).Times(0);
+
+        dynInst.initialize(mockDynManager);
+
+        EXPECT_EQ(nullptr, dynInst.get_dyn_subject());
+        EXPECT_EQ(nullptr, dynInst.get_body_ref_frame());
+        EXPECT_EQ(nullptr, dynInst.get_reference_ref_frame());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        Mock::VerifyAndClear(&mockDynManager);
+        Mock::VerifyAndClear(&mockDynBody);
+    }
+    {
+        SCOPED_TRACE("Null dyn_subject. Error");
         DynBodyInitTest dynInst;
         dynInst.set_mass_subject(&mockMassBody);
         EXPECT_CALL(mockMessageHandler,
@@ -171,7 +196,7 @@ TEST(DynBodyInit, initialize)
         Mock::VerifyAndClear(&mockMassBody);
     }
     {
-        // Body not registered with the dynamics manager. Error
+        SCOPED_TRACE("Body not registered with the dynamics manager. Error");
         DynBodyInitTest dynInst;
         dynInst.set_dyn_subject(&mockDynBody);
         EXPECT_CALL(mockDynManager, is_dyn_body_registered(_)).Times(1).WillOnce(Return(false));
@@ -184,7 +209,7 @@ TEST(DynBodyInit, initialize)
         Mock::VerifyAndClear(&mockMassBody);
     }
     {
-        // Null body ref frame, empty body_frame_id, null reference_ref_frame
+        SCOPED_TRACE("Null body ref frame, empty body_frame_id, null reference_ref_frame");
         DynBodyInitTest dynInst;
         dynInst.reference_ref_frame_name = "ref_frame";
         dynInst.set_dyn_subject(&mockDynBody);
@@ -199,7 +224,7 @@ TEST(DynBodyInit, initialize)
         Mock::VerifyAndClear(&mockMassBody);
     }
     {
-        // Null body ref frame, valid body_frame_id, valid reference_ref_frame
+        SCOPED_TRACE("Null body ref frame, valid body_frame_id, valid reference_ref_frame");
         DynBodyInitTest dynInst;
         dynInst.set_reference_ref_frame(&mockRefFrame);
         dynInst.set_dyn_subject(&mockDynBody);
@@ -214,7 +239,7 @@ TEST(DynBodyInit, initialize)
         Mock::VerifyAndClear(&mockMassBody);
     }
     {
-        // valid body ref frame, valid reference_ref_frame
+        SCOPED_TRACE("valid body ref frame, valid reference_ref_frame");
         DynBodyInitTest dynInst;
         dynInst.set_reference_ref_frame(&mockRefFrame);
         dynInst.set_dyn_subject(&mockDynBody);
@@ -248,7 +273,7 @@ TEST(DynBodyInit, is_ready)
     BodyRefFrame bodyRefFrame;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // Default test case with active and inactive status
+        SCOPED_TRACE("Default test case with active and inactive status");
         DynBodyInitTest dynInst;
         dynInst.set_body_ref_frame(&bodyRefFrame);
         EXPECT_TRUE(dynInst.is_ready());
@@ -292,14 +317,14 @@ TEST(DynBodyInit, find_dyn_body)
     MockDynBody mockDynBody;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // Find dyn body success
+        SCOPED_TRACE("Find dyn body success");
         DynBodyInitTest dynInst;
         EXPECT_CALL(mockDynManager, find_dyn_body(_)).Times(1).WillOnce(Return(&mockDynBody));
         dynInst.find_dyn_body(mockDynManager, "test_name", "test_name");
         Mock::VerifyAndClear(&mockDynManager);
     }
     {
-        // Find dyn body failure
+        SCOPED_TRACE("Find dyn body failure");
         DynBodyInitTest dynInst;
         EXPECT_CALL(mockDynManager, find_dyn_body(_)).Times(1).WillOnce(Return(nullptr));
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
@@ -319,7 +344,7 @@ TEST(DynBodyInit, report_failure)
     RefFrame refFrame;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // Not null body ref frame
+        SCOPED_TRACE("Not null body ref frame");
         DynBodyInitTest dynInst;
         dynInst.set_reference_ref_frame(&refFrame);
         dynInst.set_body_ref_frame(&bodyRefFrame);
@@ -328,7 +353,7 @@ TEST(DynBodyInit, report_failure)
         Mock::VerifyAndClear(&mockMessageHandler);
     }
     {
-        // Null body ref frame
+        SCOPED_TRACE("Null body ref frame");
         DynBodyInitTest dynInst;
         dynInst.set_reference_ref_frame(&refFrame);
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Error, _, _, _, _, _, _)).Times(1);

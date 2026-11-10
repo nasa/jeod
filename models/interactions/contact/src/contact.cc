@@ -51,6 +51,7 @@ Contact::Contact()
 {
     JEOD_REGISTER_CLASS(Contact);
     JEOD_REGISTER_CLASS(ContactPair);
+    JEOD_REGISTER_CLASS(PairInteraction);
     JEOD_REGISTER_CHECKPOINTABLE(this, contact_pairs);
     JEOD_REGISTER_CHECKPOINTABLE(this, pair_interactions);
 }

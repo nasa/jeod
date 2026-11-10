@@ -7,6 +7,7 @@
 
 #include "dyn_body_mock.hh"
 #include "dyn_manager_mock.hh"
+#include "dynamics/body_action/include/body_action_messages.hh"
 #include "dynamics/body_action/include/body_attach_aligned.hh"
 #include "mass_mock.hh"
 #include "message_handler_mock.hh"
@@ -21,6 +22,18 @@ using testing::Ref;
 using testing::Return;
 
 using namespace jeod;
+
+class BodyAttachAlignedTest : public BodyAttachAligned
+{
+public:
+    unsigned int shutdown_count{};
+
+    void shutdown() override
+    {
+        ++shutdown_count;
+        BodyAction::shutdown();
+    }
+};
 
 TEST(BodyAttachAligned, create)
 {
@@ -44,7 +57,7 @@ TEST(BodyAttachAligned, initialize)
     Mock::VerifyAndClear(&mockMessageHandler);
 
     {
-        // Test valid parent and subjects, full parent subject point names. No Error.
+        SCOPED_TRACE("Test valid parent and subjects, full parent subject point names. No Error.");
         EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(0);
         BodyAttachAligned staticInst;
         staticInst.set_parent_body(mockDynBody);
@@ -56,7 +69,7 @@ TEST(BodyAttachAligned, initialize)
     }
 
     {
-        // Test valid parent and subjects, full parent point name but no subject point name. Error.
+        SCOPED_TRACE("Test valid parent and subjects, full parent point name but no subject point name. Error.");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
         BodyAttachAligned staticInst;
         staticInst.set_parent_body(mockDynBody);
@@ -67,7 +80,7 @@ TEST(BodyAttachAligned, initialize)
     }
 
     {
-        // Test valid parent and subjects, full subject point name but no parent point name. Error.
+        SCOPED_TRACE("Test valid parent and subjects, full subject point name but no parent point name. Error.");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
         BodyAttachAligned staticInst;
         staticInst.set_parent_body(mockDynBody);
@@ -94,7 +107,7 @@ TEST(BodyAttachAligned, apply)
     Mock::VerifyAndClear(&mockMessageHandler);
 
     {
-        // Test attach DynBody subject to DynBody parent. Succeeds
+        SCOPED_TRACE("Test attach DynBody subject to DynBody parent. Succeeds");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         EXPECT_CALL(mockDynBody, attach_child(An<const std::string &>(), An<const std::string &>(), Ref(mockDynBody2)))
             .Times(1)
@@ -109,7 +122,7 @@ TEST(BodyAttachAligned, apply)
     }
 
     {
-        // Test attach MassBody subject to DynBody parent. Succeeds
+        SCOPED_TRACE("Test attach MassBody subject to DynBody parent. Succeeds");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         EXPECT_CALL(mockDynBody, add_mass_body(An<const std::string &>(), An<const std::string &>(), Ref(mockMassBody)))
             .Times(1)
@@ -124,7 +137,7 @@ TEST(BodyAttachAligned, apply)
     }
 
     {
-        // Test attach DynBody subject to MassBody parent. Fails
+        SCOPED_TRACE("Test attach DynBody subject to MassBody parent. Fails");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
         BodyAttachAligned staticInst;
         staticInst.set_parent_body(mockMassBody);
@@ -135,7 +148,7 @@ TEST(BodyAttachAligned, apply)
     }
 
     {
-        // Test attach MassBody subject to MassBody parent. Succeeds
+        SCOPED_TRACE("Test attach MassBody subject to MassBody parent. Succeeds");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         EXPECT_CALL(mockMassBody2, attach_to(An<const std::string &>(), An<const std::string &>(), Ref(mockMassBody)))
             .Times(1)
@@ -150,7 +163,7 @@ TEST(BodyAttachAligned, apply)
     }
 
     {
-        // Test attach DynBody subject to RefFrame parent. Succeeds
+        SCOPED_TRACE("Test attach DynBody subject to RefFrame parent. Succeeds");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         EXPECT_CALL(mockDynBody, attach_to_frame(An<const std::string &>(), An<const std::string &>(), _, _))
             .Times(1)
@@ -165,7 +178,7 @@ TEST(BodyAttachAligned, apply)
     }
 
     {
-        // Test attach MassBody subject to RefFrame parent. Fails
+        SCOPED_TRACE("Test attach MassBody subject to RefFrame parent. Fails");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
         BodyAttachAligned staticInst;
         staticInst.set_parent_frame(refFrame);
@@ -176,12 +189,58 @@ TEST(BodyAttachAligned, apply)
     }
 
     {
-        // Test unset parent and subjects. Fails
-        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
-        BodyAttachAligned staticInst;
+        SCOPED_TRACE("Missing subject and parent");
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+        BodyAttachAlignedTest staticInst;
         staticInst.apply(mockDynManager);
         EXPECT_FALSE(staticInst.succeeded);
+        EXPECT_EQ(0u, staticInst.shutdown_count);
         Mock::VerifyAndClear(&mockMessageHandler);
+    }
+    {
+        SCOPED_TRACE("Missing subject with DynBody parent");
+
+        BodyAttachAlignedTest staticInst;
+        staticInst.set_parent_body(mockDynBody);
+        staticInst.parent_point_name = "TestParent";
+        staticInst.subject_point_name = "TestSubject";
+
+        EXPECT_CALL(mockDynBody, attach_child(An<const std::string &>(), An<const std::string &>(), _)).Times(0);
+        EXPECT_CALL(mockDynBody, add_mass_body(An<const std::string &>(), An<const std::string &>(), _)).Times(0);
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+
+        staticInst.apply(mockDynManager);
+
+        EXPECT_FALSE(staticInst.succeeded);
+        EXPECT_EQ(0u, staticInst.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        Mock::VerifyAndClear(&mockDynBody);
+    }
+    {
+        SCOPED_TRACE("Missing parent with MassBody subject");
+
+        BodyAttachAlignedTest staticInst;
+        staticInst.set_subject_body(mockMassBody);
+        staticInst.parent_point_name = "TestParent";
+        staticInst.subject_point_name = "TestSubject";
+
+        EXPECT_CALL(mockMassBody, attach_to(An<const std::string &>(), An<const std::string &>(), _)).Times(0);
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+
+        staticInst.apply(mockDynManager);
+
+        EXPECT_FALSE(staticInst.succeeded);
+        EXPECT_EQ(0u, staticInst.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        Mock::VerifyAndClear(&mockMassBody);
     }
 
     // For non-unit destructor process_message calls.

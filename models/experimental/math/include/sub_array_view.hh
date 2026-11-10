@@ -74,6 +74,8 @@ template<class ParentType, typename ElemType, typename RefType>
 class SubArrayView : public MatrixView<ElemType, RefType>
 {
 public:
+    using MatrixView<ElemType, RefType>::operator=;
+
     /**
      * Non-default constructor.
      * @param array_in   The array for which a view is to be constructed.

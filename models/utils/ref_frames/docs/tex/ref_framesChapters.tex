@@ -377,13 +377,15 @@ The nomenclature used in this section is as follows:
 \begin{itemize}
 
 \item{$x_{A \rightarrow B:C}$}  = Position of frame B origin
-with respect to frame A origin, expressed in frame C coordinates (observer is
-fixed with respect to frame C).
-\item{$v_{A \rightarrow B:C}$}  = Velocity of frame B origin
-with respect to frame A origin, expressed in frame C (observer is fixed with
-respect to frame C).
+with respect to frame A origin, expressed in frame C coordinates.
+\item{$v_{A \rightarrow B:C(D)}$} = Velocity of frame B origin
+relative to frame A origin, observed in frame D and expressed in frame C
+coordinates.
+\item{$v_{A \rightarrow B:C}$} = $v_{A \rightarrow B:C(C)}$.
+When the observation frame is omitted, it defaults to the frame in which
+the vector is expressed.
 \item{$w_{A \rightarrow B:C}$}  = Angular velocity of frame B axes with respect
-to frame A axes expressed in frame C (observer is fixed with respect to frame C).
+to frame A axes, expressed in frame C coordinates.
 \item{$T_{A \rightarrow B}$}    = Column vector transformation
 matrix from frame A to frame B.
 \end{itemize}
@@ -401,7 +403,7 @@ These values can also be expressed in the following short hand notation:
 respect to frame A, expressed in frame B. Note that $w_{A:B}$ is
 expressed in frame B coordinates.)
 
-\item{$S_{A:B}$}     = {$x_{A:B}$, $V_{A:B}$, $T_{A:B}$, $w_{A:B}$}.
+\item{$S_{A:B}$}     = {$x_{A:B}$, $v_{A:B}$, $T_{A:B}$, $w_{A:B}$}.
 In other words, the state of frame B with respect to frame A.
 \end{itemize}
 

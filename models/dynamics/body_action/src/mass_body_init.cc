@@ -54,6 +54,12 @@ namespace jeod
  */
 void MassBodyInit::apply(DynManager & dyn_manager)
 {
+    // Validate and resolve the current subject before applying the action.
+    if(!validate_body_inputs(dyn_subject, mass_subject, "subject"))
+    {
+        return;
+    }
+
     // Initialize the mass properties and set the mass points.
     mass_subject->initialize_mass(properties, points);
 

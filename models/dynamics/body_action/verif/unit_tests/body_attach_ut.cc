@@ -25,6 +25,23 @@ using namespace jeod;
 class BodyAttachTest : public BodyAttach
 {
 public:
+    using BodyAttach::validate_attachment_inputs;
+
+    MassBody * get_mass_subject()
+    {
+        return mass_subject;
+    }
+
+    DynBody * get_dyn_subject()
+    {
+        return dyn_subject;
+    }
+
+    void set_mass_subject(MassBody * in)
+    {
+        mass_subject = in;
+    }
+
     MassBody * get_mass_parent()
     {
         return mass_parent;
@@ -58,6 +75,195 @@ public:
 
 BodyAttach gInst;
 
+TEST(BodyAttach, validate_attachment_inputs)
+{
+    MockMessageHandler mockMessageHandler;
+    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    MockDynManager mockDynManager;
+    MockDynBody mockDynSubject;
+    MockDynBody mockDynParent;
+    MockMassBody mockMassSubject;
+    MockMassBody mockMassParent;
+    RefFrame refParent;
+
+    {
+        SCOPED_TRACE("Resolve DynBody subject and parent without initialization");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockDynSubject);
+        action.set_parent_body(mockDynParent);
+        ASSERT_EQ(nullptr, action.get_mass_subject());
+        ASSERT_EQ(nullptr, action.get_mass_parent());
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+
+        EXPECT_TRUE(action.validate_attachment_inputs());
+        EXPECT_EQ(&mockDynSubject, action.get_dyn_subject());
+        EXPECT_EQ(&mockDynSubject.mass, action.get_mass_subject());
+        EXPECT_EQ(&mockDynParent, action.get_dyn_parent());
+        EXPECT_EQ(&mockDynParent.mass, action.get_mass_parent());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Standalone MassBody subject and parent");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockMassSubject);
+        action.set_parent_body(mockMassParent);
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+
+        EXPECT_TRUE(action.validate_attachment_inputs());
+        EXPECT_EQ(&mockMassSubject, action.get_mass_subject());
+        EXPECT_EQ(nullptr, action.get_dyn_subject());
+        EXPECT_EQ(&mockMassParent, action.get_mass_parent());
+        EXPECT_EQ(nullptr, action.get_dyn_parent());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Reference-frame parent");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockDynSubject);
+        action.set_parent_frame(refParent);
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+
+        EXPECT_TRUE(action.validate_attachment_inputs());
+        EXPECT_EQ(&mockDynSubject.mass, action.get_mass_subject());
+        EXPECT_EQ(&refParent, action.get_ref_parent());
+        EXPECT_EQ(nullptr, action.get_dyn_parent());
+        EXPECT_EQ(nullptr, action.get_mass_parent());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Reassign initialized subject and parent");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockMassSubject);
+        action.set_parent_body(mockMassParent);
+        action.initialize(mockDynManager);
+
+        action.set_subject_body(mockDynSubject);
+        action.set_parent_body(mockDynParent);
+        ASSERT_EQ(nullptr, action.get_mass_subject());
+        ASSERT_EQ(nullptr, action.get_mass_parent());
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+
+        EXPECT_TRUE(action.validate_attachment_inputs());
+        EXPECT_EQ(&mockDynSubject.mass, action.get_mass_subject());
+        EXPECT_EQ(&mockDynParent.mass, action.get_mass_parent());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Missing subject");
+
+        BodyAttachTest action;
+        action.set_parent_body(mockMassParent);
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+
+        EXPECT_FALSE(action.validate_attachment_inputs());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Missing parent");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockMassSubject);
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+
+        EXPECT_FALSE(action.validate_attachment_inputs());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Mismatched subject pointers");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockDynSubject);
+        action.set_mass_subject(&mockMassSubject);
+        action.set_parent_body(mockMassParent);
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::fatal_error, _, _))
+            .Times(1);
+
+        EXPECT_FALSE(action.validate_attachment_inputs());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Mismatched parent pointers");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockMassSubject);
+        action.set_parent_body(mockDynParent);
+        action.set_mass_parent(&mockMassParent);
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::fatal_error, _, _))
+            .Times(1);
+
+        EXPECT_FALSE(action.validate_attachment_inputs());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Reference-frame parent conflicts with DynBody parent");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockDynSubject);
+        action.set_parent_frame(refParent);
+        action.set_dyn_parent(&mockDynParent);
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::fatal_error, _, _))
+            .Times(1);
+
+        EXPECT_FALSE(action.validate_attachment_inputs());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+    {
+        SCOPED_TRACE("Reference-frame parent conflicts with MassBody parent");
+
+        BodyAttachTest action;
+        action.set_subject_body(mockDynSubject);
+        action.set_parent_frame(refParent);
+        action.set_mass_parent(&mockMassParent);
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::fatal_error, _, _))
+            .Times(1);
+
+        EXPECT_FALSE(action.validate_attachment_inputs());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+}
+
 TEST(BodyAttach, create)
 {
     BodyAttach staticInst;
@@ -85,7 +291,7 @@ TEST(BodyAttach, initialize)
     Mock::VerifyAndClear(&mockMessageHandler);
 
     {
-        // No parent of any type set for validate_body_inputs call and no parent RefFrame. Error
+        SCOPED_TRACE("No parent of any type set for validate_body_inputs call and no parent RefFrame. Error");
         BodyAttachTest staticInst;
         staticInst.set_subject_body(mockDynBody);
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
@@ -94,7 +300,7 @@ TEST(BodyAttach, initialize)
     }
 
     {
-        // No parent of any type set for validate_body_inputs call but valie parent RefFrame. Success
+        SCOPED_TRACE("No parent of any type set for validate_body_inputs call but valie parent RefFrame. Success");
         BodyAttachTest staticInst;
         staticInst.set_subject_body(mockDynBody);
         staticInst.set_ref_parent(&refFrame);
@@ -104,7 +310,7 @@ TEST(BodyAttach, initialize)
     }
 
     {
-        // A parent is set for validate_body_inputs call. Success
+        SCOPED_TRACE("A parent is set for validate_body_inputs call. Success");
         BodyAttachTest staticInst;
         staticInst.set_subject_body(mockDynBody);
         staticInst.set_dyn_parent(&mockDynBody);
@@ -126,7 +332,7 @@ TEST(BodyAttach, set_parent_body)
     RefFrame refFrame;
 
     {
-        // Test setting parent DynBody will clear MassBody parent and RefFrame parent pointers
+        SCOPED_TRACE("Test setting parent DynBody will clear MassBody parent and RefFrame parent pointers");
         BodyAttachTest staticInst;
         staticInst.set_dyn_parent(nullptr);
         staticInst.set_mass_parent(&mockMassBody);
@@ -138,7 +344,7 @@ TEST(BodyAttach, set_parent_body)
     }
 
     {
-        // Test setting parent MassBody will clear DynBody parent and RefFrame parent pointers
+        SCOPED_TRACE("Test setting parent MassBody will clear DynBody parent and RefFrame parent pointers");
         BodyAttachTest staticInst;
         staticInst.set_dyn_parent(&mockDynBody);
         staticInst.set_mass_parent(nullptr);
@@ -189,7 +395,7 @@ TEST(BodyAttach, apply)
     std::array<std::string, 3> expStringArgs({"", "", ""});
 
     {
-        // Test succeeded action with a DynBody parent and subject. Not allowed to fail
+        SCOPED_TRACE("Test succeeded action with a DynBody parent and subject. Not allowed to fail");
         BodyAttachTest staticInst;
         staticInst.set_subject_body(mockDynBody);
         staticInst.set_dyn_parent(&mockDynBody2);
@@ -205,7 +411,7 @@ TEST(BodyAttach, apply)
     }
 
     {
-        // Test failed action with a MassBody parent and subject. Not allowed to fail
+        SCOPED_TRACE("Test failed action with a MassBody parent and subject. Not allowed to fail");
         BodyAttachTest staticInst;
         staticInst.set_subject_body(mockMassBody);
         staticInst.set_mass_parent(&mockMassBody2);
@@ -222,7 +428,7 @@ TEST(BodyAttach, apply)
     }
 
     {
-        // Test failed action with a RefFrame parent but no subject. Allowed to fail.
+        SCOPED_TRACE("Test failed action with a RefFrame parent but no subject. Allowed to fail.");
         BodyAttachTest staticInst;
         staticInst.set_ref_parent(&refFrame);
         staticInst.succeeded = false;
@@ -238,7 +444,7 @@ TEST(BodyAttach, apply)
     }
 
     {
-        // Test failed action with no parent or subject. Allowed to fail.
+        SCOPED_TRACE("Test failed action with no parent or subject. Allowed to fail.");
         BodyAttachTest staticInst;
         staticInst.succeeded = false;
         staticInst.terminate_on_error = false;

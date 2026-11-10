@@ -143,6 +143,9 @@ protected:
      */
     RefFrame * ref_parent{}; //!< trick_units(--)
 
+    // Validate and resolve the subject and parent before attachment.
+    bool validate_attachment_inputs();
+
 public:
     BodyAttach() = default;
     ~BodyAttach() override = default;

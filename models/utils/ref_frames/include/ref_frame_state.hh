@@ -95,7 +95,7 @@ public:
 
     /**
      * Velocity of the subject reference frame origin with respect to the parent
-     * frame origin and expressed in parent reference frame coordinates
+     * frame origin, observed in and expressed in the parent reference frame
      */
     double velocity[3]{}; //!< trick_units(m/s)
 
@@ -168,7 +168,8 @@ public:
     // initialize: Set transformation to identity
     void init_orientation();
 
-    // initialize: Set transformation to identity, rate to zero.
+    // initialize: Set position, velocity, and angular velocity to zero,
+    // and orientation to identity.
     void initialize();
 
     // copy: Copy reference attitude, rate.

@@ -144,7 +144,7 @@ public:
      *   This is not bounds-checked.
      * @return The indexed component constraint.
      */
-    ConstraintComponent * get_component(unsigned index) override
+    ConstraintComponent * get_component(unsigned index __attribute__((unused))) override
     {
         assert(index == 0);
         return &pendulum_component;

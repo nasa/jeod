@@ -216,8 +216,8 @@ public:
                                                double qddot[4]);
 
     // SLERP Algorithm - interpolates the shortest and straightest (minimum)
-    // geodescic between two quaternions.
-    static Quaternion compute_slerp(Quaternion & q1, Quaternion & q2, const double T);
+    // geodesic between two quaternions.
+    static Quaternion compute_slerp(const Quaternion & q1, const Quaternion & q2, const double T);
 };
 
 } // namespace jeod

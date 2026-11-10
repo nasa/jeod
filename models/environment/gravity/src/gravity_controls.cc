@@ -310,11 +310,56 @@ void GravityControls::calc_spherical(const double integ_pos[3],
         double rho_3rd = rho_sq * std::sqrt(rho_sq);
         double r_dot_rho = Vector3::dot(integ_pos, grav_source_frame.pos);
 
-        // Issue: Does the 3rd body effect also apply to potential?
-        // pot += mu_local * r_dot_rho / rho_3rd;
+        // The third-body acceleration subtracts the acceleration of the
+        // integration frame origin. That frame-dependent term is not part
+        // of the gravitational potential at the point of interest.
+
+        // The Earth-Moon barycenter accelerates as the mu-weighted average
+        // of Earth and Moon, not as a test particle at the barycenter.
+        // Use the direct calculation here; Battin's point-origin formula
+        // does not apply to the weighted pair.
+        if(grav_source_frame.ref_frame->get_name() == "EMBary.inertial")
+        {
+            const GravitySource * earth = grav_manager->find_grav_source("Earth");
+            const GravitySource * moon = grav_manager->find_grav_source("Moon");
+            if(earth == nullptr || moon == nullptr || earth->inertial == nullptr || moon->inertial == nullptr)
+            {
+                MessageHandler::fail(__FILE__,
+                                     __LINE__,
+                                     GravityMessages::missing_entry,
+                                     "Earth and Moon gravity sources and inertial frames are required "
+                                     "for EMBary third-body gravity.");
+                return;
+            }
+
+            const double total_mu = earth->mu + moon->mu;
+            if(total_mu <= 0.0)
+            {
+                MessageHandler::fail(__FILE__,
+                                     __LINE__,
+                                     GravityMessages::missing_entry,
+                                     "The total Earth-Moon gravitational parameter must be positive "
+                                     "for EMBary third-body gravity.");
+                return;
+            }
+
+            Vector3::scale(posn, -mu_local / r_3rd, acc_local);
+
+            double pos_body_to_earth[3];
+            earth->inertial->compute_position_from(*body->inertial, pos_body_to_earth);
+            double dist_sq = Vector3::vmagsq(pos_body_to_earth);
+            double dist_cubed = dist_sq * std::sqrt(dist_sq);
+            Vector3::scale_incr(pos_body_to_earth, (earth->mu / total_mu) * mu_local / dist_cubed, acc_local);
+
+            double pos_body_to_moon[3];
+            moon->inertial->compute_position_from(*body->inertial, pos_body_to_moon);
+            dist_sq = Vector3::vmagsq(pos_body_to_moon);
+            dist_cubed = dist_sq * std::sqrt(dist_sq);
+            Vector3::scale_incr(pos_body_to_moon, (moon->mu / total_mu) * mu_local / dist_cubed, acc_local);
+        }
 
         // Battin's method: See writeup.
-        if(battin_method)
+        else if(battin_method)
         {
             // Note that grav_source_frame.pos is used in place of the rho listed in the documentation.
             // This is noteworthy because grav_source_frame.pos is directionally opposite of rho.
@@ -355,7 +400,7 @@ void GravityControls::calc_spherical(const double integ_pos[3],
 
     Vector3::incr(acc_local, body_grav_accel);
 
-    // Compute inertial frame specific potential energy.
+    // Add this body's specific gravitational potential at the point of interest.
     pot += mu_local / r_mag;
 
     // Compute spherical gravity gradient (Gottlieb p.23)

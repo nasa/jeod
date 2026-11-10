@@ -78,7 +78,7 @@ namespace jeod
 
 /**
  * Return the name.
- * @return Void
+ * @return Frame name
  */
 inline std::string RefFrame::get_name() const
 {
@@ -169,7 +169,8 @@ inline void RefFrame::remove_from_parent()
  * frame tree to the frame in question. The paths for two reference
  * frames will have some initial sequence of common nodes.
  * Find the index number of this last element in this sequence.
- * @return Last common node
+ * @return Index of the last common node, or a negative value if the frames
+ *    are in different trees
  * \param[in] frame Other frame
  */
 inline int RefFrame::find_last_common_index(const RefFrame & frame) const
@@ -199,9 +200,8 @@ inline const RefFrame * RefFrame::find_last_common_node(const RefFrame & frame) 
 }
 
 /**
- * Return true if this frame is a progeny of the provided frame,
- * false if not.
- * @return This is progeny of frame
+ * Return true if the provided frame is this frame or an ancestor of this frame.
+ * @return True if frame is this frame or an ancestor, false otherwise
  * \param[in] frame Other frame
  */
 inline bool RefFrame::is_progeny_of(const RefFrame & frame) const

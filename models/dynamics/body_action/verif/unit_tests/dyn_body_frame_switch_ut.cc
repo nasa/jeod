@@ -7,6 +7,7 @@
 
 #include "dyn_body_mock.hh"
 #include "dyn_manager_mock.hh"
+#include "dynamics/body_action/include/body_action_messages.hh"
 #include "dynamics/body_action/include/dyn_body_frame_switch.hh"
 #include "gravity_controls_mock.hh"
 #include "mass_mock.hh"
@@ -85,7 +86,28 @@ TEST(DynBodyFrameSwitch, initialize)
     EphemerisRefFrame ephemerisRefFrame;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // Null dyn_subject
+        SCOPED_TRACE("Missing subject stops initialization");
+
+        DynBodyFrameSwitchTest dynInst;
+        dynInst.integ_frame_name = "test_name";
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+        EXPECT_CALL(mockDynManager, find_integ_frame(_)).Times(0);
+        EXPECT_CALL(mockDynManager, subscribe_to_frame(_)).Times(0);
+
+        dynInst.initialize(mockDynManager);
+
+        EXPECT_EQ(nullptr, dynInst.get_dyn_subject());
+        EXPECT_EQ(nullptr, dynInst.get_mass_subject());
+        EXPECT_EQ(nullptr, dynInst.get_integ_frame());
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        Mock::VerifyAndClear(&mockDynManager);
+    }
+    {
+        SCOPED_TRACE("Null dyn_subject");
         DynBodyFrameSwitchTest dynInst;
         dynInst.set_mass_subject(&mockMassBody);
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
@@ -93,7 +115,7 @@ TEST(DynBodyFrameSwitch, initialize)
         Mock::VerifyAndClear(&mockMessageHandler);
     }
     {
-        // Empty integ_frame_name
+        SCOPED_TRACE("Empty integ_frame_name");
         DynBodyFrameSwitchTest dynInst;
         dynInst.set_dyn_subject(&mockDynBody);
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
@@ -101,7 +123,7 @@ TEST(DynBodyFrameSwitch, initialize)
         Mock::VerifyAndClear(&mockMessageHandler);
     }
     {
-        // find_integ_frame returns nullptr
+        SCOPED_TRACE("find_integ_frame returns nullptr");
         DynBodyFrameSwitchTest dynInst;
         dynInst.set_dyn_subject(&mockDynBody);
         dynInst.integ_frame_name = "test_name";
@@ -112,7 +134,7 @@ TEST(DynBodyFrameSwitch, initialize)
         Mock::VerifyAndClear(&mockDynManager);
     }
     {
-        // Reaches end of initialization
+        SCOPED_TRACE("Reaches end of initialization");
         DynBodyFrameSwitchTest dynInst;
         dynInst.set_dyn_subject(&mockDynBody);
         dynInst.integ_frame_name = "test_name";
@@ -137,7 +159,7 @@ TEST(DynBodyFrameSwitch, apply)
     EphemerisRefFrame integFrame;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // sort_grav_controls is false
+        SCOPED_TRACE("sort_grav_controls is false");
         DynBodyFrameSwitchTest dynInst;
         dynInst.set_dyn_subject(&mockDynBody);
         dynInst.integ_frame_name = "test_name";
@@ -156,7 +178,7 @@ TEST(DynBodyFrameSwitch, apply)
         Mock::VerifyAndClear(&mockControls[1]);
     }
     {
-        // sort_grav_controls is true
+        SCOPED_TRACE("sort_grav_controls is true");
         DynBodyFrameSwitchTest dynInst;
         dynInst.set_dyn_subject(&mockDynBody);
         dynInst.integ_frame_name = "test_name";
@@ -186,7 +208,7 @@ TEST(DynBodyFrameSwitch, is_ready)
     mockDynBody.composite_body.state.trans.position[0] = 5.0;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // active, switchonapproach, too far away
+        SCOPED_TRACE("active, switchonapproach, too far away");
         DynBodyFrameSwitchTest dynInst;
         dynInst.switch_sense = DynBodyFrameSwitch::SwitchOnApproach;
         dynInst.switch_distance = 7.5;
@@ -195,7 +217,7 @@ TEST(DynBodyFrameSwitch, is_ready)
         EXPECT_TRUE(dynInst.is_ready());
     }
     {
-        // active, switchonapproach, close enough
+        SCOPED_TRACE("active, switchonapproach, close enough");
         DynBodyFrameSwitchTest dynInst;
         dynInst.switch_sense = DynBodyFrameSwitch::SwitchOnApproach;
         dynInst.switch_distance = 4.0;
@@ -204,7 +226,7 @@ TEST(DynBodyFrameSwitch, is_ready)
         EXPECT_FALSE(dynInst.is_ready());
     }
     {
-        // active, switchondeparture, too close
+        SCOPED_TRACE("active, switchondeparture, too close");
         DynBodyFrameSwitchTest dynInst;
         dynInst.switch_sense = DynBodyFrameSwitch::SwitchOnDeparture;
         dynInst.switch_distance = 7.5;
@@ -213,7 +235,7 @@ TEST(DynBodyFrameSwitch, is_ready)
         EXPECT_FALSE(dynInst.is_ready());
     }
     {
-        // active, switchondeparture, far enough
+        SCOPED_TRACE("active, switchondeparture, far enough");
         DynBodyFrameSwitchTest dynInst;
         dynInst.switch_sense = DynBodyFrameSwitch::SwitchOnDeparture;
         dynInst.switch_distance = 4.0;
@@ -222,7 +244,7 @@ TEST(DynBodyFrameSwitch, is_ready)
         EXPECT_TRUE(dynInst.is_ready());
     }
     {
-        // inactive
+        SCOPED_TRACE("inactive");
         DynBodyFrameSwitchTest dynInst;
         dynInst.active = false;
         dynInst.switch_sense = DynBodyFrameSwitch::SwitchOnDeparture;

@@ -49,6 +49,11 @@ namespace jeod
  */
 void BodyAttachMatrix::apply(DynManager & dyn_manager)
 {
+    if(!validate_attachment_inputs())
+    {
+        return;
+    }
+
     // Convert user-specified orientation to transformation matrix.
     pstr_cstr.compute_transform();
 

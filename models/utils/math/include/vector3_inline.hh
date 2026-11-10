@@ -221,7 +221,7 @@ inline double * Vector3::normalize(const double vec[3], double unit_vec[3])
 
 /**
  * Scale a vector in-place,
- * vec[i] = scalar
+ * vec[i] *= scalar
  * @return Scaled vector
  * \param[in] scalar Scalar
  * \param[in,out] vec Scaled vector

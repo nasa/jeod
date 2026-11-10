@@ -43,17 +43,19 @@ namespace jeod
 
   Nomenclature of mathematical formulations.
     x,v,Q,T,w = position, velocity, quaternion, transform, rate, respectively.
-    A,B,C     = various reference frames.
+    A,B,C,D   = various reference frames.
 
 
   Long-hand notations.
-    x_A->B:C  = Position of frame B origin with respect to frame A origin,
-                expressed in frame A coordinates.
-    v_A->B:C  = Velocity of frame B origin with respect to frame A origin,
-                expressed in frame C (observer is fixed wrt frame C).
-    w_A->B:C  = Angular velocity of frame B axes wrt frame A axes,
-                expressed in frame C (observer is fixed wrt frame C).
-    T_A->B    = Column vector transformation matrix from frame A to frame B.
+    x_A->B:C    = Position of frame B origin with respect to frame A origin,
+                  expressed in frame C coordinates.
+    v_A->B:C(D) = Velocity of frame B origin relative to frame A origin,
+                  observed in frame D and expressed in frame C coordinates.
+    v_A->B:C    = v_A->B:C(C); when the observation frame is omitted,
+                  it defaults to the frame in which the vector is expressed.
+    w_A->B:C    = Angular velocity of frame B axes wrt frame A axes,
+                  expressed in frame C coordinates.
+    T_A->B      = Column vector transformation matrix from frame A to frame B.
 
 
   Short-hand notations.
@@ -61,8 +63,8 @@ namespace jeod
     v_A:B     = v_A->B:A
     T_A:B     = T_A->B
     w_A:B     = w_A->B:B (Note that w_A:B is expressed in frame B coordinates.)
-    S_A:B     = {x_A:B, V_A:B, T_A:B, w_A:B}
-                In other words, the state of frame with respect to frame B.
+    S_A:B     = {x_A:B, v_A:B, T_A:B, w_A:B}
+                In other words, the state of frame B with respect to frame A.
 
 
   Operators.
@@ -93,7 +95,7 @@ namespace jeod
 
 
   Shortcuts.
-  The methods defined below two shortcuts to bypass various calculations.
+  The methods defined below use two shortcuts to bypass various calculations.
 
   - Identity transformation.
     There is no need to transform a vector if the transformation is an identity.
@@ -101,7 +103,7 @@ namespace jeod
     case of an identity transformation.
 
   - Null rotation.
-    This is no need to calculate wXr and the like if the angular velocity is
+    There is no need to calculate wXr and the like if the angular velocity is
     identically zero. The magnitude of the angular velocity is used to detect
     whether this is the case.
 
@@ -110,7 +112,7 @@ namespace jeod
 
 /**
  * Assignment operator; copies state from the source.
- * @return Pointer to this
+ * @return Reference to this
  * \param[in] source Source state
  */
 
@@ -129,7 +131,7 @@ RefFrameTrans & RefFrameTrans::operator=(const RefFrameTrans & source)
 
 /**
  * Assignment operator; copies state from the source.
- * @return Pointer to this
+ * @return Reference to this
  * \param[in] source Source state
  */
 RefFrameRot & RefFrameRot::operator=(const RefFrameRot & source)
@@ -160,7 +162,7 @@ RefFrameState::RefFrameState(const RefFrameState & source)
 
 /**
  * Assignment operator; copies state from the source.
- * @return Pointer to this
+ * @return Reference to this
  * \param[in] source Source state
  */
 RefFrameState & RefFrameState::operator=(const RefFrameState & source)
@@ -272,7 +274,7 @@ void RefFrameState::incr_left(const RefFrameState & s_ab)
         Q_temp.multiply(s_ab.rot.Q_parent_this);
         rot.update_orientation(Q_temp);
 
-        // Compute v_B->C:A = T_A:B^T * (v_B:C + w_a:B X x_B:C)
+        // Compute v_B->C:A = T_A:B^T * (v_B:C + w_A:B X x_B:C)
         // Note: This must be performed prior to computing the position
         // because it uses x_B:C = trans.position.
         if(std::fpclassify(s_ab.rot.ang_vel_mag) != FP_ZERO)
@@ -295,7 +297,7 @@ void RefFrameState::incr_left(const RefFrameState & s_ab)
         }
     }
 
-    // Add the X_A:B, v_A:B to the state.
+    // Add x_A:B and v_A:B to the state.
     Vector3::incr(s_ab.trans.velocity, trans.velocity);
     Vector3::incr(s_ab.trans.position, trans.position);
 }
@@ -328,7 +330,7 @@ void RefFrameState::incr_right(const RefFrameState & s_bc)
     double v_bc_in_b_obs_a[3]; // M/s  Vel. of C wrt B in B, observed from A
 
     // The velocity of frame C origin wrt frame B as observed in frame A
-    // includes the velocity itself plus and omega cross r term.
+    // includes the velocity observed in frame B plus an omega cross r term.
     // The velocity term does not depend on the frame rate: copy it.
     Vector3::copy(s_bc.trans.velocity, v_bc_in_b_obs_a);
 
@@ -383,7 +385,7 @@ void RefFrameState::incr_right(const RefFrameState & s_bc)
  * with this initially containing S_A:C,
  * the supplied argument containing S_A:B, and
  * the resultant composition of states stored in this.
- * \param[in] s_ab Left addend
+ * \param[in] s_ab Left operand to be negated
  */
 void RefFrameState::decr_left(const RefFrameState & s_ab)
 {
@@ -407,13 +409,13 @@ void RefFrameState::decr_left(const RefFrameState & s_ab)
     // Shortcut: only do the transformations if T_A:B is not the identity matrix.
     if(!Numerical::compare_exact(s_ab.rot.Q_parent_this.scalar, 1.0))
     {
-        // Compute Q_B:C = Q_A:C * Q_A:B^Q
+        // Compute Q_B:C = Q_A:C * conjugate(Q_A:B)
         Quaternion Q_temp = rot.Q_parent_this;
         Q_temp.multiply_conjugate(s_ab.rot.Q_parent_this);
         rot.update_orientation(Q_temp);
 
         // Compute x_B:C and v_B:C.
-        // Note that x_B:C must be computed before v_B:C as V_B:C depends on
+        // Note that x_B:C must be computed before v_B:C as v_B:C depends on
         // the former.
         Vector3::decr(s_ab.trans.position, trans.position);
         Vector3::transform(s_ab.rot.T_parent_this, trans.position);
@@ -444,7 +446,7 @@ void RefFrameState::decr_left(const RefFrameState & s_ab)
  * with this initially containing S_A:C,
  * the supplied argument containing S_B:C, and
  * the resultant composition of states stored in this.
- * \param[in] s_bc Left addend
+ * \param[in] s_bc Right operand to be negated
  */
 void RefFrameState::decr_right(const RefFrameState & s_bc)
 {
@@ -493,7 +495,7 @@ void RefFrameState::decr_right(const RefFrameState & s_bc)
         Vector3::cross_incr(rot.ang_vel_this, s_bc.trans.position, v_bc_in_b_obs_a);
     }
 
-    // Compute x_A:B, V_A:B via
+    // Compute x_A:B, v_A:B via
     //   x_A:B = x_A:C - T_A:B^T * x_B:C
     //   v_A:B = v_A:C - T_A:B^T * (v_B:C + w_A:B X x_B:C)
     if(!Numerical::compare_exact(rot.Q_parent_this.scalar, 1.0))

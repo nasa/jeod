@@ -138,7 +138,7 @@ inline void RefFrameRot::init_orientation()
 }
 
 /**
- * Initialize a RefFrameRot to a null offset.
+ * Initialize a RefFrameRot to identity orientation and zero angular velocity.
  */
 inline void RefFrameRot::initialize()
 {
@@ -229,7 +229,7 @@ inline void RefFrameRot::update_orientation(const double transformation[3][3])
  */
 inline void RefFrameRot::update_orientation(const Quaternion & left_quat)
 {
-    // Save the new structure-to-point transformation quaternion.
+    // Save the new parent-to-subject transformation quaternion.
     Q_parent_this = left_quat;
     Q_parent_this.normalize();
     compute_transformation();
@@ -242,7 +242,7 @@ inline void RefFrameRot::update_orientation(const Quaternion & left_quat)
  */
 inline void RefFrameRot::update_orientation_integ(const Quaternion & left_quat)
 {
-    // Save the new structure-to-point transformation quaternion.
+    // Save the new parent-to-subject transformation quaternion.
     Q_parent_this = left_quat;
     Q_parent_this.normalize_integ();
     compute_transformation();

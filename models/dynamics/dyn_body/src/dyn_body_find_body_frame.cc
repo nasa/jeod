@@ -61,6 +61,21 @@ BodyRefFrame * DynBody::find_body_frame(const std::string & frame_id) const
         return nullptr;
     }
 
+    // Sanity check: This body must have been initialized with a dynamics manager.
+    if(dyn_manager == nullptr)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             DynBodyMessages::invalid_body,
+                             "DynBody '%s' has not been initialized with a dynamics manager; "
+                             "cannot find body frame '%s'.\n",
+                             name.c_str(),
+                             frame_id.c_str());
+
+        // Not reached
+        return nullptr;
+    }
+
     // Find the reference frame.
     found_frame = dyn_manager->find_ref_frame(name.get_name(), name.suffix(frame_id));
 

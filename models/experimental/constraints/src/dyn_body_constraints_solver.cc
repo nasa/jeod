@@ -150,6 +150,7 @@ DynBodyConstraintsSolver::DynBodyConstraintsSolver(LinearSystemSolver * solver_i
       active_constraints()
 {
     JEOD_REGISTER_CLASS(DynBodyConstraintsSolver);
+    JEOD_REGISTER_CLASS(DynBodyConstraint);
     JEOD_REGISTER_CHECKPOINTABLE(this, own_constraints);
     JEOD_REGISTER_CHECKPOINTABLE(this, child_constraints);
     JEOD_REGISTER_CHECKPOINTABLE(this, all_constraints);

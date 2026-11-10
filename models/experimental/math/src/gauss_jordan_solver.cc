@@ -46,6 +46,7 @@ unsigned GaussJordanSolver::solve(DoubleVectorT & x)
         // Find the row containing the largest absolute value in column ii.
         // Note that column ii is zero in logical rows 0 to ii-1.
         unsigned i_pivot = avail_rows[ii];
+        unsigned i_slot = ii;
         double col_max = std::fabs(augmented_matrix(i_pivot, ii));
         for(unsigned jj = ii + 1; jj < n_dimensions; ++jj)
         {
@@ -54,6 +55,7 @@ unsigned GaussJordanSolver::solve(DoubleVectorT & x)
             if(value_j > col_max)
             {
                 i_pivot = j_pivot;
+                i_slot = jj;
                 col_max = value_j;
             }
         }
@@ -69,7 +71,10 @@ unsigned GaussJordanSolver::solve(DoubleVectorT & x)
         }
 
         // i_pivot is the pivot row.
-        std::swap(avail_rows[ii], avail_rows[i_pivot]);
+        // i_pivot is the pivot row; i_slot is the logical slot it occupies. avail_rows is
+        // indexed by logical slot, so the swap must use i_slot -- indexing it by the
+        // physical row is only correct while avail_rows is still the identity.
+        std::swap(avail_rows[ii], avail_rows[i_slot]);
         pivot_row[ii] = i_pivot;
 
         // Divide the pivot row by the pivot value.

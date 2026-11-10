@@ -86,6 +86,11 @@ void BodyAttachAligned::initialize(DynManager & dyn_manager)
  */
 void BodyAttachAligned::apply(DynManager & dyn_manager)
 {
+    if(!validate_attachment_inputs())
+    {
+        return;
+    }
+
     if(dyn_parent != nullptr)
     {
         if(dyn_subject != nullptr) // DynBody to DynBody

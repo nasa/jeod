@@ -57,6 +57,12 @@ BodyDetach::BodyDetach()
  */
 void BodyDetach::apply(DynManager & dyn_manager)
 {
+    // Validate and resolve the current subject before applying the action.
+    if(!validate_body_inputs(dyn_subject, mass_subject, "subject"))
+    {
+        return;
+    }
+
     bool succeeded;
 
     // Detach the subject from its parent.

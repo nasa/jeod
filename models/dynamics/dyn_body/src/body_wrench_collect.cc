@@ -26,6 +26,7 @@ BodyWrenchCollect::BodyWrenchCollect()
     : collect_wrench()
 {
     JEOD_REGISTER_CLASS(BodyWrenchCollect);
+    JEOD_REGISTER_CLASS(Wrench);
     JEOD_REGISTER_CHECKPOINTABLE(this, collect_wrench);
 }
 

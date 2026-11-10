@@ -40,8 +40,6 @@ Library dependencies:
 #include "utils/message/include/message_handler.hh"
 
 #include <cmath>
-#include <fstream> // delete this later
-#include <iomanip> // delete this later
 
 //! Namespace jeod
 namespace jeod
@@ -88,60 +86,93 @@ Quaternion::Quaternion(const double T[3][3])
  * orientation, a smaller step or change in T results in a smoother
  * object rotation
  */
-Quaternion Quaternion::compute_slerp(Quaternion & q1, Quaternion & q2, const double T)
+Quaternion Quaternion::compute_slerp(const Quaternion & q1, const Quaternion & q2, const double T)
 {
-    // SLERP is only valid for unit quaternions
-    q1.normalize();
-    q2.normalize();
-
-    // The SLERP Algorithm is as follows
-    // qm = ( q1*sin((1-T)*theta) + q2*sin(T*theta) ) / sin(theta)
-
-    Quaternion qm;
-
-    double cosTheta = (q1.scalar * q2.scalar) + Vector3::dot(q1.vector, q2.vector);
-    // Ensure shortest angle is used
-    if(cosTheta < 0)
-    {
-        // q2 = -q2;
-        q2.scalar = -q2.scalar;
-        q2.vector[0] = -q2.vector[0];
-        q2.vector[1] = -q2.vector[1];
-        cosTheta = -cosTheta;
-    }
-
-    // If q1 = q2 or q1 = -q2 then theta = 0
-    // Therefore, qm = q1
-    if(std::abs(cosTheta) > 1.0 || Numerical::compare_exact(std::abs(cosTheta), 1.0))
-    {
-        return q1;
-    }
-
-    // Intermediate calcs. Angles are in radians
-    double theta = std::acos(cosTheta);
-    double sinTheta = std::sin(theta);
-    // If theta = 180 deg, result is undefinted
-    if(std::abs(sinTheta) < 0.0000000000001)
+    // Reject degenerate inputs rather than amplify very small components.
+    constexpr double min_norm_sq = 1.0e-15;
+    const double q1_norm_sq = q1.norm_sq();
+    const double q2_norm_sq = q2.norm_sq();
+    if(!std::isfinite(q1_norm_sq) || q1_norm_sq < min_norm_sq)
     {
         MessageHandler::fail(__FILE__,
                              __LINE__,
                              QuatMessages::undefined,
-                             "The quaternions provided result in an undefined quaternion interpolation.");
+                             "q1 not finite or does not have sufficiently large norm for SLERP.");
+        return Quaternion();
     }
-    double ratio1 = std::sin((1 - T) * theta) / sinTheta;
-    double ratio2 = std::sin(T * theta) / sinTheta;
 
-    qm.scalar = ((q1.scalar * ratio1) + (q2.scalar * ratio2));
-    for(int i = 0; i < 3; i++)
+    if(!std::isfinite(q2_norm_sq) || q2_norm_sq < min_norm_sq)
     {
-        qm.vector[i] = (q1.vector[i] * ratio1 + q2.vector[i] * ratio2);
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             QuatMessages::undefined,
+                             "q2 not finite or does not have sufficiently large norm for SLERP.");
+        return Quaternion();
     }
 
-    // Normalize the resulting interpolation quaternion
+    if(!std::isfinite(T) || T < 0.0 || T > 1.0)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             QuatMessages::undefined,
+                             "SLERP interpolation coefficient must be between 0 and 1.");
+        return Quaternion();
+    }
+
+    // Normalize local copies before interpolation.
+    Quaternion q1_copy(q1);
+    Quaternion q2_copy(q2);
+    q1_copy.normalize();
+    q2_copy.normalize();
+
+    // The SLERP Algorithm is as follows
+    // qm = ( q1*sin((1-T)*theta) + q2*sin(T*theta) ) / sin(theta)
+    // Use shortest-path SLERP, with normalized linear interpolation
+    // when the quaternions are nearly identical.
+    double cosTheta = (q1_copy.scalar * q2_copy.scalar) + Vector3::dot(q1_copy.vector, q2_copy.vector);
+    // Ensure shortest angle is used
+    if(cosTheta < 0)
+    {
+        q2_copy.scale(-1.0);
+        cosTheta = -cosTheta;
+    }
+
+    double ratio1;
+    double ratio2;
+    if(cosTheta > 1.0 - 1.0e-12)
+    {
+        // For nearby quaternions, linear interpolation avoids division by a very small sin(theta).
+        ratio1 = 1.0 - T;
+        ratio2 = T;
+    }
+    else
+    {
+        const double theta = std::acos(cosTheta);
+        const double sinTheta = std::sin(theta);
+        ratio1 = std::sin((1.0 - T) * theta) / sinTheta;
+        ratio2 = std::sin(T * theta) / sinTheta;
+    }
+
+    q1_copy.scale(ratio1);
+    q2_copy.scale(ratio2);
+
+    Quaternion qm;
+    qm.scalar = q1_copy.scalar + q2_copy.scalar;
+    Vector3::sum(q1_copy.vector, q2_copy.vector, qm.vector);
+
+    const double qm_norm_sq = qm.norm_sq();
+    if(!std::isfinite(qm_norm_sq) || qm_norm_sq < min_norm_sq)
+    {
+        MessageHandler::fail(__FILE__,
+                             __LINE__,
+                             QuatMessages::undefined,
+                             "SLERP produced a nonfinite or insufficiently large quaternion.");
+        return Quaternion();
+    }
+
     qm.normalize();
 
     return qm;
-    // all done!
 }
 
 } // namespace jeod

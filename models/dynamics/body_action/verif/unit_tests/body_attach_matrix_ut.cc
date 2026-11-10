@@ -7,6 +7,7 @@
 
 #include "dyn_body_mock.hh"
 #include "dyn_manager_mock.hh"
+#include "dynamics/body_action/include/body_action_messages.hh"
 #include "dynamics/body_action/include/body_attach_matrix.hh"
 #include "mass_mock.hh"
 #include "message_handler_mock.hh"
@@ -24,6 +25,14 @@ using namespace jeod;
 class BodyAttachMatrixTest : public BodyAttachMatrix
 {
 public:
+    unsigned int shutdown_count{};
+
+    void shutdown() override
+    {
+        ++shutdown_count;
+        BodyAction::shutdown();
+    }
+
     void set_dyn_subject(DynBody * in)
     {
         dyn_subject = in;
@@ -108,7 +117,7 @@ TEST(BodyAttachMatrix, apply)
     MockMassBody mockMassParent;
     Mock::VerifyAndClear(&mockMessageHandler);
     {
-        // dyn_parent not null, dyn_subject not null branch
+        SCOPED_TRACE("dyn_parent not null, dyn_subject not null branch");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         BodyAttachMatrixTest dynInst;
         dynInst.set_dyn_parent(&mockDynParent);
@@ -117,11 +126,14 @@ TEST(BodyAttachMatrix, apply)
             .Times(1)
             .WillOnce(Return(true));
         dynInst.apply(mockDynManager);
+        EXPECT_EQ(&mockDynBody.mass, dynInst.get_mass_subject());
+        EXPECT_EQ(&mockDynParent.mass, dynInst.get_mass_parent());
+        EXPECT_EQ(1u, dynInst.shutdown_count);
         Mock::VerifyAndClear(&mockMessageHandler);
         Mock::VerifyAndClear(&mockDynParent);
     }
     {
-        // dyn_parent not null, dyn_subject null branch
+        SCOPED_TRACE("dyn_parent not null, dyn_subject null branch");
         BodyAttachMatrixTest dynInst;
         dynInst.set_dyn_parent(&mockDynParent);
         dynInst.set_mass_subject(&mockMassBody);
@@ -135,7 +147,7 @@ TEST(BodyAttachMatrix, apply)
     }
 
     {
-        // mass_parent not null, dyn_subject not null branch
+        SCOPED_TRACE("mass_parent not null, dyn_subject not null branch");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
         BodyAttachMatrixTest dynInst;
         dynInst.set_mass_parent(&mockMassParent);
@@ -144,7 +156,7 @@ TEST(BodyAttachMatrix, apply)
         Mock::VerifyAndClear(&mockMessageHandler);
     }
     {
-        // mass_parent not null, dyn_subject null branch
+        SCOPED_TRACE("mass_parent not null, dyn_subject null branch");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         BodyAttachMatrixTest dynInst;
         dynInst.set_mass_parent(&mockMassParent);
@@ -155,7 +167,7 @@ TEST(BodyAttachMatrix, apply)
         Mock::VerifyAndClear(&mockMassBody);
     }
     {
-        // ref_parent not null, dyn_subject not null branch
+        SCOPED_TRACE("ref_parent not null, dyn_subject not null branch");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Debug, _, _, _, _, _, _)).Times(1);
         BodyAttachMatrixTest dynInst;
         dynInst.set_ref_parent(&bodyRefFrame);
@@ -164,19 +176,64 @@ TEST(BodyAttachMatrix, apply)
         Mock::VerifyAndClear(&mockMessageHandler);
     }
     {
-        // ref_parent not null, dyn_subject null branch
+        SCOPED_TRACE("MassBody subject cannot attach to reference-frame parent");
         EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
         BodyAttachMatrixTest dynInst;
         dynInst.set_ref_parent(&bodyRefFrame);
+        dynInst.set_subject_body(mockMassBody);
         dynInst.apply(mockDynManager);
         Mock::VerifyAndClear(&mockMessageHandler);
     }
     {
-        // else branch
-        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(1);
+        SCOPED_TRACE("Missing subject and parent");
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
         BodyAttachMatrixTest dynInst;
         dynInst.apply(mockDynManager);
+        EXPECT_FALSE(dynInst.succeeded);
+        EXPECT_EQ(0u, dynInst.shutdown_count);
         Mock::VerifyAndClear(&mockMessageHandler);
+    }
+    {
+        SCOPED_TRACE("Missing subject with DynBody parent");
+
+        BodyAttachMatrixTest dynInst;
+        dynInst.set_parent_body(mockDynParent);
+
+        EXPECT_CALL(mockDynParent, attach_child(An<const double *>(), An<const double (*)[3]>(), _)).Times(0);
+        EXPECT_CALL(mockDynParent, add_mass_body(An<const double *>(), An<const double (*)[3]>(), _)).Times(0);
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+
+        dynInst.apply(mockDynManager);
+
+        EXPECT_FALSE(dynInst.succeeded);
+        EXPECT_EQ(0u, dynInst.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        Mock::VerifyAndClear(&mockDynParent);
+    }
+    {
+        SCOPED_TRACE("Missing parent with MassBody subject");
+
+        BodyAttachMatrixTest dynInst;
+        dynInst.set_subject_body(mockMassBody);
+
+        EXPECT_CALL(mockMassBody, attach_to(An<double *>(), An<double (*)[3]>(), _)).Times(0);
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+
+        dynInst.apply(mockDynManager);
+
+        EXPECT_FALSE(dynInst.succeeded);
+        EXPECT_EQ(0u, dynInst.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        Mock::VerifyAndClear(&mockMassBody);
     }
     EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
 }

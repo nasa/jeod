@@ -7,6 +7,7 @@
 
 #include "dyn_body_mock.hh"
 #include "dyn_manager_mock.hh"
+#include "dynamics/body_action/include/body_action_messages.hh"
 #include "dynamics/body_action/include/mass_body_init.hh"
 #include "mass_mock.hh"
 #include "memory_interface_mock.hh"
@@ -28,6 +29,14 @@ using namespace jeod;
 class MassBodyInitTest : public MassBodyInit
 {
 public:
+    unsigned int shutdown_count{}; // Track whether MassBodyInit::apply() reaches BodyAction::apply().
+
+    void shutdown() override
+    {
+        ++shutdown_count;
+        BodyAction::shutdown();
+    }
+
     void set_mass_subject(MassBody * in)
     {
         mass_subject = in;
@@ -83,19 +92,160 @@ TEST(MassBodyInit, create)
 TEST(MassBodyInit, apply)
 {
     MockMessageHandler mockMessageHandler;
+    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    MockDynManager dynManager;
 
-    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
-    MockDynManager mockDynManager;
-    MockMassBody mockMassBody;
-    Mock::VerifyAndClear(&mockMessageHandler);
+    {
+        SCOPED_TRACE("Initialized DynBody subject");
 
-    // Test mass init. Always succeeds
-    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
-    MassBodyInitTest staticInst;
-    staticInst.set_mass_subject(&mockMassBody);
-    staticInst.apply(mockDynManager);
-    Mock::VerifyAndClear(&mockMessageHandler);
-    EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+        DynBody subject;
+        MassBodyInitTest action;
+        action.properties.mass = 42.0;
+        action.set_subject_body(subject);
+
+        action.initialize(dynManager);
+        ASSERT_EQ(&subject.mass, action.get_mass_subject());
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+        action.apply(dynManager);
+
+        EXPECT_DOUBLE_EQ(42.0, subject.mass.core_properties.mass);
+        EXPECT_EQ(1u, action.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+
+    {
+        SCOPED_TRACE("DynBody subject without action initialization");
+
+        DynBody subject;
+        MassBodyInitTest action;
+        action.properties.mass = 42.0;
+        action.set_subject_body(subject);
+        ASSERT_EQ(nullptr, action.get_mass_subject());
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+        action.apply(dynManager);
+
+        EXPECT_EQ(&subject.mass, action.get_mass_subject());
+        EXPECT_DOUBLE_EQ(42.0, subject.mass.core_properties.mass);
+        EXPECT_EQ(1u, action.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+
+    {
+        SCOPED_TRACE("MassBody subject without action initialization");
+
+        MassBody subject;
+        MassBodyInitTest action;
+        action.properties.mass = 14.0;
+        action.set_subject_body(subject);
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+        action.apply(dynManager);
+
+        EXPECT_DOUBLE_EQ(14.0, subject.core_properties.mass);
+        EXPECT_EQ(1u, action.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+
+    {
+        SCOPED_TRACE("Reassign DynBody subject to MassBody");
+
+        DynBody original;
+        MassBody replacement;
+        MassBodyInitTest action;
+        original.mass.core_properties.mass = 7.0;
+        action.set_subject_body(original);
+        action.initialize(dynManager);
+        ASSERT_EQ(&original.mass, action.get_mass_subject());
+
+        action.set_subject_body(replacement);
+        action.properties.mass = 21.0;
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+        action.apply(dynManager);
+
+        EXPECT_EQ(&replacement, action.get_mass_subject());
+        EXPECT_DOUBLE_EQ(7.0, original.mass.core_properties.mass);
+        EXPECT_DOUBLE_EQ(21.0, replacement.core_properties.mass);
+        EXPECT_EQ(1u, action.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+
+    {
+        SCOPED_TRACE("Reassign MassBody subject to DynBody");
+
+        MassBody original;
+        DynBody replacement;
+        MassBodyInitTest action;
+        original.core_properties.mass = 7.0;
+        action.set_subject_body(original);
+        action.initialize(dynManager);
+        action.set_subject_body(replacement);
+        action.properties.mass = 21.0;
+
+        EXPECT_CALL(mockMessageHandler, process_message(MessageHandler::Failure, _, _, _, _, _, _)).Times(0);
+        action.apply(dynManager);
+
+        EXPECT_EQ(&replacement.mass, action.get_mass_subject());
+        EXPECT_DOUBLE_EQ(7.0, original.core_properties.mass);
+        EXPECT_DOUBLE_EQ(21.0, replacement.mass.core_properties.mass);
+        EXPECT_EQ(1u, action.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+
+    {
+        SCOPED_TRACE("Missing subject");
+
+        MassBodyInitTest action;
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::null_pointer, _, _))
+            .Times(1);
+
+        action.apply(dynManager);
+
+        EXPECT_EQ(nullptr, action.get_mass_subject());
+        EXPECT_EQ(0u, action.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
+
+    {
+        SCOPED_TRACE("Mismatched DynBody and MassBody subjects");
+
+        DynBody dynSubject;
+        MassBody massSubject;
+        MassBodyInitTest action;
+        dynSubject.mass.core_properties.mass = 4.0;
+        massSubject.core_properties.mass = 8.0;
+        action.properties.mass = 16.0;
+        action.set_subject_body(dynSubject);
+        action.set_mass_subject(&massSubject);
+
+        EXPECT_CALL(mockMessageHandler,
+                    process_message(MessageHandler::Failure, _, _, _, BodyActionMessages::fatal_error, _, _))
+            .Times(1);
+
+        action.apply(dynManager);
+
+        EXPECT_DOUBLE_EQ(4.0, dynSubject.mass.core_properties.mass);
+        EXPECT_DOUBLE_EQ(8.0, massSubject.core_properties.mass);
+        EXPECT_EQ(0u, action.shutdown_count);
+
+        Mock::VerifyAndClear(&mockMessageHandler);
+        EXPECT_CALL(mockMessageHandler, process_message(_, _, _, _, _, _, _)).Times(AnyNumber());
+    }
 }
 
 TEST(MassBodyInit, allocate_points)

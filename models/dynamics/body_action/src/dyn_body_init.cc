@@ -65,6 +65,12 @@ void DynBodyInit::initialize(DynManager & dyn_manager)
     // Forward the request up the chain.
     BodyAction::initialize(dyn_manager);
 
+    // BodyAction::initialize() has already reported a missing subject.
+    if(dyn_subject == nullptr && mass_subject == nullptr)
+    {
+        return;
+    }
+
     // Sanity check:
     // The subject MassBody must belong a DynBody.
     if(dyn_subject == nullptr)

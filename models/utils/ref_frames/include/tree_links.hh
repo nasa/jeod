@@ -408,9 +408,9 @@ public:
     }
 
     /**
-     * Determine if a node is the progeny of another.
+     * Determine if the target is this node or an ancestor of this node.
      * @param target Target links object
-     * @return True if target is an ancestor of this node, false otherwise.
+     * @return True if target is this node or an ancestor, false otherwise.
      */
     bool is_progeny_of(const Links & target) const
     {

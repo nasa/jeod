@@ -184,7 +184,7 @@ public:
     // remove_from_parent: Delete this frame as a child of it's parent frame
     virtual void remove_from_parent(); // cppcheck-suppress virtualCallInConstructor
 
-    // is_progeny_of: Is the subject frame an ancestor of this frame?
+    // is_progeny_of: Is the supplied frame this frame or an ancestor of it?
     bool is_progeny_of(const RefFrame & frame) const;
 
     // transplant_node: Move a node from one place to another in the tree,
